@@ -526,6 +526,7 @@
     <string name="miles_per_hour">mph</string>
     <string name="hour">ó</string>
     <string name="minute">p</string>
+    <string name="day">nap</string>
     <string name="placepage_more_button">Még</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Fényképek, vélemények, foglalás</string>

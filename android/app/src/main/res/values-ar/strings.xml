@@ -555,6 +555,7 @@
     <string name="miles_per_hour">ميل/ساعة</string>
     <string name="hour">س</string>
     <string name="minute">د</string>
+    <string name="day">يوم</string>
     <string name="placepage_more_button">المزيد</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">الصور والتعليقات والحجز</string>

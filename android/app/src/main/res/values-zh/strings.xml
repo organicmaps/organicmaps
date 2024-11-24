@@ -553,6 +553,7 @@
     <string name="miles_per_hour">英里每小时</string>
     <string name="hour">小时</string>
     <string name="minute">分钟</string>
+    <string name="day">天</string>
     <string name="placepage_more_button">更多</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">照片、评论、预订</string>

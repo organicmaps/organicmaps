@@ -511,6 +511,7 @@
     <string name="miles_per_hour">mi/tim</string>
     <string name="hour">tim</string>
     <string name="minute">min</string>
+    <string name="day">d</string>
     <string name="placepage_more_button">Mer</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">Foton, recensioner, bokning</string>

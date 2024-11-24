@@ -795,6 +795,8 @@
 
 "minute" = "min";
 
+"day" = "d";
+
 "placepage_more_button" = "More";
 
 "book_button" = "Book";

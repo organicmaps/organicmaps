@@ -9618,7 +9618,7 @@ cs:4bezpečnost
 de:Polizeiwache|Polizei
 fr:Poste de police|Commissariat
 hi:3थाना
-it:Posto di polizia
+it:6Commissariato|5Questura|4Caserma|4Guardia|5Carabinieri
 ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
 ko:보안대
 pl:Policja|komisariat|posterunek

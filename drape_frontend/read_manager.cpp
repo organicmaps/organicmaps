@@ -49,11 +49,11 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_trafficEnabled(trafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
   , m_modeChanged(false)
+  , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
   , m_tasksPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
   , m_userMarksGenerationCounter(0)
-  , m_mapLangIndex(StringUtf8Multilang::kDefaultCode)
 {
   Start();
 }

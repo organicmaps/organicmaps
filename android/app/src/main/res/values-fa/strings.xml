@@ -506,6 +506,7 @@
     <string name="miles_per_hour">مایل بر ساعت (mph)</string>
     <string name="hour">ساعت</string>
     <string name="minute">دقیقه</string>
+    <string name="day">روز</string>
     <string name="placepage_more_button">بیشتر</string>
     <!-- A referral link on the place page for some hotels -->
     <string name="more_on_kayak">عکس ها، نظرات، رزرو</string>

@@ -19,8 +19,8 @@ struct SupportManager::Configuration
   Version m_driverVersion;
 };
 
-char const * kSupportedAntialiasing = "Antialiasing";
-static char const * kVulkanForbidden = "VulkanForbidden";
+std::string_view kSupportedAntialiasing = "Antialiasing";
+std::string_view constexpr kVulkanForbidden = "VulkanForbidden";
 
 void SupportManager::Init(ref_ptr<GraphicsContext> context)
 {

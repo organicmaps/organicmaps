@@ -20,9 +20,9 @@ namespace settings
 {
 using namespace std;
 
-char const * kMeasurementUnits = "Units";
-char const * kMapLanguageCode = "MapLanguageCode";
-char const * kDeveloperMode = "DeveloperMode";
+std::string_view kMeasurementUnits = "Units";
+std::string_view kMapLanguageCode = "MapLanguageCode";
+std::string_view kDeveloperMode = "DeveloperMode";
 
 StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
 

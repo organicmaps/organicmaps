@@ -469,8 +469,6 @@ private:
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
 
 public:
-  using SearchRequest = search::QuerySaver::SearchRequest;
-
   // Moves viewport to the search result and taps on it.
   void SelectSearchResult(search::Result const & res, bool animation);
 
@@ -673,8 +671,8 @@ private:
 
 public:
   /// @name Data versions
-  bool IsDataVersionUpdated();
-  void UpdateSavedDataVersion();
+  // bool IsDataVersionUpdated();
+  // void UpdateSavedDataVersion();
   int64_t GetCurrentDataVersion() const;
 
 public:
