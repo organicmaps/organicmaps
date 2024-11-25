@@ -757,9 +757,6 @@ public:
   void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
   void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
 
-private:
-  bool ShouldShowProducts() const;
-
 public:
   std::optional<products::ProductsConfig> GetProductsConfiguration() const;
 
@@ -773,4 +770,8 @@ public:
 
   void DidCloseProductsPopup(ProductsPopupCloseReason reason) const;
   void DidSelectProduct(products::ProductsConfig::Product const & product) const;
+
+private:
+  bool ShouldShowProducts() const;
+  uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason) const;
 };

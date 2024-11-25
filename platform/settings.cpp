@@ -432,7 +432,7 @@ bool UsageStats::IsLoyalUser() const
   uint32_t constexpr kMinTotalForegroundTimeout = 30;
   uint32_t constexpr kMinSessionsCount = 3;
   #else
-  uint32_t constexpr kMinTotalForegroundTimeout = 60 * 15; // 15 min
+  uint32_t constexpr kMinTotalForegroundTimeout = 60 * 30; // 30 min
   uint32_t constexpr kMinSessionsCount = 5;
   #endif
   return m_sessionsCount >= kMinSessionsCount && m_totalForegroundTime >= kMinTotalForegroundTimeout;
