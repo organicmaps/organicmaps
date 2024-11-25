@@ -6,8 +6,8 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/http_client.hpp"
+#include "network/progress.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -195,7 +195,7 @@ void RunGraphicsBenchmark(Framework * framework)
             }
           }
         },
-        [](storage::CountryId const &, downloader::Progress const &) {});
+        [](storage::CountryId const &, om::network::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);

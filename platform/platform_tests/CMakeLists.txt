@@ -5,8 +5,6 @@ set(SRC
   country_file_tests.cpp
   distance_tests.cpp
   duration_tests.cpp
-  downloader_tests/downloader_test.cpp
-  downloader_utils_tests.cpp
   get_text_by_id_tests.cpp
   jansson_test.cpp
   language_test.cpp
@@ -17,7 +15,7 @@ set(SRC
   utm_mgrs_utils_tests.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
+omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT)
 
 target_link_libraries(${PROJECT_NAME}
   platform_tests_support

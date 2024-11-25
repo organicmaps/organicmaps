@@ -2,21 +2,20 @@
 #include "app/organicmaps/core/jni_helper.hpp"
 
 #include "base/logging.hpp"
-#include "platform/http_thread_callback.hpp"
+#include "network/http/thread.hpp"
+#include "network/http/thread_callback.hpp"
 
-class HttpThread
+namespace om::network::http
+{
+class Thread
 {
 private:
   jobject m_self;
   jclass m_klass;
 
 public:
-  HttpThread(std::string const & url,
-             downloader::IHttpThreadCallback & cb,
-             int64_t beg,
-             int64_t end,
-             int64_t expectedFileSize,
-             std::string const & pb)
+  Thread(std::string const & url, om::network::http::IThreadCallback & cb, int64_t beg, int64_t end,
+         int64_t expectedFileSize, std::string const & pb)
   {
     JNIEnv * env = jni::GetEnv();
     static jclass const klass = jni::GetGlobalClassRef(env, "app/organicmaps/downloader/ChunkTask");
@@ -35,21 +34,16 @@ public:
     }
 
     jni::TScopedLocalRef jUrl(env, jni::ToJavaString(env, url.c_str()));
-    jni::TScopedLocalRef localSelf(env, env->NewObject(klass,
-                                                       initMethodId,
-                                                       reinterpret_cast<jlong>(&cb),
-                                                       jUrl.get(),
-                                                       static_cast<jlong>(beg),
-                                                       static_cast<jlong>(end),
-                                                       static_cast<jlong>(expectedFileSize),
-                                                       postBody.get()));
+    jni::TScopedLocalRef localSelf(
+        env, env->NewObject(klass, initMethodId, reinterpret_cast<jlong>(&cb), jUrl.get(), static_cast<jlong>(beg),
+                            static_cast<jlong>(end), static_cast<jlong>(expectedFileSize), postBody.get()));
     m_self = env->NewGlobalRef(localSelf.get());
     ASSERT(m_self, ());
 
     env->CallVoidMethod(m_self, startMethodId);
   }
 
-  ~HttpThread()
+  ~Thread()
   {
     JNIEnv * env = jni::GetEnv();
     static jmethodID const cancelMethodId = env->GetMethodID(m_klass, "cancel", "(Z)Z");
@@ -58,31 +52,25 @@ public:
   }
 };
 
-namespace downloader
+namespace thread
 {
-  HttpThread * CreateNativeHttpThread(std::string const & url,
-                                      downloader::IHttpThreadCallback & cb,
-                                      int64_t beg,
-                                      int64_t end,
-                                      int64_t size,
-                                      std::string const & pb)
-  {
-    return new HttpThread(url, cb, beg, end, size, pb);
-  }
+Thread * CreateThread(std::string const & url, IThreadCallback & cb, int64_t beg, int64_t end, int64_t size,
+                                std::string const & pb)
+{
+  return new Thread(url, cb, beg, end, size, pb);
+}
 
-  void DeleteNativeHttpThread(HttpThread * request)
-  {
-    delete request;
-  }
+void DeleteThread(Thread * request) { delete request; }
 
-}  // namespace downloader
+}  // namespace thread
+}  // namespace om::network::http
 
 extern "C"
 {
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass clazz, jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
 {
-  downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
+  om::network::http::IThreadCallback * cb = reinterpret_cast<om::network::http::IThreadCallback*>(httpCallbackID);
   jbyte * buf = env->GetByteArrayElements(data, 0);
   ASSERT(buf, ());
 
@@ -103,7 +91,7 @@ Java_app_organicmaps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass cla
 JNIEXPORT void JNICALL
 Java_app_organicmaps_downloader_ChunkTask_nativeOnFinish(JNIEnv * env, jclass clazz, jlong httpCallbackID, jlong httpCode, jlong beg, jlong end)
 {
-  downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
+  om::network::http::IThreadCallback * cb = reinterpret_cast<om::network::http::IThreadCallback*>(httpCallbackID);
   cb->OnFinish(static_cast<long>(httpCode), beg, end);
 }
 } // extern "C"

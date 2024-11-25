@@ -25,8 +25,8 @@
 
 #include "map/gps_tracker.hpp"
 
-#include "platform/background_downloader_ios.h"
-#include "platform/http_thread_apple.h"
+#include "network/internal/native/apple/http/thread.h"
+#include "network/internal/native/apple/background_downloader.h"
 #include "platform/local_country_file_utils.hpp"
 
 #include "base/assert.hpp"

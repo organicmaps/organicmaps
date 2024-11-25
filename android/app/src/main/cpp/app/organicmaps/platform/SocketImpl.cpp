@@ -1,12 +1,12 @@
 #include "app/organicmaps/core/jni_helper.hpp"
 
-#include "platform/socket.hpp"
+#include "network/socket.hpp"
 
 #include "base/logging.hpp"
 
 #include <memory>
 
-namespace platform
+namespace om::network
 {
 class SocketImpl : public Socket
 {

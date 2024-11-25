@@ -1,8 +1,6 @@
 #include "private.h"
 #include "platform/platform.hpp"
 
-#include "platform/socket.hpp"
-
 #include "coding/file_reader.hpp"
 
 #include "base/exception.hpp"
@@ -64,15 +62,6 @@ bool IsDirWritable(std::string const & dir)
   return ::access(dir.c_str(), W_OK) == 0;
 }
 }  // namespace
-
-namespace platform
-{
-std::unique_ptr<Socket> CreateSocket()
-{
-  return std::unique_ptr<Socket>();
-}
-} // namespace platform
-
 
 Platform::Platform()
 {

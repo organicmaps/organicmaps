@@ -23,7 +23,6 @@
 
 #include "platform/country_file.hpp"
 #include "platform/platform.hpp"
-#include "platform/socket.hpp"
 
 #include "geometry/mercator.hpp"  // kPointEqualityEps
 #include "geometry/simplification.hpp"

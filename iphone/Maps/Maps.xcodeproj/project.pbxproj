@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039371B52C5B68CD00708377 /* UIFont+monospaced.swift */; };
+		167B3F5B2CD567400052F24F /* libnetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 167B3F5A2CD567400052F24F /* libnetwork.a */; };
+		167B3F862CD5680B0052F24F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 167B3F852CD5680B0052F24F /* libbase.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
@@ -747,6 +749,8 @@
 
 /* Begin PBXFileReference section */
 		039371B52C5B68CD00708377 /* UIFont+monospaced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+monospaced.swift"; sourceTree = "<group>"; };
+		167B3F5A2CD567400052F24F /* libnetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		167B3F852CD5680B0052F24F /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+PartnerColor.h"; sourceTree = "<group>"; };
@@ -1758,6 +1762,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				167B3F862CD5680B0052F24F /* libbase.a in Frameworks */,
 				FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */,
 				FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */,
 				FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */,
@@ -1797,6 +1802,7 @@
 				FA853BD126BC3B8A0026D455 /* libsuccinct.a in Frameworks */,
 				FA853BA726BC3ACE0026D455 /* CoreApi.framework in Frameworks */,
 				FA14E686276014C10066E453 /* libz.1.tbd in Frameworks */,
+				167B3F5B2CD567400052F24F /* libnetwork.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1903,6 +1909,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				167B3F852CD5680B0052F24F /* libbase.a */,
+				167B3F5A2CD567400052F24F /* libnetwork.a */,
 				FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */,
 				FA456C3B26BDC6AD00B83C20 /* Chart.framework */,
 				FA853BF226BC5DE50026D455 /* libshaders.a */,

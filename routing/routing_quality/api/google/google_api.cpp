@@ -1,6 +1,6 @@
 #include "routing/routing_quality/api/google/google_api.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 
 #include "coding/serdes_json.hpp"
 
@@ -100,7 +100,7 @@ Response GoogleApi::CalculateRoute(Params const & params, int32_t startTimeZoneU
 GoogleResponse GoogleApi::MakeRequest(Params const & params, int32_t startTimeZoneUTC) const
 {
   GoogleResponse googleResponse;
-  platform::HttpClient request(GetDirectionsURL(params, startTimeZoneUTC));
+  om::network::http::Client request(GetDirectionsURL(params, startTimeZoneUTC));
 
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {

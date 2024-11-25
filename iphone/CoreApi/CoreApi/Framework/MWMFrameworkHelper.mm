@@ -6,7 +6,6 @@
 #include "base/sunrise_sunset.hpp"
 
 #include "platform/local_country_file_utils.hpp"
-#include "platform/network_policy_ios.h"
 
 @implementation MWMFrameworkHelper
 

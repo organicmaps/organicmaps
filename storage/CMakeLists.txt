@@ -68,6 +68,7 @@ target_link_libraries(${PROJECT_NAME}
   coding
   mwm_diff
   cppjansson
+  network
 )
 
 omim_add_test_subdirectory(storage_tests)

@@ -526,7 +526,7 @@ void MainWindow::CreateCountryStatusControls()
       if (GetFramework().GetStorage().IsLeaf(countryId))
         onChanged(countryId);
     },
-    [this](storage::CountryId const & countryId, downloader::Progress const & progress)
+    [this](storage::CountryId const & countryId, om::network::Progress const & progress)
     {
       std::stringstream str;
       str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";

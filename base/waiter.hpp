@@ -4,6 +4,8 @@
 #include <condition_variable>
 #include <mutex>
 
+#include "base/assert.hpp"
+
 namespace base
 {
 // Class for multithreaded interruptable waiting.

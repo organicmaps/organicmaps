@@ -1,6 +1,6 @@
 #include "storage/pinger.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -24,7 +24,7 @@ int64_t DoPing(std::string const & url)
     return kInvalidPing;
   }
 
-  platform::HttpClient request(url);
+  om::network::http::Client request(url);
   request.SetHttpMethod("HEAD");
   request.SetTimeout(kTimeoutInSeconds);
   auto const begin = high_resolution_clock::now();

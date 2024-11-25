@@ -1,6 +1,6 @@
 #include "editor/osm_auth.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 
 #include "coding/url.hpp"
 
@@ -12,7 +12,7 @@
 
 namespace osm
 {
-using platform::HttpClient;
+using namespace om::network;
 using std::string;
 
 constexpr char const * kApiVersion = "/api/0.6";
@@ -131,7 +131,7 @@ bool OsmOAuth::IsAuthorized() const{ return IsValid(m_oauth2token); }
 OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const & cookies) const
 {
   string const url = m_baseUrl + subUrl + (cookies.empty() ? "?cookie_test=true" : "");
-  HttpClient request(url);
+  http::Client request(url);
   request.SetCookies(cookies);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
@@ -148,7 +148,7 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const
 
 void OsmOAuth::LogoutUser(SessionID const & sid) const
 {
-  HttpClient request(m_baseUrl + "/logout");
+  http::Client request(m_baseUrl + "/logout");
   request.SetCookies(sid.m_cookies);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LogoutUser Network error while connecting to", request.UrlRequested()));
@@ -165,7 +165,7 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
     {"commit", "Login"},
     {"authenticity_token", sid.m_authenticityToken}
   });
-  HttpClient request(m_baseUrl + "/login");
+  http::Client request(m_baseUrl + "/login");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
          .SetCookies(sid.m_cookies)
          .SetFollowRedirects(true);
@@ -192,7 +192,7 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
 bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
   string const url = m_baseUrl + callbackPart + socialToken;
-  HttpClient request(url);
+  http::Client request(url);
   request.SetCookies(sid.m_cookies)
          .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
@@ -222,7 +222,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
     {"scope", m_oauth2params.m_scope},
     {"response_type", "code"}
   });
-  HttpClient request(m_baseUrl + "/oauth2/authorize");
+  http::Client request(m_baseUrl + "/oauth2/authorize");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
          .SetCookies(lastSid.m_cookies)
          //.SetRawHeader("Origin", m_baseUrl)
@@ -241,7 +241,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
 
 string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 {
-  HttpClient request(BuildOAuth2Url());
+  http::Client request(BuildOAuth2Url());
   request.SetCookies(sid.m_cookies)
          .SetFollowRedirects(false);
 
@@ -297,7 +297,7 @@ string OsmOAuth::FinishAuthorization(string const & oauth2code) const
       {"scope", m_oauth2params.m_scope},
   });
 
-  HttpClient request(m_baseUrl + "/oauth2/token");
+  http::Client request(m_baseUrl + "/oauth2/token");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
       .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
@@ -343,7 +343,7 @@ bool OsmOAuth::ResetPassword(string const & email) const
     {"authenticity_token", sid.m_authenticityToken},
     {"commit", "Reset password"},
   });
-  HttpClient request(m_baseUrl + kForgotPasswordUrlPart);
+  http::Client request(m_baseUrl + kForgotPasswordUrlPart);
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded");
   request.SetCookies(sid.m_cookies);
   request.SetHandleRedirects(false);
@@ -366,7 +366,7 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
 
   string url = m_apiUrl + kApiVersion + method;
 
-  HttpClient request(url);
+  http::Client request(url);
   request.SetRawHeader("Authorization", "Bearer " + m_oauth2token);
 
   if (httpMethod != "GET")
@@ -382,7 +382,7 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
 OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
 {
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
-  HttpClient request(url);
+  http::Client request(url);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("DirectRequest Network error while connecting to", url));
   if (request.WasRedirected())

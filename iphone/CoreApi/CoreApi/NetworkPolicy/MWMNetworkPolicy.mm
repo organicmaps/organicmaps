@@ -1,7 +1,9 @@
 #import "MWMNetworkPolicy.h"
 
-#include "platform/network_policy_ios.h"
+#include "network/internal/native/apple/network_policy.h"
 #include "platform/platform.hpp"
+
+using namespace om::network;
 
 @implementation MWMNetworkPolicy
 

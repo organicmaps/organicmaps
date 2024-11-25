@@ -1,5 +1,4 @@
 #include "platform/platform.hpp"
-#include "platform/socket.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
@@ -45,14 +44,6 @@ static bool GetPathToBinary(string & outPath)
   }
   return false;
 }
-
-namespace platform
-{
-std::unique_ptr<Socket> CreateSocket()
-{
-  return std::unique_ptr<Socket>();
-}
-} // namespace platform
 
 Platform::Platform()
 {

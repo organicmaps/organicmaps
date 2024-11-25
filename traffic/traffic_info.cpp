@@ -1,6 +1,6 @@
 #include "traffic/traffic_info.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 #include "platform/platform.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -38,7 +38,7 @@ namespace
 {
 bool ReadRemoteFile(string const & url, vector<uint8_t> & contents, int & errorCode)
 {
-  platform::HttpClient request(url);
+  om::network::http::Client request(url);
   if (!request.RunHttpRequest())
   {
     errorCode = request.ErrorCode();
@@ -446,7 +446,7 @@ TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, v
   if (url.empty())
     return ServerDataStatus::Error;
 
-  platform::HttpClient request(url);
+  om::network::http::Client request(url);
   request.LoadHeaders(true);
   request.SetRawHeader("If-None-Match", etag);
 
@@ -497,7 +497,7 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   return true;
 }
 
-TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion)
+TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(om::network::http::Client const & request, int64_t const mwmVersion)
 {
   switch (request.ErrorCode())
   {

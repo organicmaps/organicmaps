@@ -6,8 +6,7 @@
 #include "coding/traffic.hpp"
 
 #include "platform/location.hpp"
-#include "platform/platform_tests_support/test_socket.hpp"
-#include "platform/socket.hpp"
+#include "network/network_tests_support/test_socket.hpp"
 
 #include "base/math.hpp"
 #include "base/thread.hpp"
@@ -21,7 +20,7 @@
 using namespace std;
 using namespace std::chrono;
 using namespace tracking;
-using namespace platform::tests_support;
+using namespace om::network::tests;
 
 namespace
 {
@@ -81,7 +80,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
 UNIT_TEST(Reporter_Smoke)
 {
   {
-    unique_ptr<platform::Socket> socket;
+    unique_ptr<om::network::Socket> socket;
     Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
   {
@@ -89,7 +88,7 @@ UNIT_TEST(Reporter_Smoke)
     Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
   {
-    auto socket = platform::CreateSocket();
+    auto socket = om::network::CreateSocket();
     Reporter reporter(std::move(socket), "localhost", 0, milliseconds(10) /* pushDelay */);
   }
 }

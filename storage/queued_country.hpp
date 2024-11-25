@@ -1,11 +1,11 @@
 #pragma once
 
 #include "storage/diff_scheme/diffs_data_source.hpp"
-#include "storage/storage_defines.hpp"
+#include "network/download_status.hpp"
+#include "network/progress.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/country_file.hpp"
-#include "platform/downloader_defines.hpp"
 
 #include <string>
 
@@ -20,8 +20,8 @@ public:
   public:
     virtual void OnCountryInQueue(QueuedCountry const & queuedCountry) = 0;
     virtual void OnStartDownloading(QueuedCountry const & queuedCountry) = 0;
-    virtual void OnDownloadProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress) = 0;
-    virtual void OnDownloadFinished(QueuedCountry const & queuedCountry, downloader::DownloadStatus status) = 0;
+    virtual void OnDownloadProgress(QueuedCountry const & queuedCountry, om::network::Progress const & progress) = 0;
+    virtual void OnDownloadFinished(QueuedCountry const & queuedCountry, om::network::DownloadStatus status) = 0;
   protected:
     virtual ~Subscriber() = default;
   };
@@ -44,8 +44,8 @@ public:
 
   void OnCountryInQueue() const;
   void OnStartDownloading() const;
-  void OnDownloadProgress(downloader::Progress const & progress) const;
-  void OnDownloadFinished(downloader::DownloadStatus status) const;
+  void OnDownloadProgress(om::network::Progress const & progress) const;
+  void OnDownloadFinished(om::network::DownloadStatus status) const;
 
   bool operator==(CountryId const & countryId) const;
 

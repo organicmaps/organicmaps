@@ -2,8 +2,7 @@
 
 #include "tracking/protocol.hpp"
 
-#include "platform/platform.hpp"
-#include "platform/socket.hpp"
+#include "network/socket.hpp"
 
 namespace
 {
@@ -12,7 +11,7 @@ uint32_t constexpr kSocketTimeoutMs = 10000;
 
 namespace tracking
 {
-Connection::Connection(std::unique_ptr<platform::Socket> socket, std::string const & host,
+Connection::Connection(std::unique_ptr<om::network::Socket> socket, std::string const & host,
                        uint16_t port, bool isHistorical)
   : m_socket(std::move(socket)), m_host(host), m_port(port)
 {

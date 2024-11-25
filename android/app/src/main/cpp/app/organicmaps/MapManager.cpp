@@ -11,8 +11,8 @@
 
 #include "base/thread_checker.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/downloader_utils.hpp"
+#include "network/progress.hpp"
+#include "network/downloader/utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
@@ -446,7 +446,7 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef,
 }
 
 static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef,
-                                    storage::CountryId const & countryId, downloader::Progress const & progress)
+                                    storage::CountryId const & countryId, om::network::Progress const & progress)
 {
   JNIEnv * env = jni::GetEnv();
 
@@ -533,7 +533,7 @@ Java_app_organicmaps_downloader_MapManager_nativeGetOverallProgress(JNIEnv * env
     countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
   }
 
-  downloader::Progress const progress = GetStorage().GetOverallProgress(countries);
+  om::network::Progress const progress = GetStorage().GetOverallProgress(countries);
 
   jint res = 0;
   if (progress.m_bytesTotal)

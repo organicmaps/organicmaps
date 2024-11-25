@@ -1,6 +1,6 @@
 #include "storage/diff_scheme/diff_scheme_loader.hpp"
 
-#include "platform/http_client.hpp"
+#include "network/http/client.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -108,7 +108,7 @@ NameDiffInfoMap Load(LocalMapsInfo const & info)
   if (info.m_localMaps.empty() || DIFF_LIST_URL[0] == 0)
     return {};
 
-  platform::HttpClient request(DIFF_LIST_URL);
+  om::network::http::Client request(DIFF_LIST_URL);
   string const body = SerializeCheckerData(info);
   ASSERT(!body.empty(), ());
   request.SetBodyData(body, "application/json");

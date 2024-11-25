@@ -2,7 +2,7 @@
 
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
-#include "platform/socket.hpp"
+#include "network/socket.hpp"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"
@@ -32,7 +32,7 @@ const char Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
 
 // Set m_points size to be enough to keep all points even if one reconnect attempt failed.
-Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
+Reporter::Reporter(unique_ptr<om::network::Socket> socket, string const & host, uint16_t port,
                    milliseconds pushDelay)
   : m_allowSendingPoints(true)
   , m_realtimeSender(std::move(socket), host, port, false)

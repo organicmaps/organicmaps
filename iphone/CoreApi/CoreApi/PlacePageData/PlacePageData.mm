@@ -8,7 +8,6 @@
 #import "MWMMapNodeAttributes.h"
 
 #include <CoreApi/CoreApi.h>
-#include "platform/network_policy.hpp"
 
 static place_page::Info & rawData() { return GetFramework().GetCurrentPlacePageInfo(); }
 

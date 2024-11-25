@@ -8,9 +8,9 @@
 #include <map>
 #include <vector>
 
-namespace platform
+namespace om::network::http
 {
-class HttpClient;
+class Client;
 }
 
 namespace traffic
@@ -141,7 +141,7 @@ private:
   // Updates the coloring and changes the availability status if needed.
   bool UpdateTrafficData(std::vector<SpeedGroup> const & values);
 
-  ServerDataStatus ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion);
+  ServerDataStatus ProcessFailure(om::network::http::Client const & request, int64_t const mwmVersion);
 
   // The mapping from feature segments to speed groups (see speed_groups.hpp).
   Coloring m_coloring;

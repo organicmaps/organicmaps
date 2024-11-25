@@ -2,26 +2,24 @@
 
 #include "storage/downloader.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/servers_list.hpp"
+#include "network/download_status.hpp"
+#include "network/servers_list.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <functional>
 
 using namespace std::placeholders;
 
 namespace
 {
-class ErrorHttpRequest : public downloader::HttpRequest
+class ErrorHttpRequest : public om::network::http::Request
 {
 public:
   explicit ErrorHttpRequest(std::string const & filePath)
-  : HttpRequest(Callback(), Callback()), m_filePath(filePath)
+  : Request(Callback(), Callback()), m_filePath(filePath)
   {
-    m_status = downloader::DownloadStatus::Failed;
+    m_status = om::network::DownloadStatus::Failed;
   }
 
   virtual std::string const & GetData() const { return m_filePath; }
@@ -64,7 +62,7 @@ void HttpMapFilesDownloader::Download()
   {
     queuedCountry.OnStartDownloading();
 
-    m_request.reset(downloader::HttpRequest::GetFile(
+    m_request.reset(om::network::http::Request::GetFile(
         urls, path, size,
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
@@ -116,7 +114,7 @@ QueueInterface const & HttpMapFilesDownloader::GetQueue() const
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCountry,
-                                                 downloader::HttpRequest & request)
+                                                 om::network::http::Request & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   // Because this method is called deferred on original thread,
@@ -135,7 +133,7 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCou
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry,
-                                                          downloader::HttpRequest & request)
+                                                          om::network::http::Request & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   // Because of this method calls deferred on original thread,

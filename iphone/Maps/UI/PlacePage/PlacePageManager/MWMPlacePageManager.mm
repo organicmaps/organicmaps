@@ -12,8 +12,6 @@
 #import <CoreApi/Framework.h>
 #import <CoreApi/StringUtils.h>
 
-#include "platform/downloader_defines.hpp"
-
 #include "indexer/validate_and_format_contacts.hpp"
 
 using namespace storage;

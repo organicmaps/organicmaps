@@ -24,7 +24,7 @@ UNIT_TEST(GetMetaConfig)
   base::ScopedLogLevelChanger logLevel(base::LDEBUG);
   Platform::ThreadRunner runner;
 
-  DownloaderStub().GetMetaConfig([](downloader::MetaConfig const & metaConfig)
+  DownloaderStub().GetMetaConfig([](om::network::MetaConfig const & metaConfig)
   {
     TEST_GREATER(metaConfig.m_serversList.size(), 0, ());
     for (auto const & s : metaConfig.m_serversList)

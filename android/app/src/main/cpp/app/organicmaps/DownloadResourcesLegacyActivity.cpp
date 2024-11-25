@@ -5,8 +5,7 @@
 #include "storage/downloader.hpp"
 #include "storage/storage.hpp"
 
-#include "platform/downloader_defines.hpp"
-#include "platform/http_request.hpp"
+#include "network/http/request.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
@@ -24,7 +23,7 @@
 #include <string>
 #include <vector>
 
-using namespace downloader;
+using namespace om::network;
 using namespace storage;
 
 using namespace std::placeholders;
@@ -46,13 +45,13 @@ namespace
 static std::vector<platform::CountryFile> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
-static std::shared_ptr<HttpRequest> g_currentRequest;
+static std::shared_ptr<http::Request> g_currentRequest;
 
 }  // namespace
 
 extern "C"
 {
-  using Callback = HttpRequest::Callback;
+  using Callback = http::Request::Callback;
 
   static int HasSpaceForFiles(Platform & pl, std::string const & sdcardPath, size_t fileSize)
   {
@@ -112,7 +111,7 @@ extern "C"
     return res;
   }
 
-  static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const & req)
+  static void DownloadFileFinished(std::shared_ptr<jobject> obj, http::Request const & req)
   {
     auto const status = req.GetStatus();
     ASSERT_NOT_EQUAL(status, DownloadStatus::InProgress, ());
@@ -141,7 +140,7 @@ extern "C"
     env->CallVoidMethod(*obj, methodID, errorCode);
   }
 
-  static void DownloadFileProgress(std::shared_ptr<jobject> listener, HttpRequest const & req)
+  static void DownloadFileProgress(std::shared_ptr<jobject> listener, http::Request const & req)
   {
     JNIEnv * env = jni::GetEnv();
     static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
@@ -165,7 +164,7 @@ extern "C"
       auto const fileName = curFile.GetFileName(MapFileType::Map);
       LOG(LINFO, ("Downloading file", fileName));
 
-      g_currentRequest.reset(HttpRequest::GetFile(
+      g_currentRequest.reset(http::Request::GetFile(
           downloader->MakeUrlListLegacy(fileName),
           storage.GetFilePath(curFile.GetName(), MapFileType::Map),
           curFile.GetRemoteSize(),
