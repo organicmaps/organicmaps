@@ -129,7 +129,7 @@
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
-    sr = Оштро десно.
+    sr = Скрените оштро десно.
     sv = Skarpt höger.
     sw = Fanya kulia mkali.
     th = หักมุมขวา
@@ -383,7 +383,7 @@
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
-    sr = Оштро лево.
+    sr = Скрените оштро лево.
     sv = Skarpt vänster.
     sw = Fanya kushoto mkali.
     th = หักมุมซ้าย
@@ -430,7 +430,7 @@
     ro = Întoarceți-vă o sută optzeci de grade.
     ru = Развернитесь.
     sk = Otočte sa o stoosemdesiat stupňov.
-    sr = Урадите полукружно окретање, када буде могуће.
+    sr = Урадите полукружно окретање.
     sv = Gör en U-sväng.
     sw = Geuka urudi ulikotoka.
     th = กลับรถ
@@ -523,7 +523,7 @@
     ro = Ieșire.
     ru = Съезд.
     sk = Použite výjazd.
-    sr = Излаз.
+    sr = Искључите се.
     sv = Utgång.
     sw = Kuondoka.
     th = ทางออก.
@@ -1369,7 +1369,7 @@
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
-    sr = За два а по километра
+    sr = За два и по километра
     sv = Om två och en halv kilometer
     sw = Kabla ya kilomita mbili na nusu
     th = อีกสองกิโลเมตรครึ่ง
