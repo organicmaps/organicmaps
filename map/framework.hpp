@@ -774,4 +774,6 @@ public:
 private:
   bool ShouldShowProducts() const;
   uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason) const;
+  std::string_view ToString(ProductsPopupCloseReason reason) const;
+  ProductsPopupCloseReason FromString(std::string const & str) const;
 };
