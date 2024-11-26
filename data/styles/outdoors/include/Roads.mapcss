@@ -518,17 +518,17 @@ line|z13-[railway=abandoned],
 {color: @railway; opacity:1;}
 
 line|z13-[railway=preserved],
-line|z13-[railway=abandoned]
+line|z16-[railway=disused]
 {width: 1.6; dashes: 6.3,6.3;}
 line|z16-[railway=preserved],
-line|z16-[railway=abandoned]
+line|z16-[railway=disused]
 {width: 2.2; dashes: 8,8;}
 
 line|z13-[railway=construction],
-line|z13-[railway=disused]
+line|z13-[railway=abandoned]
 {width: 1; dashes: 1.8,5.5;}
 line|z16-[railway=construction],
-line|z16-[railway=disused]
+line|z13-[railway=abandoned]
 {width: 1.7; dashes: 2.5,7;}
 
 

@@ -395,8 +395,7 @@ place|farm;294;
 deprecated:boundary|administrative|11:04.2024;[boundary=administrative][admin_level=11];x;name;int_name;295;
 waterway|weir;296;
 highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
-# TODO: its a mismapping likely, if there is a bridge structure still, then it should be railway=disused.
-railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
+railway|disused|bridge;[railway=disused][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
 deprecated:highway|path|demanding_mountain_hiking:04.2024;[highway=path][sac_scale=demanding_mountain_hiking];x;name;int_name;300;highway|path|difficult
 man_made|storage_tank;301;
@@ -502,8 +501,7 @@ railway|rail|spur|tunnel;[railway=rail][service=spur][!usage][tunnel?];;name;int
 highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;397;
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
 railway|rail|tourism;[railway=rail][usage=tourism][!service];;name;int_name;399;
-# TODO: its a mismapping likely, if there is a tunnel structure still, then it should be railway=disused.
-railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
+railway|disused|tunnel;[railway=disused][tunnel?];;name;int_name;400;
 area:highway|living_street;401;
 piste:type|sled;402;
 leisure|beach_resort;403;
