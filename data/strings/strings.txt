@@ -6899,8 +6899,7 @@
     nb = Allerede donert
     nl = Reeds gedoneerd
     pl = Już przekazano
-    pt = Já doado
-    pt-BR = Já doado
+    pt = Já doei
     ro = Deja donat
     ru = Уже пожертвовано
     sk = Už darované
@@ -6945,8 +6944,7 @@
     nb = Påminn senere
     nl = Herinner later
     pl = Przypomnij później
-    pt = Lembrar mais tarde
-    pt-BR = Lembrar mais tarde
+    pt = Lembre-me mais tarde
     ro = Amintește mai târziu
     ru = Напомнить позже
     sk = Pripomeň neskôr
@@ -6991,8 +6989,7 @@
     nb = Støtte Organic Maps
     nl = Ondersteun Organic Maps
     pl = Wspierać Organic Maps
-    pt = Apoiar Organic Maps
-    pt-BR = Apoiar Organic Maps
+    pt = Apoie o Organic Maps
     ro = Susține Organic Maps
     ru = Поддержать Organic Maps
     sk = Podporiť Organic Maps
@@ -7039,7 +7036,6 @@
     nl = Steun het project
     pl = Wesprzyj projekt
     pt = Apoie o projeto
-    pt-BR = Apoie o projeto
     ro = Susține proiectul
     ru = Помочь проекту
     sk = Podporte projekt
