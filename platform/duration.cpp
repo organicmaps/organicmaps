@@ -106,15 +106,11 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
 
 std::string Duration::GetUnitsString(Units unit)
 {
-  constexpr std::string_view kStringsMinute = "minute";
-  constexpr std::string_view kStringsHour = "hour";
-  constexpr std::string_view kStringsDay = "day";
-
   switch (unit)
   {
-    case Units::Minutes: return platform::GetLocalizedString(std::string(kStringsMinute));
-    case Units::Hours: return platform::GetLocalizedString(std::string(kStringsHour));
-    case Units::Days: return platform::GetLocalizedString(std::string(kStringsDay));
+    case Units::Minutes: return platform::GetLocalizedString("minute");
+    case Units::Hours: return platform::GetLocalizedString("hour");
+    case Units::Days: return platform::GetLocalizedString("day");
     default: UNREACHABLE();
   }
 }
