@@ -1020,7 +1020,7 @@
     <!-- A weather shelter by the public transport stop. -->
     <string name="type.amenity.shelter.public_transport">Katos</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-    <string name="type.amenity.shelter.basic_hut">Bivouac-mökki</string>
+    <string name="type.amenity.shelter.basic_hut">Kota</string>
     <string name="type.amenity.public_bath">Julkinen kylpylä</string>
     <string name="type.amenity.shower">Suihku</string>
     <string name="type.amenity.stripclub">Stripclub</string>
@@ -1277,8 +1277,8 @@
     <string name="type.highway.path.difficult">Vaikea tai huonosti näkyvä reitti</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
     <string name="type.highway.path.expert">Erittäin vaikea tai erottamaton jälki</string>
-    <string name="type.highway.path.bicycle">Pyörä- ja jalkatie</string>
-    <string name="type.highway.footway.bicycle">Pyörä- ja jalkatie</string>
+    <string name="type.highway.path.bicycle">Kevyen liikenteen väylä</string>
+    <string name="type.highway.footway.bicycle">Kevyen liikenteen väylä</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Silta</string>
     <string name="type.highway.path.horse">Ratsastuspolku</string>
@@ -1401,7 +1401,7 @@
     <string name="type.historic.cannon">Tykki</string>
     <string name="type.historic.castle">Linna</string>
     <string name="type.historic.castle.castrum">Roomalaisleiri</string>
-    <string name="type.historic.castle.defensive">Linnake</string>
+    <string name="type.historic.castle.defensive">Linnoitus</string>
     <string name="type.historic.castle.fortified_church">Linnoitettu kirkko</string>
     <string name="type.historic.castle.fortress">Linnoitus</string>
     <string name="type.historic.castle.hillfort">Linnavuori</string>
@@ -1514,14 +1514,14 @@
     <string name="type.military.bunker">Bunkkeri</string>
     <string name="type.natural">Luonto</string>
     <!-- A rocky land cover. -->
-    <string name="type.natural.bare_rock">Paljas kallio</string>
+    <string name="type.natural.bare_rock">Avokallio</string>
     <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
     <string name="type.natural.shingle">Pebbles</string>
     <!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
     <string name="type.natural.scree">Kivinen rapakivi</string>
     <string name="type.natural.bay">Lahti</string>
     <string name="type.natural.beach">Ranta</string>
-    <string name="type.natural.beach.sand">Hiekkainen ranta</string>
+    <string name="type.natural.beach.sand">Hiekkaranta</string>
     <string name="type.natural.beach.gravel">Soraranta</string>
     <string name="type.natural.cape">Niemeke</string>
     <string name="type.natural.cave_entrance">Luola</string>
@@ -1555,13 +1555,13 @@
     <string name="type.natural.vineyard">Viinitila</string>
     <string name="type.natural.volcano">Tulivuori</string>
     <string name="type.natural.water">Vesimuodostuma</string>
-    <string name="type.natural.wetland">Suoperäinen seutu</string>
+    <string name="type.natural.wetland">Soistuva maa</string>
     <string name="type.natural.wetland.bog">Suo</string>
     <string name="type.natural.wetland.marsh">Marsh</string>
     <string name="type.office">Toimisto</string>
     <string name="type.office.company">Yhtiön toimisto</string>
     <string name="type.office.estate_agent">Kiinteistönvälittäjä</string>
-    <string name="type.office.government">Viranomaistoimito</string>
+    <string name="type.office.government">Viranomaisen toimisto</string>
     <string name="type.office.insurance">Vakuutuslaitos</string>
     <string name="type.office.lawyer">Lakitoimisto</string>
     <string name="type.office.ngo">Valtioista riippumattoman järjestön toimisto</string>
@@ -1871,6 +1871,7 @@
     <string name="type.railway.subway_entrance.yerevan">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.yokohama">Metron sisäänkäynti</string>
     <string name="type.railway.tram_stop">Raitiovaunupysäkki</string>
+    <string name="type.route.ferry">Lauttareitti</string>
     <string name="type.shop">Kauppa</string>
     <string name="type.shop.alcohol">Alkoholikauppa</string>
     <string name="type.shop.bakery">Leipomo</string>
@@ -2046,14 +2047,14 @@
     <string name="type.tourism.caravan_site">Asuntovaunupaikka</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Lomamökki</string>
-    <string name="type.tourism.gallery">Nähtävyydet</string>
+    <string name="type.tourism.gallery">Taidegalleria</string>
     <string name="type.tourism.guest_house">Majatalo</string>
     <string name="type.tourism.hostel">Hostelli</string>
     <string name="type.tourism.hotel">Hotelli</string>
     <string name="type.tourism.information">Turisti-informaatio</string>
-    <string name="type.tourism.information.board">Informaatio</string>
+    <string name="type.tourism.information.board">Opastaulu</string>
     <string name="type.tourism.information.guidepost">Tienviitta</string>
-    <string name="type.tourism.information.map">Turistikartta</string>
+    <string name="type.tourism.information.map">Opaskartta</string>
     <string name="type.tourism.information.office">Turistitoimisto</string>
     <string name="type.tourism.information.visitor_centre">Vierailijakeskus</string>
     <string name="type.tourism.motel">Motelli</string>
