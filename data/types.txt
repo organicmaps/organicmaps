@@ -295,7 +295,7 @@ mapswithme
 mapswithme
 *waterway|weir
 *highway|secondary|tunnel
-*railway|abandoned|bridge
+*railway|disused|bridge
 *man_made|lighthouse
 highway|path|difficult
 *man_made|storage_tank
@@ -397,7 +397,7 @@ highway|path|expert
 *highway|secondary_link|bridge
 *railway|tram|tunnel
 *railway|rail|tourism
-*railway|abandoned|tunnel
+*railway|disused|tunnel
 *area:highway|living_street
 *piste:type|sled
 *leisure|beach_resort

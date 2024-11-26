@@ -73280,11 +73280,11 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.6
+      width: 1.7
       color: 8487025
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 2.5
+        dd: 7.0
       }
       priority: 160
       cap: BUTTCAP
@@ -73293,11 +73293,11 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.6
+      width: 1.7
       color: 8487025
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 2.5
+        dd: 7.0
       }
       priority: 160
       cap: BUTTCAP
@@ -73306,16 +73306,181 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.6
+      width: 1.7
       color: 8487025
       dashdot {
-        dd: 6.3
-        dd: 6.3
+        dd: 2.5
+        dd: 7.0
       }
       priority: 160
       cap: BUTTCAP
     }
   }
+  element {
+    scale: 16
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+}
+cont {
+  name: "railway-construction"
+  element {
+    scale: 13
+    lines {
+      width: 1.0
+      color: 8487025
+      dashdot {
+        dd: 1.8
+        dd: 5.5
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 8487025
+      dashdot {
+        dd: 1.8
+        dd: 5.5
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 8487025
+      dashdot {
+        dd: 1.8
+        dd: 5.5
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.7
+      color: 8487025
+      dashdot {
+        dd: 2.5
+        dd: 7.0
+      }
+      priority: 160
+    }
+  }
+}
+cont {
+  name: "railway-disused"
   element {
     scale: 16
     lines {
@@ -73378,46 +73543,7 @@ cont {
   }
 }
 cont {
-  name: "railway-abandoned-bridge"
-  element {
-    scale: 13
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
+  name: "railway-disused-bridge"
   element {
     scale: 16
     lines {
@@ -73540,46 +73666,7 @@ cont {
   }
 }
 cont {
-  name: "railway-abandoned-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.6
-      color: 8487025
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
+  name: "railway-disused-tunnel"
   element {
     scale: 16
     lines {
@@ -73636,210 +73723,6 @@ cont {
       dashdot {
         dd: 8.0
         dd: 8.0
-      }
-      priority: 160
-    }
-  }
-}
-cont {
-  name: "railway-construction"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-}
-cont {
-  name: "railway-disused"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 8487025
-      dashdot {
-        dd: 1.8
-        dd: 5.5
-      }
-      priority: 160
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
-      }
-      priority: 160
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 1.7
-      color: 8487025
-      dashdot {
-        dd: 2.5
-        dd: 7.0
       }
       priority: 160
     }

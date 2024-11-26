@@ -889,13 +889,13 @@ world  +
         platform  -
         {}
     railway  +
-        abandoned  +
+        abandoned  -
+        construction  -
+        crossing  -
+        disused  +
             bridge  -
             tunnel  -
             {}
-        construction  -
-        crossing  -
-        disused  -
         funicular  +
             bridge  -
             tunnel  -
