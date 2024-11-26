@@ -256,8 +256,6 @@
     <!-- Button in the main menu -->
     <string name="donate">Doar</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Apoie o projeto</string>
-    <!-- Button in the main Help dialog -->
     <string name="copyright">Direitos autorais</string>
     <!-- Text in menu + Button in the main Help dialog -->
     <string name="report_a_bug">Relatar um problema</string>
