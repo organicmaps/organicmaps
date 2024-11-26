@@ -1,11 +1,13 @@
 #include "duration.hpp"
 
+#include "base/stl_helpers.hpp"
+
 /// @todo(KK): move the formatting code from the platform namespace
 namespace platform
 {
 namespace
 {
-using std::chrono::duration_cast, std::chrono::seconds, std::chrono::minutes, std::chrono::hours, std::chrono::days;
+using namespace std::chrono;
 
 static constexpr std::string_view kNoSpace = "";
 
@@ -37,7 +39,7 @@ std::string_view GetUnitSeparator(Locale const & locale)
   {
     "en", "de", "fr", "he", "fa", "ja", "ko", "mr", "th", "tr", "vi", "zh"
   };
-  bool const isEmptySeparator = std::find(std::begin(kEmptyNumberUnitSeparatorLocales), std::end(kEmptyNumberUnitSeparatorLocales), locale.m_language) != std::end(kEmptyNumberUnitSeparatorLocales);
+  bool const isEmptySeparator = base::IsExist(kEmptyNumberUnitSeparatorLocales, locale.m_language);
   return isEmptySeparator ? kNoSpace : kNarrowNonBreakingSpace;
 }
 
@@ -47,22 +49,15 @@ std::string_view GetUnitsGroupingSeparator(Locale const & locale)
   {
     "ja", "zh"
   };
-  bool const isEmptySeparator = std::find(std::begin(kEmptyGroupingSeparatorLocales), std::end(kEmptyGroupingSeparatorLocales), locale.m_language) != std::end(kEmptyGroupingSeparatorLocales);
+  bool const isEmptySeparator = base::IsExist(kEmptyGroupingSeparatorLocales, locale.m_language);
   return isEmptySeparator ? kNoSpace : kNonBreakingSpace;
 }
 
-constexpr bool IsUnitsOrderValid(std::initializer_list<Duration::Units> units) {
-  auto it = units.begin();
-  auto prev = *it;
-  ++it;
-  for (; it != units.end(); ++it) {
-    if (static_cast<int>(*it) <= static_cast<int>(prev))
-      return false;
-    prev = *it;
-  }
-  return true;
+bool IsUnitsOrderValid(std::initializer_list<Duration::Units> units)
+{
+  return base::IsSortedAndUnique(units.begin(), units.end());
 }
-}
+} // namespace
 
 Duration::Duration(unsigned long seconds) : m_seconds(seconds)
 {}
@@ -74,12 +69,16 @@ std::string Duration::GetLocalizedString(std::initializer_list<Units> units, Loc
 
 std::string Duration::GetPlatformLocalizedString() const
 {
-  static auto const kCurrentUnitSeparator = GetUnitSeparator(GetCurrentLocale());
-  static auto const kCurrentGroupingSeparator = GetUnitsGroupingSeparator(GetCurrentLocale());
+  // I'm pretty sure that better to traverse 10-elements array than lock a "static" mutex (2 times).
+  auto const & loc = GetCurrentLocale();
+  auto const kCurrentUnitSeparator = GetUnitSeparator(loc);
+  auto const kCurrentGroupingSeparator = GetUnitsGroupingSeparator(loc);
+
   return GetString({Units::Days, Units::Hours, Units::Minutes}, kCurrentUnitSeparator, kCurrentGroupingSeparator);
 }
 
-std::string Duration::GetString(std::initializer_list<Units> units, std::string_view unitSeparator, std::string_view groupingSeparator) const
+std::string Duration::GetString(std::initializer_list<Units> units, std::string_view unitSeparator,
+                                std::string_view groupingSeparator) const
 {
   ASSERT(units.size(), ());
   ASSERT(IsUnitsOrderValid(units), ());
