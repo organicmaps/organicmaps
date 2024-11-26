@@ -140,7 +140,7 @@ public final class UiUtils
 
   public static void showIf(boolean condition, View view)
   {
-    view.setVisibility(condition ? View.VISIBLE : View.GONE);
+    view.setVisibility(condition ? View.VISIBLE : View.INVISIBLE);
   }
 
   public static void hideIf(boolean condition, View... views)
