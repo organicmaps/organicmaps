@@ -6862,7 +6862,7 @@ es-MX:Cabaña Vivac
 et:Bivouac-Küünla
 eu:Bivouac Borda
 fa:کلبه بیواک
-fi:Bivouac-mökki
+fi:Kota|Bivouac-mökki
 fr:Cabane de Bivouac
 he:בקתת לינה|בקתה
 hi:द्विवार्षिक झोपड़ी
@@ -13593,7 +13593,7 @@ ar:لوحة معلومات
 cs:Nástěnka
 da:Informationstavle
 nl:Informatiebord
-fi:Informaatio
+fi:Opastaulu|Informaatio
 fr:Panneau d'informations
 de:Informationstafel
 hu:Tájékoztató tábla
@@ -13629,7 +13629,7 @@ ar:خريطة سياحية
 cs:Turistická mapa
 da:Turistkort
 nl:Toeristische kaart|toeristenkaart
-fi:Turistikartta
+fi:Opaskartta|Turistikartta
 fr:Carte touristique|Plan
 de:Touristenkarte
 hu:Turistatérkép
@@ -15471,6 +15471,7 @@ de:4Kunstgalerie|3Galerie|Museum|Kunstausstellung
 es:3Galería de arte|museo
 et:3Galerii|muuseum
 eu:3Arte galeria|museoa
+fi:Taidegalleria
 fr:3Galerie d'art|musée d'art
 hi:आर्ट गैलरी
 ko:갤러리|박물관
