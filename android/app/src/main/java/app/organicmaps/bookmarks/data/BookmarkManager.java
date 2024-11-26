@@ -916,7 +916,7 @@ public enum BookmarkManager
   public interface BookmarksSortingListener
   {
     void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp);
-    void onBookmarksSortingCancelled(long timestamp);
+    default void onBookmarksSortingCancelled(long timestamp) {};
   }
 
   public interface BookmarksSharingListener
