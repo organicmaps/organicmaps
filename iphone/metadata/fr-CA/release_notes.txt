@@ -1,7 +1,4 @@
-• Données OpenStreetMap à partir du 7 novembre
-• Synchronisation améliorée des signets et des pistes iCloud
-• Ajout des toboggans aquatiques, des carrousels, des grandes roues, etc.
-• Ajout des feux de signalisation (plus visibles dans la navigation automobile)
-• Mise à jour de l'écran de connexion OSM
-• Correction de l'importation de certaines pistes gpx/kml mal formées
-• Améliorations diverses de la recherche, mises à jour des traductions et corrections de bugs
+• Nouvelles données OpenStreetMap du 22 novembre
+• Correction d'un bug dans l'éditeur de description des favoris
+• macOS : défilement de la carte avec la souris et le trackpad
+• Autres améliorations de recherche, mises à jour de traduction et corrections de bugs
