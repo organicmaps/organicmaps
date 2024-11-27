@@ -1,7 +1,4 @@
-• Új OpenStreetMap adatok (November 7.)
-• Továbbfejlesztett iCloud könyvjelzők és számok szinkronizálása
-• Hozzáadtuk a csúszdák, körhinták, óriáskerekek kategóriákat
-• Hozzáadtunk jelzőlámpákat (jobban láthatóak autós navigáció közben)
-• OSM bejelentkezést frissítettük
-• Kijavítottuk az egyes hibásan formázott gpx/kml fájloknak az importálását
-• Különböző keresési javítások, fordítási frissítések
+• New OpenStreetMap data as of November 22
+• Fixed bug with Bookmark's description editor
+• macOS: map scrolling via mouse and trackpad
+• Other search improvements, translation updates & bug fixes

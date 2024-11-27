@@ -1,8 +1,5 @@
-• Données OpenStreetMap à partir du 7 novembre
-• Ajout d'un paramètre de langue pour la carte
-• Correction du réglage du mode nuit automatique et ajout d'une option de navigation uniquement
-• Ajout des toboggans aquatiques, des carrousels, des grandes roues, etc.
-• Ajout des feux de signalisation (plus visibles dans la navigation automobile)
-• Mise à jour de l'écran de connexion OSM
-• Correction de l'importation de certaines pistes gpx/kml mal formées
-• Améliorations diverses de la recherche
+• Nouvelles données OpenStreetMap du 22 novembre
+• Mise en évidence de la partie correspondante de l'adresse dans les résultats de recherche
+• Tri de l'historique des recherches par dernier temps d'utilisation
+• Correction des plantages au démarrage sur certains anciens appareils avec des GPU Mali-T
+• Autres améliorations de recherche, mises à jour de traduction et corrections de bugs
