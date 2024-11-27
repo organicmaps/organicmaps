@@ -1,8 +1,5 @@
-• New OpenStreetMap data as of November 7
-• Added a map language setting
-• Fixed auto night mode setting and added a navigation only option
-• Added water slides, carousels, ferris wheels, etc
-• Added traffic signals (more visible in car navigation)
-• Updated the OSM login screen
-• Fixed import of some ill-formed gpx/kml tracks
-• Various search improvements, translation updates & bug fixes
+• New OpenStreetMap data as of November 22
+• Highlight matched part of the address in search results
+• Sort search history by last usage time
+• Fixed start-up crashes for some older devices with Mali-T GPUs
+• Other search improvements, translation updates & bug fixes

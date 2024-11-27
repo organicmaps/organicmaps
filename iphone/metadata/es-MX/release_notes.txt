@@ -1,7 +1,4 @@
-• New OpenStreetMap data as of November 7
-• Improved iCloud Bookmarks and Tracks sync
-• Added water slides, carousels, ferris wheels, etc
-• Added traffic signals (more visible in car navigation)
-• Updated the OSM login screen
-• Fixed import of some ill-formed gpx/kml tracks
-• Various search improvements, translation updates & bug fixes
+• Nuevos datos de OpenStreetMap del 22 de noviembre
+• Error corregido en el editor de descripción de marcadores
+• macOS: desplazamiento del mapa con mouse y trackpad
+• Otras mejoras en la búsqueda, actualizaciones de traducción y correcciones de errores

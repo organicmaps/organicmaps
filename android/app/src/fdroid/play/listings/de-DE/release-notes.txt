@@ -1,8 +1,5 @@
-• Neue OpenStreetMap-Daten vom 7. November
-• Einstellung der Kartensprache hinzugefügt
-• Die automatische Umschaltung des Nachtmodus wurde korrigiert und die Option „nur beim Navigieren“ hinzugefügt
-• Wasserrutschen, Karussells, Riesenräder usw. hinzugefügt
-• Ampeln hinzugefügt (besser sichtbar im Auto-Navigationsmodus)
-• OSM-Anmeldebildschirm aktualisiert
-• Import einiger gpx/kml-Tracks korrigiert
-• Verschiedene Suchverbesserungen, Übersetzungsaktualisierungen und Fehlerbehebungen
+• Neue OpenStreetMap-Daten vom 22. November
+• Hervorhebung des übereinstimmenden Teils der Adresse in Suchergebnissen
+• Sortierung des Suchverlaufs nach letzter Nutzung
+• Behobene Startabstürze bei einigen älteren Geräten mit Mali-T-GPUs
+• Weitere Suchverbesserungen, Übersetzungs-Updates und Fehlerbehebungen

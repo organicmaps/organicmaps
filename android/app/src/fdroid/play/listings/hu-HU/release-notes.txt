@@ -1,8 +1,5 @@
-• Új OpenStreetMap adatok (November 7.)
-• Hozzáadtunk egy funkciót amivel kiválaszthatja a térkép nyelvét
-• Kijavítottuk az automatikus éjszakai módot és hozzáadtunk egy csak navigáció közbeni módot
-• Hozzáadtuk a csúszdák, körhinták, óriáskerekek kategóriákat
-• Hozzáadtunk jelzőlámpákat (jobban láthatóak autós navigáció közben)
-• OSM bejelentkezést frissítettük
-• Kijavítottuk az egyes hibásan formázott gpx/kml fájloknak az importálását
-• Különböző keresési javítások, fordítási frissítések
+• New OpenStreetMap data as of November 22
+• Highlight matched part of the address in search results
+• Sort search history by last usage time
+• Fixed start-up crashes for some older devices with Mali-T GPUs
+• Other search improvements, translation updates & bug fixes

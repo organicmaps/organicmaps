@@ -1,7 +1,4 @@
-• Neue OpenStreetMap-Daten vom 7. November
-• Verbesserte iCloud-Lesezeichen- und Titelsynchronisierung
-• Wasserrutschen, Karussells, Riesenräder usw. hinzugefügt
-• Ampeln hinzugefügt (besser sichtbar im Auto-Navigationsmodus)
-• OSM-Anmeldebildschirm aktualisiert
-• Import einiger gpx/kml-Tracks korrigiert
-• Verschiedene Suchverbesserungen, Übersetzungsaktualisierungen und Fehlerbehebungen
+• Neue OpenStreetMap-Daten vom 22. November
+• Behobener Fehler im Beschreibung-Editor für Lesezeichen
+• macOS: Karten-Scrolling mit Maus und Trackpad
+• Weitere Suchverbesserungen, Übersetzungs-Updates und Fehlerbehebungen
