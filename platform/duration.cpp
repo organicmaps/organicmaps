@@ -84,7 +84,7 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
   ASSERT(units.size(), ());
   ASSERT(IsUnitsOrderValid(units), ());
 
-  if (m_seconds.count() == 0)
+  if (SecondsToUnits(m_seconds, Units::Minutes) == 0)
     return std::to_string(0U).append(unitSeparator).append(GetUnitsString(Units::Minutes));
 
   std::string formattedTime;

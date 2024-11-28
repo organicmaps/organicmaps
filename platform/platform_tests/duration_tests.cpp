@@ -15,17 +15,19 @@ struct TestData
     days m_days;
     hours m_hours;
     minutes m_minutes;
+    seconds m_seconds;
     std::string result;
 
-    Duration(long days, long hours, long minutes, std::string const & result)
-    : m_days(days), m_hours(hours), m_minutes(minutes), result(result)
+    Duration(long days, long hours, long minutes, long seconds, std::string const & result)
+    : m_days(days), m_hours(hours), m_minutes(minutes), m_seconds(seconds), result(result)
     {}
 
     long Seconds() const
     {
       return (duration_cast<seconds>(m_days) +
               duration_cast<seconds>(m_hours) +
-              duration_cast<seconds>(m_minutes)).count();
+              duration_cast<seconds>(m_minutes) +
+              m_seconds).count();
     }
   };
 
@@ -58,19 +60,22 @@ UNIT_TEST(Duration_AllUnits)
   TestData const testData[] = {
     {GetLocale("en"),
       {
-        {0, 0, 0,     "0" + m},
-        {0, 0, 1,     "1" + m},
-        {0, 0, 60,    "1" + h},
-        {0, 0, 123,   "2" + h + kNonBreakingSpace + "3" + m},
-        {0, 3, 0,     "3" + h},
-        {0, 24, 0,    "1" + d},
-        {4, 0, 0,     "4" + d},
-        {1, 2, 3,     "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m},
-        {1, 0, 15,    "1" + d + kNonBreakingSpace + "15" + m},
-        {0, 15, 1,    "15" + h + kNonBreakingSpace + "1" + m},
-        {1, 15, 0,    "1" + d + kNonBreakingSpace + "15" + h},
-        {15, 0, 10,   "15" + d + kNonBreakingSpace + "10" + m},
-        {15, 15, 15,  "15" + d + kNonBreakingSpace + "15" + h + kNonBreakingSpace + "15" + m}
+        {0, 0, 0, 0,     "0" + m},
+        {0, 0, 0, 30,    "0" + m},
+        {0, 0, 0, 59,    "0" + m},
+        {0, 0, 1, 0,     "1" + m},
+        {0, 0, 1, 59,    "1" + m},
+        {0, 0, 60, 0,    "1" + h},
+        {0, 0, 123, 0,   "2" + h + kNonBreakingSpace + "3" + m},
+        {0, 3, 0, 0,     "3" + h},
+        {0, 24, 0, 0,    "1" + d},
+        {4, 0, 0, 0,     "4" + d},
+        {1, 2, 3, 0,     "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m},
+        {1, 0, 15, 0,    "1" + d + kNonBreakingSpace + "15" + m},
+        {0, 15, 1, 0,    "15" + h + kNonBreakingSpace + "1" + m},
+        {1, 15, 0, 0,    "1" + d + kNonBreakingSpace + "15" + h},
+        {15, 0, 10, 0,   "15" + d + kNonBreakingSpace + "10" + m},
+        {15, 15, 15, 0,  "15" + d + kNonBreakingSpace + "15" + h + kNonBreakingSpace + "15" + m}
       }
     },
   };
@@ -90,11 +95,11 @@ UNIT_TEST(Duration_Localization)
 {
   TestData const testData[] = {
     // en
-    {GetLocale("en"), {{1, 2, 3,  "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m}}},
+    {GetLocale("en"), {{1, 2, 3, 0,  "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m}}},
     // ru (narrow spacing between number and unit)
-    {GetLocale("ru"), {{1, 2, 3, "1" + kNarrowNonBreakingSpace + d + kNonBreakingSpace + "2" + kNarrowNonBreakingSpace + h + kNonBreakingSpace + "3" + kNarrowNonBreakingSpace + m}}},
+    {GetLocale("ru"), {{1, 2, 3, 0, "1" + kNarrowNonBreakingSpace + d + kNonBreakingSpace + "2" + kNarrowNonBreakingSpace + h + kNonBreakingSpace + "3" + kNarrowNonBreakingSpace + m}}},
     // zh (no spacings)
-    {GetLocale("zh"), {{1, 2, 3, "1" + d + "2" + h + "3" + m}}}
+    {GetLocale("zh"), {{1, 2, 3, 0, "1" + d + "2" + h + "3" + m}}}
   };
 
   for (auto const & data : testData)
