@@ -2240,7 +2240,12 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
 
   // @TODO: (KK) Enable track selection.
   // The isTrackSelectionEnabled should be removed to enable the track selection when the UI will be implemented.
-  const bool isTrackSelectionEnabled = false;
+  #if defined(TARGET_OS_IPHONE)
+    bool constexpr isTrackSelectionEnabled = true;
+  #else
+    bool constexpr isTrackSelectionEnabled = false;
+  #endif
+
   // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
   if (isTrackSelectionEnabled && m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
       !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
