@@ -61,15 +61,15 @@ public:
   // Should match codes in the array below.
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
-  static int8_t constexpr kSimplifiedChineseCode = 42;
-  static int8_t constexpr kTraditionalChineseCode = 43;
+  static int8_t constexpr kSimplifiedChineseCode = 43;
+  static int8_t constexpr kTraditionalChineseCode = 44;
   // *NOTE* These constants should be updated when adding new
   // translation to categories.txt. When editing, keep in mind to check
   // CategoriesHolder::MapLocaleToInteger() and
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
   // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static std::array<CategoriesHolder::Mapping, 43> constexpr kLocaleMapping = {{
+  static std::array<CategoriesHolder::Mapping, 44> constexpr kLocaleMapping = {{
       {"en", kEnglishCode},
       {"en-AU", 2},
       {"en-GB", 3},
@@ -105,12 +105,13 @@ public:
       {"ro", 33},
       {"ru", 34},
       {"sk", 35},
-      {"sv", 36},
-      {"sw", 37},
-      {"th", 38},
-      {"tr", 39},
-      {"uk", 40},
-      {"vi", 41},
+      {"sr", 36},
+      {"sv", 37},
+      {"sw", 38},
+      {"th", 39},
+      {"tr", 40},
+      {"uk", 41},
+      {"vi", 42},
       {"zh-Hans", kSimplifiedChineseCode},
       {"zh-Hant", kTraditionalChineseCode},
   }};
