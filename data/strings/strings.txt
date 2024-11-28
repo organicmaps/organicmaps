@@ -11343,7 +11343,7 @@
     sk = Ľutujeme, ale nič sme nenašli.
     sv = Ledsen, jag hittade ingenting.
     th = ขออภัย ฉันไม่พบสิ่งใด
-    tr = Üzgünüz, hiç bir şey bulamadık.
+    tr = Tüh, sonuç bulunamadı.
     uk = На жаль, нічого не знайдено.
     vi = Xin lỗi, tôi không tìm thấy kết quả nào.
     zh-Hans = 很抱歉，没有搜到任何地点。
@@ -11390,7 +11390,7 @@
     sv = Ladda ner den region där du söker eller försök att lägga till ett närliggande stads- eller bynamn.
     sw = Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.
     th = ดาวน์โหลดภูมิภาคที่คุณกำลังค้นหาหรือลองเพิ่มชื่อเมือง/หมู่บ้านใกล้เคียง
-    tr = Arama yaptığınız bölgeyi indirin veya yakındaki bir kasaba/köy adını eklemeyi deneyin.
+    tr = Arama yapmak istediğiniz bölgenin haritasını indirin veya yakındaki bir yerleşim yeri adını eklemeyi deneyin.
     uk = Завантажте регіон, де ви шукаєте, або спробуйте додати назву найближчого міста/села.
     vi = Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.
     zh-Hans = 下载您要搜索的区域的地图，或尝试输入附近的城镇或村庄名称。
@@ -19717,7 +19717,7 @@
     sv = Registrering av spåret
     sw = Kurekodi wimbo
     th = การบันทึกเส้นทาง
-    tr = Yolun kaydedilmesi
+    tr = GPS iziniz kaydediliyor
     uk = Запис маршруту
     vi = Ghi lại hành trình
     zh-Hans = 记录轨迹
@@ -26070,7 +26070,7 @@
     sv = Ett fel uppstod. Starta om appen
     sw = Hitilafu imetokea. Tafadhali iwashe tena programu
     th = พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง
-    tr = Hata oluştu. Lütfen uygulamayı yeniden başlatın
+    tr = Hata oluştu. Lütfen uygulamayı yeniden başlatın.
     uk = Виникла помилка. Перезапустіть додаток
     vi = Đã xảy ra lỗi. Khởi động lại ứng dụng
     zh-Hans = 发生了错误，请重新启动应用程序
@@ -26162,7 +26162,7 @@
     sv = Rutten kommer att ändras till bil
     sw = Njia itaboreshwa kuwa ya gari
     th = เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน
-    tr = Rota, bir arabalı seyahat rotasına dönüştürülecek
+    tr = Rota, bir araba sürüş rotasına dönüştürülecek
     uk = Маршрут буде змінено на автомобільний
     vi = Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô
     zh-Hans = 路线将转换为汽车路线
@@ -26208,7 +26208,7 @@
     sv = Alla bokmärken visas inte
     sw = Sio vialamisho vyote vinavyoonyeshwa
     th = บุ๊กมาร์กไม่แสดงทั้งหมด
-    tr = Tüm yer imleri gösterilmez
+    tr = Tüm yer imleri gösterilmiyor
     uk = Відображаються не всі мітки
     vi = Không phải tất cả dấu trang đều được hiển thị
     zh-Hans = 未显示所有书签
@@ -26439,7 +26439,7 @@
     sv = Ladda ner kartor i appen på din enhet
     sw = Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako
     th = โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ
-    tr = Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin
+    tr = Lütfen telefonunuzdaki Organic Maps'ten haritaları indirin
     uk = Завантажте карти в додатку Organic Maps на своєму пристрої
     vi = Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn
     zh-Hans = 将 Organic Maps 应用程序中的地图下载至个人设备中
