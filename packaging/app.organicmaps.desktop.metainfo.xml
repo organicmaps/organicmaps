@@ -115,6 +115,16 @@
   </screenshots>
 
   <releases>
+   <release version="2024.11.27-12" date="2024-11-27">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of November 22</li>
+           <li>Touch pad pinch zoom gesture on Linux</li>
+           <li>Various search improvements, translation updates &amp; bug fixes</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.11.12-7" date="2024-11-12">
      <description>
        <p>Highlights:</p>
