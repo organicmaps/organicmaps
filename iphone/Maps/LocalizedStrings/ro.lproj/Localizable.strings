@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Coborâre";
 
-"elevation_profile_minaltitude" = "Înălțime minimă";
+"elevation_profile_min_elevation" = "Min. altitudine";
 
-"elevation_profile_maxaltitude" = "Înălțime maximă";
+"elevation_profile_max_elevation" = "Max. altitudine";
 
 "elevation_profile_difficulty" = "Dificultate";
 

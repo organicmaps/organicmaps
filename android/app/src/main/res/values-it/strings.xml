@@ -752,8 +752,8 @@
     <string name="isolines_location_error_dialog">La modalità topografica per questa regione non è ancora disponibile</string>
     <string name="elevation_profile_ascent">Salita</string>
     <string name="elevation_profile_descent">Discesa</string>
-    <string name="elevation_profile_minaltitude">Altitudine minima</string>
-    <string name="elevation_profile_maxaltitude">Altitudine massima</string>
+    <string name="elevation_profile_min_elevation">Min. elevazione</string>
+    <string name="elevation_profile_max_elevation">Max. elevazione</string>
     <string name="elevation_profile_difficulty">Difficoltà</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Tempo:</string>

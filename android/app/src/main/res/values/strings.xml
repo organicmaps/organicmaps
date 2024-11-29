@@ -796,8 +796,8 @@
     <string name="isolines_location_error_dialog">Contour lines are not yet available in this area</string>
     <string name="elevation_profile_ascent">Ascent</string>
     <string name="elevation_profile_descent">Descent</string>
-    <string name="elevation_profile_minaltitude">Min. altitude</string>
-    <string name="elevation_profile_maxaltitude">Max. altitude</string>
+    <string name="elevation_profile_min_elevation">Min. elevation</string>
+    <string name="elevation_profile_max_elevation">Max. elevation</string>
     <string name="elevation_profile_difficulty">Difficulty</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Time:</string>

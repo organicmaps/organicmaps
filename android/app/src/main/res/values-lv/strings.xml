@@ -768,8 +768,8 @@
     <string name="isolines_location_error_dialog">Topogrāfiskais slānis šim reģionam nav pieejams</string>
     <string name="elevation_profile_ascent">Kāpums</string>
     <string name="elevation_profile_descent">Kritums</string>
-    <string name="elevation_profile_minaltitude">Zemākais punkts</string>
-    <string name="elevation_profile_maxaltitude">Augstākais punkts</string>
+    <string name="elevation_profile_min_elevation">Zemākais punkts</string>
+    <string name="elevation_profile_max_elevation">Augstākais punkts</string>
     <string name="elevation_profile_difficulty">Sarežģītība</string>
     <string name="elevation_profile_distance">Attālums:</string>
     <string name="elevation_profile_time">Laiks:</string>

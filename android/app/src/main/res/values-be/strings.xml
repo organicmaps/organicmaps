@@ -760,8 +760,8 @@
     <string name="isolines_location_error_dialog">Мапы рэльефа для гэтай мясцовасці пакуль што няма</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>
-    <string name="elevation_profile_minaltitude">Мін. вышыня</string>
-    <string name="elevation_profile_maxaltitude">Макс. вышыня</string>
+    <string name="elevation_profile_min_elevation">Мін. вышыня</string>
+    <string name="elevation_profile_max_elevation">Макс. вышыня</string>
     <string name="elevation_profile_difficulty">Складанасць</string>
     <string name="elevation_profile_distance">Адл.:</string>
     <string name="elevation_profile_time">Час:</string>

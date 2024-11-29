@@ -776,8 +776,8 @@
     <string name="isolines_location_error_dialog">暂时无法获取该地区的等高线</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
-    <string name="elevation_profile_minaltitude">最小高度</string>
-    <string name="elevation_profile_maxaltitude">最大高度</string>
+    <string name="elevation_profile_min_elevation">最低高度</string>
+    <string name="elevation_profile_max_elevation">最高高度</string>
     <string name="elevation_profile_difficulty">难度</string>
     <string name="elevation_profile_distance">距离：</string>
     <string name="elevation_profile_time">时间：</string>

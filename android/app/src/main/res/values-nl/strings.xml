@@ -763,8 +763,8 @@
     <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
-    <string name="elevation_profile_minaltitude">Min. hoogte</string>
-    <string name="elevation_profile_maxaltitude">Max. hoogte</string>
+    <string name="elevation_profile_min_elevation">Min. hoogte</string>
+    <string name="elevation_profile_max_elevation">Max. hoogte</string>
     <string name="elevation_profile_difficulty">Moeilijkheid</string>
     <string name="elevation_profile_distance">Afst.:</string>
     <string name="elevation_profile_time">Tijd:</string>

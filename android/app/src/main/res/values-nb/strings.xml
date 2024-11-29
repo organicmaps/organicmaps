@@ -763,8 +763,8 @@
     <string name="isolines_location_error_dialog">Høydekurver er ikke tilgjengelige i dette området ennå</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
-    <string name="elevation_profile_minaltitude">Min. høyde</string>
-    <string name="elevation_profile_maxaltitude">Maks. høyde</string>
+    <string name="elevation_profile_min_elevation">Min. høyde</string>
+    <string name="elevation_profile_max_elevation">Maks. høyde</string>
     <string name="elevation_profile_difficulty">Vanskelighet</string>
     <string name="elevation_profile_distance">Avstand:</string>
     <string name="elevation_profile_time">I rute</string>

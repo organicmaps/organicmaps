@@ -728,8 +728,8 @@
     <string name="isolines_location_error_dialog">Höjningslinjer är ännu inte tillgängligt i den här regionen</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Backe</string>
-    <string name="elevation_profile_minaltitude">Min. höjd</string>
-    <string name="elevation_profile_maxaltitude">Max. höjd</string>
+    <string name="elevation_profile_min_elevation">Min. höjd</string>
+    <string name="elevation_profile_max_elevation">Max. höjd</string>
     <string name="elevation_profile_difficulty">Svårighet</string>
     <string name="elevation_profile_distance">Avst.:</string>
     <string name="elevation_profile_time">Tid:</string>

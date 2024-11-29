@@ -730,8 +730,8 @@
     <string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>
     <string name="elevation_profile_ascent">Menanjak</string>
     <string name="elevation_profile_descent">Menurun</string>
-    <string name="elevation_profile_minaltitude">Ketinggian Min.</string>
-    <string name="elevation_profile_maxaltitude">Ketinggian Maks.</string>
+    <string name="elevation_profile_min_elevation">Min. tinggi</string>
+    <string name="elevation_profile_max_elevation">Maks. tinggi</string>
     <string name="elevation_profile_difficulty">Kesulitan</string>
     <string name="elevation_profile_distance">Jarak:</string>
     <string name="elevation_profile_time">Waktu:</string>

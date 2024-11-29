@@ -769,8 +769,8 @@
     <string name="isolines_location_error_dialog">Poziomice nie są jeszcze dostępne w tym regionie</string>
     <string name="elevation_profile_ascent">Wejście</string>
     <string name="elevation_profile_descent">Zejście</string>
-    <string name="elevation_profile_minaltitude">Min. wysokość</string>
-    <string name="elevation_profile_maxaltitude">Maks. wysokość</string>
+    <string name="elevation_profile_min_elevation">Min. wysokość</string>
+    <string name="elevation_profile_max_elevation">Maks. wysokość</string>
     <string name="elevation_profile_difficulty">Trudność</string>
     <string name="elevation_profile_distance">Odległ.:</string>
     <string name="elevation_profile_time">Trasa:</string>

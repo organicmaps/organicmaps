@@ -763,8 +763,8 @@
     <string name="isolines_location_error_dialog">Bu bölgədə relyef təbəqəsi hələ mövcud deyil</string>
     <string name="elevation_profile_ascent">Qalxmaq</string>
     <string name="elevation_profile_descent">Eniş</string>
-    <string name="elevation_profile_minaltitude">Min. hündürlük</string>
-    <string name="elevation_profile_maxaltitude">Maks. hündürlük</string>
+    <string name="elevation_profile_min_elevation">Min. hündürlük</string>
+    <string name="elevation_profile_max_elevation">Maks. hündürlük</string>
     <string name="elevation_profile_difficulty">Çətinlik</string>
     <string name="elevation_profile_distance">Məsafə:</string>
     <string name="elevation_profile_time">Müddət:</string>

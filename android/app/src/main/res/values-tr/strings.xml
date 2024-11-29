@@ -766,8 +766,8 @@
     <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede mevcut değil</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
-    <string name="elevation_profile_minaltitude">Min. rakım</string>
-    <string name="elevation_profile_maxaltitude">Maks. rakım</string>
+    <string name="elevation_profile_min_elevation">Min. yükselti</string>
+    <string name="elevation_profile_max_elevation">Maks. yükselti</string>
     <string name="elevation_profile_difficulty">Zorluk</string>
     <string name="elevation_profile_distance">Mesafe:</string>
     <string name="elevation_profile_time">Süre:</string>
