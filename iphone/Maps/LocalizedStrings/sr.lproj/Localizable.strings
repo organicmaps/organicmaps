@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Обриши путању";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Are you sure you want to delete this track?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Назив путање";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Путања је празна, нема шта да се сачува";
+
+"edit_track" = "Измените путању";
 
 
 /********** Types **********/

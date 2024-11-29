@@ -523,8 +523,6 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Zure aldaketak <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datu-base publikora kargatzen dira. Mesedez, ez gehitu informazio pertsonalik edo copyrightdun informaziorik.</string>
     <string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
-    <string name="editor_osm_history">Zure edizio-historia</string>
-    <string name="editor_osm_notes">Zure mapa-datuen oharrak</string>
     <string name="editor_operator">Operadorea</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operadorea: %s</string>
@@ -765,8 +763,8 @@
     <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
-    <string name="elevation_profile_min_elevation">Min. altuera</string>
-    <string name="elevation_profile_max_elevation">Max. altuera</string>
+    <string name="elevation_profile_min_elevation">Goragune min.</string>
+    <string name="elevation_profile_max_elevation">Goragune max.</string>
     <string name="elevation_profile_difficulty">Zailtasuna</string>
     <string name="elevation_profile_distance">Distantzia:</string>
     <string name="elevation_profile_time">Denbora:</string>

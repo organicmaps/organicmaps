@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Usuń trasę";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Czy na pewno chce Pan/Pani usunąć ten utwór?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nazwa trasy";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
+
+"edit_track" = "Edytuj trasę";
 
 
 /********** Types **********/

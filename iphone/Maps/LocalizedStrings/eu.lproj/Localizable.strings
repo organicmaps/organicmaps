@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Maldan behera";
 
-"elevation_profile_min_elevation" = "Min. altuera";
+"elevation_profile_min_elevation" = "Goragune min.";
 
-"elevation_profile_max_elevation" = "Max. altuera";
+"elevation_profile_max_elevation" = "Goragune max.";
 
 "elevation_profile_difficulty" = "Zailtasuna";
 
@@ -1256,6 +1256,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Ezabatu arrastoa";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Ziur pista hau ezabatu nahi duzula?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Arrastoaren izena";
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ibilbidea hutsik dago; ez dago ezer gordetzeko";
+
+"edit_track" = "Editatu arrastoa";
 
 
 /********** Types **********/

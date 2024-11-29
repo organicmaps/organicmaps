@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Kaydı Sil";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Bu parçayı silmek istediğinizden emin misiniz?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "GPS İzi Kaydı Adı";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
+
+"edit_track" = "Kaydı düzenle";
 
 
 /********** Types **********/

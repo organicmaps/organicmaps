@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "ट्रॅक पुसून टाका";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "तुमची खात्री आहे की तुम्ही हा ट्रॅक हटवू इच्छिता?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "ट्रॅकचे नाव";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "मार्ग रिकामा आहे - जतन करण्यासाठी काहीही नाही";
+
+"edit_track" = "मार्ग संपादित करा";
 
 
 /********** Types **********/

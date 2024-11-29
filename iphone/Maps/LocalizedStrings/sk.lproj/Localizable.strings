@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Zmazať záznam trasy";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Ste si istí, že chcete túto skladbu odstrániť?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Názov trasy";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa je prázdna - nie je čo ukladať";
+
+"edit_track" = "Upraviť trasu";
 
 
 /********** Types **********/
