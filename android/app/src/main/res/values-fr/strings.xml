@@ -772,8 +772,8 @@
     <string name="isolines_location_error_dialog">Les lignes d\'élévation ne sont pas encore disponibles dans cette région</string>
     <string name="elevation_profile_ascent">Montée</string>
     <string name="elevation_profile_descent">Descente</string>
-    <string name="elevation_profile_minaltitude">Hauteur minimale</string>
-    <string name="elevation_profile_maxaltitude">Hauteur maximale</string>
+    <string name="elevation_profile_min_elevation">Min. élévation</string>
+    <string name="elevation_profile_max_elevation">Max. élévation</string>
     <string name="elevation_profile_difficulty">Difficulté</string>
     <string name="elevation_profile_distance">Distance :</string>
     <string name="elevation_profile_time">Temps :</string>

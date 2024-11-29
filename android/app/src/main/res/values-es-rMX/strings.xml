@@ -200,8 +200,8 @@
     <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
-    <string name="elevation_profile_minaltitude">Altura mínima</string>
-    <string name="elevation_profile_maxaltitude">Altura máxima</string>
+    <string name="elevation_profile_min_elevation">Min. elevación</string>
+    <string name="elevation_profile_max_elevation">Máx. elevación</string>
     <string name="elevation_profile_difficulty">Dificultad</string>
     <string name="elevation_profile_distance">Distancia:</string>
     <string name="elevation_profile_time">Lapso:</string>

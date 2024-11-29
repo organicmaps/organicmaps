@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Leereszkedés";
 
-"elevation_profile_minaltitude" = "Min. magasság";
+"elevation_profile_min_elevation" = "Min. magasság";
 
-"elevation_profile_maxaltitude" = "Max. magasság";
+"elevation_profile_max_elevation" = "Max. magasság";
 
 "elevation_profile_difficulty" = "Nehézség";
 

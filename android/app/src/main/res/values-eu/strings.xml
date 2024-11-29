@@ -765,8 +765,8 @@
     <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
-    <string name="elevation_profile_minaltitude">Gutxieneko altuera</string>
-    <string name="elevation_profile_maxaltitude">Gehieneko altuera</string>
+    <string name="elevation_profile_min_elevation">Min. altuera</string>
+    <string name="elevation_profile_max_elevation">Max. altuera</string>
     <string name="elevation_profile_difficulty">Zailtasuna</string>
     <string name="elevation_profile_distance">Distantzia:</string>
     <string name="elevation_profile_time">Denbora:</string>

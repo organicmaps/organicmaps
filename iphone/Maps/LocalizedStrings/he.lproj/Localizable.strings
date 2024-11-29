@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "ירידה";
 
-"elevation_profile_minaltitude" = "גובה מינימלי";
+"elevation_profile_min_elevation" = "מינ' גובה";
 
-"elevation_profile_maxaltitude" = "גובה מקסימלי";
+"elevation_profile_max_elevation" = "מקס' גובה";
 
 "elevation_profile_difficulty" = "קושי";
 

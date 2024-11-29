@@ -766,8 +766,8 @@
     <string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
     <string name="elevation_profile_ascent">Nousua</string>
     <string name="elevation_profile_descent">Laskua</string>
-    <string name="elevation_profile_minaltitude">Min. korkeus</string>
-    <string name="elevation_profile_maxaltitude">Maks. korkeus</string>
+    <string name="elevation_profile_min_elevation">Min. korkeus</string>
+    <string name="elevation_profile_max_elevation">Max. korkeus</string>
     <string name="elevation_profile_difficulty">Vaikeus</string>
     <string name="elevation_profile_distance">Etäisyys:</string>
     <string name="elevation_profile_time">Aika:</string>

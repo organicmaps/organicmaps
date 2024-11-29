@@ -731,8 +731,8 @@
     <string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
     <string name="elevation_profile_ascent">Đi lên</string>
     <string name="elevation_profile_descent">Đi xuống</string>
-    <string name="elevation_profile_minaltitude">Độ cao tối thiểu</string>
-    <string name="elevation_profile_maxaltitude">Độ cao tối đa</string>
+    <string name="elevation_profile_min_elevation">Min. độ cao</string>
+    <string name="elevation_profile_max_elevation">Max. độ cao</string>
     <string name="elevation_profile_difficulty">Độ khó</string>
     <string name="elevation_profile_distance">Khoảng cách</string>
     <string name="elevation_profile_time">Giờ:</string>

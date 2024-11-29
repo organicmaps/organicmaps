@@ -730,8 +730,8 @@
     <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
-    <string name="elevation_profile_minaltitude">산 최소 높이</string>
-    <string name="elevation_profile_maxaltitude">산 최대 높이</string>
+    <string name="elevation_profile_min_elevation">최소 높이</string>
+    <string name="elevation_profile_max_elevation">최대 높이</string>
     <string name="elevation_profile_difficulty">난이도</string>
     <string name="elevation_profile_distance">거리:</string>
     <string name="elevation_profile_time">소비 시간:</string>

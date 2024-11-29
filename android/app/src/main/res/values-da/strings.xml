@@ -728,8 +728,8 @@
     <string name="isolines_location_error_dialog">Det topografiske lag er endnu ikke tilgængeligt i dette område</string>
     <string name="elevation_profile_ascent">Stige op</string>
     <string name="elevation_profile_descent">Stige ned</string>
-    <string name="elevation_profile_minaltitude">Min. højde</string>
-    <string name="elevation_profile_maxaltitude">Maks. højde</string>
+    <string name="elevation_profile_min_elevation">Min. højde</string>
+    <string name="elevation_profile_max_elevation">Maks. højde</string>
     <string name="elevation_profile_difficulty">Vanskelighed</string>
     <string name="elevation_profile_distance">Afs.:</string>
     <string name="elevation_profile_time">Tid:</string>

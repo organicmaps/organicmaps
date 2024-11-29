@@ -768,8 +768,8 @@
     <string name="isolines_location_error_dialog">地形レイヤーはこの地域ではまだ利用できません</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>
-    <string name="elevation_profile_minaltitude">最小高度</string>
-    <string name="elevation_profile_maxaltitude">最大高度</string>
+    <string name="elevation_profile_min_elevation">最小標高</string>
+    <string name="elevation_profile_max_elevation">最大標高</string>
     <string name="elevation_profile_difficulty">難易度</string>
     <string name="elevation_profile_distance">距離：</string>
     <string name="elevation_profile_time">時間：</string>

@@ -691,8 +691,8 @@
     <string name="isolines_location_error_dialog">Топографският слой все още не е наличен в тази област</string>
     <string name="elevation_profile_ascent">Изкачване</string>
     <string name="elevation_profile_descent">Спускане</string>
-    <string name="elevation_profile_minaltitude">Мин. надморска височина</string>
-    <string name="elevation_profile_maxaltitude">Макс. надморска височина</string>
+    <string name="elevation_profile_min_elevation">Мин. височина</string>
+    <string name="elevation_profile_max_elevation">Макс. височина</string>
     <string name="elevation_profile_difficulty">Трудност</string>
     <string name="elevation_profile_distance">Разст.:</string>
     <string name="elevation_profile_time">Време:</string>

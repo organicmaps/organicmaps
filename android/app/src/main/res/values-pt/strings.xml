@@ -743,8 +743,8 @@
     <string name="isolines_location_error_dialog">A camada Terreno ainda não está disponível nesta área</string>
     <string name="elevation_profile_ascent">Subida</string>
     <string name="elevation_profile_descent">Descida</string>
-    <string name="elevation_profile_minaltitude">Altura mínima</string>
-    <string name="elevation_profile_maxaltitude">Altura máxima</string>
+    <string name="elevation_profile_min_elevation">Min. elevação</string>
+    <string name="elevation_profile_max_elevation">Máx. elevação</string>
     <string name="elevation_profile_difficulty">Dificuldade</string>
     <string name="elevation_profile_distance">Distância:</string>
     <string name="elevation_profile_time">Tempo:</string>

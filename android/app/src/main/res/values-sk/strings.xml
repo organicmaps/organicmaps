@@ -765,8 +765,8 @@
     <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
-    <string name="elevation_profile_minaltitude">Min. nadmorská výška</string>
-    <string name="elevation_profile_maxaltitude">Max. nadmorská výška</string>
+    <string name="elevation_profile_min_elevation">Min. výška</string>
+    <string name="elevation_profile_max_elevation">Max. výška</string>
     <string name="elevation_profile_difficulty">Obtiažnosť</string>
     <string name="elevation_profile_distance">Vzdial.:</string>
     <string name="elevation_profile_time">Čas:</string>

@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Спуст";
 
-"elevation_profile_minaltitude" = "Мин. висина";
+"elevation_profile_min_elevation" = "Min. elevation";
 
-"elevation_profile_maxaltitude" = "Макс. висина";
+"elevation_profile_max_elevation" = "Max. elevation";
 
 "elevation_profile_difficulty" = "Тежина";
 

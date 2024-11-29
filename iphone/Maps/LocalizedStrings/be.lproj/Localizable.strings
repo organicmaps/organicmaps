@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Спуск";
 
-"elevation_profile_minaltitude" = "Мін. вышыня";
+"elevation_profile_min_elevation" = "Мін. вышыня";
 
-"elevation_profile_maxaltitude" = "Макс. вышыня";
+"elevation_profile_max_elevation" = "Макс. вышыня";
 
 "elevation_profile_difficulty" = "Складанасць";
 

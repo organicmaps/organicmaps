@@ -733,8 +733,8 @@
     <string name="isolines_location_error_dialog">เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้</string>
     <string name="elevation_profile_ascent">การขึ้น</string>
     <string name="elevation_profile_descent">การลง</string>
-    <string name="elevation_profile_minaltitude">ระดับความสูงต่ำสุด</string>
-    <string name="elevation_profile_maxaltitude">ระดับความสูงสูงสุด</string>
+    <string name="elevation_profile_min_elevation">ต่ำสุด</string>
+    <string name="elevation_profile_max_elevation">สูงสุด</string>
     <string name="elevation_profile_difficulty">ลำบาก</string>
     <string name="elevation_profile_distance">ระยะทาง</string>
     <string name="elevation_profile_time">เวลา:</string>

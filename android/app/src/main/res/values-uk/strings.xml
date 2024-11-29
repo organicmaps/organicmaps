@@ -774,8 +774,8 @@
     <string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
     <string name="elevation_profile_ascent">Підйом</string>
     <string name="elevation_profile_descent">Спуск</string>
-    <string name="elevation_profile_minaltitude">Мін. висота</string>
-    <string name="elevation_profile_maxaltitude">Макс. висота</string>
+    <string name="elevation_profile_min_elevation">Мін. висота</string>
+    <string name="elevation_profile_max_elevation">Макс. висота</string>
     <string name="elevation_profile_difficulty">Складність</string>
     <string name="elevation_profile_distance">Відст.:</string>
     <string name="elevation_profile_time">Шлях:</string>

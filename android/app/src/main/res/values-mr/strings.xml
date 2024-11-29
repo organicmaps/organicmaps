@@ -734,8 +734,8 @@
     <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
-    <string name="elevation_profile_minaltitude">किमान उच्चता</string>
-    <string name="elevation_profile_maxaltitude">कमाल उच्चता</string>
+    <string name="elevation_profile_min_elevation">किमान उंची</string>
+    <string name="elevation_profile_max_elevation">कमाल उंची</string>
     <string name="elevation_profile_difficulty">काठिण्य</string>
     <string name="elevation_profile_distance">अंतर.:</string>
     <string name="elevation_profile_time">वेळ:</string>

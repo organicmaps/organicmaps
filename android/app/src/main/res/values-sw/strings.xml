@@ -306,8 +306,8 @@
     <string name="isolines_location_error_dialog">Tabaka la sura ya nchi bado haipatikani katika eneo hili</string>
     <string name="elevation_profile_ascent">Upandaji</string>
     <string name="elevation_profile_descent">Ushukaji</string>
-    <string name="elevation_profile_minaltitude">Mwinuko wa chini kabisa</string>
-    <string name="elevation_profile_maxaltitude">Mwinuko wa juu kabisa</string>
+    <string name="elevation_profile_min_elevation">Min. mwinuko</string>
+    <string name="elevation_profile_max_elevation">Max. mwinuko</string>
     <string name="elevation_profile_difficulty">Ugumu</string>
     <string name="elevation_profile_distance">Umbali:</string>
     <string name="elevation_profile_time">Muda:</string>

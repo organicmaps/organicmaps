@@ -767,8 +767,6 @@
     <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
-    <string name="elevation_profile_minaltitude">Мин. висина</string>
-    <string name="elevation_profile_maxaltitude">Макс. висина</string>
     <string name="elevation_profile_difficulty">Тежина</string>
     <string name="elevation_profile_distance">Удаљ.:</string>
     <string name="elevation_profile_time">Време:</string>

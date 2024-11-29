@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Ushukaji";
 
-"elevation_profile_minaltitude" = "Mwinuko wa chini kabisa";
+"elevation_profile_min_elevation" = "Min. mwinuko";
 
-"elevation_profile_maxaltitude" = "Mwinuko wa juu kabisa";
+"elevation_profile_max_elevation" = "Max. mwinuko";
 
 "elevation_profile_difficulty" = "Ugumu";
 
