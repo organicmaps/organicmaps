@@ -768,8 +768,8 @@
     <string name="isolines_location_error_dialog">La capa topogràfica encara no és disponible en aquesta àrea</string>
     <string name="elevation_profile_ascent">Ascens</string>
     <string name="elevation_profile_descent">Descens</string>
-    <string name="elevation_profile_minaltitude">Altitud mín.</string>
-    <string name="elevation_profile_maxaltitude">Altitud màx.</string>
+    <string name="elevation_profile_min_elevation">Min. elevació</string>
+    <string name="elevation_profile_max_elevation">Màx. elevació</string>
     <string name="elevation_profile_difficulty">Dificultat</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Temps:</string>
