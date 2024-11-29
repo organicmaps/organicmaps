@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "删除轨迹";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "您确定要删除这条音轨吗？";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "轨迹名称";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "轨迹是空的 - 没有要保存的内容";
+
+"edit_track" = "编辑轨迹";
 
 
 /********** Types **********/

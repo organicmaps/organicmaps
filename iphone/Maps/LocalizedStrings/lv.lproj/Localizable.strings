@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Dzēst ceļu";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Tiešām vēlies dzēst šo ceļu?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Ceļa nosaukums";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
+
+"edit_track" = "Ceļa labošana";
 
 
 /********** Types **********/

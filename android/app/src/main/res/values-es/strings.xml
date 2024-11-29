@@ -523,8 +523,6 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.</string>
     <string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
-    <string name="editor_osm_history">Mi historial de edición</string>
-    <string name="editor_osm_notes">Mis notas de datos cartográficos</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operador: %s</string>
@@ -765,8 +763,8 @@
     <string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
-    <string name="elevation_profile_min_elevation">Min. elevación</string>
-    <string name="elevation_profile_max_elevation">Máx. elevación</string>
+    <string name="elevation_profile_min_elevation">Elevación mín.</string>
+    <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="elevation_profile_difficulty">Dificultad</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Tiempo:</string>

@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Видалити трек";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Ви дійсно бажаєте видалити цей маршрут?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Назва треку";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
+
+"edit_track" = "Редагувати маршрут";
 
 
 /********** Types **********/

@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Descida";
 
-"elevation_profile_min_elevation" = "Min. elevação";
+"elevation_profile_min_elevation" = "Elevação mín.";
 
-"elevation_profile_max_elevation" = "Máx. elevação";
+"elevation_profile_max_elevation" = "Elevação máx.";
 
 "elevation_profile_difficulty" = "Dificuldade";
 
@@ -1256,6 +1256,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Apagar trilha";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Você tem certeza de que deseja excluir essa trilha?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nome da trilha";
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
+
+"edit_track" = "Editar trilha";
 
 
 /********** Types **********/

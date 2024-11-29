@@ -1257,6 +1257,9 @@
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Esborra la traça";
 
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Esteu segur que voleu suprimir aquesta pista?";
+
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nom de la traça";
 
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "El recorregut està buit, no hi ha res a desar";
+
+"edit_track" = "Edita el recorregut";
 
 
 /********** Types **********/
