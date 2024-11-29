@@ -741,8 +741,8 @@
     <string name="isolines_location_error_dialog">Ezen a területen a topográfiai réteg még nem elérhető</string>
     <string name="elevation_profile_ascent">Felemelkedés</string>
     <string name="elevation_profile_descent">Leereszkedés</string>
-    <string name="elevation_profile_minaltitude">Min. magasság</string>
-    <string name="elevation_profile_maxaltitude">Max. magasság</string>
+    <string name="elevation_profile_min_elevation">Min. magasság</string>
+    <string name="elevation_profile_max_elevation">Max. magasság</string>
     <string name="elevation_profile_difficulty">Nehézség</string>
     <string name="elevation_profile_distance">Táv.:</string>
     <string name="elevation_profile_time">Idő</string>

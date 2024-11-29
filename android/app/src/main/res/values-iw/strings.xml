@@ -760,8 +760,8 @@
     <string name="isolines_location_error_dialog">קווי מתאר עוד לא זמינים לאזור זה</string>
     <string name="elevation_profile_ascent">עלייה</string>
     <string name="elevation_profile_descent">ירידה</string>
-    <string name="elevation_profile_minaltitude">גובה מינימלי</string>
-    <string name="elevation_profile_maxaltitude">גובה מקסימלי</string>
+    <string name="elevation_profile_min_elevation">מינ\' גובה</string>
+    <string name="elevation_profile_max_elevation">מקס\' גובה</string>
     <string name="elevation_profile_difficulty">קושי</string>
     <string name="elevation_profile_distance">מרחק:</string>
     <string name="elevation_profile_time">זמן:</string>

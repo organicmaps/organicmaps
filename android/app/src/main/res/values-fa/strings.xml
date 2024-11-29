@@ -724,8 +724,8 @@
     <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
-    <string name="elevation_profile_minaltitude">کمینه ارتفاع</string>
-    <string name="elevation_profile_maxaltitude">بیشینه ارتفاع</string>
+    <string name="elevation_profile_min_elevation">کم ارتفاع</string>
+    <string name="elevation_profile_max_elevation">بیش ارتفاع</string>
     <string name="elevation_profile_difficulty">دشواری</string>
     <string name="elevation_profile_distance">مسافت</string>
     <string name="elevation_profile_time">زمان:</string>
