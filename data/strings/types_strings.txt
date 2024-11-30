@@ -5053,6 +5053,7 @@
     ca = Rafal
     de = Lean-to Wetterschutz
     es = Alpende
+    fi = Laavu
     he = מחסה ללינה
     pt = Abrigo tipo telheiro
     pt-BR = Abrigo tipo alpendre
@@ -18275,6 +18276,7 @@
     de = Silo
     es = Silo
     et = Elevaator
+    fi = Siilo
     he = סילו
     it = Silo
     mr = पेव(धान्यसाठा)
@@ -25697,7 +25699,7 @@
     et = Lillepood
     eu = Loradenda
     fa = فروشگاه
-    fi = Floristi
+    fi = Kukkakauppa
     fr = Fleuriste
     he = חנות פרחים
     hi = फूलवाले की दुकान
@@ -31666,7 +31668,7 @@
     et = Vaatluskoht
     eu = Begiratokia
     fa = گردشگری
-    fi = Näköalatasanne
+    fi = Näköalapaikka
     fr = Belvédère
     he = תצפית
     hi = दृष्टिकोण
@@ -32984,7 +32986,7 @@
     et = Ürituste toimumiskoht
     eu = Ekitaldien Lekua
     fa = محل برگزاری رویدادها
-    fi = Tapahtumapaikka
+    fi = Tapahtumakeskus
     fr = Lieu des événements
     he = מתחם אירועים
     hu = Rendezvények helyszíne
