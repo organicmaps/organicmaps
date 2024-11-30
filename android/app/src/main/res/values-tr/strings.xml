@@ -217,7 +217,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">OpenStreetMap hesabınızdan çıkış yapmak istediğinizden emin misiniz?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Kayıtlı Rotalar</string>
+    <string name="tracks_title">GPS Kayıtları</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Uzunluk</string>
     <string name="share_my_location">Konumumu Paylaş</string>
@@ -241,7 +241,7 @@
     <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">3B yapılar</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">3D binalar güç tasarrufu modunda kapatılır</string>
+    <string name="pref_map_3d_buildings_disabled_summary">3B yapılar güç tasarrufu modundayken kapatılır</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Sesli Yönlendirme</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -274,7 +274,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Bağış yapın</string>
     <!-- Button in the main Help dialog -->
-    <string name="how_to_support_us">Bu projeyi destekle</string>
+    <string name="how_to_support_us">Bu projeyi destekleyin</string>
     <!-- Button in the main Help dialog -->
     <string name="copyright">Telif hakkı</string>
     <!-- Text in menu + Button in the main Help dialog -->
@@ -284,7 +284,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz şeklinde hareket ettirin.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Arayüzü görmek için haritaya tekrar uzun dokunun</string>
+    <string name="long_tap_toast">Seçenekleri görmek için haritaya tekrar basılı tutun</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Tümünü güncelle</string>
     <!-- Cancel all button text -->
@@ -397,9 +397,9 @@
     <string name="hide">Gizle</string>
     <string name="categories">Kategoriler</string>
     <string name="history">Geçmiş</string>
-    <string name="search_not_found">Üzgünüz, hiç bir şey bulamadık.</string>
+    <string name="search_not_found">Tüh, sonuç bulunamadı.</string>
     <!-- The message when user did not find anything in the search. -->
-    <string name="search_not_found_query">Arama yaptığınız bölgeyi indirin veya yakındaki bir kasaba/köy adını eklemeyi deneyin.</string>
+    <string name="search_not_found_query">Arama yapmak istediğiniz bölgenin haritasını indirin veya yakındaki bir yerleşim yeri adını eklemeyi deneyin.</string>
     <string name="search_history_title">Arama Geçmişi</string>
     <string name="search_history_text">Son aramaları görüntüleyin.</string>
     <string name="clear_search">Arama Geçmişini Temizle</string>
@@ -502,9 +502,9 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">%s tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ücretsiz ve açık bir harita oluşturmak için bir topluluk projesidir. Organik Haritalar\'daki harita verilerinin ana kaynağıdır ve Wikipedia\'ya benzer şekilde çalışır. Yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
 \nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
-    <string name="login_to_make_edits_visible">Harita düzenlemelerinizi dünyaya yayınlamak için bir OpenStreetMap hesabı oluşturun veya oturum açın.</string>
+    <string name="login_to_make_edits_visible">Harita düzenlemelerinizin herkese ulaşabilmesi için bir OpenStreetMap hesabı oluşturun veya oturum açın.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Hücresel bir ağ bağlantısı kullanarak indirilsin mi?</string>
@@ -579,7 +579,7 @@
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.</string>
     <string name="navigation_stop_button">Dur</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Yolun kaydedilmesi</string>
+    <string name="track_recording">GPS iziniz kaydediliyor</string>
     <!-- For the first routing -->
     <string name="accept">Kabul et</string>
     <!-- For the first routing -->
@@ -800,44 +800,44 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Bağışlarınız ve desteğinizle dünyanın en iyi haritalar uygulamasını oluşturabiliriz!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!</string>
+    <string name="app_tip_02">Uygulamamızı beğendiniz mi? Geliştirmemizi desteklemek için lütfen bağış yapın! Henüz beğenmediniz mi? Lütfen beğenmediğiniz şeyleri bize bildirin, düzelteceğiz!</string>
     <!-- App tip #03 -->
-    <string name="app_tip_03">Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.</string>
+    <string name="app_tip_03">Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Herhangi bir şeyi seçmek için harita üzerinde herhangi bir yere dokunun. Arayüzü gizlemek ve geri göstermek için uzun dokunun.</string>
+    <string name="app_tip_04">Herhangi bir şeyi seçmek için haritada üzerine dokunun. Ekrandaki seçenekleri gizlemek ve geri getirmek için ise basılı tutun.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?</string>
     <!-- App tip #06 -->
     <string name="app_tip_06">Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.</string>
     <!-- App tip #07 -->
-    <string name="app_tip_07">Uygulamamız birkaç meraklı ve topluluk tarafından geliştirilmiştir.</string>
+    <string name="app_tip_07">Uygulamamız birkaç teknoloji tutkunu ve topluluk tarafından geliştirilmiştir.</string>
     <!-- App tip #08 -->
     <string name="app_tip_08">Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.</string>
     <!-- App tip #09 -->
-    <string name="app_tip_09">Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz haritalar oluşturmaktır.</string>
+    <string name="app_tip_09">Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz bir harita uygulaması oluşturmaktır.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Artık telefon ekranında Organic Maps kullanıyorsunuz</string>
+    <string name="car_used_on_the_phone_screen">Artık Organic Maps\'i telefon ekranında kullanıyorsunuz</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
     <string name="car_used_on_the_car_screen">Şu anda araç ekranında Organic Maps kullanıyorsunuz</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Android Auto\'ya bağlandınız</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Telefonda devam edin</string>
+    <string name="car_continue_on_the_phone">Telefonda devam et</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-    <string name="car_continue_in_the_car">Araba ekranına</string>
+    <string name="car_continue_in_the_car">Arabada göster</string>
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Bu uygulama, navigasyon amacıyla konumunuza erişim gerektirir.</string>
     <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Arabaya bağlı</string>
+    <string name="aa_connected_to_car_notification_title">Arabaya bağlanıldı</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Yürüyüş</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Web tarayıcısı mevcut değil</string>
     <string name="volume">Ses</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Tüm Yer İmlerini ve Rotaları Dışa Aktar</string>
+    <string name="bookmarks_export">Tüm Yer İmlerini ve Kayıtları Dışa Aktar</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Konuşma sentezleme ile ilgili sistem ayarları</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -848,7 +848,7 @@
     <!-- Accessibility text for the zoom-out button on the map -->
     <string name="zoom_out">Uzaklaştır</string>
     <!-- Restaurant or other food place's menu URL field in the Editor -->
-    <string name="website_menu">Menü bağlantısı</string>
+    <string name="website_menu">Menü Bağlantısı</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menüyü Görüntüle</string>
     <!-- Title for the "Open In Another App" button on the PlacePage. -->
@@ -859,23 +859,23 @@
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Açık oturma alanı</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">En doğru navigasyon için, telefonun pil ayarlarında güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
+    <string name="power_save_dialog_summary">En doğru navigasyon için, telefonunuzun pil ayarlarından güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Parkur kaydı</string>
+    <string name="start_track_recording">GPS izini kaydet</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Parkur kaydını durdur</string>
+    <string name="stop_track_recording">GPS izi kaydını durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Kaydetmeden durdur</string>
+    <string name="stop_without_saving">Kaydı sil ve durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Kaydı devam ettir</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Parkur kaydını yer imleri ve kayıtlı rotalara kaydedin mi?</string>
+    <string name="track_recording_alert_title">GPS izi kaydınız yer imleri ve kayıtlı rotalara kaydedilsin mi?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Rota boş - kaydedilecek bir şey yok</string>
+    <string name="track_recording_toast_nothing_to_save">Kaydınız boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçimi iletişim kutusu görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin</string>
+    <string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçim menüsü görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin.</string>
     <string name="choose_color">Renk seç</string>
-    <string name="edit_track">Rotayı düzenle</string>
+    <string name="edit_track">Kaydı düzenle</string>
     <string name="uri_open_location_failed">Konumu açabilecek yüklü bir uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Navigasyonda otomatik</string>
