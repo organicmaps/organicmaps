@@ -16958,6 +16958,52 @@
     zh-Hans = 关于 OpenStreetMap 的更多信息
     zh-Hant = 關於 OpenStreetMap 的更多資訊
 
+  [editor_osm_notes]
+    tags = android
+    en = Your error Notes
+    af = Jou fout Notas
+    ar = ملاحظاتك الخطأ
+    az = Səhv qeydləriniz
+    be = Вашы нататкі аб памылках
+    bg = Вашите бележки за грешка
+    ca = Les vostres notes d'error
+    cs = Vaše poznámky k chybám
+    da = Din fejl Noter
+    de = Deine Fehler Hinweise
+    el = Το σφάλμα σας Σημειώσεις
+    es = Su error Notas
+    et = Teie viga Märkused
+    eu = Zure errore-oharrak
+    fa = یادداشت های خطای شما
+    fi = Virheesi Huomautuksia
+    fr = Votre erreur Notes
+    he = הערות השגיאה שלך
+    hi = आपकी त्रुटि टिप्पणियाँ
+    hu = Az Ön hibája Megjegyzések
+    id = Kesalahan Anda Catatan
+    it = Il suo errore Note
+    ja = エラーノート
+    ko = 오류 노트
+    lt = Jūsų klaidos Pastabos
+    lv = Jūsu kļūdas Piezīmes
+    mr = तुमच्या त्रुटी टिपा
+    nb = Dine feilmerknader
+    nl = Uw fout Opmerkingen
+    pl = Pański błąd Uwagi
+    pt = O seu erro Notas
+    pt-BR = Seu erro Notas
+    ro = Eroarea dvs. Note
+    ru = Ваши заметки об ошибках
+    sk = Vaše poznámky o chybách
+    sv = Ditt fel Anmärkningar
+    sw = Vidokezo vya makosa yako
+    th = หมายเหตุข้อผิดพลาดของคุณ
+    tr = Hata Notlarınız
+    uk = Ваша помилка Примітки
+    vi = Lỗi của bạn Ghi chú
+    zh-Hans = 您的错误 备注
+    zh-Hant = 您的錯誤備註
+
   [editor_operator]
     tags = android,ios
     en = Operator
