@@ -12,8 +12,6 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
-import androidx.core.graphics.Insets;
-import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -33,6 +31,7 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
@@ -361,19 +360,11 @@ public class MapButtonsController extends Fragment
     mSearchWheel.onResume();
     updateMenuBadge();
     updateLayerButton();
-    ViewCompat.setOnApplyWindowInsetsListener(mFrame, new OnApplyWindowInsetsListener()
-    {
-      @NonNull
-      @Override
-      public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
-      {
-        // ignore ime insets here
-        final var insetsType = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
-        final Insets insets = windowInsets.getInsets(insetsType);
-        v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
-        return windowInsets;
-      }
-    });
+    final WindowInsetUtils.PaddingInsetsListener insetsListener = new WindowInsetUtils.PaddingInsetsListener.Builder()
+        .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
+        .setAllSides()
+        .build();
+    ViewCompat.setOnApplyWindowInsetsListener(mFrame, insetsListener);
   }
 
   @Override
