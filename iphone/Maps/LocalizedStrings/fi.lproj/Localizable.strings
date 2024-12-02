@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operaattori: %@";
 
+"editor_category_unsuitable_title" = "Etkö löydä sopivaa luokkaa?";
+
+"editor_category_unsuitable_text" = "Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Tarkista <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.";
+
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
 "downloader_no_downloaded_maps_message" = "Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";

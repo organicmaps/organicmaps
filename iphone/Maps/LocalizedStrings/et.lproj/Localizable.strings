@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operaator: %@";
 
+"editor_category_unsuitable_title" = "Ei leia sobivat kategooriat?";
+
+"editor_category_unsuitable_text" = "Organic Maps võimaldab lisada ainult lihtsaid punktikategooriaid, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisage sellised kategooriad otse <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Vaadake meie <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.";
+
 "downloader_no_downloaded_maps_title" = "Sa ei ole kaarte alla laadinud";
 
 "downloader_no_downloaded_maps_message" = "Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.";

@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
 
+"editor_category_unsuitable_title" = "No trobeu una categoria adequada?";
+
+"editor_category_unsuitable_text" = "Organic Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulteu la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guia</a> per obtenir instruccions detallades pas a pas.";
+
 "downloader_no_downloaded_maps_title" = "No heu baixat cap mapa";
 
 "downloader_no_downloaded_maps_message" = "Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.";
