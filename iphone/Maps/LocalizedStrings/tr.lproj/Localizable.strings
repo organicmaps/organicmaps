@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operatör: %@";
 
+"editor_category_unsuitable_title" = "Uygun bir kategori bulamıyor musunuz?";
+
+"editor_category_unsuitable_text" = "Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>'a ekleyin. Adım adım ayrıntılı talimatlar için <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rehberimize</a> göz atın.";
+
 "downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
 
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";

@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operadorea: %@";
 
+"editor_category_unsuitable_title" = "Ezin duzu kategoria egokirik aurkitu?";
+
+"editor_category_unsuitable_text" = "Organic Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Begiratu gure <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gida</a> urratsez urrats argibide zehatzak lortzeko.";
+
 "downloader_no_downloaded_maps_title" = "Ez duzu maparik deskargatu";
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";

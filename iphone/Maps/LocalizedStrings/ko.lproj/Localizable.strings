@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "연산자: %@";
 
+"editor_category_unsuitable_title" = "적합한 카테고리를 찾을 수 없나요?";
+
+"editor_category_unsuitable_text" = "오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">가이드</a>를 참조하세요.";
+
 "downloader_no_downloaded_maps_title" = "지도를 다운로드하지 않았습니다";
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";

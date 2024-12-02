@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "المشغل: %@";
 
+"editor_category_unsuitable_title" = "لا يمكن العثور على فئة مناسبة؟";
+
+"editor_category_unsuitable_text" = "تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. راجع موقعنا <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.";
+
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.";

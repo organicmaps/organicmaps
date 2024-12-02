@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operatør: %@";
 
+"editor_category_unsuitable_title" = "Finner du ikke en passende kategori?";
+
+"editor_category_unsuitable_text" = "Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Sjekk vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detaljerte trinnvise instruksjoner.";
+
 "downloader_no_downloaded_maps_title" = "Du har ikke lastet ned noen kart";
 
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";

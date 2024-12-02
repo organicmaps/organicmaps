@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
 
+"editor_category_unsuitable_title" = "Não encontra uma categoria adequada?";
+
+"editor_category_unsuitable_text" = "O Organic Maps permite-lhe adicionar apenas categorias de pontos simples, ou seja, nada de cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente ao <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte o nosso <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guia</a> para instruções detalhadas passo a passo.";
+
 "downloader_no_downloaded_maps_title" = "Não descarregou quaisquer mapas";
 
 "downloader_no_downloaded_maps_message" = "Descarregar mapas para encontrar a localização e navegar offline.";

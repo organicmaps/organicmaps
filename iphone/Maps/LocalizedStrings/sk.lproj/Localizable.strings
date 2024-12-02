@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Prevádzkovateľ: %@";
 
+"editor_category_unsuitable_title" = "Nemôžete nájsť vhodnú kategóriu?";
+
+"editor_category_unsuitable_text" = "Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Pozrite si náš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">príručku</a>, kde nájdete podrobné pokyny krok za krokom.";
+
 "downloader_no_downloaded_maps_title" = "Neprevzali ste žiadne mapy";
 
 "downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";

@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Оператор: %@";
 
+"editor_category_unsuitable_title" = "Не можете да намерите подходяща категория?";
+
+"editor_category_unsuitable_text" = "Organic Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Вижте нашето <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ръководство</a> за подробни инструкции стъпка по стъпка.";
+
 "downloader_no_downloaded_maps_title" = "Не сте изтеглили никакви карти";
 
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";

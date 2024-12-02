@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Оператор: %@";
 
+"editor_category_unsuitable_title" = "Нет подходящей категории?";
+
+"editor_category_unsuitable_text" = "Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.";
+
 "downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
 
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";

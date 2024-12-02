@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "מַפעִיל: %@";
 
+"editor_category_unsuitable_title" = "לא מוצאים קטגוריה מתאימה?";
+
+"editor_category_unsuitable_text" = "באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. עיינו <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">במדריך</a> שלנו לקבלת הוראות מפורטות.";
+
 "downloader_no_downloaded_maps_title" = "לא הורדת אף מפה";
 
 "downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";

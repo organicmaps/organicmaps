@@ -753,6 +753,10 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Toán tử: %@";
 
+"editor_category_unsuitable_title" = "Không thể tìm thấy một danh mục phù hợp?";
+
+"editor_category_unsuitable_text" = "Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Hãy xem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.";
+
 "downloader_no_downloaded_maps_title" = "Bạn chưa tải về bất kỳ bản đồ nào";
 
 "downloader_no_downloaded_maps_message" = "Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.";
