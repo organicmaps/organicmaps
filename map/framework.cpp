@@ -3,6 +3,7 @@
 #include "map/gps_tracker.hpp"
 #include "map/user_mark.hpp"
 #include "map/track_mark.hpp"
+#include "map/place_page_info.hpp"
 
 #include "ge0/url_generator.hpp"
 
@@ -2804,6 +2805,21 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+bool Framework::ParseAllTypesDebugCommand(search::SearchParams const & params)
+{
+  if (params.m_query == "?all-types")
+  {
+    settings::Set(place_page::kDebugAllTypesSetting, true);
+    return true;
+  }
+  else if (params.m_query == "?no-all-types")
+  {
+    settings::Set(place_page::kDebugAllTypesSetting, false);
+    return true;
+  }
+  return false;
+}
+
 // Editable map object helper functions.
 namespace
 {
@@ -3191,6 +3207,8 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   if (ParseEditorDebugCommand(params))
     return true;
   if (ParseRoutingDebugCommand(params))
+    return true;
+  if (ParseAllTypesDebugCommand(params))
     return true;
   return false;
 }
