@@ -299,6 +299,11 @@ node|z15-[railway=station][transport=subway][city=hiroshima] {icon-image: subway
 node|z16-[railway=subway_entrance][city=hiroshima] {icon-image: subway-hirosima-s.svg;}
 node|z18-[railway=subway_entrance][city=hiroshima] {icon-image: subway-hirosima-m.svg;}
 
+/* Hong Kong Subway Station */
+node|z13-[railway=station][transport=subway][city=hongkong] {icon-image: subway-hongkong-s.svg;}
+node|z15-[railway=station][transport=subway][city=hongkong] {icon-image: subway-hongkong-m.svg;}
+node|z16-[railway=subway_entrance][city=hongkong] {icon-image: subway-hongkong-s.svg;}
+
 /* Isfahan Subway Station */
 node|z13-[railway=station][transport=subway][city=isfahan] {icon-image: subway-isfahan-s.svg;}
 node|z15-[railway=station][transport=subway][city=isfahan] {icon-image: subway-isfahan-m.svg;}

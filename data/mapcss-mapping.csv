@@ -1729,3 +1729,5 @@ attraction|maze;1613;
 attraction|historic;1614;
 attraction|big_wheel;1615;
 attraction|bumper_car;1616;
+railway|station|subway|hongkong;[railway=station][transport=subway][city=hongkong],[railway=station][station=subway][city=hongkong];;name;int_name;1617;
+railway|subway_entrance|hongkong;[railway=subway_entrance][city=hongkong];;name;int_name;1618;
