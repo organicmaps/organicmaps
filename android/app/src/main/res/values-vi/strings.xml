@@ -1562,6 +1562,7 @@
     <string name="type.railway.station.subway.hamburg">Ngầm</string>
     <string name="type.railway.station.subway.helsinki">Ngầm</string>
     <string name="type.railway.station.subway.hiroshima">Ngầm</string>
+    <string name="type.railway.station.subway.hongkong">Ngầm</string>
     <string name="type.railway.station.subway.isfahan">Ngầm</string>
     <string name="type.railway.station.subway.istanbul">Ngầm</string>
     <string name="type.railway.station.subway.izmir">Ngầm</string>
@@ -1674,6 +1675,7 @@
     <string name="type.railway.subway_entrance.hamburg">Lỗi vào Metro</string>
     <string name="type.railway.subway_entrance.helsinki">Lỗi vào Metro</string>
     <string name="type.railway.subway_entrance.hiroshima">Lỗi vào Metro</string>
+    <string name="type.railway.subway_entrance.hongkong">Lỗi vào Metro</string>
     <string name="type.railway.subway_entrance.isfahan">Lỗi vào Metro</string>
     <string name="type.railway.subway_entrance.istanbul">Lỗi vào Metro</string>
     <string name="type.railway.subway_entrance.izmir">Lỗi vào Metro</string>

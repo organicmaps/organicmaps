@@ -3154,6 +3154,8 @@
 
 "type.railway.station.subway.hiroshima" = "Stazione della metrò";
 
+"type.railway.station.subway.hongkong" = "Stazione della metrò";
+
 "type.railway.station.subway.isfahan" = "Stazione della metrò";
 
 "type.railway.station.subway.istanbul" = "Stazione della metrò";
@@ -3383,6 +3385,8 @@
 "type.railway.subway_entrance.helsinki" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.hiroshima" = "Stazione metropolitana";
+
+"type.railway.subway_entrance.hongkong" = "Stazione metropolitana";
 
 "type.railway.subway_entrance.isfahan" = "Stazione metropolitana";
 

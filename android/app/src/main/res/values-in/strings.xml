@@ -1558,6 +1558,7 @@
     <string name="type.railway.station.subway.hamburg">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.helsinki">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.hiroshima">Stasiun bawah tanah</string>
+    <string name="type.railway.station.subway.hongkong">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.isfahan">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.istanbul">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.izmir">Stasiun bawah tanah</string>
@@ -1670,6 +1671,7 @@
     <string name="type.railway.subway_entrance.hamburg">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.helsinki">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.hiroshima">Pintu masuk kereta bawah tanah</string>
+    <string name="type.railway.subway_entrance.hongkong">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.isfahan">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.istanbul">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.izmir">Pintu masuk kereta bawah tanah</string>

@@ -1620,6 +1620,7 @@
     <string name="type.railway.station.subway.hamburg">T-bane</string>
     <string name="type.railway.station.subway.helsinki">T-bane</string>
     <string name="type.railway.station.subway.hiroshima">T-bane</string>
+    <string name="type.railway.station.subway.hongkong">T-bane</string>
     <string name="type.railway.station.subway.isfahan">T-bane</string>
     <string name="type.railway.station.subway.istanbul">T-bane</string>
     <string name="type.railway.station.subway.izmir">T-bane</string>
@@ -1732,6 +1733,7 @@
     <string name="type.railway.subway_entrance.hamburg">T-bane inngang</string>
     <string name="type.railway.subway_entrance.helsinki">T-bane inngang</string>
     <string name="type.railway.subway_entrance.hiroshima">T-bane inngang</string>
+    <string name="type.railway.subway_entrance.hongkong">T-bane inngang</string>
     <string name="type.railway.subway_entrance.isfahan">T-bane inngang</string>
     <string name="type.railway.subway_entrance.istanbul">T-bane inngang</string>
     <string name="type.railway.subway_entrance.izmir">T-bane inngang</string>

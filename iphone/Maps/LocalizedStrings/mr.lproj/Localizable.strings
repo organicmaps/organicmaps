@@ -3154,6 +3154,8 @@
 
 "type.railway.station.subway.hiroshima" = "भुयारी मार्ग";
 
+"type.railway.station.subway.hongkong" = "भुयारी मार्ग";
+
 "type.railway.station.subway.isfahan" = "भुयारी मार्ग";
 
 "type.railway.station.subway.istanbul" = "भुयारी मार्ग";
@@ -3383,6 +3385,8 @@
 "type.railway.subway_entrance.helsinki" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.hiroshima" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.hongkong" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.isfahan" = "भुयारी प्रवेशद्वार";
 

@@ -1716,6 +1716,7 @@
     <string name="type.railway.station.subway.hamburg">Metro</string>
     <string name="type.railway.station.subway.helsinki">Metro</string>
     <string name="type.railway.station.subway.hiroshima">Metro</string>
+    <string name="type.railway.station.subway.hongkong">Metro</string>
     <string name="type.railway.station.subway.isfahan">Metro</string>
     <string name="type.railway.station.subway.istanbul">Metro</string>
     <string name="type.railway.station.subway.izmir">Metro</string>
@@ -1831,6 +1832,7 @@
     <string name="type.railway.subway_entrance.hamburg">Vstup do metra</string>
     <string name="type.railway.subway_entrance.helsinki">Vstup do metra</string>
     <string name="type.railway.subway_entrance.hiroshima">Vstup do metra</string>
+    <string name="type.railway.subway_entrance.hongkong">Vstup do metra</string>
     <string name="type.railway.subway_entrance.isfahan">Vstup do metra</string>
     <string name="type.railway.subway_entrance.istanbul">Vstup do metra</string>
     <string name="type.railway.subway_entrance.izmir">Vstup do metra</string>

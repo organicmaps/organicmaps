@@ -1750,6 +1750,7 @@
     <string name="type.railway.station.subway.hamburg">Metroo</string>
     <string name="type.railway.station.subway.helsinki">Metroo</string>
     <string name="type.railway.station.subway.hiroshima">Metroo</string>
+    <string name="type.railway.station.subway.hongkong">Metroo</string>
     <string name="type.railway.station.subway.isfahan">Metroo</string>
     <string name="type.railway.station.subway.istanbul">Metroo</string>
     <string name="type.railway.station.subway.izmir">Metroo</string>
@@ -1865,6 +1866,7 @@
     <string name="type.railway.subway_entrance.hamburg">Metroo sissepääs</string>
     <string name="type.railway.subway_entrance.helsinki">Metroo sissepääs</string>
     <string name="type.railway.subway_entrance.hiroshima">Metroo sissepääs</string>
+    <string name="type.railway.subway_entrance.hongkong">Metroo sissepääs</string>
     <string name="type.railway.subway_entrance.isfahan">Metroo sissepääs</string>
     <string name="type.railway.subway_entrance.istanbul">Metroo sissepääs</string>
     <string name="type.railway.subway_entrance.izmir">Metroo sissepääs</string>

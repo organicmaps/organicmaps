@@ -23476,7 +23476,7 @@
     ref = type.railway.station.subway
 
   [type.railway.station.subway.hongkong]
-    ref = type.railway.station.subway  
+    ref = type.railway.station.subway
 
   [type.railway.station.subway.isfahan]
     ref = type.railway.station.subway

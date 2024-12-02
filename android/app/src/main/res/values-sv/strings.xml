@@ -1558,6 +1558,7 @@
     <string name="type.railway.station.subway.hamburg">Tunnelbana</string>
     <string name="type.railway.station.subway.helsinki">Tunnelbana</string>
     <string name="type.railway.station.subway.hiroshima">Tunnelbana</string>
+    <string name="type.railway.station.subway.hongkong">Tunnelbana</string>
     <string name="type.railway.station.subway.isfahan">Tunnelbana</string>
     <string name="type.railway.station.subway.istanbul">Tunnelbana</string>
     <string name="type.railway.station.subway.izmir">Tunnelbana</string>
@@ -1670,6 +1671,7 @@
     <string name="type.railway.subway_entrance.hamburg">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.helsinki">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.hiroshima">Tunnelbana entré</string>
+    <string name="type.railway.subway_entrance.hongkong">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.isfahan">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.istanbul">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.izmir">Tunnelbana entré</string>
