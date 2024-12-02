@@ -1582,6 +1582,7 @@
     <string name="type.railway.station.subway.hamburg">Metrómegálló</string>
     <string name="type.railway.station.subway.helsinki">Metrómegálló</string>
     <string name="type.railway.station.subway.hiroshima">Metrómegálló</string>
+    <string name="type.railway.station.subway.hongkong">Metrómegálló</string>
     <string name="type.railway.station.subway.isfahan">Metrómegálló</string>
     <string name="type.railway.station.subway.istanbul">Metrómegálló</string>
     <string name="type.railway.station.subway.izmir">Metrómegálló</string>
@@ -1694,6 +1695,7 @@
     <string name="type.railway.subway_entrance.hamburg">Metróbejárat</string>
     <string name="type.railway.subway_entrance.helsinki">Metróbejárat</string>
     <string name="type.railway.subway_entrance.hiroshima">Metróbejárat</string>
+    <string name="type.railway.subway_entrance.hongkong">Metróbejárat</string>
     <string name="type.railway.subway_entrance.isfahan">Metróbejárat</string>
     <string name="type.railway.subway_entrance.istanbul">Metróbejárat</string>
     <string name="type.railway.subway_entrance.izmir">Metróbejárat</string>

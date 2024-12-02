@@ -1721,6 +1721,7 @@
     <string name="type.railway.station.subway.hamburg">地下鉄</string>
     <string name="type.railway.station.subway.helsinki">地下鉄</string>
     <string name="type.railway.station.subway.hiroshima">地下鉄</string>
+    <string name="type.railway.station.subway.hongkong">地下鉄</string>
     <string name="type.railway.station.subway.isfahan">地下鉄</string>
     <string name="type.railway.station.subway.istanbul">地下鉄</string>
     <string name="type.railway.station.subway.izmir">地下鉄</string>
@@ -1833,6 +1834,7 @@
     <string name="type.railway.subway_entrance.hamburg">地下鉄入り口</string>
     <string name="type.railway.subway_entrance.helsinki">地下鉄入り口</string>
     <string name="type.railway.subway_entrance.hiroshima">地下鉄入り口</string>
+    <string name="type.railway.subway_entrance.hongkong">地下鉄入り口</string>
     <string name="type.railway.subway_entrance.isfahan">地下鉄入り口</string>
     <string name="type.railway.subway_entrance.istanbul">地下鉄入り口</string>
     <string name="type.railway.subway_entrance.izmir">地下鉄入り口</string>

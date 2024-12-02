@@ -3154,6 +3154,8 @@
 
 "type.railway.station.subway.hiroshima" = "Ngầm";
 
+"type.railway.station.subway.hongkong" = "Ngầm";
+
 "type.railway.station.subway.isfahan" = "Ngầm";
 
 "type.railway.station.subway.istanbul" = "Ngầm";
@@ -3383,6 +3385,8 @@
 "type.railway.subway_entrance.helsinki" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.hiroshima" = "Lỗi vào Metro";
+
+"type.railway.subway_entrance.hongkong" = "Lỗi vào Metro";
 
 "type.railway.subway_entrance.isfahan" = "Lỗi vào Metro";
 

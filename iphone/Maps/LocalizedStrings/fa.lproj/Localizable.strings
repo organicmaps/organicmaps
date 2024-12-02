@@ -3154,6 +3154,8 @@
 
 "type.railway.station.subway.hiroshima" = "حمل و نقل";
 
+"type.railway.station.subway.hongkong" = "حمل و نقل";
+
 "type.railway.station.subway.isfahan" = "حمل و نقل";
 
 "type.railway.station.subway.istanbul" = "حمل و نقل";
@@ -3383,6 +3385,8 @@
 "type.railway.subway_entrance.helsinki" = "ورودی مترو";
 
 "type.railway.subway_entrance.hiroshima" = "ورودی مترو";
+
+"type.railway.subway_entrance.hongkong" = "ورودی مترو";
 
 "type.railway.subway_entrance.isfahan" = "ورودی مترو";
 

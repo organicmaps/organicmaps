@@ -1568,6 +1568,7 @@
     <string name="type.railway.station.subway.hamburg">รถไฟ</string>
     <string name="type.railway.station.subway.helsinki">รถไฟ</string>
     <string name="type.railway.station.subway.hiroshima">รถไฟ</string>
+    <string name="type.railway.station.subway.hongkong">รถไฟ</string>
     <string name="type.railway.station.subway.isfahan">รถไฟ</string>
     <string name="type.railway.station.subway.istanbul">รถไฟ</string>
     <string name="type.railway.station.subway.izmir">รถไฟ</string>
@@ -1680,6 +1681,7 @@
     <string name="type.railway.subway_entrance.hamburg">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.helsinki">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.hiroshima">ทางเข้ารถไฟใต้ดิน</string>
+    <string name="type.railway.subway_entrance.hongkong">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.isfahan">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.istanbul">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.izmir">ทางเข้ารถไฟใต้ดิน</string>

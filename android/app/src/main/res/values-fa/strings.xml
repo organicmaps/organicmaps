@@ -1474,6 +1474,7 @@
     <string name="type.railway.station.subway.hamburg">حمل و نقل</string>
     <string name="type.railway.station.subway.helsinki">حمل و نقل</string>
     <string name="type.railway.station.subway.hiroshima">حمل و نقل</string>
+    <string name="type.railway.station.subway.hongkong">حمل و نقل</string>
     <string name="type.railway.station.subway.isfahan">حمل و نقل</string>
     <string name="type.railway.station.subway.istanbul">حمل و نقل</string>
     <string name="type.railway.station.subway.izmir">حمل و نقل</string>
@@ -1586,6 +1587,7 @@
     <string name="type.railway.subway_entrance.hamburg">ورودی مترو</string>
     <string name="type.railway.subway_entrance.helsinki">ورودی مترو</string>
     <string name="type.railway.subway_entrance.hiroshima">ورودی مترو</string>
+    <string name="type.railway.subway_entrance.hongkong">ورودی مترو</string>
     <string name="type.railway.subway_entrance.isfahan">ورودی مترو</string>
     <string name="type.railway.subway_entrance.istanbul">ورودی مترو</string>
     <string name="type.railway.subway_entrance.izmir">ورودی مترو</string>
