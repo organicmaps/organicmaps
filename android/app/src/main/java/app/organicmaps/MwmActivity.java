@@ -1726,7 +1726,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void openKayakLink(@NonNull String url)
   {
-    if (Config.isKayakDisclaimerAccepted() || !Config.isKayakReferralAllowed())
+    if (Config.isKayakDisclaimerAccepted())
     {
       Utils.openUrl(this, url);
       return;
