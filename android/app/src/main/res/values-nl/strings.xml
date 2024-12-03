@@ -312,6 +312,10 @@
     <string name="google_play_services">Google Play-locatieservices</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bepaal snel je locatie bij benadering via Bluetooth, WiFi of een mobiel netwerk</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com Hotellinks</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Foto\'s, beoordelingen en reserveringslinks worden weergegeven voor hotels die een vermelding op Kayak.com hebben. De verwijzingsbonus die voor elke boeking via deze links wordt ontvangen, gaat naar de ontwikkeling van Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Download kaarten op de route</string>
     <!-- Text for routing error dialog -->
@@ -547,6 +551,8 @@
     <string name="dialog_kayak_disclaimer">De doorverwijsbonus die je ontvangt voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Details op Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Kayak uitschakelen</string>
     <string name="placepage_edit_bookmark_button">Bewerk bladwijzer</string>
     <string name="editor_comment_hint">Reactie…</string>
     <string name="editor_reset_edits_message">Alle lokale wijzigingen weggooien?</string>

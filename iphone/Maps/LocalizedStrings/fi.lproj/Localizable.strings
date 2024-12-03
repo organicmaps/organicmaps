@@ -820,6 +820,9 @@
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Lisätietoa osoitteessa Kayak";
 
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_disable_button" = "Poista Kayak käytöstä";
+
 "placepage_call_button" = "Soita";
 
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";

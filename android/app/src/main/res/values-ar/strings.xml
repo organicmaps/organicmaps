@@ -327,6 +327,10 @@
     <string name="google_play_services">خدمات الموقع في جوجل بلاي</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">حدد موقعك التقريبي بسرعة باستخدام Bluetooth أو WiFi أو شبكة الهاتف المحمول</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">روابط فنادق كيك دوت كوم</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">يتم عرض الصور والمراجعات وروابط الحجز للفنادق التي لديها قائمة على موقع Kayak.com. تذهب مكافأة الإحالة المستلمة عن كل حجز من خلال هذه الروابط إلى تطوير Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">تنزيل الخرائط على طول طريقك</string>
     <!-- Text for routing error dialog -->
@@ -563,6 +567,8 @@
     <string name="dialog_kayak_disclaimer">تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">التفاصيل على Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">تعطيل Kayak</string>
     <string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
     <string name="editor_comment_hint">تعليق…</string>
     <string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>
