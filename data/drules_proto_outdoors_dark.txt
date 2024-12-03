@@ -88619,6 +88619,184 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-hongkong"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 6250
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 11
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 12
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-hongkong-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+}
+cont {
   name: "railway-station-subway-isfahan"
   element {
     scale: 13
@@ -105869,6 +106047,112 @@ cont {
     scale: 20
     symbol {
       name: "subway-hirosima-m"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-hongkong"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 3700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-hongkong-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-hongkong-s"
       priority: 3700
     }
     caption {
