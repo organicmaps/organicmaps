@@ -314,6 +314,10 @@
     <string name="google_play_services">Serveis d\'ubicació de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Enllaços a l\'hotel Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Es mostren fotos, comentaris i enllaços de reserva per als hotels que tenen una llista a Kayak.com. La bonificació de referència rebuda per cada reserva a través d\'aquests enllaços es destina al desenvolupament d\'Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Baixeu tots els mapes de la ruta</string>
     <!-- Text for routing error dialog -->
@@ -550,6 +554,8 @@
     <string name="dialog_kayak_disclaimer">La bonificació de referència rebuda per cada reserva a través d\'aquest enllaç es destina al desenvolupament de Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Detalls a Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Desactiva Kayak</string>
     <string name="placepage_edit_bookmark_button">Edita el marcador</string>
     <string name="editor_comment_hint">Comentari…</string>
     <string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>

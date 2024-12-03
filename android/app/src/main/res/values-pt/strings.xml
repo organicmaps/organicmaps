@@ -300,6 +300,10 @@
     <string name="google_play_services">Serviços de localização do Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determina rapidamente a tua localização aproximada através de Bluetooth, WiFi ou rede móvel</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Ligações de hotéis Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">São apresentadas fotografias, críticas e links de reserva para os hotéis que têm uma listagem no Kayak.com. O bónus de referência recebido por cada reserva efectuada através destas ligações destina-se ao desenvolvimento do Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Descarregar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->
@@ -532,6 +536,8 @@
     <string name="dialog_kayak_disclaimer">O bónus de referência recebido por cada reserva efectuada através desta ligação reverte a favor do desenvolvimento do Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Detalhes em Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Desativar Kayak</string>
     <string name="placepage_edit_bookmark_button">Editar favorito</string>
     <string name="editor_comment_hint">Comentário…</string>
     <string name="editor_reset_edits_message">Eliminar todas as alterações locais?</string>

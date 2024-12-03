@@ -820,6 +820,9 @@
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Podrobnosti na Kayak";
 
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_disable_button" = "Zakázať Kayak";
+
 "placepage_call_button" = "Zavolať";
 
 "placepage_edit_bookmark_button" = "Upraviť záložku";

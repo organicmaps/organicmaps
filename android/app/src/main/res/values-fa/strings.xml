@@ -280,6 +280,10 @@
     <string name="google_play_services">خدمات مکان Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">به سرعت مکان تقریبی خود را با استفاده از بلوتوث، WiFi یا شبکه تلفن همراه تعیین کنید</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">لینک های هتل Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">عکسu200cها، نظرات، لینکu200cهای رزرو برای هتلu200cهایی که فهرستی در Kayak.com دارند نمایش داده میu200cشوند. پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوندها به سمت توسعه Organic Maps می رود.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">دانلود تمامی نقشه‌ها در طول مسیر‌تان</string>
     <!-- Text for routing error dialog -->
@@ -514,6 +518,8 @@
     <string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">جزئیات در Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Kayak را غیرفعال کنید</string>
     <string name="placepage_edit_bookmark_button">ویرایش نشانه‌ها</string>
     <string name="editor_comment_hint">اظهار نظر</string>
     <string name="editor_reset_edits_message">آیا تغییرات محلی را نادیده می گیرید؟</string>
