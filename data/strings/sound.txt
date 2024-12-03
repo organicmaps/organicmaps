@@ -553,7 +553,7 @@
     hr = na
     hu = a
     id = ke
-    it = sulla
+    it = in
     ja = NULL
     ko = NULL
     mr = वर
