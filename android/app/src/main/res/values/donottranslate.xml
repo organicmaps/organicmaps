@@ -60,9 +60,11 @@
 
   <string name="pref_privacy" translatable="false">pref_privacy</string>
   <string name="pref_search_history" translatable="false">pref_search_history</string>
+  <string name="pref_display_kayak" translatable="false">DisplayKayak</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
+
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
   <string name="car_notification_channel_name" translatable="false">CAR_NOTIFICATION_CHANNEL</string>
 

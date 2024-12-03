@@ -163,6 +163,13 @@
       app:singleLineTitle="false"
       android:defaultValue="true"
       android:order="2"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_display_kayak"
+      android:title="@string/pref_display_kayak_title"
+      app:singleLineTitle="false"
+      android:summary="@string/pref_display_kayak_text"
+      android:defaultValue="true"
+      android:order="3"/>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"
