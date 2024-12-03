@@ -267,6 +267,10 @@ void MapWidget::Build()
                            QVector4D(-1.0, -1.0, 0.0, 0.0),
                            QVector4D(1.0, -1.0, 1.0, 0.0)};
   m_vbo->allocate(static_cast<void*>(vertices), sizeof(vertices));
+  QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+  f->glEnableVertexAttribArray(0);
+  f->glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
+  m_vbo->release();
 
   m_program->release();
   m_vao->release();
@@ -420,10 +424,7 @@ void MapWidget::paintGL()
     int const samplerSizeLocation = m_program->uniformLocation("u_samplerSize");
     m_program->setUniformValue(samplerSizeLocation, samplerSize);
 
-    m_program->enableAttributeArray("a_position");
-    m_program->setAttributeBuffer("a_position", GL_FLOAT, 0, 4, 0);
-
-    funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
+    funcs->glClearColor(0.5, 0.5, 0.5, 1.0);
     funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
