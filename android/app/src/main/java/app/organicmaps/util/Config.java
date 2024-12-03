@@ -229,11 +229,6 @@ public final class Config
     setBool(KEY_MISC_KAYAK_ACCEPTED);
   }
 
-  public static boolean isKayakReferralAllowed()
-  {
-    return !isFdroid();
-  }
-
   public static boolean isLocationRequested()
   {
     return getBool(KEY_MISC_LOCATION_REQUESTED);
