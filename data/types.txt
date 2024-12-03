@@ -1614,3 +1614,5 @@ amenity|recycling|container
 *attraction|historic
 *attraction|big_wheel
 *attraction|bumper_car
+*railway|station|subway|hongkong
+*railway|subway_entrance|hongkong

@@ -998,6 +998,7 @@ world  +
                 hamburg  -
                 helsinki  -
                 hiroshima  -
+                hongkong  -
                 isfahan  -
                 istanbul  -
                 izmir  -
@@ -1117,6 +1118,7 @@ world  +
             hamburg  -
             helsinki  -
             hiroshima  -
+            hongkong  -
             isfahan  -
             istanbul  -
             izmir  -
