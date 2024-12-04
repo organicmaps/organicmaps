@@ -23308,6 +23308,11 @@
     zh-Hans = 轻轨车站
     zh-Hant = 輕軌車站
 
+  [type.railway.station.light_rail.berlin]
+    ref = type.railway.station.light_rail
+    en = S-Bahn Station
+    de = S-Bahnhof
+
   [type.railway.station.light_rail.london]
     ref = type.railway.station.light_rail
     en = DLR Station

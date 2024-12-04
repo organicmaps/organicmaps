@@ -809,3 +809,7 @@ node|z15-[railway=station][station=light_rail][city=london] {icon-image: light_r
 /* Porto Light Rail Station */
 node|z13-[railway=station][station=light_rail][city=porto] {icon-image: light_rail-porto-s.svg;}
 node|z15-[railway=station][station=light_rail][city=porto] {icon-image: light_rail-porto-m.svg;}
+
+/* Berlin Light Rail Station (S-Bahn Berlin) */
+node|z13-[railway=station][station=light_rail][city=berlin] {icon-image: lightrail-berlin-s.svg;}
+node|z15-[railway=station][station=light_rail][city=berlin] {icon-image: lightrail-berlin-m.svg;}
