@@ -406,8 +406,10 @@ Java_app_organicmaps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * en
                                                                          jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
-  GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaStringArray(env, GetFeatureCategories().GetAllCreatableTypeNames());
+  auto & categories = GetFeatureCategories();
+  categories.AddLanguage(lang);
+  categories.AddLanguage("en");
+  return jni::ToJavaStringArray(env, categories.GetAllCreatableTypeNames());
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -416,9 +418,10 @@ Java_app_organicmaps_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * en
                                                                          jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
-  GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaStringArray(env,
-                                GetFeatureCategories().Search(jni::ToNativeString(env, query)));
+  auto & categories = GetFeatureCategories();
+  categories.AddLanguage(lang);
+  categories.AddLanguage("en");
+  return jni::ToJavaStringArray(env, categories.Search(jni::ToNativeString(env, query)));
 }
 
 JNIEXPORT jobjectArray JNICALL
