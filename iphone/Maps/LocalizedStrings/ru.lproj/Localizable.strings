@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Ж/д станция";
 
+"type.railway.station.light_rail.berlin" = "Ж/д станция";
+
 "type.railway.station.light_rail.london" = "Ж/д станция";
 
 "type.railway.station.light_rail.porto" = "Ж/д станция";

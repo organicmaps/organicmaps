@@ -1506,6 +1506,7 @@
     <string name="type.railway.station">Togstation</string>
     <string name="type.railway.station.funicular">Funicular</string>
     <string name="type.railway.station.light_rail">Togstation</string>
+    <string name="type.railway.station.light_rail.berlin">Togstation</string>
     <string name="type.railway.station.light_rail.london">Togstation</string>
     <string name="type.railway.station.light_rail.porto">Togstation</string>
     <string name="type.railway.station.monorail">Togstation</string>

@@ -1679,6 +1679,7 @@
     <string name="type.railway.station">鉄道駅</string>
     <string name="type.railway.station.funicular">フニクラ</string>
     <string name="type.railway.station.light_rail">鉄道駅</string>
+    <string name="type.railway.station.light_rail.berlin">鉄道駅</string>
     <string name="type.railway.station.light_rail.london">鉄道駅</string>
     <string name="type.railway.station.light_rail.porto">鉄道駅</string>
     <string name="type.railway.station.monorail">鉄道駅</string>

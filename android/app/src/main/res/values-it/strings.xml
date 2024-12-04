@@ -1670,6 +1670,7 @@
     <string name="type.railway.station">Stazione ferroviaria</string>
     <string name="type.railway.station.funicular">Funicolare</string>
     <string name="type.railway.station.light_rail">Stazione ferroviaria</string>
+    <string name="type.railway.station.light_rail.berlin">Stazione ferroviaria</string>
     <string name="type.railway.station.light_rail.london">Stazione ferroviaria</string>
     <string name="type.railway.station.light_rail.porto">Stazione ferroviaria</string>
     <string name="type.railway.station.monorail">Stazione ferroviaria</string>

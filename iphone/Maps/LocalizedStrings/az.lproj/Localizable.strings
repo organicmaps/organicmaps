@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Dəmiryolu stansiyası";
 
+"type.railway.station.light_rail.berlin" = "Dəmiryolu stansiyası";
+
 "type.railway.station.light_rail.london" = "Dəmiryolu stansiyası";
 
 "type.railway.station.light_rail.porto" = "Dəmiryolu stansiyası";

@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Estação de comboios";
 
+"type.railway.station.light_rail.berlin" = "Estação de comboios";
+
 "type.railway.station.light_rail.london" = "Estação de comboios";
 
 "type.railway.station.light_rail.porto" = "Estação de comboios";

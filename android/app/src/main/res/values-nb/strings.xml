@@ -1578,6 +1578,7 @@
     <string name="type.railway.station">Togstasjon</string>
     <string name="type.railway.station.funicular">Kabelbane</string>
     <string name="type.railway.station.light_rail">Togstasjon</string>
+    <string name="type.railway.station.light_rail.berlin">Togstasjon</string>
     <string name="type.railway.station.light_rail.london">Togstasjon</string>
     <string name="type.railway.station.light_rail.porto">Togstasjon</string>
     <string name="type.railway.station.monorail">Togstasjon</string>

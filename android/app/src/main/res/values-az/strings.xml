@@ -1680,6 +1680,7 @@
     <string name="type.railway.station">Dəmiryolu stansiyası</string>
     <string name="type.railway.station.funicular">Funikulyor</string>
     <string name="type.railway.station.light_rail">Dəmiryolu stansiyası</string>
+    <string name="type.railway.station.light_rail.berlin">Dəmiryolu stansiyası</string>
     <string name="type.railway.station.light_rail.london">Dəmiryolu stansiyası</string>
     <string name="type.railway.station.light_rail.porto">Dəmiryolu stansiyası</string>
     <string name="type.railway.station.monorail">Dəmiryolu stansiyası</string>

@@ -1075,6 +1075,7 @@
     <string name="type.railway.station">रेलवे स्टेशन</string>
     <string name="type.railway.station.funicular">रज्जुरेल</string>
     <string name="type.railway.station.light_rail">रेलवे स्टेशन</string>
+    <string name="type.railway.station.light_rail.berlin">रेलवे स्टेशन</string>
     <string name="type.railway.station.light_rail.london">रेलवे स्टेशन</string>
     <string name="type.railway.station.light_rail.porto">रेलवे स्टेशन</string>
     <string name="type.railway.station.monorail">रेलवे स्टेशन</string>

@@ -1516,6 +1516,7 @@
     <string name="type.railway.station">Tågstation</string>
     <string name="type.railway.station.funicular">Linbana</string>
     <string name="type.railway.station.light_rail">Tågstation</string>
+    <string name="type.railway.station.light_rail.berlin">Tågstation</string>
     <string name="type.railway.station.light_rail.london">Tågstation</string>
     <string name="type.railway.station.light_rail.porto">Tågstation</string>
     <string name="type.railway.station.monorail">Tågstation</string>

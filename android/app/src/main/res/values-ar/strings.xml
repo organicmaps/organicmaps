@@ -1677,6 +1677,7 @@
     <string name="type.railway.station">محطة قطار</string>
     <string name="type.railway.station.funicular">حبلي</string>
     <string name="type.railway.station.light_rail">محطة قطار</string>
+    <string name="type.railway.station.light_rail.berlin">محطة قطار</string>
     <string name="type.railway.station.light_rail.london">محطة قطار</string>
     <string name="type.railway.station.light_rail.porto">محطة قطار</string>
     <string name="type.railway.station.monorail">محطة قطار</string>

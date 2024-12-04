@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Raudtee jaam";
 
+"type.railway.station.light_rail.berlin" = "Raudtee jaam";
+
 "type.railway.station.light_rail.london" = "Raudtee jaam";
 
 "type.railway.station.light_rail.porto" = "Raudtee jaam";

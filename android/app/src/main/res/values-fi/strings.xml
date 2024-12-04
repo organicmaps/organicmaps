@@ -1643,6 +1643,7 @@
     <string name="type.railway.station">Rautatieasema</string>
     <string name="type.railway.station.funicular">Köysirata</string>
     <string name="type.railway.station.light_rail">Rautatieasema</string>
+    <string name="type.railway.station.light_rail.berlin">Rautatieasema</string>
     <string name="type.railway.station.light_rail.london">Rautatieasema</string>
     <string name="type.railway.station.light_rail.porto">Rautatieasema</string>
     <string name="type.railway.station.monorail">Rautatieasema</string>

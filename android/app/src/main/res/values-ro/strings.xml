@@ -1546,6 +1546,7 @@
     <string name="type.railway.station">Gară</string>
     <string name="type.railway.station.funicular">Funicular</string>
     <string name="type.railway.station.light_rail">Gară</string>
+    <string name="type.railway.station.light_rail.berlin">Gară</string>
     <string name="type.railway.station.light_rail.london">Gară</string>
     <string name="type.railway.station.light_rail.porto">Gară</string>
     <string name="type.railway.station.monorail">Gară</string>

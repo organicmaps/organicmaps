@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Rautatieasema";
 
+"type.railway.station.light_rail.berlin" = "Rautatieasema";
+
 "type.railway.station.light_rail.london" = "Rautatieasema";
 
 "type.railway.station.light_rail.porto" = "Rautatieasema";

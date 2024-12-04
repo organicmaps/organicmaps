@@ -1516,6 +1516,7 @@
     <string name="type.railway.station">Rel kereta api</string>
     <string name="type.railway.station.funicular">Kereta gantung</string>
     <string name="type.railway.station.light_rail">Rel kereta api</string>
+    <string name="type.railway.station.light_rail.berlin">Rel kereta api</string>
     <string name="type.railway.station.light_rail.london">Rel kereta api</string>
     <string name="type.railway.station.light_rail.porto">Rel kereta api</string>
     <string name="type.railway.station.monorail">Rel kereta api</string>

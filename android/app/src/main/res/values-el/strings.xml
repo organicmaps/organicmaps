@@ -1581,6 +1581,7 @@
     <string name="type.railway.station">Σιδηροδρομικός σταθμός</string>
     <string name="type.railway.station.funicular">Μονωτικό τρενάκι</string>
     <string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>
+    <string name="type.railway.station.light_rail.berlin">Σιδηροδρομικός σταθμός</string>
     <string name="type.railway.station.light_rail.london">Σιδηροδρομικός σταθμός</string>
     <string name="type.railway.station.light_rail.porto">Σιδηροδρομικός σταθμός</string>
     <string name="type.railway.station.monorail">Σιδηροδρομικός σταθμός</string>

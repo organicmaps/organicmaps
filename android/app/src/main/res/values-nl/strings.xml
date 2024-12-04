@@ -1713,6 +1713,7 @@
     <string name="type.railway.station">Station</string>
     <string name="type.railway.station.funicular">Tunnel</string>
     <string name="type.railway.station.light_rail">Station</string>
+    <string name="type.railway.station.light_rail.berlin">Station</string>
     <string name="type.railway.station.light_rail.london">Station</string>
     <string name="type.railway.station.light_rail.porto">Station</string>
     <string name="type.railway.station.monorail">Station</string>

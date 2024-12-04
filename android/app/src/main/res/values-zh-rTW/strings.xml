@@ -1675,6 +1675,7 @@
     <string name="type.railway.station">火車站</string>
     <string name="type.railway.station.funicular">纜車</string>
     <string name="type.railway.station.light_rail">輕軌車站</string>
+    <string name="type.railway.station.light_rail.berlin">輕軌車站</string>
     <string name="type.railway.station.light_rail.london">輕軌車站</string>
     <string name="type.railway.station.light_rail.porto">輕軌車站</string>
     <string name="type.railway.station.monorail">單軌車站</string>
