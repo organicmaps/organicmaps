@@ -11,6 +11,7 @@
 class Track : public df::UserLineMark
 {
   using Base = df::UserLineMark;
+  using Lengths = std::vector<double>;
 
 public:
   Track(kml::TrackData && data);
@@ -66,20 +67,16 @@ public:
 
   bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
 
-  /// @name This functions are valid only for the single line geometry.
-  /// @{
   kml::MultiGeometry::LineT GetGeometry() const;
-
   bool HasAltitudes() const;
 
 private:
-  std::vector<double> GetLengthsImpl() const;
-  /// @}
+  std::vector<Lengths> GetLengthsImpl() const;
   m2::RectD GetLimitRectImpl() const;
 
   void CacheDataForInteraction() const;
 
-  double GetLengthMetersImpl(kml::MultiGeometry::LineT const & line, size_t ptIdx) const;
+  double GetLengthMetersImpl(size_t lineIndex, size_t ptIdx) const;
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
@@ -87,7 +84,7 @@ private:
 
   struct InteractionData
   {
-    std::vector<double> m_lengths;
+    std::vector<Lengths> m_lengths;
     m2::RectD m_limitRect;
   };
   mutable std::optional<InteractionData> m_interactionData;
