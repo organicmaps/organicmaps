@@ -41,21 +41,22 @@ void Track::CacheDataForInteraction() const
   m_interactionData->m_limitRect = GetLimitRectImpl();
 }
 
-std::vector<double> Track::GetLengthsImpl() const
+std::vector<Track::Lengths> Track::GetLengthsImpl() const
 {
-  auto const & lines = GetData().m_geometry.m_lines;
-  std::vector<double> lengths;
-  lengths.emplace_back(0.0);
-  for (size_t i = 0; i < lines.size(); ++i)
+  double distance = 0;
+  std::vector<Lengths> lengths;
+  for (auto const & line : m_data.m_geometry.m_lines)
   {
-    auto const & line = lines[i];
+    Lengths lineLengths;
+    lineLengths.emplace_back(distance);
     for (size_t j = 1; j < line.size(); ++j)
     {
       auto const & pt1 = line[j - 1].GetPoint();
       auto const & pt2 = line[j].GetPoint();
-      auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
-      lengths.emplace_back(lengths.back() + segmentLength);
+      distance += mercator::DistanceOnEarth(pt1, pt2);
+      lineLengths.emplace_back(distance);
     }
+    lengths.emplace_back(std::move(lineLengths));
   }
   return lengths;
 }
@@ -120,7 +121,7 @@ m2::RectD Track::GetLimitRect() const
 double Track::GetLengthMeters() const
 {
   if (m_interactionData)
-    return m_interactionData->m_lengths.back();
+    return m_interactionData->m_lengths.back().back();
 
   double len = 0;
   for (auto const & line : m_data.m_geometry.m_lines)
@@ -128,20 +129,12 @@ double Track::GetLengthMeters() const
   return len;
 }
 
-double Track::GetLengthMetersImpl(kml::MultiGeometry::LineT const & line, size_t ptIdx) const
+double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  CHECK_LESS(ptIdx, m_interactionData->m_lengths.size(), ());
-  return m_interactionData->m_lengths[ptIdx];
-}
-
-std::pair<m2::PointD, double> Track::GetCenterPoint() const
-{
-  ASSERT(m_data.m_geometry.IsValid(), ());
-
-  auto const & line = m_data.m_geometry.m_lines[0];
-  return { line[line.size() / 2].GetPoint(), GetLengthMetersImpl(line, line.size() / 2) };
+  auto const & lineLengths = m_interactionData->m_lengths[lineIndex];
+  return lineLengths[ptIndex];
 }
 
 void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo & info) const
@@ -149,12 +142,13 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
   if (m_interactionData && !m_interactionData->m_limitRect.IsIntersect(touchRect))
     return;
 
-  for (auto const & line : m_data.m_geometry.m_lines)
+  for (size_t lineIndex = 0; lineIndex < m_data.m_geometry.m_lines.size(); ++lineIndex)
   {
-    for (size_t i = 0; i + 1 < line.size(); ++i)
+    auto const & line = m_data.m_geometry.m_lines[lineIndex];
+    for (size_t ptIndex = 0; ptIndex + 1 < line.size(); ++ptIndex)
     {
-      auto pt1 = line[i].GetPoint();
-      auto pt2 = line[i + 1].GetPoint();
+      auto pt1 = line[ptIndex].GetPoint();
+      auto pt2 = line[ptIndex + 1].GetPoint();
       if (!m2::Intersect(touchRect, pt1, pt2))
         continue;
 
@@ -168,8 +162,8 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
 
-      auto const segDistInMeters = mercator::DistanceOnEarth(line[i].GetPoint(), closestPoint);
-      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(line, i);
+      auto const segDistInMeters = mercator::DistanceOnEarth(line[ptIndex].GetPoint(), closestPoint);
+      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(lineIndex, ptIndex);
     }
   }
 }
