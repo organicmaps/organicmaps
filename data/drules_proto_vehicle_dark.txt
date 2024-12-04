@@ -49048,6 +49048,167 @@ cont {
   }
 }
 cont {
+  name: "railway-station-light_rail-berlin"
+  element {
+    scale: 13
+    symbol {
+      name: "lightrail-berlin-s"
+      priority: 2900
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "lightrail-berlin-s"
+      priority: 2900
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 12
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "lightrail-berlin-m"
+      priority: 2900
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7100
+    }
+  }
+}
+cont {
   name: "railway-station-light_rail-london"
   element {
     scale: 13

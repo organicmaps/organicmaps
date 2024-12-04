@@ -1616,3 +1616,4 @@ amenity|recycling|container
 *attraction|bumper_car
 *railway|station|subway|hongkong
 *railway|subway_entrance|hongkong
+*railway|station|light_rail|berlin
