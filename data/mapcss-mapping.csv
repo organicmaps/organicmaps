@@ -1731,3 +1731,4 @@ attraction|big_wheel;1615;
 attraction|bumper_car;1616;
 railway|station|subway|hongkong;[railway=station][transport=subway][city=hongkong],[railway=station][station=subway][city=hongkong];;name;int_name;1617;
 railway|subway_entrance|hongkong;[railway=subway_entrance][city=hongkong];;name;int_name;1618;
+railway|station|light_rail|berlin;[railway=station][station=light_rail][city=berlin],[railway=halt][station=light_rail][city=berlin];;name;int_name;1619;
