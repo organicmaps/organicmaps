@@ -1693,6 +1693,7 @@
     <string name="type.railway.station">Dworzec kolejowy</string>
     <string name="type.railway.station.funicular">Kolej linowo-terenowa</string>
     <string name="type.railway.station.light_rail">Dworzec kolejowy</string>
+    <string name="type.railway.station.light_rail.berlin">Dworzec kolejowy</string>
     <string name="type.railway.station.light_rail.london">Dworzec kolejowy</string>
     <string name="type.railway.station.light_rail.porto">Dworzec kolejowy</string>
     <string name="type.railway.station.monorail">Dworzec kolejowy</string>

@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Tågstation";
 
+"type.railway.station.light_rail.berlin" = "Tågstation";
+
 "type.railway.station.light_rail.london" = "Tågstation";
 
 "type.railway.station.light_rail.porto" = "Tågstation";

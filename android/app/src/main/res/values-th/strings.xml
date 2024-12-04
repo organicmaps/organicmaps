@@ -1526,6 +1526,7 @@
     <string name="type.railway.station">สถานีรถไฟ</string>
     <string name="type.railway.station.funicular">รถกระเช้าไฟฟ้า</string>
     <string name="type.railway.station.light_rail">สถานีรถไฟ</string>
+    <string name="type.railway.station.light_rail.berlin">สถานีรถไฟ</string>
     <string name="type.railway.station.light_rail.london">สถานีรถไฟ</string>
     <string name="type.railway.station.light_rail.porto">สถานีรถไฟ</string>
     <string name="type.railway.station.monorail">สถานีรถไฟ</string>

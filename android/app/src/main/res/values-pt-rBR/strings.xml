@@ -1450,6 +1450,7 @@
     <string name="type.railway.rail">Ferrovia</string>
     <string name="type.railway.station">Estação de trem</string>
     <string name="type.railway.station.light_rail">Estação de trem</string>
+    <string name="type.railway.station.light_rail.berlin">Estação de trem</string>
     <string name="type.railway.station.light_rail.london">Estação de trem</string>
     <string name="type.railway.station.light_rail.porto">Estação de trem</string>
     <string name="type.railway.station.monorail">Estação de trem</string>

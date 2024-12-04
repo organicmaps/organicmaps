@@ -1720,6 +1720,7 @@
     <string name="type.railway.station">Залізничний вокзал</string>
     <string name="type.railway.station.funicular">Фунікулер</string>
     <string name="type.railway.station.light_rail">Залізничний вокзал</string>
+    <string name="type.railway.station.light_rail.berlin">Залізничний вокзал</string>
     <string name="type.railway.station.light_rail.london">Залізничний вокзал</string>
     <string name="type.railway.station.light_rail.porto">Залізничний вокзал</string>
     <string name="type.railway.station.monorail">Залізничний вокзал</string>

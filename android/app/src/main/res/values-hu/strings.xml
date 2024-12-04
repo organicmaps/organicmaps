@@ -1540,6 +1540,7 @@
     <string name="type.railway.station">Vasútállomás</string>
     <string name="type.railway.station.funicular">Sikló</string>
     <string name="type.railway.station.light_rail">Vasútállomás</string>
+    <string name="type.railway.station.light_rail.berlin">Vasútállomás</string>
     <string name="type.railway.station.light_rail.london">Vasútállomás</string>
     <string name="type.railway.station.light_rail.porto">Vasútállomás</string>
     <string name="type.railway.station.monorail">Vasútállomás</string>

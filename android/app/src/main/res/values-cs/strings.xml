@@ -1537,6 +1537,7 @@
     <string name="type.railway.station">Železniční stanice</string>
     <string name="type.railway.station.funicular">Lanovka</string>
     <string name="type.railway.station.light_rail">Železniční stanice</string>
+    <string name="type.railway.station.light_rail.berlin">Železniční stanice</string>
     <string name="type.railway.station.light_rail.london">Železniční stanice</string>
     <string name="type.railway.station.light_rail.porto">Železniční stanice</string>
     <string name="type.railway.station.monorail">Železniční stanice</string>

@@ -1432,6 +1432,7 @@
     <string name="type.railway.station">ایستگاه قطار</string>
     <string name="type.railway.station.funicular">فونیکولور</string>
     <string name="type.railway.station.light_rail">ایستگاه قطار</string>
+    <string name="type.railway.station.light_rail.berlin">ایستگاه قطار</string>
     <string name="type.railway.station.light_rail.london">ایستگاه قطار</string>
     <string name="type.railway.station.light_rail.porto">ایستگاه قطار</string>
     <string name="type.railway.station.monorail">ایستگاه قطار</string>

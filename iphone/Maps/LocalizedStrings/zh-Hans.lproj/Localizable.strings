@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "轻轨车站";
 
+"type.railway.station.light_rail.berlin" = "轻轨车站";
+
 "type.railway.station.light_rail.london" = "轻轨车站";
 
 "type.railway.station.light_rail.porto" = "轻轨车站";

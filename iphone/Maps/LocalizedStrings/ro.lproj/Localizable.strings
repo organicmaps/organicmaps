@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Gară";
 
+"type.railway.station.light_rail.berlin" = "Gară";
+
 "type.railway.station.light_rail.london" = "Gară";
 
 "type.railway.station.light_rail.porto" = "Gară";

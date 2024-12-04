@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "Železniční stanice";
 
+"type.railway.station.light_rail.berlin" = "Železniční stanice";
+
 "type.railway.station.light_rail.london" = "Železniční stanice";
 
 "type.railway.station.light_rail.porto" = "Železniční stanice";

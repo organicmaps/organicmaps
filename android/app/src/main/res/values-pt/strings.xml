@@ -1656,6 +1656,7 @@
     <string name="type.railway.station">Estação de comboios</string>
     <string name="type.railway.station.funicular">Funicular</string>
     <string name="type.railway.station.light_rail">Estação de comboios</string>
+    <string name="type.railway.station.light_rail.berlin">Estação de comboios</string>
     <string name="type.railway.station.light_rail.london">Estação de comboios</string>
     <string name="type.railway.station.light_rail.porto">Estação de comboios</string>
     <string name="type.railway.station.monorail">Estação de comboios</string>

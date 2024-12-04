@@ -3070,6 +3070,8 @@
 
 "type.railway.station.light_rail" = "रेल्वे स्थानक";
 
+"type.railway.station.light_rail.berlin" = "रेल्वे स्थानक";
+
 "type.railway.station.light_rail.london" = "रेल्वे स्थानक";
 
 "type.railway.station.light_rail.porto" = "रेल्वे स्थानक";

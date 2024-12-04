@@ -1741,6 +1741,7 @@
     <string name="type.railway.station">Ж/д станция</string>
     <string name="type.railway.station.funicular">Фуникулер</string>
     <string name="type.railway.station.light_rail">Ж/д станция</string>
+    <string name="type.railway.station.light_rail.berlin">Ж/д станция</string>
     <string name="type.railway.station.light_rail.london">Ж/д станция</string>
     <string name="type.railway.station.light_rail.porto">Ж/д станция</string>
     <string name="type.railway.station.monorail">Ж/д станция</string>

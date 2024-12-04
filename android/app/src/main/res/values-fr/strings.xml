@@ -1680,6 +1680,7 @@
     <string name="type.railway.station">Gare ferroviaire</string>
     <string name="type.railway.station.funicular">Funiculaire</string>
     <string name="type.railway.station.light_rail">Gare ferroviaire</string>
+    <string name="type.railway.station.light_rail.berlin">Gare ferroviaire</string>
     <string name="type.railway.station.light_rail.london">Gare ferroviaire</string>
     <string name="type.railway.station.light_rail.porto">Gare ferroviaire</string>
     <string name="type.railway.station.monorail">Gare ferroviaire</string>
