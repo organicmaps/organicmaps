@@ -954,6 +954,7 @@ world  +
         station  +
             funicular  -
             light_rail  +
+                berlin  -
                 london  -
                 porto  -
                 {}
