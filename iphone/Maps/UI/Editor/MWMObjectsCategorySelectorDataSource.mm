@@ -50,6 +50,7 @@ std::string locale()
 {
   m_categories = GetFramework().GetEditorCategories();
   m_categories.AddLanguage(locale());
+  m_categories.AddLanguage("en");
 
   auto const & types = m_categories.GetAllCreatableTypeNames();
   m_categoriesList.reserve(types.size());
