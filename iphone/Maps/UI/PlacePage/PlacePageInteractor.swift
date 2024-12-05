@@ -238,11 +238,33 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:
       guard placePageData.trackData != nil else { return }
-      MWMPlacePageManagerHelper.removeTrack(placePageData)
-      presenter?.closeAnimated()
+      // TODO: This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
+      // directly here when the track recovery mechanism will be implemented.
+      showTrackDeletionConfirmationDialog()
     @unknown default:
       fatalError()
     }
+  }
+
+  private func showTrackDeletionConfirmationDialog() {
+    let alert = UIAlertController(title: nil, message: L("placepage_delete_track_confirmation_alert_message"), preferredStyle: .actionSheet)
+    let deleteAction = UIAlertAction(title: L("delete"), style: .destructive) { [weak self] _ in
+      guard let self = self else { return }
+      guard self.placePageData.trackData != nil else {
+        fatalError("The track data should not be nil during the track deletion")
+      }
+      MWMPlacePageManagerHelper.removeTrack(self.placePageData)
+      self.presenter?.closeAnimated()
+    }
+    let cancelAction = UIAlertAction(title: L("cancel"), style: .cancel)
+    alert.addAction(deleteAction)
+    alert.addAction(cancelAction)
+    guard let viewController else { return }
+    iPadSpecific {
+      alert.popoverPresentationController?.sourceView = viewController.view
+      alert.popoverPresentationController?.sourceRect = viewController.view.frame
+    }
+    viewController.present(alert, animated: true)
   }
 }
 
