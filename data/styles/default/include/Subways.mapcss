@@ -649,6 +649,11 @@ node|z12-[railway=station][transport=subway][city=shanghai] {icon-image: subway-
 node|z15-[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-m.svg;}
 node|z16-[railway=subway_entrance][city=shanghai] {icon-image: subway-shanghai-s.svg;}
 
+/* Shenzhen Subway Station */
+node|z13-[railway=station][transport=subway][city=shenzhen] {icon-image: subway-shenzhen-s.svg;}
+node|z15-[railway=station][transport=subway][city=shenzhen] {icon-image: subway-shenzhen-m.svg;}
+node|z16-[railway=subway_entrance][city=shenzhen] {icon-image: subway-shenzhen-s.svg;}
+
 /* Shiraz Subway Station */
 node|z13-[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-s.svg;}
 node|z15-[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-m.svg;}
