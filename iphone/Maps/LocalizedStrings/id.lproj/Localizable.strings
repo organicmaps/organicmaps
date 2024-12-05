@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Nama Bookmark";
 
-"placepage_personal_notes_hint" = "Catatan pribadi";
+"placepage_personal_notes_hint" = "Catatan pribadi (teks atau html)";
 
 "placepage_delete_bookmark_button" = "Hapus Bookmark";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Hapus Daftar";
 
 "hide_from_map" = "Sembunyikan dari peta";
-
-"bookmark_list_description_hint" = "Ketikkan deskripsi (teks atau html)";
 
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Pemandangan";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

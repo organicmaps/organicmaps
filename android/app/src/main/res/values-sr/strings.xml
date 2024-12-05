@@ -325,7 +325,6 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Молим вас укључите Локацијске сервисе</string>
     <string name="save">Сачувај</string>
-    <string name="edit_description_hint">Ваш опис (текст или html)</string>
     <string name="create">креирај</string>
     <!-- red color -->
     <string name="red">Црвена</string>
@@ -672,7 +671,6 @@
     <string name="delete_list">Обриши листу</string>
     <string name="public_access">Јавни приступ</string>
     <string name="limited_access">Ограничен приступ</string>
-    <string name="bookmark_list_description_hint">Унесите опис (текст или html)</string>
     <string name="not_shared">Приватно</string>
     <string name="speedcams_alert_title">Прекршајне камере</string>
     <string name="place_description_title">Опис места</string>

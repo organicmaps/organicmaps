@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
 
-"placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या";
+"placepage_personal_notes_hint" = "वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)";
 
 "placepage_delete_bookmark_button" = "खूणपत्र पुसा";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "यादी मिटवा";
 
 "hide_from_map" = "नकाशावरून लपवा";
-
-"bookmark_list_description_hint" = "वर्णन लिहा (मजकूर किंवा html)";
 
 "tags_loading_error_subtitle" = "टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "थडगे";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

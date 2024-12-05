@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
 
-"placepage_personal_notes_hint" = "Personīgi pieraksti";
+"placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 
 "placepage_delete_bookmark_button" = "Dzēst grāmatzīmi";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Dzēst sarakstu";
 
 "hide_from_map" = "Slēpt kartē";
-
-"bookmark_list_description_hint" = "Aprakstiet (teksts vai HTML)";
 
 "tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Tomb";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */
