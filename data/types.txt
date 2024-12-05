@@ -1617,3 +1617,5 @@ amenity|recycling|container
 *railway|station|subway|hongkong
 *railway|subway_entrance|hongkong
 *railway|station|light_rail|berlin
+*railway|station|subway|shenzhen
+*railway|subway_entrance|shenzhen

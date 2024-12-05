@@ -64080,6 +64080,167 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-shenzhen"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 2000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 2000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-shenzhen-m"
+      priority: 2000
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8000
+    }
+  }
+}
+cont {
   name: "railway-station-subway-shiraz"
   element {
     scale: 13
@@ -77510,6 +77671,112 @@ cont {
     scale: 20
     symbol {
       name: "subway-shanghai-s"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-shenzhen"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-shenzhen-s"
+      priority: 550
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3355443
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9450
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-shenzhen-s"
       priority: 550
     }
     caption {
