@@ -1637,6 +1637,7 @@
     <string name="type.railway.station.subway.sendai">Metrómegálló</string>
     <string name="type.railway.station.subway.sf">Metrómegálló</string>
     <string name="type.railway.station.subway.shanghai">Metrómegálló</string>
+    <string name="type.railway.station.subway.shenzhen">Metrómegálló</string>
     <string name="type.railway.station.subway.shiraz">Metrómegálló</string>
     <string name="type.railway.station.subway.singapore">Metrómegálló</string>
     <string name="type.railway.station.subway.sofia">Metrómegálló</string>
@@ -1750,6 +1751,7 @@
     <string name="type.railway.subway_entrance.sendai">Metróbejárat</string>
     <string name="type.railway.subway_entrance.sf">Metróbejárat</string>
     <string name="type.railway.subway_entrance.shanghai">Metróbejárat</string>
+    <string name="type.railway.subway_entrance.shenzhen">Metróbejárat</string>
     <string name="type.railway.subway_entrance.shiraz">Metróbejárat</string>
     <string name="type.railway.subway_entrance.singapore">Metróbejárat</string>
     <string name="type.railway.subway_entrance.sofia">Metróbejárat</string>

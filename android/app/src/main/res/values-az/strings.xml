@@ -1777,6 +1777,7 @@
     <string name="type.railway.station.subway.sendai">Metro</string>
     <string name="type.railway.station.subway.sf">Metro</string>
     <string name="type.railway.station.subway.shanghai">Metro</string>
+    <string name="type.railway.station.subway.shenzhen">Metro</string>
     <string name="type.railway.station.subway.shiraz">Metro</string>
     <string name="type.railway.station.subway.singapore">Metro</string>
     <string name="type.railway.station.subway.sofia">Metro</string>
@@ -1893,6 +1894,7 @@
     <string name="type.railway.subway_entrance.sendai">Metro girişi</string>
     <string name="type.railway.subway_entrance.sf">Metro girişi</string>
     <string name="type.railway.subway_entrance.shanghai">Metro girişi</string>
+    <string name="type.railway.subway_entrance.shenzhen">Metro girişi</string>
     <string name="type.railway.subway_entrance.shiraz">Metro girişi</string>
     <string name="type.railway.subway_entrance.singapore">Metro girişi</string>
     <string name="type.railway.subway_entrance.sofia">Metro girişi</string>

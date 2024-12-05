@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "भुयारी मार्ग";
 
+"type.railway.station.subway.shenzhen" = "भुयारी मार्ग";
+
 "type.railway.station.subway.shiraz" = "भुयारी मार्ग";
 
 "type.railway.station.subway.singapore" = "भुयारी मार्ग";
@@ -3495,6 +3497,8 @@
 "type.railway.subway_entrance.sf" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.shanghai" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.shenzhen" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.shiraz" = "भुयारी प्रवेशद्वार";
 
