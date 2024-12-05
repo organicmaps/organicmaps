@@ -57605,6 +57605,7 @@
   pl = San Marino
   pt = San Marino
   ro = Orașul San Marino
+  ru = Сан-Марино
   sk = San Maríno
   sv = San Marino
   tr = San Marino şehri
