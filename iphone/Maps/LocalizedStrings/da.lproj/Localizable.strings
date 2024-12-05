@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Bogmærke";
 
-"placepage_personal_notes_hint" = "Personlige notater";
+"placepage_personal_notes_hint" = "Personlige notater (tekst eller html)";
 
 "placepage_delete_bookmark_button" = "Slet bogmærke";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Slet liste";
 
 "hide_from_map" = "Skjul på kort";
-
-"bookmark_list_description_hint" = "Lav en beskrivelse (tekst eller html)";
 
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Grav";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

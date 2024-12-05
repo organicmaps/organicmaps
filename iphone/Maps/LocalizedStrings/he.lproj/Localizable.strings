@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "שם סימניה";
 
-"placepage_personal_notes_hint" = "הערות אישיות";
+"placepage_personal_notes_hint" = "הערות אישיות (טקסט או HTML)";
 
 "placepage_delete_bookmark_button" = "מחק סימניה";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "מחק רשימה";
 
 "hide_from_map" = "הסתר מהמפה";
-
-"bookmark_list_description_hint" = "הזן תיאור (טקסט או HTML)";
 
 "tags_loading_error_subtitle" = "אירעה שגיאה בטעינת התגיות, נא לנסות שנית";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "קֶבֶר";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

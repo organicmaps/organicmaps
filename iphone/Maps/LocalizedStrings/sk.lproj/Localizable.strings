@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Názov záložky";
 
-"placepage_personal_notes_hint" = "Osobné poznámky";
+"placepage_personal_notes_hint" = "Osobné poznámky (text alebo html)";
 
 "placepage_delete_bookmark_button" = "Zmazať záložku";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Vymazať zoznam";
 
 "hide_from_map" = "Nezobrazovať na mape";
-
-"bookmark_list_description_hint" = "Zadajte popis (text alebo html)";
 
 "tags_loading_error_subtitle" = "Počas načítavania značiek sa vyskytla chyba, skúste to znova";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Hrobka";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

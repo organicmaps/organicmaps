@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
 
-"placepage_personal_notes_hint" = "ملاحظات شخصية";
+"placepage_personal_notes_hint" = "ملاحظات شخصية (نص أو html)";
 
 "placepage_delete_bookmark_button" = "حذف العلامة المرجعية";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "حذف القائمة";
 
 "hide_from_map" = "إخفاء من الخريطة";
-
-"bookmark_list_description_hint" = "اكتب وصفًا (نص أو html)";
 
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "قبر";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Коментар…";
 
-"placepage_personal_notes_hint" = "Приватна напомена";
+"placepage_personal_notes_hint" = "Personal notes (text or html)";
 
 "placepage_delete_bookmark_button" = "Обриши маркер";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Обриши листу";
 
 "hide_from_map" = "Сакриј на карти";
-
-"bookmark_list_description_hint" = "Унесите опис (текст или html)";
 
 "tags_loading_error_subtitle" = "Десила се грешка приликом учитавања тагова, покушајте поново";
 

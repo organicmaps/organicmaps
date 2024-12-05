@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Назва мiтки";
 
-"placepage_personal_notes_hint" = "Примітка";
+"placepage_personal_notes_hint" = "Примітка (текст чи html)";
 
 "placepage_delete_bookmark_button" = "Видалити мiтку";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Видалити список";
 
 "hide_from_map" = "Приховати з карти";
-
-"bookmark_list_description_hint" = "Додайте опис (текст чи html)";
 
 "tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Гробниця";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

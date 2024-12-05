@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Nombre del marcador";
 
-"placepage_personal_notes_hint" = "Notas personales";
+"placepage_personal_notes_hint" = "Notas personales (texto o html)";
 
 "placepage_delete_bookmark_button" = "Eliminar marcador";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Eliminar lista";
 
 "hide_from_map" = "Ocultar del mapa";
-
-"bookmark_list_description_hint" = "Agregue una descripción (texto o html)";
 
 "tags_loading_error_subtitle" = "Durante la carga de las etiquetas, se produjo un error, por favor inténtelo de nuevo";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Tumba";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

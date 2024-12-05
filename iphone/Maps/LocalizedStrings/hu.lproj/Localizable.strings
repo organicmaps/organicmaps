@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
 
-"placepage_personal_notes_hint" = "Jegyzet";
+"placepage_personal_notes_hint" = "Jegyzet (szöveg vagy html)";
 
 "placepage_delete_bookmark_button" = "Könyvjelző törlése";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Törölni a listát";
 
 "hide_from_map" = "Elrejtés a térképről";
-
-"bookmark_list_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
 
 "tags_loading_error_subtitle" = "A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Sír";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */

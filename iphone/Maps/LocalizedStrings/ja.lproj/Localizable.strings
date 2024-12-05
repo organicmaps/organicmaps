@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "ブックマーク名";
 
-"placepage_personal_notes_hint" = "パーソナルメモ";
+"placepage_personal_notes_hint" = "パーソナルメモ（テキストまたはHTML）";
 
 "placepage_delete_bookmark_button" = "ブックマークを削除";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "リストを削除";
 
 "hide_from_map" = "マップから隠す";
-
-"bookmark_list_description_hint" = "説明(テキストまたはhtml)を記入してください";
 
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました発生しました。もう一度やり直してください";
 

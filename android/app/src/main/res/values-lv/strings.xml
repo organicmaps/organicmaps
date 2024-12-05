@@ -329,7 +329,6 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Ieslēdziet ierīces atrašanās vietas noteikšanas pakalpojumus</string>
     <string name="save">Saglabāt</string>
-    <string name="edit_description_hint">Jūsu apraksti (teksts vai HTML)</string>
     <string name="create">izveidot</string>
     <!-- red color -->
     <string name="red">Sarkana</string>
@@ -558,6 +557,7 @@
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_disable_button">Atslēgt Kayak</string>
     <string name="placepage_edit_bookmark_button">Rediģēt grāmatzīmi</string>
+    <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
     <string name="editor_comment_hint">Komentārs…</string>
     <string name="editor_reset_edits_message">Vai izmest visas lokāli saglabātās izmaiņas?</string>
     <string name="editor_reset_edits_button">Noraidīt</string>
@@ -677,7 +677,6 @@
     <string name="delete_list">Dzēst sarakstu</string>
     <string name="public_access">Publiska pieeja</string>
     <string name="limited_access">Ierobežota pieeja</string>
-    <string name="bookmark_list_description_hint">Aprakstiet (teksts vai HTML)</string>
     <string name="not_shared">Privāts</string>
     <string name="speedcams_alert_title">Fotoradari</string>
     <string name="place_description_title">Vietas apraksts</string>

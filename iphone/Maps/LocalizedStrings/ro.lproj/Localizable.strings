@@ -829,7 +829,7 @@
 
 "placepage_bookmark_name_hint" = "Numele locului preferat";
 
-"placepage_personal_notes_hint" = "Însemnări personale";
+"placepage_personal_notes_hint" = "Însemnări personale (text sau html)";
 
 "placepage_delete_bookmark_button" = "Șterge locul preferat";
 
@@ -1020,8 +1020,6 @@
 "delete_list" = "Șterge lista";
 
 "hide_from_map" = "Ascunde de pe hartă";
-
-"bookmark_list_description_hint" = "Adaugă o descriere (text sau html)";
 
 "tags_loading_error_subtitle" = "A apărut o eroare la încărcarea etichetelor, încearcă din nou";
 
@@ -2510,7 +2508,7 @@
 
 "type.historic.tomb" = "Mormânt";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */
