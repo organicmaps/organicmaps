@@ -1053,6 +1053,7 @@ world  +
                 sendai  -
                 sf  -
                 shanghai  -
+                shenzhen  -
                 shiraz  -
                 singapore  -
                 sofia  -
@@ -1173,6 +1174,7 @@ world  +
             sendai  -
             sf  -
             shanghai  -
+            shenzhen  -
             shiraz  -
             singapore  -
             sofia  -
