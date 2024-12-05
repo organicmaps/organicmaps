@@ -1721,6 +1721,7 @@
     <string name="type.railway.station.subway.sendai">Metroa</string>
     <string name="type.railway.station.subway.sf">Metroa</string>
     <string name="type.railway.station.subway.shanghai">Metroa</string>
+    <string name="type.railway.station.subway.shenzhen">Metroa</string>
     <string name="type.railway.station.subway.shiraz">Metroa</string>
     <string name="type.railway.station.subway.singapore">Metroa</string>
     <string name="type.railway.station.subway.sofia">Metroa</string>
@@ -1834,6 +1835,7 @@
     <string name="type.railway.subway_entrance.sendai">Metroko sarrera</string>
     <string name="type.railway.subway_entrance.sf">Metroko sarrera</string>
     <string name="type.railway.subway_entrance.shanghai">Metroko sarrera</string>
+    <string name="type.railway.subway_entrance.shenzhen">Metroko sarrera</string>
     <string name="type.railway.subway_entrance.shiraz">Metroko sarrera</string>
     <string name="type.railway.subway_entrance.singapore">Metroko sarrera</string>
     <string name="type.railway.subway_entrance.sofia">Metroko sarrera</string>

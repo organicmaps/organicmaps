@@ -1792,6 +1792,7 @@
     <string name="type.railway.station.subway.sendai">U-Bahn-Station</string>
     <string name="type.railway.station.subway.sf">U-Bahn-Station</string>
     <string name="type.railway.station.subway.shanghai">U-Bahn-Station</string>
+    <string name="type.railway.station.subway.shenzhen">U-Bahn-Station</string>
     <string name="type.railway.station.subway.shiraz">U-Bahn-Station</string>
     <string name="type.railway.station.subway.singapore">U-Bahn-Station</string>
     <string name="type.railway.station.subway.sofia">U-Bahn-Station</string>
@@ -1908,6 +1909,7 @@
     <string name="type.railway.subway_entrance.sendai">U-Bahn-Eingang</string>
     <string name="type.railway.subway_entrance.sf">U-Bahn-Eingang</string>
     <string name="type.railway.subway_entrance.shanghai">U-Bahn-Eingang</string>
+    <string name="type.railway.subway_entrance.shenzhen">U-Bahn-Eingang</string>
     <string name="type.railway.subway_entrance.shiraz">U-Bahn-Eingang</string>
     <string name="type.railway.subway_entrance.singapore">U-Bahn-Eingang</string>
     <string name="type.railway.subway_entrance.sofia">U-Bahn-Eingang</string>

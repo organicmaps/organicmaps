@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "U-Bahn-Station";
 
+"type.railway.station.subway.shenzhen" = "U-Bahn-Station";
+
 "type.railway.station.subway.shiraz" = "U-Bahn-Station";
 
 "type.railway.station.subway.singapore" = "U-Bahn-Station";
@@ -3495,6 +3497,8 @@
 "type.railway.subway_entrance.sf" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.shanghai" = "U-Bahn-Eingang";
+
+"type.railway.subway_entrance.shenzhen" = "U-Bahn-Eingang";
 
 "type.railway.subway_entrance.shiraz" = "U-Bahn-Eingang";
 

@@ -1623,6 +1623,7 @@
     <string name="type.railway.station.subway.sendai">รถไฟ</string>
     <string name="type.railway.station.subway.sf">รถไฟ</string>
     <string name="type.railway.station.subway.shanghai">รถไฟ</string>
+    <string name="type.railway.station.subway.shenzhen">รถไฟ</string>
     <string name="type.railway.station.subway.shiraz">รถไฟ</string>
     <string name="type.railway.station.subway.singapore">รถไฟ</string>
     <string name="type.railway.station.subway.sofia">รถไฟ</string>
@@ -1736,6 +1737,7 @@
     <string name="type.railway.subway_entrance.sendai">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.sf">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.shanghai">ทางเข้ารถไฟใต้ดิน</string>
+    <string name="type.railway.subway_entrance.shenzhen">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.shiraz">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.singapore">ทางเข้ารถไฟใต้ดิน</string>
     <string name="type.railway.subway_entrance.sofia">ทางเข้ารถไฟใต้ดิน</string>

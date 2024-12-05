@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "Tunnelbana";
 
+"type.railway.station.subway.shenzhen" = "Tunnelbana";
+
 "type.railway.station.subway.shiraz" = "Tunnelbana";
 
 "type.railway.station.subway.singapore" = "Tunnelbana";
@@ -3495,6 +3497,8 @@
 "type.railway.subway_entrance.sf" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.shanghai" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.shenzhen" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.shiraz" = "Tunnelbana entré";
 

@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "Metrómegálló";
 
+"type.railway.station.subway.shenzhen" = "Metrómegálló";
+
 "type.railway.station.subway.shiraz" = "Metrómegálló";
 
 "type.railway.station.subway.singapore" = "Metrómegálló";
@@ -3495,6 +3497,8 @@
 "type.railway.subway_entrance.sf" = "Metróbejárat";
 
 "type.railway.subway_entrance.shanghai" = "Metróbejárat";
+
+"type.railway.subway_entrance.shenzhen" = "Metróbejárat";
 
 "type.railway.subway_entrance.shiraz" = "Metróbejárat";
 

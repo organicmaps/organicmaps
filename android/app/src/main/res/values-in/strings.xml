@@ -1613,6 +1613,7 @@
     <string name="type.railway.station.subway.sendai">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.sf">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.shanghai">Stasiun bawah tanah</string>
+    <string name="type.railway.station.subway.shenzhen">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.shiraz">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.singapore">Stasiun bawah tanah</string>
     <string name="type.railway.station.subway.sofia">Stasiun bawah tanah</string>
@@ -1726,6 +1727,7 @@
     <string name="type.railway.subway_entrance.sendai">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.sf">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.shanghai">Pintu masuk kereta bawah tanah</string>
+    <string name="type.railway.subway_entrance.shenzhen">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.shiraz">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.singapore">Pintu masuk kereta bawah tanah</string>
     <string name="type.railway.subway_entrance.sofia">Pintu masuk kereta bawah tanah</string>

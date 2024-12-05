@@ -1613,6 +1613,7 @@
     <string name="type.railway.station.subway.sendai">Tunnelbana</string>
     <string name="type.railway.station.subway.sf">Tunnelbana</string>
     <string name="type.railway.station.subway.shanghai">Tunnelbana</string>
+    <string name="type.railway.station.subway.shenzhen">Tunnelbana</string>
     <string name="type.railway.station.subway.shiraz">Tunnelbana</string>
     <string name="type.railway.station.subway.singapore">Tunnelbana</string>
     <string name="type.railway.station.subway.sofia">Tunnelbana</string>
@@ -1726,6 +1727,7 @@
     <string name="type.railway.subway_entrance.sendai">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.sf">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.shanghai">Tunnelbana entré</string>
+    <string name="type.railway.subway_entrance.shenzhen">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.shiraz">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.singapore">Tunnelbana entré</string>
     <string name="type.railway.subway_entrance.sofia">Tunnelbana entré</string>

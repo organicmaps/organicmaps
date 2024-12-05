@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "Metro Station";
 
+"type.railway.station.subway.shenzhen" = "Metro Station";
+
 "type.railway.station.subway.shiraz" = "Metro Station";
 
 "type.railway.station.subway.singapore" = "Metro Station";
@@ -3495,6 +3497,8 @@
 "type.railway.subway_entrance.sf" = "Metro Entrance";
 
 "type.railway.subway_entrance.shanghai" = "Metro Entrance";
+
+"type.railway.subway_entrance.shenzhen" = "Metro Entrance";
 
 "type.railway.subway_entrance.shiraz" = "Metro Entrance";
 

@@ -1712,7 +1712,7 @@
 "type.amenity.shelter.basic_hut" = "Kota";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Laavu";
 
 "type.amenity.public_bath" = "Julkinen kylpylä";
 
@@ -2704,7 +2704,7 @@
 
 "type.man_made.pipeline.overground" = "Overground Pipeline";
 
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "Siilo";
 
 "type.man_made.storage_tank" = "Storage Tank";
 
@@ -3264,6 +3264,8 @@
 
 "type.railway.station.subway.shanghai" = "Metro";
 
+"type.railway.station.subway.shenzhen" = "Metro";
+
 "type.railway.station.subway.shiraz" = "Metro";
 
 "type.railway.station.subway.singapore" = "Metro";
@@ -3496,6 +3498,8 @@
 
 "type.railway.subway_entrance.shanghai" = "Metron sisäänkäynti";
 
+"type.railway.subway_entrance.shenzhen" = "Metron sisäänkäynti";
+
 "type.railway.subway_entrance.shiraz" = "Metron sisäänkäynti";
 
 "type.railway.subway_entrance.singapore" = "Metron sisäänkäynti";
@@ -3622,7 +3626,7 @@
 
 "type.shop.fashion_accessories" = "Muoti tarvikkeet";
 
-"type.shop.florist" = "Floristi";
+"type.shop.florist" = "Kukkakauppa";
 
 "type.shop.funeral_directors" = "Hautaustoimisto";
 
@@ -3930,7 +3934,7 @@
 
 "type.tourism.theme_park" = "Huvipuisto";
 
-"type.tourism.viewpoint" = "Näköalatasanne";
+"type.tourism.viewpoint" = "Näköalapaikka";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Autiotupa";
@@ -4045,7 +4049,7 @@
 
 "type.piste_type.skitour" = "Skitour Trail";
 
-"type.amenity.events_venue" = "Tapahtumapaikka";
+"type.amenity.events_venue" = "Tapahtumakeskus";
 
 "type.shop.auction" = "Huutokauppa";
 

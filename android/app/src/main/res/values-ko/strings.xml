@@ -1622,6 +1622,7 @@
     <string name="type.railway.station.subway.sendai">지하철</string>
     <string name="type.railway.station.subway.sf">지하철</string>
     <string name="type.railway.station.subway.shanghai">지하철</string>
+    <string name="type.railway.station.subway.shenzhen">지하철</string>
     <string name="type.railway.station.subway.shiraz">지하철</string>
     <string name="type.railway.station.subway.singapore">지하철</string>
     <string name="type.railway.station.subway.sofia">지하철</string>
@@ -1735,6 +1736,7 @@
     <string name="type.railway.subway_entrance.sendai">지하철 입구</string>
     <string name="type.railway.subway_entrance.sf">지하철 입구</string>
     <string name="type.railway.subway_entrance.shanghai">지하철 입구</string>
+    <string name="type.railway.subway_entrance.shenzhen">지하철 입구</string>
     <string name="type.railway.subway_entrance.shiraz">지하철 입구</string>
     <string name="type.railway.subway_entrance.singapore">지하철 입구</string>
     <string name="type.railway.subway_entrance.sofia">지하철 입구</string>

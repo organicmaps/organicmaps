@@ -1021,6 +1021,8 @@
     <string name="type.amenity.shelter.public_transport">Katos</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Kota</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Laavu</string>
     <string name="type.amenity.public_bath">Julkinen kylpylä</string>
     <string name="type.amenity.shower">Suihku</string>
     <string name="type.amenity.stripclub">Stripclub</string>
@@ -1502,6 +1504,7 @@
     <string name="type.man_made.chimney">Tehtaan piippu</string>
     <string name="type.man_made.flagpole">Lipputanko</string>
     <string name="type.man_made.lighthouse">Majakka</string>
+    <string name="type.man_made.silo">Siilo</string>
     <string name="type.man_made.surveillance">Valvontakamera</string>
     <string name="type.man_made.tower">Torni</string>
     <string name="type.man_made.tower.communication">Viestintätorni</string>
@@ -1740,6 +1743,7 @@
     <string name="type.railway.station.subway.sendai">Metro</string>
     <string name="type.railway.station.subway.sf">Metro</string>
     <string name="type.railway.station.subway.shanghai">Metro</string>
+    <string name="type.railway.station.subway.shenzhen">Metro</string>
     <string name="type.railway.station.subway.shiraz">Metro</string>
     <string name="type.railway.station.subway.singapore">Metro</string>
     <string name="type.railway.station.subway.sofia">Metro</string>
@@ -1853,6 +1857,7 @@
     <string name="type.railway.subway_entrance.sendai">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.sf">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.shanghai">Metron sisäänkäynti</string>
+    <string name="type.railway.subway_entrance.shenzhen">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.shiraz">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.singapore">Metron sisäänkäynti</string>
     <string name="type.railway.subway_entrance.sofia">Metron sisäänkäynti</string>
@@ -1911,7 +1916,7 @@
     <string name="type.shop.fabric">Kangaskauppa</string>
     <string name="type.shop.farm">Maatilaruokakauppa</string>
     <string name="type.shop.fashion_accessories">Muoti tarvikkeet</string>
-    <string name="type.shop.florist">Floristi</string>
+    <string name="type.shop.florist">Kukkakauppa</string>
     <string name="type.shop.funeral_directors">Hautaustoimisto</string>
     <string name="type.shop.furniture">Huonekalukauppa</string>
     <string name="type.shop.garden_centre">Taimitarha</string>
@@ -2065,7 +2070,7 @@
     <string name="type.tourism.picnic_site">Piknikpaikat</string>
     <string name="type.leisure.resort">Lomakohteet</string>
     <string name="type.tourism.theme_park">Huvipuisto</string>
-    <string name="type.tourism.viewpoint">Näköalatasanne</string>
+    <string name="type.tourism.viewpoint">Näköalapaikka</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Autiotupa</string>
     <string name="type.tourism.zoo">Eläintarha</string>
@@ -2116,7 +2121,7 @@
     <string name="type.piste_type.hike">Lumi vaellusreitti</string>
     <string name="type.piste_type.connection">Pisteen yhteys</string>
     <string name="type.piste_type.skitour">Skitour Trail</string>
-    <string name="type.amenity.events_venue">Tapahtumapaikka</string>
+    <string name="type.amenity.events_venue">Tapahtumakeskus</string>
     <string name="type.shop.auction">Huutokauppa</string>
     <string name="type.shop.collector">Keräilyesineet</string>
     <string name="type.self_service.yes">Itsepalvelu saatavilla</string>
