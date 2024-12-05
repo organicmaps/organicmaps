@@ -23646,6 +23646,9 @@
   [type.railway.station.subway.shanghai]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.shenzhen]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.shiraz]
     ref = type.railway.station.subway
 
@@ -24080,6 +24083,9 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.shanghai]
+    ref = type.railway.subway_entrance
+
+  [type.railway.subway_entrance.shenzhen]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.shiraz]
