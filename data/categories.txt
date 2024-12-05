@@ -1371,7 +1371,7 @@ bg:Цветарски магазин|4цветя|букет
 cs:Květinářství
 da:Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
 nl:Bloemist|bloemenwinkel
-fi:4Floristi|kukkakauppa
+fi:4Kukkakauppa|4Floristi
 fr:4Fleuriste
 de:4Florist|Gestecke|Blumengeschäft|4Blumenladen|Blumenhändler|Blumen|Blumenstrauß|Taggleiche Blumen
 hi:5फूलवाले की दुकान
@@ -2964,7 +2964,7 @@ ar:أماكن مشاهدة سياحية|سياحة|مناظر
 cs:3Vyhlídka|zajímavost
 da:Udsigtspunkt|sightseeing
 nl:4Uitzicht|panorama
-fi:3Näköalatasanne
+fi:3Näköalapaikka|3Näköalatasanne
 fr:4Belvédère|4point de vue|4panorama
 de:3Panorama|Ausblick|4Aussichtspunkt
 hi:4दृष्टिकोण
@@ -6893,11 +6893,11 @@ en:3Lean-to Shelter|4Shelter|Refuge
 be:Бівальны навес
 bg:Подслон за бивак
 ar:ملجأ
-ca:Refugi
+ca:Rafal|Refugi
 cs:Přístřešek|úkryt
 da:Shelter|læskur|hytte
 nl:Beschutting
-fi:Turvapaikka
+fi:Laavu|Turvapaikka
 fr:Refuge|abri
 de:Lean-to Wetterschutz|Wetterschutz|Schutzhütte
 he:מחסה ללינה|מחסה|מחסה פתוח
@@ -6913,7 +6913,7 @@ pt:Abrigo tipo telheiro|telheiro
 pt-BR:Abrigo tipo alpendre|alpendre
 ro:Adăpost
 ru:Бивачный навес
-es:Refugio
+es:Alpende|Refugio
 et:4Varjend
 eu:Aterpea
 sv:Vindskydd
@@ -15795,7 +15795,7 @@ es:Lugar de eventos|Salón de fiestas |Centro de eventos
 et:Ürituste toimumiskoht
 eu:Ekitaldien Lekua
 fa:محل برگزاری رویدادها
-fi:Tapahtumapaikka
+fi:Tapahtumakeskus|Tapahtumapaikka
 fr:Lieu des événements
 he:מקום אירועים
 hu:Rendezvények helyszíne
