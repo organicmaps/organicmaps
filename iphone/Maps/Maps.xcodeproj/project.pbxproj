@@ -1363,6 +1363,12 @@
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
+		AC66E0362CDFE75B00FEC043 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC66E0372CDFE75B00FEC043 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC66E0382CDFE75B00FEC043 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		AC66E0392CDFE76B00FEC043 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AC66E03A2CDFE76B00FEC043 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC66E03B2CDFE76C00FEC043 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lt; path = lt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hexString.swift"; sourceTree = "<group>"; };
 		B33D21AE20DAF9F000BAD749 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
@@ -4061,6 +4067,8 @@
 				et,
 				az,
 				hi,
+				lv,
+				lt,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -4828,6 +4836,8 @@
 				FAA8869E292409F6004FA014 /* et */,
 				30034C602B3F0B8A005D961A /* az */,
 				FABF2FF02B55F6780006F787 /* hi */,
+				AC66E0362CDFE75B00FEC043 /* lv */,
+				AC66E0392CDFE76B00FEC043 /* lt */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4877,6 +4887,8 @@
 				FAA8869F292409F6004FA014 /* et */,
 				30034C5C2B3F0B74005D961A /* az */,
 				FABF2FF12B55F6780006F787 /* hi */,
+				AC66E0372CDFE75B00FEC043 /* lv */,
+				AC66E03A2CDFE76B00FEC043 /* lt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4926,6 +4938,8 @@
 				FAA886A0292409F7004FA014 /* et */,
 				30034C5F2B3F0B7C005D961A /* az */,
 				FABF2FF22B55F6780006F787 /* hi */,
+				AC66E0382CDFE75B00FEC043 /* lv */,
+				AC66E03B2CDFE76C00FEC043 /* lt */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
