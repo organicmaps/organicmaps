@@ -57592,7 +57592,7 @@
   da = San Marino
   el = Σίτι του Σαν Μαρίνο, Σεραβάλε, Μπόργκο Ματζιόρε
   es = San Marino
-  et = San Marino, Chita, Krasnokamensk, Borzya
+  et = San Marino, Serravalle, Borgo Maggiore
   fi = San Marino
   fr = Ville de Saint-Marin
   he = סן מרינו
