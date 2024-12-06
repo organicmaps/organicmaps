@@ -1755,6 +1755,9 @@
 		FAF8C67F278CEEA3006CAE66 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FAF8C680278CEEA3006CAE66 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-MX"; path = "es-MX.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		FAF8C681278CEEA3006CAE66 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FAF9A8A62CE0CEBF00F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FAF9A8A72CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAF9A8A82CE0CEC000F6604D /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -4061,6 +4064,7 @@
 				et,
 				az,
 				hi,
+				lv,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -4828,6 +4832,7 @@
 				FAA8869E292409F6004FA014 /* et */,
 				30034C602B3F0B8A005D961A /* az */,
 				FABF2FF02B55F6780006F787 /* hi */,
+				FAF9A8A62CE0CEBF00F6604D /* lv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4877,6 +4882,7 @@
 				FAA8869F292409F6004FA014 /* et */,
 				30034C5C2B3F0B74005D961A /* az */,
 				FABF2FF12B55F6780006F787 /* hi */,
+				FAF9A8A72CE0CEC000F6604D /* lv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4926,6 +4932,7 @@
 				FAA886A0292409F7004FA014 /* et */,
 				30034C5F2B3F0B7C005D961A /* az */,
 				FABF2FF22B55F6780006F787 /* hi */,
+				FAF9A8A82CE0CEC000F6604D /* lv */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
