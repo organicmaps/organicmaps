@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
 
 # Use ruby from brew on Mac OS X, because system ruby is outdated/broken/will be removed in future releases.
 case $OSTYPE in
@@ -42,15 +42,6 @@ if [ ! -f "$TWINE_PATH/$TWINE_GEM" ]; then
   )
 fi
 
-# Validate and format/sort strings files.
-STRINGS_UTILS="$OMIM_PATH/tools/python/strings_utils.py"
-"$STRINGS_UTILS" --validate --output
-"$STRINGS_UTILS" --types-strings --validate --output
-
-# Check for unused strings.
-CLEAN_STRINGS="$OMIM_PATH/tools/python/clean_strings_txt.py"
-"$CLEAN_STRINGS" --validate
-
 # Generate android/iphone/jquery localization files from strings files.
 TWINE="$(gem contents --show-install-dir twine)/bin/twine"
 if [[ $TWINE == *".om/bin/twine" ]]; then
@@ -62,6 +53,18 @@ fi
 
 OMIM_DATA="$OMIM_PATH/data"
 STRINGS_PATH="$OMIM_DATA/strings"
+
+# Validate and format/sort strings files.
+STRINGS_UTILS="$OMIM_PATH/tools/python/strings_utils.py"
+"$STRINGS_UTILS" --validate --output
+"$STRINGS_UTILS" --types-strings --validate --output
+"$STRINGS_UTILS" "$STRINGS_PATH/sound.txt" --validate --output
+"$STRINGS_UTILS" "$OMIM_DATA/countries_names.txt" --validate --output
+"$STRINGS_UTILS" "$OMIM_PATH/iphone/plist.txt" --validate --output
+
+# Check for unused strings.
+CLEAN_STRINGS="$OMIM_PATH/tools/python/clean_strings_txt.py"
+"$CLEAN_STRINGS" --validate
 
 MERGED_FILE="$(mktemp)"
 cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
