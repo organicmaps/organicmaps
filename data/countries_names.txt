@@ -58714,8 +58714,8 @@
 
 [Switzerland_Ticino Description]
   en = Bellinzona, Lugano, Locarno
-  el = Λουγκάνο, Μπελιντσόνα, Λοκάρνο
   de = Bellinzona, Lugano, Locarno
+  el = Λουγκάνο, Μπελιντσόνα, Λοκάρνο
   es = Bellinzona, Lugano, Locarno
   fr = Bellinzone, Lugano, Locarno
   it = Bellinzona, Lugano, Locarno
