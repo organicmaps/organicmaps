@@ -1,11 +1,11 @@
 package app.organicmaps.location;
 
-import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -158,21 +159,11 @@ public class TrackRecordingService extends Service implements LocationListener
       return START_NOT_STICKY;
     }
 
-    Logger.i(TAG, "Starting foreground service");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-    {
-      try
-      {
-        startForeground(TrackRecordingService.TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build());
-      } catch (ForegroundServiceStartNotAllowedException e)
-      {
-        Logger.e(TAG, "Oops! ForegroundService is not allowed", e);
-      }
-    }
+    Logger.i(TAG, "Starting Track Recording Foreground service");
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
     else
-    {
-      startForeground(TrackRecordingService.TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build());
-    }
+      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build(), 0);
 
     final LocationHelper locationHelper = LocationHelper.from(this);
 
