@@ -132136,7 +132136,7 @@ colors {
   }
   value {
     name: "RoadShieldOrangeBackground"
-    color: 1272880
+    color: 11898395
   }
   value {
     name: "RoadShieldRedBackground"
