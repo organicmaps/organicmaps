@@ -968,7 +968,6 @@ Canada_British Columbia_Central	683.8757630000001
 Canada_Ontario_Northeastern_S	678.8001370000001
 Canada_Ontario_Northeastern_SW	678.3431890000002
 India_Jammu and Kashmir	676.127456
-Nagorno-Karabakh	672.9840190000001
 Italy_Veneto_Belluno	665.112169
 Ukraine_Kherson Oblast	659.273275
 Russia_Kurgan Oblast	643.283161

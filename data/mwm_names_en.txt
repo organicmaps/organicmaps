@@ -750,7 +750,6 @@ Morocco_Southern = Morocco — South
 Morocco_Western Sahara = Western Sahara
 Mozambique = Mozambique
 Myanmar = Myanmar
-Nagorno-Karabakh = Nagorno-Karabakh
 Namibia = Namibia
 Nauru = Nauru
 Nepal = Nepal
