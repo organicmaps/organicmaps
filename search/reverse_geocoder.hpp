@@ -92,7 +92,8 @@ public:
     bool IsValid() const { return m_building.IsValid() && m_street.IsValid(); }
 
     // 7 vulica Frunze
-    std::string FormatAddress() const;
+    std::string FormatAddress() const { return FormatAddress(storage::CountryId()); };
+    std::string FormatAddress(storage::CountryId countryId) const;
   };
 
   struct RegionAddress

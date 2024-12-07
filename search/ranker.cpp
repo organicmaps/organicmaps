@@ -301,23 +301,6 @@ ftypes::LocalityType GetLocalityIndex(feature::TypesHolder const & types)
   UNREACHABLE();
 }
 
-// TODO: Format street and house number according to local country's rules.
-string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
-{
-  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
-}
-
-// TODO: Share common formatting code for search results and place page.
-string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
-{
-  /// @todo Print "near" for not exact addresses.
-  /// Add some threshold for addr:interpolation or refactor ReverseGeocoder?
-  if (addr.GetDistance() != 0)
-    return region;
-
-  return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
-}
-
 }  // namespace
 
 class RankerResultMaker
@@ -512,7 +495,8 @@ private:
         {
           string streetName;
           m_ranker.GetBestMatchName(*streetFeature, streetName);
-          name = streetName + ", " + addr.GetHouseNumber();
+          LOG(LDEBUG, ("WAB LoadFeature", streetName, addr.GetHouseNumber()));
+          name = streetName + ", " + addr.GetHouseNumber(); /// @todo consider using partialAddress logic below
         }
       }
     }
@@ -737,25 +721,79 @@ void Ranker::Finish(bool cancelled)
   m_emitter.Finish(cancelled);
 }
 
+/// This is one of the final steps in finishing a result and displaying an address in the GUI
+/// So it returns a full string like "City, Street Name, 123, Province, Country"
+/// @todo Share common formatting code for search results and place page.
 Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, bool needHighlighting) const
 {
+  // If we don't want to bother with addresses at all, just use the ranker result which is "Main St, 123"
   Result res(rankerResult.GetCenter(), rankerResult.m_str);
 
   if (needAddress)
   {
-    string address = GetLocalizedRegionInfoForResult(rankerResult);
+    string partialAddress = "";
+    string fullAddress = "";
+
+    ReverseGeocoder::Address addr;
+    string_view city;
+    string region = GetLocalizedRegionInfoForResult(rankerResult);
 
     // Format full address only for suitable results.
-    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-    {
-      ReverseGeocoder::Address addr;
+    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes())) {
       if (!(rankerResult.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(rankerResult.GetID(), addr)))
         m_reverseGeocoder.GetNearbyAddress(rankerResult.GetCenter(), addr);
-
-      address = FormatFullAddress(addr, address);
     }
 
-    res.SetAddress(std::move(address));
+    // Get city when possible
+    if (ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
+    {
+      m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
+      {
+        item.GetReadableName(city);
+      });
+    }
+
+    /// @todo Print "near" for not exact addresses.
+    /// Add some threshold for addr:interpolation or refactor ReverseGeocoder?
+    if (rankerResult.GetRegion().m_countryId.starts_with("US_")) {
+      // US partial is 123 Main St
+      if (addr.IsValid() && addr.GetDistance() == 0) partialAddress += addr.GetHouseNumber() + " " + addr.GetStreetName();
+
+      // US full is 123 Main St, Chicago, Illinois, USA
+      if (addr.IsValid() && addr.GetDistance() == 0) fullAddress += addr.GetHouseNumber() + " " + addr.GetStreetName();
+      if (!city.empty()) {
+        if(!fullAddress.empty()) fullAddress += ", ";
+        fullAddress.append(city);
+      }
+      if (!region.empty())
+      {
+        if(!fullAddress.empty()) fullAddress += ", ";
+        fullAddress += region;
+      }
+    }
+    else
+    {
+      // OM default partial is Main St, 123
+      if (addr.IsValid() && addr.GetDistance() == 0) partialAddress += addr.GetStreetName() + ", " + addr.GetHouseNumber();
+
+      // OM default full is Chicago, Main St, 123, Illinois, USA
+      if (!city.empty()) fullAddress.append(city);
+
+      if (addr.IsValid() && addr.GetDistance() == 0)
+      {
+        if(!fullAddress.empty()) fullAddress += ", ";
+        fullAddress += addr.GetStreetName() + ", " + addr.GetHouseNumber();
+      }
+
+      if (!region.empty())
+      {
+        if(!fullAddress.empty()) fullAddress += ", ";
+        fullAddress += region;
+      }
+    }
+
+    if(!partialAddress.empty()) res.SetString(std::move(partialAddress));
+    res.SetAddress(std::move(fullAddress));
   }
 
   switch (rankerResult.GetResultType())
@@ -768,16 +806,6 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;
   }
 
-  if (needAddress && ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::LocalityType::None)
-  {
-    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item)
-    {
-      string_view city;
-      if (item.GetReadableName(city))
-        res.PrependCity(city);
-    });
-  }
-
   if (needHighlighting)
     HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
 
@@ -786,7 +814,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
 #ifdef SEARCH_USE_PROVENANCE
   res.SetProvenance(std::move(rankerResult.m_provenance));
 #endif
-
+  LOG(LDEBUG, ("WAB MakeResult", res));
   return res;
 }
 

@@ -61,6 +61,7 @@ public:
   Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
   void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details);
 
+  void SetString(std::string && str) { m_str = std::move(str); }
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetType(Result::Type type) { m_resultType = type; }
 

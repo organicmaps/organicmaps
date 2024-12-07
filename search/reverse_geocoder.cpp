@@ -330,6 +330,7 @@ string ReverseGeocoder::GetLocalizedRegionAddress(RegionAddress const & addr,
     addrStr = nameGetter.GetLocalizedFullName(addr.m_countryId);
   }
 
+  LOG(LWARNING, ("WAB LocalizedRegionAddress", addrStr));
   return addrStr;
 }
 
@@ -369,7 +370,7 @@ std::optional<HouseToStreetTable::Result> ReverseGeocoder::HouseTable::Get(Featu
   return res;
 }
 
-string ReverseGeocoder::Address::FormatAddress() const
+string ReverseGeocoder::Address::FormatAddress(storage::CountryId countryId) const
 {
   // Check whether we can format address according to the query type
   // and actual address distance.
@@ -379,7 +380,10 @@ string ReverseGeocoder::Address::FormatAddress() const
   if (m_building.m_distanceMeters > 200.0)
     return {};
 
-  return Join(m_street.m_name, m_building.m_name);
+  if (countryId == "United States of America")
+    return m_building.m_name + " " + m_street.m_name; // WB
+  else
+    return Join(m_street.m_name, m_building.m_name); // WB
 }
 
 bool ReverseGeocoder::RegionAddress::IsValid() const

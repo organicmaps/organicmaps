@@ -731,9 +731,6 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
                    ("Deleted features cannot be selected from UI."));
   info.SetFeatureStatus(featureStatus);
 
-  if (ftypes::IsAddressObjectChecker::Instance()(ft))
-    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress());
-
   info.SetFromFeatureType(ft);
 
   FillDescription(ft, info);
@@ -746,18 +743,23 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   // Fill countryId for place page info
   auto const & types = info.GetTypes();
   bool const isState = ftypes::IsStateChecker::Instance()(types);
+  size_t const level = isState ? 1 : 0;
+  CountriesVec countries;
+  CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
+  GetStorage().GetTopmostNodesFor(countryId, countries, level);
+  if (countries.size() == 1)
+    countryId = countries.front();
+
   if (isState || ftypes::IsCountryChecker::Instance()(types))
   {
-    size_t const level = isState ? 1 : 0;
-    CountriesVec countries;
-    CountryId countryId = m_infoGetter->GetRegionCountryId(info.GetMercator());
-    GetStorage().GetTopmostNodesFor(countryId, countries, level);
-    if (countries.size() == 1)
-      countryId = countries.front();
-
     info.SetCountryId(countryId);
     info.SetTopmostCountryIds(std::move(countries));
   }
+  if (ftypes::IsAddressObjectChecker::Instance()(ft)) {
+    info.SetAddress(GetAddressAtPoint(feature::GetCenter(ft)).FormatAddress(countryId)); // SetTitleAndAddress
+  }
+  info.SetFromFeatureType(ft);
+  FillDescription(ft, info);
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
