@@ -321,6 +321,10 @@
     <string name="google_play_services">Google Play 定位服务</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">通过蓝牙、WiFi 或移动网络快速确定您的大致位置</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com 酒店链接</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Kayak.com上列出的酒店会显示照片、评论和预订链接。通过这些链接进行预订所获得的推荐奖金将用于发展 Organic Maps。</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">下载路线上的所有地图</string>
     <!-- Text for routing error dialog -->
@@ -561,6 +565,8 @@
     <string name="dialog_kayak_disclaimer">每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">客涯 (Kayak) 上的详细信息</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">禁用 Kayak</string>
     <string name="placepage_edit_bookmark_button">编辑书签</string>
     <string name="editor_comment_hint">备注…</string>
     <string name="editor_reset_edits_message">重置所有本地更改？</string>

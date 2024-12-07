@@ -298,6 +298,10 @@
     <string name="google_play_services">Servicii de localizare Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determinați rapid locația dvs. aproximativă prin Bluetooth, WiFi sau rețea mobilă</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com Linkuri către hoteluri</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Fotografiile, recenziile, linkurile de rezervare sunt afișate pentru hotelurile care au o listă pe Kayak.com. Bonusul de recomandare primit pentru fiecare rezervare prin intermediul acestor linkuri este destinat dezvoltării Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
     <!-- Text for routing error dialog -->
@@ -533,6 +537,8 @@
     <string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Detalii pe Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Dezactivați Kayak</string>
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="editor_comment_hint">Comentariu…</string>
     <string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>

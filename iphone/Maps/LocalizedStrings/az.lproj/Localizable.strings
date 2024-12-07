@@ -820,6 +820,9 @@
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Xizək sürmə haqqında təfərrüatlar";
 
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_disable_button" = "Kayak-ı söndürün";
+
 "placepage_call_button" = "Zəng";
 
 "placepage_edit_bookmark_button" = "Əlfəcini redaktə edin";

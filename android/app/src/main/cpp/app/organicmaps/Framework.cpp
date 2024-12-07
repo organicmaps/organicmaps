@@ -1982,13 +1982,12 @@ Java_app_organicmaps_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jstring countryIsoCode, jstring uri,
-                                                        jlong firstDaySec, jlong lastDaySec, jboolean isReferral)
+                                                        jlong firstDaySec, jlong lastDaySec)
 {
   string const url = osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode),
                                                   jni::ToNativeString(env, uri),
                                                   static_cast<time_t>(firstDaySec),
-                                                  static_cast<time_t>(lastDaySec),
-                                                  isReferral);
+                                                  static_cast<time_t>(lastDaySec));
   return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 

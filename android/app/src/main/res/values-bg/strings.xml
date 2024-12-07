@@ -296,6 +296,10 @@
     <string name="google_play_services">Услуги за местоположение в Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Бързо определяне на приблизителното ви местоположение чрез Bluetooth, WiFi или мобилна мрежа</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com Връзки с хотели</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Снимки, отзиви и връзки за резервация се показват за хотелите, които имат обява в Kayak.com. Полученият бонус за всяка резервация чрез тези връзки отива за развитието на Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
     <!-- Text for routing error dialog -->
@@ -509,6 +513,8 @@
     <string name="dialog_kayak_disclaimer">Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Подробности в Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Деактивиране на Kayak</string>
     <string name="placepage_edit_bookmark_button">Редакция на отметка</string>
     <string name="editor_comment_hint">Коментиране…</string>
     <string name="editor_reset_edits_message">Отхвърляне на всички локални промени?</string>

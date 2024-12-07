@@ -287,6 +287,10 @@
     <string name="google_play_services">Google Play Placeringstjenester</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Find hurtigt din omtrentlige position via Bluetooth, WiFi eller mobilnetværk</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com hotel-links</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Fotos, anmeldelser og bookinglinks vises for hoteller, der har en liste på Kayak.com. Den henvisningsbonus, der modtages for hver booking via disse links, går til udvikling af Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Download kort på vejen</string>
     <!-- Text for routing error dialog -->
@@ -519,6 +523,8 @@
     <string name="dialog_kayak_disclaimer">Henvisningsbonussen, der modtages for hver booking via dette link, går til udviklingen af Organic Maps.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Detaljer på Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Deaktiver Kayak</string>
     <string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
     <string name="editor_comment_hint">Kommentar…</string>
     <string name="editor_reset_edits_message">Nulstil alle lokale ændringer?</string>
