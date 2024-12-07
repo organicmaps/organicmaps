@@ -491,10 +491,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
   enum ThemeMode
   {
+    FOLLOW_SYSTEM(R.string.theme_follow_system),
     DEFAULT(R.string.theme_default),
-    NIGHT(R.string.theme_night),
-    AUTO(R.string.theme_auto),
-    NAV_AUTO(R.string.theme_nav_auto);
+    NIGHT(R.string.theme_night);
 
     private final int mModeStringId;
 
@@ -511,7 +510,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         if (context.getResources().getString(each.mModeStringId).equals(src))
           return each;
       }
-      return AUTO;
+      return FOLLOW_SYSTEM;
     }
   }
 
