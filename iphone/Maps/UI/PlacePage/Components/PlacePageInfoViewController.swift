@@ -74,7 +74,6 @@ class InfoItemViewController: UIViewController {
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
   var shouldShowOpenInApp: Bool { get }
 
-  func viewWillAppear()
   func didPressCall()
   func didPressWebsite()
   func didPressWebsiteMenu()
@@ -142,11 +141,6 @@ class PlacePageInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    delegate?.viewWillAppear()
   }
 
   // MARK: private
@@ -455,7 +449,8 @@ class PlacePageInfoViewController: UIViewController {
 private extension UIStackView {
   func addArrangedSubviewWithSeparator(_ view: UIView, insets: UIEdgeInsets = .zero) {
     if !arrangedSubviews.isEmpty {
-      view.addSeparator(thickness: CGFloat(1.0),
+      view.addSeparator(.top,
+                        thickness: CGFloat(1.0),
                         color: StyleManager.shared.theme?.colors.blackDividers,
                         insets: insets)
     }
