@@ -348,5 +348,10 @@ class GlobalStyleSheet: IStyleSheet {
       s.tintColor = colors.white
       s.coloring = MWMButtonColoring.white
     }
+
+    theme.add(styleName: "MWMRed") { (s) -> (Void) in
+      s.tintColor = colors.buttonRed
+      s.coloring = MWMButtonColoring.blue
+    }
   }
 }
