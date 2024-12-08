@@ -425,7 +425,7 @@
     et = Heliväljak
     eu = Heliportua
     fa = پد فرود بالگرد
-    fi = Helikopterialusta
+    fi = Helikopterikenttä
     fr = Hélisurface
     he = מנחת מסוקים
     hu = Helikopterleszálló
@@ -2300,7 +2300,7 @@
     et = Praam
     eu = Espazio-ontzia
     fa = حمل و نقل
-    fi = Lautta
+    fi = Lauttaterminaali
     fr = Terminal de ferry
     he = מסוף מעבורות
     hi = नौका टर्मिनल
@@ -2376,6 +2376,7 @@
     es = Zona de comidas
     et = Toiduväljak
     eu = Jantokia
+    fi = Ravintola-alue
     fr = Aire de restauration
     he = מתחם מזון
     hi = फूड कोर्ट
@@ -2596,7 +2597,7 @@
     et = Jahipidamise koht
     eu = Ehiza galeria
     fa = شکارگاه
-    fi = Metsästyspaikka
+    fi = Jahtitorni
     fr = Mirador
     he = עמדת ציד
     hi = शिकार स्टैंड
@@ -3048,7 +3049,7 @@
     et = Parkimine mitmel korrusel
     eu = Solairu anitzeko aparkalekua
     fa = ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ
-    fi = Monikerroksinen pysäköinti
+    fi = Parkkitalo
     fr = Stationnement à plusieurs étages
     he = חניון רב קומות
     hi = पार्किंग गैरेज
@@ -3271,7 +3272,7 @@
     et = Tänavaäärne parkimine
     eu = Kale alboko aparkalekua
     fa = پارکینگ کنار خیابان
-    fi = Kadun puolella pysäköinti
+    fi = Kadunvarsipysäköinti
     fr = Stationnement latéral sur voie
     he = חנייה בצד הרחוב
     hu = Utcai parkolás
@@ -3315,7 +3316,7 @@
     et = Privaatne tänavaäärne parkimine
     eu = Kale alboko aparkaleku pribatua
     fa = پارکینگ کنار خیابان خصوصی
-    fi = Yksityinen katu puolella pysäköinti
+    fi = Yksityinen kadunvarsipysäköinti
     fr = Stationnement latéral sur voie privée
     he = חנייה פרטית בצד הרחוב
     hu = Privát utcai parkolás
@@ -3357,7 +3358,7 @@
     et = Parkimine sõidurajal
     eu = Erreiaren aparkalekua
     fa = پارکینگ لاین
-    fi = Kaistapysäköinti
+    fi = Pysäköintikaista
     fr = Stationnement le long de la voie
     he = חנייה בנתיב
     hu = Sávos parkolás
@@ -3402,7 +3403,7 @@
     et = Privaatne tee parkimine
     eu = Errei pribatuko aparkalekua
     fa = پارکینگ لاین خصوصی
-    fi = Yksityinen kaista pysäköinti
+    fi = Yksityinen pysäköintikaista
     fr = Stationnement sur voie privée
     he = חנייה פרטית בנתיב
     hu = Privát sávos parkolás
@@ -3486,7 +3487,7 @@
     et = Eraldi parkla sissepääs
     eu = Aparkaleku pribatuaren sarrera
     fa = ورودی پارکینگ اختصاصی
-    fi = Yksityinen pysäköintialue sisäänkäynti
+    fi = Yksityisen pysäköintialueen sisäänkäynti
     fr = Entrée parking privé
     he = כניסה פרטית לחנייה
     hu = Privát parkoló bejárata
@@ -3530,7 +3531,7 @@
     et = Parkimiskoht
     eu = Aparkaleku
     fa = جای پارک
-    fi = Parkkipaikka
+    fi = Pysäköintiruutu
     fr = Place de stationnement
     he = מקום חנייה
     hi = पार्किंग की जगह
@@ -5157,7 +5158,7 @@
     et = Stripiklubi
     eu = Stripclub
     fa = باشگاه استریپ
-    fi = Stripclub
+    fi = Strippiklubi
     fr = Club de strip-tease
     he = מועדון חשפנות
     hu = Sztriptízbár
@@ -17323,6 +17324,7 @@
     de = Eislaufplatz
     es = Pisa de patinaje
     et = Liuväli
+    fi = Luistinrata
     fr = Patinoire
     he = החלקה על קרח
     it = Pista di pattinaggio
@@ -17681,6 +17683,7 @@
     de = Bootsrampe
     es = Rampa de barcos
     et = Elling
+    fi = Veneluiska
     fr = Cale de mise à l'eau
     he = ממשה
     it = Scivolo per navi
@@ -18193,6 +18196,7 @@
     de = Mast
     es = Mástil
     et = Mast
+    fi = Masto
     fr = Mât
     he = תורן
     it = Pilone
@@ -18212,6 +18216,7 @@
     de = Anlegestelle
     es = Muelle
     et = Kai
+    fi = Laituri
     fr = Jetée
     he = מזח
     it = Molo
@@ -20273,7 +20278,7 @@
     et = Veekogu
     eu = Ur-masa
     fa = پهنه آبی
-    fi = Vesimuodostuma
+    fi = Vettä
     fr = Étendue d'eau
     he = מים
     hi = जल निकाय
@@ -30669,7 +30674,7 @@
     et = Lõbustus Ride
     eu = Jolas Ibilaldia
     fa = سواری تفریحی
-    fi = Huvipuisto Ride
+    fi = Huvipuistolaite
     fr = Manège
     he = טיול שעשועים
     hi = मनोरंजन की सवारी
