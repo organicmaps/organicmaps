@@ -3076,7 +3076,7 @@
 
 "type.railway.station.light_rail.porto" = "Stadtbahnbahnhof";
 
-"type.railway.station.monorail" = "Bahnhof";
+"type.railway.station.monorail" = "Einschienenbahn-Station";
 
 "type.railway.station.subway" = "U-Bahn-Station";
 

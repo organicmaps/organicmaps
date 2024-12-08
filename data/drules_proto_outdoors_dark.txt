@@ -81404,71 +81404,30 @@ cont {
 cont {
   name: "railway-station-monorail"
   element {
-    scale: 12
-    symbol {
-      name: "train-s"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 9
-        color: 8947848
-        stroke_color: 1711670784
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 8
-        color: 8947848
-        stroke_color: 1711670784
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
     scale: 13
     symbol {
-      name: "train-s"
+      name: "monorail-s"
       priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8947848
-        stroke_color: 1711670784
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 8947848
-        stroke_color: 1711670784
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
     }
   }
   element {
     scale: 14
     symbol {
-      name: "train-s"
+      name: "monorail-s"
       priority: 6250
     }
     caption {
       primary {
         height: 11
         color: 8947848
-        stroke_color: 1292240384
+        stroke_color: 856032768
         offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 9
         color: 8947848
-        stroke_color: 1292240384
+        stroke_color: 856032768
         offset_y: 1
         is_optional: true
       }
@@ -81478,7 +81437,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81502,7 +81461,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81526,7 +81485,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81538,7 +81497,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 8947848
         stroke_color: 436602368
         offset_y: 1
@@ -81550,7 +81509,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81562,7 +81521,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 8947848
         stroke_color: 436602368
         offset_y: 1
@@ -81574,7 +81533,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81586,7 +81545,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 8947848
         stroke_color: 436602368
         offset_y: 1
@@ -81598,7 +81557,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "train-m"
+      name: "monorail-m"
       priority: 6250
     }
     caption {
@@ -81610,7 +81569,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 8947848
         stroke_color: 436602368
         offset_y: 1
