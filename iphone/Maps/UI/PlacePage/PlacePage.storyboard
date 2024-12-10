@@ -287,27 +287,14 @@
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="0.0" left="4" bottom="0.0" right="4"/>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fVG-je-keF">
-                                <rect key="frame" x="0.0" y="219" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="wVu-Mv-mmU"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sNg-Nr-PA2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="fVG-je-keF" secondAttribute="trailing" id="N2c-Kj-Azh"/>
                             <constraint firstItem="Gmb-Zm-Z10" firstAttribute="top" secondItem="1x8-x0-W3C" secondAttribute="top" id="RGb-48-TZA"/>
                             <constraint firstAttribute="trailing" secondItem="Gmb-Zm-Z10" secondAttribute="trailing" id="UPE-4F-MaQ"/>
                             <constraint firstItem="Gmb-Zm-Z10" firstAttribute="leading" secondItem="1x8-x0-W3C" secondAttribute="leading" id="XN9-5M-LfY"/>
-                            <constraint firstItem="fVG-je-keF" firstAttribute="leading" secondItem="1x8-x0-W3C" secondAttribute="leading" id="byS-Tu-DOH"/>
                             <constraint firstAttribute="bottom" secondItem="Gmb-Zm-Z10" secondAttribute="bottom" constant="8" id="dZu-gM-3LO"/>
-                            <constraint firstItem="fVG-je-keF" firstAttribute="bottom" secondItem="1x8-x0-W3C" secondAttribute="bottom" id="fel-8X-6tZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -376,41 +363,15 @@
                                     <action selector="onMore:" destination="WSQ-QR-4WY" eventType="touchUpInside" id="z5J-UQ-f0u"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEp-rn-Kgr" userLabel="Spacing Top">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="l15-DI-Ikm"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sb1-VR-dnu" userLabel="Spacing Bottom">
-                                <rect key="frame" x="0.0" y="179" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="2ol-iq-Dnr"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pcV-Cv-rW6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="sb1-VR-dnu" secondAttribute="trailing" id="0DE-s1-N8e"/>
-                            <constraint firstAttribute="bottom" secondItem="sb1-VR-dnu" secondAttribute="bottom" id="AUQ-7h-CnS"/>
-                            <constraint firstItem="QEp-rn-Kgr" firstAttribute="top" secondItem="99j-36-7TK" secondAttribute="top" id="Hg5-NP-hKL"/>
                             <constraint firstItem="4pU-ex-66e" firstAttribute="leading" secondItem="99j-36-7TK" secondAttribute="leading" constant="16" id="T4C-Nw-I3N"/>
                             <constraint firstItem="soI-1J-JL6" firstAttribute="leading" secondItem="99j-36-7TK" secondAttribute="leading" constant="16" id="Vac-L0-pTZ"/>
                             <constraint firstAttribute="bottom" secondItem="soI-1J-JL6" secondAttribute="bottom" id="XvI-Sc-kIL"/>
                             <constraint firstAttribute="trailing" secondItem="4pU-ex-66e" secondAttribute="trailing" constant="16" id="bVa-3L-AtD"/>
-                            <constraint firstAttribute="trailing" secondItem="QEp-rn-Kgr" secondAttribute="trailing" id="bzy-12-Exm"/>
-                            <constraint firstItem="sb1-VR-dnu" firstAttribute="leading" secondItem="99j-36-7TK" secondAttribute="leading" id="cjK-6L-rtp"/>
                             <constraint firstItem="4pU-ex-66e" firstAttribute="top" secondItem="99j-36-7TK" secondAttribute="top" constant="16" id="f7d-q9-70I"/>
-                            <constraint firstItem="QEp-rn-Kgr" firstAttribute="leading" secondItem="99j-36-7TK" secondAttribute="leading" id="gU2-VG-YLQ"/>
                             <constraint firstItem="soI-1J-JL6" firstAttribute="top" secondItem="4pU-ex-66e" secondAttribute="bottom" id="i4f-1B-jfo"/>
                             <constraint firstAttribute="trailing" secondItem="soI-1J-JL6" secondAttribute="trailing" constant="16" id="tu6-L8-fUt"/>
                         </constraints>
@@ -439,40 +400,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pmL-HT-I1N">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojl-qe-MWU" userLabel="Top separator">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="aHE-My-xp3"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8Q-Ia-dJM" userLabel="Bottom separator">
-                                <rect key="frame" x="0.0" y="99" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="JBo-AG-AKH"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g60-e9-U8G"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="pmL-HT-I1N" secondAttribute="bottom" id="0Xe-Gp-10C"/>
-                            <constraint firstItem="Ojl-qe-MWU" firstAttribute="top" secondItem="uyH-Qn-86F" secondAttribute="top" id="Huk-kl-GY1"/>
                             <constraint firstAttribute="top" secondItem="pmL-HT-I1N" secondAttribute="top" id="THV-MF-4pC"/>
                             <constraint firstItem="pmL-HT-I1N" firstAttribute="leading" secondItem="uyH-Qn-86F" secondAttribute="leading" id="VNA-7u-TMS"/>
-                            <constraint firstItem="u8Q-Ia-dJM" firstAttribute="bottom" secondItem="uyH-Qn-86F" secondAttribute="bottom" id="erE-W5-8I9"/>
-                            <constraint firstItem="Ojl-qe-MWU" firstAttribute="leading" secondItem="uyH-Qn-86F" secondAttribute="leading" id="hbC-z3-Jvb"/>
-                            <constraint firstAttribute="trailing" secondItem="Ojl-qe-MWU" secondAttribute="trailing" id="m7e-JQ-8Yz"/>
-                            <constraint firstAttribute="trailing" secondItem="u8Q-Ia-dJM" secondAttribute="trailing" id="ozT-6W-mau"/>
                             <constraint firstAttribute="trailing" secondItem="pmL-HT-I1N" secondAttribute="trailing" id="sUb-Fg-UED"/>
-                            <constraint firstItem="u8Q-Ia-dJM" firstAttribute="leading" secondItem="uyH-Qn-86F" secondAttribute="leading" id="t7d-2e-cqm"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -564,40 +499,14 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRi-Xr-pFy" userLabel="Spacing Top">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="S6g-eX-SKD"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-3m-aX5" userLabel="Spacing Bottom">
-                                <rect key="frame" x="0.0" y="255" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="sLf-h1-gaG"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wND-VP-FnI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kvs-3m-aX5" firstAttribute="leading" secondItem="uEh-Ml-VWK" secondAttribute="leading" id="2ml-Sl-4Ab"/>
                             <constraint firstAttribute="bottom" secondItem="021-FW-tZO" secondAttribute="bottom" constant="16" id="9ot-3E-Be3"/>
-                            <constraint firstAttribute="trailing" secondItem="kvs-3m-aX5" secondAttribute="trailing" id="EJa-hE-gkc"/>
                             <constraint firstItem="021-FW-tZO" firstAttribute="leading" secondItem="uEh-Ml-VWK" secondAttribute="leading" constant="16" id="Hq9-h5-Znu"/>
                             <constraint firstItem="021-FW-tZO" firstAttribute="top" secondItem="uEh-Ml-VWK" secondAttribute="top" constant="16" id="NQ6-jj-fu0"/>
                             <constraint firstAttribute="trailing" secondItem="021-FW-tZO" secondAttribute="trailing" constant="16" id="Ox1-Cd-PWE"/>
-                            <constraint firstItem="hRi-Xr-pFy" firstAttribute="leading" secondItem="uEh-Ml-VWK" secondAttribute="leading" id="Zhy-TR-brz"/>
-                            <constraint firstAttribute="bottom" secondItem="kvs-3m-aX5" secondAttribute="bottom" id="iEU-H1-Cmq"/>
-                            <constraint firstAttribute="trailing" secondItem="hRi-Xr-pFy" secondAttribute="trailing" id="pQ8-7S-WYf"/>
-                            <constraint firstItem="hRi-Xr-pFy" firstAttribute="top" secondItem="uEh-Ml-VWK" secondAttribute="top" id="sMX-ou-xsp"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -1298,16 +1207,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5y-H6-EfE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="Gxv-aX-YKX"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
                                 <rect key="frame" x="16" y="17" width="343" height="183"/>
                                 <subviews>
@@ -1357,30 +1256,14 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygp-O9-RnI">
-                                <rect key="frame" x="0.0" y="199" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="kUP-Hr-5Kg"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mWF-en-dQX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Ygp-O9-RnI" secondAttribute="trailing" id="6G3-el-OLU"/>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="G5y-H6-EfE" secondAttribute="bottom" constant="16" id="Afw-Mq-NV9"/>
-                            <constraint firstAttribute="bottom" secondItem="Ygp-O9-RnI" secondAttribute="bottom" id="FWu-Cg-vld"/>
-                            <constraint firstItem="Ygp-O9-RnI" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" id="OVz-qv-hfp"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" id="Afw-Mq-NV9"/>
                             <constraint firstAttribute="bottom" secondItem="iB6-kj-Bi1" secondAttribute="bottom" id="QQY-yn-M6D"/>
-                            <constraint firstAttribute="trailing" secondItem="G5y-H6-EfE" secondAttribute="trailing" id="Veo-Va-mul"/>
-                            <constraint firstItem="G5y-H6-EfE" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" id="pkU-Aa-nFv"/>
                             <constraint firstItem="iB6-kj-Bi1" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" constant="16" id="tLm-VN-6Uh"/>
                             <constraint firstAttribute="trailing" secondItem="iB6-kj-Bi1" secondAttribute="trailing" constant="16" id="wOt-k9-l2q"/>
-                            <constraint firstItem="G5y-H6-EfE" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" id="wnk-cA-Ujq"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>

@@ -172,8 +172,8 @@ final class PlacePageScrollView: UIScrollView {
   private func setupLayout(_ layout: IPlacePageLayout) {
     setLayout(layout)
 
-    layout.headerViewControllers.forEach({ addToHeader($0) })
-    layout.bodyViewControllers.forEach({ addToBody($0) })
+    fillHeader(with: layout.headerViewControllers)
+    fillBody(with: layout.bodyViewControllers)
 
     beginDragging = false
     if let actionBar = layout.actionBar {
@@ -181,6 +181,26 @@ final class PlacePageScrollView: UIScrollView {
       addActionBar(actionBar)
     } else {
       hideActionBar(true)
+    }
+  }
+
+  private func fillHeader(with viewControllers: [UIViewController]) {
+    viewControllers.forEach { [self] viewController in
+      if !stackView.arrangedSubviews.contains(headerStackView) {
+        stackView.addArrangedSubview(headerStackView)
+      }
+      headerStackView.addArrangedSubview(viewController.view)
+    }
+    headerStackView.addSeparator(.bottom)
+  }
+
+  private func fillBody(with viewControllers: [UIViewController]) {
+    viewControllers.forEach { [self] viewController in
+      addChild(viewController)
+      stackView.addArrangedSubview(viewController.view)
+      viewController.didMove(toParent: self)
+      viewController.view.addSeparator(.top)
+      viewController.view.addSeparator(.bottom)
     }
   }
 
@@ -237,25 +257,12 @@ extension PlacePageViewController: PlacePageViewProtocol {
     actionBarHeightConstraint.constant = !value ? Constants.actionBarHeight : .zero
   }
 
-  func addToHeader(_ headerViewController: UIViewController) {
-    if !stackView.arrangedSubviews.contains(headerStackView) {
-      stackView.addArrangedSubview(headerStackView)
-    }
-    headerStackView.addArrangedSubview(headerViewController.view)
-  }
-
   func updatePreviewOffset() {
     updateSteps()
     if !beginDragging {
       let stateOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
       scrollTo(CGPoint(x: 0, y: stateOffset))
     }
-  }
-
-  func addToBody(_ viewController: UIViewController) {
-    addChild(viewController)
-    stackView.addArrangedSubview(viewController.view)
-    viewController.didMove(toParent: self)
   }
 
   func addActionBar(_ actionBarViewController: UIViewController) {
