@@ -11726,6 +11726,45 @@ uk:4Геодезичний пункт
 mr:सर्वेक्षण बिंदू|सर्व्हे पॉइंट
 es:punto geodésico
 
+man_made-flagpole
+en:Flagpole
+ar:سارية علم
+be:Флагшток
+de:Fahnenmast
+es:Mástil de bandera
+et:Lipumast
+fi:Lipputanko
+fr:Mât de drapeau
+he:עמוד דגל
+it:Alza bandiera
+mr:ध्वजस्तंभ
+nl:Vlaggenpaal
+pl:Maszt flagowy
+ru:Флагшток
+sk:Vlajkový stožiar
+tr:Bayrak Direği
+uk:Флагшток
+zh-Hans:旗杆
+zh-Hant:旗桿
+
+man_made-mast
+en:Mast|pole
+ar:عمود برج
+be:Мачта|вышка
+de:Mast
+es:Mástil
+et:Mast
+fr:Mât
+he:תורן
+it:Pilone
+mr:डोलकाठी
+nl:Mast
+pl:Maszt
+ru:Мачта|вышка
+sk:Stožiar
+tr:Direk
+uk:Щогла|вишка
+
 man_made-tower-communication
 en:Communications Tower|cell tower|cellular tower
 ar:برج الاتصالات
