@@ -780,7 +780,7 @@ shop-butcher                                        # icon z16- (also has captio
 shop-cheese                                         # icon z16- (also has caption(optional) z16-)
 shop-chocolate                                      # icon z16- (also has caption(optional) z16-)
 shop-confectionery                                  # icon z16- (also has caption(optional) z16-)
-shop-pasta                                          # icon z18- and caption z16-17 (also has caption(optional) z18-)
+shop-pasta                                          # icon z16- (also has caption(optional) z16-)
 shop-pastry                                         # icon z16- (also has caption(optional) z16-)
 shop-seafood                                        # icon z16- (also has caption(optional) z16-)
 === 2550
@@ -1733,7 +1733,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-cheese                                       # caption(optional) z16- (also has icon z16-)
 # shop-chocolate                                    # caption(optional) z16- (also has icon z16-)
 # shop-confectionery                                # caption(optional) z16- (also has icon z16-)
-# shop-pasta                                        # caption(optional) z18- (also has icon z18-, caption z16-17)
+# shop-pasta                                        # caption(optional) z16- (also has icon z16-)
 # shop-pastry                                       # caption(optional) z16- (also has icon z16-)
 # shop-seafood                                      # caption(optional) z16- (also has icon z16-)
 # === -7450

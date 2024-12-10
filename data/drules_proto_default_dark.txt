@@ -116896,24 +116896,36 @@ cont {
   name: "shop-pasta"
   element {
     scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 2550
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 2550
+      priority: -7450
     }
   }
   element {
     scale: 17
+    symbol {
+      name: "shop-m"
+      priority: 2550
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 2550
+      priority: -7450
     }
   }
   element {
