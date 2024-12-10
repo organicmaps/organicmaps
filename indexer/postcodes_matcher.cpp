@@ -29,7 +29,7 @@ char const * const g_patterns[] = {
     "aa nnnn",   "aa nnnnn",   "aaa nnnn",    "aan",      "aan naa",  "aana naa", "aann",
     "aann naa",  "aannaa",     "aannnaa",     "aannnn",   "an naa",   "ana naa",  "ana nan",
     "ananan",    "ann aann",   "ann naa",     "annnnaaa", "nn nnn",   "nnn",      "nnn nn",
-    "nnn nnn",   "nnn nnnn",   "nnnn",        "nnnn aa",  "nnnn nnn", "nnnnaa",   "nnnnn",
+    "nnn nnn",   "nnn nnnn",   "nnnn",        "nnnn nnn", "nnnnaa",   "nnnnn",
     "nnnnn nnn", "nnnnn nnnn", "nnnnn nnnnn", "nnnnnn",   "nnnnnnn",  "nnnnnnnn", "〒nnn nnnn",
     "annnn"};
 
