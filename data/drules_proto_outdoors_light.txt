@@ -55805,33 +55805,160 @@ cont {
   }
 }
 cont {
-  name: "man_made-tower-communication"
+  name: "man_made-tower"
+  element {
+    scale: 14
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
   element {
     scale: 20
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+}
+cont {
+  name: "man_made-tower-communication"
+  element {
+    scale: 14
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
 }
