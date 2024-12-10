@@ -231,8 +231,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 
   // No point drawing rules for country scale range.
   base::StringIL const arrInvisible[] = {
-      {"man_made", "tower"},
-
       {"place", "continent"},
       {"place", "county"},
       {"place", "region"},
@@ -248,7 +246,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"highway", "motorway_junction"},
       {"landuse"},
       {"man_made", "chimney"},
-      {"man_made", "tower"},
       {"natural"},
       {"office"},
       {"place"},
@@ -264,12 +261,10 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   for (auto const & tags : arrNoEmptyNames)
     noEmptyNames.insert(cl.GetTypeByPath(tags));
 
-  uint32_t const commTower = cl.GetTypeByPath({"man_made", "tower", "communication"});
   ftypes::TwoLevelPOIChecker isPoi;
-  auto const isNoEmptyName = [commTower, &isPoi, &noEmptyNames](uint32_t t)
+  auto const isNoEmptyName = [&isPoi, &noEmptyNames](uint32_t t)
   {
-    if (t != commTower)
-      ftype::TruncValue(t, 2);
+    ftype::TruncValue(t, 2);
     if (noEmptyNames.count(t) > 0)
       return true;
 
