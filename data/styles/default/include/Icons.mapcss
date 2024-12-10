@@ -1865,7 +1865,6 @@ area|z16-[shop=bakery],
 node|z16-[shop=pastry],
 area|z16-[shop=pastry],
 node|z16-[shop=pasta],
-area|z16-[shop=pasta],
 node|z16-[shop=beauty],
 area|z16-[shop=beauty],
 node|z16-[shop=cosmetics],
@@ -2029,6 +2028,8 @@ area|z17-[shop=supermarket],
 node|z16[shop=cheese],
 area|z16[shop=cheese]
 {icon-image: cheese-m.svg;}
+node|z16-[shop=pasta],
+{icon-image: shop-m.svg;}
 node|z16[shop=alcohol],
 area|z16[shop=alcohol]
 {icon-image: alcohol-m.svg;}
