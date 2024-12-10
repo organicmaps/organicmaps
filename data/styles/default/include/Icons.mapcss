@@ -1069,6 +1069,7 @@ area|z18-[man_made=silo],
 node|z18-[man_made=storage_tank],
 area|z18-[man_made=storage_tank],
 node|z18-[man_made=water_tower],
+node|z18-[man_made=tower],
 node|z18-[amenity=bbq],
 area|z18-[amenity=bbq],
 node|z18-[amenity=brothel],
@@ -1549,8 +1550,11 @@ node|z16-[highway=ford],
 node|z19-[power=tower],
 node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],
-node|z17-[man_made=tower][tower:type=communication],
 {icon-image: dot-m.svg;}
+
+node|z16-[man_made=tower],
+node|z16-[man_made=tower][tower:type=communication],
+{icon-image: mast-m.svg;}
 
 node|z16-[amenity=taxi],
 area|z16-[amenity=taxi]
