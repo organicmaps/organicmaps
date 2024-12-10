@@ -21,10 +21,8 @@ TypesSkipper::TypesSkipper()
   for (auto const & e : arrSkipEmptyName1)
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
 
-  // Test for exact type (man_made-tower-communication is not).
   StringIL const arrSkipEmptyNameExact[] = {
     {"man_made", "chimney"},
-    {"man_made", "tower"},
   };
   for (auto const & e : arrSkipEmptyNameExact)
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
