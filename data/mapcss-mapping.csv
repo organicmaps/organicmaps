@@ -1124,7 +1124,7 @@ public_transport|platform;1008;
 junction;[junction];;name;int_name;1009;
 aeroway|aerodrome|international;[aeroway=aerodrome][aerodrome=international],[aeroway=aerodrome][aerodrome:type=international];;name;int_name;1010;
 railway|station|light_rail;[railway=station][station=light_rail],[railway=station][transport=light_rail];;name;int_name;1011;
-railway|station|monorail;[railway=station][station=monorail],[railway=station][transport=monorail];;name;int_name;1012;
+railway|station|monorail;[railway=station][station=monorail],[railway=station][transport=monorail],[railway=halt][station=monorail];;name;int_name;1012;
 railway|station|subway|london;[railway=station][transport=subway][city=london],[railway=station][station=subway][city=london];;name;int_name;1013;
 railway|station|subway|newyork;[railway=station][transport=subway][city=newyork],[railway=station][station=subway][city=newyork];;name;int_name;1014;
 railway|station|subway|moscow;[railway=station][transport=subway][city=moscow],[railway=station][station=subway][city=moscow];;name;int_name;1015;
