@@ -2449,6 +2449,9 @@ void Framework::SetMapLanguageCode(std::string const & langCode)
   settings::Set(settings::kMapLanguageCode, langCode);
   if (m_drapeEngine)
     ApplyMapLanguageCode(langCode);
+
+  if (m_searchAPI)
+    m_searchAPI->SetLocale(langCode);
 }
 
 void Framework::ApplyMapLanguageCode(std::string const & langCode)

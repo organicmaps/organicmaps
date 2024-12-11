@@ -422,6 +422,11 @@ void SearchAPI::SetViewportIfPossible(SearchParams & params)
     params.m_viewport = m_viewport;
 }
 
+void SearchAPI::SetLocale(std::string const & locale)
+{
+  m_engine.SetLocale(locale);
+}
+
 bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
                                   SearchParams const & currParams) const
 {
