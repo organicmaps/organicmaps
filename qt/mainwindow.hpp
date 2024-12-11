@@ -53,9 +53,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
     TRAFFIC = 0,
     TRANSIT,      // Metro scheme
     ISOLINES,
-
-    // Should be the last
-    COUNT
+    OUTDOORS,
   };
   PopupMenuHolder * m_layers = nullptr;
   PopupMenuHolder * m_routing = nullptr;

@@ -294,6 +294,10 @@ void MainWindow::CreateNavigationBar()
                         std::bind(&MainWindow::OnLayerEnabled, this, LayerType::ISOLINES), true);
     m_layers->setChecked(LayerType::ISOLINES, m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
 
+    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::OUTDOORS), true);
+    m_layers->setChecked(LayerType::OUTDOORS, m_pDrawWidget->GetFramework().LoadOutdoorsEnabled());
+
     pToolBar->addWidget(m_layers->create());
     m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
 
@@ -884,24 +888,19 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     frm.GetIsolinesManager().SetEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
-  default:
-    UNREACHABLE();
+  case LayerType::OUTDOORS:
+    frm.SaveOutdoorsEnabled(enable);
+    if (enable)
+      m_pDrawWidget->SetMapStyleToOutdoors();
+    else
+      m_pDrawWidget->SetMapStyleToDefault();
     break;
   }
 }
 
 void MainWindow::OnLayerEnabled(LayerType layer)
 {
-  for (size_t i = 0; i < LayerType::COUNT; ++i)
-  {
-    if (i == layer)
-      SetLayerEnabled(static_cast<LayerType>(i), m_layers->isChecked(i));
-    else
-    {
-      m_layers->setChecked(i, false);
-      SetLayerEnabled(static_cast<LayerType>(i), false);
-    }
-  }
+  SetLayerEnabled(layer, m_layers->isChecked(layer));
 }
 
 void MainWindow::OnRulerEnabled()
