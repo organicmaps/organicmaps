@@ -41,8 +41,8 @@ class ElevationProfilePresenter: NSObject {
     descriptionModels = [
       DescriptionsViewModel(title: L("elevation_profile_ascent"), value: data.ascent, imageName: "ic_em_ascent_24"),
       DescriptionsViewModel(title: L("elevation_profile_descent"), value: data.descent, imageName: "ic_em_descent_24"),
-      DescriptionsViewModel(title: L("elevation_profile_maxaltitude"), value: data.maxAttitude, imageName: "ic_em_max_attitude_24"),
-      DescriptionsViewModel(title: L("elevation_profile_minaltitude"), value: data.minAttitude, imageName: "ic_em_min_attitude_24")
+      DescriptionsViewModel(title: L("elevation_profile_max_elevation"), value: data.maxAttitude, imageName: "ic_em_max_attitude_24"),
+      DescriptionsViewModel(title: L("elevation_profile_min_elevation"), value: data.minAttitude, imageName: "ic_em_min_attitude_24")
     ]
   }
 
