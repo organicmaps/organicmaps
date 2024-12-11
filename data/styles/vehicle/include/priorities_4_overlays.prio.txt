@@ -199,7 +199,7 @@ railway-station-light_rail                          # icon z13- (also has captio
 railway-station-light_rail-berlin                   # icon z13- (also has caption(optional) z15-)
 railway-station-light_rail-london                   # icon z13- (also has caption(optional) z15-)
 railway-station-light_rail-porto                    # icon z13- (also has caption(optional) z15-)
-railway-station-monorail                            # icon z12- (also has caption(optional) z13-)
+railway-station-monorail                            # icon z13- (also has caption(optional) z14-)
 === 2900
 
 barrier-toll_booth                                  # icon z12- (also has caption(optional) z14-)
@@ -775,7 +775,7 @@ entrance-main                                       # icon z18- (also has captio
 # railway-station-light_rail-berlin                 # caption(optional) z15- (also has icon z13-)
 # railway-station-light_rail-london                 # caption(optional) z15- (also has icon z13-)
 # railway-station-light_rail-porto                  # caption(optional) z15- (also has icon z13-)
-# railway-station-monorail                          # caption(optional) z13- (also has icon z12-)
+# railway-station-monorail                          # caption(optional) z14- (also has icon z13-)
 # === -7100
 
 # barrier-toll_booth                                # caption(optional) z14- (also has icon z12-)
