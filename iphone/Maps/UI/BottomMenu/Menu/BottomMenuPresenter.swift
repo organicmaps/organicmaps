@@ -87,6 +87,9 @@ extension BottomMenuPresenter {
     case .layers:
       let cell = tableView.dequeueReusableCell(cell: BottomMenuLayersCell.self)!
       cell.onClose = { [weak self] in self?.onClosePressed() }
+      if sections.count > 1 {
+        cell.addSeparator(.bottom)
+      }
       return cell
     case .items:
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
