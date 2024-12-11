@@ -820,6 +820,9 @@
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "客涯 (Kayak) 上的详细信息";
 
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_disable_button" = "禁用 Kayak";
+
 "placepage_call_button" = "呼叫";
 
 "placepage_edit_bookmark_button" = "编辑书签";

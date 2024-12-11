@@ -820,6 +820,9 @@
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "कयाक पर विवरण";
 
+/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_disable_button" = "Kayak अकषम कर";
+
 "placepage_call_button" = "Call";
 
 "placepage_edit_bookmark_button" = "Edit Bookmark";

@@ -291,6 +291,10 @@
     <string name="google_play_services">Dịch vụ vị trí của Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Nhanh chóng xác định vị trí gần đúng của bạn bằng Bluetooth, WiFi hoặc mạng di động</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Liên kết khách sạn Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Hình ảnh, đánh giá, liên kết đặt phòng được hiển thị cho các khách sạn có danh sách trên Kayak.com. Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua các liên kết này sẽ hướng tới sự phát triển của Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Tải xuống bản đồ theo tuyến đường</string>
     <!-- Text for routing error dialog -->
@@ -521,6 +525,8 @@
     <string name="dialog_kayak_disclaimer">Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Chi tiết trên Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Vô hiệu hóa Kayak</string>
     <string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
     <string name="editor_comment_hint">Nhận xét…</string>
     <string name="editor_reset_edits_message">Cài đặt lại tất cả thay đổi cục bộ?</string>

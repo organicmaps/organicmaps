@@ -305,6 +305,10 @@
     <string name="google_play_services">Google Play helymeghatározási szolgáltatások</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com Hotel Linkek</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">A Kayak.com-on szereplő szállodák esetében fényképek, értékelések, foglalási linkek jelennek meg. Az ezeken a linkeken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Tölts le térképeket az útvonal mellett</string>
     <!-- Text for routing error dialog -->
@@ -534,6 +538,8 @@
     <string name="dialog_kayak_disclaimer">Az ezen a linken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">Részletek a Kayak-on</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Kayak kikapcsolása</string>
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
     <string name="editor_comment_hint">Megjegyzés…</string>
     <string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>

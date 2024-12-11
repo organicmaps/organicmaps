@@ -293,6 +293,10 @@
     <string name="google_play_services">บริการตำแหน่งของ Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">ระบุตำแหน่งโดยประมาณของคุณอย่างรวดเร็วโดยใช้บลูทูธ WiFi หรือเครือข่ายมือถือ</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">ลงคโรงแรม Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">รปภาพ รวว ลงกการจองจะแสดงสำหรบโรงแรมทมรายการขอมลบน Kayak.com โบนสผแนะนำทไดรบสำหรบการจองแตละครงผานลงกเหลานจะนำไปใชในการพฒนา Organic Maps</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">ดาวน์โหลดแผนที่ตามเส้นทาง</string>
     <!-- Text for routing error dialog -->
@@ -523,6 +527,8 @@
     <string name="dialog_kayak_disclaimer">โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป</string>
     <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
     <string name="dialog_kayak_button">รายละเอียดบน Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">ปดการใชงาน Kayak</string>
     <string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
     <string name="editor_comment_hint">ข้อคิดเห็น</string>
     <string name="editor_reset_edits_message">ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด</string>
