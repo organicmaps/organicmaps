@@ -23332,6 +23332,7 @@
     ref = type.railway.station
     en = Monorail Station
     af = Lugspoorstasie
+    de = Einschienenbahn-Station
     zh-Hans = 单轨车站
     zh-Hant = 單軌車站
 
