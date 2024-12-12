@@ -1225,9 +1225,9 @@
 
 "elevation_profile_descent" = "Nedstigning";
 
-"elevation_profile_minaltitude" = "Min. høyde";
+"elevation_profile_min_elevation" = "Min. høyde";
 
-"elevation_profile_maxaltitude" = "Maks. høyde";
+"elevation_profile_max_elevation" = "Maks. høyde";
 
 "elevation_profile_difficulty" = "Vanskelighet";
 
@@ -1253,6 +1253,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Slett rute";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Er du sikker på at du vil slette dette sporet?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Rutenavn";
@@ -1405,6 +1408,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
+
+"edit_track" = "Rediger ruten";
 
 
 /********** Types **********/

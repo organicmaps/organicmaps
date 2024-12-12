@@ -1225,9 +1225,9 @@
 
 "elevation_profile_descent" = "下坡";
 
-"elevation_profile_minaltitude" = "最小高度";
+"elevation_profile_min_elevation" = "最低高度";
 
-"elevation_profile_maxaltitude" = "最大高度";
+"elevation_profile_max_elevation" = "最高高度";
 
 "elevation_profile_difficulty" = "難度";
 
@@ -1253,6 +1253,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "刪除軌跡";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "您確定要刪除該曲目嗎？";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "軌跡名稱";
@@ -1405,6 +1408,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
+
+"edit_track" = "編輯軌跡";
 
 
 /********** Types **********/

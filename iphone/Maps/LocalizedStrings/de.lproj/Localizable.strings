@@ -1225,9 +1225,9 @@
 
 "elevation_profile_descent" = "Bergab";
 
-"elevation_profile_minaltitude" = "Min. Höhe";
+"elevation_profile_min_elevation" = "Min. Höhe";
 
-"elevation_profile_maxaltitude" = "Max. Höhe";
+"elevation_profile_max_elevation" = "Max. Höhe";
 
 "elevation_profile_difficulty" = "Schwierigkeitsgrad";
 
@@ -1253,6 +1253,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Track löschen";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Sind Sie sicher, dass Sie diesen Track löschen möchten?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Name des Tracks";
@@ -1405,6 +1408,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Route ist leer - nichts zu speichern";
+
+"edit_track" = "Track bearbeiten";
 
 
 /********** Types **********/

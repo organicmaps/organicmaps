@@ -1225,9 +1225,9 @@
 
 "elevation_profile_descent" = "Спуск";
 
-"elevation_profile_minaltitude" = "Мин. высота";
+"elevation_profile_min_elevation" = "Мин. высота";
 
-"elevation_profile_maxaltitude" = "Макс. высота";
+"elevation_profile_max_elevation" = "Макс. высота";
 
 "elevation_profile_difficulty" = "Сложность";
 
@@ -1253,6 +1253,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Удалить трек";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Вы уверены, что хотите удалить этот трек?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Название трека";
@@ -1405,6 +1408,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
+
+"edit_track" = "Редактировать трек";
 
 
 /********** Types **********/

@@ -1225,9 +1225,9 @@
 
 "elevation_profile_descent" = "Κατάβαση";
 
-"elevation_profile_minaltitude" = "Ελάχ. υψόμετρο";
+"elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";
 
-"elevation_profile_maxaltitude" = "Μέγ. υψόμετρο";
+"elevation_profile_max_elevation" = "Μέγ. υψόμετρο";
 
 "elevation_profile_difficulty" = "Δυσκολία";
 
@@ -1253,6 +1253,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Διαγραφή διαδρομής";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το κομμάτι;";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Όνομα διαδρομής";
@@ -1405,6 +1408,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
+
+"edit_track" = "Επεξεργασία διαδρομής";
 
 
 /********** Types **********/
