@@ -68,6 +68,9 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
       case MWMButtonColoringGray:
         self.tintColor = [UIColor blackDividers];
         break;
+      case MWMButtonColoringRed:
+        self.tintColor = [[UIColor buttonRed] colorWithAlphaComponent:0.5];
+        break;
       case MWMButtonColoringWhiteText:
         self.tintColor = [UIColor whitePrimaryTextHighlighted];
         break;
@@ -100,6 +103,7 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
       case MWMButtonColoringBlue:
       case MWMButtonColoringOther:
       case MWMButtonColoringGray:
+      case MWMButtonColoringRed:
         break;
     }
   }
@@ -137,8 +141,11 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
     case MWMButtonColoringGray:
       self.tintColor = [UIColor blackHintText];
       break;
+    case MWMButtonColoringRed:
+      self.tintColor = [UIColor buttonRed];
     case MWMButtonColoringOther:
       self.imageView.image = [self imageForState:UIControlStateNormal];
+      break;
       break;
   }
 }
@@ -157,6 +164,8 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
     self.coloring = MWMButtonColoringOther;
   else if ([coloring isEqualToString:@"MWMGray"])
     self.coloring = MWMButtonColoringGray;
+  else if ([coloring isEqualToString:@"MWMRed"])
+    self.coloring = MWMButtonColoringRed;
   else
     NSAssert(false, @"Invalid UIButton's coloring!");
 }

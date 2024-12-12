@@ -7,6 +7,7 @@ class BottomTabBarViewController: UIViewController {
   @IBOutlet var searchButton: MWMButton!
   @IBOutlet var helpButton: MWMButton!
   @IBOutlet var bookmarksButton: MWMButton!
+  @IBOutlet var trackRecordingButton: BottomTabBarButton!
   @IBOutlet var moreButton: MWMButton!
   @IBOutlet var downloadBadge: UIView!
   @IBOutlet var helpBadge: UIView!
@@ -22,9 +23,18 @@ class BottomTabBarViewController: UIViewController {
       updateBadge()
     }
   }
+  var isTrackRecordingEnabled: Bool = false {
+    didSet {
+      updateTrackRecordingButton()
+    }
+  }
+
+  private var trackRecordingBlinkTimer: Timer?
+
   var tabBarView: BottomTabBarView {
     return view as! BottomTabBarView
   }
+
   @objc static var controller: BottomTabBarViewController? {
     return MWMMapViewControlsManager.manager()?.tabBarController
   }
@@ -43,12 +53,17 @@ class BottomTabBarViewController: UIViewController {
       helpButton.setImage(nil, for: .normal)
     }
     updateBadge()
+    updateTrackRecordingButton()
   }
   
   deinit {
     MWMSearchManager.remove(self)
   }
-  
+
+  func setTrackRecordingState(_ state: TrackRecordingState) {
+    isTrackRecordingEnabled = state == .active
+  }
+
   static func updateAvailableArea(_ frame: CGRect) {
     BottomTabBarViewController.controller?.updateAvailableArea(frame)
   }
@@ -68,6 +83,10 @@ class BottomTabBarViewController: UIViewController {
   
   @IBAction func onBookmarksButtonPressed(_ sender: Any) {
     presenter.onBookmarksButtonPressed()
+  }
+
+  @IBAction func onTrackRecordingButtonPressed(_ sender: Any) {
+    presenter.onTrackRecordingButtonPressed()
   }
   
   @IBAction func onMenuButtonPressed(_ sender: Any) {
@@ -106,6 +125,22 @@ class BottomTabBarViewController: UIViewController {
   private func updateBadge() {
     downloadBadge.isHidden = isApplicationBadgeHidden
     helpBadge.isHidden = !needsToShowHelpBadge()
+  }
+
+  private func updateTrackRecordingButton() {
+    guard viewIfLoaded != nil else { return }
+    if isTrackRecordingEnabled {
+      let kBlinkingDuration = 1.0
+      trackRecordingBlinkTimer = Timer.scheduledTimer(withTimeInterval: kBlinkingDuration, repeats: true) { [weak self] _ in
+        guard let self = self else { return }
+        let coloring = self.trackRecordingButton.coloring
+        self.trackRecordingButton.coloring = coloring == .red ? .black : .red
+      }
+    } else {
+      trackRecordingBlinkTimer?.invalidate()
+      trackRecordingBlinkTimer = nil
+      trackRecordingButton.coloring = .black
+    }
   }
 }
 
