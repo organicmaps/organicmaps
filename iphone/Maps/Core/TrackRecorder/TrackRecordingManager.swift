@@ -13,7 +13,7 @@ enum TrackRecordingError: Error {
   case locationIsProhibited
 }
 
-typealias TrackRecordingStateHandler = (TrackRecordingState) -> Void
+typealias TrackRecordingStateHandler = (Bool) -> Void
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
@@ -33,12 +33,22 @@ final class TrackRecordingManager: NSObject {
   static let shared: TrackRecordingManager = TrackRecordingManager(trackRecorder: FrameworkHelper.self)
 
   private let trackRecorder: TrackRecorder.Type
-  private(set) var recordingState: TrackRecordingState = .inactive
+  private var observations: [Observation] = []
+  private(set) var recordingState: TrackRecordingState = .inactive {
+    didSet {
+      notifyObservers()
+    }
+  }
 
   private init(trackRecorder: TrackRecorder.Type) {
     self.trackRecorder = trackRecorder
     super.init()
     self.recordingState = getCurrentRecordingState()
+  }
+
+  @objc
+  func isActive() -> Bool {
+    recordingState == .active
   }
 
   func processAction(_ action: TrackRecordingAction, completion: (CompletionHandler)? = nil) {
@@ -50,10 +60,26 @@ final class TrackRecordingManager: NSObject {
     }
   }
 
+  @objc
+  func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler) {
+    let observation = Observation(observer: observer, recordingStateDidChangeHandler: recordingIsActiveDidChangeHandler)
+    observations.append(observation)
+    recordingIsActiveDidChangeHandler(recordingState == .active)
+  }
+
+  @objc
+  func removeObserver(_ observer: AnyObject) {
+    observations.removeAll { $0.observer === observer }
+  }
+
+  private func notifyObservers() {
+    observations = observations.filter { $0.observer != nil }
+    observations.forEach { $0.recordingStateDidChangeHandler?(recordingState == .active) }
+  }
+
   private func handleError(_ error: TrackRecordingError, completion: (CompletionHandler)? = nil) {
     switch error {
     case .locationIsProhibited:
-      completion?()
       // Show alert to enable location
       LocationManager.checkLocationStatus()
     }
@@ -75,7 +101,7 @@ final class TrackRecordingManager: NSObject {
       recordingState = .active
       completion?()
     case .active:
-      break
+      completion?()
     case .error(let trackRecordingError):
       handleError(trackRecordingError, completion: completion)
     }
