@@ -39,6 +39,7 @@
     <locale android:name="ro" />
     <locale android:name="ru" />
     <locale android:name="sk" />
+    <locale android:name="sr" />
     <locale android:name="sv" />
     <locale android:name="sw" />
     <locale android:name="th" />
