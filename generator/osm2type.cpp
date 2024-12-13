@@ -832,12 +832,6 @@ string DetermineMtbRating(OsmElement * p)
     expert
   };
 
-  int test = 10;
-  if (p->HasTag("mtb:scale:imba"))
-  {
-    test = 0;
-  }
-
   string mtbscale = p->GetTag("mtb:scale");
   string imbascale = p->GetTag("mtb:scale:imba");
   string SmoothnessType = p->GetTag("smoothness");

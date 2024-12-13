@@ -644,10 +644,18 @@ line|z19-[highway=busway],
 line|z13-[highway=pedestrian],
 line|z13-[highway=ford]
 {color: @pedestrian;opacity: 0.85;}
-line|z13-[highway=cycleway],
+line|z13-[highway=cycleway][!_mtb_rating?],
 line|z14-[highway=path][bicycle=designated]::cycleline,
 line|z15-[highway=footway][bicycle=designated]::cycleline,
 {color: @cycleway;}
+line|z13-[highway=cycleway][_mtb_rating=easy],
+{color: @cycleway;width: 2;dashes: 5,2.2;}
+line|z13-[highway=cycleway][_mtb_rating=intermediate],
+{color: @cycleway;width: 1.5;dashes: 5,2.2;}
+line|z13-[highway=cycleway][_mtb_rating=difficult],
+{color: @cycleway;width: 1;dashes: 5,2.2;}
+line|z13-[highway=cycleway][_mtb_rating=expert],
+{color: @cycleway;width: 1;dashes: 2.2,2.2;}
 line|z13-[highway=construction],
 {color: @construction;opacity: 0.7;}
 line|z13-[highway=pedestrian][bridge?]::bridgewhite,

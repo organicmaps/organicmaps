@@ -75,6 +75,7 @@ DEFINE_bool(emit_coasts, false,
 #define DEBUG_GENERATOR true
 
 #if DEBUG_GENERATOR
+/*
 #define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
 #define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
 #define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
@@ -88,7 +89,32 @@ DEFINE_bool(emit_coasts, false,
 #define Debug_isolines_path "" 
 #define Debug_addresses_path "" 
 #define Debug_generate_packed_borders true 
+#define Debug_Preprocess false*/
+
+#define Debug_data_path ""
+#define Debug_intermediate_data_path ""
+#define Debug_cache_path ""
+#define Debug_osm_file_type ""
+#define Debug_osm_file_name ""
+#define Debug_node_storage "map"
+#define Debug_user_resource_path ""
+#define Debug_dump_cities_boundaries false 
+#define Debug_cities_boundaries_data ""
+#define Debug_generate_features false 
+#define Debug_isolines_path "" 
+#define Debug_addresses_path "" 
+#define Debug_generate_packed_borders false 
 #define Debug_Preprocess false
+
+#define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/241213")
+#define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/intermediate_data")
+#define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/intermediate_data")
+#define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data") 
+#define Debug_node_storage std::string("map")
+#define Debug_PlanetVersion 1734096801
+#define Debug_GenerateGeometry true
+#define Debug_GenerateSearchIndex true
+#define Debug_Output std::string("Germany_Free State of Bavaria_Upper Bavaria_South")
 #else
 #define Debug_data_path ""
 #define Debug_intermediate_data_path ""
@@ -104,6 +130,11 @@ DEFINE_bool(emit_coasts, false,
 #define Debug_addresses_path "" 
 #define Debug_generate_packed_borders false 
 #define Debug_Preprocess false
+
+#define Debug_Output ""
+#define Debug_GenerateSearchIndex false
+#define Debug_GenerateGeometry false
+#define Debug_PlanetVersion base::SecondsSinceEpoch()
 #endif
 // Generator settings and paths.
 DEFINE_string(osm_file_name, Debug_osm_file_name, "Input osm area file.");
@@ -114,20 +145,20 @@ DEFINE_string(intermediate_data_path, Debug_intermediate_data_path, "Path to sto
 DEFINE_string(cache_path, Debug_cache_path,
               "Path to stored caches for nodes, ways, relations. "
               "If 'cache_path' is empty, caches are stored to 'intermediate_data_path'.");
-DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
+DEFINE_string(output, Debug_Output, "File name for process (without 'mwm' ext).");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
 DEFINE_string(node_storage, Debug_node_storage,
               "Type of storage for intermediate points representation. Available: raw, map, mem.");
-DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
+DEFINE_uint64(planet_version, Debug_PlanetVersion,
               "Version as seconds since epoch, by default - now.");
 
 // Preprocessing and feature generator.
 DEFINE_bool(preprocess, Debug_Preprocess, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, Debug_generate_features, "2nd pass - generate intermediate features.");
-DEFINE_bool(generate_geometry, false,
+DEFINE_bool(generate_geometry, Debug_GenerateGeometry,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
-DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
+DEFINE_bool(generate_search_index, Debug_GenerateSearchIndex, "5th pass - generate search index.");
 DEFINE_bool(dump_cities_boundaries, Debug_dump_cities_boundaries, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
 DEFINE_string(cities_boundaries_data, Debug_cities_boundaries_data, "File with cities boundaries");

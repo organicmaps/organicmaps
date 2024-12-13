@@ -413,11 +413,11 @@ world  +
         construction  -
         cycleway  +
             bridge  -
+            difficult  -
+            easy  -
+            expert  -
+            intermediate  -
             tunnel  -
-            easy -
-            intermediate -
-            difficult -
-            expert -
             {}
         elevator  -
         footway  +
