@@ -818,6 +818,88 @@ string DeterminePathGrade(OsmElement * p)
   return {};
 }
 
+string DetermineMtbRating(OsmElement * p)
+{
+  if (!p->HasTag("highway", "cycleway"))
+    return {};
+
+  enum eMtbRating : int
+  {
+    none = 0,
+    easy,
+    intermediate,
+    difficult,
+    expert
+  };
+
+  int test = 10;
+  if (p->HasTag("mtb:scale:imba"))
+  {
+    test = 0;
+  }
+
+  string mtbscale = p->GetTag("mtb:scale");
+  string imbascale = p->GetTag("mtb:scale:imba");
+  string SmoothnessType = p->GetTag("smoothness");
+
+  static std::map<std::string, eMtbRating> mtbscaleToRatingConversion = {
+    {"0", eMtbRating::easy},
+    {"S0", eMtbRating::easy},
+    {"1", eMtbRating::intermediate},
+    {"S1", eMtbRating::intermediate},
+    {"2", eMtbRating::intermediate},
+    {"S2", eMtbRating::intermediate},
+    {"3", eMtbRating::difficult},
+    {"S3", eMtbRating::difficult},
+    {"4", eMtbRating::expert},
+    {"S4", eMtbRating::expert},
+    {"5", eMtbRating::expert},
+    {"S5", eMtbRating::expert},
+  };
+
+  static std::map<std::string, eMtbRating> imbabscaleToRatingConversion = {
+    {"1", eMtbRating::easy},
+    {"2", eMtbRating::intermediate},
+    {"3", eMtbRating::difficult},
+    {"4", eMtbRating::expert},
+  };
+
+  static std::map<std::string, eMtbRating> SmoothnessToRatingConversion = {
+    {"bad", eMtbRating::easy},
+    {"very_bad", eMtbRating::easy},
+    {"horrible", eMtbRating::intermediate},
+    {"very_horrible", eMtbRating::difficult},
+  };
+
+  int tmpRatingFromMtbScale = 0;
+  int tmpRatingFromImbaScale = 0;
+  int tmpRatingFromSmoothness = 0;
+  if (!mtbscale.empty() && mtbscaleToRatingConversion.count(mtbscale))
+    tmpRatingFromMtbScale = mtbscaleToRatingConversion[mtbscale];
+
+  if (!imbascale.empty() && imbabscaleToRatingConversion.count(imbascale))
+    tmpRatingFromImbaScale = imbabscaleToRatingConversion[imbascale];
+
+  if (!SmoothnessType.empty() && SmoothnessToRatingConversion.count(SmoothnessType))
+    tmpRatingFromSmoothness = SmoothnessToRatingConversion[SmoothnessType];
+
+  int overallRating = std::max({tmpRatingFromMtbScale, tmpRatingFromImbaScale, tmpRatingFromSmoothness});
+  switch (overallRating)
+  {
+    case eMtbRating::easy:
+      return "easy";
+    case eMtbRating::intermediate:
+      return "intermediate";
+    case eMtbRating::difficult:
+      return "difficult";
+    case eMtbRating::expert:
+      return "expert";
+    default:
+      return {};
+  } 
+  
+}
+
 void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 {
   bool hasLayer = false;
@@ -901,6 +983,8 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   p->AddTag("psurface", DetermineSurfaceAndHighwayType(p));
 
   p->AddTag("_path_grade", DeterminePathGrade(p));
+
+  p->AddTag("_mtb_rating", DetermineMtbRating(p));
 
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);

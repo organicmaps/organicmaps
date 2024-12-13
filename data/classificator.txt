@@ -414,6 +414,10 @@ world  +
         cycleway  +
             bridge  -
             tunnel  -
+            easy -
+            intermediate -
+            difficult -
+            expert -
             {}
         elevator  -
         footway  +
