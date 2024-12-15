@@ -235,6 +235,14 @@
     <string name="pref_zoom_summary">Display on the map</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Night Mode</string>
+    <!-- Settings «Map» category: «Appearance» title -->
+    <string name="pref_appearance_title">Appearance</string>
+    <!-- Generic «Light» string (eg. light theme, not lamps) -->
+    <string name="light">Light</string>
+    <!-- Generic «Dark» string -->
+    <string name="dark">Dark</string>
+    <!-- Appearance setting, OM should follow the system theme -->
+    <string name="follow_system">Follow System</string>
     <!-- Generic «Off» string -->
     <string name="off">Off</string>
     <!-- Generic «On» string -->

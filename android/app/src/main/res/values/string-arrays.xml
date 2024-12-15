@@ -23,14 +23,19 @@
     <item>0</item>
     <item>1</item>
   </string-array>
+
   <string-array name="appearance">
     <item>@string/follow_system</item>
+    <item>@string/nav_auto</item>
+    <item>@string/auto</item>
     <item>@string/light</item>
     <item>@string/dark</item>
   </string-array>
-  <string-array name="appearance_values"
-                translatable="false">
+
+  <string-array name="appearance_values" translatable="false">
     <item>@string/theme_follow_system</item>
+    <item>@string/theme_nav_auto</item>
+    <item>@string/theme_auto</item>
     <item>@string/theme_default</item>
     <item>@string/theme_night</item>
   </string-array>
