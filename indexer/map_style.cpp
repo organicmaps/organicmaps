@@ -57,6 +57,10 @@ std::string DebugPrint(MapStyle mapStyle)
 
 bool MapStyleIsDark(MapStyle mapStyle)
 {
-  const std::unordered_set<MapStyle> darkStyles {MapStyle::MapStyleDefaultDark, MapStyle::MapStyleVehicleDark, MapStyle::MapStyleOutdoorsDark};
-  return darkStyles.contains(mapStyle);
+  for (const auto darkStyle : {MapStyleDefaultDark, MapStyleVehicleDark, MapStyleOutdoorsDark})
+  {
+    if (mapStyle == darkStyle)
+      return true;
+  }
+  return false;
 }

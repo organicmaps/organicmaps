@@ -770,19 +770,19 @@ void DrawWidget::RefreshDrawingRules()
 
 void DrawWidget::SetMapStyleToDefault()
 {
-  auto style = m_framework.GetMapStyle();
+  auto const style = m_framework.GetMapStyle();
   SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleDefaultDark : MapStyle::MapStyleDefaultLight);
 }
 
 void DrawWidget::SetMapStyleToVehicle()
 {
-  auto style = m_framework.GetMapStyle();
+  auto const style = m_framework.GetMapStyle();
   SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleVehicleDark : MapStyle::MapStyleVehicleLight);
 }
 
 void DrawWidget::SetMapStyleToOutdoors()
 {
-  auto style = m_framework.GetMapStyle();
+  auto const style = m_framework.GetMapStyle();
   SetMapStyle(MapStyleIsDark(style) ? MapStyle::MapStyleOutdoorsDark : MapStyle::MapStyleOutdoorsLight);
 }
 
