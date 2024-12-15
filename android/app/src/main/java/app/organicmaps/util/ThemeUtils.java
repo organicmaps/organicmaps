@@ -107,7 +107,23 @@ public final class ThemeUtils
   {
     String navAutoTheme = context.getString(R.string.theme_nav_auto);
     return navAutoTheme.equals(theme);
-}
+  }
+
+  public static boolean isAutoTheme(@NonNull Context context)
+  {
+    return isFollowSystemTheme(context, Config.getCurrentUiTheme(context));
+  }
+
+  public static boolean isAutoTheme(@NonNull Context context, String theme)
+  {
+    String followSystemTheme = context.getString(R.string.theme_auto);
+    return followSystemTheme.equals(theme);
+  }
+
+  public static boolean isValidThemeMode(@NonNull Context context, String res)
+  {
+    return isFollowSystemTheme(context, res) || isNavAutoTheme(context, res) || isAutoTheme(context, res);
+  }
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
   {

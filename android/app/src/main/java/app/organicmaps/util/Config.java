@@ -2,6 +2,7 @@ package app.organicmaps.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -277,7 +278,7 @@ public final class Config
   {
     String followSystemTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, followSystemTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isFollowSystemTheme(context, res))
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isValidThemeMode(context, res))
       return res;
 
     return followSystemTheme;
