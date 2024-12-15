@@ -15,7 +15,6 @@ public enum ThemeSwitcher
 {
   INSTANCE;
 
-  private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
   private static boolean mRendererActive = false;
 
 //  private final Runnable mAutoThemeChecker = new Runnable()
@@ -73,11 +72,7 @@ public enum ThemeSwitcher
   {
     mRendererActive = isRendererActive;
     String theme = Config.getUiThemeSettings(mContext);
-//    if (ThemeUtils.isAutoTheme(mContext, theme) || ThemeUtils.isNavAutoTheme(mContext, theme))
-//    {
-//      mAutoThemeChecker.run();
-//      return;
-//    }
+
     setAndroidTheme(theme);
 
     final String themeToApply = ThemeUtils.getAndroidTheme(mContext);
