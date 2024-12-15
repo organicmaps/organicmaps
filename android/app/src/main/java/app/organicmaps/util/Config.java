@@ -276,12 +276,13 @@ public final class Config
   @NonNull
   public static String getUiThemeSettings(@NonNull Context context)
   {
-    String followSystemTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, followSystemTheme);
+    // Fallback & default theme
+    String fallbackTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
+    String res = getString(KEY_MISC_UI_THEME_SETTINGS, fallbackTheme);
     if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isValidThemeMode(context, res))
       return res;
 
-    return followSystemTheme;
+    return fallbackTheme;
   }
 
   public static boolean setUiThemeSettings(@NonNull Context context, String theme)

@@ -84,6 +84,10 @@ public enum ThemeSwitcher
   {
     if (ThemeUtils.isFollowSystemTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    else if (ThemeUtils.isAutoTheme(mContext, theme)) //TODO: Proper behaviour
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    else if (ThemeUtils.isNavAutoTheme(mContext, theme)) //TODO: Proper behaviour
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
@@ -103,7 +107,7 @@ public enum ThemeSwitcher
       else
         style = Framework.MAP_STYLE_DARK;
     }
-    else
+    else//TODO: and here?
     {
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_CLEAR;
