@@ -46,28 +46,28 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-  public static String getUiTheme(@NonNull Context context)
-  {
-    String nightTheme = context.getString(R.string.theme_night);
-    String defaultTheme = context.getString(R.string.theme_default);
-
-    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-      return nightTheme;
-
-    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
-      return defaultTheme;
-
-    int nightModeFlags = context.getResources()
-                                .getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
-      return nightTheme;
-    else
-      return defaultTheme;
-  }
+//  public static String getUiTheme(@NonNull Context context)
+//  {
+//    String nightTheme = context.getString(R.string.theme_night);
+//    String defaultTheme = context.getString(R.string.theme_default);
+//
+//    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+//      return nightTheme;
+//
+//    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+//      return defaultTheme;
+//
+//    int nightModeFlags = context.getResources()
+//                                .getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+//      return nightTheme;
+//    else
+//      return defaultTheme;
+//  }
 
   public static boolean isDefaultTheme(@NonNull Context context)
   {
-    return isDefaultTheme(context, Config.getCurrentUiTheme(context));
+    return isDefaultTheme(context, Config.getUiThemeSettings(context));
   }
 
   public static boolean isDefaultTheme(@NonNull Context context, String theme)
@@ -78,7 +78,7 @@ public final class ThemeUtils
 
   public static boolean isNightTheme(@NonNull Context context)
   {
-    return isNightTheme(context, Config.getCurrentUiTheme(context));
+    return isNightTheme(context, Config.getUiThemeSettings(context));
   }
 
   public static boolean isNightTheme(@NonNull Context context, String theme)
@@ -89,7 +89,7 @@ public final class ThemeUtils
 
   public static boolean isFollowSystemTheme(@NonNull Context context)
   {
-    return isFollowSystemTheme(context, Config.getCurrentUiTheme(context));
+    return isFollowSystemTheme(context, Config.getUiThemeSettings(context));
   }
 
   public static boolean isFollowSystemTheme(@NonNull Context context, String theme)
@@ -111,7 +111,7 @@ public final class ThemeUtils
 
   public static boolean isAutoTheme(@NonNull Context context)
   {
-    return isFollowSystemTheme(context, Config.getCurrentUiTheme(context));
+    return isFollowSystemTheme(context, Config.getUiThemeSettings(context));
   }
 
   public static boolean isAutoTheme(@NonNull Context context, String theme)
