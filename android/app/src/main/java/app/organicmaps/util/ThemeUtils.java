@@ -46,7 +46,7 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-  public static String getAndroidTheme(@NonNull Context context)
+  public static String getUiTheme(@NonNull Context context)
   {
     String nightTheme = context.getString(R.string.theme_night);
     String defaultTheme = context.getString(R.string.theme_default);
