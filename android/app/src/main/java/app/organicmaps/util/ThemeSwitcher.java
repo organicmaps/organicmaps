@@ -68,35 +68,31 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    // First, set the last saved theme
     String storedTheme = Config.getUiThemeSettings(mContext);
-    Config.setUiThemeSettings(mContext, storedTheme);
     int currentMapStyle = Framework.nativeGetMapStyle();
-    // If current style is different to the style from theme, only set theme
-    // To handle case of debug commands
-    if (currentMapStyle != getMapStyle(storedTheme))
-    {
-      SetMapStyle(getMapStyle(storedTheme));
-      setAndroidTheme(storedTheme);
-    }
-    else
-    {
-      setAndroidTheme(storedTheme);
-    }
 
-    // final String themeToApply = ThemeUtils.getUiTheme(mContext);
-    // final int style = ;
-    // setThemeAndMapStyle(theme, style);
+    // If current style is different to the style from theme, only set theme
+    // to handle debug commands
+    if (currentMapStyle != getMapStyle(storedTheme))
+      SetMapStyle(getMapStyle(storedTheme));
+
+    setAndroidTheme(storedTheme);
   }
 
   private void setAndroidTheme(@NonNull String theme)
   {
-    if (ThemeUtils.isFollowSystemTheme(mContext, theme))
+    if (ThemeUtils.isSystemTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    else if (ThemeUtils.isAutoTheme(mContext, theme)) //TODO: Proper behaviour
-      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    else if (ThemeUtils.isNavAutoTheme(mContext, theme)) //TODO: Proper behaviour
-      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    else if (ThemeUtils.isAutoTheme(mContext, theme))
+      {
+        //TODO: Proper behaviour
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+      }
+    else if (ThemeUtils.isNavAutoTheme(mContext, theme))
+      {
+        //TODO: Proper behaviour
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+      }
     else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
@@ -152,6 +148,9 @@ public enum ThemeSwitcher
 //    }
 //  }
 
+  /**
+   * calls back to core framework and sets the map style.
+   */
   private void SetMapStyle(@Framework.MapStyle int style)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.

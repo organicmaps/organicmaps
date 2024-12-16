@@ -1,7 +1,6 @@
 package app.organicmaps.util;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
 
@@ -9,7 +8,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AppCompatDelegate;
+
 import app.organicmaps.R;
 
 public final class ThemeUtils
@@ -87,12 +86,12 @@ public final class ThemeUtils
     return nightTheme.equals(theme);
   }
 
-  public static boolean isFollowSystemTheme(@NonNull Context context)
+  public static boolean isSystemTheme(@NonNull Context context)
   {
-    return isFollowSystemTheme(context, Config.getUiThemeSettings(context));
+    return isSystemTheme(context, Config.getUiThemeSettings(context));
   }
 
-  public static boolean isFollowSystemTheme(@NonNull Context context, String theme)
+  public static boolean isSystemTheme(@NonNull Context context, String theme)
   {
     String followSystemTheme = context.getString(R.string.theme_follow_system);
     return followSystemTheme.equals(theme);
@@ -111,7 +110,7 @@ public final class ThemeUtils
 
   public static boolean isAutoTheme(@NonNull Context context)
   {
-    return isFollowSystemTheme(context, Config.getUiThemeSettings(context));
+    return isSystemTheme(context, Config.getUiThemeSettings(context));
   }
 
   public static boolean isAutoTheme(@NonNull Context context, String theme)
@@ -122,7 +121,7 @@ public final class ThemeUtils
 
   public static boolean isValidThemeMode(@NonNull Context context, String res)
   {
-    return isFollowSystemTheme(context, res) || isNavAutoTheme(context, res) || isAutoTheme(context, res);
+    return isSystemTheme(context, res) || isNavAutoTheme(context, res) || isAutoTheme(context, res);
   }
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
