@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
 
     final Context context = getApplicationContext();
-    final String theme = Config.getCurrentUiTheme(context);
+    final String theme = Config.getUiThemeSettings(context);
     if (ThemeUtils.isDefaultTheme(context, theme))
       setTheme(R.style.MwmTheme_Splash);
     else if (ThemeUtils.isNightTheme(context, theme))

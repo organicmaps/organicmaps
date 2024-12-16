@@ -25,7 +25,6 @@ public final class Config
   private static final String KEY_MISC_KAYAK_ACCEPTED = "IsKayakApproved";
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
-  private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
@@ -254,7 +253,7 @@ public final class Config
   }
 
   @NonNull
-  public static String getCurrentUiTheme(@NonNull Context context)
+  public static String getUiThemeSettings(@NonNull Context context)
   {
     String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
     String res = getString(KEY_MISC_UI_THEME, defaultTheme);
@@ -265,34 +264,35 @@ public final class Config
     return defaultTheme;
   }
 
-  static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
-  {
-    if (getCurrentUiTheme(context).equals(theme))
-      return;
-
-    setString(KEY_MISC_UI_THEME, theme);
-  }
-
-  @NonNull
-  public static String getUiThemeSettings(@NonNull Context context)
-  {
-    // Fallback & default theme
-    String fallbackTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, fallbackTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isValidThemeMode(context, res))
-      return res;
-
-    return fallbackTheme;
-  }
-
-  public static boolean setUiThemeSettings(@NonNull Context context, String theme)
+  public static boolean setUiThemeSettings(@NonNull Context context, @NonNull String theme)
   {
     if (getUiThemeSettings(context).equals(theme))
       return false;
 
-    setString(KEY_MISC_UI_THEME_SETTINGS, theme);
+    setString(KEY_MISC_UI_THEME, theme);
     return true;
   }
+
+//  @NonNull
+//  public static String getUiThemeSettings(@NonNull Context context)
+//  {
+//    // Fallback & default theme
+//    String fallbackTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
+//    String res = getString(KEY_MISC_UI_THEME_SETTINGS, fallbackTheme);
+//    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isValidThemeMode(context, res))
+//      return res;
+//
+//    return fallbackTheme;
+//  }
+//
+//  public static boolean setUiThemeSettings(@NonNull Context context, String theme)
+//  {
+//    if (getUiThemeSettings(context).equals(theme))
+//      return false;
+//
+//    setString(KEY_MISC_UI_THEME_SETTINGS, theme);
+//    return true;
+//  }
 
   public static boolean isLargeFontsSize()
   {
