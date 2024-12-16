@@ -1,14 +1,11 @@
 package app.organicmaps.util;
 
-import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.Framework;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.display.DisplayManager;
-import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.routing.RoutingController;
 
 public enum ThemeSwitcher
@@ -71,13 +68,14 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
+    // First, set the last saved theme
     String theme = Config.getUiThemeSettings(mContext);
-
+    int currentStyle = Framework.nativeGetMapStyle();
     setAndroidTheme(theme);
 
-    final String themeToApply = ThemeUtils.getAndroidTheme(mContext);
-    final int style = getStyle(themeToApply);
-    setThemeAndMapStyle(themeToApply, style);
+    final String themeToApply = ThemeUtils.getUiTheme(mContext);
+    // final int style = getStyle(theme);
+    // setThemeAndMapStyle(theme, style);
   }
 
   private void setAndroidTheme(@NonNull String theme)
@@ -120,28 +118,28 @@ public enum ThemeSwitcher
     return style;
   }
 
-  private void setThemeAndMapStyle(@NonNull String theme, @Framework.MapStyle int style)
-  {
-    String oldTheme = Config.getCurrentUiTheme(mContext);
-
-    if (!theme.equals(oldTheme))
-    {
-      Config.setCurrentUiTheme(mContext, theme);
-      DownloaderStatusIcon.clearCache();
-
-      final Activity a = MwmApplication.from(mContext).getTopActivity();
-      if (a != null && !a.isFinishing())
-        a.recreate();
-    }
-    else
-    {
-      // If the UI theme is not changed we just need to change the map style if needed.
-      int currentStyle = Framework.nativeGetMapStyle();
-      if (currentStyle == style)
-        return;
-      SetMapStyle(style);
-    }
-  }
+//  private void setThemeAndMapStyle(@NonNull String theme, @Framework.MapStyle int style)
+//  {
+//    String oldTheme = Config.getCurrentUiTheme(mContext);
+//
+//    if (!theme.equals(oldTheme))
+//    {
+//      Config.setCurrentUiTheme(mContext, theme);
+//      DownloaderStatusIcon.clearCache();
+//
+//      final Activity a = MwmApplication.from(mContext).getTopActivity();
+//      if (a != null && !a.isFinishing())
+//        a.recreate();
+//    }
+//    else
+//    {
+//      // If the UI theme is not changed we just need to change the map style if needed.
+//      int currentStyle = Framework.nativeGetMapStyle();
+//      if (currentStyle == style)
+//        return;
+//      SetMapStyle(style);
+//    }
+//  }
 
   private void SetMapStyle(@Framework.MapStyle int style)
   {
