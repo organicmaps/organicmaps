@@ -69,12 +69,23 @@ public enum ThemeSwitcher
   {
     mRendererActive = isRendererActive;
     // First, set the last saved theme
-    String theme = Config.getUiThemeSettings(mContext);
-    int currentStyle = Framework.nativeGetMapStyle();
-    setAndroidTheme(theme);
+    String storedTheme = Config.getUiThemeSettings(mContext);
+    Config.setUiThemeSettings(mContext, storedTheme);
+    int currentMapStyle = Framework.nativeGetMapStyle();
+    // If current style is different to the style from theme, only set theme
+    // To handle case of debug commands
+    if (currentMapStyle != getMapStyle(storedTheme))
+    {
+      SetMapStyle(getMapStyle(storedTheme));
+      setAndroidTheme(storedTheme);
+    }
+    else
+    {
+      setAndroidTheme(storedTheme);
+    }
 
-    final String themeToApply = ThemeUtils.getUiTheme(mContext);
-    // final int style = getStyle(theme);
+    // final String themeToApply = ThemeUtils.getUiTheme(mContext);
+    // final int style = ;
     // setThemeAndMapStyle(theme, style);
   }
 
@@ -83,16 +94,16 @@ public enum ThemeSwitcher
     if (ThemeUtils.isFollowSystemTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     else if (ThemeUtils.isAutoTheme(mContext, theme)) //TODO: Proper behaviour
-      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     else if (ThemeUtils.isNavAutoTheme(mContext, theme)) //TODO: Proper behaviour
-      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
   }
 
-  private int getStyle(@NonNull String theme)
+  private int getMapStyle(@NonNull String theme)
   {
     @Framework.MapStyle
     int style;
@@ -105,7 +116,7 @@ public enum ThemeSwitcher
       else
         style = Framework.MAP_STYLE_DARK;
     }
-    else//TODO: and here?
+    else
     {
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_CLEAR;

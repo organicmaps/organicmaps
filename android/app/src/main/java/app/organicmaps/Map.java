@@ -253,7 +253,7 @@ public final class Map
 
   public void onPause(final Context context)
   {
-    mUiThemeOnPause = Config.getCurrentUiTheme(context);
+    mUiThemeOnPause = Config.getUiThemeSettings(context);
 
     // Pause/Resume can be called without surface creation/destroy.
     if (mSurfaceAttached)
@@ -363,7 +363,7 @@ public final class Map
 
   private boolean isThemeChangingProcess(final Context context)
   {
-    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getCurrentUiTheme(context));
+    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getUiThemeSettings(context));
   }
 
   // Engine
