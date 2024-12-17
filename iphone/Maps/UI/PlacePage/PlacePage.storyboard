@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1199,10 +1199,10 @@
             </objects>
             <point key="canvasLocation" x="929" y="2168"/>
         </scene>
-        <!--Place Page Bookmark View Controller-->
+        <!--Place Page Edit Bookmark Or Track View Controller-->
         <scene sceneID="clb-tD-Svo">
             <objects>
-                <viewController storyboardIdentifier="PlacePageBookmarkViewController" id="cB4-oj-3Tv" customClass="PlacePageBookmarkViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePageEditBookmarkOrTrackViewController" id="cB4-oj-3Tv" customClass="PlacePageEditBookmarkOrTrackViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRD-Uv-Uak">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1441,6 +1441,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="319"/>
                     <connections>
+                        <outlet property="chartHeightConstraint" destination="utH-YA-2pe" id="ee1-mM-L7n"/>
                         <outlet property="chartView" destination="jIS-0e-Ztd" id="KHY-Bn-Pe6"/>
                         <outlet property="descriptionCollectionView" destination="Xc9-ED-V4K" id="dHB-dH-HYE"/>
                         <outlet property="difficultyConstraint" destination="vaG-aV-kw5" id="fkz-u2-wYh"/>
