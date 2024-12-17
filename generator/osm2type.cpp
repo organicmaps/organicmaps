@@ -820,7 +820,7 @@ string DeterminePathGrade(OsmElement * p)
 
 string DetermineMtbRating(OsmElement * p)
 {
-  if (!p->HasTag("highway", "cycleway"))
+  if (!p->HasTag("highway", "cycleway") || (!p->HasTag("mtb:scale") && !p->HasTag("mtb:scale:imba") && !p->HasTag("smoothness")))
     return {};
 
   enum eMtbRating : int
