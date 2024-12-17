@@ -1,11 +1,13 @@
 #include "qt/preferences_dialog.hpp"
 
+#include "indexer/map_style.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "map/framework.hpp"
 
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/style_utils.hpp"
 
 #include <QtGui/QIcon>
 #include <QLocale>
@@ -134,6 +136,38 @@ namespace qt
       });
     }
 
+    QButtonGroup * nightModeGroup = new QButtonGroup(this);
+    QGroupBox * nightModeRadioBox = new QGroupBox("Night Mode");
+    {
+      using namespace style_utils;
+      QHBoxLayout * layout = new QHBoxLayout();
+
+      QRadioButton * radioButton = new QRadioButton("Off");
+      layout->addWidget(radioButton);
+      nightModeGroup->addButton(radioButton, static_cast<int>(NightMode::Off));
+
+      radioButton = new QRadioButton("On");
+      layout->addWidget(radioButton);
+      nightModeGroup->addButton(radioButton, static_cast<int>(NightMode::On));
+
+      nightModeRadioBox->setLayout(layout);
+
+      int i;
+      if (!settings::Get(settings::kNightMode, i))
+      {
+        i = static_cast<int>(MapStyleIsDark(framework.GetMapStyle()) ? NightMode::On : NightMode::Off);
+        settings::Set(settings::kNightMode, i);
+      }
+      nightModeGroup->button(i)->setChecked(true);
+
+      void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::idClicked;
+      connect(nightModeGroup, buttonClicked, [&framework](int i)
+      {
+        NightMode nightMode = static_cast<NightMode>(i);
+        settings::Set(settings::kNightMode, i);
+        framework.SetMapStyle((nightMode == NightMode::Off) ? GetLightMapStyleVariant(framework.GetMapStyle()) : GetDarkMapStyleVariant(framework.GetMapStyle()));
+      });
+    }
 
 #ifdef BUILD_DESIGNER
     QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
@@ -168,6 +202,7 @@ namespace qt
     finalLayout->addWidget(developerModeCheckBox);
     finalLayout->addWidget(mapLanguageLabel);
     finalLayout->addWidget(mapLanguageComboBox);
+    finalLayout->addWidget(nightModeRadioBox);
 #ifdef BUILD_DESIGNER
     finalLayout->addWidget(indexRegenCheckBox);
 #endif
