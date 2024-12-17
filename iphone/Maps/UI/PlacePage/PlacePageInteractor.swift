@@ -175,15 +175,16 @@ extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
   }
 }
 
-// MARK: - PlacePageBookmarkViewControllerDelegate
+// MARK: - PlacePageEditBookmarkOrTrackViewControllerDelegate
 
-extension PlacePageInteractor: PlacePageBookmarkViewControllerDelegate {
-  func bookmarkDidPressEdit() {
-    MWMPlacePageManagerHelper.editBookmark(placePageData)
-  }
-
-  func trackDidPressEdit() {
-    MWMPlacePageManagerHelper.editTrack(placePageData)
+extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegate {
+  func didPressEdit(_ data: PlacePageEditData) {
+    switch data {
+    case .bookmark(let placePageBookmarkData):
+      MWMPlacePageManagerHelper.editBookmark(placePageData)
+    case .track(let placePageTrackData):
+      MWMPlacePageManagerHelper.editTrack(placePageData)
+    }
   }
 }
 
