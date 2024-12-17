@@ -185,6 +185,9 @@ UNIT_CLASS_TEST(SmokeTest, TypesSkipperTest)
 
 UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
 {
+  // Checks all types in categories.txt for their searchability,
+  // which also depends on point drawability and presence of a name.
+
   auto const & cl = classif();
 
   /// @todo Should rewrite test
@@ -246,13 +249,17 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"highway", "motorway_junction"},
       {"landuse"},
       {"man_made", "chimney"},
+      {"man_made", "flagpole"},
+      {"man_made", "mast"},
+      {"man_made", "tower"},
+      {"man_made", "water_tower"},
       {"natural"},
       {"office"},
       {"place"},
       {"waterway"},
 
       /// @todo Controversial here.
-      /// Don't have point drawing rules except text -> type will be removed for Feature with empty name.
+      /// Don't have point drawing rules (a label only), hence type will be removed for an empty name Feature.
       {"building", "train_station"},
       {"leisure", "track"},
       {"natural", "beach"},
