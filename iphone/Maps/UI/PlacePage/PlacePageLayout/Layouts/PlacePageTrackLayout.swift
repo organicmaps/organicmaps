@@ -1,5 +1,6 @@
 class PlacePageTrackLayout: IPlacePageLayout {
   private var placePageData: PlacePageData
+  private var trackData: PlacePageTrackData
   private var interactor: PlacePageInteractor
   private let storyboard: UIStoryboard
   weak var presenter: PlacePagePresenterProtocol?
@@ -34,19 +35,20 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   }()
 
-  lazy var bookmarkViewController: PlacePageBookmarkViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageBookmarkViewController.self)
+  lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
+    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
     vc.view.isHidden = true
     vc.delegate = interactor
     return vc
   }()
 
   lazy var elevationMapViewController: ElevationProfileViewController? = {
-    guard let trackData = placePageData.trackData else {
+    guard trackData.trackInfo.hasElevationInfo(),
+          let elevationProfileData = trackData.elevationProfileData else {
       return nil
     }
     return ElevationProfileBuilder.build(trackInfo: trackData.trackInfo,
-                                         elevationProfileData: trackData.elevationProfileData,
+                                         elevationProfileData: elevationProfileData,
                                          delegate: interactor)
   }()
 
@@ -63,16 +65,18 @@ class PlacePageTrackLayout: IPlacePageLayout {
     self.interactor = interactor
     self.storyboard = storyboard
     self.placePageData = data
+    guard let trackData = data.trackData else {
+      fatalError("PlacePageData must contain trackData for the PlacePageTrackLayout")
+    }
+    self.trackData = trackData
   }
 
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
 
-    viewControllers.append(bookmarkViewController)
-    if let trackData = placePageData.trackData {
-      bookmarkViewController.bookmarkData = .track(trackData)
-      bookmarkViewController.view.isHidden = false
-    }
+    viewControllers.append(editTrackViewController)
+    editTrackViewController.view.isHidden = false
+    editTrackViewController.data = .track(trackData)
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
@@ -114,7 +118,7 @@ private extension PlacePageTrackLayout {
       presenter?.closeAnimated()
       return
     }
-    bookmarkViewController.bookmarkData = .track(trackData)
+    editTrackViewController.data = .track(trackData)
     let previewData = placePageData.previewData
     if let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       headerViewController.setTitle(previewData.title, secondaryTitle: previewData.secondaryTitle)

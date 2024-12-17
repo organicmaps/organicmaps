@@ -413,7 +413,7 @@
 		999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */; };
 		99A614D523C8911A00D8D8D0 /* AuthStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */; };
 		99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */; };
-		99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906CD23F6F7010005872B /* PlacePageBookmarkViewController.swift */; };
+		99A906DE23F6F7030005872B /* PlacePageEditBookmarkOrTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */; };
 		99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */; };
 		99A906E523F6F7030005872B /* ActionBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D423F6F7020005872B /* ActionBarViewController.swift */; };
 		99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D523F6F7020005872B /* OpeningHoursViewController.swift */; };
@@ -1340,7 +1340,7 @@
 		99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStyleSheet.swift; sourceTree = "<group>"; };
 		99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+RuntimeAttributes.m"; sourceTree = "<group>"; };
-		99A906CD23F6F7010005872B /* PlacePageBookmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageBookmarkViewController.swift; sourceTree = "<group>"; };
+		99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageEditBookmarkOrTrackViewController.swift; sourceTree = "<group>"; };
 		99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageButtonsViewController.swift; sourceTree = "<group>"; };
 		99A906D423F6F7020005872B /* ActionBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBarViewController.swift; sourceTree = "<group>"; };
 		99A906D523F6F7020005872B /* OpeningHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursViewController.swift; sourceTree = "<group>"; };
@@ -3013,7 +3013,7 @@
 			children = (
 				99A906D423F6F7020005872B /* ActionBarViewController.swift */,
 				99A906D523F6F7020005872B /* OpeningHoursViewController.swift */,
-				99A906CD23F6F7010005872B /* PlacePageBookmarkViewController.swift */,
+				99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */,
 				99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */,
 				99A906D923F6F7030005872B /* PlacePageInfoViewController.swift */,
 				99A906DC23F6F7030005872B /* PlacePagePreviewViewController.swift */,
@@ -4540,7 +4540,7 @@
 				993DF0B523F6B2EF00AC231A /* PlacePageTrackLayout.swift in Sources */,
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
-				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
+				99A906DE23F6F7030005872B /* PlacePageEditBookmarkOrTrackViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
 				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
 				471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */,

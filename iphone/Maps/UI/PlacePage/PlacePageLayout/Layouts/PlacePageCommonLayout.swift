@@ -43,8 +43,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
-  lazy var bookmarkViewController: PlacePageBookmarkViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageBookmarkViewController.self)
+  lazy var editBookmarkViewController: PlacePageEditBookmarkOrTrackViewController = {
+    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
     vc.view.isHidden = true
     vc.delegate = interactor
     return vc
@@ -101,10 +101,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       }
     }
 
-    viewControllers.append(bookmarkViewController)
+    viewControllers.append(editBookmarkViewController)
     if let bookmarkData = placePageData.bookmarkData {
-      bookmarkViewController.bookmarkData = .bookmark(bookmarkData)
-      bookmarkViewController.view.isHidden = false
+      editBookmarkViewController.data = .bookmark(bookmarkData)
+      editBookmarkViewController.view.isHidden = false
     }
 
     if placePageData.infoData != nil {
@@ -183,7 +183,7 @@ extension PlacePageCommonLayout {
   func updateBookmarkRelatedSections() {
     var isBookmark = false
     if let bookmarkData = placePageData.bookmarkData {
-      bookmarkViewController.bookmarkData = .bookmark(bookmarkData)
+      editBookmarkViewController.data = .bookmark(bookmarkData)
       isBookmark = true
     }
     if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
@@ -193,7 +193,7 @@ extension PlacePageCommonLayout {
     }
     presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
-      self.bookmarkViewController.view.isHidden = !isBookmark
+      self.editBookmarkViewController.view.isHidden = !isBookmark
     }
   }
 }
