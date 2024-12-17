@@ -13,6 +13,7 @@ extern std::string_view kMeasurementUnits;
 extern std::string_view kDeveloperMode;
 extern std::string_view kMapLanguageCode;
 extern std::string_view kDonateUrl;
+extern std::string_view kNightMode;
 
 template <class T>
 bool FromString(std::string const & str, T & outValue);
