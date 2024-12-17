@@ -1,13 +1,13 @@
-protocol PlacePageBookmarkViewControllerDelegate: AnyObject {
-  func bookmarkDidPressEdit()
-  func trackDidPressEdit()
+protocol PlacePageEditBookmarkOrTrackViewControllerDelegate: AnyObject {
+  func didPressEdit(_ data: PlacePageEditData)
 }
 
-final class PlacePageBookmarkViewController: UIViewController {
-  enum BookmarkData {
-    case bookmark(PlacePageBookmarkData)
-    case track(PlacePageTrackData)
-  }
+enum PlacePageEditData {
+  case bookmark(PlacePageBookmarkData)
+  case track(PlacePageTrackData)
+}
+
+final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
 
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var spinner: UIImageView!
@@ -23,22 +23,29 @@ final class PlacePageBookmarkViewController: UIViewController {
     }
   }
 
-  var bookmarkData: BookmarkData? {
+  var data: PlacePageEditData? {
     didSet {
       updateViews()
     }
   }
-  weak var delegate: PlacePageBookmarkViewControllerDelegate?
+  weak var delegate: PlacePageEditBookmarkOrTrackViewControllerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
     updateViews()
   }
 
-  func updateViews() {
-    guard let bookmarkData else { return }
+  override func applyTheme() {
+    super.applyTheme()
+    updateViews()
+  }
+
+  // MARK: - Private methods
+
+  private func updateViews() {
+    guard let data else { return }
     editButton.isEnabled = true
-    switch bookmarkData {
+    switch data {
     case .bookmark(let bookmark):
       editButton.setTitle(L("placepage_edit_bookmark_button"), for: .normal)
       if let description = bookmark.bookmarkDescription {
@@ -99,18 +106,10 @@ final class PlacePageBookmarkViewController: UIViewController {
     spinner.stopRotation()
   }
 
+  // MARK: -  Actions
+
   @IBAction func onEdit(_ sender: UIButton) {
-    guard let bookmarkData else { return }
-    switch bookmarkData {
-    case .bookmark:
-      delegate?.bookmarkDidPressEdit()
-    case .track:
-      delegate?.trackDidPressEdit()
-    }
-  }
-  
-  override func applyTheme() {
-    super.applyTheme()
-    updateViews()
+    guard let data else { return }
+    delegate?.didPressEdit(data)
   }
 }

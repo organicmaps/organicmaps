@@ -34,8 +34,8 @@ class PlacePageTrackLayout: IPlacePageLayout {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   }()
 
-  lazy var bookmarkViewController: PlacePageBookmarkViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageBookmarkViewController.self)
+  lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
+    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
     vc.view.isHidden = true
     vc.delegate = interactor
     return vc
@@ -66,10 +66,10 @@ class PlacePageTrackLayout: IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
 
-    viewControllers.append(bookmarkViewController)
+    viewControllers.append(editTrackViewController)
     if let trackData = placePageData.trackData {
-      bookmarkViewController.bookmarkData = .track(trackData)
-      bookmarkViewController.view.isHidden = false
+      editTrackViewController.data = .track(trackData)
+      editTrackViewController.view.isHidden = false
     }
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
@@ -112,7 +112,7 @@ private extension PlacePageTrackLayout {
       presenter?.closeAnimated()
       return
     }
-    bookmarkViewController.bookmarkData = .track(trackData)
+    editTrackViewController.data = .track(trackData)
     let previewData = placePageData.previewData
     if let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       headerViewController.setTitle(previewData.title, secondaryTitle: previewData.secondaryTitle)
