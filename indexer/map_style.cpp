@@ -79,7 +79,7 @@ MapStyle GetDarkMapStyleVariant(MapStyle mapStyle)
   case MapStyleOutdoorsLight:
     return MapStyleOutdoorsDark;
   default:
-    ASSERT(false, ());
+    CHECK(false, ());
     return MapStyleDefaultDark;
   }
 }
@@ -98,7 +98,7 @@ MapStyle GetLightMapStyleVariant(MapStyle mapStyle)
   case MapStyleOutdoorsDark:
     return MapStyleOutdoorsLight;
   default:
-    ASSERT(false, ());
+    CHECK(false, ());
     return MapStyleDefaultLight;
   }
 }
