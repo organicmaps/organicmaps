@@ -8648,12 +8648,12 @@
     az = Kayak.com Otel Bağlantıları
     be = Спасылкі на гасцініцы Kayak.com
     bg = Kayak.com Връзки с хотели
-    ca = Enllaços a l'hotel Kayak.com
+    ca = Enllaços d'hotels del Kayak.com
     cs = Kayak.com Hotel Odkazy
     da = Kayak.com hotel-links
     de = Kayak.com Hotel-Links
     el = Kayak.com Σύνδεσμοι ξενοδοχείων
-    es = Enlaces de hoteles Kayak.com
+    es = Enlaces de hoteles de Kayak.com
     et = Kayak.com Hotellilinkid
     eu = Kayak.com hotelen estekak
     fa = لینک های هتل Kayak.com
@@ -8672,7 +8672,7 @@
     nb = Kayak.com Hotellkoblinger
     nl = Kayak.com Hotellinks
     pl = Linki do hoteli Kayak.com
-    pt = Ligações de hotéis Kayak.com
+    pt = Ligações de hotéis do Kayak.com
     pt-BR = Links de hotéis do Kayak.com
     ro = Kayak.com Linkuri către hoteluri
     ru = Ссылки в гостиницах на Kayak.com
@@ -8702,7 +8702,7 @@
     el = Οι φωτογραφίες, οι κριτικές και οι σύνδεσμοι κρατήσεων εμφανίζονται για τα ξενοδοχεία που έχουν καταχωρηθεί στο Kayak.com. Το μπόνους παραπομπής που λαμβάνεται για κάθε κράτηση μέσω αυτών των συνδέσμων πηγαίνει στην ανάπτυξη του Organic Maps.
     es = Se muestran fotos, reseñas y enlaces de reserva para los hoteles que tienen un listado en Kayak.com. La bonificación por referencia recibida por cada reserva a través de estos enlaces se destina al desarrollo de Organic Maps.
     et = Fotod, arvustused ja broneerimislingid kuvatakse hotellide kohta, mis on Kayak.com-is loetletud. Iga nende linkide kaudu tehtud broneeringu eest saadav viitamispreemia läheb Organic Maps'i arendamiseks.
-    eu = Kayak.com-en zerrenda bat duten hoteletarako argazkiak, iritziak, erreserba estekak bistaratzen dira. Esteka hauen bidez erreserba bakoitzerako jasotako erreferentziazko hobaria Organic Maps-en garapenera doa.
+    eu = Kayak.com-en zerrenda bat duten hoteletarako "argazkiak, iritziak, erreserba" estekak bistaratuko dira. Esteka horien bidez egindako erreserbek lortzen dituzten hobariak Organic Maps garatzeko erabiliko dira.
     fa = عکسu200cها، نظرات، لینکu200cهای رزرو برای هتلu200cهایی که فهرستی در Kayak.com دارند نمایش داده میu200cشوند. پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوندها به سمت توسعه Organic Maps می رود.
     fi = Kuvat, arvostelut ja varauslinkit näytetään hotelleista, jotka on listattu Kayak.comiin. Jokaisesta näiden linkkien kautta tehdystä varauksesta saatu suosittelupalkkio käytetään Organic Mapsin kehittämiseen.
     fr = Des photos, des commentaires et des liens de réservation sont affichés pour les hôtels répertoriés sur Kayak.com. La prime de parrainage reçue pour chaque réservation effectuée par le biais de ces liens est destinée au développement d'Organic Maps.
@@ -8719,7 +8719,7 @@
     nb = Bilder, anmeldelser og bestillingslenker vises for hoteller som har en oppføring på Kayak.com. Henvisningsbonusen som mottas for hver bestilling gjennom disse lenkene går til utvikling av Organic Maps.
     nl = Foto's, beoordelingen en reserveringslinks worden weergegeven voor hotels die een vermelding op Kayak.com hebben. De verwijzingsbonus die voor elke boeking via deze links wordt ontvangen, gaat naar de ontwikkeling van Organic Maps.
     pl = Zdjęcia, recenzje, linki do rezerwacji są wyświetlane dla hoteli, które mają wpis na Kayak.com. Premia za polecenie otrzymana za każdą rezerwację za pośrednictwem tych linków jest przeznaczona na rozwój Organic Maps.
-    pt = São apresentadas fotografias, críticas e links de reserva para os hotéis que têm uma listagem no Kayak.com. O bónus de referência recebido por cada reserva efectuada através destas ligações destina-se ao desenvolvimento do Organic Maps.
+    pt = São apresentadas fotografias, críticas e ligações de reserva para os hotéis que estão listados no Kayak.com. O bónus de referência recebido por cada reserva efetuada através destas ligações destina-se ao desenvolvimento do Organic Maps.
     pt-BR = Fotos, avaliações e links de reserva são exibidos para os hotéis que estão listados no Kayak.com. O bônus de indicação recebido por cada reserva feita por meio desses links é destinado ao desenvolvimento do Organic Maps.
     ro = Fotografiile, recenziile, linkurile de rezervare sunt afișate pentru hotelurile care au o listă pe Kayak.com. Bonusul de recomandare primit pentru fiecare rezervare prin intermediul acestor linkuri este destinat dezvoltării Organic Maps.
     ru = Ссылки "Фотографии, отзывы, бронирование" отображаются для отелей, подключенных к Kayak.com. Реферальный бонус, полученный за каждое бронирование по этим ссылкам, идет на развитие Organic Maps.
@@ -18873,7 +18873,7 @@
     nl = Kayak uitschakelen
     pl = Proszę wyłączyć Kayak
     pt = Desativar Kayak
-    pt-BR = Desativar o Kayak
+    pt-BR = Desativar Kayak
     ro = Dezactivați Kayak
     ru = Отключить Kayak
     sk = Zakázať Kayak
