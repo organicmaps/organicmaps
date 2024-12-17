@@ -2,7 +2,7 @@
 
 #include "base/assert.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
 #include <algorithm>
 
@@ -59,7 +59,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
     else
     {
       auto const & lastItem = m_items.back();
-      m_trackInfo.m_length += mercator::DistanceOnEarth(lastItem.GetPoint(), item.GetPoint());
+      m_trackInfo.m_length += ms::DistanceOnEarth(lastItem.GetLatLon(), item.GetLatLon());
       m_trackInfo.m_duration = item.m_timestamp - m_items.front().m_timestamp;
 
       auto const deltaAltitude = item.m_altitude - lastItem.m_altitude;
