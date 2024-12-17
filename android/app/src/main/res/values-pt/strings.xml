@@ -301,9 +301,9 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Determina rapidamente a tua localização aproximada através de Bluetooth, WiFi ou rede móvel</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Ligações de hotéis Kayak.com</string>
+    <string name="pref_display_kayak_title">Ligações de hotéis do Kayak.com</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">São apresentadas fotografias, críticas e links de reserva para os hotéis que têm uma listagem no Kayak.com. O bónus de referência recebido por cada reserva efectuada através destas ligações destina-se ao desenvolvimento do Organic Maps.</string>
+    <string name="pref_display_kayak_text">São apresentadas fotografias, críticas e ligações de reserva para os hotéis que estão listados no Kayak.com. O bónus de referência recebido por cada reserva efetuada através destas ligações destina-se ao desenvolvimento do Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Descarregar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->

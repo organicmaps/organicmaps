@@ -1442,7 +1442,7 @@
 
 "type.aeroway.gate" = "Portti";
 
-"type.aeroway.helipad" = "Helikopterialusta";
+"type.aeroway.helipad" = "Helikopterikenttä";
 
 "type.aeroway.runway" = "Kiitorata";
 
@@ -1540,11 +1540,11 @@
 
 "type.amenity.fast_food" = "Pikaruokala";
 
-"type.amenity.ferry_terminal" = "Lautta";
+"type.amenity.ferry_terminal" = "Lauttaterminaali";
 
 "type.amenity.fire_station" = "Paloasema";
 
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "Ravintola-alue";
 
 "type.amenity.fountain" = "Suihkulähde";
 
@@ -1558,7 +1558,7 @@
 
 "type.amenity.hospital" = "Sairaala";
 
-"type.amenity.hunting_stand" = "Metsästyspaikka";
+"type.amenity.hunting_stand" = "Jahtitorni";
 
 "type.amenity.ice_cream" = "Jäätelökioski";
 
@@ -1582,9 +1582,9 @@
 
 "type.amenity.parking.fee" = "Parkkipaikka";
 
-"type.amenity.parking.multi.storey" = "Monikerroksinen pysäköinti";
+"type.amenity.parking.multi.storey" = "Parkkitalo";
 
-"type.amenity.parking.multi.storey.fee" = "Monikerroksinen pysäköinti";
+"type.amenity.parking.multi.storey.fee" = "Parkkitalo";
 
 "type.amenity.parking.no.access" = "Yksityinen pysäköinti";
 
@@ -1600,31 +1600,31 @@
 
 "type.amenity.parking.underground.private" = "Yksityinen maanalainen pysäköintialue";
 
-"type.amenity.parking.street_side" = "Kadun puolella pysäköinti";
+"type.amenity.parking.street_side" = "Kadunvarsipysäköinti";
 
-"type.amenity.parking.street_side.fee" = "Kadun puolella pysäköinti";
+"type.amenity.parking.street_side.fee" = "Kadunvarsipysäköinti";
 
-"type.amenity.parking.street_side.private" = "Yksityinen katu puolella pysäköinti";
+"type.amenity.parking.street_side.private" = "Yksityinen kadunvarsipysäköinti";
 
-"type.amenity.parking.lane" = "Kaistapysäköinti";
+"type.amenity.parking.lane" = "Pysäköintikaista";
 
-"type.amenity.parking.lane.fee" = "Kaistapysäköinti";
+"type.amenity.parking.lane.fee" = "Pysäköintikaista";
 
-"type.amenity.parking.lane.private" = "Yksityinen kaista pysäköinti";
+"type.amenity.parking.lane.private" = "Yksityinen pysäköintikaista";
 
 "type.amenity.parking_entrance" = "Pysäköinnin sisäänkäynti";
 
-"type.amenity.parking_entrance.private" = "Yksityinen pysäköintialue sisäänkäynti";
+"type.amenity.parking_entrance.private" = "Yksityisen pysäköintialueen sisäänkäynti";
 
 "type.amenity.parking_entrance.permissive" = "Pysäköinnin sisäänkäynti";
 
-"type.amenity.parking_space" = "Parkkipaikka";
+"type.amenity.parking_space" = "Pysäköintiruutu";
 
-"type.amenity.parking_space.permissive" = "Parkkipaikka";
+"type.amenity.parking_space.permissive" = "Pysäköintiruutu";
 
-"type.amenity.parking_space.private" = "Parkkipaikka";
+"type.amenity.parking_space.private" = "Pysäköintiruutu";
 
-"type.amenity.parking_space.underground" = "Parkkipaikka";
+"type.amenity.parking_space.underground" = "Pysäköintiruutu";
 
 "type.amenity.parking_space.disabled" = "Vammaispysäköinti";
 
@@ -1721,7 +1721,7 @@
 
 "type.amenity.shower" = "Suihku";
 
-"type.amenity.stripclub" = "Stripclub";
+"type.amenity.stripclub" = "Strippiklubi";
 
 "type.amenity.taxi" = "Taksi";
 
@@ -2635,7 +2635,7 @@
 
 "type.leisure.hackerspace" = "Hacklab";
 
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Luistinrata";
 
 "type.leisure.marina" = "Venesatama";
 
@@ -2661,7 +2661,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Veneluiska";
 
 "type.leisure.sports_centre" = "Urheilukeskus";
 
@@ -2699,9 +2699,9 @@
 
 "type.man_made.lighthouse" = "Majakka";
 
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Masto";
 
-"type.man_made.pier" = "Pier";
+"type.man_made.pier" = "Laituri";
 
 "type.man_made.pipeline" = "Pipeline";
 
@@ -2824,7 +2824,7 @@
 
 "type.natural.volcano" = "Tulivuori";
 
-"type.natural.water" = "Vesimuodostuma";
+"type.natural.water" = "Vettä";
 
 "type.natural.wetland" = "Soistuva maa";
 
@@ -3880,7 +3880,7 @@
 
 "type.tourism.attraction" = "Nähtävyys";
 
-"type.attraction.amusement_ride" = "Huvipuisto Ride";
+"type.attraction.amusement_ride" = "Huvipuistolaite";
 
 "type.attraction.animal" = "Eläinsuoja";
 

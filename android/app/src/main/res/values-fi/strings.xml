@@ -890,7 +890,7 @@
     <string name="type.aeroway.aerodrome">Lentokenttä</string>
     <string name="type.aeroway.aerodrome.international">Kansainvälinen lentokenttä</string>
     <string name="type.aeroway.gate">Portti</string>
-    <string name="type.aeroway.helipad">Helikopterialusta</string>
+    <string name="type.aeroway.helipad">Helikopterikenttä</string>
     <string name="type.aeroway.runway">Kiitorata</string>
     <string name="type.aeroway.taxiway">Rullaustie</string>
     <string name="type.aeroway.terminal">Terminaali</string>
@@ -938,8 +938,9 @@
     <string name="type.amenity.language_school">Kielikoulu</string>
     <string name="type.office.diplomatic">Suurlähetystö</string>
     <string name="type.amenity.fast_food">Pikaruokala</string>
-    <string name="type.amenity.ferry_terminal">Lautta</string>
+    <string name="type.amenity.ferry_terminal">Lauttaterminaali</string>
     <string name="type.amenity.fire_station">Paloasema</string>
+    <string name="type.amenity.food_court">Ravintola-alue</string>
     <string name="type.amenity.fountain">Suihkulähde</string>
     <string name="type.amenity.fuel">Huoltoasema</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -947,7 +948,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard.christian">Kristillinen hautausmaa</string>
     <string name="type.amenity.hospital">Sairaala</string>
-    <string name="type.amenity.hunting_stand">Metsästyspaikka</string>
+    <string name="type.amenity.hunting_stand">Jahtitorni</string>
     <string name="type.amenity.ice_cream">Jäätelökioski</string>
     <string name="type.amenity.internet_cafe">Internetkahvila</string>
     <string name="type.amenity.kindergarten">Päiväkoti</string>
@@ -959,8 +960,8 @@
     <string name="type.amenity.nursing_home">Hoitokoti</string>
     <string name="type.amenity.parking">Parkkipaikka</string>
     <string name="type.amenity.parking.fee">Parkkipaikka</string>
-    <string name="type.amenity.parking.multi.storey">Monikerroksinen pysäköinti</string>
-    <string name="type.amenity.parking.multi.storey.fee">Monikerroksinen pysäköinti</string>
+    <string name="type.amenity.parking.multi.storey">Parkkitalo</string>
+    <string name="type.amenity.parking.multi.storey.fee">Parkkitalo</string>
     <string name="type.amenity.parking.no.access">Yksityinen pysäköinti</string>
     <string name="type.amenity.parking.permissive">Yksityinen pysäköinti</string>
     <string name="type.amenity.parking.private">Yksityinen pysäköinti</string>
@@ -968,19 +969,19 @@
     <string name="type.amenity.parking.underground">Maanalainen pysäköinti</string>
     <string name="type.amenity.parking.underground.fee">Maanalainen pysäköinti</string>
     <string name="type.amenity.parking.underground.private">Yksityinen maanalainen pysäköintialue</string>
-    <string name="type.amenity.parking.street_side">Kadun puolella pysäköinti</string>
-    <string name="type.amenity.parking.street_side.fee">Kadun puolella pysäköinti</string>
-    <string name="type.amenity.parking.street_side.private">Yksityinen katu puolella pysäköinti</string>
-    <string name="type.amenity.parking.lane">Kaistapysäköinti</string>
-    <string name="type.amenity.parking.lane.fee">Kaistapysäköinti</string>
-    <string name="type.amenity.parking.lane.private">Yksityinen kaista pysäköinti</string>
+    <string name="type.amenity.parking.street_side">Kadunvarsipysäköinti</string>
+    <string name="type.amenity.parking.street_side.fee">Kadunvarsipysäköinti</string>
+    <string name="type.amenity.parking.street_side.private">Yksityinen kadunvarsipysäköinti</string>
+    <string name="type.amenity.parking.lane">Pysäköintikaista</string>
+    <string name="type.amenity.parking.lane.fee">Pysäköintikaista</string>
+    <string name="type.amenity.parking.lane.private">Yksityinen pysäköintikaista</string>
     <string name="type.amenity.parking_entrance">Pysäköinnin sisäänkäynti</string>
-    <string name="type.amenity.parking_entrance.private">Yksityinen pysäköintialue sisäänkäynti</string>
+    <string name="type.amenity.parking_entrance.private">Yksityisen pysäköintialueen sisäänkäynti</string>
     <string name="type.amenity.parking_entrance.permissive">Pysäköinnin sisäänkäynti</string>
-    <string name="type.amenity.parking_space">Parkkipaikka</string>
-    <string name="type.amenity.parking_space.permissive">Parkkipaikka</string>
-    <string name="type.amenity.parking_space.private">Parkkipaikka</string>
-    <string name="type.amenity.parking_space.underground">Parkkipaikka</string>
+    <string name="type.amenity.parking_space">Pysäköintiruutu</string>
+    <string name="type.amenity.parking_space.permissive">Pysäköintiruutu</string>
+    <string name="type.amenity.parking_space.private">Pysäköintiruutu</string>
+    <string name="type.amenity.parking_space.underground">Pysäköintiruutu</string>
     <string name="type.amenity.parking_space.disabled">Vammaispysäköinti</string>
     <string name="type.amenity.payment_terminal">Maksupääte</string>
     <string name="type.amenity.pharmacy">Apteekki</string>
@@ -1031,7 +1032,7 @@
     <string name="type.amenity.shelter.lean_to">Laavu</string>
     <string name="type.amenity.public_bath">Julkinen kylpylä</string>
     <string name="type.amenity.shower">Suihku</string>
-    <string name="type.amenity.stripclub">Stripclub</string>
+    <string name="type.amenity.stripclub">Strippiklubi</string>
     <string name="type.amenity.taxi">Taksi</string>
     <string name="type.amenity.telephone">Puhelin</string>
     <string name="type.amenity.theatre">Teatteri</string>
@@ -1489,6 +1490,7 @@
     <string name="type.leisure.golf_course">Golf-rata</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
     <string name="type.leisure.hackerspace">Hacklab</string>
+    <string name="type.leisure.ice_rink">Luistinrata</string>
     <string name="type.leisure.marina">Venesatama</string>
     <string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
     <string name="type.leisure.outdoor_seating">Ulkona istuminen</string>
@@ -1500,6 +1502,7 @@
     <string name="type.leisure.pitch">Urheilukenttä</string>
     <string name="type.leisure.playground">Leikkikenttä</string>
     <string name="type.leisure.sauna">Sauna</string>
+    <string name="type.leisure.slipway">Veneluiska</string>
     <string name="type.leisure.sports_centre">Urheilukeskus</string>
     <string name="type.sport.climbing">Kiipeilykeskus</string>
     <string name="type.sport.yoga">Joogastudio</string>
@@ -1510,6 +1513,8 @@
     <string name="type.man_made.chimney">Tehtaan piippu</string>
     <string name="type.man_made.flagpole">Lipputanko</string>
     <string name="type.man_made.lighthouse">Majakka</string>
+    <string name="type.man_made.mast">Masto</string>
+    <string name="type.man_made.pier">Laituri</string>
     <string name="type.man_made.silo">Siilo</string>
     <string name="type.man_made.surveillance">Valvontakamera</string>
     <string name="type.man_made.tower">Torni</string>
@@ -1563,7 +1568,7 @@
     <string name="type.natural.tree_row">Puurivi</string>
     <string name="type.natural.vineyard">Viinitila</string>
     <string name="type.natural.volcano">Tulivuori</string>
-    <string name="type.natural.water">Vesimuodostuma</string>
+    <string name="type.natural.water">Vettä</string>
     <string name="type.natural.wetland">Soistuva maa</string>
     <string name="type.natural.wetland.bog">Suo</string>
     <string name="type.natural.wetland.marsh">Marsh</string>
@@ -2049,7 +2054,7 @@
     <string name="type.tourism.artwork.sculpture">Taideteos</string>
     <string name="type.tourism.artwork.statue">Taideteos</string>
     <string name="type.tourism.attraction">Nähtävyys</string>
-    <string name="type.attraction.amusement_ride">Huvipuisto Ride</string>
+    <string name="type.attraction.amusement_ride">Huvipuistolaite</string>
     <string name="type.attraction.animal">Eläinsuoja</string>
     <string name="type.attraction.carousel">Karuselli</string>
     <string name="type.attraction.historic">Historiallinen nähtävyys</string>

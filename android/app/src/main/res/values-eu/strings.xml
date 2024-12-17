@@ -316,7 +316,7 @@
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com hotelen estekak</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com-en zerrenda bat duten hoteletarako argazkiak, iritziak, erreserba estekak bistaratzen dira. Esteka hauen bidez erreserba bakoitzerako jasotako erreferentziazko hobaria Organic Maps-en garapenera doa.</string>
+    <string name="pref_display_kayak_text">Kayak.com-en zerrenda bat duten hoteletarako \"argazkiak, iritziak, erreserba\" estekak bistaratuko dira. Esteka horien bidez egindako erreserbek lortzen dituzten hobariak Organic Maps garatzeko erabiliko dira.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Deskargatu zure arrastoaren mapa guztiak</string>
     <!-- Text for routing error dialog -->
