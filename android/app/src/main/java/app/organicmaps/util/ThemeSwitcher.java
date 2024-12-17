@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.Framework;
+import app.organicmaps.R;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.routing.RoutingController;
 
@@ -71,10 +72,13 @@ public enum ThemeSwitcher
     String storedTheme = Config.getUiThemeSettings(mContext);
     int currentMapStyle = Framework.nativeGetMapStyle();
 
+    // Resolve dynamic themes (follow-system, nav-auto etc.)
+    int resolvedTheme = resolveTheme(storedTheme);
+
     // If current style is different to the style from theme, only set theme
     // to handle debug commands
     if (currentMapStyle != getMapStyle(storedTheme))
-      SetMapStyle(getMapStyle(storedTheme));
+      setMapStyle(getMapStyle(storedTheme));
 
     setAndroidTheme(storedTheme);
   }
@@ -148,10 +152,7 @@ public enum ThemeSwitcher
 //    }
 //  }
 
-  /**
-   * calls back to core framework and sets the map style.
-   */
-  private void SetMapStyle(@Framework.MapStyle int style)
+  private void setMapStyle(@Framework.MapStyle int style)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
@@ -163,5 +164,11 @@ public enum ThemeSwitcher
       Framework.nativeSetMapStyle(style);
     else
       Framework.nativeMarkMapStyle(style);
+  }
+
+  private int resolveTheme(@NonNull String theme)
+  {
+    //TODO: Dynamic themes processing here, or passthrough for normal ones
+    return R.string.theme_default;
   }
 }
