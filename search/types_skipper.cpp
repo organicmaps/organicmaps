@@ -29,7 +29,6 @@ TypesSkipper::TypesSkipper()
     {"man_made", "chimney"},
     {"man_made", "flagpole"},
     {"man_made", "mast"},
-    {"man_made", "tower"},
     {"man_made", "water_tower"},
   };
   for (auto const & e : arrSkipEmptyName2)
