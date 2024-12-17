@@ -1728,7 +1728,7 @@ void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && tr
 {
   m_trackRecordingUpdateHandler = std::move(trackRecordingDidUpdate);
   if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(std::move(GpsTracker::Instance().GetTrackInfo()));
+    m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackInfo());
 }
 
 void Framework::StopTrackRecording()
@@ -1789,7 +1789,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
 
   if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(std::move(trackInfo));
+    m_trackRecordingUpdateHandler(trackInfo);
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
