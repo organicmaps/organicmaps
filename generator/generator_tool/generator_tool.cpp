@@ -71,7 +71,7 @@ DEFINE_bool(fail_on_coasts, false,
             "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_bool(emit_coasts, false,
             "Push coasts features from intermediate file to out files/countries.");
-            
+
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "", "Input osm area file type [xml, o5m].");
@@ -97,7 +97,7 @@ DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
-DEFINE_string(cities_boundaries_data, false, "File with cities boundaries");
+DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
 
 DEFINE_bool(generate_cities_ids, false, "Generate the cities ids section");
 
@@ -172,7 +172,7 @@ DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter local
 
 // Service functions.
 DEFINE_bool(generate_classif, false, "Generate classificator.");
-DEFINE_bool(generate_packed_borders, Debug_generate_packed_borders, "Generate packed file with country polygons.");
+DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
 DEFINE_string(unpack_borders, "",
               "Convert packed_polygons to a directory of polygon files (specify folder).");
 DEFINE_bool(unpack_mwm, false,
