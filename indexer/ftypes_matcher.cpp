@@ -353,8 +353,11 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
     m_types.push_back(t);
 }
 
+// Used to determine for which features to display address in PP and in search results.
+// If such a feature has a housenumber and a name then its enriched with a postcode (at the generation stage).
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
+  /// @todo(pastk): some objects in TwoLevelPOIChecker can have addresses also.
   m_types = OneLevelPOIChecker().GetTypes();
 
   Classificator const & c = classif();
@@ -362,6 +365,8 @@ IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
     m_types.push_back(c.GetTypeByPath({p}));
 }
 
+// Used to insert exact address (street and house number) instead of
+// an empty name in search results (see ranker.cpp)
 IsAddressChecker::IsAddressChecker() : BaseChecker(1 /* level */)
 {
   Classificator const & c = classif();
@@ -431,6 +436,7 @@ IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
 }
 
 
+// Used in IsPoiChecker and in IsAddressObjectChecker.
 OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 {
   Classificator const & c = classif();
@@ -440,6 +446,7 @@ OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
     m_types.push_back(c.GetTypeByPath({path}));
 }
 
+// Used in IsPoiChecker and also in TypesSkipper to keep types in the search index.
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
