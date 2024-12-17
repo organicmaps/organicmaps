@@ -821,7 +821,7 @@
 "dialog_kayak_button" = "Detalhes em Kayak";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Desativar o Kayak";
+"dialog_kayak_disable_button" = "Desativar Kayak";
 
 "placepage_call_button" = "Ligar";
 

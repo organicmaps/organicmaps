@@ -502,7 +502,7 @@
     <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
     <string name="dialog_kayak_disclaimer">O bônus de indicação recebido por cada reserva feita por meio deste link é destinado ao desenvolvimento do Organic Maps.</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Desativar o Kayak</string>
+    <string name="dialog_kayak_disable_button">Desativar Kayak</string>
     <string name="placepage_edit_bookmark_button">Editar favorito</string>
     <string name="editor_comment_hint">Comentar…</string>
     <string name="editor_reset_edits_message">Descartar todas as modificações locais?</string>

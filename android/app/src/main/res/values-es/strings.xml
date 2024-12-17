@@ -313,7 +313,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Determina rápidamente tu ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Enlaces de hoteles Kayak.com</string>
+    <string name="pref_display_kayak_title">Enlaces de hoteles de Kayak.com</string>
     <!-- Preference description -->
     <string name="pref_display_kayak_text">Se muestran fotos, reseñas y enlaces de reserva para los hoteles que tienen un listado en Kayak.com. La bonificación por referencia recibida por cada reserva a través de estos enlaces se destina al desarrollo de Organic Maps.</string>
     <!-- Text for routing error dialog -->
