@@ -113,6 +113,8 @@
 @pedestrian: #4D4744;
 @footway: #4B4643;
 @cycleway: #6E3D47;
+@cycleway_mtb: #BA707f;
+@cycleway_mtbexpert: #D98092;
 @construction: #332F2D;
 @track: #5F532D;
 @path: #944A12;

@@ -71,101 +71,33 @@ DEFINE_bool(fail_on_coasts, false,
             "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_bool(emit_coasts, false,
             "Push coasts features from intermediate file to out files/countries.");
-
-#define DEBUG_GENERATOR false
-
-#if DEBUG_GENERATOR
-/*
-#define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
-#define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
-#define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/intermediate_data")
-#define Debug_osm_file_type std::string("o5m") 
-#define Debug_osm_file_name std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_09__15_14_26/planet.o5m")
-#define Debug_node_storage std::string("map")
-#define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data") 
-#define Debug_dump_cities_boundaries true 
-#define Debug_cities_boundaries_data std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_11_08__21_21_43/intermediate_data/cities_boundaries.bin")
-#define Debug_generate_features true 
-#define Debug_isolines_path "" 
-#define Debug_addresses_path "" 
-#define Debug_generate_packed_borders true 
-#define Debug_Preprocess false*/
-
-#define Debug_data_path ""
-#define Debug_intermediate_data_path ""
-#define Debug_cache_path ""
-#define Debug_osm_file_type ""
-#define Debug_osm_file_name ""
-#define Debug_node_storage "map"
-#define Debug_user_resource_path ""
-#define Debug_dump_cities_boundaries false 
-#define Debug_cities_boundaries_data ""
-#define Debug_generate_features false 
-#define Debug_isolines_path "" 
-#define Debug_addresses_path "" 
-#define Debug_generate_packed_borders false 
-#define Debug_Preprocess false
-
-#define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
-#define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
-#define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
-#define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data") 
-#define Debug_osm_file_type std::string("o5m")
-#define Debug_osm_file_name std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/planet.o5m")
-#define Debug_node_storage std::string("map")
-#define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data")
-#define Debug_Preprocess true
-#define Debug_PlanetVersion 1734096801
-#define Debug_GenerateGeometry false
-#define Debug_GenerateSearchIndex false
-#define Debug_Output ""
-#else
-#define Debug_data_path ""
-#define Debug_intermediate_data_path ""
-#define Debug_cache_path ""
-#define Debug_osm_file_type ""
-#define Debug_osm_file_name ""
-#define Debug_node_storage "map"
-#define Debug_user_resource_path ""
-#define Debug_dump_cities_boundaries false 
-#define Debug_cities_boundaries_data ""
-#define Debug_generate_features false 
-#define Debug_isolines_path "" 
-#define Debug_addresses_path "" 
-#define Debug_generate_packed_borders false 
-#define Debug_Preprocess false
-
-#define Debug_Output ""
-#define Debug_GenerateSearchIndex false
-#define Debug_GenerateGeometry false
-#define Debug_PlanetVersion base::SecondsSinceEpoch()
-#endif
+            
 // Generator settings and paths.
-DEFINE_string(osm_file_name, Debug_osm_file_name, "Input osm area file.");
-DEFINE_string(osm_file_type, Debug_osm_file_type, "Input osm area file type [xml, o5m].");
-DEFINE_string(data_path, Debug_data_path, GetDataPathHelp());
-DEFINE_string(user_resource_path, Debug_user_resource_path, "User defined resource path for classificator.txt and etc.");
-DEFINE_string(intermediate_data_path, Debug_intermediate_data_path, "Path to stored intermediate data.");
-DEFINE_string(cache_path, Debug_cache_path,
+DEFINE_string(osm_file_name, "", "Input osm area file.");
+DEFINE_string(osm_file_type, "", "Input osm area file type [xml, o5m].");
+DEFINE_string(data_path, "", GetDataPathHelp());
+DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
+DEFINE_string(intermediate_data_path, "", "Path to stored intermediate data.");
+DEFINE_string(cache_path, "",
               "Path to stored caches for nodes, ways, relations. "
               "If 'cache_path' is empty, caches are stored to 'intermediate_data_path'.");
-DEFINE_string(output, Debug_Output, "File name for process (without 'mwm' ext).");
+DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
-DEFINE_string(node_storage, Debug_node_storage,
+DEFINE_string(node_storage, "map",
               "Type of storage for intermediate points representation. Available: raw, map, mem.");
-DEFINE_uint64(planet_version, Debug_PlanetVersion,
+DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
               "Version as seconds since epoch, by default - now.");
 
 // Preprocessing and feature generator.
-DEFINE_bool(preprocess, Debug_Preprocess, "1st pass - create nodes/ways/relations data.");
-DEFINE_bool(generate_features, Debug_generate_features, "2nd pass - generate intermediate features.");
-DEFINE_bool(generate_geometry, Debug_GenerateGeometry,
+DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
+DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
+DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
-DEFINE_bool(generate_search_index, Debug_GenerateSearchIndex, "5th pass - generate search index.");
-DEFINE_bool(dump_cities_boundaries, Debug_dump_cities_boundaries, "Dump cities boundaries to a file");
+DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
+DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
-DEFINE_string(cities_boundaries_data, Debug_cities_boundaries_data, "File with cities boundaries");
+DEFINE_string(cities_boundaries_data, false, "File with cities boundaries");
 
 DEFINE_bool(generate_cities_ids, false, "Generate the cities ids section");
 
@@ -179,8 +111,8 @@ DEFINE_string(
     "Path to file containing list of node ids we need to add to locality index. May be empty.");
 
 DEFINE_bool(generate_isolines_info, false, "Generate the isolines info section");
-DEFINE_string(isolines_path, Debug_isolines_path, "Path to isolines directory. If set, adds isolines linear features.");
-DEFINE_string(addresses_path, Debug_addresses_path, "Path to addresses directory. If set, adds addr:interpolation features.");
+DEFINE_string(isolines_path, "", "Path to isolines directory. If set, adds isolines linear features.");
+DEFINE_string(addresses_path, "", "Path to addresses directory. If set, adds addr:interpolation features.");
 
 // Routing.
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
