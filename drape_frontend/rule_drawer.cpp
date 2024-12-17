@@ -321,6 +321,27 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP);
   f.ForEachPoint(applyGeom, m_zoomLevel);
 
+  int a = 10;
+   if(f.DebugString().find("cycleway") != std::string::npos && f.DebugString().find("nocycleway") == std::string::npos)
+   {
+    if(f.DebugString().find("easy") != std::string::npos)
+    {
+      std::cout<<f.DebugString()<< std::endl;
+    }
+    if(f.DebugString().find("intermediate") != std::string::npos)
+    {
+      std::cout<<f.DebugString() <<std::endl;
+    }
+    if(f.DebugString().find("expert") != std::string::npos)
+    {
+      std::cout<<f.DebugString() <<std::endl;
+    }
+    if(f.DebugString().find("difficult") != std::string::npos)
+    {
+      std::cout<<f.DebugString()<< std::endl;
+    }
+   }
+
   if (applyGeom.HasGeometry())
     applyGeom.ProcessLineRules(s.m_lineRules);
 

@@ -72,7 +72,7 @@ DEFINE_bool(fail_on_coasts, false,
 DEFINE_bool(emit_coasts, false,
             "Push coasts features from intermediate file to out files/countries.");
 
-#define DEBUG_GENERATOR true
+#define DEBUG_GENERATOR false
 
 #if DEBUG_GENERATOR
 /*
@@ -106,15 +106,19 @@ DEFINE_bool(emit_coasts, false,
 #define Debug_generate_packed_borders false 
 #define Debug_Preprocess false
 
-#define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/241213")
-#define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/intermediate_data")
-#define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_13__14_33_21/intermediate_data")
+#define Debug_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
+#define Debug_intermediate_data_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
+#define Debug_cache_path std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/intermediate_data")
 #define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data") 
+#define Debug_osm_file_type std::string("o5m")
+#define Debug_osm_file_name std::string("/home/emanuel/Documents/work/organicmaps/../maps_build/2024_12_15__17_11_06/planet.o5m")
 #define Debug_node_storage std::string("map")
+#define Debug_user_resource_path std::string("/home/emanuel/Documents/work/organicmaps/data")
+#define Debug_Preprocess true
 #define Debug_PlanetVersion 1734096801
-#define Debug_GenerateGeometry true
-#define Debug_GenerateSearchIndex true
-#define Debug_Output std::string("Germany_Free State of Bavaria_Upper Bavaria_South")
+#define Debug_GenerateGeometry false
+#define Debug_GenerateSearchIndex false
+#define Debug_Output ""
 #else
 #define Debug_data_path ""
 #define Debug_intermediate_data_path ""
