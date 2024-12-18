@@ -75379,7 +75379,7 @@ cont {
   element {
     scale: 12
     symbol {
-      name: "train-s"
+      name: "funicular-s"
       priority: 6250
     }
     caption {
@@ -75403,7 +75403,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "train-s"
+      name: "funicular-s"
       priority: 6250
     }
     caption {
@@ -75427,7 +75427,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "train-s"
+      name: "funicular-s"
       priority: 6250
     }
     caption {
