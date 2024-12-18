@@ -56,14 +56,14 @@
 # <translation>        ::= translation into corresponding language
 # <lang>               ::= 'en'|'cs'|'sk'|'de'|'es'|'fr'|'it'|'ja' etc.
 #
-# For all languages with nominative and gentive cases (e.g. Slavic languagues like Russian, 
+# For all languages with nominative and gentive cases (e.g. Slavic languagues like Russian,
 # Ukrainian, Belarus, Serbian), state _short_ nouns in nominative and genitive case, e.g.:
 # ---
 # shop-wine|@shop
 # ru:Вино|вина
 # ---
 # so that both (e.g. Russian) searches for "вино" and "магазин вина" returns wine shops.
-# For longer nouns (6 letters or longer) this is not necessary, because error correction 
+# For longer nouns (6 letters or longer) this is not necessary, because error correction
 # can fix 1 or 2 letters, e.g:
 # ---
 # shop-furniture|@shop
@@ -5638,7 +5638,6 @@ it:4Ospedale
 ja:病院
 ko:병원|개인병원|클리닉|의사|의사가
 lv:4Slimnīca
-
 mr:रुग्णालय|हॉस्पिटल
 nb:5Sykehus
 pl:4Szpital
