@@ -43041,7 +43041,7 @@ cont {
     lines {
       width: 4.7
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43056,7 +43056,7 @@ cont {
     lines {
       width: 6.0
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43071,13 +43071,13 @@ cont {
     lines {
       width: 7.4
       color: 8421504
-      priority: 30
+      priority: 100
       cap: BUTTCAP
     }
     lines {
       width: 6.2
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43100,13 +43100,13 @@ cont {
     lines {
       width: 10.8
       color: 8421504
-      priority: 30
+      priority: 100
       cap: BUTTCAP
     }
     lines {
       width: 9.4
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43129,13 +43129,13 @@ cont {
     lines {
       width: 15.4
       color: 8421504
-      priority: 30
+      priority: 100
       cap: BUTTCAP
     }
     lines {
       width: 13.6
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43158,13 +43158,13 @@ cont {
     lines {
       width: 18.8
       color: 8421504
-      priority: 30
+      priority: 100
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
@@ -43187,13 +43187,13 @@ cont {
     lines {
       width: 18.8
       color: 8421504
-      priority: 30
+      priority: 100
       cap: BUTTCAP
     }
     lines {
       width: 17.0
       color: 15066325
-      priority: 40
+      priority: 110
       cap: BUTTCAP
     }
     lines {
