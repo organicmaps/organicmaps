@@ -78,6 +78,25 @@ namespace qt
       });
     }
 
+    QCheckBox * a3dBuildingsCheckBox = new QCheckBox("3D buildings");
+    QCheckBox * a3dCheckBox = new QCheckBox("Perspective view (during navigation)");
+    { 
+      bool allow3d, allow3dBuildings;
+      framework.Load3dMode(allow3d, allow3dBuildings);
+      a3dBuildingsCheckBox->setChecked(allow3dBuildings);
+      a3dCheckBox->setChecked(allow3d);
+      connect(a3dBuildingsCheckBox, &QCheckBox::stateChanged, [&framework, &allow3d, &allow3dBuildings](int i)
+      {
+        allow3dBuildings = static_cast<bool>(i);
+        framework.Allow3dMode(allow3d, allow3dBuildings);
+      });
+      connect(a3dCheckBox, &QCheckBox::stateChanged, [&framework, &allow3d, &allow3dBuildings](int i)
+      {
+        allow3d = static_cast<bool>(i);
+        framework.Allow3dMode(allow3d, allow3dBuildings);
+      });
+    }
+
     QCheckBox * largeFontCheckBox = new QCheckBox("Use larger font on the map");
     {
       largeFontCheckBox->setChecked(framework.LoadLargeFontsSize());
@@ -197,6 +216,8 @@ namespace qt
 
     QVBoxLayout * finalLayout = new QVBoxLayout();
     finalLayout->addWidget(unitsRadioBox);
+    finalLayout->addWidget(a3dBuildingsCheckBox);
+    finalLayout->addWidget(a3dCheckBox);
     finalLayout->addWidget(largeFontCheckBox);
     finalLayout->addWidget(transliterationCheckBox);
     finalLayout->addWidget(developerModeCheckBox);
