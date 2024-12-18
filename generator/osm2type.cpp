@@ -838,17 +838,11 @@ string DetermineMtbRating(OsmElement * p)
 
   static std::map<std::string, eMtbRating> mtbscaleToRatingConversion = {
     {"0", eMtbRating::easy},
-    {"S0", eMtbRating::easy},
     {"1", eMtbRating::intermediate},
-    {"S1", eMtbRating::intermediate},
     {"2", eMtbRating::intermediate},
-    {"S2", eMtbRating::intermediate},
     {"3", eMtbRating::difficult},
-    {"S3", eMtbRating::difficult},
     {"4", eMtbRating::expert},
-    {"S4", eMtbRating::expert},
     {"5", eMtbRating::expert},
-    {"S5", eMtbRating::expert},
   };
 
   static std::map<std::string, eMtbRating> imbabscaleToRatingConversion = {
