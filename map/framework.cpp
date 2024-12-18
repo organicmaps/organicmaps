@@ -2249,8 +2249,7 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     if (buildInfo.m_trackId != kml::kInvalidTrackId)
     {
       auto const & track = *GetBookmarkManager().GetTrack(buildInfo.m_trackId);
-      auto rect = track.GetLimitRect();
-      track.UpdateSelectionInfo(rect, trackSelectionInfo);
+      track.UpdateSelectionInfo(track.GetLimitRect(), trackSelectionInfo);
     }
     else
       trackSelectionInfo = FindTrackInTapPosition(buildInfo);
