@@ -48,8 +48,6 @@ UNIT_TEST(CountriesNamesTest)
 
   set<string> const kIgnoreList = {"Northern Cyprus",
                                    "Transnistria",
-                                   "Nagorno-Karabakh Republic",
-                                   "Republic of Artsakh",
                                    "Saint Helena, Ascension and Tristan da Cunha",
                                    "Somaliland",
                                    };

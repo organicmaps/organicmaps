@@ -62,8 +62,6 @@ Australia;Q408;au;en
  Australia_Brisbane;Q34932
  Australia_Sydney;Q3130
 Azerbaijan Region;Q227;az;az
- Nagorno-Karabakh;Q44302
- Azerbaijan;Q227;;az
 Bahrain;Q398;bh;ar
 Bangladesh;Q902;bd;bn
 Belarus;Q184;by;ru
