@@ -188,7 +188,6 @@ bool SearchPanel::Try3dModeCmd(std::string const & str)
   if (!is3dModeOn && !is3dBuildingsOn && !is3dModeOff)
     return false;
 
-  GetFramework().Save3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
   GetFramework().Allow3dMode(is3dModeOn || is3dBuildingsOn, is3dBuildingsOn);
 
   return true;

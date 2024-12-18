@@ -2495,6 +2495,7 @@ void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
     allow3dBuildings = false;
 
   m_drapeEngine->Allow3dMode(allow3d, allow3dBuildings);
+  Save3dMode(allow3d, allow3dBuildings);
 }
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
