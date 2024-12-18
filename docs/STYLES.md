@@ -66,16 +66,15 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 
 1. Add it into `data/mapcss-mapping.csv` (or better replace existing `deprecated` line) to make OM import it from OSM
 2. If necessary merge similar tags in via `data/replaced_tags.txt` 
-3. Add new classification to `classificator.txt`, e.g. world + highway + path + expert
-4. Define a priority for the new feature type in e.g. [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt) and/or other priorities files
-5. Add a new icon (see [above](#how-to-add-a-new-icon)) and/or other styling (area, line..)
-6. If a new POI should be OSM-addable/editable then add it to `data/editor.config`
-7. Add new type translation into `data/strings/types_strings.txt`
-8. Add search keywords into `data/categories.txt`
-9. Run `tools/unix/generate_localizations.sh` to validate and distribute translations into iOS and Android
-10. Add new or fix current classifier tests at `/generator/generator_tests/osm_type_tests.cpp` if you can
-11. [Test](#testing-your-changes) your changes
-12. Relax and wait for the next maps update :)
+3. Define a priority for the new feature type in e.g. [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt) and/or other priorities files
+4. Add a new icon (see [above](#how-to-add-a-new-icon)) and/or other styling (area, line..)
+5. If a new POI should be OSM-addable/editable then add it to `data/editor.config`
+6. Add new type translation into `data/strings/types_strings.txt`
+7. Add search keywords into `data/categories.txt`
+8. Run `tools/unix/generate_localizations.sh` to validate and distribute translations into iOS and Android
+9. Add new or fix current classifier tests at `/generator/generator_tests/osm_type_tests.cpp` if you can
+10. [Test](#testing-your-changes) your changes
+11. Relax and wait for the next maps update :)
 
 ## Testing your changes
 
