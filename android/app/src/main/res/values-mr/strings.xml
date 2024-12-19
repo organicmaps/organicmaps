@@ -493,6 +493,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">तुमची संपादने सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.</string>
     <string name="editor_more_about_osm">OpenStreetMap बद्दल अधिक</string>
+    <string name="editor_osm_history">तुमचा संपादन इतिहास</string>
+    <string name="editor_osm_notes">तुमचा नकाशा डेटा नोट्स</string>
     <string name="editor_operator">ऑपरेटर</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">ऑपरेटर: %s</string>

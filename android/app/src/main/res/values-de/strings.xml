@@ -524,6 +524,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ihre Bearbeitungen werden in die öffentliche <a href="https://wiki.openstreetmap.org/wiki/DE:Über_OSM">OpenStreetMap</a> Datenbank hochgeladen. Bitte tragen Sie keine privaten oder urheberrechtlich geschützten Informationen ein.</string>
     <string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
+    <string name="editor_osm_history">Ihr Bearbeitungsverlauf</string>
+    <string name="editor_osm_notes">Ihre Hinweise zu den Kartendaten</string>
     <string name="editor_operator">Betreiber</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Betreiber: %s</string>

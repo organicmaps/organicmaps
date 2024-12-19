@@ -524,6 +524,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Вашы праўкі загружаюцца ў публічную базу дадзеных <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Калі ласка, не дадавайце асабістую інфармацыю або інфармацыю, абароненую аўтарскім правам.</string>
     <string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
+    <string name="editor_osm_history">Ваша гісторыя рэдагавання</string>
+    <string name="editor_osm_notes">Заўвагі да дадзеных карты</string>
     <string name="editor_operator">Aператар</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Aператар: %s</string>

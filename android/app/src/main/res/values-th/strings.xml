@@ -498,6 +498,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">การแก้ไขของคุณจะถูกอัปโหลดไปยังฐานข้อมูล <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> สาธารณะ กรุณาอย่าเพิ่มข้อมูลส่วนบุคคลหรือข้อมูลที่มีลิขสิทธิ์</string>
     <string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
+    <string name="editor_osm_history">ประวัติการแก้ไขของคุณ</string>
+    <string name="editor_osm_notes">บันทึกข้อมูลแผนที่ของคุณ</string>
     <string name="editor_operator">ตัวดำเนินการ</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">ตัวดำเนินการ: %s</string>
