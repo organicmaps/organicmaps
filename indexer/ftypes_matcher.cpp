@@ -442,7 +442,7 @@ OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
   Classificator const & c = classif();
 
   for (auto const * path : {"amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway",
-                            "shop", "sport", "tourism"})
+                            "shop", "sport", "tourism", "mountain_pass"})
     m_types.push_back(c.GetTypeByPath({path}));
 }
 
@@ -468,8 +468,11 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
       {"man_made", "water_tap"},
       {"man_made", "water_well"},
       {"natural", "beach"},
-      {"natural", "geyser"},
       {"natural", "cave_entrance"},
+      {"natural", "geyser"},
+      {"natural", "hot_spring"},
+      {"natural", "peak"},
+      {"natural", "saddle"},
       {"natural", "spring"},
       {"natural", "volcano"},
       {"waterway", "waterfall"}
