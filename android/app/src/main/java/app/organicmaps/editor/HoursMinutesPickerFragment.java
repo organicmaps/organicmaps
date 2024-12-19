@@ -79,10 +79,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     //noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
 
-    @StyleRes final int theme = ThemeUtils.isNightTheme(requireContext()) ?
-        R.style.MwmMain_DialogFragment_TimePicker_Night :
-        R.style.MwmMain_DialogFragment_TimePicker;
-    final AlertDialog dialog = new MaterialAlertDialogBuilder(requireActivity(), theme)
+    final AlertDialog dialog = new MaterialAlertDialogBuilder(requireActivity())
         .setView(root)
         .setNegativeButton(R.string.cancel, null)
         .setPositiveButton(R.string.ok, null)
