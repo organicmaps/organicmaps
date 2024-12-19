@@ -2,6 +2,7 @@
 
 #include "platform/http_request.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "base/logging.hpp"
 #include "base/assert.hpp"
@@ -38,9 +39,12 @@ std::optional<MetaConfig> ParseMetaConfig(std::string const & jsonStr)
       const json_t * value;
       json_object_foreach(settings, key, value)
       {
-        const char * valueStr = json_string_value(value);
-        if (key && value)
-          outMetaConfig.m_settings[key] = valueStr;
+        if (key == settings::kDonateUrl || key == settings::kNY)
+        {
+          const char * valueStr = json_string_value(value);
+          if (value)
+            outMetaConfig.m_settings[key] = valueStr;
+        }
       }
 
       servers = json_object_get(root.get(), kServers);

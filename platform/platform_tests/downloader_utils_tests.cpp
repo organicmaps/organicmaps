@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "platform/downloader_utils.hpp"
-#include "platform/servers_list.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
+#include "platform/servers_list.hpp"
 
 #include "base/file_name_utils.hpp"
 
@@ -99,17 +99,18 @@ UNIT_TEST(Downloader_ParseMetaConfig)
     {
       "servers": [ "https://url1/", "https://url2/" ],
       "settings": {
-        "key1": "value1",
-        "key2": "value2"
+        "DonateUrl": "value1",
+        "NY": "value2",
+        "key3": "value3"
       }
     }
   )")), ());
   TEST_EQUAL(cfg->m_serversList.size(), 2, ());
   TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
   TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
-  TEST_EQUAL(cfg->m_settings.size(), 2, ());
-  TEST_EQUAL(cfg->m_settings["key1"], "value1", ());
-  TEST_EQUAL(cfg->m_settings["key2"], "value2", ());
+  TEST_EQUAL(cfg->m_settings.size(), 2, ()); // "key3" is ignored
+  TEST_EQUAL(cfg->m_settings["DonateUrl"], "value1", ());
+  TEST_EQUAL(cfg->m_settings["NY"], "value2", ());
 
   TEST(!downloader::ParseMetaConfig(R"(broken json)"), ());
 
