@@ -497,10 +497,7 @@ std::pair<glsl::mat4, glsl::mat4> Arrow3d::CalculateTransform(ScreenBase const &
 
   if (screen.isPerspective())
   {
-    glm::mat4 pTo3dView;
-    auto const m = math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
-    static_assert(sizeof(m) == sizeof(pTo3dView));
-    memcpy(&pTo3dView, &m, sizeof(pTo3dView));
+    glm::mat4 pTo3dView = glm::make_mat4x4(screen.Pto3dMatrix().m_data);
     auto postProjectionPerspective = pTo3dView * modelTransform;
     return std::make_pair(postProjectionPerspective, normalMatrix);
   }
