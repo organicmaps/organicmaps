@@ -344,8 +344,7 @@
 
     </activity>
     <activity
-        android:name="app.organicmaps.base.BaseMwmFragmentActivity"
-        android:configChanges="uiMode" />
+        android:name="app.organicmaps.base.BaseMwmFragmentActivity" />
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
@@ -402,7 +401,6 @@
         android:name="app.organicmaps.help.HelpActivity"
         android:label="@string/about_menu_title"
         android:parentActivityName="app.organicmaps.MwmActivity"
-        android:configChanges="uiMode"
         android:exported="false">
       <intent-filter>
         <action android:name="app.organicmaps.help.HelpActivity" />
@@ -436,41 +434,33 @@
 
     <activity
         android:name="app.organicmaps.editor.ProfileActivity"
-        android:configChanges="uiMode"
         android:parentActivityName="app.organicmaps.settings.SettingsActivity" />
 
     <activity
         android:name="app.organicmaps.editor.FeatureCategoryActivity"
         android:parentActivityName="app.organicmaps.MwmActivity"
-        android:configChanges="uiMode"
         android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="app.organicmaps.editor.ReportActivity"
-        android:configChanges="uiMode"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
         android:name="app.organicmaps.editor.OsmLoginActivity"
-        android:configChanges="uiMode"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/edit"
-      android:configChanges="uiMode"
-      android:windowSoftInputMode="stateVisible"/>
+      android:windowSoftInputMode="stateVisible" />
     <activity
       android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
-      android:configChanges="uiMode"
-      android:label="@string/place_description_title"/>
+      android:label="@string/place_description_title" />
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
-      android:configChanges="uiMode"
-      android:label="@string/driving_options_title"/>
+      android:label="@string/driving_options_title" />
     <activity
-      android:name="app.organicmaps.MapPlaceholderActivity"
-      android:configChanges="uiMode" />
+      android:name="app.organicmaps.MapPlaceholderActivity" />
     <activity
         android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
     <service
