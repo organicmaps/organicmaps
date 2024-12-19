@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Eniş";
 
-"elevation_profile_minaltitude" = "Min. hündürlük";
+"elevation_profile_min_elevation" = "Min. hündürlük";
 
-"elevation_profile_maxaltitude" = "Maks. hündürlük";
+"elevation_profile_max_elevation" = "Maks. hündürlük";
 
 "elevation_profile_difficulty" = "Çətinlik";
 

@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Daling";
 
-"elevation_profile_minaltitude" = "Min. hoogte";
+"elevation_profile_min_elevation" = "Min. hoogte";
 
-"elevation_profile_maxaltitude" = "Max. hoogte";
+"elevation_profile_max_elevation" = "Max. hoogte";
 
 "elevation_profile_difficulty" = "Moeilijkheid";
 

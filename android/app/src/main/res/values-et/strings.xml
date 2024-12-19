@@ -759,8 +759,8 @@
     <string name="isolines_location_error_dialog">Topograafiline kiht ei ole selles piirkonnas veel saadaval</string>
     <string name="elevation_profile_ascent">Tõus</string>
     <string name="elevation_profile_descent">Langus</string>
-    <string name="elevation_profile_minaltitude">Min. kõrgus</string>
-    <string name="elevation_profile_maxaltitude">Maks. kõrgus</string>
+    <string name="elevation_profile_min_elevation">Min. kõrgus</string>
+    <string name="elevation_profile_max_elevation">Maks. kõrgus</string>
     <string name="elevation_profile_difficulty">Raskusaste</string>
     <string name="elevation_profile_distance">Kaugus:</string>
     <string name="elevation_profile_time">Aeg:</string>

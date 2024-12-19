@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "تنازلي";
 
-"elevation_profile_minaltitude" = "الحد الأدنى للارتفاع";
+"elevation_profile_min_elevation" = "أقل ارتفاع";
 
-"elevation_profile_maxaltitude" = "الحد الأقصى للارتفاع";
+"elevation_profile_max_elevation" = "أعلى ارتفاع";
 
 "elevation_profile_difficulty" = "درجة الصعوبة";
 

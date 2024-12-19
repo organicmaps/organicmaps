@@ -691,8 +691,8 @@
     <string name="button_layer_isolines">Relevo</string>
     <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
     <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
-    <string name="elevation_profile_minaltitude">Altitude mínima</string>
-    <string name="elevation_profile_maxaltitude">Altitude máxima</string>
+    <string name="elevation_profile_min_elevation">Min. elevação</string>
+    <string name="elevation_profile_max_elevation">Máx. elevação</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
