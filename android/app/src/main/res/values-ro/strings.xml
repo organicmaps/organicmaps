@@ -751,8 +751,8 @@
     <string name="isolines_location_error_dialog">Stratul topografic nu este încă disponibil în această zonă</string>
     <string name="elevation_profile_ascent">Urcare</string>
     <string name="elevation_profile_descent">Coborâre</string>
-    <string name="elevation_profile_minaltitude">Înălțime minimă</string>
-    <string name="elevation_profile_maxaltitude">Înălțime maximă</string>
+    <string name="elevation_profile_min_elevation">Min. altitudine</string>
+    <string name="elevation_profile_max_elevation">Max. altitudine</string>
     <string name="elevation_profile_difficulty">Dificultate</string>
     <string name="elevation_profile_distance">Dist.:</string>
     <string name="elevation_profile_time">Timp:</string>
