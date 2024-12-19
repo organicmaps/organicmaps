@@ -475,20 +475,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  @Override
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
-  {
-    Context context = getApplicationContext();
-
-    if (ThemeUtils.isDefaultTheme(context, theme))
-      return R.style.MwmTheme_MainActivity;
-
-    if (ThemeUtils.isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_MainActivity;
-
-    return super.getThemeResourceId(theme);
-  }
+//  @Override
+//  @StyleRes
+//  protected int getThemeResourceId(@NonNull String theme)
+//  {
+//    Context context = getApplicationContext();
+//
+//    if (ThemeUtils.isDefaultTheme(context, theme))
+//      return R.style.MwmTheme_MainActivity;
+//
+//    if (ThemeUtils.isNightTheme(context, theme))
+//      return R.style.MwmTheme_Night_MainActivity;
+//
+//    return super.getThemeResourceId(theme);
+//  }
 
   @Override
   public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
