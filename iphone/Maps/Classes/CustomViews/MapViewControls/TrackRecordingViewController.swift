@@ -136,7 +136,7 @@ final class TrackRecordingViewController: MWMViewController {
   @objc
   private func onTrackRecordingButtonPressed(_ sender: Any) {
     switch trackRecordingManager.recordingState {
-    case .inactive, .error:
+    case .inactive:
       trackRecordingManager.processAction(.start)
     case .active:
       trackRecordingManager.processAction(.stop)
