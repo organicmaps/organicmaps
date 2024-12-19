@@ -447,13 +447,11 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         TextView moreBtn = desc.findViewById(R.id.more_btn);
         TextView text = desc.findViewById(R.id.text);
         TextView title = desc.findViewById(R.id.title);
-        TextView author = desc.findViewById(R.id.author);
         setMoreButtonVisibility(text, moreBtn);
         holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
         text.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
         moreBtn.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
         title.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
-        author.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
         break;
     }
 
