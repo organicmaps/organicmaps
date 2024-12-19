@@ -103,12 +103,6 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   public EditBookmarkFragment() {}
 
-  @Override
-  protected int getCustomTheme()
-  {
-    return getFullscreenTheme();
-  }
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

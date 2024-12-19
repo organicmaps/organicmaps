@@ -130,28 +130,4 @@ public final class ThemeUtils
     String nightTheme = context.getString(R.string.theme_night);
     return (defaultTheme.equals(theme) || nightTheme.equals(theme));
   }
-
-  @StyleRes
-  public static int getCardBgThemeResourceId(@NonNull Context context, @NonNull String theme)
-  {
-    if (isDefaultTheme(context, theme))
-      return R.style.MwmTheme_CardBg;
-
-    if (isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_CardBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
-  @StyleRes
-  public static int getWindowBgThemeResourceId(@NonNull Context context, @NonNull String theme)
-  {
-    if (isDefaultTheme(context, theme))
-      return R.style.MwmTheme_WindowBg;
-
-    if (isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_WindowBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
 }

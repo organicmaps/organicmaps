@@ -14,44 +14,9 @@ import app.organicmaps.util.ThemeUtils;
 
 public class BaseMwmDialogFragment extends DialogFragment
 {
-  @StyleRes
-  protected final int getFullscreenTheme()
-  {
-    return ThemeUtils.isNightTheme(requireContext()) ? getFullscreenDarkTheme() : getFullscreenLightTheme();
-  }
-
   protected int getStyle()
   {
     return STYLE_NORMAL;
-  }
-
-  protected @StyleRes int getCustomTheme()
-  {
-    return 0;
-  }
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-
-    int style = getStyle();
-    int theme = getCustomTheme();
-    if (style != STYLE_NORMAL || theme != 0)
-      //noinspection WrongConstant
-      setStyle(style, theme);
-  }
-
-  @StyleRes
-  protected int getFullscreenLightTheme()
-  {
-    return R.style.MwmTheme_DialogFragment_Fullscreen;
-  }
-
-  @StyleRes
-  protected int getFullscreenDarkTheme()
-  {
-    return R.style.MwmTheme_DialogFragment_Fullscreen_Night;
   }
 
   @NonNull
