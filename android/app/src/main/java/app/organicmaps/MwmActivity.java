@@ -1287,7 +1287,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (isFullscreen())
     {
       closePlacePage();
-      showFullscreenToastIfNeeded();
+      // Show the toast every time so that users don't forget and don't get trapped in the FS mode.
+      // TODO(pastk): there are better solutions, see https://github.com/organicmaps/organicmaps/issues/9344
+      Toast.makeText(this, R.string.long_tap_toast, Toast.LENGTH_LONG).show();
     }
   }
 
@@ -1307,16 +1309,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // Buttons are hidden in position chooser mode but we are not in fullscreen
     return Boolean.TRUE.equals(mMapButtonsViewModel.getButtonsHidden().getValue()) &&
         Framework.nativeGetChoosePositionMode() == Framework.ChoosePositionMode.NONE;
-  }
-
-  private void showFullscreenToastIfNeeded()
-  {
-    // Show the toast only once so new behaviour doesn't confuse users
-    if (!Config.wasLongTapToastShown(this))
-    {
-      Toast.makeText(this, R.string.long_tap_toast, Toast.LENGTH_LONG).show();
-      Config.setLongTapToastShown(this, true);
-    }
   }
 
   @Override
