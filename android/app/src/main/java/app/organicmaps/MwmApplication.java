@@ -6,9 +6,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -142,6 +144,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   public void onCreate()
   {
     super.onCreate();
+
     Logger.i(TAG, "Initializing application");
     LogsManager.INSTANCE.initFileLogging(this);
 
@@ -217,6 +220,41 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.i(TAG, "Platform initialized");
   }
 
+  private static void enableStrictMode()
+  {
+    StrictMode.ThreadPolicy.Builder threadPolicyBuilder = new StrictMode.ThreadPolicy.Builder()
+        .detectDiskReads()
+        .detectDiskWrites()
+        .detectNetwork()
+        .detectCustomSlowCalls()
+        .penaltyLog();
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      threadPolicyBuilder.detectResourceMismatches();
+
+
+    StrictMode.setThreadPolicy(threadPolicyBuilder.build());
+
+    StrictMode.VmPolicy.Builder vmPolicyBuilder = new StrictMode.VmPolicy.Builder()
+        .detectLeakedSqlLiteObjects()
+        .detectLeakedClosableObjects()
+        .detectFileUriExposure()
+        .penaltyLog();
+
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      vmPolicyBuilder.detectCleartextNetwork();
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+      vmPolicyBuilder.detectUnsafeIntentLaunch();
+
+
+    StrictMode.setVmPolicy(vmPolicyBuilder.build());
+  }
+
   private void createPlatformDirectories(@NonNull String writablePath,
                                             @NonNull String privatePath,
                                             @NonNull String tempPath) throws IOException
@@ -273,6 +311,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   static
   {
     System.loadLibrary("organicmaps");
+
+    // This will enable the strict mode only when there is debug build.
+    if (BuildConfig.DEBUG)
+      enableStrictMode();
   }
 
   // Called from JNI.
