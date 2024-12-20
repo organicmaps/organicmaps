@@ -33,7 +33,7 @@
     ro = Adresă/Bloc
     ru = Адрес/Блок
     sk = Adresa/blok
-    sr = Адресе/Блок
+    sr = Адреса/Блок
     sv = Adress/Block
     sw = Anwani/Zuia
     th = ที่อยู่/บล็อค
@@ -132,7 +132,7 @@
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
     sk = Sedačková lanovka
-    sr = Ски лифт
+    sr = Ски-лифт
     tr = Telesiyej
     uk = Канатна дорога
     zh-Hans = 缆车
@@ -930,7 +930,7 @@
     pt = Estação de conserto de bicicletas
     pt-BR = Oficina de conserto de bicicletas
     ru = Станция ремонта велосипедов
-    sr = Станица за поправку бицикла
+    sr = Станица за поправку бицикала
     sw = Cykelreparationsstation
     th = สถานีซ่อมจักรยาน
     tr = Bisiklet tamir istasyonu
@@ -1170,7 +1170,7 @@
     ro = Închiriere mașini
     ru = Прокат авто
     sk = Autopožičovňa
-    sr = Рента кар
+    sr = Рентакар
     sv = Biluthyrning
     th = รถยนต์
     tr = Araç Kiralama
@@ -1500,7 +1500,7 @@
     ro = Stație de încărcare pentru biciclete
     ru = Станция зарядки велосипедов
     sk = Nabíjacia stanica pre bicykle
-    sr = Станица за пуњење бицикла
+    sr = Станица за пуњење бицикала
     sv = Laddningsstation för cykel
     sw = Kituo cha Kuchaji Baiskeli
     th = สถานีชาร์จจักรยาน
@@ -1710,7 +1710,7 @@
     ro = Clinică
     ru = Поликлиника
     sk = Poliklinika
-    sr = Поликлиника
+    sr = Дом здравља / Поликлиника
     sv = Klinik
     th = คลินิก
     tr = Klinik
@@ -1958,7 +1958,7 @@
     pt-BR = Dentista
     ru = Стоматология
     sk = Zubár
-    sr = Зубар
+    sr = Стоматолог
     sv = Tandläkare
     th = ทันตแพทย์
     tr = Dişçi
@@ -2085,7 +2085,7 @@
     ro = Școală de șoferi
     ru = Автошкола
     sk = Autoškola
-    sr = Аутошкола
+    sr = Ауто-школа
     sv = Körskola
     th = โรงเรียนสอนขับรถ
     tr = Sürücü Kursu
@@ -2531,7 +2531,7 @@
     ro = Benzinărie
     ru = АЗС
     sk = Benzínová pumpa
-    sr = Гасна станица
+    sr = Бензинска станица
     sv = Bensinstation
     th = ปั๊มน้ำมัน
     tr = Benzinlik
@@ -4766,7 +4766,7 @@
     ro = Sticle de plastic
     ru = Пластиковые бутылки
     sk = Plastové fľaše
-    sr = Пластићне флаше
+    sr = Пластичне флаше
     sv = Samling av plastflaskor
     th = ขวดพลาสติก
     tr = Plastik Şişeler
@@ -4849,7 +4849,7 @@
     ro = Deșeuri electrice
     ru = Электроотходы
     sk = Elektronický odpad
-    sr = Елекрто отпад
+    sr = Електроотпад
     sv = Elektriskt avfall
     th = ขยะอิเล็กทรอนิกส์
     tr = Elektronik Atıklar
@@ -5510,7 +5510,7 @@
     ro = Primărie
     ru = Администрация
     sk = Radnica
-    sr = Градска скупштина
+    sr = Локална самоуправа
     sv = Rådhus
     th = ศาลากลางจังหวัด
     tr = Belediye Binası
@@ -5622,7 +5622,7 @@
     ro = Automat de țigări
     ru = Автомат с сигаретами
     sk = Automat na cigarety
-    sr = Аутомат за цигаре
+    sr = Аутомат за цигарете
     sv = Cigarettmaskin
     th = เครื่องขายบุหรี่
     tr = Sigara Dağıtıcı
@@ -6083,7 +6083,7 @@
     ro = Pubelă
     ru = Урна
     sk = Odpadkový kôš
-    sr = Канте за смеће
+    sr = Канта за смеће
     sv = Papperskorg
     th = ถังขยะ
     tr = Çöp Kutusu
@@ -6749,7 +6749,7 @@
     pt-BR = Muro de retenção
     ru = Поддерживающая стена
     sk = Oporná stena
-    sr = Подзида
+    sr = Потпорни зид
     tr = İstinat duvarı
     zh-Hans = 挡土墙
     zh-Hant = 擋土牆
@@ -7274,7 +7274,7 @@
     ro = Adresă
     ru = Адрес
     sk = Adresa
-    sr = Адресе
+    sr = Адреса
     sv = Adress
     sw = Anwani
     th = ที่อยู่
@@ -7805,7 +7805,7 @@
     ro = Reparații electronice
     ru = Ремонт электроники
     sk = Oprava elektroniky
-    sr = Сервис електричних уређаја
+    sr = Сервис електронике
     sv = Reparation av elektronik
     sw = Urekebishaji wa Elektroniki
     th = ซ่อมเครื่องใช้ไฟฟ้า
@@ -8957,7 +8957,7 @@
     ro = Ceai cu perle
     ru = Чай с шариками
     sk = Bublinkový čaj
-    sr = Боба теа
+    sr = Чај са мехурићима
     uk = Бульбашковий чай
     zh-Hans = 珍珠奶茶
     zh-Hant = 珍珠奶茶
@@ -9756,7 +9756,7 @@
     ro = Bucătărie georgiană
     ru = Грузинская кухня
     sk = Gruzínska kuchyňa
-    sr = Грусијска
+    sr = Грузијска
     sv = Georgisk mat
     th = อาหารจอร์เจีย
     tr = Gürcistan mutfağı
@@ -10368,7 +10368,7 @@
     ro = Bucătărie coreană
     ru = Корейская
     sk = Kórejská kuchyňa
-    sr = Кореанска
+    sr = Корејска
     sv = Koreansk mat
     th = อาหารเกาหลี
     tr = Kore mutfağı
@@ -10521,7 +10521,7 @@
     ro = Bucătărie malgașă
     ru = Мадагаскарская кухня
     sk = Madagaskarská kuchyňa
-    sr = Мадагасарска
+    sr = Мадагаскарска
     sv = Madagaskisk mat
     th = มาดากัสการ์
     tr = Madagaskar mutfağı
@@ -10712,7 +10712,7 @@
     ro = Tăiței
     ru = Лапшичная
     sk = Rezance
-    sr = Резанца
+    sr = Нудле
     sv = Nudlar
     th = บะหมี่
     tr = Erişte
@@ -10788,7 +10788,7 @@
     ro = Clătite americane
     ru = Блинная
     sk = Lievance
-    sr = Палачинкарница
+    sr = Палачинке
     sv = Pannkaka
     th = แพนเค้ก
     tr = Gözleme
@@ -12111,7 +12111,7 @@
     ro = Laborator medical
     ru = Медицинская лаборатория
     sk = Lekárske laboratórium
-    sr = Медисинска лабораторија
+    sr = Медицинска лабораторија
     sv = Medicinskt laboratorium
     sw = Maabara ya Matibabu
     th = ห้องปฏิบัติการทางการแพทย์
@@ -12370,7 +12370,7 @@
     ro = Podiatrie
     ru = Подиатрия
     sk = Podiatria
-    sr = Педијатрија
+    sr = Подолог
     sv = Fotvård
     sw = Matibabu ya miguu
     th = แก้โรคเท้า
@@ -12531,7 +12531,7 @@
     pt-BR = Rodovia
     ru = Дорога
     sk = Cesta
-    sr = Аутопут
+    sr = Ауто-пут
     tr = Otoyol
     uk = Дорога
     zh-Hans = 道路
@@ -12665,7 +12665,7 @@
     ro = Stație de autobuz
     ru = Остановка
     sk = Autobusová zastávka
-    sr = Аутобуска станица
+    sr = Аутобуско стајалиште
     sv = Busshållplats
     th = ป้ายรถเมล์
     tr = Otobüs Durağı
@@ -13109,7 +13109,7 @@
     ro = Stradă
     ru = Автомагистраль
     sk = Diaľnica
-    sr = Мото пут
+    sr = Мото-пут
     sv = Gata
     th = ถนน
     tr = Otoyol
@@ -13132,7 +13132,7 @@
     pl = Most drogowy
     pt-BR = Ponte rodoviária
     ru = Автомобильный мост
-    sr = Мото пут мост
+    sr = Мост на мото-путу
 
   [type.highway.motorway.tunnel]
     ref = type.highway.road.tunnel
@@ -13148,7 +13148,7 @@
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
     ru = Автомобильный тоннель
-    sr = Мото пут тунел
+    sr = Тунел на мото-путу
 
   [type.highway.motorway_junction]
     en = Road Exit
@@ -13179,7 +13179,7 @@
     ro = Ieșire
     ru = Съезд
     sk = Dopravný uzol
-    sr = Излаз са аутопута
+    sr = Излаз са ауто-пута
     sv = Avfart
     th = ทางออก
     tr = Çıkış
@@ -13205,7 +13205,7 @@
     pt = Ligação a autoestrada
     pt-BR = Acesso a rodovia
     ru = Съезд с автомагистрали
-    sr = Излаз с мото пута
+    sr = Излаз са мото-пута
     tr = Otoyol Rampası
     uk = З'їзд з автомагістралі
     zh-Hans = 高速公路连接路
@@ -13251,7 +13251,7 @@
     ro = Cale
     ru = Тропа
     sk = Cesta
-    sr = Пут
+    sr = Стаза
     sv = Gångväg
     sw = Njia
     th = เส้นทาง
@@ -13345,7 +13345,7 @@
     ro = Traseu foarte dificil sau imposibil de distins
     ru = Очень сложная или неразличимая тропа
     sk = Veľmi náročná alebo nezreteľná stopa
-    sr = Веома тежак или нејасна стаза
+    sr = Веома тешка или нејасна стаза
     sv = Mycket svår eller omöjlig att urskilja spår
     sw = Njia ngumu sana au isiyoweza kutofautishwa
     th = เส้นทางที่ยากมากหรือแยกไม่ออก
@@ -13555,7 +13555,7 @@
     mr = प्राथमिक मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с шоссе
-    sr = Пристипни пут
+    sr = Приступни пут
     uk = З'їзд з шосе
     zh-Hans = 主要道路连接路
     zh-Hant = 主要道路連接路
@@ -14386,7 +14386,7 @@
     ro = Stradă
     ru = Небольшая дорога
     sk = Cesta bez administratívneho zaradenia
-    sr = Не класификовани пут
+    sr = Некласификовани пут
     sv = Gata
     th = ถนน
     tr = Tali Yol
@@ -14507,7 +14507,7 @@
     ro = Obiect istoric
     ru = Исторический объект
     sk = Historický objekt
-    sr = Историјски објект
+    sr = Историјски објекат
     sv = Historiskt objekt
     sw = Kitu cha kihistoria
     th = วัตถุประวัติศาสตร์
@@ -15357,7 +15357,7 @@
     ro = Fort
     ru = Форт
     sk = Pevnosť
-    sr = Хисар
+    sr = Утврђење
     sv = Fort
     sw = Ngome
     th = ป้อม
@@ -15484,7 +15484,7 @@
     ro = Comemorare
     ru = Мемориал
     sk = Pomník
-    sr = Мемориал
+    sr = Споменик
     sv = Minnesmärke
     sw = Ukumbusho
     th = ที่ระลึก
@@ -15527,7 +15527,7 @@
     ro = Cruce comemorativă
     ru = Памятный крест
     sk = Pamätný kríž
-    sr = Спомен крст
+    sr = Спомен-крст
     sv = Kors till minne
     sw = Msalaba wa kumbukumbu
     th = อนุสรณ์สถานข้าม
@@ -15570,7 +15570,7 @@
     ro = Comemorare
     ru = Памятная доска
     sk = Pamätná tabuľa
-    sr = Спомен плоча
+    sr = Спомен-плоча
     sv = Minnesmärke
     sw = Plaque
     th = ที่ระลึก
@@ -16118,7 +16118,7 @@
     ro = Troiță
     ru = Христианский крест
     sk = Kríž pri ceste
-    sr = Крст на путу
+    sr = Крст поред пута
     sv = Korset vid vägkanten
     sw = Msalaba wa njiani
     th = ทางข้าม
@@ -16529,7 +16529,7 @@
     ro = Curtea Bisericii
     ru = Церковный двор
     sk = Cintorín
-    sr = Црква двориште
+    sr = Двориште цркве
     sv = Kyrkogård
     sw = Sehemu ya kanisa
     th = บริเวณโบสถ์
@@ -16610,7 +16610,7 @@
     pt-BR = Instituições educacionais
     ru = Образовательные учреждения
     sk = Vzdelávacia inštitúcia
-    sr = Образовне установе
+    sr = Образовна установа
     uk = Освітній заклади
     zh-Hans = 教育设施
     zh-Hant = 教育設施
@@ -17012,7 +17012,7 @@
     pt-BR = Estufas
     ru = Теплицы
     sk = Skleník
-    sr = Стакленици
+    sr = Стакленик
     tr = Kış Bahçesi
     uk = Теплиці
     zh-Hans = 温室
@@ -17750,7 +17750,7 @@
     ro = Minigolf
     ru = Минигольф
     sk = Minigolf
-    sr = Мини голф
+    sr = Мини-голф
     sv = Minigolf
     sw = Minigofu
     th = มินิกอล์ฟ
@@ -18982,7 +18982,7 @@
     ro = Robinet cu apă
     ru = Водопроводный кран
     sk = Vodovodný kohútik
-    sr = Javna чесма
+    sr = Јавна чесма
     sv = Vattenkran
     th = ก๊อกน้ำ
     tr = Su Musluğu
@@ -20458,7 +20458,7 @@
     ro = Munte
     ru = Гора
     sk = Hora
-    sr = Гора
+    sr = Врх
     sv = Bergstopp
     sw = Kilele
     th = จุดสูงสุด
@@ -22408,7 +22408,7 @@
     ro = Centrala electrica cu turbina cu gaz
     ru = Газотурбинная электростанция
     sk = Elektráreň s plynovou turbínou
-    sr = Гаснотурбинска електрана
+    sr = Гасно-турбинска електрана
     sv = Gasturbinkraftverk
     sw = Kiwanda cha nguvu cha turbine ya gesi
     th = โรงไฟฟ้ากังหันก๊าซ
@@ -23254,7 +23254,7 @@
     ro = Cale ferată monoșină
     ru = Монорельсовая железная дорога
     sk = Jednokoľajnicová dráha
-    sr = Jednošinska pruga
+    sr = Једношинска пруга
     sv = Monorail
     sw = Mfumo wa reli moja
     th = รางรถไฟรางเดี่ยว
@@ -23279,7 +23279,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
-    sr = Jednošinskи мост
+    sr = Једношински мост
     tr = Monoray
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
@@ -23300,7 +23300,7 @@
     pt = Monocarril
     pt-BR = Monotrilho
     ru = Монорельсовая железная дорога
-    sr = Jednošinskи тунел
+    sr = Једношински тунел
     tr = Monoray
     uk = Монорейкова залізниця
     zh-Hans = 单轨轨道
@@ -25409,7 +25409,7 @@
     ro = Magazin auto
     ru = Автосалон
     sk = Predajňa áut
-    sr = Продаја аута
+    sr = Продаја аутомобила
     sv = Bilåterförsäljare
     th = ร้านค้ารถยนต์
     tr = Otomobil Mağazası
@@ -25448,7 +25448,7 @@
     ro = Piese auto
     ru = Автомобильные запчасти
     sk = Autodiely
-    sr = Ауто делови
+    sr = Ауто-делови
     sv = Bildelar
     th = อะไหล่รถยนต์
     tr = Araba Parçaları
@@ -25488,7 +25488,7 @@
     ro = Atelier de reparații auto
     ru = СТО
     sk = Autoservis
-    sr = Ауто сервис
+    sr = Ауто-сервис
     sv = Bilreparatör
     th = ร้านซ่อมรถยนต์
     tr = Oto Tamir
@@ -25882,7 +25882,7 @@
     ro = Magazin mixt
     ru = Продуктовый магазин
     sk = Zmiešaný tovar
-    sr = Мешовита роба
+    sr = Мини-маркет
     sv = Närbutik
     th = ร้านสะดวกซื้อ
     tr = Bakkal
@@ -26374,7 +26374,7 @@
     ro = Acesorii de modă
     ru = Модные аксессуары
     sk = Módne doplnky
-    sr = Модни аксесоар
+    sr = Модни аксесоари
     sv = Modeaccessoarer
     sw = Vifaa vya Mtindo
     th = เครื่องประดับแฟชั่น
@@ -26743,7 +26743,7 @@
     ro = Coafor
     ru = Парикмахерская
     sk = Kaderníctvo
-    sr = Фризерска опрема
+    sr = Фризер
     sv = Frisör
     th = ช่างทำผม
     tr = Kuaför
@@ -27069,7 +27069,7 @@
     ro = Magazin de bucatarie
     ru = Кухонный магазин
     sk = Obchod s kuchynským vybavením
-    sr = Пилетина
+    sr = Кухињска опрема
     sv = Köksbutik
     sw = Duka la Jikoni
     th = ร้านครัว
@@ -27151,7 +27151,7 @@
     ro = Mall
     ru = Торговый центр
     sk = Nákupné centrum
-    sr = Мол
+    sr = Тржни центар
     sv = Galleria
     th = เดอะมอลล์
     tr = Alışveriş Merkezi
@@ -27273,7 +27273,7 @@
     ro = Credite
     ru = Ростовщик
     sk = Úžerník
-    sr = Лихвар
+    sr = Новчане позајмице
     sv = Pengar långivare
     th = ผู้ให้ยืมเงิน
     tr = Borç Para Veren
@@ -27600,7 +27600,7 @@
     ro = Punct de ridicare
     ru = Пункт выдачи заказов
     sk = Miesto odberu
-    sr = Пакетамап
+    sr = Преузимање пакета
     sv = Mötesplats
     sw = Sehemu ya kuchukua
     th = จุดรับของ
@@ -27936,7 +27936,7 @@
     ro = Magazin de închiriere de biciclete
     ru = Прокат велосипедов
     sk = Požičovňa bicyklov
-    sr = Изнајмљивање бицикла
+    sr = Изнајмљивање бицикала
     sv = Cykeluthyrningsbutik
     sw = Duka la Kukodisha Baiskeli
     th = ร้านเช่าจักรยาน
@@ -28098,7 +28098,7 @@
     ro = Articole sportive
     ru = Магазин спорттоваров
     sk = Športové potreby
-    sr = Спорт
+    sr = Спортска опрема
     sv = Sportaffär
     th = สินค้ากีฬา
     tr = Spor Ürünleri
@@ -28138,7 +28138,7 @@
     ro = Magazin de papetărie
     ru = Канцелярский магазин
     sk = Papiernictvo
-    sr = Књижара
+    sr = Школски и канцеларијски прибор
     sv = Pappershandel
     th = ร้านขายเครื่องเขียน
     tr = Kırtasiye
@@ -28457,7 +28457,7 @@
     ro = Magazin universal
     ru = Магазин полезных мелочей
     sk = Rozličný tovar
-    sr = Мешовита роба
+    sr = Све по истој цени
     sv = Diverseaffär
     th = ร้านค้าปลีกอิสระ
     tr = Ucuz Ürünler Mağazası
@@ -28497,7 +28497,7 @@
     ro = Magazin video
     ru = Магазин видео
     sk = Videopožičovňa
-    sr = Видео клуб
+    sr = Видео-клуб
     sv = Video butik
     sw = Duka la Video
     th = ร้านขายดีวีดี
@@ -28538,7 +28538,7 @@
     ro = Magazin de jocuri video
     ru = Магазин видеоигр
     sk = Predajňa s videohrami
-    sr = Видео игре
+    sr = Видео-игре
     sv = Videospel butik
     sw = Duka la Video za Michezo
     th = ร้านขายวิดีโอเกม
@@ -28791,7 +28791,7 @@
     ro = Magazin pentru copii
     ru = Детский магазин
     sk = Potreby pre deti
-    sr = Беби опрема
+    sr = Беби-опрема
     sv = Barnbutik
     sw = Duka la watoto
     th = ร้านขายของสำหรับเด็ก
@@ -28876,7 +28876,7 @@
     ro = Magazin de paturi
     ru = Магазин кроватей
     sk = Predajňa postelí
-    sr = Постељина
+    sr = Душеци / кревети
     sv = Sängbutik
     sw = Duka la vitanda
     th = ร้านขายเตียง
@@ -29130,7 +29130,7 @@
     ro = Magazin de electronice
     ru = Магазин электротоваров
     sk = Predajňa elektro
-    sr = Електро материјал
+    sr = Електроматеријал
     sv = Elektronik affär
     sw = Duka la Umeme
     th = ร้านขายเครื่องใช้ไฟฟ้า
@@ -29258,7 +29258,7 @@
     ro = Bilete la loterie
     ru = Лотерейные билеты
     sk = Lístky do lotérie
-    sr = Лото
+    sr = Лутрија
     sv = Lotter
     sw = Tikiti za Bahati nasibu
     th = สลากกินแบ่ง
@@ -29470,7 +29470,7 @@
     ro = Rechizite de cusut
     ru = Швейные принадлежности
     sk = Potreby na šitie
-    sr = Материјали за шивење
+    sr = Позамантерија
     sv = Sytillbehör
     sw = Vifaa vya kushona
     th = อุปกรณ์เย็บผ้า
@@ -31536,7 +31536,7 @@
     ro = Incintă pentru animale
     ru = Вольер для животных
     sk = Zvieracia ohrada
-    sr = Золошки врт
+    sr = Животињски кавез
     sv = Inhägnad för djur
     sw = Hifadhi ya Wanyama
     th = สิ่งที่แนบมากับสัตว์
@@ -32610,7 +32610,7 @@
     ro = Grădină zoologică
     ru = Зоопарк
     sk = Zoologická záhrada
-    sr = Золошки врт
+    sr = Зоолошки врт
     th = สวนสัตว์
     tr = Hayvanat Bahçesi
     uk = Зоопарк
@@ -33616,7 +33616,7 @@
     pt-BR = Esqui alpino intermédio
     ru = Горнолыжная трасса средней сложности
     sk = Zjazdové lyžovanie pre mierne pokročilých
-    sr = Средња ски стаза
+    sr = Средња ски-стаза
     tr = Orta zorlukta kayak pisti
     uk = Гірськолижна траса середнього рівня
 
