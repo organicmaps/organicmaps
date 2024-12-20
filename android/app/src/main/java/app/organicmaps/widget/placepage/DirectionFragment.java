@@ -35,6 +35,13 @@ public class DirectionFragment extends BaseMwmDialogFragment
   private TextView mTvDistance;
 
   private MapObject mMapObject;
+
+  @Override
+  protected int getCustomTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_Fullscreen_Translucent;
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
