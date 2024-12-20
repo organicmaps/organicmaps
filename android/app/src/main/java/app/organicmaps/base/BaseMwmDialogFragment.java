@@ -19,6 +19,22 @@ public class BaseMwmDialogFragment extends DialogFragment
     return STYLE_NORMAL;
   }
 
+  protected @StyleRes int getCustomTheme()
+  {
+    return 0;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+
+    int style = getStyle();
+    int theme = getCustomTheme();
+    if (style != STYLE_NORMAL || theme != 0)
+      setStyle(style, theme);
+  }
+
   @NonNull
   protected Application getAppContextOrThrow()
   {
