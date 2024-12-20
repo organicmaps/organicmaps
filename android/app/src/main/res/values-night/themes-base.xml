@@ -116,6 +116,15 @@
     <item name="elevationProfileColor">@color/elevation_profile_dark</item>
     <item name="android:popupMenuStyle">@style/PopupMenu.Dark</item>
 
+    <item name="outdoorsMenuEnabled">@drawable/ic_layers_outdoors_active</item>
+    <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
+    <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
+    <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active</item>
+    <item name="outdoorsMenuDisabled">@drawable/ic_layers_outdoors_inactive</item>
+    <item name="trafficMenuDisabled">@drawable/ic_layers_traffic_inactive</item>
+    <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
+    <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
+
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
   </style>
