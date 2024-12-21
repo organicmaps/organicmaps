@@ -502,6 +502,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
     <string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
+    <string name="editor_osm_history">Vaše historie úprav</string>
+    <string name="editor_osm_notes">Vaše poznámky k mapovým podkladům</string>
     <string name="editor_operator">Operátor</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operátor: %s</string>

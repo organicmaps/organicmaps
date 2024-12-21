@@ -494,6 +494,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Dine ændringer uploades til den offentlige <a href="https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap">OpenStreetMap</a>-database. Tilføj venligst ikke personlige eller ophavsretligt beskyttede oplysninger.</string>
     <string name="editor_more_about_osm">Mere om OpenStreetMap</string>
+    <string name="editor_osm_history">Din redigeringshistorik</string>
+    <string name="editor_osm_notes">Dine noter til kortdata</string>
     <string name="editor_operator">Operatør</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operatør: %s</string>

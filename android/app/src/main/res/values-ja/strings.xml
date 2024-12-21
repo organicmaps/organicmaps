@@ -528,6 +528,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">あなたの編集は公開されている<a href="https://wiki.openstreetmap.org/wiki/JA:参加する">OpenStreetMap</a>データベースにアップロードされます。個人情報や著作権のある情報は追加しないでください。</string>
     <string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
+    <string name="editor_osm_history">編集履歴</string>
+    <string name="editor_osm_notes">地図データのメモ</string>
     <string name="editor_operator">オペレーター</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">オペレーター: %s</string>

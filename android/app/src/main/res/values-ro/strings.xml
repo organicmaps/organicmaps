@@ -510,6 +510,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Edițiile dvs. sunt încărcate în baza de date publică <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Vă rugăm să nu adăugați informații personale sau protejate prin drepturi de autor.</string>
     <string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
+    <string name="editor_osm_history">Istoricul dvs. de editare</string>
+    <string name="editor_osm_notes">Note privind datele hărții dvs.</string>
     <string name="editor_operator">Operator</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operator: %s</string>

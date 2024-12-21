@@ -538,6 +538,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">يتم تحميل تعديلاتك على قاعدة البيانات العامة <a href="https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap">OpenStreetMap</a>. يرجى عدم إضافة معلومات شخصية أو محمية بحقوق الطبع والنشر.</string>
     <string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
+    <string name="editor_osm_history">سجل التحرير الخاص بك</string>
+    <string name="editor_osm_notes">ملاحظات بيانات الخريطة الخاصة بك</string>
     <string name="editor_operator">المشغل</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">المشغل: %s</string>

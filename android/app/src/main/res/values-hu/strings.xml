@@ -510,6 +510,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Az Ön szerkesztései feltöltődnek a nyilvános <a href="https://wiki.openstreetmap.org/wiki/Hu:Névjegy">OpenStreetMap</a> adatbázisba. Kérjük, ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.</string>
     <string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
+    <string name="editor_osm_history">Az Ön szerkesztési előzményei</string>
+    <string name="editor_osm_notes">A térképadatok jegyzetei</string>
     <string name="editor_operator">Üzemeltető</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Üzemeltető: %s</string>
