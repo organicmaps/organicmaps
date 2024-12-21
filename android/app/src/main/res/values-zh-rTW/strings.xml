@@ -536,6 +536,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。</string>
     <string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
+    <string name="editor_osm_history">您的編輯歷史記錄</string>
+    <string name="editor_osm_notes">您的地圖資料註釋</string>
     <string name="editor_operator">操作員</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">操作員: %s</string>

@@ -477,6 +477,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">As suas edições são enviadas à base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Não adicione informações pessoais ou protegidas por direitos autorais.</string>
     <string name="editor_more_about_osm">Mais sobre OpenStreetMap</string>
+    <string name="editor_osm_history">Seu histórico de edição</string>
+    <string name="editor_osm_notes">Suas notas de dados do mapa</string>
     <string name="editor_category_unsuitable_title">Você não encontra uma categoria adequada?</string>
     <string name="editor_category_unsuitable_text">O Organic Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.</string>
     <string name="downloader_no_downloaded_maps_title">Você não fez o download de nenhum mapa</string>

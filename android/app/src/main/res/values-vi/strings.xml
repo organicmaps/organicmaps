@@ -496,6 +496,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.</string>
     <string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
+    <string name="editor_osm_history">Lịch sử chỉnh sửa của bạn</string>
+    <string name="editor_osm_notes">Ghi chú dữ liệu bản đồ của bạn</string>
     <string name="editor_operator">Toán tử</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Toán tử: %s</string>

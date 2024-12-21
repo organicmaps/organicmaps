@@ -536,6 +536,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:关于">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。</string>
     <string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
+    <string name="editor_osm_history">您的编辑历史</string>
+    <string name="editor_osm_notes">您的地图数据说明</string>
     <string name="editor_operator">操作员</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">操作员: %s</string>

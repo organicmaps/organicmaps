@@ -523,6 +523,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.</string>
     <string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
+    <string name="editor_osm_history">Muokkaushistoriasi</string>
+    <string name="editor_osm_notes">Karttatietosi muistiinpanot</string>
     <string name="editor_operator">Operaattori</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operaattori: %s</string>
