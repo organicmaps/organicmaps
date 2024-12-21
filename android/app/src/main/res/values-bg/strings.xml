@@ -487,6 +487,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Вашите редакции се качват в публичната база данни <a href="https://wiki.openstreetmap.org/wiki/Bg:About">OpenStreetMap</a>. Моля, не добавяйте лична информация или информация, защитена с авторски права.</string>
     <string name="editor_more_about_osm">Повече за OpenStreetMap</string>
+    <string name="editor_osm_history">Вашата история на редактиране</string>
+    <string name="editor_osm_notes">Бележки за данните на вашата карта</string>
     <string name="editor_operator">Оператор</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Оператор: %s</string>

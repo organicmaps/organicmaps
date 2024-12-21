@@ -527,6 +527,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Οι επεξεργασίες σας μεταφορτώνονται στη δημόσια βάση δεδομένων <a href="https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap">OpenStreetMap</a>. Παρακαλούμε μην προσθέτετε προσωπικές πληροφορίες ή πληροφορίες που προστατεύονται από πνευματικά δικαιώματα.</string>
     <string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
+    <string name="editor_osm_history">Το ιστορικό επεξεργασίας σας</string>
+    <string name="editor_osm_notes">Σημειώσεις δεδομένων του χάρτη σας</string>
     <string name="editor_operator">Χειριστής</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Χειριστής: %s</string>

@@ -520,6 +520,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.</string>
     <string name="editor_more_about_osm">עוד על OpenStreetMap</string>
+    <string name="editor_osm_history">היסטוריית העריכה שלך</string>
+    <string name="editor_osm_notes">הערות נתוני המפה שלך</string>
     <string name="editor_operator">מַפעִיל</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">מַפעִיל: %s</string>
