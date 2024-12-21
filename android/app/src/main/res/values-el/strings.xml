@@ -764,8 +764,8 @@
     <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
-    <string name="elevation_profile_minaltitude">Ελάχ. υψόμετρο</string>
-    <string name="elevation_profile_maxaltitude">Μέγ. υψόμετρο</string>
+    <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
+    <string name="elevation_profile_max_elevation">Μέγ. υψόμετρο</string>
     <string name="elevation_profile_difficulty">Δυσκολία</string>
     <string name="elevation_profile_distance">Απόστ.:</string>
     <string name="elevation_profile_time">Διάρκ:</string>

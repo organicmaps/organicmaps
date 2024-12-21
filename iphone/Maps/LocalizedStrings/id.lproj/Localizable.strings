@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Menurun";
 
-"elevation_profile_minaltitude" = "Ketinggian Min.";
+"elevation_profile_min_elevation" = "Min. tinggi";
 
-"elevation_profile_maxaltitude" = "Ketinggian Maks.";
+"elevation_profile_max_elevation" = "Maks. tinggi";
 
 "elevation_profile_difficulty" = "Kesulitan";
 
@@ -1256,6 +1256,9 @@
 
 /* Delete track button on track edit screen */
 "placepage_delete_track_button" = "Delete Track";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Apakah Anda yakin ingin menghapus trek ini?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Track Name";
@@ -1408,6 +1411,8 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
+
+"edit_track" = "Edit Jalur";
 
 
 /********** Types **********/
