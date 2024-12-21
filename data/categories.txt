@@ -1582,6 +1582,7 @@ pt-BR:Loja de cozinha
 ro:Magazin de bucatarie
 ru:Кухонный|Кухни|кухонь
 sk:Kuchynský obchod
+sr:Кухињска опрема|Kuhinjska oprema
 sv:Köksbutik
 sw:Duka la Jikoni
 th:ร้านครัว
@@ -4972,6 +4973,7 @@ nl:4Fiets reparatie
 pt:Conserto de bicicleta|4bicicleta
 pt-BR:Oficina de bicicletas|4bicicleta
 ru:4Велоремонт|велосипед|ремонт|ремонт велосипедов
+sr:7Станица за поправку бицикала
 tr:4Bisiklet tamiri|4Bisiklet|Bisiklet tamircisi
 uk:4Велоремонт|велосипед|ремонт|ремонт велосипедів
 zh-Hans:1自行车修理
@@ -5043,7 +5045,7 @@ es:3Coche de alquiler|alquiler|rentadora|alquiladora|alquiler de coches|alquiler
 et:4Autorent
 eu:3Autoa alokairua|alokairua
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
-sr:Изнајмљивање аутомобила|Iznajmljivanje automobila
+sr:Рентакар|Изнајмљивање аутомобила|Rentakar|Iznajmljivanje automobila
 th:3รถยนต์|บริการรถเช่า
 tr:3Araç kiralama|araba
 uk:4Прокат авто|4авто|3машина|прокат
@@ -5720,7 +5722,7 @@ ro:4Clinică|5policlinică|4doctor|medic|diagnostică
 es:4Clínica|centro de salud|hospital|policlínica
 et:4Kliinik|haigla|3arst|diagnostika|terviseteenused
 eu:4Klinika|osasun zentroa|ospitalea
-sr:Клиника|Klinika
+sr:Поликлиника|Дом здравља|Poliklinika|Dom zdravlja
 sv:4Klinik|sjukhus
 th:คลินิก|โรงพยาบาล
 tr:4Klinik|hastane
@@ -6089,7 +6091,7 @@ pt-BR:Podiatria|Podiatra
 ro:Podiatrie|Podiatru
 ru:Подиатрия|Ортопед
 sk:Podiatria|Podológ
-sr:Педијатар|Pedijatar
+sr:Подолог|Подологија|Podolog|Podologija
 sv:Fotvård|Fotvårdare
 sw:Matibabu ya miguu|Daktari wa miguu
 th:แก้โรคเท้า|แพทย์โรคเท้า
@@ -6601,6 +6603,7 @@ es:Basura|Basurero
 et:Prügikast
 eu:Zaborrontzia
 sv:4Avfallscontainer|Soptunna|skräp|avfall
+sr:Контејнер за смеће|Kontejner za smeće
 th:ขยะ|ถังขยะ
 tr:Çöplük|Çöp kutusu|çöp
 uk:4Сміттєвий контейнер|сміття|смітник
@@ -8191,7 +8194,7 @@ ro:Munte
 es:Cima|pico|montaña|monte|cerro
 et:Tipp|mägi
 eu:Goia|gailurra|mendia
-sr:Планина|Planina
+sr:Планина|Врх|Planina|Vrh
 sv:Bergstopp|berg
 th:จุดสูงสุด|ภูเขา
 tr:2Zirve|dağ
@@ -8837,7 +8840,7 @@ pt:Minigolfe
 ro:Minigolf
 ru:Минигольф
 sk:Minigolf
-sr:Миниголф|Minigolf
+sr:Мини-голф|Mini-golf
 sv:Minigolf
 sw:Minigofu
 th:มินิกอล์ฟ
@@ -10466,7 +10469,7 @@ pt:Torneira de água
 pt-BR:Torneira de água
 ro:Robinet cu apă
 sk:Vodovodný kohútik
-sr:Чесма|Česma
+sr:Јавна чесма|Чесма|Javna česma|Česma
 sv:Vattenkran
 sw:Bomba la Maji
 th:ก๊อกน้ำ
@@ -10798,7 +10801,7 @@ ro:Atelier de reparații auto
 es:4Taller|3reparación de automóviles|coche|automóvil
 et:4Autoremont
 eu:4Tailerra|3autoen konponketa|autoa|automobila
-sr:Ауто сервис|Auto servis
+sr:Ауто-сервис|Auto-servis
 sv:3Bilreparatör|bilverkstad|4servicestation|bil
 th:3ร้านซ่อมรถยนต์|สถานีบริการ
 tr:3Oto tamir dükkanı|araba servisi|araba tamir
@@ -12802,6 +12805,7 @@ es:Estación de carga|punto de carga
 et:4Laadimispunkt|laadimine
 eu:Kargatzeko geltokia
 sv:Laddstation|laddning
+sr:Станица за пуњење|Stanica za punjenje
 th:สถานีชาร์จ|ชาร์จ
 tr:Şarj İstasyonu|şarj etme
 uk:4Зарядна станція|зарядка|електрозарядка|зарядити
@@ -12935,7 +12939,7 @@ ro:Pubelă
 es:Papelera
 et:Prügikast
 eu:Paper-ontzia
-sr:Канта за отпатке|Kanta za otpatke
+sr:Канта за смеће|Kanta za smeće
 sv:Papperskorg|soptunna
 th:ถังขยะ
 tr:Çöp Kutusu
