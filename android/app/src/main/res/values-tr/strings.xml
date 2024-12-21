@@ -528,6 +528,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Düzenlemeleriniz halka açık <a href="https://wiki.openstreetmap.org/wiki/Tr:About">OpenStreetMap</a> veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.</string>
     <string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
+    <string name="editor_osm_history">Düzenleme geçmişiniz</string>
+    <string name="editor_osm_notes">Harita veri notlarınız</string>
     <string name="editor_operator">Operatör</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operatör: %s</string>

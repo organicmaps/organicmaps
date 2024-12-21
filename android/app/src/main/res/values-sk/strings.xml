@@ -524,6 +524,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy sa nahrajú do verejnej databázy <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosím, nepridávajte osobné informácie alebo informácie chránené autorskými právami.</string>
     <string name="editor_more_about_osm">Viac o OpenStreetMap</string>
+    <string name="editor_osm_history">Vaša história úprav</string>
+    <string name="editor_osm_notes">Vaše poznámky k mapovým údajom</string>
     <string name="editor_operator">Prevádzkovateľ</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Prevádzkovateľ: %s</string>

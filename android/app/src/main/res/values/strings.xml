@@ -553,6 +553,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Your edits are uploaded to the public <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> database. Please do not add personal or copyrighted information.</string>
     <string name="editor_more_about_osm">More about OpenStreetMap</string>
+    <string name="editor_osm_history">Your editing history</string>
+    <string name="editor_osm_notes">Your map data notes</string>
     <string name="editor_operator">Operator</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operator: %s</string>

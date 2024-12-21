@@ -489,6 +489,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
     <string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
+    <string name="editor_osm_history">سابقه ویرایش شما</string>
+    <string name="editor_osm_notes">یادداشت های داده های نقشه شما</string>
     <string name="editor_operator">اپراتور</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">اپراتور: %s</string>

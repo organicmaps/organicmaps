@@ -517,6 +517,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Teie muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.</string>
     <string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
+    <string name="editor_osm_history">Teie toimetamise ajalugu</string>
+    <string name="editor_osm_notes">Teie kaardiandmete märkmed</string>
     <string name="editor_operator">Operaator</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operaator: %s</string>
