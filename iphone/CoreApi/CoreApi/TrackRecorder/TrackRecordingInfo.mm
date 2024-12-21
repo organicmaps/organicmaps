@@ -5,6 +5,10 @@
 
 @implementation TrackRecordingInfo
 
++ (TrackRecordingInfo *)emptyInfo {
+  return [[TrackRecordingInfo alloc] initWithGpsTrackInfo:GpsTrackInfo()];
+}
+
 @end
 
 @implementation TrackRecordingInfo (Core)

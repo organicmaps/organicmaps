@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "Menurun";
 
-"elevation_profile_minaltitude" = "Ketinggian Min.";
+"elevation_profile_min_elevation" = "Min. tinggi";
 
-"elevation_profile_maxaltitude" = "Ketinggian Maks.";
+"elevation_profile_max_elevation" = "Maks. tinggi";
 
 "elevation_profile_difficulty" = "Kesulitan";
 

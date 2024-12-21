@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString * maxElevation;
 @property (nonatomic, readonly) NSString * minElevation;
 
++ (TrackRecordingInfo *)emptyInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

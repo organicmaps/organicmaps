@@ -1228,9 +1228,9 @@
 
 "elevation_profile_descent" = "下坡";
 
-"elevation_profile_minaltitude" = "最小高度";
+"elevation_profile_min_elevation" = "最低高度";
 
-"elevation_profile_maxaltitude" = "最大高度";
+"elevation_profile_max_elevation" = "最高高度";
 
 "elevation_profile_difficulty" = "難度";
 
