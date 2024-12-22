@@ -3,10 +3,12 @@
 #import "DistanceFormatter.h"
 #import "DurationFormatter.h"
 
+#include "map/elevation_info.hpp"
+
 @implementation TrackRecordingInfo
 
-+ (TrackRecordingInfo *)emptyInfo {
-  return [[TrackRecordingInfo alloc] initWithGpsTrackInfo:GpsTrackInfo()];
+- (BOOL)hasElevationInfo {
+  return _ascent != 0 || _descent != 0 || _maxElevation != 0 || _minElevation != 0;
 }
 
 @end
@@ -15,14 +17,29 @@
 
 - (instancetype)initWithGpsTrackInfo:(GpsTrackInfo const &)trackInfo {
   if (self = [super init]) {
-    _distance = [DistanceFormatter distanceStringFromMeters:trackInfo.m_length];
-    _duration = [DurationFormatter durationStringFromTimeInterval:trackInfo.m_duration];
-    _ascent = [AltitudeFormatter altitudeStringFromMeters:trackInfo.m_ascent];
-    _descent = [AltitudeFormatter altitudeStringFromMeters:trackInfo.m_descent];
-    _maxElevation = [AltitudeFormatter altitudeStringFromMeters:trackInfo.m_maxElevation];
-    _minElevation = [AltitudeFormatter altitudeStringFromMeters:trackInfo.m_minElevation];
+    _distance = trackInfo.m_length;
+    _duration = trackInfo.m_duration;
+    _ascent = trackInfo.m_ascent;
+    _descent = trackInfo.m_descent;
+    _maxElevation = trackInfo.m_maxElevation;
+    _minElevation = trackInfo.m_minElevation;
   }
   return self;
+}
+
+- (instancetype)initWithDistance:(double)distance duration:(double)duration {
+  if (self = [super init]) {
+    _distance = distance;
+    _duration = duration;
+  }
+  return self;
+}
+
+- (void)setElevationInfo:(ElevationInfo const &)elevationInfo {
+  _ascent = elevationInfo.GetAscent();
+  _descent = elevationInfo.GetDescent();
+  _maxElevation = elevationInfo.GetMaxAltitude();
+  _minElevation = elevationInfo.GetMinAltitude();
 }
 
 @end
