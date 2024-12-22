@@ -30,7 +30,7 @@ If you've been contributing actively then feel free to open a PR/issue to add yo
 - EXPERTS
 <br>subject matter experts and talent in different fields, willing to share their knowledge
 
-- ANDROID
+- [ANDROID](ANDROID_TEAM.md)
 
 - IOS
 
