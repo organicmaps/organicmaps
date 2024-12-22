@@ -1,6 +1,6 @@
 #import "PlacePageTrackData+Core.h"
 #import "ElevationProfileData+Core.h"
-#import "TrackRecordingInfo+Core.h"
+#import "TrackInfo+Core.h"
 
 @implementation PlacePageTrackData
 
@@ -12,7 +12,7 @@
   self = [super init];
   if (self) {
     _trackId = track.GetData().m_id;
-    _trackInfo = [[TrackRecordingInfo alloc] initWithDistance:track.GetLengthMeters()
+    _trackInfo = [[TrackInfo alloc] initWithDistance:track.GetLengthMeters()
                                                      duration:track.GetDurationInSeconds()];
     auto const & elevationInfo = track.GetElevationInfo();
     if (track.HasAltitudes() && elevationInfo.has_value()) {

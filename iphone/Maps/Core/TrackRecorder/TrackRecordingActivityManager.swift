@@ -3,8 +3,8 @@ import ActivityKit
 #if canImport(ActivityKit)
 
 protocol TrackRecordingActivityManager {
-  func start(with info: TrackRecordingInfo) throws
-  func update(_ info: TrackRecordingInfo)
+  func start(with info: TrackInfo) throws
+  func update(_ info: TrackInfo)
   func stop()
 }
 
@@ -22,7 +22,7 @@ final class TrackRecordingLiveActivityManager {
 
 @available(iOS 16.2, *)
 extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
-  func start(with info: TrackRecordingInfo) throws {
+  func start(with info: TrackInfo) throws {
     guard activity == nil else { return }
     let state = TrackRecordingLiveActivityAttributes.ContentState(trackInfo: info)
     let content = ActivityContent<TrackRecordingLiveActivityAttributes.ContentState>(state: state, staleDate: nil)
@@ -30,7 +30,7 @@ extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
     activity = try LiveActivityManager.startActivity(attributes, content: content)
   }
 
-  func update(_ info: TrackRecordingInfo) {
+  func update(_ info: TrackInfo) {
     guard let activity else { return }
     let state = TrackRecordingLiveActivityAttributes.ContentState(trackInfo: info)
     let content = ActivityContent<TrackRecordingLiveActivityAttributes.ContentState>(state: state, staleDate: nil)
@@ -47,7 +47,7 @@ extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
 // MARK: - Wrap TrackRecordingInfo to TrackRecordingLiveActivityAttributes.ContentState
 
 private extension TrackRecordingLiveActivityAttributes.ContentState {
-  init(trackInfo: TrackRecordingInfo) {
+  init(trackInfo: TrackInfo) {
     let distance = DistanceFormatter.distanceString(fromMeters: trackInfo.distance)
     let duration = DurationFormatter.durationString(from: trackInfo.duration)
     let maxElevation = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.maxElevation))

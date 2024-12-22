@@ -1,7 +1,7 @@
 import CoreApi
 
 class ElevationProfileBuilder {
-  static func build(trackInfo: TrackRecordingInfo,
+  static func build(trackInfo: TrackInfo,
                     elevationProfileData: ElevationProfileData?,
                     delegate: ElevationProfileViewControllerDelegate?) -> ElevationProfileViewController {
     let storyboard = UIStoryboard.instance(.placePage)

@@ -1,19 +1,23 @@
-#import "TrackRecordingInfo+Core.h"
+#import "TrackInfo+Core.h"
 #import "AltitudeFormatter.h"
 #import "DistanceFormatter.h"
 #import "DurationFormatter.h"
 
 #include "map/elevation_info.hpp"
 
-@implementation TrackRecordingInfo
+@implementation TrackInfo
 
 - (BOOL)hasElevationInfo {
   return _ascent != 0 || _descent != 0 || _maxElevation != 0 || _minElevation != 0;
 }
 
++ (TrackInfo *)emptyInfo {
+  return [[TrackInfo alloc] init];
+}
+
 @end
 
-@implementation TrackRecordingInfo (Core)
+@implementation TrackInfo (Core)
 
 - (instancetype)initWithGpsTrackInfo:(GpsTrackInfo const &)trackInfo {
   if (self = [super init]) {
