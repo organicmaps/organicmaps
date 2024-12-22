@@ -9,7 +9,7 @@
 @class PlacePageInfoData;
 @class PlacePageBookmarkData;
 @class MWMMapNodeAttributes;
-@class TrackRecordingInfo;
+@class TrackInfo;
 
 typedef NS_ENUM(NSInteger, PlacePageRoadType) {
   PlacePageRoadTypeToll,

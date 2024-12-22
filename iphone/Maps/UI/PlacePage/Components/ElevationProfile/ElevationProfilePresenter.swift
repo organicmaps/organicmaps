@@ -21,7 +21,7 @@ fileprivate struct DescriptionsViewModel {
 
 final class ElevationProfilePresenter: NSObject {
   private weak var view: ElevationProfileViewProtocol?
-  private let trackInfo: TrackRecordingInfo
+  private let trackInfo: TrackInfo
   private let profileData: ElevationProfileData?
   private let delegate: ElevationProfileViewControllerDelegate?
 
@@ -31,7 +31,7 @@ final class ElevationProfilePresenter: NSObject {
   private let formatter: ElevationProfileFormatter
 
   init(view: ElevationProfileViewProtocol,
-       trackInfo: TrackRecordingInfo,
+       trackInfo: TrackInfo,
        profileData: ElevationProfileData?,
        formatter: ElevationProfileFormatter = ElevationProfileFormatter(),
        delegate: ElevationProfileViewControllerDelegate?) {

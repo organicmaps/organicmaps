@@ -48,7 +48,7 @@ final class TrackRecordingManager: NSObject {
   private let trackRecorder: TrackRecorder.Type
   private var activityManager: TrackRecordingActivityManager?
   private var observations: [Observation] = []
-  private var trackRecordingInfo: TrackRecordingInfo?
+  private var trackRecordingInfo: TrackInfo?
 
   var recordingState: TrackRecordingState {
     trackRecorder.isTrackRecordingEnabled() ? .active : .inactive

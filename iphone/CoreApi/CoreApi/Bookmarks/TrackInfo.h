@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TrackRecordingInfo : NSObject
+@interface TrackInfo : NSObject
 
 @property (nonatomic, readonly) double distance;
 @property (nonatomic, readonly) double duration;
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)hasElevationInfo;
 
-+ (TrackRecordingInfo *)emptyInfo;
++ (TrackInfo *)emptyInfo;
 
 @end
 
