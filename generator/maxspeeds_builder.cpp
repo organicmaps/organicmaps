@@ -246,7 +246,10 @@ public:
             break;
         }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
         if (status == 0)
+#pragma GCC diagnostic pop
         {
           LOG(LWARNING, ("Didn't find connected edge with speed for way", osmID));
           return;
