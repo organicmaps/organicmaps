@@ -27,7 +27,7 @@ If you've been contributing actively then feel free to open a PR/issue to add yo
 - GROWTH and SUSTAINABILITY
 <br>marketing (SEO/ASO/SMM), user research, fundraising (donations, grants, monetization), attraction, retention and funding of contributors, financial transparency
 
-- EXPERTS
+- [EXPERTS](EXPERTS_TEAM.md)
 <br>subject matter experts and talent in different fields, willing to share their knowledge
 
 - [ANDROID](ANDROID_TEAM.md)
