@@ -95,7 +95,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   subtitleTextView.textContainerInset = UIEdgeInsetsZero;
 
   NSString *subtitleHTML = L(@"editor_category_unsuitable_text");
-  NSData *htmlData = [subtitleHTML dataUsingEncoding:NSUTF8StringEncoding];
+  NSData *htmlData = [subtitleHTML dataUsingEncoding:NSUnicodeStringEncoding];
   NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
   NSError *error = nil;
 
