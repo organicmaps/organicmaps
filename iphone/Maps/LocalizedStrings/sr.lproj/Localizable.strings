@@ -1412,17 +1412,17 @@
 
 /********** Types **********/
 
-"type.addr_interpolation" = "Адресе/Блок";
+"type.addr_interpolation" = "Адреса/Блок";
 
-"type.addr_interpolation.even" = "Адресе/Блок";
+"type.addr_interpolation.even" = "Адреса/Блок";
 
-"type.addr_interpolation.odd" = "Адресе/Блок";
+"type.addr_interpolation.odd" = "Адреса/Блок";
 
 "type.aerialway" = "Гондола";
 
 "type.aerialway.cable_car" = "Ваздушни трамвај";
 
-"type.aerialway.chair_lift" = "Ски лифт";
+"type.aerialway.chair_lift" = "Ски-лифт";
 
 "type.aerialway.drag_lift" = "Ски-лифт једносед";
 
@@ -1468,7 +1468,7 @@
 
 "type.amenity.bicycle_rental" = "Рентирање бицикли";
 
-"type.amenity.bicycle_repair_station" = "Станица за поправку бицикла";
+"type.amenity.bicycle_repair_station" = "Станица за поправку бицикала";
 
 "type.amenity.biergarten" = "Пивска башта";
 
@@ -1480,7 +1480,7 @@
 
 "type.amenity.cafe" = "Кафе";
 
-"type.amenity.car_rental" = "Рента кар";
+"type.amenity.car_rental" = "Рентакар";
 
 "type.amenity.car_sharing" = "Дељење аутомобила";
 
@@ -1496,7 +1496,7 @@
 
 "type.amenity.charging_station" = "Станица за пуњење ЕВ";
 
-"type.amenity.charging_station.bicycle" = "Станица за пуњење бицикла";
+"type.amenity.charging_station.bicycle" = "Станица за пуњење бицикала";
 
 "type.amenity.charging_station.motorcar" = "Станица за пуњење аутомобила";
 
@@ -1506,7 +1506,7 @@
 
 "type.leisure.bowling_alley" = "Куглана";
 
-"type.amenity.clinic" = "Поликлиника";
+"type.amenity.clinic" = "Дом здравља / Поликлиника";
 
 "type.amenity.college" = "Факултет";
 
@@ -1518,7 +1518,7 @@
 
 "type.amenity.courthouse" = "Суд";
 
-"type.amenity.dentist" = "Зубар";
+"type.amenity.dentist" = "Стоматолог";
 
 "type.amenity.doctors" = "Доктор";
 
@@ -1526,7 +1526,7 @@
 
 "type.drinking_water.yes" = "Вода за пиће";
 
-"type.amenity.driving_school" = "Аутошкола";
+"type.amenity.driving_school" = "Ауто-школа";
 
 "type.amenity.exhibition_centre" = "Изложбени центар";
 
@@ -1548,7 +1548,7 @@
 
 "type.amenity.fountain" = "Фонтана";
 
-"type.amenity.fuel" = "Гасна станица";
+"type.amenity.fuel" = "Бензинска станица";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard" = "Гробље";
@@ -1683,11 +1683,11 @@
 
 "type.recycling.plastic" = "Пластика";
 
-"type.recycling.plastic_bottles" = "Пластићне флаше";
+"type.recycling.plastic_bottles" = "Пластичне флаше";
 
 "type.recycling.scrap_metal" = "Старо гвожђе";
 
-"type.recycling.small_appliances" = "Елекрто отпад";
+"type.recycling.small_appliances" = "Електроотпад";
 
 "type.recycling.cardboard" = "Картон";
 
@@ -1733,13 +1733,13 @@
 
 "type.toilets.yes" = "Тоалет";
 
-"type.amenity.townhall" = "Градска скупштина";
+"type.amenity.townhall" = "Локална самоуправа";
 
 "type.amenity.university" = "Универзитет";
 
 "type.amenity.vending_machine" = "Аутомат";
 
-"type.amenity.vending_machine.cigarettes" = "Аутомат за цигаре";
+"type.amenity.vending_machine.cigarettes" = "Аутомат за цигарете";
 
 "type.amenity.vending_machine.coffee" = "Аутомат за кафу";
 
@@ -1767,7 +1767,7 @@
 
 "type.amenity.veterinary" = "Ветеринар";
 
-"type.amenity.waste_basket" = "Канте за смеће";
+"type.amenity.waste_basket" = "Канта за смеће";
 
 "type.amenity.waste_disposal" = "Контејнер за смеће";
 
@@ -1809,7 +1809,7 @@
 
 "type.barrier.lift_gate" = "Рампа";
 
-"type.barrier.retaining_wall" = "Подзида";
+"type.barrier.retaining_wall" = "Потпорни зид";
 
 "type.barrier.stile" = "Прелаз преко ограде";
 
@@ -1855,7 +1855,7 @@
 "type.building" = "Зграда";
 
 /* Duplicates [address] in strings.txt */
-"type.building.address" = "Адресе";
+"type.building.address" = "Адреса";
 
 "type.building.has_parts" = "Зграда";
 
@@ -1885,7 +1885,7 @@
 
 "type.craft.electrician" = "Електрика";
 
-"type.craft.electronics_repair" = "Сервис електричних уређаја";
+"type.craft.electronics_repair" = "Сервис електронике";
 
 "type.craft.gardener" = "Баштован";
 
@@ -1944,7 +1944,7 @@
 
 "type.cuisine.breakfast" = "Доручак";
 
-"type.cuisine.bubble_tea" = "Боба теа";
+"type.cuisine.bubble_tea" = "Чај са мехурићима";
 
 "type.cuisine.burger" = "Хамбургер";
 
@@ -1986,7 +1986,7 @@
 
 "type.cuisine.friture" = "Пржена храна";
 
-"type.cuisine.georgian" = "Грусијска";
+"type.cuisine.georgian" = "Грузијска";
 
 "type.cuisine.german" = "Немачка";
 
@@ -2018,7 +2018,7 @@
 
 "type.cuisine.kebab" = "Кебаб";
 
-"type.cuisine.korean" = "Кореанска";
+"type.cuisine.korean" = "Корејска";
 
 "type.cuisine.lao" = "Лаоска";
 
@@ -2026,7 +2026,7 @@
 
 "type.cuisine.local" = "Локална";
 
-"type.cuisine.malagasy" = "Мадагасарска";
+"type.cuisine.malagasy" = "Мадагаскарска";
 
 "type.cuisine.malaysian" = "Малезијска";
 
@@ -2036,11 +2036,11 @@
 
 "type.cuisine.moroccan" = "Мароканска";
 
-"type.cuisine.noodles" = "Резанца";
+"type.cuisine.noodles" = "Нудле";
 
 "type.cuisine.oriental" = "Оријентална";
 
-"type.cuisine.pancake" = "Палачинкарница";
+"type.cuisine.pancake" = "Палачинке";
 
 "type.cuisine.pasta" = "Паста";
 
@@ -2112,7 +2112,7 @@
 
 "type.fee.no" = "Бесплатно";
 
-"type.healthcare.laboratory" = "Медисинска лабораторија";
+"type.healthcare.laboratory" = "Медицинска лабораторија";
 
 "type.healthcare.physiotherapist" = "Физиотерапеут";
 
@@ -2124,7 +2124,7 @@
 
 "type.healthcare.optometrist" = "Оптометрија";
 
-"type.healthcare.podiatrist" = "Педијатрија";
+"type.healthcare.podiatrist" = "Подолог";
 
 "type.healthcare.psychotherapist" = "Психотерапеут";
 
@@ -2135,7 +2135,7 @@
 
 /********** Types: Roads **********/
 
-"type.highway" = "Аутопут";
+"type.highway" = "Ауто-пут";
 
 "type.highway.bridleway" = "Коњска стаза";
 
@@ -2155,7 +2155,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Тунел";
 
-"type.highway.bus_stop" = "Аутобуска станица";
+"type.highway.bus_stop" = "Аутобуско стајалиште";
 
 "type.highway.construction" = "Пут у изградњи";
 
@@ -2195,17 +2195,17 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Тунел";
 
-"type.highway.motorway" = "Мото пут";
+"type.highway.motorway" = "Мото-пут";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Мото пут мост";
+"type.highway.motorway.bridge" = "Мост на мото-путу";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Мото пут тунел";
+"type.highway.motorway.tunnel" = "Тунел на мото-путу";
 
-"type.highway.motorway_junction" = "Излаз са аутопута";
+"type.highway.motorway_junction" = "Излаз са ауто-пута";
 
-"type.highway.motorway_link" = "Излаз с мото пута";
+"type.highway.motorway_link" = "Излаз са мото-пута";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Мост";
@@ -2213,13 +2213,13 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Тунел";
 
-"type.highway.path" = "Пут";
+"type.highway.path" = "Стаза";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
 "type.highway.path.difficult" = "Тешка или слабо видљива стаза";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Веома тежак или нејасна стаза";
+"type.highway.path.expert" = "Веома тешка или нејасна стаза";
 
 "type.highway.path.bicycle" = "Пут за бициклисте и пешаке";
 
@@ -2251,7 +2251,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Тунел";
 
-"type.highway.primary_link" = "Пристипни пут";
+"type.highway.primary_link" = "Приступни пут";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Мост";
@@ -2374,9 +2374,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Тунел";
 
-"type.highway.unclassified" = "Не класификовани пут";
+"type.highway.unclassified" = "Некласификовани пут";
 
-"type.highway.unclassified.area" = "Не класификовани пут";
+"type.highway.unclassified.area" = "Некласификовани пут";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Мост";
@@ -2390,9 +2390,9 @@
 
 "type.area_highway.living_street" = "Улица у стамбеној зони";
 
-"type.area_highway.motorway" = "Мото пут";
+"type.area_highway.motorway" = "Мото-пут";
 
-"type.area_highway.path" = "Пут";
+"type.area_highway.path" = "Стаза";
 
 "type.area_highway.pedestrian" = "Пешачка улица";
 
@@ -2412,7 +2412,7 @@
 
 "type.area_highway.trunk" = "Улица";
 
-"type.area_highway.unclassified" = "Не класификовани пут";
+"type.area_highway.unclassified" = "Некласификовани пут";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -2421,7 +2421,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Историјски објект";
+"type.historic" = "Историјски објекат";
 
 "type.historic.aircraft" = "Историјски авион";
 
@@ -2461,17 +2461,17 @@
 
 "type.historic.citywalls" = "Градски зид";
 
-"type.historic.fort" = "Хисар";
+"type.historic.fort" = "Утврђење";
 
 "type.historic.gallows" = "Вешала";
 
 "type.historic.locomotive" = "Историјска локомотива";
 
-"type.historic.memorial" = "Мемориал";
+"type.historic.memorial" = "Споменик";
 
-"type.historic.memorial.cross" = "Спомен крст";
+"type.historic.memorial.cross" = "Спомен-крст";
 
-"type.historic.memorial.plaque" = "Спомен плоча";
+"type.historic.memorial.plaque" = "Спомен-плоча";
 
 "type.historic.memorial.sculpture" = "Скулптура";
 
@@ -2497,7 +2497,7 @@
 
 "type.historic.tomb" = "Гробница";
 
-"type.historic.wayside_cross" = "Крст на путу";
+"type.historic.wayside_cross" = "Крст поред пута";
 
 "type.historic.wayside_shrine" = "Светилиште поред пута";
 
@@ -2553,13 +2553,13 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Хришћанско гробље";
 
-"type.landuse.churchyard" = "Црква двориште";
+"type.landuse.churchyard" = "Двориште цркве";
 
 "type.landuse.commercial" = "Кмерцијална област";
 
 "type.landuse.construction" = "Градилиште";
 
-"type.landuse.education" = "Образовне установе";
+"type.landuse.education" = "Образовна установа";
 
 "type.landuse.farmland" = "Пољопривредно земљиште";
 
@@ -2583,7 +2583,7 @@
 
 "type.landuse.greenfield" = "Грађевинско земљиште";
 
-"type.landuse.greenhouse_horticulture" = "Стакленици";
+"type.landuse.greenhouse_horticulture" = "Стакленик";
 
 "type.landuse.industrial" = "Индустријска зона";
 
@@ -2631,7 +2631,7 @@
 
 "type.leisure.golf_course" = "Терен за голф";
 
-"type.leisure.miniature_golf" = "Мини голф";
+"type.leisure.miniature_golf" = "Мини-голф";
 
 "type.leisure.hackerspace" = "Hackerspace";
 
@@ -2719,9 +2719,9 @@
 
 "type.man_made.wastewater_plant" = "Пречишћивач отпадних вода";
 
-"type.man_made.water_tap" = "Javna чесма";
+"type.man_made.water_tap" = "Јавна чесма";
 
-"type.man_made.water_tap.drinking_water_no" = "Javna чесма";
+"type.man_made.water_tap.drinking_water_no" = "Јавна чесма";
 
 "type.man_made.water_tower" = "Водоторањ";
 
@@ -2804,7 +2804,7 @@
 
 "type.natural.orchard" = "Воћњак";
 
-"type.natural.peak" = "Гора";
+"type.natural.peak" = "Врх";
 
 "type.natural.saddle" = "Планинско седло";
 
@@ -2924,7 +2924,7 @@
 
 "type.power.generator.wind" = "Ветрогенератор";
 
-"type.power.generator.gas" = "Гаснотурбинска електрана";
+"type.power.generator.gas" = "Гасно-турбинска електрана";
 
 "type.power.generator.hydro" = "Хидроелектрана";
 
@@ -2938,7 +2938,7 @@
 
 "type.power.plant.coal" = "Термоелектрана";
 
-"type.power.plant.gas" = "Гаснотурбинска електрана";
+"type.power.plant.gas" = "Гасно-турбинска електрана";
 
 "type.power.plant.hydro" = "Хидроелектрана";
 
@@ -2996,11 +2996,11 @@
 
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 
-"type.railway.monorail" = "Jednošinska pruga";
+"type.railway.monorail" = "Једношинска пруга";
 
-"type.railway.monorail.bridge" = "Jednošinskи мост";
+"type.railway.monorail.bridge" = "Једношински мост";
 
-"type.railway.monorail.tunnel" = "Jednošinskи тунел";
+"type.railway.monorail.tunnel" = "Једношински тунел";
 
 "type.railway.narrow_gauge" = "Пруга уског колосека";
 
@@ -3579,11 +3579,11 @@
 
 "type.shop.cannabis" = "Канабис шоп";
 
-"type.shop.car" = "Продаја аута";
+"type.shop.car" = "Продаја аутомобила";
 
-"type.shop.car_parts" = "Ауто делови";
+"type.shop.car_parts" = "Ауто-делови";
 
-"type.shop.car_repair" = "Ауто сервис";
+"type.shop.car_repair" = "Ауто-сервис";
 
 "type.shop.car_repair.tyres" = "Гуме";
 
@@ -3603,7 +3603,7 @@
 
 "type.shop.confectionery" = "Слаткиши";
 
-"type.shop.convenience" = "Мешовита роба";
+"type.shop.convenience" = "Мини-маркет";
 
 "type.shop.copyshop" = "Копирница";
 
@@ -3627,7 +3627,7 @@
 
 "type.shop.farm" = "Пиљара";
 
-"type.shop.fashion_accessories" = "Модни аксесоар";
+"type.shop.fashion_accessories" = "Модни аксесоари";
 
 "type.shop.florist" = "Цвећара";
 
@@ -3645,7 +3645,7 @@
 
 "type.shop.grocery" = "Бакалница";
 
-"type.shop.hairdresser" = "Фризерска опрема";
+"type.shop.hairdresser" = "Фризер";
 
 "type.shop.hardware" = "Гвожђара";
 
@@ -3661,17 +3661,17 @@
 
 "type.shop.kiosk" = "Киоск";
 
-"type.shop.kitchen" = "Пилетина";
+"type.shop.kitchen" = "Кухињска опрема";
 
 "type.shop.laundry" = "Перионица веша";
 
-"type.shop.mall" = "Мол";
+"type.shop.mall" = "Тржни центар";
 
 "type.shop.massage" = "Масажа";
 
 "type.shop.mobile_phone" = "Мобилни телефони";
 
-"type.shop.money_lender" = "Лихвар";
+"type.shop.money_lender" = "Новчане позајмице";
 
 "type.shop.motorcycle" = "Мотори";
 
@@ -3687,7 +3687,7 @@
 
 "type.shop.outdoor" = "Пешачење, пењање и камповање";
 
-"type.shop.outpost" = "Пакетамап";
+"type.shop.outpost" = "Преузимање пакета";
 
 "type.shop.pasta" = "Тестенине";
 
@@ -3703,7 +3703,7 @@
 
 "type.shop.rental" = "Центар за изнајмљивање";
 
-"type.shop.rental.bicycle" = "Изнајмљивање бицикла";
+"type.shop.rental.bicycle" = "Изнајмљивање бицикала";
 
 "type.shop.seafood" = "Рибарница";
 
@@ -3711,9 +3711,9 @@
 
 "type.shop.shoes" = "Обућа";
 
-"type.shop.sports" = "Спорт";
+"type.shop.sports" = "Спортска опрема";
 
-"type.shop.stationery" = "Књижара";
+"type.shop.stationery" = "Школски и канцеларијски прибор";
 
 "type.shop.supermarket" = "Супермаркет";
 
@@ -3729,11 +3729,11 @@
 
 "type.shop.tyres" = "Гуме";
 
-"type.shop.variety_store" = "Мешовита роба";
+"type.shop.variety_store" = "Све по истој цени";
 
-"type.shop.video" = "Видео клуб";
+"type.shop.video" = "Видео-клуб";
 
-"type.shop.video_games" = "Видео игре";
+"type.shop.video_games" = "Видео-игре";
 
 "type.shop.wine" = "Винарија";
 
@@ -3746,11 +3746,11 @@
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Уметнички радови";
 
-"type.shop.baby_goods" = "Беби опрема";
+"type.shop.baby_goods" = "Беби-опрема";
 
 "type.shop.bag" = "Торбе";
 
-"type.shop.bed" = "Постељина";
+"type.shop.bed" = "Душеци / кревети";
 
 "type.shop.boutique" = "Бутик";
 
@@ -3762,13 +3762,13 @@
 
 "type.shop.dairy" = "Млечни производи";
 
-"type.shop.electrical" = "Електро материјал";
+"type.shop.electrical" = "Електроматеријал";
 
 "type.shop.fishing" = "Рибарница";
 
 "type.shop.interior_decoration" = "Унутрашње декорације";
 
-"type.shop.lottery" = "Лото";
+"type.shop.lottery" = "Лутрија";
 
 "type.shop.medical_supply" = "Фармацеутска компанија";
 
@@ -3778,7 +3778,7 @@
 
 "type.shop.perfumery" = "Парфимерија";
 
-"type.shop.sewing" = "Материјали за шивење";
+"type.shop.sewing" = "Позамантерија";
 
 "type.shop.storage_rental" = "Изнајмљивање складишта";
 
@@ -3882,7 +3882,7 @@
 
 "type.attraction.amusement_ride" = "Забавни парк";
 
-"type.attraction.animal" = "Золошки врт";
+"type.attraction.animal" = "Животињски кавез";
 
 "type.attraction.bumper_car" = "Bumper Car";
 
@@ -3942,7 +3942,7 @@
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Планинска кућа за туристе";
 
-"type.tourism.zoo" = "Золошки врт";
+"type.tourism.zoo" = "Зоолошки врт";
 
 "type.tourism.zoo.petting" = "Контактни зоо-врт";
 
@@ -4030,9 +4030,9 @@
 
 "type.piste_type.downhill.freeride" = "Бесплатно скијање";
 
-"type.piste_type.downhill.intermediate" = "Средња ски стаза";
+"type.piste_type.downhill.intermediate" = "Средња ски-стаза";
 
-"type.piste_type.downhill.intermediate.area" = "Средња ски стаза";
+"type.piste_type.downhill.intermediate.area" = "Средња ски-стаза";
 
 "type.piste_type.downhill.novice" = "Скијање за потпуне почетнике";
 
