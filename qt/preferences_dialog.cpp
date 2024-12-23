@@ -78,22 +78,37 @@ namespace qt
       });
     }
 
+    QCheckBox * a3dAlwaysCheckBox = new QCheckBox("3D view always (experimental)");
+    QCheckBox * a3dInNavigationCheckBox = new QCheckBox("3D view during navigation");
     QCheckBox * a3dBuildingsCheckBox = new QCheckBox("3D buildings");
-    QCheckBox * a3dCheckBox = new QCheckBox("Perspective view (during navigation)");
     { 
-      bool allow3d, allow3dBuildings;
-      framework.Load3dMode(allow3d, allow3dBuildings);
+      {
+      bool allow3dAlways, allow3dInNavigation, allow3dBuildings;
+      framework.Load3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
+      a3dAlwaysCheckBox->setChecked(allow3dAlways);
+      a3dInNavigationCheckBox->setChecked(allow3dInNavigation);
       a3dBuildingsCheckBox->setChecked(allow3dBuildings);
-      a3dCheckBox->setChecked(allow3d);
-      connect(a3dBuildingsCheckBox, &QCheckBox::stateChanged, [&framework, &allow3d, &allow3dBuildings](int i)
+      }
+      connect(a3dAlwaysCheckBox, &QCheckBox::stateChanged, [&framework](int i)
       {
-        allow3dBuildings = static_cast<bool>(i);
-        framework.Allow3dMode(allow3d, allow3dBuildings);
+        bool allow3dAlways, allow3dInNavigation, allow3dBuildings;
+        framework.Load3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
+        allow3dAlways = static_cast<bool>(i);
+        framework.Allow3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
       });
-      connect(a3dCheckBox, &QCheckBox::stateChanged, [&framework, &allow3d, &allow3dBuildings](int i)
+      connect(a3dInNavigationCheckBox, &QCheckBox::stateChanged, [&framework](int i)
       {
-        allow3d = static_cast<bool>(i);
-        framework.Allow3dMode(allow3d, allow3dBuildings);
+        bool allow3dAlways, allow3dInNavigation, allow3dBuildings;
+        framework.Load3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
+        allow3dInNavigation = static_cast<bool>(i);
+        framework.Allow3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
+      });
+      connect(a3dBuildingsCheckBox, &QCheckBox::stateChanged, [&framework](int i)
+      {
+        bool allow3dAlways, allow3dInNavigation, allow3dBuildings;
+        framework.Load3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
+        allow3dBuildings = static_cast<bool>(i);
+        framework.Allow3dMode(allow3dAlways, allow3dInNavigation, allow3dBuildings);
       });
     }
 
@@ -216,8 +231,9 @@ namespace qt
 
     QVBoxLayout * finalLayout = new QVBoxLayout();
     finalLayout->addWidget(unitsRadioBox);
+    finalLayout->addWidget(a3dAlwaysCheckBox);
+    finalLayout->addWidget(a3dInNavigationCheckBox);
     finalLayout->addWidget(a3dBuildingsCheckBox);
-    finalLayout->addWidget(a3dCheckBox);
     finalLayout->addWidget(largeFontCheckBox);
     finalLayout->addWidget(transliterationCheckBox);
     finalLayout->addWidget(developerModeCheckBox);
