@@ -31,6 +31,7 @@ zh-Hans:快餐
 zh-Hant:速食店
 el:Ταχυφαγίο
 sk:Rýchle občerstvenie
+sr:Fast Food|Фаст фуд|Брза храна|Fast fud|Brza hrana
 fa:غذای حاضری
 
 cuisine-bagel
@@ -102,6 +103,7 @@ zh-Hant:早餐
 el:Πρωινό
 he:ארוחת בוקר
 sk:Raňajky
+sr:Доручак|doručak
 
 cuisine-burger|@fastfood
 en:Burger
@@ -137,6 +139,7 @@ zh-Hant:漢堡
 el:Μπιφτέκι|Χάμπουργκερ
 he:המבורגר
 sk:Hamburger
+sr:Бургер|Хамбургер|Burger|Hamburger
 
 cuisine-bubble_tea
 en:Bubble Tea|boba tea
@@ -149,6 +152,7 @@ uk:Бульбашковий чай
 be:Чай з бурбалкамі
 zh-Hans:珍珠奶茶
 zh-Hant:珍珠奶茶
+sr:Боба чај|бабл ти|Чај с мехурићима|Boba čaj|babl ti|Čaj s mehurićima
 
 cuisine-cake
 en:Cake|bakery
@@ -184,6 +188,7 @@ zh-Hant:蛋糕
 el:Κέικ|αρτοποιείο
 he:עוגה
 sk:Koláče
+sr:Колачи|Торта|Kolači|Torta
 
 cuisine-coffee_shop
 en:Coffee|coffee shop
@@ -220,6 +225,7 @@ el:Καφές|καφενείο
 he:הֶפָק
 sk:Káva
 sw:Kahawa
+sr:Кафа|кофи шоп|кафетерија|Kafa|kofi šop|kafeterija
 
 cuisine-curry
 en:Curry
@@ -255,6 +261,7 @@ zh-Hant:咖哩
 el:Κάρι
 he:קארי
 sk:Kari
+sr:Јела од карија|Кари|Jela od karija|Kari
 
 cuisine-diner
 en:Diner
@@ -290,6 +297,7 @@ zh-Hant:美式餐廳
 el:Μικροεστιατόριο
 he:דיינר
 sk:Diner
+sr:Дајнер|Dajner
 
 cuisine-donut
 en:Donuts
@@ -325,6 +333,7 @@ zh-Hant:甜甜圈
 el:Ντόνατ
 he:דונאט
 sk:Šišky
+sr:Крофне|Krofne
 
 cuisine-fish_and_chips
 en:Fish and Chips
@@ -360,6 +369,7 @@ zh-Hant:炸魚薯條
 el:Ψάρια και πατάτες
 he:פיש אנד צ'יפס
 sk:Ryba s hranolkami
+sr:Риба и чипс|Фиш енд чипс|Riba i čips|Fiš end čips
 
 cuisine-friture|@fastfood
 en:Friture
@@ -395,6 +405,7 @@ zh-Hant:油炸
 el:Τηγανητά
 he:פריטורה
 sk:Vyprážané jedlá
+sr:Пржена храна|Пржено|Pržena hrana|Prženo
 
 cuisine-grill
 en:Grill
@@ -430,6 +441,7 @@ zh-Hant:烤
 el:Ψησταριά
 he:גריל
 sk:Gril
+sr:Грил|Роштиљ|Јела са роштиља|Gril|Roštilj|Jela sa roštilja
 
 cuisine-hotdog|@fastfood
 en:Hotdog|hot dog
@@ -466,6 +478,7 @@ uk:Хот-доги|хотдог
 vi:Hotdog
 zh-Hans:热狗
 zh-Hant:熱狗
+sr:Хотдог|Хот дог|Хот-дог|Hotdog|Hot dog|Hot-dog
 
 cuisine-ice_cream
 en:Ice Cream|gelato
@@ -502,6 +515,7 @@ uk:Морозиво
 vi:Kem
 zh-Hans:冰淇淋
 zh-Hant:冰淇淋
+sr:Сладолед|Sladoled
 
 cuisine-kebab|@fastfood
 en:Kebab
@@ -538,6 +552,7 @@ uk:Кебаби|кебаб|шаурма
 vi:Thịt nướng kebab
 zh-Hans:烤肉
 zh-Hant:烤肉
+sr:Кебаб|Kebab
 
 cuisine-noodles
 en:Noodles
@@ -573,6 +588,7 @@ zh-Hant:麵食
 el:Μακαρόνια|Ζυμαρικά
 he:אטריות
 sk:Rezance
+sr:Нудле|Nudle
 
 cuisine-pancake|cuisine-crepe
 en:Pancake|pancakes|crepes|crepe
@@ -609,6 +625,7 @@ uk:Млинці|Креп
 vi:Bánh kếp|Bánh crepe
 zh-Hans:煎饼|千层饼
 zh-Hant:煎餅|可麗餅
+sr:Палачинка|Палачинке|Palačinka|Palačinke
 
 cuisine-pasta
 en:Pasta
@@ -644,6 +661,7 @@ zh-Hant:義大利麵
 el:Ζυμαρικά|Πάστα
 he:פסטה
 sk:Cestoviny
+sr:Тестенина|Паста|Testenina|Pasta
 
 cuisine-pizza|@fastfood
 en:Pizza|pizzeria
@@ -679,6 +697,7 @@ zh-Hant:披薩
 el:Πίτσα
 he:פיצה
 sk:Pizza
+sr:Пица|пицерија|Pica|picerija
 
 cuisine-ramen
 en:Ramen
@@ -713,6 +732,7 @@ zh-Hant:拉麵
 el:Ράμεν
 he:ראמן
 sk:Rámen
+sr:Рамен|Ramen
 
 cuisine-sandwich|@fastfood
 en:Sandwich
@@ -748,6 +768,7 @@ zh-Hant:三明治
 el:Σάντουιτς
 he:סנדוויץ'
 sk:Sendvič
+sr:Сендвич|Sendvič
 
 cuisine-sausage|@fastfood
 en:Sausage
@@ -783,6 +804,7 @@ zh-Hant:火腿
 el:Λουκάνικο
 he:נקניק
 sk:Klobása
+sr:Кобасица|Kobasica
 
 cuisine-seafood|cuisine-fish
 en:Seafood|fish
@@ -819,6 +841,7 @@ uk:Морська їжа|Риба|Рибний
 vi:Hải sản|Cá
 zh-Hans:海鲜|鱼
 zh-Hant:海鮮|魚
+sr:Морски плодови|Плодови мора|риба|Morski plodovi|Plodovi mora|riba
 
 cuisine-soba
 en:Soba
@@ -889,6 +912,7 @@ zh-Hant:牛排館
 el:Μπριζολάδικο
 he:סטייקיה
 sk:Steak house
+sr:Бифтек|Одрезак|Стек|Biftek|Odrezak|Stek
 
 cuisine-sushi
 en:Sushi
@@ -924,6 +948,7 @@ zh-Hant:壽司
 el:Σούσι
 he:סושי
 sk:Suši
+sr:Суши|Suši
 
 cuisine-tapas
 en:Tapas
@@ -959,6 +984,7 @@ zh-Hant:塔帕斯
 el:Τάπας
 he:טאפאס
 sk:Tapas
+sr:Тапас|Tapas
 
 cuisine-tea
 en:Tea
@@ -994,6 +1020,7 @@ zh-Hant:茶
 el:Τσάι
 he:תה
 sk:Čaj
+sr:Чај|Čaj
 
 cuisine-vegetarian
 en:Vegetarian
@@ -1029,6 +1056,7 @@ zh-Hant:素食
 el:Χορτοφαγική
 he:מטבח טבעוני
 sk:Vegetariánske jedlá
+sr:Вегетаријанска|Вегетаријанци|Vegetarijanska|Vegetarijanci
 
 # Vegan is also Vegetarian
 cuisine-vegan
@@ -1066,6 +1094,7 @@ zh-Hant:全素料理|素食
 el:Για χορτοφάγους|Χορτοφαγική
 he:מטבח טבעוני|מטבח צמחוני
 sk:Vegánske jedlá|Vegetariánske jedlá
+sr:Веганска|Вегетаријанска|Вегетаријанци|Вегани|Veganska|Vegetarijanska|Vegetarijanci|Vegani
 
 # cuisine-african
 # en:African cuisine
