@@ -1,8 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "platform/servers_list.hpp"
-
 #include "platform/products.hpp"
+#include "platform/servers_list.hpp"
 
 #include "cppjansson/cppjansson.hpp"
 
@@ -40,7 +39,7 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithoutProducts)
   std::string newFormatJson = R"({
     "servers": ["http://url1", "http://url2"],
     "settings": {
-      "key1": "value1",
+      "DonateUrl": "value1",
       "key2": "value2"
     }
   })";
@@ -49,9 +48,8 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithoutProducts)
   TEST_EQUAL(result->m_serversList.size(), 2, ());
   TEST_EQUAL(result->m_serversList[0], "http://url1", ());
   TEST_EQUAL(result->m_serversList[1], "http://url2", ());
-  TEST_EQUAL(result->m_settings.size(), 2, ());
-  TEST_EQUAL(result->m_settings["key1"], "value1", ());
-  TEST_EQUAL(result->m_settings["key2"], "value2", ());
+  TEST_EQUAL(result->m_settings.size(), 1, ());
+  TEST_EQUAL(result->m_settings["DonateUrl"], "value1", ());
   TEST(result->m_productsConfig.empty(), ());
 }
 
@@ -60,7 +58,7 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)
   std::string newFormatJson = R"({
     "servers": ["http://url1", "http://url2"],
     "settings": {
-      "key1": "value1",
+      "DonateUrl": "value1",
       "key2": "value2"
     },
     "productsConfig": {
@@ -84,9 +82,8 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)
   TEST_EQUAL(result->m_serversList.size(), 2, ());
   TEST_EQUAL(result->m_serversList[0], "http://url1", ());
   TEST_EQUAL(result->m_serversList[1], "http://url2", ());
-  TEST_EQUAL(result->m_settings.size(), 2, ());
-  TEST_EQUAL(result->m_settings["key1"], "value1", ());
-  TEST_EQUAL(result->m_settings["key2"], "value2", ());
+  TEST_EQUAL(result->m_settings.size(), 1, ());
+  TEST_EQUAL(result->m_settings["DonateUrl"], "value1", ());
 
   TEST(!result->m_productsConfig.empty(), ());
   auto const productsConfigResult = products::ProductsConfig::Parse(result->m_productsConfig);
