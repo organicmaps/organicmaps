@@ -1,6 +1,9 @@
 package app.organicmaps.maplayer;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -68,7 +71,10 @@ public class MapButtonsController extends Fragment
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
   private final Observer<SearchWheel.SearchOption> mSearchOptionObserver = this::onSearchOptionChange;
-  private final Observer<Boolean> mTrackRecorderObserver = this::updateMenuBadge;
+  private final Observer<Boolean> mTrackRecorderObserver = (enable) -> {
+    updateMenuBadge(enable);
+    showButton(enable, MapButtons.trackRecordingStatus);
+  };
 
   @Nullable
   @Override
@@ -119,6 +125,9 @@ public class MapButtonsController extends Fragment
       mToggleMapLayerButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
       mToggleMapLayerButton.setVisibility(View.VISIBLE);
     }
+    LayersButton trackRecordingStatus = mFrame.findViewById(R.id.track_recording_status);
+    if (trackRecordingStatus != null)
+      trackRecordingStatus.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.trackRecordingStatus));
     final View menuButton = mFrame.findViewById(R.id.menu_button);
     if (menuButton != null)
     {
@@ -157,6 +166,9 @@ public class MapButtonsController extends Fragment
       mButtonsMap.put(MapButtons.menu, menuButton);
     if (helpButton != null)
       mButtonsMap.put(MapButtons.help, helpButton);
+    if (trackRecordingStatus != null)
+      mButtonsMap.put(MapButtons.trackRecordingStatus, trackRecordingStatus);
+    showButton(false, MapButtons.trackRecordingStatus);
     return mFrame;
   }
 
@@ -184,6 +196,28 @@ public class MapButtonsController extends Fragment
       case bookmarks:
       case menu:
         UiUtils.showIf(show, buttonView);
+        break;
+      case trackRecordingStatus:
+        UiUtils.showIf(show, buttonView);
+        animateIconBlinking(show, (LayersButton) buttonView);
+    }
+  }
+
+  void animateIconBlinking(boolean show, @NonNull LayersButton temp)
+  {
+    if (show)
+    {
+      Drawable drawable = temp.getDrawable();
+      ObjectAnimator colorAnimator = ObjectAnimator.ofArgb(
+          drawable,
+          "tint",
+          0xFF757575,
+          0xFFFF0000);
+      colorAnimator.setDuration(1500);
+      colorAnimator.setEvaluator(new ArgbEvaluator());
+      colorAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+      colorAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+      colorAnimator.start();
     }
   }
 
@@ -407,7 +441,8 @@ public class MapButtonsController extends Fragment
     search,
     bookmarks,
     menu,
-    help
+    help,
+    trackRecordingStatus
   }
 
   public interface MapButtonClickListener

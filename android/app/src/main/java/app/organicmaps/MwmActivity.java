@@ -800,6 +800,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showBottomSheet(MAIN_MENU_ID);
       }
       case help -> showHelp();
+      case trackRecordingStatus -> showTrackSaveDialog();
     }
   }
 
