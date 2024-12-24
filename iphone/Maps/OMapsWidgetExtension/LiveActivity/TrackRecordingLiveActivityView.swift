@@ -24,7 +24,9 @@ struct TrackRecordingLiveActivityView: View {
       }
       .padding([.leading, .trailing, .bottom], 16)
     }
-    .background(.primary.opacity(0.15))
+    .activityBackgroundTint(.black.opacity(0.2))
+    // Uncomment the line below to simulate the background color in Preview because the `activityBackgroundTint` can only displayed on the device or simulator.
+    //.background(.black.opacity(0.85))
   }
 }
 
