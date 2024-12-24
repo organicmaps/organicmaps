@@ -586,14 +586,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
       UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
+      int trackRecorderOffset = TrackRecorder.nativeIsTrackRecordingEnabled() ? UiUtils.dimen(this, R.dimen.map_button_size) : 0;
 
       mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
-        updateCompassOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+        updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
       else
-        updateCompassOffset(-1, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+        updateCompassOffset(-1, -1);
       refreshLightStatusBar();
       updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
       mCurrentWindowInsets = windowInsets;
@@ -800,6 +801,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showBottomSheet(MAIN_MENU_ID);
       }
       case help -> showHelp();
+      case trackRecordingStatus -> showTrackSaveDialog();
     }
   }
 
@@ -1495,7 +1497,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (height != 0)
         offset = height;
     }
-    updateCompassOffset(offset);
+
+    if (TrackRecorder.nativeIsTrackRecordingEnabled() && (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE))
+      offset += UiUtils.dimen(this, R.dimen.map_button_size);
+
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+      updateCompassOffset(offset, UiUtils.dimen(this, R.dimen.map_button_size) + mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+    else
+      updateCompassOffset(offset);
   }
 
   @Override
@@ -2267,6 +2276,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     requestPostNotificationsPermission();
 
+    if (mCurrentWindowInsets != null)
+    {
+      int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      updateCompassOffset(offset + UiUtils.dimen(this, R.dimen.map_button_size));
+    }
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(true);
@@ -2275,6 +2289,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void stopTrackRecording()
   {
+    if (mCurrentWindowInsets != null)
+    {
+      int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      updateCompassOffset(offset);
+    }
     TrackRecordingService.stopService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(false);
   }
