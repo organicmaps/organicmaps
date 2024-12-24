@@ -16,11 +16,11 @@ public:
 
   AtomicSharedPtr() = default;
 
-  void Set(ValueType value) noexcept { atomic_store(&m_wrapped, value); }
-  ValueType Get() const noexcept { return atomic_load(&m_wrapped); }
+  void Set(ValueType value) noexcept { m_wrapped.store(value); }
+  ValueType Get() const noexcept { return m_wrapped.load(); }
 
 private:
-  ValueType m_wrapped = std::make_shared<ContentType>();
+  std::atomic<ValueType> m_wrapped = std::make_shared<ContentType>();
 
   DISALLOW_COPY_AND_MOVE(AtomicSharedPtr);
 };
