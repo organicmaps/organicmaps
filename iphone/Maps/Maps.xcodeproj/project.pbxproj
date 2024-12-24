@@ -1927,7 +1927,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* Maps */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
@@ -4105,8 +4105,6 @@
 			dependencies = (
 			);
 			name = OMapsWidgetExtensionExtension;
-			packageProductDependencies = (
-			);
 			productName = OMapsWidgetExtensionExtension;
 			productReference = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -4124,6 +4122,7 @@
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
 						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
@@ -4133,8 +4132,12 @@
 							};
 						};
 					};
+					ED097E752BB80C320006ED01 = {
+						ProvisioningStyle = Automatic;
+					};
 					ED46DDCB2D098A0B007CACD6 = {
 						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -4189,7 +4192,7 @@
 				sr,
 				lv,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -5127,8 +5130,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Release.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
@@ -5140,7 +5143,7 @@
 				MARKETING_VERSION = 2022.11.17;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps;
-				PROVISIONING_PROFILE_SPECIFIER = "CarPlay Release";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -5149,7 +5152,7 @@
 			baseConfigurationReference = 347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9Z6432XD7L;
@@ -5164,7 +5167,7 @@
 			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9Z6432XD7L;
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.release.tests;
@@ -5206,11 +5209,11 @@
 		ED46DDE42D098A0C007CACD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
+				DEVELOPMENT_TEAM = 9Z6432XD7L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
@@ -5225,7 +5228,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "WidgetExtension Release";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

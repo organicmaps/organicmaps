@@ -8,6 +8,12 @@ platform :ios do
       ensure_env_vars(
         env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
       )
+      api_key_data = JSON.parse(File.read('../keys/appstore.json'))
+      app_store_connect_api_key(
+        key_id: api_key_data['key_id'],
+        issuer_id: api_key_data['issuer_id'],
+        key_content: api_key_data['key']
+      )
       # Fixes random Fastlane failures by manually importing Apple certificates.
       # See https://github.com/fastlane/fastlane/issues/20960#issuecomment-1621931850
       import_certificate(
@@ -114,16 +120,10 @@ platform :ios do
       clean: false,
       include_symbols: true,
       export_method: 'app-store',
-      export_options: {
-        provisioningProfiles: {
-          'app.organicmaps' => 'CarPlay AppStore',
-          'app.organicmaps.widgetextension' => 'WidgetExtension AppStore',
-        }
-      },
-      skip_profile_detection: false,
       output_directory: 'build',
       xcargs: 'MARKETING_VERSION=' + lane_context[SharedValues::VERSION_NUMBER] + ' ' +
-              'CURRENT_PROJECT_VERSION=' + lane_context[SharedValues::BUILD_NUMBER] + ' '
+              'CURRENT_PROJECT_VERSION=' + lane_context[SharedValues::BUILD_NUMBER] + ' ' +
+              '-allowProvisioningUpdates'
     )
     upload_to_testflight(
       beta_app_feedback_email: 'testflight@organicmaps.app',
