@@ -21,6 +21,7 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.Icon;
+import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.location.LocationHelper;
@@ -29,11 +30,14 @@ import app.organicmaps.util.Graphics;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Future;
 
-public class BookmarksLoader
+class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
 {
   public interface OnBookmarksLoaded
   {
@@ -47,32 +51,102 @@ public class BookmarksLoader
   // each row contains a unique icon, resulting in serialization of each icon.
   private static final int MAX_BOOKMARKS_SIZE = 50;
 
-  public static void load(@NonNull CarContext carContext, @NonNull BookmarkCategory bookmarkCategory, @NonNull OnBookmarksLoaded onBookmarksLoaded)
+  @Nullable
+  private Future<?> mBookmarkLoaderTask = null;
+
+  @NonNull
+  private final CarContext mCarContext;
+
+  @NonNull
+  private final OnBookmarksLoaded mOnBookmarksLoaded;
+
+  private final long mBookmarkCategoryId;
+  private final int mBookmarksListSize;
+
+  public BookmarksLoader(@NonNull CarContext carContext, @NonNull BookmarkCategory bookmarkCategory, @NonNull OnBookmarksLoaded onBookmarksLoaded)
   {
-    UiThread.run(() -> {
-      final ConstraintManager constraintManager = carContext.getCarService(ConstraintManager.class);
-      final int maxCategoriesSize = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
-      final long bookmarkCategoryId = bookmarkCategory.getId();
-      final int bookmarkCategoriesSize = Math.min(bookmarkCategory.getBookmarksCount(), Math.min(maxCategoriesSize, MAX_BOOKMARKS_SIZE));
+    final ConstraintManager constraintManager = carContext.getCarService(ConstraintManager.class);
+    final int maxCategoriesSize = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
 
-      final BookmarkInfo[] bookmarks = new BookmarkInfo[bookmarkCategoriesSize];
-      for (int i = 0; i < bookmarkCategoriesSize; ++i)
-      {
-        final long id = BookmarkManager.INSTANCE.getBookmarkIdByPosition(bookmarkCategoryId, i);
-        bookmarks[i] = new BookmarkInfo(bookmarkCategoryId, id);
-      }
+    mCarContext = carContext;
+    mOnBookmarksLoaded = onBookmarksLoaded;
+    mBookmarkCategoryId = bookmarkCategory.getId();
+    mBookmarksListSize = Math.min(bookmarkCategory.getBookmarksCount(), Math.min(maxCategoriesSize, MAX_BOOKMARKS_SIZE));
+  }
 
-      ThreadPool.getWorker().submit(() -> {
-        final ItemList bookmarksList = createBookmarksList(carContext, bookmarks);
-        UiThread.run(() -> onBookmarksLoaded.onBookmarksLoaded(bookmarksList));
+  public void load()
+  {
+    UiThread.runLater(() -> {
+      BookmarkManager.INSTANCE.addSortingListener(this);
+      if (sortBookmarks())
+        return;
+
+      final List<Long> bookmarkIds = new ArrayList<>();
+      for (int i = 0; i < mBookmarksListSize; ++i)
+        bookmarkIds.add(BookmarkManager.INSTANCE.getBookmarkIdByPosition(mBookmarkCategoryId, i));
+      loadBookmarks(bookmarkIds);
+    });
+  }
+
+  public void cancel()
+  {
+    BookmarkManager.INSTANCE.removeSortingListener(this);
+    if (mBookmarkLoaderTask != null)
+    {
+      mBookmarkLoaderTask.cancel(true);
+      mBookmarkLoaderTask = null;
+    }
+  }
+
+  /**
+   * Calls BookmarkManager to sort bookmarks.
+   *
+   * @return false if the sorting not needed or can't be done.
+   */
+  private boolean sortBookmarks()
+  {
+    if (!BookmarkManager.INSTANCE.hasLastSortingType(mBookmarkCategoryId))
+      return false;
+
+    final int sortingType = BookmarkManager.INSTANCE.getLastSortingType(mBookmarkCategoryId);
+    if (sortingType < 0)
+      return false;
+
+    final Location loc = LocationHelper.from(mCarContext).getSavedLocation();
+    final boolean hasMyPosition = loc != null;
+    if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
+      return false;
+
+    final double lat = hasMyPosition ? loc.getLatitude() : 0;
+    final double lon = hasMyPosition ? loc.getLongitude() : 0;
+
+    BookmarkManager.INSTANCE.getSortedCategory(mBookmarkCategoryId, sortingType, hasMyPosition, lat, lon, 0);
+
+    return true;
+  }
+
+  private void loadBookmarks(@NonNull List<Long> bookmarksIds)
+  {
+    final BookmarkInfo[] bookmarks = new BookmarkInfo[mBookmarksListSize];
+    for (int i = 0; i < mBookmarksListSize && i < bookmarksIds.size(); ++i)
+    {
+      final long id = bookmarksIds.get(i);
+      bookmarks[i] = new BookmarkInfo(mBookmarkCategoryId, id);
+    }
+
+    mBookmarkLoaderTask = ThreadPool.getWorker().submit(() -> {
+      final ItemList bookmarksList = createBookmarksList(bookmarks);
+      UiThread.run(() -> {
+        cancel();
+        mOnBookmarksLoaded.onBookmarksLoaded(bookmarksList);
       });
     });
   }
 
   @NonNull
-  private static ItemList createBookmarksList(@NonNull CarContext carContext, @NonNull BookmarkInfo[] bookmarks)
+  private ItemList createBookmarksList(@NonNull BookmarkInfo[] bookmarks)
   {
-    final Location location = LocationHelper.from(carContext).getSavedLocation();
+    final Location location = LocationHelper.from(mCarContext).getSavedLocation();
     final ItemList.Builder builder = new ItemList.Builder();
     final Map<Icon, CarIcon> iconsCache = new HashMap<>();
     for (final BookmarkInfo bookmarkInfo : bookmarks)
@@ -91,7 +165,7 @@ public class BookmarksLoader
             R.dimen.track_circle_size,
             icon.getResId(),
             R.dimen.bookmark_icon_size,
-            carContext);
+            mCarContext);
         final CarIcon carIcon = new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(drawable))).build();
         iconsCache.put(icon, carIcon);
       }
@@ -105,20 +179,31 @@ public class BookmarksLoader
   @NonNull
   private static CharSequence getDescription(@NonNull BookmarkInfo bookmark, @Nullable Location location)
   {
-    final SpannableStringBuilder result = new SpannableStringBuilder(" ");
+    final SpannableStringBuilder result = new SpannableStringBuilder("");
     if (location != null)
     {
+      result.append(" ");
       final Distance distance = bookmark.getDistance(location.getLatitude(), location.getLongitude(), 0.0);
       result.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       result.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
 
-      if (!bookmark.getFeatureType().isEmpty())
-      {
+    if (!bookmark.getFeatureType().isEmpty())
+    {
+      if (result.length() > 0)
         result.append(" • ");
-        result.append(bookmark.getFeatureType());
-      }
+      result.append(bookmark.getFeatureType());
     }
 
     return result;
+  }
+
+  @Override
+  public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
+  {
+    final List<Long> bookmarkIds = new ArrayList<>();
+    for (final SortedBlock block : sortedBlocks)
+      bookmarkIds.addAll(block.getBookmarkIds());
+    loadBookmarks(bookmarkIds);
   }
 }
