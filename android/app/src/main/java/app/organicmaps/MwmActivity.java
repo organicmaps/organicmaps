@@ -590,14 +590,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ViewCompat.setOnApplyWindowInsetsListener(mPointChooser, (view, windowInsets) -> {
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
       UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
-
+      final int trackRecorderOffset = TrackRecorder.nativeIsTrackRecordingEnabled() ? UiUtils.dimen(this, R.dimen.map_button_size) : 0;
       mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
       if (mCurrentWindowInsets == null)
-        updateCompassOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
-      else
-        updateCompassOffset(-1, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+      {
+        updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
+      }
       refreshLightStatusBar();
       updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
       mCurrentWindowInsets = windowInsets;
@@ -814,6 +814,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showBottomSheet(MAIN_MENU_ID);
       }
       case help -> showHelp();
+      case trackRecordingStatus -> showTrackSaveDialog();
     }
   }
 
@@ -1500,14 +1501,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mCurrentWindowInsets == null) {
       return;
     }
-    int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+    int offsetY = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+    int offsetX = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
     if (show && mRoutingPlanInplaceController != null)
     {
       final int height = mRoutingPlanInplaceController.calcHeight();
       if (height != 0)
-        offset = height;
+        offsetY = height;
     }
-    updateCompassOffset(offset);
+    final int orientation = getResources().getConfiguration().orientation;
+    final boolean isTrackRecordingEnabled = TrackRecorder.nativeIsTrackRecordingEnabled();
+    if (isTrackRecordingEnabled && (orientation != Configuration.ORIENTATION_LANDSCAPE))
+      offsetY += UiUtils.dimen(this, R.dimen.map_button_size);
+    if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+    {
+      if (show)
+      {
+        final boolean isSmallScreen = UiUtils.getDisplayTotalHeight(this) < UiUtils.dimen(this, R.dimen.dp_400);
+        if (!isSmallScreen || TrackRecorder.nativeIsTrackRecordingEnabled())
+          offsetX += UiUtils.dimen(this, R.dimen.map_button_size);
+      }
+      else if (isTrackRecordingEnabled)
+        offsetY += UiUtils.dimen(this, R.dimen.map_button_size);
+    }
+    updateCompassOffset(offsetY, offsetX);
   }
 
   @Override
@@ -2311,6 +2328,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     requestPostNotificationsPermission();
 
+    if (mCurrentWindowInsets != null)
+    {
+      final int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      updateCompassOffset(offset + UiUtils.dimen(this, R.dimen.map_button_size));
+    }
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(true);
@@ -2319,6 +2341,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void stopTrackRecording()
   {
+    if (mCurrentWindowInsets != null)
+    {
+      int offsetY = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      final int offsetX = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right;
+      if (RoutingController.get().isPlanning() && mRoutingPlanInplaceController != null)
+      {
+        final int height = mRoutingPlanInplaceController.calcHeight();
+        if (height != 0)
+          offsetY = height;
+      }
+      updateCompassOffset(offsetY, offsetX);
+    }
     TrackRecordingService.stopService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(false);
   }
