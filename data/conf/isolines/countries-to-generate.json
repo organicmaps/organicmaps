@@ -5203,14 +5203,6 @@
             }
         },
         {
-            "key": "Nagorno-Karabakh",
-            "value": {
-                "profileName": "normal",
-                "tileCoordsSubset": [],
-                "tilesAreBanned": false
-            }
-        },
-        {
             "key": "Namibia",
             "value": {
                 "profileName": "small",
