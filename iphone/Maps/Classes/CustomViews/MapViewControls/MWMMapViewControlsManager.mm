@@ -64,8 +64,8 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.menuState = MWMBottomMenuStateInactive;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   self.isAddingPlace = NO;
-  [TrackRecordingManager.shared addObserver:self recordingIsActiveDidChangeHandler:^(BOOL isActive) {
-    [self setTrackRecordingButtonHidden:!isActive];
+  [TrackRecordingManager.shared addObserver:self recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * trackInfo) {
+    [self setTrackRecordingButtonHidden:state == TrackRecordingStateInactive];
   }];
   return self;
 }

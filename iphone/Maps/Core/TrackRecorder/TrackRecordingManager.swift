@@ -1,4 +1,5 @@
-enum TrackRecordingState: Equatable {
+@objc
+enum TrackRecordingState: Int, Equatable {
   case inactive
   case active
 }
@@ -17,7 +18,7 @@ protocol TrackRecordingObserver: AnyObject {
   func removeObserver(_ observer: AnyObject)
 }
 
-typealias TrackRecordingStateHandler = (Bool) -> Void
+typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo?) -> Void
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
@@ -134,6 +135,7 @@ final class TrackRecordingManager: NSObject {
     trackRecorder.setTrackRecordingUpdateHandler { [weak self] info in
       guard let self else { return }
       self.trackRecordingInfo = info
+      self.notifyObservers()
       self.activityManager?.update(info)
     }
   }
@@ -187,6 +189,7 @@ final class TrackRecordingManager: NSObject {
     trackRecorder.stopTrackRecording()
     activityManager?.stop()
     notifyObservers()
+    
     switch savingOption {
     case .withoutSaving:
       break
@@ -226,7 +229,7 @@ extension TrackRecordingManager: TrackRecordingObserver {
   func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler) {
     let observation = Observation(observer: observer, recordingStateDidChangeHandler: recordingIsActiveDidChangeHandler)
     observations.append(observation)
-    recordingIsActiveDidChangeHandler(recordingState == .active)
+    recordingIsActiveDidChangeHandler(recordingState, trackRecordingInfo)
   }
 
   @objc
@@ -236,6 +239,6 @@ extension TrackRecordingManager: TrackRecordingObserver {
 
   private func notifyObservers() {
     observations = observations.filter { $0.observer != nil }
-    observations.forEach { $0.recordingStateDidChangeHandler?(recordingState == .active) }
+    observations.forEach { $0.recordingStateDidChangeHandler?(recordingState, trackRecordingInfo) }
   }
 }
