@@ -670,6 +670,7 @@
     <string name="toll_road">Đường trả phí</string>
     <string name="unpaved_road">Đường đất</string>
     <string name="ferry_crossing">Bến phà</string>
+    <string name="pick_destination">Mục đích</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Có</string>
     <!-- A generic "No" button in dialogs -->

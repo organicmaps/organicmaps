@@ -701,6 +701,7 @@
     <string name="toll_road">כביש אגרה</string>
     <string name="unpaved_road">דרך לא סלולה</string>
     <string name="ferry_crossing">מעבורת</string>
+    <string name="pick_destination">יעד</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">כן</string>
     <!-- A generic "No" button in dialogs -->

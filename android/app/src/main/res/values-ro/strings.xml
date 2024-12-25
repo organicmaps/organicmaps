@@ -692,6 +692,7 @@
     <string name="toll_road">Drum cu plată</string>
     <string name="unpaved_road">Drum neasfaltat</string>
     <string name="ferry_crossing">Trecere cu bac</string>
+    <string name="pick_destination">Destinație</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Da</string>
     <!-- A generic "No" button in dialogs -->

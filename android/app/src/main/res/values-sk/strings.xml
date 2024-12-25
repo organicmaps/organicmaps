@@ -704,6 +704,7 @@
     <string name="toll_road">Spoplatnená cesta</string>
     <string name="unpaved_road">Nespevnená cesta</string>
     <string name="ferry_crossing">Prechod trajektom</string>
+    <string name="pick_destination">Cieľ</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Áno</string>
     <!-- A generic "No" button in dialogs -->

@@ -704,6 +704,7 @@
     <string name="toll_road">Carretera con pago de peaje</string>
     <string name="unpaved_road">Camino sin pavimento</string>
     <string name="ferry_crossing">Cruce de ferri</string>
+    <string name="pick_destination">Destino</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
     <!-- A generic "No" button in dialogs -->

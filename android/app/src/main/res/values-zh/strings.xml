@@ -717,6 +717,7 @@
     <string name="toll_road">收费公路</string>
     <string name="unpaved_road">未铺砌道路</string>
     <string name="ferry_crossing">轮渡</string>
+    <string name="pick_destination">目的地</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">是</string>
     <!-- A generic "No" button in dialogs -->

@@ -718,6 +718,7 @@
     <string name="toll_road">Платная дорога</string>
     <string name="unpaved_road">Грунтовая дорога</string>
     <string name="ferry_crossing">Паромная переправа</string>
+    <string name="pick_destination">Цель</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Да</string>
     <!-- A generic "No" button in dialogs -->

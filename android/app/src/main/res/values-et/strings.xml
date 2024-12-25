@@ -700,6 +700,7 @@
     <string name="toll_road">Tasuline tee</string>
     <string name="unpaved_road">Katteta tee</string>
     <string name="ferry_crossing">Praamiületus</string>
+    <string name="pick_destination">Sihtkoht</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Jah</string>
     <!-- A generic "No" button in dialogs -->

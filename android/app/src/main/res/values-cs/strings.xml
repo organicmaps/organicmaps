@@ -677,6 +677,7 @@
     <string name="toll_road">Silnice s mýtným</string>
     <string name="unpaved_road">Nezpevněná silnice</string>
     <string name="ferry_crossing">Přejezd trajektů</string>
+    <string name="pick_destination">Destinace</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ano</string>
     <!-- A generic "No" button in dialogs -->

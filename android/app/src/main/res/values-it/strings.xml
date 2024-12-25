@@ -693,6 +693,7 @@
     <string name="toll_road">Strada a pedaggio</string>
     <string name="unpaved_road">Strada non asfaltata</string>
     <string name="ferry_crossing">Traghetto</string>
+    <string name="pick_destination">Destinazione</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sì</string>
     <!-- A generic "No" button in dialogs -->

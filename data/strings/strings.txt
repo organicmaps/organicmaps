@@ -26067,7 +26067,7 @@
     zh-Hant = 出發
 
   [pick_destination]
-    tags = ios
+    tags = android,ios
     en = Destination
     af = Bestemming
     ar = جهة الوصول

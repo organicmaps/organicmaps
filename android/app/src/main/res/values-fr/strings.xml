@@ -711,6 +711,7 @@
     <string name="toll_road">Route à péage</string>
     <string name="unpaved_road">Routes non revêtues</string>
     <string name="ferry_crossing">Traversées en ferry</string>
+    <string name="pick_destination">Point d\'arrivée</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Oui</string>
     <!-- A generic "No" button in dialogs -->

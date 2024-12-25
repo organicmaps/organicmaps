@@ -682,6 +682,7 @@
     <string name="toll_road">Díjköteles utak</string>
     <string name="unpaved_road">Burkolatlan utak</string>
     <string name="ferry_crossing">Kompátkelők</string>
+    <string name="pick_destination">Cél</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Igen</string>
     <!-- A generic "No" button in dialogs -->

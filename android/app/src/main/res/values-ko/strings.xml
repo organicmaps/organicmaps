@@ -669,6 +669,7 @@
     <string name="toll_road">유료 도로</string>
     <string name="unpaved_road">비포장 도로</string>
     <string name="ferry_crossing">여객선 횡단길</string>
+    <string name="pick_destination">목적지</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">네</string>
     <!-- A generic "No" button in dialogs -->
