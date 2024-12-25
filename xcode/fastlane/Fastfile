@@ -35,6 +35,16 @@ platform :ios do
         keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
         keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
       )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG7.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG8.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
       # Organic Maps certificates.
       import_certificate(
         certificate_path: 'keys/CertificatesDev.p12',
