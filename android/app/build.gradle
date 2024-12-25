@@ -45,7 +45,6 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
-apply from: 'secure.properties'
 if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.gms.google-services'
   apply plugin: 'com.google.firebase.crashlytics'
@@ -247,6 +246,11 @@ android {
     }
   }
 
+  def securityPropertiesFileExists = file('secure.properties').exists()
+  if (securityPropertiesFileExists) {
+    apply from: 'secure.properties'
+  }
+
   signingConfigs {
     debug {
       storeFile file('debug.keystore')
@@ -256,10 +260,15 @@ android {
     }
 
     release {
-      storeFile file(spropStoreFile)
-      storePassword spropStorePassword
-      keyAlias spropKeyAlias
-      keyPassword spropKeyPassword
+      if (securityPropertiesFileExists) {
+        println('The release signing keys are available')
+        storeFile file(spropStoreFile)
+        storePassword spropStorePassword
+        keyAlias spropKeyAlias
+        keyPassword spropKeyPassword
+      } else {
+        println('The release signing keys are unavailable')
+      }
     }
   }
 
