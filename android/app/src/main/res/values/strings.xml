@@ -2270,7 +2270,7 @@
   <string name="deletion_warning">Are you sure you wanna delete this?</string>
   <string name="deletionPlanned">Deleting…</string>
   <string name="plz_wait_dowloading">Please, wait, data being downloaded</string>
-  <string name="empty_list">Пусто</string>
+  <string name="empty_list">Empty</string>
   <string name="review_will_be_published_when_online">Review will be published when you are online</string>
   <string name="review_was_published">Review was successfully published</string>
   <string name="failed_to_publish_review">Failed to publish review\n</string>

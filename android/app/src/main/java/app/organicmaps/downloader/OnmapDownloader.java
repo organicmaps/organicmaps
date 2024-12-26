@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,21 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
 import androidx.core.view.ViewCompat;
+
+import java.util.List;
+import java.util.Objects;
+
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.WheelProgressView;
 import app.tourism.MainActivity;
-
-import java.util.List;
-import java.util.Objects;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
@@ -90,13 +89,14 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private void navigationToMainActivityHandling() {
     Handler handler = new Handler(Looper.getMainLooper());
     Runnable delayedAction = () -> {
-      if(mCurrentCountry.present && !alreadyNavigating) {
-        alreadyNavigating = true;
-        mActivity.removeScreenBlock();
-        Intent intent = new Intent(mActivity, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(mActivity, intent, null);
-        alreadyNavigating = true;
+      if(mCurrentCountry != null) {
+        if(mCurrentCountry.present && !alreadyNavigating) {
+          alreadyNavigating = true;
+          mActivity.removeScreenBlock();
+          Intent intent = new Intent(mActivity, MainActivity.class);
+          intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+          startActivity(mActivity, intent, null);
+        }
       }
     };
     handler.postDelayed(delayedAction, 1000);

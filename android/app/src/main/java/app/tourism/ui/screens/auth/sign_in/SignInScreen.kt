@@ -123,7 +123,7 @@ fun SignInScreen(
                         ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     )
-                    VerticalSpace(height = 32.dp)
+                    VerticalSpace(height = 16.dp)
                     PasswordEditText(
                         value = password,
                         onValueChange = { vm.setPassword(it) },
@@ -131,7 +131,7 @@ fun SignInScreen(
                         keyboardActions = KeyboardActions(onDone = { onSignInComplete() }),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     )
-                    VerticalSpace(height = 48.dp)
+                    VerticalSpace(height = 32.dp)
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         label = stringResource(id = R.string.sign_in),

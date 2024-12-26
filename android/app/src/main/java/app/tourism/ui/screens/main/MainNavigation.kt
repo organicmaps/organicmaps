@@ -71,7 +71,9 @@ fun MainNavigation(rootNavController: NavHostController, themeVM: ThemeViewModel
         rootNavController.navigate(FullscreenImageViewer(selectedImage, imageUrls))
     }
     val onSearchClick: (q: String) -> Unit = { q ->
-        rootNavController.navigate(Search(query = q))
+        if (q.isNotEmpty()) {
+            rootNavController.navigate(Search(query = q))
+        }
     }
     val onMapClick = { navigateToMap(context) }
     val onBackClick: () -> Unit = { rootNavController.navigateUp() }

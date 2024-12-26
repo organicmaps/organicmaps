@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +41,6 @@ import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.common.nav.BackButton
 import app.tourism.ui.common.textfields.AuthEditText
-import app.tourism.ui.screens.auth.navigateToMainActivity
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.utils.showToast
 import app.tourism.utils.openUrlInBrowser
@@ -65,7 +66,7 @@ fun SignUpScreen(
 
     ObserveAsEvents(flow = vm.uiEventsChannelFlow) { event ->
         when (event) {
-            is UiEvent.NavigateToMainActivity -> navigateToMainActivity(context)
+            is UiEvent.NavigateToMainActivity -> onSignUpComplete()
             is UiEvent.ShowToast -> context.showToast(event.message)
         }
     }
@@ -80,22 +81,25 @@ fun SignUpScreen(
             contentDescription = null
         )
 
-        Box(Modifier.padding(Constants.SCREEN_PADDING)) {
-            BackButton(
-                modifier = Modifier.align(Alignment.TopStart),
-                onBackClick = onBackClick,
-                tint = Color.White
-            )
-        }
-
         Column(
             Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .align(alignment = Alignment.TopCenter)
         ) {
-            VerticalSpace(height = 48.dp)
-            Box(Modifier.padding(Constants.SCREEN_PADDING)
-                .drawDarkContainerBehind()) {
+            Box(modifier = Modifier.padding(16.dp)) {
+                BackButton(
+                    onBackClick = onBackClick,
+                    tint = Color.White
+                )
+            }
+            VerticalSpace(height = 16.dp)
+
+            Box(
+                Modifier
+                    .padding(Constants.SCREEN_PADDING)
+                    .drawDarkContainerBehind()
+            ) {
                 Column(
                     Modifier.padding(36.dp)
                 ) {
@@ -134,7 +138,6 @@ fun SignUpScreen(
                         color = Color.White,
                         thickness = 1.dp
                     )
-                    VerticalSpace(height = 16.dp)
                     AuthEditText(
                         value = email ?: "",
                         onValueChange = { vm.setEmail(it) },
@@ -146,7 +149,6 @@ fun SignUpScreen(
                         ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     )
-                    VerticalSpace(height = 16.dp)
                     PasswordEditText(
                         value = password ?: "",
                         onValueChange = { vm.setPassword(it) },
@@ -158,7 +160,6 @@ fun SignUpScreen(
                         ),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                     )
-                    VerticalSpace(height = 16.dp)
                     PasswordEditText(
                         value = confirmPassword ?: "",
                         onValueChange = { vm.setConfirmPassword(it) },

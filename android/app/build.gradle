@@ -375,44 +375,44 @@ android {
 }
 
 dependencies {
-  implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.1'
-    implementation 'androidx.activity:activity-compose:1.9.0'
-    implementation platform('androidx.compose:compose-bom:2024.05.00')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
-    androidTestImplementation platform('androidx.compose:compose-bom:2024.05.00')
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+  implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+  implementation 'androidx.activity:activity-compose:1.9.3'
+  implementation platform('androidx.compose:compose-bom:2024.12.01')
+  implementation 'androidx.compose.ui:ui'
+  implementation 'androidx.compose.ui:ui-graphics'
+  implementation 'androidx.compose.ui:ui-tooling-preview'
+  implementation 'androidx.compose.material3:material3'
+  androidTestImplementation platform('androidx.compose:compose-bom:2024.12.01')
+  androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+  debugImplementation 'androidx.compose.ui:ui-tooling'
+  debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    // hilt
-    def hilt = '2.51.1'
-    implementation "com.google.dagger:hilt-android:$hilt"
-    kapt "com.google.dagger:hilt-compiler:$hilt"
-    kapt "androidx.hilt:hilt-compiler:1.2.0"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.2.0'
+  // hilt
+  def hilt = '2.51.1'
+  implementation "com.google.dagger:hilt-android:$hilt"
+  kapt "com.google.dagger:hilt-compiler:$hilt"
+  kapt "androidx.hilt:hilt-compiler:1.2.0"
+  implementation 'androidx.hilt:hilt-navigation-compose:1.2.0'
 
-    // navigation
-    implementation "androidx.navigation:navigation-compose:2.8.0-beta03"
+  // navigation
+  implementation 'androidx.navigation:navigation-compose:2.8.5'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
-    // countries
-    implementation 'com.hbb20:ccp:2.7.3'
-    // webview
-    implementation "androidx.webkit:webkit:1.11.0"
-    // compress
-    implementation 'id.zelory:compressor:3.0.1'
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+  // countries
+  implementation 'com.hbb20:ccp:2.7.3'
+  // webview
+  implementation "androidx.webkit:webkit:1.11.0"
+  // compress
+  implementation 'id.zelory:compressor:3.0.1'
 
   //Background processing
   def coroutines = '1.8.1'
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
   // Coroutine Lifecycle Scopes
-  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
 
   // region Network
   // Retrofit
@@ -423,7 +423,7 @@ dependencies {
   implementation "com.squareup.okhttp3:okhttp:$okhttp"
   implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
   implementation 'com.google.code.gson:gson:2.11.0'
-  def coil_version = '2.6.0'
+  def coil_version = '2.7.0'
   implementation("io.coil-kt:coil-compose:$coil_version")
   implementation("io.coil-kt:coil-svg:$coil_version")
   // endregion

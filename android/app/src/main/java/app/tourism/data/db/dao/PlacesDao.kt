@@ -30,7 +30,7 @@ interface PlacesDao {
     fun getTopPlacesByCategoryId(categoryId: Long): Flow<List<PlaceEntity>>
 
     @Query("SELECT * FROM places WHERE id = :placeId")
-    fun getPlaceById(placeId: Long): Flow<PlaceEntity>
+    fun getPlaceById(placeId: Long): Flow<PlaceEntity?>
 
     @Query("SELECT * FROM places WHERE isFavorite = 1 AND UPPER(name) LIKE UPPER(:q)")
     fun getFavoritePlacesFlow(q: String = ""): Flow<List<PlaceEntity>>

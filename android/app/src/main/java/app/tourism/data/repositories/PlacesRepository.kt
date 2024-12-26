@@ -165,10 +165,12 @@ class PlacesRepository(
     }
 
     fun getPlaceById(id: Long): Flow<Resource<PlaceFull>> = channelFlow {
-        placesDao.getPlaceById(id)
-            .collectLatest { placeEntity ->
+        placesDao.getPlaceById(id).collectLatest { placeEntity ->
+            if(placeEntity != null)
                 send(Resource.Success(placeEntity.toPlaceFull()))
-            }
+            else
+                send(Resource.Error(message = "Не найдено"))
+        }
     }
 
     fun getFavorites(q: String): Flow<Resource<List<PlaceShort>>> = channelFlow {
