@@ -1752,6 +1752,7 @@ void Framework::StopTrackRecording()
 void Framework::SaveTrackRecordingWithName(std::string const & name)
 {
   GetBookmarkManager().SaveTrackRecording(name);
+  GpsTracker::Instance().Clear();
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
 }
