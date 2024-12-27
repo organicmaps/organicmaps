@@ -1,6 +1,6 @@
 import Foundation
 
-extension BookmarkColor: CaseIterable {
+extension BookmarkColor {
   public static var allCases: [BookmarkColor] =  [.red, .pink, .purple, .deepPurple, .blue, .lightBlue, .cyan, .teal, .green,
                                                   .lime, .yellow, .orange, .deepOrange, .brown, .gray, .blueGray]
 

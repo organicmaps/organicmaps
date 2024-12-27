@@ -7,7 +7,6 @@
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
 #import "MWMMapViewControlsManager+AddPlace.h"
-#import "location_util.h"
 
 #import <CoreApi/Framework.h>
 #import <CoreApi/StringUtils.h>

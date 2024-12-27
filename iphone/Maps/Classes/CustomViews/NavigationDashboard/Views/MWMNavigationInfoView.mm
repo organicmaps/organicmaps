@@ -10,7 +10,6 @@
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
-#import "location_util.h"
 
 #include "geometry/angles.hpp"
 
