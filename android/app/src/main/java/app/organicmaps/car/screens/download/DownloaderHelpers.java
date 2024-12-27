@@ -20,7 +20,6 @@ public final class DownloaderHelpers
   @SuppressWarnings("ConstantConditions")
   public static boolean isWorldMapsDownloadNeeded()
   {
-    // TODO: Maps are asynchronously initialized in the core. If the initialization takes a significant amount of time, the downloader screen could potentially be displayed, even if the world maps are present.
     if (BuildConfig.FLAVOR.equals("fdroid"))
       return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
     return false;
