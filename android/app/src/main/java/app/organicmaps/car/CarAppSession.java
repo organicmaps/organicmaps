@@ -161,7 +161,11 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mInitFailed = false;
     try
     {
-      MwmApplication.from(getCarContext()).init(() -> Config.setFirstStartDialogSeen(getCarContext()));
+      MwmApplication.from(getCarContext()).init(() -> {
+        Config.setFirstStartDialogSeen(getCarContext());
+        if (DownloaderHelpers.isWorldMapsDownloadNeeded())
+          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
+      });
     } catch (IOException e)
     {
       mInitFailed = true;
@@ -177,9 +181,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
 
     final List<Screen> screensStack = new ArrayList<>();
     screensStack.add(new MapScreen(getCarContext(), mSurfaceRenderer));
-
-    if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-      screensStack.add(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
       screensStack.add(new RequestPermissionsScreen(getCarContext(), mSensorsManager::onStart));
