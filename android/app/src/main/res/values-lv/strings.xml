@@ -823,9 +823,7 @@
     <string name="car_continue_on_the_phone">Turpināt tālrunī</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Uz auto ekrānu</string>
-    <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Lai darbotos navigācija, lietotnei ir nepieciešama ierīces atrašanās vietas informācija.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Atļaut piekļuvi</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">Savienots ar automobili</string>

@@ -820,8 +820,12 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">למסך המכונית</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">יישום זה דורש גישה למיקום שלך למטרות ניווט.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <string name="aa_location_permissions_request">מפות אורגניות זקוקות לגישה למיקום. כשזה בטוח, בדוק את ההתראה בטלפון שלך.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">אפליקציה זו זקוקה לאישור שלך</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">מפות אורגניות ב-Android Auto זקוקות להרשאת מיקום כדי לעבוד ביעילות</string>
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">הענק הרשאות</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">מחובר לרכב</string>

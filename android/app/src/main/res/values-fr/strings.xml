@@ -834,8 +834,12 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Afficher dans la voiture</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">L\'application a besoin de l\'accès à la localisation pour la navigation.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <string name="aa_location_permissions_request">Organic Maps a besoin d\'un accès à la localisation. Lorsque c\'est sûr, vérifie la notification sur ton téléphone.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Cette application a besoin de ta permission</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps dans Android Auto a besoin d\'une autorisation de localisation pour fonctionner efficacement</string>
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Accorder l\'accès</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">Connecté à la voiture</string>

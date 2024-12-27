@@ -507,6 +507,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">As suas edições são carregadas para a base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Por favor, não adicione informações pessoais ou protegidas por direitos de autor.</string>
     <string name="editor_more_about_osm">Mais sobre o OpenStreetMap</string>
+    <string name="editor_osm_history">O seu histórico de edições</string>
+    <string name="editor_osm_notes">As suas notas de dados do mapa</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operador: %s</string>
@@ -789,8 +791,12 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Para ecrã do carro</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Esta aplicação requer acesso à sua localização para fins de navegação.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <string name="aa_location_permissions_request">O Organic Maps precisa de acesso à localização. Quando for seguro, verifica a notificação no teu telemóvel.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Esta aplicação precisa da tua autorização</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Os Organic Maps no Android Auto precisam de uma permissão de localização para funcionarem eficazmente</string>
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permissão</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">Ligado ao automóvel</string>
