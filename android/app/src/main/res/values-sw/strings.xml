@@ -349,8 +349,12 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Kwa skrini ya gari</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Programu hii inahitaji ufikiaji wa eneo lako kwa madhumuni ya urambazaji.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <string name="aa_location_permissions_request">Organic Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Programu hii inahitaji idhini yako</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Ruhusa za ruzuku</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">Imeunganishwa na gari</string>
