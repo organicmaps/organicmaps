@@ -1,4 +1,5 @@
 # Require legal approval for all new graphics
+android/app/src/main/java/app/organicmaps/car/ @organicmaps/android-auto
 android/app/src/main/res/drawable*/ @organicmaps/legal
 android/app/src/main/res/fonts/ @organicmaps/legal
 android/app/src/main/res/mipmap*/ @organicmaps/legal
