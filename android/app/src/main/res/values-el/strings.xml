@@ -826,8 +826,12 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Προς οθόνη αυτοκ.</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Η εφαρμογή απαιτεί πρόσβαση στην τοποθεσία σας για τους σκοπούς της πλοήγησης.</string>
-    <!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
+    <string name="aa_location_permissions_request">Η εφαρμογή Organic Maps χρειάζεται πρόσβαση στην τοποθεσία. Όταν είναι ασφαλές, ελέγξτε την ειδοποίηση στο τηλέφωνό σας.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Αυτή η εφαρμογή χρειάζεται την άδειά σας</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Η εφαρμογή Organic Maps στο Android Auto χρειάζεται μια άδεια τοποθεσίας για να λειτουργήσει αποτελεσματικά</string>
+    <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Να επιτραπεί</string>
     <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
     <string name="aa_connected_to_car_notification_title">Ενεργή σύνδεση με το αυτοκίνητο</string>
