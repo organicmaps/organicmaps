@@ -162,8 +162,8 @@ class DownloaderScreen extends BaseScreen
   {
     long downloadedSize = 0;
 
-    for (final var item : mMissingMaps.entrySet())
-      downloadedSize += item.getValue().downloadedBytes;
+    for (final CountryItem map : mMissingMaps.values())
+      downloadedSize += map.downloadedBytes;
 
     return downloadedSize + mDownloadedMapsSize;
   }
@@ -182,7 +182,7 @@ class DownloaderScreen extends BaseScreen
 
   private void cancelMapsDownloading()
   {
-    for (final var map : mMissingMaps.entrySet())
-      MapManager.nativeCancel(map.getKey());
+    for (final String map : mMissingMaps.keySet())
+      MapManager.nativeCancel(map);
   }
 }
