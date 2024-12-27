@@ -390,8 +390,8 @@ dependencies {
   implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.0.21'))
   implementation 'androidx.annotation:annotation:1.9.1'
   implementation 'androidx.appcompat:appcompat:1.7.0'
-  implementation 'androidx.car.app:app:1.7.0-beta02'
-  implementation 'androidx.car.app:app-projected:1.7.0-beta02'
+  implementation 'androidx.car.app:app:1.7.0-beta03'
+  implementation 'androidx.car.app:app-projected:1.7.0-beta03'
   implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
   implementation 'androidx.fragment:fragment:1.8.5'
   implementation 'androidx.preference:preference:1.2.1'
