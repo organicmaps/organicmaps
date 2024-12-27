@@ -3,7 +3,6 @@ enum Storyboard: Int {
   case authorization
   case launchScreen
   case main
-  case searchFilters
   case settings
   case welcome
   case sharing
@@ -20,7 +19,6 @@ extension UIStoryboard {
     case .authorization: name = "Authorization"
     case .launchScreen: name = "LaunchScreen"
     case .main: name = "Main"
-    case .searchFilters: name = "SearchFilters"
     case .settings: name = "Settings"
     case .welcome: name = "Welcome"
     case .sharing: name = "BookmarksSharingFlow"
