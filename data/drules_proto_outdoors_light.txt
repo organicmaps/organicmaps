@@ -73280,11 +73280,11 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.7
+      width: 1.0
       color: 8487025
       dashdot {
-        dd: 2.5
-        dd: 7.0
+        dd: 1.8
+        dd: 5.5
       }
       priority: 160
       cap: BUTTCAP
@@ -73293,11 +73293,11 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.7
+      width: 1.0
       color: 8487025
       dashdot {
-        dd: 2.5
-        dd: 7.0
+        dd: 1.8
+        dd: 5.5
       }
       priority: 160
       cap: BUTTCAP
@@ -73306,11 +73306,11 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.7
+      width: 1.0
       color: 8487025
       dashdot {
-        dd: 2.5
-        dd: 7.0
+        dd: 1.8
+        dd: 5.5
       }
       priority: 160
       cap: BUTTCAP
@@ -73482,6 +73482,45 @@ cont {
 cont {
   name: "railway-disused"
   element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 16
     lines {
       width: 2.2
@@ -73544,6 +73583,45 @@ cont {
 }
 cont {
   name: "railway-disused-bridge"
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
@@ -73667,6 +73745,45 @@ cont {
 }
 cont {
   name: "railway-disused-tunnel"
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 8487025
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 160
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
