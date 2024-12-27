@@ -86,6 +86,11 @@ std::string GetFileNameForExport(BookmarkManager::KMLDataCollectionPtr::element_
   return fileName;
 }
 
+std::string CategoryFileName(BookmarkCategory const & category)
+{
+  return base::FileNameFromFullPath(category.GetFileName());
+}
+
 BookmarkManager::SharingResult ExportSingleFileKml(
     BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
@@ -1961,13 +1966,22 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 
 void BookmarkManager::SaveState() const
 {
-  settings::Set(kLastEditedBookmarkCategory, m_lastCategoryUrl);
+  settings::Set(kLastEditedBookmarkCategory, m_lastCategoryFileName);
   settings::Set(kLastEditedBookmarkColor, static_cast<uint32_t>(m_lastColor));
 }
 
 void BookmarkManager::LoadState()
 {
-  settings::TryGet(kLastEditedBookmarkCategory, m_lastCategoryUrl);
+  settings::TryGet(kLastEditedBookmarkCategory, m_lastCategoryFileName);
+
+  // One-shot migration from older versions that stored an absolute path here.
+  // On iOS the sandbox container UUID is regenerated on TestFlight installs, so
+  // any persisted absolute path is stale on the next launch.
+  if (auto migrated = base::FileNameFromFullPath(m_lastCategoryFileName); migrated != m_lastCategoryFileName)
+  {
+    m_lastCategoryFileName = std::move(migrated);
+    settings::Set(kLastEditedBookmarkCategory, m_lastCategoryFileName);
+  }
 
   uint32_t color;
   if (settings::Get(kLastEditedBookmarkColor, color) && color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
@@ -2349,14 +2363,10 @@ kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
   if (HasBmCategory(m_lastEditedGroupId))
     return m_lastEditedGroupId;
 
-  for (auto & cat : m_categories)
-  {
-    if (cat.second->GetFileName() == m_lastCategoryUrl)
-    {
-      m_lastEditedGroupId = cat.first;
-      return m_lastEditedGroupId;
-    }
-  }
+  for (auto const & [groupId, category] : m_categories)
+    if (CategoryFileName(*category) == m_lastCategoryFileName)
+      return m_lastEditedGroupId = groupId;
+
   m_lastEditedGroupId = CheckAndCreateDefaultCategory();
   return m_lastEditedGroupId;
 }
@@ -2370,7 +2380,7 @@ kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
 {
   m_lastEditedGroupId = groupId;
-  m_lastCategoryUrl = GetBmCategory(groupId)->GetFileName();
+  m_lastCategoryFileName = CategoryFileName(*GetBmCategory(groupId));
   SaveState();
 }
 
