@@ -22,6 +22,7 @@ import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.RequestPermissionsScreen;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.util.CarSensorsManager;
@@ -238,6 +239,10 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   @Override
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
+    // TODO: How maps downloading can trigger place page activation?
+    if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
+      return;
+
     final MapObject mapObject = (MapObject) data;
     // Don't display the PlaceScreen for 'MY_POSITION' or during navigation
     // TODO (AndrewShkrob): Implement the 'Add stop' functionality
