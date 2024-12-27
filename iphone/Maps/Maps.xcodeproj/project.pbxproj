@@ -493,7 +493,7 @@
 		ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */; };
 		ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */; };
 		ED46DDD02D098A0B007CACD6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */; };
-		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ED4DC7772CAEDECC0029B338 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */; };
 		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
@@ -767,7 +767,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+				ED46DDE12D098A0C007CACD6 /* OMapsWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1454,7 +1454,7 @@
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonArea.swift; sourceTree = "<group>"; };
-		ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OMapsWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OMapsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -1922,7 +1922,7 @@
 			children = (
 				6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */,
 				ED097E762BB80C320006ED01 /* OMapsTests.xctest */,
-				ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */,
+				ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4092,9 +4092,9 @@
 			productReference = ED097E762BB80C320006ED01 /* OMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */ = {
+		ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtensionExtension" */;
+			buildConfigurationList = ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtension" */;
 			buildPhases = (
 				ED46DDC82D098A0B007CACD6 /* Sources */,
 				ED46DDC92D098A0B007CACD6 /* Frameworks */,
@@ -4104,11 +4104,11 @@
 			);
 			dependencies = (
 			);
-			name = OMapsWidgetExtensionExtension;
+			name = OMapsWidgetExtension;
 			packageProductDependencies = (
 			);
 			productName = OMapsWidgetExtensionExtension;
-			productReference = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtensionExtension.appex */;
+			productReference = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -4202,7 +4202,7 @@
 			targets = (
 				6741A93D1BF340DE002C974C /* OMaps */,
 				ED097E752BB80C320006ED01 /* OMapsTests */,
-				ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */,
+				ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -4934,7 +4934,7 @@
 		};
 		ED46DDE02D098A0C007CACD6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtensionExtension */;
+			target = ED46DDCB2D098A0B007CACD6 /* OMapsWidgetExtension */;
 			targetProxy = ED46DDDF2D098A0C007CACD6 /* PBXContainerItemProxy */;
 		};
 		FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */ = {
@@ -5178,7 +5178,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5195,6 +5195,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2022.11.17;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5224,7 +5225,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2022.11.17;
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5344,7 +5345,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtensionExtension" */ = {
+		ED46DDE62D098A0C007CACD6 /* Build configuration list for PBXNativeTarget "OMapsWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED46DDE32D098A0C007CACD6 /* Debug */,

@@ -71,6 +71,7 @@
       value = Yes;
       break;
     default:
+      value = Unknown;
       NSAssert(false, @"Unexpected YesNoUnknown value %ld", static_cast<long>(self.segmentedControl.selectedSegmentIndex));
   }
 

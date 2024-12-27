@@ -180,9 +180,9 @@ extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
 extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegate {
   func didPressEdit(_ data: PlacePageEditData) {
     switch data {
-    case .bookmark(let placePageBookmarkData):
+    case .bookmark:
       MWMPlacePageManagerHelper.editBookmark(placePageData)
-    case .track(let placePageTrackData):
+    case .track:
       MWMPlacePageManagerHelper.editTrack(placePageData)
     }
   }

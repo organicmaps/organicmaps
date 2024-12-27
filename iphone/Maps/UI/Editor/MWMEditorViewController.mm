@@ -93,14 +93,6 @@ void cleanupAdditionalLanguages(std::vector<osm::LocalizedName> const & names,
                 });
 }
 
-std::vector<NSInteger> extractLanguageCodes(const std::vector<osm::LocalizedName>& names) 
-{
-  std::vector<NSInteger> languageCodes;
-  for (const auto& name : names)
-    languageCodes.push_back(static_cast<NSInteger>(name.m_code));
-  return languageCodes;
-}
-
 std::vector<MWMEditorCellID> cellsForAdditionalNames(osm::NamesDataSource const & ds,
                                                   std::vector<NSInteger> const & newAdditionalLanguages,
                                                   BOOL showAdditionalNames)
