@@ -74,7 +74,6 @@ using SearchMarkType = SearchMarkPoint::SearchMarkType;
 
 namespace
 {
-df::ColorConstant const kPoiVisitedMaskColor = "PoiVisitedMask";
 df::ColorConstant const kColorConstant = "SearchmarkDefault";
 
 float const kVisitedSymbolOpacity = 0.7f;
