@@ -7,7 +7,6 @@ import android.util.TypedValue;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
 
 import app.organicmaps.R;
 
@@ -66,7 +65,7 @@ public final class ThemeUtils
 
   public static boolean isDefaultTheme(@NonNull Context context)
   {
-    return isDefaultTheme(context, Config.getUiThemeSettings(context));
+    return isDefaultTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isDefaultTheme(@NonNull Context context, String theme)
@@ -77,7 +76,7 @@ public final class ThemeUtils
 
   public static boolean isNightTheme(@NonNull Context context)
   {
-    return isNightTheme(context, Config.getUiThemeSettings(context));
+    return isNightTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isNightTheme(@NonNull Context context, String theme)
@@ -88,7 +87,7 @@ public final class ThemeUtils
 
   public static boolean isSystemTheme(@NonNull Context context)
   {
-    return isSystemTheme(context, Config.getUiThemeSettings(context));
+    return isSystemTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isSystemTheme(@NonNull Context context, String theme)
@@ -99,7 +98,7 @@ public final class ThemeUtils
 
   public static boolean isNavAutoTheme(@NonNull Context context)
   {
-    return isNavAutoTheme(context, Config.getUiThemeSettings(context));
+    return isNavAutoTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isNavAutoTheme(@NonNull Context context, String theme)
@@ -110,7 +109,7 @@ public final class ThemeUtils
 
   public static boolean isAutoTheme(@NonNull Context context)
   {
-    return isSystemTheme(context, Config.getUiThemeSettings(context));
+    return isSystemTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isAutoTheme(@NonNull Context context, String theme)
