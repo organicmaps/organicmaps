@@ -395,12 +395,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final ListPreference pref = getPreference(getString(R.string.pref_map_style));
 
-    String curTheme = Config.getUiThemeSettings(requireContext());
+    String curTheme = Config.getThemeSettings(requireContext());
     pref.setValue(curTheme);
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final String themeName = (String) newValue;
-      if (!Config.setUiThemeSettings(requireContext(), themeName))
+      if (!Config.setThemeSettings(requireContext(), themeName))
         return true;
 
       ThemeSwitcher.INSTANCE.restart(false);
