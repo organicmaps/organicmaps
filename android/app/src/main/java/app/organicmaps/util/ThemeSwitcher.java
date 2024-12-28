@@ -105,24 +105,22 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Convert custom themes (auto, navauto) to default ones (light, dark, follow-system)
+   * Process custom themes (auto, navauto) to default ones (light, dark, follow-system)
    * @return theme handle-able by android theme system.
    */
   private String resolveCustomThemes(@NonNull String theme)
   {
     if (ThemeUtils.isAutoTheme(mContext, theme))
-    {
-      //TODO: Proper behaviour
-      return mContext.getResources().getString(R.string.theme_night);
-    }
+      return calcAutoTheme();
     else if (ThemeUtils.isNavAutoTheme(mContext, theme))
     {
-      //TODO: Proper behaviour
-      return mContext.getResources().getString(R.string.theme_night);
+      if (RoutingController.get().isVehicleNavigation())
+        return calcAutoTheme();
+      else
+        return mContext.getResources().getString(R.string.theme_default);
     }
-    else
-      // Passthrough for normal themes
-      return theme;
+    // Passthrough for normal themes
+    return theme;
   }
 
   private int resolveMapStyle(@NonNull String theme)
@@ -149,5 +147,11 @@ public enum ThemeSwitcher
     }
 
     return style;
+  }
+
+  private String calcAutoTheme()
+  {
+    //TODO: Proper behaviour - return light or dark based on time
+    return mContext.getResources().getString(R.string.theme_night);
   }
 }
