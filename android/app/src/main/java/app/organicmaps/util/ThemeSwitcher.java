@@ -79,7 +79,7 @@ public enum ThemeSwitcher
     // to handle debug commands
     String resolvedTheme = resolveCustomThemes(storedTheme);
     setAndroidTheme(resolvedTheme);
-    int resolvedMapStyle = resolveMapStyle(resolvedTheme);
+    int resolvedMapStyle = resolveMapStyle(resolvedTheme); // needs to be after theme is applied
     setMapStyle(resolvedMapStyle);
   }
 
@@ -138,18 +138,18 @@ public enum ThemeSwitcher
     @Framework.MapStyle
     int style;
     // if follow-system, reassign theme to default/dark
-    if(ThemeUtils.isSystemTheme(mContext,theme))
+    String resolvedTheme = theme;
+    if(ThemeUtils.isSystemTheme(mContext, theme))
     {
-      switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+      resolvedTheme = switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
       {
-        case Configuration.UI_MODE_NIGHT_YES:
-          theme = mContext.getResources().getString(R.string.theme_night);
-        case Configuration.UI_MODE_NIGHT_NO:
-          theme = mContext.getResources().getString(R.string.theme_default);
-      }
+        case Configuration.UI_MODE_NIGHT_YES -> mContext.getResources().getString(R.string.theme_night);
+        case Configuration.UI_MODE_NIGHT_NO -> mContext.getResources().getString(R.string.theme_default);
+        default -> resolvedTheme;
+      };
     }
     // Then
-    if (ThemeUtils.isNightTheme(mContext, theme))
+    if (ThemeUtils.isNightTheme(mContext, resolvedTheme))
     {
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_DARK;
@@ -158,7 +158,7 @@ public enum ThemeSwitcher
       else
         style = Framework.MAP_STYLE_DARK;
     }
-    else if (ThemeUtils.isDefaultTheme(mContext, theme))
+    else if (ThemeUtils.isDefaultTheme(mContext, resolvedTheme))
     {
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_CLEAR;
