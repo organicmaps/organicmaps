@@ -37,6 +37,10 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Stadium,
   Museum,
   Art,
+  Attraction,
+  Viewpoint,
+  Remains,
+  ArchaeologicalSite,
   Information,
   Marketplace,
   Nightclub,
@@ -102,6 +106,10 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-stadium",                // Stadium.
     "search-result-museum",                 // Museum.
     "search-result-art",                    // Art.
+    "search-result-attraction",             // Attraction.
+    "search-result-viewpoint",              // Viewpoint.
+    "search-result-remains",                // Remains.
+    "search-result-archaeological-site",    // ArchaeologicalSite.
     "search-result-information",            // Information.
     "search-result-marketplace",            // Marketplace.
     "search-result-nightclub",              // Nightclub.
@@ -187,6 +195,23 @@ private:
       {{"tourism", "museum"},        SearchMarkType::Museum},
       {{"amenity", "arts_centre"},   SearchMarkType::Art},
       {{"tourism", "gallery"},       SearchMarkType::Art},
+      {{"tourism", "attraction"},    SearchMarkType::Attraction},
+      {{"tourism", "viewpoint"},     SearchMarkType::Viewpoint},
+      {{"historic", "fort"},                        SearchMarkType::Remains},
+      {{"historic", "castle"},                      SearchMarkType::Remains},
+      {{"historic", "castle", "castrum"},           SearchMarkType::Remains},
+      {{"historic", "castle", "fortified_church"},  SearchMarkType::Remains},
+      {{"historic", "castle", "fortress"},          SearchMarkType::Remains},
+      {{"historic", "castle", "hillfort"},          SearchMarkType::Remains},
+      {{"historic", "castle", "kremlin"},           SearchMarkType::Remains},
+      {{"historic", "castle", "manor"},             SearchMarkType::Remains},
+      {{"historic", "castle", "palace"},            SearchMarkType::Remains},
+      {{"historic", "castle", "shiro"},             SearchMarkType::Remains},
+      {{"historic", "castle", "defensive"},         SearchMarkType::Remains},
+      {{"historic", "castle", "stately"},           SearchMarkType::Remains},
+      {{"historic", "ruins"},                       SearchMarkType::Remains},
+      {{"historic", "city_gate"},                   SearchMarkType::Remains},
+      {{"historic", "archaeological_site"},         SearchMarkType::ArchaeologicalSite},
       {{"tourism", "information"},                      SearchMarkType::Information},
       {{"tourism", "information", "office"},            SearchMarkType::Information},
       {{"tourism", "information", "visitor_centre"},    SearchMarkType::Information},
