@@ -55,7 +55,6 @@ std::string JoinPath(std::string const & folder, Args &&... args)
 template <typename... Args>
 std::string JoinPath(std::string const & dir, std::string const & fileOrDir, Args &&... args)
 {
-  ASSERT(!fileOrDir.empty(), ("JoinPath fileOrDir is empty"));
   return impl::JoinPath(dir, fileOrDir, std::forward<Args>(args)...);
 }
 }  // namespace base
