@@ -1,13 +1,16 @@
 package app.organicmaps.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.util.log.Logger;
 
 public enum ThemeSwitcher
 {
@@ -65,7 +68,7 @@ public enum ThemeSwitcher
    *                         <code>true</code> only if the map is rendered and visible on the screen
    *                         at this moment, otherwise <code>false</code>.
    */
-  @androidx.annotation.UiThread
+  @UiThread
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
@@ -74,8 +77,10 @@ public enum ThemeSwitcher
     // Then derive map style from that, but handle debug commands
     // If current style is different to the style from theme, only set theme
     // to handle debug commands
-    setMapStyle(resolveMapStyle(storedTheme));
-    setAndroidTheme(resolveCustomThemes(storedTheme));
+    String resolvedTheme = resolveCustomThemes(storedTheme);
+    setAndroidTheme(resolvedTheme);
+    int resolvedMapStyle = resolveMapStyle(resolvedTheme);
+    setMapStyle(resolvedMapStyle);
   }
 
   private void setAndroidTheme(@NonNull String theme)
@@ -123,10 +128,27 @@ public enum ThemeSwitcher
     return theme;
   }
 
+  /**
+   * resolve the map (drape) theme
+   * @param theme MUST be theme_light or theme_dark
+   * @return drape/core compatible map style
+   */
   private int resolveMapStyle(@NonNull String theme)
   {
     @Framework.MapStyle
     int style;
+    // if follow-system, reassign theme to default/dark
+    if(ThemeUtils.isSystemTheme(mContext,theme))
+    {
+      switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+      {
+        case Configuration.UI_MODE_NIGHT_YES:
+          theme = mContext.getResources().getString(R.string.theme_night);
+        case Configuration.UI_MODE_NIGHT_NO:
+          theme = mContext.getResources().getString(R.string.theme_default);
+      }
+    }
+    // Then
     if (ThemeUtils.isNightTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
@@ -136,7 +158,7 @@ public enum ThemeSwitcher
       else
         style = Framework.MAP_STYLE_DARK;
     }
-    else
+    else if (ThemeUtils.isDefaultTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
         style = Framework.MAP_STYLE_VEHICLE_CLEAR;
@@ -145,6 +167,8 @@ public enum ThemeSwitcher
       else
         style = Framework.MAP_STYLE_CLEAR;
     }
+    else
+      throw new IllegalArgumentException("resolveMapStyle() should only be passed theme_light/dark/follow-system");
 
     return style;
   }
