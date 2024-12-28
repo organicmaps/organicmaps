@@ -69,7 +69,7 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String storedTheme = Config.getUiThemeSettings(mContext);
+    String storedTheme = Config.getThemeSettings(mContext);
     int currentMapStyle = Framework.nativeGetMapStyle();
 
     // Resolve dynamic themes (follow-system, nav-auto etc.)

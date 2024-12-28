@@ -2,7 +2,6 @@ package app.organicmaps.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -253,7 +252,7 @@ public final class Config
   }
 
   @NonNull
-  public static String getUiThemeSettings(@NonNull Context context)
+  public static String getThemeSettings(@NonNull Context context)
   {
     // Fallback & default theme
     String fallbackTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
@@ -264,9 +263,9 @@ public final class Config
     return fallbackTheme;
   }
 
-  public static boolean setUiThemeSettings(@NonNull Context context, @NonNull String theme)
+  public static boolean setThemeSettings(@NonNull Context context, @NonNull String theme)
   {
-    if (getUiThemeSettings(context).equals(theme))
+    if (getThemeSettings(context).equals(theme))
       return false;
 
     setString(KEY_MISC_UI_THEME, theme);
