@@ -70,33 +70,20 @@ public enum ThemeSwitcher
   {
     mRendererActive = isRendererActive;
     String storedTheme = Config.getThemeSettings(mContext); // follow-system etc
-
-    int currentMapStyle = Framework.nativeGetMapStyle();
     // Resolve dynamic themes (follow-system, nav-auto etc.) to light or dark
-    int resolvedTheme = getAndroidTheme(storedTheme);
     // Then derive map style from that, but handle debug commands
     // If current style is different to the style from theme, only set theme
     // to handle debug commands
-    if (currentMapStyle != getMapStyle(storedTheme))
-      setMapStyle(getMapStyle(storedTheme));
-
-    setAndroidTheme(storedTheme);
+    setMapStyle(resolveMapStyle(storedTheme));
+    setAndroidTheme(resolveCustomThemes(storedTheme));
   }
 
   private void setAndroidTheme(@NonNull String theme)
   {
+    // custom-handled themes (auto and navauto) are converted
+    // to default or night before being passed here
     if (ThemeUtils.isSystemTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    else if (ThemeUtils.isAutoTheme(mContext, theme))
-      {
-        //TODO: Proper behaviour
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-      }
-    else if (ThemeUtils.isNavAutoTheme(mContext, theme))
-      {
-        //TODO: Proper behaviour
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-      }
     else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
@@ -117,13 +104,28 @@ public enum ThemeSwitcher
       Framework.nativeMarkMapStyle(style);
   }
 
-  private int getAndroidTheme(@NonNull String theme)
+  /**
+   * Convert custom themes (auto, navauto) to default ones (light, dark, follow-system)
+   * @return theme handle-able by android theme system.
+   */
+  private String resolveCustomThemes(@NonNull String theme)
   {
-    //TODO: Dynamic themes processing here, or passthrough for normal ones
-    return R.string.theme_default;
+    if (ThemeUtils.isAutoTheme(mContext, theme))
+    {
+      //TODO: Proper behaviour
+      return mContext.getResources().getString(R.string.theme_night);
+    }
+    else if (ThemeUtils.isNavAutoTheme(mContext, theme))
+    {
+      //TODO: Proper behaviour
+      return mContext.getResources().getString(R.string.theme_night);
+    }
+    else
+      // Passthrough for normal themes
+      return theme;
   }
 
-  private int getMapStyle(@NonNull String theme)
+  private int resolveMapStyle(@NonNull String theme)
   {
     @Framework.MapStyle
     int style;
@@ -148,27 +150,4 @@ public enum ThemeSwitcher
 
     return style;
   }
-
-//  private void setThemeAndMapStyle(@NonNull String theme, @Framework.MapStyle int style)
-//  {
-//    String oldTheme = Config.getCurrentUiTheme(mContext);
-//
-//    if (!theme.equals(oldTheme))
-//    {
-//      Config.setCurrentUiTheme(mContext, theme);
-//      DownloaderStatusIcon.clearCache();
-//
-//      final Activity a = MwmApplication.from(mContext).getTopActivity();
-//      if (a != null && !a.isFinishing())
-//        a.recreate();
-//    }
-//    else
-//    {
-//      // If the UI theme is not changed we just need to change the map style if needed.
-//      int currentStyle = Framework.nativeGetMapStyle();
-//      if (currentStyle == style)
-//        return;
-//      SetMapStyle(style);
-//    }
-//  }
 }
