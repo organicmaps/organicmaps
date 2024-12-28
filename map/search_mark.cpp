@@ -65,6 +65,8 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Hospital,
   Clinic,
   Pharmacy,
+  DrinkingWater,
+  DrinkingWaterNo,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -129,6 +131,8 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-hospital",               // Hospital.
     "search-result-clinic",                 // Clinic.
     "search-result-pharmacy",               // Pharmacy.
+    "search-result-drinking-water",         // DrinkingWater.
+    "search-result-drinking-water-no",      // DrinkingWaterNo.
 
     
     "non-found-search-result",  // NotFound.
@@ -241,6 +245,16 @@ private:
       {{"leisure", "sports_hall"},   SearchMarkType::Pitch},
       {{"leisure", "swimming_pool"}, SearchMarkType::Swimming},
       {{"leisure", "water_park"},    SearchMarkType::Swimming},
+      {{"amenity", "drinking_water"},                       SearchMarkType::DrinkingWater},
+      {{"amenity", "water_point"},                          SearchMarkType::DrinkingWater},
+      {{"man_made", "water_tap"},                           SearchMarkType::DrinkingWater},
+      {{"man_made", "water_well"},                          SearchMarkType::DrinkingWater},
+      {{"natural", "spring"},                               SearchMarkType::DrinkingWater},
+      {{"natural", "hot_spring"},                           SearchMarkType::DrinkingWater},
+      {{"amenity", "water_point", "drinking_water_no"},     SearchMarkType::DrinkingWaterNo},
+      {{"man_made", "water_tap", "drinking_water_no"},      SearchMarkType::DrinkingWaterNo},
+      {{"man_made", "water_well", "drinking_water_no"},     SearchMarkType::DrinkingWaterNo},
+      {{"natural", "spring", "drinking_water_no"},          SearchMarkType::DrinkingWaterNo},
     };
 
     m_searchMarkTypes.reserve(std::size(table));
