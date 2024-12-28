@@ -69,12 +69,12 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String storedTheme = Config.getThemeSettings(mContext);
+    String storedTheme = Config.getThemeSettings(mContext); // follow-system etc
+
     int currentMapStyle = Framework.nativeGetMapStyle();
-
-    // Resolve dynamic themes (follow-system, nav-auto etc.)
-    int resolvedTheme = resolveTheme(storedTheme);
-
+    // Resolve dynamic themes (follow-system, nav-auto etc.) to light or dark
+    int resolvedTheme = getAndroidTheme(storedTheme);
+    // Then derive map style from that, but handle debug commands
     // If current style is different to the style from theme, only set theme
     // to handle debug commands
     if (currentMapStyle != getMapStyle(storedTheme))
@@ -101,6 +101,26 @@ public enum ThemeSwitcher
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+  }
+
+  private void setMapStyle(@Framework.MapStyle int style)
+  {
+    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
+    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
+    if (DisplayManager.from(mContext).isCarDisplayUsed())
+      return;
+    // If rendering is not active we can mark map style, because all graphics
+    // will be recreated after rendering activation.
+    if (mRendererActive)
+      Framework.nativeSetMapStyle(style);
+    else
+      Framework.nativeMarkMapStyle(style);
+  }
+
+  private int getAndroidTheme(@NonNull String theme)
+  {
+    //TODO: Dynamic themes processing here, or passthrough for normal ones
+    return R.string.theme_default;
   }
 
   private int getMapStyle(@NonNull String theme)
@@ -151,24 +171,4 @@ public enum ThemeSwitcher
 //      SetMapStyle(style);
 //    }
 //  }
-
-  private void setMapStyle(@Framework.MapStyle int style)
-  {
-    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
-    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (DisplayManager.from(mContext).isCarDisplayUsed())
-      return;
-    // If rendering is not active we can mark map style, because all graphics
-    // will be recreated after rendering activation.
-    if (mRendererActive)
-      Framework.nativeSetMapStyle(style);
-    else
-      Framework.nativeMarkMapStyle(style);
-  }
-
-  private int resolveTheme(@NonNull String theme)
-  {
-    //TODO: Dynamic themes processing here, or passthrough for normal ones
-    return R.string.theme_default;
-  }
 }
