@@ -768,6 +768,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = CoreApi.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.coreapi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;

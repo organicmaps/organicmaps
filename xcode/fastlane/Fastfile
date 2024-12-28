@@ -61,42 +61,42 @@ platform :ios do
       get_provisioning_profile(
         api_key_path: 'keys/appstore.json',
         app_identifier: 'app.organicmaps',
-        provisioning_name: 'CarPlay Release',
+        provisioning_name: 'App Development (Fastlane)',
         ignore_profiles_with_different_name: true,
         readonly: true,
         development: true,
         skip_install: false,
-        filename: 'keys/CarPlay_Release.mobileprovision'
+        filename: 'keys/App_Development.mobileprovision'
       )
       get_provisioning_profile(
         api_key_path: 'keys/appstore.json',
         app_identifier: 'app.organicmaps',
-        provisioning_name: 'CarPlay AppStore',
+        provisioning_name: 'App Distribution (Fastlane)',
         ignore_profiles_with_different_name: true,
         adhoc: false,
         readonly: true,
         skip_install: false,
-        filename: 'keys/CarPlay_AppStore.mobileprovision'
+        filename: 'keys/App_Distribution.mobileprovision'
       )
       get_provisioning_profile(
         api_key_path: 'keys/appstore.json',
         app_identifier: 'app.organicmaps.widgetextension',
-        provisioning_name: 'WidgetExtension Release',
+        provisioning_name: 'WidgetExtension Development (Fastlane)',
         ignore_profiles_with_different_name: true,
         readonly: true,
         development: true,
         skip_install: false,
-        filename: 'keys/WidgetExtension_Release.mobileprovision'
+        filename: 'keys/WidgetExtension_Development.mobileprovision'
       )
       get_provisioning_profile(
         api_key_path: 'keys/appstore.json',
         app_identifier: 'app.organicmaps.widgetextension',
-        provisioning_name: 'WidgetExtension AppStore',
+        provisioning_name: 'WidgetExtension Distribution (Fastlane)',
         ignore_profiles_with_different_name: true,
         adhoc: false,
         readonly: true,
         skip_install: false,
-        filename: 'keys/WidgetExtension_AppStore.mobileprovision'
+        filename: 'keys/WidgetExtension_Distribution.mobileprovision'
       )
     end
   end
@@ -115,6 +115,24 @@ platform :ios do
     prepare
     generate_version
     generate_testflight_changelog
+    update_code_signing_settings(
+      path: "../iphone/Maps/Maps.xcodeproj",
+      targets: ["OMaps"],
+      build_configurations: "Release",
+      use_automatic_signing: false,
+      code_sign_identity: "Apple Distribution",
+      team_id: "9Z6432XD7L",
+      profile_name: "App Distribution (Fastlane)",
+    )
+    update_code_signing_settings(
+      path: "../iphone/Maps/Maps.xcodeproj",
+      targets: ["OMapsWidgetExtensionExtension"],
+      build_configurations: "Release",
+      use_automatic_signing: false,
+      code_sign_identity: "Apple Distribution",
+      team_id: "9Z6432XD7L",
+      profile_name: "WidgetExtension Distribution (Fastlane)",
+    )
     build_ios_app(
       workspace: 'omim.xcworkspace',
       scheme: 'OMaps',
@@ -126,8 +144,8 @@ platform :ios do
       export_method: 'app-store',
       export_options: {
         provisioningProfiles: {
-          'app.organicmaps' => 'CarPlay AppStore',
-          'app.organicmaps.widgetextension' => 'WidgetExtension AppStore',
+          'app.organicmaps' => 'App Distribution (Fastlane)',
+          'app.organicmaps.widgetextension' => 'WidgetExtension Distribution (Fastlane)',
         }
       },
       skip_profile_detection: false,
