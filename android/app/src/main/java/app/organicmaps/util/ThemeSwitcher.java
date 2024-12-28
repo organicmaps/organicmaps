@@ -2,6 +2,7 @@ package app.organicmaps.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.location.Location;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.display.DisplayManager;
+import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.log.Logger;
 
@@ -116,11 +118,11 @@ public enum ThemeSwitcher
   private String resolveCustomThemes(@NonNull String theme)
   {
     if (ThemeUtils.isAutoTheme(mContext, theme))
-      return calcAutoTheme();
+      return calcAutoTheme(theme);
     else if (ThemeUtils.isNavAutoTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
-        return calcAutoTheme();
+        return calcAutoTheme(theme);
       else
         return mContext.getResources().getString(R.string.theme_default);
     }
@@ -168,14 +170,27 @@ public enum ThemeSwitcher
         style = Framework.MAP_STYLE_CLEAR;
     }
     else
-      throw new IllegalArgumentException("resolveMapStyle() should only be passed theme_light/dark/follow-system");
+      throw new IllegalArgumentException(resolvedTheme+" passed, only follow-system/theme_light/dark are allowed.");
 
     return style;
   }
 
-  private String calcAutoTheme()
+  /**
+   * determine light/dark theme based on time and location
+   * @param currentTheme needed as a fallback
+   * @return theme_light/dark string
+   */
+  private String calcAutoTheme(String currentTheme)
   {
-    //TODO: Proper behaviour - return light or dark based on time
-    return mContext.getResources().getString(R.string.theme_night);
+    String defaultTheme = mContext.getResources().getString(R.string.theme_default);
+    String nightTheme = mContext.getResources().getString(R.string.theme_night);
+    Location last = LocationHelper.from(mContext).getSavedLocation();
+    if (last != null)
+    {
+      long currentTime = System.currentTimeMillis() / 1000;
+      boolean day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
+      currentTheme = (day ? defaultTheme : nightTheme);
+    }
+    return currentTheme;
   }
 }
