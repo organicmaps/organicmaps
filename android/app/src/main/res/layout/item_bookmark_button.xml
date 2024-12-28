@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     app:tint="?colorAccent"
-    tools:srcCompat="@drawable/ic_iimport1" />
+    tools:srcCompat="@drawable/ic_import" />
   <TextView
     android:id="@+id/text"
     android:layout_width="wrap_content"
