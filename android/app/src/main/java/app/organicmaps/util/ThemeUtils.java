@@ -44,25 +44,6 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-//  public static String getUiTheme(@NonNull Context context)
-//  {
-//    String nightTheme = context.getString(R.string.theme_night);
-//    String defaultTheme = context.getString(R.string.theme_default);
-//
-//    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-//      return nightTheme;
-//
-//    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
-//      return defaultTheme;
-//
-//    int nightModeFlags = context.getResources()
-//                                .getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
-//      return nightTheme;
-//    else
-//      return defaultTheme;
-//  }
-
   public static boolean isDefaultTheme(@NonNull Context context)
   {
     return isDefaultTheme(context, Config.getThemeSettings(context));
