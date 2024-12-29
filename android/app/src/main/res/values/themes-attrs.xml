@@ -15,6 +15,7 @@
     <attr name="iconTintDisabled" format="color" />
     <attr name="iconTintActive" format="color" />
     <attr name="iconTintLight" format="color" />
+    <attr name="helpIconTint" format="color" />
     <attr name="ppBackground" format="color" />
     <attr name="ppButtonsBackground" format="color" />
     <attr name="navNextTurnFrame" format="reference" />
