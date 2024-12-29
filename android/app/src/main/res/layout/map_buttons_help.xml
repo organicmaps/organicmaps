@@ -6,4 +6,5 @@
   style="@style/MwmWidget.MapButton.Square"
   android:contentDescription="@string/help"
   app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-  app:srcCompat="@drawable/ic_question_mark" />
+  app:srcCompat="@drawable/logo"
+  android:tint="?helpIconTint"/>
