@@ -22,7 +22,7 @@
   </style>
 
   <style name="MwmTheme.CardBg">
-    <item name="android:windowBackground">@color/bg_cards</item>
+    <item name="android:windowBackground">?cardBackground</item>
   </style>
 
   <style name="MwmTheme.WindowBg">

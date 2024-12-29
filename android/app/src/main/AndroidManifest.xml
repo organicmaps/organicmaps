@@ -393,7 +393,8 @@
         android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/settings"
-        android:parentActivityName="app.organicmaps.MwmActivity" />
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:theme="@style/MwmTheme.CardBg"/>
 
     <activity
         android:name="app.organicmaps.help.HelpActivity"

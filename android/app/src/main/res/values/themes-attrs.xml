@@ -5,7 +5,7 @@
     <attr name="titleDialogTheme" format="reference" />
     <attr name="textDialogTheme" format="reference" />
     <attr name="windowBackgroundForced" format="reference|color" />
-    <attr name="cardBackground" format="reference" />
+    <attr name="cardBackground" format="color" />
     <attr name="clickableBackground" format="reference" />
     <attr name="statusBar" format="color" />
     <attr name="secondary" format="color" />
