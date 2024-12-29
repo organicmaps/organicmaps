@@ -23,38 +23,6 @@ public enum ThemeSwitcher
 
   private static boolean mRendererActive = false;
 
-//  private final Runnable mAutoThemeChecker = new Runnable()
-//  {
-//    @Override
-//    public void run()
-//    {
-//      String nightTheme = MwmApplication.from(mContext).getString(R.string.theme_night);
-//      String defaultTheme = MwmApplication.from(mContext).getString(R.string.theme_default);
-//      String theme = defaultTheme;
-//      Location last = LocationHelper.from(mContext).getSavedLocation();
-//
-//      boolean navAuto = RoutingController.get().isNavigating() && ThemeUtils.isNavAutoTheme(mContext);
-//
-//      if (navAuto || ThemeUtils.isAutoTheme(mContext))
-//      {
-//        if (last == null)
-//          theme = Config.getCurrentUiTheme(mContext);
-//        else
-//        {
-//          long currentTime = System.currentTimeMillis() / 1000;
-//          boolean day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
-//          theme = (day ? defaultTheme : nightTheme);
-//        }
-//      }
-//
-//      setThemeAndMapStyle(theme);
-//      UiThread.cancelDelayedTasks(mAutoThemeChecker);
-//
-//      if (navAuto || ThemeUtils.isAutoTheme(mContext))
-//        UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
-//    }
-//  };
-
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Context mContext;
@@ -77,14 +45,12 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String storedTheme = Config.getThemeSettings(mContext); // follow-system etc
-    // Resolve dynamic themes (follow-system, nav-auto etc.) to light or dark
-    // Then derive map style from that, but handle debug commands
-    // If current style is different to the style from theme, only set theme
-    // to handle debug commands
+    String storedTheme = Config.getThemeSettings(mContext);
+    // TODO: Handle debug commands
     String resolvedTheme = resolveCustomThemes(storedTheme);
     setAndroidTheme(resolvedTheme);
-    int resolvedMapStyle = resolveMapStyle(resolvedTheme); // needs to be after theme is applied
+    // Depends on Android theme being set due to follow-system, so has to be after setAndroidTheme.
+    int resolvedMapStyle = resolveMapStyle(resolvedTheme);
     setMapStyle(resolvedMapStyle);
   }
 
@@ -124,7 +90,7 @@ public enum ThemeSwitcher
       return calcAutoTheme();
     else if (ThemeUtils.isNavAutoTheme(mContext, theme))
     {
-      // nav-auto always falls back to light mode
+      // navauto always falls back to light mode
       if (RoutingController.get().isVehicleNavigation())
         return calcAutoTheme();
       else
@@ -135,7 +101,7 @@ public enum ThemeSwitcher
   }
 
   /**
-   * resolve the map (drape) theme
+   * Resolve the map (drape) style from a resolved theme string.
    * @param theme MUST be theme_light or theme_dark
    * @return drape/core compatible map style
    */
@@ -143,10 +109,11 @@ public enum ThemeSwitcher
   {
     @Framework.MapStyle
     int style;
-    // if follow-system, reassign theme to default/dark
     String resolvedTheme = theme;
-    if(ThemeUtils.isSystemTheme(mContext, theme))
+    // First convert the android-but-dynamic follow system theme.
+    if (ThemeUtils.isSystemTheme(mContext, theme))
     {
+      // Depends on android theme already being calculated and set.
       resolvedTheme = switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
       {
         case Configuration.UI_MODE_NIGHT_YES -> mContext.getResources().getString(R.string.theme_night);
@@ -154,7 +121,7 @@ public enum ThemeSwitcher
         default -> resolvedTheme;
       };
     }
-    // Then
+    // Then return a dark/light map style taking into account variants.
     if (ThemeUtils.isNightTheme(mContext, resolvedTheme))
     {
       if (RoutingController.get().isVehicleNavigation())
@@ -180,8 +147,8 @@ public enum ThemeSwitcher
   }
 
   /**
-   * determine light/dark theme based on time and location,
-   * and falls back to time-based (06:00-18:00) when no location fix
+   * Determine light/dark theme based on time and location,
+   * or fall back to time-based (06:00-18:00) when there's no location fix
    * @return theme_light/dark string
    */
   private String calcAutoTheme()
