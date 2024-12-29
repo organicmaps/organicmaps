@@ -404,10 +404,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         return true;
 
       ThemeSwitcher.INSTANCE.restart(false);
-
-      ThemeMode mode = ThemeMode.getInstance(requireContext().getApplicationContext(), themeName);
-      CharSequence summary = pref.getEntries()[mode.ordinal()];
-      pref.setSummary(summary);
       return true;
     });
   }
@@ -503,31 +499,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     MapLanguageCode.setMapLanguageCode(language.code);
     getSettingsActivity().onBackPressed();
-  }
-
-  enum ThemeMode
-  {
-    FOLLOW_SYSTEM(R.string.theme_follow_system),
-    DEFAULT(R.string.theme_default),
-    NIGHT(R.string.theme_night);
-
-    private final int mModeStringId;
-
-    ThemeMode(@StringRes int modeStringId)
-    {
-      mModeStringId = modeStringId;
-    }
-
-    @NonNull
-    public static ThemeMode getInstance(@NonNull Context context, @NonNull String src)
-    {
-      for (ThemeMode each : values())
-      {
-        if (context.getResources().getString(each.mModeStringId).equals(src))
-          return each;
-      }
-      return FOLLOW_SYSTEM;
-    }
   }
 
   public enum SpeedCameraMode
