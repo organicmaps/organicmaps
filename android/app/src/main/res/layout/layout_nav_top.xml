@@ -48,7 +48,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_half"
       android:orientation="vertical"
-      android:background="?navNextTurnFrame"
+      android:background="@drawable/bg_nav_next_turn"
       android:elevation="@dimen/nav_elevation">
       <FrameLayout
         android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
       android:layout_below="@id/nav_next_turn_frame"
       android:layout_alignStart="@id/nav_next_turn_frame"
       android:layout_alignEnd="@id/nav_next_turn_frame"
-      android:background="?navNextNextTurnFrame"
+      android:background="@drawable/bg_nav_next_next_turn"
       android:elevation="@dimen/nav_elevation"
       android:visibility="invisible"
       tools:visibility="visible">
