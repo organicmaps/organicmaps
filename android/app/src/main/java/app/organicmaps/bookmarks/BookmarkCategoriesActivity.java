@@ -39,14 +39,6 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
 
     super.onPause();
   }
-
-//  @Override
-//  @StyleRes
-//  public int getThemeResourceId(@NonNull String theme)
-//  {
-//    return ThemeUtils.getWindowBgThemeResourceId(getApplicationContext(), theme);
-//  }
-
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {

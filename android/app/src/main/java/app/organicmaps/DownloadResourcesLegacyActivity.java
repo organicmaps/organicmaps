@@ -450,13 +450,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-//  @Override
-//  @StyleRes
-//  public int getThemeResourceId(@NonNull String theme)
-//  {
-//    return R.style.MwmTheme_DownloadResourcesLegacy;
-//  }
-
   private static native int nativeGetBytesToDownload();
   private static native int nativeStartNextFileDownload(Listener listener);
   private static native void nativeCancelCurrentFile();

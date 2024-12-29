@@ -39,21 +39,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @NonNull
   private String mThemeName;
 
-// TODO: need to set theme with android system, not custom
-//  @StyleRes
-//  protected int getThemeResourceId(@NonNull String theme)
-//  {
-//    Context context = getApplicationContext();
-//
-//    if (ThemeUtils.isDefaultTheme(context, theme))
-//        return R.style.MwmTheme;
-//
-//    if (ThemeUtils.isNightTheme(context, theme))
-//      return R.style.MwmTheme_Night;
-//
-//    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-//  }
-
   /**
    * Shows splash screen and initializes the core in case when it was not initialized.
    *

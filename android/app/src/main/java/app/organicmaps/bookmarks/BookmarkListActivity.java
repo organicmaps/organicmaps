@@ -38,14 +38,6 @@ public class BookmarkListActivity extends BaseToolbarActivity
 
     super.onPause();
   }
-
-//  @Override
-//  @StyleRes
-//  public int getThemeResourceId(@NonNull String theme)
-//  {
-//    return ThemeUtils.getCardBgThemeResourceId(getApplicationContext(), theme);
-//  }
-
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
