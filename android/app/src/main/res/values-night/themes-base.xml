@@ -81,6 +81,9 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingToolbarButtonIconActive">@color/routing_button_activated_tint_night</item>
+    <item name="routingToolbarButtonActive">@color/routing_button_tint</item>
+    <item name="routingToolbarButton">@color/bg_primary_dark_night</item>
 
     <item name="android:listDivider">@drawable/list_divider_night</item>
 
