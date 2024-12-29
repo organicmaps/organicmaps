@@ -7,6 +7,9 @@ import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import java.util.Calendar;
+
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.display.DisplayManager;
@@ -118,11 +121,12 @@ public enum ThemeSwitcher
   private String resolveCustomThemes(@NonNull String theme)
   {
     if (ThemeUtils.isAutoTheme(mContext, theme))
-      return calcAutoTheme(theme);
+      return calcAutoTheme();
     else if (ThemeUtils.isNavAutoTheme(mContext, theme))
     {
+      // nav-auto always falls back to light mode
       if (RoutingController.get().isVehicleNavigation())
-        return calcAutoTheme(theme);
+        return calcAutoTheme();
       else
         return mContext.getResources().getString(R.string.theme_default);
     }
@@ -176,21 +180,26 @@ public enum ThemeSwitcher
   }
 
   /**
-   * determine light/dark theme based on time and location
-   * @param currentTheme needed as a fallback
+   * determine light/dark theme based on time and location,
+   * and falls back to time-based (06:00-18:00) when no location fix
    * @return theme_light/dark string
    */
-  private String calcAutoTheme(String currentTheme)
+  private String calcAutoTheme()
   {
     String defaultTheme = mContext.getResources().getString(R.string.theme_default);
     String nightTheme = mContext.getResources().getString(R.string.theme_night);
     Location last = LocationHelper.from(mContext).getSavedLocation();
+    long currentTime = System.currentTimeMillis() / 1000;
+    boolean day;
     if (last != null)
+      day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
+    else
     {
-      long currentTime = System.currentTimeMillis() / 1000;
-      boolean day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
-      currentTheme = (day ? defaultTheme : nightTheme);
+      currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+      Logger.e("HELLO", String.valueOf(currentTime));
+      day = (currentTime < 18 && currentTime > 6);
     }
-    return currentTheme;
+    // Finally
+    return (day ? defaultTheme : nightTheme);
   }
 }
