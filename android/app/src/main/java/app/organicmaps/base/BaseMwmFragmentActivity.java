@@ -51,7 +51,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     mThemeName = Config.getThemeSettings(getApplicationContext());
-    //setTheme(getThemeResourceId(mThemeName));
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
@@ -112,6 +111,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     super.onPostResume();
     if (!mThemeName.equals(Config.getThemeSettings(getApplicationContext())))
     {
+      // TODO: is this still needed?
       // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
       UiThread.runLater(this::recreate);
     }
