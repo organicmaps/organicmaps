@@ -343,8 +343,6 @@
       </intent-filter>
 
     </activity>
-    <activity
-        android:name="app.organicmaps.base.BaseMwmFragmentActivity" />
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
@@ -452,13 +450,13 @@
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/edit"
-      android:windowSoftInputMode="stateVisible" />
+      android:windowSoftInputMode="stateVisible"/>
     <activity
       android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
-      android:label="@string/place_description_title" />
+      android:label="@string/place_description_title"/>
     <activity
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
-      android:label="@string/driving_options_title" />
+      android:label="@string/driving_options_title"/>
     <activity
       android:name="app.organicmaps.MapPlaceholderActivity" />
     <activity
