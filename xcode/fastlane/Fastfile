@@ -126,7 +126,7 @@ platform :ios do
     )
     update_code_signing_settings(
       path: "../iphone/Maps/Maps.xcodeproj",
-      targets: ["OMapsWidgetExtensionExtension"],
+      targets: ["OMapsWidgetExtension"],
       build_configurations: "Release",
       use_automatic_signing: false,
       code_sign_identity: "Apple Distribution",
