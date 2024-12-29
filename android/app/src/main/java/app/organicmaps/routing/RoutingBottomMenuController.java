@@ -146,7 +146,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mActionIcon = mActionButton.findViewById(R.id.iv__icon);
     UiUtils.hide(mAltitudeChartFrame, mActionFrame);
     mListener = listener;
-    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
+    int dividerRes = R.drawable.dot_divider;
     Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
     Resources res = mContext.getResources();
     mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),

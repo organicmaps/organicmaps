@@ -43,7 +43,7 @@
       android:layout_height="match_parent"
       android:layout_marginEnd="@dimen/margin_quarter"
       android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
+      android:background="@drawable/bg_rounded_rect"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:padding="@dimen/margin_quarter_plus">
@@ -73,7 +73,7 @@
       android:layout_height="match_parent"
       android:layout_marginEnd="@dimen/margin_quarter"
       android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
+      android:background="@drawable/bg_rounded_rect"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:padding="@dimen/margin_quarter_plus">
@@ -103,7 +103,7 @@
       android:layout_height="match_parent"
       android:layout_marginEnd="@dimen/margin_quarter"
       android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
+      android:background="@drawable/bg_rounded_rect"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:padding="@dimen/margin_quarter_plus">
@@ -132,7 +132,7 @@
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
+      android:background="@drawable/bg_rounded_rect"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:padding="@dimen/margin_quarter_plus">

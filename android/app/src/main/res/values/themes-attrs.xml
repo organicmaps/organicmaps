@@ -18,16 +18,12 @@
     <attr name="helpIconTint" format="color" />
     <attr name="ppBackground" format="color" />
     <attr name="ppButtonsBackground" format="color" />
-    <attr name="navNextTurnFrame" format="reference" />
-    <attr name="navNextNextTurnFrame" format="reference" />
     <attr name="navLanesBackgroundColor" format="reference" />
     <attr name="navLaneArrowActiveColor" format="reference" />
     <attr name="navLaneArrowInactiveColor" format="reference" />
-    <attr name="buttonBackground" format="reference" />
     <attr name="buttonTextColor" format="color" />
     <attr name="buttonTextColorDisabled" format="color" />
     <attr name="buttonDialogTextColor" format="color" />
-    <attr name="accentButtonBackground" format="reference" />
     <attr name="accentButtonTextColor" format="color" />
     <attr name="accentButtonTextColorDisabled" format="color" />
     <attr name="redButtonBackground" format="reference" />
@@ -35,9 +31,7 @@
     <attr name="redButtonTextColorDisabled" format="color" />
     <attr name="primaryButtonBackground" format="reference" />
     <attr name="menuBackground" format="color" />
-    <attr name="myPositionButtonAnimation" format="reference" />
     <attr name="wheelPendingAnimation" format="reference" />
-    <attr name="trafficLoadingAnimation" format="reference" />
     <attr name="navButtonsThemeRect" format="reference" />
     <attr name="navButtonsThemeRound" format="reference" />
     <attr name="downloaderTheme" format="reference" />
@@ -50,7 +44,6 @@
     <attr name="transitPedestrianBackground" format="color" />
     <attr name="transitRulerBackground" format="color" />
     <attr name="colorBtnHighlight" format="color" />
-    <attr name="transitStepDivider" format="reference" />
     <attr name="colorAccentTransparent" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Downloader">
@@ -66,12 +59,8 @@
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.ElevationProfile">
     <attr name="elevationProfileColor" format="color" />
-    <attr name="elevationProfilePropertyBg" format="reference" />
     <attr name="elevationProfilePropIconTint" format="color" />
-    <attr name="altitudeBg" format="reference" />
     <attr name="elevationProfileAxisLabelColor" format="color" />
-    <attr name="elevationProfileYourLocationPinBg" format="reference" />
-    <attr name="elevationProfileSelectedPointBg" format="reference" />
     <attr name="elevationProfileSelectedPointTriangle" format="reference" />
     <attr name="elevationProfileFloatingTriangle" format="reference" />
   </declare-styleable>
