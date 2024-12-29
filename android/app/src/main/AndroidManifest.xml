@@ -446,7 +446,7 @@
     <service
         android:name="app.organicmaps.car.CarAppService"
         android:exported="true"
-        android:foregroundServiceType="specialUse"
+        android:foregroundServiceType="specialUse|location"
         tools:ignore="ExportedService">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
