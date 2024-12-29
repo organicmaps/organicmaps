@@ -18800,7 +18800,7 @@
     ca = Fotos, comentaris, reserves
     cs = Fotografie, recenze, rezervace
     da = Fotos, anmeldelser, booking
-    de = Fotos, bewertungen, buchung
+    de = Fotos, Bewertungen, Buchung
     el = Φωτογραφίες, κριτικές, κράτηση
     es = Fotos, opiniones, reservas
     es-MX = Fotos, reseñas, reservas.
