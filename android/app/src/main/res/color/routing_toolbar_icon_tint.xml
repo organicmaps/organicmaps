@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item
     android:state_activated="true"
-    android:color="@color/routing_button_activated_tint"/>
+    android:color="?routingToolbarButtonIconActive"/>
   <item
     android:state_pressed="true"
     android:color="@color/routing_button_pressed_tint"/>
