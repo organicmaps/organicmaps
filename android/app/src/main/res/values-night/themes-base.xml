@@ -46,18 +46,14 @@
     <item name="ppBackground">@color/bg_cards_night</item>
     <item name="ppButtonsBackground">@color/bg_window_night</item>
 
-    <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
-    <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
     <item name="navLanesBackgroundColor">@color/base_accent_night</item>
     <item name="navLaneArrowActiveColor">@color/nav_lane_arrow_active_night</item>
     <item name="navLaneArrowInactiveColor">@color/nav_lane_arrow_inactive_night</item>
 
-    <item name="buttonBackground">@drawable/button_night</item>
     <item name="buttonTextColor">@color/button_text_night</item>
     <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
     <item name="buttonDialogTextColor">@color/base_accent_night</item>
 
-    <item name="accentButtonBackground">@drawable/button_accent_night</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>
     <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
                accentButtonTextColor selector -->
@@ -71,9 +67,7 @@
 
     <item name="menuBackground">@color/bg_menu_night</item>
 
-    <item name="myPositionButtonAnimation">@drawable/ic_menu_location_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
-    <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
 
     <item name="navButtonsThemeRect">@style/MwmTheme.NavButtonsRect</item>
     <item name="navButtonsThemeRound">@style/MwmTheme.NavButtonsRound</item>
@@ -85,11 +79,9 @@
     <item name="routingToolbarButtonActive">@color/routing_button_tint</item>
     <item name="routingToolbarButton">@color/bg_primary_dark_night</item>
 
-    <item name="android:listDivider">@drawable/list_divider_night</item>
 
     <item name="transitPedestrianBackground">@color/white_4</item>
     <item name="transitRulerBackground">@color/white_4</item>
-    <item name="transitStepDivider">@drawable/dot_divider_night</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
@@ -109,12 +101,8 @@
     <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
     <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
     <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
-    <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect_night</item>
     <item name="elevationProfilePropIconTint">@color/white_secondary</item>
-    <item name="altitudeBg">@drawable/bg_altitude_night</item>
     <item name="elevationProfileAxisLabelColor">@color/white_54</item>
-    <item name="elevationProfileYourLocationPinBg">@drawable/bg_your_location_pin_night</item>
-    <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc_night</item>
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle_night</item>
     <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation_night</item>
     <item name="elevationProfileColor">@color/elevation_profile_dark</item>

@@ -33,11 +33,11 @@
   </style>
 
   <style name="MwmTheme.NavButtonsRound" parent="MwmTheme">
-    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round_night</item>
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_round</item>
   </style>
 
   <style name="MwmTheme.NavButtonsRect" parent="MwmTheme">
-    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect_night</item>
+    <item name="searchLayoutBackground">@drawable/bg_search_wheel_background_rect</item>
   </style>
 
   <style name="MwmTheme.Navigation" parent="MwmTheme">
