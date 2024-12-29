@@ -43,6 +43,9 @@
     <attr name="downloaderTheme" format="reference" />
     <attr name="navigationTheme" format="reference" />
     <attr name="routingButtonHint" format="color" />
+    <attr name="routingToolbarButtonIconActive" format="color" />
+    <attr name="routingToolbarButtonActive" format="color" />
+    <attr name="routingToolbarButton" format="color" />
     <attr name="drivingOptionsViewBg" format="color" />
     <attr name="transitPedestrianBackground" format="color" />
     <attr name="transitRulerBackground" format="color" />

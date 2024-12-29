@@ -79,6 +79,10 @@
     <item name="navigationTheme">@style/MwmTheme.Navigation</item>
 
     <item name="routingButtonHint">@color/routing_button_tint</item>
+    <item name="routingToolbarButtonIconActive">@color/routing_button_activated_tint</item>
+    <item name="routingToolbarButtonActive">@color/routing_button_tint</item>
+    <item name="routingToolbarButton">@color/bg_primary_dark</item>
+
 
     <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 
