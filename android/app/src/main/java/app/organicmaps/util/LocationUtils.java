@@ -7,12 +7,11 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
-import android.provider.Settings;
 import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.location.LocationManagerCompat;
 
 public class LocationUtils
 {
@@ -95,22 +94,8 @@ public class LocationUtils
 
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-    {
-      final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-      return lm.isLocationEnabled();
-    }
-
-    try
-    {
-      return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
-             != Settings.Secure.LOCATION_MODE_OFF;
-    }
-    catch (Settings.SettingNotFoundException e)
-    {
-      e.printStackTrace();
-      return false;
-    }
+    final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    return LocationManagerCompat.isLocationEnabled(lm);
   }
 
   public static boolean checkFineLocationPermission(@NonNull Context context)

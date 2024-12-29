@@ -13,9 +13,18 @@ import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.UserActionRequired;
+import app.organicmaps.util.concurrency.ThreadPool;
+import app.organicmaps.util.concurrency.UiThread;
+
+import java.util.concurrent.ExecutorService;
 
 public class ErrorScreen extends BaseScreen implements UserActionRequired
 {
+  public interface FinishPrecondition
+  {
+    boolean canFinish();
+  }
+
   @StringRes
   private final int mTitle;
   @StringRes
@@ -31,6 +40,11 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
   @Nullable
   private final Runnable mNegativeButtonCallback;
 
+  @Nullable
+  private final FinishPrecondition mFinishPrecondition;
+  @Nullable
+  private ExecutorService mExecutorService;
+
   private ErrorScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext);
@@ -40,6 +54,7 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
     mPositiveButtonCallback = builder.mPositiveButtonCallback;
     mNegativeButtonText = builder.mNegativeButtonText;
     mNegativeButtonCallback = builder.mNegativeButtonCallback;
+    mFinishPrecondition = builder.mFinishPrecondition;
   }
 
   @NonNull
@@ -68,7 +83,11 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
           .setOnClickListener(this::onNegativeButton).build()
       );
     }
-
+    if (mFinishPrecondition != null && mExecutorService == null)
+    {
+      mExecutorService = ThreadPool.getWorker();
+      mExecutorService.execute(this::checkFinishPrecondition);
+    }
     return builder.build();
   }
 
@@ -84,6 +103,17 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
     if (mNegativeButtonCallback != null)
       mNegativeButtonCallback.run();
     finish();
+  }
+
+  private void checkFinishPrecondition()
+  {
+    assert mFinishPrecondition != null;
+    assert mExecutorService != null;
+
+    if (mFinishPrecondition.canFinish())
+      UiThread.runLater(this::finish);
+    else
+      mExecutorService.execute(this::checkFinishPrecondition);
   }
 
   public static class Builder
@@ -105,6 +135,9 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
     private int mNegativeButtonText = -1;
     @Nullable
     private Runnable mNegativeButtonCallback;
+
+    @Nullable
+    private FinishPrecondition mFinishPrecondition;
 
     public Builder(@NonNull CarContext carContext)
     {
@@ -137,8 +170,16 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
       return this;
     }
 
+    public Builder setFinishPrecondition(@NonNull FinishPrecondition precondition)
+    {
+      mFinishPrecondition = precondition;
+      return this;
+    }
+
     public ErrorScreen build()
     {
+      if (mFinishPrecondition != null && (mPositiveButtonCallback != null || mNegativeButtonCallback != null))
+        throw new IllegalStateException("Finish precondition is not compatible with positive or negative button callbacks");
       return new ErrorScreen(this);
     }
   }
