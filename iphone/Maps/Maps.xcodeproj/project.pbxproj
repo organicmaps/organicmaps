@@ -711,7 +711,7 @@
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = ED46DDCB2D098A0B007CACD6;
-			remoteInfo = OMapsWidgetExtensionExtension;
+			remoteInfo = OMapsWidgetExtension;
 		};
 		FA456C4626BDCC8E00B83C20 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4083,7 +4083,7 @@
 			name = OMapsWidgetExtension;
 			packageProductDependencies = (
 			);
-			productName = OMapsWidgetExtensionExtension;
+			productName = OMapsWidgetExtension;
 			productReference = ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
