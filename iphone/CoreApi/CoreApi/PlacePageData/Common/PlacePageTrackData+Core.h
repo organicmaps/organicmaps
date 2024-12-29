@@ -4,6 +4,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TrackInfo;
+
 @interface PlacePageTrackData (Core)
 
 - (instancetype)initWithTrack:(Track const &)track;

@@ -110,6 +110,29 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 #pragma mark - Map Navigation
 
+- (void)showTrackRecordingPlacePage {
+  TrackInfo * trackInfo = TrackRecordingManager.shared.trackRecordingInfo;
+  [self showOrUpdatePlacePage:[[PlacePageData alloc] initWithTrackInfo:trackInfo]];
+  [self startObservingTrackRecordingUpdates];
+}
+
+- (void)startObservingTrackRecordingUpdates {
+  [TrackRecordingManager.shared addObserver:self recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nullable trackInfo) {
+    switch (state) {
+      case TrackRecordingStateInactive:
+        [self stopObservingTrackRecordingUpdates];
+        break;
+      case TrackRecordingStateActive:
+        [self showOrUpdatePlacePage:[[PlacePageData alloc] initWithTrackInfo:trackInfo]];
+        break;
+    }
+  }];
+}
+
+- (void)stopObservingTrackRecordingUpdates {
+  [TrackRecordingManager.shared removeObserver:self];
+}
+
 - (void)showOrUpdatePlacePage:(PlacePageData *)data {
   self.controlsManager.trafficButtonHidden = YES;
   if (self.placePageVC != nil) {
@@ -152,6 +175,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)hidePlacePage {
   if (self.placePageVC != nil) {
+    [self stopObservingTrackRecordingUpdates];
     [self hideRegularPlacePage];
   }
   self.controlsManager.trafficButtonHidden = NO;
@@ -189,6 +213,8 @@ NSString *const kSettingsSegue = @"Map2Settings";
   if (!PlacePageData.hasData) {
     return;
   }
+  [self stopObservingTrackRecordingUpdates];
+
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
   [self showOrUpdatePlacePage:data];
 }

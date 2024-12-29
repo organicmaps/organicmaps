@@ -25,7 +25,7 @@ class PlacePageInteractor: NSObject {
 
   private func updatePlacePageIfNeeded() {
     let isBookmark = placePageData.bookmarkData != nil && bookmarksManager.hasBookmark(placePageData.bookmarkData!.bookmarkId)
-    let isTrack = placePageData.trackData != nil && bookmarksManager.hasTrack(placePageData.trackData!.trackId)
+    let isTrack = placePageData.trackData != nil/* && bookmarksManager.hasTrack(placePageData.trackData!.trackId)*/
     guard isBookmark || isTrack else {
       presenter?.closeAnimated()
       return
@@ -242,6 +242,9 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       // TODO: This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
       // directly here when the track recovery mechanism will be implemented.
       showTrackDeletionConfirmationDialog()
+    case .saveTrackRecording:
+      // TODO: (KK) pass name
+      TrackRecordingManager.shared.processAction(.stopAndSave(name: nil))
     @unknown default:
       fatalError()
     }

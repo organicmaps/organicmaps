@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nonnull) TrackInfo * trackInfo;
 @property(nonatomic, readonly, nullable) ElevationProfileData * elevationProfileData;
 
+- (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

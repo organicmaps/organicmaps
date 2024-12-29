@@ -24,6 +24,8 @@
 
 - (void)performAction:(NSString *_Nonnull)action;
 
+- (void)showTrackRecordingPlacePage;
+
 - (void)openMenu;
 - (void)openSettings;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;

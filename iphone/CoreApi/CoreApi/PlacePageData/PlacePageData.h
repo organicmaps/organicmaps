@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy, nullable) void (^onMapNodeProgressUpdate)(uint64_t downloadedBytes, uint64_t totalBytes);
 
 - (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization;
+- (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo;
 - (instancetype)init NS_UNAVAILABLE;
 
 - (void)updateBookmarkStatus;

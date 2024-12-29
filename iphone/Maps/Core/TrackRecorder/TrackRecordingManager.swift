@@ -4,16 +4,20 @@ enum TrackRecordingState: Int, Equatable {
   case active
 }
 
-enum TrackRecordingAction: String, CaseIterable {
+enum TrackRecordingAction {
   case start
-  case stop
+  case stopAndSave(name: String? = nil)
 }
 
 enum TrackRecordingError: Error {
   case locationIsProhibited
 }
 
-protocol TrackRecordingObserver: AnyObject {
+@objc
+protocol TrackRecordingObservable: AnyObject {
+  var recordingState: TrackRecordingState { get }
+  var trackRecordingInfo: TrackInfo { get }
+
   func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler)
   func removeObserver(_ observer: AnyObject)
 }
@@ -24,11 +28,6 @@ typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo?) -> Void
 final class TrackRecordingManager: NSObject {
 
   typealias CompletionHandler = () -> Void
-
-  private enum SavingOption {
-    case withoutSaving
-    case saveWithName(String? = nil)
-  }
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
@@ -49,7 +48,7 @@ final class TrackRecordingManager: NSObject {
   private let trackRecorder: TrackRecorder.Type
   private var activityManager: TrackRecordingActivityManager?
   private var observations: [Observation] = []
-  private var trackRecordingInfo: TrackInfo?
+  private(set) var trackRecordingInfo: TrackInfo = .empty()
 
   var recordingState: TrackRecordingState {
     trackRecorder.isTrackRecordingEnabled() ? .active : .inactive
@@ -88,8 +87,13 @@ final class TrackRecordingManager: NSObject {
     switch action {
     case .start:
       start(completion: completion)
-    case .stop:
+    case .stopAndSave(let name):
       stop(completion: completion)
+      guard !trackRecorder.isTrackRecordingEmpty() else {
+        Toast.toast(withText: L("track_recording_toast_nothing_to_save")).show()
+        return
+      }
+      saveWithName(name)
     }
   }
 
@@ -113,7 +117,7 @@ final class TrackRecordingManager: NSObject {
   private func willResignActive() {
     guard let activityManager, recordingState == .active else { return }
     do {
-      try activityManager.start(with: trackRecordingInfo ?? .empty())
+      try activityManager.start(with: trackRecordingInfo)
     } catch {
       handleError(error)
     }
@@ -142,7 +146,6 @@ final class TrackRecordingManager: NSObject {
 
   private func unsubscribeFromTrackRecordingProgressUpdates() {
     trackRecorder.setTrackRecordingUpdateHandler(nil)
-    trackRecordingInfo = nil
   }
 
   // MARK: - Handle Start/Stop event and Errors
@@ -152,51 +155,33 @@ final class TrackRecordingManager: NSObject {
       try checkIsLocationEnabled()
       switch recordingState {
       case .inactive:
-        subscribeOnTrackRecordingProgressUpdates()
         trackRecorder.startTrackRecording()
+        subscribeOnTrackRecordingProgressUpdates()
         notifyObservers()
       case .active:
         break
       }
-      completion?()
+      DispatchQueue.main.async {
+        completion?()
+      }
     } catch {
       handleError(error, completion: completion)
     }
   }
 
   private func stop(completion: (CompletionHandler)? = nil) {
-    guard !trackRecorder.isTrackRecordingEmpty() else {
-      Toast.toast(withText: L("track_recording_toast_nothing_to_save")).show()
-      stopRecording(.withoutSaving, completion: completion)
-      return
-    }
-    Self.showOnFinishRecordingAlert(onSave: { [weak self] in
-      guard let self else { return }
-      // TODO: (KK) pass the user provided name from the track saving screen (when it will be implemented)
-      self.stopRecording(.saveWithName(), completion: completion)
-    },
-                                    onStop: { [weak self] in
-      guard let self else { return }
-      self.stopRecording(.withoutSaving, completion: completion)
-    },
-                                    onContinue: {
-      completion?()
-    })
-  }
-
-  private func stopRecording(_ savingOption: SavingOption, completion: (CompletionHandler)? = nil) {
     unsubscribeFromTrackRecordingProgressUpdates()
     trackRecorder.stopTrackRecording()
+    trackRecordingInfo = .empty()
     activityManager?.stop()
     notifyObservers()
-    
-    switch savingOption {
-    case .withoutSaving:
-      break
-    case .saveWithName(let name):
-      trackRecorder.saveTrackRecording(withName: name)
+    DispatchQueue.main.async {
+      completion?()
     }
-    completion?()
+  }
+
+  private func saveWithName(_ name: String?) {
+    trackRecorder.saveTrackRecording(withName: name)
   }
 
   private func handleError(_ error: Error, completion: (CompletionHandler)? = nil) {
@@ -208,23 +193,13 @@ final class TrackRecordingManager: NSObject {
     default:
       break
     }
-    stopRecording(.withoutSaving, completion: completion)
-  }
-
-  private static func showOnFinishRecordingAlert(onSave: @escaping CompletionHandler,
-                                                 onStop: @escaping CompletionHandler,
-                                                 onContinue: @escaping CompletionHandler) {
-    let alert = UIAlertController(title: L("track_recording_alert_title"), message: nil, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: L("continue_recording"), style: .default, handler: { _ in onContinue() }))
-    alert.addAction(UIAlertAction(title: L("stop_without_saving"), style: .default, handler: { _ in onStop() }))
-    alert.addAction(UIAlertAction(title: L("save"), style: .cancel, handler: { _ in onSave() }))
-    UIViewController.topViewController().present(alert, animated: true)
+    stop(completion: completion)
   }
 }
 
 // MARK: - TrackRecordingObserver
 
-extension TrackRecordingManager: TrackRecordingObserver {
+extension TrackRecordingManager: TrackRecordingObservable {
   @objc
   func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler) {
     let observation = Observation(observer: observer, recordingStateDidChangeHandler: recordingIsActiveDidChangeHandler)

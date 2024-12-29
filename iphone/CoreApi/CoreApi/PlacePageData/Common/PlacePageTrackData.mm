@@ -4,6 +4,15 @@
 
 @implementation PlacePageTrackData
 
+- (nonnull instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo {
+  self = [super init];
+  if (self) {
+    _trackId = kml::kInvalidTrackId;
+    _trackInfo = trackInfo;
+  }
+  return self;
+}
+
 @end
 
 @implementation PlacePageTrackData (Core)

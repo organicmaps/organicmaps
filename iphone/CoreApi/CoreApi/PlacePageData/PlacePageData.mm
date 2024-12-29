@@ -84,6 +84,17 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   return self;
 }
 
+- (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo {
+  self = [super init];
+  if (self) {
+    _objectType = PlacePageObjectTypeTrackRecording;
+    _roadType = PlacePageRoadTypeNone;
+    _previewData = [[PlacePagePreviewData alloc] initWithTrackInfo:trackInfo];
+    _trackData = [[PlacePageTrackData alloc] initWithTrackInfo:trackInfo];
+  }
+  return self;
+}
+
 - (void)dealloc {
   if (self.mapNodeAttributes != nil) {
     [[MWMStorage sharedStorage] removeObserver:self];
