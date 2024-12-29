@@ -54,16 +54,21 @@ public enum ThemeSwitcher
     setMapStyle(resolvedMapStyle);
   }
 
+  /**
+   * Applies the android theme
+   * @param theme MUST be follow-system/theme_light/dark
+   */
   private void setAndroidTheme(@NonNull String theme)
   {
-    // custom-handled themes (auto and navauto) are converted
-    // to default or night before being passed here
     if (ThemeUtils.isSystemTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    else
+      throw new IllegalArgumentException(theme+" passed, but only follow-system/theme_light/dark are allowed.");
+
   }
 
   private void setMapStyle(@Framework.MapStyle int style)
@@ -102,7 +107,7 @@ public enum ThemeSwitcher
 
   /**
    * Resolve the map (drape) style from a resolved theme string.
-   * @param theme MUST be theme_light or theme_dark
+   * @param theme MUST be follow-system/theme_light/dark
    * @return drape/core compatible map style
    */
   private int resolveMapStyle(@NonNull String theme)
@@ -141,7 +146,7 @@ public enum ThemeSwitcher
         style = Framework.MAP_STYLE_CLEAR;
     }
     else
-      throw new IllegalArgumentException(resolvedTheme+" passed, only follow-system/theme_light/dark are allowed.");
+      throw new IllegalArgumentException(resolvedTheme+" passed, but only follow-system/theme_light/dark are allowed.");
 
     return style;
   }
