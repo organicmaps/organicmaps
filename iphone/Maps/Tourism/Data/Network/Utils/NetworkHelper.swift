@@ -189,11 +189,10 @@ class AppNetworkHelper {
         print("handling response \n\(loggingInfo)")
         return decodedData
       } catch {
-        print(error)
+        debugPrint(error)
         throw ResourceError.other(message: "Failed to handle response: \(error.localizedDescription) on \n\(loggingInfo)")
       }
     } catch {
-      print("error: \(error)")
       throw handleMappingError(error)
     }
   }

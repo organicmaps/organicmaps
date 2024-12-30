@@ -4,7 +4,7 @@ struct ReviewDTO: Codable {
   let id: Int64
   let markId: Int64
   let images: [String]
-  let message: String
+  let message: String?
   let points: Int
   let createdAt: String
   let user: UserDTO
