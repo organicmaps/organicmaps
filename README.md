@@ -1,6 +1,28 @@
-# Tourism 
-
+# Tourism Map Tajikistan
 This app is for Tajikistan tourists. It's based on open source app Organic map.
+
+## Please Read all of this before continuing
+Don't forget make changes to this file, when you make significant changes to navigation.
+version of Android Studio I used: android-studio-2024.1.1.13-mac_arm.dmg
+version of XCode I used: 16.1
+
+## Navigation on Android
+The first activity app starts is SplashActivity.java. There it navigates to MainActivity
+where all of the data about Tajikistan places are located,
+it has its own navigation system on Jetpack compose.
+There we navigateToMapToDownloadIfNotPresent() and navigateToAuthIfNotAuthed() being called.
+When map download is finished it will go to MainActivity. 
+When you sign in or up, it will navigate to MainActivity
+
+## Navigation on iOS
+The first screen to be shown is Map screen (see MapsAppDelegate.mm). I (Emin) couldn't change it.
+There's such logic in MapsAppDelegate.mm:   
+if(Tajikistan is loaded) {
+    if (token is nil) navigate to Auth (note: token is cleared when user signs out)
+    else navigate to TourismMain (Home)
+}
+In Auth when user signs in or up, it navigates to TourismMain
+In TourismMain goes to auth if not authorized
 
 ## Features of their map
 
