@@ -1,12 +1,70 @@
 # Release Management
 
-## Apple App Store
+## Principles
 
-### Upload metadata and screenshots to the App Store
+The project management follows the **Fixed-Time, Variable-Scope** principle. This means that releases occur on a **predictable** schedule, while the scope of each release **may vary**.
+
+### Schedule
+
+Everyone should plan with the expectation that releases will happen predictably **every month**.
+
+The current objective is to perform 1 (one) **feature release** (containing new features) per month, with the target of uploading the App Store and Google Play versions for review by the first Monday of each month.
+
+In addition to the monthly feature release, a **data-only release** (containing only updated OSM data, with no new features) shall occur in the middle of the month, typically around the 15th.
+
+### Scope
+
+Everyone should expect that each release will include only what was finished on time and **not delayed by waiting** for anyone.
+
+The scope of the release **may vary** based on the readiness of the features. Volunteer Contributors work at their own pace. The funded work should adhere to the scope and schedule outlined in the agreed project plan, with guidance provided by the person in charge of the project (the Project Manager).
+
+### Schedule vs Scope
+
+Each release aims to include all features that have been merged into the master branch before the release cut-off date and have not caused regressions during the QA validation process. If certain changes are not included in the current release, they will be postponed to the next one.
+
+The general recommendation is to merge large changes immediately after the release to allow the entire month for fixing potential regressions and stabilizing the system.
+
+### Release Manager
+
+Each release has one person appointed as the Release Manager to oversee the execution of the release management process.
+
+It is the duy of Release Manager to drive the enture process to the successful completion, utilizing all available resources and means. Specific tasks may be delegated to individual team members as required.
+
+The person holds the authority to make final decisions on cut-off and release dates, and can exclude or revert changes to ensure the release schedule is met.
+
+### Collaboration
+
+Volunteer Contributors and Project Managers are encouraged to plan accordingly and communicate clearly with the Release Manager about their schedules, as well as any potential risks or regressions after merging each feature.
+
+### Scoping
+
+Each release should have a dedicated 20YY.MM milestone created on GitHub. Contributors and Project Managers are encouraged to use it for organizing their work.
+
+### Blockers
+
+Any regressions discovered must be filed as blocking bug tickets and added to the milestone with a clear and understandable description. Contributors are encouraged to proactively revert their changes if it is unrealistic to stabilize them before the cut-off date.
+
+### Tracking Ticket
+
+Each release progress is tracked using the Release Tracking Issue ticket on GitHub, which contains a checklist of items to be executed in the correct order.
+
+### Communication
+
+Any decision made must be documented in writing within the ticket, ensuring that the motivation and reasoning are clear and understandable to all.
+
+## Process
+
+TO BE DOCUMENTED HERE
+
+## Recipies
+
+Below is a list of useful snippets for any ad-hoc tasks that may arise during the execution of the process.
+
+### AppStore: uploading metadata and screenshots
 
 Use [GitHub Actions](../.github/workflows/ios-release.yaml).
 
-### Check metadata
+### AppStore: checking metadata
 
 Use [GitHub Actions](../.github/workflows/ios-check.yaml).
 
@@ -16,7 +74,7 @@ Local check:
 ./tools/python/check_store_metadata.py ios
 ```
 
-### Downloading screenshots from the App Store
+### AppStore: downloading screenshots
 
 Get xcode/keys/appstore.json - App Store API Key.
 
@@ -36,23 +94,21 @@ cd xcode
 ./fastlane download_screenshots
 ```
 
-## Google Play
-
-### Upload metadata and screenshots to Google Play
+### Google Play: uploading metadata and screenshots
 
 Use [GitHub Actions](../.github/workflows/android-release-metadata.yaml).
 
-### Uploading a new version to Google Play
+### Google Play: uploading a new version
 
 Use [GitHub Actions](../.github/workflows/android-release.yaml).
 
 Promote version to "Production" manually in Google Play Console.
 
-### Uploading a new version to Huawei AppGallery
+### Huawei AppGallery: uploading a new version
 
 Use [GitHub Actions](../.github/workflows/android-release.yaml).
 
-### Checking metadata
+### Google Play: checking metadata
 
 Use [GitHub Actions](../.github/workflows/android-check.yaml).
 
@@ -62,7 +118,7 @@ Checking locally:
 ./tools/python/check_store_metadata.py android
 ```
 
-### Downloading metadata and screenshots from Google Play
+### Google Play: downloading metadata and screenshots
 
 Get `android/google-play.json` - Google Play API Key.
 
