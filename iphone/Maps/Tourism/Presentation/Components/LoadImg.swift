@@ -7,7 +7,7 @@ struct LoadImageView: View {
   @State var isError = false
   
   var body: some View {
-    if let urlString = url {
+    if let urlString = url, urlString != "" {
       ZStack(alignment: .center) {
         WebImage(url: URL(string: urlString))
           .onSuccess(perform: { Image, data, cache in
