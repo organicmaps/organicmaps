@@ -499,7 +499,7 @@
     <string name="editor_zip_code">Código Postal</string>
     <string name="error_enter_correct_zip_code">Introduza o código postal correto</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Local desconhecido</string>
+    <string name="core_placepage_unknown_place">Ponto do mapa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota para os voluntários do OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -507,6 +507,8 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">As suas edições são carregadas para a base de dados pública <a href="https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap">OpenStreetMap</a>. Por favor, não adicione informações pessoais ou protegidas por direitos de autor.</string>
     <string name="editor_more_about_osm">Mais sobre o OpenStreetMap</string>
+    <string name="editor_osm_history">O seu histórico de edições</string>
+    <string name="editor_osm_notes">As suas notas de dados do mapa</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operador: %s</string>

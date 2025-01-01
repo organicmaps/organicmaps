@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "輸入正確的郵遞區號";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "未知地點";
+"core_placepage_unknown_place" = "地圖點";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap 志工注意事項（可選）";

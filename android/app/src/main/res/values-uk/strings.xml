@@ -520,7 +520,7 @@
     <string name="editor_zip_code">Поштовий індекс</string>
     <string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Невідоме місце</string>
+    <string name="core_placepage_unknown_place">Точка на карті</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примітка для волонтерів OpenStreetMap (необов\'язково)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

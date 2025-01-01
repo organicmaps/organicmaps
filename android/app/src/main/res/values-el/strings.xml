@@ -519,7 +519,7 @@
     <string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
     <string name="error_enter_correct_zip_code">Εισάγετε έναν έγκυρο ταχυδρομικό κώδικα</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Άγνωστη τοποθεσία</string>
+    <string name="core_placepage_unknown_place">Σημείο χάρτη</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Σημείωση για τους εθελοντές του OpenStreetMap (προαιρετική)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

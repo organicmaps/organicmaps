@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Geben Sie die korrekte Postleitzahl ein";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Unbekannter Ort";
+"core_placepage_unknown_place" = "Kartenpunkt";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Hinweis an Freiwillige von OpenStreetMap (optional)";

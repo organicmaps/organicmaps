@@ -481,7 +481,7 @@
     <string name="editor_zip_code">کدپستی</string>
     <string name="error_enter_correct_zip_code">یک کد‌ پستی معتبر وارد کنید</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">مکان ناشناس</string>
+    <string name="core_placepage_unknown_place">نقطه نقشه</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">توجه به داوطلبان OpenStreetMap (اختیاری)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

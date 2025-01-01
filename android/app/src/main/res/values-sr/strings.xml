@@ -515,8 +515,6 @@
     <string name="error_enter_correct_storey_number">Број спратова не сме да прелази %d</string>
     <string name="editor_zip_code">Поштански број</string>
     <string name="error_enter_correct_zip_code">Унесите исправан поштански број</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Непознато место</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Напомена за OpenStreetMap волонтере (није обавезна)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

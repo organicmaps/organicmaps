@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Geçerli bir posta kodu girin";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Bilinmeyen Yer";
+"core_placepage_unknown_place" = "Harita Noktası";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap gönüllülerine not (isteğe bağlı)";

@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Masukkan Kode Pos yang benar";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Tempat Tidak Dikenal";
+"core_placepage_unknown_place" = "Titik Peta";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Catatan untuk relawan OpenStreetMap (opsional)";

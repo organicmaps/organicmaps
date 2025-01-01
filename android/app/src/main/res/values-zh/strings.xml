@@ -528,7 +528,7 @@
     <string name="editor_zip_code">邮政编码</string>
     <string name="error_enter_correct_zip_code">输入正确的邮政编码</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">未知地点</string>
+    <string name="core_placepage_unknown_place">地图点</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap 志愿者须知（可选）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

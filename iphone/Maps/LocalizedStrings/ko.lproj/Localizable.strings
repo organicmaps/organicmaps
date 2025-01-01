@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "올바른 우편번호를 입력하세요";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "장소 알 수 없음";
+"core_placepage_unknown_place" = "지도 지점";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)";

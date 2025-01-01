@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Унесите исправан поштански број";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Непознато место";
+"core_placepage_unknown_place" = "Map Point";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Напомена за OpenStreetMap волонтере (није обавезна)";

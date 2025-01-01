@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "أدخل الرمز البريدي صالح";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "مكان غير معروف";
+"core_placepage_unknown_place" = "نقطة الخريطة";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "ملاحظة لمتطوعي OpenStreetMap (اختياري)";

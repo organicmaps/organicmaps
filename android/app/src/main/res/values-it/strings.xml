@@ -504,7 +504,7 @@
     <string name="editor_zip_code">Codice postale</string>
     <string name="error_enter_correct_zip_code">Inserire il codice postale corretto</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Luogo sconosciuto</string>
+    <string name="core_placepage_unknown_place">Punto della mappa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per i volontari di OpenStreetMap (opzionale)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Sartu baliozko posta-kodea";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Toki ezezaguna";
+"core_placepage_unknown_place" = "Maparen puntua";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap-eko boluntarioentzako oharra (aukerakoa)";

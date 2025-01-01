@@ -515,7 +515,7 @@
     <string name="editor_zip_code">Postinumero</string>
     <string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Tuntematon paikka</string>
+    <string name="core_placepage_unknown_place">Karttapiste</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

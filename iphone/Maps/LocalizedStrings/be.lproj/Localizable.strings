@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Увядзіце правільны паштовы індэкс";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Невядомае месца";
+"core_placepage_unknown_place" = "Месца на мапе";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Заўвага для валанцёраў OpenStreetMap (неабавязкова)";

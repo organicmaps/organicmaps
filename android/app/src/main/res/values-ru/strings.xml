@@ -523,7 +523,7 @@
     <string name="editor_zip_code">Почтовый индекс</string>
     <string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Неизвестное место</string>
+    <string name="core_placepage_unknown_place">Точка на карте</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

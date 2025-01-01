@@ -512,7 +512,7 @@
     <string name="editor_zip_code">מיקוד</string>
     <string name="error_enter_correct_zip_code">יש להזין מיקוד תקין</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">מיקום לא ידוע</string>
+    <string name="core_placepage_unknown_place">נקודת מפה</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">הערה למתנדבי OpenStreetMap (אופציונלי)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
