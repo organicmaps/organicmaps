@@ -514,7 +514,7 @@
     <string name="editor_zip_code">Postnummer</string>
     <string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Ukjent sted</string>
+    <string name="core_placepage_unknown_place">Kartpunkt</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Merknad til OpenStreetMap-frivillige (valgfritt)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

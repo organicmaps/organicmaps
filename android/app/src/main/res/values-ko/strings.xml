@@ -487,7 +487,7 @@
     <string name="editor_zip_code">우편번호</string>
     <string name="error_enter_correct_zip_code">올바른 우편번호를 입력하세요</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">장소 알 수 없음</string>
+    <string name="core_placepage_unknown_place">지도 지점</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

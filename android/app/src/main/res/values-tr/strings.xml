@@ -520,7 +520,7 @@
     <string name="editor_zip_code">Posta Kodu</string>
     <string name="error_enter_correct_zip_code">Geçerli bir posta kodu girin</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
+    <string name="core_placepage_unknown_place">Harita Noktası</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap gönüllülerine not (isteğe bağlı)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

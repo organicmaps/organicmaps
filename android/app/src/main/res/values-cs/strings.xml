@@ -494,7 +494,7 @@
     <string name="editor_zip_code">PSČ</string>
     <string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Neznámé místo</string>
+    <string name="core_placepage_unknown_place">Bod na mapě</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pro dobrovolníky OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

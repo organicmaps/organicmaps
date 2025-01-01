@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "वैध पिनकोड प्रविष्ट करा";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "अज्ञात ठिकाण";
+"core_placepage_unknown_place" = "नकाशा बिंदू";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)";

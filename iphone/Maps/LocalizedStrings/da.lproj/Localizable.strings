@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Indtast det korrekte postnummer";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Ukendt sted";
+"core_placepage_unknown_place" = "Kortpunkt";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Note til OpenStreetMap-frivillige (valgfrit)";

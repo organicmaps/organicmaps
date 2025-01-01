@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "یک کد‌ پستی معتبر وارد کنید";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "مکان ناشناس";
+"core_placepage_unknown_place" = "نقطه نقشه";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "توجه به داوطلبان OpenStreetMap (اختیاری)";

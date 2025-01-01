@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Zadejte správné PSČ";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Neznámé místo";
+"core_placepage_unknown_place" = "Bod na mapě";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Poznámka pro dobrovolníky OpenStreetMap (nepovinné)";

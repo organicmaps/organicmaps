@@ -519,8 +519,6 @@
     <string name="error_enter_correct_storey_number">Stāvu skaits nedrīkst pārsniegt %d</string>
     <string name="editor_zip_code">Pasta indekss</string>
     <string name="error_enter_correct_zip_code">Ierakstiet pasta indeksu</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Nezināma vieta</string>
     <string name="editor_more_about_osm">Vairāk par „OpenStreetMap“</string>
     <string name="editor_osm_history">Tava kartes izmaiņu vēsture</string>
     <string name="editor_osm_notes">Tavas kartes datu piezīmes</string>

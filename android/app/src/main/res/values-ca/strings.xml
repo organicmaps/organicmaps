@@ -517,7 +517,7 @@
     <string name="editor_zip_code">Codi postal</string>
     <string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
     <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Lloc desconegut</string>
+    <string name="core_placepage_unknown_place">Punt del mapa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->

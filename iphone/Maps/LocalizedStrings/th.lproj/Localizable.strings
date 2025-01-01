@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "ไม่ทราบชื่อสถานที่";
+"core_placepage_unknown_place" = "จุดแผนที่";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "หมายเหตุถึงอาสาสมัคร OpenStreetMap (ไม่บังคับ)";

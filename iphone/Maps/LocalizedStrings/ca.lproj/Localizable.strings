@@ -737,7 +737,7 @@
 "error_enter_correct_zip_code" = "Introduïu un codi postal vàlid";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Lloc desconegut";
+"core_placepage_unknown_place" = "Punt del mapa";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Nota per als voluntaris d'OpenStreetMap (opcional)";
