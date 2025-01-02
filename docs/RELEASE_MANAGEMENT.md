@@ -1,6 +1,6 @@
 # Release Management
 
-## Principles
+## Guidelines
 
 The project management follows the **Fixed-Time, Variable-Scope** principle. This means that releases occur on a **predictable** schedule, while the scope of each release **may vary**.
 
