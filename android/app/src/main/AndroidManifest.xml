@@ -443,6 +443,8 @@
       android:label="@string/driving_options_title"/>
     <activity
         android:name="app.organicmaps.MapPlaceholderActivity"/>
+    <activity
+        android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
     <service
         android:name="app.organicmaps.car.CarAppService"
         android:exported="true"
