@@ -905,6 +905,7 @@
     <string name="type.amenity">Infrastrukturobjekt</string>
     <string name="type.amenity.arts_centre">Kunstzentrum</string>
     <string name="type.amenity.atm">Geldautomat</string>
+    <string name="type.amenity.bank">Bankfiliale</string>
     <string name="type.amenity.bbq">Grillplatz</string>
     <string name="type.amenity.bench">Sitzbank</string>
     <string name="type.amenity.bicycle_parking">Fahrradständer</string>
@@ -1436,7 +1437,7 @@
     <string name="type.historic.mine">Historische Mine</string>
     <string name="type.historic.monument">Monument</string>
     <string name="type.historic.pillory">Pranger</string>
-    <string name="type.historic.ruins">Ruine</string>
+    <string name="type.historic.ruins">Historische Ruine</string>
     <string name="type.historic.ship">Schiff</string>
     <string name="type.historic.tank">Historischer Panzer</string>
     <string name="type.historic.tomb">Historische Grabstätte</string>
@@ -1983,7 +1984,7 @@
     <string name="type.shop.florist">Florist</string>
     <string name="type.shop.funeral_directors">Bestattungsinstitut</string>
     <string name="type.shop.furniture">Möbelhaus</string>
-    <string name="type.shop.garden_centre">Gärtnerei</string>
+    <string name="type.shop.garden_centre">Gartencenter</string>
     <string name="type.shop.gas">Gas-Geschäft</string>
     <string name="type.shop.gift">Geschenkeladen</string>
     <string name="type.shop.greengrocer">Gemüseladen</string>
@@ -2005,7 +2006,7 @@
     <string name="type.shop.motorcycle_repair">Motorradwerkstatt</string>
     <string name="type.shop.music">Musikgeschäft</string>
     <string name="type.shop.musical_instrument">Musikinstrumenteladen</string>
-    <string name="type.shop.newsagent">Zeitungsstand</string>
+    <string name="type.shop.newsagent">Zeitungskiosk</string>
     <string name="type.shop.optician">Optiker</string>
     <string name="type.shop.outdoor">Outdoor-Ausrüstungs-Laden</string>
     <string name="type.shop.outpost">Abholpunkt</string>
