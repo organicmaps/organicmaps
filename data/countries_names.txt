@@ -24650,50 +24650,6 @@
   zh-Hans = 缅甸
   zh-Hant = 緬甸
 
-[Nagorno-Karabakh]
-  en = Karabakh Economic Region
-  af = Karabach ekonomiese streek
-  ar = منطقة كاراباخ الاقتصادية
-  az = Qarabağ iqtisadi rayonu
-  be = Карабахскі эканамічны раён
-  bg = Икономически регион Карабах
-  ca = Regió econòmica del Karabakh
-  cs = Hospodářský region Karabach
-  da = Karabakhs økonomiske region
-  de = Wirtschaftsregion Karabakh
-  el = Οικονομική περιοχή Καραμπάχ
-  es = Región económica del Karabaj
-  et = Karabahhi majanduspiirkond
-  eu = Karabakh eskualde ekonomikoa
-  fa = منطقه اقتصادی قره باغ
-  fi = Karabahin talousalue
-  fr = Région économique du Karabagh
-  he = אזור כלכלי קרבאך
-  hi = कराबाख आर्थिक क्षेत्र
-  hu = Karabah gazdasági régió
-  id = Wilayah Ekonomi Karabakh
-  it = Regione economica del Karabakh
-  ja = カラバフ経済地域
-  ko = 카라바흐 경제 지역
-  lt = Karabacho ekonominis regionas
-  mr = काराबाख आर्थिक प्रदेश
-  nb = Den økonomiske regionen Karabakh
-  nl = Economische regio Karabach
-  pl = Region gospodarczy Karabachu
-  pt = Região económica de Karabakh
-  pt-BR = Região econômica de Karabakh
-  ro = Regiunea economică Karabakh
-  ru = Карабахский экономический район
-  sk = Hospodársky región Karabach
-  sv = Karabachs ekonomiska region
-  sw = Mkoa wa Kiuchumi wa Karabakh
-  th = เขตเศรษฐกิจคาราบาคห์
-  tr = Karabağ Ekonomik Bölgesi
-  uk = Карабахський економічний регіон
-  vi = Vùng kinh tế Karabakh
-  zh-Hans = 卡拉巴赫经济区
-  zh-Hant = 卡拉巴赫經濟區
-
 [Namibia]
   en = Namibia
   ar = ناميبيا
@@ -54835,17 +54791,6 @@
   th = เนปีดอ
   uk = Янгон, Найп'їдо
   vi = Ngưỡng Quang, Nây-pi-tô
-
-[Nagorno-Karabakh Description]
-  en = Khankendi, Shusha, Lachin
-  az = Xankəndi, Şuşa, Laçın
-  cs = Chankendi, Šuša, Lačin
-  de = Khankendi, Şuşa, Laçın
-  el = Χανκεντί, Σουσά, Λατσίν
-  fr = Khankendi, Chouchi, Latchine
-  hu = Xankəndi, Şuşa, Laçın
-  ru = Ханкенди, Шуша, Лачин
-  tr = Hankendi, Şuşa, Laçin
 
 [Namibia Description]
   en = Windhoek, Opuwo, Eenhana
