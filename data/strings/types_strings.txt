@@ -673,6 +673,7 @@
     az = Bank
     ca = Banc
     cs = Banka
+    de = Bankfiliale
     el = Τράπεζα
     es = Banco
     et = Pank
@@ -15927,7 +15928,7 @@
     bg = Развалина
     cs = Ruiny
     da = Ruiner
-    de = Ruine
+    de = Historische Ruine
     el = Ερείπια
     es = Ruinas
     et = Varemed
@@ -26514,7 +26515,7 @@
     az = Bağ mağazası
     cs = Školka
     da = Planteskole
-    de = Gärtnerei
+    de = Gartencenter
     el = Κατάστημα ειδών κήπου
     es = Vivero
     et = Aianduspood
@@ -27455,7 +27456,7 @@
     az = Qəzet köşkü
     cs = Novinový stánek
     da = Avis-kiosk
-    de = Zeitungsstand
+    de = Zeitungskiosk
     el = Εφημεριδοπώλης
     es = Puesto de venta de periódicos
     et = Ajalehe stend
