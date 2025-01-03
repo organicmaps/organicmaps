@@ -28,7 +28,6 @@ constexpr char const * kOSMMultivalueDelimiter = ";";
 
 // https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
 auto constexpr kMaxBuildingLevelsInTheWorld = 167;
-auto constexpr kMinBuildingLevel = -6;
 
 template <class T>
 void RemoveDuplicatesAndKeepOrder(std::vector<T> & vec)
@@ -240,11 +239,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_level(std::string v)
 {
   // Some mappers use full width unicode digits. We can handle that.
   strings::NormalizeDigits(v);
-  double levels;
-  if (Prefix2Double(v, levels) && levels >= kMinBuildingLevel && levels <= kMaxBuildingLevelsInTheWorld)
-    return strings::to_string(levels);
-
-  return {};
+  return v;
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_denomination(std::string const & v)
