@@ -1983,10 +1983,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Logger.w(POWER_MANAGEMENT_TAG, "Power Save mode wasn't disabled on the device");
   }
 
-  /**
-   * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
-   * @param pendingIntent an intent to launch.
-   */
   @Override
   @UiThread
   public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
@@ -2028,9 +2024,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  /**
-   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
-   */
   @Override
   @UiThread
   public void onLocationDisabled()

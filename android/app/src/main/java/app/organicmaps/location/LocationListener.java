@@ -14,11 +14,18 @@ public interface LocationListener
     // No op.
   }
 
+  /**
+   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
+   */
   default void onLocationDisabled()
   {
     // No op.
   }
 
+  /**
+   * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
+   * @param pendingIntent an intent to launch.
+   */
   default void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
   {
     // No op.
