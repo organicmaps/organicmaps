@@ -29,7 +29,6 @@ setup(
         "mapcss-mapping.csv",
         "mixed_nodes.txt",
         "mixed_tags.txt",
-        "mwm_names_en.txt",
         "old_vs_new.csv",
         "patterns.txt",
         "replaced_tags.txt",
