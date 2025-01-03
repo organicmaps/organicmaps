@@ -783,7 +783,7 @@ cs:peníze
 da:3penge
 nl:geld
 fr:argent
-de:Geld|Bankfiliale
+de:3Bankfiliale|Geld
 hi:3बैंक
 hu:pénz
 id:uang
@@ -1340,7 +1340,7 @@ da:Planteskole|havecenter|plantecenter|havebutik
 nl:Tuincentrum
 fi:Taimitarha
 fr:Jardinerie
-de:7Gärtnerei|Garten-Center
+de:4Gartencenter|Gärtnerei
 hi:4बगीचे की सामग्री की दुकान
 hu:Kertészet|Kertészeti áruház
 id:Penitipan anak
@@ -4420,7 +4420,7 @@ be:Руіны
 bg:3Руини|съборетини|останки|развалини
 cs:3Ruiny|zřícenina
 da:3Ruiner
-de:3Ruinen
+de:4Historische Ruine|3Ruine
 el:Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
 es:3Ruinas
 et:3Varemed
@@ -15964,7 +15964,7 @@ bg:Стойка за вестници|4вестници|киоск|бутка
 ar:كشك الجرائد
 cs:Novinový stánek
 da:Avis-kiosk
-de:4Zeitungsstand|Trafik
+de:4Zeitungskiosk|Zeitungsstand
 el:Εφημεριδοπώλης|πρακτορείο εφημερίδων
 et:Ajalehepunkt|4ajalehed
 es:Puesto de venta de periódicos
