@@ -35,10 +35,11 @@ import java.util.Set;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private static final long INTERVAL_FOLLOW_MS = 0;
-  private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
-  private static final long INTERVAL_NAVIGATION_MS = 0;
-  private static final long INTERVAL_TRACK_RECORDING = 0;
+  private static final long INTERVAL_MS = 0;
+//  private static final long INTERVAL_FOLLOW_MS = 0;
+//  private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
+//  private static final long INTERVAL_NAVIGATION_MS = 0;
+//  private static final long INTERVAL_TRACK_RECORDING = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
@@ -311,20 +312,36 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mListeners.remove(listener);
   }
 
+// OM now always updates when a new location is available. This is left in-case
+// we want to go back to using different mode intervals.
+//  private long calcLocationUpdatesInterval()
+//  {
+//    if (RoutingController.get().isNavigating())
+//      return INTERVAL_NAVIGATION_MS;
+//
+//    if (TrackRecorder.nativeIsTrackRecordingEnabled())
+//      return INTERVAL_TRACK_RECORDING;
+//
+//    final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
+//    return switch (mode)
+//    {
+//      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
+//          INTERVAL_FOLLOW_MS;
+//      case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
+//      default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
+//    };
+//  }
+
   private long calcLocationUpdatesInterval()
   {
-    if (RoutingController.get().isNavigating())
-      return INTERVAL_NAVIGATION_MS;
-
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      return INTERVAL_TRACK_RECORDING;
-
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
     return switch (mode)
     {
-      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
-          INTERVAL_FOLLOW_MS;
-      case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
+      case LocationState.PENDING_POSITION,
+           LocationState.FOLLOW,
+           LocationState.FOLLOW_AND_ROTATE,
+           LocationState.NOT_FOLLOW,
+           LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_MS;
       default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
     };
   }
