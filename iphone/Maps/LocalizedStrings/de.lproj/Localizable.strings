@@ -1461,7 +1461,7 @@
 
 "type.amenity.atm" = "Geldautomat";
 
-"type.amenity.bank" = "Bank";
+"type.amenity.bank" = "Bankfiliale";
 
 "type.amenity.bar" = "Bar";
 
@@ -2494,7 +2494,7 @@
 
 "type.historic.pillory" = "Pranger";
 
-"type.historic.ruins" = "Ruine";
+"type.historic.ruins" = "Historische Ruine";
 
 "type.historic.ship" = "Schiff";
 
@@ -3640,7 +3640,7 @@
 
 "type.shop.furniture" = "Möbelhaus";
 
-"type.shop.garden_centre" = "Gärtnerei";
+"type.shop.garden_centre" = "Gartencenter";
 
 "type.shop.gas" = "Gas-Geschäft";
 
@@ -3686,7 +3686,7 @@
 
 "type.shop.musical_instrument" = "Musikinstrumenteladen";
 
-"type.shop.newsagent" = "Zeitungsstand";
+"type.shop.newsagent" = "Zeitungskiosk";
 
 "type.shop.optician" = "Optiker";
 
