@@ -27,6 +27,7 @@ The app version can be found in the "About" section of Organic Maps app.
 ```sh
 ./tools/unix/build_omim.sh -r generator_tool
 ./tools/unix/build_omim.sh -r world_roads_builder_tool
+./tools/unix/build_omim.sh -r mwm_diff_tool
 ```
 
 3. Go to the `maps_generator` directory:
