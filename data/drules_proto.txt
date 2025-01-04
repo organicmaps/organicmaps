@@ -52005,6 +52005,20 @@ cont {
 cont {
   name: "leisure-miniature_golf"
   element {
+    scale: 12
+    area {
+      color: 13029267
+      priority: -1860
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13029267
+      priority: -1860
+    }
+  }
+  element {
     scale: 14
     area {
       color: 13029267

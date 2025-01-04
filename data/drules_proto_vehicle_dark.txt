@@ -26896,6 +26896,20 @@ cont {
 cont {
   name: "landuse-allotments"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -27311,6 +27325,20 @@ cont {
 }
 cont {
   name: "landuse-field"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
   element {
     scale: 14
     area {
@@ -28725,6 +28753,20 @@ cont {
 cont {
   name: "landuse-grass"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -28953,6 +28995,20 @@ cont {
 }
 cont {
   name: "landuse-meadow"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
   element {
     scale: 14
     area {
@@ -29264,6 +29320,20 @@ cont {
 cont {
   name: "landuse-orchard"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -29489,6 +29559,20 @@ cont {
 }
 cont {
   name: "landuse-recreation_ground"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
   element {
     scale: 14
     area {
@@ -29917,6 +30001,20 @@ cont {
 cont {
   name: "landuse-village_green"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -29968,6 +30066,20 @@ cont {
 }
 cont {
   name: "landuse-vineyard"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
   element {
     scale: 14
     area {
@@ -30275,6 +30387,20 @@ cont {
 cont {
   name: "leisure-golf_course"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1910
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1910
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -30326,6 +30452,20 @@ cont {
 }
 cont {
   name: "leisure-miniature_golf"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1910
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1910
+    }
+  }
   element {
     scale: 14
     area {
@@ -33397,6 +33537,20 @@ cont {
 cont {
   name: "natural-grassland"
   element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
+  element {
     scale: 14
     area {
       color: 593674
@@ -33448,6 +33602,20 @@ cont {
 }
 cont {
   name: "natural-heath"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1920
+    }
+  }
   element {
     scale: 14
     area {
@@ -33643,6 +33811,20 @@ cont {
 }
 cont {
   name: "natural-scrub"
+  element {
+    scale: 12
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 593674
+      priority: -1930
+    }
+  }
   element {
     scale: 14
     area {

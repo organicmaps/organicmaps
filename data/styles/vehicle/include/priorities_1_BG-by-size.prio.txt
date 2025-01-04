@@ -46,31 +46,31 @@ leisure-swimming_pool                               # area z13-
 leisure-swimming_pool-private                       # area z13-
 === 100
 
-leisure-golf_course                                 # area z14-
-leisure-miniature_golf                              # area z14-
+leisure-golf_course                                 # area z12-
+leisure-miniature_golf                              # area z12-
 natural-wetland                                     # area z11- (also has caption z16-)
 natural-wetland-bog                                 # area z11- (also has caption z16-)
 natural-wetland-marsh                               # area z11- (also has caption z16-)
 === 90
 
-landuse-grass                                       # area z14-
-natural-grassland                                   # area z14-
-natural-heath                                       # area z14-
+landuse-grass                                       # area z12-
+natural-grassland                                   # area z12-
+natural-heath                                       # area z12-
 === 80
 
 landuse-farmyard                                    # area z14-
 === 71
 
-landuse-allotments                                  # area z14-
+landuse-allotments                                  # area z12-
 landuse-farmland                                    # area z14-
-landuse-field                                       # area z14-
-landuse-meadow                                      # area z14-
-landuse-orchard                                     # area z14-
-landuse-recreation_ground                           # area z14-
-landuse-village_green                               # area z14-
-landuse-vineyard                                    # area z14-
+landuse-field                                       # area z12-
+landuse-meadow                                      # area z12-
+landuse-orchard                                     # area z12-
+landuse-recreation_ground                           # area z12-
+landuse-village_green                               # area z12-
+landuse-vineyard                                    # area z12-
 natural-bare_rock                                   # area z12-
-natural-scrub                                       # area z14-
+natural-scrub                                       # area z12-
 === 70
 
 leisure-garden                                      # area z12-
