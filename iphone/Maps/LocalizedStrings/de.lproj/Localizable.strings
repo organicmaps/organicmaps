@@ -613,7 +613,7 @@
 
 "no_osm_account" = "Kein Konto bei OpenStreetMap?";
 
-"register_at_openstreetmap" = "Bei OpenStretMap registrieren";
+"register_at_openstreetmap" = "Bei OpenStreetMap registrieren";
 
 "password_8_chars_min" = "Passwort (mindestens 8 Zeichen)";
 
