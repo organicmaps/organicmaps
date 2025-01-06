@@ -8727,7 +8727,7 @@
     sv = Foton, recensioner, bokningslänkar visas för hotell som har en lista på Kayak.com. Den värvningsbonus som erhålls för varje bokning via dessa länkar går till utveckling av Organic Maps.
     sw = Picha, maoni, viungo vya kuweka nafasi vinaonyeshwa kwa hoteli ambazo zimeorodheshwa kwenye Kayak.com. Bonasi ya rufaa inayopokelewa kwa kila nafasi iliyowekwa kupitia viungo hivi huenda kwenye uundaji wa Organic Maps.
     th = รปภาพ รวว ลงกการจองจะแสดงสำหรบโรงแรมทมรายการขอมลบน Kayak.com โบนสผแนะนำทไดรบสำหรบการจองแตละครงผานลงกเหลานจะนำไปใชในการพฒนา Organic Maps
-    tr = Kayak.com'da listesi olan oteller için fotoğraflar, yorumlar, rezervasyon bağlantıları görüntülenir. Bu bağlantılar aracılığıyla yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.
+    tr = Kayak.com'da mevcut olan oteller için fotoğraf, yorum ve rezervasyon bağlantıları gösterilir. Bu bağlantılar aracılığıyla yapılan rezervasyonlardan kazanılan gelir, Organic Maps'in geliştirilmesi için kullanılır.
     uk = Фотографії, відгуки, посилання на бронювання відображаються для готелів, які мають лістинг на Kayak.com. Реферальний бонус, отриманий за кожне бронювання за цими посиланнями, йде на розвиток Organic Maps.
     vi = Hình ảnh, đánh giá, liên kết đặt phòng được hiển thị cho các khách sạn có danh sách trên Kayak.com. Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua các liên kết này sẽ hướng tới sự phát triển của Organic Maps.
     zh-Hans = Kayak.com上列出的酒店会显示照片、评论和预订链接。通过这些链接进行预订所获得的推荐奖金将用于发展 Organic Maps。
@@ -17695,7 +17695,7 @@
     sv = Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
     sw = Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.
     th = แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน
-    tr = Organik Haritalar yalnızca basit nokta kategorileri eklemeye izin verir, yani kasaba, yol, göl, bina ana hatları vb. yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>'a ekleyin. Adım adım ayrıntılı talimatlar için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atın.
+    tr = Organic Maps yalnızca basit nokta kategorilerini eklemeye izin verir. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atabilirsiniz.
     uk = Organic Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування карти</a>.
     vi = Bản đồ không phải trả tiền chỉ cho phép thêm các danh mục điểm đơn giản, nghĩa là không có thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các danh mục đó trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy xem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết hướng dẫn chi tiết từng bước.
     zh-Hans = Organic Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
@@ -25639,7 +25639,7 @@
     sv = Undvik färjetrafik
     sw = Epuka vivuko vya feri
     th = เลี่ยงการข้ามฟากด้วยเรือ
-    tr = Feribot geçişlerinden kaçın
+    tr = Vapurdan kaçın
     uk = Уникати поромів
     vi = Tránh bến phà
     zh-Hans = 避开轮渡
@@ -26014,7 +26014,7 @@
     sv = Färjetrafik
     sw = Kivuko cha feri
     th = เรือข้ามฟาก
-    tr = Feribot geçişi
+    tr = Vapur geçişi
     uk = Поромна переправа
     vi = Bến phà
     zh-Hans = 轮渡
@@ -30530,7 +30530,7 @@
     sv = Är du säker på att du vill radera det här spåret?
     sw = Je, una uhakika unataka kufuta wimbo huu?
     th = คุณแน่ใจหรือไม่ว่าต้องการลบแทร็กนี้
-    tr = Bu parçayı silmek istediğinizden emin misiniz?
+    tr = Bu GPS izi kaydını silmek istediğinizden emin misiniz?
     uk = Ви дійсно бажаєте видалити цей маршрут?
     vi = Bạn có chắc chắn muốn xóa bản nhạc này không?
     zh-Hans = 您确定要删除这条音轨吗？
