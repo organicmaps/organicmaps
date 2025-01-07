@@ -32,25 +32,15 @@ It is the duty of the Release Manager to drive the entire process to the success
 
 The person holds the authority to make final decisions on cut-off and release dates, and can exclude or revert changes to ensure the release schedule and quality targets are met.
 
-### Collaboration
+### Release Tracking
 
-Volunteer Contributors and Project Managers are encouraged to plan accordingly and communicate clearly with the Release Manager about their schedules, as well as any potential risks or regressions after merging each feature.
+Each release should have its own Release Tracking Issue on GitHub, which contains a schedule and a checklist of items to be executed in the correct order.
 
-### Scoping
-
-Each release should have a dedicated 20YY.MM milestone created on GitHub. Contributors and Project Managers are encouraged to use it for organizing their work.
-
-### Blockers
+Also each release should have a dedicated 20YY.MM github milestone. All contributors are encouraged to use it for organizing their work and to communicate clearly with the Release Manager about their schedules, as well as any potential risks or regressions after merging each feature.
 
 Any regressions discovered must be filed as blocking bug tickets and added to the milestone with a clear and understandable description. Contributors are encouraged to proactively revert their changes if it is unrealistic to stabilize them before the cut-off date.
 
-### Tracking Ticket
-
-Each release progress is tracked using the Release Tracking Issue ticket on GitHub, which contains a checklist of items to be executed in the correct order.
-
-### Communication
-
-Any decision made must be documented in writing within the ticket, ensuring that the motivation and reasoning are clear and understandable to all.
+Any decision made must be documented in writing within the Release Tracking Issue, ensuring that the motivation and reasoning are clear and understandable to all.
 
 ## Process
 
