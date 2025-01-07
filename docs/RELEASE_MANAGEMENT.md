@@ -14,7 +14,7 @@ In addition to the monthly feature release, a **data-only release** (containing 
 
 ### Scope
 
-Everyone should expect that each release will include only what was finished on time and **not delayed by waiting** for anyone.
+Everyone should expect that each release will include only what was finished on time and **won't be delayed** to include any particular "almost ready" change (there could be exceptions for important hot fixes only).
 
 Hence the scope of each release **may vary** based on the readiness of the features. Volunteer Contributors work at their own pace while the funded work adheres to the scope and schedule outlined in the agreed project plan.
 
