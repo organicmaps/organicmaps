@@ -14017,7 +14017,7 @@
     ca = Registre a OpenStreetMap
     cs = Registrace
     da = Tilmeld dig
-    de = Bei OpenStretMap registrieren
+    de = Bei OpenStreetMap registrieren
     el = Εγγραφή στο OpenStreetMap
     es = Registrarse en OpenStreetMap
     et = Registreeru
