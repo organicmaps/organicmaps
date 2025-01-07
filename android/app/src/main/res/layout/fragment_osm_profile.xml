@@ -88,10 +88,10 @@
   </FrameLayout>
 
   <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/buttons_container"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      android:padding="@dimen/margin_base">
+      android:layout_weight="1">
 
     <TextView
         android:id="@+id/osm_history"
@@ -100,6 +100,9 @@
         android:layout_alignParentTop="true"
         android:background="?clickableBackground"
         android:gravity="center"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:text="@string/editor_osm_history"
@@ -114,6 +117,8 @@
         android:layout_alignParentTop="true"
         android:background="?clickableBackground"
         android:gravity="center"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:text="@string/editor_osm_notes"
@@ -128,13 +133,16 @@
         android:layout_alignParentBottom="true"
         android:background="?clickableBackground"
         android:gravity="center"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base"
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
         android:text="@string/editor_more_about_osm"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         android:textColor="?colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/osm_history"
+        app:layout_constraintTop_toBottomOf="@+id/osm_notes"
         app:layout_constraintVertical_bias="1" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
