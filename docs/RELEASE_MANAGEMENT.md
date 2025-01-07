@@ -16,7 +16,7 @@ In addition to the monthly feature release, a **data-only release** (containing 
 
 Everyone should expect that each release will include only what was finished on time and **not delayed by waiting** for anyone.
 
-The scope of the release **may vary** based on the readiness of the features. Volunteer Contributors work at their own pace. The funded work should adhere to the scope and schedule outlined in the agreed project plan, with guidance provided by the person in charge of the project (the Project Manager).
+Hence the scope of each release **may vary** based on the readiness of the features. Volunteer Contributors work at their own pace while the funded work adheres to the scope and schedule outlined in the agreed project plan.
 
 ### Schedule vs Scope
 
