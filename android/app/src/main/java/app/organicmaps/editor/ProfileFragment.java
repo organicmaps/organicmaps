@@ -12,14 +12,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.text.NumberFormat;
 
 public class ProfileFragment extends BaseMwmToolbarFragment
@@ -59,6 +62,14 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     view.findViewById(R.id.osm_history).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
     view.findViewById(R.id.osm_notes).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
 
+    View buttonsContainer = view.findViewById(R.id.buttons_container);
+    ViewCompat.setOnApplyWindowInsetsListener(
+        buttonsContainer,
+        new WindowInsetUtils.PaddingInsetsListener
+            .Builder()
+            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
+            .setExcludeTop()
+            .build());
   }
 
   private void refreshViews()
