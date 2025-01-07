@@ -30,7 +30,7 @@ Each release has one person appointed as the Release Manager to oversee the upco
 
 It is the duty of the Release Manager to drive the entire process to the successful completion, utilizing all available resources and means. Specific tasks may be delegated to individual team members as required.
 
-The person holds the authority to make final decisions on cut-off and release dates, and can exclude or revert changes to ensure the release schedule is met.
+The person holds the authority to make final decisions on cut-off and release dates, and can exclude or revert changes to ensure the release schedule and quality targets are met.
 
 ### Collaboration
 
