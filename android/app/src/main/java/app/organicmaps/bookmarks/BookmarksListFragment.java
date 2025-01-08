@@ -810,7 +810,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    getAdapter().notifyDataSetChanged();
+    getBookmarkListAdapter().notifyDataSetChanged();
     ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
     actionBar.setTitle(mCategoryDataSource.getData().getName());
   }
