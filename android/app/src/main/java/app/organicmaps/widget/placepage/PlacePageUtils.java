@@ -72,13 +72,18 @@ public class PlacePageUtils
 
   public static void copyToClipboard(Context context, View frame, String text)
   {
+    copyToClipboard(context, frame.getRootView().findViewById(R.id.pp_buttons_layout), frame, text);
+  }
+
+  public static void copyToClipboard(Context context, View snackbarContainer, View frame, String text)
+  {
     Utils.copyTextToClipboard(context, text);
 
     KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
     // Starting from API 33, the automatic system control that shows copied text is displayed.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
-      Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
+      Utils.showSnackbarAbove(snackbarContainer, frame,
                               context.getString(R.string.copied_to_clipboard, text));
     }
   }
@@ -88,13 +93,17 @@ public class PlacePageUtils
     final PopupMenu popup = new PopupMenu(context, popupAnchor);
     final Menu menu = popup.getMenu();
     final String copyText = context.getResources().getString(android.R.string.copy);
+    // A menu item can be clicked after PlacePageButtons is removed from the Views hierarchy so
+    // let's find a container for the snackbar outside of PlacePageButtons and in advance.
+    final View snackbarTarget = (View)
+            popupAnchor.getRootView().findViewById(R.id.pp_buttons_layout).getParent();
 
     for (int i = 0; i < items.size(); i++)
       menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
 
     popup.setOnMenuItemClickListener(item -> {
       final String text = items.get(item.getItemId());
-      copyToClipboard(context, popupAnchor, text);
+      copyToClipboard(context, snackbarTarget, popupAnchor, text);
       return true;
     });
     popup.show();
