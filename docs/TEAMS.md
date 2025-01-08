@@ -6,13 +6,13 @@ Teams are typically assigned as code owners for certain sections of the reposito
 
 ## Triage
 
-- [@organicmaps/triage](https://github.com/orgs/organicmaps/teams/triage/triage)
+- [@organicmaps/triage](https://github.com/orgs/organicmaps/teams/triage/members)
 
 People who help with triaging incoming issues and pull requests. Tag this group if you are unsure which team to tag.
 
 ## Mergers
 
-- [@organicmaps/mergers](https://github.com/orgs/organicmaps/teams/mergers)
+- [@organicmaps/mergers](https://github.com/orgs/organicmaps/teams/mergers/members)
 
 People who can merge pull requests that are ready.
 
@@ -79,7 +79,7 @@ Visual design (icons, graphics, colors, contrast, etc.).
 
 ## Web
 
-- [@organicmaps/website](https://github.com/orgs/organicmaps/teams/website/members)
+- [@organicmaps/web](https://github.com/orgs/organicmaps/teams/web/members)
 
 Web development experts.
 
