@@ -1739,6 +1739,11 @@ void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && tr
     m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackStatistics());
 }
 
+const ElevationInfo & Framework::GetTrackRecordingElevationInfo()
+{
+  return GpsTracker::Instance().GetElevationInfo();
+}
+
 void Framework::StopTrackRecording()
 {
   m_connectToGpsTrack = false;
