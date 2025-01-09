@@ -21312,7 +21312,7 @@
     sr = Мобилни оператер
     sv = Mobiloperatör
     th = ผู้ให้บริการโทรศัพท์มือถือ
-    tr = Cep Telefonu Operatörü
+    tr = GSM Operatörü
     uk = Телекомунікаційна компанія
     vi = Điều hành di động
     zh-Hans = 电信办公室
@@ -21335,6 +21335,7 @@
     pt-BR = Orgânico
     ru = Эко
     sr = Еко
+    tr = Organik
     uk = Еко
 
   [type.organic.yes]
@@ -21825,7 +21826,7 @@
     sv = Lokalitet
     sw = Eneo
     th = ท้องถิ่น
-    tr = Semt
+    tr = Arazi
     uk = Місце
     vi = Thôn
     zh-Hans = 地方
@@ -22077,7 +22078,7 @@
     sv = Stat
     sw = Jimbo la Shirikisho
     th = รัฐ
-    tr = Eyalet
+    tr = İl
     uk = Штат
     vi = Hạt
     zh-Hans = 州/省
@@ -22201,7 +22202,7 @@
     sv = Stad
     sw = Mji
     th = เมือง
-    tr = Kasaba
+    tr = İlçe
     uk = Місто
     vi = Thành phố
     zh-Hans = 镇
