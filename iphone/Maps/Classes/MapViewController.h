@@ -37,6 +37,7 @@
 - (void)openBookmarkEditor;
 - (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
 - (void)openDrivingOptions;
+- (void)showTrackRecordingPlacePage;
 
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
 

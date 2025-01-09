@@ -246,9 +246,19 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:
       guard placePageData.trackData != nil else { return }
-      // TODO: This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
+      // TODO: (KK) This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
       // directly here when the track recovery mechanism will be implemented.
       showTrackDeletionConfirmationDialog()
+    case .saveTrackRecording:
+      // TODO: (KK) pass name typed by user
+      TrackRecordingManager.shared.processAction(.stopAndSave(name: "")) { [weak self] result in
+        switch result {
+        case .success:
+          break
+        case .error:
+          self?.presenter?.closeAnimated()
+        }
+      }
     @unknown default:
       fatalError()
     }
@@ -298,8 +308,8 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
   }
 
   func updateMapPoint(_ point: CLLocationCoordinate2D, distance: Double) {
-    guard let trackId = placePageData.trackData?.trackId else { return }
-    BookmarksManager.shared().setElevationActivePoint(point, distance: distance, trackId: trackId)
+    guard let trackData = placePageData.trackData, trackData.elevationProfileData?.isTrackRecording == false else { return }
+    BookmarksManager.shared().setElevationActivePoint(point, distance: distance, trackId: trackData.trackId)
   }
 }
 
@@ -323,7 +333,12 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
     case .track:
       presenter?.showShareTrackMenu()
     default:
-      fatalError()
+      guard let coordinates = LocationManager.lastLocation()?.coordinate else {
+        viewController?.present(UIAlertController.unknownCurrentPosition(), animated: true, completion: nil)
+        return
+      }
+      let activity = ActivityViewController.share(forMyPosition: coordinates)
+      activity.present(inParentViewController: mapViewController, anchorView: sourceView)
     }
   }
 
