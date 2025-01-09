@@ -8,11 +8,9 @@
 	<array>
 		<string>applinks:omaps.app</string>
 	</array>
-	<key>com.apple.developer.carplay-maps</key>
-	<true/>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.app.organicmaps</string>
+		<string>iCloud.app.tourism</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
@@ -21,7 +19,7 @@
 	</array>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
 	<array>
-		<string>iCloud.app.organicmaps</string>
+		<string>iCloud.app.tourism</string>
 	</array>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
 	<string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>

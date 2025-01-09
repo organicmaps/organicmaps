@@ -99,6 +99,13 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
+			<key>tourismmap.tj</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSUbiquitousContainers</key>
@@ -107,19 +114,19 @@
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>ANY</string>
 			<key>NSUbiquitousContainerName</key>
 			<string>OrganicMaps</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>ANY</string>
 		</dict>
 		<key>iCloud.app.organicmaps.debug</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>ANY</string>
 			<key>NSUbiquitousContainerName</key>
 			<string>OrganicMapsDEBUG</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>ANY</string>
 		</dict>
 	</dict>
 	<key>UIAppFonts</key>
