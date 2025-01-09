@@ -4,8 +4,14 @@
 
 @class MapViewController;
 @class BottomTabBarViewController;
-@class TrackRecordingViewController;
+@class TrackRecordingButtonViewController;
 @class SearchQuery;
+
+typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
+  TrackRecordingButtonStateHidden,
+  TrackRecordingButtonStateVisible,
+  TrackRecordingButtonStateClosed,
+};
 
 @protocol MWMFeatureHolder;
 
@@ -21,7 +27,7 @@
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
 @property(nonatomic) BOOL isDirectionViewHidden;
 @property(nonatomic) BottomTabBarViewController * tabBarController;
-@property(nonatomic) TrackRecordingViewController * trackRecordingButton;
+@property(nonatomic) TrackRecordingButtonViewController * trackRecordingButton;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
@@ -34,6 +40,8 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
+
+- (void)setTrackRecordingButtonState:(TrackRecordingButtonState)state;
 
 #pragma mark - MWMNavigationDashboardManager
 

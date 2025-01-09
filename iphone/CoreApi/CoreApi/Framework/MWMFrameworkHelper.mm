@@ -239,8 +239,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().StopTrackRecording();
 }
 
-+ (void)saveTrackRecordingWithName:(nullable NSString *)name {
-  GetFramework().SaveTrackRecordingWithName(name == nil ? "" : name.UTF8String);
++ (void)saveTrackRecordingWithName:(nonnull NSString *)name {
+  GetFramework().SaveTrackRecordingWithName(name.UTF8String);
 }
 
 + (BOOL)isTrackRecordingEnabled {
@@ -252,7 +252,7 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 }
 
 + (ElevationProfileData * _Nonnull)trackRecordingElevationInfo {
-  return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingCurrentElevationInfo()];
+  return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingElevationInfo()];
 }
 
 // MARK: - ProductsManager
