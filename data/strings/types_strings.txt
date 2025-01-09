@@ -21826,7 +21826,7 @@
     sv = Lokalitet
     sw = Eneo
     th = ท้องถิ่น
-    tr = Semt
+    tr = Arazi
     uk = Місце
     vi = Thôn
     zh-Hans = 地方
