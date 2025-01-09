@@ -41,6 +41,8 @@ public:
 
   /// Returns track statistics.
   const TrackStatistics GetTrackStatistics() const { return m_statistics; }
+  /// Updates the elevation info with the missed points and returns a reference.
+  const ElevationInfo & UpdateAndGetElevationInfo();
 
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
@@ -67,4 +69,6 @@ private:
 
   size_t m_lastId;
   TrackStatistics m_statistics;
+  ElevationInfo m_elevationInfo;
+  bool m_elevationInfoDirty;
 };

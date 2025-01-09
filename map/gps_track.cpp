@@ -84,6 +84,11 @@ TrackStatistics GpsTrack::GetTrackStatistics() const
   return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
+const ElevationInfo & GpsTrack::GetElevationInfo() const
+{
+  return m_collection->UpdateAndGetElevationInfo();
+}
+
 void GpsTrack::Clear()
 {
   {
