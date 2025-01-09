@@ -51,6 +51,11 @@ final class TrackRecordingViewController: MWMViewController {
   // MARK: - Public methods
 
   @objc
+  func setHidden(_ hidden: Bool) {
+    button.isHidden = hidden
+  }
+
+  @objc
   func close(completion: @escaping (() -> Void)) {
     stopTimer()
     UIView.transition(with: self.view,
@@ -75,7 +80,7 @@ final class TrackRecordingViewController: MWMViewController {
     button.tintColor = Constants.color.darker
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setImage(UIImage(resource: .icMenuBookmarkTrackRecording), for: .normal)
-    button.addTarget(self, action: #selector(onTrackRecordingButtonPressed), for: .touchUpInside)
+    button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
     button.isHidden = true
   }
 
@@ -134,12 +139,7 @@ final class TrackRecordingViewController: MWMViewController {
   // MARK: - Actions
 
   @objc
-  private func onTrackRecordingButtonPressed(_ sender: Any) {
-    switch trackRecordingManager.recordingState {
-    case .inactive:
-      trackRecordingManager.processAction(.start)
-    case .active:
-      trackRecordingManager.processAction(.stop)
-    }
+  private func didTap(_ sender: Any) {
+    MapViewController.shared()?.showTrackRecordingPlacePage()
   }
 }

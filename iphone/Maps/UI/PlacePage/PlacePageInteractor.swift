@@ -25,7 +25,7 @@ class PlacePageInteractor: NSObject {
 
   private func updatePlacePageIfNeeded() {
     let isBookmark = placePageData.bookmarkData != nil && bookmarksManager.hasBookmark(placePageData.bookmarkData!.bookmarkId)
-    let isTrack = placePageData.trackData != nil && bookmarksManager.hasTrack(placePageData.trackData!.trackId)
+    let isTrack = placePageData.trackData != nil/* && bookmarksManager.hasTrack(placePageData.trackData!.trackId)*/
     guard isBookmark || isTrack else {
       presenter?.closeAnimated()
       return
@@ -239,11 +239,11 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       fatalError("More button should've been handled in ActionBarViewContoller")
     case .track:
       guard placePageData.trackData != nil else { return }
-      // TODO: This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
+      // TODO: (KK) This is temporary solution. Remove the dialog and use the MWMPlacePageManagerHelper.removeTrack
       // directly here when the track recovery mechanism will be implemented.
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
-      // TODO: (KK) pass name
+      // TODO: (KK) pass name typed by user
       TrackRecordingManager.shared.processAction(.stopAndSave(name: "")) { [weak self] result in
         switch result {
         case .success:
@@ -287,8 +287,8 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
   }
 
   func updateMapPoint(_ point: CLLocationCoordinate2D, distance: Double) {
-    guard let trackId = placePageData.trackData?.trackId else { return }
-    BookmarksManager.shared().setElevationActivePoint(point, distance: distance, trackId: trackId)
+    guard let trackData = placePageData.trackData, trackData.elevationProfileData?.isTrackRecording == false else { return }
+    BookmarksManager.shared().setElevationActivePoint(point, distance: distance, trackId: trackData.trackId)
   }
 }
 

@@ -524,6 +524,7 @@
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
 		ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9857072C4ED02D00694F6C /* MailComposer.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
+		ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */; };
 		EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */; };
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
 		EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */; };
@@ -1490,6 +1491,7 @@
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
 		ED9857072C4ED02D00694F6C /* MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposer.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageTrackRecordingLayout.swift; sourceTree = "<group>"; };
 		EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileFormatter.swift; sourceTree = "<group>"; };
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
 		EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabledAlert.swift; sourceTree = "<group>"; };
@@ -3031,6 +3033,7 @@
 				99C6532123F2F506004322F3 /* IPlacePageLayout.swift */,
 				99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */,
 				993DF0B423F6B2EF00AC231A /* PlacePageTrackLayout.swift */,
+				ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -4630,6 +4633,7 @@
 				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
+				ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */,
 				ED0B1FEF2CAA9A25006E31A4 /* UIView+Highlight.swift in Sources */,
 				99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.m in Sources */,
