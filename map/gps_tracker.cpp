@@ -85,6 +85,11 @@ TrackStatistics GpsTracker::GetTrackStatistics() const
   return m_track.GetTrackStatistics();
 }
 
+const ElevationInfo & GpsTracker::GetElevationInfo() const
+{
+  return m_track.GetElevationInfo();
+}
+
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
 {
   m_track.SetCallback(fn);
