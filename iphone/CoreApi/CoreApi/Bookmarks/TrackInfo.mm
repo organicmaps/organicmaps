@@ -4,7 +4,7 @@
 @implementation TrackInfo
 
 + (TrackInfo *)emptyInfo {
-  return [[TrackInfo alloc] init];
+  return [[TrackInfo alloc] initWithTrackStatistics:TrackStatistics()];
 }
 
 @end

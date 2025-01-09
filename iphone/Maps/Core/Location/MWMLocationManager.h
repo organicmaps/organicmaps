@@ -3,8 +3,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol LocationService
+
++ (BOOL)isLocationProhibited;
++ (void)checkLocationStatus;
+
+@end
+
 NS_SWIFT_NAME(LocationManager)
-@interface MWMLocationManager : NSObject
+@interface MWMLocationManager : NSObject<LocationService>
 
 + (void)start;
 + (void)stop;
@@ -14,10 +21,8 @@ NS_SWIFT_NAME(LocationManager)
 + (void)removeObserver:(id<MWMLocationObserver>)observer NS_SWIFT_NAME(remove(observer:));
 
 + (void)setMyPositionMode:(MWMMyPositionMode)mode;
-+ (void)checkLocationStatus;
 
 + (nullable CLLocation *)lastLocation;
-+ (BOOL)isLocationProhibited;
 + (nullable CLHeading *)lastHeading;
 
 + (void)applicationDidBecomeActive;
