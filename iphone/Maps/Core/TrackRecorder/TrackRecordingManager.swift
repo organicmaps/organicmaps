@@ -24,13 +24,22 @@ enum TrackRecordingActionResult {
 protocol TrackRecordingObservable: AnyObject {
   var recordingState: TrackRecordingState { get }
   var trackRecordingInfo: TrackInfo { get }
+  var trackRecordingElevationProfileData: ElevationProfileData { get }
 
   func addObserver(_ observer: AnyObject, recordingIsActiveDidChangeHandler: @escaping TrackRecordingStateHandler)
   func removeObserver(_ observer: AnyObject)
   func contains(_ observer: AnyObject) -> Bool
 }
 
-typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo) -> Void
+/// A handler type for extracting elevation profile data on demand.
+typealias ElevationProfileDataExtractionHandler = () -> ElevationProfileData
+
+/// A callback type that notifies observers about track recording state changes.
+/// - Parameters:
+///   - state: The current recording state.
+///   - info: The current track recording info.
+///   - elevationProfileExtractor: A closure to fetch elevation profile data lazily.
+typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo, ElevationProfileDataExtractionHandler?) -> Void
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
@@ -62,6 +71,10 @@ final class TrackRecordingManager: NSObject {
   private var observations: [Observation] = []
   private(set) var trackRecordingInfo: TrackInfo = .empty()
 
+  var trackRecordingElevationProfileData: ElevationProfileData {
+    FrameworkHelper.trackRecordingElevationInfo()
+  }
+
   var recordingState: TrackRecordingState {
     trackRecorder.isTrackRecordingEnabled() ? .active : .inactive
   }
@@ -73,6 +86,7 @@ final class TrackRecordingManager: NSObject {
     self.locationService = locationService
     self.activityManager = activityManager
     super.init()
+    self.subscribeOnTheAppLifecycleEvents()
   }
 
   // MARK: - Public methods
@@ -114,6 +128,13 @@ final class TrackRecordingManager: NSObject {
   }
 
   // MARK: - Private methods
+
+  private func subscribeOnTheAppLifecycleEvents() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(notifyObservers),
+                                           name: UIApplication.didBecomeActiveNotification,
+                                           object: nil)
+  }
 
   private func checkIsLocationEnabled() throws(TrackRecordingError) {
     if locationService.isLocationProhibited() {
@@ -199,7 +220,9 @@ extension TrackRecordingManager: TrackRecordingObservable {
     guard !observations.contains(where: { $0.observer === observer }) else { return }
     let observation = Observation(observer: observer, recordingStateDidChangeHandler: recordingIsActiveDidChangeHandler)
     observations.append(observation)
-    recordingIsActiveDidChangeHandler(recordingState, trackRecordingInfo)
+    recordingIsActiveDidChangeHandler(recordingState, trackRecordingInfo) {
+      self.trackRecordingElevationProfileData
+    }
   }
 
   @objc
@@ -212,8 +235,11 @@ extension TrackRecordingManager: TrackRecordingObservable {
     observations.contains { $0.observer === observer }
   }
 
+  @objc
   private func notifyObservers() {
-    observations = observations.filter { $0.observer != nil }
-    observations.forEach { $0.recordingStateDidChangeHandler?(recordingState, trackRecordingInfo) }
+    observations.removeAll { $0.observer == nil }
+    observations.forEach {
+      $0.recordingStateDidChangeHandler?(recordingState, trackRecordingInfo, { self.trackRecordingElevationProfileData })
+    }
   }
 }
