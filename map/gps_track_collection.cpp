@@ -33,6 +33,7 @@ size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max()
 
 GpsTrackCollection::GpsTrackCollection()
   : m_lastId(0)
+  , m_elevationInfoDirty(true)
 {}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
@@ -53,6 +54,8 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
     m_items.emplace_back(item);
     ++added;
   }
+
+  m_elevationInfoDirty = true;
 
   rollbacker.Reset();
 
@@ -85,6 +88,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
   m_items.clear();
   m_items.shrink_to_fit();
   m_statistics = {};
+  m_elevationInfo = {};
 
   if (resetIds)
     m_lastId = 0;
@@ -95,6 +99,21 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 size_t GpsTrackCollection::GetSize() const
 {
   return m_items.size();
+}
+
+const ElevationInfo & GpsTrackCollection::UpdateAndGetElevationInfo()
+{
+  if (!m_elevationInfoDirty)
+    return m_elevationInfo;
+
+  auto const elevationInfoSize = m_elevationInfo.GetSize();
+  if (elevationInfoSize < m_items.size())
+  {
+    std::vector<TItem> const missedPoints(m_items.begin() + elevationInfoSize, m_items.end());
+    m_elevationInfo.AddGpsPoints(missedPoints);
+  }
+  m_elevationInfoDirty = false;
+  return m_elevationInfo;
 }
 
 bool GpsTrackCollection::IsEmpty() const
