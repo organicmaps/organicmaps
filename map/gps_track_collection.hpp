@@ -42,6 +42,9 @@ public:
   /// Returns track statistics.
   const TrackStatistics GetTrackStatistics() const { return m_statistics; }
 
+  /// Calculates and returns elevation info for the track.
+  const ElevationInfo & GetElevationInfo();
+
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
   /// if f returns false, then enumeration is stopped.
@@ -67,4 +70,5 @@ private:
 
   size_t m_lastId;
   TrackStatistics m_statistics;
+  ElevationInfo m_elevationInfo;
 };
