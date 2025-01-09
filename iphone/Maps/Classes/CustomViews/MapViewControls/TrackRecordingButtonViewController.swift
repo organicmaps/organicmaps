@@ -1,4 +1,4 @@
-final class TrackRecordingViewController: MWMViewController {
+final class TrackRecordingButtonViewController: MWMViewController {
 
   private enum Constants {
     static let buttonDiameter = CGFloat(48)
@@ -13,6 +13,7 @@ final class TrackRecordingViewController: MWMViewController {
   private var blinkingTimer: Timer?
   private var topConstraint = NSLayoutConstraint()
   private var trailingConstraint = NSLayoutConstraint()
+  private var state: TrackRecordingButtonState = .hidden
 
   private static var availableArea: CGRect = .zero
   private static var topConstraintValue: CGFloat {
@@ -38,31 +39,29 @@ final class TrackRecordingViewController: MWMViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    UIView.transition(with: self.view,
-                      duration: kDefaultAnimationDuration,
-                      options: .transitionCrossDissolve,
-                      animations: {
-      self.button.isHidden = false
-    })
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // async is for smoother appearance
+    DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration) {
+      self.setState(self.state, completion: nil)
+    }
   }
 
   // MARK: - Public methods
 
   @objc
-  func close(completion: @escaping (() -> Void)) {
-    stopTimer()
-    UIView.transition(with: self.view,
-                      duration: kDefaultAnimationDuration,
-                      options: .transitionCrossDissolve,
-                      animations: {
-      self.button.isHidden = true
-    }, completion: { _ in
-      self.removeFromParent()
-      self.view.removeFromSuperview()
-      completion()
-    })
+  func setState(_ state: TrackRecordingButtonState, completion: (() -> Void)?) {
+    self.state = state
+    switch state {
+    case .visible:
+      setHidden(false, completion: nil)
+    case .hidden:
+      setHidden(true, completion: completion)
+    case .closed:
+      close(completion: completion)
+    @unknown default:
+      fatalError()
+    }
   }
 
   // MARK: - Private methods
@@ -75,7 +74,7 @@ final class TrackRecordingViewController: MWMViewController {
     button.tintColor = Constants.color.darker
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setImage(UIImage(resource: .icMenuBookmarkTrackRecording), for: .normal)
-    button.addTarget(self, action: #selector(onTrackRecordingButtonPressed), for: .touchUpInside)
+    button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
     button.isHidden = true
   }
 
@@ -97,7 +96,7 @@ final class TrackRecordingViewController: MWMViewController {
   }
 
   private func updateLayout() {
-    guard let superview = self.view.superview else { return }
+    guard let superview = view.superview else { return }
     superview.animateConstraints {
       self.topConstraint.constant = Self.topConstraintValue
       self.trailingConstraint.constant = Self.trailingConstraintValue
@@ -123,23 +122,39 @@ final class TrackRecordingViewController: MWMViewController {
     blinkingTimer = nil
   }
 
+  private func setHidden(_ hidden: Bool, completion: (() -> Void)?) {
+    UIView.transition(with: self.view,
+                      duration: kDefaultAnimationDuration,
+                      options: .transitionCrossDissolve,
+                      animations: {
+      self.button.isHidden = hidden
+    }) { _ in
+      completion?()
+    }
+  }
+
+  private func close(completion: (() -> Void)?) {
+    stopTimer()
+    setHidden(true) { [weak self] in
+      guard let self else { return }
+      self.removeFromParent()
+      self.view.removeFromSuperview()
+      completion?()
+    }
+  }
+
   static func updateAvailableArea(_ frame: CGRect) {
     availableArea = frame
-    guard let controller = MapViewController.shared()?.controlsManager.trackRecordingButton else { return }
+    guard let button = MapViewController.shared()?.controlsManager.trackRecordingButton else { return }
     DispatchQueue.main.async {
-      controller.updateLayout()
+      button.updateLayout()
     }
   }
 
   // MARK: - Actions
 
   @objc
-  private func onTrackRecordingButtonPressed(_ sender: Any) {
-    switch trackRecordingManager.recordingState {
-    case .inactive:
-      trackRecordingManager.processAction(.start)
-    case .active:
-      trackRecordingManager.processAction(.stop)
-    }
+  private func didTap(_ sender: Any) {
+    MapViewController.shared()?.showTrackRecordingPlacePage()
   }
 }
