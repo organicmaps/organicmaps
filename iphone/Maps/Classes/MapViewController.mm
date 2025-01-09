@@ -118,6 +118,28 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 #pragma mark - Map Navigation
 
+- (void)showTrackRecordingPlacePage {
+  __block PlacePageData * placePageData = [[PlacePageData alloc] initWithTrackInfo:TrackRecordingManager.shared.trackRecordingInfo
+                                                             elevationInfo:[MWMFrameworkHelper trackRecordingElevationInfo]];
+  [TrackRecordingManager.shared addObserver:self recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull trackInfo) {
+    switch (state) {
+      case TrackRecordingStateInactive:
+        [self stopObservingTrackRecordingUpdates];
+        break;
+      case TrackRecordingStateActive:
+        if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
+          return;
+        [placePageData updateWithTrackInfo:trackInfo elevationInfo:[MWMFrameworkHelper trackRecordingElevationInfo]];
+        break;
+    }
+  }];
+  [self showOrUpdatePlacePage:placePageData];
+}
+
+- (void)stopObservingTrackRecordingUpdates {
+  [TrackRecordingManager.shared removeObserver:self];
+}
+
 - (void)showOrUpdatePlacePage:(PlacePageData *)data {
   if (self.searchManager.isSearching)
     [self.searchManager setPlaceOnMapSelected:YES];
@@ -204,6 +226,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)hideRegularPlacePage {
+  [self stopObservingTrackRecordingUpdates];
   [self.placePageVC closeAnimatedWithCompletion:^{
     [self.placePageVC.view removeFromSuperview];
     [self.placePageVC willMoveToParentViewController:nil];
@@ -247,6 +270,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
     return;
   }
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
+  [self stopObservingTrackRecordingUpdates];
   [self showOrUpdatePlacePage:data];
 }
 
