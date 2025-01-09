@@ -21377,7 +21377,7 @@
     sv = Stad
     sw = Jiji
     th = เมือง
-    tr = İl
+    tr = Şehir
     uk = Місто
     vi = Đất nước
     zh-Hans = 城市
@@ -22078,7 +22078,7 @@
     sv = Stat
     sw = Jimbo la Shirikisho
     th = รัฐ
-    tr = Eyalet
+    tr = İl
     uk = Штат
     vi = Hạt
     zh-Hans = 州/省
