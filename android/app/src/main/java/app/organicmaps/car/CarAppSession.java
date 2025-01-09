@@ -1,10 +1,13 @@
 package app.organicmaps.car;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
@@ -32,6 +35,7 @@ import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
+import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
@@ -199,12 +203,25 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     return screensStack.get(screensStack.size() - 1);
   }
 
+  @RequiresPermission(ACCESS_FINE_LOCATION)
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
+    final LocationHelper locationHelper = LocationHelper.from(getCarContext());
+    // Check if location was disabled by the user.
+    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      Logger.i(TAG, "Location updates are stopped by the user manually.");
+      if (locationHelper.isActive())
+        locationHelper.stop();
+    }
+
     final Screen screen = mScreenManager.getTop();
     if (screen instanceof BaseMapScreen)
       screen.invalidate();
+
+    if (LocationState.getMode() != LocationState.NOT_FOLLOW_NO_POSITION)
+      locationHelper.restartWithNewMode();
   }
 
   @Override
