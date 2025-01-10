@@ -35,11 +35,11 @@ final class InfoView: UIView {
     stackView.alignment = .center
     stackView.spacing = 16
 
-    titleLabel.setStyleAndApply("regular16:blackPrimaryText")
+    titleLabel.setFontStyle(.regular16, color: .blackPrimary)
     titleLabel.lineBreakMode = .byWordWrapping
     titleLabel.numberOfLines = .zero
 
-    imageView.setStyleAndApply("MWMBlack")
+    imageView.setStyle(.black)
     imageView.contentMode = .scaleAspectFit
   }
 

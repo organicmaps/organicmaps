@@ -11,7 +11,7 @@ final class TransportTransitSeparator: UICollectionReusableView {
 
   private func setup() {
     let image = UIImageView(image: #imageLiteral(resourceName: "ic_arrow"))
-    image.styleName = "MWMBlack"
+    image.setStyle(.black)
     image.contentMode = .scaleAspectFit
     addSubview(image)
   }

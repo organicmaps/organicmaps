@@ -24,7 +24,7 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
     } else {
       if badgeView == nil {
         badgeView = UIView()
-        badgeView?.styleName = "Badge"
+        badgeView?.setStyle(.badge)
         addSubview(badgeView!)
       }
       let imageFrame = imageView.frame

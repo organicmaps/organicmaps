@@ -7,7 +7,7 @@ final class DimBackground: SolidTouchView {
     self.mainView = mainView
     self.tapAction = tapAction
     super.init(frame: mainView.superview!.bounds)
-    styleName = "FadeBackground"
+    setStyle(.fadeBackground)
     autoresizingMask = [.flexibleWidth, .flexibleHeight]
     addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
   }

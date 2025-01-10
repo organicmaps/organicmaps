@@ -125,8 +125,8 @@ final class EditBookmarkViewController: MWMTableViewController {
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.textLabel?.text = bookmarkGroupTitle
         cell.imageView?.image = UIImage(named: "ic_folder")
-        cell.imageView?.styleName = "MWMBlack";
-        cell.accessoryType = .disclosureIndicator;
+        cell.imageView?.setStyle(.black)
+        cell.accessoryType = .disclosureIndicator
         return cell;
       default:
         fatalError()

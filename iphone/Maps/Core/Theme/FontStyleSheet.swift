@@ -1,197 +1,132 @@
-class FontStyleSheet: IStyleSheet {
-  static func register(theme: Theme, colors: IColors, fonts: IFonts) {
-    theme.add(styleName: "regular9") { (s) -> (Void) in
-      s.font = fonts.regular9
-    }
-    theme.add(styleName: "regular10") { (s) -> (Void) in
-      s.font = fonts.regular10
-    }
-    theme.add(styleName: "regular11") { (s) -> (Void) in
-      s.font = fonts.regular11
-    }
-    theme.add(styleName: "regular12") { (s) -> (Void) in
-      s.font = fonts.regular12
-    }
-    theme.add(styleName: "regular13") { (s) -> (Void) in
-      s.font = fonts.regular13
-    }
-    theme.add(styleName: "regular14") { (s) -> (Void) in
-      s.font = fonts.regular14
-    }
-    theme.add(styleName: "regular15") { (s) -> (Void) in
-      s.font = fonts.regular15
-    }
-    theme.add(styleName: "regular16") { (s) -> (Void) in
-      s.font = fonts.regular16
-    }
-    theme.add(styleName: "regular17") { (s) -> (Void) in
-      s.font = fonts.regular17
-    }
-    theme.add(styleName: "regular18") { (s) -> (Void) in
-      s.font = fonts.regular18
-    }
-    theme.add(styleName: "regular20") { (s) -> (Void) in
-      s.font = fonts.regular20
-    }
-    theme.add(styleName: "regular24") { (s) -> (Void) in
-      s.font = fonts.regular24
-    }
-    theme.add(styleName: "regular32") { (s) -> (Void) in
-      s.font = fonts.regular32
-    }
-    theme.add(styleName: "regular52") { (s) -> (Void) in
-      s.font = fonts.regular52
-    }
-    theme.add(styleName: "medium9") { (s) -> (Void) in
-      s.font = fonts.medium9
-    }
-    theme.add(styleName: "medium10") { (s) -> (Void) in
-      s.font = fonts.medium10
-    }
-    theme.add(styleName: "medium12") { (s) -> (Void) in
-      s.font = fonts.medium12
-    }
-    theme.add(styleName: "medium14") { (s) -> (Void) in
-      s.font = fonts.medium14
-    }
-    theme.add(styleName: "medium16") { (s) -> (Void) in
-      s.font = fonts.medium16
-    }
-    theme.add(styleName: "medium17") { (s) -> (Void) in
-      s.font = fonts.medium17
-    }
-    theme.add(styleName: "medium18") { (s) -> (Void) in
-      s.font = fonts.medium18
-    }
-    theme.add(styleName: "medium20") { (s) -> (Void) in
-      s.font = fonts.medium20
-    }
-    theme.add(styleName: "medium24") { (s) -> (Void) in
-      s.font = fonts.medium24
-    }
-    theme.add(styleName: "medium28") { (s) -> (Void) in
-      s.font = fonts.medium28
-    }
-    theme.add(styleName: "medium36") { (s) -> (Void) in
-      s.font = fonts.medium36
-    }
-    theme.add(styleName: "medium40") { (s) -> (Void) in
-      s.font = fonts.medium40
-    }
-    theme.add(styleName: "medium44") { (s) -> (Void) in
-      s.font = fonts.medium44
-    }
-    theme.add(styleName: "light10") { (s) -> (Void) in
-      s.font = fonts.light10
-    }
-    theme.add(styleName: "light12") { (s) -> (Void) in
-      s.font = fonts.light12
-    }
-    theme.add(styleName: "light16") { (s) -> (Void) in
-      s.font = fonts.light16
-    }
-    theme.add(styleName: "light17") { (s) -> (Void) in
-      s.font = fonts.light17
-    }
-    theme.add(styleName: "bold12") { (s) -> (Void) in
-      s.font = fonts.bold12
-    }
-    theme.add(styleName: "bold14") { (s) -> (Void) in
-      s.font = fonts.bold14
-    }
-    theme.add(styleName: "bold16") { (s) -> (Void) in
-      s.font = fonts.bold16
-    }
-    theme.add(styleName: "bold17") { (s) -> (Void) in
-      s.font = fonts.bold17
-    }
-    theme.add(styleName: "bold18") { (s) -> (Void) in
-      s.font = fonts.bold18
-    }
-    theme.add(styleName: "bold20") { (s) -> (Void) in
-      s.font = fonts.bold20
-    }
-    theme.add(styleName: "bold22") { (s) -> (Void) in
-      s.font = fonts.bold22
-    }
-    theme.add(styleName: "bold24") { (s) -> (Void) in
-      s.font = fonts.bold24
-    }
-    theme.add(styleName: "bold28") { (s) -> (Void) in
-      s.font = fonts.bold28
-    }
-    theme.add(styleName: "bold34") { (s) -> (Void) in
-      s.font = fonts.bold34
-    }
-    theme.add(styleName: "bold36") { (s) -> (Void) in
-      s.font = fonts.bold36
-    }
-    theme.add(styleName: "bold48") { (s) -> (Void) in
-      s.font = fonts.bold48
-    }
-    theme.add(styleName: "heavy17") { (s) -> (Void) in
-      s.font = fonts.heavy17
-    }
-    theme.add(styleName: "heavy20") { (s) -> (Void) in
-      s.font = fonts.heavy20
-    }
-    theme.add(styleName: "heavy32") { (s) -> (Void) in
-      s.font = fonts.heavy32
-    }
-    theme.add(styleName: "heavy38") { (s) -> (Void) in
-      s.font = fonts.heavy38
-    }
-    theme.add(styleName: "italic12") { (s) -> (Void) in
-      s.font = fonts.italic12
-    }
-    theme.add(styleName: "italic16") { (s) -> (Void) in
-      s.font = fonts.italic16
-    }
-    theme.add(styleName: "semibold12") { (s) -> (Void) in
-      s.font = fonts.semibold12
-    }
-    theme.add(styleName: "semibold14") { (s) -> (Void) in
-      s.font = fonts.semibold14
-    }
-    theme.add(styleName: "semibold15") { (s) -> (Void) in
-      s.font = fonts.semibold15
-    }
-    theme.add(styleName: "semibold16") { (s) -> (Void) in
-      s.font = fonts.semibold16
-    }
-    theme.add(styleName: "semibold18") { (s) -> (Void) in
-      s.font = fonts.semibold18
-    }
+enum FontStyleSheet: String, CaseIterable {
+  case regular9
+  case regular10
+  case regular11
+  case regular12
+  case regular13
+  case regular14
+  case regular15
+  case regular16
+  case regular17
+  case regular18
+  case regular20
+  case regular24
+  case regular32
+  case regular52
 
-    theme.add(styleName: "whitePrimaryText") { (s) -> (Void) in
-      s.fontColor = colors.whitePrimaryText
-    }
-    theme.add(styleName: "blackSecondaryText") { (s) -> (Void) in
-      s.fontColor = colors.blackSecondaryText
-    }
-    theme.add(styleName: "blackPrimaryText") { (s) -> (Void) in
-      s.fontColor = colors.blackPrimaryText
-    }
-    theme.add(styleName: "linkBlueText") { (s) -> (Void) in
-      s.fontColor = colors.linkBlue
-    }
-    theme.add(styleName: "linkBlueHighlightedText") { (s) -> (Void) in
-      s.fontColor = colors.linkBlueHighlighted
-    }
-    theme.add(styleName: "whiteText") { (s) -> (Void) in
-      s.fontColor = colors.white
-    }
-    theme.add(styleName: "blackHintText") { (s) -> (Void) in
-      s.fontColor = colors.blackHintText
-    }
-    theme.add(styleName: "greenText") { (s) -> (Void) in
-      s.fontColor = colors.ratingGreen
-    }
-    theme.add(styleName: "redText") { (s) -> (Void) in
-      s.fontColor = colors.red
-    }
-    theme.add(styleName: "buttonRedText") { (s) -> (Void) in
-      s.fontColor = colors.buttonRed
-    }
+  case medium9
+  case medium10
+  case medium12
+  case medium14
+  case medium16
+  case medium17
+  case medium18
+  case medium20
+  case medium24
+  case medium28
+  case medium36
+  case medium40
+  case medium44
+
+  case light10
+  case light12
+  case light16
+  case light17
+
+  case bold12
+  case bold14
+  case bold16
+  case bold17
+  case bold18
+  case bold20
+  case bold22
+  case bold24
+  case bold28
+  case bold34
+  case bold36
+  case bold48
+
+  case heavy17
+  case heavy20
+  case heavy32
+  case heavy38
+
+  case italic12
+  case italic16
+
+  case semibold12
+  case semibold14
+  case semibold15
+  case semibold16
+  case semibold18
+}
+
+extension FontStyleSheet: IStyleSheet {
+  func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
+    let font: UIFont = {
+      switch self {
+      case .regular9: return fonts.regular9
+      case .regular10: return fonts.regular10
+      case .regular11: return fonts.regular11
+      case .regular12: return fonts.regular12
+      case .regular13: return fonts.regular13
+      case .regular14: return fonts.regular14
+      case .regular15: return fonts.regular15
+      case .regular16: return fonts.regular16
+      case .regular17: return fonts.regular17
+      case .regular18: return fonts.regular18
+      case .regular20: return fonts.regular20
+      case .regular24: return fonts.regular24
+      case .regular32: return fonts.regular32
+      case .regular52: return fonts.regular52
+
+      case .medium9: return fonts.medium9
+      case .medium10: return fonts.medium10
+      case .medium12: return fonts.medium12
+      case .medium14: return fonts.medium14
+      case .medium16: return fonts.medium16
+      case .medium17: return fonts.medium17
+      case .medium18: return fonts.medium18
+      case .medium20: return fonts.medium20
+      case .medium24: return fonts.medium24
+      case .medium28: return fonts.medium28
+      case .medium36: return fonts.medium36
+      case .medium40: return fonts.medium40
+      case .medium44: return fonts.medium44
+
+      case .light10: return fonts.light10
+      case .light12: return fonts.light12
+      case .light16: return fonts.light16
+      case .light17: return fonts.light17
+
+      case .bold12: return fonts.bold12
+      case .bold14: return fonts.bold14
+      case .bold16: return fonts.bold16
+      case .bold17: return fonts.bold17
+      case .bold18: return fonts.bold18
+      case .bold20: return fonts.bold20
+      case .bold22: return fonts.bold22
+      case .bold24: return fonts.bold24
+      case .bold28: return fonts.bold28
+      case .bold34: return fonts.bold34
+      case .bold36: return fonts.bold36
+      case .bold48: return fonts.bold48
+
+      case .heavy17: return fonts.heavy17
+      case .heavy20: return fonts.heavy20
+      case .heavy32: return fonts.heavy32
+      case .heavy38: return fonts.heavy38
+
+      case .italic12: return fonts.italic12
+      case .italic16: return fonts.italic16
+
+      case .semibold12: return fonts.semibold12
+      case .semibold14: return fonts.semibold14
+      case .semibold15: return fonts.semibold15
+      case .semibold16: return fonts.semibold16
+      case .semibold18: return fonts.semibold18
+      }
+    }()
+    return .add { s in s.font = font }
   }
 }

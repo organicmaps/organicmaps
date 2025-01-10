@@ -22,7 +22,7 @@ final class CircleImageButton: UIButton {
 
   private func setupView() {
     backgroundColor = .clear
-    circleImageView.styleName = "PPHeaderCircleIcon"
+    circleImageView.setStyle(.ppHeaderCircleIcon)
     circleImageView.contentMode = .scaleAspectFill
     circleImageView.clipsToBounds = true
     circleImageView.isUserInteractionEnabled = false

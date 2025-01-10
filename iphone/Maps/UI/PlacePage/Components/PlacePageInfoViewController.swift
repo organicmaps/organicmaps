@@ -53,13 +53,13 @@ class InfoItemViewController: UIViewController {
   func setStyle(_ style: Style) {
     switch style {
     case .regular:
-      imageView?.setStyleAndApply("MWMBlack")
-      infoLabel?.setStyleAndApply("blackPrimaryText")
+      imageView?.setStyleAndApply(.black)
+      infoLabel?.setFontStyleAndApply(.blackPrimary)
     case .link:
-      imageView?.setStyleAndApply("MWMBlue")
-      infoLabel?.setStyleAndApply("linkBlueText")
+      imageView?.setStyleAndApply(.blue)
+      infoLabel?.setFontStyleAndApply(.linkBlue)
     }
-    accessoryButton.setStyleAndApply("MWMBlack")
+    accessoryButton.setStyleAndApply(.black)
     self.style = style
   }
 

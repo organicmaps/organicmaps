@@ -29,7 +29,7 @@ class BottomMenuItemCell: UITableViewCell {
       badgeBackgroundWidthConstraint.constant = 32
     }
     isEnabled = enabled
-    icon.setStyleAndApply(isEnabled ? "MWMBlack" : "MWMGray")
-    label.setStyleAndApply(isEnabled ? "blackPrimaryText" : "blackHintText")
+    icon.setStyleAndApply(isEnabled ? .black : .gray)
+    label.setFontStyleAndApply(isEnabled ? .blackPrimary : .blackHint)
   }
 }

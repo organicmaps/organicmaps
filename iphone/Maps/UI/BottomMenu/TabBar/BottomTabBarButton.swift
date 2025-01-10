@@ -3,7 +3,7 @@ import UIKit
 class BottomTabBarButton: MWMButton {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "BottomTabBarButton"
+      setStyle(.bottomTabBarButton)
     }
 
     for style in StyleManager.shared.getStyle(styleName) where !style.isEmpty && !style.hasExclusion(view: self) {

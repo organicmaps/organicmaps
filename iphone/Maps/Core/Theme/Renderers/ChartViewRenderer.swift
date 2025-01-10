@@ -3,7 +3,7 @@ import Chart
 extension ChartView {
   override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "ChartView"
+      setStyle(.ppChartView)
     }
     for style in StyleManager.shared.getStyle(styleName) where !style.isEmpty && !style.hasExclusion(view: self) {
       ChartViewRenderer.render(self, style: style)

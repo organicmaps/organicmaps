@@ -34,7 +34,7 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.styleName = "PressBackground"
+    view.setStyle(.pressBackground)
     viewModel = BMCDefaultViewModel()
   }
 

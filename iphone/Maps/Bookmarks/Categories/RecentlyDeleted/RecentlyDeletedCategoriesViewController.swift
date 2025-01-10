@@ -85,7 +85,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
   }
 
   private func setupTableView() {
-    tableView.styleName = "TableView:PressBackground";
+    tableView.setStyles([.tableView, .pressBackground])
     tableView.allowsMultipleSelectionDuringEditing = true
     tableView.register(cell: RecentlyDeletedTableViewCell.self)
     tableView.setEditing(true, animated: false)

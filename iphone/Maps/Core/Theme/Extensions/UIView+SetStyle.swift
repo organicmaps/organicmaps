@@ -3,7 +3,7 @@ fileprivate struct AssociatedKeys {
   static var isStyleApplied: UInt8 = 1
 }
 
-@objc extension UIView {
+@objc extension UIView: StyleApplicable {
   @objc func sw_didMoveToWindow() {
     guard MapsAppDelegate.theApp().window === window else {
       sw_didMoveToWindow();
@@ -39,7 +39,7 @@ fileprivate struct AssociatedKeys {
     }
   }
 
-  @objc func setStyleAndApply(_ styleName: String) {
+  @objc func setStyleNameAndApply(_ styleName: String) {
     self.styleName = styleName
     applyTheme()
   }

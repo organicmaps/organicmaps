@@ -12,7 +12,7 @@ class BottomMenuViewController: MWMViewController {
 
   lazy var chromeView: UIView = {
     let view = UIView()
-    view.styleName = "PresentationBackground"
+    view.setStyle(.presentationBackground)
     return view
   }()
   

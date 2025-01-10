@@ -104,8 +104,8 @@ final class EditTrackViewController: MWMTableViewController {
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.textLabel?.text = trackGroupTitle
         cell.imageView?.image = UIImage(named: "ic_folder")
-        cell.imageView?.styleName = "MWMBlack";
-        cell.accessoryType = .disclosureIndicator;
+        cell.imageView?.setStyle(.black)
+        cell.accessoryType = .disclosureIndicator
         return cell;
       default:
         fatalError()
