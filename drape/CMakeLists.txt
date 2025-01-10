@@ -170,6 +170,10 @@ if (PLATFORM_LINUX)
   find_package(OpenGL)
 endif()
 
+if (PLATFORM_MAC)
+  set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+endif()
+
 set(DRAPE_LINK_LIBRARIES
   indexer
   platform
