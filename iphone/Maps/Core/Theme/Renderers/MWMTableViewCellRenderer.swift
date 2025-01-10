@@ -2,7 +2,7 @@ import Foundation
 extension MWMTableViewCell {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "MWMTableViewCell"
+      setStyle(.tableViewCell)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

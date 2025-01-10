@@ -81,29 +81,29 @@ final class BCCreateCategoryAlert: MWMAlert {
   }
 
   private func process(state: State) {
-    let styleName: String
+    let style: TextColorStyleSheet
     switch state {
     case .valid:
-      styleName = "blackHintText"
+      style = .blackHint
       rightButton.isEnabled = true
       errorLabel.isHidden = true
     case .tooFewSymbols:
-      styleName = "blackHintText"
+      style = .blackHint
       errorLabel.isHidden = true
       rightButton.isEnabled = false
     case .tooManySymbols:
-      styleName = "buttonRedText"
+      style = .buttonRed
       errorLabel.isHidden = false
       errorLabel.text = L("bookmarks_error_title_list_name_too_long")
       rightButton.isEnabled = false
     case .nameAlreadyExists:
-      styleName = "buttonRedText"
+      style = .buttonRed
       errorLabel.isHidden = false
       errorLabel.text = L("bookmarks_error_title_list_name_already_taken")
       rightButton.isEnabled = false
     }
 
-    charactersCountLabel.setStyleAndApply(styleName)
+    charactersCountLabel.setFontStyleAndApply(style)
     textFieldContainer.layer.borderColor = charactersCountLabel.textColor.cgColor
   }
 

@@ -2,7 +2,7 @@ import Foundation
 extension Checkmark {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "Checkmark"
+      setStyle(.checkmark)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

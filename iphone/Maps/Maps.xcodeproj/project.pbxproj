@@ -178,7 +178,6 @@
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
-		3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */; };
 		3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */; };
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
 		44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44360A0C2A7D34990016F412 /* TransportRuler.swift */; };
@@ -347,8 +346,8 @@
 		993DF0CC23F6BD0600AC231A /* ElevationDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0C723F6BD0600AC231A /* ElevationDetailsPresenter.swift */; };
 		993DF10223F6BDB100AC231A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0CD23F6BDB000AC231A /* Colors.swift */; };
 		993DF10323F6BDB100AC231A /* MainTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0CE23F6BDB000AC231A /* MainTheme.swift */; };
-		993DF10423F6BDB100AC231A /* UIView+styleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D023F6BDB000AC231A /* UIView+styleName.swift */; };
-		993DF10523F6BDB100AC231A /* UINavigationItem+styleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D123F6BDB000AC231A /* UINavigationItem+styleName.swift */; };
+		993DF10423F6BDB100AC231A /* UIView+SetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */; };
+		993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */; };
 		993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */; };
 		993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D323F6BDB000AC231A /* UIColor+image.swift */; };
 		993DF10823F6BDB100AC231A /* IColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0D523F6BDB000AC231A /* IColors.swift */; };
@@ -410,7 +409,6 @@
 		998927402449ECC200260CE2 /* BottomMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9989273F2449ECC200260CE2 /* BottomMenuItemCell.swift */; };
 		999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC11F23ABA9AD00B0E6F9 /* SearchStyleSheet.swift */; };
 		999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */; };
-		99A614D523C8911A00D8D8D0 /* AuthStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */; };
 		99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */; };
 		99A906DE23F6F7030005872B /* PlacePageEditBookmarkOrTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */; };
 		99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */; };
@@ -509,6 +507,9 @@
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
 		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
+		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
+		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
+		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
 		ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9857072C4ED02D00694F6C /* MailComposer.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
 		EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */; };
@@ -520,6 +521,7 @@
 		EDC4E34D2C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
+		EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */; };
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
@@ -1120,7 +1122,6 @@
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMObjectsCategorySelectorDataSource.mm; sourceTree = "<group>"; };
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
-		3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParntersStyleSheet.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
 		3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPowerManagmentViewController.mm; sourceTree = "<group>"; };
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
@@ -1265,8 +1266,8 @@
 		993DF0C723F6BD0600AC231A /* ElevationDetailsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevationDetailsPresenter.swift; sourceTree = "<group>"; };
 		993DF0CD23F6BDB000AC231A /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		993DF0CE23F6BDB000AC231A /* MainTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTheme.swift; sourceTree = "<group>"; };
-		993DF0D023F6BDB000AC231A /* UIView+styleName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+styleName.swift"; sourceTree = "<group>"; };
-		993DF0D123F6BDB000AC231A /* UINavigationItem+styleName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+styleName.swift"; sourceTree = "<group>"; };
+		993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SetStyle.swift"; sourceTree = "<group>"; };
+		993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+StyleStyle.swift"; sourceTree = "<group>"; };
 		993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+rgba.swift"; sourceTree = "<group>"; };
 		993DF0D323F6BDB000AC231A /* UIColor+image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+image.swift"; sourceTree = "<group>"; };
 		993DF0D523F6BDB000AC231A /* IColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IColors.swift; sourceTree = "<group>"; };
@@ -1332,7 +1333,6 @@
 		9989273F2449ECC200260CE2 /* BottomMenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuItemCell.swift; sourceTree = "<group>"; };
 		999FC11F23ABA9AD00B0E6F9 /* SearchStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStyleSheet.swift; sourceTree = "<group>"; };
 		999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyleSheet.swift; sourceTree = "<group>"; };
-		99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStyleSheet.swift; sourceTree = "<group>"; };
 		99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageEditBookmarkOrTrackViewController.swift; sourceTree = "<group>"; };
@@ -1471,6 +1471,9 @@
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
+		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
+		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
+		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
 		ED9857072C4ED02D00694F6C /* MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposer.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileFormatter.swift; sourceTree = "<group>"; };
@@ -1482,6 +1485,7 @@
 		EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
+		EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
@@ -2836,8 +2840,9 @@
 		993DF0CF23F6BDB000AC231A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				993DF0D023F6BDB000AC231A /* UIView+styleName.swift */,
-				993DF0D123F6BDB000AC231A /* UINavigationItem+styleName.swift */,
+				993DF0D023F6BDB000AC231A /* UIView+SetStyle.swift */,
+				ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */,
+				993DF0D123F6BDB000AC231A /* UINavigationItem+StyleStyle.swift */,
 				993DF0D223F6BDB000AC231A /* UIColor+rgba.swift */,
 				AC79C8912A65AB9500594C24 /* UIColor+hexString.swift */,
 				993DF0D323F6BDB000AC231A /* UIColor+image.swift */,
@@ -2941,14 +2946,15 @@
 				993DF0CD23F6BDB000AC231A /* Colors.swift */,
 				993DF0FA23F6BDB100AC231A /* Fonts.swift */,
 				993DF0CE23F6BDB000AC231A /* MainTheme.swift */,
+				ED914AB72D351DF000973C45 /* StyleApplicable.swift */,
+				EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */,
 				993DF10123F6BDB100AC231A /* GlobalStyleSheet.swift */,
 				99A906F223FA95AB0005872B /* PlacePageStyleSheet.swift */,
 				99F8B4C523B644A6009FF0B4 /* MapStyleSheet.swift */,
 				991FCA2323B11E61009AD684 /* BookmarksStyleSheet.swift */,
 				999FC11F23ABA9AD00B0E6F9 /* SearchStyleSheet.swift */,
 				999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */,
-				99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */,
-				3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */,
+				ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -4398,6 +4404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */,
 				34845DB71E166084003D55B9 /* Common.swift in Sources */,
 				47F4F21323A6EC420022FD56 /* DownloadMapsViewController.swift in Sources */,
 				99A906F623FA9C010005872B /* InsetsLabelRenderer.swift in Sources */,
@@ -4499,7 +4506,6 @@
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
-				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
@@ -4540,7 +4546,7 @@
 				993DF12A23F6BDB100AC231A /* Style.swift in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */,
-				993DF10423F6BDB100AC231A /* UIView+styleName.swift in Sources */,
+				993DF10423F6BDB100AC231A /* UIView+SetStyle.swift in Sources */,
 				998927302449DE1500260CE2 /* TabBarArea.swift in Sources */,
 				995739042355CAA30019AEE7 /* PageIndicator.swift in Sources */,
 				470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */,
@@ -4559,7 +4565,6 @@
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
 				34B846A12029DCC10081ECCD /* BMCCategoriesHeader.swift in Sources */,
-				99A614D523C8911A00D8D8D0 /* AuthStyleSheet.swift in Sources */,
 				99A906F123FA946E0005872B /* DifficultyViewRenderer.swift in Sources */,
 				F6E2FD5F1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.m in Sources */,
 				49AB95982CB2FE5300468EA2 /* UIButton+ImagePadding.swift in Sources */,
@@ -4691,6 +4696,7 @@
 				9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */,
 				3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */,
 				34D3B03C1E389D05004100F9 /* MWMEditorSwitchTableViewCell.m in Sources */,
+				EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */,
 				34AB66411FC5AA330078E451 /* RouteManagerTransitioningManager.swift in Sources */,
 				EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */,
 				996D108A24E3DBF2002DD0E2 /* BookmarksCoordinator.swift in Sources */,
@@ -4723,6 +4729,7 @@
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */,
+				ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */,
@@ -4774,6 +4781,7 @@
 				99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */,
 				993DF10623F6BDB100AC231A /* UIColor+rgba.swift in Sources */,
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
+				ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */,
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,
 				47CA68F1250B54AF00671019 /* BookmarksListCell.swift in Sources */,
@@ -4785,7 +4793,7 @@
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
-				993DF10523F6BDB100AC231A /* UINavigationItem+styleName.swift in Sources */,
+				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,
 				9977E69C247BFB510073780C /* SearchTextField.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
 				039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */,

@@ -3,7 +3,7 @@ fileprivate struct AssociatedKeys {
   static var isStyleApplied: UInt8 = 1
 }
 
-@objc extension UINavigationItem {
+@objc extension UINavigationItem: StyleApplicable {
   @objc var styleName: String {
     get {
       isStyleApplied = false
@@ -27,10 +27,5 @@ fileprivate struct AssociatedKeys {
     set(newValue) {
       objc_setAssociatedObject(self, &AssociatedKeys.isStyleApplied, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
-  }
-
-  @objc func setStyleAndApply(_ styleName: String) {
-    self.styleName = styleName
-    self.applyTheme()
   }
 }

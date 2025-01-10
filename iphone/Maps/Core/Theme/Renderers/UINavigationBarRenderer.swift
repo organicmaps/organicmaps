@@ -2,7 +2,7 @@
 extension UINavigationBar {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "NavigationBar"
+      setStyle(.navigationBar)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

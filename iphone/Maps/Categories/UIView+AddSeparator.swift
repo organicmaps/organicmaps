@@ -8,7 +8,7 @@ extension UIView {
                     thickness: CGFloat = 1.0,
                     insets: UIEdgeInsets = .zero) {
     let lineView = UIView()
-    lineView.setStyleAndApply("Divider")
+    lineView.setStyleAndApply(.divider)
     lineView.isUserInteractionEnabled = false
     lineView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(lineView)

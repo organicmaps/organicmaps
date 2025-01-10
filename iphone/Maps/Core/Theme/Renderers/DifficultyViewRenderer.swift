@@ -2,7 +2,7 @@ import Foundation
 extension DifficultyView {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "DifficultyView"
+      setStyle(.difficultyView)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

@@ -20,13 +20,13 @@ final class DonationView: UIView {
   }
 
   private func setupViews() {
-    donateTextLabel.styleName = "regular14:blackPrimaryText"
+    donateTextLabel.setFontStyle(.regular14, color: .blackPrimary)
     donateTextLabel.text = L("donate_description")
     donateTextLabel.textAlignment = .center
     donateTextLabel.lineBreakMode = .byWordWrapping
     donateTextLabel.numberOfLines = 0
 
-    donateButton.styleName = "FlatNormalButton"
+    donateButton.setStyle(.flatNormalButton)
     donateButton.setTitle(L("donate").localizedUppercase, for: .normal)
     donateButton.addTarget(self, action: #selector(donateButtonDidTap), for: .touchUpInside)
   }

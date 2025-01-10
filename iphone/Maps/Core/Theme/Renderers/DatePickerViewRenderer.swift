@@ -3,7 +3,7 @@ import DatePicker
 extension DatePickerView {
   override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "DatePickerView"
+      setStyle(.datePickerView)
     }
     for style in StyleManager.shared.getStyle(styleName) where !style.isEmpty && !style.hasExclusion(view: self) {
       DatePickerViewRenderer.render(self, style: style)

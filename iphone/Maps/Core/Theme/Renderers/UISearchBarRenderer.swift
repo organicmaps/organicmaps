@@ -2,7 +2,7 @@ import Foundation
 extension UISearchBar {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "SearchBar"
+      setStyle(.searchBar)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

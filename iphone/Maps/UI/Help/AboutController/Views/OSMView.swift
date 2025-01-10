@@ -36,7 +36,7 @@ final class OSMView: UIView {
   private func setupViews() {
     OSMImageView.image = UIImage(named: "osm_logo")
 
-    OSMTextLabel.styleName = "regular14:blackPrimaryText"
+    OSMTextLabel.setFontStyle(.regular14, color: .blackPrimary)
     OSMTextLabel.lineBreakMode = .byWordWrapping
     OSMTextLabel.numberOfLines = 0
     OSMTextLabel.isUserInteractionEnabled = true

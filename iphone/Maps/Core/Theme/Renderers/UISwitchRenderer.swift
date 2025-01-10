@@ -1,7 +1,7 @@
 extension UISwitch {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "Switch"
+      setStyle(.switch)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

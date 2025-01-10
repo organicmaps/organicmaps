@@ -1,7 +1,7 @@
 extension ValueStepperView {
   override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "ValueStepperView"
+      setStyle(.valueStepperView)
     }
     for style in StyleManager.shared.getStyle(styleName) where !style.isEmpty && !style.hasExclusion(view: self) {
       ValueStepperViewRenderer.render(self, style: style)

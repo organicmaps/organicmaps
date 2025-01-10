@@ -12,8 +12,7 @@ class SettingsTableViewDetailedSwitchCell: SettingsTableViewSwitchCell {
   }
 
   private func styleDetail() {
-    let detailTextLabelStyle = "regular12:blackSecondaryText"
-    detailTextLabel?.setStyleAndApply(detailTextLabelStyle)
+    detailTextLabel?.setFontStyleAndApply(.regular12, color: .blackSecondary)
     detailTextLabel?.numberOfLines = 0
     detailTextLabel?.lineBreakMode = .byWordWrapping
   }

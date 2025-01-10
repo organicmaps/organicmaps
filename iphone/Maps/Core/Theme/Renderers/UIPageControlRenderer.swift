@@ -1,7 +1,7 @@
 extension UIPageControl {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "PageControl"
+      setStyle(.pageControl)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

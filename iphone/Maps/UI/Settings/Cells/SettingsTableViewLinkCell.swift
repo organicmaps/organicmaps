@@ -7,11 +7,11 @@ final class SettingsTableViewLinkCell: MWMTableViewCell {
   }
 
   private func setupCell() {
-    styleName = "Background"
-    textLabel?.styleName = "regular17:blackPrimaryText"
+    setStyle(.background)
+    textLabel?.setFontStyle(.regular17, color: .blackPrimary)
     textLabel?.numberOfLines = 0
     textLabel?.lineBreakMode = .byWordWrapping
-    detailTextLabel?.styleName = "regular17:blackSecondaryText"
+    detailTextLabel?.setFontStyle(.regular17, color: .blackSecondary)
   }
 
   @objc func config(title: String, info: String?) {

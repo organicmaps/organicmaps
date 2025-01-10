@@ -46,8 +46,6 @@ class DayColors: IColors {
   var ratingYellow = UIColor(245, 176, 39, alpha100)
   var ratingLightGreen = UIColor(124, 179, 66, alpha100)
   var ratingGreen = UIColor(67, 160, 71, alpha100)
-  var facebookButtonBackground = UIColor(59, 89, 152, alpha100);
-  var facebookButtonBackgroundDisabled = UIColor(59, 89, 152, alpha70);
   var fadeBackground = UIColor(0, 0, 0, alpha80)
   var blackStatusBarBackground = UIColor(0, 0, 0, alpha80)
   var elevationPreviewTint = UIColor(193, 209, 224, alpha30)
@@ -57,7 +55,6 @@ class DayColors: IColors {
   var chartShadow = UIColor(red: 0.118, green: 0.588, blue: 0.941, alpha: 0.12)
   var cityColor = UIColor(red: 0.4, green: 0.225, blue: 0.75, alpha: 1)
   var outdoorColor = UIColor(red: 0.235, green: 0.549, blue: 0.235, alpha: 1)
-  var lonelyPlanetLogoColor = UIColor(red: 0, green: 0.286, blue: 0.565, alpha: 1)
   var carplayPlaceholderBackground = UIColor(221, 221, 205, alpha100)
   var iconOpaqueGrayTint = UIColor(117, 117, 117, alpha100)
   var iconOpaqueGrayBackground = UIColor(231, 231, 231, alpha100)
@@ -111,8 +108,6 @@ class NightColors: IColors {
   var ratingYellow = UIColor(245, 176, 39, alpha100)
   var ratingLightGreen = UIColor(124, 179, 66, alpha100)
   var ratingGreen = UIColor(67, 160, 71, alpha100)
-  var facebookButtonBackground = UIColor(59, 89, 152, alpha100);
-  var facebookButtonBackgroundDisabled = UIColor(59, 89, 152, alpha70);
   var fadeBackground = UIColor(0, 0, 0, alpha80)
   var blackStatusBarBackground = UIColor(0, 0, 0, alpha80)
   var elevationPreviewTint = UIColor(0, 0, 0, alpha54)
@@ -122,7 +117,6 @@ class NightColors: IColors {
   var chartShadow = UIColor(red: 0.294, green: 0.725, blue: 0.902, alpha: 0.12)
   var cityColor = UIColor(152, 103, 252, alpha100)
   var outdoorColor = UIColor(147, 191, 57, alpha100)
-  var lonelyPlanetLogoColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
   var carplayPlaceholderBackground = UIColor(50, 54, 58, alpha100)
   var iconOpaqueGrayTint = UIColor(197, 197, 197, alpha100)
   var iconOpaqueGrayBackground = UIColor(84, 86, 90, alpha100)

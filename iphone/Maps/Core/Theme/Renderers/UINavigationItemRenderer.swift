@@ -1,7 +1,7 @@
 extension UINavigationItem {
   @objc func applyTheme() {
     if styleName.isEmpty {
-      styleName = "NavigationBarItem"
+      setStyle(.navigationBarItem)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty {

@@ -153,7 +153,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private func setupView() {
     let bgView = UIView()
-    bgView.styleName = "PPBackgroundView"
+    bgView.setStyle(.ppBackgroundView)
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
 

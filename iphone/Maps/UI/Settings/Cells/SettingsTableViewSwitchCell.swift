@@ -47,7 +47,7 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
   }
 
   private func setupCell() {
-    styleName = "Background"
+    setStyle(.background)
     styleTitle()
     textLabel?.numberOfLines = 0
     textLabel?.lineBreakMode = .byWordWrapping
@@ -63,7 +63,6 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
   }
 
   private func styleTitle() {
-    let style = "regular17:" + (isEnabled ? "blackPrimaryText" : "blackSecondaryText")
-    textLabel?.setStyleAndApply(style)
+    textLabel?.setFontStyleAndApply(.regular17, color: isEnabled ? .blackPrimary : .blackSecondary)
   }
 }

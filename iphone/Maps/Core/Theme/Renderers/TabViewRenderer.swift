@@ -1,7 +1,7 @@
 extension TabView {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      styleName = "TabView"
+      setStyle(.tabView)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {
