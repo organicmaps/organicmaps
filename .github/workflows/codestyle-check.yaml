@@ -1,0 +1,45 @@
+name: Codestyle check
+on:
+  pull_request:
+    paths:
+      - .github/workflows/codestyle-check.yaml
+      - .clang-format
+      - '**.c'
+      - '**.cpp'
+      - '**.h'
+      - '**.hpp'
+      - '**.m'
+      - '**.mm'
+      - '**.java'
+      - '!3party/**'
+
+jobs:
+  clang-format-check:
+    name: Clang-format check
+    runs-on: ubuntu-24.04
+    env:
+      COMMITS_COUNT: ${{ github.event.pull_request.commits }}
+    steps:
+      - name: Calculate PR fetch depth
+        run: echo "PR_FETCH_DEPTH=$(($COMMITS_COUNT + 1))" >> "${GITHUB_ENV}"
+
+      - name: Checkout PR branch and all PR commits
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: ${{ env.PR_FETCH_DEPTH }}
+
+      - name: Install clang-format tool
+        run: sudo apt install -y clang-format
+
+      - name: Run git clang-format
+        run: |
+          git clang-format HEAD~${COMMITS_COUNT} --extensions 'c,cpp,h,hpp,m,mm,java'
+
+      - name: Post clang-format comments
+        if: failure()
+        uses: reviewdog/action-suggester@v1.21.0
+        with:
+          tool_name: clang-format
+          fail_level: error
