@@ -65,7 +65,7 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 ## How to add a new map feature / POI type
 
 1. Add it into `data/mapcss-mapping.csv` (or better replace existing `deprecated` line) to make OM import it from OSM
-2. If necessary merge similar tags in via `data/replaced_tags.txt` 
+2. If necessary merge similar tags in via `data/replaced_tags.txt`
 3. Define a priority for the new feature type in e.g. [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt) and/or other priorities files
 4. Add a new icon (see [above](#how-to-add-a-new-icon)) and/or other styling (area, line..)
 5. If a new POI should be OSM-addable/editable then add it to `data/editor.config`
