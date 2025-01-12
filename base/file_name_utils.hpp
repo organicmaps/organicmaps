@@ -40,12 +40,7 @@ template <typename... Args>
 std::string JoinPath(std::string const & folder, Args &&... args)
 {
   if (folder.empty())
-  {
-    if (sizeof...(args) == 0)
-      {return {};}
-    else
-      {return impl::JoinPath(std::forward<Args>(args)...);}
-  }
+    return {};
 
   return AddSlashIfNeeded(folder) + impl::JoinPath(std::forward<Args>(args)...);
 }
@@ -55,7 +50,8 @@ std::string JoinPath(std::string const & folder, Args &&... args)
 template <typename... Args>
 std::string JoinPath(std::string const & dir, std::string const & fileOrDir, Args &&... args)
 {
-  ASSERT(!fileOrDir.empty(), ("JoinPath fileOrDir is empty" + fileOrDir));
+    ASSERT(!dir.empty(), ("JoinPath dir is empty"));
+  ASSERT(!fileOrDir.empty(), ("JoinPath fileOrDir is empty"));
   return impl::JoinPath(dir, fileOrDir, std::forward<Args>(args)...);
 }
 }  // namespace base
