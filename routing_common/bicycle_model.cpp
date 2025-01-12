@@ -172,9 +172,6 @@ VehicleModel::SurfaceInitList const kBicycleSurface = {
   {{"psurface", "paved_bad"}, {0.8, 0.8}},
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
-  {{"_mtb_rating", "intermediate"}, {0.3, 0.3}}, // similar to unpaved_bad
-  {{"_mtb_rating", "difficult"}, {0.1, 0.1}}, 
-  {{"_mtb_rating", "expert"}, {0.05, 0.05}},
   // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
   {{"hwtag", "nocycleway"}, {0.8, 0.8}},
 };

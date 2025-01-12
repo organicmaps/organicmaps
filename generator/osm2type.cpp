@@ -575,6 +575,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
   double surfaceGrade = 2; // default is "normal"
   string highway;
   string trackGrade;
+  string mtb_rating;
 
   for (auto const & tag : p->m_tags)
   {
@@ -590,6 +591,8 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
       highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
+    else if (tag.m_key == "_mtb_rating")
+      mtb_rating = tag.m_value;
   }
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
@@ -736,7 +739,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     }
   }
 
-  if (highway.empty() || (surface.empty() && smoothness.empty()))
+  if (highway.empty() || (surface.empty() && smoothness.empty() && mtb_rating.empty()))
     return {};
 
   bool isGood = true;
@@ -782,6 +785,8 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     isGood = false;
   else if (!surface.empty() && surfaceGrade < 3)
     isGood = isPaved ? !Has(badSurfaces, surface) : !Has(veryBadSurfaces, surface);
+  else if (!mtb_rating.empty())
+    isGood = false;  // if path has an mtb:score(:imba)-tag, the surface is certainly bad
 
   string psurface = isPaved ? "paved_" : "unpaved_";
   psurface += isGood ? "good" : "bad";
@@ -820,7 +825,7 @@ string DeterminePathGrade(OsmElement * p)
 
 string DetermineMtbRating(OsmElement * p)
 {
-  if (!p->HasTag("highway", "cycleway") || (!p->HasTag("mtb:scale") && !p->HasTag("mtb:scale:imba") && !p->HasTag("smoothness")))
+  if ((!p->HasTag("mtb:scale") && !p->HasTag("mtb:scale:imba") && !p->HasTag("smoothness")))
     return {};
 
   enum eMtbRating : int
@@ -968,11 +973,11 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     p->AddTag("area", "yes");
   }
 
+  p->AddTag("_mtb_rating", DetermineMtbRating(p));
+
   p->AddTag("psurface", DetermineSurfaceAndHighwayType(p));
 
   p->AddTag("_path_grade", DeterminePathGrade(p));
-
-  p->AddTag("_mtb_rating", DetermineMtbRating(p));
 
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);
