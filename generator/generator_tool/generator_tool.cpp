@@ -189,8 +189,6 @@ DEFINE_uint64(threads_count, 0, "Desired count of threads. If count equals zero,
                                 "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
-
-
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
   using namespace generator;
