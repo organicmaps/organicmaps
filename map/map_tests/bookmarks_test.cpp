@@ -450,7 +450,7 @@ void CheckPlace(Framework const & fm, std::shared_ptr<MwmInfo> const & mwmInfo, 
   auto const info = fm.GetAddressAtPoint(mercator::FromLatLon(lat, lon));
 
   feature::NameParamsOut out;
-  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentNorm(),
+  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
                              false /* allowTranslit */ }, out);
 
   TEST_EQUAL(info.GetStreetName(), out.primary, ());
@@ -1155,7 +1155,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   for (auto const trackId : bmManager.GetTrackIds(catId))
   {
     auto const * track = bmManager.GetTrack(trackId);
-    auto const & geom = track->GetSingleGeometry();
+    auto const & geom = track->GetGeometry();
 
     TEST_EQUAL(geom[0].GetAltitude(), altitudes[i], ());
     TEST_EQUAL(names[i], track->GetName(), ());

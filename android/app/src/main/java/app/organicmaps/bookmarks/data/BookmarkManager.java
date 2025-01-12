@@ -596,7 +596,6 @@ public enum BookmarkManager
     return nativeGetBookmarkColor(bookmarkId);
   }
 
-  @Icon.BookmarkIconType
   public int getBookmarkIcon(@IntRange(from = 0) long bookmarkId)
   {
     return nativeGetBookmarkIcon(bookmarkId);
@@ -854,7 +853,6 @@ public enum BookmarkManager
   @Icon.PredefinedColor
   private static native int nativeGetBookmarkColor(@IntRange(from = 0) long bookmarkId);
 
-  @Icon.BookmarkIconType
   private static native int nativeGetBookmarkIcon(@IntRange(from = 0) long bookmarkId);
 
   @NonNull
@@ -918,7 +916,7 @@ public enum BookmarkManager
   public interface BookmarksSortingListener
   {
     void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp);
-    void onBookmarksSortingCancelled(long timestamp);
+    default void onBookmarksSortingCancelled(long timestamp) {};
   }
 
   public interface BookmarksSharingListener

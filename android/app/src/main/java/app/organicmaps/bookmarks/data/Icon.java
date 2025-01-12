@@ -69,7 +69,6 @@ public class Icon implements Parcelable
                                              toARGB(115, 115, 115), // gray
                                              toARGB(89, 115, 128) }; // bluegray
 
-  @interface BookmarkIconType {}
   static final int BOOKMARK_ICON_TYPE_NONE = 0;
 
   /// @note Important! Should be synced with kml/types.hpp/BookmarkIcon
@@ -113,10 +112,9 @@ public class Icon implements Parcelable
 
   @PredefinedColor
   private final int mColor;
-  @BookmarkIconType
   private final int mType;
 
-  public Icon(@PredefinedColor int color, @BookmarkIconType int type)
+  public Icon(@PredefinedColor int color, int type)
   {
     mColor = color;
     mType = type;

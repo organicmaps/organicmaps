@@ -1,5 +1,5 @@
-- Edit Tracks: Change name, color, list and description of tracks, or delete them.
-- Open in Another App: Select any map point in Organic Maps and open in apps like taxi, delivery, transport, or other map apps.
-- Map Data: Updated as of October 1, now with added isolines for Egypt and improved for Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
-- Right-to-left languages: Enhanced the place page, search, and about screens.
+• Nouvelles données OpenStreetMap du 22 novembre
+• Mise en évidence de la partie correspondante de l'adresse dans les résultats de recherche
+• Tri de l'historique des recherches par dernier temps d'utilisation
+• Correction des plantages au démarrage sur certains anciens appareils avec des GPU Mali-T
+• Autres améliorations de recherche, mises à jour de traduction et corrections de bugs

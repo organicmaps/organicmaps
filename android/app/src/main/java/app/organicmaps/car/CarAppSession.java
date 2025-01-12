@@ -20,14 +20,16 @@ import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.PlaceScreen;
-import app.organicmaps.car.screens.RequestPermissionsScreen;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
+import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
 import app.organicmaps.car.util.CarSensorsManager;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
@@ -161,7 +163,11 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mInitFailed = false;
     try
     {
-      MwmApplication.from(getCarContext()).init(() -> Config.setFirstStartDialogSeen(getCarContext()));
+      MwmApplication.from(getCarContext()).init(() -> {
+        Config.setFirstStartDialogSeen(getCarContext());
+        if (DownloaderHelpers.isWorldMapsDownloadNeeded())
+          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
+      });
     } catch (IOException e)
     {
       mInitFailed = true;
@@ -178,11 +184,8 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     final List<Screen> screensStack = new ArrayList<>();
     screensStack.add(new MapScreen(getCarContext(), mSurfaceRenderer));
 
-    if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-      screensStack.add(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
-
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
-      screensStack.add(new RequestPermissionsScreen(getCarContext(), mSensorsManager::onStart));
+      screensStack.add(RequestPermissionsScreenBuilder.build(getCarContext(), mSensorsManager::onStart));
 
     if (mDisplayManager.isDeviceDisplayUsed())
     {
@@ -214,7 +217,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mSurfaceRenderer.disable();
 
     final MapPlaceholderScreen mapPlaceholderScreen = new MapPlaceholderScreen(getCarContext());
-    if (!isPermissionsOrErrorScreen(topScreen))
+    if (topScreen instanceof UserActionRequired)
       mScreenManager.popToRoot();
 
     mScreenManager.push(mapPlaceholderScreen);
@@ -238,6 +241,10 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   @Override
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
+    // TODO: How maps downloading can trigger place page activation?
+    if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
+      return;
+
     final MapObject mapObject = (MapObject) data;
     // Don't display the PlaceScreen for 'MY_POSITION' or during navigation
     // TODO (AndrewShkrob): Implement the 'Add stop' functionality
@@ -278,10 +285,5 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }
-  }
-
-  private boolean isPermissionsOrErrorScreen(@NonNull Screen screen)
-  {
-    return screen instanceof RequestPermissionsScreen || screen instanceof ErrorScreen;
   }
 }

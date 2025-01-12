@@ -7,6 +7,16 @@
 #include <utility>
 #include <vector>
 
+struct GpsTrackInfo
+{
+  double m_length;
+  double m_duration;
+  uint32_t m_ascent;
+  uint32_t m_descent;
+  int16_t m_minElevation;
+  int16_t m_maxElevation;
+};
+
 class GpsTrackCollection final
 {
 public:
@@ -16,11 +26,6 @@ public:
 
   /// Constructor
   GpsTrackCollection();
-
-  /// Adds new point in the collection.
-  /// @param item - item to be added.
-  /// @returns the item unique identifier or kInvalidId if point has incorrect time.
-  size_t Add(TItem const & item);
 
   /// Adds set of new points in the collection.
   /// @param items - set of items to be added.
@@ -40,6 +45,8 @@ public:
 
   /// Returns number of items in the collection
   size_t GetSize() const;
+
+  GpsTrackInfo GetTrackInfo() const { return m_trackInfo; }
 
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
@@ -62,14 +69,8 @@ public:
   }
 
 private:
-  // Removes items in range [m_items.begin(), i) and returnd
-  // range of identifiers of removed items
-  std::pair<size_t, size_t> RemoveUntil(std::deque<TItem>::iterator i);
-
-  // Removes items extra by timestamp
-  std::pair<size_t, size_t> RemoveExtraItems();
-
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
+  GpsTrackInfo m_trackInfo;
 };

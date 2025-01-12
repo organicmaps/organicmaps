@@ -1,6 +1,7 @@
-# Organic Maps
-
-<a name="install"/>
+<div align="center">
+  <img src="/qt/res/logo.png" height="100"/>
+</div>
+<h1 align="center"">Organic Maps</h1>
 
 [Organic Maps](https://organicmaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
 It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data and is developed with love by the creators of **MapsWithMe** (later renamed to **Maps.Me**) and by our community.
@@ -112,6 +113,14 @@ Beloved institutional sponsors below have provided targeted grants to cover some
     </td>
     <td>
       <a href="https://www.mythic-beasts.com/">Mythic Beasts</a> ISP <a href="https://www.mythic-beasts.com/blog/2021/10/06/improving-the-world-bit-by-expensive-bit/">provides us</a> two virtual servers with 400 TB/month of free bandwidth to host and serve maps downloads and updates.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://44plus.vn"><img src="docs/sponsors/44plus.svg" alt="44+ Technologies" width="200px"></a>
+    </td>
+    <td>
+      <a href="https://44plus.vn">44+ Technologies</a> is <a href="https://44plus.vn/organicmaps">providing us </a>with a free dedicated server worth around $12,000/year to serve maps across Vietnam & Southeast Asia.
     </td>
   </tr>
   <tr>

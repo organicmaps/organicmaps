@@ -182,7 +182,9 @@ world  +
         waste_basket  -
         waste_disposal  -
         waste_transfer_station  -
-        water_point  -
+        water_point  +
+            drinking_water_no  -
+            {}
         {}
     area:highway  +
         cycleway  -
@@ -202,7 +204,15 @@ world  +
         unclassified  -
         {}
     attraction  +
+        amusement_ride  -
         animal  -
+        big_wheel  -
+        bumper_car  -
+        carousel  -
+        historic  -
+        maze  -
+        roller_coaster  -
+        water_slide  -
         {}
     barrier  +
         block  -
@@ -948,6 +958,7 @@ world  +
         station  +
             funicular  -
             light_rail  +
+                berlin  -
                 london  -
                 porto  -
                 {}
@@ -992,6 +1003,7 @@ world  +
                 hamburg  -
                 helsinki  -
                 hiroshima  -
+                hongkong  -
                 isfahan  -
                 istanbul  -
                 izmir  -
@@ -1045,6 +1057,7 @@ world  +
                 sendai  -
                 sf  -
                 shanghai  -
+                shenzhen  -
                 shiraz  -
                 singapore  -
                 sofia  -
@@ -1111,6 +1124,7 @@ world  +
             hamburg  -
             helsinki  -
             hiroshima  -
+            hongkong  -
             isfahan  -
             istanbul  -
             izmir  -
@@ -1164,6 +1178,7 @@ world  +
             sendai  -
             sf  -
             shanghai  -
+            shenzhen  -
             shiraz  -
             singapore  -
             sofia  -
@@ -1299,6 +1314,7 @@ world  +
         outdoor  -
         outpost  -
         paint  -
+        pasta  -
         pastry  -
         pawnbroker  -
         perfumery  -

@@ -31,7 +31,7 @@
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Držte sa vpravo.
-    sr = Држите се десно.
+    sr = Скрените благо десно.
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
@@ -129,7 +129,7 @@
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
-    sr = Оштро десно.
+    sr = Скрените оштро десно.
     sv = Skarpt höger.
     sw = Fanya kulia mkali.
     th = หักมุมขวา
@@ -285,7 +285,7 @@
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Držte sa vľavo.
-    sr = Држите се лево.
+    sr = Скрените благо лево.
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
@@ -383,7 +383,7 @@
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
-    sr = Оштро лево.
+    sr = Скрените оштро лево.
     sv = Skarpt vänster.
     sw = Fanya kushoto mkali.
     th = หักมุมซ้าย
@@ -430,7 +430,7 @@
     ro = Întoarceți-vă o sută optzeci de grade.
     ru = Развернитесь.
     sk = Otočte sa o stoosemdesiat stupňov.
-    sr = Урадите полукружно окретање, када буде могуће.
+    sr = Урадите полукружно окретање.
     sv = Gör en U-sväng.
     sw = Geuka urudi ulikotoka.
     th = กลับรถ
@@ -523,7 +523,7 @@
     ro = Ieșire.
     ru = Съезд.
     sk = Použite výjazd.
-    sr = Излаз.
+    sr = Искључите се.
     sv = Utgång.
     sw = Kuondoka.
     th = ทางออก.
@@ -553,7 +553,7 @@
     hr = na
     hu = a
     id = ke
-    it = sulla
+    it = in
     ja = NULL
     ko = NULL
     mr = वर
@@ -565,6 +565,7 @@
     ro = pe
     ru = на
     sk = na
+    sr = у улицу
     sv = in på
     sw = kwenye
     th = เข้าสู่
@@ -607,6 +608,7 @@
     ro = Ieșire pe
     ru = Съезд на
     sk = Výjazd na
+    sr = Изађите на излаз
     sv = Utgång in på
     sw = Kuondoka kwenye
     th = ทางออก เข้าสู่
@@ -1367,7 +1369,7 @@
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
-    sr = За два а по километра
+    sr = За два и по километра
     sv = Om två och en halv kilometer
     sw = Kabla ya kilomita mbili na nusu
     th = อีกสองกิโลเมตรครึ่ง
@@ -3021,7 +3023,7 @@
     ro = Cameră frontală
     ru = Впереди камера
     sk = Pozor, radar!
-    sr = Пажња, радар!
+    sr = Пажња, прекршајна камера!
     sv = Kamera framför
     sw = Kamera Mbele
     th = มีกล้องอยู่ข้างหน้า

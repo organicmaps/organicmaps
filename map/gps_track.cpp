@@ -79,6 +79,11 @@ void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
   ScheduleTask();
 }
 
+GpsTrackInfo GpsTrack::GetTrackInfo() const
+{
+  return m_collection ? m_collection->GetTrackInfo() : GpsTrackInfo();
+}
+
 void GpsTrack::Clear()
 {
   {
@@ -298,7 +303,7 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     if (toAdd.empty())
       return; // nothing to send
 
-    m_callback(std::move(toAdd), make_pair(kInvalidId, kInvalidId));
+    m_callback(std::move(toAdd), make_pair(kInvalidId, kInvalidId), m_collection->GetTrackInfo());
   }
   else
   {
@@ -319,6 +324,6 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     if (toAdd.empty() && evictedIds.first == kInvalidId)
       return; // nothing to send
 
-    m_callback(std::move(toAdd), evictedIds);
+    m_callback(std::move(toAdd), evictedIds, m_collection->GetTrackInfo());
   }
 }

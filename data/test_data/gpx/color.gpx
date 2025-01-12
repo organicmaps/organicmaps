@@ -90,6 +90,10 @@
         <ele>75.59999</ele>
         <time>2013-03-08T09:05:06Z</time>
       </trkpt>
+      <trkpt lat="48.767" lon="-3.563">
+        <ele>77</ele>
+        <time>2013-03-08T09:05:07Z</time>
+      </trkpt>
     </trkseg>
 </trk>
 

@@ -38,9 +38,9 @@ UNIT_TEST(GpsTrackCollection_Simple)
   for (size_t i = 0; i < 50; ++i)
   {
     auto info = MakeGpsTrackInfo(timestamp + i, ms::LatLon(-90 + i, -180 + i), i);
-    size_t addedId = collection.Add(info);
-    TEST_EQUAL(addedId, i, ());
-    data[addedId] = info;
+    std::pair<size_t, size_t> addedIds = collection.Add({info});
+    TEST_EQUAL(addedIds.second, i, ());
+    data[addedIds.second] = info;
   }
 
   TEST_EQUAL(50, collection.GetSize(), ());

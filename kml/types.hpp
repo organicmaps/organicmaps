@@ -92,6 +92,7 @@ inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
   case None:
   case Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
   }
+  UNREACHABLE();
 }
 
 kml::PredefinedColor GetRandomPredefinedColor();

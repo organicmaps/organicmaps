@@ -1,3 +1,4 @@
-- iOS 18 Dark Mode: Introduced dark and tinted app icons.
-- Map Data: Updated as of October 1, now including isolines for Egypt, Adygea, Dagestan.
-- KML/KMZ/GPX: Fixed issues with importing files from different apps.
+• Нові дані OpenStreetMap від 22 листопада
+• Виправлено помилку при редагуванні опису міток
+• macOS: прокрутка карти за допомогою мишки та трекпаду
+• Деякі покращення якості пошуку, уточнення перекладів, виправлення помилок

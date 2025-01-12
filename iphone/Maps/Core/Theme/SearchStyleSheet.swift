@@ -50,11 +50,6 @@ class SearchStyleSheet: IStyleSheet {
       s.coloring = .whiteText
     }
 
-    theme.add(styleName: "SearchFilterAppliedIndicator") { (s) -> Void in
-      s.round = true
-      s.clip = true
-    }
-
     theme.add(styleName: "SearchSearchTextField") { (s) -> Void in
       s.fontColor = colors.blackPrimaryText
       s.backgroundColor = colors.white
@@ -74,29 +69,6 @@ class SearchStyleSheet: IStyleSheet {
       s.cornerRadius = 4
       s.borderColor = colors.solidDividers
       s.borderWidth = 1
-    }
-
-    theme.add(styleName: "FilterRatingButton") { (s) -> Void in
-      s.cornerRadius = 4
-      s.borderWidth = 1
-      s.borderColor = colors.blackDividers
-    }
-
-    theme.add(styleName: "SearchFilterTypeCell") { (s) -> Void in
-      s.cornerRadius = 16
-      s.borderColor = colors.blackDividers
-      s.borderWidth = 1
-    }
-
-    theme.add(styleName: "FilterCheckButton") { (s) -> Void in
-      s.fontColor = colors.blackPrimaryText
-      s.fontColorDisabled = colors.blackDividers
-      s.backgroundColor = colors.white
-      s.font = fonts.regular14
-      s.cornerRadius = 4
-      s.borderWidth = 1
-      s.borderColor = colors.blackDividers
-      s.textAlignment = .natural
     }
 
     theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> Void in

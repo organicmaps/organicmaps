@@ -60,7 +60,6 @@ Automatically [generated](STYLES.md#technical-details):
 - `categories.txt`,`categories_cuisines.txt`,`categories_brands.txt`,`countries_names.txt`
 
 Misc strings:
-- `mwm_names_en.txt` - English names for map regions.
 - `countries_synonyms.csv` - alternative country names.
 - `synonyms.txt` - country and region names abbreviations and short names.
 - `languages.txt` - native language names.

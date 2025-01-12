@@ -353,10 +353,22 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
     m_types.push_back(t);
 }
 
+// Used to determine for which features to display address in PP and in search results.
+// If such a feature has a housenumber and a name then its enriched with a postcode (at the generation stage).
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
+  /// @todo(pastk): some objects in TwoLevelPOIChecker can have addresses also.
   m_types = OneLevelPOIChecker().GetTypes();
 
+  Classificator const & c = classif();
+  for (auto const * p : {"addr:interpolation", "building", "entrance"})
+    m_types.push_back(c.GetTypeByPath({p}));
+}
+
+// Used to insert exact address (street and house number) instead of
+// an empty name in search results (see ranker.cpp)
+IsAddressChecker::IsAddressChecker() : BaseChecker(1 /* level */)
+{
   Classificator const & c = classif();
   for (auto const * p : {"addr:interpolation", "building", "entrance"})
     m_types.push_back(c.GetTypeByPath({p}));
@@ -424,15 +436,17 @@ IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
 }
 
 
+// Used in IsPoiChecker and in IsAddressObjectChecker.
 OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 {
   Classificator const & c = classif();
 
   for (auto const * path : {"amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway",
-                            "shop", "sport", "tourism"})
+                            "shop", "sport", "tourism", "mountain_pass"})
     m_types.push_back(c.GetTypeByPath({path}));
 }
 
+// Used in IsPoiChecker and also in TypesSkipper to keep types in the search index.
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
@@ -454,8 +468,11 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
       {"man_made", "water_tap"},
       {"man_made", "water_well"},
       {"natural", "beach"},
-      {"natural", "geyser"},
       {"natural", "cave_entrance"},
+      {"natural", "geyser"},
+      {"natural", "hot_spring"},
+      {"natural", "peak"},
+      {"natural", "saddle"},
       {"natural", "spring"},
       {"natural", "volcano"},
       {"waterway", "waterfall"}
@@ -493,6 +510,9 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "gallows"},
       {"historic", "memorial"},
       {"historic", "monument"},
+      {"historic", "locomotive"},
+      {"historic", "tank"},
+      {"historic", "aircraft"},
       {"historic", "pillory"},
       {"historic", "ruins"},
       {"historic", "ship"},

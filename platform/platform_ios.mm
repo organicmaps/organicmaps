@@ -162,12 +162,11 @@ std::string Platform::DeviceModel() const
 
 std::string Platform::Version() const
 {
+  /// @note Do not change version format, it is parsed on server side.
   NSBundle * mainBundle = [NSBundle mainBundle];
-  NSString * appName = [mainBundle objectForInfoDictionaryKey:@"CFBundleName"];
-  NSString * bundleId = mainBundle.bundleIdentifier;
   NSString * version = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
   NSString * build = [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-  return std::string{appName.UTF8String} + ' ' + std::string{bundleId.UTF8String} + ' ' + std::string{version.UTF8String} + '-' + build.UTF8String + '-' + OMIM_OS_NAME;
+  return std::string{version.UTF8String} + '-' + build.UTF8String + '-' + OMIM_OS_NAME;
 }
 
 int32_t Platform::IntVersion() const
