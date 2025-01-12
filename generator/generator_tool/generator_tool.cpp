@@ -74,7 +74,7 @@ DEFINE_bool(emit_coasts, false,
 
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
-DEFINE_string(osm_file_type, "", "Input osm area file type [xml, o5m].");
+DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
 DEFINE_string(data_path, "", GetDataPathHelp());
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(intermediate_data_path, "", "Path to stored intermediate data.");
@@ -191,16 +191,7 @@ DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 
 
-//MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
-int main2(int argc, char ** argv);
-int main(int argc, char ** argv)
-{
-  std::signal(SIGABRT, generator::ErrorHandler); 
-  std::signal(SIGSEGV, generator::ErrorHandler); 
-  return main2(argc, argv);
-}
-
-int main2(int argc, char ** argv)
+MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 {
   using namespace generator;
   using std::string;
@@ -641,4 +632,4 @@ int main2(int argc, char ** argv)
     check_model::ReadFeatures(dataFile);
 
   return EXIT_SUCCESS;
-}
+})
