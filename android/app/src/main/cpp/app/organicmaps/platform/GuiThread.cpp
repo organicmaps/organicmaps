@@ -6,21 +6,21 @@
 
 namespace android
 {
-GuiThread::GuiThread(jobject processObject)
+GuiThread::GuiThread()
 {
   JNIEnv * env = jni::GetEnv();
 
-  m_object = env->NewGlobalRef(processObject);
-  ASSERT(m_object, ());
+  m_class = GetGlobalClassRef(env, "app/organicmaps/util/concurrency/UiThread");
+  ASSERT(m_class, ());
 
-  m_method = env->GetMethodID(env->GetObjectClass(m_object), "forwardToMainThread", "(J)V");
+  m_method = env->GetStaticMethodID(m_class, "forwardToMainThread", "(J)V");
   ASSERT(m_method, ());
 }
 
 GuiThread::~GuiThread()
 {
   JNIEnv * env = jni::GetEnv();
-  env->DeleteGlobalRef(m_object);
+  env->DeleteGlobalRef(m_class);
 }
 
 // static
@@ -34,7 +34,7 @@ base::TaskLoop::PushResult GuiThread::Push(Task && task)
 {
   // Pointer will be deleted in ProcessTask.
   auto t = new Task(std::move(task));
-  jni::GetEnv()->CallVoidMethod(m_object, m_method, reinterpret_cast<jlong>(t));
+  jni::GetEnv()->CallStaticVoidMethod(m_class, m_method, reinterpret_cast<jlong>(t));
   return {true, kNoId};
 }
 
@@ -42,7 +42,7 @@ base::TaskLoop::PushResult GuiThread::Push(Task const & task)
 {
   // Pointer will be deleted in ProcessTask.
   auto t = new Task(task);
-  jni::GetEnv()->CallVoidMethod(m_object, m_method, reinterpret_cast<jlong>(t));
+  jni::GetEnv()->CallStaticVoidMethod(m_class, m_method, reinterpret_cast<jlong>(t));
   return {true, kNoId};
 }
 }  // namespace android

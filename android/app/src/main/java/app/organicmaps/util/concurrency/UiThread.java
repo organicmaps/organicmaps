@@ -3,6 +3,8 @@ package app.organicmaps.util.concurrency;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.annotation.Keep;
+
 public class UiThread
 {
   private static final Handler sUiHandler = new Handler(Looper.getMainLooper());
@@ -38,7 +40,7 @@ public class UiThread
   /**
    * Executes something on UI thread after a given delayMillis.
    *
-   * @param task  the code that must be executed on UI thread after given delayMillis.
+   * @param task        the code that must be executed on UI thread after given delayMillis.
    * @param delayMillis The delayMillis until the code will be executed.
    */
   public static void runLater(Runnable task, long delayMillis)
@@ -56,4 +58,14 @@ public class UiThread
   {
     sUiHandler.removeCallbacks(task);
   }
+
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  private static void forwardToMainThread(final long taskPointer)
+  {
+    runLater(() -> nativeProcessTask(taskPointer), 0);
+  }
+
+  private static native void nativeProcessTask(long taskPointer);
 }

@@ -66,6 +66,7 @@ set(SRC
   app/organicmaps/util/LogsManager.cpp
   app/organicmaps/util/NetworkPolicy.cpp
   app/organicmaps/util/StringUtils.cpp
+  app/organicmaps/util/UiThread.cpp
   app/organicmaps/vulkan/android_vulkan_context_factory.cpp
 )
 
