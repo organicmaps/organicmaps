@@ -1,6 +1,5 @@
 #include "app/organicmaps/Framework.hpp"
 
-#include "app/organicmaps/platform/GuiThread.hpp"
 #include "app/organicmaps/platform/AndroidPlatform.hpp"
 
 #include "app/organicmaps/core/jni_helper.hpp"
@@ -14,16 +13,16 @@ extern "C"
     android::Platform::Instance().SetSettingsDir(jni::ToNativeString(env, settingsPath));
   }
 
-  // void nativeInitPlatform(String apkPath, String storagePath, String privatePath, String tmpPath,
+  // static void nativeInitPlatform(Context context, String apkPath, String storagePath, String privatePath, String tmpPath,
   // String flavorName, String buildType, boolean isTablet);
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_MwmApplication_nativeInitPlatform(JNIEnv * env, jobject thiz,
-                                                             jstring apkPath, jstring writablePath,
-                                                             jstring privatePath, jstring tmpPath,
-                                                             jstring flavorName, jstring buildType,
-                                                             jboolean isTablet)
+  Java_app_organicmaps_MwmApplication_nativeInitPlatform(JNIEnv * env, jclass clazz, jobject context,
+                                                         jstring apkPath, jstring writablePath,
+                                                         jstring privatePath, jstring tmpPath,
+                                                         jstring flavorName, jstring buildType,
+                                                         jboolean isTablet)
   {
-    android::Platform::Instance().Initialize(env, thiz, apkPath, writablePath, privatePath, tmpPath,
+    android::Platform::Instance().Initialize(env, context, apkPath, writablePath, privatePath, tmpPath,
                                              flavorName, buildType, isTablet);
   }
 
@@ -40,13 +39,6 @@ extern "C"
         env->CallVoidMethod(*onComplete, methodId);
       });
     }
-  }
-
-  // static void nativeProcessTask(long taskPointer);
-  JNIEXPORT void JNICALL
-  Java_app_organicmaps_MwmApplication_nativeProcessTask(JNIEnv * env, jclass clazz, jlong taskPointer)
-  {
-    android::GuiThread::ProcessTask(taskPointer);
   }
 
   // static void nativeAddLocalization(String name, String value);
