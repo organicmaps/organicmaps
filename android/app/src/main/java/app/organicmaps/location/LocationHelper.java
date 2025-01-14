@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
 import androidx.core.location.LocationManagerCompat;
 
+import org.chromium.base.ObserverList;
+
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MwmApplication;
@@ -29,9 +31,6 @@ import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.log.Logger;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
@@ -47,8 +46,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private final Context mContext;
 
   private static final String TAG = LocationState.LOCATION_TAG;
-  @NonNull
-  private final Set<LocationListener> mListeners = new LinkedHashSet<>();
+
+  private final ObserverList<LocationListener> mListeners = new ObserverList<>();
+  private final ObserverList.RewindableIterator<LocationListener> mListenersIterator = mListeners.rewindableIterator();
+
   @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
@@ -156,8 +157,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS); // Reset the timeout.
 
-    for (LocationListener listener : mListeners)
-      listener.onLocationUpdated(mSavedLocation);
+    mListenersIterator.rewind();
+    while (mListenersIterator.hasNext())
+      mListenersIterator.next().onLocationUpdated(mSavedLocation);
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
@@ -187,8 +189,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     Logger.d(TAG);
-    for (LocationListener listener : mListeners)
-      listener.onLocationUpdateTimeout();
+    mListenersIterator.rewind();
+    while (mListenersIterator.hasNext())
+      mListenersIterator.next().onLocationUpdateTimeout();
   }
 
   @Override
@@ -240,8 +243,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
-    for (LocationListener listener : mListeners)
-      listener.onLocationResolutionRequired(pendingIntent);
+    mListenersIterator.rewind();
+    while (mListenersIterator.hasNext())
+      mListenersIterator.next().onLocationResolutionRequired(pendingIntent);
   }
 
   // Used by GoogleFusedLocationProvider.
@@ -281,8 +285,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
-    for (LocationListener listener : mListeners)
-      listener.onLocationDisabled();
+    mListenersIterator.rewind();
+    while (mListenersIterator.hasNext())
+      mListenersIterator.next().onLocationDisabled();
   }
 
   /**
@@ -295,7 +300,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
-    mListeners.add(listener);
+    mListeners.addObserver(listener);
     if (mSavedLocation != null)
       listener.onLocationUpdated(mSavedLocation);
   }
@@ -308,7 +313,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void removeListener(@NonNull LocationListener listener)
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
-    mListeners.remove(listener);
+    mListeners.removeObserver(listener);
   }
 
   private long calcLocationUpdatesInterval()
