@@ -217,7 +217,18 @@ private extension iCloudDocumentsMonitor {
     let updatedMetadataItems = userInfo[NSMetadataQueryUpdateChangedItemsKey] as? [NSMetadataItem] ?? []
     let removedMetadataItems = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] ?? []
     let addedContents = try addedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
-    let updatedContents = try updatedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
+    let updatedContents = try updatedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }.filter { item in
+      /* During the file deletion from the iCloud the file may be marked as `downloaded` by the system
+       but doesn't exist because it is already deleted to the trash.
+       This file will appear in the `deleted` list in the next notification.
+       Such files should be skipped to avoid unnecessary updates and unexpected behavior.
+       See https://github.com/organicmaps/organicmaps/pull/10070 for details. */
+      if item.isDownloaded && !FileManager.default.fileExists(atPath: item.fileUrl.path) {
+        LOG(.warning, "Skip the update of the file that doesn't exist in the file system: \(item.fileUrl)")
+        return false
+      }
+      return true
+    }
     let removedContents = try removedMetadataItems.map { try CloudMetadataItem(metadataItem: $0) }
     return CloudContentsUpdate(added: addedContents, updated: updatedContents, removed: removedContents)
   }
