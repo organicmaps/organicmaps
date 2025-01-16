@@ -1,5 +1,8 @@
-• Нові дані OpenStreetMap від 22 листопада
-• Адреса підсвічюється в результатах пошуку
-• Історія пошука сортується за часом останнього використання
-• Виправлення падіння на деяких старих девайсах із Mali-T GPU
-• Деякі покращення якості пошуку, уточнення перекладів, виправлення помилок
+• New OpenStreetMap data as of January 8
+• Dispay a speed limit sign in the navigation mode
+• Added Serbian (Cyrillic) and Latvian languages
+• Android Auto: sort bookmarks, improved location permission request experience
+• Added tower POIs
+• Added a setting for Kayak.com Hotel Links and a first-use opt-out option
+
+…more details at omaps.org/news
