@@ -1,5 +1,8 @@
-• New OpenStreetMap data as of November 22
-• Highlight matched part of the address in search results
-• Sort search history by last usage time
-• Fixed start-up crashes for some older devices with Mali-T GPUs
-• Other search improvements, translation updates & bug fixes
+• New OpenStreetMap data as of January 8
+• Dispay a speed limit sign in the navigation mode
+• Added Serbian (Cyrillic) and Latvian languages
+• Android Auto: sort bookmarks, improved location permission request experience
+• Added tower POIs
+• Added a setting for Kayak.com Hotel Links and a first-use opt-out option
+
+…more details at omaps.org/news
