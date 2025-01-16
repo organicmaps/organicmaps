@@ -1,4 +1,20 @@
-• Nuevos datos de OpenStreetMap del 22 de noviembre
-• Error corregido en el editor de descripción de marcadores
-• macOS: desplazamiento del mapa con mouse y trackpad
-• Otras mejoras en la búsqueda, actualizaciones de traducción y correcciones de errores
+• New OpenStreetMap data as of January 8
+• Tap tracks to display statistics and an interactive elevation profile
+• A standalone Track Recording button
+• Track Recording Live Activity Widget with track statistics (iOS16.2 and later)
+• Added Serbian (Cyrillic) and Latvian languages
+• Added tower POIs
+
+• Added specific icons for Hong Kong, Shenzhen metro and Berlin light rail, a separate monorail icon
+• Added a context menu to the coordinates button in POI details
+• Show a reminder popup every time a full screen mode is entered
+• Display an explanation when the OSM Editor category search returns nothing
+• Differentiate between grass and grassland/meadow colors
+• Less saturated/prominent residential gardens color
+• Fixed yellow road shields displayed as green in the night mode
+• Display vegetation fills earlier in the car navigation style
+• Display complex non-number levels for building POIs
+• Improve search for peaks and saddles/passes
+• EN as additional search language in the OSM Editor
+• Update Estonian, Finnish, German, Italian, Turkish translations
+• ...many more bug fixes and UI improvements

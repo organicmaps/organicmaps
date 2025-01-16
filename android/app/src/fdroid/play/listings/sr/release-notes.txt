@@ -1,5 +1,8 @@
-• Нови OpenStreetMap подаци са стањем на дан 22. новембра
-• Назначен пронађени део адресе у резултатима претраге
-• Сортирање историје претраге по времену последњег коришћења
-• Исправке грешака при покретању на неким старијим уређајима са графичким процесорима Mali-T GPUs.
-• Друга побољшања за претрагу, исправке превода и исправке грешака
+• New OpenStreetMap data as of January 8
+• Dispay a speed limit sign in the navigation mode
+• Added Serbian (Cyrillic) and Latvian languages
+• Android Auto: sort bookmarks, improved location permission request experience
+• Added tower POIs
+• Added a setting for Kayak.com Hotel Links and a first-use opt-out option
+
+…more details at omaps.org/news
