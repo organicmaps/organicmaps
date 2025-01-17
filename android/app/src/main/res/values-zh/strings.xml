@@ -371,6 +371,8 @@
     <string name="clear_search">清除搜索记录</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">维基百科</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">文章来自 wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">维基共享资源</string>
     <string name="p2p_your_location">您的位置</string>

@@ -371,6 +371,8 @@
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
+    <!-- Source attribution for Wikipedia articles displayed in the place description screen. -->
+    <string name="article_from_wikipedia">Grein frá wikipedia.org</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="p2p_your_location">Staðsetning þín</string>
