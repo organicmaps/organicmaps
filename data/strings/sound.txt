@@ -596,7 +596,7 @@
     hr = Izlaz na
     hu = Hajtson ki a
     id = Keluar ke
-    it = Uscita sulla
+    it = Uscita su
     ja = 出口を出る
     ko = 출구
     mr = बाहेर पडा वर
