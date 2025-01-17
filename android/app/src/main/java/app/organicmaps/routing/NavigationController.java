@@ -19,6 +19,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;

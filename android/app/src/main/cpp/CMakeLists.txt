@@ -26,6 +26,7 @@ set(SRC
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
   app/organicmaps/sdk/routing/RouteRecommendationType.hpp
+  app/organicmaps/sdk/routing/RoutingOptions.cpp
   app/organicmaps/sdk/ChoosePositionMode.cpp
   app/organicmaps/sdk/MapStyle.cpp
   app/organicmaps/sdk/OrganicMaps.cpp
@@ -43,7 +44,6 @@ set(SRC
   app/organicmaps/LocationState.cpp
   app/organicmaps/Map.cpp
   app/organicmaps/MapManager.cpp
-  app/organicmaps/routing/RoutingOptions.cpp
   app/organicmaps/settings/UnitLocale.cpp
   app/organicmaps/settings/MapLanguageCode.cpp
   app/organicmaps/sound/tts.cpp
