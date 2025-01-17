@@ -22,6 +22,10 @@ set(SRC
   app/organicmaps/vulkan/android_vulkan_context_factory.hpp
 
   # JNI sources
+  app/organicmaps/sdk/routing/RouteRecommendationType.hpp
+  app/organicmaps/sdk/ChoosePositionMode.cpp
+  app/organicmaps/sdk/MapStyle.cpp
+  app/organicmaps/sdk/Router.cpp
   app/organicmaps/core/jni_helper.cpp
   app/organicmaps/core/jni_java_methods.cpp
   app/organicmaps/core/logging.cpp
