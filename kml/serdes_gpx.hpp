@@ -61,6 +61,7 @@ public:
   std::string const & GetTagFromEnd(size_t n) const;
   void Pop(std::string_view tag);
   void CharData(std::string & value);
+  static std::optional<uint32_t> ParseColorFromHexString(std::string_view colorStr);
 
 private:
   enum GeometryType
@@ -72,7 +73,7 @@ private:
 
   void ResetPoint();
   bool MakeValid();
-  void ParseColor(std::string const & value);
+  void ParseColor(std::string_view colorStr);
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
   bool IsValidCoordinatesPosition() const;
@@ -108,6 +109,9 @@ private:
   void ParseTimestamp(std::string const & value);
   std::string BuildDescription() const;
 };
+
+std::string_view MapGarminColor(uint32_t rgba);
+
 }  // namespace gpx
 
 class DeserializerGpx
