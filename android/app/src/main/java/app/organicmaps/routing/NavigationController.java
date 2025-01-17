@@ -18,6 +18,7 @@ import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.Router;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -146,7 +147,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     if (info == null)
       return;
 
-    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
+    if (Router.get() == Router.Pedestrian)
       updatePedestrian(info);
     else
       updateVehicle(info);
