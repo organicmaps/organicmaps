@@ -63,7 +63,8 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   private void showWikiArticleScreen()
   {
-    WikiArticleActivity.start(requireContext(), mMapObject.getName(), mMapObject.getWikiArticle());
+    WikiArticleActivity.start(requireContext(), mMapObject.getName(), mMapObject.getWikiArticle(),
+                              mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
   }
 
   private Spanned getShortWikiArticle()

@@ -1,0 +1,90 @@
+/* Styles for Wikipedia article descriptions in WebView */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 5% 2.5%;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  font-size: calc(14px + 0.5vw);
+  color: var(--text, #212121);
+  background-color: var(--bg, #EEEEEE);
+}
+
+h2, h3 {
+  width: 100%;
+  text-align: left;
+  margin: 3% 0 1% 0;
+  padding-bottom: 0.5%;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: calc(1.5em + 0.5vw);
+  margin-top: 4%;
+}
+
+h3 {
+  font-size: calc(1.2em + 0.4vw);
+  margin-top: 2%;
+}
+
+p {
+  margin-bottom: 3%;
+  text-align: justify;
+  hyphens: auto;
+  width: 100%;
+}
+
+ul, ol {
+  margin-bottom: 3%;
+  padding-left: 5%;
+  width: 100%;
+}
+
+li {
+  margin-bottom: 1.5%;
+}
+
+a {
+  color: var(--link, #249CF2);
+  text-decoration: none;
+}
+
+b {
+  font-weight: 600;
+}
+
+sup {
+  font-size: 0.6em;
+  vertical-align: super;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    width: 95%;
+    padding: 3% 2.5%;
+    font-size: calc(12px + 0.5vw);
+  }
+
+  h2 {
+    font-size: calc(1.3em + 0.5vw);
+  }
+
+  h3 {
+    font-size: calc(1em + 0.4vw);
+  }
+}
