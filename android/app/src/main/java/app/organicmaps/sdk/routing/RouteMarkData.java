@@ -15,8 +15,7 @@ public final class RouteMarkData
   public final String mTitle;
   @Nullable
   public final String mSubtitle;
-  @RoutePointInfo.RouteMarkType
-  public int mPointType;
+  public RouteMarkType mPointType;
   public int mIntermediateIndex;
   public final boolean mIsVisible;
   public final boolean mIsMyPosition;
@@ -24,10 +23,16 @@ public final class RouteMarkData
   public final double mLat;
   public final double mLon;
 
+  private RouteMarkData(@Nullable String title, @Nullable String subtitle,
+                        int pointType, int intermediateIndex, boolean isVisible,
+                        boolean isMyPosition, boolean isPassed, double lat, double lon)
+  {
+    this(title, subtitle, RouteMarkType.values()[pointType], intermediateIndex, isVisible, isMyPosition, isPassed, lat, lon);
+  }
+
   public RouteMarkData(@Nullable String title, @Nullable String subtitle,
-                       @RoutePointInfo.RouteMarkType int pointType,
-                       int intermediateIndex, boolean isVisible, boolean isMyPosition,
-                       boolean isPassed, double lat, double lon)
+                        RouteMarkType pointType, int intermediateIndex, boolean isVisible,
+                        boolean isMyPosition, boolean isPassed, double lat, double lon)
   {
     mTitle = title;
     mSubtitle = subtitle;

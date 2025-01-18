@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
+import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
@@ -67,21 +68,21 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
     switch (mRoutePoints.get(position).mPointType)
     {
-      case RoutePointInfo.ROUTE_MARK_START: // Starting point.
+      case Start: // Starting point.
         if (mRoutePoints.get(position).mIsMyPosition)
           iconId = R.drawable.ic_location_arrow_blue;
         else
           iconId = R.drawable.route_point_start;
         break;
 
-      case RoutePointInfo.ROUTE_MARK_INTERMEDIATE: // Intermediate stop.
+      case Intermediate: // Intermediate stop.
         TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
         iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex,
                                          R.drawable.route_point_20);
         iconArray.recycle();
         break;
 
-      case RoutePointInfo.ROUTE_MARK_FINISH: // Destination point.
+      case Finish: // Destination point.
         iconId = R.drawable.route_point_finish;
         break;
 
@@ -101,7 +102,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
       // My position point.
       title = mContext.getString(R.string.core_my_position);
 
-      if (mRoutePoints.get(position).mPointType != RoutePointInfo.ROUTE_MARK_START)
+      if (mRoutePoints.get(position).mPointType != RouteMarkType.Start)
         subtitle = mRoutePoints.get(position).mTitle;
       else
       {
@@ -182,7 +183,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
                                                           myLocation.getLon());
 
     // Replace route point in first position with 'My Position".
-    mRoutePoints.set(0, new RouteMarkData(latLonString, "", RoutePointInfo.ROUTE_MARK_START,
+    mRoutePoints.set(0, new RouteMarkData(latLonString, "", RouteMarkType.Start,
                                           0, true, true, false, myLocation.getLat(),
                                           myLocation.getLon()));
 
@@ -219,15 +220,15 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
     assert(mRoutePoints.size() >= 2);
 
     // Set starting point.
-    mRoutePoints.get(0).mPointType = RoutePointInfo.ROUTE_MARK_START;
+    mRoutePoints.get(0).mPointType = RouteMarkType.Start;
 
     // Set finish point.
-    mRoutePoints.get(mRoutePoints.size() - 1).mPointType = RoutePointInfo.ROUTE_MARK_FINISH;
+    mRoutePoints.get(mRoutePoints.size() - 1).mPointType = RouteMarkType.Finish;
 
     // Set intermediate point(s).
     for (int pos = 1; pos < mRoutePoints.size() - 1; pos++)
     {
-      mRoutePoints.get(pos).mPointType = RoutePointInfo.ROUTE_MARK_INTERMEDIATE;
+      mRoutePoints.get(pos).mPointType = RouteMarkType.Intermediate;
       mRoutePoints.get(pos).mIntermediateIndex = pos - 1;
     }
   }
