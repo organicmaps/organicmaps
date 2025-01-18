@@ -33,6 +33,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.sdk.routing.RouteMarkData;
+import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
@@ -256,7 +257,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
-    mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_START);
+    mActionMessage.setTag(RouteMarkType.Start);
     if (LocationHelper.from(mContext).getMyPosition() != null)
     {
       UiUtils.show(mActionButton);
@@ -276,7 +277,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);
-    mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_FINISH);
+    mActionMessage.setTag(RouteMarkType.Finish);
     UiUtils.hide(mActionButton);
   }
 
@@ -488,8 +489,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       mListener.onUseMyPositionAsStart();
     else if (id == R.id.btn__search_point && mListener != null)
     {
-      @RoutePointInfo.RouteMarkType
-      int pointType = (Integer) mActionMessage.getTag();
+      final RouteMarkType pointType = (RouteMarkType) mActionMessage.getTag();
       mListener.onSearchRoutePoint(pointType);
     }
     else if (id == R.id.btn__manage_route && mListener != null)
