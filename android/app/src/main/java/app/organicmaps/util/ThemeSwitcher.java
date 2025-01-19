@@ -117,6 +117,7 @@ public enum ThemeSwitcher
     // First convert the android-but-dynamic follow system theme.
     if (ThemeUtils.isSystemTheme(mContext, theme))
     {
+      //TODO: calc in restart() and set only light/dark
       // Depends on android theme already being calculated and set.
       resolvedTheme = switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
       {
