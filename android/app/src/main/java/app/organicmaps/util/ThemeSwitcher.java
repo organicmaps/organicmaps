@@ -47,7 +47,7 @@ public enum ThemeSwitcher
     mRendererActive = isRendererActive;
     String storedTheme = Config.getThemeSettings(mContext);
     // TODO: Handle debug commands
-    String resolvedTheme = resolveCustomThemes(storedTheme);
+    String resolvedTheme = resolveBasicTheme(storedTheme);
     setAndroidTheme(resolvedTheme);
     // Depends on Android theme being set due to follow-system, so has to be after setAndroidTheme.
     int resolvedMapStyle = resolveMapStyle(resolvedTheme);
@@ -68,7 +68,6 @@ public enum ThemeSwitcher
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     else
       throw new IllegalArgumentException(theme+" passed, but only follow-system/theme_light/dark are allowed.");
-
   }
 
   private void setMapStyle(@Framework.MapStyle int style)
@@ -86,10 +85,10 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Process custom themes (auto, navauto) to default ones (light, dark, follow-system)
+   * resolve custom themes (auto, navauto) to basic system ones (light, dark, follow-system)
    * @return theme handle-able by android theme system.
    */
-  private String resolveCustomThemes(@NonNull String theme)
+  public String resolveBasicTheme(@NonNull String theme)
   {
     if (ThemeUtils.isAutoTheme(mContext, theme))
       return calcAutoTheme();
