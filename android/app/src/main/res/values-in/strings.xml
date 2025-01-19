@@ -671,6 +671,7 @@
     <string name="toll_road">Jalan tol</string>
     <string name="unpaved_road">Jalan tanah</string>
     <string name="ferry_crossing">Penyeberangan kapal feri</string>
+    <string name="pick_destination">Tujuan</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ya</string>
     <!-- A generic "No" button in dialogs -->

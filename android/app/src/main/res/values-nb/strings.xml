@@ -704,6 +704,7 @@
     <string name="toll_road">Bompengevei</string>
     <string name="unpaved_road">Uasfaltert vei</string>
     <string name="ferry_crossing">Fergeovergang</string>
+    <string name="pick_destination">Destinasjon</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ja</string>
     <!-- A generic "No" button in dialogs -->

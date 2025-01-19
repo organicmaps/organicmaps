@@ -673,6 +673,7 @@
     <string name="toll_road">टोल मार्ग</string>
     <string name="unpaved_road">कच्चे मार्ग</string>
     <string name="ferry_crossing">जल मार्ग</string>
+    <string name="pick_destination">इष्टस्थान</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">होय</string>
     <!-- A generic "No" button in dialogs -->

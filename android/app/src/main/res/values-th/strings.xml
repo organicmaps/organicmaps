@@ -672,6 +672,7 @@
     <string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
     <string name="unpaved_road">ถนนดิน</string>
     <string name="ferry_crossing">เรือข้ามฟาก</string>
+    <string name="pick_destination">จุดหมาย</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">ใช่</string>
     <!-- A generic "No" button in dialogs -->

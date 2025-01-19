@@ -737,6 +737,7 @@
     <string name="toll_road">Toll road</string>
     <string name="unpaved_road">Unpaved road</string>
     <string name="ferry_crossing">Ferry crossing</string>
+    <string name="pick_destination">Destination</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Yes</string>
     <!-- A generic "No" button in dialogs -->

@@ -669,6 +669,7 @@
     <string name="toll_road">Betalväg</string>
     <string name="unpaved_road">Oasfalterad väg</string>
     <string name="ferry_crossing">Färjetrafik</string>
+    <string name="pick_destination">Destination</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Ja</string>
     <!-- A generic "No" button in dialogs -->

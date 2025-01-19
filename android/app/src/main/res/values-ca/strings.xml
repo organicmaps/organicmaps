@@ -709,6 +709,7 @@
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>
+    <string name="pick_destination">Destinació</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
     <!-- A generic "No" button in dialogs -->

@@ -640,6 +640,7 @@
     <string name="toll_road">Pedágio</string>
     <string name="unpaved_road">Pista não pavimentada</string>
     <string name="ferry_crossing">Balsa</string>
+    <string name="pick_destination">Destino</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sim</string>
     <!-- A generic "No" button in dialogs -->

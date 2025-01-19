@@ -707,6 +707,7 @@
     <string name="toll_road">Maksas ceļš</string>
     <string name="unpaved_road">Neasfaltēts ceļš</string>
     <string name="ferry_crossing">Prāmja pārceltuve</string>
+    <string name="pick_destination">Galamērķis</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Jā</string>
     <!-- A generic "No" button in dialogs -->

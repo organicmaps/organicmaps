@@ -719,6 +719,7 @@
     <string name="toll_road">طريق برسوم مرور</string>
     <string name="unpaved_road">طريق غير معبد</string>
     <string name="ferry_crossing">استخدام عبّارة</string>
+    <string name="pick_destination">جهة الوصول</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">نعم</string>
     <!-- A generic "No" button in dialogs -->

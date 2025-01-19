@@ -145,6 +145,11 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
+  <style name="MwmTextAppearance.NavMenu.AmPm">
+    <item name="android:textSize">@dimen/text_size_nav_menu_dimension</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.NavMenu.Number.Dimension">
     <item name="android:textSize">@dimen/text_size_nav_menu_dimension</item>
     <item name="android:textColor">?android:textColorSecondary</item>
