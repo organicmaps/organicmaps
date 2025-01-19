@@ -66,8 +66,6 @@ public final class Map
   private boolean mSurfaceAttached;
   private boolean mLaunchByDeepLink;
   @Nullable
-  private String mUiThemeOnPause;
-  @Nullable
   private MapRenderingListener mMapRenderingListener;
   @Nullable
   private CallbackUnsupported mCallbackUnsupported;
@@ -136,12 +134,6 @@ public final class Map
 
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
   {
-    if (isThemeChangingProcess(context))
-    {
-      Logger.d(TAG, "Theme changing process, skip 'onSurfaceCreated' callback");
-      return;
-    }
-
     Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated);
     if (nativeIsEngineCreated())
     {
@@ -192,11 +184,6 @@ public final class Map
 
   public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame, boolean isSurfaceCreating)
   {
-    if (isThemeChangingProcess(context))
-    {
-      Logger.d(TAG, "Theme changing process, skip 'onSurfaceChanged' callback");
-      return;
-    }
 
     Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated);
     if (!mSurfaceCreated || (!mRequireResize && isSurfaceCreating))
@@ -253,8 +240,6 @@ public final class Map
 
   public void onPause(final Context context)
   {
-    mUiThemeOnPause = Config.getThemeSettings(context);
-
     // Pause/Resume can be called without surface creation/destroy.
     if (mSurfaceAttached)
       nativePauseSurfaceRendering();
@@ -359,11 +344,6 @@ public final class Map
         ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
-  }
-
-  private boolean isThemeChangingProcess(final Context context)
-  {
-    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getThemeSettings(context));
   }
 
   // Engine
