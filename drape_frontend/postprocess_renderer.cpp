@@ -203,10 +203,6 @@ bool PostprocessRenderer::IsEnabled() const
 void PostprocessRenderer::SetEffectEnabled(ref_ptr<dp::GraphicsContext> context,
                                            Effect effect, bool enabled)
 {
-  // Do not support AA for OpenGLES 2.0.
-  if (m_apiVersion == dp::ApiVersion::OpenGLES2 && effect == Effect::Antialiasing)
-    return;
-
   auto const oldValue = m_effects;
   auto const effectMask = static_cast<uint32_t>(effect);
   m_effects = (m_effects & ~effectMask) | (enabled ? effectMask : 0);
@@ -238,7 +234,7 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
     return false;
   }
 
-  if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+  if (m_apiVersion == dp::ApiVersion::OpenGLES3)
   {
     return m_staticTextures->m_smaaAreaTexture->GetID() != 0 &&
            m_staticTextures->m_smaaSearchTexture->GetID() != 0;
@@ -289,7 +285,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     ASSERT(m_staticTextures->m_smaaAreaTexture != nullptr, ());
     ASSERT(m_staticTextures->m_smaaSearchTexture != nullptr, ());
 
-    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+    if (m_apiVersion == dp::ApiVersion::OpenGLES3)
     {
       ASSERT_GREATER(m_staticTextures->m_smaaAreaTexture->GetID(), 0, ());
       ASSERT_GREATER(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
@@ -418,15 +414,12 @@ void PostprocessRenderer::UpdateFramebuffers(ref_ptr<dp::GraphicsContext> contex
   ASSERT_NOT_EQUAL(height, 0, ());
 
   CHECK_EQUAL(m_apiVersion, context->GetApiVersion(), ());
-  InitFramebuffer(context, m_mainFramebuffer, width, height, true /* depthEnabled */,
-                  m_apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
+  InitFramebuffer(context, m_mainFramebuffer, width, height, true /* depthEnabled */, true /* stencilEnabled */);
   m_isMainFramebufferRendered = false;
 
   m_isSmaaFramebufferRendered = false;
   if (!m_isRouteFollowingActive && IsEffectEnabled(Effect::Antialiasing))
   {
-    CHECK_NOT_EQUAL(m_apiVersion, dp::ApiVersion::OpenGLES2, ());
-
     InitFramebuffer(context, m_edgesFramebuffer, dp::TextureFormat::RedGreen,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
