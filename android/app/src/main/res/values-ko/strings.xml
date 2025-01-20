@@ -249,6 +249,9 @@
     <string name="faq">질문과 답변</string>
     <!-- Button in the main menu -->
     <string name="donate">기부</string>
+    <string name="already_donated">기부완료</string>
+    <string name="remind_me_later">나중에 알림</string>
+    <string name="support_organic_maps">Organic Maps 지원하기</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">프로젝트 지원</string>
     <!-- Button in the main Help dialog -->

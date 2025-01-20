@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/products_space_top"
+        layout="@layout/place_page_fat_shadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?ppBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/products_space_top" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/products_close"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="@dimen/place_page_top_button"
+        android:layout_height="@dimen/place_page_top_button"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/close"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_close"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
+        app:iconTint="?iconTint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/products_space_top"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+
+    <TextView
+        android:id="@+id/products_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:text="@string/support_organic_maps"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintEnd_toStartOf="@id/products_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/products_space_top" />
+
+    <TextView
+        android:id="@+id/products_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:fontFamily="@string/robotoRegular"
+        android:lineSpacingExtra="@dimen/line_spacing_extra_2"
+        android:textAppearance="?android:attr/textAppearance"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/products_title"
+        tools:ignore="UnusedAttribute"
+        tools:text="asdasdadadasdasdasdasdasdasdasdadas" />
+
+    <LinearLayout
+        android:id="@+id/products_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/products_prompt" />
+
+    <TextView
+        android:id="@+id/products_already_donated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:text="@string/already_donated"
+        android:textAlignment="center"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/products_remind_later"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/products_buttons" />
+
+    <TextView
+        android:id="@+id/products_remind_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_base"
+        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:text="@string/remind_me_later"
+        android:textAlignment="center"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/products_already_donated"
+        app:layout_constraintTop_toBottomOf="@id/products_buttons" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

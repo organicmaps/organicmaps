@@ -272,6 +272,9 @@
     <string name="faq">Ohiko galderak</string>
     <!-- Button in the main menu -->
     <string name="donate">Dohaintza eman</string>
+    <string name="already_donated">Dohaintza jada emana</string>
+    <string name="remind_me_later">Gogoratu geroago</string>
+    <string name="support_organic_maps">Sustatu Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Proiektuari laguntza eman</string>
     <!-- Button in the main Help dialog -->

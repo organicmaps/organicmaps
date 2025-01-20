@@ -274,6 +274,9 @@
     <string name="faq">Συχνές ερωτήσεις</string>
     <!-- Button in the main menu -->
     <string name="donate">Δωρεά</string>
+    <string name="already_donated">Ήδη δωρεά</string>
+    <string name="remind_me_later">Υπενθύμισε αργότερα</string>
+    <string name="support_organic_maps">Υποστήριξε το Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Στηρίξτε αυτό το πρότζεκτ</string>
     <!-- Button in the main Help dialog -->

@@ -246,6 +246,9 @@
     <string name="faq">Spørgsmål og svar</string>
     <!-- Button in the main menu -->
     <string name="donate">Doner</string>
+    <string name="already_donated">Allerede doneret</string>
+    <string name="remind_me_later">Mind mig senere</string>
+    <string name="support_organic_maps">Støtte Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Støt projektet</string>
     <!-- Button in the main Help dialog -->

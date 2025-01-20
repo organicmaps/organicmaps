@@ -239,6 +239,9 @@
     <string name="faq">پرسش‌های زیاد پرسیده شده</string>
     <!-- Button in the main menu -->
     <string name="donate">حمایت مالی</string>
+    <string name="already_donated">قبلاً اهدا شده</string>
+    <string name="remind_me_later">بعداً یادآوری کن</string>
+    <string name="support_organic_maps">پشتیبانی از Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ</string>
     <!-- Button in the main Help dialog -->

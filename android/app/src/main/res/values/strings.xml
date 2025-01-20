@@ -296,6 +296,9 @@
     <string name="faq">Frequently Asked Questions</string>
     <!-- Button in the main menu -->
     <string name="donate">Donate</string>
+    <string name="already_donated">Already donated</string>
+    <string name="remind_me_later">Remind later</string>
+    <string name="support_organic_maps">Support Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Support the project</string>
     <!-- Button in the main Help dialog -->

@@ -273,6 +273,8 @@
     <string name="faq">Biežāk uzdotie jautājumi</string>
     <!-- Button in the main menu -->
     <string name="donate">Ziedot</string>
+    <string name="remind_me_later">Atgādināt vēlāk</string>
+    <string name="support_organic_maps">Atbalstīt Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Atbalstiet projektu</string>
     <!-- Button in the main Help dialog -->

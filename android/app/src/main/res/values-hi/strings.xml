@@ -284,6 +284,9 @@
     <string name="faq">अक्सर पूछे जाने वाले प्रश्नों</string>
     <!-- Button in the main menu -->
     <string name="donate">दान देना</string>
+    <string name="already_donated">पहले से दान</string>
+    <string name="remind_me_later">बाद में याद दिलाना</string>
+    <string name="support_organic_maps">Organic Maps का समर्थन करें</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">परियोजना का समर्थन करें</string>
     <!-- Button in the main Help dialog -->

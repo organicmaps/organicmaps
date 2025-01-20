@@ -286,6 +286,9 @@
     <string name="faq">اسئلة مكررة</string>
     <!-- Button in the main menu -->
     <string name="donate">تبرع</string>
+    <string name="already_donated">تم التبرع</string>
+    <string name="remind_me_later">ذكر لاحقاً</string>
+    <string name="support_organic_maps">دعم Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">دعم المشروع</string>
     <!-- Button in the main Help dialog -->

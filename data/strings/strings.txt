@@ -7017,7 +7017,7 @@
     zh-Hant = 捐助，以共同打造最好的地圖！
 
   [already_donated]
-    tags = ios
+    tags = ios,android
     en = Already donated
     af = Reeds geskenk
     ar = تم التبرع
@@ -7061,7 +7061,7 @@
     zh-Hant = 已捐贈
 
   [remind_me_later]
-    tags = ios
+    tags = ios,android
     en = Remind later
     af = Herinner later
     ar = ذكر لاحقاً
@@ -7106,7 +7106,7 @@
     zh-Hant = 稍後提醒
 
   [support_organic_maps]
-    tags = ios
+    tags = ios,android
     en = Support Organic Maps
     af = Ondersteun Organic Maps
     ar = دعم Organic Maps

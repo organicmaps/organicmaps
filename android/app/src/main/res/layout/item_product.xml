@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MwmWidget.Button.Accent"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_weight="1"
+    tools:text="5 Eur/Month"
+    android:gravity="center" />

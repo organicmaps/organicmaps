@@ -273,6 +273,9 @@
     <string name="faq">שאלות ותשובות</string>
     <!-- Button in the main menu -->
     <string name="donate">לתרום</string>
+    <string name="already_donated">כבר נתרם</string>
+    <string name="remind_me_later">הזכר מאוחר יותר</string>
+    <string name="support_organic_maps">לתמוך ב-Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">תמכו בפרויקט</string>
     <!-- Button in the main Help dialog -->
