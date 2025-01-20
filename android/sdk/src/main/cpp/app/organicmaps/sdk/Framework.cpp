@@ -229,8 +229,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
       LOG(LWARNING, ("Invalid GL context."));
       return false;
     }
-    p.m_apiVersion = oglFactory->IsSupportedOpenGLES3() ? dp::ApiVersion::OpenGLES3 :
-                                                          dp::ApiVersion::OpenGLES2;
+    p.m_apiVersion = dp::ApiVersion::OpenGLES3;
     p.m_surfaceWidth = oglFactory->GetWidth();
     p.m_surfaceHeight = oglFactory->GetHeight();
 

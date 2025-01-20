@@ -176,7 +176,7 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
 
 void StipplePenIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
 {
-  ASSERT(texture->GetFormat() == dp::TextureFormat::Alpha, ());
+  ASSERT(texture->GetFormat() == dp::TextureFormat::Red, ());
   TPendingNodes pendingNodes;
   {
     std::lock_guard<std::mutex> g(m_lock);

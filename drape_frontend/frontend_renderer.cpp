@@ -1424,7 +1424,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     RefreshBgColor();
 
     uint32_t clearBits = dp::ClearBits::ColorBit | dp::ClearBits::DepthBit;
-    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+    if (m_apiVersion == dp::ApiVersion::OpenGLES3)
       clearBits |= dp::ClearBits::StencilBit;
 
     uint32_t storeBits = dp::ClearBits::ColorBit;
@@ -1522,7 +1522,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (IsValidCurrentZoom())
   {
     uint32_t clearBits = dp::ClearBits::DepthBit;
-    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+    if (m_apiVersion == dp::ApiVersion::OpenGLES3)
       clearBits |= dp::ClearBits::StencilBit;
     m_context->Clear(clearBits, dp::kClearBitsStoreAll);
 

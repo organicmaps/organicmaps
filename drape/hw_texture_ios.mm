@@ -61,7 +61,7 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
     cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA,
                                    attrsRef, &result);
     break;
-  case dp::TextureFormat::Alpha:
+  case dp::TextureFormat::Red:
     cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8,
                                    attrsRef, &result);
     break;
