@@ -2,7 +2,7 @@
 
 #include "drape/graphics_context.hpp"
 
-// Testing context simulates OpenGLES2 API version.
+// Testing context simulates OpenGLES3 API version.
 class TestingGraphicsContext : public dp::GraphicsContext
 {
 public:
@@ -38,5 +38,5 @@ public:
   void SetCullingEnabled(bool enabled) override {}
 
 private:
-  dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES2;
+  dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES3;
 };

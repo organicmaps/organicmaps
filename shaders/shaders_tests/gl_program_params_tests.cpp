@@ -15,9 +15,9 @@
 using namespace std::placeholders;
 
 template <typename ProgramParams>
-void TestProgramParams(bool apiOpenGLES3)
+void TestProgramParams()
 {
-  auto const api = apiOpenGLES3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
+  auto constexpr api = dp::ApiVersion::OpenGLES3;
   TestingGraphicsContext context(api);
   GLFunctions::Init(api);
   gpu::GLProgramPool pool(api);
@@ -37,91 +37,61 @@ void TestProgramParams(bool apiOpenGLES3)
 #ifdef OMIM_OS_MAC
 UNIT_TEST(MapProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::MapProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::MapProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::MapProgramParams>));
 }
 
 UNIT_TEST(RouteProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("RouteProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::RouteProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("RouteProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::RouteProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("RouteProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::RouteProgramParams>));
 }
 
 UNIT_TEST(TrafficProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("TrafficProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::TrafficProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("TrafficProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::TrafficProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("TrafficProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::TrafficProgramParams>));
 }
 
 UNIT_TEST(TransitProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("TransitProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::TransitProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("TransitProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::TransitProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("TransitProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::TransitProgramParams>));
 }
 
 UNIT_TEST(GuiProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::GuiProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::GuiProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::GuiProgramParams>));
 }
 
 UNIT_TEST(ShapesProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>));
 }
 
 UNIT_TEST(Arrow3dProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("Arrow3dProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::Arrow3dProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("Arrow3dProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::Arrow3dProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("Arrow3dProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::Arrow3dProgramParams>));
 }
 
 UNIT_TEST(DebugRectProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("DebugRectProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::DebugRectProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("DebugRectProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::DebugRectProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("DebugRectProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::DebugRectProgramParams>));
 }
 
 UNIT_TEST(ScreenQuadProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("ScreenQuadProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::ScreenQuadProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("ScreenQuadProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::ScreenQuadProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("ScreenQuadProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::ScreenQuadProgramParams>));
 }
 
 UNIT_TEST(SMAAProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::SMAAProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::SMAAProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test",
+                                      std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
 }
 #endif

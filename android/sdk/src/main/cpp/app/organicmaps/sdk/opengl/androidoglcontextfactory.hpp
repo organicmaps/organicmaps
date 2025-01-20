@@ -33,8 +33,6 @@ public:
   int GetHeight() const;
   void UpdateSurfaceSize(int w, int h);
 
-  bool IsSupportedOpenGLES3() const { return m_supportedES3; }
-
 private:
   bool QuerySurfaceSize();
 
@@ -56,7 +54,6 @@ private:
   int m_surfaceHeight;
 
   bool m_windowSurfaceValid;
-  bool m_supportedES3;
 
   bool m_isInitialized = false;
   size_t m_initializationCounter = 0;
