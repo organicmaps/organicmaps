@@ -16,26 +16,13 @@
 
 #define EGL_OPENGL_ES3_BIT 0x00000040
 
-int constexpr kMinSdkVersionForES3 = 21;
-
 namespace android
 {
 namespace
 {
-static EGLint * getConfigAttributesListRGB8(bool supportedES3)
+static EGLint * getConfigAttributesListRGB8()
 {
   static EGLint attr_list[] = {
-    EGL_RED_SIZE, 8,
-    EGL_GREEN_SIZE, 8,
-    EGL_BLUE_SIZE, 8,
-    EGL_ALPHA_SIZE, 0,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
-  static EGLint attr_list_es3[] = {
     EGL_RED_SIZE, 8,
     EGL_GREEN_SIZE, 8,
     EGL_BLUE_SIZE, 8,
@@ -46,33 +33,16 @@ static EGLint * getConfigAttributesListRGB8(bool supportedES3)
     EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
     EGL_NONE
   };
-  return supportedES3 ? attr_list_es3 : attr_list;
+  return attr_list;
 }
 
 int const kMaxConfigCount = 40;
 
-static EGLint * getConfigAttributesListR5G6B5()
-{
-  // We do not support OpenGL ES3 for R5G6B5, because some Android devices
-  // are not able to create OpenGL context in such mode.
-  static EGLint attr_list[] = {
-    EGL_RED_SIZE, 5,
-    EGL_GREEN_SIZE, 6,
-    EGL_BLUE_SIZE, 5,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
-  return attr_list;
-}
-
-bool IsSupportedRGB8(EGLDisplay display, bool es3)
+bool IsSupportedRGB8(EGLDisplay display)
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs,
+  return eglChooseConfig(display, getConfigAttributesListRGB8(), configs,
                          kMaxConfigCount, &count) == EGL_TRUE && count != 0;
 }
 
@@ -90,7 +60,6 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   , m_surfaceWidth(0)
   , m_surfaceHeight(0)
   , m_windowSurfaceValid(false)
-  , m_supportedES3(false)
 {
   m_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
   if (m_display == EGL_NO_DISPLAY)
@@ -106,10 +75,7 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
     return;
   }
 
-  // Check ES3 availability.
-  bool const isES3Supported = IsSupportedRGB8(m_display, true /* es3 */) &&
-             android_get_device_api_level() >= kMinSdkVersionForES3;
-  m_supportedES3 = isES3Supported && gl3stubInit();
+  CHECK(gl3stubInit(), ("Could not initialize OpenGL ES3"));
 
   SetSurface(env, jsurface);
 
@@ -266,7 +232,7 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetDrawContext()
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == nullptr)
   {
-    m_drawContext = new AndroidOGLContext(m_supportedES3, m_display, m_windowSurface,
+    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface,
                                           m_config, m_uploadContext);
   }
   return m_drawContext;
@@ -278,7 +244,7 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetResourcesUploadContext()
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == nullptr)
   {
-    m_uploadContext = new AndroidOGLContext(m_supportedES3, m_display, m_pixelbufferSurface,
+    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface,
                                             m_config, m_drawContext);
   }
   return m_uploadContext;
@@ -322,17 +288,15 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(m_supportedES3), configs,
-                      kMaxConfigCount, &count) != EGL_TRUE)
+  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(), configs,
+                      kMaxConfigCount, &count) == EGL_TRUE)
   {
-    ASSERT(!m_supportedES3, ());
-    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs,
-                                      kMaxConfigCount, &count) == EGL_TRUE, ());
-    LOG(LDEBUG, ("Backbuffer format: R5G6B5"));
+    CHECK(IsSupportedRGB8(m_display), ("RGB8 is not suported on this device"));
+    LOG(LDEBUG, ("Backbuffer format: RGB8"));
   }
   else
   {
-    LOG(LDEBUG, ("Backbuffer format: RGB8"));
+    CHECK(false, ("OpenGL ES3 is not supported"));
   }
   ASSERT(count > 0, ("Didn't find any configs."));
 

@@ -14,14 +14,11 @@ class GLExtensionsList
 public:
   enum ExtensionName
   {
-    VertexArrayObject,
     MapBuffer,
-    UintIndices,
-    MapBufferRange
   };
 
   GLExtensionsList() = default;
-  void Init(dp::ApiVersion apiVersion);
+  void Init();
   bool IsSupported(ExtensionName extName) const;
 
 private:

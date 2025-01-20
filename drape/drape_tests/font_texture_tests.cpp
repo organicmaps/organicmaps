@@ -107,7 +107,7 @@ UNIT_TEST(UploadingGlyphs)
   TestingGraphicsContext context;
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator(make_ref(&context));
-  p.m_format = dp::TextureFormat::Alpha;
+  p.m_format = dp::TextureFormat::Red;
   p.m_width = p.m_height = kTextureSize;
 
   DummyTexture tex;
