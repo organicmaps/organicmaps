@@ -257,6 +257,9 @@
     <string name="faq">Întrebări frecvente</string>
     <!-- Button in the main menu -->
     <string name="donate">Donează</string>
+    <string name="already_donated">Deja donat</string>
+    <string name="remind_me_later">Amintește mai târziu</string>
+    <string name="support_organic_maps">Susține Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Susține proiectul</string>
     <!-- Button in the main Help dialog -->

@@ -280,6 +280,9 @@
     <string name="faq">問題和解答</string>
     <!-- Button in the main menu -->
     <string name="donate">捐助我們</string>
+    <string name="already_donated">已捐贈</string>
+    <string name="remind_me_later">稍後提醒</string>
+    <string name="support_organic_maps">支持 Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">支持本項目</string>
     <!-- Button in the main Help dialog -->

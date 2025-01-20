@@ -276,6 +276,9 @@
     <string name="faq">Вопросы и ответы</string>
     <!-- Button in the main menu -->
     <string name="donate">Поддержать деньгами</string>
+    <string name="already_donated">Уже пожертвовано</string>
+    <string name="remind_me_later">Напомнить позже</string>
+    <string name="support_organic_maps">Поддержать Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Помочь проекту</string>
     <!-- Button in the main Help dialog -->

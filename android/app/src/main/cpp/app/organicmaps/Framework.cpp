@@ -1993,4 +1993,74 @@ Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jst
   return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_Framework_nativeShouldShowProducts(JNIEnv * env, jclass)
+{
+  return frm()->ShouldShowProducts();
+}
+
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_Framework_nativeGetProductsConfiguration(JNIEnv * env, jclass)
+{
+  auto config = frm()->GetProductsConfiguration();
+  if (!config) return nullptr;
+
+  static jclass const productClass = jni::GetGlobalClassRef(
+    env,
+    "app/organicmaps/products/Product"
+  );
+  static jmethodID const productConstructor = jni::GetConstructorID(
+    env,
+    productClass,
+    "(Ljava/lang/String;Ljava/lang/String;)V"
+  );
+
+  jobjectArray products = jni::ToJavaArray(
+    env,
+    productClass,
+    config->GetProducts(),
+    [](JNIEnv * env, products::ProductsConfig::Product const & product)
+    {
+      jni::TScopedLocalRef const title(env, jni::ToJavaString(env, product.GetTitle()));
+      jni::TScopedLocalRef const link(env, jni::ToJavaString(env, product.GetLink()));
+
+      return env->NewObject(
+        productClass,
+        productConstructor,
+        title.get(),
+        link.get()
+      );
+    });
+
+  static jclass const productsConfigClass = jni::GetGlobalClassRef(
+    env,
+    "app/organicmaps/products/ProductsConfig"
+  );
+  static jmethodID const productsConfigConstructor = jni::GetConstructorID(
+    env,
+    productsConfigClass,
+    "(Ljava/lang/String;[Lapp/organicmaps/products/Product;)V"
+  );
+
+  jni::TScopedLocalRef const placePagePrompt(env, jni::ToJavaString(env, config->GetPlacePagePrompt()));
+  return env->NewObject(productsConfigClass, productsConfigConstructor, placePagePrompt.get(), products);
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeDidCloseProductsPopup(JNIEnv * env, jclass, jstring reason)
+{
+  frm()->DidCloseProductsPopup(frm()->FromString(jni::ToNativeString(env, reason)));
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeDidSelectProduct(JNIEnv * env, jclass, jstring title, jstring link)
+{
+  products::ProductsConfig::Product product(
+    jni::ToNativeString(env, title),
+    jni::ToNativeString(env, link)
+  );
+
+  frm()->DidSelectProduct(product);
+}
+
 }  // extern "C"

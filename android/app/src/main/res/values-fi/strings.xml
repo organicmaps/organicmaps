@@ -270,6 +270,9 @@
     <string name="faq">Usein kysytyt kysymykset</string>
     <!-- Button in the main menu -->
     <string name="donate">Lahjoita</string>
+    <string name="already_donated">Jo lahjoitettu</string>
+    <string name="remind_me_later">Muistuta myöhemmin</string>
+    <string name="support_organic_maps">Tukea Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Tue projektia</string>
     <!-- Button in the main Help dialog -->

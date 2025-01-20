@@ -273,6 +273,9 @@
     <string name="faq">Preguntes més freqüents</string>
     <!-- Button in the main menu -->
     <string name="donate">Donatiu</string>
+    <string name="already_donated">Ja donat</string>
+    <string name="remind_me_later">Recorda més tard</string>
+    <string name="support_organic_maps">Donar suport a Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Donar suport al projecte</string>
     <!-- Button in the main Help dialog -->

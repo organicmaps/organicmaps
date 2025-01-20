@@ -250,6 +250,9 @@
     <string name="faq">Câu hỏi và trả lời</string>
     <!-- Button in the main menu -->
     <string name="donate">Quyên tặng</string>
+    <string name="already_donated">Đã quyên góp</string>
+    <string name="remind_me_later">Nhắc sau</string>
+    <string name="support_organic_maps">Hỗ trợ Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Hỗ trợ dự án</string>
     <!-- Button in the main Help dialog -->

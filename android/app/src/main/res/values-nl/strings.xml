@@ -271,6 +271,9 @@
     <string name="faq">Vragen en antwoorden</string>
     <!-- Button in the main menu -->
     <string name="donate">Doneer</string>
+    <string name="already_donated">Reeds gedoneerd</string>
+    <string name="remind_me_later">Herinner later</string>
+    <string name="support_organic_maps">Ondersteun Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Steun het project</string>
     <!-- Button in the main Help dialog -->

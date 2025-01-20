@@ -252,6 +252,9 @@
     <string name="faq">คำถามและคำตอบ</string>
     <!-- Button in the main menu -->
     <string name="donate">บริจาค</string>
+    <string name="already_donated">บริจาคแล้ว</string>
+    <string name="remind_me_later">เตือนภายหลัง</string>
+    <string name="support_organic_maps">สนับสนุน Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">สนับสนุนโครงการ</string>
     <!-- Button in the main Help dialog -->

@@ -15,6 +15,8 @@ import app.organicmaps.api.RequestType;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.products.Product;
+import app.organicmaps.products.ProductsConfig;
 import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RouteMarkData;
 import app.organicmaps.routing.RoutePointInfo;
@@ -461,4 +463,13 @@ public class Framework
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
                                                       long firstDaySec, long lastDaySec);
+
+  public static native boolean nativeShouldShowProducts();
+
+  @Nullable
+  public static native ProductsConfig nativeGetProductsConfiguration();
+
+  public static native void nativeDidCloseProductsPopup(String reason);
+
+  public static native void nativeDidSelectProduct(String title, String link);
 }

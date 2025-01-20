@@ -70,6 +70,9 @@
     <string name="faq">Maswali na majibu</string>
     <!-- Button in the main menu -->
     <string name="donate">Changia</string>
+    <string name="already_donated">Tayari kutoa</string>
+    <string name="remind_me_later">Kumbusha baadaye</string>
+    <string name="support_organic_maps">Kuunga mkono Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Saidia mradi</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->

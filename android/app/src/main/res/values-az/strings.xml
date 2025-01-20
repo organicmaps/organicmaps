@@ -272,6 +272,9 @@
     <string name="faq">Tez-tez soruşulan suallar</string>
     <!-- Button in the main menu -->
     <string name="donate">Bağışlamaq</string>
+    <string name="already_donated">Artıq ianə edildi</string>
+    <string name="remind_me_later">Daha sonra xatırlat</string>
+    <string name="support_organic_maps">Organic Maps-i dəstəkləmək</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Bu layihəni dəstəkləyin</string>
     <!-- Button in the main Help dialog -->

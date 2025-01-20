@@ -254,6 +254,9 @@
     <string name="faq">Otázky a odpovědi</string>
     <!-- Button in the main menu -->
     <string name="donate">Darovat</string>
+    <string name="already_donated">Již darováno</string>
+    <string name="remind_me_later">Připomeň později</string>
+    <string name="support_organic_maps">Podpořit Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Podpořte projekt</string>
     <!-- Button in the main Help dialog -->

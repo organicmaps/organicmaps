@@ -255,6 +255,9 @@
     <string name="faq">Въпроси и отговори</string>
     <!-- Button in the main menu -->
     <string name="donate">Дарете</string>
+    <string name="already_donated">Вече дарено</string>
+    <string name="remind_me_later">Напомни по-късно</string>
+    <string name="support_organic_maps">Подкрепи Organic Maps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Подкрепете проекта</string>
     <!-- Button in the main Help dialog -->
