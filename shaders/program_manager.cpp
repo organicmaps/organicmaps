@@ -19,7 +19,7 @@ void ProgramManager::Init(ref_ptr<dp::GraphicsContext> context)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     InitForOpenGL(context);
   }

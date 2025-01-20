@@ -26,9 +26,7 @@
 std::string const kCompilersDir = "shaders_compiler";
 
 #if defined(OMIM_OS_MAC)
-std::string const kMaliCompilerOpenGLES2Dir = "macos/mali_compiler";
 std::string const kMaliCompilerOpenGLES3Dir = "macos/mali_compiler_es3";
-std::string const kCompilerMaliOpenGLES2 = kMaliCompilerOpenGLES2Dir + "/malisc";
 std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
 std::string const kCompilerOpenGLES = "macos/glslangValidator";
 #elif defined(OMIM_OS_LINUX)
@@ -167,26 +165,12 @@ UNIT_TEST(MobileCompileShaders_Test)
   base::DelayedThreadPool workerThread(6 /* threadsCount */);
 
   workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)});
-  });
-
-  workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)});
-  });
-
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
-      "#define ENABLE_VTF\n");
   });
 
   workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
       "#define ENABLE_VTF\n");
-  });
-
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
-      "#define SAMSUNG_GOOGLE_NEXUS\n");
   });
 
   workerThread.Push([] {
@@ -474,16 +458,6 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
   driversES2new.insert(driversES2new.end(), driversES3new.begin(), driversES3new.end());
 
   std::vector<MaliCompilerData> const compilers = {
-#if defined(OMIM_OS_MAC)
-    {dp::ApiVersion::OpenGLES2,
-      GetCompilerPath(kCompilerMaliOpenGLES2),
-      GetCompilerPath(kMaliCompilerOpenGLES2Dir),
-      driversES2old},
-#endif
-    {dp::ApiVersion::OpenGLES2,
-     GetCompilerPath(kCompilerMaliOpenGLES3),
-     GetCompilerPath(kMaliCompilerOpenGLES3Dir),
-     driversES2new},
     {dp::ApiVersion::OpenGLES3,
      GetCompilerPath(kCompilerMaliOpenGLES3),
      GetCompilerPath(kMaliCompilerOpenGLES3Dir),

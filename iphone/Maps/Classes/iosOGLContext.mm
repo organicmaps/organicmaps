@@ -17,20 +17,14 @@ iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
   , m_frameBufferId(0)
   , m_presentAvailable(true)
 {
-  EAGLRenderingAPI api;
-  if (m_apiVersion == dp::ApiVersion::OpenGLES3)
-    api = kEAGLRenderingAPIOpenGLES3;
-  else
-    api = kEAGLRenderingAPIOpenGLES2;
-  
   if (contextToShareWith != NULL)
   {
-    m_nativeContext = [[EAGLContext alloc] initWithAPI:api
+    m_nativeContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3
                                            sharegroup: contextToShareWith->m_nativeContext.sharegroup];
   }
   else
   {
-    m_nativeContext = [[EAGLContext alloc] initWithAPI:api];
+    m_nativeContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
   }
 }
 

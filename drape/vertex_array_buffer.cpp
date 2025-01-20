@@ -56,9 +56,6 @@ public:
       return false;
 
     m_program = program;
-    // If OES_vertex_array_object not supported, than buffers will be bound on each render call.
-    if (!GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
-      return false;
 
     if (m_VAO != 0)
       GLFunctions::glDeleteVertexArray(m_VAO);
@@ -68,19 +65,14 @@ public:
 
   bool Bind() override
   {
-    if (GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
-    {
-      ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render."));
-      GLFunctions::glBindVertexArray(m_VAO);
-      return true;
-    }
-    return false;
+    ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render."));
+    GLFunctions::glBindVertexArray(m_VAO);
+    return true;
   }
 
   void Unbind() override
   {
-    if (GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
-      GLFunctions::glBindVertexArray(0);
+    GLFunctions::glBindVertexArray(0);
   }
 
   void BindBuffers(BuffersMap const & buffers) const override
@@ -163,7 +155,7 @@ void VertexArrayBuffer::PreflushImpl(ref_ptr<GraphicsContext> context)
   // Preflush can be called on BR, where impl is not initialized.
   // For Metal rendering this code has no meaning.
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
     GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
@@ -208,7 +200,7 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
   if (!m_impl)
   {
     auto const apiVersion = context->GetApiVersion();
-    if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+    if (apiVersion == dp::ApiVersion::OpenGLES3)
     {
       m_impl = make_unique_dp<GLVertexArrayBufferImpl>();
     }

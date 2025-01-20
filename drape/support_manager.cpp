@@ -56,7 +56,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     LOG(LINFO, ("NVidia Tegra device detected."));
 
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     m_maxLineWidth = static_cast<float>(std::max(1, GLFunctions::glGetMaxLineWidth()));
     m_maxTextureSize = static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
