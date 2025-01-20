@@ -134,7 +134,7 @@ void Framebuffer::SetSize(ref_ptr<dp::GraphicsContext> context, uint32_t width, 
     m_depthStencilRef->SetSize(context, m_width, m_height);
 
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     glConst depthAttachmentId = 0;
     glConst stencilAttachmentId = 0;
