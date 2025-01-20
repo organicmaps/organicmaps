@@ -51,8 +51,7 @@ void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool auto
   app.exec();
 }
 
-void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES3,
-                                         testing::TestFunction const & fn)
+void RunTestInOpenGLOffscreenEnvironment(char const * testName, testing::TestFunction const & fn)
 {
   std::vector<char> buf(strlen(testName) + 1);
   strcpy(buf.data(), testName);
@@ -71,16 +70,8 @@ void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES
   fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   fmt.setSwapInterval(1);
   fmt.setDepthBufferSize(16);
-  if (apiOpenGLES3)
-  {
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    fmt.setVersion(3, 2);
-  }
-  else
-  {
-    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-    fmt.setVersion(2, 1);
-  }
+  fmt.setProfile(QSurfaceFormat::CoreProfile);
+  fmt.setVersion(3, 2);
 
   auto surface = std::make_unique<QOffscreenSurface>();
   surface->setFormat(fmt);
@@ -92,7 +83,7 @@ void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES
   context->makeCurrent(surface.get());
 
   if (fn)
-    fn(apiOpenGLES3);
+    fn();
 
   context->doneCurrent();
   surface->destroy();

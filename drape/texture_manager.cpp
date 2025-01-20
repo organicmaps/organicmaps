@@ -183,7 +183,7 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
   if (m_nothingToUpload.test_and_set())
   {
     auto const apiVersion = context->GetApiVersion();
-    if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+    if (apiVersion == dp::ApiVersion::OpenGLES3)
     {
       // For some reasons OpenGL can not update textures immediately.
       // Here we use some timeout to prevent rendering frozening.
@@ -302,7 +302,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 
   m_maxTextureSize = std::min(kMaxTextureSize, dp::SupportManager::Instance().GetMaxTextureSize());
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
     GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
   // Initialize symbols.
@@ -323,16 +323,13 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
       CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
                          params.m_arrowTextureUseDefaultResourceFolder);
 
-  // SMAA is not supported on OpenGL ES2.
-  if (apiVersion != dp::ApiVersion::OpenGLES2)
-  {
-    m_smaaAreaTexture =
-        make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
-                                      dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
-    m_smaaSearchTexture =
-        make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
-                                      dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
-  }
+  // SMAA.
+  m_smaaAreaTexture =
+      make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
+                                    dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
+  m_smaaSearchTexture =
+      make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
+                                    dp::TextureFormat::Red, make_ref(m_textureAllocator));
 
   // Initialize patterns (reserved ./data/patterns.txt lines count).
   std::set<PenPatternT> patterns;
