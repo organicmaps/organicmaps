@@ -26,7 +26,6 @@ namespace dp
 enum class ApiVersion
 {
   Invalid = -1,
-  OpenGLES2 = 0,
   OpenGLES3,
   Metal,
   Vulkan
@@ -101,7 +100,6 @@ inline std::string DebugPrint(dp::ApiVersion apiVersion)
   switch (apiVersion)
   {
   case dp::ApiVersion::Invalid: return "Invalid";
-  case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
   case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
   case dp::ApiVersion::Metal: return "Metal";
   case dp::ApiVersion::Vulkan: return "Vulkan";
@@ -120,9 +118,6 @@ inline dp::ApiVersion ApiVersionFromString(std::string const & str)
   if (str == "Vulkan")
     return dp::ApiVersion::Vulkan;
 #endif
-
-  if (str == "OpenGLES2")
-    return dp::ApiVersion::OpenGLES2;
 
   if (str == "OpenGLES3")
     return dp::ApiVersion::OpenGLES3;

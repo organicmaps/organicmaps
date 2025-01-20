@@ -253,14 +253,7 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
 
         file.write("GLProgramInfo GetProgramInfo(dp::ApiVersion apiVersion, Program program)\n")
         file.write("{\n")
-        file.write("  if (apiVersion == dp::ApiVersion::OpenGLES2)\n")
-        file.write("  {\n")
-        file.write("    static std::array<GLProgramInfo, static_cast<size_t>(Program::ProgramsCount)> gpuIndex = {{\n")
-        write_gpu_programs_map(file, programs_def, '')
-        file.write("    }};\n")
-        file.write("    return gpuIndex[static_cast<size_t>(program)];\n")
-        file.write("  }\n")
-        file.write("  else if (apiVersion == dp::ApiVersion::OpenGLES3)\n")
+        file.write("  if (apiVersion == dp::ApiVersion::OpenGLES3)\n") # TODO: remove
         file.write("  {\n")
         file.write("    static std::array<GLProgramInfo, static_cast<size_t>(Program::ProgramsCount)> gpuIndex = {{\n")
         write_gpu_programs_map(file, programs_def, GLES3_PREFIX)

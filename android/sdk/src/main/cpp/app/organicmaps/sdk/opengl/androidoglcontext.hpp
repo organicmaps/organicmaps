@@ -10,7 +10,7 @@ namespace android
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
-  AndroidOGLContext(bool supportedES3, EGLDisplay display, EGLSurface surface,
+  AndroidOGLContext(EGLDisplay display, EGLSurface surface,
                     EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 

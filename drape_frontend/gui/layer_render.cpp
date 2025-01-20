@@ -369,7 +369,6 @@ void LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Posit
     std::string apiLabel;
     switch (apiVersion)
     {
-    case dp::ApiVersion::OpenGLES2: apiLabel = "GL2"; break;
     case dp::ApiVersion::OpenGLES3: apiLabel = "GL3"; break;
     case dp::ApiVersion::Metal: apiLabel = "M"; break;
     case dp::ApiVersion::Vulkan: apiLabel = "V"; break;
