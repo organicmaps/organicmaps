@@ -45,12 +45,11 @@ public enum ThemeSwitcher
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String storedTheme = Config.getThemeSettings(mContext);
+    String savedTheme = Config.getThemeSettings(mContext);
     // TODO: Handle debug commands
-    String resolvedTheme = resolveBasicTheme(storedTheme);
-    setAndroidTheme(resolvedTheme);
-    // Depends on Android theme being set due to follow-system, so has to be after setAndroidTheme.
+    String resolvedTheme = resolveBasicTheme(savedTheme);
     int resolvedMapStyle = resolveMapStyle(resolvedTheme);
+    setAndroidTheme(resolvedTheme);
     setMapStyle(resolvedMapStyle);
   }
 
@@ -60,9 +59,9 @@ public enum ThemeSwitcher
    */
   private void setAndroidTheme(@NonNull String theme)
   {
-    if (ThemeUtils.isSystemTheme(mContext, theme))
-      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    else if (ThemeUtils.isNightTheme(mContext, theme))
+//    if (ThemeUtils.isSystemTheme(mContext, theme))
+//      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -85,10 +84,10 @@ public enum ThemeSwitcher
   }
 
   /**
-   * resolve custom themes (auto, navauto) to basic system ones (light, dark, follow-system)
+   * resolve custom themes (auto, navauto) to basic ones (light or dark)
    * @return theme handle-able by android theme system.
    */
-  public String resolveBasicTheme(@NonNull String theme)
+  private String resolveBasicTheme(@NonNull String theme)
   {
     if (ThemeUtils.isAutoTheme(mContext, theme))
       return calcAutoTheme();
@@ -100,55 +99,45 @@ public enum ThemeSwitcher
       else
         return mContext.getResources().getString(R.string.theme_default);
     }
-    // Passthrough for normal themes
-    return theme;
+    else if (ThemeUtils.isSystemTheme(mContext, theme))
+    {
+      int uiMode = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+      return uiMode == Configuration.UI_MODE_NIGHT_YES
+              ? mContext.getResources().getString(R.string.theme_night)
+              : mContext.getResources().getString(R.string.theme_default);
+    }
+    else
+      // Passthrough for normal themes
+      return theme;
   }
 
   /**
    * Resolve the map (drape) style from a resolved theme string.
-   * @param theme MUST be follow-system/theme_light/dark
+   * @param theme MUST be theme_light/dark
    * @return drape/core compatible map style
    */
   private int resolveMapStyle(@NonNull String theme)
   {
-    @Framework.MapStyle
-    int style;
-    String resolvedTheme = theme;
-    // First convert the android-but-dynamic follow system theme.
-    if (ThemeUtils.isSystemTheme(mContext, theme))
-    {
-      //TODO: calc in restart() and set only light/dark
-      // Depends on android theme already being calculated and set.
-      resolvedTheme = switch (mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-      {
-        case Configuration.UI_MODE_NIGHT_YES -> mContext.getResources().getString(R.string.theme_night);
-        case Configuration.UI_MODE_NIGHT_NO -> mContext.getResources().getString(R.string.theme_default);
-        default -> resolvedTheme;
-      };
-    }
-    // Then return a dark/light map style taking into account variants.
-    if (ThemeUtils.isNightTheme(mContext, resolvedTheme))
+    if (ThemeUtils.isNightTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
-        style = Framework.MAP_STYLE_VEHICLE_DARK;
+        return Framework.MAP_STYLE_VEHICLE_DARK;
       else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = Framework.MAP_STYLE_OUTDOORS_DARK;
+        return Framework.MAP_STYLE_OUTDOORS_DARK;
       else
-        style = Framework.MAP_STYLE_DARK;
+        return Framework.MAP_STYLE_DARK;
     }
-    else if (ThemeUtils.isDefaultTheme(mContext, resolvedTheme))
+    else if (ThemeUtils.isDefaultTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
-        style = Framework.MAP_STYLE_VEHICLE_CLEAR;
+        return Framework.MAP_STYLE_VEHICLE_CLEAR;
       else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = Framework.MAP_STYLE_OUTDOORS_CLEAR;
+        return Framework.MAP_STYLE_OUTDOORS_CLEAR;
       else
-        style = Framework.MAP_STYLE_CLEAR;
+        return Framework.MAP_STYLE_CLEAR;
     }
     else
-      throw new IllegalArgumentException(resolvedTheme+" passed, but only follow-system/theme_light/dark are allowed.");
-
-    return style;
+      throw new IllegalArgumentException(theme +" passed, but only theme_light/dark are allowed.");
   }
 
   /**
@@ -163,15 +152,15 @@ public enum ThemeSwitcher
     Location last = LocationHelper.from(mContext).getSavedLocation();
     long currentTime = System.currentTimeMillis() / 1000;
     boolean day;
+
     if (last != null)
       day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
     else
     {
       currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-      Logger.e("HELLO", String.valueOf(currentTime));
       day = (currentTime < 18 && currentTime > 6);
     }
-    // Finally
+
     return (day ? defaultTheme : nightTheme);
   }
 }
