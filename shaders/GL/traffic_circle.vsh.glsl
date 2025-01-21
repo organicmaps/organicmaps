@@ -1,6 +1,6 @@
-attribute vec4 a_position;
-attribute vec4 a_normal;
-attribute vec2 a_colorTexCoord;
+in vec4 a_position;
+in vec4 a_normal;
+in vec2 a_colorTexCoord;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
@@ -9,8 +9,8 @@ uniform mat4 u_pivotTransform;
 uniform vec3 u_lightArrowColor; // Here we store left sizes by road classes.
 uniform vec3 u_darkArrowColor; // Here we store right sizes by road classes.
 
-varying vec2 v_colorTexCoord;
-varying vec3 v_radius;
+out vec2 v_colorTexCoord;
+out vec3 v_radius;
 
 void main()
 {

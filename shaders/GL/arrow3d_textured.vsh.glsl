@@ -1,13 +1,13 @@
-attribute vec3 a_pos;
-attribute vec3 a_normal;
-attribute vec2 a_texCoords;
+in vec3 a_pos;
+in vec3 a_normal;
+in vec2 a_texCoords;
 
 uniform mat4 u_transform;
 uniform mat4 u_normalTransform;
 uniform vec2 u_texCoordFlipping;
 
-varying vec3 v_normal;
-varying vec2 v_texCoords;
+out vec3 v_normal;
+out vec2 v_texCoords;
 
 void main()
 {

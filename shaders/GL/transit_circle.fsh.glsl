@@ -2,14 +2,12 @@
 // Unfortunately some CG algorithms cannot be implemented on OpenGL ES 2.0 without discarding
 // fragments from depth buffer.
 
-varying vec3 v_radius;
-varying vec4 v_color;
-
-#ifdef SAMSUNG_GOOGLE_NEXUS
-uniform sampler2D u_colorTex;
-#endif
+in vec3 v_radius;
+in vec4 v_color;
 
 const float aaPixelsCount = 2.5;
+
+out vec4 v_FragColor;
 
 void main()
 {
@@ -21,5 +19,5 @@ void main()
   finalColor.a = finalColor.a * (1.0 - stepValue);
   if (finalColor.a < 0.01)
     discard;
-  gl_FragColor = samsungGoogleNexusWorkaround(finalColor);
+  v_FragColor = finalColor;
 }

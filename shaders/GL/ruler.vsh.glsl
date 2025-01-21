@@ -1,12 +1,12 @@
-attribute vec2 a_position;
-attribute vec2 a_normal;
-attribute vec2 a_colorTexCoords;
+in vec2 a_position;
+in vec2 a_normal;
+in vec2 a_colorTexCoords;
 
 uniform vec2 u_position;
 uniform float u_length;
 uniform mat4 u_projection;
 
-varying vec2 v_colorTexCoords;
+out vec2 v_colorTexCoords;
 
 void main()
 {

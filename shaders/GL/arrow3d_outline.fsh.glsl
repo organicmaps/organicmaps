@@ -1,13 +1,10 @@
-varying float v_intensity;
-
-#ifdef SAMSUNG_GOOGLE_NEXUS
-uniform sampler2D u_colorTex;
-#endif
+in float v_intensity;
 
 uniform vec4 u_color;
 
+out vec4 v_FragColor;
+
 void main()
 {
-  vec4 resColor = vec4(u_color.rgb, u_color.a * smoothstep(0.7, 1.0, v_intensity));
-  gl_FragColor = samsungGoogleNexusWorkaround(resColor);
+  v_FragColor = vec4(u_color.rgb, u_color.a * smoothstep(0.7, 1.0, v_intensity));
 }

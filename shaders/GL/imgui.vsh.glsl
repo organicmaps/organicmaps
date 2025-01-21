@@ -1,9 +1,9 @@
-attribute vec2 a_position;
-attribute vec2 a_texCoords;
-attribute vec4 a_color;
+in vec2 a_position;
+in vec2 a_texCoords;
+in vec4 a_color;
 
-varying vec2 v_texCoords;
-varying vec4 v_color;
+out vec2 v_texCoords;
+out vec4 v_color;
 
 uniform mat4 u_projection;
 

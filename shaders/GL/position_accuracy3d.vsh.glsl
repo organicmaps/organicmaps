@@ -1,5 +1,5 @@
-attribute vec2 a_normal;
-attribute vec2 a_colorTexCoords;
+in vec2 a_normal;
+in vec2 a_colorTexCoords;
 
 uniform vec3 u_position;
 uniform float u_accuracy;
@@ -9,7 +9,7 @@ uniform mat4 u_projection;
 uniform mat4 u_pivotTransform;
 uniform float u_zScale;
 
-varying vec2 v_colorTexCoords;
+out vec2 v_colorTexCoords;
 
 void main()
 {

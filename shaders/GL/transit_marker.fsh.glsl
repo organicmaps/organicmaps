@@ -1,9 +1,7 @@
-#ifdef SAMSUNG_GOOGLE_NEXUS
-uniform sampler2D u_colorTex;
-#endif
+in vec4 v_offsets;
+in vec4 v_color;
 
-varying vec4 v_offsets;
-varying vec4 v_color;
+out vec4 v_FragColor;
 
 void main()
 {
@@ -17,5 +15,5 @@ void main()
   float stepValue = smoothstep(aaRadius * aaRadius, maxRadius * maxRadius, dot(radius.xy, radius.xy));
   finalColor.a = finalColor.a * (1.0 - stepValue);
 
-  gl_FragColor = samsungGoogleNexusWorkaround(finalColor);
+  v_FragColor = finalColor;
 }

@@ -1,6 +1,6 @@
-attribute vec3 a_position;
-attribute vec4 a_normal;
-attribute vec4 a_colorTexCoord;
+in vec3 a_position;
+in vec4 a_normal;
+in vec4 a_colorTexCoord;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
@@ -8,9 +8,9 @@ uniform mat4 u_pivotTransform;
 
 uniform vec4 u_trafficParams;
 
-varying vec2 v_colorTexCoord;
-varying vec2 v_maskTexCoord;
-varying float v_halfLength;
+out vec2 v_colorTexCoord;
+out vec2 v_maskTexCoord;
+out float v_halfLength;
 
 const float kArrowVSize = 0.25;
 

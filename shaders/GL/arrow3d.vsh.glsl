@@ -1,10 +1,10 @@
-attribute vec3 a_pos;
-attribute vec3 a_normal;
+in vec3 a_pos;
+in vec3 a_normal;
 
 uniform mat4 u_transform;
 uniform mat4 u_normalTransform;
 
-varying vec3 v_normal;
+out vec3 v_normal;
 
 void main()
 {

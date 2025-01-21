@@ -150,14 +150,12 @@ void CompileShaders(CompilerData const & compiler, std::string const & additiona
     args << fileName;
   };
 
-  std::string const defines = compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ?
-    "#define GLES3\n" + additionalDefines : additionalDefines;
-  TestShaders(compiler.m_apiVersion, defines, ".vert", GetVertexShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, additionalDefines, ".vert", GetVertexShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  TestShaders(compiler.m_apiVersion, defines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, additionalDefines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
 
-  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", defines, additionalDefines, "\n", errorLog));
+  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", additionalDefines, "\n", errorLog));
 }
 
 UNIT_TEST(MobileCompileShaders_Test)
@@ -171,11 +169,6 @@ UNIT_TEST(MobileCompileShaders_Test)
   workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
       "#define ENABLE_VTF\n");
-  });
-
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
-      "#define SAMSUNG_GOOGLE_NEXUS\n");
   });
 
   workerThread.Shutdown(base::DelayedThreadPool::Exit::ExecPending);
@@ -223,19 +216,16 @@ void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const &
          << "-r" << version.m_version << "-c" << version.m_series << "-d" << driverSet.m_driverName
          << fileName;
   };
-  std::string const defines =
-    compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ? "#define GLES3\n" : "";
   QString const compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  TestShaders(compiler.m_apiVersion, defines, {}, GetVertexShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, "", {}, GetVertexShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, {}, GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, "", {}, GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   TEST(errorLog.isEmpty(),
-       (shaderType, version.m_series, version.m_version, driverSet.m_driverName, defines, errorLog));
+       (shaderType, version.m_series, version.m_version, driverSet.m_driverName, "", errorLog));
 
   // MALI GPUs do not support ENABLE_VTF. Do not test it here.
-  // SAMSUNG_GOOGLE_NEXUS doesn't use Mali GPU. Do not test it here.
 }
 
 UNIT_TEST(MALI_MobileCompileShaders_Test)

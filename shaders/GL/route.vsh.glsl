@@ -1,7 +1,7 @@
-attribute vec3 a_position;
-attribute vec2 a_normal;
-attribute vec3 a_length;
-attribute vec4 a_color;
+in vec3 a_position;
+in vec2 a_normal;
+in vec3 a_length;
+in vec4 a_color;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
@@ -9,8 +9,8 @@ uniform mat4 u_pivotTransform;
 
 uniform vec4 u_routeParams;
 
-varying vec3 v_length;
-varying vec4 v_color;
+out vec3 v_length;
+out vec4 v_color;
 
 void main()
 {
