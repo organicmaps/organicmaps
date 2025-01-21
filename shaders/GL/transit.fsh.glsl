@@ -1,10 +1,8 @@
-#ifdef SAMSUNG_GOOGLE_NEXUS
-uniform sampler2D u_colorTex;
-#endif
+in vec4 v_color;
 
-varying vec4 v_color;
+out vec4 v_FragColor;
 
 void main()
 {
-  gl_FragColor = samsungGoogleNexusWorkaround(v_color);
+  v_FragColor = v_color;
 }

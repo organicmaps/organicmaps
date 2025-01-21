@@ -1,11 +1,13 @@
 uniform sampler2D u_colorTex;
 uniform float u_opacity;
 
-varying vec2 v_colorTexCoords;
+in vec2 v_colorTexCoords;
+
+out vec4 v_FragColor;
 
 void main()
 {
-  vec4 finalColor = texture2D(u_colorTex, v_colorTexCoords);
+  vec4 finalColor = texture(u_colorTex, v_colorTexCoords);
   finalColor.a *= u_opacity;
-  gl_FragColor = finalColor;
+  v_FragColor = finalColor;
 }

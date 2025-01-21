@@ -5,27 +5,25 @@ uniform sampler2D u_blendingWeightTex;
 
 uniform vec4 u_framebufferMetrics;
 
-varying vec2 v_colorTexCoords;
-varying vec4 v_offset;
+in vec2 v_colorTexCoords;
+in vec4 v_offset;
 
-#ifdef GLES3
-  #define SMAASampleLevelZero(tex, coord) textureLod(tex, coord, 0.0)
-#else
-  #define SMAASampleLevelZero(tex, coord) texture2D(tex, coord)
-#endif
+#define SMAASampleLevelZero(tex, coord) textureLod(tex, coord, 0.0)
+
+out vec4 v_FragColor;
 
 void main()
 {
   // Fetch the blending weights for current pixel.
   vec4 a;
-  a.x = texture2D(u_blendingWeightTex, v_offset.xy).a; // Right
-  a.y = texture2D(u_blendingWeightTex, v_offset.zw).g; // Top
-  a.wz = texture2D(u_blendingWeightTex, v_colorTexCoords).xz; // Bottom / Left
+  a.x = texture(u_blendingWeightTex, v_offset.xy).a; // Right
+  a.y = texture(u_blendingWeightTex, v_offset.zw).g; // Top
+  a.wz = texture(u_blendingWeightTex, v_colorTexCoords).xz; // Bottom / Left
 
   // Is there any blending weight with a value greater than 0.0?
   if (dot(a, vec4(1.0, 1.0, 1.0, 1.0)) < 1e-5)
   {
-    gl_FragColor = texture2D(u_colorTex, v_colorTexCoords);
+    v_FragColor = texture(u_colorTex, v_colorTexCoords);
   }
   else
   {
@@ -46,6 +44,6 @@ void main()
     // We exploit bilinear filtering to mix current pixel with the chosen neighbor.
     vec4 color = blendingWeight.x * SMAASampleLevelZero(u_colorTex, bc.xy);
     color += blendingWeight.y * SMAASampleLevelZero(u_colorTex, bc.zw);
-    gl_FragColor = color;
+    v_FragColor = color;
   }
 }
