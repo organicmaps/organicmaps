@@ -1,35 +1,73 @@
-This file contains a list of people who have contributed to the
-public version of MAPS.ME and Organic Maps.
-
-Original MAPS.ME (MapsWithMe) design and implementation:
-  Yury Melnichek <yury@melnichek.com>
-  Alexander Borsuk <me@alex.bio>
-  Viktor Govako <viktor.govako@gmail.com>
-  Siarhei Rachytski <siarhei.rachytski@gmail.com>
+This file contains a list of people who have contributed to this project.
+Its not neccesarily comprehensive.
+Feel free to add yourself here along with your first contribution!
 
 --------------------------------------------------------------------------------
-Organic Maps contributions:
+Organic Maps (formerly OMaps) contributors:
+(in alphabetic order)
 --------------------------------------------------------------------------------
-  Alexander Borsuk <me@alex.bio>
-  Roman Tsisyk <roman@tsisyk.com>
-  Viktor Govako <viktor.govako@gmail.com>
-  Caspar Nuël <casparnuel@yandex.com>
-  Konstantin Pastbin
-  Nishant Bhandari <nishantbhandari0019@gmail.com>
-  Sebastiao Sousa <sebastiao.sousa@tecnico.ulisboa.pt>
-  Harry Bond <me@hbond.xyz>
 
-Organic Maps translations:
-  Karina Kordon
-  Konstantin Pastbin
-  Metehan Özyürek
-  Joan Montané
-  Luna Rose
-
+Alexander Borsuk <me@alex.bio>
+Alexey Krasilnikov
+Andrew Shkrob
+Anton Makouski
+Arnaud Vergnet
+Arthur-GYT
+Atemu
+Caspar Nuël <casparnuel@yandex.com>
+cyber-toad
+David Martinez
+dbf
+Dzmitry Strekha
+Dzmitry Yarmolenka
+Fabian Wüthrich
+Ferenc Géczi
+Filip Czaplicki
+FinixFighter
+fparri
+Francesco Gazzetta
+gallegonovato
+Gonzalo Pesquero
+Harry Bond <me@hbond.xyz>
+Jaime Marquinez Ferrandiz
+Jean-Baptiste Charron
+Jenny Em
+Joan Montané
+Karina Kordon
+Kavi Khalique
+Kiryl Kaveryn
+Kiryl Razhdzestvenski
+Konstantin Pastbin
+Loïc Hernaut
+Lukas Hamm
+Lukas Kronberger
+Luna Rose
+map-per
+Markku Huotari
+Mateusz Konieczny
+Matheus Gomes
+MbTy1
+Meenbeese
+Metehan Özyürek
+Michał Brzozowski
+Nishant Bhandari <nishantbhandari0019@gmail.com>
+Ognjen Blagojevic
+Osyotr
+renderexpert
+Roman Kuznetsov
+Roman Tsisyk <roman@tsisyk.com>
+Rudo Kemper
+Sebastiao Sousa <sebastiao.sousa@tecnico.ulisboa.pt>
+Sergiy Kozyr
+Tobias G. <tobi.goergens@gmail.com>
+Veniamin Gvozdikov <g.veniamin@googlemail.com>
+Viktor Govako <viktor.govako@gmail.com>
+Will Bradley
 
 --------------------------------------------------------------------------------
-MAPS.ME contributions (before Organic Maps was forked in 2020-2021):
+MAPS.ME at Mail.Ru Group (prior to the Organic Maps (OMaps) fork in 2020/2021):
 --------------------------------------------------------------------------------
+
 Code contributions:
   Dmitry Yunitski
   Lev Dragunov
@@ -100,3 +138,13 @@ Special thanks to:
   Yuri Gurski
   Dmitry Matveev
   Anna Yakovleva
+
+--------------------------------------------------------------------------------
+MAPS.ME (originally MapsWithMe) design and implementation at MapsWithMe GmbH
+(from 2010 till the acquisition by Mail.ru Group in 2014):
+--------------------------------------------------------------------------------
+
+Yury Melnichek <yury@melnichek.com>
+Alexander Borsuk <me@alex.bio>
+Viktor Govako <viktor.govako@gmail.com>
+Siarhei Rachytski <siarhei.rachytski@gmail.com>
