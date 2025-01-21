@@ -1,9 +1,9 @@
-attribute vec3 a_pos;
-attribute vec2 a_texCoords;
+in vec3 a_pos;
+in vec2 a_texCoords;
 
 uniform mat4 u_transform;
 
-varying float v_intensity;
+out float v_intensity;
 
 void main()
 {

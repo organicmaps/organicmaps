@@ -2,12 +2,8 @@
 // Unfortunately some CG algorithms cannot be implemented on OpenGL ES 2.0 without discarding
 // fragments from depth buffer.
 
-varying vec3 v_length;
-varying vec4 v_color;
-
-#ifdef SAMSUNG_GOOGLE_NEXUS
-uniform sampler2D u_colorTex;
-#endif
+in vec3 v_length;
+in vec4 v_color;
 
 uniform vec4 u_color;
 uniform vec2 u_pattern;
@@ -25,6 +21,8 @@ float alphaFromPattern(float curLen, float dashLen, float gapLen)
   return step(offset, dashLen);
 }
 
+out vec4 v_FragColor;
+
 void main()
 {
   if (v_length.x < v_length.z)
@@ -39,5 +37,5 @@ void main()
   color.a *= (1.0 - smoothstep(kAntialiasingThreshold, 1.0, abs(v_length.y))) *
               alphaFromPattern(v_length.x, u_pattern.x, u_pattern.y);
   color = vec4(mix(color.rgb, u_maskColor.rgb, u_maskColor.a), color.a);
-  gl_FragColor = samsungGoogleNexusWorkaround(color);
+  v_FragColor = color;
 }

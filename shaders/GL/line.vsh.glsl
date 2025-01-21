@@ -1,6 +1,6 @@
-attribute vec3 a_position;
-attribute vec3 a_normal;
-attribute vec2 a_colorTexCoord;
+in vec3 a_position;
+in vec3 a_normal;
+in vec2 a_colorTexCoord;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
@@ -8,12 +8,12 @@ uniform mat4 u_pivotTransform;
 
 #ifdef ENABLE_VTF
 uniform sampler2D u_colorTex;
-varying LOW_P vec4 v_color;
+out LOW_P vec4 v_color;
 #else
-varying vec2 v_colorTexCoord;
+out vec2 v_colorTexCoord;
 #endif
 
-//varying vec2 v_halfLength;
+//out vec2 v_halfLength;
 
 void main()
 {
@@ -27,7 +27,7 @@ void main()
   }
 
 #ifdef ENABLE_VTF
-  v_color = texture2D(u_colorTex, a_colorTexCoord);
+  v_color = texture(u_colorTex, a_colorTexCoord);
 #else
   v_colorTexCoord = a_colorTexCoord;
 #endif

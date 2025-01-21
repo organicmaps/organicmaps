@@ -69,13 +69,7 @@ void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
   }
 #endif
 
-  if (dp::SupportManager::Instance().IsSamsungGoogleNexus())
-    globalDefines.append("#define SAMSUNG_GOOGLE_NEXUS\n");
-
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES3)
-    globalDefines.append("#define GLES3\n");
-
   m_pool = make_unique_dp<GLProgramPool>(apiVersion);
   ref_ptr<GLProgramPool> pool = make_ref(m_pool);
   pool->SetDefines(globalDefines);
