@@ -11,7 +11,8 @@
 
 namespace gpx_tests
 {
-static kml::FileData LoadGpxFromString(std::string_view content) {
+static kml::FileData LoadGpxFromString(std::string_view content)
+{
   TEST_NO_THROW(
   {
     kml::FileData dataFromText;
@@ -20,7 +21,8 @@ static kml::FileData LoadGpxFromString(std::string_view content) {
   }, ());
 }
 
-static kml::FileData LoadGpxFromFile(std::string const & file) {
+static kml::FileData LoadGpxFromFile(std::string const & file)
+{
   auto const fileName = GetPlatform().TestsDataPathForFile(file);
   std::string text;
   FileReader(fileName).ReadAsString(text);

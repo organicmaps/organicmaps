@@ -503,12 +503,12 @@ void SaveColorToARGB(Writer & writer, uint32_t rgba)
          << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF));
 }
 
-std::tuple<uint8_t, uint8_t, uint8_t> ExtractRGB(uint32_t color)
+std::tuple<int, int, int> ExtractRGB(uint32_t color)
 {
   return {(color >> 24) & 0xFF, (color >> 16) & 0xFF, (color >> 8) & 0xFF};
 }
 
-uint32_t ColorDistance(uint32_t color1, uint32_t color2)
+int ColorDistance(uint32_t color1, uint32_t color2)
 {
   auto const [r1, g1, b1] = ExtractRGB(color1);
   auto const [r2, g2, b2] = ExtractRGB(color2);
@@ -533,17 +533,16 @@ std::string MapGarminColor(uint32_t rgba)
     {0x0000ffff, "Blue"},
     {0xff00ffff, "Magenta"},
     {0x00ffffff, "Cyan"},
-    {0xffffffff, "White"},
-    {0xff0000ff, "Transparent"}
+    {0xffffffff, "White"}
   };
   auto const it = kHexToGarmin.find(rgba);
   if (it != kHexToGarmin.end())
     return it->second;
   auto [hex, closestColor] = *kHexToGarmin.begin();
-  uint32_t minDistance = ColorDistance(hex, rgba);
+  int minDistance = ColorDistance(hex, rgba);
   for (const auto & [garminColor, garminName] : kHexToGarmin)
   {
-    uint32_t distance = ColorDistance(rgba, garminColor);
+    int distance = ColorDistance(rgba, garminColor);
     if (distance < minDistance)
     {
       minDistance = distance;
