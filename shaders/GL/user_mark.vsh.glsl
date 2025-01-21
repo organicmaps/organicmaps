@@ -1,15 +1,15 @@
-attribute vec3 a_position;
-attribute vec3 a_normalAndAnimateOrZ;
-attribute vec4 a_texCoords;
-attribute vec4 a_color;
+in vec3 a_position;
+in vec3 a_normalAndAnimateOrZ;
+in vec4 a_texCoords;
+in vec4 a_color;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
 uniform mat4 u_pivotTransform;
 uniform float u_interpolation;
 
-varying vec4 v_texCoords;
-varying vec4 v_maskColor;
+out vec4 v_texCoords;
+out vec4 v_maskColor;
 
 void main()
 {

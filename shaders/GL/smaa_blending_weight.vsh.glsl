@@ -1,14 +1,14 @@
 // Implementation of Subpixel Morphological Antialiasing (SMAA) is based on https://github.com/iryoku/smaa
 
-attribute vec2 a_pos;
-attribute vec2 a_tcoord;
+in vec2 a_pos;
+in vec2 a_tcoord;
 
 uniform vec4 u_framebufferMetrics;
 
-varying vec4 v_coords;
-varying vec4 v_offset0;
-varying vec4 v_offset1;
-varying vec4 v_offset2;
+out vec4 v_coords;
+out vec4 v_offset0;
+out vec4 v_offset1;
+out vec4 v_offset2;
 
 // SMAA_MAX_SEARCH_STEPS specifies the maximum steps performed in the
 // horizontal/vertical pattern searches, at each side of the pixel.

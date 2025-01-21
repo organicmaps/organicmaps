@@ -1,7 +1,7 @@
-attribute vec2 a_pos;
-attribute vec2 a_tcoord;
+in vec2 a_pos;
+in vec2 a_tcoord;
 
-varying vec2 v_colorTexCoords;
+out vec2 v_colorTexCoords;
 
 void main()
 {

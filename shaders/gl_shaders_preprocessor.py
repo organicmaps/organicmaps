@@ -10,8 +10,6 @@ MEDIUMP_SEARCH = "mediump"
 HIGHP_SEARCH = "highp"
 VERTEX_SHADER_EXT = ".vsh.glsl"
 FRAG_SHADER_EXT = ".fsh.glsl"
-GLES3_PREFIX = "GLES3_"
-GLES3_SHADER_PREFIX = "gles3_"
 
 SHADERS_LIB_COMMON_PATTERN = "// Common"
 SHADERS_LIB_VS_PATTERN = "// VS"
@@ -164,7 +162,7 @@ def get_shaders_lib_content(shader_file, shaders_library):
     return lib_content
 
 
-def write_shader_line(output_file, line, convert_to_gles3, is_fragment_shader):
+def write_shader_line(output_file, line):
     if line.lstrip().startswith("//") or line == '\n' or len(line) == 0:
         return
 
@@ -179,54 +177,34 @@ def write_shader_line(output_file, line, convert_to_gles3, is_fragment_shader):
         exit(2)
 
     output_line = line.rstrip()
-    if convert_to_gles3:
-        output_line = output_line.replace("attribute", "in")
-        if is_fragment_shader:
-            output_line = output_line.replace("varying", "in")
-        else:
-            output_line = output_line.replace("varying", "out")
-        output_line = output_line.replace("texture2D", "texture")
-        output_line = output_line.replace("gl_FragColor", "v_FragColor")
     output_file.write("  %s \\n\\\n" % output_line)
 
 
-def write_shader_body(output_file, shader_file, shader_dir, shaders_library, convert_to_gles3):
-    is_fragment_shader = shader_file.find(FRAG_SHADER_EXT) >= 0
+def write_shader_body(output_file, shader_file, shader_dir, shaders_library):
     lib_content = get_shaders_lib_content(shader_file, shaders_library)
     for line in open(os.path.join(shader_dir, shader_file)):
         if line.lstrip().startswith("void main"):
             for lib_line in lib_content.splitlines():
-                write_shader_line(output_file, lib_line, convert_to_gles3, is_fragment_shader)
-            if convert_to_gles3 and is_fragment_shader:
-                output_file.write("  out vec4 v_FragColor; \\n\\\n")
-        write_shader_line(output_file, line, convert_to_gles3, is_fragment_shader)
+                write_shader_line(output_file, lib_line)
+        write_shader_line(output_file, line)
     output_file.write("\";\n\n")
 
 
 def write_shader(output_file, shader_file, shader_dir, shaders_library):
-    output_file.write("char const %s[] = \" \\\n" % (format_shader_source_name(shader_file)))
+    output_file.write("char const %s[] = \" \\\n" % format_shader_source_name(shader_file))
     write_shader_gles_header(output_file)
-    write_shader_body(output_file, shader_file, shader_dir, shaders_library, False)
+    write_shader_body(output_file, shader_file, shader_dir, shaders_library)
 
 
-def write_gles3_shader(output_file, shader_file, shader_dir, shaders_library):
-    output_file.write("char const %s[] = \" \\\n" % (GLES3_PREFIX + format_shader_source_name(shader_file)))
-    write_shader_gles_header(output_file)
-    if os.path.exists(os.path.join(shader_dir, GLES3_SHADER_PREFIX + shader_file)):
-        write_shader_body(output_file, GLES3_SHADER_PREFIX + shader_file, shader_dir, shaders_library, False)
-    else:
-        write_shader_body(output_file, shader_file, shader_dir, shaders_library, True)
-
-
-def write_gpu_programs_map(file, programs_def, source_prefix):
+def write_gpu_programs_map(file, programs_def):
     for program in programs_def.keys():
         vertex_shader = programs_def[program][0]
-        vertex_source_name = source_prefix + format_shader_source_name(vertex_shader)
+        vertex_source_name = format_shader_source_name(vertex_shader)
 
         fragment_shader = programs_def[program][1]
-        fragment_source_name = source_prefix + format_shader_source_name(fragment_shader)
+        fragment_source_name = format_shader_source_name(fragment_shader)
 
-        file.write("      GLProgramInfo(\"%s\", \"%s\", %s, %s),\n" % (
+        file.write("    GLProgramInfo(\"%s\", \"%s\", %s, %s),\n" % (
             vertex_source_name, fragment_source_name, vertex_source_name, fragment_source_name))
 
 
@@ -243,25 +221,19 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
 
         file.write("namespace gpu\n")
         file.write("{\n")
-        # TODO: Drop this GL3_SHADER_VERSION once MacOS code has been migrated to Metal
         file.write("char const * GL3_SHADER_VERSION = \"#version 150 core \\n\";\n")
         file.write("char const * GLES3_SHADER_VERSION = \"#version 300 es \\n\";\n\n")
 
         for shader in shader_index.keys():
             write_shader(file, shader, shader_dir, shaders_library)
-            write_gles3_shader(file, shader, shader_dir, shaders_library)
 
         file.write("GLProgramInfo GetProgramInfo(dp::ApiVersion apiVersion, Program program)\n")
         file.write("{\n")
-        file.write("  if (apiVersion == dp::ApiVersion::OpenGLES3)\n") # TODO: remove
-        file.write("  {\n")
-        file.write("    static std::array<GLProgramInfo, static_cast<size_t>(Program::ProgramsCount)> gpuIndex = {{\n")
-        write_gpu_programs_map(file, programs_def, GLES3_PREFIX)
-        file.write("    }};\n")
-        file.write("    return gpuIndex[static_cast<size_t>(program)];\n")
-        file.write("  }\n")
-        file.write("  CHECK(false, (\"Unsupported API version.\"));\n")
-        file.write("  return {};\n")
+        file.write("  CHECK_EQUAL(apiVersion, dp::ApiVersion::OpenGLES3, ());\n")
+        file.write("  static std::array<GLProgramInfo, static_cast<size_t>(Program::ProgramsCount)> gpuIndex = {{\n")
+        write_gpu_programs_map(file, programs_def)
+        file.write("  }};\n")
+        file.write("  return gpuIndex[static_cast<size_t>(program)];\n")
         file.write("}\n")
         file.write("}  // namespace gpu\n")
 
