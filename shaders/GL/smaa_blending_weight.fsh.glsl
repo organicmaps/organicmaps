@@ -6,32 +6,22 @@ uniform sampler2D u_smaaSearch;
 
 uniform vec4 u_framebufferMetrics;
 
-varying vec4 v_coords;
-varying vec4 v_offset0;
-varying vec4 v_offset1;
-varying vec4 v_offset2;
+in vec4 v_coords;
+in vec4 v_offset0;
+in vec4 v_offset1;
+in vec4 v_offset2;
 
 #define SMAA_SEARCHTEX_SIZE vec2(66.0, 33.0)
 #define SMAA_SEARCHTEX_PACKED_SIZE vec2(64.0, 16.0)
 #define SMAA_AREATEX_MAX_DISTANCE 16.0
 #define SMAA_AREATEX_PIXEL_SIZE (vec2(1.0 / 256.0, 1.0 / 1024.0))
 
-#ifdef GLES3
-  #define SMAALoopBegin(condition) while (condition) {
-  #define SMAALoopEnd }
-  #define SMAASampleLevelZero(tex, coord) textureLod(tex, coord, 0.0)
-  #define SMAASampleLevelZeroOffset(tex, coord, offset) textureLodOffset(tex, coord, 0.0, offset)
-  #define SMAARound(v) round((v))
-  #define SMAAOffset(x,y) ivec2(x,y)
-#else
-  #define SMAA_MAX_SEARCH_STEPS 8
-  #define SMAALoopBegin(condition) for (int i = 0; i < SMAA_MAX_SEARCH_STEPS; i++) { if (!(condition)) break;
-  #define SMAALoopEnd }
-  #define SMAASampleLevelZero(tex, coord) texture2D(tex, coord)
-  #define SMAASampleLevelZeroOffset(tex, coord, offset) texture2D(tex, coord + vec2(offset) * u_framebufferMetrics.xy)
-  #define SMAARound(v) floor((v) + 0.5)
-  #define SMAAOffset(x,y) vec2(x,y)
-#endif
+#define SMAALoopBegin(condition) while (condition) {
+#define SMAALoopEnd }
+#define SMAASampleLevelZero(tex, coord) textureLod(tex, coord, 0.0)
+#define SMAASampleLevelZeroOffset(tex, coord, offset) textureLodOffset(tex, coord, 0.0, offset)
+#define SMAARound(v) round((v))
+#define SMAAOffset(x,y) ivec2(x,y)
 
 const vec2 kAreaTexMaxDistance = vec2(SMAA_AREATEX_MAX_DISTANCE, SMAA_AREATEX_MAX_DISTANCE);
 const float kActivationThreshold = 0.8281;
@@ -53,11 +43,7 @@ float SMAASearchLength(vec2 e, float offset)
   bias *= 1.0 / SMAA_SEARCHTEX_PACKED_SIZE;
 
   // Lookup the search texture.
-#ifdef GLES3
   return SMAASampleLevelZero(u_smaaSearch, scale * e + bias).r;
-#else
-  return SMAASampleLevelZero(u_smaaSearch, scale * e + bias).a;
-#endif
 }
 
 float SMAASearchXLeft(vec2 texcoord, float end)
@@ -115,10 +101,12 @@ vec2 SMAAArea(vec2 dist, float e1, float e2)
   return SMAASampleLevelZero(u_smaaArea, texcoord).rg;
 }
 
+out vec4 v_FragColor;
+
 void main()
 {
   vec4 weights = vec4(0.0, 0.0, 0.0, 0.0);
-  vec2 e = texture2D(u_colorTex, v_coords.xy).rg;
+  vec2 e = texture(u_colorTex, v_coords.xy).rg;
 
   if (e.g > 0.0) // Edge at north
   {
@@ -187,5 +175,5 @@ void main()
     weights.ba = SMAAArea(sqrt_d, e1, e2);
   }
 
-  gl_FragColor = weights;
+  v_FragColor = weights;
 }

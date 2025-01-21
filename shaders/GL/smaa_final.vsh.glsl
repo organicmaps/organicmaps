@@ -1,12 +1,12 @@
 // Implementation of Subpixel Morphological Antialiasing (SMAA) is based on https://github.com/iryoku/smaa
 
-attribute vec2 a_pos;
-attribute vec2 a_tcoord;
+in vec2 a_pos;
+in vec2 a_tcoord;
 
 uniform vec4 u_framebufferMetrics;
 
-varying vec2 v_colorTexCoords;
-varying vec4 v_offset;
+out vec2 v_colorTexCoords;
+out vec4 v_offset;
 
 void main()
 {

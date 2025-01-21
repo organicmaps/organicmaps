@@ -1,15 +1,15 @@
-attribute vec4 a_position;
-attribute vec2 a_normal;
-attribute vec2 a_colorTexCoords;
-attribute vec2 a_maskTexCoords;
+in vec4 a_position;
+in vec2 a_normal;
+in vec2 a_colorTexCoords;
+in vec2 a_maskTexCoords;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
 uniform mat4 u_pivotTransform;
 uniform float u_zScale;
 
-varying vec2 v_colorTexCoords;
-varying vec2 v_maskTexCoords;
+out vec2 v_colorTexCoords;
+out vec2 v_maskTexCoords;
 
 void main()
 {
