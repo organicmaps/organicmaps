@@ -35,7 +35,6 @@ using Observers = NSHashTable<Observer>;
   bool m_isCategory;
   search::Results m_everywhereResults;
   search::Results m_viewportResults;
-  std::vector<search::ProductInfo> m_productInfo;
 }
 
 #pragma mark - Instance
@@ -74,7 +73,6 @@ using Observers = NSHashTable<Observer>;
       {
         self.suggestionsCount = results.GetSuggestsCount();
         self->m_everywhereResults = std::move(results);
-        self->m_productInfo = std::move(productInfo);
 
         [self onSearchResultsUpdated];
       }
@@ -168,10 +166,6 @@ using Observers = NSHashTable<Observer>;
 }
 + (search::Result const &)resultWithContainerIndex:(NSUInteger)index {
   return [MWMSearch manager]->m_everywhereResults[index];
-}
-
-+ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index {
-  return [MWMSearch manager]->m_productInfo[index];
 }
 
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {

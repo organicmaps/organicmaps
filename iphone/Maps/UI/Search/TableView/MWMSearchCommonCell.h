@@ -6,8 +6,6 @@
 
 @interface MWMSearchCommonCell : MWMSearchCell
 
-- (void)config:(search::Result const &)result
-    productInfo:(search::ProductInfo const &)productInfo
-    localizedTypeName:(NSString *)localizedTypeName;
+- (void)config:(search::Result const &)result localizedTypeName:(NSString *)localizedTypeName;
 
 @end

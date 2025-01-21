@@ -89,8 +89,7 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
     {
       auto cell = static_cast<MWMSearchCommonCell *>(
         [tableView dequeueReusableCellWithCellClass:[MWMSearchCommonCell class] indexPath:indexPath]);
-      auto const & productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
-      [cell config:result productInfo:productInfo localizedTypeName:GetLocalizedTypeName(result)];
+      [cell config:result localizedTypeName:GetLocalizedTypeName(result)];
       return cell;
     }
     case MWMSearchItemTypeSuggestion:
