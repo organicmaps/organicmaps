@@ -2,10 +2,10 @@
 
 uniform sampler2D u_colorTex;
 
-varying vec2 v_colorTexCoords;
-varying vec4 v_offset0;
-varying vec4 v_offset1;
-varying vec4 v_offset2;
+in vec2 v_colorTexCoords;
+in vec4 v_offset0;
+in vec4 v_offset1;
+in vec4 v_offset2;
 
 // SMAA_THRESHOLD specifies the threshold or sensitivity to edges.
 // Lowering this value you will be able to detect more edges at the expense of
@@ -27,12 +27,14 @@ const vec2 kThreshold = vec2(SMAA_THRESHOLD, SMAA_THRESHOLD);
 // https://en.wikipedia.org/wiki/Relative_luminance
 const vec3 kWeights = vec3(0.2126, 0.7152, 0.0722);
 
+out vec4 v_FragColor;
+
 void main()
 {
   // Calculate lumas.
-  float L = dot(texture2D(u_colorTex, v_colorTexCoords).rgb, kWeights);
-  float Lleft = dot(texture2D(u_colorTex, v_offset0.xy).rgb, kWeights);
-  float Ltop = dot(texture2D(u_colorTex, v_offset0.zw).rgb, kWeights);
+  float L = dot(texture(u_colorTex, v_colorTexCoords).rgb, kWeights);
+  float Lleft = dot(texture(u_colorTex, v_offset0.xy).rgb, kWeights);
+  float Ltop = dot(texture(u_colorTex, v_offset0.zw).rgb, kWeights);
 
   // We do the usual threshold.
   vec4 delta;
@@ -42,16 +44,16 @@ void main()
       discard;
 
   // Calculate right and bottom deltas.
-  float Lright = dot(texture2D(u_colorTex, v_offset1.xy).rgb, kWeights);
-  float Lbottom  = dot(texture2D(u_colorTex, v_offset1.zw).rgb, kWeights);
+  float Lright = dot(texture(u_colorTex, v_offset1.xy).rgb, kWeights);
+  float Lbottom  = dot(texture(u_colorTex, v_offset1.zw).rgb, kWeights);
   delta.zw = abs(L - vec2(Lright, Lbottom));
 
   // Calculate the maximum delta in the direct neighborhood.
   vec2 maxDelta = max(delta.xy, delta.zw);
 
   // Calculate left-left and top-top deltas.
-  float Lleftleft = dot(texture2D(u_colorTex, v_offset2.xy).rgb, kWeights);
-  float Ltoptop = dot(texture2D(u_colorTex, v_offset2.zw).rgb, kWeights);
+  float Lleftleft = dot(texture(u_colorTex, v_offset2.xy).rgb, kWeights);
+  float Ltoptop = dot(texture(u_colorTex, v_offset2.zw).rgb, kWeights);
   delta.zw = abs(vec2(Lleft, Ltop) - vec2(Lleftleft, Ltoptop));
 
   // Calculate the final maximum delta.
@@ -61,5 +63,5 @@ void main()
   // Local contrast adaptation
   edges *= step(finalDelta, SMAA_LOCAL_CONTRAST_ADAPTATION_FACTOR * delta.xy);
 
-  gl_FragColor = vec4(edges, 0.0, 1.0);
+  v_FragColor = vec4(edges, 0.0, 1.0);
 }

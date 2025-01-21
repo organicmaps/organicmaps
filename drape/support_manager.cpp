@@ -32,11 +32,6 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   m_rendererVersion = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
 
-  m_isSamsungGoogleNexus = (m_rendererName == "PowerVR SGX 540" &&
-                            m_rendererVersion.find("GOOGLENEXUS.ED945322") != std::string::npos);
-  if (m_isSamsungGoogleNexus)
-    LOG(LINFO, ("Samsung Google Nexus detected."));
-
   if (m_rendererName.find("Adreno") != std::string::npos)
   {
     std::array<std::string_view, 5> constexpr models = { "200", "203", "205", "220", "225" };

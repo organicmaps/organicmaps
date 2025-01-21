@@ -1,21 +1,23 @@
 uniform float u_opacity;
 
-varying vec4 v_normal;
+in vec4 v_normal;
 #ifdef ENABLE_VTF
-varying LOW_P vec4 v_color;
+in LOW_P vec4 v_color;
 #else
 uniform sampler2D u_colorTex;
-varying vec2 v_colorTexCoords;
+in vec2 v_colorTexCoords;
 #endif
 
 const float aaPixelsCount = 2.5;
+
+out vec4 v_FragColor;
 
 void main()
 {
 #ifdef ENABLE_VTF
   LOW_P vec4 color = v_color;
 #else
-  LOW_P vec4 color = texture2D(u_colorTex, v_colorTexCoords);
+  LOW_P vec4 color = texture(u_colorTex, v_colorTexCoords);
 #endif
 
   float r1 = (v_normal.z - aaPixelsCount) * (v_normal.z - aaPixelsCount);
@@ -28,5 +30,5 @@ void main()
   if (finalColor.a == 0.0)
     discard;
 
-  gl_FragColor = finalColor;
+  v_FragColor = finalColor;
 }
