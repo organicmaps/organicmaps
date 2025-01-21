@@ -1,11 +1,11 @@
-attribute vec3 a_position;
-attribute vec2 a_colorTexCoord;
+in vec3 a_position;
+in vec2 a_colorTexCoord;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
 uniform mat4 u_pivotTransform;
 
-varying vec2 v_colorTexCoord;
+out vec2 v_colorTexCoord;
 
 void main()
 {
