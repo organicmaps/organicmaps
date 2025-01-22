@@ -1,4 +1,4 @@
-• Nouvelles données OpenStreetMap du 8 janvier
+• Nouvelles données OpenStreetMap du 21 janvier
 • Appuyez sur les pistes pour afficher des statistiques et un profil d'altitude interactif
 • Un bouton d'enregistrement de piste autonome
 • Widget d'activité en direct d'enregistrement de piste avec statistiques de piste (iOS 16.2 et versions ultérieures)

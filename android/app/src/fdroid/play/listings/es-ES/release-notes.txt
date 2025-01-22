@@ -1,4 +1,4 @@
-• Nuevos datos de OpenStreetMap del 8 de enero
+• Nuevos datos de OpenStreetMap del 21 de enero
 • Límite de velocidad en el modo de navegación
 • Añadidos idiomas serbio (cirílico) y letón
 • Android Auto: opción de ordenar marcadores, mejorada la experiencia al solicitar ubicación
