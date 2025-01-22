@@ -1,4 +1,4 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
@@ -6,11 +6,11 @@ import androidx.annotation.Nullable;
 /**
  * Native search will return results via this interface.
  */
-public interface NativeBookmarkSearchListener
+public interface BookmarkSearchListener
 {
   /**
    * @param bookmarkIds Founded bookmark ids.
-   * @param timestamp Timestamp of search request.
+   * @param timestamp   Timestamp of search request.
    */
   // Used by JNI.
   @Keep
@@ -19,7 +19,7 @@ public interface NativeBookmarkSearchListener
 
   /**
    * @param bookmarkIds Founded bookmark ids.
-   * @param timestamp Timestamp of search request.
+   * @param timestamp   Timestamp of search request.
    */
   // Used by JNI.
   @Keep

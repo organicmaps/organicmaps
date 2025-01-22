@@ -1,4 +1,4 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -32,7 +32,7 @@ public class SearchResult
   public static final int OPEN_NOW_NO = 2;
 
   public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
-                                                            new int[] {}, new int[] {});
+      new int[]{}, new int[]{});
 
   // Used by JNI.
   @Keep
