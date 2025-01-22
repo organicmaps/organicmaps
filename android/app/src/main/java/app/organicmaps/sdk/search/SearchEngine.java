@@ -1,4 +1,4 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import android.content.Context;
 
@@ -14,9 +14,9 @@ import app.organicmaps.util.concurrency.UiThread;
 
 import java.nio.charset.StandardCharsets;
 
-public enum SearchEngine implements NativeSearchListener,
-                                    NativeMapSearchListener,
-                                    NativeBookmarkSearchListener
+public enum SearchEngine implements SearchListener,
+    MapSearchListener,
+    BookmarkSearchListener
 {
   INSTANCE;
 
@@ -30,7 +30,7 @@ public enum SearchEngine implements NativeSearchListener,
     UiThread.run(
         () ->
         {
-          for (NativeSearchListener listener : mListeners)
+          for (SearchListener listener : mListeners)
             listener.onResultsUpdate(results, timestamp);
         });
   }
@@ -41,18 +41,18 @@ public enum SearchEngine implements NativeSearchListener,
     UiThread.run(
         () ->
         {
-          for (NativeSearchListener listener : mListeners)
+          for (SearchListener listener : mListeners)
             listener.onResultsEnd(timestamp);
         });
   }
 
   @Override
-  public void onMapSearchResults(final NativeMapSearchListener.Result[] results, final long timestamp, final boolean isLast)
+  public void onMapSearchResults(@NonNull final MapSearchListener.Result[] results, final long timestamp, final boolean isLast)
   {
     UiThread.run(
         () ->
         {
-          for (NativeMapSearchListener listener : mMapListeners)
+          for (MapSearchListener listener : mMapListeners)
             listener.onMapSearchResults(results, timestamp, isLast);
         });
   }
@@ -60,54 +60,52 @@ public enum SearchEngine implements NativeSearchListener,
   @Override
   public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
-    for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+    for (BookmarkSearchListener listener : mBookmarkListeners)
       listener.onBookmarkSearchResultsUpdate(bookmarkIds, timestamp);
   }
 
   @Override
   public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
-    for (NativeBookmarkSearchListener listener : mBookmarkListeners)
+    for (BookmarkSearchListener listener : mBookmarkListeners)
       listener.onBookmarkSearchResultsEnd(bookmarkIds, timestamp);
   }
 
-  private final ObserverList<NativeSearchListener> mListeners = new ObserverList<>();
+  private final ObserverList<SearchListener> mListeners = new ObserverList<>();
 
-  private final ObserverList<NativeMapSearchListener> mMapListeners = new ObserverList<>();
+  private final ObserverList<MapSearchListener> mMapListeners = new ObserverList<>();
 
-  private final ObserverList<NativeBookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
+  private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
-  public void addListener(NativeSearchListener listener)
+  public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
   }
 
-  public void removeListener(NativeSearchListener listener)
+  public void removeListener(SearchListener listener)
   {
     mListeners.removeObserver(listener);
   }
 
-  public void addMapListener(NativeMapSearchListener listener)
+  public void addMapListener(MapSearchListener listener)
   {
     mMapListeners.addObserver(listener);
   }
 
-  public void removeMapListener(NativeMapSearchListener listener)
+  public void removeMapListener(MapSearchListener listener)
   {
     mMapListeners.removeObserver(listener);
   }
 
-  public void addBookmarkListener(NativeBookmarkSearchListener listener)
+  public void addBookmarkListener(BookmarkSearchListener listener)
   {
     mBookmarkListeners.addObserver(listener);
   }
 
-  public void removeBookmarkListener(NativeBookmarkSearchListener listener)
+  public void removeBookmarkListener(BookmarkSearchListener listener)
   {
     mBookmarkListeners.removeObserver(listener);
   }
-
-  private native void nativeInit();
 
   /**
    *
@@ -116,7 +114,7 @@ public enum SearchEngine implements NativeSearchListener,
    * @return whether search was actually started.
    */
   @MainThread
-  public boolean search(@NonNull Context context, String query, boolean isCategory,
+  public boolean search(@NonNull Context context, @NonNull String query, boolean isCategory,
                         long timestamp, boolean hasLocation, double lat, double lon)
   {
     return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), isCategory,
@@ -146,7 +144,7 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public static void searchMaps(@NonNull Context context, String query, long timestamp)
+  public static void searchMaps(@NonNull Context context, @NonNull String query, long timestamp)
   {
     nativeRunSearchMaps(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context),
                         timestamp);
@@ -207,6 +205,8 @@ public enum SearchEngine implements NativeSearchListener,
   {
     nativeInit();
   }
+
+  private native void nativeInit();
 
   /**
    * @param bytes utf-8 formatted bytes of query.

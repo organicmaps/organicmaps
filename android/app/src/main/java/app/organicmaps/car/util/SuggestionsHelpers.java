@@ -8,7 +8,7 @@ import androidx.car.app.suggestion.model.Suggestion;
 import androidx.core.graphics.drawable.IconCompat;
 
 import app.organicmaps.R;
-import app.organicmaps.search.SearchRecents;
+import app.organicmaps.sdk.search.SearchRecents;
 
 import java.util.ArrayList;
 import java.util.List;

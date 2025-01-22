@@ -1,4 +1,4 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -38,12 +38,12 @@ public class Popularity implements Parcelable
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags)
+  public void writeToParcel(@NonNull Parcel dest, int flags)
   {
     dest.writeInt(this.mType.ordinal());
   }
 
-  protected Popularity(Parcel in)
+  protected Popularity(@NonNull Parcel in)
   {
     int tmpMPopularity = in.readInt();
     this.mType = Type.values()[tmpMPopularity];

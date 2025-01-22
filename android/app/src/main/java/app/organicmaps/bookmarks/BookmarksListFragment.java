@@ -39,8 +39,8 @@ import app.organicmaps.bookmarks.data.KmlFileType;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.location.LocationHelper;
-import app.organicmaps.search.NativeBookmarkSearchListener;
-import app.organicmaps.search.SearchEngine;
+import app.organicmaps.sdk.search.BookmarkSearchListener;
+import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.UiUtils;
@@ -62,7 +62,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     implements BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener,
-               NativeBookmarkSearchListener,
+               BookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener,
                MenuBottomSheetFragment.MenuBottomSheetInterface
 {

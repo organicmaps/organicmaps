@@ -1,4 +1,4 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 /**
  * Native search will return results via this interface.
  */
-public interface NativeSearchListener
+public interface SearchListener
 {
   /**
-   * @param results Search results.
+   * @param results   Search results.
    * @param timestamp Timestamp of search request.
    */
   // Called by JNI.
