@@ -175,6 +175,15 @@ using Observers = NSHashTable<Observer>;
   return result;
 }
 
++ (NSArray<SearchResult *> *)getResults {
+  NSMutableArray<SearchResult *> * results = [[NSMutableArray alloc] initWithCapacity:MWMSearch.resultsCount];
+  for (NSUInteger i = 0; i < MWMSearch.resultsCount; ++i) {
+    SearchResult * result = [MWMSearch resultWithContainerIndex:i];
+    [results addObject:result];
+  }
+  return [results copy];
+}
+
 + (SearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
