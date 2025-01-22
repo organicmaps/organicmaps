@@ -19,6 +19,7 @@ NS_SWIFT_NAME(Search)
 + (SearchItemType)resultTypeWithRow:(NSUInteger)row;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index;
++ (NSArray<SearchResult *> *)getResults;
 
 + (void)clear;
 
