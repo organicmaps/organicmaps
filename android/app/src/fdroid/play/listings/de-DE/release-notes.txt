@@ -1,4 +1,4 @@
-• Neue OpenStreetMap-Daten vom 8. Januar
+• Neue OpenStreetMap-Daten vom 21. Januar
 • Anzeige eines Geschwindigkeitsbegrenzungsschildes im Navigationsmodus
 • Serbische (Kyrillisch) und Lettische Sprachen hinzugefügt
 • Android Auto: Lesezeichen sortieren, verbessertes Erlebnis bei der Anforderung von Standortberechtigungen

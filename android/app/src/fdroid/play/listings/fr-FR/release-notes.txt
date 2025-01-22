@@ -1,4 +1,4 @@
-• Nouvelles données OpenStreetMap du 8 janvier
+• Nouvelles données OpenStreetMap du 21 janvier
 • Afficher un panneau de limitation de vitesse en mode navigation
 • Ajout des langues serbe (cyrillique) et lettone
 • Android Auto : trier les signets, expérience de demande d'autorisation de localisation améliorée

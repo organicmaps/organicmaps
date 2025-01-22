@@ -1,4 +1,4 @@
-• Urtarrilaren 8ko OpenStreetMap-eko datu berriak
+• Urtarrilaren 21ko OpenStreetMap-eko datu berriak
 • Abiadura muga erakusten da nabigazio moduan
 • Serbiera (zirilikoa) eta letoniera hizkuntzak gehitu dira
 • Android Auto: gogokoak ordena daitezke, kokapen permisuaren eskaeraren esperientzia hobetu da
