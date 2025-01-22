@@ -17,10 +17,15 @@ android/ @organicmaps/android
 android/app/src/main/java/app/organicmaps/car/ @organicmaps/android-auto
 docs/ANDROID_LOCATION_TEST.md @organicmaps/android
 docs/JAVA_STYLE.md @organicmaps/android
+# no owner for translation changes
+/android/app/src/main/res/values*/strings.xml
 # iOS.
 iphone/ @organicmaps/ios
 xcode/ @organicmaps/ios
 docs/OBJC_STYLE.md @organicmaps/ios
+# no owner for translation changes
+/iphone/plist.txt
+/iphone/Maps/LocalizedStrings/
 # Qt
 qt/ @organicmaps/qt
 # Rendering
