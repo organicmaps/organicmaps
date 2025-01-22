@@ -18,7 +18,6 @@ namespace
 string const kSpaces = " \t";
 string const kCharsToSkip = " \n\t,;:.()";
 string const kDecimalMarks = ".,";
-string const kNegative = "-";
 
 bool IsDecimalMark(char c)
 {
@@ -27,7 +26,7 @@ bool IsDecimalMark(char c)
 
 bool IsNegativeSymbol(char c)
 {
-  return kNegative.find(c) != string::npos;
+  return c == '-';
 }
 
 template <typename Char>
