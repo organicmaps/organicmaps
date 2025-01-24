@@ -26,7 +26,6 @@ public:
   // reinitialization.
   void Init(ref_ptr<GraphicsContext> context);
 
-  bool IsAdreno200Device() const { return m_isAdreno200; }
   bool IsTegraDevice() const { return m_isTegra; }
   bool IsAntialiasingEnabledByDefault() const { return m_isAntialiasingEnabledByDefault; }
 
@@ -50,7 +49,6 @@ private:
 
   std::string m_rendererName;
   std::string m_rendererVersion;
-  bool m_isAdreno200 = false;
   bool m_isTegra = false;
   bool m_isAntialiasingEnabledByDefault = false;
 
