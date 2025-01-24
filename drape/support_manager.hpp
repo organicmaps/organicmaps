@@ -26,7 +26,6 @@ public:
   // reinitialization.
   void Init(ref_ptr<GraphicsContext> context);
 
-  bool IsTegraDevice() const { return m_isTegra; }
   bool IsAntialiasingEnabledByDefault() const { return m_isAntialiasingEnabledByDefault; }
 
   float GetMaxLineWidth() const { return m_maxLineWidth; }
@@ -49,7 +48,6 @@ private:
 
   std::string m_rendererName;
   std::string m_rendererVersion;
-  bool m_isTegra = false;
   bool m_isAntialiasingEnabledByDefault = false;
 
   float m_maxLineWidth = 1;
