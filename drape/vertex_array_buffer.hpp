@@ -124,7 +124,6 @@ private:
   drape_ptr<IndexBuffer> m_indexBuffer;
 
   bool m_isPreflushed = false;
-  bool m_moveToGpuOnBuild = false;
   bool m_isChanged = false;
   BindingInfoArray m_bindingInfo;
   uint8_t m_bindingInfoCount = 0;
