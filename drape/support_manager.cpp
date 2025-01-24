@@ -32,20 +32,6 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   m_rendererVersion = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
 
-  if (m_rendererName.find("Adreno") != std::string::npos)
-  {
-    std::array<std::string_view, 5> constexpr models = { "200", "203", "205", "220", "225" };
-    for (auto const & model : models)
-    {
-      if (m_rendererName.find(model) != std::string::npos)
-      {
-        LOG(LINFO, ("Adreno 200 device detected."));
-        m_isAdreno200 = true;
-        break;
-      }
-    }
-  }
-
   m_isTegra = (m_rendererName.find("Tegra") != std::string::npos);
   if (m_isTegra)
     LOG(LINFO, ("NVidia Tegra device detected."));
