@@ -32,10 +32,6 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   m_rendererVersion = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
 
-  m_isTegra = (m_rendererName.find("Tegra") != std::string::npos);
-  if (m_isTegra)
-    LOG(LINFO, ("NVidia Tegra device detected."));
-
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
