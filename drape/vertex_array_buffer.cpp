@@ -118,10 +118,6 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
   , m_batcherHash(batcherHash)
 {
   m_indexBuffer = make_unique_dp<IndexBuffer>(indexBufferSize);
-
-  // Adreno 200 GPUs aren't able to share OpenGL resources between 2 OGL-contexts correctly,
-  // so we have to create and destroy VBO on one context.
-  m_moveToGpuOnBuild = SupportManager::Instance().IsAdreno200Device();
 }
 
 VertexArrayBuffer::~VertexArrayBuffer()
@@ -134,8 +130,7 @@ VertexArrayBuffer::~VertexArrayBuffer()
 
 void VertexArrayBuffer::Preflush(ref_ptr<GraphicsContext> context)
 {
-  if (!m_moveToGpuOnBuild)
-    PreflushImpl(context);
+  PreflushImpl(context);
 }
 
 void VertexArrayBuffer::PreflushImpl(ref_ptr<GraphicsContext> context)
@@ -191,7 +186,7 @@ void VertexArrayBuffer::RenderRange(ref_ptr<GraphicsContext> context,
 
 void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program)
 {
-  if (m_moveToGpuOnBuild && !m_isPreflushed)
+  if (!m_isPreflushed)
     PreflushImpl(context);
 
   if (!HasBuffers())
