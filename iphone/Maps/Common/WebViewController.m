@@ -27,7 +27,7 @@
 - (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url title:(NSString *)title {
   self = [super initWithNibName:nil bundle:nil];
   if (self) {
-    _m_htmlText = [self configuredHtmlWithText:htmlText];
+    _m_htmlText = htmlText;
     _m_url = url;
     if (title)
       self.navigationItem.title = title;
@@ -91,7 +91,7 @@
     __typeof(self) self = ws;
     if (load) {
       if (self.m_htmlText) {
-        [self.webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
+        [self.webView loadHTMLString:[self configuredHtmlWithText:self.m_htmlText] baseURL:self.m_url];
       } else {
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.m_url];
         for (NSString *header in headers.allKeys) {
