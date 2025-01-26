@@ -36,6 +36,10 @@ function ios_build {
   echo "$COUNT.$MINOR.$PATCH"
 }
 
+function count {
+  echo "$COUNT"
+}
+
 function  android_name {
   echo "$DATE-$COUNT"
 }
@@ -79,6 +83,7 @@ Where format is one of the following arguments (shows current values):
   android_code   $(android_code)
   qt_version     $(qt_version)
   qt_int_version $(qt_int_version)
+  count          $(count)
 EOF
 }
 

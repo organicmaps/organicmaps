@@ -29,7 +29,7 @@ jobs:
           version=$(tools/unix/version.sh ios_version)
           # +1 because below a "Bump versions" commit is created.
           # TODO: Find a way to refactor FDroid versioning without that additional commit.
-          build=$(($(tools/unix/version.sh ios_build) + 1))
+          build=$(($(tools/unix/version.sh count) + 1))
           code=$(($(tools/unix/version.sh android_code) + 1))
           tag=$version-$build-android
           echo "::set-output name=version::$version"
