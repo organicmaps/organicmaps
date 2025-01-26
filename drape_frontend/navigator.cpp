@@ -211,7 +211,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     if (CanShrinkInto(tmp, worldR))
       tmp = ShrinkInto(tmp, worldR);
     else
-      return false;     
+      return false;
   }
 
   // re-checking the borders, as we might violate them a bit (don't know why).
