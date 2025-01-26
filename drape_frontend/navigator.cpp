@@ -176,7 +176,8 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   math::Matrix<double, 3, 3> const newM =
       screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
                                                       newPt1 + offset, newPt2 + offset,
-                                                      doRotateScreen);
+                                                      doRotateScreen,
+                                                      true);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
   if (tmp.isPerspective())
@@ -196,7 +197,19 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   }
 
   if (!CheckMaxScale(tmp))
+  {
+    if (doRotateScreen){
+      math::Matrix<double, 3, 3> const tmpM =
+        screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
+                                                        newPt1 + offset, newPt2 + offset,
+                                                        doRotateScreen,
+                                                        false);
+      tmp.SetGtoPMatrix(tmpM);
+    }
+    else
     return false;
+  }
+
 
   // re-checking the borders, as we might violate them a bit (don't know why).
   if (!CheckBorders(tmp))
