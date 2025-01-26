@@ -194,8 +194,8 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     }
     else
     {
-    return false;
-  }
+      return false;
+    }
   }
 
   if (tmp.isPerspective())
