@@ -180,21 +180,6 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                                                       true);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
-  if (tmp.isPerspective())
-    tmp.MatchGandP3d(centerG, center3d);
-
-  if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
-    return false;
-
-  m2::RectD const & worldR = df::GetWorldRect();
-
-  if (!skipMinScaleAndBordersCheck && !CheckBorders(tmp))
-  {
-    if (CanShrinkInto(tmp, worldR))
-      tmp = ShrinkInto(tmp, worldR);
-    else
-      return false;     
-  }
 
   if (!CheckMaxScale(tmp))
   {
@@ -213,6 +198,21 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   }
   }
 
+  if (tmp.isPerspective())
+    tmp.MatchGandP3d(centerG, center3d);
+
+  if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
+    return false;
+
+  m2::RectD const & worldR = df::GetWorldRect();
+
+  if (!skipMinScaleAndBordersCheck && !CheckBorders(tmp))
+  {
+    if (CanShrinkInto(tmp, worldR))
+      tmp = ShrinkInto(tmp, worldR);
+    else
+      return false;     
+  }
 
   // re-checking the borders, as we might violate them a bit (don't know why).
   if (!CheckBorders(tmp))
