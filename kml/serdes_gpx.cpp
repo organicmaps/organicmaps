@@ -144,7 +144,7 @@ void GpxParser::ParseColor(std::string_view colorStr)
   if (colorStr.front() == '#')
     colorStr.remove_prefix(1);
   if (colorStr.size() == 8)
-    colorStr = colorStr.substr(2, colorStr.size() - 1);
+    colorStr.remove_prefix(2);
   auto const colorBytes = FromHex(colorStr);
   if (colorBytes.size() != 3)
   {
@@ -164,7 +164,7 @@ void GpxParser::ParseOsmandColor(std::string const & value)
   }
   std::string_view colorStr = value;
   if (colorStr.at(0) == '#')
-    colorStr = colorStr.substr(1, colorStr.size() - 1);
+    colorStr.remove_prefix(1);
   auto const colorBytes = FromHex(colorStr);
   uint32_t color;
   switch (colorBytes.size())
@@ -515,38 +515,48 @@ int ColorDistance(uint32_t color1, uint32_t color2)
   return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
 }
 
-std::string MapGarminColor(uint32_t rgba)
+std::string_view MapGarminColor(uint32_t rgba)
 {
-  static std::unordered_map<std::uint32_t, std::string> const kHexToGarmin = {
-    {0x000000ff, "Black"},
-    {0x8b0000ff, "DarkRed"},
-    {0x006400ff, "DarkGreen"},
-    {0xb5b820ff, "DarkYellow"},
-    {0x00008bff, "DarkBlue"},
-    {0x8b008bff, "DarkMagenta"},
-    {0x008b8bff, "DarkCyan"},
-    {0xccccccff, "LightGray"},
-    {0x444444ff, "DarkGray"},
-    {0xff0000ff, "Red"},
-    {0x00ff00ff, "Green"},
-    {0xffff00ff, "Yellow"},
-    {0x0000ffff, "Blue"},
-    {0xff00ffff, "Magenta"},
-    {0x00ffffff, "Cyan"},
-    {0xffffffff, "White"}
-  };
-  auto const it = kHexToGarmin.find(rgba);
-  if (it != kHexToGarmin.end())
-    return it->second;
-  auto [hex, closestColor] = *kHexToGarmin.begin();
-  int minDistance = ColorDistance(hex, rgba);
-  for (const auto & [garminColor, garminName] : kHexToGarmin)
+
+  struct RGBAToGarmin
   {
-    int distance = ColorDistance(rgba, garminColor);
+    uint32_t rgba;
+    std::string_view color;
+  };
+
+  auto static constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({
+        {0x000000ff, "Black"},
+        {0x8b0000ff, "DarkRed"},
+        {0x006400ff, "DarkGreen"},
+        {0xb5b820ff, "DarkYellow"},
+        {0x00008bff, "DarkBlue"},
+        {0x8b008bff, "DarkMagenta"},
+        {0x008b8bff, "DarkCyan"},
+        {0xccccccff, "LightGray"},
+        {0x444444ff, "DarkGray"},
+        {0xff0000ff, "Red"},
+        {0x00ff00ff, "Green"},
+        {0xffff00ff, "Yellow"},
+        {0x0000ffff, "Blue"},
+        {0xff00ffff, "Magenta"},
+        {0x00ffffff, "Cyan"},
+        {0xffffffff, "White"}
+    });
+
+
+  std::string_view closestColor = kRGBAToGarmin[0].color;
+  auto minDistance = std::numeric_limits<int>::max();
+  for (const auto & [rgbaGarmin, color] : kRGBAToGarmin)
+  {
+    auto const distance = ColorDistance(rgba, rgbaGarmin);
+
+    if (distance == 0)
+      return color;  // Exact match.
+
     if (distance < minDistance)
     {
       minDistance = distance;
-      closestColor = garminName;
+      closestColor = color;
     }
   }
   return closestColor;
