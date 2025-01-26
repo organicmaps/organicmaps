@@ -22154,6 +22154,7 @@
     nl = Buitenwijk
     pl = Przedmieścia
     pt = Subúrbio
+    pt-BR = Bairro
     ro = Suburbie
     ru = Район
     sk = Predmestie
@@ -22237,7 +22238,6 @@
     nl = Dorp
     pl = Wieś
     pt = Vila
-    pt-BR = Aldeia
     ro = Sat
     ru = Деревня
     sk = Dedina
