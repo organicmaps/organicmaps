@@ -61,6 +61,7 @@ public:
   std::string const & GetTagFromEnd(size_t n) const;
   void Pop(std::string_view tag);
   void CharData(std::string & value);
+  static std::optional<uint32_t> ParseColorFromString(std::string_view colorStr);
 
 private:
   enum GeometryType

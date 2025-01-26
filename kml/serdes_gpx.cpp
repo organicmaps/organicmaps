@@ -134,24 +134,35 @@ std::string const & GpxParser::GetTagFromEnd(size_t n) const
   return m_tags[m_tags.size() - n - 1];
 }
 
-void GpxParser::ParseColor(std::string_view colorStr)
+std::optional<uint32_t> GpxParser::ParseColorFromString(std::string_view colorStr)
 {
   if (colorStr.empty())
   {
     LOG(LWARNING, ("Invalid color value", colorStr));
-    return;
+    return {};
   }
   if (colorStr.front() == '#')
     colorStr.remove_prefix(1);
   if (colorStr.size() == 8)
     colorStr.remove_prefix(2);
+  if (colorStr.size() != 6)
+  {
+    LOG(LWARNING, ("Invalid color value", colorStr));
+    return {};
+  }
   auto const colorBytes = FromHex(colorStr);
   if (colorBytes.size() != 3)
   {
     LOG(LWARNING, ("Invalid color value", colorStr));
-    return;
+    return {};
   }
-  m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
+  return kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
+}
+
+void GpxParser::ParseColor(std::string_view colorStr)
+{
+  if (const auto parsed = ParseColorFromString(colorStr); parsed.has_value())
+    m_color = parsed.value();
 }
 
 // https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors: #AARRGGBB/#RRGGBB/AARRGGBB/RRGGBB
