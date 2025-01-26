@@ -1414,7 +1414,8 @@
     <string name="type.place.farm">Fazenda</string>
     <string name="type.place.hamlet">Lugarejo</string>
     <string name="type.place.neighbourhood">Vizinhança</string>
-    <string name="type.place.village">Aldeia</string>
+    <string name="type.place.suburb">Bairro</string>
+    <string name="type.place.village">Vila</string>
     <string name="type.power">Energia</string>
     <string name="type.power.generator">Gerador de energia</string>
     <string name="type.power.generator.solar">Gerador solar</string>

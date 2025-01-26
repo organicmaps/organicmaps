@@ -2915,11 +2915,11 @@
 
 "type.place.state.USA" = "Estado";
 
-"type.place.suburb" = "Subúrbio";
+"type.place.suburb" = "Bairro";
 
 "type.place.town" = "Cidade";
 
-"type.place.village" = "Aldeia";
+"type.place.village" = "Vila";
 
 "type.power" = "Energia";
 
