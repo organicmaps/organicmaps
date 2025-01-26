@@ -134,7 +134,7 @@ std::string const & GpxParser::GetTagFromEnd(size_t n) const
   return m_tags[m_tags.size() - n - 1];
 }
 
-std::optional<uint32_t> GpxParser::ParseColorFromString(std::string_view colorStr)
+std::optional<uint32_t> GpxParser::ParseColorFromHexString(std::string_view colorStr)
 {
   if (colorStr.empty())
   {
@@ -143,53 +143,35 @@ std::optional<uint32_t> GpxParser::ParseColorFromString(std::string_view colorSt
   }
   if (colorStr.front() == '#')
     colorStr.remove_prefix(1);
-  if (colorStr.size() == 8)
-    colorStr.remove_prefix(2);
-  if (colorStr.size() != 6)
+  if (colorStr.size() != 6 && colorStr.size() != 8)
   {
     LOG(LWARNING, ("Invalid color value", colorStr));
     return {};
   }
   auto const colorBytes = FromHex(colorStr);
-  if (colorBytes.size() != 3)
+  switch (colorBytes.size())
   {
+  case 3: return kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
+  case 4: return kml::ToRGBA(colorBytes[1], colorBytes[2], colorBytes[3], colorBytes[0]);
+  default:
     LOG(LWARNING, ("Invalid color value", colorStr));
     return {};
   }
-  return kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
 }
 
 void GpxParser::ParseColor(std::string_view colorStr)
 {
-  if (const auto parsed = ParseColorFromString(colorStr); parsed.has_value())
+  if (const auto parsed = ParseColorFromHexString(colorStr); parsed.has_value())
     m_color = parsed.value();
 }
 
 // https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors: #AARRGGBB/#RRGGBB/AARRGGBB/RRGGBB
 void GpxParser::ParseOsmandColor(std::string const & value)
 {
-  if (value.empty())
-  {
-    LOG(LWARNING, ("Empty color value"));
+  std::optional<uint32_t> parsed = ParseColorFromHexString(value);
+  if (!parsed.has_value())
     return;
-  }
-  std::string_view colorStr = value;
-  if (colorStr.at(0) == '#')
-    colorStr.remove_prefix(1);
-  auto const colorBytes = FromHex(colorStr);
-  uint32_t color;
-  switch (colorBytes.size())
-  {
-    case 3:
-      color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
-      break;
-    case 4:
-      color = kml::ToRGBA(colorBytes[1], colorBytes[2], colorBytes[3], colorBytes[0]);
-      break;
-    default:
-      LOG(LWARNING, ("Invalid color value", value));
-      return;
-  }
+  uint32_t color = parsed.value();
   if (m_tags.size() > 2 && GetTagFromEnd(2) == gpx::kGpx)
   {
     m_globalColor = color;

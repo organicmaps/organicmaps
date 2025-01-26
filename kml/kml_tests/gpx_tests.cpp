@@ -374,16 +374,17 @@ UNIT_TEST(OpentracksColor)
 UNIT_TEST(ParseFromString)
 {
   // string hex sequence #AARRGGBB, uint32 sequence RGBA
-  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromString("000001"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromString("000100"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromString("010000"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromString("#000001"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromString("#000100"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromString("#010000"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromString("#FF000001"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromString("#FF000100"), ());
-  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromString("#FF010000"), ());
-  TEST_EQUAL(std::optional<uint32_t>(), kml::gpx::GpxParser::ParseColorFromString("DarkRed"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromHexString("000001"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromHexString("000100"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromHexString("010000"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromHexString("#000001"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromHexString("#000100"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromHexString("#010000"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x1FF), kml::gpx::GpxParser::ParseColorFromHexString("#FF000001"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x100FF), kml::gpx::GpxParser::ParseColorFromHexString("#FF000100"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x10000FF), kml::gpx::GpxParser::ParseColorFromHexString("#FF010000"), ());
+  TEST_EQUAL(std::optional<uint32_t>(0x10000AA), kml::gpx::GpxParser::ParseColorFromHexString("#AA010000"), ());
+  TEST_EQUAL(std::optional<uint32_t>(), kml::gpx::GpxParser::ParseColorFromHexString("DarkRed"), ());
 }
 
 }  // namespace gpx_tests
