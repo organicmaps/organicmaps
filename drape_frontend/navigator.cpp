@@ -193,12 +193,13 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     if (CanShrinkInto(tmp, worldR))
       tmp = ShrinkInto(tmp, worldR);
     else
-      return false;
+      return false;     
   }
 
   if (!CheckMaxScale(tmp))
   {
-    if (doRotateScreen){
+    if (doRotateScreen)
+    {
       math::Matrix<double, 3, 3> const tmpM =
         screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
                                                         newPt1 + offset, newPt2 + offset,
@@ -207,7 +208,9 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
       tmp.SetGtoPMatrix(tmpM);
     }
     else
+    {
     return false;
+  }
   }
 
 
