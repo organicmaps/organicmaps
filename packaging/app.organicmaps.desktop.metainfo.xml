@@ -115,6 +115,22 @@
   </screenshots>
 
   <releases>
+   <release version="2025.01.26-9" date="2025-01-26">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of January 21</li>
+           <li>Added Serbian (Cyrillic) and Latvian languages</li>
+           <li>Added tower POIs</li>
+        </ul>
+        <p>Linux:</p>
+         <ul>
+           <li>Added Night Mode to preferences dialog</li>
+           <li>Added Outdoors layer</li>
+           <li>Removed defunct Traffic layer button</li>
+        </ul>
+     </description>
+   </release>
    <release version="2024.11.27-12" date="2024-11-27">
      <description>
        <p>Highlights:</p>
