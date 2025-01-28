@@ -31,9 +31,7 @@ function ios_version {
 }
 
 function ios_build {
-  MINOR=$((16#${GIT_HASH:0:4}))
-  PATCH=$((16#${GIT_HASH:4:4}))
-  echo "$COUNT.$MINOR.$PATCH"
+  echo "$COUNT"
 }
 
 function  android_name {
