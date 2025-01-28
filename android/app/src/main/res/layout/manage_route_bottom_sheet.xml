@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:layout_marginBottom="@dimen/margin_half"
+  android:layout_marginTop="@dimen/margin_half"
+  android:paddingStart="@dimen/altitude_chart_container_padding_left"
+  android:paddingEnd="0dp">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:text="@string/planning_route_manage_route"
+      android:textSize="20sp"
+      android:textStyle="bold"/>
+
+    <ImageView
+      android:id="@+id/image_my_location"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_alignParentEnd="true"
+      android:visibility="invisible"
+      app:srcCompat="@drawable/ic_location_crosshair_blue"/>
+
+  </RelativeLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      android:background="?dividerHorizontal"/>
+
+  </LinearLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:maxHeight="300dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="6dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/manage_route_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingStart="0dp"
+      android:paddingEnd="10dp"
+      android:scrollbars="vertical"
+      android:scrollbarSize="6dp"
+      android:scrollbarStyle="outsideOverlay"
+      android:scrollbarThumbVertical="?android:attr/textColorSecondary"
+      android:fadeScrollbars="false"
+      app:layout_constraintHeight="true"
+      app:layout_constraintHeight_max="300dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:itemCount="5"
+      tools:listitem="@layout/manage_route_list_item"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+
+    <Button
+      android:id="@+id/btn__cancel"
+      style="@style/MwmWidget.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:text="@string/cancel"/>
+
+    <Button
+      android:id="@+id/btn__plan"
+      style="@style/MwmWidget.Button.Primary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|center_vertical"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:text="@string/button_plan"/>
+
+  </RelativeLayout>
+
+</LinearLayout>

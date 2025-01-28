@@ -113,7 +113,7 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
         .setOngoing(true)
         .setShowWhen(false)
         .setOnlyAlertOnce(true)
-        .setSmallIcon(R.drawable.ic_my_location)
+        .setSmallIcon(R.drawable.ic_location_crosshair)
         .setColor(ContextCompat.getColor(getCarContext(), R.color.notification))
         .setContentTitle(getCarContext().getString(R.string.aa_request_permission_notification))
         .setContentIntent(pendingIntent);

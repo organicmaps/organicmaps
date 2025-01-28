@@ -54,7 +54,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_base"
-      app:srcCompat="@drawable/ic_my_location"
+      app:srcCompat="@drawable/ic_location_crosshair"
       tools:tint="?colorAccent"/>
   </LinearLayout>
 </LinearLayout>
