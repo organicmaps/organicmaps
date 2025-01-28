@@ -21781,7 +21781,7 @@
     zh-Hant = 請搜尋地點或點擊地圖以新增目的地
 
   [planning_route_manage_route]
-    tags = ios
+    tags = android,ios
     en = Manage Route
     af = Bestuur roete
     ar = إدارة المسار
@@ -21828,7 +21828,7 @@
     zh-Hant = 管理路線
 
   [button_plan]
-    tags = ios
+    tags = android,ios
     en = Plan
     af = Beplan
     ar = خطة
