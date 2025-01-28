@@ -108,6 +108,39 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_contactLine)
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.com/ti/p/invalid-domain"), "", ());
 }
 
+UNIT_TEST(EditableMapObject_ValidateAndFormat_fediverse)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("https://fosstodon.org/@organicmaps"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("https://fosstodon.org/users/organicmaps"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("http://fosstodon.org/users/organicmaps"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("fosstodon.org/users/organicmaps"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("organicmaps@fosstodon.org"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("@organicmaps@fosstodon.org"), "organicmaps@fosstodon.org", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("@organicmaps@fosstodon.org.uk"), "organicmaps@fosstodon.org.uk", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("pub.mastodon.org.uk/@organicmaps"), "organicmaps@pub.mastodon.org.uk", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("pub.mastodon.org.uk/users/@organicmaps"), "organicmaps@pub.mastodon.org.uk", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("organicmaps@fosstodon@mastodon.org"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("orga$nicmaps@mastodon.social"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("pub.mastodon.org.uk/organicmaps"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_fediverse("pub.mastodon.org.uk/users/"), "", ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateAndFormat_bluesky)
+{
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("@organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/profile/organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/profile/@organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("http://bsky.app/profile/organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("bsky.app/profile/organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/profile/organicmaps.bsky.social"), "organicmaps.bsky.social", ());
+
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/profile/organicmap$.bsky.social"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/profile/organicmaps.bsky.social$"), "", ());
+  TEST_EQUAL(osm::ValidateAndFormat_bluesky("https://bsky.app/pineapple/organicmaps.bsky.social"), "", ());
+}
+
 UNIT_TEST(EditableMapObject_ValidateFacebookPage)
 {
   TEST(osm::ValidateFacebookPage(""), ());
@@ -260,6 +293,39 @@ UNIT_TEST(EditableMapObject_ValidateLinePage)
   TEST(!osm::ValidateLinePage("No-upper-case"), ());
   TEST(!osm::ValidateLinePage("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), ());
   TEST(!osm::ValidateLinePage("https://line.com/ti/p/invalid-domain"), ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateFediversePage)
+{
+  TEST(osm::ValidateFediversePage("https://fosstodon.org/@organicmaps"), ());
+  TEST(osm::ValidateFediversePage("https://fosstodon.org/users/organicmaps"), ());
+  TEST(osm::ValidateFediversePage("http://fosstodon.org/users/organicmaps"), ());
+  TEST(osm::ValidateFediversePage("fosstodon.org/users/organicmaps"), ());
+  TEST(osm::ValidateFediversePage("organicmaps@fosstodon.org"), ());
+  TEST(osm::ValidateFediversePage("@organicmaps@fosstodon.org"), ());
+  TEST(osm::ValidateFediversePage("@organicmaps@fosstodon.org.uk"), ());
+  TEST(osm::ValidateFediversePage("pub.mastodon.org.uk/@organicmaps"), ());
+  TEST(osm::ValidateFediversePage("pub.mastodon.org.uk/users/@organicmaps"), ());
+
+  TEST(!osm::ValidateFediversePage("organicmaps@fosstodon@mastodon.org"), ());
+  TEST(!osm::ValidateFediversePage("orga$nicmaps@mastodon.social"), ());
+  TEST(!osm::ValidateFediversePage("pub.mastodon.org.uk/organicmaps"), ());
+  TEST(!osm::ValidateFediversePage("pub.mastodon.org.uk/users/"), ());
+}
+
+UNIT_TEST(EditableMapObject_ValidateBlueskyPage)
+{
+  TEST(osm::ValidateBlueskyPage("organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("@organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("https://bsky.app/profile/organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("https://bsky.app/profile/@organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("http://bsky.app/profile/organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("bsky.app/profile/organicmaps.bsky.social"), ());
+  TEST(osm::ValidateBlueskyPage("https://bsky.app/profile/organicmaps.bsky.social"), ());
+
+  TEST(!osm::ValidateBlueskyPage("https://bsky.app/profile/organicmap$.bsky.social"), ());
+  TEST(!osm::ValidateBlueskyPage("https://bsky.app/profile/organicmaps.bsky.social$"), ());
+  TEST(!osm::ValidateBlueskyPage("https://bsky.app/pineapple/organicmaps.bsky.social"), ());
 }
 
 UNIT_TEST(EditableMapObject_socialContactToURL)
