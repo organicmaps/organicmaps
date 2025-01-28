@@ -23,8 +23,6 @@ NS_SWIFT_NAME(Search)
 
 + (void)clear;
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap;
-
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
 
