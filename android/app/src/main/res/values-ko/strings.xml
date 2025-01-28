@@ -587,6 +587,8 @@
     <string name="routing_add_start_point">검색을 사용하거나 지도를 탭하여 경로 시작점을 추가합니다</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">검색을 사용하거나 지도를 탭하여 목적지 지점을 추가합니다</string>
+    <string name="planning_route_manage_route">경로 관리</string>
+    <string name="button_plan">계획</string>
     <string name="placepage_remove_stop">정류장 제거</string>
     <string name="placepage_add_stop">스톱 추가</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
