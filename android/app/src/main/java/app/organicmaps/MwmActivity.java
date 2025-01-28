@@ -78,6 +78,7 @@ import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
 import app.organicmaps.maplayer.subway.SubwayManager;
+import app.organicmaps.routing.ManageRouteBottomSheet;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointInfo;
@@ -111,6 +112,7 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -228,6 +230,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private DisplayManager mDisplayManager;
+
+  ManageRouteBottomSheet mManageRouteBottomSheet;
 
   private boolean mRemoveDisplayListener = true;
   private int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
@@ -2098,6 +2102,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingPanels();
     setFullscreen(false);
     RoutingController.get().start();
+  }
+
+  @Override
+  public void onManageRouteOpen()
+  {
+    // Create and show 'Manage Route' Bottom Sheet panel.
+    mManageRouteBottomSheet = new ManageRouteBottomSheet();
+    mManageRouteBottomSheet.setCancelable(false);
+    mManageRouteBottomSheet.show(getSupportFragmentManager(), "ManageRouteBottomSheet");
   }
 
   private boolean requestBatterySaverPermission()

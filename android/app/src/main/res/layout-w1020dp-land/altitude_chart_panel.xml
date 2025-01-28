@@ -83,6 +83,16 @@
       android:layout_gravity="center_vertical" />
 
     <Button
+      android:id="@+id/btn__manage_route"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      style="@style/MwmWidget.Button"
+      android:text="@string/planning_route_manage_route"
+      android:drawableStart="@drawable/ic_manage_route"
+      android:drawablePadding="6dp"/>
+
+    <Button
       android:id="@+id/start"
       style="@style/MwmWidget.Button.Primary"
       android:layout_width="wrap_content"
