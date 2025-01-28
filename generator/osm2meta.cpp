@@ -534,6 +534,8 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;
   case Metadata::FMD_CONTACT_VK: valid = osm::ValidateAndFormat_vk(v); break;
   case Metadata::FMD_CONTACT_LINE: valid = osm::ValidateAndFormat_contactLine(v); break;
+  case Metadata::FMD_CONTACT_FEDIVERSE: valid = osm::ValidateAndFormat_fediverse(v); break;
+  case Metadata::FMD_CONTACT_BLUESKY: valid = osm::ValidateAndFormat_bluesky(v); break;
   case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
   case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
