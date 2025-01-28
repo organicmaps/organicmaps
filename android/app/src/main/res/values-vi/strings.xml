@@ -588,6 +588,8 @@
     <string name="routing_add_start_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm bắt đầu tuyến đường</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm đến</string>
+    <string name="planning_route_manage_route">Quản lý lộ trình</string>
+    <string name="button_plan">Kế hoạch</string>
     <string name="placepage_remove_stop">Xóa điểm dừng</string>
     <string name="placepage_add_stop">Thêm điểm dừng</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
