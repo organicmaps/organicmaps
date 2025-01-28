@@ -333,10 +333,19 @@ public class Framework
   public static native int nativeGetBestRouter(double srcLat, double srcLon,
                                                double dstLat, double dstLon);
 
+  public static void addRoutePoint(RouteMarkData point)
+  {
+    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType,
+                                  point.mIntermediateIndex, point.mIsMyPosition,
+                                  point.mLat, point.mLon);
+  }
+
   public static native void nativeAddRoutePoint(String title, String subtitle,
                                                 @RoutePointInfo.RouteMarkType int markType,
                                                 int intermediateIndex, boolean isMyPosition,
                                                 double lat, double lon);
+
+  public static native void nativeRemoveRoutePoints();
 
   public static native void nativeRemoveRoutePoint(@RoutePointInfo.RouteMarkType int markType,
                                                    int intermediateIndex);
@@ -346,6 +355,9 @@ public class Framework
   public static native boolean nativeCouldAddIntermediatePoint();
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
+
+  public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
+
   @NonNull
   public static native TransitRouteInfo nativeGetTransitRouteInfo();
   /**
