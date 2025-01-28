@@ -589,6 +589,8 @@
     <string name="routing_add_start_point">मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा</string>
+    <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
+    <string name="button_plan">नियोजन</string>
     <string name="placepage_remove_stop">थांबा काढा</string>
     <string name="placepage_add_stop">स्टॉप जोडा</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
