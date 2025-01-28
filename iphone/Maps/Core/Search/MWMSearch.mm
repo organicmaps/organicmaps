@@ -17,7 +17,6 @@ using Observers = NSHashTable<Observer>;
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
 
 @property(nonatomic) NSUInteger suggestionsCount;
-@property(nonatomic) BOOL searchOnMap;
 
 @property(nonatomic) BOOL textChanged;
 
@@ -111,16 +110,8 @@ using Observers = NSHashTable<Observer>;
   [self reset];
   if (m_query.empty())
     return;
-
-  if (IPAD) {
-    [self searchInViewport];
-    [self searchEverywhere];
-  } else {
-    if (self.searchOnMap)
-      [self searchInViewport];
-    else
-      [self searchEverywhere];
-  }
+  [self searchInViewport];
+  [self searchEverywhere];
 }
 
 #pragma mark - Add/Remove Observers
@@ -223,18 +214,6 @@ using Observers = NSHashTable<Observer>;
   [manager reset];
 }
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap {
-  if (IPAD)
-    return;
-  MWMSearch *manager = [MWMSearch manager];
-  if (manager.searchOnMap == searchOnMap)
-    return;
-  manager.searchOnMap = searchOnMap;
-  if (searchOnMap && ![MWMRouter isRoutingActive])
-    GetFramework().ShowSearchResults(manager->m_everywhereResults);
-  [manager update];
-}
-
 + (NSUInteger)suggestionsCount {
   return [MWMSearch manager].suggestionsCount;
 }
@@ -280,8 +259,7 @@ using Observers = NSHashTable<Observer>;
 - (void)processViewportChangedEvent {
   if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
     return;
-  if (IPAD)
-    [self searchEverywhere];
+  [self searchEverywhere];
 }
 
 #pragma mark - Properties
