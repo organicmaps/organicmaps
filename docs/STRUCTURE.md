@@ -93,7 +93,6 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `indexer/` - processor for map files, classificator, styles.
 - `kml/` - manipulation of KML files.
 - `map/` - app business logic, including a scene manager.
-- `openlr/` -
 - `packaging/` - packaging specs for various distributions.
 - `platform/` - platform abstraction classes: file paths, http requests, location services.
 - `pyhelpers/` -

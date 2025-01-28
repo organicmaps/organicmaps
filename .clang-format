@@ -50,9 +50,6 @@ IncludeCategories:
   - Regex:           '^"ge0/ge0_tests/'
     Priority:        4765
 
-  - Regex:           '^"openlr/openlr_tests/'
-    Priority:        4770
-
   - Regex:           '^"descriptions/descriptions_tests/'
     Priority:        4790
 
@@ -131,10 +128,6 @@ IncludeCategories:
 
 # Binaries (tools) ---------------------------------------------------------------------------------
 
-  - Regex:           '^"openlr/openlr_match_quality/openlr_assessment_tool/'
-    Priority:        18908
-  - Regex:           '^"search/search_quality/assessment_tool/'
-    Priority:        18909
   - Regex:           '^"qt/'
     Priority:        18910
 
@@ -159,9 +152,6 @@ IncludeCategories:
     Priority:        19309
   - Regex:           '^"map/benchmark_tool/'
     Priority:        19310
-
-  - Regex:           '^"openlr/openlr_stat/'
-    Priority:        19400
 
 
   - Regex:           '^"search/search_quality/booking_dataset_generator/'
@@ -206,9 +196,6 @@ IncludeCategories:
 
   - Regex:           '^"ge0/'
     Priority:        47050
-
-  - Regex:           '^"openlr/'
-    Priority:        47100
 
   - Regex:           '^"descriptions/'
     Priority:        47300

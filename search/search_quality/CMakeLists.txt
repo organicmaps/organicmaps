@@ -19,10 +19,6 @@ target_link_libraries(${PROJECT_NAME}
   indexer
 )
 
-if (NOT SKIP_QT_GUI)
-  omim_add_tool_subdirectory(assessment_tool)
-endif()
-
 omim_add_tool_subdirectory(features_collector_tool)
 omim_add_tool_subdirectory(samples_generation_tool)
 omim_add_tool_subdirectory(search_quality_tool)
