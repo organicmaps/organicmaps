@@ -28,8 +28,6 @@ NS_SWIFT_NAME(Search)
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index;
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap;
-
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
 
