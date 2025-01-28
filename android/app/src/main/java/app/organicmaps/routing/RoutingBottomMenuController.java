@@ -151,6 +151,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     Resources res = mContext.getResources();
     mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
                                                          res.getDimensionPixelSize(R.dimen.margin_half));
+    Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
+    manageRouteButton.setOnClickListener(this);
   }
 
   void showAltitudeChartAndRoutingDetails()
@@ -485,5 +487,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       int pointType = (Integer) mActionMessage.getTag();
       mListener.onSearchRoutePoint(pointType);
     }
+    else if (id == R.id.btn__manage_route && mListener != null)
+      mListener.onManageRouteOpen();
   }
 }
