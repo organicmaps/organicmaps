@@ -12379,8 +12379,8 @@ sk:Stožiar
 tr:Direk
 uk:Щогла|вишка
 
-man_made-tower-communication
-en:Communications Tower|cell tower|cellular tower
+man_made-communications_tower|man_made-tower-communication
+en:Communications Tower|cell tower|cellular tower|mast
 ar:برج الاتصالات
 be:Вежа сувязі|вышка сувязі|сотавая вышка
 bg:Комуникационна кула
@@ -12409,7 +12409,7 @@ pl:Wieża komunikacyjna
 pt:Torre de Comunicações
 pt-BR:Torre de Comunicações
 ro:Turnul de comunicații
-ru:Вышка связи|cотовая вышка|башня связи
+ru:Вышка связи|cотовая вышка|телекоммуникационная башня
 sk:Komunikačná veža
 sr:Комуникациони торањ|Komunikacioni toranj
 sv:Kommunikationstorn

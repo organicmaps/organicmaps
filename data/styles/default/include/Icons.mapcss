@@ -904,6 +904,7 @@ node|z14-[amenity=place_of_worship],
 area|z14-[amenity=place_of_worship],
 node|z14-[man_made=lighthouse],
 area|z14-[man_made=lighthouse],
+node|z15-[man_made=communications_tower],
 node|z15-[amenity=hospital],
 node|z15-[landuse=landfill],
 area|z15-[landuse=landfill],
@@ -1553,6 +1554,12 @@ node|z16-[barrier=cycle_barrier],
 
 node|z16-[highway=ford],
 {icon-image: ford-m.svg;}
+
+/* TODO: needs a better icon */
+node|z14-[man_made=communications_tower],
+{icon-image: mast-m.svg;}
+node|z17-[man_made=communications_tower],
+{font-size: 11;}
 
 node|z19-[power=tower],
 node|z15-[man_made=flagpole],
