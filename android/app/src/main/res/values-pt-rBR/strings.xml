@@ -447,7 +447,6 @@
     <string name="downloader_no_space_message">Por favor, remova os dados desnecessários</string>
     <string name="editor_login_error_dialog">Erro no login.</string>
     <string name="editor_profile_changes">Alterações verificadas</string>
-    <string name="editor_focus_map_on_location">Mova o mapa para selecionar o lugar correto do objeto.</string>
     <string name="editor_edit_place_title">Edição</string>
     <string name="editor_add_place_title">Adicionando</string>
     <string name="editor_edit_place_name_hint">Nome do lugar</string>

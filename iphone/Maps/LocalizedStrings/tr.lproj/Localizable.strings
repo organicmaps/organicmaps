@@ -571,7 +571,7 @@
 
 "editor_example_values" = "Örnek Değerler";
 
-"editor_add_select_location" = "Konum";
+"editor_add_select_location" = "Konum Seçin";
 
 "editor_done_dialog_1" = "Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.";
 
@@ -683,7 +683,7 @@
 
 "editor_profile_changes" = "Doğrulanan Düzenleme";
 
-"editor_focus_map_on_location" = "Objenin doğru konumunu seçmek için haritayı sürükleyin.";
+"editor_focus_map_on_location" = "Çarpı işaretini mekân veya işletmenin konumuna yerleştirmek için haritayı sürükleyin.";
 
 "editor_add_select_category" = "Kategori seç";
 

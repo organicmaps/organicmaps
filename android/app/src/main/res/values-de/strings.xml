@@ -433,7 +433,7 @@
     <string name="editor_hours_closed">Schließzeiten</string>
     <string name="editor_example_values">Beispiele</string>
     <string name="editor_correct_mistake">Fehler korrigieren</string>
-    <string name="editor_add_select_location">Standort</string>
+    <string name="editor_add_select_location">Standort auswählen</string>
     <string name="editor_report_problem_desription_1">Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Community den Fehler korrigieren kann.</string>
     <string name="editor_report_problem_desription_2">Oder kümmern Sie sich selbst darum auf https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Senden</string>
@@ -493,7 +493,7 @@
     <string name="downloader_no_space_message">Bitte entfernen Sie unnötige Daten</string>
     <string name="editor_login_error_dialog">Login-Fehler.</string>
     <string name="editor_profile_changes">Bestätigte Änderungen der Karte</string>
-    <string name="editor_focus_map_on_location">Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.</string>
+    <string name="editor_focus_map_on_location">Verschiebe die Karte, um das Kreuz an der Stelle zu platzieren, an der sich der Ort oder das Geschäft befindet.</string>
     <string name="editor_edit_place_title">Wird bearbeitet</string>
     <string name="editor_add_place_title">Wird hinzugefügt</string>
     <string name="editor_edit_place_name_hint">Name des Ortes</string>
