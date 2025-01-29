@@ -2500,6 +2500,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"leisure", "water_park"},
     {"man_made", "breakwater"},
     {"man_made", "chimney"},
+    {"man_made", "cross"},
     {"man_made", "cutline"},
     {"man_made", "embankment"},
     {"man_made", "lighthouse"},

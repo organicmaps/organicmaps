@@ -4773,6 +4773,9 @@ vi:Diểm tham quan
 zh-Hans:陵墓
 zh-Hant:陵墓
 
+man_made-cross
+en:Cross
+
 historic-wayside_cross
 en:Wayside cross
 ar:صليب مسيحي
