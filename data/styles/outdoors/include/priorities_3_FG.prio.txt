@@ -40,9 +40,11 @@ historic-citywalls                                  # line z14- (also has pathte
 === 360
 
 power-line                                          # line z15- (also has line::dash z15-, pathtext z15-)
+power-minor_line
 === 350
 
 power-line::dash                                    # line::dash z15- (also has line z15-, pathtext z15-)
+power-minor_line::dash
 === 340
 
 highway-cycleway                                    # line z11- (also has pathtext z13-)

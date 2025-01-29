@@ -1206,6 +1206,7 @@ power-plant-gas                                     # icon z17-
 power-plant-hydro                                   # icon z17-
 power-plant-solar                                   # icon z17-
 power-plant-wind                                    # icon z13- (also has caption(optional) z16-)
+power-pole
 power-station                                       # icon z17- (also has caption(optional) z17-)
 === 230
 
