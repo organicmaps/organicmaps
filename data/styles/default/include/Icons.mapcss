@@ -673,6 +673,7 @@ node|z16-[historic=pillory],
 area|z16-[historic=pillory],
 {icon-image: monument-m.svg;font-size: 11;icon-min-distance: 8;}
 node|z16-[historic=wayside_cross],
+{icon-image: wayside_cross-m.svg; font-size: 11;}
 node|z16-[man_made=cross],
 {icon-image: cross-m.svg; font-size: 11;}
 node|z15-[historic=ship],
