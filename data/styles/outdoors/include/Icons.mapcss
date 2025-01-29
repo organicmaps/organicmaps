@@ -24,6 +24,13 @@ area|z14-[man_made=water_well],
 node|z15-[tourism=information],
 node|z14-[tourism=information][information=office],
 node|z14-[tourism=information][information=visitor_centre],
+node|z14-[man_made=flagpole],
+node|z14-[man_made=mast],
+node|z14-[man_made=silo],
+node|z14-[man_made=storage_tank],
+node|z14-[man_made=water_tower],
+node|z14-[man_made=tower],
+node|z15-[amenity=hunting_stand],
 node|z15-[man_made=survey_point],
 node|z15-[natural=hot_spring],
 area|z15-[natural=hot_spring],
@@ -214,8 +221,8 @@ area|z13-[tourism=caravan_site],
 
 node|z11-[tourism=alpine_hut],
 area|z11-[tourism=alpine_hut],
-node|z13-[tourism=wilderness_hut],
-area|z13-[tourism=wilderness_hut],
+node|z12-[tourism=wilderness_hut],
+area|z12-[tourism=wilderness_hut],
 {icon-image: alpine_hut-s.svg; icon-min-distance: 24;}
 node|z13-[tourism=alpine_hut],
 area|z13-[tourism=alpine_hut],
@@ -267,11 +274,10 @@ node|z16-[amenity=bbq],
 area|z16-[amenity=bbq],
 {icon-image: bbq-m.svg; font-size: 11;}
 
-node|z13-[amenity=shelter],
-area|z13-[amenity=shelter],
-node|z13-[amenity=shelter][shelter_type=lean_to],
+node|z12-[amenity=shelter],
+node|z12-[amenity=shelter][shelter_type=lean_to],
 {icon-image: shelter-s.svg; icon-min-distance: 10; font-size: 11;}
-node|z13-[amenity=shelter][shelter_type=basic_hut],
+node|z12-[amenity=shelter][shelter_type=basic_hut],
 {icon-image: alpine_hut-s.svg; icon-min-distance: 10; font-size: 11;}
 node|z14-[amenity=shelter],
 area|z14-[amenity=shelter],
@@ -284,7 +290,7 @@ area|z16-[amenity=shelter],
 node|z16-[amenity=shelter][shelter_type=lean_to],
 node|z16-[amenity=shelter][shelter_type=basic_hut],
 {font-size: 12; icon-min-distance: 0;}
-node|z13[amenity=shelter][shelter_type=public_transport],
+node|z12-13[amenity=shelter][shelter_type=public_transport],
 {icon-image: none; text: none;}
 node|z14-[amenity=shelter][shelter_type=public_transport],
 {icon-image: shelter-public_transport-m.svg;}
@@ -373,16 +379,32 @@ node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
 node|z14-[man_made=flagpole],
 node|z14-[man_made=mast],
-{icon-image: mast-m.svg;}
-
-node|z14-[man_made=tower],
-node|z14-[man_made=tower][tower:type=communication],
 {icon-image: mast-m.svg; font-size: 11;}
 
-node|z18-[man_made=cairn],
+node|z13-[man_made=tower],
+{icon-image: mast-m.svg; font-size: 11;}
+node|z14-[man_made=tower],
+{icon-image: storage-tank.svg;}
+node|z16-[man_made=tower],
+{font-size: 12;}
+
+node|z14-[amenity=hunting_stand],
+{icon-image: hunting-tower-m.svg; font-size: 11;}
+node|z16-[amenity=hunting_stand],
+{font-size: 12;}
+
+node|z17-[man_made=cairn],
 {icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
 
+node|z13-[man_made=silo],
+node|z13-[man_made=storage_tank],
+node|z13-[man_made=water_tower],
+{icon-image: mast-m.svg;}
 node|z14-[man_made=silo],
 node|z14-[man_made=storage_tank],
 node|z14-[man_made=water_tower],
-{icon-image: storage-tank.svg;font-size: 11;}
+{icon-image: storage-tank.svg; font-size: 11;}
+node|z16-[man_made=silo],
+node|z16-[man_made=storage_tank],
+node|z16-[man_made=water_tower],
+{font-size: 12;}
