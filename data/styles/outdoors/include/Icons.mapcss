@@ -11,6 +11,7 @@ area|z11-[waterway=waterfall],
 node|z11-[natural=peak][name],
 node|z15-[natural=saddle],
 node|z12-[mountain_pass],
+node|z13-[man_made=communications_tower],
 node|z14-[natural=spring],
 area|z14-[natural=spring],
 node|z14-[amenity=water_point],
@@ -379,6 +380,20 @@ node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
 node|z14-[man_made=flagpole],
 node|z14-[man_made=mast],
+{icon-image: mast-m.svg;}
+
+/* TODO: needs a better icon */
+node|z12-[man_made=communications_tower],
+{icon-image: mast-m.svg;}
+node|z13-[man_made=communications_tower],
+{font-size: 11;}
+node|z14-[man_made=communications_tower],
+{icon-image: power-tower-m.svg;}
+node|z16-[man_made=communications_tower],
+{font-size: 12;}
+
+node|z14-[man_made=tower],
+node|z14-[man_made=tower][tower:type=communication],
 {icon-image: mast-m.svg; font-size: 11;}
 
 node|z13-[man_made=tower],

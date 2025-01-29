@@ -303,6 +303,7 @@ highway-secondary-bridge                            # pathtext z10- (also has sh
 highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z16-)
 === 5600
 
+man_made-communications_tower
 man_made-lighthouse                                 # icon z11- (also has caption(optional) z14-)
 natural-peak                                        # icon z10- (also has caption(optional) z11-)
 natural-volcano                                     # icon z10- (also has caption(optional) z13-)

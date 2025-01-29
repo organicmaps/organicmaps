@@ -18891,7 +18891,8 @@
     zh-Hans = 高塔
     zh-Hant = 塔
 
-  [type.man_made.tower.communication]
+  [type.man_made.communications_tower]
+    comment = A huge telecommunications tower. Often a local monument or a landmark.
     en = Communications Tower
     af = Kommunikasietoring
     ar = برج اتصالات
@@ -18922,7 +18923,7 @@
     pt = Torre de comunicação
     pt-BR = Torre de comunicação
     ro = Turnul de comunicații
-    ru = Вышка связи
+    ru = Телекоммуникационная башня
     sk = Komunikačná veža
     sr = Телекомуникациони торањ
     sv = Kommunikationstorn
@@ -18933,6 +18934,11 @@
     vi = Tháp truyền thông
     zh-Hans = 通讯塔
     zh-Hant = 通訊塔
+
+  [type.man_made.tower.communication]
+    comment = A regular telecommunications tower / mast.
+    ref = type.man_made.communications_tower
+    ru = Вышка связи
 
   [type.man_made.wastewater_plant]
     en = Wastewater Treatment Plant
