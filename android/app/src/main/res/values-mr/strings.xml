@@ -804,8 +804,6 @@
     <string name="aa_request_permission_activity_text">Android Auto मधील ऑरगॅनिक नकाशे प्रभावीपणे कार्य करण्यासाठी स्थान परवानगी आवश्यक आहे</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">परवानग्या द्या</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">कारला जोडलेले</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">गिर्यारोहण</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->

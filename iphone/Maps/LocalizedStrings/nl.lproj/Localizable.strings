@@ -709,7 +709,7 @@
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org";
+"osm_presentation" = "Door de gemeenschap gemaakte OpenStreetMap-gegevens tot %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Maak een OpenStreetMap account aan of log in om uw kaartbewerkingen voor de wereld te publiceren.";
 

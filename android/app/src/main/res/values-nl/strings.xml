@@ -503,7 +503,7 @@
     <string name="placepage_add_business_button">Voeg een organisatie toe</string>
     <string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
+    <string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens tot %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in Organic Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.
 \nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!</string>
@@ -839,8 +839,6 @@
     <string name="aa_request_permission_activity_text">Organic Maps in Android Auto heeft een locatie toestemming nodig om effectief te werken</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Geef toestemming</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Verbonden met auto</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Wandelen</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->

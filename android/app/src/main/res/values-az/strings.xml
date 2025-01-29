@@ -819,8 +819,6 @@
     <string name="car_continue_in_the_car">Avtomobil ekranına</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İcazələr verin</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Avtomobilə qoşulub</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Yürüyüş</string>
     <string name="volume">Həcm</string>

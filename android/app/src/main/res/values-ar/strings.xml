@@ -852,8 +852,6 @@
     <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في Android Auto إلى إذن تحديد الموقع للعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">متصل بالسيارة</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">جولة على الأقدام</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->

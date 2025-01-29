@@ -785,8 +785,6 @@
     <string name="aa_request_permission_activity_text">Organic Maps i Android Auto har brug for en lokationstilladelse for at fungere effektivt</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Giv tilladelser</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Forbundet til bilen</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Vandring</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
