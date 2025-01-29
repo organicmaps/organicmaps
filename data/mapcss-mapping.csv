@@ -802,7 +802,7 @@ deprecated|deprecated;688;x
 deprecated|deprecated;689;x
 deprecated|deprecated;690;x
 deprecated:boundary|administrative|country:04.2024;[boundary=administrative][border_type=country];x;name;int_name;691;
-deprecated|deprecated;692;x
+man_made|cross;692;
 natural|orchard;693;landuse|orchard
 deprecated|deprecated;694;x
 deprecated|deprecated;695;x

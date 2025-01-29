@@ -16089,7 +16089,12 @@
     zh-Hans = 陵墓
     zh-Hant = 陵墓
 
+  [type.man_made.cross]
+    comment = Usually has no historic and sometimes no religious context. E.g. a mountain summit cross.
+    en = Cross
+
   [type.historic.wayside_cross]
+    comment = Usually a Christian historical cross placed along a road.
     en = Wayside Cross
     af = Wegkruis
     ar = صليب جانب الطريق
