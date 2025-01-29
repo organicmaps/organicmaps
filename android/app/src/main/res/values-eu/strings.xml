@@ -835,8 +835,6 @@
     <string name="aa_request_permission_activity_text">Android Auto-ko Organic Maps-ek kokapen-baimena behar du eraginkortasunez funtzionatzeko</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Eman baimenak</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Landa-eremua</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
