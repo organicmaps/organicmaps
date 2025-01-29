@@ -16533,7 +16533,7 @@
     lv = Kopiena veidotie „OpenStreetMap“ dati uz %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.
     mr = समुदाय-निर्मित OpenStreetMap डेटा %@ नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या
     nb = Fellesskapsopprettede OpenStreetMap-data fra %@. Les mer om hvordan du redigerer og oppdaterer kartet på OpenStreetMap.org.
-    nl = Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org
+    nl = Door de gemeenschap gemaakte OpenStreetMap-gegevens tot %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org
     pl = Dane OpenStreetMap stworzone przez społeczność na dzień %@. Dowiedz się więcej o tym, jak edytować i aktualizować mapę na stronie OpenStreetMap.org
     pt = Dados do OpenStreetMap criados pela comunidade a partir de %@. Sabe mais sobre como editar e atualizar o mapa em OpenStreetMap.org
     pt-BR = Dados do OpenStreetMap criados pela comunidade a partir de %@. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org
