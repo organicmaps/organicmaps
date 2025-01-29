@@ -32,10 +32,10 @@ highway|road
 highway|track
 *natural|wetland
 highway|track
-mapswithme
+*power|minor_line
 *amenity|school
 *highway|cycleway
-landuse|farmland
+*power|pole
 amenity|place_of_worship
 highway|track
 *addr:interpolation|odd
@@ -201,7 +201,7 @@ landuse|forest|deciduous
 *amenity|charging_station|motorcar
 *leisure|golf_course
 *highway|service|bridge
-*power|minor_line
+mapswithme
 *natural|wetland|marsh
 *leisure|stadium
 *amenity|doctors
@@ -518,7 +518,7 @@ mapswithme
 mapswithme
 mapswithme
 *sport|diving
-mapswithme
+*man_made|utility_pole
 mapswithme
 mapswithme
 *railway|monorail|tunnel
