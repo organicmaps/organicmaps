@@ -6,7 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.core.view.ViewCompat;
-import app.organicmaps.util.WindowInsetUtils;
+
+import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.UiUtils;

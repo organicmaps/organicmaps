@@ -28,7 +28,7 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, o
 //jobject CreatePopularity(JNIEnv * env, place_page::Info const & info)
 //{
 //  static jclass const popularityClass =
-//    jni::GetGlobalClassRef(env, "app/organicmaps/search/Popularity");
+//    jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/Popularity");
 //  static jmethodID const popularityConstructor =
 //    jni::GetConstructorID(env, popularityClass, "(I)V");
 //  auto const popularityValue = info.GetPopularity();
@@ -57,7 +57,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
       "Ljava/lang/String;"                              // appId
       "Lapp/organicmaps/routing/RoutePointInfo;"   // routePointInfo
       "I"                                               // openingMode
-      "Lapp/organicmaps/search/Popularity;"        // popularity
+      "Lapp/organicmaps/sdk/search/Popularity;"         // popularity
       "Ljava/lang/String;"                              // description
       "I"                                               // roadWarnType
       "[Ljava/lang/String;"                             // rawTypes
@@ -105,7 +105,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
                                 "(Lapp/organicmaps/bookmarks/data/FeatureId;JJLjava/lang/String;"
                                 "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                 "Lapp/organicmaps/routing/RoutePointInfo;"
-                                "ILapp/organicmaps/search/Popularity;Ljava/lang/String;"
+                                "ILapp/organicmaps/sdk/search/Popularity;Ljava/lang/String;"
                                 "[Ljava/lang/String;)V");
   static jmethodID const featureCtorId =
           jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
