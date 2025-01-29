@@ -6999,7 +6999,14 @@ cont {
 cont {
   name: "amenity-hunting_stand"
   element {
-    scale: 18
+    scale: 14
+    symbol {
+      name: "hunting-tower-m"
+      priority: 2300
+    }
+  }
+  element {
+    scale: 15
     symbol {
       name: "hunting-tower-m"
       priority: 2300
@@ -7007,6 +7014,54 @@ cont {
     caption {
       primary {
         height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "hunting-tower-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hunting-tower-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hunting-tower-m"
+      priority: 2300
+    }
+    caption {
+      primary {
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -7022,7 +7077,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -7038,7 +7093,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -12049,6 +12104,14 @@ cont {
 cont {
   name: "amenity-shelter"
   element {
+    scale: 12
+    symbol {
+      name: "shelter-s"
+      priority: 1500
+      min_distance: 10
+    }
+  }
+  element {
     scale: 13
     symbol {
       name: "shelter-s"
@@ -12183,6 +12246,14 @@ cont {
 cont {
   name: "amenity-shelter-basic_hut"
   element {
+    scale: 12
+    symbol {
+      name: "alpine_hut-s"
+      priority: 3900
+      min_distance: 10
+    }
+  }
+  element {
     scale: 13
     symbol {
       name: "alpine_hut-s"
@@ -12316,6 +12387,14 @@ cont {
 }
 cont {
   name: "amenity-shelter-lean_to"
+  element {
+    scale: 12
+    symbol {
+      name: "shelter-s"
+      priority: 3900
+      min_distance: 10
+    }
+  }
   element {
     scale: 13
     symbol {
@@ -54889,6 +54968,22 @@ cont {
 cont {
   name: "man_made-cairn"
   element {
+    scale: 17
+    symbol {
+      name: "cairn-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "cairn-m"
@@ -55167,12 +55262,30 @@ cont {
       name: "mast-m"
       priority: 850
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
   }
   element {
     scale: 15
     symbol {
       name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
   element {
@@ -55181,12 +55294,30 @@ cont {
       name: "mast-m"
       priority: 850
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
   }
   element {
     scale: 17
     symbol {
       name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
   element {
@@ -55195,6 +55326,15 @@ cont {
       name: "mast-m"
       priority: 850
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
   }
   element {
     scale: 19
@@ -55202,12 +55342,30 @@ cont {
       name: "mast-m"
       priority: 850
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
   }
   element {
     scale: 20
     symbol {
       name: "mast-m"
       priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
 }
@@ -55365,12 +55523,30 @@ cont {
       name: "mast-m"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 15
     symbol {
       name: "mast-m"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55379,12 +55555,30 @@ cont {
       name: "mast-m"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 17
     symbol {
       name: "mast-m"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55393,6 +55587,15 @@ cont {
       name: "mast-m"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 19
@@ -55400,12 +55603,30 @@ cont {
       name: "mast-m"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 20
     symbol {
       name: "mast-m"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
@@ -55543,10 +55764,26 @@ cont {
 cont {
   name: "man_made-silo"
   element {
+    scale: 13
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55555,6 +55792,15 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 16
@@ -55562,12 +55808,30 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 17
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55578,7 +55842,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55594,7 +55858,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55610,7 +55874,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55622,10 +55886,26 @@ cont {
 cont {
   name: "man_made-storage_tank"
   element {
+    scale: 13
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55634,6 +55914,15 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 16
@@ -55641,12 +55930,30 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 17
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -55657,7 +55964,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55673,7 +55980,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55689,7 +55996,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55807,42 +56114,85 @@ cont {
 cont {
   name: "man_made-tower"
   element {
+    scale: 13
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
     scale: 14
     symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
         height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55853,12 +56203,12 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55869,12 +56219,12 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55886,42 +56236,85 @@ cont {
 cont {
   name: "man_made-tower-communication"
   element {
+    scale: 13
+    symbol {
+      name: "mast-m"
+      priority: 850
+    }
+  }
+  element {
     scale: 14
     symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "mast-m"
-      priority: 850
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
         height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55932,12 +56325,12 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -55948,12 +56341,12 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mast-m"
+      name: "storage-tank"
       priority: 850
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56209,10 +56602,26 @@ cont {
 cont {
   name: "man_made-water_tower"
   element {
+    scale: 13
+    symbol {
+      name: "mast-m"
+      priority: 450
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -56221,6 +56630,15 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 16
@@ -56228,12 +56646,30 @@ cont {
       name: "storage-tank"
       priority: 450
     }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
   }
   element {
     scale: 17
     symbol {
       name: "storage-tank"
       priority: 450
+    }
+    caption {
+      primary {
+        height: 12
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
   element {
@@ -56244,7 +56680,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56260,7 +56696,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56276,7 +56712,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -129860,6 +130296,14 @@ cont {
 }
 cont {
   name: "tourism-wilderness_hut"
+  element {
+    scale: 12
+    symbol {
+      name: "alpine_hut-s"
+      priority: 3900
+      min_distance: 24
+    }
+  }
   element {
     scale: 13
     symbol {
