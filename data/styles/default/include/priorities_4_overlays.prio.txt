@@ -1084,6 +1084,7 @@ leisure-ice_rink                                    # icon z17- (also has captio
 leisure-pitch                                       # icon z17- (also has caption(optional) z17-, area z15-)
 man_made-chimney                                    # icon z16- (also has caption(optional) z18-)
 man_made-flagpole                                   # icon z15-
+man_made-flare
 man_made-tower                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower-communication                        # icon z16- (also has caption(optional) z18-)
 === 850

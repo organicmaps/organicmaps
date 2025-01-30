@@ -2503,6 +2503,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "cross"},
     {"man_made", "cutline"},
     {"man_made", "embankment"},
+    {"man_made", "flare"},
     {"man_made", "lighthouse"},
     {"man_made", "petroleum_well"},
     {"man_made", "pier"},
