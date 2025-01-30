@@ -994,6 +994,7 @@ tourism-artwork-painting                            # icon z15- (also has captio
 
 amenity-shelter                                     # icon z12- (also has caption(optional) z13-)
 amenity-shelter-public_transport                    # icon z14- (also has caption(optional) z14-)
+emergency-lifeguard
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
 === 1500
