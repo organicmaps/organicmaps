@@ -678,6 +678,7 @@
     <string name="type.historic.ship">Meli</string>
     <string name="type.historic.tank">Tangi ya kihistoria</string>
     <string name="type.historic.tomb">Kaburi</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Msalaba wa njiani</string>
     <string name="type.historic.wayside_shrine">Kaburi la njia</string>
     <string name="type.historic.wreck">Ajali ya meli</string>
@@ -699,6 +700,9 @@
     <string name="type.leisure.park.private">Hifadhi</string>
     <string name="type.leisure.picnic_table">Jedwali la Picnic</string>
     <string name="type.leisure.sauna">Chumba cha mvuke</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Mnara wa Mawasiliano</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Mnara wa Mawasiliano</string>
     <string name="type.natural">Uasilia</string>
     <!-- A rocky land cover. -->

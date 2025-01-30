@@ -1408,6 +1408,7 @@
     <string name="type.historic.ship">Barco</string>
     <string name="type.historic.tank">Tanque Histórico</string>
     <string name="type.historic.tomb">Túmulo</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Cruzeiro</string>
     <string name="type.historic.wayside_shrine">Alminhas</string>
     <string name="type.historic.wreck">Naufrágio</string>
@@ -1497,6 +1498,9 @@
     <string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
     <string name="type.man_made.surveillance">Câmara de vigilância</string>
     <string name="type.man_made.tower">Torre</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Torre de comunicação</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicação</string>
     <string name="type.man_made.wastewater_plant">Estação de tratamento de águas residuais</string>
     <string name="type.man_made.water_tap">Torneira de água</string>

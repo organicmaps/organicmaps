@@ -11,6 +11,7 @@ area|z11-[waterway=waterfall],
 node|z11-[natural=peak][name],
 node|z15-[natural=saddle],
 node|z12-[mountain_pass],
+node|z13-[man_made=communications_tower],
 node|z14-[natural=spring],
 area|z14-[natural=spring],
 node|z14-[amenity=water_point],
@@ -193,6 +194,7 @@ node|z11-[tourism=alpine_hut],
 area|z11-[tourism=alpine_hut],
 node|z13-[tourism=wilderness_hut],
 area|z13-[tourism=wilderness_hut],
+node|z12-[emergency=mountain_rescue],
 node|z13-[tourism=viewpoint],
 node|z14-[tourism=chalet],
 area|z14-[tourism=chalet],
@@ -375,9 +377,26 @@ node|z14-[man_made=flagpole],
 node|z14-[man_made=mast],
 {icon-image: mast-m.svg;}
 
+/* TODO: needs a better icon */
+node|z12-[man_made=communications_tower],
+{icon-image: mast-m.svg;}
+node|z13-[man_made=communications_tower],
+{font-size: 11;}
+node|z14-[man_made=communications_tower],
+{icon-image: power-tower-m.svg;}
+node|z16-[man_made=communications_tower],
+{font-size: 12;}
+
 node|z14-[man_made=tower],
 node|z14-[man_made=tower][tower:type=communication],
+node|z13-[man_made=flare],
 {icon-image: mast-m.svg; font-size: 11;}
+
+/* TODO: needs a better icon */
+node|z14-[man_made=petroleum_well],
+{icon-image: mast-m.svg; font-size: 11;}
+node|z16-[man_made=petroleum_well],
+{font-size: 12;}
 
 node|z18-[man_made=cairn],
 {icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
@@ -386,3 +405,23 @@ node|z14-[man_made=silo],
 node|z14-[man_made=storage_tank],
 node|z14-[man_made=water_tower],
 {icon-image: storage-tank.svg;font-size: 11;}
+
+node|z14-[man_made=cross],
+{icon-image: cross-m.svg; font-size: 11;}
+node|z16-[man_made=cross],
+{font-size: 12;}
+
+node|z14-[emergency=lifeguard],
+{icon-image: lifeguard-m.svg; font-size: 11;}
+node|z16-[emergency=lifeguard],
+{font-size: 12;}
+
+/* TODO: a better icon? */
+node|z12-[emergency=mountain_rescue],
+{icon-image: hospital-s.svg;}
+node|z13-[emergency=mountain_rescue],
+{font-size: 11;}
+node|z14-[emergency=mountain_rescue],
+{icon-image: hospital-m.svg;}
+node|z16-[emergency=mountain_rescue],
+{font-size: 12;}

@@ -1470,6 +1470,7 @@
     <string name="type.historic.ship">سفينة</string>
     <string name="type.historic.tank">الخزان التاريخي</string>
     <string name="type.historic.tomb">قبر</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">صليب جانب الطريق</string>
     <string name="type.historic.wayside_shrine">ضريح جانب الطريق</string>
     <string name="type.historic.wreck">حطام سفينة</string>
@@ -1552,6 +1553,9 @@
     <string name="type.man_made.storage_tank">خزان</string>
     <string name="type.man_made.surveillance">كاميرا مراقبة</string>
     <string name="type.man_made.tower">برج</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">برج اتصالات</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">برج اتصالات</string>
     <string name="type.man_made.water_tap">حنفية مياه</string>
     <string name="type.man_made.water_tap.drinking_water_no">حنفية مياه</string>

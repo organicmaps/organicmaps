@@ -1448,6 +1448,7 @@
     <string name="type.historic.ship">Alus</string>
     <string name="type.historic.tank">Historiallinen tankki</string>
     <string name="type.historic.tomb">Hautakammio</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Tienvarren risti</string>
     <string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
     <string name="type.historic.wreck">Haaksirikko</string>
@@ -1527,6 +1528,9 @@
     <string name="type.man_made.silo">Siilo</string>
     <string name="type.man_made.surveillance">Valvontakamera</string>
     <string name="type.man_made.tower">Torni</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Viestintätorni</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Viestintätorni</string>
     <string name="type.man_made.water_tap">Vesihana</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vesihana</string>

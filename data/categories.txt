@@ -4732,6 +4732,9 @@ vi:Diểm tham quan
 zh-Hans:陵墓
 zh-Hant:陵墓
 
+man_made-cross
+en:Cross
+
 historic-wayside_cross
 en:Wayside cross
 ar:صليب مسيحي
@@ -12335,8 +12338,8 @@ sk:Stožiar
 tr:Direk
 uk:Щогла|вишка
 
-man_made-tower-communication
-en:Communications Tower|cell tower|cellular tower
+man_made-communications_tower|man_made-tower-communication
+en:Communications Tower|cell tower|cellular tower|mast
 ar:برج الاتصالات
 be:Вежа сувязі|вышка сувязі|сотавая вышка
 bg:Комуникационна кула
@@ -12365,7 +12368,7 @@ pl:Wieża komunikacyjna
 pt:Torre de Comunicações
 pt-BR:Torre de Comunicações
 ro:Turnul de comunicații
-ru:Вышка связи|cотовая вышка|башня связи
+ru:Вышка связи|cотовая вышка|телекоммуникационная башня
 sk:Komunikačná veža
 sr:Комуникациони торањ|Komunikacioni toranj
 sv:Kommunikationstorn
@@ -12376,6 +12379,10 @@ uk:Вежа зв'язку|Стільникова вежа
 vi:Tháp truyền thông
 zh-Hans:通讯塔
 zh-Hant:通訊塔
+
+# Please avoid synonyms like Gas/Fuel so that Gas station search doesn't return Gas wells :)
+man_made-petroleum_well
+en:Petroleum well|oil|boring
 
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
@@ -13940,7 +13947,7 @@ el:Καμινάδα εργοστασίου
 sk:Komín
 mr:कारखाना चिमणी
 
-man_made-tower
+man_made-tower|man_made-flare
 en:Tower
 ru:Башня
 bg:Кула
@@ -15674,6 +15681,12 @@ zh-Hans:消防栓
 zh-Hant:消防栓
 fa:شیر آتش‌نشانی
 mr:अग्निशामक नाळ|फायर हायड्रंट
+
+emergency-lifeguard
+en:Lifeguard|lifesaver
+
+emergency-mountain_rescue
+en:Mountain Rescue Station
 
 leisure-fitness_station
 en:3Fitness Station|street workout

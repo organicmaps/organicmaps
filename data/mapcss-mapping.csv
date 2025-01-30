@@ -582,13 +582,14 @@ railway|monorail|bridge;[railway=monorail][bridge?];;name;int_name;469;
 area:highway|steps;470;
 # ~90k usages.
 amenity|telephone;471;
-deprecated|deprecated;472;x
-deprecated|deprecated;473;x
+man_made|communications_tower;472;
+# ~260k uses.
+man_made|petroleum_well;[man_made=petroleum_well],[man_made=gas_well];;;;473;
 natural|grassland;474;
-deprecated|deprecated;475;x
-deprecated|deprecated;476;x
+emergency|lifeguard;475;
+emergency|mountain_rescue;476;
 aerialway|platter;477;
-deprecated|deprecated;478;x
+man_made|flare;478;
 deprecated|deprecated;479;x
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
 boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
@@ -802,7 +803,7 @@ deprecated|deprecated;688;x
 deprecated|deprecated;689;x
 deprecated|deprecated;690;x
 deprecated:boundary|administrative|country:04.2024;[boundary=administrative][border_type=country];x;name;int_name;691;
-deprecated|deprecated;692;x
+man_made|cross;692;
 natural|orchard;693;landuse|orchard
 deprecated|deprecated;694;x
 deprecated|deprecated;695;x
@@ -828,7 +829,7 @@ barrier|block;714;
 barrier|toll_booth;715;
 historic|memorial;716;
 historic|ruins;717;
-historic|monument;718;
+historic|monument;[historic=monument],[man_made=obelisk];;;;718;
 historic|castle;719;
 historic|archaeological_site;720;
 shop|caravan;721;

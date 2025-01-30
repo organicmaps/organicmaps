@@ -1346,6 +1346,7 @@
     <string name="type.historic.ship">Pemandangan</string>
     <string name="type.historic.tank">Tangki Bersejarah</string>
     <string name="type.historic.tomb">Pemandangan</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
     <string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
     <string name="type.historic.wreck">Kecelakaan kapal</string>
@@ -1393,6 +1394,9 @@
     <string name="type.man_made.lighthouse">Mercusuar</string>
     <string name="type.man_made.surveillance">Kamera Pengawas</string>
     <string name="type.man_made.tower">Menara</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Menara Komunikasi</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Menara Komunikasi</string>
     <string name="type.man_made.water_tap">Keran Air</string>
     <string name="type.man_made.water_tap.drinking_water_no">Keran Air</string>
