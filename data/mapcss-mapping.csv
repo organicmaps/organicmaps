@@ -589,7 +589,7 @@ natural|grassland;474;
 emergency|lifeguard;475;
 emergency|mountain_rescue;476;
 aerialway|platter;477;
-deprecated|deprecated;478;x
+man_made|flare;478;
 deprecated|deprecated;479;x
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
 boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
