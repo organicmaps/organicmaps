@@ -870,7 +870,7 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">最も正確なナビゲーションのためには、携帯電話のバッテリー設定で省電力モードを無効にすることをお勧めする。</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">トラックを録音する</string>
+    <string name="start_track_recording">トラックを記録する</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">トラック記録を停止しますか</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -1433,6 +1433,7 @@
     <string name="type.historic.ship">退役船</string>
     <string name="type.historic.tank">歴史的な戦車</string>
     <string name="type.historic.tomb">墓</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">歴史的な十字架</string>
     <string name="type.historic.wayside_shrine">歴史的な祠</string>
     <string name="type.historic.wreck">難破船</string>
@@ -1522,6 +1523,9 @@
     <string name="type.man_made.pipeline.overground">地表のパイプライン</string>
     <string name="type.man_made.surveillance">監視カメラ</string>
     <string name="type.man_made.tower">タワー</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">通信塔</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">通信塔</string>
     <string name="type.man_made.wastewater_plant">下水処理場</string>
     <string name="type.man_made.water_tap">給水栓</string>
