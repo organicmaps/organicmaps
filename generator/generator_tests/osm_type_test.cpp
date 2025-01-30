@@ -2504,6 +2504,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "pier"},
     {"man_made", "silo"},
     {"man_made", "storage_tank"},
+    {"man_made", "utility_pole"},
     {"man_made", "water_tap"},
     {"man_made", "windmill"},
     {"man_made", "works"},
