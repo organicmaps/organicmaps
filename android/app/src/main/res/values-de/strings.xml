@@ -1627,13 +1627,17 @@
     <string name="type.place.islet">Kleine Insel</string>
     <string name="type.place.isolated_dwelling">Kleinstsiedlung</string>
     <string name="type.place.locality">Örtlichkeit</string>
-    <string name="type.place.neighbourhood">Stadtviertel</string>
+    <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
+    <string name="type.place.quarter">Stadtviertel</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">Siedlung</string>
     <string name="type.place.ocean">Ozean</string>
     <string name="type.place.region">Region</string>
     <string name="type.place.sea">Meer</string>
     <string name="type.place.square">Platz</string>
     <string name="type.place.state">Bundesland</string>
     <string name="type.place.state.USA">Bundesstaat</string>
+    <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Stadtteil</string>
     <string name="type.place.town">Kleinstadt</string>
     <string name="type.place.village">Dorf</string>

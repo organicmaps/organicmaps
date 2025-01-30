@@ -870,7 +870,7 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">最も正確なナビゲーションのためには、携帯電話のバッテリー設定で省電力モードを無効にすることをお勧めする。</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">トラックを録音する</string>
+    <string name="start_track_recording">トラックを記録する</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">トラック記録を停止しますか</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -1609,13 +1609,17 @@
     <string name="type.place.islet">島</string>
     <string name="type.place.isolated_dwelling">小規模な村</string>
     <string name="type.place.locality">地域</string>
-    <string name="type.place.neighbourhood">地域</string>
+    <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
+    <string name="type.place.quarter">地域</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">近隣</string>
     <string name="type.place.ocean">海</string>
     <string name="type.place.region">地方</string>
     <string name="type.place.sea">海</string>
     <string name="type.place.square">広場</string>
     <string name="type.place.state">州</string>
     <string name="type.place.state.USA">州</string>
+    <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">区</string>
     <string name="type.place.town">町</string>
     <string name="type.place.village">村</string>
