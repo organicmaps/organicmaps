@@ -408,6 +408,7 @@ amenity-pub                                         # icon z15- (also has captio
 
 amenity-shelter-basic_hut                           # icon z16- (also has caption(optional) z16-)
 amenity-shelter-lean_to                             # icon z16- (also has caption(optional) z16-)
+emergency-mountain_rescue
 tourism-wilderness_hut                              # icon z16- (also has caption(optional) z16-)
 === 3900
 

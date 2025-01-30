@@ -201,6 +201,7 @@ node|z11-[tourism=alpine_hut],
 area|z11-[tourism=alpine_hut],
 node|z13-[tourism=wilderness_hut],
 area|z13-[tourism=wilderness_hut],
+node|z12-[emergency=mountain_rescue],
 node|z13-[tourism=viewpoint],
 node|z14-[tourism=chalet],
 area|z14-[tourism=chalet],
@@ -438,4 +439,14 @@ node|z16-[man_made=cross],
 node|z14-[emergency=lifeguard],
 {icon-image: lifeguard-m.svg; font-size: 11;}
 node|z16-[emergency=lifeguard],
+{font-size: 12;}
+
+/* TODO: a better icon? */
+node|z12-[emergency=mountain_rescue],
+{icon-image: hospital-s.svg;}
+node|z13-[emergency=mountain_rescue],
+{font-size: 11;}
+node|z14-[emergency=mountain_rescue],
+{icon-image: hospital-m.svg;}
+node|z16-[emergency=mountain_rescue],
 {font-size: 12;}

@@ -15761,6 +15761,9 @@ mr:अग्निशामक नाळ|फायर हायड्रंट
 emergency-lifeguard
 en:Lifeguard|lifesaver
 
+emergency-mountain_rescue
+en:Mountain Rescue Station
+
 leisure-fitness_station
 en:3Fitness Station|street workout
 ru:4Спортивные снаряды
