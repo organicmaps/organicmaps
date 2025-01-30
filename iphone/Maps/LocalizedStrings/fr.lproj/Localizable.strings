@@ -2108,6 +2108,11 @@
 
 "type.emergency.phone" = "Téléphone d'urgence";
 
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Lifeguard";
+
+"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Entrée";
 
@@ -2505,6 +2510,10 @@
 
 "type.historic.tomb" = "Tombe historique";
 
+/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Cross";
+
+/* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Croix de chemin";
 
 "type.historic.wayside_shrine" = "Oratoire";
@@ -2723,7 +2732,16 @@
 
 "type.man_made.tower" = "Tour";
 
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Tour de communication";
+
+/* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Tour de communication";
+
+"type.man_made.petroleum_well" = "Oil or gas well";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Gas Flare";
 
 "type.man_made.wastewater_plant" = "Station d'épuration";
 

@@ -1193,6 +1193,7 @@
     <string name="type.historic.ship">Судна</string>
     <string name="type.historic.tank">Гістарычны танк</string>
     <string name="type.historic.tomb">Магіла</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Прыдарожны крыж</string>
     <string name="type.historic.wayside_shrine">Прыдарожная святыня</string>
     <string name="type.historic.wreck">Караблекрушэнне</string>
@@ -1219,6 +1220,9 @@
     <string name="type.man_made.mast">Мачта/вышка</string>
     <string name="type.man_made.silo">Сілас</string>
     <string name="type.man_made.storage_tank">Рэзервуар</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Вежа сувязі</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Вежа сувязі</string>
     <string name="type.mountain_pass">Перавал</string>
     <string name="type.natural">Прырода</string>

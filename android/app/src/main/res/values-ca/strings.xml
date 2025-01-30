@@ -1173,6 +1173,9 @@
     <string name="type.landuse.flowerbed">Llit de flors</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
     <string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Torre de comunicacions</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicacions</string>
     <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
     <string name="type.natural.shingle">Còdol</string>

@@ -1346,6 +1346,7 @@
     <string name="type.historic.ship">Fartyg</string>
     <string name="type.historic.tank">Historisk tank</string>
     <string name="type.historic.tomb">Grav</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Korset vid vägkanten</string>
     <string name="type.historic.wayside_shrine">Helgedom vid vägkanten</string>
     <string name="type.historic.wreck">Förlisning</string>
@@ -1394,6 +1395,9 @@
     <string name="type.man_made.lighthouse">Fyr</string>
     <string name="type.man_made.surveillance">Övervakningskamera</string>
     <string name="type.man_made.tower">Torn</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Kommunikationstorn</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Kommunikationstorn</string>
     <string name="type.man_made.water_tap">Vattenkran</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vattenkran</string>

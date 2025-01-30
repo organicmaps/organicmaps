@@ -1448,6 +1448,7 @@
     <string name="type.historic.ship">Schiff</string>
     <string name="type.historic.tank">Historischer Panzer</string>
     <string name="type.historic.tomb">Historische Grabstätte</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Wegkreuz</string>
     <string name="type.historic.wayside_shrine">Bildstock</string>
     <string name="type.historic.wreck">Schiffswrack</string>
@@ -1538,6 +1539,9 @@
     <string name="type.man_made.storage_tank">Speichertank</string>
     <string name="type.man_made.surveillance">Überwachungskamera</string>
     <string name="type.man_made.tower">Turm</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Funkturm</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Funkturm</string>
     <string name="type.man_made.wastewater_plant">Kläranlage</string>
     <string name="type.man_made.water_tap">Wasserhahn</string>
