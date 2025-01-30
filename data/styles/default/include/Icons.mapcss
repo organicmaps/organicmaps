@@ -1051,6 +1051,7 @@ node|z18-[emergency=defibrillator],
 area|z18-[emergency=defibrillator],
 node|z18-[emergency=assembly_point],
 area|z18-[emergency=assembly_point],
+node|z18-[emergency=lifeguard],
 node|z18-[amenity=toilets],
 area|z18-[amenity=toilets],
 node|z18-[amenity=atm],
@@ -1702,6 +1703,9 @@ area|z18-[emergency=defibrillator]
 node|z18-[emergency=assembly_point],
 area|z18-[emergency=assembly_point]
 {icon-image: assembly_point-m.svg;font-size: 11;}
+
+node|z17-[emergency=lifeguard],
+{icon-image: lifeguard-m.svg; font-size: 11;}
 
 node|z17-[office=lawyer],
 area|z17-[office=lawyer]

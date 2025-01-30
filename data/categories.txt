@@ -15758,6 +15758,9 @@ zh-Hant:消防栓
 fa:شیر آتش‌نشانی
 mr:अग्निशामक नाळ|फायर हायड्रंट
 
+emergency-lifeguard
+en:Lifeguard|lifesaver
+
 leisure-fitness_station
 en:3Fitness Station|street workout
 ru:4Спортивные снаряды
