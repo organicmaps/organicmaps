@@ -586,7 +586,7 @@ man_made|communications_tower;472;
 # ~260k uses.
 man_made|petroleum_well;[man_made=petroleum_well],[man_made=gas_well];;;;473;
 natural|grassland;474;
-deprecated|deprecated;475;x
+emergency|lifeguard;475;
 deprecated|deprecated;476;x
 aerialway|platter;477;
 deprecated|deprecated;478;x
