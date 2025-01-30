@@ -14023,7 +14023,7 @@ el:Καμινάδα εργοστασίου
 sk:Komín
 mr:कारखाना चिमणी
 
-man_made-tower
+man_made-tower|man_made-flare
 en:Tower
 ru:Башня
 bg:Кула

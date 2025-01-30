@@ -395,6 +395,7 @@ node|z16-[man_made=communications_tower],
 
 node|z14-[man_made=tower],
 node|z14-[man_made=tower][tower:type=communication],
+node|z13-[man_made=flare],
 {icon-image: mast-m.svg; font-size: 11;}
 
 node|z13-[man_made=tower],
