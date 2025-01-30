@@ -1456,6 +1456,7 @@
     <string name="type.historic.ship">Historisch schip</string>
     <string name="type.historic.tank">Historische tank</string>
     <string name="type.historic.tomb">Graftombe</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Wegkruis</string>
     <string name="type.historic.wayside_shrine">Kruisbeeld</string>
     <string name="type.historic.wreck">Schipbreuk</string>
@@ -1549,6 +1550,9 @@
     <string name="type.man_made.storage_tank">Opslagtank</string>
     <string name="type.man_made.surveillance">Bewakingscamera</string>
     <string name="type.man_made.tower">Toren</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Communicatie Toren</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Communicatie Toren</string>
     <string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
     <string name="type.man_made.water_tap">Waterkraan</string>

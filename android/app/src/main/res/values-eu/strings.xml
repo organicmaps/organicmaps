@@ -1447,6 +1447,7 @@
     <string name="type.historic.ship">Turismoa</string>
     <string name="type.historic.tank">Depositu historikoa</string>
     <string name="type.historic.tomb">Ehorztoki</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Bideko gurutze</string>
     <string name="type.historic.wayside_shrine">Bide bazterreko baseliza</string>
     <string name="type.historic.wreck">Naufragioa</string>
@@ -1497,6 +1498,9 @@
     <string name="type.man_made.lighthouse">Itsasargia</string>
     <string name="type.man_made.surveillance">Zaintza Kamera</string>
     <string name="type.man_made.tower">Dorrea</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Komunikazio Dorrea</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikazio Dorrea</string>
     <string name="type.man_made.water_tap">Ura hartzea</string>
     <string name="type.man_made.water_tap.drinking_water_no">Ura hartzea</string>

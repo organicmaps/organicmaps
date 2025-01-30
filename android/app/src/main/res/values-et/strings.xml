@@ -1451,6 +1451,7 @@
     <string name="type.historic.ship">Laev</string>
     <string name="type.historic.tank">Ajalooline tank</string>
     <string name="type.historic.tomb">Haud</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Teeäärne rist</string>
     <string name="type.historic.wayside_shrine">Teeäärne pühamu</string>
     <string name="type.historic.wreck">Laevahukk</string>
@@ -1547,6 +1548,9 @@
     <string name="type.man_made.storage_tank">Mahuti</string>
     <string name="type.man_made.surveillance">Jälgimiskaamera</string>
     <string name="type.man_made.tower">Torn</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Sidetorn</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Sidetorn</string>
     <string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
     <string name="type.man_made.water_tap">Veekraan</string>

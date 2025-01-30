@@ -1425,6 +1425,7 @@
     <string name="type.historic.ship">Attraksionlar</string>
     <string name="type.historic.tank">Tarixi tank</string>
     <string name="type.historic.tomb">Türbə</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Xristian xaç</string>
     <string name="type.historic.wayside_shrine">Məbəd</string>
     <string name="type.historic.wreck">Gəmi qəzası</string>
@@ -1519,6 +1520,9 @@
     <string name="type.man_made.storage_tank">Saxlama tankı</string>
     <string name="type.man_made.surveillance">Təhlükəsizlik kamerası</string>
     <string name="type.man_made.tower">Qüllə</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Rabitə qülləsi</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Rabitə qülləsi</string>
     <string name="type.man_made.wastewater_plant">Çirkab Su Zavodu</string>
     <string name="type.man_made.water_tap">Su kranı</string>

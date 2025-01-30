@@ -1468,6 +1468,7 @@
     <string name="type.historic.ship">歷史船</string>
     <string name="type.historic.tank">歷史悠久的坦克</string>
     <string name="type.historic.tomb">陵墓</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">路旁十字架</string>
     <string name="type.historic.wayside_shrine">路旁神龕</string>
     <string name="type.historic.wreck">沉船</string>
@@ -1550,6 +1551,9 @@
     <string name="type.man_made.lighthouse">燈塔</string>
     <string name="type.man_made.surveillance">監控攝影機</string>
     <string name="type.man_made.tower">塔</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">通訊塔</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">通訊塔</string>
     <string name="type.man_made.water_tap">水龍頭</string>
     <string name="type.man_made.water_tap.drinking_water_no">水龍頭</string>

@@ -1369,6 +1369,7 @@
     <string name="type.historic.ship">Turizmus</string>
     <string name="type.historic.tank">Történelmi Tank</string>
     <string name="type.historic.tomb">Sír</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Útszéli kereszt</string>
     <string name="type.historic.wayside_shrine">Útmenti szentély</string>
     <string name="type.historic.wreck">Hajóroncs</string>
@@ -1417,6 +1418,9 @@
     <string name="type.man_made.lighthouse">Világítótorony</string>
     <string name="type.man_made.surveillance">Térfigyelő kamera</string>
     <string name="type.man_made.tower">Torony</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Kommunikációs torony</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Kommunikációs torony</string>
     <string name="type.man_made.water_tap">Vízcsap</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vízcsap</string>

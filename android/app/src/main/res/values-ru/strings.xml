@@ -1479,6 +1479,7 @@
     <string name="type.historic.ship">Корабль</string>
     <string name="type.historic.tank">Исторический танк</string>
     <string name="type.historic.tomb">Гробница</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Христианский крест</string>
     <string name="type.historic.wayside_shrine">Святыня</string>
     <string name="type.historic.wreck">Кораблекрушение</string>
@@ -1576,6 +1577,9 @@
     <string name="type.man_made.storage_tank">Резервуар</string>
     <string name="type.man_made.surveillance">Камера наблюдения</string>
     <string name="type.man_made.tower">Башня</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Телекоммуникационная башня</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Вышка связи</string>
     <string name="type.man_made.wastewater_plant">Очистные сооружения</string>
     <string name="type.man_made.water_tap">Водопроводный кран</string>

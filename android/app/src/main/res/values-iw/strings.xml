@@ -1452,6 +1452,7 @@
     <string name="type.historic.ship">ספינה</string>
     <string name="type.historic.tank">טנק היסטורי</string>
     <string name="type.historic.tomb">קֶבֶר</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">צלב בצד הדרך</string>
     <string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
     <string name="type.historic.wreck">ספינה טרופה</string>
@@ -1558,6 +1559,9 @@
     <string name="type.man_made.storage_tank">מיכל איחסון</string>
     <string name="type.man_made.surveillance">מצלמת מעקב</string>
     <string name="type.man_made.tower">מגדל</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">מגדל תקשורת</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">מגדל תקשורת</string>
     <string name="type.man_made.wastewater_plant">מפעל טיפול בשפכים</string>
     <string name="type.man_made.water_tap">ברז מים</string>

@@ -2108,6 +2108,11 @@
 
 "type.emergency.phone" = "Acil Telefon";
 
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Lifeguard";
+
+"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Giriş";
 
@@ -2505,6 +2510,10 @@
 
 "type.historic.tomb" = "Türbe";
 
+/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Cross";
+
+/* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Hıristiyan Haçı";
 
 "type.historic.wayside_shrine" = "Tapınak";
@@ -2723,7 +2732,16 @@
 
 "type.man_made.tower" = "Kule";
 
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "İletişim Kulesi";
+
+/* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "İletişim Kulesi";
+
+"type.man_made.petroleum_well" = "Oil or gas well";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Gas Flare";
 
 "type.man_made.wastewater_plant" = "Atıksu Tesisi";
 

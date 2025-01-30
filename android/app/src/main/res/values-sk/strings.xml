@@ -1445,6 +1445,7 @@
     <string name="type.historic.ship">Loď</string>
     <string name="type.historic.tank">Historický tank</string>
     <string name="type.historic.tomb">Hrobka</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Kríž pri ceste</string>
     <string name="type.historic.wayside_shrine">Svätyňa pri ceste</string>
     <string name="type.historic.wreck">Trosky lode</string>
@@ -1533,6 +1534,9 @@
     <string name="type.man_made.storage_tank">Skladovacia nádrž</string>
     <string name="type.man_made.surveillance">Bezpečnostná kamera</string>
     <string name="type.man_made.tower">Veža</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Komunikačná veža</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikačná veža</string>
     <string name="type.man_made.wastewater_plant">Čistička odpadových vôd</string>
     <string name="type.man_made.water_tap">Vodovodný kohútik</string>
