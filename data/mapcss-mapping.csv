@@ -636,7 +636,8 @@ deprecated|deprecated;517;x
 deprecated|deprecated;518;x
 deprecated|deprecated;519;x
 sport|diving;520;
-deprecated|deprecated;521;x
+#~270k uses.
+man_made|utility_pole;521;
 deprecated:boundary|administrative|suburb:04.2024;[boundary=administrative][border_type=suburb];x;name;int_name;522;
 deprecated|deprecated;523;x
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;

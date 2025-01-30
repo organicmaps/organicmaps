@@ -1192,6 +1192,7 @@ emergency-emergency_ward_entrance                   # icon z18- (also has captio
 building                                            # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-has_parts                                  # caption z16- (also has area z14-)
+man_made-utility_pole
 power-plant                                         # icon z17-
 power-plant-coal                                    # icon z17-
 power-plant-gas                                     # icon z17-

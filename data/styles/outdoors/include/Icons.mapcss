@@ -367,6 +367,7 @@ node|z13[power=tower],
 node|z14-[power=tower],
 {icon-image: power-tower-m.svg;}
 node|z15-[power=pole],
+node|z15-[man_made=utility_pole],
 {icon-image: mast-m.svg;}
 
 node|z13-[power=generator][generator:source=wind],
