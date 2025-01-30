@@ -11908,6 +11908,9 @@
     comment = A place where a lifeguard is on duty.
     en = Lifeguard
 
+  [type.emergency.mountain_rescue]
+    en = Mountain Rescue Station
+
   [type.entrance]
     comment = This is for secondary entrances, for main entrances see type.entrance.main
     en = Entrance
