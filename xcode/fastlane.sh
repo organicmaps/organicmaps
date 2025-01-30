@@ -61,12 +61,13 @@ upload_metadata() {
 upload_screenshots() {
     check_keys
     check_screenshots
+    export FASTLANE_ENABLE_BETA_DELIVER_SYNC_SCREENSHOTS=true
     run_fastlane deliver \
         --force \
         --skip_binary_upload=true \
         --skip_app_version_update=true \
         --skip_metadata \
-        --overwrite_screenshots=true \
+        --sync_screenshots=true \
         --precheck_include_in_app_purchases=false \
         --automatic_release=false
 }
