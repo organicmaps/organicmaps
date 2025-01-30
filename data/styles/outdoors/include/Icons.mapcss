@@ -408,6 +408,12 @@ node|z14-[amenity=hunting_stand],
 node|z16-[amenity=hunting_stand],
 {font-size: 12;}
 
+/* TODO: needs a better icon */
+node|z14-[man_made=petroleum_well],
+{icon-image: mast-m.svg; font-size: 11;}
+node|z16-[man_made=petroleum_well],
+{font-size: 12;}
+
 node|z17-[man_made=cairn],
 {icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
 
