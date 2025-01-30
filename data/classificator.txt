@@ -388,6 +388,8 @@ world  +
         defibrillator  -
         emergency_ward_entrance  -
         fire_hydrant  -
+        lifeguard  -
+        mountain_rescue  -
         phone  -
         {}
     entrance  +
@@ -698,11 +700,15 @@ world  +
         bridge  -
         cairn  -
         chimney  -
+        communications_tower  -
+        cross  -
         cutline  -
         embankment  -
         flagpole  -
+        flare  -
         lighthouse  -
         mast  -
+        petroleum_well  -
         pier  -
         pipeline  -
         silo  -
