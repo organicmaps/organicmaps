@@ -33480,7 +33480,7 @@
     hu = Útvonal rögzítése
     id = Merekam jalur
     it = Registra percorso
-    ja = トラックを録音する
+    ja = トラックを記録する
     ko = 트랙 녹음
     lt = Įrašyti maršrutą
     mr = ट्रॅक रेकॉर्ड करा
