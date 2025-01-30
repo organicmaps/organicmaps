@@ -785,8 +785,6 @@
     <string name="aa_request_permission_activity_text">안드로이드 오토의 오가닉 맵이 효과적으로 작동하려면 위치 권한이 필요합니다.</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">차량에 연결</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">하이킹</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
@@ -1505,6 +1503,7 @@
     <string name="type.power.plant.solar">태양광 발전소</string>
     <string name="type.power.plant.wind">풍력 발전소</string>
     <string name="type.power.substation">변전소</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">전봇대</string>
     <string name="type.railway.funicular">케이블카</string>
     <string name="type.railway.halt">기차역</string>

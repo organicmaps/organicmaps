@@ -787,8 +787,6 @@
     <string name="aa_request_permission_activity_text">Organic Maps di Android Auto membutuhkan izin lokasi agar dapat bekerja secara efektif</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Memberikan Izin</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Terhubung ke mobil</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Pendakian</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
@@ -1496,6 +1494,7 @@
     <string name="type.power.plant.solar">Pembangkit listrik tenaga surya</string>
     <string name="type.power.plant.wind">Pembangkit listrik tenaga angin</string>
     <string name="type.power.substation">Stasiun bawah tanah</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Menara listrik</string>
     <string name="type.railway.funicular">Kereta gantung</string>
     <string name="type.railway.halt">Rel kereta api</string>

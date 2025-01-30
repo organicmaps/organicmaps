@@ -31655,53 +31655,6 @@
     zh-Hans = 授予权限
     zh-Hant = 授予權限
 
-  [aa_connected_to_car_notification_title]
-    comment = Text that will be displayed in the notification title when the app is connected to Android Auto.
-    tags = android
-    en = Connected to car
-    ar = متصل بالسيارة
-    az = Avtomobilə qoşulub
-    be = Падключаны да аўтамабіля
-    bg = Свързан с автомобил
-    ca = Connectat al cotxe
-    cs = Připojení k automobilu
-    da = Forbundet til bilen
-    de = Mit dem Auto verbunden
-    el = Ενεργή σύνδεση με το αυτοκίνητο
-    es = Conectado al coche
-    es-MX = Conectado al automóvil
-    et = Ühendatud autoga
-    eu = Kotxearekin konektatuta
-    fa = متصل به ماشین
-    fi = Liitetty autoon
-    fr = Connecté à la voiture
-    he = מחובר לרכב
-    hi = कार से जुड़ा
-    hu = Autóhoz csatlakoztatva
-    id = Terhubung ke mobil
-    it = Collegato all'auto
-    ja = 自動車に接続されている
-    ko = 차량에 연결
-    lv = Savienots ar automobili
-    mr = कारला जोडलेले
-    nb = Tilkoblet til bil
-    nl = Verbonden met auto
-    pl = Podłączono do samochodu
-    pt = Ligado ao automóvel
-    pt-BR = Conectado ao carro
-    ro = Conectat la mașină
-    ru = Подключено к автомобилю
-    sk = Pripojenie k vozidlu
-    sr = Повезан са аутомобилом
-    sv = Ansluten till bilen
-    sw = Imeunganishwa na gari
-    th = เชื่อมต่อกับรถยนต์
-    tr = Arabaya bağlanıldı
-    uk = Підключено до автомобіля
-    vi = Đã kết nối với ô tô
-    zh-Hans = 与汽车连接
-    zh-Hant = 與汽車連接
-
   [button_layer_outdoor]
     comment = Outdoors/hiking map style (activity) name in the Styles and Layers dialog
     tags = android,ios

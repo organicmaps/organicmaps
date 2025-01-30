@@ -839,8 +839,6 @@
     <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de localización para funcionar eficazmente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
-    <!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
-    <string name="aa_connected_to_car_notification_title">Conectado al coche</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Senderismo</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
@@ -1677,6 +1675,7 @@
     <string name="type.power.plant.wind">Planta eólica</string>
     <string name="type.power.station">Estación eléctrica</string>
     <string name="type.power.substation">Subestación eléctrica</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Poste eléctrico</string>
     <string name="type.public_transport">Transporte público</string>
     <string name="type.public_transport.platform">Plataforma</string>
