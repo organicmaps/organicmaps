@@ -23148,6 +23148,10 @@
     comment = A single pole supporting minor power lines.
     en = Power Pole
 
+  [type.man_made.utility_pole]
+    comment = A single pole supporting various public utilities, such as lighting or telephony.
+    en = Utility Pole
+
   [type.psurface]
     en = psurface
     af = Padoppervlak
