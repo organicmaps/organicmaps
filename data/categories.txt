@@ -12421,6 +12421,10 @@ vi:Tháp truyền thông
 zh-Hans:通讯塔
 zh-Hant:通訊塔
 
+# Please avoid synonyms like Gas/Fuel so that Gas station search doesn't return Gas wells :)
+man_made-petroleum_well
+en:Petroleum well|oil|boring
+
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
 ar:بيولوجي|بيولوجي|صحي|بيولوجي|بيئي|طبيعي|عضوي

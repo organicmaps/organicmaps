@@ -1239,6 +1239,7 @@ power-generator                                     # icon z17-
 power-generator-gas                                 # icon z17-
 power-generator-hydro                               # icon z17-
 power-generator-wind                                # icon z13- (also has caption(optional) z16-)
+man_made-petroleum_well
 === 120
 
 amenity-parking-lane-private                        # icon z19- (also has caption(optional) z19-, area z17-)

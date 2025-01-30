@@ -1087,6 +1087,7 @@ area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
 area|z19-[power=substation],
 node|z18-[man_made=survey_point],
+node|z18-[man_made=petroleum_well],
 node|z19-[emergency=fire_hydrant],
 node|z19-[man_made=cairn],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
@@ -1566,8 +1567,13 @@ node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],
 {icon-image: dot-m.svg;}
 
+/* TODO: needs a better icon */
 node|z16-[man_made=tower],
 node|z16-[man_made=tower][tower:type=communication],
+{icon-image: mast-m.svg;}
+
+/* TODO: needs a better icon */
+node|z17-[man_made=petroleum_well],
 {icon-image: mast-m.svg;}
 
 node|z16-[amenity=taxi],
