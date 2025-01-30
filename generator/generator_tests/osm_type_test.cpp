@@ -2509,6 +2509,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"man_made", "silo"},
     {"man_made", "storage_tank"},
     {"man_made", "tower"},
+    // {"man_made", "utility_pole"}, // In the outdoor style only.
     {"man_made", "water_tap"},
     {"man_made", "water_tower"},
     {"man_made", "water_well"},
