@@ -587,7 +587,7 @@ man_made|communications_tower;472;
 man_made|petroleum_well;[man_made=petroleum_well],[man_made=gas_well];;;;473;
 natural|grassland;474;
 emergency|lifeguard;475;
-deprecated|deprecated;476;x
+emergency|mountain_rescue;476;
 aerialway|platter;477;
 deprecated|deprecated;478;x
 deprecated|deprecated;479;x

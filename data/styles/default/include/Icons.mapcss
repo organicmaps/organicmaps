@@ -951,6 +951,7 @@ node|z16-[amenity=events_venue],
 area|z16-[amenity=events_venue],
 node|z16-[amenity=exhibition_centre],
 area|z16-[amenity=exhibition_centre],
+node|z16-[emergency=mountain_rescue],
 node|z17-[amenity=pharmacy],
 area|z17-[amenity=pharmacy],
 node|z17-[amenity=clinic],
@@ -1706,6 +1707,10 @@ area|z18-[emergency=assembly_point]
 
 node|z17-[emergency=lifeguard],
 {icon-image: lifeguard-m.svg; font-size: 11;}
+
+/* TODO: a better icon? */
+node|z16-[emergency=mountain_rescue],
+{icon-image: hospital-m.svg; font-size: 11;}
 
 node|z17-[office=lawyer],
 area|z17-[office=lawyer]

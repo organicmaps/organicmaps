@@ -2388,6 +2388,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"emergency", "defibrillator"},
     {"emergency", "fire_hydrant"},
     {"emergency", "lifeguard"},
+    {"emergency", "mountain_rescue"},
     {"emergency", "phone"},
     {"fee", "no"},
     {"fee", "yes"},
