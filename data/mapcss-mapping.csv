@@ -829,7 +829,7 @@ barrier|block;714;
 barrier|toll_booth;715;
 historic|memorial;716;
 historic|ruins;717;
-historic|monument;718;
+historic|monument;[historic=monument],[man_made=obelisk];;;;718;
 historic|castle;719;
 historic|archaeological_site;720;
 shop|caravan;721;
