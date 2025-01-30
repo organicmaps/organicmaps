@@ -1453,6 +1453,7 @@
     <string name="type.historic.ship">Navire</string>
     <string name="type.historic.tank">Char historique</string>
     <string name="type.historic.tomb">Tombe historique</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Croix de chemin</string>
     <string name="type.historic.wayside_shrine">Oratoire</string>
     <string name="type.historic.wreck">Naufrage</string>
@@ -1534,6 +1535,9 @@
     <string name="type.man_made.storage_tank">Réservoir</string>
     <string name="type.man_made.surveillance">Caméra de surveillance</string>
     <string name="type.man_made.tower">Tour</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Tour de communication</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Tour de communication</string>
     <string name="type.man_made.wastewater_plant">Station d\'épuration</string>
     <string name="type.man_made.water_tap">Robinet d\'eau</string>

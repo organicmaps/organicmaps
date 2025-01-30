@@ -1444,6 +1444,7 @@
     <string name="type.historic.ship">Nave storica</string>
     <string name="type.historic.tank">Carro armato storico</string>
     <string name="type.historic.tomb">Tomba</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Crocifisso</string>
     <string name="type.historic.wayside_shrine">Edicola votiva</string>
     <string name="type.historic.wreck">Naufragio</string>
@@ -1527,6 +1528,9 @@
     <string name="type.man_made.storage_tank">Cisterna</string>
     <string name="type.man_made.surveillance">Videocamera di sorveglianza</string>
     <string name="type.man_made.tower">Torre</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Torre delle comunicazioni</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre delle comunicazioni</string>
     <string name="type.man_made.wastewater_plant">Impianto di trattamento delle acque reflue</string>
     <string name="type.man_made.water_tap">Rubinetto dell\'acqua</string>

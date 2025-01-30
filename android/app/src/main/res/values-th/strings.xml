@@ -1352,6 +1352,7 @@
     <string name="type.historic.ship">สถานที่ท่องเที่ยว</string>
     <string name="type.historic.tank">รถถังประวัติศาสตร์</string>
     <string name="type.historic.tomb">สถานที่ท่องเที่ยว</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">ทางข้าม</string>
     <string name="type.historic.wayside_shrine">ศาลเจ้าข้างทาง</string>
     <string name="type.historic.wreck">ซากเรืออัปปาง</string>
@@ -1403,6 +1404,9 @@
     <string name="type.man_made.lighthouse">ประภาคาร</string>
     <string name="type.man_made.surveillance">กล้องวงจรปิด</string>
     <string name="type.man_made.tower">หอคอย</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">หอสื่อสาร</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">หอสื่อสาร</string>
     <string name="type.man_made.water_tap">ก๊อกน้ำ</string>
     <string name="type.man_made.water_tap.drinking_water_no">ก๊อกน้ำ</string>

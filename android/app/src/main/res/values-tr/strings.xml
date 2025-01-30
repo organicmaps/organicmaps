@@ -1460,6 +1460,7 @@
     <string name="type.historic.ship">Görülecek yerler</string>
     <string name="type.historic.tank">Tarihi Tank</string>
     <string name="type.historic.tomb">Türbe</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Hıristiyan Haçı</string>
     <string name="type.historic.wayside_shrine">Tapınak</string>
     <string name="type.historic.wreck">Gemi enkazı</string>
@@ -1554,6 +1555,9 @@
     <string name="type.man_made.storage_tank">Depolama Tankı</string>
     <string name="type.man_made.surveillance">Güvenlik Kamerası</string>
     <string name="type.man_made.tower">Kule</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">İletişim Kulesi</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">İletişim Kulesi</string>
     <string name="type.man_made.wastewater_plant">Atıksu Tesisi</string>
     <string name="type.man_made.water_tap">Su Musluğu</string>

@@ -1066,6 +1066,7 @@
     <string name="type.historic.ship">Кораб</string>
     <string name="type.historic.tank">Исторически танк</string>
     <string name="type.historic.tomb">Гробница</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Крайпътен кръст</string>
     <string name="type.historic.wayside_shrine">Крайпътно светилище</string>
     <string name="type.historic.wreck">корабокрушение</string>
@@ -1079,6 +1080,9 @@
     <string name="type.sport.yoga">Йога</string>
     <string name="type.leisure.swimming_pool">Басейн</string>
     <string name="type.leisure.swimming_pool.private">Басейн</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Комуникационна кула</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Комуникационна кула</string>
     <string name="type.natural">Природа</string>
     <!-- A rocky land cover. -->

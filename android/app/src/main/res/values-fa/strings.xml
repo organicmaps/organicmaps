@@ -1261,6 +1261,7 @@
     <string name="type.historic.ship">گردشگری</string>
     <string name="type.historic.tank">تانک تاریخی</string>
     <string name="type.historic.tomb">گردشگری</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">صلیب کنار راه</string>
     <string name="type.historic.wayside_shrine">حرم کنار راه</string>
     <string name="type.historic.wreck">غرق کشتی</string>
@@ -1309,6 +1310,9 @@
     <string name="type.man_made.lighthouse">گردشگری</string>
     <string name="type.man_made.surveillance">دوربین نظارتی</string>
     <string name="type.man_made.tower">برج</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">برج ارتباطات</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">برج ارتباطات</string>
     <string name="type.man_made.water_tap">شیراب</string>
     <string name="type.man_made.water_tap.drinking_water_no">شیراب</string>

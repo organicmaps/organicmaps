@@ -1402,6 +1402,7 @@
     <string name="type.historic.ship">Skip</string>
     <string name="type.historic.tank">Historisk tank</string>
     <string name="type.historic.tomb">Grav</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Veikantkors</string>
     <string name="type.historic.wayside_shrine">Helligdom ved veikanten</string>
     <string name="type.historic.wreck">Skipsvrak</string>
@@ -1450,6 +1451,9 @@
     <string name="type.man_made.lighthouse">Fyr</string>
     <string name="type.man_made.surveillance">Overvåkingskamera</string>
     <string name="type.man_made.tower">Tårn</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Kommunikasjonstårn</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Kommunikasjonstårn</string>
     <string name="type.man_made.water_tap">Vannkran</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vannkran</string>

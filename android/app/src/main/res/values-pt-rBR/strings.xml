@@ -1382,6 +1382,9 @@
     <string name="type.man_made.storage_tank">Tanque de armazenagem</string>
     <string name="type.man_made.surveillance">Câmara de vigilância</string>
     <string name="type.man_made.tower">Torre</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Torre de comunicação</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicação</string>
     <string name="type.man_made.wastewater_plant">Estação de tratamento de esgoto</string>
     <string name="type.man_made.water_tap">Torneira de água</string>

@@ -1365,6 +1365,7 @@
     <string name="type.historic.ship">Pamětihodnost</string>
     <string name="type.historic.tank">Historický tank</string>
     <string name="type.historic.tomb">Pamětihodnost</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Přícestný kříž</string>
     <string name="type.historic.wayside_shrine">Drobná sakrální památka</string>
     <string name="type.historic.wreck">Vrak</string>
@@ -1413,6 +1414,9 @@
     <string name="type.man_made.lighthouse">Maják</string>
     <string name="type.man_made.surveillance">Bezpečnostní kamera</string>
     <string name="type.man_made.tower">Věž</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Komunikační věž</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikační věž</string>
     <string name="type.man_made.water_tap">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vodovodní kohoutek</string>
