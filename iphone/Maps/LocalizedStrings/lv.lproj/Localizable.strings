@@ -2901,7 +2901,11 @@
 
 "type.place.locality" = "Locality";
 
-"type.place.neighbourhood" = "Neighbourhood";
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Apkaime";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Maza apkaime";
 
 "type.place.ocean" = "Ocean";
 
@@ -2915,7 +2919,8 @@
 
 "type.place.state.USA" = "State";
 
-"type.place.suburb" = "Suburb";
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Pilsētas apgabals";
 
 "type.place.town" = "Town";
 
