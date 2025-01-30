@@ -18940,6 +18940,9 @@
     ref = type.man_made.communications_tower
     ru = Вышка связи
 
+  [type.man_made.petroleum_well]
+    en = Oil or gas well
+
   [type.man_made.wastewater_plant]
     en = Wastewater Treatment Plant
     af = Watersuiweringsaanleg

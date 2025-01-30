@@ -583,7 +583,8 @@ area:highway|steps;470;
 # ~90k usages.
 amenity|telephone;471;
 man_made|communications_tower;472;
-deprecated|deprecated;473;x
+# ~260k uses.
+man_made|petroleum_well;[man_made=petroleum_well],[man_made=gas_well];;;;473;
 natural|grassland;474;
 deprecated|deprecated;475;x
 deprecated|deprecated;476;x
