@@ -68,7 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
         android:ellipsize="end"
-        android:maxLines="2"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         tools:background="#300000F0"
         tools:text="Subtitle, very very very very very very very long" />
