@@ -1312,6 +1312,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public boolean dispatchGenericMotionEvent(MotionEvent event) {
+    if (event.getActionMasked() == MotionEvent.ACTION_SCROLL) {
+      int exponent = event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0 ? -1 : 1;
+      Map.onScale(Math.pow(1.7f, exponent), event.getX(), event.getY(), true);
+      return true;
+    }
+    return super.onGenericMotionEvent(event);
+  }
+
+  @Override
   public boolean onTouch(View view, MotionEvent event)
   {
     return mMapFragment != null && mMapFragment.onTouch(view, event);
