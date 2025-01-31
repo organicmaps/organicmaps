@@ -6688,7 +6688,7 @@
 
   [mastodon]
     comment = Text in menu
-    tags = android
+    tags = android,ios
     en = Mastodon
 
   [facebook]
@@ -6720,6 +6720,11 @@
     comment = Text in the editor
     tags = android,ios
     en = VK
+
+  [bluesky]
+    comment = Text in menu
+    tags = android,ios
+    en = Bluesky
 
   [editor_line_social_network]
     comment = Text in the editor
@@ -19982,6 +19987,14 @@
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
     zh-Hans = 请输入有效的 LINE ID 或网页地址
     zh-Hant = 請輸入有效的 LINE ID 或網頁地址
+
+  [error_enter_correct_fediverse_page]
+    tags = android
+    en = Enter a valid Mastodon username or web address
+
+  [error_enter_correct_bluesky_page]
+    tags = android
+    en = Enter a valid Bluesky username or web address
 
   [refresh]
     tags = ios
