@@ -113,6 +113,8 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
     case PropID::FMD_CONTACT_TWITTER:
     case PropID::FMD_CONTACT_VK:
     case PropID::FMD_CONTACT_LINE:
+    case PropID::FMD_CONTACT_FEDIVERSE:
+    case PropID::FMD_CONTACT_BLUESKY:
     case PropID::FMD_WIKIPEDIA:
     case PropID::FMD_WIKIMEDIA_COMMONS:
       isLink = true;

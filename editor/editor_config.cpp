@@ -22,6 +22,8 @@ static std::unordered_map<std::string, EType> const kNamesToFMD = {
     {"website", EType::FMD_WEBSITE},
     {"contact_facebook", EType::FMD_CONTACT_FACEBOOK},
     {"contact_instagram", EType::FMD_CONTACT_INSTAGRAM},
+    {"contact_fediverse", EType::FMD_CONTACT_FEDIVERSE},
+    {"contact_bluesky", EType::FMD_CONTACT_BLUESKY},
     {"contact_twitter", EType::FMD_CONTACT_TWITTER},
     {"contact_vk", EType::FMD_CONTACT_VK},
     {"contact_line", EType::FMD_CONTACT_LINE},
