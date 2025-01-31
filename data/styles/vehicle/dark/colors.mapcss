@@ -26,7 +26,6 @@
 
 /* 1.BASEMAP */
 
-@white: #444444;
 @background: #050505;
 
 /* 2.BOUNDARY */
@@ -60,10 +59,10 @@
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
 
-@pedestrian_area: #262222;
-@pedestrian_area_light: #262222;
+/*
 @university: #261F13;
 @hospital: #261916;
+*/
 @industrial: #0D0A0D;
 @sport: #070F0A;
 @military: #B71C1C;
@@ -92,7 +91,6 @@
 @building0: #191919;
 @building1: #1D1D1D;
 @building_border0: #1C1C1C;
-@building_border1: #191919;
 
 /* 5.ROADS */
 /* 5.1 All roads */
@@ -132,15 +130,6 @@
 @unclassified_tunnel: #2B2827;
 @unclassified_tunnel_casing: #000000;
 
-/* 5.4 Piste */
-
-@piste: #623D7F;
-@piste_novice:#5feb2e;
-@piste_easy: #0b27fb;
-@piste_intermadiate: #fc0e1b;
-@piste_expert: #333333;
-@piste_advanced: #222222;
-
 /* 5.5 Transport */
 
 @railway_light: #2C2630;
@@ -148,9 +137,9 @@
 @railway_tourism: #3D3128;
 @railway_tunnel: #222222;
 @railway_dash: #050505;
-@aerialway: #4E4E3D;
+/* @aerialway: #4E4E3D; */
 @tram: #5C5C51;
-@ferry: #2A4541;
+/* @ferry: #2A4541; */
 
 /* 6.LABELS COLORS */
 /* 6.1 Main labels */
@@ -170,8 +159,6 @@
 /* 6.3 Place labels */
 
 @city_label: #999999;
-@city_label_1: #828282;
-@city_label_2: #737373;
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;

@@ -26,7 +26,6 @@
 
 /* 1.BASEMAP */
 
-@white: #444444;
 @background: #000000;
 
 /* 2.BOUNDARY */
