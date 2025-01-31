@@ -1492,12 +1492,13 @@
     it = Stazione di ricarica per biciclette
     ja = 自転車充電ステーション
     ko = 자전거 충전소
+    lv = Velosipēdu uzlāde
     mr = सायकल चार्जिंग स्टेशन
     nb = Ladestasjon for sykkel
     nl = Oplaadstation voor fietsen
     pl = Stacja ładowania rowerów
     pt = Estação de carregamento de bicicletas
-    pt-BR = Estação de carregamento de bicicletas
+    pt-BR = Ponto de recarga de bicicletas
     ro = Stație de încărcare pentru biciclete
     ru = Станция зарядки велосипедов
     sk = Nabíjacia stanica pre bicykle
