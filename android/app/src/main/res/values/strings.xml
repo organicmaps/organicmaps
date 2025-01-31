@@ -289,6 +289,8 @@
     <string name="instagram">Instagram</string>
     <!-- Text in the editor -->
     <string name="vk">VK</string>
+    <!-- Text in menu -->
+    <string name="bluesky">Bluesky</string>
     <!-- Text in the editor -->
     <string name="editor_line_social_network">LINE</string>
     <!-- Text in menu -->
@@ -604,6 +606,8 @@
     <string name="error_enter_correct_twitter_page">Enter a valid Twitter username or web address</string>
     <string name="error_enter_correct_vk_page">Enter a valid VK username or web address</string>
     <string name="error_enter_correct_line_page">Enter a valid LINE ID or web address</string>
+    <string name="error_enter_correct_fediverse_page">Enter a valid Mastodon username or web address</string>
+    <string name="error_enter_correct_bluesky_page">Enter a valid Bluesky username or web address</string>
     <string name="placepage_add_place_button">Add Place to OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
