@@ -16,8 +16,8 @@ public class RouteMarkData
   @Nullable
   public final String mSubtitle;
   @RoutePointInfo.RouteMarkType
-  public final int mPointType;
-  public final int mIntermediateIndex;
+  public int mPointType;
+  public int mIntermediateIndex;
   public final boolean mIsVisible;
   public final boolean mIsMyPosition;
   public final boolean mIsPassed;

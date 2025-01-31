@@ -1579,6 +1579,12 @@ Java_app_organicmaps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
+{
+  frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass,
                                                           jint markType, jint intermediateIndex)
 {
