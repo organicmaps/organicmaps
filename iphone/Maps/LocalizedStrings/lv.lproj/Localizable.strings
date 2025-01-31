@@ -1501,7 +1501,7 @@
 
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.bicycle" = "Bicycle Charging Station";
+"type.amenity.charging_station.bicycle" = "Velosipēdu uzlāde";
 
 "type.amenity.charging_station.motorcar" = "Car Charging Station";
 
