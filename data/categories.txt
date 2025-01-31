@@ -12842,18 +12842,19 @@ id:Pengisian Daya Sepeda
 it:Ricarica delle biciclette
 ja:自転車充電
 ko:자전거 충전
+lv:4Velosipēdu uzlāde|Riteņu uzlāde|Ričuku uzlāde|Divriteņu uzlāde
 mr:सायकल चार्जिंग
 nb:Lading av sykler
 nl:Fiets opladen
 pl:Ładowanie rowerów
 pt:Carregamento de bicicletas
 ro:Încărcarea bicicletelor
-ru:Велозарядка|Зарядка для велосипедов
+ru:4Велозарядка|Зарядка для велосипедов
 sk:Nabíjanie bicyklov
 sv:Laddning av cyklar
 sw:Kuchaji Baiskeli
 th:การชาร์จจักรยาน
-tr:Bisiklet Şarjı
+tr:4Bisiklet Şarjı
 uk:Зарядка для велосипедів
 vi:Sạc xe đạp
 zh-Hans:自行车充电
