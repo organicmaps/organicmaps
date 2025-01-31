@@ -11,13 +11,12 @@ Please respond in the relevant [GitHub discussion](https://github.com/orgs/organ
 
 Adding and updating translations is easy!
 1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
-2. Commit your changes
-3. Send a pull request!
+2. Commit your string changes with the title `[strings] {description of changes}`
+3. (Optional) run the `tools/unix/generate_localizations.sh` script
+4. (Optional) Commit the updated files with the title `[strings] Regenerated`
+5. Send a pull request!
 
-Please prepend `[strings]` to your commit message and add [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to it.
-
-Then run a `tools/unix/generate_localizations.sh` script and add the changes as a separate `[strings] Regenerated` commit.
-But if you can't run it - don't worry, its not mandatory!
+Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions.
 
 ## Requirements
 
@@ -39,7 +38,7 @@ To run the `tools/unix/generate_localizations.sh` script, it is necessary to hav
   - Text-to-speech strings for navigation: [`data/strings/sound.txt`](../data/strings/sound.txt)
 
   - Android stores description: [`android/app/src/fdroid/play/`](../android/app/src/fdroid/play/)
-  - Apple AppStore description: [`iphone/metadata/`](../iphone/metadata/)
+  - Apple App Store description: [`iphone/metadata/`](../iphone/metadata/)
 
   - Popular brands of map features: [`data/strings/brands_strings.txt`](../data/strings/brands_strings.txt)
   - Search keywords for popular brands: [`data/categories_brands.txt`](../data/categories_brands.txt)
