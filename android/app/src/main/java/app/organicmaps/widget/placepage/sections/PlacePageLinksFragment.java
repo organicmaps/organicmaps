@@ -41,6 +41,10 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private TextView mTvInstagramPage;
   private View mTwitterPage;
   private TextView mTvTwitterPage;
+  private View mFediversePage;
+  private TextView mTvFediversePage;
+  private View mBlueskyPage;
+  private TextView mTvBlueskyPage;
   private View mVkPage;
   private TextView mTvVkPage;
   private View mLinePage;
@@ -81,7 +85,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
           mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
       case FMD_WEBSITE_MENU ->
           mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU);
-      case FMD_CONTACT_FACEBOOK, FMD_CONTACT_INSTAGRAM, FMD_CONTACT_TWITTER, FMD_CONTACT_VK, FMD_CONTACT_LINE ->
+      case FMD_CONTACT_FACEBOOK, FMD_CONTACT_INSTAGRAM, FMD_CONTACT_TWITTER,
+           FMD_CONTACT_FEDIVERSE, FMD_CONTACT_BLUESKY, FMD_CONTACT_VK, FMD_CONTACT_LINE ->
       {
         if (TextUtils.isEmpty(mMapObject.getMetadata(type)))
           yield "";
@@ -153,6 +158,16 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mInstagramPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM));
     mInstagramPage.setOnLongClickListener((v) -> copyUrl(mInstagramPage, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM));
 
+    mFediversePage = mFrame.findViewById(R.id.ll__place_fediverse);
+    mTvFediversePage = mFrame.findViewById(R.id.tv__place_fediverse_page);
+    mFediversePage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE));
+    mFediversePage.setOnLongClickListener((v) -> copyUrl(mFediversePage, Metadata.MetadataType.FMD_CONTACT_FEDIVERSE));
+
+    mBlueskyPage = mFrame.findViewById(R.id.ll__place_bluesky);
+    mTvBlueskyPage = mFrame.findViewById(R.id.tv__place_bluesky_page);
+    mBlueskyPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_BLUESKY));
+    mBlueskyPage.setOnLongClickListener((v) -> copyUrl(mBlueskyPage, Metadata.MetadataType.FMD_CONTACT_BLUESKY));
+
     mTwitterPage = mFrame.findViewById(R.id.ll__place_twitter);
     mTvTwitterPage = mFrame.findViewById(R.id.tv__place_twitter_page);
     mTwitterPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_TWITTER));
@@ -215,6 +230,12 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
     final String instagram = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
     refreshMetadataOrHide(instagram, mInstagramPage, mTvInstagramPage);
+
+    final String fediverse = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE);
+    refreshMetadataOrHide(fediverse, mFediversePage, mTvFediversePage);
+
+    final String bluesky = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_BLUESKY);
+    refreshMetadataOrHide(bluesky, mBlueskyPage, mTvBlueskyPage);
 
     final String twitter = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
     refreshMetadataOrHide(twitter, mTwitterPage, mTvTwitterPage);
