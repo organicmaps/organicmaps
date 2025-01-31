@@ -225,9 +225,12 @@ int ScreenBase::GetHeight() const { return base::SignedRound(m_PixelRect.SizeY()
 ScreenBase::MatrixT const ScreenBase::CalcTransform(m2::PointD const & oldPt1,
                                                     m2::PointD const & oldPt2,
                                                     m2::PointD const & newPt1,
-                                                    m2::PointD const & newPt2, bool allowRotate)
+                                                    m2::PointD const & newPt2, 
+                                                    bool allowRotate,
+                                                    bool allowScale)
 {
-  double const s = newPt1.Length(newPt2) / oldPt1.Length(oldPt2);
+  
+  double const s = allowScale ? newPt1.Length(newPt2) / oldPt1.Length(oldPt2) : 1.0;
   double const a = allowRotate ? ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2) : 0.0;
 
   MatrixT m = math::Shift(

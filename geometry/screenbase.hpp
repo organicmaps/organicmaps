@@ -124,7 +124,7 @@ public:
   /// newPt2)
   static MatrixT const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
                                      m2::PointD const & newPt1, m2::PointD const & newPt2,
-                                     bool allowRotate);
+                                     bool allowRotate, bool allowScale);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
   void SetGtoPMatrix(MatrixT const & m);
