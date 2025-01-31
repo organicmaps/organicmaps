@@ -191,6 +191,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initMetadataEntry(Metadata.MetadataType.FMD_EMAIL, R.string.error_enter_correct_email);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.string.error_enter_correct_facebook_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.string.error_enter_correct_instagram_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE, R.string.error_enter_correct_fediverse_page);
+    initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_BLUESKY, R.string.error_enter_correct_bluesky_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_TWITTER, R.string.error_enter_correct_twitter_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_VK, R.string.error_enter_correct_vk_page);
     initMetadataEntry(Metadata.MetadataType.FMD_CONTACT_LINE, R.string.error_enter_correct_line_page);
@@ -448,6 +450,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
             R.drawable.ic_facebook_white, R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
     View instagramContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
             R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
+    View fediverseContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_FEDIVERSE, R.id.block_fediverse,
+            R.drawable.ic_mastodon_white, R.string.mastodon, InputType.TYPE_TEXT_VARIATION_URI);
+    View blueskyContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_BLUESKY, R.id.block_bluesky,
+            R.drawable.ic_bluesky_white, R.string.bluesky, InputType.TYPE_TEXT_VARIATION_URI);
     View twitterContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
             R.drawable.ic_twitterx_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
     View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
@@ -499,6 +505,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, operatorBlock);
 
+    mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE, fediverseContactBlock);
+    mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_BLUESKY, blueskyContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, instagramContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_TWITTER, twitterContactBlock);
