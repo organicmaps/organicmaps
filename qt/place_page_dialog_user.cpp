@@ -218,6 +218,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       addSocialNetworkWidget("Twitter", feature::Metadata::EType::FMD_CONTACT_TWITTER);
       addSocialNetworkWidget("VK", feature::Metadata::EType::FMD_CONTACT_VK);
       addSocialNetworkWidget("Line", feature::Metadata::EType::FMD_CONTACT_LINE);
+      addSocialNetworkWidget("Mastodon", feature::Metadata::EType::FMD_CONTACT_FEDIVERSE);
+      addSocialNetworkWidget("Bluesky", feature::Metadata::EType::FMD_CONTACT_BLUESKY);
     }
 
     if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty())

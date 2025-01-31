@@ -249,6 +249,8 @@ bool EditableMapObject::IsValidMetadata(MetadataID type, std::string const & val
   case MetadataID::FMD_CONTACT_TWITTER: return ValidateTwitterPage(value);
   case MetadataID::FMD_CONTACT_VK: return ValidateVkPage(value);
   case MetadataID::FMD_CONTACT_LINE: return ValidateLinePage(value);
+  case MetadataID::FMD_CONTACT_FEDIVERSE: return ValidateFediversePage(value);
+  case MetadataID::FMD_CONTACT_BLUESKY: return ValidateBlueskyPage(value);
 
   case MetadataID::FMD_STARS:
   {
@@ -284,6 +286,8 @@ void EditableMapObject::SetMetadata(MetadataID type, std::string value)
   case MetadataID::FMD_CONTACT_TWITTER: value = ValidateAndFormat_twitter(value); break;
   case MetadataID::FMD_CONTACT_VK: value = ValidateAndFormat_vk(value); break;
   case MetadataID::FMD_CONTACT_LINE: value = ValidateAndFormat_contactLine(value); break;
+  case MetadataID::FMD_CONTACT_FEDIVERSE: value = ValidateAndFormat_fediverse(value); break;
+  case MetadataID::FMD_CONTACT_BLUESKY: value = ValidateAndFormat_bluesky(value); break;
   default: break;
   }
 

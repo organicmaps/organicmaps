@@ -261,6 +261,8 @@ public:
     string const contact_twitter(meta.Get(feature::Metadata::FMD_CONTACT_TWITTER));
     string const contact_vk(meta.Get(feature::Metadata::FMD_CONTACT_VK));
     string const contact_line(meta.Get(feature::Metadata::FMD_CONTACT_LINE));
+    string const contact_fediverse(meta.Get(feature::Metadata::FMD_CONTACT_FEDIVERSE));
+    string const contact_bluesky(meta.Get(feature::Metadata::FMD_CONTACT_BLUESKY));
     string const stars(meta.Get(feature::Metadata::FMD_STARS));
     string const internet(meta.Get(feature::Metadata::FMD_INTERNET));
     string const denomination(meta.Get(feature::Metadata::FMD_DENOMINATION));
@@ -276,7 +278,7 @@ public:
         osmId,             uid,             lat,           lon,       mwmName, category,     name,    std::string(city),
         addrStreet,        addrHouse,       phone,         website,   stars,   std::string(metaOperator), internet,
         denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,          atm,     contact_facebook,
-        contact_instagram, contact_twitter, contact_vk,    contact_line, wikimedia_commons};
+        contact_instagram, contact_twitter, contact_vk,    contact_line, contact_fediverse, contact_bluesky, wikimedia_commons};
 
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
@@ -290,7 +292,7 @@ void PrintHeader()
                             "phone",           "website",      "cuisines",   "stars",            "operator",
                             "internet",        "denomination", "wheelchair", "opening_hours",    "wikipedia",
                             "floor",           "fee",          "atm",        "contact_facebook", "contact_instagram",
-                            "contact_twitter", "contact_vk",   "contact_line", "wikimedia_commons"};
+                            "contact_twitter", "contact_vk",   "contact_line", "contact_fediverse", "contact_bluesky", "wikimedia_commons"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
