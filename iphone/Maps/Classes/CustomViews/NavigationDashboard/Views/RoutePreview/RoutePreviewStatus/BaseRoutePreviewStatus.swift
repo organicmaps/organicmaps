@@ -4,13 +4,21 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var resultsBox: UIView!
   @IBOutlet private weak var heightBox: UIView!
   @IBOutlet private weak var manageRouteBox: UIView!
-  @IBOutlet weak var manageRouteBoxBackground: UIView! {
+  @IBOutlet private weak var manageRouteBoxBackground: UIView! {
     didSet {
       iPhoneSpecific {
         manageRouteBoxBackground.setStyle(.blackOpaqueBackground)
       }
+      iPadSpecific {
+        if traitCollection.userInterfaceStyle == .dark {
+          manageRouteBoxBackground.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        } else {
+          manageRouteBoxBackground.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        }
+      }
     }
   }
+
 
   @IBOutlet private weak var errorLabel: UILabel!
   @IBOutlet private weak var resultLabel: UILabel!
@@ -87,7 +95,16 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   private func configManageRouteButton(_ button: UIButton) {
     button.setImagePadding(8)
     button.setTitle(L("planning_route_manage_route"), for: .normal)
+
+    if traitCollection.userInterfaceStyle == .dark {
+      button.setTitleColor(UIColor.white, for: .normal)
+    } else {
+      button.setTitleColor(UIColor.black, for: .normal)
+    }
+
+    button.imageView?.tintColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
   }
+
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
