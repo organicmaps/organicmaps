@@ -363,6 +363,7 @@
         android:name="app.organicmaps.MwmActivity"
         android:launchMode="singleTask"
         android:configChanges="uiMode"
+        android:screenOrientation="fullUser"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity-alias
