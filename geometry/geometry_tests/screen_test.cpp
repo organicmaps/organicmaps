@@ -151,7 +151,8 @@ UNIT_TEST(ScreenBase_CalcTransform)
                                           m2::PointD(0, 1), m2::PointD(1, 1),
                                           m2::PointD(             s * sin(a) + dx,               s * cos(a) + dy),
                                           m2::PointD(s * cos(a) + s * sin(a) + dx, -s * sin(a) + s * cos(a) + dy),
-                                          true /* allow rotate */);
+                                          true /* allow rotate */,
+                                          true /* allow scale*/);
 
   ScreenBase::ExtractGtoPParams(m, a1, s1, dx1, dy1);
 
