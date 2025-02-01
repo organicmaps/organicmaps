@@ -86,6 +86,7 @@
     <activity
       android:name="app.organicmaps.SplashActivity"
       android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
+      android:screenOrientation="fullUser"
       android:exported="true">
 
       <intent-filter>
@@ -120,7 +121,7 @@
         <data android:scheme="https"/>
         <data android:host="omaps.app"/>
       </intent-filter>
-        
+
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
@@ -344,7 +345,8 @@
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
-        android:configChanges="orientation|screenLayout|screenSize"/>
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"/>
 
     <activity-alias
       android:name="app.organicmaps.DownloadResourcesActivity"
@@ -371,6 +373,7 @@
     <activity
         android:name="app.organicmaps.downloader.DownloaderActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/download_maps"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
@@ -378,6 +381,7 @@
     <activity
         android:name="app.organicmaps.search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/search_map"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -385,6 +389,7 @@
     <activity
         android:name="app.organicmaps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/settings"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
@@ -402,6 +407,7 @@
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/bookmarks_and_tracks"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
@@ -409,6 +415,7 @@
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkListActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/bookmarks"
         android:parentActivityName="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
         android:windowSoftInputMode="adjustResize" />
@@ -416,6 +423,7 @@
     <activity
         android:name="app.organicmaps.editor.EditorActivity"
         android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
         android:label="@string/edit_place"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
@@ -495,8 +503,8 @@
     <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
     <!-- Disable Google's anonymous stats collection -->
     <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
-    
-    <!-- Version >= 3.0. Dex Dual Mode support for compatible Samsung devices. 
+
+    <!-- Version >= 3.0. Dex Dual Mode support for compatible Samsung devices.
          See the documentation: https://developer.samsung.com/samsung-dex/modify-optimizing.html //-->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true" />
 
