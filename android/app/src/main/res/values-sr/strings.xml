@@ -2111,7 +2111,7 @@
     <string name="type.tourism.aquarium">Акваријум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Планинарска колиба</string>
-    <string name="type.tourism.apartment">Апартман за одмор</string>
+    <string name="type.tourism.apartment">Апартман</string>
     <string name="type.tourism.artwork">Уметничка скулптура</string>
     <string name="type.tourism.artwork.architecture">Архитектонско уметничко дело</string>
     <string name="type.tourism.artwork.painting">Уметничко дело</string>
@@ -2131,7 +2131,7 @@
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Викендица</string>
     <string name="type.tourism.gallery">Уметничка галерија</string>
-    <string name="type.tourism.guest_house">Кућа духова</string>
+    <string name="type.tourism.guest_house">Гостинска кућа</string>
     <string name="type.tourism.hostel">Хостел</string>
     <string name="type.tourism.hotel">Хотел</string>
     <string name="type.tourism.information">Туристичке информације</string>
