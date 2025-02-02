@@ -2012,7 +2012,15 @@
 "type.power.plant.wind" = "תחנת כוח רוח";
 "type.power.station" = "תחנת כוח";
 "type.power.substation" = "תחנת כוח משנית";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "מגדל קירור";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 "type.psurface" = "משטח";
 "type.psurface.paved_bad" = "אספלט במצב גרוע";
 "type.psurface.paved_good" = "אספלט במצב טוב";

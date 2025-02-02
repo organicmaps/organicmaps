@@ -2012,7 +2012,15 @@
 "type.power.plant.wind" = "풍력 발전소";
 "type.power.station" = "Power Station";
 "type.power.substation" = "변전소";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "전봇대";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

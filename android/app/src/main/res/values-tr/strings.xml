@@ -1688,6 +1688,7 @@
     <string name="type.power.plant.wind">Rüzgar Santrali</string>
     <string name="type.power.station">Elektrik Santrali</string>
     <string name="type.power.substation">Trafo</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elektrik Kulesi</string>
     <string name="type.public_transport">Toplu Taşıma</string>
     <string name="type.public_transport.platform">Platform</string>

@@ -1621,6 +1621,7 @@
     <string name="type.power.plant.solar">Eguzki-zentrala</string>
     <string name="type.power.plant.wind">Zentral eolikoa</string>
     <string name="type.power.substation">Azpiestazioa</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Zutabe elektrikoa</string>
     <string name="type.public_transport">Garraio publikoa</string>
     <string name="type.railway.funicular">Funikularra</string>

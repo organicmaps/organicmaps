@@ -1540,6 +1540,7 @@
     <string name="type.power.plant.solar">Naperőmű</string>
     <string name="type.power.plant.wind">Szélerőmű</string>
     <string name="type.power.substation">Alállomás</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Villanyoszlop</string>
     <string name="type.railway.funicular">Sikló</string>
     <string name="type.railway.halt">Vasútállomás</string>

@@ -1088,6 +1088,7 @@
     <string name="type.place.village">गाँव</string>
     <string name="type.power.station">बिजली घर</string>
     <string name="type.power.substation">विद्युत उपकेंद्र</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">संचरण स्तम्भ</string>
     <string name="type.public_transport.platform">रेलवे प्लेटफार्म</string>
     <string name="type.railway">रेल</string>

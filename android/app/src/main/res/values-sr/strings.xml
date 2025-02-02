@@ -1670,6 +1670,7 @@
     <string name="type.power.plant.wind">Ветропарк</string>
     <string name="type.power.station">Електрична станица</string>
     <string name="type.power.substation">Подстаница</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Далековод</string>
     <string name="type.psurface">Површина</string>
     <string name="type.psurface.paved_bad">Лош асфалт</string>

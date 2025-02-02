@@ -1524,6 +1524,7 @@
     <string name="type.power.plant.solar">โรงไฟฟ้าพลังงานแสงอาทิตย์</string>
     <string name="type.power.plant.wind">โรงไฟฟ้าพลังงานลม</string>
     <string name="type.power.substation">สถานีไฟฟ้า</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">เสาไฟฟ้า</string>
     <string name="type.railway.funicular">รถกระเช้าไฟฟ้า</string>
     <string name="type.railway.halt">สถานีรถไฟ</string>

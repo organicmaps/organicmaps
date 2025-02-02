@@ -1649,6 +1649,7 @@
     <string name="type.power.plant.wind">Yel deyirmani</string>
     <string name="type.power.station">Stansiya</string>
     <string name="type.power.substation">Transformator</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elektrik qülləsi</string>
     <string name="type.public_transport">İctimai nəqliyyat</string>
     <string name="type.public_transport.platform">Platforma</string>

@@ -1579,6 +1579,7 @@
     <string name="type.power.plant.solar">Ηλιακός σταθμός παραγωγής ενέργειας</string>
     <string name="type.power.plant.wind">Αιολική μονάδα παραγωγής ενέργειας</string>
     <string name="type.power.substation">Υποσταθμός</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
     <string name="type.railway.funicular">Μονωτικό τρενάκι</string>
     <string name="type.railway.halt">Σιδηροδρομικός σταθμός</string>
