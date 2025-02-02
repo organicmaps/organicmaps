@@ -2963,7 +2963,14 @@
 
 "type.power.substation" = "विद्युत उपकेंद्र";
 
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "संचरण स्तम्भ";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 
 "type.psurface" = "psurface";
 
