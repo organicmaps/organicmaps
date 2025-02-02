@@ -1571,7 +1571,7 @@
 
   [download_resources]
     tags = android
-    en = Before you start using the app, please download the general world map to your device.\nIt will use %@ of storage.
+    en = Before you start using the app, please download the world overview map to your device.\nIt will use %@ of storage.
     af = Voordat u die toep begin gebruik, moet u asb. die algemene wêreldkaart na u toestel aflaai.\nDit sal %@ se spasie opneem.
     ar = قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.\nستحتاج إلى %@ من البيانات.
     az = Başlamazdan əvvəl gəlin ümumi dünya xəritəsini cihazınıza endirək.\n%@ yer tələb olunur.
@@ -1580,7 +1580,7 @@
     ca = Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.\nUsarà %@ d’emmagatzematge.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
     da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.
-    de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs werden %@ Speicherplatz benötigt.
+    de = Bevor Sie die App verwenden, laden Sie bitte die weltweite Übersichtskarte herunter.\nEs werden %@ Speicherplatz benötigt.
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.\nΘα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     es = Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %@ de almacenamiento.
     et = Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.\nSee kasutab %@ mälumahtu.
@@ -1596,16 +1596,16 @@
     ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     lt = Leiskite mums atsisiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį prieš pradėdami naudotis programėle.\nTai užims %@ saugyklos.
-    lv = Pirms lietotnes izmantošanas lejupielādējiet kopējo pasaules karti.\nTā ierīce krātuvē aizņems %@ vietas.
+    lv = Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.\nTā ierīces krātuvē aizņems %@ vietas.
     mr = ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.\nते %@ जागा वापरेल.
     mt = Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. \nDan ser juża %@ ta' storage.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
     nl = Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %@ in beslag.
     pl = Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.
-    pt = Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de espaço disponível.
-    pt-BR = Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.\n%@ de memória serão utilizados.
+    pt = Antes de começar, é recomendável descarregar a visão geral mundial para o seu dispositivo.\nÉ necessário %@ de espaço disponível.
+    pt-BR = Antes de começar, vamos baixar a visão geral mundial para o seu dispositivo.\nÉ necessário %@ de armazenamento.
     ro = Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.\nSe vor descărca %@.
-    ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.
+    ru = Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.\nПотребуется %@ данных.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
     sr = Пре него што почнете да користите апликацију, прво преузмите на ваш уређај општу мапу света.\nЗа то ће бити потребно %@ меморије.
     sv = Innan du startar, låt oss ladda ner den allmäna världskartan på din enhet.\nDen behöver %@ data.
@@ -29965,7 +29965,7 @@
 
   [download_map_title]
     tags = android
-    en = Download the world map
+    en = Download the world overview map
     af = Laai die wêreldkaart af
     ar = تنزيل خريطة العالم
     az = Dünya xəritəsini yükləyin
@@ -29973,27 +29973,27 @@
     bg = Изтегляне на картата на света
     ca = Baixa el mapa mundial
     cs = Stáhnout mapu světa
-    de = Herunterladen der Weltkarte
+    de = Laden Sie die weltweite Übersichtskarte herunter
     el = Κατέβασμα παγκόσμιου χάρτη
-    es = Descarga el mapa mundial
+    es = Descarga el mapa mundial de previsualización
     et = Maailma kaardi allalaadimine
-    eu = Deskargatu munduko mapa
+    eu = Deskargatu munduko aurrebista mapa
     fi = Lataa maailmankartta
-    fr = Télécharger la carte du monde
+    fr = Télécharger la carte générale du monde
     he = הורד את מפת העולם
     hi = विश्व मानचित्र डाउनलोड करें
     it = Scarica la mappa del mondo
     ja = 世界地図をダウンロード
     lt = Atsisiųsti pasaulio žemėlapį
-    lv = Lejupielādēt pasaules karti
+    lv = Lejupielādēt pasaules pārskata karti
     mr = जगाचा नकाशा डाउनलोड करा
     nb = Last ned verdenskart
     nl = Download de wereldkaart
     pl = Pobierz mapę świata
-    pt = Descarregar o mapa mundial
-    pt-BR = Baixar mapa mundial
+    pt = Descarregar a visão geral mundial
+	pt-BR = Baixar a visão geral mundial
     ro = Descarcă harta lumii
-    ru = Скачать карту мира
+    ru = Скачать обзорную карту мира
     sk = Stiahnuť mapu sveta
     sr = Преузми мапу света
     tr = Dünya haritasını indir
@@ -30992,7 +30992,7 @@
     it = Ti piace la nostra app? Si prega di donare per sostenere lo sviluppo! Non ti piace ancora? Fatecelo sapere e risolveremo il problema!
     ja = 私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお願いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。
     ko = 우리 앱이 마음에 드시나요? 발전을 위해 기부해주세요! 아직 마음에 들지 않으세요? 알려주시면 수정하겠습니다!
-    lv = lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!
+    lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!
     mr = तुम्हाला आमचे अॅप आवडते का? कृपया विकासाला पाठिंबा देण्यासाठी देणगी द्या! अजून आवडत नाही? कृपया आम्हाला कळवा आणि आम्ही त्याचे निराकरण करू!
     nb = Liker du appen vår? Vennligst doner for å støtte utviklingen! Liker du det ikke ennå? Gi oss beskjed, så fikser vi det!
     nl = Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!
