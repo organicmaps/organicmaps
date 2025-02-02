@@ -1540,6 +1540,7 @@
     <string name="type.power.plant.solar">Solární elektrárna</string>
     <string name="type.power.plant.wind">Větrná elektrárna</string>
     <string name="type.power.substation">Rozvodna</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Sloup elektrického vedení</string>
     <string name="type.railway.funicular">Lanovka</string>
     <string name="type.railway.halt">Železniční stanice</string>

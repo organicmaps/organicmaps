@@ -1509,6 +1509,7 @@
     <string name="type.power.plant.solar">Solcelleanlæg</string>
     <string name="type.power.plant.wind">Vindkraftværk</string>
     <string name="type.power.substation">Transformerstation</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">El-pol</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.halt">Togstation</string>

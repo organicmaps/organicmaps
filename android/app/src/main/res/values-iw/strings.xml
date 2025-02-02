@@ -1696,6 +1696,7 @@
     <string name="type.power.plant.wind">תחנת כוח רוח</string>
     <string name="type.power.station">תחנת כוח</string>
     <string name="type.power.substation">תחנת כוח משנית</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">מגדל קירור</string>
     <string name="type.psurface">משטח</string>
     <string name="type.psurface.paved_bad">אספלט במצב גרוע</string>

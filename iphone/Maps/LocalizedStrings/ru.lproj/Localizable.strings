@@ -2011,7 +2011,15 @@
 "type.power.plant.wind" = "Ветряная электростанция";
 "type.power.station" = "Электростанция";
 "type.power.substation" = "Подстанция";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Опора ЛЭП";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 "type.psurface" = "Поверхность";
 "type.psurface.paved_bad" = "Плохая асфальтированная";
 "type.psurface.paved_good" = "Хорошая асфальтированная";

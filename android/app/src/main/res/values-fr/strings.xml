@@ -1669,6 +1669,7 @@
     <string name="type.power.plant.solar">Centrale solaire</string>
     <string name="type.power.plant.wind">Ferme d\'éoliennes</string>
     <string name="type.power.substation">Poste électrique</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Pylône électrique</string>
     <string name="type.public_transport.platform">Quai de transport en commun</string>
     <string name="type.railway">Chemin de fer</string>

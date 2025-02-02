@@ -1581,6 +1581,7 @@
     <string name="type.power.plant.solar">Solkraftverk</string>
     <string name="type.power.plant.wind">Vindkraftverk</string>
     <string name="type.power.substation">Trafo</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Strømmast</string>
     <string name="type.public_transport">Offentlig transport</string>
     <string name="type.railway">Jernbane</string>

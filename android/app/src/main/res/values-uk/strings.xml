@@ -1703,6 +1703,7 @@
     <string name="type.power.plant.wind">Вітрова електростанція</string>
     <string name="type.power.station">Електростанція</string>
     <string name="type.power.substation">Підстанція</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Стовп ЛЕП</string>
     <string name="type.public_transport">Громадський транспорт</string>
     <string name="type.railway">Залізниця</string>

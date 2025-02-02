@@ -1523,6 +1523,7 @@
     <string name="type.power.plant.solar">Nhà máy điện mặt trời</string>
     <string name="type.power.plant.wind">Nhà máy điện gió</string>
     <string name="type.power.substation">Trạm biến áp</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Trụ Điện</string>
     <string name="type.railway.funicular">Đường sắt leo núi</string>
     <string name="type.railway.halt">Đường tàu hỏa</string>

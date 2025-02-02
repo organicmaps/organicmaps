@@ -1687,6 +1687,7 @@
     <string name="type.power.plant.wind">Tuuleelektrijaam</string>
     <string name="type.power.station">Elektrijaam</string>
     <string name="type.power.substation">Alajaam</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Elektripost</string>
     <string name="type.psurface">Pind</string>
     <string name="type.public_transport">Ühistransport</string>

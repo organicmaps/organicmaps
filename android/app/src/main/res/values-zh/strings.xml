@@ -1696,6 +1696,7 @@
     <string name="type.power.plant.solar">太阳能发电厂</string>
     <string name="type.power.plant.wind">风力发电厂</string>
     <string name="type.power.substation">变电站</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">高压电塔</string>
     <string name="type.public_transport">公共交通要素</string>
     <string name="type.public_transport.platform">公共交通站台</string>

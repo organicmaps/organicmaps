@@ -2011,7 +2011,15 @@
 "type.power.plant.wind" = "Usina de energia eólica";
 "type.power.station" = "Subestação elétrica";
 "type.power.substation" = "Subestação elétrica";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Torre de eletricidade";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

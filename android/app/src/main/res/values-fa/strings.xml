@@ -1435,6 +1435,7 @@
     <string name="type.power.plant.hydro">نیروگاه برق آبی</string>
     <string name="type.power.plant.solar">نیروگاه خورشیدی</string>
     <string name="type.power.plant.wind">نیروگاه بادی</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">برج قدرت</string>
     <string name="type.railway.funicular">فونیکولور</string>
     <string name="type.railway.halt">ایستگاه قطار</string>

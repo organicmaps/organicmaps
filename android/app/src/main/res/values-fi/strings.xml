@@ -1654,6 +1654,7 @@
     <string name="type.power.plant.solar">Aurinkovoimala</string>
     <string name="type.power.plant.wind">Tuulivoimala</string>
     <string name="type.power.substation">Muuntoasema</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Sähköpylväs</string>
     <string name="type.railway.funicular">Köysirata</string>
     <string name="type.railway.halt">Rautatieasema</string>

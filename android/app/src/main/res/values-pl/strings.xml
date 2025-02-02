@@ -1685,6 +1685,7 @@
     <string name="type.power.plant.wind">Elektrownia wiatrowa</string>
     <string name="type.power.station">Elektrownia</string>
     <string name="type.power.substation">Podstacja</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Słup elektryczny</string>
     <string name="type.public_transport">Transport publiczny</string>
     <string name="type.public_transport.platform">Przystanek transportu publicznego</string>

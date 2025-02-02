@@ -1665,6 +1665,7 @@
     <string name="type.power.plant.solar">Centrale solare</string>
     <string name="type.power.plant.wind">Centrale eolica</string>
     <string name="type.power.substation">Sottostazione elettrica</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Pilone elettrico</string>
     <string name="type.psurface">Superficie</string>
     <string name="type.public_transport">Trasporto pubblico</string>

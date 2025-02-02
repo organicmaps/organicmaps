@@ -2011,7 +2011,15 @@
 "type.power.plant.wind" = "Windkrachtcentrale";
 "type.power.station" = "Transformatorstation";
 "type.power.substation" = "Transformatorstation";
+
+/* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Elektriciteitsmast";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
 "type.psurface" = "Wegdek";
 "type.psurface.paved_bad" = "Verhard";
 "type.psurface.paved_good" = "Verhard";

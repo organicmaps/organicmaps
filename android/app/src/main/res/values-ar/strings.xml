@@ -1680,6 +1680,7 @@
     <string name="type.power.plant.solar">محطة طاقة شمسية</string>
     <string name="type.power.plant.wind">محطة طاقة الرياح</string>
     <string name="type.power.substation">محطة كهرباء فرعية</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">عمود كهرباء</string>
     <string name="type.railway.funicular">حبلي</string>
     <string name="type.railway.halt">محطة قطار</string>

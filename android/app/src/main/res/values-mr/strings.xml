@@ -1556,6 +1556,7 @@
     <string name="type.power.plant.wind">पवन ऊर्जा संयंत्र</string>
     <string name="type.power.station">विद्युत घर</string>
     <string name="type.power.substation">विद्युत सबस्टेशन</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">विद्युत मनोरा</string>
     <string name="type.public_transport">सार्वजनिक वाहतूक</string>
     <string name="type.public_transport.platform">फलाट</string>

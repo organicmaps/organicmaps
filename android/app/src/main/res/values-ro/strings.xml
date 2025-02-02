@@ -1549,6 +1549,7 @@
     <string name="type.power.plant.solar">Centrală solară</string>
     <string name="type.power.plant.wind">Centrală eoliană</string>
     <string name="type.power.substation">Stație subterană</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Stâlp de electricitate</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.halt">Gară</string>
