@@ -3879,7 +3879,7 @@
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Планинарска колиба";
 
-"type.tourism.apartment" = "Апартман за одмор";
+"type.tourism.apartment" = "Апартман";
 
 "type.tourism.artwork" = "Уметничка скулптура";
 
@@ -3922,7 +3922,7 @@
 
 "type.tourism.gallery" = "Уметничка галерија";
 
-"type.tourism.guest_house" = "Кућа духова";
+"type.tourism.guest_house" = "Гостинска кућа";
 
 "type.tourism.hostel" = "Хостел";
 
