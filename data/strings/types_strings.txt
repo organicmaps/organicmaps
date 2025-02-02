@@ -31263,7 +31263,7 @@
     ro = Apartament de vacanță
     ru = Квартира для отдыха
     sk = Prázdninový apartmán
-    sr = Апартман за одмор
+    sr = Апартман
     sv = Semesterlägenhet
     sw = Ghorofa ya Likizo
     th = ฮอลิเดย์ อพาร์ตเมนต์
@@ -32044,7 +32044,7 @@
     ro = Pensiune
     ru = Гостевой дом
     sk = Penzión
-    sr = Кућа духова
+    sr = Гостинска кућа
     sv = Gästhus
     th = เกสท์เฮ้าส์
     tr = Misafirhane
