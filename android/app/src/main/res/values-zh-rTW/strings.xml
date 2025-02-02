@@ -1672,6 +1672,7 @@
     <string name="type.power.plant.solar">太陽能發電廠</string>
     <string name="type.power.plant.wind">風力發電廠</string>
     <string name="type.power.substation">變電所</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">電塔</string>
     <string name="type.railway.funicular">纜車</string>
     <string name="type.railway.halt">小站</string>

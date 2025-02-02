@@ -1514,6 +1514,7 @@
     <string name="type.power.plant.solar">Pembangkit listrik tenaga surya</string>
     <string name="type.power.plant.wind">Pembangkit listrik tenaga angin</string>
     <string name="type.power.substation">Stasiun bawah tanah</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Menara listrik</string>
     <string name="type.railway.funicular">Kereta gantung</string>
     <string name="type.railway.halt">Rel kereta api</string>

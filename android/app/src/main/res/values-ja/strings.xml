@@ -1654,6 +1654,7 @@
     <string name="type.power.plant.wind">風力発電所</string>
     <string name="type.power.station">変電所</string>
     <string name="type.power.substation">変電所</string>
+    <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">電柱</string>
     <string name="type.public_transport">公共交通機関</string>
     <string name="type.public_transport.platform">公共交通機関のプラットホーム</string>
