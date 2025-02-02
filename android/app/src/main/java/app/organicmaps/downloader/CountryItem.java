@@ -63,7 +63,9 @@ public final class CountryItem implements Comparable<CountryItem>
   public int errorCode;
   public boolean present;
 
-  // Progress
+  /**
+   * This value represents the percentage of download (values span from 0 to 100)
+   */
   public float progress;
   public long downloadedBytes;
   public long bytesToDownload;

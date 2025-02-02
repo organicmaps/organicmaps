@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 public class StringUtils
@@ -22,6 +23,25 @@ public class StringUtils
   public static String formatUsingSystemLocale(String pattern, Object... args)
   {
     return String.format(Locale.getDefault(), pattern, args);
+  }
+
+  /**
+   * This method returns correct string representation of % (percent number) for different locales
+   * For example, that's how the result of  would look like:
+   * — formatPercent(0.2319) will return 23.19% (in US locale)
+   * — formatPercent(0.2319) will return %23.19 (in Turkish locale)
+   * — formatPercent(0.2319) will return 23,19% (in Latvian locale)
+   * — formatPercent(1.23) will return 123%
+   * — formatPercent(0.000145) will return 0.01%
+   * — formatPercent(0.37) will return 37%
+   *
+   * @param fraction a double value, that represents a fraction of a whole
+   * @return correct string representation of percent for different locales
+   */
+  public static String formatPercent(double fraction) {
+    NumberFormat percentFormat = NumberFormat.getPercentInstance();
+    percentFormat.setMaximumFractionDigits(2);
+    return percentFormat.format(fraction);
   }
 
   public static native boolean nativeIsHtml(String text);
