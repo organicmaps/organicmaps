@@ -27,7 +27,7 @@ HighwayBasedFactors const kDefaultFactors = GetOneFactorsForBicycleAndPedestrian
 
 SpeedKMpH constexpr kSpeedOffroadKMpH = {1.5 /* weight */, 3.0 /* eta */};
 SpeedKMpH constexpr kSpeedDismountKMpH = {2.0 /* weight */, 4.0 /* eta */};
-// Applies only to contries where cycling is allowed on footways (by default the above dismount speed is used).
+// Applies only to countries where cycling is allowed on footways (by default the above dismount speed is used).
 SpeedKMpH constexpr kSpeedOnFootwayKMpH = {8.0 /* weight */, 10.0 /* eta */};
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
@@ -176,8 +176,8 @@ VehicleModel::SurfaceInitList const kBicycleSurface = {
   {{"psurface", "paved_bad"}, {0.8, 0.8}},
   {{"psurface", "unpaved_good"}, {0.9, 0.9}},
   {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
-  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
-  // But why? If nocycleway is tagged explicitly means there is no cycling infra for sure.
+  // No dedicated cycleway doesn't mean that bicycle is not allowed, just lower weight.
+  // If nocycleway is tagged explicitly then there is no cycling infra for sure.
   // Otherwise there is a small chance cycling infra is present though not mapped?
   /// @todo(pastk): this heuristic is controversial, maybe remove completely?
   {{"hwtag", "nocycleway"}, {0.95, 0.95}},
