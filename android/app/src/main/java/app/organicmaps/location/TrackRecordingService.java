@@ -200,6 +200,8 @@ public class TrackRecordingService extends Service implements LocationListener
         .setSmallIcon(R.drawable.warning_icon)
         .setContentTitle(context.getString(R.string.current_location_unknown_error_title))
         .setContentText(context.getString(R.string.dialog_routing_location_turn_wifi))
+        .setStyle(new NotificationCompat.BigTextStyle()
+            .bigText(context.getString(R.string.dialog_routing_location_turn_wifi)))
         .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
         .setContentIntent(getPendingIntent(context))
         .setColor(ContextCompat.getColor(context, R.color.notification_warning));
