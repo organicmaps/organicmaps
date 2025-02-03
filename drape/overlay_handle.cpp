@@ -67,7 +67,7 @@ m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen, bool perspective) 
     result.y += size.y;
 
   if (perspective)
-    result = screen.PtoP3d(result, -m_pivotZ / screen.GetScale());
+    result = screen.PtoP3d(result, -m_pivotZ);
 
   return result;
 }
@@ -163,7 +163,7 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
   if (m_isBillboard)
   {
     m2::PointD const pxPivot = GetPivot(screen, false);
-    m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ / screen.GetScale());
+    m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ);
 
     m2::RectD pxRectPerspective = GetPixelRect(screen, false);
     pxRectPerspective.Offset(-pxPivot);
