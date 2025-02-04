@@ -422,14 +422,14 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mStreet = view.findViewById(R.id.street);
     View blockHouseNumber = view.findViewById(R.id.block_building);
-    mHouseNumber = findInputAndInitBlock(blockHouseNumber, 0, R.string.house_number);
+    mHouseNumber = findInputAndInitBlock(blockHouseNumber, R.drawable.ic_building, R.string.house_number);
     mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
 
-    initBlock(view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, 0, R.string.editor_zip_code, 0);
+    initBlock(view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, R.drawable.ic_address, R.string.editor_zip_code, 0);
 
     // Details
     View mBlockLevels = view.findViewById(R.id.block_levels);
-    mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0,
+    mBuildingLevels = findInputAndInitBlock(mBlockLevels, R.drawable.ic_floor,
         getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
