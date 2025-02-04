@@ -165,7 +165,7 @@ using Observers = NSHashTable<Observer>;
 
 + (void)showResultAtIndex:(NSUInteger)index {
   auto const & result = [MWMSearch manager]->m_everywhereResults[index];
-  GetFramework().ShowSearchResult(result);
+  GetFramework().SelectSearchResult(result, true);
 }
 
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index {
