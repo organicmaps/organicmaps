@@ -26883,6 +26883,50 @@
     zh-Hans = 保健食品店
     zh-Hant = 保健食品店
 
+  [type.shop.hearing_aids]
+    en = Hearing Aid Store
+    af = Gehoorapparaatwinkel
+    ar = متجر المعينات السمعية
+    az = Eşitmə yardımı mağazası
+    be = Крама слыхавога апарата
+    bg = Магазин за слухови апарати
+    ca = Botiga d’aparells auditius
+    cs = Obchod se sluchadly
+    da = Høreapparatbutik
+    de = Hörgeräteladen
+    el = Κατάστημα βοηθημάτων ακοής
+    es = Tienda de audífonos
+    et = Kuuldeaparaadi kauplus
+    eu = Entzumen-biltegia
+    fa = فروشگاه ساحلی
+    fi = Kuulolaitteiden myymälä
+    fr = Magasin d'appareils auditifs
+    he = חנות מכשירי שמיעה
+    hi = श्रवण सहायता भंडार
+    hu = Hallókészülék bolt
+    id = Toko alat bantu dengar
+    it = Negozio di apparecchi acustici
+    ja = 補聴器店
+    ko = 보청기 스토어
+    lt = Klausos aparatų parduotuvė
+    lv = Dzirdes aparātu veikals
+    mr = श्रवणयंत्र स्टोअर
+    nb = Høreapparatbutikk
+    nl = Winkel met hoortoestellen
+    pl = Sklep z aparatami słuchowymi
+    pt = Loja de aparelhos auditivos
+    ro = Magazin de aparate auditive
+    ru = Магазин слуховых аппаратов
+    sk = Obchod s pomôckami na počúvanie
+    sv = Butik för hörapparater
+    sw = Duka la misaada ya kusikia
+    th = ร้านเครื่องช่วยฟัง
+    tr = İşitme cihazı mağazası
+    uk = Магазин слухових апаратів
+    vi = Cửa hàng máy trợ thính
+    zh-Hans = 助听器商店
+    zh-Hant = 助聽器商店
+
   [type.shop.herbalist]
     en = Herbalist
     af = Kruiewinkel
