@@ -100,7 +100,7 @@ android {
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
-  ndkVersion '27.1.12297006'
+  ndkVersion '27.2.12479018'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
