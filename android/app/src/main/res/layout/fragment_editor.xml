@@ -91,7 +91,7 @@
           android:paddingTop="@dimen/margin_half">
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
-            app:srcCompat="@drawable/ic_address"
+            app:srcCompat="@drawable/ic_street_address"
             tools:ignore="ContentDescription" />
           <TextView
             android:id="@+id/street_title"
