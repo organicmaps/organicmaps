@@ -1141,6 +1141,7 @@ shop-herbalist                                      # icon z18- (also has captio
 shop-hifi                                           # icon z18- (also has caption(optional) z18-)
 shop-lottery                                        # icon z18- (also has caption(optional) z18-)
 shop-medical_supply                                 # icon z18- (also has caption(optional) z18-)
+shop-hearing_aids                                   # icon z16- (also has caption(optional) z16-)
 shop-outpost                                        # icon z18- (also has caption(optional) z18-)
 shop-pet_grooming                                   # icon z18- (also has caption(optional) z18-)
 shop-storage_rental                                 # icon z18- (also has caption(optional) z18-)
@@ -1153,6 +1154,7 @@ amenity-shower                                      # icon z17- (also has captio
 amenity-toilets                                     # icon z18- (also has caption(optional) z18-)
 office                                              # icon z18- (also has caption(optional) z18-)
 shop                                                # icon z18- (also has caption(optional) z18-)
+
 === 470
 
 amenity-bbq                                         # icon z18- (also has caption(optional) z18-)
