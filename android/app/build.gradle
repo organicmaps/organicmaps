@@ -22,7 +22,7 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.7.2'
+    classpath 'com.android.tools.build:gradle:8.7.3'
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
