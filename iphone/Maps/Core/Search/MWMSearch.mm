@@ -176,15 +176,15 @@ using Observers = NSHashTable<Observer>;
 }
 
 + (void)showEverywhereSearchResultsOnMap {
-  MWMSearch *manager = [MWMSearch manager];
+  MWMSearch * manager = [MWMSearch manager];
   if (![MWMRouter isRoutingActive])
     GetFramework().ShowSearchResults(manager->m_everywhereResults);
 }
 
 + (void)showViewportSearchResultsOnMap {
-  MWMSearch *manager = [MWMSearch manager];
+  MWMSearch * manager = [MWMSearch manager];
   if (![MWMRouter isRoutingActive])
-    GetFramework().ShowSearchResults(manager->m_viewportResults);
+    [manager processViewportChangedEvent];
 }
 
 + (NSArray<SearchResult *> *)getResults {

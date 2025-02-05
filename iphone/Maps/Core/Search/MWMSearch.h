@@ -5,9 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SearchResult;
 
-NS_SWIFT_NAME(Search)
-@interface MWMSearch : NSObject
-
+@protocol SearchManager
 + (void)addObserver:(id<MWMSearchObserver>)observer;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
@@ -18,12 +16,17 @@ NS_SWIFT_NAME(Search)
 + (void)showEverywhereSearchResultsOnMap;
 + (void)showViewportSearchResultsOnMap;
 
-+ (SearchItemType)resultTypeWithRow:(NSUInteger)row;
-+ (NSUInteger)containerIndexWithRow:(NSUInteger)row;
-+ (SearchResult *)resultWithContainerIndex:(NSUInteger)index;
 + (NSArray<SearchResult *> *)getResults;
 
 + (void)clear;
+@end
+
+NS_SWIFT_NAME(Search)
+@interface MWMSearch : NSObject<SearchManager>
+
++ (SearchItemType)resultTypeWithRow:(NSUInteger)row;
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row;
++ (SearchResult *)resultWithContainerIndex:(NSUInteger)index;
 
 + (void)setSearchOnMap:(BOOL)searchOnMap;
 
