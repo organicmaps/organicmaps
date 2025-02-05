@@ -1,5 +1,5 @@
 @objc(MWMSearchTabViewControllerDelegate)
-protocol SearchTabViewControllerDelegate: AnyObject {
+protocol SearchTabViewControllerDelegate: SearchOnMapScrollViewDelegate {
   func searchTabController(_ viewController: SearchTabViewController, didSearch: String, withCategory: Bool)
 }
 
@@ -46,6 +46,22 @@ final class SearchTabViewController: TabViewController {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     activeTab = SearchActiveTab.init(rawValue: tabView.selectedIndex ?? 0) ?? .categories
+  }
+
+  func reloadSearchHistory() {
+    (viewControllers[SearchActiveTab.history.rawValue] as? SearchHistoryViewController)?.reload()
+  }
+}
+
+extension SearchTabViewController: ModallyPresentedViewController {
+  func translationYDidUpdate(_ translationY: CGFloat) {
+    viewControllers.forEach { ($0 as? ModallyPresentedViewController)?.translationYDidUpdate(translationY) }
+  }
+}
+
+extension SearchTabViewController: SearchOnMapScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    delegate?.scrollViewDidScroll(scrollView)
   }
 }
 
