@@ -175,6 +175,18 @@ using Observers = NSHashTable<Observer>;
   return result;
 }
 
++ (void)showEverywhereSearchResultsOnMap {
+  MWMSearch *manager = [MWMSearch manager];
+  if (![MWMRouter isRoutingActive])
+    GetFramework().ShowSearchResults(manager->m_everywhereResults);
+}
+
++ (void)showViewportSearchResultsOnMap {
+  MWMSearch *manager = [MWMSearch manager];
+  if (![MWMRouter isRoutingActive])
+    GetFramework().ShowSearchResults(manager->m_viewportResults);
+}
+
 + (NSArray<SearchResult *> *)getResults {
   NSMutableArray<SearchResult *> * results = [[NSMutableArray alloc] initWithCapacity:MWMSearch.resultsCount];
   for (NSUInteger i = 0; i < MWMSearch.resultsCount; ++i) {
