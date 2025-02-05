@@ -1,8 +1,10 @@
 #import "MWMSearch.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "SearchResult+Core.h"
 #import "SwiftBridge.h"
 
+#include <CoreApi/MWMTypes.h>
 #include <CoreApi/Framework.h>
 
 #include "platform/network_policy.hpp"
@@ -23,7 +25,7 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) NSUInteger lastSearchTimestamp;
 
-@property(nonatomic) MWMSearchIndex *itemsIndex;
+@property(nonatomic) SearchIndex *itemsIndex;
 
 @property(nonatomic) NSInteger searchCount;
 
@@ -161,14 +163,19 @@ using Observers = NSHashTable<Observer>;
   [manager update];
 }
 
-+ (void)showResult:(search::Result const &)result {
++ (void)showResultAtIndex:(NSUInteger)index {
+  auto const & result = [MWMSearch manager]->m_everywhereResults[index];
   GetFramework().ShowSearchResult(result);
 }
-+ (search::Result const &)resultWithContainerIndex:(NSUInteger)index {
-  return [MWMSearch manager]->m_everywhereResults[index];
+
++ (SearchResult *)resultWithContainerIndex:(NSUInteger)index {
+  SearchResult * result = [[SearchResult alloc]
+                           initWithResult:[MWMSearch manager]->m_everywhereResults[index]
+                                 itemType:[MWMSearch resultTypeWithRow:index]];
+  return result;
 }
 
-+ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {
++ (SearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
 }
@@ -216,7 +223,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner {
   auto const resultsCount = self->m_everywhereResults.GetCount();
-  auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
+  auto const itemsIndex = [[SearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
                                                               resultsCount:resultsCount];
   [itemsIndex build];
   self.itemsIndex = itemsIndex;

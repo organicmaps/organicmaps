@@ -1,7 +1,7 @@
-@objc(MWMSearchIndex)
+@objc
 final class SearchIndex: NSObject {
   fileprivate struct Item {
-    let type: MWMSearchItemType
+    let type: SearchItemType
     let containerIndex: Int
   }
 
@@ -19,14 +19,14 @@ final class SearchIndex: NSObject {
 
   @objc init(suggestionsCount: Int, resultsCount: Int) {
     for index in 0 ..< resultsCount {
-      let type: MWMSearchItemType = index < suggestionsCount ? .suggestion : .regular
+      let type: SearchItemType = index < suggestionsCount ? .suggestion : .regular
       let item = Item(type: type, containerIndex: index)
       positionItems.append(PositionItem(item: item, position: index))
     }
     super.init()
   }
 
-  func addItem(type: MWMSearchItemType, prefferedPosition: Int, containerIndex: Int) {
+  func addItem(type: SearchItemType, prefferedPosition: Int, containerIndex: Int) {
     assert(type != .suggestion && type != .regular)
     let item = Item(type: type, containerIndex: containerIndex)
     positionItems.append(PositionItem(item: item, position: prefferedPosition))
@@ -53,7 +53,7 @@ final class SearchIndex: NSObject {
     }
   }
 
-  @objc func resultType(row: Int) -> MWMSearchItemType {
+  @objc func resultType(row: Int) -> SearchItemType {
     return items[row].type
   }
 
