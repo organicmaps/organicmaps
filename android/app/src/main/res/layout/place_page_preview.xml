@@ -41,6 +41,8 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:fontFamily="@string/robotoMedium"
+        android:breakStrategy="high_quality"
+        android:hyphenationFrequency="fullFast"
         android:maxLines="@integer/pp_title_lines"
         android:textAppearance="@style/MwmTextAppearance.Title"
         tools:background="#C0800000"
