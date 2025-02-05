@@ -272,7 +272,7 @@ Run all unit tests:
 
 ```bash
 cd build
-ctest -L "omim_test" --output-on-failure
+ctest -L "omim-test" --output-on-failure
 ```
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
@@ -280,7 +280,7 @@ To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use
 ```bash
 cd build
 ctest -R "base_tests|coding_tests" --output-on-failure
-ctest -L "omim_test" -E "base_tests|coding_tests" --output-on-failure
+ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 ```
 
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
