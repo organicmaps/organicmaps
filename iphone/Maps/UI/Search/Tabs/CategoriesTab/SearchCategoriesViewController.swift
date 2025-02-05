@@ -1,4 +1,4 @@
-protocol SearchCategoriesViewControllerDelegate: AnyObject {
+protocol SearchCategoriesViewControllerDelegate: SearchOnMapScrollViewDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String)
 }
@@ -41,8 +41,19 @@ final class SearchCategoriesViewController: MWMTableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
   }
 
+  override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    delegate?.scrollViewDidScroll(scrollView)
+  }
+
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
     return categories[index]
+  }
+}
+
+extension SearchCategoriesViewController: ModallyPresentedViewController {
+  func translationYDidUpdate(_ translationY: CGFloat) {
+    guard isViewLoaded else { return }
+    tableView.contentInset.bottom = translationY + view.safeAreaInsets.bottom
   }
 }
