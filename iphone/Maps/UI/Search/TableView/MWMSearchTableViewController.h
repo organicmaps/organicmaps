@@ -6,10 +6,6 @@
 #include <CoreApi/Framework.h>
 
 @class SearchTextField;
-namespace search
-{
-class Result;
-}  // search
 
 @protocol MWMSearchTableViewProtocol<MWMSearchTabbedViewProtocol>
 
@@ -17,7 +13,7 @@ class Result;
 
 @property(nonatomic) MWMSearchManagerState state;
 
-- (void)processSearchWithResult:(search::Result const &)result;
+- (void)processSearchResultAtIndex:(NSInteger)index;
 
 @end
 
