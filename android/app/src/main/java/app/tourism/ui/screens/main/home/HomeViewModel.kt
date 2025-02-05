@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    @ApplicationContext val context: Context,
     private val placesRepository: PlacesRepository
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()

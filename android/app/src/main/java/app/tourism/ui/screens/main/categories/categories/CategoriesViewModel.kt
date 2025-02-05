@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext val context: Context,
     private val placesRepository: PlacesRepository,
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()

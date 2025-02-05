@@ -40,7 +40,7 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+                    .setLevel(HttpLoggingInterceptor.Level.BASIC)
             )
             .addInterceptor { chain ->
                 val original = chain.request()

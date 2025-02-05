@@ -13,10 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.organicmaps.R
+import app.organicmaps.SplashActivity
 import app.tourism.ui.common.SingleChoiceCheckBoxes
 import app.tourism.ui.common.VerticalSpace
 import app.tourism.ui.common.nav.AppTopBar
 import app.tourism.utils.changeSystemAppLanguage
+import app.tourism.utils.triggerRebirth
 
 @Composable
 fun LanguageScreen(
@@ -47,6 +49,7 @@ fun LanguageScreen(
                     val language = languages.first { it.name == name }
                     vm.updateLanguage(language)
                     changeSystemAppLanguage(context, language.code)
+                    triggerRebirth(context, SplashActivity::class.java)
                 }
             )
         }
