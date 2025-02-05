@@ -5,7 +5,6 @@
 #import "MWMNetworkPolicy+UI.h"
 #import "MWMPlacePageManager.h"
 #import "MWMPlacePageProtocol.h"
-#import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MWMMapWidgetsHelper.h"
@@ -27,8 +26,7 @@ namespace {
 NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }  // namespace
 
-@interface MWMMapViewControlsManager () <BottomMenuDelegate,
-                                         MWMSearchManagerObserver>
+@interface MWMMapViewControlsManager () <BottomMenuDelegate>
 
 @property(nonatomic) MWMSideButtons *sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController *trafficButton;
@@ -36,7 +34,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) UIViewController *menuController;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager *navigationManager;
-@property(nonatomic) MWMSearchManager *searchManager;
+@property(nonatomic) SearchOnMapManager *searchManager;
 
 @property(weak, nonatomic) MapViewController *ownerController;
 
@@ -50,6 +48,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 + (MWMMapViewControlsManager *)manager {
   return [MapViewController sharedController].controlsManager;
 }
+
 - (instancetype)initWithParentController:(MapViewController *)controller {
   if (!controller)
     return nil;
@@ -75,7 +74,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-  BOOL const isSearchUnderStatusBar = (self.searchManager.state != MWMSearchManagerStateHidden);
   BOOL const isNavigationUnderStatusBar = self.navigationManager.state != MWMNavigationDashboardStateHidden &&
                                           self.navigationManager.state != MWMNavigationDashboardStateNavigation;
   BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive;
@@ -83,7 +81,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isAddPlaceUnderStatusBar =
     [self.ownerController.view hasSubviewWithViewClass:[MWMAddPlaceNavigationBar class]];
   BOOL const isNightMode = [UIColor isNightMode];
-  BOOL const isSomethingUnderStatusBar = isSearchUnderStatusBar || isNavigationUnderStatusBar ||
+  BOOL const isSomethingUnderStatusBar = isNavigationUnderStatusBar ||
                                          isDirectionViewUnderStatusBar || isMenuViewUnderStatusBar ||
                                          isAddPlaceUnderStatusBar;
 
@@ -101,7 +99,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.trackRecordingButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.tabBarController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - MWMPlacePageViewManager
@@ -110,24 +107,19 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (![self searchText:text forInputLocale:locale])
     return;
 
-  self.searchManager.state = MWMSearchManagerStateMapSearch;
+  self.searchManager.state = SearchOnMapStateSearching;
 }
 
 - (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale {
   if (text.length == 0)
     return NO;
 
-  self.searchManager.state = MWMSearchManagerStateTableSearch;
-  [self.searchManager searchText:text forInputLocale:locale withCategory:NO];
+  self.searchManager.state = SearchOnMapStateSearching;
+  [self.searchManager searchText:text locale:locale isCategory:NO];
   return YES;
 }
 
-- (void)hideSearch {
-  self.searchManager.state = MWMSearchManagerStateHidden;
-}
-
-#pragma mark - BottomMenuDelegate
-
+#pragma mark - BottomMenu
 - (void)actionDownloadMaps:(MWMMapDownloaderMode)mode {
   [self.ownerController openMapsDownloader:mode];
 }
@@ -146,7 +138,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MapViewController *ownerController = self.ownerController;
 
   self.isAddingPlace = YES;
-  self.searchManager.state = MWMSearchManagerStateHidden;
+  self.searchManager.state = SearchOnMapStateClosed;
   self.menuState = MWMBottomMenuStateHidden;
   self.trafficButtonHidden = YES;
 
@@ -181,15 +173,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [[MapsAppDelegate theApp] enableStandby];
 }
 
-#pragma mark - MWMSearchManagerObserver
-
-- (void)onSearchManagerStateChanged {
-  auto state = [MWMSearchManager manager].state;
-  if (!IPAD && state == MWMSearchManagerStateHidden) {
-    self.hidden = NO;
-  }
-}
-
 #pragma mark - Routing
 
 - (void)onRoutePrepare {
@@ -202,7 +185,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)onRouteRebuild {
   if (IPAD)
-    self.searchManager.state = MWMSearchManagerStateHidden;
+    self.searchManager.state = SearchOnMapStateClosed;
 
   [self.ownerController.bookmarksCoordinator close];
   [self.navigationManager onRoutePlanning];
@@ -210,7 +193,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)onRouteReady:(BOOL)hasWarnings {
-  self.searchManager.state = MWMSearchManagerStateHidden;
+  self.searchManager.state = SearchOnMapStateClosed;
   [self.navigationManager onRouteReady:hasWarnings];
   self.promoButton.hidden = YES;
 }
@@ -226,7 +209,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)onRouteStop {
-  self.searchManager.state = MWMSearchManagerStateHidden;
+  self.searchManager.state = SearchOnMapStateClosed;
   self.sideButtons.zoomHidden = self.zoomHidden;
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
@@ -235,17 +218,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 #pragma mark - Properties
-
-/*
-- (UIButton *)promoButton {
-  if (!_promoButton) {
-    PromoCoordinator *coordinator = [[PromoCoordinator alloc] initWithViewController:self.ownerController
-                                                                            campaign:_promoDiscoveryCampaign];
-    _promoButton = [[PromoButton alloc] initWithCoordinator:coordinator];
-  }
-  return _promoButton;
-}
-*/
 
 - (MWMSideButtons *)sideButtons {
   if (!_sideButtons)
@@ -283,10 +255,9 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return _navigationManager;
 }
 
-- (MWMSearchManager *)searchManager {
+- (SearchOnMapManager *)searchManager {
   if (!_searchManager) {
-    _searchManager = [[MWMSearchManager alloc] init];
-    [MWMSearchManager addObserver:self];
+    _searchManager = [[SearchOnMapManager alloc] initWithNavigationController:self.ownerController.navigationController];
   }
   return _searchManager;
 }
