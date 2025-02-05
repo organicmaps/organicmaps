@@ -144,6 +144,10 @@ CGFloat const kButtonsBottomOffset = 6;
   [self setNeedsLayout];
 }
 
+- (CGRect)getAvailableArea {
+  return self.availableArea;
+}
+
 - (CGFloat)availableHeight {
   return self.availableArea.size.height - kButtonsTopOffset - kButtonsBottomOffset;
 }
