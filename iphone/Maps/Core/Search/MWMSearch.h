@@ -15,6 +15,8 @@ NS_SWIFT_NAME(Search)
 + (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale withCategory:(BOOL)isCategory;
 
 + (void)showResultAtIndex:(NSUInteger)index;
++ (void)showEverywhereSearchResultsOnMap;
++ (void)showViewportSearchResultsOnMap;
 
 + (SearchItemType)resultTypeWithRow:(NSUInteger)row;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;
