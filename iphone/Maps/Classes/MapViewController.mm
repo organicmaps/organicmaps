@@ -98,6 +98,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) PlacePageViewController *placePageVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *placePageContainerLeadingConstraint;
 
 @end
 
@@ -111,6 +112,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
 #pragma mark - Map Navigation
 
 - (void)showOrUpdatePlacePage:(PlacePageData *)data {
+  SearchOnMapManager * searchManager = [SearchOnMapManager shared];
+  if (searchManager.isSearching)
+    [searchManager setPlaceOnMapSelected:YES];
+
   self.controlsManager.trafficButtonHidden = YES;
   if (self.placePageVC != nil) {
     [PlacePageBuilder update:(PlacePageViewController *)self.placePageVC with:data];
@@ -125,6 +130,11 @@ NSString *const kSettingsSegue = @"Map2Settings";
   self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
   [self.placePageContainer addSubview:self.placePageVC.view];
   [self.view bringSubviewToFront:self.placePageContainer];
+  // TODO: (KK) Remove this constraint update when the MWMSearchManager will be removed by replacing with the SearchOnMapManager.
+  if (IPAD) {
+    CGFloat kLeadingPlacePageInset = SearchOnMapManager.shared.isSearching ? 370 : 20;
+    self.placePageContainerLeadingConstraint.constant = kLeadingPlacePageInset;
+  }
   [NSLayoutConstraint activateConstraints:@[
     [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
     [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
@@ -160,16 +170,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)onMapObjectDeselected {
   [self hidePlacePage];
 
-  MWMSearchManager * searchManager = MWMSearchManager.manager;
-  BOOL const isSearchResult = searchManager.state == MWMSearchManagerStateResult;
+  BOOL const isSearching = SearchOnMapManager.shared.isSearching;
   BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
-  if (isSearchResult) {
-    if (isNavigationDashboardHidden) {
-      searchManager.state = MWMSearchManagerStateMapSearch;
-    } else {
-      searchManager.state = MWMSearchManagerStateHidden;
-    }
-  }
+  if (isSearching)
+    [SearchOnMapManager.shared setPlaceOnMapSelected:!isNavigationDashboardHidden];
   // Always show the controls during the navigation or planning mode.
   if (!isNavigationDashboardHidden)
     self.controlsManager.hidden = NO;
@@ -215,6 +219,11 @@ NSString *const kSettingsSegue = @"Map2Settings";
   if ([MWMCarPlayService shared].isCarplayActivated) {
     return;
   }
+
+  SearchOnMapManager * searchManager = [SearchOnMapManager shared];
+  if (searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE)
+    [searchManager setMapIsDragging];
+
   NSArray *allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)
     return;
