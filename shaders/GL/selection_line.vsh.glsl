@@ -1,22 +1,33 @@
-in vec3 a_position;
-in vec2 a_normal;
-in vec2 a_colorTexCoords;
-in vec3 a_length;
-
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
-
-uniform vec2 u_lineParams;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec2 a_normal;
+layout (location = 2) in vec2 a_colorTexCoords;
+layout (location = 3) in vec3 a_length;
 
 #ifdef ENABLE_VTF
-uniform sampler2D u_colorTex;
-out LOW_P vec4 v_color;
+layout (location = 0) out LOW_P vec4 v_color;
 #else
-out vec2 v_colorTexCoord;
+layout (location = 1) out vec2 v_colorTexCoord;
+#endif
+layout (location = 2) out float v_lengthY;
+
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_position;
+  vec2 u_lineParams;
+  float u_accuracy;
+  float u_zScale;
+  float u_opacity;
+  float u_azimut;
+};
+
+#ifdef ENABLE_VTF
+layout (binding = 1) uniform sampler2D u_colorTex;
 #endif
 
-out float v_lengthY;
+const float kAntialiasingThreshold = 0.92;
 
 void main()
 {
@@ -30,7 +41,6 @@ void main()
     if (u_lineParams.y != 0.0)
       len = vec2(a_length.x + a_length.y * u_lineParams.y, a_length.z);
   }
-
 #ifdef ENABLE_VTF
   v_color = texture(u_colorTex, a_colorTexCoords);
 #else

@@ -1,16 +1,23 @@
-in vec3 a_position;
-in vec4 a_normal;
-in vec4 a_colorTexCoord;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec4 a_normal;
+layout (location = 2) in vec4 a_colorTexCoord;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
+layout (location = 0) out vec2 v_colorTexCoord;
+layout (location = 1) out vec2 v_maskTexCoord;
+layout (location = 2) out float v_halfLength;
 
-uniform vec4 u_trafficParams;
-
-out vec2 v_colorTexCoord;
-out vec2 v_maskTexCoord;
-out float v_halfLength;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_trafficParams;
+  vec4 u_outlineColor;
+  vec4 u_lightArrowColor;
+  vec4 u_darkArrowColor;
+  float u_outline;
+  float u_opacity;
+};
 
 const float kArrowVSize = 0.25;
 
@@ -26,7 +33,6 @@ void main()
     transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + norm,
                                                     u_modelView, length(norm));
   }
-
   float uOffset = length(vec4(kShapeCoordScalar, 0, 0, 0) * u_modelView) * a_normal.w;
   v_colorTexCoord = a_colorTexCoord.xy;
   float v = mix(a_colorTexCoord.z, a_colorTexCoord.z + kArrowVSize, 0.5 * a_normal.z + 0.5);
