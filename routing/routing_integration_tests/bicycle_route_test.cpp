@@ -352,24 +352,12 @@ UNIT_TEST(Belarus_StraightFootway)
       mercator::FromLatLon(53.876436, 30.3348084), 1613.34 /* expectedRouteMeters */);
 }
 
-UNIT_TEST(Spain_Madrid_ElevationsDetour)
+UNIT_TEST(Spain_Madrid_DedicatedCycleway)
 {
-  /// @todo(pastk): DELETE: there are no detours here atm, the second route is just a tad longer
-  /// and is of the same alt difference, so this test is currently useless
-  TRouteResult const r1 = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
-                              mercator::FromLatLon(40.459616, -3.690031), {0., 0.},
-                              mercator::FromLatLon(40.4408171, -3.69261893));
-  TEST_EQUAL(r1.second, RouterResultCode::NoError, ());
-
-  TRouteResult const r2 = CalculateRoute(GetVehicleComponents(VehicleType::Bicycle),
-                              mercator::FromLatLon(40.459616, -3.690031), {0., 0.},
-                              mercator::FromLatLon(40.4403523, -3.69267444));
-  TEST_EQUAL(r2.second, RouterResultCode::NoError, ());
-
-  TEST(r1.first && r2.first, ());
-
-  TEST_LESS(r1.first->GetTotalDistanceMeters(), r2.first->GetTotalDistanceMeters(), ());
-  TEST_LESS(r1.first->GetTotalTimeSec(), r2.first->GetTotalTimeSec(), ());
+  // Check that OM uses dedicated "Carril bici del Paseo de la Castellana".
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(40.459616, -3.690031), {0.0, 0.0},
+      mercator::FromLatLon(40.4403523, -3.69267444), 2283.89 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Seoul_ElevationDetour)
