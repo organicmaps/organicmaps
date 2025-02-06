@@ -27,7 +27,6 @@ set(SRC
   app/organicmaps/core/logging.cpp
   app/organicmaps/bookmarks/data/BookmarkManager.cpp
   app/organicmaps/DisplayedCategories.cpp
-  app/organicmaps/DownloadResourcesLegacyActivity.cpp
   app/organicmaps/editor/Editor.cpp
   app/organicmaps/editor/OpeningHours.cpp
   app/organicmaps/editor/OsmOAuth.cpp

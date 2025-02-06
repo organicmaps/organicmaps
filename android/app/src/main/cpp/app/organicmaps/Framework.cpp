@@ -574,13 +574,6 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
-void Framework::ReloadWorldMaps()
-{
-  /// @todo Can invent more optimal routine to remove/add World files only.
-  RemoveLocalMaps();
-  AddLocalMaps();
-}
-
 void Framework::ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm)
 {
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
@@ -1673,12 +1666,6 @@ Java_app_organicmaps_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
                         distance.get(), distanceUnits.get(), static_cast<jint>(routeInfo.m_totalTimeInSec),
                         distancePedestrian.get(), distancePedestrianUnits.get(), static_cast<jint>(routeInfo.m_totalPedestrianTimeInSec),
                         steps.get());
-}
-
-JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)
-{
-  g_framework->ReloadWorldMaps();
 }
 
 JNIEXPORT jboolean JNICALL

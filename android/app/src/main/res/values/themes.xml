@@ -31,11 +31,6 @@
     <item name="android:windowTranslucentNavigation">false</item>
   </style>
 
-  <style name="MwmTheme.DownloadResourcesLegacy">
-    <item name="android:statusBarColor">@android:color/white</item>
-    <item name="android:navigationBarColor">@android:color/transparent</item>
-  </style>
-
   <style name="MwmTheme.CardBg">
     <item name="android:windowBackground">@color/bg_cards</item>
   </style>

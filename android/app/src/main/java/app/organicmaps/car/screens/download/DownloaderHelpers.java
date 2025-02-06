@@ -14,17 +14,6 @@ import java.util.List;
 
 public final class DownloaderHelpers
 {
-  static final String[] WORLD_MAPS = new String[]{"World", "WorldCoasts"};
-
-  // World maps may be missing only in the F-Droid build.
-  @SuppressWarnings("ConstantConditions")
-  public static boolean isWorldMapsDownloadNeeded()
-  {
-    if (BuildConfig.FLAVOR.equals("fdroid"))
-      return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
-    return false;
-  }
-
   @NonNull
   static List<CountryItem> getCountryItemsFromIds(@Nullable final String[] countryIds)
   {

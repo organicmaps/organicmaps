@@ -243,8 +243,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
-    return new Intent(context, DownloadResourcesLegacyActivity.class)
-        .putExtra(EXTRA_COUNTRY_ID, countryId);
+    return new Intent(context, SplashActivity.class).putExtra(EXTRA_COUNTRY_ID, countryId);
   }
 
   @Override
