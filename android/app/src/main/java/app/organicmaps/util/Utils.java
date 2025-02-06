@@ -286,6 +286,17 @@ public class Utils
       Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
   }
 
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage, @NonNull String action) {
+    final Intent intent = new Intent(action);
+    intent.setData(uri);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    if (intent.resolveActivity(context.getPackageManager()) != null)
+      context.startActivity(intent);
+    else
+      Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
+  }
+
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
   {
     return url.startsWith("http://") || url.startsWith("https://");
