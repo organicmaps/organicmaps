@@ -118,13 +118,14 @@ public class LocationUtils
     return ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
   }
 
-  public static boolean checkCoarseLocationPermission(@NonNull Context context)
-  {
-    return ContextCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED;
-  }
-
+  /**
+   * Checks if the app has location permissions granted.
+   * Returns true if either:
+   * Only ACCESS_COARSE_LOCATION is granted
+   * Both ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are granted
+   */
   public static boolean checkLocationPermission(@NonNull Context context)
   {
-    return checkFineLocationPermission(context) || checkCoarseLocationPermission(context);
+    return ContextCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED;
   }
 }

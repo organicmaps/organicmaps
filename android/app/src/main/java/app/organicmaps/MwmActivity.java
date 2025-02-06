@@ -152,6 +152,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private boolean mPreciseLocationDialogShown = false;
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -1830,7 +1831,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     // Check for any location permissions.
-    if (!LocationUtils.checkCoarseLocationPermission(this))
+    if (!LocationUtils.checkLocationPermission(this))
     {
       Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are not granted");
       // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
@@ -1968,12 +1969,50 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPermissionRequestedForRecording = false;
     if (LocationUtils.checkLocationPermission(this))
     {
+      final boolean hasFineLocationPermission = LocationUtils.checkFineLocationPermission(this);
+
       if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
         LocationState.nativeSwitchToNextMode();
 
-      if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
+      if (requestedForRecording && hasFineLocationPermission)
         startTrackRecording();
 
+      if (hasFineLocationPermission)
+      {
+        Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+      }
+      else
+      {
+        Logger.w(LOCATION_TAG, "Only ACCESS_COARSE_LOCATION permission granted");
+        if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+        {
+          Logger.w(LOCATION_TAG, "Don't show 'Precise Location denied' dialog because another dialog is in progress");
+          return;
+        }
+        if (!mPreciseLocationDialogShown)
+        {
+          mPreciseLocationDialogShown = true;
+          final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle("⚠ " + getString(R.string.limited_accuracy))
+              .setMessage(R.string.precise_location_is_disabled_long_text)
+              .setNegativeButton(R.string.close, (dialog, which) -> dialog.dismiss())
+              .setCancelable(true)
+              .setOnDismissListener(dialog -> mLocationErrorDialog = null);
+          final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+          if (intent != null)
+          {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            builder.setPositiveButton(R.string.location_settings, (dialog, which) -> startActivity(intent));
+          }
+          mLocationErrorDialog = builder.show();
+        }
+        else
+        {
+          Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show();
+        }
+      }
       return;
     }
 
