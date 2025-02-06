@@ -463,6 +463,8 @@ UNIT_TEST(UK_ForbidGates_WithoutAccess)
 
 UNIT_TEST(UK_Canterbury_AvoidDismount)
 {
+  /// @todo(pastk): the case is controversial, a user emailed "All cyclists in our town use this particular footway"
+  /// but we don't know if cyclists dismount there or just cycle through (ignoring the UK rules).
   // A shortcut via a footway is 305 meters, ETAs are similar, but cyclists prefer to ride!
   // Check the London_GreenwichTunnel case for when dismounting is reasonable as the detour is way too long.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
