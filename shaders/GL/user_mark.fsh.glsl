@@ -1,14 +1,24 @@
 // Warning! Beware to use this shader. "discard" command may significally reduce performance.
-// Unfortunately some CG algorithms cannot be implemented on OpenGL ES 2.0 without discarding
-// fragments from depth buffer.
+// Unfortunately some CG algorithms cannot be implemented without discarding fragments from depth buffer.
 
-uniform sampler2D u_colorTex;
-uniform float u_opacity;
+layout (location = 0) in vec4 v_texCoords;
+layout (location = 1) in vec4 v_maskColor;
 
-in vec4 v_texCoords;
-in vec4 v_maskColor;
+layout (location = 0) out vec4 v_FragColor;
 
-out vec4 v_FragColor;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec2 u_contrastGamma;
+  float u_opacity;
+  float u_zScale;
+  float u_interpolation;
+  float u_isOutlinePass;
+};
+
+layout (binding = 1) uniform sampler2D u_colorTex;
 
 void main()
 {

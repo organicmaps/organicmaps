@@ -1,15 +1,22 @@
-in vec4 a_position;
-in vec2 a_normal;
-in vec2 a_colorTexCoords;
-in vec2 a_maskTexCoords;
+layout (location = 0) in vec4 a_position;
+layout (location = 1) in vec2 a_normal;
+layout (location = 2) in vec2 a_colorTexCoords;
+layout (location = 3) in vec2 a_maskTexCoords;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
-uniform float u_zScale;
+layout (location = 0) out vec2 v_colorTexCoords;
+layout (location = 1) out vec2 v_maskTexCoords;
 
-out vec2 v_colorTexCoords;
-out vec2 v_maskTexCoords;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec2 u_contrastGamma;
+  float u_opacity;
+  float u_zScale;
+  float u_interpolation;
+  float u_isOutlinePass;
+};
 
 void main()
 {
