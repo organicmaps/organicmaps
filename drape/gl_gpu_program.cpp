@@ -95,7 +95,7 @@ void GLGpuProgram::LoadUniformLocations()
     std::string name;
     GLFunctions::glGetActiveUniform(m_programID, static_cast<uint32_t>(i), &size, &info.m_type, name);
     CHECK(kSupportedTypes.find(info.m_type) != kSupportedTypes.cend(),
-          ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
+          ("Used uniform has unsupported type. Program =", m_programName, "; Type =", info.m_type, "; Name =", name));
 
     info.m_location = GLFunctions::glGetUniformLocation(m_programID, name);
     m_uniforms[name] = std::move(info);

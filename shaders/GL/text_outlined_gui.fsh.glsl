@@ -12,12 +12,11 @@ layout (binding = 0) uniform UBO
 {
   mat4 u_modelView;
   mat4 u_projection;
-  mat4 u_pivotTransform;
   vec2 u_contrastGamma;
-  float u_opacity;
-  float u_zScale;
-  float u_interpolation;
+  vec2 u_position;
   float u_isOutlinePass;
+  float u_opacity;
+  float u_length;
 };
 
 layout (binding = 2) uniform sampler2D u_maskTex;
