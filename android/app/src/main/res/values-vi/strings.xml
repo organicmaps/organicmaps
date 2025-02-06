@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Xóa</string>
     <string name="download_maps">Tải xuống Bản đồ</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Tải xuống thất bại, hãy chạm lại để thử một lần nữa</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Đang tải xuống…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Hiển thị trên bản đồ</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Tải xuống đã thất bại</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Thử lại</string>
     <string name="about_menu_title">Giới thiệu về Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Miễn phí cho mọi người, được làm bằng tình yêu</string>
@@ -48,19 +44,7 @@
     <string name="close">Đóng</string>
     <string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
     <string name="download">Tải xuống</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
-    <string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.
-\nBản đồ này cần %s dữ liệu.</string>
-    <string name="download_resources_continue">Đến Bản đồ</string>
-    <string name="downloading_country_can_proceed">Đang tải xuống %s. Bây giờ bạn đã có thể
-\nvào bản đồ.</string>
     <string name="download_country_ask">Tải xuống %s?</string>
-    <string name="update_country_ask">Cập nhật %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Tạm dừng</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Tiếp tục</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -302,8 +286,6 @@
     <string name="routing_download_maps_along">Tải xuống bản đồ theo tuyến đường</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Không đủ không gian</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Bạn vui lòng bật Dịch vụ Định vị</string>
     <string name="save">Lưu</string>

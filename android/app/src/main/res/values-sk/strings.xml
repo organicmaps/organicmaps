@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Zmazať</string>
     <string name="download_maps">Stiahnuť mapy</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Sťahovanie zlyhalo, skúste to znova.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Sťahovanie…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Ukázať na mape</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Sťahovanie zlyhalo</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Skúsiť znova</string>
     <string name="about_menu_title">O aplikácii Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Zadarmo pre každého, vyrobené s láskou</string>
@@ -48,19 +44,7 @@
     <string name="close">Zavrieť</string>
     <string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
     <string name="download">Stiahnuť</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
-    <string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.
-\nZaberie to %s.</string>
-    <string name="download_resources_continue">Prejsť na mapu</string>
-    <string name="downloading_country_can_proceed">Sťahovanie %s. Teraz môžete
-\nprejsť na mapu.</string>
     <string name="download_country_ask">Stiahnuť %s?</string>
-    <string name="update_country_ask">Aktualizovať %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pauza</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Pokračovať</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -323,8 +307,6 @@
     <string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Aby bolo možné naplánovať cestu, je potrebné stiahnuť všetky mapy od vašej pozície po cieľové miesto.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Nedostatok miesta</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Prosím, povoľte Služby určovania polohy</string>
     <string name="save">Uložiť</string>
@@ -777,13 +759,6 @@
     <string name="elevation_profile_time">Čas:</string>
     <string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
     <string name="downloader_loading_ios">Sťahovanie</string>
-    <string name="download_map_title">Stiahnuť mapu sveta</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Nepodarilo sa vytvoriť priečinok a presunúť súbory do internej pamäte alebo na SD kartu</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Chyba spojenia</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Odpojte USB kábel</string>
     <string name="enable_keep_screen_on">Nechať obrazovku zapnutú</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.</string>

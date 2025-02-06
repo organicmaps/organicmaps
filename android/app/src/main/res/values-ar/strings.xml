@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">حذف</string>
     <string name="download_maps">تنزيل الخرائط</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">فشلت عملية التنزيل، انقر لإعادة المحاولة</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">جاري التنزيل…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">عرض على الخريطة</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">فشلت عملية تنزيل</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">محاولة مرة أخرى</string>
     <string name="about_menu_title">حول Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">مجاني للجميع ، مصنوع من الحب</string>
@@ -51,19 +47,7 @@
     <string name="close">إغلاق</string>
     <string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
     <string name="download">تنزيل</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
-    <string name="download_resources">قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.
-\nستحتاج إلى %s من البيانات.</string>
-    <string name="download_resources_continue">الذهاب الى الخريطة</string>
-    <string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن
-\nالمتابعة الى الخريطة.</string>
     <string name="download_country_ask">هل تريد تنزيل %s؟</string>
-    <string name="update_country_ask">هل تريد تحديث %s ؟</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">توقيف مؤقت</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">استمرار</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -338,8 +322,6 @@
     <string name="routing_download_maps_along">تنزيل الخرائط على طول طريقك</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">لا يوجد مساحة كافية</string>
     <!-- location service disabled -->
     <string name="enable_location_services">الرجاء تفعيل خدمة تحديد الموقع الجغرافي</string>
     <string name="save">حفظ</string>
@@ -792,15 +774,6 @@
     <string name="elevation_profile_time">المدة:</string>
     <string name="isolines_toast_zooms_1_10">قم بالتقريب لتكتشف خطوط الكنتور</string>
     <string name="downloader_loading_ios">جاري التنزيل</string>
-    <string name="download_map_title">تنزيل خريطة العالم</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">حدث خطأ في التخزين</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">فشل الاتصال</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">إفصل سلك USB</string>
     <string name="enable_keep_screen_on">إبقاء الشاشة قيد التشغيل</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">عند التمكين، ستكون الشاشة قيد التشغيل دائمًا عند عرض الخريطة.</string>

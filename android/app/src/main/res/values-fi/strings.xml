@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Poista</string>
     <string name="download_maps">Lataa karttoja</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Lataus epäonnistui, yritä uudelleen koskettamalla</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Ladataan…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Näytä kartalla</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Lataus epäonnistui</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Yritä uudelleen</string>
     <string name="about_menu_title">Tietoa Organic Maps:stä</string>
     <!-- Text in About screen -->
     <string name="about_headline">Ilmainen kaikille, tehty rakkaudella</string>
@@ -51,18 +47,7 @@
     <string name="close">Sulje</string>
     <string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
     <string name="download">Lataa</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
-    <string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.
-\nSe tarvitsee yhteensä %s tilaa.</string>
-    <string name="download_resources_continue">Siirry karttaan</string>
-    <string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
     <string name="download_country_ask">Ladataanko %s?</string>
-    <string name="update_country_ask">Päivitetäänkö %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pysäytä</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Jatka</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -322,8 +307,6 @@
     <string name="routing_download_maps_along">Lataa karttoja matkalla</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ei tarpeeksi tilaa</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
     <string name="save">Tallenna</string>
@@ -778,15 +761,6 @@
     <string name="elevation_profile_time">Aika:</string>
     <string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
     <string name="downloader_loading_ios">Ladataan</string>
-    <string name="download_map_title">Lataa maailmankartta</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Kansion luonti ja tiedoston siirto ei onnistu laitteen muistissa tai SD-koritlla</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Tallennusvirhe</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Yhteysvirhe</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
     <string name="enable_keep_screen_on">Pidä näyttö päällä</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Kun tämä on käytössä, näyttö on aina päällä, kun kartta näytetään.</string>

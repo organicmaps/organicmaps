@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">削除</string>
     <string name="download_maps">マップをダウンロード</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">ダウンロード中…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">地図に表示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">のダウンロードに失敗しました</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">再実行</string>
     <string name="about_menu_title">Organic Mapsについて</string>
     <!-- Text in About screen -->
     <string name="about_headline">すべての人のために無料で、愛を込めて作られています</string>
@@ -48,18 +44,7 @@
     <string name="close">閉じる</string>
     <string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
     <string name="download">ダウンロード</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
-    <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
-    <string name="download_resources_continue">マップを表示</string>
-    <string name="downloading_country_can_proceed">%sをダウンロードしました
-\nマップを表示可能です</string>
     <string name="download_country_ask">%sをダウンロードしますか？</string>
-    <string name="update_country_ask">%sを更新しますか？</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">一時停止</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">続行</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -326,8 +311,6 @@
     <string name="routing_download_maps_along">ルート上の地図をダウンロード</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">空き容量が足りません</string>
     <!-- location service disabled -->
     <string name="enable_location_services">位置情報サービスを有効化してください</string>
     <string name="save">保存</string>
@@ -780,15 +763,6 @@
     <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">等高線を調べるようにズームインしてください</string>
     <string name="downloader_loading_ios">ダウンロード中</string>
-    <string name="download_map_title">世界地図をダウンロード</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">フォルダーの作成と内部ストレージまたはSDカードへのファイルの移動に失敗しました</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">ディスクエラー</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">接続エラー</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USBケーブルを抜いてください</string>
     <string name="enable_keep_screen_on">画面を表示したままにする</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">有効にすると、地図を表示するときにスクリーンが常にオンになる。</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Dzēst</string>
     <string name="download_maps">Lejupielādēt kartes</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Lejupielāde neizdevās. Pieskarieties, lai mēģinātu vēlreiz.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Lejupielādē…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Rādīt kartē</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Lejupielāde neizdevās</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Mēģināt vēlreiz</string>
     <string name="about_menu_title">Par „Organic Maps“</string>
     <!-- Text in About screen -->
     <string name="about_headline">Bezmaksas, pieejama visiem un veidota ar mīlestību</string>
@@ -48,19 +44,7 @@
     <string name="close">Aizvērt</string>
     <string name="unsupported_phone">Lietotnei nepieciešams „OpenGL“ aparatūras paātrinājums, bet diemžēl Jūsu ierīce to neatbalsta.</string>
     <string name="download">Lejupielādēt</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē</string>
-    <string name="download_resources">Pirms lietotnes izmantošanas lejupielādējiet kopējo pasaules karti.
-\nTā ierīce krātuvē aizņems %s vietas.</string>
-    <string name="download_resources_continue">Iet uz karti</string>
-    <string name="downloading_country_can_proceed">Lejupielādē „%s“. Tagad varat
-\niet uz karti.</string>
     <string name="download_country_ask">Vai lejupielādēt „%s“?</string>
-    <string name="update_country_ask">Vai atjaunināt „%s“?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pauze</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Turpināt</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -324,8 +308,6 @@
     <string name="routing_download_maps_along">Lejupielādēt visas maršruta kartes</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Lai izveidotu maršrutu, lejupielādējiet un atjauniniet visas kartes no jūsu atrašanās vietas līdz galamērķim.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Trūkst vietas</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Ieslēdziet ierīces atrašanās vietas noteikšanas pakalpojumus</string>
     <string name="save">Saglabāt</string>
@@ -779,15 +761,6 @@
     <string name="elevation_profile_time">Laiks:</string>
     <string name="isolines_toast_zooms_1_10">Pietuviniet, lai izpētītu izolīnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
-    <string name="download_map_title">Lejupielādēt pasaules karti</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Neizdevās izveidot mapi un pārvietot datnes iekšējā atmiņā vai SD kartē</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Diska kļūda</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Savienojuma kļūda</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Atvienojiet USB kabeli</string>
     <string name="enable_keep_screen_on">Paturēt ekrānu ieslēgtu</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Kad ieslēgts, rādot karti, ekrāns vienmēr būs ieslēgts.</string>

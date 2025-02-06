@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Обриши</string>
     <string name="download_maps">Преузми мапе</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Преузимање није успело. Додирни за поновни покушај.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Преузимање…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Прикажи на мапи</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Преузимање није успело</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Покушај поново</string>
     <string name="about_menu_title">О апликацији Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Слободна за све, направљена с љубављу</string>
@@ -48,19 +44,7 @@
     <string name="close">Затвори</string>
     <string name="unsupported_phone">Ова апликација захтева хардверски-убрзан OpenGL. На жалост, ваш уређај није подржан.</string>
     <string name="download">Преузми</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Молим вас, прво ослободите нешто простора на SD картици или на USB меморији да бисте користили апликацију</string>
-    <string name="download_resources">Пре него што почнете да користите апликацију, прво преузмите на ваш уређај општу мапу света.
-\nЗа то ће бити потребно %s меморије.</string>
-    <string name="download_resources_continue">Иди на мапу</string>
-    <string name="downloading_country_can_proceed">Преузимање %s. Можете
-\nотићи на мапу.</string>
     <string name="download_country_ask">Преузети %s?</string>
-    <string name="update_country_ask">Ажурирати %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Пауза</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Настави</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -320,8 +304,6 @@
     <string name="routing_download_maps_along">Преузми све мапе које се налазе на рути</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Да би рута могла да се креира, потребно је да преузимање и ажурирање свих мапа између ваше локације и вашег одредишта.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Нема довољно простора</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Молим вас укључите Локацијске сервисе</string>
     <string name="save">Сачувај</string>
@@ -772,15 +754,6 @@
     <string name="elevation_profile_time">Време:</string>
     <string name="isolines_toast_zooms_1_10">Увећајте да бисте видели изолиније</string>
     <string name="downloader_loading_ios">Преузимање</string>
-    <string name="download_map_title">Преузми мапу света</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Не могу да направим фолдер и пременстим фајлове на интерну меморију уређаја или на SD картицу</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Грешка са меморијом</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Повезивање није успело</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Откачите USB кабл</string>
     <string name="enable_keep_screen_on">Екран увек укључен</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Када је одабрано, екран ће увек бити укључен док се приказује мапа.</string>

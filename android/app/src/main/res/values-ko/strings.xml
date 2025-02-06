@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">삭제하기</string>
     <string name="download_maps">지도 다운로드받기</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">다운로드에 실패하였습니다. 다시 시도하려면 터치하세요.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">다운로드 중…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">지도에 표시</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">다운로드에 실패하였습니다</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">다시 시도</string>
     <string name="about_menu_title">Organic Maps 정보</string>
     <!-- Text in About screen -->
     <string name="about_headline">사랑으로 만든 모든 사람에게 무료</string>
@@ -48,18 +44,7 @@
     <string name="close">닫기</string>
     <string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
     <string name="download">다운로드</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요</string>
-    <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.
-\n%s 데이터가 필요합니다.</string>
-    <string name="download_resources_continue">지도로 이동</string>
-    <string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
     <string name="download_country_ask">%s다운로드?</string>
-    <string name="update_country_ask">%s업데이트?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">중지</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">계속</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -301,8 +286,6 @@
     <string name="routing_download_maps_along">경로를 따라 지도 다운로드</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">여유 공간 부족</string>
     <!-- location service disabled -->
     <string name="enable_location_services">위치 서비스를 작동시켜 주십시요.</string>
     <string name="save">저장</string>

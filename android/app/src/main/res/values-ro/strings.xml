@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Șterge</string>
     <string name="download_maps">Descarcă hărți</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Descărcarea a eșuat. Atinge pentru a încerca din nou.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Se descarcă…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Arată pe hartă</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Descărcarea a eșuat</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Mai încearcă</string>
     <string name="about_menu_title">Despre Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratuit pentru toată lumea, făcut cu dragoste</string>
@@ -48,19 +44,7 @@
     <string name="close">Închide</string>
     <string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
     <string name="download">Descarcă</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
-    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.
-\nSe vor descărca %s.</string>
-    <string name="download_resources_continue">Mergi la hartă</string>
-    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți
-\ntrece la hartă.</string>
     <string name="download_country_ask">Descarci %s?</string>
-    <string name="update_country_ask">Actualizezi %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pauză</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continuă</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -309,8 +293,6 @@
     <string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Spațiu insuficient</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Activează serviciile de localizare</string>
     <string name="save">Salvează</string>
@@ -765,11 +747,6 @@
     <string name="elevation_profile_time">Timp:</string>
     <string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
     <string name="downloader_loading_ios">Se descarcă</string>
-    <string name="download_map_title">Descarcă harta lumii</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Eroare de conectare</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Deconectează cablul USB</string>
     <string name="enable_keep_screen_on">Păstrați ecranul pornit</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Atunci când este activat, ecranul va fi întotdeauna aprins la afișarea hărții.</string>

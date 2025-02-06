@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Kustuta</string>
     <string name="download_maps">Lae kaarte</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Allalaadimine…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Kuva kaardil</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Allalaadimine ebaõnnestus</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Proovi uuesti</string>
     <string name="about_menu_title">Organic Maps kohta</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
@@ -42,19 +38,7 @@
     <string name="close">Sulge</string>
     <string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
     <string name="download">Lae alla</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel</string>
-    <string name="download_resources">Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.
-\nSee kasutab %s mälumahtu.</string>
-    <string name="download_resources_continue">Mine kaardile</string>
-    <string name="downloading_country_can_proceed">Allalaadimine %s. Võid nüüd
-\nkaardiga jätkata.</string>
     <string name="download_country_ask">Laadida alla %s?</string>
-    <string name="update_country_ask">Värskendada %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Peata</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Jätka</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -316,8 +300,6 @@
     <string name="routing_download_maps_along">Lae alla kõik kaardid oma marsruudil</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Marsruudi loomiseks on meil vaja alla laadida ja värskendada kõiki sinu lähte- ja sihtkoha vahele jäävaid kaarte.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ei ole piisavalt ruumi</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Palun luba asukohateenused</string>
     <string name="save">Salvesta</string>
@@ -773,15 +755,6 @@
     <string name="elevation_profile_time">Aeg:</string>
     <string name="isolines_toast_zooms_1_10">Isojoonte sirvimiseks suurenda kaarti</string>
     <string name="downloader_loading_ios">Allalaadimine</string>
-    <string name="download_map_title">Maailma kaardi allalaadimine</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Salvestusseadme viga</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Ühenduse viga</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Ühenda USB kaabel lahti</string>
     <string name="enable_keep_screen_on">Hoidke ekraani sisse lülitatud</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Kui see on lubatud, on ekraan alati sisse lülitatud, kui kaart kuvatakse.</string>

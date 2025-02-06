@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Sil</string>
     <string name="download_maps">Harita indir</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">İndirme başarısız oldu. Tekrar denemek için dokunun.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">İndiriliyor…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -32,8 +30,6 @@
     <string name="zoom_to_country">Haritada göster</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">İndirme başarısız oldu</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Tekrar Dene</string>
     <string name="about_menu_title">Organic Maps Hakkında</string>
     <!-- Text in About screen -->
     <string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
@@ -50,19 +46,7 @@
     <string name="close">Kapat</string>
     <string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
     <string name="download">İndir</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
-    <string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.
-\n%s alan gerekli.</string>
-    <string name="download_resources_continue">Haritaya Git</string>
-    <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya
-\ngidebilirsiniz.</string>
     <string name="download_country_ask">%s indir?</string>
-    <string name="update_country_ask">%s güncelle?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Duraklat</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Devam</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -325,8 +309,6 @@
     <string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Yeterli alan yok</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Lütfen konum hizmetlerini etkinleştirin</string>
     <string name="save">Kaydet</string>
@@ -780,15 +762,6 @@
     <string name="elevation_profile_time">Süre:</string>
     <string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
     <string name="downloader_loading_ios">İndiriliyor</string>
-    <string name="download_map_title">Dünya haritasını indir</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Disk hatası</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Bağlantı hatası</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>
     <string name="enable_keep_screen_on">Ekranı açık tut</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Etkinleştirildiğinde, harita görüntülenirken ekran her zaman açık olacaktır.</string>

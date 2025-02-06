@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Verwijder</string>
     <string name="download_maps">Download kaarten</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Downloaden is mislukt. Tik om het opnieuw te proberen.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Downloaden…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Toon op de kaart</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Downloaden is mislukt</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Probeer opnieuw</string>
     <string name="about_menu_title">Over Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis voor iedereen, met liefde gemaakt</string>
@@ -48,19 +44,7 @@
     <string name="close">Sluit</string>
     <string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
     <string name="download">Download</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Verwijder de USB-kabel of plaats een geheugenkaart om Organic Maps te gebruiken</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken</string>
-    <string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.
-\nDeze neemt %s in beslag.</string>
-    <string name="download_resources_continue">Ga naar de kaart</string>
-    <string name="downloading_country_can_proceed">%s aan het downloaden. U kunt nu
-\ndoorgaan naar de kaart.</string>
     <string name="download_country_ask">%s downloaden?</string>
-    <string name="update_country_ask">%s updaten?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pauzeer</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Ga verder</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -323,8 +307,6 @@
     <string name="routing_download_maps_along">Download kaarten op de route</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Niet genoeg ruimte</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Schakel locatiediensten in</string>
     <string name="save">Bewaar</string>
@@ -777,15 +759,6 @@
     <string name="elevation_profile_time">Tijd:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in om hoogtelijnen te bekijken</string>
     <string name="downloader_loading_ios">Downloaden</string>
-    <string name="download_map_title">Download de wereldkaart</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Schijffout</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Verbindingsfout</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USB-kabel losmaken</string>
     <string name="enable_keep_screen_on">Scherm ingeschakeld houden</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Als deze optie is ingeschakeld, staat het scherm altijd aan als de kaart wordt weergegeven.</string>

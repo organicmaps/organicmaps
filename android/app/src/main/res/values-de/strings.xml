@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Löschen</string>
     <string name="download_maps">Karten herunterladen</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Wird heruntergeladen…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Auf der Karte anzeigen</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Herunterladen fehlgeschlagen</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Erneut versuchen</string>
     <string name="about_menu_title">Über Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Kostenlos für alle, mit Liebe gemacht</string>
@@ -48,19 +44,7 @@
     <string name="close">Schließen</string>
     <string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
     <string name="download">Herunterladen</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
-    <string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.
-\nEs werden %s Speicherplatz benötigt.</string>
-    <string name="download_resources_continue">Zur Karte</string>
-    <string name="downloading_country_can_proceed">%s wird heruntergeladen. Sie können jetzt
-\nzur Karte weitergehen.</string>
     <string name="download_country_ask">%s herunterladen?</string>
-    <string name="update_country_ask">%s aktualisieren?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Fortfahren</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -323,8 +307,6 @@
     <string name="routing_download_maps_along">Karten entlang der Route herunterladen</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Nicht genügend Speicherplatz</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Bitte aktivieren Sie die Standortdienste</string>
     <string name="save">Speichern</string>
@@ -779,15 +761,6 @@
     <string name="elevation_profile_time">Dauer:</string>
     <string name="isolines_toast_zooms_1_10">Karte vergrößern, um Höhelinien sichtbar zu machen</string>
     <string name="downloader_loading_ios">Herunterladen</string>
-    <string name="download_map_title">Herunterladen der Weltkarte</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Speicherfehler</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Verbindungsfehler</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
     <string name="enable_keep_screen_on">Bildschirm anlassen</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Wenn diese Option aktiviert ist, ist der Bildschirm bei der Anzeige der Karte immer eingeschaltet.</string>

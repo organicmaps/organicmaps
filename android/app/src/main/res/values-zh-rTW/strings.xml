@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">刪除</string>
     <string name="download_maps">下載地圖</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">下載失敗，點擊後再試一次</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">下載中…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">在地圖上顯示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">下載失敗</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">再試一次</string>
     <string name="about_menu_title">關於 Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">對每個人都免費，用愛製成</string>
@@ -51,19 +47,7 @@
     <string name="close">關閉</string>
     <string name="unsupported_phone">該應用程式需要硬體加速的 OpenGL。很遺憾，您的裝置不受支援。</string>
     <string name="download">下載</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps。</string>
-    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。
-\n它將使用 %s 的儲存空間。</string>
-    <string name="download_resources_continue">前往地圖</string>
-    <string name="downloading_country_can_proceed">正在下載%s。您現在可以
-\n繼續查看地圖。</string>
     <string name="download_country_ask">下載%s的地圖嗎？</string>
-    <string name="update_country_ask">更新%s的地圖嗎？</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">暫停</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">繼續</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -332,8 +316,6 @@
     <string name="routing_download_maps_along">下載路線上的所有地圖</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">規劃路線需要下載並更新好所有從您的位置到目的地的地圖。</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">空間不足</string>
     <!-- location service disabled -->
     <string name="enable_location_services">請啟用定位服務</string>
     <string name="save">儲存</string>
@@ -790,15 +772,6 @@
     <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
     <string name="downloader_loading_ios">正在下載</string>
-    <string name="download_map_title">下載世界地圖</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">無法在內部儲存或 SD 卡上建立資料夾和移動檔案</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">磁碟錯誤</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">磁碟錯誤</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">斷開 USB 線路</string>
     <string name="enable_keep_screen_on">保持螢幕開啟</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">啟用後，顯示地圖時畫面將始終開啟。</string>

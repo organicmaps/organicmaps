@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Sil</string>
     <string name="download_maps">Xəritəni yüklə</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Yükləmə uğursuz oldu. Yenidən cəhd etmək üçün toxunun.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Endirilir…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -32,8 +30,6 @@
     <string name="zoom_to_country">Xəritədə göstər</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Yükləmə uğursuz oldu</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Yenidən cəhd et</string>
     <string name="about_menu_title">Organic Maps Haqqında</string>
     <!-- Text in About screen -->
     <string name="about_headline">Hər kəs üçün ödənişsiz və sevgi ilə hazırlanmış xəritə</string>
@@ -50,18 +46,7 @@
     <string name="close">Yaxın</string>
     <string name="unsupported_phone">Tətbiq aparatla sürətləndirilmiş OpenGL tələb edir. Təəssüf ki, cihazınız dəstəklənmir.</string>
     <string name="download">Yüklə</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps\'dan istifadə etmək üçün zəhmət olmasa USB kabeli ayırın və ya yaddaş kartı daxil edin</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Tətbiqdən istifadə etmək üçün SD kartda/USB yaddaş cihazında bir qədər yer boşaldın.</string>
-    <string name="download_resources">Başlamazdan əvvəl gəlin ümumi dünya xəritəsini cihazınıza endirək.
-\n%s yer tələb olunur.</string>
-    <string name="download_resources_continue">Xəritəyə keçin</string>
-    <string name="downloading_country_can_proceed">%s endirilir. İndi xəritəyə gedə bilərsiniz.</string>
     <string name="download_country_ask">%s endirilir?</string>
-    <string name="update_country_ask">%s yenilənsin?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Dayan</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Davam et</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -324,8 +309,6 @@
     <string name="routing_download_maps_along">Marşrut boyunca bütün xəritələri endirin</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Marşrut yaratmaq üçün yerinizdən təyinat yerinə qədər bütün xəritələri endirməli və güncəlləşdirməliyik.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Kifayət qədər yer yoxdur</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Zəhmət olmasa məkan xidmətlərini aktivləşdirin</string>
     <string name="save">Yadda saxla</string>
@@ -777,15 +760,6 @@
     <string name="elevation_profile_time">Müddət:</string>
     <string name="isolines_toast_zooms_1_10">İzohipləri görmək üçün xəritəni böyüdün</string>
     <string name="downloader_loading_ios">Endirilir</string>
-    <string name="download_map_title">Dünya xəritəsini yükləyin</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Qovluq yaratmaq və faylları daxili cihazın yaddaşında və ya SD kartda köçürmək mümkün deyil</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Disk xətası</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Əlaqə xətası</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USB kabelini ayırın</string>
     <string name="enable_keep_screen_on">Ekranı açıq saxlayın</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Aktiv edildikdə, xəritəyə baxarkən ekran həmişə açıq olacaq.</string>

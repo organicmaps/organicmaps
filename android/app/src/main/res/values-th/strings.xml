@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">ลบ</string>
     <string name="download_maps">ดาวน์โหลดแผนที่</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">กำลังดาวน์โหลด…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -32,8 +30,6 @@
     <string name="zoom_to_country">แสดงบนแผนที่</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">ลองอีกครั้ง</string>
     <string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">ฟรีสำหรับทุกคนทำด้วยความรัก</string>
@@ -50,19 +46,7 @@
     <string name="close">ปิด</string>
     <string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
     <string name="download">ดาวน์โหลด</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
-    <string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ
-\nจำเป็นต้องใช้ %s ของข้อมูล</string>
-    <string name="download_resources_continue">ไปยังแผนที่</string>
-    <string name="downloading_country_can_proceed">กำลังดาวน์โหลด %s ตอนนี้คุณสามารถ
-\nดำเนินการต่อไปยังแผนที่</string>
     <string name="download_country_ask">ดาวน์โหลด %s?</string>
-    <string name="update_country_ask">อัปเดต %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">หยุดชั่วคราว</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">ดำเนินการต่อ</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -304,8 +288,6 @@
     <string name="routing_download_maps_along">ดาวน์โหลดแผนที่ตามเส้นทาง</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">มีพื้นที่ไม่เพียงพอ</string>
     <!-- location service disabled -->
     <string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
     <string name="save">บันทึก</string>

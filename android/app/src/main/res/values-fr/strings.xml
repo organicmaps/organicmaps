@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Supprimer</string>
     <string name="download_maps">Télécharger des cartes</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Échec lors du téléchargement. Appuyer pour réessayer.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Téléchargement…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Voir sur la carte</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Échec lors du téléchargement</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Réessayer</string>
     <string name="about_menu_title">À propos de Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratuit pour tout le monde, fait avec amour</string>
@@ -51,19 +47,7 @@
     <string name="close">Fermer</string>
     <string name="unsupported_phone">L\'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n\'est pas pris en charge.</string>
     <string name="download">Télécharger</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
-    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.
-\n%s de données sont nécessaires.</string>
-    <string name="download_resources_continue">Aller sur la carte</string>
-    <string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez
-\nmaintenant aller sur la carte.</string>
     <string name="download_country_ask">Télécharger %s ?</string>
-    <string name="update_country_ask">Mettre %s à jour ?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continuer</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -328,8 +312,6 @@
     <string name="routing_download_maps_along">Téléchargez toutes les cartes le long de votre itinéraire</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">La création d\'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Pas assez d\'espace</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Veuillez activer les services de localisation</string>
     <string name="save">Sauvegarder</string>
@@ -784,15 +766,6 @@
     <string name="elevation_profile_time">Temps :</string>
     <string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
     <string name="downloader_loading_ios">Téléchargement</string>
-    <string name="download_map_title">Télécharger la carte du monde</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l\'appareil ou la carte SD</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Erreur disque</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Erreur de connexion</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
     <string name="enable_keep_screen_on">Laisse l\'écran allumé</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Lorsque cette option est activée, l\'écran sera toujours allumé lors de l\'affichage de la carte.</string>
