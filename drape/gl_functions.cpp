@@ -811,7 +811,7 @@ int8_t GLFunctions::glGetUniformLocation(uint32_t programID, std::string const &
   ASSERT(glGetUniformLocationFn != nullptr, ());
   int result = glGetUniformLocationFn(programID, name.c_str());
   GLCHECKCALL();
-  ASSERT(result != -1, ());
+  ASSERT(result != -1, (name));
   return static_cast<int8_t>(result);
 }
 

@@ -1,10 +1,18 @@
-in vec2 a_position;
-in vec2 a_colorTexCoords;
+layout (location = 0) in vec2 a_position;
+layout (location = 1) in vec2 a_colorTexCoords;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
+layout (location = 0) out vec2 v_colorTexCoords;
 
-out vec2 v_colorTexCoords;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  vec2 u_contrastGamma;
+  vec2 u_position;
+  float u_isOutlinePass;
+  float u_opacity;
+  float u_length;
+};
 
 void main()
 {

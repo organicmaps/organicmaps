@@ -8,11 +8,11 @@ typedef struct
   float4x4 u_modelView;
   float4x4 u_projection;
   float4x4 u_pivotTransform;
+  packed_float2 u_contrastGamma;
   float u_opacity;
   float u_zScale;
   float u_interpolation;
   float u_isOutlinePass;
-  packed_float2 u_contrastGamma;
 } Uniforms_T;
 
 // Area/AreaOutline
