@@ -271,10 +271,12 @@ public class Utils
    * @param context the app context
    * @param uri the URI to open.
    * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
+   * @param action (optional) the Intent action to use. If none is provided, defaults to Intent.ACTION_VIEW.
    */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage)
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage, @NonNull String... action)
   {
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    final String act = (action != null && action.length > 0 && action[0] != null) ? action[0] : Intent.ACTION_VIEW;
+    final Intent intent = new Intent(act);
     intent.setData(uri);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
