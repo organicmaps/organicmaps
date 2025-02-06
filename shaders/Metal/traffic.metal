@@ -10,10 +10,13 @@ typedef struct
   float4x4 u_pivotTransform;
   float4 u_trafficParams;
   packed_float3 u_outlineColor;
-  float u_outline;
+  float u_dummy1; // alignment
   packed_float3 u_lightArrowColor;
-  float u_opacity;
+  float u_dummy2; // alignment
   packed_float3 u_darkArrowColor;
+  float u_dummy3; // alignment
+  float u_outline;
+  float u_opacity;
 } Uniforms_T;
 
 // Traffic

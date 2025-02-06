@@ -1,16 +1,22 @@
-in vec4 a_position;
-in vec4 a_normal;
-in vec2 a_colorTexCoord;
+layout (location = 0) in vec4 a_position;
+layout (location = 1) in vec4 a_normal;
+layout (location = 2) in vec2 a_colorTexCoord;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
+layout (location = 0) out vec2 v_colorTexCoord;
+layout (location = 1) out vec3 v_radius;
 
-uniform vec3 u_lightArrowColor; // Here we store left sizes by road classes.
-uniform vec3 u_darkArrowColor; // Here we store right sizes by road classes.
-
-out vec2 v_colorTexCoord;
-out vec3 v_radius;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_trafficParams;
+  vec4 u_outlineColor;
+  vec4 u_lightArrowColor;
+  vec4 u_darkArrowColor;
+  float u_outline;
+  float u_opacity;
+};
 
 void main()
 {
@@ -28,7 +34,6 @@ void main()
   }
   // radius = (leftSize + rightSize) / 2
   v_radius = vec3(a_normal.zw, 1.0) * 0.5 * (leftSize + rightSize);
-
   vec2 finalPos = transformedAxisPos + v_radius.xy;
   v_colorTexCoord = a_colorTexCoord;
   vec4 pos = vec4(finalPos, a_position.z, 1.0) * u_projection;
