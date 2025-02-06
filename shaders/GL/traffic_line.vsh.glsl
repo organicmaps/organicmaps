@@ -1,11 +1,20 @@
-in vec3 a_position;
-in vec2 a_colorTexCoord;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec2 a_colorTexCoord;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
+layout (location = 0) out vec2 v_colorTexCoord;
 
-out vec2 v_colorTexCoord;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_trafficParams;
+  vec4 u_outlineColor;
+  vec4 u_lightArrowColor;
+  vec4 u_darkArrowColor;
+  float u_outline;
+  float u_opacity;
+};
 
 void main()
 {

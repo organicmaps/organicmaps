@@ -1,22 +1,28 @@
-in vec3 a_position;
-in vec3 a_normalAndAnimateOrZ;
-in vec4 a_texCoords;
-in vec4 a_color;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec3 a_normalAndAnimateOrZ;
+layout (location = 2) in vec4 a_texCoords;
+layout (location = 3) in vec4 a_color;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
-uniform float u_interpolation;
+layout (location = 0) out vec4 v_texCoords;
+layout (location = 1) out vec4 v_maskColor;
 
-out vec4 v_texCoords;
-out vec4 v_maskColor;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec2 u_contrastGamma;
+  float u_opacity;
+  float u_zScale;
+  float u_interpolation;
+  float u_isOutlinePass;
+};
 
 void main()
 {
   vec2 normal = a_normalAndAnimateOrZ.xy;
   if (a_normalAndAnimateOrZ.z > 0.0)
     normal = u_interpolation * normal;
-
   vec4 pivot = vec4(a_position, 1.0) * u_modelView;
   vec4 offset = vec4(normal, 0.0, 0.0) * u_projection;
   vec4 projectedPivot = pivot * u_projection;

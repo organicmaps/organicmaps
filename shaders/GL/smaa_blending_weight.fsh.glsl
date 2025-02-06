@@ -1,21 +1,24 @@
 // Implementation of Subpixel Morphological Antialiasing (SMAA) is based on https://github.com/iryoku/smaa
+layout (location = 0) in vec4 v_coords;
+layout (location = 1) in vec4 v_offset0;
+layout (location = 2) in vec4 v_offset1;
+layout (location = 3) in vec4 v_offset2;
 
-uniform sampler2D u_colorTex;
-uniform sampler2D u_smaaArea;
-uniform sampler2D u_smaaSearch;
+layout (location = 0) out vec4 v_FragColor;
 
-uniform vec4 u_framebufferMetrics;
+layout (binding = 0) uniform UBO
+{
+  vec4 u_framebufferMetrics;
+};
 
-in vec4 v_coords;
-in vec4 v_offset0;
-in vec4 v_offset1;
-in vec4 v_offset2;
+layout (binding = 1) uniform sampler2D u_colorTex;
+layout (binding = 2) uniform sampler2D u_smaaArea;
+layout (binding = 3) uniform sampler2D u_smaaSearch;
 
 #define SMAA_SEARCHTEX_SIZE vec2(66.0, 33.0)
 #define SMAA_SEARCHTEX_PACKED_SIZE vec2(64.0, 16.0)
 #define SMAA_AREATEX_MAX_DISTANCE 16.0
 #define SMAA_AREATEX_PIXEL_SIZE (vec2(1.0 / 256.0, 1.0 / 1024.0))
-
 #define SMAALoopBegin(condition) while (condition) {
 #define SMAALoopEnd }
 #define SMAASampleLevelZero(tex, coord) textureLod(tex, coord, 0.0)
@@ -32,16 +35,13 @@ float SMAASearchLength(vec2 e, float offset)
   // of the space horizontally.
   vec2 scale = SMAA_SEARCHTEX_SIZE * vec2(0.5, -1.0);
   vec2 bias = SMAA_SEARCHTEX_SIZE * vec2(offset, 1.0);
-
   // Scale and bias to access texel centers.
   scale += vec2(-1.0,  1.0);
   bias += vec2( 0.5, -0.5);
-
   // Convert from pixel coordinates to texcoords.
   // (We use SMAA_SEARCHTEX_PACKED_SIZE because the texture is cropped).
   scale *= 1.0 / SMAA_SEARCHTEX_PACKED_SIZE;
   bias *= 1.0 / SMAA_SEARCHTEX_PACKED_SIZE;
-
   // Lookup the search texture.
   return SMAASampleLevelZero(u_smaaSearch, scale * e + bias).r;
 }
@@ -101,79 +101,60 @@ vec2 SMAAArea(vec2 dist, float e1, float e2)
   return SMAASampleLevelZero(u_smaaArea, texcoord).rg;
 }
 
-out vec4 v_FragColor;
-
 void main()
 {
   vec4 weights = vec4(0.0, 0.0, 0.0, 0.0);
   vec2 e = texture(u_colorTex, v_coords.xy).rg;
-
   if (e.g > 0.0) // Edge at north
   {
     vec2 d;
-
     // Find the distance to the left.
     vec3 coords;
     coords.x = SMAASearchXLeft(v_offset0.xy, v_offset2.x);
     coords.y = v_offset1.y;
     d.x = coords.x;
-
     // Now fetch the left crossing edges, two at a time using bilinear
     // filtering. Sampling at -0.25 enables to discern what value each edge has.
     float e1 = SMAASampleLevelZero(u_colorTex, coords.xy).r;
-
     // Find the distance to the right.
     coords.z = SMAASearchXRight(v_offset0.zw, v_offset2.y);
     d.y = coords.z;
-
     // We want the distances to be in pixel units (doing this here allow to
     // better interleave arithmetic and memory accesses).
     vec2 zz = u_framebufferMetrics.zz;
     d = abs(SMAARound(zz * d - v_coords.zz));
-
     // SMAAArea below needs a sqrt, as the areas texture is compressed
     // quadratically.
     vec2 sqrt_d = sqrt(d);
-
     // Fetch the right crossing edges.
     float e2 = SMAASampleLevelZeroOffset(u_colorTex, coords.zy, SMAAOffset(1, 0)).r;
-
     // Here we know how this pattern looks like, now it is time for getting
     // the actual area.
     weights.rg = SMAAArea(sqrt_d, e1, e2);
   }
-
   if (e.r > 0.0) // Edge at west
   {
     vec2 d;
-
     // Find the distance to the top.
     vec3 coords;
     coords.y = SMAASearchYUp(v_offset1.xy, v_offset2.z);
     coords.x = v_offset0.x;
     d.x = coords.y;
-
     // Fetch the top crossing edges.
     float e1 = SMAASampleLevelZero(u_colorTex, coords.xy).g;
-
     // Find the distance to the bottom.
     coords.z = SMAASearchYDown(v_offset1.zw, v_offset2.w);
     d.y = coords.z;
-
     // We want the distances to be in pixel units.
     vec2 ww = u_framebufferMetrics.ww;
     d = abs(SMAARound(ww * d - v_coords.ww));
-
     // SMAAArea below needs a sqrt, as the areas texture is compressed
     // quadratically.
     vec2 sqrt_d = sqrt(d);
-
     // Fetch the bottom crossing edges.
     float e2 = SMAASampleLevelZeroOffset(u_colorTex, coords.xz, SMAAOffset(0, 1)).g;
-
     // Get the area for this direction.
     weights.ba = SMAAArea(sqrt_d, e1, e2);
   }
-
   v_FragColor = weights;
 }

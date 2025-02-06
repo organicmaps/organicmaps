@@ -1,16 +1,27 @@
-in vec4 a_position;
-in vec3 a_normal;
-in vec4 a_color;
+layout (location = 0) in vec4 a_position;
+layout (location = 1) in vec3 a_normal;
+layout (location = 2) in vec4 a_color;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
+layout (location = 0) out vec4 v_radius;
+layout (location = 1) out vec4 v_color;
 
-uniform vec2 u_angleCosSin;
-uniform vec4 u_routeParams;
-
-out vec4 v_radius;
-out vec4 v_color;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_routeParams;
+  vec4 u_color;
+  vec4 u_maskColor;
+  vec4 u_outlineColor;
+  vec4 u_fakeColor;
+  vec4 u_fakeOutlineColor;
+  vec2 u_fakeBorders;
+  vec2 u_pattern;
+  vec2 u_angleCosSin;
+  float u_arrowHalfWidth;
+  float u_opacity;
+};
 
 void main()
 {

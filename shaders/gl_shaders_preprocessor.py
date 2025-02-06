@@ -11,6 +11,9 @@ HIGHP_SEARCH = "highp"
 VERTEX_SHADER_EXT = ".vsh.glsl"
 FRAG_SHADER_EXT = ".fsh.glsl"
 
+UBO_KEY = "UBO"
+UNIFORMS_KEY = "Uniforms"
+
 SHADERS_LIB_COMMON_PATTERN = "// Common"
 SHADERS_LIB_VS_PATTERN = "// VS"
 SHADERS_LIB_FS_PATTERN = "// FS"
@@ -125,7 +128,7 @@ def write_definition_file(defines_file, generation_dir):
         output_file.write("{\n")
         output_file.write("extern char const * GL3_SHADER_VERSION;\n")
         output_file.write("extern char const * GLES3_SHADER_VERSION;\n\n")
-        output_file.write("extern GLProgramInfo GetProgramInfo(dp::ApiVersion apiVersion, Program program);\n")
+        output_file.write("extern GLProgramInfo const & GetProgramInfo(dp::ApiVersion apiVersion, Program program);\n")
         output_file.write("}  // namespace gpu\n")
 
     if not os.path.isfile(defines_file) or not filecmp.cmp(defines_file, defines_file_tmp, False):
@@ -162,57 +165,146 @@ def get_shaders_lib_content(shader_file, shaders_library):
     return lib_content
 
 
-def write_shader_line(output_file, line):
+def write_shader_line(output_file, line, shader_file, binding_info):
     if line.lstrip().startswith("//") or line == '\n' or len(line) == 0:
-        return
+        return False
 
     if line.find(LOWP_SEARCH) >= 0:
-        print("Incorrect shader. Do not use lowp in shader, use LOW_P instead.")
+        print(f"Incorrect shader {shader_file}. Do not use lowp in shader, use LOW_P instead.")
         exit(2)
     if line.find(MEDIUMP_SEARCH) >= 0:
-        print("Incorrect shader. Do not use mediump in shader, use MEDIUM_P instead.")
+        print(f"Incorrect shader {shader_file}. Do not use mediump in shader, use MEDIUM_P instead.")
         exit(2)
     if line.find(HIGHP_SEARCH) >= 0:
-        print("Incorrect shader. Do not use highp in shader, use HIGH_P instead.")
+        print(f"Incorrect shader {shader_file}. Do not use highp in shader, use HIGH_P instead.")
         exit(2)
 
     output_line = line.rstrip()
-    output_file.write("  %s \\n\\\n" % output_line)
+    
+    # Extract and remove layout binding
+    binding_match = re.search(r"layout\s*\(\s*binding\s*=\s*(\d+)\s*\)", output_line)
+    if binding_match:
+        binding_index = int(binding_match.group(1))
+        # Remove the matched layout part from the string
+        output_line = re.sub(r"layout\s*\(\s*binding\s*=\s*\d+\s*\)\s*", "", output_line)
+    else:
+        binding_index = None
+        
+    # Remove lauout(location = X) part. Mali compiler may not support it.
+    output_line = re.sub(r"layout\s*\(\s*location\s*=\s*\d+\s*\)\s*", "", output_line)
+
+    # Extract sampler name
+    sampler_match = re.search(r"sampler2D\s+(\w+)", output_line)
+    sampler_name = sampler_match.group(1) if sampler_match else None
+    
+    if binding_index is None and sampler_name is not None:
+        print(f"Incorrect shader {shader_file}. Sampler must have binding index")
+        exit(2)
+    
+    ubo_started = False    
+    if line.find("uniform UBO") >= 0:
+        if binding_index is not None:
+            binding_info[shader_file].append({UBO_KEY: binding_index})
+            ubo_started = True
+        else:
+            print(f"Incorrect shader {shader_file}. Uniform block must have binding index")
+            exit(2)
+        
+    if binding_index and sampler_name:
+        binding_info[shader_file].append({sampler_name: binding_index})
+    
+    if not ubo_started:    
+        output_file.write("  %s \\n\\\n" % output_line)
+        
+    return ubo_started
 
 
-def write_shader_body(output_file, shader_file, shader_dir, shaders_library):
+def find_by_name_in_list(lst, name):
+    return next((item[name] for item in lst if name in item), None)
+
+
+def write_uniform_shader_line(output_file, line, shader_file, binding_info):
+    if line.lstrip().startswith("//") or line == '\n' or len(line) == 0:
+        return False
+    output_line = line.lstrip().rstrip()
+    if output_line.find("};") >= 0:
+        return True
+    if output_line.find("{") >= 0:
+        return False
+    if output_line.find(",") >= 0 or output_line.count("u_") > 1:
+        print(f"Incorrect shader {shader_file}. Only one uniform per line")
+        exit(2)
+        
+    find_by_name_in_list(binding_info[shader_file], UNIFORMS_KEY).append(output_line)
+        
+    output_file.write("  uniform %s \\n\\\n" % output_line)
+    return False
+
+
+def write_shader_body(output_file, shader_file, shader_dir, shaders_library, binding_info):
     lib_content = get_shaders_lib_content(shader_file, shaders_library)
+    ubo_started = False
     for line in open(os.path.join(shader_dir, shader_file)):
+        if ubo_started:
+            if write_uniform_shader_line(output_file, line, shader_file, binding_info):
+                ubo_started = False
+            continue
         if line.lstrip().startswith("void main"):
             for lib_line in lib_content.splitlines():
-                write_shader_line(output_file, lib_line)
-        write_shader_line(output_file, line)
+                write_shader_line(output_file, lib_line, shader_file, binding_info)
+        ubo_started = write_shader_line(output_file, line, shader_file, binding_info)
+        if ubo_started:
+            binding_info[shader_file].append({UNIFORMS_KEY: []})
+    
     output_file.write("\";\n\n")
 
 
-def write_shader(output_file, shader_file, shader_dir, shaders_library):
+def write_shader(output_file, shader_file, shader_dir, shaders_library, binding_info):
     output_file.write("char const %s[] = \" \\\n" % format_shader_source_name(shader_file))
     write_shader_gles_header(output_file)
-    write_shader_body(output_file, shader_file, shader_dir, shaders_library)
+    write_shader_body(output_file, shader_file, shader_dir, shaders_library, binding_info)
 
 
-def write_gpu_programs_map(file, programs_def):
+def write_gpu_programs_map(file, programs_def, binding_info):
     for program in programs_def.keys():
         vertex_shader = programs_def[program][0]
         vertex_source_name = format_shader_source_name(vertex_shader)
 
         fragment_shader = programs_def[program][1]
         fragment_source_name = format_shader_source_name(fragment_shader)
+        
+        check_bindings(vertex_shader, fragment_shader, binding_info[vertex_shader], binding_info[fragment_shader])
 
         file.write("    GLProgramInfo(\"%s\", \"%s\", %s, %s),\n" % (
             vertex_source_name, fragment_source_name, vertex_source_name, fragment_source_name))
 
 
+def check_bindings(vs, fs, vs_bindings, fs_bindings):
+    dict1 = {k: v for d in vs_bindings for k, v in d.items()}
+    dict2 = {k: v for d in fs_bindings for k, v in d.items()}
+    if UBO_KEY in dict1 and UBO_KEY in dict2:
+        if dict1[UBO_KEY] != dict2[UBO_KEY]:
+            print(f"Shaders {vs} and {fs} must use the same binding indexes for the UBO. VS:{dict1[UBO_KEY]}, FS:{dict2[UBO_KEY]}")
+            exit(2)
+    if UNIFORMS_KEY in dict1 and UNIFORMS_KEY in dict2:
+        if dict1[UNIFORMS_KEY] != dict2[UNIFORMS_KEY]:
+            print(f"Shaders {vs} and {fs} must use the same unforms inside the UBO. VS:{dict1[UNIFORMS_KEY]}, FS:{dict2[UNIFORMS_KEY]}")
+            exit(2)
+    common_keys = dict1.keys() & dict2.keys()
+    for key in common_keys:
+        if key == UBO_KEY or key == UNIFORMS_KEY:
+            continue
+        if dict1[key] != dict2[key]:
+            print(f"Shaders {vs} and {fs} must use the same binding indexes for textures. VS:{dict1[key]}, FS:{dict2[key]}")
+            exit(2)
+    
+            
 def write_implementation_file(programs_def, shader_index, shader_dir, impl_file, def_file, generation_dir,
                               shaders_library):
     impl_file = os.path.join(generation_dir, impl_file)
     # Write to temporary file first, and then compare if its content has changed to avoid unnecessary code rebuilds.
     impl_file_tmp = impl_file + ".tmp"
+    binding_info = dict()
     with open(impl_file_tmp, 'w') as file:
         file.write("#include \"shaders/%s\"\n\n" % (def_file))
         file.write("#include \"base/assert.hpp\"\n\n")
@@ -221,22 +313,27 @@ def write_implementation_file(programs_def, shader_index, shader_dir, impl_file,
 
         file.write("namespace gpu\n")
         file.write("{\n")
-        file.write("char const * GL3_SHADER_VERSION = \"#version 150 core \\n\";\n")
+        file.write("#if defined(OMIM_OS_LINUX)\n")
+        file.write("  char const * GL3_SHADER_VERSION = \"#version 310 es \\n\";\n")
+        file.write("#else\n")
+        file.write("  char const * GL3_SHADER_VERSION = \"#version 410 core \\n\";\n")
+        file.write("#endif\n")
         file.write("char const * GLES3_SHADER_VERSION = \"#version 300 es \\n\";\n\n")
 
         for shader in shader_index.keys():
-            write_shader(file, shader, shader_dir, shaders_library)
+            binding_info[shader] = []
+            write_shader(file, shader, shader_dir, shaders_library, binding_info)
 
-        file.write("GLProgramInfo GetProgramInfo(dp::ApiVersion apiVersion, Program program)\n")
+        file.write("GLProgramInfo const & GetProgramInfo(dp::ApiVersion apiVersion, Program program)\n")
         file.write("{\n")
         file.write("  CHECK_EQUAL(apiVersion, dp::ApiVersion::OpenGLES3, ());\n")
         file.write("  static std::array<GLProgramInfo, static_cast<size_t>(Program::ProgramsCount)> gpuIndex = {{\n")
-        write_gpu_programs_map(file, programs_def)
+        write_gpu_programs_map(file, programs_def, binding_info)
         file.write("  }};\n")
         file.write("  return gpuIndex[static_cast<size_t>(program)];\n")
         file.write("}\n")
         file.write("}  // namespace gpu\n")
-
+    
     if not os.path.isfile(impl_file) or not filecmp.cmp(impl_file, impl_file_tmp, False):
         os.replace(impl_file_tmp, impl_file)
         print(impl_file + " was replaced")
@@ -260,13 +357,13 @@ if __name__ == '__main__':
     shaders = [file for file in os.listdir(shader_dir) if
                os.path.isfile(os.path.join(shader_dir, file)) and (
                    file.endswith(VERTEX_SHADER_EXT) or file.endswith(FRAG_SHADER_EXT))]
-    shaderIndex = generate_shader_indexes(shaders)
+    shader_index = generate_shader_indexes(shaders)
 
     programs_order = read_programs_file(os.path.join(shader_dir, '..', programs_file_name))
-    programDefinition = read_index_file(os.path.join(shader_dir, index_file_name), programs_order)
+    program_definition = read_index_file(os.path.join(shader_dir, index_file_name), programs_order)
 
     shaders_library = read_shaders_lib_file(os.path.join(shader_dir, shaders_lib_file))
 
     write_definition_file(defines_file, generation_dir)
-    write_implementation_file(programDefinition, shaderIndex, shader_dir, impl_file, defines_file, generation_dir,
+    write_implementation_file(program_definition, shader_index, shader_dir, impl_file, defines_file, generation_dir,
                               shaders_library)

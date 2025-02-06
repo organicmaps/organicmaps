@@ -1,10 +1,15 @@
-in vec3 a_pos;
-in vec3 a_normal;
+layout (location = 0) in vec3 a_pos;
+layout (location = 1) in vec3 a_normal;
 
-uniform mat4 u_transform;
-uniform mat4 u_normalTransform;
+layout (location = 0) out vec3 v_normal;
 
-out vec3 v_normal;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_transform;
+  mat4 u_normalTransform;
+  vec4 u_color;
+  vec2 u_texCoordFlipping;
+};
 
 void main()
 {
