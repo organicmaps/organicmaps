@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -150,6 +151,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private boolean mDialogShown = false;
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -1938,6 +1940,37 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.i(LOCATION_TAG, "Permission " + permission + " has been granted");
       else
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
+    }
+
+    // Check if fine location permission is granted.
+    if (LocationUtils.checkFineLocationPermission(this)) {
+      Logger.i(LOCATION_TAG, "Precise location permission granted");
+    } else if (LocationUtils.checkCoarseLocationPermission(this)) {
+      Logger.w(LOCATION_TAG, "Only approximate location permission granted");
+      if (!mDialogShown)
+      {
+        mDialogShown = true;
+        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+            .setTitle("⚠ " + getString(R.string.limited_accuracy))
+            .setMessage(R.string.precise_location_is_disabled_long_text)
+            .setPositiveButton(R.string.go_to_settings, (dialog, which) -> {
+              Utils.openUri(this,
+                  Uri.parse("package:" + getPackageName()),
+                  R.string.uri_open_location_failed,
+                  Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            })
+            .setNegativeButton(R.string.ignore, (dialog, which) -> dialog.dismiss())
+            .setCancelable(true)
+            .show();
+      }
+      else
+      {
+        Toast.makeText(this, R.string.precise_location_is_disabled_long_text,
+                Toast.LENGTH_LONG)
+            .show();
+      }
+    } else {
+      Logger.w(LOCATION_TAG, "Both Fine and Coarse location permissions denied.");
     }
 
     boolean requestedForRecording = mLocationPermissionRequestedForRecording;
