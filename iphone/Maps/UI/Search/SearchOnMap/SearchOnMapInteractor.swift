@@ -99,13 +99,13 @@ extension SearchOnMapInteractor: MWMSearchObserver {
       searchManager.showEverywhereSearchResultsOnMap()
       showResultsOnMap = false
     }
-    presenter.process(.showResults(results, isSearchCompleted: true))
+    presenter.process(.showResults(SearchOnMap.SearchResults(results), isSearchCompleted: true))
   }
 
   func onSearchResultsUpdated() {
     guard !isUpdatesDisabled else { return }
     let results = searchManager.getResults()
     guard !results.isEmpty else { return }
-    presenter.process(.showResults(results, isSearchCompleted: false))
+    presenter.process(.showResults(SearchOnMap.SearchResults(results), isSearchCompleted: false))
   }
 }

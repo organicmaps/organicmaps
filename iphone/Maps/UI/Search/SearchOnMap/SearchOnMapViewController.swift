@@ -30,7 +30,7 @@ final class SearchOnMapViewController: UIViewController {
   let interactor: SearchOnMapInteractor
   weak var scrollViewDelegate: SearchOnMapScrollViewDelegate?
 
-  private var searchResults: [SearchResult] = []
+  private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - UI Elements
   // TODO: move the header into the separate class
@@ -277,7 +277,7 @@ final class SearchOnMapViewController: UIViewController {
         resultsTableView.reloadData()
       }
     case .noResults:
-      searchResults.removeAll()
+      searchResults = .empty
       resultsTableView.reloadData()
     case .searching:
       break
@@ -361,11 +361,12 @@ extension SearchOnMapViewController: UITableViewDataSource {
     switch result.itemType {
     case .regular:
       let cell = tableView.dequeueReusableCell(cell: SearchCommonCell.self, indexPath: indexPath)
-      cell.configure(with: result)
+      cell.configure(with: result, isPartialMatching: searchResults.hasPartialMatch)
       return cell
     case .suggestion:
       let cell = tableView.dequeueReusableCell(cell: SearchSuggestionCell.self, indexPath: indexPath)
-      cell.configure(with: result)
+      cell.configure(with: result, isPartialMatching: true)
+      cell.isLastCell = indexPath.row == searchResults.suggestionsCount - 1
       return cell
     @unknown default:
       fatalError("Unknown item type")

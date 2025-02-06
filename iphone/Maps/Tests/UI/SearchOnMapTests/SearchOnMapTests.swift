@@ -21,7 +21,7 @@ final class SearchOnMapTests: XCTestCase {
     presenter = nil
     interactor = nil
     view = nil
-    searchManager.results.removeAll()
+    searchManager.results = .empty
     searchManager = nil
     super.tearDown()
   }
@@ -157,7 +157,7 @@ private class SearchOnMapViewMock: SearchOnMapView {
 
 private class SearchManagerMock: SearchManager {
   static var observers = ListenerContainer<MWMSearchObserver>()
-  static var results: [SearchResult] = [] {
+  static var results = SearchOnMap.SearchResults.empty {
     didSet {
       observers.forEach { observer in
         observer.onSearchCompleted?()
@@ -179,15 +179,15 @@ private class SearchManagerMock: SearchManager {
   static func showEverywhereSearchResultsOnMap() {}
   static func showViewportSearchResultsOnMap() {}
   static func clear() {}
-  static func getResults() -> [SearchResult] { results }
+  static func getResults() -> [SearchResult] { results.results }
 }
 
 private extension SearchResult {
-  static func stubResults() -> [SearchResult] {
-    [
+  static func stubResults() -> SearchOnMap.SearchResults {
+    SearchOnMap.SearchResults([
       SearchResult(),
       SearchResult(),
       SearchResult()
-    ]
+    ])
   }
 }

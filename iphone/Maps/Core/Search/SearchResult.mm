@@ -6,6 +6,8 @@
 #import "platform/localization.hpp"
 #import "platform/distance.hpp"
 
+#include "map/bookmark_helpers.hpp"
+
 #import "geometry/mercator.hpp"
 
 @implementation SearchResult
@@ -80,6 +82,14 @@
     _highlightRanges = [ranges copy];
 
     _itemType = itemType;
+
+    if (result.GetResultType() == search::Result::Type::Feature) {
+      auto const featureType = result.GetFeatureType();
+      auto const bookmarkImage = GetBookmarkIconByFeatureType(featureType);
+      _iconImageName = [NSString stringWithFormat:@"%@%@",
+                        @"ic_bm_",
+                        [@(kml::ToString(bookmarkImage).c_str()) lowercaseString]];
+    }
   }
   return self;
 }

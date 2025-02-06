@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchResult : NSObject
 
 @property (nonatomic, readonly) NSString * titleText;
+@property (nonatomic, readonly) NSString * iconImageName;
 @property (nonatomic, readonly) NSString * addressText;
 @property (nonatomic, readonly) NSString * infoText;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;

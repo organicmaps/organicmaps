@@ -9,7 +9,7 @@
 
 @implementation MWMSearchCell
 
-- (void)configureWith:(SearchResult * _Nonnull)result {
+- (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching {
   NSString * title = result.titleText;
 
   if (title.length == 0)
@@ -27,9 +27,10 @@
   }
   NSMutableAttributedString * attributedTitle =
       [[NSMutableAttributedString alloc] initWithString:title];
-  [attributedTitle addAttributes:unselectedTitleAttributes range:NSMakeRange(0, title.length)];
+  NSDictionary * titleAttributes = isPartialMatching ? unselectedTitleAttributes : selectedTitleAttributes;
 
   NSArray<NSValue *> *highlightRanges = result.highlightRanges;
+  [attributedTitle addAttributes:titleAttributes range:NSMakeRange(0, title.length)];
 
   for (NSValue *rangeValue in highlightRanges) {
     NSRange range = [rangeValue rangeValue];

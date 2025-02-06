@@ -2,7 +2,7 @@ enum SearchOnMap {
   struct ViewModel: Equatable {
     enum ContentState: Equatable {
       case historyAndCategory
-      case results([SearchResult])
+      case results(SearchResults)
       case noResults
       case searching
     }
@@ -11,6 +11,22 @@ enum SearchOnMap {
     var searchingText: String?
     var contentState: ContentState
     var presentationStep: ModalScreenPresentationStep
+  }
+
+  struct SearchResults: Equatable {
+    let results: [SearchResult]
+    let hasPartialMatch: Bool
+    let isEmpty: Bool
+    let count: Int
+    let suggestionsCount: Int
+
+    init(_ results: [SearchResult]) {
+      self.results = results
+      self.hasPartialMatch = !results.allSatisfy { $0.highlightRanges.isEmpty }
+      self.isEmpty = results.isEmpty
+      self.count = results.count
+      self.suggestionsCount = results.filter { $0.itemType == .suggestion }.count
+    }
   }
 
   struct SearchText {
@@ -44,12 +60,20 @@ enum SearchOnMap {
     case showOnTheMap
     case setIsTyping(Bool)
     case showHistoryAndCategory
-    case showResults([SearchResult], isSearchCompleted: Bool = false)
+    case showResults(SearchResults, isSearchCompleted: Bool = false)
     case selectText(String?)
     case clearSearch
     case setSearchScreenHidden(Bool)
     case setSearchScreenCompact
     case updatePresentationStep(ModalScreenPresentationStep)
     case close
+  }
+}
+
+extension SearchOnMap.SearchResults {
+  static let empty = SearchOnMap.SearchResults([])
+
+  subscript(index: Int) -> SearchResult {
+    results[index]
   }
 }

@@ -48,8 +48,8 @@ final class SearchOnMapPresenter {
       viewModel.isTyping = true
       viewModel.contentState = .historyAndCategory
       viewModel.presentationStep = .fullScreen
-    case .showResults(let results, let isSearchCompleted):
-      viewModel.contentState = results.isEmpty && isSearchCompleted ? .noResults : .results(results)
+    case .showResults(let searchResults, let isSearchCompleted):
+      viewModel.contentState = searchResults.isEmpty && isSearchCompleted ? .noResults : .results(searchResults)
     case .selectText(let text):
       viewModel.isTyping = false
       viewModel.searchingText = text
