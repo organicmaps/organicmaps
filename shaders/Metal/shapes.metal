@@ -10,8 +10,9 @@ typedef struct
   float4x4 u_projection;
   float4x4 u_pivotTransform;
   packed_float3 u_position;
-  float u_accuracy;
+  float u_dummy1;
   packed_float2 u_lineParams;
+  float u_accuracy;
   float u_zScale;
   float u_opacity;
   float u_azimut;
