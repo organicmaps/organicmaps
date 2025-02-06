@@ -7,12 +7,12 @@ final class SearchHistoryViewController: MWMViewController {
   private weak var delegate: SearchHistoryViewControllerDelegate?
   private var lastQueries: [String] = []
   private let frameworkHelper: MWMSearchFrameworkHelper
-  private static let clearCellIdentifier = "SearchHistoryViewController_clearCellIdentifier"
   private let emptyHistoryView = PlaceholderView(title: L("search_history_title"),
                                                  subtitle: L("search_history_text"))
 
-  @IBOutlet var tableView: UITableView!
+  private let tableView = UITableView()
 
+  // MARK: - Init
   init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchHistoryViewControllerDelegate?) {
     self.delegate = delegate
     self.frameworkHelper = frameworkHelper
@@ -24,18 +24,35 @@ final class SearchHistoryViewController: MWMViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupTableView()
     setupNoResultsView()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    reload()
+  }
+
+  // MARK: - Private methods
   private func setupTableView() {
     tableView.setStyle(.background)
-    tableView.registerNib(cellClass: SearchHistoryQueryCell.self)
-    let nib = UINib(nibName: "SearchHistoryClearCell", bundle: nil)
-    tableView.register(nib, forCellReuseIdentifier: SearchHistoryViewController.clearCellIdentifier)
+    tableView.register(cell: SearchHistoryCell.self)
     tableView.keyboardDismissMode = .onDrag
+    tableView.delegate = self
+    tableView.dataSource = self
+    tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 1))
+
+    view.addSubview(tableView)
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      tableView.topAnchor.constraint(equalTo: view.topAnchor),
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
   }
 
   private func setupNoResultsView() {
@@ -47,18 +64,6 @@ final class SearchHistoryViewController: MWMViewController {
       emptyHistoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       emptyHistoryView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    reload(animated: false)
-  }
-
-  func reload(animated: Bool = true) {
-    guard isViewLoaded else { return }
-    lastQueries = frameworkHelper.lastSearchQueries()
-    showEmptyHistoryView(lastQueries.isEmpty ? true : false)
-    tableView.reloadData()
   }
 
   private func showEmptyHistoryView(_ isVisible: Bool = true, animated: Bool = true) {
@@ -74,6 +79,14 @@ final class SearchHistoryViewController: MWMViewController {
     frameworkHelper.clearSearchHistory()
     reload()
   }
+
+  // MARK: - Public methods
+  func reload() {
+    guard isViewLoaded else { return }
+    lastQueries = frameworkHelper.lastSearchQueries()
+    showEmptyHistoryView(lastQueries.isEmpty ? true : false)
+    tableView.reloadData()
+  }
 }
 
 extension SearchHistoryViewController: UITableViewDataSource {
@@ -82,14 +95,12 @@ extension SearchHistoryViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(cell: SearchHistoryCell.self, indexPath: indexPath)
     if indexPath.row == lastQueries.count {
-      let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryViewController.clearCellIdentifier,
-                                               for: indexPath)
-      return cell
+      cell.configure(for: .clear)
+    } else {
+      cell.configure(for: .query(lastQueries[indexPath.row]))
     }
-    
-    let cell = tableView.dequeueReusableCell(cell: SearchHistoryQueryCell.self, indexPath: indexPath)
-    cell.update(with: lastQueries[indexPath.row])
     return cell
   }
 }

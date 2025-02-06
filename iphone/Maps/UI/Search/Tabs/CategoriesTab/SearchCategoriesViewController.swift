@@ -21,8 +21,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.setStyle(.background)
-    tableView.registerNib(cellClass: SearchCategoryCell.self)
-    tableView.separatorStyle = .none
+    tableView.register(cell: SearchCategoryCell.self)
     tableView.keyboardDismissMode = .onDrag
   }
 
@@ -32,7 +31,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(cell: SearchCategoryCell.self, indexPath: indexPath)
-    cell.update(with: category(at: indexPath))
+    cell.configure(with: category(at: indexPath))
     return cell
   }
   
