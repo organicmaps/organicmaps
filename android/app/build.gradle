@@ -406,6 +406,8 @@ dependencies {
   implementation "androidx.webkit:webkit:1.11.0"
   // compress
   implementation 'id.zelory:compressor:3.0.1'
+  // restart app
+  implementation 'com.jakewharton:process-phoenix:3.0.0'
 
   //Background processing
   def coroutines = '1.8.1'

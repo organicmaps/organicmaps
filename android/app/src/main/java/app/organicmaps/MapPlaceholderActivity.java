@@ -1,5 +1,6 @@
 package app.organicmaps;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,9 @@ import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
+import app.tourism.data.prefs.Language;
+import app.tourism.data.prefs.UserPreferences;
+import app.tourism.utils.LocaleHelper;
 
 public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements DisplayChangedListener
 {
@@ -17,6 +21,17 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
   @NonNull
   private DisplayManager mDisplayManager;
   private boolean mRemoveDisplayListener = true;
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+      Language language = new UserPreferences(newBase).getLanguage();
+      if(language != null) {
+        String languageCode = language.getCode();
+        super.attachBaseContext(LocaleHelper.localeUpdateResources(newBase, languageCode));
+      } else {
+        super.attachBaseContext(newBase);
+      }
+  }
 
   @Override
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)

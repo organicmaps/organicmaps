@@ -1,5 +1,6 @@
 package app.tourism
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -12,9 +13,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import app.organicmaps.R
+import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.ui.screens.auth.AuthNavigation
 import app.tourism.ui.theme.OrganicMapsTheme
+import app.tourism.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +26,11 @@ import javax.inject.Inject
 class AuthActivity : ComponentActivity() {
     @Inject
     lateinit var placesRepository: PlacesRepository
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = UserPreferences(newBase).getLanguage()?.code
+        super.attachBaseContext(LocaleHelper.localeUpdateResources(newBase, languageCode ?: "ru"))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

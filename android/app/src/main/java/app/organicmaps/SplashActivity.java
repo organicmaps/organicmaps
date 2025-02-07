@@ -24,6 +24,10 @@ import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import app.tourism.data.prefs.Language;
+import app.tourism.data.prefs.UserPreferences;
+import app.tourism.utils.LocaleHelper;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
@@ -43,6 +47,17 @@ public class SplashActivity extends AppCompatActivity
 
   @NonNull
   private final Runnable mInitCoreDelayedTask = this::init;
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    Language language = new UserPreferences(newBase).getLanguage();
+    if(language != null) {
+      String languageCode = language.getCode();
+      super.attachBaseContext(LocaleHelper.localeUpdateResources(newBase, languageCode));
+    } else {
+      super.attachBaseContext(newBase);
+    }
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)

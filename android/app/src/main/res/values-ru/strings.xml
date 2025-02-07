@@ -2222,7 +2222,8 @@
   <string name="passwords_not_same">Пароли не схожи</string>
   <string name="wrong_email_format">Неправильный формат имейла</string>
   <string name="saved">Сохранено</string>
-  <string name="great_success">Отзыв успешно отправлен</string>
+  <string name="download_successful">Данные успешно загружены</string>
+  <string name="post_review_success">Отзыв успешно публикован</string>
   <string name="review_deleted">Отзыв успешно удален</string>
   <string name="delete_review">Удалить отзыв</string>
   <string name="deletion_warning">Вы уверены что хотите удалить это?</string>

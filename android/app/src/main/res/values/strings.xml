@@ -2264,7 +2264,8 @@
   <string name="passwords_not_same">Passwords are not the same</string>
   <string name="wrong_email_format">Wrong email format</string>
   <string name="saved">Saved</string>
-  <string name="great_success">Great success😄</string>
+  <string name="download_successful">Download was successful</string>
+  <string name="post_review_success">Review was successfully published</string>
   <string name="review_deleted">Review was successfully deleted</string>
   <string name="delete_review">Delete review</string>
   <string name="deletion_warning">Are you sure you wanna delete this?</string>

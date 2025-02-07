@@ -25,6 +25,9 @@ import app.organicmaps.util.RtlUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+import app.tourism.data.prefs.Language;
+import app.tourism.data.prefs.UserPreferences;
+import app.tourism.utils.LocaleHelper;
 
 import java.util.Objects;
 
@@ -49,6 +52,17 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    Language language = new UserPreferences(newBase).getLanguage();
+    if(language != null) {
+      String languageCode = language.getCode();
+      super.attachBaseContext(LocaleHelper.localeUpdateResources(newBase, languageCode));
+    } else {
+      super.attachBaseContext(newBase);
+    }
   }
 
   /**

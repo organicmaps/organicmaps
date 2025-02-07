@@ -3,7 +3,7 @@ package app.tourism.ui.screens.main.categories.categories
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.organicmaps.R
+import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.domain.models.categories.PlaceCategory
 import app.tourism.domain.models.common.PlaceShort
@@ -90,10 +90,22 @@ class CategoriesViewModel @Inject constructor(
     }
 
     init {
+        // todo find better solution
+        val language = UserPreferences(context).getLanguage()
+        val isRussian = language?.code == "ru"
         _categories.value = listOf(
-            SingleChoiceItem(PlaceCategory.Sights.id, context.getString(R.string.sights)),
-            SingleChoiceItem(PlaceCategory.Restaurants.id, context.getString(R.string.restaurants)),
-            SingleChoiceItem(PlaceCategory.Hotels.id, context.getString(R.string.hotels)),
+            SingleChoiceItem(
+                PlaceCategory.Sights.id,
+                if (isRussian) "Достопримечательности" else "Sights"
+            ),
+            SingleChoiceItem(
+                PlaceCategory.Restaurants.id,
+                if (isRussian) "Рестораны" else "Restaurants"
+            ),
+            SingleChoiceItem(
+                PlaceCategory.Hotels.id,
+                if (isRussian) "Отели" else "Hotels"
+            ),
         )
         _selectedCategory.value = categories.value.first()
         onCategoryChangeGetPlaces()

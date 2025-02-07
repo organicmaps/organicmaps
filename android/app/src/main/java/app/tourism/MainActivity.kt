@@ -1,5 +1,6 @@
 package app.tourism
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
@@ -22,7 +23,7 @@ import app.tourism.ui.screens.main.MainSection
 import app.tourism.ui.screens.main.ThemeViewModel
 import app.tourism.ui.screens.main.profile.profile.ProfileViewModel
 import app.tourism.ui.theme.OrganicMapsTheme
-import app.tourism.utils.changeSystemAppLanguage
+import app.tourism.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,6 +39,11 @@ class MainActivity : ComponentActivity() {
 
     private val themeVM: ThemeViewModel by viewModels<ThemeViewModel>()
     private val profileVM: ProfileViewModel by viewModels<ProfileViewModel>()
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = UserPreferences(newBase).getLanguage()?.code
+        super.attachBaseContext(LocaleHelper.localeUpdateResources(newBase, languageCode ?: "ru"))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +90,6 @@ class MainActivity : ComponentActivity() {
                 if (it is Resource.Success) {
                     it.data?.apply {
                         language?.let { lang ->
-                            changeSystemAppLanguage(this@MainActivity, lang)
                             userPreferences.setLanguage(lang)
                         }
                         theme?.let { theme ->
