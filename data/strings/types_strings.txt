@@ -22819,6 +22819,7 @@
     zh-Hant = 變電所
 
   [type.power.tower]
+    comment = A tower or pylon carrying high voltage electricity cables.
     en = Power Tower
     af = Kragmas
     ar = عمود كهرباء
@@ -22857,6 +22858,14 @@
     vi = Trụ Điện
     zh-Hans = 高压电塔
     zh-Hant = 電塔
+
+  [type.power.pole]
+    comment = A single pole supporting minor power lines.
+    en = Power Pole
+
+  [type.man_made.utility_pole]
+    comment = A single pole supporting various public utilities, such as lighting or telephony.
+    en = Utility Pole
 
   [type.psurface]
     en = psurface
