@@ -83,17 +83,10 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     }
   }
 
+  
   private func configManageRouteButton(_ button: UIButton) {
     button.setImagePadding(8)
     button.setTitle(L("planning_route_manage_route"), for: .normal)
-
-    if traitCollection.userInterfaceStyle == .dark {
-      button.setTitleColor(UIColor.white, for: .normal)
-    } else {
-      button.setTitleColor(UIColor.black, for: .normal)
-    }
-
-    button.imageView?.tintColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
   }
 
 
