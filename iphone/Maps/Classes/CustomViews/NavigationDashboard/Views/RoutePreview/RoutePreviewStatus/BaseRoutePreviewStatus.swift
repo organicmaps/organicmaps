@@ -6,16 +6,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var manageRouteBox: UIView!
   @IBOutlet private weak var manageRouteBoxBackground: UIView! {
     didSet {
-      iPhoneSpecific {
         manageRouteBoxBackground.setStyle(.blackOpaqueBackground)
-      }
-      iPadSpecific {
-        if traitCollection.userInterfaceStyle == .dark {
-          manageRouteBoxBackground.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        } else {
-          manageRouteBoxBackground.backgroundColor = UIColor.white.withAlphaComponent(0.8)
-        }
-      }
     }
   }
 
