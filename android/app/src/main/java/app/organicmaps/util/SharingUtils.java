@@ -122,9 +122,10 @@ public class SharingUtils
 
     final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
+    final String coordUrl = String.format("https://omaps.app/%.5f,%.5f", loc.getLatitude(), loc.getLongitude());
     final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
-    final String text = context.getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+    final String text = context.getString(R.string.my_position_share_sms, httpUrl , coordUrl); 
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
@@ -142,10 +143,11 @@ public class SharingUtils
 
     final String geoUrl = Framework.nativeGetGe0Url(object.getLat(), object.getLon(),
                                                     object.getScale(), object.getName());
+    final String coordUrl = String.format("https://omaps.app/%.5f,%.5f", object.getLat(), object.getLon());
     final String httpUrl = Framework.getHttpGe0Url(object.getLat(), object.getLon(),
                                                    object.getScale(), object.getName());
     final String address = TextUtils.isEmpty(object.getAddress()) ? object.getName() : object.getAddress();
-    final String text = context.getString(R.string.my_position_share_email, address, geoUrl, httpUrl);
+    final String text = context.getString(R.string.my_position_share_email, address,httpUrl ,coordUrl );
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
@@ -161,6 +163,8 @@ public class SharingUtils
 
     final String geoUrl = Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(),
                                                     bookmark.getScale(), bookmark.getName());
+    final String coordUrl = String.format("https://omaps.app/%.5f,%.5f", bookmark.getLat(), bookmark.getLon());
+
     final String httpUrl = Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(),
                                                    bookmark.getScale(), bookmark.getName());
     StringBuilder text = new StringBuilder();
@@ -171,9 +175,9 @@ public class SharingUtils
       text.append(bookmark.getAddress());
     }
     text.append(UiUtils.NEW_STRING_DELIMITER);
-    text.append(geoUrl);
-    text.append(UiUtils.NEW_STRING_DELIMITER);
     text.append(httpUrl);
+    text.append(UiUtils.NEW_STRING_DELIMITER);
+    text.append(coordUrl);
     intent.putExtra(Intent.EXTRA_TEXT, text.toString());
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
