@@ -79,7 +79,9 @@ class PostReviewViewModel @Inject constructor(
                 _postReviewResponse.value = it
                 if (it is Resource.Success) {
                     uiChannel.send(
-                        UiEvent.ShowToast(it.message ?: context.getString(R.string.great_success))
+                        UiEvent.ShowToast(
+                            it.message ?: context.getString(R.string.post_review_success)
+                        )
                     )
                     uiChannel.send(UiEvent.CloseReviewBottomSheet)
                 } else if (it is Resource.Error) {

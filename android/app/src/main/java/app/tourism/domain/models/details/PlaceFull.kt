@@ -15,6 +15,7 @@ data class PlaceFull(
     val pics: List<String> = emptyList(),
     val reviews: List<Review>? = null,
     val isFavorite: Boolean,
+    val language: String
 ) {
     fun toPlaceShort() = PlaceShort(
         id = id,
@@ -36,5 +37,6 @@ data class PlaceFull(
         coordinates = placeLocation?.toCoordinatesEntity(),
         cover = cover,
         isFavorite = isFavorite,
+        language = language,
     )
 }

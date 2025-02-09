@@ -17,26 +17,26 @@ interface PlacesDao {
     @Query("DELETE FROM places")
     suspend fun deleteAllPlaces()
 
-    @Query("DELETE FROM places WHERE categoryId = :categoryId")
-    suspend fun deleteAllPlacesByCategory(categoryId: Long)
+    @Query("DELETE FROM places WHERE categoryId = :categoryId AND language =:language")
+    suspend fun deleteAllPlacesByCategory(categoryId: Long, language: String)
 
-    @Query("SELECT * FROM places WHERE UPPER(name) LIKE UPPER(:q)")
-    fun search(q: String = ""): Flow<List<PlaceEntity>>
+    @Query("SELECT * FROM places WHERE UPPER(name) LIKE UPPER(:q) AND language =:language")
+    fun search(q: String = "", language: String): Flow<List<PlaceEntity>>
 
-    @Query("SELECT * FROM places WHERE categoryId = :categoryId")
-    fun getPlacesByCategoryId(categoryId: Long): Flow<List<PlaceEntity>>
+    @Query("SELECT * FROM places WHERE categoryId = :categoryId AND language =:language")
+    fun getPlacesByCategoryId(categoryId: Long, language: String): Flow<List<PlaceEntity>>
 
-    @Query("SELECT * FROM places WHERE categoryId =:categoryId ORDER BY rating DESC LIMIT 15")
-    fun getTopPlacesByCategoryId(categoryId: Long): Flow<List<PlaceEntity>>
+    @Query("SELECT * FROM places WHERE categoryId =:categoryId AND language =:language ORDER BY rating DESC LIMIT 15")
+    fun getTopPlacesByCategoryId(categoryId: Long, language: String): Flow<List<PlaceEntity>>
 
-    @Query("SELECT * FROM places WHERE id = :placeId")
-    fun getPlaceById(placeId: Long): Flow<PlaceEntity?>
+    @Query("SELECT * FROM places WHERE id = :placeId AND language =:language")
+    fun getPlaceById(placeId: Long, language: String): Flow<PlaceEntity?>
 
-    @Query("SELECT * FROM places WHERE isFavorite = 1 AND UPPER(name) LIKE UPPER(:q)")
-    fun getFavoritePlacesFlow(q: String = ""): Flow<List<PlaceEntity>>
+    @Query("SELECT * FROM places WHERE isFavorite = 1 AND UPPER(name) LIKE UPPER(:q) AND language =:language")
+    fun getFavoritePlacesFlow(q: String = "", language: String): Flow<List<PlaceEntity>>
 
-    @Query("SELECT * FROM places WHERE isFavorite = 1 AND UPPER(name) LIKE UPPER(:q)")
-    fun getFavoritePlaces(q: String = ""): List<PlaceEntity>
+    @Query("SELECT * FROM places WHERE isFavorite = 1 AND UPPER(name) LIKE UPPER(:q) AND language =:language")
+    fun getFavoritePlaces(q: String = "", language: String): List<PlaceEntity>
 
     @Query("UPDATE places SET isFavorite = :isFavorite WHERE id = :placeId")
     suspend fun setFavorite(placeId: Long, isFavorite: Boolean)

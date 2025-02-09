@@ -19,4 +19,7 @@ interface HashesDao {
 
     @Query("SELECT * FROM hashes")
     suspend fun getHashes(): List<HashEntity>
+
+    @Query("DELETE FROM hashes")
+    suspend fun deleteHashes()
 }

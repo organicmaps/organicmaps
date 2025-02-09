@@ -13,7 +13,7 @@ data class PlaceDto(
     val short_description: String,
     val long_description: String,
 ) {
-    fun toPlaceFull(isFavorite: Boolean) = PlaceFull(
+    fun toPlaceFull(isFavorite: Boolean, language: String) = PlaceFull(
         id = id,
         name = name,
         rating = rating.toDouble(),
@@ -23,6 +23,7 @@ data class PlaceDto(
         cover = cover,
         pics = gallery,
         isFavorite = isFavorite,
-        reviews = feedbacks?.map { it.toReview() } ?: emptyList()
+        reviews = feedbacks?.map { it.toReview() } ?: emptyList(),
+        language = language,
     )
 }

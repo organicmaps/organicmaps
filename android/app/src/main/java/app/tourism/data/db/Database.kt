@@ -23,7 +23,7 @@ import app.tourism.data.db.entities.ReviewPlannedToPostEntity
         HashEntity::class,
         CurrencyRatesEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

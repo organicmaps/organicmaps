@@ -2,14 +2,13 @@ package app.tourism.data.db.entities
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import app.tourism.data.dto.PlaceLocation
 import app.tourism.domain.models.common.PlaceShort
 import app.tourism.domain.models.details.PlaceFull
 
-@Entity(tableName = "places")
+@Entity(tableName = "places", primaryKeys = ["id", "language"] )
 data class PlaceEntity(
-    @PrimaryKey val id: Long,
+    val id: Long,
     val categoryId: Long,
     val name: String,
     val excerpt: String,
@@ -18,7 +17,8 @@ data class PlaceEntity(
     val gallery: List<String>,
     @Embedded val coordinates: CoordinatesEntity?,
     val rating: Double,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val language: String,
 ) {
     fun toPlaceFull() = PlaceFull(
         id = id,
@@ -29,7 +29,8 @@ data class PlaceEntity(
         placeLocation = coordinates?.toPlaceLocation(name),
         cover = cover,
         pics = gallery,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        language = language
     )
 
     fun toPlaceShort() = PlaceShort(

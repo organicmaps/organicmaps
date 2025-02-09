@@ -34,9 +34,10 @@ object RepositoriesModule {
     fun providePlacesRepository(
         api: TourismApi,
         db: Database,
+        userPreferences: UserPreferences,
         @ApplicationContext context: Context,
     ): PlacesRepository {
-        return PlacesRepository(api, db, context)
+        return PlacesRepository(api, db, userPreferences, context)
     }
 
     @Provides
