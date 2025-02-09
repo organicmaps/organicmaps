@@ -76,7 +76,7 @@ namespace tesselator
       using TNeighbours = std::unordered_map<std::pair<int, int>, int, HashPair<int, int>>;
       TNeighbours m_neighbors;
 
-      void AddNeighbour(int p1, int p2, int trg);
+      bool AddNeighbour(int p1, int p2, int trg);
 
       void GetNeighbors(
           Triangle const & trg, Triangle const & from, int * nb) const;
@@ -87,12 +87,12 @@ namespace tesselator
     public:
       using TIterator = TNeighbours::const_iterator;
 
-      ListInfo(size_t count)
+      explicit ListInfo(size_t count)
       {
         m_triangles.reserve(count);
       }
 
-      void Add(int p0, int p1, int p2);
+      bool Add(int p0, int p1, int p2);
 
       void Start() const
       {
@@ -134,14 +134,14 @@ namespace tesselator
 
     void Reserve(size_t count) { m_triangles.push_back(ListInfo(count)); }
 
-    void Add(int p0, int p1, int p2);
+    bool Add(int p0, int p1, int p2);
     //@}
 
     inline bool IsEmpty() const { return m_triangles.empty(); }
 
-    template <class ToDo> void ForEachTriangle(ToDo toDo) const
+    template <class ToDo> void ForEachTriangle(ToDo && toDo) const
     {
-      for (std::list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
+      for (auto i = m_triangles.begin(); i != m_triangles.end(); ++i)
       {
         size_t const count = i->GetCount();
         for (size_t j = 0; j < count; ++j)

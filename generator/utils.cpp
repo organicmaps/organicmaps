@@ -20,6 +20,7 @@
 
 #include <exception>
 #include <iostream>
+#include <mutex>
 #include <vector>
 
 #define BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
@@ -27,10 +28,22 @@
 
 namespace generator
 {
+std::string g_lastError;
+void SetLastError(std::string error)
+{
+  static std::mutex m;
+  std::lock_guard guard(m);
+  g_lastError.swap(error);
+}
+
 void ErrorHandler(int signum)
 {
   // Avoid recursive calls.
   std::signal(signum, SIG_DFL);
+
+  if (!g_lastError.empty())
+    std::cerr << "Last error = " << g_lastError << std::endl;
+
   // If there was an exception, then we will print the message.
   try
   {
@@ -39,19 +52,23 @@ void ErrorHandler(int signum)
   }
   catch (RootException const & e)
   {
-    std::cerr << "Core exception: " << e.Msg() << "\n";
+    std::cerr << "Core exception: " << e.Msg() << std::endl;
   }
   catch (std::exception const & e)
   {
-    std::cerr << "Std exception: " << e.what() << "\n";
+    std::cerr << "Std exception: " << e.what() << std::endl;
   }
   catch (...)
   {
-    std::cerr << "Unknown exception.\n";
+    std::cerr << "Unknown exception." << std::endl;
   }
 
-  // Print stack stack.
-  std::cerr << boost::stacktrace::stacktrace();
+  // Print this fuction address to calculate BASE loading address for raw crash dump.
+  std::cerr << "ErrorHandler ptr: " << reinterpret_cast<void *>(&ErrorHandler) << std::endl;
+
+  // Print stack.
+  std::cerr << boost::stacktrace::stacktrace() << std::endl << std::flush;
+
   // We raise the signal SIGABRT, so that there would be an opportunity to make a core dump.
   std::raise(SIGABRT);
 }

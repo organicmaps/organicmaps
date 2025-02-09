@@ -34,6 +34,7 @@
 
 namespace generator
 {
+void SetLastError(std::string error);
 void ErrorHandler(int signum);
 
 /// \brief This class is wrapper around |DataSource| if only one mwm is registered in DataSource.

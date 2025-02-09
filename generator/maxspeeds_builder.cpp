@@ -165,6 +165,12 @@ public:
 
       auto const osmID = GetOsmID(fid).GetSerialId();
 
+      if (ft.GetGeomType() != GeomType::Line)
+      {
+        LOG(LWARNING, ("Non linear road with speed for way", osmID));
+        return;
+      }
+
 #define LOG_MAX_SPEED(msg) if (false) LOG(LINFO, msg)
 
       LOG_MAX_SPEED(("Start osmid =", osmID));

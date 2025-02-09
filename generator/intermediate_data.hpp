@@ -12,19 +12,15 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <limits>
 #include <memory>
-#include <mutex>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
-#include <utility>
 #include <vector>
-
-#include "defines.hpp"
 
 // Classes for reading and writing any data in file with map of offsets for
 // fast searching in memory by some key.
@@ -49,8 +45,7 @@ static_assert(std::is_trivially_copyable<LatLon>::value, "");
 struct LatLonPos
 {
   uint64_t m_pos = 0;
-  int32_t m_lat = 0;
-  int32_t m_lon = 0;
+  LatLon m_ll;
 };
 static_assert(sizeof(LatLonPos) == 16, "Invalid structure size");
 static_assert(std::is_trivially_copyable<LatLonPos>::value, "");
@@ -66,7 +61,7 @@ public:
 class PointStorageReaderInterface
 {
 public:
-  virtual ~PointStorageReaderInterface() {}
+  virtual ~PointStorageReaderInterface() = default;
   virtual bool GetPoint(uint64_t id, double & lat, double & lon) const = 0;
 };
 
@@ -141,10 +136,7 @@ public:
   class AllocatedObjects
   {
   public:
-    explicit AllocatedObjects(std::unique_ptr<PointStorageReaderInterface> storageReader)
-     : m_storageReader(std::move(storageReader))
-   {
-   }
+    AllocatedObjects(feature::GenerateInfo::NodeStorageType type, std::string const & name);
 
    PointStorageReaderInterface const & GetPointStorageReader() const { return *m_storageReader; }
 
@@ -162,6 +154,7 @@ public:
   void Clear();
 
 private:
+  std::mutex m_mutex;
   std::unordered_map<std::string, AllocatedObjects> m_objects;
 };
 
