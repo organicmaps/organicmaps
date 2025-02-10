@@ -98,6 +98,57 @@ final class SynchronizationtateManagerTests: XCTestCase {
     XCTAssertTrue(outgoingEvents.contains { if case .createCloudItem(_) = $0 { return true } else { return false } }, "Expected creation of cloud item for localFile")
   }
 
+  func testInitialSynchronizationWhenCloudFilesAreNotDownloadedTheDownloadingShouldStart () {
+    syncStateManager = iCloudSynchronizationStateResolver(isInitialSynchronization: true)
+
+    let localItem1 = LocalMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(1))
+    let cloudItem1 = CloudMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(2))
+    let cloudItem2 = CloudMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(3), isDownloaded: false)
+    let cloudItem3 = CloudMetadataItem.stub(fileName: "file3", lastModificationDate: TimeInterval(4))
+
+    let localItems = LocalContents([localItem1])
+    let cloudItems = CloudContents([cloudItem1, cloudItem2, cloudItem3])
+
+    outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringLocalContents(localItems)))
+    outgoingEvents.append(contentsOf: syncStateManager.resolveEvent(.didFinishGatheringCloudContents(cloudItems)))
+
+    XCTAssertEqual(outgoingEvents.count, 5)
+
+    outgoingEvents.forEach { event in
+      switch event {
+      case .resolveInitialSynchronizationConflict(let item):
+        // copy local file with a new name and replace the original with the cloud file
+        XCTAssertEqual(item, localItem1)
+      case .updateLocalItem(let item):
+        XCTAssertEqual(item, cloudItem1)
+      case .startDownloading(let item):
+        XCTAssertEqual(item, cloudItem2)
+      case .createLocalItem(let item):
+        XCTAssertEqual(item, cloudItem3)
+      case .didFinishInitialSynchronization:
+        XCTAssertTrue(event == outgoingEvents.last)
+      default:
+        XCTFail()
+      }
+    }
+
+    // update the cloud items with the new downloaded status
+    let cloudItem2Downloaded = CloudMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(3))
+    let newCloudItems = [cloudItem1, cloudItem2Downloaded, cloudItem3]
+    let cloudUpdate = CloudContentsUpdate(added: [], updated: [cloudItem2Downloaded], removed: [])
+    outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: newCloudItems, update: cloudUpdate))
+
+    XCTAssertEqual(outgoingEvents.count, 1)
+    outgoingEvents.forEach { event in
+      switch event {
+      case .createLocalItem(let item):
+        XCTAssertEqual(item, cloudItem2Downloaded)
+      default:
+        XCTFail()
+      }
+    }
+  }
+
   // MARK: - Test didFinishGathering without errors and after initial synchronization
   func testDidFinishGatheringWhenCloudAndLocalIsEmpty() {
     let localItems: LocalContents = []

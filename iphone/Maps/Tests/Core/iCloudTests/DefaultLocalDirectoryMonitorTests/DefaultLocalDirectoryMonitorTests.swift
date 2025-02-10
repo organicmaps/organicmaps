@@ -108,7 +108,7 @@ final class DefaultLocalDirectoryMonitorTests: XCTestCase {
     let file3URL = tempDirectory.appendingPathComponent("test3.jpg")
     let correctFileURL = tempDirectory.appendingPathComponent("test.kml")
 
-    var fileData = Data(count: 12)
+    let fileData = Data(count: 12)
     try! fileData.write(to: file1URL, options: .atomic)
     try! fileData.write(to: file2URL, options: .atomic)
     try! fileData.write(to: file3URL, options: .atomic)
