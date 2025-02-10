@@ -22,7 +22,7 @@ enum IncomingSynchronizationEvent {
   case didUpdateCloudContents(contents: CloudContents, update: CloudContentsUpdate)
 }
 
-enum OutgoingSynchronizationEvent {
+enum OutgoingSynchronizationEvent: Equatable {
   case startDownloading(CloudMetadataItem)
 
   case createLocalItem(with: CloudMetadataItem)
@@ -110,16 +110,21 @@ final class iCloudSynchronizationStateResolver: SynchronizationStateResolver {
          - all items that are in the local container but not in the cloud container will be created in the cloud container
          */
         localContents.forEach { localItem in
-          if let cloudItem = cloudContents.firstByName(localItem), localItem.lastModificationDate != cloudItem.lastModificationDate {
-            events.append(.resolveInitialSynchronizationConflict(localItem))
-            events.append(.updateLocalItem(with: cloudItem))
+          if let cloudItem = cloudContents.downloaded.firstByName(localItem), localItem.lastModificationDate != cloudItem.lastModificationDate {
+            if cloudItem.isDownloaded {
+              events.append(.resolveInitialSynchronizationConflict(localItem))
+              events.append(.updateLocalItem(with: cloudItem))
+            } else {
+              events.append(.startDownloading(cloudItem))
+            }
           }
         }
 
         let itemsToCreateInCloudContainer = localContents.filter { !cloudContents.containsByName($0) }
         let itemsToCreateInLocalContainer = cloudContents.filter { !localContents.containsByName($0) }
-        events.append(contentsOf: itemsToCreateInCloudContainer.map { .createCloudItem(with: $0) })
-        events.append(contentsOf: itemsToCreateInLocalContainer.map { .createLocalItem(with: $0) })
+        itemsToCreateInLocalContainer.notDownloaded.forEach { events.append(.startDownloading($0)) }
+        itemsToCreateInLocalContainer.downloaded.forEach { events.append(.createLocalItem(with: $0)) }
+        itemsToCreateInCloudContainer.forEach { events.append(.createCloudItem(with: $0)) }
 
         events.append(.didFinishInitialSynchronization)
         isInitialSynchronization = false
