@@ -1,12 +1,12 @@
 final class SearchOnMapInteractor: NSObject {
 
   private let presenter: SearchOnMapPresenter
-  private let searchManager: Search.Type
+  private let searchManager: SearchManager.Type
   private var isUpdatesDisabled = false
   private var showResultsOnMap: Bool = false
 
   init(presenter: SearchOnMapPresenter,
-       searchManager: Search.Type = Search.self) {
+       searchManager: SearchManager.Type = Search.self) {
     self.presenter = presenter
     self.searchManager = searchManager
     super.init()
