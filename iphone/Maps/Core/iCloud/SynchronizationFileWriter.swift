@@ -39,12 +39,18 @@ final class SynchronizationFileWriter {
 
   // MARK: - Read/Write/Downloading/Uploading
   private func startDownloading(_ cloudMetadataItem: CloudMetadataItem, completion: WritingResultCompletionHandler) {
-    do {
-      LOG(.info, "Start downloading file: \(cloudMetadataItem.fileName)...")
-      try fileManager.startDownloadingUbiquitousItem(at: cloudMetadataItem.fileUrl)
-      completion(.success)
-    } catch {
-      completion(.failure(error))
+    var coordinationError: NSError?
+    fileCoordinator.coordinate(writingItemAt: cloudMetadataItem.fileUrl, options: [], error: &coordinationError) { cloudItemUrl in
+      do {
+        LOG(.info, "Start downloading file: \(cloudItemUrl.path)...")
+        try fileManager.startDownloadingUbiquitousItem(at: cloudItemUrl)
+        completion(.success)
+      } catch {
+        completion(.failure(error))
+      }
+    }
+    if let coordinationError {
+      completion(.failure(coordinationError))
     }
   }
 
@@ -242,7 +248,7 @@ final class SynchronizationFileWriter {
 private extension FileManager {
   func replaceFileSafe(at targetUrl: URL, with sourceUrl: URL) throws {
     guard fileExists(atPath: targetUrl.path) else {
-      LOG(.debug, "Source file \(targetUrl.lastPathComponent) doesn't exist. The file will be copied.")
+      LOG(.info, "Source file \(targetUrl.lastPathComponent) doesn't exist. The file will be copied.")
       try copyItem(at: sourceUrl, to: targetUrl)
       return
     }
