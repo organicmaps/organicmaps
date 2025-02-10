@@ -31,6 +31,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mParent;
   private final TextView mTitle;
   private final TextView mSize;
+  private final TextView mError;
   private final WheelProgressView mProgress;
   private final Button mButton;
 
@@ -51,6 +52,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       {
         if (!item.isLeafNode)
           continue;
+
+        if (mError.getVisibility() == View.VISIBLE)
+          mError.setVisibility(View.GONE);
 
         if (item.newStatus == CountryItem.STATUS_FAILED)
           MapManager.showError(mActivity, item, null);
@@ -172,6 +176,13 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
               }
             }
 
+            if (!ConnectionState.INSTANCE.isConnected() &&
+                failed)
+            {
+              if (!(mError.getVisibility() == View.VISIBLE))
+                mError.setVisibility(View.VISIBLE);
+              mError.setText("Downloading failed, please check your internet connection");
+            }
             mButton.setText(failed ? R.string.downloader_retry
                                    : R.string.download);
           }
@@ -191,6 +202,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     mParent = mFrame.findViewById(R.id.downloader_parent);
     mTitle = mFrame.findViewById(R.id.downloader_title);
     mSize = mFrame.findViewById(R.id.downloader_size);
+    mError = mFrame.findViewById(R.id.downloader_error);
 
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
     mProgress = controls.findViewById(R.id.wheel_downloader_progress);
@@ -207,6 +219,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       mCurrentCountry.id, () -> {
       if (mCurrentCountry == null)
         return;
+
+      if (mError.getVisibility() == View.VISIBLE)
+        mError.setVisibility(View.GONE);
 
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
