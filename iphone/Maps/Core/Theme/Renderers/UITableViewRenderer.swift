@@ -1,7 +1,7 @@
 extension UITableView {
   @objc override func applyTheme() {
     if styleName.isEmpty {
-      setStyle(.tabView)
+      setStyle(.tableView)
     }
     for style in StyleManager.shared.getStyle(styleName)
       where !style.isEmpty && !style.hasExclusion(view: self) {

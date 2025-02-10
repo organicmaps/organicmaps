@@ -37,7 +37,6 @@
                             <constraint firstAttribute="width" constant="8" id="YVE-JC-Z8n"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="24" translatesAutoresizingMaskIntoConstraints="NO" id="ArA-iX-w8F">
@@ -47,7 +46,6 @@
                             <constraint firstAttribute="height" constant="21" id="oBr-Rr-mKP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQr-gL-ImO">
@@ -57,7 +55,6 @@
                             <constraint firstAttribute="height" constant="21" id="Xad-ok-Mz7"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="rOS-aO-0gb">
@@ -70,6 +67,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="MQr-gL-ImO" firstAttribute="centerX" secondItem="w7f-Rh-vzg" secondAttribute="centerX" constant="-4" id="1aM-UN-taw"/>
                     <constraint firstAttribute="bottom" secondItem="rOS-aO-0gb" secondAttribute="bottom" constant="-0.5" id="48x-fh-WrH"/>
@@ -89,9 +87,6 @@
                     <constraint firstItem="rOS-aO-0gb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t8r-sp-fRg"/>
                     <constraint firstItem="ArA-iX-w8F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zKO-lN-XyI"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
