@@ -59,7 +59,6 @@ final class TrackRecordingManager: NSObject {
     self.trackRecorder = trackRecorder
     self.activityManager = activityManager
     super.init()
-    subscribeOnAppLifecycleEvents()
   }
 
   // MARK: - Public methods
@@ -96,37 +95,9 @@ final class TrackRecordingManager: NSObject {
   // MARK: - Private methods
 
   private func checkIsLocationEnabled() throws {
-    guard !LocationManager.isLocationProhibited() else {
+    if LocationManager.isLocationProhibited() {
       throw TrackRecordingError.locationIsProhibited
     }
-  }
-
-  // MARK: - Handle lifecycle events
-
-  private func subscribeOnAppLifecycleEvents() {
-    NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(prepareForTermination), name: UIApplication.willTerminateNotification, object: nil)
-  }
-
-  @objc
-  private func willResignActive() {
-    guard let activityManager, recordingState == .active else { return }
-    do {
-      try activityManager.start(with: trackRecordingInfo ?? .empty())
-    } catch {
-      handleError(error)
-    }
-  }
-
-  @objc
-  private func willEnterForeground() {
-    activityManager?.stop()
-  }
-
-  @objc
-  private func prepareForTermination() {
-    activityManager?.stop()
   }
 
   // MARK: - Handle track recording process
@@ -155,6 +126,7 @@ final class TrackRecordingManager: NSObject {
         subscribeOnTrackRecordingProgressUpdates()
         trackRecorder.startTrackRecording()
         notifyObservers()
+        try? activityManager?.start(with: trackRecordingInfo ?? .empty())
       case .active:
         break
       }
