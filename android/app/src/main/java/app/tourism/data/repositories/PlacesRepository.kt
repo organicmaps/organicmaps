@@ -197,7 +197,7 @@ class PlacesRepository(
                     downloadStats.updatePercentage()
                     Log.d("", "downloadStats: $downloadStats")
 
-                    if(downloadStats.isAllFilesProcessed()) {
+                    if (downloadStats.isAllFilesProcessed()) {
                         emit(DownloadProgress.Finished(downloadStats))
                     } else {
                         emit(DownloadProgress.Loading(downloadStats))
@@ -244,7 +244,7 @@ class PlacesRepository(
     }
 
     fun getPlacesByCategoryFromDbFlow(id: Long): Flow<Resource<List<PlaceShort>>> = channelFlow {
-        placesDao.getPlacesByCategoryId(categoryId = id, language)
+        placesDao.getSortedPlacesByCategoryIdFlow(categoryId = id, language)
             .collectLatest { placeEntities ->
                 send(Resource.Success(placeEntities.map { it.toPlaceShort() }))
             }
@@ -261,7 +261,6 @@ class PlacesRepository(
             resource.data?.let { categoryDto ->
                 if (categoryDto.hash.isBlank()) return
                 // update places
-                placesDao.deleteAllPlacesByCategory(categoryId = id, language)
                 Log.d("dsf", "Before update places, categoryDto: $categoryDto")
                 val placesEn = categoryDto.en.map { placeDto ->
                     var placeFull = placeDto.toPlaceFull(false, "en")
@@ -276,9 +275,20 @@ class PlacesRepository(
                     placeFull
                 }
 
+                val oldCacheRu = placesDao.getPlacesByCategoryIdNotFlow(id, "ru")
+                val oldCacheEn = placesDao.getPlacesByCategoryIdNotFlow(id, "en")
+                val oldCache = oldCacheEn + oldCacheRu
+
                 val allPlaces = mutableListOf<PlaceFull>()
                 allPlaces.addAll(placesEn)
                 allPlaces.addAll(placesRu)
+
+                val placesRemovedFromApi =
+                    oldCache
+                        .filter { oldCachePlace -> !allPlaces.any { oldCachePlace.id == it.id } }
+                        .map { it.id }
+
+                placesDao.deletePlaces(placesRemovedFromApi)
                 placesDao.insertPlaces(allPlaces.map { it.toPlaceEntity(id) })
 
                 // update reviews

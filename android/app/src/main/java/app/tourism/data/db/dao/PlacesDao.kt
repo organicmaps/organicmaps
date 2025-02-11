@@ -14,6 +14,9 @@ interface PlacesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlaces(places: List<PlaceEntity>)
 
+    @Query("DELETE FROM places WHERE id IN (:idsList)")
+    suspend fun deletePlaces(idsList: List<Long>)
+
     @Query("DELETE FROM places")
     suspend fun deleteAllPlaces()
 
@@ -23,8 +26,11 @@ interface PlacesDao {
     @Query("SELECT * FROM places WHERE UPPER(name) LIKE UPPER(:q) AND language =:language")
     fun search(q: String = "", language: String): Flow<List<PlaceEntity>>
 
+    @Query("SELECT * FROM places WHERE categoryId = :categoryId AND language =:language ORDER BY rating DESC, name ASC")
+    fun getSortedPlacesByCategoryIdFlow(categoryId: Long, language: String): Flow<List<PlaceEntity>>
+
     @Query("SELECT * FROM places WHERE categoryId = :categoryId AND language =:language")
-    fun getPlacesByCategoryId(categoryId: Long, language: String): Flow<List<PlaceEntity>>
+    fun getPlacesByCategoryIdNotFlow(categoryId: Long, language: String): List<PlaceEntity>
 
     @Query("SELECT * FROM places WHERE categoryId =:categoryId AND language =:language ORDER BY rating DESC LIMIT 15")
     fun getTopPlacesByCategoryId(categoryId: Long, language: String): Flow<List<PlaceEntity>>
