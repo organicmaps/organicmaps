@@ -52,8 +52,8 @@
     <string name="disconnect_usb_cable">Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē</string>
-    <string name="download_resources">Pirms lietotnes izmantošanas lejupielādējiet kopējo pasaules karti.
-\nTā ierīce krātuvē aizņems %s vietas.</string>
+    <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.
+\nTā ierīces krātuvē aizņems %s vietas.</string>
     <string name="download_resources_continue">Iet uz karti</string>
     <string name="downloading_country_can_proceed">Lejupielādē „%s“. Tagad varat
 \niet uz karti.</string>
@@ -779,7 +779,7 @@
     <string name="elevation_profile_time">Laiks:</string>
     <string name="isolines_toast_zooms_1_10">Pietuviniet, lai izpētītu izolīnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
-    <string name="download_map_title">Lejupielādēt pasaules karti</string>
+    <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Neizdevās izveidot mapi un pārvietot datnes iekšējā atmiņā vai SD kartē</string>
     <!-- Used in DownloadResources startup screen -->
@@ -802,7 +802,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Ar jūsu ziedojumiem un atbalstu varam izveidot pasaulē labākās kartes!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!</string>
+    <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.</string>
     <!-- App tip #05 -->

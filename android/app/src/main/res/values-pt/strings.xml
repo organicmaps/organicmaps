@@ -52,7 +52,7 @@
     <string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação</string>
-    <string name="download_resources">Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.
+    <string name="download_resources">Antes de começar, é recomendável descarregar a visão geral mundial para o seu dispositivo.
 \nÉ necessário %s de espaço disponível.</string>
     <string name="download_resources_continue">Ir ao mapa</string>
     <string name="downloading_country_can_proceed">A descarregar %s. Agora pode
@@ -755,7 +755,7 @@
     <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Amplie o mapa para ver as curvas de nível</string>
     <string name="downloader_loading_ios">A descarregar</string>
-    <string name="download_map_title">Descarregar o mapa mundial</string>
+    <string name="download_map_title">Descarregar a visão geral mundial</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Falha na coneção</string>
     <string name="enable_keep_screen_on">Mantém o ecrã ligado</string>

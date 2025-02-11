@@ -784,7 +784,7 @@
     <string name="elevation_profile_time">Temps :</string>
     <string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
     <string name="downloader_loading_ios">Téléchargement</string>
-    <string name="download_map_title">Télécharger la carte du monde</string>
+    <string name="download_map_title">Télécharger la carte générale du monde</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l\'appareil ou la carte SD</string>
     <!-- Used in DownloadResources startup screen -->

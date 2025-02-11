@@ -29991,7 +29991,7 @@
     nl = Download de wereldkaart
     pl = Pobierz mapę świata
     pt = Descarregar a visão geral mundial
-	pt-BR = Baixar a visão geral mundial
+    pt-BR = Baixar a visão geral mundial
     ro = Descarcă harta lumii
     ru = Скачать обзорную карту мира
     sk = Stiahnuť mapu sveta

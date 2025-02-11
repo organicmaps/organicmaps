@@ -777,7 +777,7 @@
     <string name="elevation_profile_time">Tiempo:</string>
     <string name="isolines_toast_zooms_1_10">Amplíe el mapa para ver las isolíneas</string>
     <string name="downloader_loading_ios">Descargando</string>
-    <string name="download_map_title">Descarga el mapa mundial</string>
+    <string name="download_map_title">Descarga el mapa mundial de previsualización</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">No se ha podido crear la carpeta y mover los ficheros en la memoria interna del dispositivo o en la tarjeta SD</string>
     <!-- Used in DownloadResources startup screen -->
