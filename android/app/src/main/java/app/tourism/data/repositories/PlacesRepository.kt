@@ -6,6 +6,7 @@ import app.organicmaps.R
 import app.tourism.data.db.Database
 import app.tourism.data.db.entities.FavoriteSyncEntity
 import app.tourism.data.db.entities.HashEntity
+import app.tourism.data.db.entities.ImageToDownloadEntity
 import app.tourism.data.db.entities.PlaceEntity
 import app.tourism.data.db.entities.ReviewEntity
 import app.tourism.data.dto.FavoritesIdsDto
@@ -18,7 +19,13 @@ import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.categories.PlaceCategory
 import app.tourism.domain.models.common.PlaceShort
 import app.tourism.domain.models.details.PlaceFull
+import app.tourism.domain.models.resource.DownloadProgress
+import app.tourism.domain.models.resource.DownloadStats
 import app.tourism.domain.models.resource.Resource
+import coil.imageLoader
+import coil.request.ErrorResult
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -34,6 +41,8 @@ class PlacesRepository(
     private val placesDao = db.placesDao
     private val reviewsDao = db.reviewsDao
     private val hashesDao = db.hashesDao
+    private val imagesToDownloadDao = db.imagesToDownloadDao
+
     private val language = userPreferences.getLanguage()?.code ?: "ru"
 
     fun downloadAllData(): Flow<Resource<SimpleResponse>> = flow {
@@ -90,14 +99,38 @@ class PlacesRepository(
                         placeDto.toEntity(PlaceCategory.Hotels, "ru")
                     }
 
+                    val allPlacesEntities =
+                        sightsEntitiesEn + restaurantsEntitiesEn + hotelsEntitiesEn + sightsEntitiesRu + restaurantsEntitiesRu + hotelsEntitiesRu
+
+                    // add all images urls to download
+                    val imagesToDownload = mutableListOf<ImageToDownloadEntity>()
+                    allPlacesEntities.forEach { placeEntity ->
+                        val gallery = placeEntity.gallery.filter { it.isNotBlank() }
+                            .map { ImageToDownloadEntity(it, false) }
+                        imagesToDownload.addAll(gallery)
+                        if (placeEntity.cover.isNotBlank()) {
+                            val cover = ImageToDownloadEntity(placeEntity.cover, false)
+                            imagesToDownload.add(cover)
+                        }
+                    }
+                    reviewsEntities.forEach { reviewEntity ->
+                        val images = reviewEntity.images.filter { it.isNotBlank() }
+                            .map { ImageToDownloadEntity(it, false) }
+                        imagesToDownload.addAll(images)
+
+                        reviewEntity.user.avatar?.let {
+                            if (it.isNotBlank()) {
+                                val userPfp = ImageToDownloadEntity(it, false)
+                                imagesToDownload.add(userPfp)
+                            }
+                        }
+                    }
+
+                    imagesToDownloadDao.insertImages(imagesToDownload)
+
                     // update places
                     placesDao.deleteAllPlaces()
-                    placesDao.insertPlaces(sightsEntitiesEn)
-                    placesDao.insertPlaces(restaurantsEntitiesEn)
-                    placesDao.insertPlaces(hotelsEntitiesEn)
-                    placesDao.insertPlaces(sightsEntitiesRu)
-                    placesDao.insertPlaces(restaurantsEntitiesRu)
-                    placesDao.insertPlaces(hotelsEntitiesRu)
+                    placesDao.insertPlaces(allPlacesEntities)
 
                     // update reviews
                     reviewsDao.deleteAllReviews()
@@ -125,6 +158,82 @@ class PlacesRepository(
         } else {
             emit(Resource.Success(SimpleResponse(message = context.getString(R.string.download_successful))))
         }
+    }
+
+    fun downloadAllImages(): Flow<DownloadProgress> = flow {
+        try {
+            val imagesToDownload = imagesToDownloadDao.getAllImages()
+            val notDownloadedImages = imagesToDownload.filter { !it.downloaded }
+
+            val filesTotalNum = imagesToDownload.size
+            val filesDownloaded = filesTotalNum - notDownloadedImages.size
+            val downloadStats = DownloadStats(
+                filesTotalNum,
+                filesDownloaded,
+                0
+            )
+
+            if (downloadStats.percentagesCompleted >= 90) return@flow
+
+            notDownloadedImages.forEach {
+                try {
+                    val request = ImageRequest.Builder(context)
+                        .data(it.url)
+                        .build()
+                    val result = context.imageLoader.execute(request)
+
+                    when (result) {
+                        is SuccessResult -> {
+                            downloadStats.filesDownloaded++
+                            imagesToDownloadDao.markAsDownloaded(it.url, true)
+                        }
+
+                        is ErrorResult -> {
+                            downloadStats.filesFailedToDownload++
+                            Log.d("", "Url failed to download: ${it.url}")
+                        }
+                    }
+
+                    downloadStats.updatePercentage()
+                    Log.d("", "downloadStats: $downloadStats")
+
+                    if(downloadStats.isAllFilesProcessed()) {
+                        emit(DownloadProgress.Finished(downloadStats))
+                    } else {
+                        emit(DownloadProgress.Loading(downloadStats))
+                    }
+                } catch (e: Exception) {
+                    downloadStats.filesFailedToDownload++
+                    e.printStackTrace()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(DownloadProgress.Error(message = context.getString(R.string.smth_went_wrong)))
+        }
+    }
+
+    suspend fun markAllImagesAsNotDownloadedIfCacheWasCleared() {
+        // if coil cache is less than 10 MB,
+        // then most likely it was cleared and data needs to be downloaded again
+        // so we mark all images as not downloaded
+        context.imageLoader.diskCache?.let {
+            if (it.size < 10000000) {
+                imagesToDownloadDao.markAllImagesAsNotDownloaded()
+            }
+        }
+    }
+
+    suspend fun shouldDownloadImages(): Boolean {
+        val imagesToDownload = imagesToDownloadDao.getAllImages()
+        val notDownloadedImages = imagesToDownload.filter { !it.downloaded }
+
+        val filesTotalNum = imagesToDownload.size
+        val filesDownloaded = filesTotalNum - notDownloadedImages.size
+        val percentage = (filesDownloaded * 100) / filesTotalNum
+
+        Log.d("", "percentage: $percentage")
+        return percentage < 90
     }
 
     fun search(q: String): Flow<Resource<List<PlaceShort>>> = channelFlow {

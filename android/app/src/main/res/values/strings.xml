@@ -2276,4 +2276,12 @@
   <string name="review_was_published">Review was successfully published</string>
   <string name="failed_to_publish_review">Failed to publish review\n</string>
   <string name="plz_dont_go_out_of_tjk">Please, don\'t go out of Tajikistan, it\'s Tajikistan app</string>
+  <string name="channel_name">Downloading images</string>
+  <string name="channel_description">Downloading images for offline usage</string>
+  <string name="downloading_images">Downloading images</string>
+  <string name="images_downloaded">Images downloaded</string>
+  <string name="images_download_failed">Download failed</string>
+  <string name="all_images_were_downloaded">All images were downloaded successfully</string>
+  <string name="most_images_were_downloaded">Most images were downloaded</string>
+  <string name="not_all_images_were_downloaded">Error, not all images were downloaded</string>
 </resources>

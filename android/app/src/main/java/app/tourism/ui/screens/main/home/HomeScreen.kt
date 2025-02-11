@@ -41,6 +41,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.domain.models.common.PlaceShort
@@ -62,6 +65,9 @@ import app.tourism.ui.screens.main.categories.categories.HorizontalSingleChoice
 import app.tourism.ui.theme.TextStyles
 import app.tourism.ui.theme.getStarColor
 import app.tourism.ui.utils.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 @Composable
 fun HomeScreen(
@@ -111,6 +117,8 @@ fun HomeScreen(
                     .padding(paddingValues)
                     .verticalScroll(rememberScrollState())
             ) {
+                StartImagesDownloadIfNecessary(homeVM)
+
                 Column(Modifier.padding(horizontal = Constants.SCREEN_PADDING)) {
                     VerticalSpace(height = 16.dp)
 
@@ -297,6 +305,20 @@ private fun Place(
                 contentDescription = stringResource(id = R.string.add_to_favorites),
                 tint = Color.White,
             )
+        }
+    }
+}
+
+@Composable
+fun StartImagesDownloadIfNecessary(homeVM: HomeViewModel) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(Unit, lifecycleOwner) {
+        // this delay is here because it might navigate to map to download it
+        delay(3000L)
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            withContext(Dispatchers.Main.immediate) {
+                homeVM.startDownloadServiceIfNecessary()
+            }
         }
     }
 }

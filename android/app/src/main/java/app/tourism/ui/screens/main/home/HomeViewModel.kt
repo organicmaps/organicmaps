@@ -1,10 +1,11 @@
 package app.tourism.ui.screens.main.home
 
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.organicmaps.util.log.Logger
+import app.organicmaps.R
+import app.tourism.ImagesDownloadService
 import app.tourism.data.repositories.PlacesRepository
 import app.tourism.domain.models.SimpleResponse
 import app.tourism.domain.models.categories.PlaceCategory
@@ -23,10 +24,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val placesRepository: PlacesRepository
 ) : ViewModel() {
     private val uiChannel = Channel<UiEvent>()
     val uiEventsChannelFlow = uiChannel.receiveAsFlow()
+
+    private val _downloadServiceAlreadyRunning = MutableStateFlow(false)
 
     // region search query
     private val _query = MutableStateFlow("")
@@ -81,12 +85,31 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun markAllImagesAsNotDownloadedIfCacheWasCleared() {
+        viewModelScope.launch(Dispatchers.IO) {
+            placesRepository.markAllImagesAsNotDownloadedIfCacheWasCleared()
+        }
+    }
+
     private val _downloadResponse = MutableStateFlow<Resource<SimpleResponse>>(Resource.Idle())
     val downloadResponse = _downloadResponse.asStateFlow()
     private fun downloadAllData() {
         viewModelScope.launch(Dispatchers.IO) {
             placesRepository.downloadAllData().collectLatest {
                 _downloadResponse.value = it
+            }
+        }
+    }
+
+    fun startDownloadServiceIfNecessary() {
+        if (!_downloadServiceAlreadyRunning.value) {
+            _downloadServiceAlreadyRunning.value = true
+            viewModelScope.launch(Dispatchers.IO) {
+                if (placesRepository.shouldDownloadImages()) {
+                    uiChannel.send(UiEvent.ShowToast(context.getString(R.string.downloading_images)))
+                    val intent = Intent(context, ImagesDownloadService::class.java)
+                    context.startService(intent)
+                }
             }
         }
     }
@@ -98,6 +121,7 @@ class HomeViewModel @Inject constructor(
     }
 
     init {
+        markAllImagesAsNotDownloadedIfCacheWasCleared()
         downloadAllData()
         getTopSights()
         getTopRestaurants()

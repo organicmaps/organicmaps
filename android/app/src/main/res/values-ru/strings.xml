@@ -2234,4 +2234,12 @@
   <string name="review_was_published">Отзыв был успешно опубликован</string>
   <string name="failed_to_publish_review">Не удалось публиковать отзыв</string>
   <string name="plz_dont_go_out_of_tjk">Поажалуйста, не выходите за рамки Таджикистана, вы должны быть в Таджикистане</string>
+  <string name="channel_name">Загрузка изображений</string>
+  <string name="channel_description">Загрузка изображений для оффлайн использования</string>
+  <string name="downloading_images">Загрузка изображений</string>
+  <string name="images_downloaded">Изображений загружено</string>
+  <string name="images_download_failed">Ошибка загрузки</string>
+  <string name="all_images_were_downloaded">Все изображения былы загружены успешно</string>
+  <string name="most_images_were_downloaded">Большинство изображений было загружено</string>
+  <string name="not_all_images_were_downloaded">Ошибка, не все изображения былы загружены</string>
 </resources>
