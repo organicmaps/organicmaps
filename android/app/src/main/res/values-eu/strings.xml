@@ -777,7 +777,7 @@
     <string name="elevation_profile_time">Denbora:</string>
     <string name="isolines_toast_zooms_1_10">Handitu mapa sestra kurbak ikusteko</string>
     <string name="downloader_loading_ios">Deskargatzen</string>
-    <string name="download_map_title">Deskargatu munduko mapa</string>
+    <string name="download_map_title">Deskargatu munduko aurrebista mapa</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Ezin da karpeta sortu eta fitxategiak mugitu barneko gailuaren memorian edo sd txartelan</string>
     <!-- Used in DownloadResources startup screen -->

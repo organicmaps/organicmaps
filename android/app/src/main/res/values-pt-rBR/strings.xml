@@ -48,8 +48,8 @@
     <string name="disconnect_usb_cable">Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
-    <string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.
-\n%s de memória serão utilizados.</string>
+    <string name="download_resources">Antes de começar, vamos baixar a visão geral mundial para o seu dispositivo.
+\nÉ necessário %s de armazenamento.</string>
     <string name="download_resources_continue">Ir para o mapa</string>
     <string name="downloading_country_can_proceed">Baixando %s. Você pode
 \ncontinuar para o mapa agora.</string>
@@ -698,7 +698,7 @@
     <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
     <string name="downloader_loading_ios">Baixando</string>
-    <string name="download_map_title">Baixar mapa mundial</string>
+    <string name="download_map_title">Baixar a visão geral mundial</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo</string>
     <!-- Used in DownloadResources startup screen -->

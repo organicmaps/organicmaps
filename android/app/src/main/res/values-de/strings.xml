@@ -52,7 +52,7 @@
     <string name="disconnect_usb_cable">Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
-    <string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.
+    <string name="download_resources">Bevor Sie die App verwenden, laden Sie bitte die weltweite Übersichtskarte herunter.
 \nEs werden %s Speicherplatz benötigt.</string>
     <string name="download_resources_continue">Zur Karte</string>
     <string name="downloading_country_can_proceed">%s wird heruntergeladen. Sie können jetzt
@@ -779,7 +779,7 @@
     <string name="elevation_profile_time">Dauer:</string>
     <string name="isolines_toast_zooms_1_10">Karte vergrößern, um Höhelinien sichtbar zu machen</string>
     <string name="downloader_loading_ios">Herunterladen</string>
-    <string name="download_map_title">Herunterladen der Weltkarte</string>
+    <string name="download_map_title">Laden Sie die weltweite Übersichtskarte herunter</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden</string>
     <!-- Used in DownloadResources startup screen -->

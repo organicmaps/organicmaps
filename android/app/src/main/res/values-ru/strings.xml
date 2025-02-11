@@ -55,8 +55,8 @@
     <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
-    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.
-\nЭто потребует %s данных.</string>
+    <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.
+\nПотребуется %s данных.</string>
     <string name="download_resources_continue">Перейти на карту</string>
     <string name="downloading_country_can_proceed">Пока загружается %s,
 \nвы можете пользоваться картой.</string>
@@ -791,7 +791,7 @@
     <string name="elevation_profile_time">В пути:</string>
     <string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
     <string name="downloader_loading_ios">Загрузка</string>
-    <string name="download_map_title">Скачать карту мира</string>
+    <string name="download_map_title">Скачать обзорную карту мира</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Не могу создать папку и переместить файлы на устройстве</string>
     <!-- Used in DownloadResources startup screen -->
