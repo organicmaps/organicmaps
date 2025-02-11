@@ -131,7 +131,7 @@ class PlacePageInfoViewController: UIViewController {
   private var driveThroughView: InfoItemViewController?
   private var networkView: InfoItemViewController?
 
-  var placePageInfoData: PlacePageInfoData!
+  weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
   var coordinatesFormatId: Int {
     get { UserDefaults.standard.integer(forKey: Constants.coordFormatIdKey) }
@@ -366,38 +366,40 @@ class PlacePageInfoViewController: UIViewController {
     if formatId >= coordFormats.count {
       formatId = 0
     }
-
-    func setCoordinatesSelected(formatId: Int) {
-      coordinatesFormatId = formatId
-      let coordinates: String = coordFormats[formatId]
-      coordinatesView?.infoLabel.text = coordinates
-    }
-
-    func copyCoordinatesToPasteboard() {
-      let coordinates: String = coordFormats[coordinatesFormatId]
-      self.delegate?.didCopy(coordinates)
-    }
-
     coordinatesView = createInfoItem(coordFormats[formatId],
                                      icon: UIImage(named: "ic_placepage_coordinate"),
                                      accessoryImage: UIImage(named: "ic_placepage_change"),
-                                     tapHandler: { [unowned self] in
+                                     tapHandler: { [weak self] in
+      guard let self else { return }
       let formatId = (self.coordinatesFormatId + 1) % coordFormats.count
-      setCoordinatesSelected(formatId: formatId)
+      self.setCoordinatesSelected(formatId: formatId)
     },
-                                     longPressHandler: {
-      copyCoordinatesToPasteboard()
+                                     longPressHandler: { [weak self] in
+      self?.copyCoordinatesToPasteboard()
     })
     if #available(iOS 14.0, *) {
       let menu = UIMenu(children: coordFormats.enumerated().map { (index, format) in
-        UIAction(title: format, handler: { _ in
-          setCoordinatesSelected(formatId: index)
-          copyCoordinatesToPasteboard()
+        UIAction(title: format, handler: { [weak self] _ in
+          self?.setCoordinatesSelected(formatId: index)
+          self?.copyCoordinatesToPasteboard()
         })
       })
       coordinatesView?.accessoryButton.menu = menu
       coordinatesView?.accessoryButton.showsMenuAsPrimaryAction = true
     }
+  }
+
+  private func setCoordinatesSelected(formatId: Int) {
+    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    coordinatesFormatId = formatId
+    let coordinates: String = coordFormats[formatId]
+    coordinatesView?.infoLabel.text = coordinates
+  }
+
+  private func copyCoordinatesToPasteboard() {
+    guard let coordFormats = placePageInfoData.coordFormats as? Array<String> else { return }
+    let coordinates: String = coordFormats[coordinatesFormatId]
+    delegate?.didCopy(coordinates)
   }
 
   private func setupOpenWithAppView() {
