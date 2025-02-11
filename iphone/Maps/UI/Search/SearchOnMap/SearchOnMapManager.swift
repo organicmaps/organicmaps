@@ -7,12 +7,10 @@ enum SearchOnMapState: Int {
 
 @objcMembers
 final class SearchOnMapManager: NSObject {
-  static let shared = SearchOnMapManager()
-
   private let navigationController: UINavigationController
-  private weak var viewController: SearchOnMapViewController?
   private weak var interactor: SearchOnMapInteractor?
 
+  weak var viewController: UIViewController?
   var isSearching: Bool { viewController != nil }
 
   init(navigationController: UINavigationController = MapViewController.shared()!.navigationController!) {

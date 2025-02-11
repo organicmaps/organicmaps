@@ -527,10 +527,12 @@ const CGFloat kWidthForiPad = 320;
   return [MapViewController sharedController];
 }
 - (UIView *)searchViewContainer {
-  return [MapViewController sharedController].searchViewContainer;
+//  return [MapViewController sharedController].searchViewContainer;
+  return nil;
 }
 - (NSLayoutConstraint *)searchViewContainerLeadingConstraint {
-  return [MapViewController sharedController].searchViewContainerLeadingConstraint;
+//  return [MapViewController sharedController].searchViewContainerLeadingConstraint;
+  return nil;
 }
 - (UIView *)actionBarContainer {
   return [MapViewController sharedController].controlsView;

@@ -11,12 +11,13 @@ class BottomTabBarInteractor {
   private weak var viewController: UIViewController?
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
-  private var searchManager: SearchOnMapManager = SearchOnMapManager.shared
+  private let searchManager: SearchOnMapManager
 
   init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
     self.controlsManager = controlsManager
+    self.searchManager = mapViewController.searchManager
   }
 }
 

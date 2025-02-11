@@ -66,6 +66,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [TrackRecordingManager.shared addObserver:self recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * trackInfo) {
     [self setTrackRecordingButtonHidden:state == TrackRecordingStateInactive];
   }];
+  self.searchManager = controller.searchManager;
   return self;
 }
 
@@ -253,13 +254,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (!_navigationManager)
     _navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.controlsView];
   return _navigationManager;
-}
-
-- (SearchOnMapManager *)searchManager {
-  if (!_searchManager) {
-    _searchManager = [[SearchOnMapManager alloc] initWithNavigationController:self.ownerController.navigationController];
-  }
-  return _searchManager;
 }
 
 @synthesize menuState = _menuState;

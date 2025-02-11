@@ -6,7 +6,6 @@
 @class MapViewController;
 @class BottomTabBarViewController;
 @class TrackRecordingViewController;
-@class SearchOnMapManager;
 
 @protocol MWMFeatureHolder;
 

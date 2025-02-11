@@ -143,7 +143,7 @@ BOOL defaultOrientation(CGSize const &size) {
 }
 
 - (SearchOnMapManager *)searchManager {
-  return [SearchOnMapManager shared];
+  return [MapViewController sharedController].searchManager;
 }
 
 - (IBAction)openSearch {
