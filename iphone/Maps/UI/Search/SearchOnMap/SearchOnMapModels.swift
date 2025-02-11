@@ -52,6 +52,8 @@ enum SearchOnMap {
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
     case didUpdatePresentationStep(ModalScreenPresentationStep)
+    case openSearch
+    case hideSearch
     case closeSearch
   }
 

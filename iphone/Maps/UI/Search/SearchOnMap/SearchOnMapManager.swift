@@ -13,22 +13,26 @@ final class SearchOnMapManager: NSObject {
   private weak var viewController: SearchOnMapViewController?
   private weak var interactor: SearchOnMapInteractor?
 
+  var isSearching: Bool { viewController != nil }
+
   init(navigationController: UINavigationController = MapViewController.shared()!.navigationController!) {
     self.navigationController = navigationController
   }
 
-  var isSearching: Bool { viewController != nil }
-
-  @objc
+  // MARK: - Public
   func setState(_ state: SearchOnMapState) {
     switch state {
     case .searching:
-      beginSearch()
+      openSearch()
     case .hidden:
-      hide()
+      hideSearch()
     case .closed:
-      close()
+      closeSearch()
     }
+  }
+
+  func setRoutingTooltip(_ tooltip: MWMSearchManagerRoutingTooltipSearch) {
+    interactor?.routingTooltipSearch = tooltip
   }
 
   func setPlaceOnMapSelected(_ isSelected: Bool) {
@@ -44,30 +48,37 @@ final class SearchOnMapManager: NSObject {
     interactor?.handle(.didSelectText(searchText, isCategory: isCategory))
   }
 
-  private func beginSearch() {
+  // MARK: - Private
+  private func openSearch() {
     if viewController != nil {
-      interactor?.handle(.didStartTyping)
+      interactor?.handle(.openSearch)
       return
     }
     FrameworkHelper.deactivateMapSelection()
+    let viewController = SearchOnMapBuilder.build()
+    self.viewController = viewController
+    self.interactor = viewController.interactor
+    navigationController.present(viewController, animated: true)
+  }
 
+  private func closeSearch() {
+    interactor?.handle(.closeSearch)
+  }
+
+  private func hideSearch() {
+    interactor?.handle(.hideSearch)
+  }
+}
+
+private struct SearchOnMapBuilder {
+  static func build() -> SearchOnMapViewController {
     let transitioningManager = SearchOnMapModalTransitionManager()
     let presenter = SearchOnMapPresenter(transitionManager: transitioningManager)
     let interactor = SearchOnMapInteractor(presenter: presenter)
     let viewController = SearchOnMapViewController(interactor: interactor)
-    self.interactor = interactor
-    self.viewController = viewController
     presenter.view = viewController
     viewController.modalPresentationStyle = .custom
     viewController.transitioningDelegate = transitioningManager
-    navigationController.present(viewController, animated: true)
-  }
-
-  private func close() {
-    interactor?.handle(.closeSearch)
-  }
-
-  private func hide() {
-    interactor?.handle(.didSelectPlaceOnMap)
+    return viewController
   }
 }

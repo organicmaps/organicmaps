@@ -2,13 +2,18 @@ final class SearchOnMapInteractor: NSObject {
 
   private let presenter: SearchOnMapPresenter
   private let searchManager: SearchManager.Type
+  private let routeManager: MWMRouter.Type
   private var isUpdatesDisabled = false
   private var showResultsOnMap: Bool = false
 
+  var routingTooltipSearch: MWMSearchManagerRoutingTooltipSearch = .none
+
   init(presenter: SearchOnMapPresenter,
-       searchManager: SearchManager.Type = Search.self) {
+       searchManager: SearchManager.Type = Search.self,
+       routeManager: MWMRouter.Type = MWMRouter.self) {
     self.presenter = presenter
     self.searchManager = searchManager
+    self.routeManager = routeManager
     super.init()
     searchManager.add(self)
   }
@@ -29,52 +34,22 @@ final class SearchOnMapInteractor: NSObject {
       response = .showHistoryAndCategory
     case .didStartDraggingSearch:
       response = .setIsTyping(false)
-    case .didStartTyping:
+    case .didStartTyping, .openSearch:
       response = .setIsTyping(true)
     case .didType(let searchText):
-      isUpdatesDisabled = false
-      searchManager.searchQuery(searchText.text,
-                                forInputLocale: searchText.locale,
-                                withCategory: false)
-      showResultsOnMap = true
-      response = .startSearching
+      response = processTypedText(searchText)
     case .clearButtonDidTap:
-      isUpdatesDisabled = true
-      searchManager.clear()
-      response = .clearSearch
+      response = processCancelButtonDidTap()
     case .didSelectText(let searchText, let isCategory):
-      isUpdatesDisabled = false
-      response = .selectText(searchText.text)
-      searchManager.saveQuery(searchText.text,
-                              forInputLocale: searchText.locale)
-      searchManager.searchQuery(searchText.text,
-                                forInputLocale: searchText.locale,
-                                withCategory: isCategory)
-      showResultsOnMap = true
+      response = processSelectedText(searchText, isCategory: isCategory)
     case .searchButtonDidTap(let searchText):
-      searchManager.saveQuery(searchText.text,
-                              forInputLocale: searchText.locale)
-      showResultsOnMap = true
-      response = .showOnTheMap
+      response = processSearchButtonDidTap(searchText)
     case .didSelectResult(let result, let index, let searchText):
-      switch result.itemType {
-      case .regular:
-        searchManager.saveQuery(searchText.text,
-                                forInputLocale:searchText.locale)
-        searchManager.showResult(at: UInt(index))
-        // TODO: handle routingTooltipSearch (see MWMSearchManager) for the navigation search
-        response = .setSearchScreenHidden(true)
-      case .suggestion:
-        response = .selectText(result.suggestion)
-        searchManager.searchQuery(result.suggestion,
-                                  forInputLocale: searchText.locale,
-                                  withCategory: result.isPureSuggest)
-      @unknown default:
-        fatalError("Unsupported result type")
-      }
-    case .didSelectPlaceOnMap:
+      response = processSelectedResult(result, index: index, searchText: searchText)
+    case .didSelectPlaceOnMap, .hideSearch:
       response = .setSearchScreenHidden(true)
     case .didDeselectPlaceOnMap:
+      routingTooltipSearch = .none
       response = .setSearchScreenHidden(false)
       searchManager.showViewportSearchResultsOnMap()
     case .didStartDraggingMap:
@@ -82,11 +57,81 @@ final class SearchOnMapInteractor: NSObject {
     case .didUpdatePresentationStep(let step):
       response = .updatePresentationStep(step)
     case .closeSearch:
+      routingTooltipSearch = .none
       isUpdatesDisabled = true
       searchManager.clear()
       response = .close
     }
     return response
+  }
+
+  private func processCancelButtonDidTap() -> SearchOnMap.Response {
+    isUpdatesDisabled = true
+    searchManager.clear()
+    return .clearSearch
+  }
+
+  private func processSearchButtonDidTap(_ searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
+    searchManager.saveQuery(searchText.text,
+                            forInputLocale: searchText.locale)
+    showResultsOnMap = true
+    return .showOnTheMap
+  }
+
+  private func processTypedText(_ searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
+    isUpdatesDisabled = false
+    showResultsOnMap = true
+    searchManager.searchQuery(searchText.text,
+                              forInputLocale: searchText.locale,
+                              withCategory: false)
+    return .startSearching
+  }
+
+  private func processSelectedText(_ searchText: SearchOnMap.SearchText, isCategory: Bool) -> SearchOnMap.Response {
+    isUpdatesDisabled = false
+    searchManager.saveQuery(searchText.text,
+                            forInputLocale: searchText.locale)
+    searchManager.searchQuery(searchText.text,
+                              forInputLocale: searchText.locale,
+                              withCategory: isCategory)
+    showResultsOnMap = true
+    return .selectText(searchText.text)
+  }
+
+  private func processSelectedResult(_ result: SearchResult, index: Int, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response? {
+    switch result.itemType {
+    case .regular:
+      searchManager.saveQuery(searchText.text,
+                              forInputLocale:searchText.locale)
+      switch routingTooltipSearch {
+      case .none:
+        searchManager.showResult(at: UInt(index))
+      case .start:
+        let point = MWMRoutePoint(cgPoint: result.point,
+                               title: result.titleText,
+                               subtitle: result.addressText,
+                               type: .start,
+                               intermediateIndex: 0)
+        routeManager.build(from: point, bestRouter: false)
+      case .finish:
+        let point = MWMRoutePoint(cgPoint: result.point,
+                               title: result.titleText,
+                               subtitle: result.addressText,
+                               type: .finish,
+                               intermediateIndex: 0)
+        routeManager.build(to: point, bestRouter: false)
+      @unknown default:
+        fatalError("Unsupported routingTooltipSearch")
+      }
+      return .setSearchScreenHidden(true)
+    case .suggestion:
+      searchManager.searchQuery(result.suggestion,
+                                forInputLocale: searchText.locale,
+                                withCategory: result.isPureSuggest)
+      return .selectText(result.suggestion)
+    @unknown default:
+      fatalError("Unsupported result type")
+    }
   }
 }
 

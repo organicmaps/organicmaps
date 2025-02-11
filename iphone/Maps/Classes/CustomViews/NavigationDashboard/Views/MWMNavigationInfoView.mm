@@ -6,7 +6,6 @@
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMSearch.h"
-#import "MWMSearchManager.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 #import "UIImageView+Coloring.h"
@@ -143,13 +142,16 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:YES withLocationButton:NO];
 }
 
+- (SearchOnMapManager *)searchManager {
+  return [SearchOnMapManager shared];
+}
+
 - (IBAction)openSearch {
   BOOL const isStart = self.toastView.isStart;
-  auto searchManager = [MWMSearchManager manager];
 
-  searchManager.routingTooltipSearch =
-    isStart ? MWMSearchManagerRoutingTooltipSearchStart : MWMSearchManagerRoutingTooltipSearchFinish;
-  searchManager.state = MWMSearchManagerStateDefault;
+  [self.searchManager setRoutingTooltip:
+    isStart ? MWMSearchManagerRoutingTooltipSearchStart : MWMSearchManagerRoutingTooltipSearchFinish ];
+  [self.searchManager setState:SearchOnMapStateSearching];
 }
 
 - (IBAction)addLocationRoutePoint {
@@ -166,12 +168,12 @@ BOOL defaultOrientation(CGSize const &size) {
 - (IBAction)searchMainButtonTouchUpInside {
   switch (self.searchState) {
     case NavigationSearchState::Maximized:
-      [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
+      [self.searchManager setState:SearchOnMapStateSearching];
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
       break;
     case NavigationSearchState::MinimizedNormal:
       if (self.state == MWMNavigationInfoViewStatePrepare) {
-        [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
+        [self.searchManager setState:SearchOnMapStateSearching];
       } else {
         [self setSearchState:NavigationSearchState::Maximized animated:YES];
       }
@@ -183,7 +185,7 @@ BOOL defaultOrientation(CGSize const &size) {
     case NavigationSearchState::MinimizedFood:
     case NavigationSearchState::MinimizedATM:
       [MWMSearch clear];
-      [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
+      [self.searchManager setState:SearchOnMapStateClosed]; // TODO: or hiddden?
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
       break;
   }
