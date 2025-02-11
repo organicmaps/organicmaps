@@ -6,6 +6,7 @@ import app.tourism.data.dto.profile.ThemeDto
 import app.tourism.data.prefs.UserPreferences
 import app.tourism.data.remote.TourismApi
 import app.tourism.data.remote.handleGenericCall
+import app.tourism.data.remote.handleResponse
 import app.tourism.data.remote.toFormDataRequestBody
 import app.tourism.domain.models.profile.PersonalData
 import app.tourism.domain.models.resource.Resource
@@ -67,9 +68,26 @@ class ProfileRepository(
 
     suspend fun updateLanguage(code: String) {
         try {
-            api.updateLanguage(language = LanguageDto(code))
+            val resource = handleResponse(
+                call = { api.updateLanguage(language = LanguageDto(code)) },
+                context
+            )
+            if (resource is Resource.Success) {
+                userPreferences.setShouldSyncLanguage(false)
+            } else if (resource is Resource.Error) {
+                userPreferences.setShouldSyncLanguage(true)
+            }
         } catch (e: Exception) {
+            userPreferences.setShouldSyncLanguage(true)
             println(e.message)
+        }
+    }
+
+    suspend fun syncLanguageIfNecessary() {
+        userPreferences.getLanguage()?.code?.let {
+            if (userPreferences.getShouldSyncLanguage()) {
+                updateLanguage(it)
+            }
         }
     }
 

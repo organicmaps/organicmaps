@@ -38,6 +38,10 @@ class UserPreferences(context: Context) {
 
     fun getUserId() = sharedPref.getString("user_id", "")
     fun setUserId(value: String?) = sharedPref.edit { putString("user_id", value) }
+
+    fun getShouldSyncLanguage() = sharedPref.getBoolean("should_sync_language", false)
+    fun setShouldSyncLanguage(value: Boolean) =
+        sharedPref.edit { putBoolean("should_sync_language", value) }
 }
 
 data class Language(val code: String, val name: String)
