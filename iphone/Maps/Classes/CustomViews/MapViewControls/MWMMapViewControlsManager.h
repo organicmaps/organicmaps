@@ -1,7 +1,6 @@
 #import "MWMBottomMenuState.h"
 #import "MWMMapDownloaderMode.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMSearchManager.h"
 
 @class MapViewController;
 @class BottomTabBarViewController;
