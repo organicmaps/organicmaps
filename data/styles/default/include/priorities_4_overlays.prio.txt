@@ -303,7 +303,7 @@ highway-secondary-bridge                            # pathtext z10- (also has sh
 highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z16-)
 === 5600
 
-man_made-communications_tower
+man_made-communications_tower                       # icon z14- (also has caption(optional) z15-)
 man_made-lighthouse                                 # icon z14- (also has caption(optional) z14-)
 natural-peak                                        # icon z13- (also has caption(optional) z13-)
 natural-volcano                                     # icon z12- (also has caption(optional) z13-)
@@ -408,7 +408,7 @@ amenity-pub                                         # icon z15- (also has captio
 
 amenity-shelter-basic_hut                           # icon z16- (also has caption(optional) z16-)
 amenity-shelter-lean_to                             # icon z16- (also has caption(optional) z16-)
-emergency-mountain_rescue
+emergency-mountain_rescue                           # icon z16- (also has caption(optional) z16-)
 tourism-wilderness_hut                              # icon z16- (also has caption(optional) z16-)
 === 3900
 
@@ -987,7 +987,7 @@ historic-pillory                                    # icon z16- (also has captio
 historic-tomb                                       # icon z16- (also has caption(optional) z16-)
 historic-wayside_cross                              # icon z16- (also has caption(optional) z16-)
 historic-wayside_shrine                             # icon z16- (also has caption(optional) z17-)
-man_made-cross
+man_made-cross                                      # icon z16- (also has caption(optional) z16-)
 tourism-artwork                                     # icon z15- (also has caption(optional) z15-)
 tourism-artwork-architecture                        # icon z15- (also has caption(optional) z15-)
 tourism-artwork-painting                            # icon z15- (also has caption(optional) z15-)
@@ -995,7 +995,7 @@ tourism-artwork-painting                            # icon z15- (also has captio
 
 amenity-shelter                                     # icon z17- (also has caption(optional) z17-)
 amenity-shelter-public_transport                    # icon z17- (also has caption(optional) z17-)
-emergency-lifeguard
+emergency-lifeguard                                 # icon z17- (also has caption(optional) z18-)
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
 === 1500
@@ -1084,7 +1084,7 @@ leisure-ice_rink                                    # icon z17- (also has captio
 leisure-pitch                                       # icon z17- (also has caption(optional) z17-, area z15-)
 man_made-chimney                                    # icon z16- (also has caption(optional) z18-)
 man_made-flagpole                                   # icon z15-
-man_made-flare
+man_made-flare                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower-communication                        # icon z16- (also has caption(optional) z18-)
 === 850
@@ -1238,11 +1238,11 @@ leisure-common                                      # caption z17-
 leisure-slipway                                     # caption z17-
 leisure-track                                       # caption z16- (also has line z15-)
 leisure-track-area                                  # caption z16- (also has area z15-)
+man_made-petroleum_well                             # icon z17- (also has caption(optional) z18-)
 power-generator                                     # icon z17-
 power-generator-gas                                 # icon z17-
 power-generator-hydro                               # icon z17-
 power-generator-wind                                # icon z15- (also has caption(optional) z18-)
-man_made-petroleum_well
 === 120
 
 amenity-parking-lane-private                        # icon z19- (also has caption(optional) z19-, area z17-)
@@ -1436,6 +1436,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # waterway-waterfall                                # caption(optional) z14- (also has icon z13-)
 # === -4200
 
+# man_made-communications_tower                     # caption(optional) z15- (also has icon z14-)
 # man_made-lighthouse                               # caption(optional) z14- (also has icon z14-)
 # natural-peak                                      # caption(optional) z13- (also has icon z13-)
 # natural-volcano                                   # caption(optional) z13- (also has icon z12-)
@@ -1538,6 +1539,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # amenity-shelter-basic_hut                         # caption(optional) z16- (also has icon z16-)
 # amenity-shelter-lean_to                           # caption(optional) z16- (also has icon z16-)
+# emergency-mountain_rescue                         # caption(optional) z16- (also has icon z16-)
 # tourism-wilderness_hut                            # caption(optional) z16- (also has icon z16-)
 # === -6100
 
@@ -1926,6 +1928,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # historic-tomb                                     # caption(optional) z16- (also has icon z16-)
 # historic-wayside_cross                            # caption(optional) z16- (also has icon z16-)
 # historic-wayside_shrine                           # caption(optional) z17- (also has icon z16-)
+# man_made-cross                                    # caption(optional) z16- (also has icon z16-)
 # tourism-artwork                                   # caption(optional) z15- (also has icon z15-)
 # tourism-artwork-architecture                      # caption(optional) z15- (also has icon z15-)
 # tourism-artwork-painting                          # caption(optional) z15- (also has icon z15-)
@@ -1933,6 +1936,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # amenity-shelter                                   # caption(optional) z17- (also has icon z17-)
 # amenity-shelter-public_transport                  # caption(optional) z17- (also has icon z17-)
+# emergency-lifeguard                               # caption(optional) z18- (also has icon z17-)
 # leisure-fitness_station                           # caption(optional) z17- (also has icon z17-)
 # leisure-playground                                # caption(optional) z17- (also has icon z17-, area z16-)
 # === -8500
@@ -2009,6 +2013,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # leisure-ice_rink                                  # caption(optional) z17- (also has icon z17-)
 # leisure-pitch                                     # caption(optional) z17- (also has icon z17-, area z15-)
 # man_made-chimney                                  # caption(optional) z18- (also has icon z16-)
+# man_made-flare                                    # caption(optional) z18- (also has icon z16-)
 # man_made-tower                                    # caption(optional) z18- (also has icon z16-)
 # man_made-tower-communication                      # caption(optional) z18- (also has icon z16-)
 # === -9150
@@ -2131,6 +2136,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # landuse-industrial-mine                           # caption(optional) z15- (also has icon z15-, area z15-)
 # landuse-landfill                                  # caption(optional) z15- (also has icon z15-, area z15-)
 # landuse-quarry                                    # caption(optional) z15- (also has icon z15-, area z15-)
+# man_made-petroleum_well                           # caption(optional) z18- (also has icon z17-)
 # power-generator-wind                              # caption(optional) z18- (also has icon z15-)
 # === -9880
 
