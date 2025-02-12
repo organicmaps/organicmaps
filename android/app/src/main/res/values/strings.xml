@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Delete</string>
     <string name="download_maps">Download Maps</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Download has failed. Touch to try again.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Downloading…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Show on the map</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Download has failed</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Try Again</string>
     <string name="about_menu_title">About Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Free for everyone, made with love</string>
@@ -51,19 +47,7 @@
     <string name="close">Close</string>
     <string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
     <string name="download">Download</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
-    <string name="download_resources">Before you start using the app, please download the general world map to your device.
-\nIt will use %s of storage.</string>
-    <string name="download_resources_continue">Go to Map</string>
-    <string name="downloading_country_can_proceed">Downloading %s. You can now
-\nproceed to the map.</string>
     <string name="download_country_ask">Download %s?</string>
-    <string name="update_country_ask">Update %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continue</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -348,8 +332,6 @@
     <string name="routing_download_maps_along">Download all of the maps along your route</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">In order to create a route, we need to download and update all the maps from your location to your destination.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Not enough space</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Please enable Location Services</string>
     <string name="save">Save</string>
@@ -810,15 +792,6 @@
     <string name="elevation_profile_time">Time:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
     <string name="downloader_loading_ios">Downloading</string>
-    <string name="download_map_title">Download the world map</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Disk error</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Connection failure</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Disconnect USB cable</string>
     <string name="enable_keep_screen_on">Keep the screen on</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">When enabled, the screen will always be on when displaying the map.</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Выдаліць</string>
     <string name="download_maps">Спампаваць мапы</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Не атрымалася спампаваць. Націсніце, каб паспрабаваць зноў.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Спампоўванне…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Паказаць на мапе</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Памылка спампоўкі</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Паспрабаваць зноў</string>
     <string name="about_menu_title">Аб праграме Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Бясплатна для ўсіх, зроблена з любоўю</string>
@@ -51,19 +47,7 @@
     <string name="close">Закрыць</string>
     <string name="unsupported_phone">Для працы праграмы неабходны апаратна паскораны OpenGL. Нажаль, ваша прылада не падтрымліваецца.</string>
     <string name="download">Спампаваць</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Адключыце USB кабель або ўстаўце карту памяці, каб карыстацца Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Вызваліце месца на SD-карце/USB-сховішчы, каб карыстацца праграмай</string>
-    <string name="download_resources">Перад пачаткам працы дазвольце нам спампаваць агульную мапу свету на вашу прыладу.
-\nГэта патрабуе %s сховішча.</string>
-    <string name="download_resources_continue">Перайсці да мапы</string>
-    <string name="downloading_country_can_proceed">Спампоўванне %s. Цяпер вы можаце
-\nперайсці да мапы.</string>
     <string name="download_country_ask">Спампаваць %s?</string>
-    <string name="update_country_ask">Абнавіць %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Прыпыніць</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Працягнуць</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -324,8 +308,6 @@
     <string name="routing_download_maps_along">Спампаваць усе мапы на вашым маршруце</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Не хапае месца</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Калі ласка, уключыце геалакацыю</string>
     <string name="save">Захаваць</string>
@@ -774,11 +756,6 @@
     <string name="elevation_profile_time">Час:</string>
     <string name="isolines_toast_zooms_1_10">Павялічце маштаб, каб пабачыць рэльеф</string>
     <string name="downloader_loading_ios">Спампоўка</string>
-    <string name="download_map_title">Спампаваць мапу света</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Памылка падлучэння</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Адлучыце USB кабель</string>
     <string name="enable_keep_screen_on">Трымаць экран уключаным</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Калі ўключана, экран заўсёды будзе ўключаны падчас адлюстравання карты.</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">מחק</string>
     <string name="download_maps">הורד מפות</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">.הורדת הקובץ נכשלה. לחץ לניסיון נוסף</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">מוריד…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">הצג במפה</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">ההורדה נכשלה</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">נסה שוב</string>
     <string name="about_menu_title">אודות Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">חינם לכולם, מיוצרים באהבה</string>
@@ -48,19 +44,7 @@
     <string name="close">סגור</string>
     <string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
     <string name="download">הורדה</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש  ב-Organic Maps.</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון בכרטיס הזיכרון או בכונן USB כדי להשתמש בישום</string>
-    <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.
-\nמפה זו דורשת נפח אחסון של %s.</string>
-    <string name="download_resources_continue">עבור למפה</string>
-    <string name="downloading_country_can_proceed">מוריד %s. תוכל עתה
-\nלהמשיך למפה.</string>
     <string name="download_country_ask">להוריד %s?</string>
-    <string name="update_country_ask">לעדכן %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">הפסק</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">המשך</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -325,8 +309,6 @@
     <string name="routing_download_maps_along">הורד את כל המפות במסלול שלך</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">אין מספיק מקום</string>
     <!-- location service disabled -->
     <string name="enable_location_services">יש להפעיל שירותי מיקום</string>
     <string name="save">שמור</string>
@@ -774,15 +756,6 @@
     <string name="elevation_profile_time">זמן:</string>
     <string name="isolines_toast_zooms_1_10">התקרב כדי לחקור קווי מתאר</string>
     <string name="downloader_loading_ios">מוריד</string>
-    <string name="download_map_title">הורד את מפת העולם</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">לא ניתן ליצור תיקייה ולהעביר קבצים בזיכרון הפנימי או בכרטיס הזיכרון</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">שגיאת כונן</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">כשל חיבור</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">נתק כבל USB</string>
     <string name="enable_keep_screen_on">השאר מסך דלוק</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</string>

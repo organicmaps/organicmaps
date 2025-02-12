@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Ta bort</string>
     <string name="download_maps">Ladda ner kartor</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Nedladdningen misslyckades, tryck för att försöka igen</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Laddar ner…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Visa på kartan</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Nedladdningen misslyckades</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Försök igen</string>
     <string name="about_menu_title">Om Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis för alla, skapad med kärlek</string>
@@ -48,19 +44,7 @@
     <string name="close">Stäng</string>
     <string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
     <string name="download">Ladda ner</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda appen.</string>
-    <string name="download_resources">Innan du startar, låt oss ladda ner den allmäna världskartan på din enhet.
-\nDen behöver %s data.</string>
-    <string name="download_resources_continue">Gå till karta</string>
-    <string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu
-\n fortsätta till kartan.</string>
     <string name="download_country_ask">Ladda ner %s?</string>
-    <string name="update_country_ask">Uppdatera %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pausa</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Fortsätt</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -300,8 +284,6 @@
     <string name="routing_download_maps_along">Ladda ned kartor längs vägen</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Navigering kräver att alla kartor från din position till destinationen är nerladdade och uppdaterade.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">För lite utrymme kvar</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Vänligen aktivera platstjänster</string>
     <string name="save">Spara</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Изтриване</string>
     <string name="download_maps">Изтегляне на карти</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Изтеглянето се провали. Натиснете, за да опитате отново.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Теглене…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Показване на картата</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Изтеглянето се провали</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Опитайте отново</string>
     <string name="about_menu_title">Относно приложението</string>
     <!-- Text in About screen -->
     <string name="about_headline">Безплатно за всички, направени с любов</string>
@@ -51,18 +47,7 @@
     <string name="close">Затваряне</string>
     <string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
     <string name="download">Изтегляне</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
-    <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.
-\nТова ще използва %s от паметта.</string>
-    <string name="download_resources_continue">Към картата</string>
-    <string name="downloading_country_can_proceed">Изтегляне на %s. Вече можете да преминете към картата.</string>
     <string name="download_country_ask">Изтегляне на %s?</string>
-    <string name="update_country_ask">Обновяване на %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Пауза</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Възобновяване</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -307,8 +292,6 @@
     <string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Недостатъчно място</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Моля, разрешете услугите за местоположение</string>
     <string name="save">Запазване</string>
@@ -702,11 +685,6 @@
     <string name="elevation_profile_distance">Разст.:</string>
     <string name="elevation_profile_time">Време:</string>
     <string name="isolines_toast_zooms_1_10">Увеличете мащаба, за да разгледате изолиниите</string>
-    <string name="download_map_title">Изтегляне на картата на света</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Неуспешно свързване</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Изключване на USB кабел</string>
     <string name="enable_keep_screen_on">Запазете екрана включен</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Когато е разрешено, екранът винаги ще бъде включен при показване на картата.</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Slett</string>
     <string name="download_maps">Last ned kart</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Nedlastingen mislyktes – trykk på nytt for å prøve en gang til</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Laster ned …</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -32,8 +30,6 @@
     <string name="zoom_to_country">Vis på kartet</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Laster ned mislyktes</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Prøv på nytt</string>
     <string name="about_menu_title">Om Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis for alle, laget med kjærlighet</string>
@@ -50,18 +46,7 @@
     <string name="close">Lukk</string>
     <string name="unsupported_phone">En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.</string>
     <string name="download">Last ned</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
-    <string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
-    <string name="download_resources_continue">Gå til kart</string>
-    <string name="downloading_country_can_proceed">Laster ned %s. Du kan nå
-\nfortsette til kartet.</string>
     <string name="download_country_ask">Vil du laste ned %s?</string>
-    <string name="update_country_ask">Vil du oppdatere %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Fortsett</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -323,8 +308,6 @@
     <string name="routing_download_maps_along">Last ned kart langs ruten</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ikke nok ledig minne</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Aktiver posisjonstjenester</string>
     <string name="save">Lagre</string>
@@ -777,15 +760,6 @@
     <string name="elevation_profile_time">I rute</string>
     <string name="isolines_toast_zooms_1_10">Forstørr kartet for å se høydekurver</string>
     <string name="downloader_loading_ios">Nedlasting</string>
-    <string name="download_map_title">Last ned verdenskart</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Diskfeil</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Tilkoblingsfeil</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Fjern USB-kabelen</string>
     <string name="enable_keep_screen_on">Behold skjermen på</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Når dette er aktivert, vil skjermen alltid være på når kartet vises.</string>

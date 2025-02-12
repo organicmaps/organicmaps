@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Eliminar</string>
     <string name="download_maps">Descarregar mapas</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">O descarregamento falhou, toque novamente para tentar de novo.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">A descarregar…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">O descarregamento falhou</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Tentar novamente</string>
     <string name="about_menu_title">Sobre o Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Grátis para todos, feito com amor</string>
@@ -48,19 +44,7 @@
     <string name="close">Fechar</string>
     <string name="unsupported_phone">É necessário a acelaração OpenGL por hardware. Infelizmente o seu dispositivo não é compatível.</string>
     <string name="download">Descarregar</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação</string>
-    <string name="download_resources">Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.
-\nÉ necessário %s de espaço disponível.</string>
-    <string name="download_resources_continue">Ir ao mapa</string>
-    <string name="downloading_country_can_proceed">A descarregar %s. Agora pode
-\nver o mapa.</string>
     <string name="download_country_ask">Descarregar %s?</string>
-    <string name="update_country_ask">Atualizar %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pausar</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continuar</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -311,8 +295,6 @@
     <string name="routing_download_maps_along">Descarregar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar um trajeto.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Espaço insuficiente</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Por favor ative os serviços de localização</string>
     <string name="save">Guardar</string>
@@ -755,9 +737,6 @@
     <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Amplie o mapa para ver as curvas de nível</string>
     <string name="downloader_loading_ios">A descarregar</string>
-    <string name="download_map_title">Descarregar o mapa mundial</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Falha na coneção</string>
     <string name="enable_keep_screen_on">Mantém o ecrã ligado</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Quando ativado, o ecrã estará sempre ligado quando apresentares o mapa.</string>

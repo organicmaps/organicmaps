@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Διαγραφή</string>
     <string name="download_maps">Λήψη χαρτών</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Λήψη…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -31,8 +29,6 @@
     <string name="zoom_to_country">Εμφάνιση στο χάρτη</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Η λήψη απέτυχε</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Δοκιμάστε ξανά</string>
     <string name="about_menu_title">Σχετικά με το Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Δωρεάν για όλους, φτιαγμένα με αγάπη</string>
@@ -49,19 +45,7 @@
     <string name="close">Κλείσιμο</string>
     <string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
     <string name="download">Λήψη</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή</string>
-    <string name="download_resources">Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.
-\nΘα χρησιμοποιήσει %s αποθηκευτικού χώρου.</string>
-    <string name="download_resources_continue">Μετάβαση στο χάρτη</string>
-    <string name="downloading_country_can_proceed">Λήψη %s. Μπορείτε τώρα να
-\nμεταβείτε στο χάρτη.</string>
     <string name="download_country_ask">Να γίνει λήψη %s;</string>
-    <string name="update_country_ask">Να γίνει ενημέρωση %s;</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Παύση</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Συνέχεια</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -326,8 +310,6 @@
     <string name="routing_download_maps_along">Κατέβασμα όλων των χαρτών για ολόκληρο το μήκος της διαδρομής σας</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Για να φτιάξετε μια διαδρομή, πρέπει πρώτα να γίνει λήψη και ενημέρωση όλων των χαρτών από τη θέση σας μέχρι τον προορισμό σας.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Δεν υπάρχει αρκετός χώρος</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας</string>
     <string name="save">Αποθήκευση</string>
@@ -778,15 +760,6 @@
     <string name="elevation_profile_time">Διάρκ:</string>
     <string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
     <string name="downloader_loading_ios">Κατέβασμα</string>
-    <string name="download_map_title">Κατέβασμα παγκόσμιου χάρτη</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Δεν μπόρεσε να δημιουργηθεί φάκελος και να μεταφερθούν τα αρχεία στην εσωτερική ή εξωτερική μνήμη</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Σφάλμα δίσκου</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Σφάλμα σύνδεσης</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Αποσυνδέστε το καλώδιο USB</string>
     <string name="enable_keep_screen_on">Να παραμένει η οθόνη ανοιχτή</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Αν ενεργοποιηθεί, η οθόνη θα είναι πάντα αναμμένη όσο εμφανίζεται ο χάρτης.</string>

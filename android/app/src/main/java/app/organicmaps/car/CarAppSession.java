@@ -22,8 +22,6 @@ import app.organicmaps.car.screens.MapScreen;
 import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
-import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
-import app.organicmaps.car.screens.download.DownloaderHelpers;
 import app.organicmaps.car.screens.permissions.RequestPermissionsScreenBuilder;
 import app.organicmaps.car.util.CarSensorsManager;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
@@ -163,11 +161,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mInitFailed = false;
     try
     {
-      MwmApplication.from(getCarContext()).init(() -> {
-        Config.setFirstStartDialogSeen(getCarContext());
-        if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
-      });
+      MwmApplication.from(getCarContext()).init(() -> Config.setFirstStartDialogSeen(getCarContext()));
     } catch (IOException e)
     {
       mInitFailed = true;

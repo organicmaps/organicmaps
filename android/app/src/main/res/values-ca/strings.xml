@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Esborra</string>
     <string name="download_maps">Baixa mapes</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">La baixada ha fallat. Toqueu per a tornar-ho a intentar.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">S’està baixant…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Mostra-ho al mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">La baixada ha fallat</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Torna-ho a intentar</string>
     <string name="about_menu_title">Quant a l’Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratuït per a tothom, fet amb amor</string>
@@ -48,19 +44,7 @@
     <string name="close">Tanca</string>
     <string name="unsupported_phone">L’aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho admet.</string>
     <string name="download">Baixa</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
-    <string name="download_resources">Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.
-\nUsarà %s d’emmagatzematge.</string>
-    <string name="download_resources_continue">Ves al mapa</string>
-    <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu
-\nanar al mapa.</string>
     <string name="download_country_ask">Voleu baixar %s?</string>
-    <string name="update_country_ask">Voleu actualitzar %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pausa</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continua</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -325,8 +309,6 @@
     <string name="routing_download_maps_along">Baixeu tots els mapes de la ruta</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Per a crear una ruta, ens cal baixar i actualitzar tots els mapes des de la vostra ubicació a la destinació.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">No hi ha prou espai</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Activeu els serveis de geolocalització</string>
     <string name="save">Desa</string>
@@ -782,15 +764,6 @@
     <string name="elevation_profile_time">Temps:</string>
     <string name="isolines_toast_zooms_1_10">Aproplieu el mapa per a explorar les isolínies</string>
     <string name="downloader_loading_ios">Està baixant</string>
-    <string name="download_map_title">Baixa el mapa mundial</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">No s\'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l\'aparell o targeta SD</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Error de disc</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Error de connexió</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Desconnecteu el cable USB</string>
     <string name="enable_keep_screen_on">Mantén la pantalla encesa</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Quan està activat, la pantalla sempre estarà encesa quan es mostri el mapa.</string>

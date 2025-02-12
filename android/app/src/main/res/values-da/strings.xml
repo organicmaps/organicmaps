@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Slet</string>
     <string name="download_maps">Download kort</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Der skete en fejl ved download, tryk for at prøve igen.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Downloader…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Vis på kortet</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Download mislykket</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Prøv igen</string>
     <string name="about_menu_title">Om Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis for alle, lavet med kærlighed</string>
@@ -48,19 +44,7 @@
     <string name="close">Luk</string>
     <string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
     <string name="download">Download</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
-    <string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.
-\nIt behøver %s af data.</string>
-    <string name="download_resources_continue">Gå til kort</string>
-    <string name="downloading_country_can_proceed">Downloader %s. Du kan nu
-\nfortsætte til kortet.</string>
     <string name="download_country_ask">Download %s?</string>
-    <string name="update_country_ask">Opdater %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Fortsæt</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -298,8 +282,6 @@
     <string name="routing_download_maps_along">Download kort på vejen</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ikke nok plads</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Aktiver venligst lokationstjenester</string>
     <string name="save">Gem</string>

@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">हटाना</string>
     <string name="download_maps">मानचित्र डाउनलोड करें</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">डाउनलोड विफल हो गया है. पुनः प्रयास करने के लिए स्पर्श करें.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">डाउनलोड हो रहा है…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">मानचित्र पर दिखाएँ</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">डाउनलोड विफल हो गया है</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">पुनः प्रयास करें</string>
     <string name="about_menu_title">Organic Maps के बारे में</string>
     <!-- Text in About screen -->
     <string name="about_headline">सभी के लिए मुफ़्त, प्यार से बनाया गया</string>
@@ -51,19 +47,7 @@
     <string name="close">बंद करना</string>
     <string name="unsupported_phone">ऐप को हार्डवेयर त्वरित ओपनजीएल की आवश्यकता है। दुर्भाग्य से, आपका डिवाइस समर्थित नहीं है.</string>
     <string name="download">डाउन लोड करना</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">ऑर्गेनिक मैप्स का उपयोग करने के लिए कृपया यूएसबी केबल को डिस्कनेक्ट करें या मेमोरी कार्ड डालें</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">ऐप का उपयोग करने के लिए कृपया पहले एसडी कार्ड/यूएसबी स्टोरेज पर कुछ जगह खाली कर लें</string>
-    <string name="download_resources">ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।
-\nयह %s स्टोरेज का उपयोग करेगा।</string>
-    <string name="download_resources_continue">मानचित्र पर जाएं</string>
-    <string name="downloading_country_can_proceed">डाउनलोड हो रहा है %s. अब तुम यह कर सकते हो
-\nमानचित्र पर आगे बढ़ें.</string>
     <string name="download_country_ask">डाउनलोड करना %s?</string>
-    <string name="update_country_ask">अद्यतन %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">विराम</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">जारी रखने के लिए</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -522,9 +506,6 @@
     <string name="dialog_pedestrian_route_is_long_header">सबवे मार्ग नहीं मिला</string>
     <string name="dialog_pedestrian_route_is_long_message">कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें</string>
     <string name="button_layer_isolines">रूप रेखा लाइंस</string>
-    <string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">डिस्क त्रुटि</string>
     <string name="enable_keep_screen_on">स्क्रीन ऑन करो</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">सक्षम होने पर,मानचित्ररप्रदर्शिततकरतेतेसमययस्क्रीननहमेशााचालूलूरहेगी।।</string>

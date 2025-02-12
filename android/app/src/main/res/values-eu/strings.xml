@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Ezabatu</string>
     <string name="download_maps">Deskargatu mapak</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Deskargatzen…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Erakutsi mapan</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Deskargak huts egin du</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Saiatu berriro</string>
     <string name="about_menu_title">Organic Maps-i buruz</string>
     <!-- Text in About screen -->
     <string name="about_headline">Denontzat doan, maitasunez egina</string>
@@ -48,19 +44,7 @@
     <string name="close">Itxi</string>
     <string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.</string>
     <string name="download">Deskargatu</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Mesedez, deskonektatu USB kablea edo sartu SD memoria Organic Maps erabiltzeko</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Mesedez, egin lekua SD memorian/USB biltegian aplikazioa erabiltzeko</string>
-    <string name="download_resources">Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.
-\nMemorian %s erabiliko ditu.</string>
-    <string name="download_resources_continue">Joan mapara</string>
-    <string name="downloading_country_can_proceed">%s deskargatzen. Orain mapara
-\n joan zaitezke.</string>
     <string name="download_country_ask">%s deskargatu?</string>
-    <string name="update_country_ask">%s eguneratu?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pausa</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Jarraitu</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -324,8 +308,6 @@
     <string name="routing_download_maps_along">Deskargatu zure arrastoaren mapa guztiak</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Arrasto bat sortzeko beharrezkoa da helmugako kokapenaren mapa guztiak deskargatzea eta eguneratzea.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Leku nahikorik ez</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Mesedez, aktibatu kokapen zerbitzuak</string>
     <string name="save">Gorde</string>
@@ -777,15 +759,6 @@
     <string name="elevation_profile_time">Denbora:</string>
     <string name="isolines_toast_zooms_1_10">Handitu mapa sestra kurbak ikusteko</string>
     <string name="downloader_loading_ios">Deskargatzen</string>
-    <string name="download_map_title">Deskargatu munduko mapa</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Ezin da karpeta sortu eta fitxategiak mugitu barneko gailuaren memorian edo sd txartelan</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Diskoaren akatsa</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Konexio arazoa</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Deskonektatu USB kablea</string>
     <string name="enable_keep_screen_on">Mantendu pantaila piztuta</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Gaituta dagoenean, pantaila beti egongo da piztuta mapa bistaratzen denean.</string>

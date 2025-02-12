@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Удалить</string>
     <string name="download_maps">Загрузить карты</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Загружается…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Показать на карте</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Ошибка загрузки</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Попробуйте ещё раз</string>
     <string name="about_menu_title">Про Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Бесплатно для всех, сделано с любовью</string>
@@ -51,19 +47,7 @@
     <string name="close">Закрыть</string>
     <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
     <string name="download">Загрузить</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
-    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.
-\nЭто потребует %s данных.</string>
-    <string name="download_resources_continue">Перейти на карту</string>
-    <string name="downloading_country_can_proceed">Пока загружается %s,
-\nвы можете пользоваться картой.</string>
     <string name="download_country_ask">Загрузить %s?</string>
-    <string name="update_country_ask">Обновить %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Приостановить</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Продолжить</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -328,8 +312,6 @@
     <string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Недостаточно места</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Пожалуйста, включите геолокацию</string>
     <string name="save">Сохранить</string>
@@ -791,15 +773,6 @@
     <string name="elevation_profile_time">В пути:</string>
     <string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
     <string name="downloader_loading_ios">Загрузка</string>
-    <string name="download_map_title">Скачать карту мира</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Не могу создать папку и переместить файлы на устройстве</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Ошибка диска</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Ошибка подключения</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
     <string name="enable_keep_screen_on">Держи экран включённым</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Если эта функция включена, то при отображении карты экран будет всегда включен.</string>

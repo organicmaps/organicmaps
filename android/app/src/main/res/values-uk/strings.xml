@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Видалити</string>
     <string name="download_maps">Завантажити мапи</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Помилка завантаження. Натисніть, щоб повторити спробу</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Завантажується…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">Показати на мапі</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Помилка завантаження</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Спробуйте ще раз</string>
     <string name="about_menu_title">Про Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Безкоштовно для всіх, зроблене з любов\'ю</string>
@@ -51,19 +47,7 @@
     <string name="close">Закрити</string>
     <string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
     <string name="download">Завантажити</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-    <string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.
-\nВона потребує %s даних.</string>
-    <string name="download_resources_continue">Перейти на мапу</string>
-    <string name="downloading_country_can_proceed">Поки завантажується %s
-\nви можете користуватися програмою.</string>
     <string name="download_country_ask">Завантажити %s?</string>
-    <string name="update_country_ask">Oновити %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Призупинити</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Продовжити</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -328,8 +312,6 @@
     <string name="routing_download_maps_along">Завантажити мапи з дороги</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Недостатньо місця</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Будь ласка, увімкніть геолокацію</string>
     <string name="save">Зберегти</string>
@@ -786,15 +768,6 @@
     <string name="elevation_profile_time">Шлях:</string>
     <string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
     <string name="downloader_loading_ios">Завантаження</string>
-    <string name="download_map_title">Завантажити карту світу</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Помилка диска</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Помилка підключення</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Від\'єднайте кабель USB</string>
     <string name="enable_keep_screen_on">Тримайте екран увімкненим</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Якщо увімкнено, екран завжди буде увімкнений під час відображення мапи.</string>

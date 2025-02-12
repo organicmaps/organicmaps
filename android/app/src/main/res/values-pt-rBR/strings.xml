@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Apagar</string>
     <string name="download_maps">Baixar mapas</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">O download falhou, toque para tentar de novo.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Baixando…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">O download falhou</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Tentar novamente</string>
     <string name="about_menu_title">Sobre o Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Grátis para todos, feito com amor</string>
@@ -44,19 +40,7 @@
     <string name="close">Fechar</string>
     <string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
     <string name="download">Baixar</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
-    <string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.
-\n%s de memória serão utilizados.</string>
-    <string name="download_resources_continue">Ir para o mapa</string>
-    <string name="downloading_country_can_proceed">Baixando %s. Você pode
-\ncontinuar para o mapa agora.</string>
     <string name="download_country_ask">Baixar %s?</string>
-    <string name="update_country_ask">Atualizar %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Pausar</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continuar</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -298,8 +282,6 @@
     <string name="routing_download_maps_along">Baixar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Espaço insuficiente</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Por favor, ative os Serviços de Localização</string>
     <string name="save">Salvar</string>
@@ -698,15 +680,6 @@
     <string name="elevation_profile_time">Tempo:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
     <string name="downloader_loading_ios">Baixando</string>
-    <string name="download_map_title">Baixar mapa mundial</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">Erro do armazenamento</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">Falha na coneção</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">Desconecte o cabo USB</string>
     <string name="enable_keep_screen_on">Manter a tela ligada</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Quando ativada, a tela estará sempre ligada ao exibir o mapa.</string>

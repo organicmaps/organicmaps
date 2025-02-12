@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">حذف</string>
     <string name="download_maps">دانلود نقشه‌ها</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">دانلود ناموفق بود. برای تلاش مجدد لمس کنید</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">درحال دانلود</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,8 +31,6 @@
     <string name="zoom_to_country">بر روی نقشه نمایش بده</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">تلاش مجدد</string>
     <string name="about_menu_title">Organic Maps درباره‌ی</string>
     <!-- Text in About screen -->
     <string name="about_headline">رایگان برای همه ، ساخته شده با عشق</string>
@@ -51,17 +47,7 @@
     <string name="close">بستن</string>
     <string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به</string>
     <string name="download">دانلود</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">لطفا مقداری از فضای ذخیره‌سازی را آزاد نمایید</string>
-    <string name="download_resources">قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.
-\nمقدار %s از حافظه شما اشغال می شود.</string>
-    <string name="download_resources_continue">برو به نقشه</string>
-    <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید
-\nبه نقشه بروید.</string>
     <string name="download_country_ask">دانلود  %s?</string>
-    <string name="update_country_ask">آپدیت %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">مکث</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">ادامه</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -291,8 +277,6 @@
     <string name="routing_download_maps_along">دانلود تمامی نقشه‌ها در طول مسیر‌تان</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه‌های شما از مبدا تا مقصد را بروزرسانی کنیم.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">فضای کافی موجود نیست</string>
     <!-- location service disabled -->
     <string name="enable_location_services">لطفا موقعیت مکانی(GPS)خود را فعال کنید.</string>
     <string name="save">ذخیره</string>

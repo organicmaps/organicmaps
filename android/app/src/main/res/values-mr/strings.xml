@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">हटवा</string>
     <string name="download_maps">नकाशे डाउनलोड करा</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">डाउनलोड अयशस्वी झाले. पुन्हा प्रयत्न करण्यासाठी स्पर्श करा.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">डाउनलोड करत आहे…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">नकाशावर दाखवा</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">पुन्हा प्रयत्न करा</string>
     <string name="about_menu_title">Organic Maps बद्दल</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• बॅटरी संपत नाही, ऑफलाइन कार्य करते</string>
@@ -42,19 +38,7 @@
     <string name="close">बंद</string>
     <string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
     <string name="download">डाउनलोड करा</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा</string>
-    <string name="download_resources">ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.
-\nते %s जागा वापरेल.</string>
-    <string name="download_resources_continue">नकाशावर जा</string>
-    <string name="downloading_country_can_proceed">%s डाउनलोड करत आहे.
-\nतुम्ही आता नकाशावर जाऊ शकता.</string>
     <string name="download_country_ask">%s डाउनलोड करायचे?</string>
-    <string name="update_country_ask">%s अद्ययावत करायचे?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">विराम द्या</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">चालू ठेवा</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -295,8 +279,6 @@
     <string name="routing_download_maps_along">तुमच्या मार्गावरील सर्व नकाशे डाउनलोड करा</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">मार्ग तयार करण्यासाठी आम्हाला तुमच्या स्थानापासून तुमच्या इष्टस्थानापर्यंताचे सर्व नकाशे डाउनलोड करून अद्ययावत करावे लागतील.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">पुरेशी जागा नाही</string>
     <!-- location service disabled -->
     <string name="enable_location_services">कृपया स्थान सेवा सक्रिय करा</string>
     <string name="save">साठवा</string>
@@ -746,15 +728,6 @@
     <string name="elevation_profile_time">वेळ:</string>
     <string name="isolines_toast_zooms_1_10">समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा</string>
     <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
-    <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error">उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disk_error_title">डिस्क त्रुटी</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="connection_failure">जोडणी अयशस्वी</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable_title">USB केबल काढा</string>
     <string name="enable_keep_screen_on">स्क्रीन चालू ठेवा</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">सक्षम असतानानकाशाशप्रदर्शितिकरतानानस्क्रीनीनेहमीमचालूाअसेलसेल.</string>

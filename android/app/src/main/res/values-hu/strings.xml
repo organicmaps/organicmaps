@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Törlés</string>
     <string name="download_maps">Térképek letöltése</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Letöltés sikertelen. Kérjük próbálja újra!</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Letöltés…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -30,8 +28,6 @@
     <string name="zoom_to_country">Megjelenítés a térképen</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Letöltése sikertelen</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Újrapróbálkozás</string>
     <string name="about_menu_title">Az Organic Mapsről</string>
     <!-- Text in About screen -->
     <string name="about_headline">Ingyenes mindenkinek, szeretettel készítve</string>
@@ -48,19 +44,7 @@
     <string name="close">Bezár</string>
     <string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
     <string name="download">Letöltés</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
-    <string name="download_resources">Első használat előtt letöltjük a világtérképet.
-\n%s tárolóhely szükséges.</string>
-    <string name="download_resources_continue">Térképhez ugrás</string>
-    <string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet
-\na térképhez.</string>
     <string name="download_country_ask">Letöltsem %s-t?</string>
-    <string name="update_country_ask">Frissítsem %s-t?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Szünet</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Folytatás</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -316,8 +300,6 @@
     <string name="routing_download_maps_along">Tölts le térképeket az útvonal mellett</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Nincs elég hely</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást</string>
     <string name="save">Mentés</string>

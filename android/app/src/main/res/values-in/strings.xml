@@ -8,8 +8,6 @@
     <!-- Button which deletes downloaded country -->
     <string name="delete">Hapus</string>
     <string name="download_maps">Unduh Peta</string>
-    <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Pengunduhan gagal, sentuh untuk mencoba sekali lagi</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Sedang mengunduh…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -32,8 +30,6 @@
     <string name="zoom_to_country">Tampilkan di peta</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
-    <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Coba Lagi</string>
     <string name="about_menu_title">Tentang Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis untuk semua orang, dibuat dengan cinta</string>
@@ -50,18 +46,7 @@
     <string name="close">Tutup</string>
     <string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
     <string name="download">Unduh</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps</string>
-    <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
-    <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.
-\nHal ini memerlukan data %s.</string>
-    <string name="download_resources_continue">Pergi ke Peta</string>
-    <string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
     <string name="download_country_ask">Unduh %s?</string>
-    <string name="update_country_ask">Perbarui %s?</string>
-    <!-- REMOVE THIS STRING AFTER REFACTORING -->
-    <string name="pause">Jeda</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Lanjutkan</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
@@ -303,8 +288,6 @@
     <string name="routing_download_maps_along">Unduh peta bersama rute</string>
     <!-- Text for routing error dialog -->
     <string name="routing_requires_all_map">Membuat rute memerlukan semua peta dari lokasi Anda ke tujuan yang diunduh dan diperbarui.</string>
-    <!-- Text for routing error dialog -->
-    <string name="routing_not_enough_space">Ruang simpan tidak cukup</string>
     <!-- location service disabled -->
     <string name="enable_location_services">Mohon aktifkan Layanan Lokasi</string>
     <string name="save">Simpan</string>

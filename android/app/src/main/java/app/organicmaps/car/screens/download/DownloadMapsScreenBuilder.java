@@ -12,7 +12,6 @@ public class DownloadMapsScreenBuilder
 {
   public enum DownloaderType
   {
-    FirstLaunch,
     BuildRoute,
     View
   }
@@ -68,12 +67,9 @@ public class DownloadMapsScreenBuilder
       assert mMissingMaps != null;
       assert mMissingMaps.length == 1;
     }
-    else if (mDownloaderType == DownloaderType.FirstLaunch)
-      assert mMissingMaps == null;
 
     return switch (mDownloaderType)
     {
-      case FirstLaunch -> new DownloadMapsForFirstLaunchScreen(this);
       case BuildRoute -> new DownloadMapsForRouteScreen(this);
       case View -> new DownloadMapsForViewScreen(this);
     };
