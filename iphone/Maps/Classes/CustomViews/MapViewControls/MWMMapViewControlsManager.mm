@@ -108,14 +108,14 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (![self searchText:text forInputLocale:locale])
     return;
 
-  self.searchManager.state = SearchOnMapStateSearching;
+  [self.searchManager startSearchingWithIsRouting:NO];
 }
 
 - (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale {
   if (text.length == 0)
     return NO;
 
-  self.searchManager.state = SearchOnMapStateSearching;
+  [self.searchManager startSearchingWithIsRouting:NO];
   [self.searchManager searchText:text locale:locale isCategory:NO];
   return YES;
 }
@@ -139,7 +139,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MapViewController *ownerController = self.ownerController;
 
   self.isAddingPlace = YES;
-  self.searchManager.state = SearchOnMapStateClosed;
+  [self.searchManager close];
   self.menuState = MWMBottomMenuStateHidden;
   self.trafficButtonHidden = YES;
 
@@ -185,16 +185,12 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)onRouteRebuild {
-  if (IPAD)
-    self.searchManager.state = SearchOnMapStateClosed;
-
   [self.ownerController.bookmarksCoordinator close];
   [self.navigationManager onRoutePlanning];
   self.promoButton.hidden = YES;
 }
 
 - (void)onRouteReady:(BOOL)hasWarnings {
-  self.searchManager.state = SearchOnMapStateClosed;
   [self.navigationManager onRouteReady:hasWarnings];
   self.promoButton.hidden = YES;
 }
@@ -210,7 +206,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)onRouteStop {
-  self.searchManager.state = SearchOnMapStateClosed;
   self.sideButtons.zoomHidden = self.zoomHidden;
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;

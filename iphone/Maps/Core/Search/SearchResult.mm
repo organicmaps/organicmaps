@@ -11,6 +11,17 @@
 #import "geometry/mercator.hpp"
 
 @implementation SearchResult
+
+- (instancetype)initWithTitleText:(NSString *)titleText type:(SearchItemType)type suggestion:(NSString *)suggestion {
+  self = [super init];
+  if (self) {
+    _titleText = titleText;
+    _itemType = type;
+    _suggestion = suggestion;
+  };
+  return self;
+}
+
 @end
 
 @implementation SearchResult(Core)

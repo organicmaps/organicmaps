@@ -150,8 +150,8 @@ BOOL defaultOrientation(CGSize const &size) {
   BOOL const isStart = self.toastView.isStart;
 
   [self.searchManager setRoutingTooltip:
-    isStart ? MWMSearchManagerRoutingTooltipSearchStart : MWMSearchManagerRoutingTooltipSearchFinish ];
-  [self.searchManager setState:SearchOnMapStateSearching];
+    isStart ? SearchOnMapRoutingTooltipSearchStart : SearchOnMapRoutingTooltipSearchFinish ];
+  [self.searchManager startSearchingWithIsRouting:YES];
 }
 
 - (IBAction)addLocationRoutePoint {
@@ -168,12 +168,12 @@ BOOL defaultOrientation(CGSize const &size) {
 - (IBAction)searchMainButtonTouchUpInside {
   switch (self.searchState) {
     case NavigationSearchState::Maximized:
-      [self.searchManager setState:SearchOnMapStateSearching];
+      [self.searchManager startSearchingWithIsRouting:YES];
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
       break;
     case NavigationSearchState::MinimizedNormal:
       if (self.state == MWMNavigationInfoViewStatePrepare) {
-        [self.searchManager setState:SearchOnMapStateSearching];
+        [self.searchManager startSearchingWithIsRouting:YES];
       } else {
         [self setSearchState:NavigationSearchState::Maximized animated:YES];
       }
@@ -185,7 +185,7 @@ BOOL defaultOrientation(CGSize const &size) {
     case NavigationSearchState::MinimizedFood:
     case NavigationSearchState::MinimizedATM:
       [MWMSearch clear];
-      [self.searchManager setState:SearchOnMapStateClosed]; // TODO: or hiddden?
+      [self.searchManager hide];
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
       break;
   }

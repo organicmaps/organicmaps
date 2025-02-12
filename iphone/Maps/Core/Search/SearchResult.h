@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray<NSValue *> * highlightRanges;
 @property (nonatomic, readonly) SearchItemType itemType;
 
+/// This initializer is intended only for testing purposes.
+- (instancetype)initWithTitleText:(NSString *)titleText type:(SearchItemType)type suggestion:(NSString *)suggestion;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -5,11 +5,25 @@ enum SearchOnMapState: Int {
   case closed
 }
 
+@objc
+enum SearchOnMapRoutingTooltipSearch: Int {
+  case none
+  case start
+  case finish
+}
+
+@objc
+protocol SearchOnMapManagerObserver: AnyObject {
+  func searchManager(didChangeState state: SearchOnMapState)
+}
+
 @objcMembers
 final class SearchOnMapManager: NSObject {
   private let navigationController: UINavigationController
   private weak var interactor: SearchOnMapInteractor?
+  private let observers = ListenerContainer<SearchOnMapManagerObserver>()
 
+  // MARK: - Public properties
   weak var viewController: UIViewController?
   var isSearching: Bool { viewController != nil }
 
@@ -17,19 +31,28 @@ final class SearchOnMapManager: NSObject {
     self.navigationController = navigationController
   }
 
-  // MARK: - Public
-  func setState(_ state: SearchOnMapState) {
-    switch state {
-    case .searching:
-      openSearch()
-    case .hidden:
-      hideSearch()
-    case .closed:
-      closeSearch()
+  // MARK: - Public methods
+  func startSearching(isRouting: Bool) {
+    if viewController != nil {
+      interactor?.handle(.openSearch)
+      return
     }
+    FrameworkHelper.deactivateMapSelection()
+    let viewController = buildViewController(isRouting: isRouting)
+    self.viewController = viewController
+    self.interactor = viewController.interactor
+    navigationController.present(viewController, animated: true)
   }
 
-  func setRoutingTooltip(_ tooltip: MWMSearchManagerRoutingTooltipSearch) {
+  func hide() {
+    interactor?.handle(.hideSearch)
+  }
+
+  func close() {
+    interactor?.handle(.closeSearch)
+  }
+
+  func setRoutingTooltip(_ tooltip: SearchOnMapRoutingTooltipSearch) {
     interactor?.routingTooltipSearch = tooltip
   }
 
@@ -46,32 +69,23 @@ final class SearchOnMapManager: NSObject {
     interactor?.handle(.didSelectText(searchText, isCategory: isCategory))
   }
 
-  // MARK: - Private
-  private func openSearch() {
-    if viewController != nil {
-      interactor?.handle(.openSearch)
-      return
-    }
-    FrameworkHelper.deactivateMapSelection()
-    let viewController = SearchOnMapBuilder.build()
-    self.viewController = viewController
-    self.interactor = viewController.interactor
-    navigationController.present(viewController, animated: true)
+  func addObserver(_ observer: SearchOnMapManagerObserver) {
+    observers.addListener(observer)
   }
 
-  private func closeSearch() {
-    interactor?.handle(.closeSearch)
+  func removeObserver(_ observer: SearchOnMapManagerObserver) {
+    observers.removeListener(observer)
   }
 
-  private func hideSearch() {
-    interactor?.handle(.hideSearch)
-  }
-}
-
-private struct SearchOnMapBuilder {
-  static func build() -> SearchOnMapViewController {
+  // MARK: - Private methods
+  private func buildViewController(isRouting: Bool) -> SearchOnMapViewController {
     let transitioningManager = SearchOnMapModalTransitionManager()
-    let presenter = SearchOnMapPresenter(transitionManager: transitioningManager)
+    let presenter = SearchOnMapPresenter(transitionManager: transitioningManager,
+                                         isRouting: isRouting,
+                                         didChangeState: { [weak self] state in
+      guard let self else { return }
+      self.observers.forEach { observer in observer.searchManager(didChangeState: state) }
+    })
     let interactor = SearchOnMapInteractor(presenter: presenter)
     let viewController = SearchOnMapViewController(interactor: interactor)
     presenter.view = viewController

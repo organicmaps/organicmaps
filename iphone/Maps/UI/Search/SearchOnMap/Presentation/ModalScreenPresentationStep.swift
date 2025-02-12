@@ -56,6 +56,12 @@ extension ModalScreenPresentationStep {
 
     if isIPad {
       frame.size.width = Constants.iPadWidth
+      switch self {
+      case .hidden:
+        frame.origin.x = -Constants.iPadWidth
+      default:
+        frame.origin.x = .zero
+      }
       return frame
     }
 

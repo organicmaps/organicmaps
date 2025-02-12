@@ -221,8 +221,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)onSwitchFullScreen {
   BOOL const isNavigationDashboardHidden = MWMNavigationDashboardManager.sharedManager.state == MWMNavigationDashboardStateHidden;
-  BOOL const isSearchHidden = MWMSearchManager.manager.state == MWMSearchManagerStateHidden;
-  if (isSearchHidden && isNavigationDashboardHidden) {
+  if (!self.searchManager.isSearching && isNavigationDashboardHidden) {
     if (!self.controlsManager.hidden)
       [self dismissPlacePage];
     self.controlsManager.hidden = !self.controlsManager.hidden;
@@ -359,8 +358,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -496,8 +494,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetRenderingDisabled(false);
 }
@@ -660,15 +657,13 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)performAction:(NSString *)action {
   [self.navigationController popToRootViewControllerAnimated:NO];
   if (self.isViewLoaded) {
-    auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
     if ([action isEqualToString:@"app.organicmaps.3daction.bookmarks"])
       [self.bookmarksCoordinator open];
     else if ([action isEqualToString:@"app.organicmaps.3daction.search"])
-      searchState = MWMSearchManagerStateDefault;
+      [self.searchManager startSearchingWithIsRouting:NO];
     else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
-    [MWMSearchManager manager].state = searchState;
   } else {
     dispatch_async(dispatch_get_main_queue(), ^{
       [self performAction:action];

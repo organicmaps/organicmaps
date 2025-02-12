@@ -6,7 +6,7 @@ final class SearchOnMapInteractor: NSObject {
   private var isUpdatesDisabled = false
   private var showResultsOnMap: Bool = false
 
-  var routingTooltipSearch: MWMSearchManagerRoutingTooltipSearch = .none
+  var routingTooltipSearch: SearchOnMapRoutingTooltipSearch = .none
 
   init(presenter: SearchOnMapPresenter,
        searchManager: SearchManager.Type = Search.self,
@@ -23,46 +23,41 @@ final class SearchOnMapInteractor: NSObject {
   }
 
   func handle(_ event: SearchOnMap.Request) {
-    guard let response = resolve(event) else { return }
+    let response = resolve(event)
     presenter.process(response)
   }
 
-  private func resolve(_ event: SearchOnMap.Request) -> SearchOnMap.Response? {
-    var response: SearchOnMap.Response?
+  private func resolve(_ event: SearchOnMap.Request) -> SearchOnMap.Response {
     switch event {
-    case .viewDidLoad:
-      response = .showHistoryAndCategory
+    case .openSearch:
+      return .showHistoryAndCategory
+    case .hideSearch:
+      return .setSearchScreenHidden(true)
     case .didStartDraggingSearch:
-      response = .setIsTyping(false)
-    case .didStartTyping, .openSearch:
-      response = .setIsTyping(true)
+      return .setIsTyping(false)
+    case .didStartTyping:
+      return .setIsTyping(true)
     case .didType(let searchText):
-      response = processTypedText(searchText)
+      return processTypedText(searchText)
     case .clearButtonDidTap:
-      response = processCancelButtonDidTap()
+      return processCancelButtonDidTap()
     case .didSelectText(let searchText, let isCategory):
-      response = processSelectedText(searchText, isCategory: isCategory)
+      return processSelectedText(searchText, isCategory: isCategory)
     case .searchButtonDidTap(let searchText):
-      response = processSearchButtonDidTap(searchText)
+      return processSearchButtonDidTap(searchText)
     case .didSelectResult(let result, let index, let searchText):
-      response = processSelectedResult(result, index: index, searchText: searchText)
-    case .didSelectPlaceOnMap, .hideSearch:
-      response = .setSearchScreenHidden(true)
+      return processSelectedResult(result, index: index, searchText: searchText)
+    case .didSelectPlaceOnMap:
+      return isIPad ? .none : .setSearchScreenHidden(true)
     case .didDeselectPlaceOnMap:
-      routingTooltipSearch = .none
-      response = .setSearchScreenHidden(false)
-      searchManager.showViewportSearchResultsOnMap()
+      return deselectPlaceOnMap()
     case .didStartDraggingMap:
-      response = .setSearchScreenCompact
+      return .setSearchScreenCompact
     case .didUpdatePresentationStep(let step):
-      response = .updatePresentationStep(step)
+      return .updatePresentationStep(step)
     case .closeSearch:
-      routingTooltipSearch = .none
-      isUpdatesDisabled = true
-      searchManager.clear()
-      response = .close
+      return closeSearch()
     }
-    return response
   }
 
   private func processCancelButtonDidTap() -> SearchOnMap.Response {
@@ -98,7 +93,7 @@ final class SearchOnMapInteractor: NSObject {
     return .selectText(searchText.text)
   }
 
-  private func processSelectedResult(_ result: SearchResult, index: Int, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response? {
+  private func processSelectedResult(_ result: SearchResult, index: Int, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
     switch result.itemType {
     case .regular:
       searchManager.saveQuery(searchText.text,
@@ -123,7 +118,7 @@ final class SearchOnMapInteractor: NSObject {
       @unknown default:
         fatalError("Unsupported routingTooltipSearch")
       }
-      return .setSearchScreenHidden(true)
+      return isIPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
       searchManager.searchQuery(result.suggestion,
                                 forInputLocale: searchText.locale,
@@ -132,6 +127,20 @@ final class SearchOnMapInteractor: NSObject {
     @unknown default:
       fatalError("Unsupported result type")
     }
+  }
+
+  private func deselectPlaceOnMap() -> SearchOnMap.Response {
+    routingTooltipSearch = .none
+    searchManager.showViewportSearchResultsOnMap()
+    return .setSearchScreenHidden(false)
+  }
+
+  private func closeSearch() -> SearchOnMap.Response {
+    routingTooltipSearch = .none
+    isUpdatesDisabled = true
+    showResultsOnMap = false
+    searchManager.clear()
+    return .close
   }
 }
 

@@ -92,10 +92,12 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
   }
 
   private func updateSideButtonsAvailableArea(_ newY: CGFloat) {
-    guard presentedViewController.traitCollection.verticalSizeClass != .compact else { return }
-    var sideButtonsAvailableArea = MWMSideButtons.getAvailableArea()
-    sideButtonsAvailableArea.size.height = newY - sideButtonsAvailableArea.origin.y
-    MWMSideButtons.updateAvailableArea(sideButtonsAvailableArea)
+    iPhoneSpecific {
+      guard presentedViewController.traitCollection.verticalSizeClass != .compact else { return }
+      var sideButtonsAvailableArea = MWMSideButtons.getAvailableArea()
+      sideButtonsAvailableArea.size.height = newY - sideButtonsAvailableArea.origin.y
+      MWMSideButtons.updateAvailableArea(sideButtonsAvailableArea)
+    }
   }
 
   // MARK: - Pan gesture handling

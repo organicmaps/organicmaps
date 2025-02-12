@@ -23,7 +23,7 @@ class BottomTabBarInteractor {
 
 extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   func openSearch() {
-    searchManager.setState(searchManager.isSearching ? .closed : .searching)
+    searchManager.isSearching ? searchManager.close() : searchManager.startSearching(isRouting: false)
   }
   
   func openHelp() {

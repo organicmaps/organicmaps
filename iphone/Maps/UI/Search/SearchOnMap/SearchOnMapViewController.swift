@@ -72,7 +72,7 @@ final class SearchOnMapViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     layoutViews()
-    interactor.handle(.viewDidLoad)
+    interactor.handle(.openSearch)
   }
 
   override func viewWillDisappear(_ animated: Bool) {

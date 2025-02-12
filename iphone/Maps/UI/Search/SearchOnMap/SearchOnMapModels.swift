@@ -40,7 +40,9 @@ enum SearchOnMap {
   }
 
   enum Request {
-    case viewDidLoad
+    case openSearch
+    case hideSearch
+    case closeSearch
     case didStartDraggingSearch
     case didStartDraggingMap
     case didStartTyping
@@ -52,9 +54,6 @@ enum SearchOnMap {
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
     case didUpdatePresentationStep(ModalScreenPresentationStep)
-    case openSearch
-    case hideSearch
-    case closeSearch
   }
 
   enum Response: Equatable {
@@ -69,6 +68,7 @@ enum SearchOnMap {
     case setSearchScreenCompact
     case updatePresentationStep(ModalScreenPresentationStep)
     case close
+    case none
   }
 }
 
@@ -78,4 +78,11 @@ extension SearchOnMap.SearchResults {
   subscript(index: Int) -> SearchResult {
     results[index]
   }
+}
+
+extension SearchOnMap.ViewModel {
+  static let initial = SearchOnMap.ViewModel(isTyping: false,
+                                             searchingText: nil,
+                                             contentState: .historyAndCategory,
+                                             presentationStep: .fullScreen)
 }
