@@ -32140,6 +32140,96 @@ cont {
   }
 }
 cont {
+  name: "man_made-communications_tower"
+  element {
+    scale: 15
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
+}
+cont {
   name: "man_made-cutline"
   element {
     scale: 15

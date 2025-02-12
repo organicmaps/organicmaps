@@ -469,13 +469,13 @@ mapswithme
 *railway|monorail|bridge
 *area:highway|steps
 *amenity|telephone
-mapswithme
-mapswithme
+*man_made|communications_tower
+*man_made|petroleum_well
 *natural|grassland
-mapswithme
-mapswithme
+*emergency|lifeguard
+*emergency|mountain_rescue
 *aerialway|platter
-mapswithme
+*man_made|flare
 mapswithme
 *railway|preserved|tunnel
 *boundary|protected_area|1
@@ -689,7 +689,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-mapswithme
+*man_made|cross
 landuse|orchard
 mapswithme
 mapswithme
