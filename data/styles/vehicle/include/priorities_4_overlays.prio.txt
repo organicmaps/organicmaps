@@ -429,7 +429,7 @@ railway-station-subway-yokohama                     # icon z13- (also has captio
 barrier-border_control                              # icon z14- (also has caption(optional) z14-)
 historic-city_gate                                  # icon z13- (also has caption(optional) z15-)
 historic-monument                                   # icon z13- (also has caption(optional) z15-)
-man_made-communications_tower
+man_made-communications_tower                       # icon z15- (also has caption(optional) z16-)
 === 1950
 
 place-hamlet                                        # caption z13-
@@ -960,6 +960,7 @@ entrance-main                                       # icon z18- (also has captio
 # barrier-border_control                            # caption(optional) z14- (also has icon z14-)
 # historic-city_gate                                # caption(optional) z15- (also has icon z13-)
 # historic-monument                                 # caption(optional) z15- (also has icon z13-)
+# man_made-communications_tower                     # caption(optional) z16- (also has icon z15-)
 # === -8050
 
 # tourism-viewpoint                                 # caption(optional) z15- (also has icon z14-)
