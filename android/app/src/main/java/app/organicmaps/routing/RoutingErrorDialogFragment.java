@@ -43,9 +43,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     titleView.setTextSize(18);
     titleView.setPadding(32, 32, 32, 16);
     titleView.setTypeface(null, Typeface.BOLD);
-    titleView.setMaxLines(2);
+    titleView.setMaxLines(4);
     titleView.setEllipsize(null);
-    titleView.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
     builder.setCustomTitle(titleView);
 
     mMessage = titleMessage.second;
