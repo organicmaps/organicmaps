@@ -39,6 +39,10 @@ class UserPreferences(context: Context) {
     fun getUserId() = sharedPref.getString("user_id", "")
     fun setUserId(value: String?) = sharedPref.edit { putString("user_id", value) }
 
+    fun getIsEverythingSetup() = sharedPref.getBoolean("is_everything_setup", false)
+    fun setIsEverythingSetup(value: Boolean) =
+        sharedPref.edit { putBoolean("is_everything_setup", value) }
+
     fun getShouldSyncLanguage() = sharedPref.getBoolean("should_sync_language", false)
     fun setShouldSyncLanguage(value: Boolean) =
         sharedPref.edit { putBoolean("should_sync_language", value) }

@@ -15,6 +15,7 @@ import app.tourism.ui.theme.getBorderColor
 
 const val TAG = "GLOBAL_TAG"
 const val BASE_URL = "https://tourismmap.tj"
+const val DEBUG_BASE_URL = "https://test.tourismmap.tj/"
 
 object Constants {
     // UI

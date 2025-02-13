@@ -10,11 +10,14 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import app.organicmaps.downloader.CountryItem
 import app.tourism.MainActivity
+import app.tourism.data.prefs.UserPreferences
 import app.tourism.ui.screens.auth.sign_in.SignInScreen
 import app.tourism.ui.screens.auth.sign_up.SignUpScreen
 import app.tourism.ui.screens.auth.welcome.WelcomeScreen
 import app.tourism.ui.screens.language.LanguageScreen
+import com.jakewharton.processphoenix.ProcessPhoenix
 import kotlinx.serialization.Serializable
 
 // Routes
@@ -57,7 +60,7 @@ fun AuthNavigation() {
         composable<SignIn> {
             SignInScreen(
                 onSignInComplete = {
-                    navigateToMainActivity(context)
+                    afterSuccessfulSignIn(context)
                 },
                 onBackClick = navigateUp
             )
@@ -65,7 +68,7 @@ fun AuthNavigation() {
         composable<SignUp> {
             SignUpScreen(
                 onSignUpComplete = {
-                    navigateToMainActivity(context)
+                    afterSuccessfulSignIn(context)
                 },
                 onBackClick = navigateUp
             )
@@ -76,6 +79,18 @@ fun AuthNavigation() {
             )
         }
     }
+}
+
+private fun afterSuccessfulSignIn(context: Context) {
+    val userPreferences = UserPreferences(context)
+    val mCurrentCountry = CountryItem.fill("Tajikistan")
+
+    // well country should be there already, but mCurrentCountry.present will be false,
+    // after rebirth it should be present
+    if (!mCurrentCountry.present && userPreferences.getIsEverythingSetup())
+        ProcessPhoenix.triggerRebirth(context)
+    else
+        navigateToMainActivity(context)
 }
 
 fun navigateToMainActivity(context: Context) {

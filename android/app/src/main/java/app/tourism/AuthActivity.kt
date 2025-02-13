@@ -18,6 +18,7 @@ import app.tourism.data.repositories.PlacesRepository
 import app.tourism.ui.screens.auth.AuthNavigation
 import app.tourism.ui.theme.OrganicMapsTheme
 import app.tourism.utils.LocaleHelper
+import app.tourism.utils.MapFileMover
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,9 @@ import javax.inject.Inject
 class AuthActivity : ComponentActivity() {
     @Inject
     lateinit var placesRepository: PlacesRepository
+
+    @Inject
+    lateinit var userPreferences: UserPreferences
 
     override fun attachBaseContext(newBase: Context) {
         val languageCode = UserPreferences(newBase).getLanguage()?.code
@@ -36,7 +40,10 @@ class AuthActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            placesRepository.downloadAllData()
+            if (!userPreferences.getIsEverythingSetup()) {
+                if (!MapFileMover().main(this@AuthActivity)) return@launch
+                userPreferences.setIsEverythingSetup(true)
+            }
         }
 
         val blackest = resources.getColor(R.color.button_text) // yes, I know

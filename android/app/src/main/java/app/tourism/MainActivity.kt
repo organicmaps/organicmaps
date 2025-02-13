@@ -51,8 +51,8 @@ class MainActivity : ComponentActivity() {
         intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
         registerReceiver(wifiReceiver, intentFilter)
 
-        navigateToMapToDownloadIfNotPresent()
         navigateToAuthIfNotAuthed()
+        navigateToMapToDownloadIfNotPresent()
 
         val blackest = resources.getColor(R.color.button_text) // yes, I know
         enableEdgeToEdge(
@@ -70,10 +70,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun navigateToMapToDownloadIfNotPresent() {
-        val mCurrentCountry = CountryItem.fill("Tajikistan")
-        if (!mCurrentCountry.present) {
-            val intent = Intent(this, DownloadResourcesLegacyActivity::class.java)
-            startActivity(this, intent, null)
+        if (userPreferences.getIsEverythingSetup()) {
+            val mCurrentCountry = CountryItem.fill("Tajikistan")
+            if (!mCurrentCountry.present) {
+                val intent = Intent(this, DownloadResourcesLegacyActivity::class.java)
+                startActivity(this, intent, null)
+            }
         }
     }
 
