@@ -22,6 +22,8 @@ UNIT_TEST(EditorConfig_TypeDescription)
     EType::FMD_CONTACT_TWITTER,
     EType::FMD_CONTACT_VK,
     EType::FMD_CONTACT_LINE,
+    EType::FMD_CONTACT_FEDIVERSE,
+    EType::FMD_CONTACT_BLUESKY,
   };
 
   pugi::xml_document doc;

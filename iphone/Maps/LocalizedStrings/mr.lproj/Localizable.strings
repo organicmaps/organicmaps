@@ -274,6 +274,9 @@
 "news" = "बातम्या";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -284,6 +287,9 @@
 
 /* Text in the editor */
 "vk" = "VK";
+
+/* Text in menu */
+"bluesky" = "Bluesky";
 
 /* Text in menu */
 "rate_the_app" = "ऍप मानांकित करा";
