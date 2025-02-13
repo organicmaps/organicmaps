@@ -2,14 +2,17 @@ package app.organicmaps.routing;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
@@ -35,7 +38,15 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
         ResultCodesHelper.getDialogTitleSubtitle(requireContext(), mResultCode, mMissingMaps.size());
     Pair<String, String> titleMessage = resHolder.getTitleMessage();
 
-    builder.setTitle(titleMessage.first);
+    TextView titleView = new TextView(requireContext());
+    titleView.setText(titleMessage.first);
+    titleView.setTextSize(18);
+    titleView.setPadding(32, 32, 32, 16);
+    titleView.setTypeface(null, Typeface.BOLD);
+    titleView.setMaxLines(4);
+    titleView.setEllipsize(null);
+    builder.setCustomTitle(titleView);
+
     mMessage = titleMessage.second;
     builder.setNegativeButton(resHolder.getCancelBtnResId(), null);
     if (ResultCodesHelper.isDownloadable(mResultCode, mMissingMaps.size()))

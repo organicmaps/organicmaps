@@ -115339,37 +115339,11 @@ cont {
 cont {
   name: "shop-auction"
   element {
-    scale: 16
-    symbol {
-      name: "auction-m"
-      priority: 500
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "auction-m"
       priority: 500
       min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
     }
   }
   element {
@@ -115995,37 +115969,11 @@ cont {
 cont {
   name: "shop-bookmaker"
   element {
-    scale: 16
-    symbol {
-      name: "lottery-m"
-      priority: 500
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "lottery-m"
       priority: 500
       min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
     }
   }
   element {
@@ -117460,14 +117408,6 @@ cont {
 cont {
   name: "shop-collector"
   element {
-    scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 500
-      min_distance: 10
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "shop-m"
@@ -118714,37 +118654,11 @@ cont {
 cont {
   name: "shop-fabric"
   element {
-    scale: 16
-    symbol {
-      name: "shop-m"
-      priority: 500
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "shop-m"
       priority: 500
       min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
     }
   }
   element {
@@ -119086,37 +119000,11 @@ cont {
 cont {
   name: "shop-funeral_directors"
   element {
-    scale: 16
-    symbol {
-      name: "funeral_directors-m"
-      priority: 500
-      min_distance: 10
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "funeral_directors-m"
       priority: 500
       min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
     }
   }
   element {
@@ -124032,23 +123920,6 @@ cont {
 }
 cont {
   name: "shop-wholesale"
-  element {
-    scale: 17
-    symbol {
-      name: "wholesale-m"
-      priority: 500
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9500
-    }
-  }
   element {
     scale: 18
     symbol {
