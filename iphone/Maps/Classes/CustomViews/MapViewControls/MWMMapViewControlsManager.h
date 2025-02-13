@@ -6,6 +6,8 @@
 @class MapViewController;
 @class BottomTabBarViewController;
 @class TrackRecordingViewController;
+@class SearchOnMapManager;
+
 @protocol MWMFeatureHolder;
 
 @interface MWMMapViewControlsManager : NSObject
@@ -47,7 +49,6 @@
 - (void)actionDownloadMaps:(MWMMapDownloaderMode)mode;
 - (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale;
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale;
-- (void)hideSearch;
 
 #pragma mark - MWMFeatureHolder
 
