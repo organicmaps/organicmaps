@@ -1802,6 +1802,7 @@
     <string name="type.shop.grocery">Købmand</string>
     <string name="type.shop.hairdresser">Frisør</string>
     <string name="type.shop.health_food">Helsekostbutik</string>
+    <string name="type.shop.hearing_aids">Høreapparatbutik</string>
     <string name="type.shop.herbalist">Urtebutik</string>
     <string name="type.shop.hifi">HiFi lyd</string>
     <string name="type.shop.houseware">Husholdningsartikler butik</string>

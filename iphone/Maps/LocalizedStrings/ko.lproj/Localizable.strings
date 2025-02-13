@@ -3664,6 +3664,8 @@
 
 "type.shop.health_food" = "\"건강식품 가게\"";
 
+"type.shop.hearing_aids" = "보청기 스토어";
+
 "type.shop.herbalist" = "허브 가게";
 
 "type.shop.hifi" = "하이파이 오디오";
