@@ -3664,6 +3664,8 @@
 
 "type.shop.health_food" = "Reformhaus";
 
+"type.shop.hearing_aids" = "Hörgeräteladen";
+
 "type.shop.herbalist" = "Kräuterladen";
 
 "type.shop.hifi" = "HiFi-Audio";
