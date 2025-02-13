@@ -981,6 +981,20 @@ Java_app_organicmaps_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat
 }
 
 JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetCoordUrl(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+{
+  ::Framework * fr = frm();
+  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
+  std::string nameStr = jni::ToNativeString(env, name);
+  char buf[256];
+  if (!nameStr.empty())
+    snprintf(buf, sizeof(buf), "https://omaps.app/%.5f,%.5f,%.0f/%s", lat, lon, scale, nameStr.c_str());
+  else
+    snprintf(buf, sizeof(buf), "https://omaps.app/%.5f,%.5f,%.0f", lat, lon, scale);
+  return jni::ToJavaString(env, buf);
+}
+
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
 {
   ::Framework * fr = frm();
