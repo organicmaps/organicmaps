@@ -1619,3 +1619,4 @@ amenity|recycling|container
 *railway|station|light_rail|berlin
 *railway|station|subway|shenzhen
 *railway|subway_entrance|shenzhen
+*shop|hearing_aids

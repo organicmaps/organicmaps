@@ -1137,11 +1137,11 @@ shop-fabric                                         # icon z16- (also has captio
 shop-fishing                                        # icon z18- (also has caption(optional) z18-)
 shop-funeral_directors                              # icon z16- (also has caption(optional) z16-)
 shop-gas                                            # icon z18- (also has caption(optional) z18-)
+shop-hearing_aids                                   # icon z18- (also has caption(optional) z18-)
 shop-herbalist                                      # icon z18- (also has caption(optional) z18-)
 shop-hifi                                           # icon z18- (also has caption(optional) z18-)
 shop-lottery                                        # icon z18- (also has caption(optional) z18-)
 shop-medical_supply                                 # icon z18- (also has caption(optional) z18-)
-shop-hearing_aids                                   # icon z16- (also has caption(optional) z16-)
 shop-outpost                                        # icon z18- (also has caption(optional) z18-)
 shop-pet_grooming                                   # icon z18- (also has caption(optional) z18-)
 shop-storage_rental                                 # icon z18- (also has caption(optional) z18-)
@@ -1154,7 +1154,6 @@ amenity-shower                                      # icon z17- (also has captio
 amenity-toilets                                     # icon z15- (also has caption(optional) z18-)
 office                                              # icon z18- (also has caption(optional) z18-)
 shop                                                # icon z18- (also has caption(optional) z18-)
-
 === 470
 
 amenity-bbq                                         # icon z16- (also has caption(optional) z16-)
@@ -2055,6 +2054,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop-fishing                                      # caption(optional) z18- (also has icon z18-)
 # shop-funeral_directors                            # caption(optional) z16- (also has icon z16-)
 # shop-gas                                          # caption(optional) z18- (also has icon z18-)
+# shop-hearing_aids                                 # caption(optional) z18- (also has icon z18-)
 # shop-herbalist                                    # caption(optional) z18- (also has icon z18-)
 # shop-hifi                                         # caption(optional) z18- (also has icon z18-)
 # shop-lottery                                      # caption(optional) z18- (also has icon z18-)
