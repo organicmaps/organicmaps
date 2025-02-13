@@ -1068,7 +1068,6 @@ area|z18-[amenity=waste_disposal],
 node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand],
 node|z18-[shop=lottery],
-area|z18-[shop=lottery],
 node|z18-[shop=hearing_aids],
 node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
@@ -1621,8 +1620,7 @@ node|z17-[leisure=amusement_arcade],
 area|z17-[leisure=amusement_arcade],
 {icon-image: arcade-m.svg;icon-min-distance: 20;}
 node|z18-[shop=lottery],
-area|z18-[shop=lottery],
-{icon-image: lottery-m.svg;icon-min-distance: 20;}
+{icon-image: lottery-m.svg;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
@@ -1891,10 +1889,6 @@ node|z16-[shop=second_hand],
 area|z16-[shop=second_hand],
 node|z16-[shop=antiques],
 area|z16-[shop=antiques],
-node|z16-[shop=auction],
-area|z16-[shop=auction],
-node|z16-[shop=bookmaker],
-area|z16-[shop=bookmaker],
 node|z16-[shop=bakery],
 area|z16-[shop=bakery],
 node|z16-[shop=pastry],
@@ -1936,8 +1930,6 @@ node|z16-[shop=tattoo],
 area|z16-[shop=tattoo],
 node|z16-[shop=erotic],
 area|z16-[shop=erotic],
-node|z16-[shop=funeral_directors],
-area|z16-[shop=funeral_directors],
 node|z16-[shop=confectionery],
 area|z16-[shop=confectionery],
 node|z16-[shop=chocolate],
@@ -2022,8 +2014,6 @@ node|z16-[shop=ticket],
 area|z16-[shop=ticket],
 node|z16-[shop=toys],
 area|z16-[shop=toys],
-node|z16-[shop=fabric],
-area|z16-[shop=fabric],
 node|z16-[shop=stationery],
 area|z16-[shop=stationery],
 node|z17-[shop=variety_store],
@@ -2032,7 +2022,12 @@ node|z17-[shop=money_lender],
 area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
-node|z17-[shop=wholesale],
+node|z18-[shop=auction],
+node|z18-[shop=bookmaker],
+node|z18-[shop=fabric],
+node|z18-[shop=funeral_directors],
+node|z18-[shop=collector],
+node|z18-[shop=wholesale],
 node|z18-[shop=tobacco],
 area|z18-[shop=tobacco],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
@@ -2086,12 +2081,6 @@ area|z16[shop=second_hand]
 node|z16[shop=antiques],
 area|z16[shop=antiques]
 {icon-image: antiques-m.svg;}
-node|z16[shop=auction],
-area|z16[shop=auction]
-{icon-image: auction-m.svg;}
-node|z16[shop=bookmaker],
-area|z16[shop=bookmaker],
-{icon-image: lottery-m.svg;}
 node|z16[shop=bakery],
 area|z16[shop=bakery],
 node|z16[shop=pastry],
@@ -2154,9 +2143,6 @@ area|z16[shop=tattoo]
 node|z16[shop=erotic],
 area|z16[shop=erotic]
 {icon-image: erotic-m.svg;}
-node|z16[shop=funeral_directors],
-area|z16[shop=funeral_directors]
-{icon-image: funeral_directors-m.svg;}
 node|z16[shop=confectionery],
 area|z16[shop=confectionery],
 node|z16[shop=chocolate],
@@ -2176,9 +2162,6 @@ area|z16[shop=grocery],
 node|z16[shop=health_food],
 area|z16[shop=health_food],
 {icon-image: convenience-m.svg;}
-node|z16[shop=collector],
-area|z16[shop=collector]
-{icon-image: shop-m.svg;}
 node|z16[shop=copyshop],
 area|z16[shop=copyshop]
 {icon-image: copyshop-m.svg;}
@@ -2279,9 +2262,6 @@ area|z16[shop=toys]
 node|z16[shop=stationery],
 area|z16[shop=stationery]
 {icon-image: stationery_shop-m.svg;}
-node|z16[shop=fabric],
-area|z16[shop=fabric]
-{icon-image: shop-m.svg;}
 node|z16[shop=rental],
 area|z16[shop=rental]
 {icon-image: rental-m.svg;}
@@ -2313,12 +2293,6 @@ area|z17-[shop=second_hand]
 node|z17-[shop=antiques],
 area|z17-[shop=antiques]
 {icon-image: antiques-m.svg;icon-min-distance: 24;}
-node|z17-[shop=auction],
-area|z17-[shop=auction]
-{icon-image: auction-m.svg;icon-min-distance: 24;}
-node|z17-[shop=bookmaker],
-area|z17-[shop=bookmaker]
-{icon-image: lottery-m.svg;icon-min-distance: 24;}
 node|z17-[shop=bakery],
 area|z17-[shop=bakery],
 node|z17-[shop=pastry],
@@ -2381,9 +2355,6 @@ area|z17-[shop=tattoo]
 node|z17-[shop=erotic],
 area|z17-[shop=erotic]
 {icon-image: erotic-m.svg;icon-min-distance: 24;}
-node|z17-[shop=funeral_directors],
-area|z17-[shop=funeral_directors]
-{icon-image: funeral_directors-m.svg;icon-min-distance: 24;}
 node|z17-[shop=confectionery],
 area|z17-[shop=confectionery],
 node|z17-[shop=chocolate],
@@ -2403,9 +2374,6 @@ area|z17-[shop=grocery],
 node|z17-[shop=health_food],
 area|z17-[shop=health_food],
 {icon-image: convenience-m.svg;icon-min-distance: 24;}
-node|z17-[shop=collector],
-area|z17-[shop=collector]
-{icon-image: shop-m.svg;icon-min-distance: 24;}
 node|z17-[shop=copyshop],
 area|z17-[shop=copyshop]
 {icon-image: copyshop-m.svg;icon-min-distance: 24;}
@@ -2509,8 +2477,6 @@ area|z17-[shop=stationery]
 node|z17-[shop=newsagent],
 area|z17-[shop=newsagent]
 {icon-image: newsagent_shop-m.svg;icon-min-distance: 24;}
-node|z17-[shop=fabric],
-area|z17-[shop=fabric],
 node|z17-[shop=variety_store],
 area|z17-[shop=variety_store],
 {icon-image: shop-m.svg;}
@@ -2523,14 +2489,24 @@ area|z17-[shop=money_lender],
 area|z17-[shop=pawnbroker],
 node|z17-[shop=pawnbroker],
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;}
-node|z17-[shop=wholesale],
-{icon-image: wholesale-m.svg;icon-min-distance: 24;}
 node|z17-[shop=rental],
 area|z17-[shop=rental]
 {icon-image: rental-m.svg;icon-min-distance: 24;}
 node|z17-[shop=rental][rental=bike],
 area|z17-[shop=rental][rental=bike],
 {icon-image: shop-rental-bicycle-m.svg;icon-min-distance: 24;}
+node|z18-[shop=auction],
+{icon-image: auction-m.svg;}
+node|z18-[shop=collector],
+{icon-image: shop-m.svg;}
+node|z18-[shop=fabric],
+{icon-image: shop-m.svg;}
+node|z18-[shop=funeral_directors],
+{icon-image: funeral_directors-m.svg;}
+node|z18-[shop=bookmaker],
+{icon-image: lottery-m.svg;}
+node|z18-[shop=wholesale],
+{icon-image: wholesale-m.svg;}
 node|z18-[shop=tobacco],
 area|z18-[shop=tobacco],
 {icon-image: tobacco-m.svg;icon-min-distance: 24;}
