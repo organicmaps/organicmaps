@@ -51,12 +51,8 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   private var isVisible = false {
     didSet {
-      guard isVisible != oldValue else { return }
-      if isVisible {
-        addView()
-      } else {
-        self.removeFromSuperview()
-      }
+      addView()
+      isHidden = !isVisible
     }
   }
 
@@ -68,6 +64,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     leadingAnchor.constraint(equalTo: lg.leadingAnchor).isActive = true
     trailingAnchor.constraint(equalTo: lg.trailingAnchor).isActive = true
     bottomAnchor.constraint(equalTo: lg.bottomAnchor).isActive = true
+    ownerView.layoutIfNeeded()
   }
 
   private func updateHeight() {
