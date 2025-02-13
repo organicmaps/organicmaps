@@ -1287,6 +1287,7 @@ world  +
         hairdresser  -
         hardware  -
         health_food  -
+        hearing_aids  -
         herbalist  -
         hifi  -
         houseware  -
