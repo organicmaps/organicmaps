@@ -3664,6 +3664,8 @@
 
 "type.shop.health_food" = "Terveysruokakauppa";
 
+"type.shop.hearing_aids" = "Kuulolaitteiden myymälä";
+
 "type.shop.herbalist" = "Yrttikauppa";
 
 "type.shop.hifi" = "HiFi Audio";

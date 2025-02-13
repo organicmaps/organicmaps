@@ -1391,6 +1391,47 @@ sr:6Здрава храна|6Zdrava hrana
 tr:Sağlıklı Gıda
 es:Alimentos saludables
 
+shop-hearing_aids|@shop
+en:Hearing Aids
+ar:المعينات السمعية
+be:Слыхавыя апараты
+bg:Слухови апарати
+ca:Audiòfons
+cs:Sluchadla
+da:Høreapparater
+de:Hörgeräte
+el:Βοηθήματα ακοής
+es:Audífonos
+et:Kuuldeaparaadid
+eu:Entzungailuak
+fa:چادرهای
+fi:Kuulolaitteet
+fr:Aides auditives
+he:מכשירי שמיעה
+hi:कान की मशीन
+hu:Hallókészülékek
+id:Alat bantu dengar
+it:Apparecchi acustici
+ja:補聴器
+ko:보청기
+lv:Dzirdes aparāti
+mr:श्रवणयंत्र
+nb:Høreapparater
+nl:Hoortoestellen
+pl:Aparaty słuchowe
+pt:Aparelhos auditivos
+ro:Aparate auditive
+ru:Слуховые аппараты
+sk:Sluchové pomôcky
+sv:Hörselhjälpmedel
+sw:Misaada ya kusikia
+th:เครื่องช่วยฟัง
+tr:İşitme Cihazları
+uk:Слухові апарати
+vi:Máy trợ thính
+zh-Hans:助听器
+zh-Hant:助聽器
+
 shop-mobile_phone|@shop
 en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F4F1|U+1F4F2
 ru:4Сотовые телефоны|4Мобильные телефоны|5телефоны|5смартфоны|электроника|салон связи

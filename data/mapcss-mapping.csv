@@ -1734,3 +1734,4 @@ railway|subway_entrance|hongkong;[railway=subway_entrance][city=hongkong];;name;
 railway|station|light_rail|berlin;[railway=station][station=light_rail][city=berlin],[railway=halt][station=light_rail][city=berlin];;name;int_name;1619;
 railway|station|subway|shenzhen;[railway=station][transport=subway][city=shenzhen],[railway=station][station=subway][city=shenzhen];;name;int_name;1620;
 railway|subway_entrance|shenzhen;[railway=subway_entrance][city=shenzhen];;name;int_name;1621;
+shop|hearing_aids;1622;

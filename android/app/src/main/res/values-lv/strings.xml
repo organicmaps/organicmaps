@@ -869,6 +869,7 @@
     <string name="type.place.neighbourhood">Maza apkaime</string>
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Pilsētas apgabals</string>
+    <string name="type.shop.hearing_aids">Dzirdes aparātu veikals</string>
     <string name="type.shop.pasta">Makaronu veikals</string>
     <string name="type.attraction.amusement_ride">Atrakciju brauciens</string>
     <string name="type.attraction.carousel">Karuselis</string>

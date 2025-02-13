@@ -1064,6 +1064,7 @@ node|z18-[amenity=hunting_stand],
 area|z18-[amenity=hunting_stand],
 node|z18-[shop=lottery],
 area|z18-[shop=lottery],
+node|z18-[shop=hearing_aids],
 node|z18-[man_made=chimney],
 area|z18-[man_made=chimney],
 node|z18-[man_made=silo],
@@ -1146,6 +1147,8 @@ area|z17[healthcare=audiologist]
 node|z18-[healthcare=audiologist],
 area|z18-[healthcare=audiologist]
 {icon-image: audiologist-m.svg;font-size: 11;}
+node|z18-[shop=hearing_aids],
+{icon-image: hearing_aids-m.svg;font-size: 11;}
 node|z17[healthcare=blood_donation],
 area|z17[healthcare=blood_donation]
 {icon-image: blood_donation-m.svg;}
