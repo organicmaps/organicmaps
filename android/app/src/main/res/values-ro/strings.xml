@@ -1375,6 +1375,7 @@
     <string name="type.historic.ship">Navă</string>
     <string name="type.historic.tank">Tanc istoric</string>
     <string name="type.historic.tomb">Mormânt</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Troiță</string>
     <string name="type.historic.wayside_shrine">Altarul de la marginea drumului</string>
     <string name="type.historic.wreck">Naufragiu</string>
@@ -1423,6 +1424,9 @@
     <string name="type.man_made.lighthouse">Far</string>
     <string name="type.man_made.surveillance">Cameră de supraveghere</string>
     <string name="type.man_made.tower">Turn</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Turnul de comunicații</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Turnul de comunicații</string>
     <string name="type.man_made.water_tap">Robinet cu apă</string>
     <string name="type.man_made.water_tap.drinking_water_no">Robinet cu apă</string>

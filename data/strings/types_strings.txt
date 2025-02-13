@@ -11904,6 +11904,13 @@
     zh-Hans = 紧急电话
     zh-Hant = 緊急電話
 
+  [type.emergency.lifeguard]
+    comment = A place where a lifeguard is on duty.
+    en = Lifeguard
+
+  [type.emergency.mountain_rescue]
+    en = Mountain Rescue Station
+
   [type.entrance]
     comment = This is for secondary entrances, for main entrances see type.entrance.main
     en = Entrance
@@ -16089,7 +16096,12 @@
     zh-Hans = 陵墓
     zh-Hant = 陵墓
 
+  [type.man_made.cross]
+    comment = Usually has no historic and sometimes no religious context. E.g. a mountain summit cross.
+    en = Cross
+
   [type.historic.wayside_cross]
+    comment = Usually a Christian historical cross placed along a road.
     en = Wayside Cross
     af = Wegkruis
     ar = صليب جانب الطريق
@@ -18886,7 +18898,8 @@
     zh-Hans = 高塔
     zh-Hant = 塔
 
-  [type.man_made.tower.communication]
+  [type.man_made.communications_tower]
+    comment = A huge telecommunications tower. Often a local monument or a landmark.
     en = Communications Tower
     af = Kommunikasietoring
     ar = برج اتصالات
@@ -18917,7 +18930,7 @@
     pt = Torre de comunicação
     pt-BR = Torre de comunicação
     ro = Turnul de comunicații
-    ru = Вышка связи
+    ru = Телекоммуникационная башня
     sk = Komunikačná veža
     sr = Телекомуникациони торањ
     sv = Kommunikationstorn
@@ -18928,6 +18941,18 @@
     vi = Tháp truyền thông
     zh-Hans = 通讯塔
     zh-Hant = 通訊塔
+
+  [type.man_made.tower.communication]
+    comment = A regular telecommunications tower / mast.
+    ref = type.man_made.communications_tower
+    ru = Вышка связи
+
+  [type.man_made.petroleum_well]
+    en = Oil or gas well
+
+  [type.man_made.flare]
+    comment = A tower/mast constructed to burn off excess gas.
+    en = Gas Flare
 
   [type.man_made.wastewater_plant]
     en = Wastewater Treatment Plant

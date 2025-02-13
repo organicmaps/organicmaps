@@ -1280,6 +1280,9 @@
     <string name="type.emergency.defibrillator">Defibrillator</string>
     <string name="type.emergency.fire_hydrant">Fire Hydrant</string>
     <string name="type.emergency.phone">Emergency Phone</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Lifeguard</string>
+    <string name="type.emergency.mountain_rescue">Mountain Rescue Station</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Entrance</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1505,6 +1508,9 @@
     <string name="type.historic.ship">Ship</string>
     <string name="type.historic.tank">Historic Tank</string>
     <string name="type.historic.tomb">Tomb</string>
+    <!-- Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Cross</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Wayside Cross</string>
     <string name="type.historic.wayside_shrine">Wayside Shrine</string>
     <string name="type.historic.wreck">Shipwreck</string>
@@ -1615,7 +1621,13 @@
     <string name="type.man_made.storage_tank">Storage Tank</string>
     <string name="type.man_made.surveillance">Surveillance Camera</string>
     <string name="type.man_made.tower">Tower</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Communications Tower</string>
+    <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Communications Tower</string>
+    <string name="type.man_made.petroleum_well">Oil or gas well</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Gas Flare</string>
     <string name="type.man_made.wastewater_plant">Wastewater Treatment Plant</string>
     <string name="type.man_made.water_tap">Water Tap</string>
     <string name="type.man_made.water_tap.drinking_water_no">Water Tap</string>
