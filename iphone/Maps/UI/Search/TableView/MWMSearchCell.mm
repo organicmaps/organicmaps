@@ -1,6 +1,5 @@
 #import "MWMSearchCell.h"
-
-#include "search/result.hpp"
+#import "SearchResult.h"
 
 @interface MWMSearchCell ()
 
@@ -10,11 +9,9 @@
 
 @implementation MWMSearchCell
 
-- (void)config:(search::Result const &)result
-    localizedTypeName:(NSString *)localizedTypeName
-{
-  NSString * title = result.GetString().empty() ? localizedTypeName : @(result.GetString().c_str());
-  
+- (void)configureWith:(SearchResult * _Nonnull)result {
+  NSString * title = result.titleText;
+
   if (title.length == 0)
   {
     self.titleLabel.text = @"";
@@ -31,18 +28,15 @@
   NSMutableAttributedString * attributedTitle =
       [[NSMutableAttributedString alloc] initWithString:title];
   [attributedTitle addAttributes:unselectedTitleAttributes range:NSMakeRange(0, title.length)];
-  size_t const rangesCount = result.GetHighlightRangesCount();
-  for (size_t i = 0; i < rangesCount; ++i)
-  {
-    std::pair<uint16_t, uint16_t> const & range = result.GetHighlightRange(i);
 
-    if (range.first + range.second <= title.length)
-    {
-      [attributedTitle addAttributes:selectedTitleAttributes range:NSMakeRange(range.first, range.second)];
-    }
-    else
-    {
-      LOG(LERROR, ("Incorrect range: ", range, " for string: ", result.GetString()));
+  NSArray<NSValue *> *highlightRanges = result.highlightRanges;
+
+  for (NSValue *rangeValue in highlightRanges) {
+    NSRange range = [rangeValue rangeValue];
+    if (NSMaxRange(range) <= result.titleText.length) {
+      [attributedTitle addAttributes:selectedTitleAttributes range:range];
+    } else {
+      NSLog(@"Incorrect range: %@ for string: %@", NSStringFromRange(range), result.titleText);
     }
   }
   self.titleLabel.attributedText = attributedTitle;
