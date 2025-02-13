@@ -33,7 +33,7 @@ import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.settings.StoragePathManager;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;

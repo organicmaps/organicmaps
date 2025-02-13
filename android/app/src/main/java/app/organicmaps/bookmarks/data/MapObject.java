@@ -12,7 +12,7 @@ import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.routing.RoutePointInfo;
-import app.organicmaps.search.Popularity;
+import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageData;
 

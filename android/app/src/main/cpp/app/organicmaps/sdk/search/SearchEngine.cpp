@@ -39,7 +39,7 @@ Results g_results;
 
 // Timestamp of last search query. Results with older stamps are ignored.
 jlong g_queryTimestamp;
-// Implements 'NativeSearchListener' java interface.
+// Implements 'SearchListener' java interface.
 jobject g_javaListener;
 jmethodID g_updateResultsId;
 jmethodID g_endResultsId;
@@ -52,7 +52,7 @@ jmethodID g_descriptionConstructor;
 jclass g_popularityClass;
 jmethodID g_popularityConstructor;
 
-// Implements 'NativeMapSearchListener' java interface.
+// Implements 'MapSearchListener' java interface.
 jmethodID g_mapResultsMethod;
 jclass g_mapResultClass;
 jmethodID g_mapResultCtor;
@@ -232,21 +232,21 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
   {
     g_javaListener = env->NewGlobalRef(thiz);
     // public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
     g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate",
-                                         "([Lapp/organicmaps/search/SearchResult;J)V");
+                                         "([Lapp/organicmaps/sdk/search/SearchResult;J)V");
     // public void onResultsEnd(long timestamp)
     g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
-    g_resultClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/SearchResult");
+    g_resultClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(
         env, g_resultClass,
-        "(Ljava/lang/String;Lapp/organicmaps/search/SearchResult$Description;DD[I[I"
-          "Lapp/organicmaps/search/Popularity;)V");
+        "(Ljava/lang/String;Lapp/organicmaps/sdk/search/SearchResult$Description;DD[I[I"
+        "Lapp/organicmaps/sdk/search/Popularity;)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I[I)V");
-    g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/SearchResult$Description");
+    g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/SearchResult$Description");
     /*
         Description(FeatureId featureId, String featureType, String region, Distance distance,
                     String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
@@ -257,12 +257,12 @@ extern "C"
                                                      "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/util/Distance;"
                                                      "Ljava/lang/String;IIIZ)V");
 
-    g_popularityClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/Popularity");
+    g_popularityClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");
 
     g_mapResultsMethod = jni::GetMethodID(env, g_javaListener, "onMapSearchResults",
-                                          "([Lapp/organicmaps/search/NativeMapSearchListener$Result;JZ)V");
-    g_mapResultClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/NativeMapSearchListener$Result");
+                                          "([Lapp/organicmaps/sdk/search/MapSearchListener$Result;JZ)V");
+    g_mapResultClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/MapSearchListener$Result");
     g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
     g_updateBookmarksResultsId =
@@ -271,7 +271,7 @@ extern "C"
       jni::GetMethodID(env, g_javaListener, "onBookmarkSearchResultsEnd", "([JJ)V");
   }
 
-  JNIEXPORT jboolean JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunSearch(
+  JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearch(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
       jstring lang, jlong timestamp, jboolean hasPosition, jdouble lat, jdouble lon)
   {
@@ -288,7 +288,7 @@ extern "C"
     return searchStarted;
   }
 
-  JNIEXPORT void JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunInteractiveSearch(
+  JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunInteractiveSearch(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jboolean isCategory,
       jstring lang, jlong timestamp, jboolean isMapAndTable, jboolean hasPosition, jdouble lat, jdouble lon)
   {
@@ -321,7 +321,7 @@ extern "C"
     }
   }
 
-  JNIEXPORT void JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunSearchMaps(
+  JNIEXPORT void JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchMaps(
       JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
   {
     storage::DownloaderSearchParams params{
@@ -334,7 +334,7 @@ extern "C"
       g_queryTimestamp = timestamp;
   }
 
-  JNIEXPORT jboolean JNICALL Java_app_organicmaps_search_SearchEngine_nativeRunSearchInBookmarks(
+  JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchInBookmarks(
       JNIEnv * env, jclass clazz, jbyteArray query, jlong catId, jlong timestamp)
   {
     search::BookmarksSearchParams params{
@@ -350,25 +350,25 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeShowResult(JNIEnv * env, jclass clazz, jint index)
   {
     g_framework->NativeFramework()->ShowSearchResult(g_results[index]);
   }
 
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelInteractiveSearch(JNIEnv * env, jclass clazz)
   {
     g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Viewport);
   }
 
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelEverywhereSearch(JNIEnv * env, jclass clazz)
   {
     g_framework->NativeFramework()->GetSearchAPI().CancelSearch(search::Mode::Everywhere);
   }
 
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeCancelAllSearches(JNIEnv * env, jclass clazz)
   {
     g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
   }

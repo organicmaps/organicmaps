@@ -5,8 +5,7 @@
 
 extern "C"
 {
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass clazz)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_search_DisplayedCategories_nativeGetKeys(JNIEnv * env, jclass)
 {
   ::Framework * fr = g_framework->NativeFramework();
   ASSERT(fr, ());

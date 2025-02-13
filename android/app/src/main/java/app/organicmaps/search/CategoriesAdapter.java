@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
+import app.organicmaps.sdk.search.DisplayedCategories;
 import app.organicmaps.util.ThemeUtils;
 
 import java.lang.annotation.Retention;
@@ -26,9 +27,10 @@ import java.lang.annotation.RetentionPolicy;
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_CATEGORY })
-  @interface ViewType {}
-  private static final int TYPE_CATEGORY = 0;
+  @IntDef({ ViewType.CATEGORY })
+  @interface ViewType {
+    int CATEGORY = 0;
+  }
 
   @StringRes
   private int[] mCategoryResIds;
@@ -121,15 +123,16 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @ViewType
   public int getItemViewType(int position)
   {
-    return TYPE_CATEGORY;
+    return ViewType.CATEGORY;
   }
 
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, @ViewType int viewType)
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @ViewType int viewType)
   {
     View view;
     ViewHolder viewHolder;
-    if (viewType == TYPE_CATEGORY)
+    if (viewType == ViewType.CATEGORY)
     {
       view = mInflater.inflate(R.layout.item_search_category, parent, false);
       viewHolder = new ViewHolder(view, (TextView) view);
