@@ -30,7 +30,6 @@
 
 #include <algorithm>
 #include <chrono>
-#include <iomanip>
 #include <limits>
 #include <sstream>
 #include <unordered_map>
@@ -46,7 +45,6 @@ size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
 
-std::string const kKMLMimeType = "application/vnd.google-earth.kml+xml";
 std::string const kKMZMimeType = "application/vnd.google-earth.kmz";
 std::string const kGPXMimeType = "application/gpx+xml";
 
@@ -1002,15 +1000,6 @@ void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
   ResetTrackInfoMark(trackId);
 }
 
-void BookmarkManager::SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt)
-{
-  auto trackInfoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-  trackInfoMark->SetPosition(pt);
-  auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
-  trackInfoMark->SetIsVisible(isVisible);
-  trackInfoMark->SetTrackId(trackId);
-}
-
 void BookmarkManager::ResetTrackInfoMark(kml::TrackId trackId)
 {
   auto trackInfoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
@@ -1856,12 +1845,6 @@ void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
   m_regionAddressGetter = std::make_unique<search::RegionAddressGetter>(dataSource, infoGetter);
 }
 
-void BookmarkManager::ResetRegionAddressGetter()
-{
-  std::unique_lock const lock(m_regionAddressMutex);
-  m_regionAddressGetter.reset();
-}
-
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
 {
   m_viewport = screen;
@@ -2029,23 +2012,6 @@ void BookmarkManager::LoadMetadata()
   }
 
   m_metadata = metadata;
-}
-
-void BookmarkManager::ClearCategories()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto groupId : m_unsortedBmGroupsIdList)
-  {
-    ClearGroup(groupId);
-    m_changesTracker.OnDeleteGroup(groupId);
-  }
-
-  m_compilations.clear();
-  m_categories.clear();
-  m_unsortedBmGroupsIdList.clear();
-
-  m_bookmarks.clear();
-  m_tracks.clear();
 }
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
@@ -3087,35 +3053,6 @@ void BookmarkManager::SetAllCategoriesVisibility(bool visible)
   {
     category.second->SetIsVisible(visible);
   }
-}
-
-bool BookmarkManager::AreAllCompilationsVisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const
-{
-  return CheckCompilationsVisibility(categoryId, compilationType, true);
-}
-
-bool BookmarkManager::AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const
-{
-  return CheckCompilationsVisibility(categoryId, compilationType, false);
-}
-
-bool BookmarkManager::CheckCompilationsVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool isVisible) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const categoryIt = m_categories.find(categoryId);
-  CHECK(categoryIt != m_categories.end(), ());
-  auto & category = *categoryIt->second;
-  for (kml::MarkGroupId const compilationId : category.GetCategoryData().m_compilationIds)
-  {
-    auto const compilationIt = m_compilations.find(compilationId);
-    CHECK(compilationIt != m_compilations.cend(), ());
-    auto & compilation = *compilationIt->second;
-    if (compilation.GetCategoryData().m_type != compilationType)
-      continue;
-    if (compilation.IsVisible() != isVisible)
-      return false;
-  }
-  return true;
 }
 
 void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
