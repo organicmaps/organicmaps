@@ -2242,4 +2242,6 @@
   <string name="all_images_were_downloaded">Все изображения былы загружены успешно</string>
   <string name="most_images_were_downloaded">Большинство изображений было загружено</string>
   <string name="not_all_images_were_downloaded">Ошибка, не все изображения былы загружены</string>
+  <string name="enable_location">Включить локацию</string>
+  <string name="enable_location_longer">Пожалуйста, включите локацию чтоб использовать данную функцию</string>
 </resources>

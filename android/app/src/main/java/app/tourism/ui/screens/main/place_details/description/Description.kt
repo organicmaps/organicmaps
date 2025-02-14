@@ -11,15 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.organicmaps.R
 import app.tourism.Constants
 import app.tourism.ui.common.VerticalSpace
-import app.tourism.ui.common.WebView
 import app.tourism.ui.common.buttons.PrimaryButton
 import app.tourism.ui.theme.TextStyles
+import app.tourism.ui.utils.enableLocation
 import app.tourism.utils.getAnnotatedStringFromHtml
 
 @Composable
@@ -27,6 +28,7 @@ fun DescriptionScreen(
     description: String?,
     onCreateRoute: (() -> Unit)?,
 ) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -50,9 +52,15 @@ fun DescriptionScreen(
                     .align(Alignment.BottomCenter)
                     .offset(y = (-32).dp),
                 label = stringResource(id = R.string.show_route),
-                onClick = { onCreateRoute() },
+                onClick = {
+                    enableLocation(
+                        context = context,
+                        onSuccess = {
+                            onCreateRoute()
+                        },
+                    )
+                },
             )
         }
     }
-
 }

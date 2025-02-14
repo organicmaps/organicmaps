@@ -2284,4 +2284,6 @@
   <string name="all_images_were_downloaded">All images were downloaded successfully</string>
   <string name="most_images_were_downloaded">Most images were downloaded</string>
   <string name="not_all_images_were_downloaded">Error, not all images were downloaded</string>
+  <string name="enable_location">Enable Location</string>
+  <string name="enable_location_longer">Please enable location services to use this feature</string>
 </resources>

@@ -232,7 +232,6 @@ class PlacesRepository(
         val filesDownloaded = filesTotalNum - notDownloadedImages.size
         val percentage = (filesDownloaded * 100) / filesTotalNum
 
-        Log.d("", "percentage: $percentage")
         return percentage < 90
     }
 
@@ -253,7 +252,7 @@ class PlacesRepository(
     suspend fun getPlacesByCategoryFromApiIfThereIsChange(id: Long) {
         val hash = hashesDao.getHash(id)
 
-        val favorites = placesDao.getFavoritePlaces("", language)
+        val favorites = placesDao.getFavoritePlaces("%%", language)
         val resource =
             handleResponse(call = { api.getPlacesByCategory(id, hash?.value ?: "") }, context)
 
@@ -261,7 +260,6 @@ class PlacesRepository(
             resource.data?.let { categoryDto ->
                 if (categoryDto.hash.isBlank()) return
                 // update places
-                Log.d("dsf", "Before update places, categoryDto: $categoryDto")
                 val placesEn = categoryDto.en.map { placeDto ->
                     var placeFull = placeDto.toPlaceFull(false, "en")
                     placeFull =
