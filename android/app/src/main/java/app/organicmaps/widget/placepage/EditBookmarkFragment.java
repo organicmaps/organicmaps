@@ -43,6 +43,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_ID = "BookmarkTrackId";
   public static final String EXTRA_BOOKMARK_TYPE = "BookmarkType";
+  public static final String STATE_ICON = "icon";
+  public static final String STATE_BOOKMARK_CATEGORY = "bookmark_category";
+  public static final String STATE_COLOR = "color";
   public static final int TYPE_BOOKMARK = 1;
   public static final int TYPE_TRACK = 2;
 
@@ -142,8 +145,13 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mIvColor.setOnClickListener(this);
 
     //For tracks an bookmarks same category is used so this portion is common for both
-    long categoryId = args.getLong(EXTRA_CATEGORY_ID);
-    mBookmarkCategory = BookmarkManager.INSTANCE.getCategoryById(categoryId);
+    if (savedInstanceState != null && savedInstanceState.getParcelable(STATE_BOOKMARK_CATEGORY) != null)
+      mBookmarkCategory = savedInstanceState.getParcelable(STATE_BOOKMARK_CATEGORY);
+    else
+    {
+      long categoryId = args.getLong(EXTRA_CATEGORY_ID);
+      mBookmarkCategory = BookmarkManager.INSTANCE.getCategoryById(categoryId);
+    }
     long id = args.getLong(EXTRA_ID);
 
     switch (mType)
@@ -151,7 +159,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       case TYPE_BOOKMARK ->
       {
         mBookmark = BookmarkManager.INSTANCE.getBookmarkInfo(id);
-        if (mBookmark != null)
+        if (savedInstanceState != null && savedInstanceState.getParcelable(STATE_ICON) != null)
+          mIcon = savedInstanceState.getParcelable(STATE_ICON);
+        else if (mBookmark != null)
           mIcon = mBookmark.getIcon();
         refreshBookmark();
       }
@@ -159,6 +169,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       {
         mTrack = BookmarkManager.INSTANCE.getTrack(id);
         mColor = mTrack.getColor();
+        if (savedInstanceState != null)
+          mColor = savedInstanceState.getInt(STATE_COLOR, mColor);
         refreshTrack();
       }
     }
@@ -238,6 +250,15 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     if (mListener != null)
       mListener.onBookmarkSaved(mTrack.getTrackId(), movedFromCategory);
     dismiss();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(STATE_ICON, mIcon);
+    outState.putParcelable(STATE_BOOKMARK_CATEGORY, mBookmarkCategory);
+    outState.putInt(STATE_COLOR, mColor);
   }
 
   @Override
