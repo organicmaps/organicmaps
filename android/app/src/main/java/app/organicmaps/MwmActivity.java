@@ -151,7 +151,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
-  private boolean mDialogShown = false;
+  private boolean mPreciseLocationDialogShown = false;
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -1942,37 +1942,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Logger.w(LOCATION_TAG, "Permission " + permission + " has been refused");
     }
 
-    // Check if fine location permission is granted.
-    if (LocationUtils.checkFineLocationPermission(this)) {
-      Logger.i(LOCATION_TAG, "Precise location permission granted");
-    } else if (LocationUtils.checkCoarseLocationPermission(this)) {
-      Logger.w(LOCATION_TAG, "Only approximate location permission granted");
-      if (!mDialogShown)
-      {
-        mDialogShown = true;
-        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-            .setTitle("⚠ " + getString(R.string.limited_accuracy))
-            .setMessage(R.string.precise_location_is_disabled_long_text)
-            .setPositiveButton(R.string.go_to_settings, (dialog, which) -> {
-              Utils.openUri(this,
-                  Uri.parse("package:" + getPackageName()),
-                  R.string.uri_open_location_failed,
-                  Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            })
-            .setNegativeButton(R.string.ignore, (dialog, which) -> dialog.dismiss())
-            .setCancelable(true)
-            .show();
-      }
-      else
-      {
-        Toast.makeText(this, R.string.precise_location_is_disabled_long_text,
-                Toast.LENGTH_LONG)
-            .show();
-      }
-    } else {
-      Logger.w(LOCATION_TAG, "Both Fine and Coarse location permissions denied.");
-    }
-
     boolean requestedForRecording = mLocationPermissionRequestedForRecording;
     mLocationPermissionRequestedForRecording = false;
     if (LocationUtils.checkLocationPermission(this))
@@ -1983,6 +1952,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
         startTrackRecording();
 
+      if (LocationUtils.checkFineLocationPermission(this))
+      {
+        Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+      }
+      else
+      {
+        Logger.w(LOCATION_TAG, "Only ACCESS_COARSE_LOCATION  permission granted");
+        if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+        {
+          Logger.w(LOCATION_TAG, "Don't show 'Precise Location denied'  dialog because another dialog is in progress");
+          return;
+        }
+        if (!mPreciseLocationDialogShown)
+        {
+          mPreciseLocationDialogShown = true;
+          final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle("⚠ " + getString(R.string.limited_accuracy))
+              .setMessage(R.string.precise_location_is_disabled_long_text)
+              .setNegativeButton(R.string.close, (dialog, which) -> dialog.dismiss())
+              .setCancelable(true)
+              .setOnDismissListener(dialog -> mLocationErrorDialog = null);
+          final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+          if (intent != null)
+          {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            builder.setPositiveButton(R.string.location_settings, (dialog, which) -> startActivity(intent));
+          }
+          mLocationErrorDialog = builder.show();
+        }
+        else
+        {
+          Toast.makeText(this, R.string.precise_location_is_disabled_long_text,
+                  Toast.LENGTH_LONG)
+              .show();
+        }
+      }
       return;
     }
 
