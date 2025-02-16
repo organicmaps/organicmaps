@@ -23,13 +23,13 @@ import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
-import app.organicmaps.search.NativeSearchListener;
-import app.organicmaps.search.SearchEngine;
-import app.organicmaps.search.SearchRecents;
-import app.organicmaps.search.SearchResult;
+import app.organicmaps.sdk.search.SearchListener;
+import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchRecents;
+import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.util.Language;
 
-public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchListener
+public class SearchOnMapScreen extends BaseMapScreen implements SearchListener
 {
   private final int MAX_RESULTS_SIZE;
 

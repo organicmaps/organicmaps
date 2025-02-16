@@ -13,7 +13,7 @@ import androidx.car.app.model.ForegroundCarColorSpan;
 import app.organicmaps.R;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingHelpers;
-import app.organicmaps.search.SearchResult;
+import app.organicmaps.sdk.search.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

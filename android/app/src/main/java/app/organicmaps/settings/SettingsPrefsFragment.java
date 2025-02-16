@@ -32,7 +32,7 @@ import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
-import app.organicmaps.search.SearchRecents;
+import app.organicmaps.sdk.search.SearchRecents;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Locale;
