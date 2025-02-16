@@ -1,19 +1,19 @@
 import Foundation
 
-private func IPAD() -> Bool { return UI_USER_INTERFACE_IDIOM() == .pad }
+var isIPad: Bool { return UI_USER_INTERFACE_IDIOM() == .pad }
 
 func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
 
-func alternative<T>(iPhone: T, iPad: T) -> T { return IPAD() ? iPad : iPhone }
+func alternative<T>(iPhone: T, iPad: T) -> T { return isIPad ? iPad : iPhone }
 
 func iPadSpecific(_ f: () -> Void) {
-  if IPAD() {
+  if isIPad {
     f()
   }
 }
 
 func iPhoneSpecific(_ f: () -> Void) {
-  if !IPAD() {
+  if !isIPad {
     f()
   }
 }
