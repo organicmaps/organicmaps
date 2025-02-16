@@ -7,6 +7,7 @@
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
+#import "SearchResult.h"
 #import "SwiftBridge.h"
 
 namespace {
@@ -60,8 +61,14 @@ const CGFloat kWidthForiPad = 320;
 @implementation MWMSearchManager
 
 + (MWMSearchManager *)manager {
-  return [MWMMapViewControlsManager manager].searchManager;
+  static MWMSearchManager * manager;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    manager = [[MWMSearchManager alloc] init];
+  });
+  return manager;
 }
+
 - (nullable instancetype)init {
   self = [super init];
   if (self) {
@@ -149,16 +156,17 @@ const CGFloat kWidthForiPad = 320;
 - (void)dismissKeyboard {
   [self.searchTextField resignFirstResponder];
 }
-- (void)processSearchWithResult:(search::Result const &)result {
+- (void)processSearchResultAtIndex:(NSInteger)index {
   if (self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchNone) {
-    [MWMSearch showResult:result];
+    [MWMSearch showResultAtIndex:index];
   } else {
     BOOL const isStart = self.routingTooltipSearch == MWMSearchManagerRoutingTooltipSearchStart;
-    auto point = [[MWMRoutePoint alloc] initWithPoint:result.GetFeatureCenter()
-                                                title:@(result.GetString().c_str())
-                                             subtitle:@(result.GetAddress().c_str())
-                                                 type:isStart ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
-                                    intermediateIndex:0];
+    SearchResult * result = [MWMSearch resultWithContainerIndex:index];
+    auto point = [[MWMRoutePoint alloc] initWithCGPoint:result.point
+                                                  title:result.titleText
+                                               subtitle:result.addressText
+                                                   type:isStart ? MWMRoutePointTypeStart : MWMRoutePointTypeFinish
+                                      intermediateIndex:0];
     if (isStart)
       [MWMRouter buildFromPoint:point bestRouter:NO];
     else
@@ -241,7 +249,6 @@ const CGFloat kWidthForiPad = 320;
     controlsManager.menuState = controlsManager.menuRestoreState;
   }
   [self viewHidden:NO];
-  [MWMSearch setSearchOnMap:NO];
   [self.tableViewController reloadData];
 
   if (![self.navigationController.viewControllers containsObject:self.tableViewController])
@@ -263,7 +270,6 @@ const CGFloat kWidthForiPad = 320;
   [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   self.controlsManager.menuState = MWMBottomMenuStateHidden;
   GetFramework().DeactivateMapSelection();
-  [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];
 
   [self.searchTextField resignFirstResponder];

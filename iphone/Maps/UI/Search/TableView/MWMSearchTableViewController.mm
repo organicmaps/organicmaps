@@ -2,6 +2,7 @@
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
+#import "SearchResult.h"
 #import "SwiftBridge.h"
 
 #include "platform/localization.hpp"
@@ -85,19 +86,18 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
 
   switch ([MWMSearch resultTypeWithRow:row])
   {
-    case MWMSearchItemTypeRegular:
+    case SearchItemTypeRegular:
     {
       auto cell = static_cast<MWMSearchCommonCell *>(
         [tableView dequeueReusableCellWithCellClass:[MWMSearchCommonCell class] indexPath:indexPath]);
-      auto const & productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
-      [cell config:result productInfo:productInfo localizedTypeName:GetLocalizedTypeName(result)];
+      [cell configureWith:result isPartialMatching:YES];
       return cell;
     }
-    case MWMSearchItemTypeSuggestion:
+    case SearchItemTypeSuggestion:
     {
       auto cell = static_cast<MWMSearchSuggestionCell *>(
         [tableView dequeueReusableCellWithCellClass:[MWMSearchSuggestionCell class] indexPath:indexPath]);
-      [cell config:result localizedTypeName:@""];
+      [cell configureWith:result isPartialMatching:YES];
       cell.isLastCell = row == [MWMSearch suggestionsCount] - 1;
       return cell;
     }
@@ -114,17 +114,18 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
 
   switch ([MWMSearch resultTypeWithRow:row])
   {
-    case MWMSearchItemTypeRegular:
+    case SearchItemTypeRegular:
     {
       SearchTextField const * textField = delegate.searchTextField;
       [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
-      [delegate processSearchWithResult:result];
+      [delegate processSearchResultAtIndex:indexPath.row];
       break;
     }
-    case MWMSearchItemTypeSuggestion:
+    case SearchItemTypeSuggestion:
     {
-      [delegate searchText:@(result.GetSuggestionString().c_str()) forInputLocale:nil
-              withCategory:result.GetResultType() == search::Result::Type::PureSuggest];
+      [delegate searchText:result.suggestion
+            forInputLocale:nil
+              withCategory:result.isPureSuggest];
       break;
     }
   }

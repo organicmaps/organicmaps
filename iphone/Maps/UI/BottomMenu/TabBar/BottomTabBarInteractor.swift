@@ -11,8 +11,8 @@ class BottomTabBarInteractor {
   private weak var viewController: UIViewController?
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
-  private weak var searchManager = MWMSearchManager.manager()
-  
+  private var searchManager: SearchOnMapManager = SearchOnMapManager.shared
+
   init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
@@ -22,11 +22,7 @@ class BottomTabBarInteractor {
 
 extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   func openSearch() {
-    if searchManager?.state == .hidden {
-      searchManager?.state = .default
-    } else {
-      searchManager?.state = .hidden
-    }
+    searchManager.setState(searchManager.isSearching ? .closed : .searching)
   }
   
   func openHelp() {

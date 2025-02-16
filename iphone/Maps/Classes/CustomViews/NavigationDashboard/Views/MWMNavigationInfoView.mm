@@ -191,7 +191,6 @@ BOOL defaultOrientation(CGSize const &size) {
 
 - (IBAction)searchButtonTouchUpInside:(MWMButton *)sender {
   auto const body = ^(NavigationSearchState state) {
-    [MWMSearch setSearchOnMap:YES];
     NSString *query = [kSearchButtonRequest.at(state) stringByAppendingString:@" "];
     NSString *locale = [[AppInfo sharedInfo] languageId];
     // Category request from navigation search wheel.
