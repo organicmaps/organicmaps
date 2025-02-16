@@ -355,6 +355,7 @@ public:
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
   void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, KmlFileType kmlFileType);
+  void PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, KmlFileType kmlFileType);
   void PrepareAllFilesForSharing(SharingHandler && handler);
 
   bool AreAllCategoriesEmpty() const;
@@ -653,6 +654,7 @@ private:
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
+  KMLDataCollectionPtr PrepareToSaveBookmarksForTrack(kml::TrackId trackId);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>
