@@ -366,6 +366,9 @@ node|z14-[barrier=border_control],
 node|z14-[highway=ford],
 {icon-image: ford-m.svg;}
 
+node|z16-[highway=ladder],
+{icon-image: ladder-m.svg;}
+
 node|z13[power=tower],
 {icon-image: mast-m.svg;}
 node|z14-[power=tower],
