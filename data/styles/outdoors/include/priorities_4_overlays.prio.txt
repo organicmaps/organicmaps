@@ -713,6 +713,7 @@ highway-path-tunnel                                 # pathtext z13- (also has li
 === 2820
 
 highway-steps                                       # pathtext z13- (also has line z12-)
+highway-ladder
 highway-steps-bridge                                # pathtext z13- (also has line z12-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-steps-tunnel                                # pathtext z13- (also has line z12-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2810
