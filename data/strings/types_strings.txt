@@ -14246,6 +14246,48 @@
     zh-Hans = 阶梯
     zh-Hant = 人行步道
 
+  [type.highway.ladder]
+    en = Ladder
+    af = Leer
+    ar = السلم
+    az = Nərdivan
+    be = Драбіны
+    bg = Стълба
+    ca = Escala
+    cs = Žebřík
+    da = Stige
+    de = Leiter
+    el = Σκάλα
+    es = Escalera
+    et = Redel
+    eu = Eskailera
+    fa = نردبان
+    fi = Tikkaat
+    fr = Échelle
+    he = סוּלָם
+    hi = सीढ़ी    hu = Létra
+    id = Tangga
+    it = Scala
+    ja = はしご
+    ko = 사다리
+    lt = Kopėčios
+    lv = Trepes
+    mr = शिडी    nb = Stige
+    nl = Ladder
+    pl = Drabina
+    pt = Escada
+    ro = Scară
+    ru = Лестница
+    sk = Rebrík
+    sv = Stege
+    sw = Ngazi
+    th = บันไดปีน
+    tr = Merdiven
+    uk = Драбина.
+    vi = Thang
+    zh-Hans = 梯子
+    zh-Hant = 梯子
+
   [type.highway.steps.bridge]
     ref = type.highway.road.bridge
 
