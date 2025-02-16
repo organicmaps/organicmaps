@@ -26,6 +26,10 @@
     <string name="search_map">지도 검색하기</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">제한된 정확도</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">정확한 탐색을 위해 설정에서 정확한 위치를 활성화합니다.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">지도에 표시</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

@@ -28,6 +28,10 @@
     <string name="search_map">Haritada Ara</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Sınırlı Doğruluk</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Doğru navigasyon sağlamak için ayarlardan Hassas Konum\'u etkinleştirin.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Haritada göster</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
