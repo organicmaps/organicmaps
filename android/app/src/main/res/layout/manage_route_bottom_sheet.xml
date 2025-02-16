@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:layout_marginBottom="@dimen/margin_half"
+  android:layout_marginTop="@dimen/margin_half"
+  android:paddingStart="@dimen/altitude_chart_container_padding_left"
+  android:paddingEnd="@dimen/altitude_chart_container_padding_left">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:text="@string/planning_route_manage_route"
+      android:textSize="20sp"
+      android:textStyle="bold"/>
+
+    <ImageView
+      android:id="@+id/image_my_location"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_alignParentEnd="true"
+      android:visibility="invisible"
+      app:srcCompat="@drawable/ic_my_location_blue"/>
+
+  </RelativeLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"
+    android:background="?dividerHorizontal"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/manage_route_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:itemCount="3"
+    tools:listitem="@layout/manage_route_list_item"/>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half">
+
+    <Button
+      android:id="@+id/btn__cancel"
+      style="@style/MwmWidget.Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:text="@string/cancel"/>
+
+    <Button
+      android:id="@+id/btn__plan"
+      style="@style/MwmWidget.Button.Primary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|center_vertical"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:text="@string/button_plan"/>
+
+  </RelativeLayout>
+
+</LinearLayout>

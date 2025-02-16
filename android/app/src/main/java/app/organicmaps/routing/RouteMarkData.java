@@ -16,8 +16,8 @@ public class RouteMarkData
   @Nullable
   public final String mSubtitle;
   @RoutePointInfo.RouteMarkType
-  public final int mPointType;
-  public final int mIntermediateIndex;
+  public int mPointType;
+  public int mIntermediateIndex;
   public final boolean mIsVisible;
   public final boolean mIsMyPosition;
   public final boolean mIsPassed;
@@ -38,5 +38,13 @@ public class RouteMarkData
     mIsPassed = isPassed;
     mLat = lat;
     mLon = lon;
+  }
+
+  public boolean equals(RouteMarkData other)
+  {
+    return mTitle != null && other.mTitle != null &&
+           mTitle.compareTo(other.mTitle) == 0 &&
+           mSubtitle != null && other.mSubtitle != null &&
+           mSubtitle.compareTo(other.mSubtitle) == 0;
   }
 }

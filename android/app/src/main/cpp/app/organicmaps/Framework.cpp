@@ -1579,6 +1579,12 @@ Java_app_organicmaps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
+{
+  frm()->GetRoutingManager().RemoveRoutePoints();
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass,
                                                           jint markType, jint intermediateIndex)
 {
@@ -1625,6 +1631,13 @@ Java_app_organicmaps_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
                           mercator::YToLat(data.m_position.y),
                           mercator::XToLon(data.m_position.x));
   });
+}
+
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass,
+                                                    jint currentIndex, jint targetIndex)
+{
+  frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
 }
 
 JNIEXPORT jobject JNICALL

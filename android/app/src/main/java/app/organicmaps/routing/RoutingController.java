@@ -426,6 +426,17 @@ public class RoutingController
     resetToPlanningStateIfNavigating();
   }
 
+  public void launchPlanning()
+  {
+    build();
+    setState(State.PREPARE);
+    startPlanning();
+    if (mContainer != null)
+      mContainer.updateMenu();
+    if (mContainer != null)
+      mContainer.onResetToPlanningState();
+  }
+
   /**
    * @return False if not navigating, true otherwise
    */
