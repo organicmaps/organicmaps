@@ -527,6 +527,11 @@ public enum BookmarkManager
     nativePrepareFileForSharing(catIds, kmlFileType.ordinal());
   }
 
+  public void prepareTrackForSharing(long trackId, KmlFileType kmlFileType)
+  {
+    nativePrepareTrackFileForSharing(trackId, kmlFileType.ordinal());
+  }
+
   public void setNotificationsEnabled(boolean enabled)
   {
     nativeSetNotificationsEnabled(enabled);
@@ -805,6 +810,8 @@ public enum BookmarkManager
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
   private static native void nativePrepareFileForSharing(long[] catIds, int kmlFileType);
+
+  private static native void nativePrepareTrackFileForSharing(long trackId, int kmlFileType);
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 
