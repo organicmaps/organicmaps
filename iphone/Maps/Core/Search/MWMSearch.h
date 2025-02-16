@@ -1,31 +1,32 @@
-#import <CoreApi/MWMTypes.h>
-
-#import "MWMSearchItemType.h"
 #import "MWMSearchObserver.h"
+#import "SearchItemType.h"
 
-namespace search {
-class Result;
-struct ProductInfo;
-}  // namespace search
+NS_ASSUME_NONNULL_BEGIN
 
-@interface MWMSearch : NSObject
+@class SearchResult;
 
+@protocol SearchManager
 + (void)addObserver:(id<MWMSearchObserver>)observer;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
 + (void)saveQuery:(NSString *)query forInputLocale:(NSString *)inputLocale;
 + (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale withCategory:(BOOL)isCategory;
 
-+ (void)showResult:(search::Result const &)result;
++ (void)showResultAtIndex:(NSUInteger)index;
++ (void)showEverywhereSearchResultsOnMap;
++ (void)showViewportSearchResultsOnMap;
 
-+ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row;
-+ (NSUInteger)containerIndexWithRow:(NSUInteger)row;
-+ (search::Result const &)resultWithContainerIndex:(NSUInteger)index;
-+ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index;
++ (NSArray<SearchResult *> *)getResults;
 
 + (void)clear;
+@end
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap;
+NS_SWIFT_NAME(Search)
+@interface MWMSearch : NSObject<SearchManager>
+
++ (SearchItemType)resultTypeWithRow:(NSUInteger)row;
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row;
++ (SearchResult *)resultWithContainerIndex:(NSUInteger)index;
 
 + (NSUInteger)suggestionsCount;
 + (NSUInteger)resultsCount;
@@ -37,3 +38,5 @@ struct ProductInfo;
 + (instancetype)new __attribute__((unavailable("call +manager instead")));
 
 @end
+
+NS_ASSUME_NONNULL_END

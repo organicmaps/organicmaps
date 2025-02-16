@@ -8,5 +8,6 @@
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
 
 - (void)updateAvailableArea:(CGRect)frame;
+- (CGRect)getAvailableArea;
 
 @end

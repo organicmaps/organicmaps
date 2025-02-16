@@ -17,6 +17,7 @@
   var medium9: UIFont { get }
   var medium10: UIFont { get }
   var medium12: UIFont { get }
+  var medium13: UIFont { get }
   var medium14: UIFont { get }
   var medium16: UIFont { get }
   var medium17: UIFont { get }

@@ -1,13 +1,10 @@
 #import "MWMSearchCell.h"
 
-#include "map/everywhere_search_callback.hpp"
+@class SearchResult;
 
-#include "search/result.hpp"
-
+NS_SWIFT_NAME(SearchCommonCell)
 @interface MWMSearchCommonCell : MWMSearchCell
 
-- (void)config:(search::Result const &)result
-    productInfo:(search::ProductInfo const &)productInfo
-    localizedTypeName:(NSString *)localizedTypeName;
+- (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching;
 
 @end
