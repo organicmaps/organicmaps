@@ -36,6 +36,12 @@ public enum BookmarksSharingHelper
     BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId}, kmlFileType);
   }
 
+  public void prepareTrackForSharing(@NonNull Activity context, long trackId, KmlFileType kmlFileType)
+  {
+    showProgressDialog(context);
+    BookmarkManager.INSTANCE.prepareTrackForSharing(trackId, kmlFileType);
+  }
+
   private void showProgressDialog(@NonNull Activity context)
   {
     mProgressDialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);

@@ -1507,6 +1507,72 @@ UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
   bmManager.PrepareFileForSharing(std::move(categories), checker, KmlFileType::Text);
 }
 
+UNIT_CLASS_TEST(Runner, ExportSingleTrackKmz)
+{
+  std::string const file = GetPlatform().TestsDataPathForFile("test_data/gpx/export_test.gpx");
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const kmzChecker = [](BookmarkManager::SharingResult const & result)
+  {
+    auto filePath = result.m_sharingPath;
+    TEST(filePath.find("Some random route.kmz") != std::string::npos, ());
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(filePath, files);
+    std::string kmlFileName = "Some random route.kml";
+    auto kmlFilePath = base::JoinPath(GetPlatform().TmpDir(), kmlFileName);
+    ZipFileReader::UnzipFile(filePath, kmlFileName, kmlFilePath);
+    auto fileData = LoadKmlFile(kmlFilePath, KmlFileType::Text);
+    TEST_EQUAL(1, fileData->m_tracksData.size(), ());
+    TEST(base::DeleteFileX(filePath), ());
+    TEST(base::DeleteFileX(kmlFilePath), ());
+  };
+
+  auto category = bmManager.GetUnsortedBmGroupsIdList()[0];
+  auto tracks = bmManager.GetTrackIds(category);
+  for (auto const & trackId : tracks)
+  {
+    auto track = bmManager.GetTrack(trackId);
+    if (track->GetName().find("Some random route") != std::string::npos)
+    {
+      bmManager.PrepareTrackFileForSharing(track->GetId(), kmzChecker, KmlFileType::Text);
+    }
+  }
+}
+
+UNIT_CLASS_TEST(Runner, ExportSingleTrackGpx)
+{
+  std::string const file = GetPlatform().TestsDataPathForFile("test_data/gpx/export_test.gpx");
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+
+  auto const gpxChecker = [](BookmarkManager::SharingResult const & result)
+  {
+    auto filePath = result.m_sharingPath;
+    TEST(filePath.find("Some random route.gpx") != std::string::npos, ());
+    auto fileData = LoadKmlFile(filePath, KmlFileType::Gpx);
+    TEST_EQUAL(1, fileData->m_tracksData.size(), ());
+    TEST(base::DeleteFileX(filePath), ());
+  };
+
+  auto category = bmManager.GetUnsortedBmGroupsIdList()[0];
+  auto tracks = bmManager.GetTrackIds(category);
+  for (auto const & trackId : tracks)
+  {
+    auto track = bmManager.GetTrack(trackId);
+    if (track->GetName().find("Some random route") != std::string::npos)
+    {
+      bmManager.PrepareTrackFileForSharing(track->GetId(), gpxChecker, KmlFileType::Gpx);
+    }
+  }
+}
+
 UNIT_CLASS_TEST(Runner, ExportSingleGpx)
 {
   std::string const file = GetPlatform().TestsDataPathForFile("test_data/gpx/route.gpx");

@@ -795,8 +795,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_edit, this::onTrackEditActionSelected));
+    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz, () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Text)));
+    items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx, () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Gpx)));
     items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete, () -> onDeleteTrackSelected(track.getTrackId())));
     return items;
+  }
+
+  private void onShareTrackSelected(long trackId, KmlFileType kmlFileType)
+  {
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, kmlFileType);
   }
 
   @Override

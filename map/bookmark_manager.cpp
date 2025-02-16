@@ -2901,6 +2901,24 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & wr
   return SaveKmlData(*kmlData, writer, fileType);
 }
 
+
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarksForTrack(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto collection = std::make_shared<KMLDataCollection>();
+  auto const & track = GetTrack(trackId);
+  auto const & categoryData = new kml::CategoryData();
+  auto name = kml::LocalizableString();
+  kml::SetDefaultStr(name, track->GetName());
+  categoryData->m_name = name;
+  auto const & trackData = track->GetData();
+  auto const & fileData = new kml::FileData();
+  fileData->m_categoryData = *categoryData;
+  fileData->m_tracksData.push_back(trackData);
+  collection->emplace_back("", fileData);
+  return collection;
+}
+
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   kml::GroupIdCollection const & groupIdCollection)
 {
@@ -2957,6 +2975,23 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     for (auto const & kmlItem : *kmlDataCollection)
       SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
   });
+}
+
+void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, KmlFileType kmlFileType)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(handler, ());
+  auto collection = PrepareToSaveBookmarksForTrack(trackId);
+  if (m_testModeEnabled)
+  {
+    handler(GetFileForSharing(std::move(collection), kmlFileType));
+  }
+  else
+  {
+    GetPlatform().RunTask(Platform::Thread::File,
+                          [collection = std::move(collection), handler = std::move(handler), kmlFileType = kmlFileType]() mutable
+                          { handler(GetFileForSharing(std::move(collection), kmlFileType)); });
+  }
 }
 
 void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, KmlFileType kmlFileType)
