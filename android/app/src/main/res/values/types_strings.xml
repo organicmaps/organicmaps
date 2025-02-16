@@ -486,6 +486,7 @@
     <string name="type.highway.services">Service Area</string>
     <string name="type.highway.speed_camera">Speed Camera</string>
     <string name="type.highway.steps">Stairs</string>
+    <string name="type.highway.ladder">Ladder</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bridge</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

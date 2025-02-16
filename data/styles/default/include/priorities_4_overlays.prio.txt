@@ -1095,6 +1095,7 @@ man_made-flagpole                                   # icon z15-
 man_made-flare                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower-communication                        # icon z16- (also has caption(optional) z18-)
+highway-ladder
 === 850
 
 junction                                            # caption z17-
