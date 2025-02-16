@@ -12,6 +12,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
@@ -150,6 +151,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private boolean mPreciseLocationDialogShown = false;
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -1950,6 +1952,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (requestedForRecording && LocationUtils.checkFineLocationPermission(this))
         startTrackRecording();
 
+      if (LocationUtils.checkFineLocationPermission(this))
+      {
+        Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+      }
+      else
+      {
+        Logger.w(LOCATION_TAG, "Only ACCESS_COARSE_LOCATION  permission granted");
+        if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+        {
+          Logger.w(LOCATION_TAG, "Don't show 'Precise Location denied'  dialog because another dialog is in progress");
+          return;
+        }
+        if (!mPreciseLocationDialogShown)
+        {
+          mPreciseLocationDialogShown = true;
+          final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle("⚠ " + getString(R.string.limited_accuracy))
+              .setMessage(R.string.precise_location_is_disabled_long_text)
+              .setNegativeButton(R.string.close, (dialog, which) -> dialog.dismiss())
+              .setCancelable(true)
+              .setOnDismissListener(dialog -> mLocationErrorDialog = null);
+          final Intent intent = Utils.makeSystemLocationSettingIntent(this);
+          if (intent != null)
+          {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            builder.setPositiveButton(R.string.location_settings, (dialog, which) -> startActivity(intent));
+          }
+          mLocationErrorDialog = builder.show();
+        }
+        else
+        {
+          Toast.makeText(this, R.string.precise_location_is_disabled_long_text,
+                  Toast.LENGTH_LONG)
+              .show();
+        }
+      }
       return;
     }
 
