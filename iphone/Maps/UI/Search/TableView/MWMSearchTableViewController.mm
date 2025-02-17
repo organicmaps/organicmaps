@@ -90,14 +90,14 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
     {
       auto cell = static_cast<MWMSearchCommonCell *>(
         [tableView dequeueReusableCellWithCellClass:[MWMSearchCommonCell class] indexPath:indexPath]);
-      [cell configureWith:result];
+      [cell configureWith:result isPartialMatching:YES];
       return cell;
     }
     case SearchItemTypeSuggestion:
     {
       auto cell = static_cast<MWMSearchSuggestionCell *>(
         [tableView dequeueReusableCellWithCellClass:[MWMSearchSuggestionCell class] indexPath:indexPath]);
-      [cell configureWith:result];
+      [cell configureWith:result isPartialMatching:YES];
       cell.isLastCell = row == [MWMSearch suggestionsCount] - 1;
       return cell;
     }

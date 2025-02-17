@@ -5,6 +5,6 @@
 NS_SWIFT_NAME(SearchCommonCell)
 @interface MWMSearchCommonCell : MWMSearchCell
 
-- (void)configureWith:(SearchResult * _Nonnull)result;
+- (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching;
 
 @end

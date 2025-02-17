@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchResult : NSObject
 
 @property (nonatomic, readonly) NSString * titleText;
+@property (nonatomic, readonly) NSString * iconImageName;
 @property (nonatomic, readonly) NSString * addressText;
 @property (nonatomic, readonly) NSString * infoText;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
@@ -20,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL isPureSuggest;
 @property (nonatomic, readonly) NSArray<NSValue *> * highlightRanges;
 @property (nonatomic, readonly) SearchItemType itemType;
+
+/// This initializer is intended only for testing purposes.
+- (instancetype)initWithTitleText:(NSString *)titleText type:(SearchItemType)type suggestion:(NSString *)suggestion;
 
 @end
 
