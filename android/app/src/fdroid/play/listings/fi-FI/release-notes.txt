@@ -1,4 +1,4 @@
-• New OpenStreetMap data as of January 21
+• New OpenStreetMap data as of February 13
 • Dispay a speed limit sign in the navigation mode
 • Added Serbian (Cyrillic) and Latvian languages
 • Android Auto: sort bookmarks, improved location permission request experience
