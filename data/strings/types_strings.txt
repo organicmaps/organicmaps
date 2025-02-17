@@ -1252,7 +1252,7 @@
     ro = Spălătorie auto
     ru = Автомойка
     sk = Autoumývareň
-    sr = Перионица
+    sr = Ауто-перионица
     sv = Biltvätt
     th = ล้างรถ
     tr = Araba Yıkama
@@ -2934,7 +2934,7 @@
     ro = Magazin
     ru = Рынок
     sk = Trhovisko
-    sr = Маркет
+    sr = Пијаца
     sv = Marknadsplats
     th = ตลาดสินค้า
     tr = Pazaryeri
@@ -25288,7 +25288,7 @@
     ro = Bicicletă
     ru = Веломагазин
     sk = Cyklistický obchod
-    sr = Продавница бисикла
+    sr = Продавница бицикала
     sv = Cykelaffär
     th = จักรยาน
     tr = Bisikletçi
@@ -31570,7 +31570,7 @@
     ro = Punct de atracție
     ru = Достопримечательность
     sk = Atrakcia
-    sr = Атракција
+    sr = Туристичка атракција
     sv = Attraktion
     th = การท่องเที่ยว
     tr = Görülecek Yerler

@@ -413,7 +413,7 @@ ro:5Obiective turistice|4Turism
 es:4Turismo
 et:Vaatamisväärsused
 eu:4Turismoa
-sr:5Атракција|5Атракције|6Знаменитости|5Туризам|5Atrakcija|5Atrakcije|6Znamenitosti|5Turizam
+sr:5Туристичка атракција|5Атракција|5Атракције|6Знаменитости|5Туризам|5Turistička atrakcija|5Atrakcija|5Atrakcije|6Znamenitosti|5Turizam
 sv:4Sevärdheter|4Attraktion|4Turism
 th:สถานที่ท่องเที่ยว
 tr:4Görülecek yerler|3Turizm
@@ -545,7 +545,7 @@ ro:Divertisment cu copiii|Divertisment cu familia|Vacanță cu copiii
 es:Ocio en familia|Diversión en familia
 et:Perepuhkus
 eu:Umeekin atseden hartu
-sr:Породични одмор|Porodični odmor
+sr:Све за децу|Sve za decu
 sv:Semester med barn
 th:วันหยุดสำหรับครอบครัว
 tr:Aile tatili
@@ -1086,7 +1086,7 @@ pl:3Stacja paliw
 pt:3Posto de combustível|3Bomba de combustível|3gasolina|3gasóleo
 pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
-sr:Бензинска пумпа|Бензинска станица|Benzinska pumpa|Benzinska stanica
+sr:4Бензинска пумпа|4Бензинска станица|4Benzinska pumpa|4Benzinska stanica
 sv:3Bensinstation|3bränsle|2gas
 th:3ปั๊มน้ำมัน|เชื้อเพลิง
 tr:3Yakıt|3Benzin istasyonu|2gaz|Benzinlik
@@ -13881,6 +13881,7 @@ et:Tankimisautomaat
 hi:3ईंधन डिस्पेंसर
 lv:Degvielas sūknis
 ru:Топливная колонка|бензоколонка|топливораздаточная колонка
+sr:Самоуслужно точење горива|Samouslužno točenje goriva
 tr:Yakıt dağıtıcı
 uk:Паливна колонка|бензоколонка|пальнороздавальна колонка
 mr:इंधन विक्रीयंत्र

@@ -3395,7 +3395,7 @@
     ro = Obiective turistice
     ru = Достопримечательности
     sk = Pamätihodnosť
-    sr = Атракција
+    sr = Туристичка атракција
     sv = Sevärdheter
     th = สถานที่ท่องเที่ยว
     tr = Görülecek yerler
@@ -3588,7 +3588,7 @@
     ro = Divertisment cu copiii
     ru = Отдых с детьми
     sk = Rodinná dovolenka
-    sr = Породични одмор
+    sr = Све за децу
     sv = Familjesemester
     sw = Mapumziko ya familia
     th = วันหยุดสำหรับครอบครัว
