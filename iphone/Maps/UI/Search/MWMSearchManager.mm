@@ -61,8 +61,14 @@ const CGFloat kWidthForiPad = 320;
 @implementation MWMSearchManager
 
 + (MWMSearchManager *)manager {
-  return [MWMMapViewControlsManager manager].searchManager;
+  static MWMSearchManager * manager;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    manager = [[MWMSearchManager alloc] init];
+  });
+  return manager;
 }
+
 - (nullable instancetype)init {
   self = [super init];
   if (self) {
@@ -243,7 +249,6 @@ const CGFloat kWidthForiPad = 320;
     controlsManager.menuState = controlsManager.menuRestoreState;
   }
   [self viewHidden:NO];
-  [MWMSearch setSearchOnMap:NO];
   [self.tableViewController reloadData];
 
   if (![self.navigationController.viewControllers containsObject:self.tableViewController])
@@ -265,7 +270,6 @@ const CGFloat kWidthForiPad = 320;
   [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   self.controlsManager.menuState = MWMBottomMenuStateHidden;
   GetFramework().DeactivateMapSelection();
-  [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];
 
   [self.searchTextField resignFirstResponder];
@@ -523,10 +527,12 @@ const CGFloat kWidthForiPad = 320;
   return [MapViewController sharedController];
 }
 - (UIView *)searchViewContainer {
-  return [MapViewController sharedController].searchViewContainer;
+//  return [MapViewController sharedController].searchViewContainer;
+  return nil;
 }
 - (NSLayoutConstraint *)searchViewContainerLeadingConstraint {
-  return [MapViewController sharedController].searchViewContainerLeadingConstraint;
+//  return [MapViewController sharedController].searchViewContainerLeadingConstraint;
+  return nil;
 }
 - (UIView *)actionBarContainer {
   return [MapViewController sharedController].controlsView;
