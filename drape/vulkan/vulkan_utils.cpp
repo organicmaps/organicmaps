@@ -34,9 +34,10 @@ void DebugName::Set(VkObjectType type, uint64_t handle, char const * name)
   
   VkDebugUtilsObjectNameInfoEXT const info = {
       .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
+      .pNext = nullptr,
       .objectType = type,
       .objectHandle = handle,
-      .pObjectName = name,
+      .pObjectName = name
   };
   CHECK_VK_CALL(vkSetDebugUtilsObjectNameEXT(m_device, &info));
 }
