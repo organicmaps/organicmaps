@@ -32,8 +32,6 @@ class BottomTabBarViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter.configure()
-    
-    MWMSearchManager.add(self)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +41,6 @@ class BottomTabBarViewController: UIViewController {
       helpButton.setImage(nil, for: .normal)
     }
     updateBadge()
-  }
-  
-  deinit {
-    MWMSearchManager.remove(self)
   }
   
   static func updateAvailableArea(_ frame: CGRect) {
@@ -117,13 +111,5 @@ private extension BottomTabBarViewController {
   
   private func setHelpBadgeShown() {
     UserDefaults.standard.set(true, forKey: kUDDidShowFirstTimeRoutingEducationalHint)
-  }
-}
-
-// MARK: - MWMSearchManagerObserver
-extension BottomTabBarViewController: MWMSearchManagerObserver {
-  func onSearchManagerStateChanged() {
-    let state = MWMSearchManager.manager().state;
-    self.searchButton.isSelected = state != .hidden
   }
 }
