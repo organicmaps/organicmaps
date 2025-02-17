@@ -17,12 +17,12 @@ public:
 
   bool IsEmpty() const;
   size_t GetTrackSize() const;
-  GpsTrackInfo GetTrackInfo() const { return m_track.GetTrackInfo(); }
+  TrackStatistics GetTrackStatistics() const;
 
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                          std::pair<size_t, size_t> const & toRemove,
-                         GpsTrackInfo const & trackInfo)>;
+                         TrackStatistics const & trackStatistics)>;
 
   void Connect(TGpsTrackDiffCallback const & fn);
   void Disconnect();

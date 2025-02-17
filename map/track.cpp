@@ -8,24 +8,6 @@
 
 #include <utility>
 
-namespace
-{
-double GetLengthInMeters(kml::MultiGeometry::LineT const & points, size_t pointIndex)
-{
-  CHECK_LESS(pointIndex, points.size(), (pointIndex, points.size()));
-
-  double length = 0.0;
-  for (size_t i = 1; i <= pointIndex; ++i)
-  {
-    auto const & pt1 = points[i - 1].GetPoint();
-    auto const & pt2 = points[i].GetPoint();
-    auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
-    length += segmentLength;
-  }
-  return length;
-}
-}  // namespace
-
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
@@ -120,13 +102,7 @@ m2::RectD Track::GetLimitRect() const
 
 double Track::GetLengthMeters() const
 {
-  if (m_interactionData)
-    return m_interactionData->m_lengths.back().back();
-
-  double len = 0;
-  for (auto const & line : m_data.m_geometry.m_lines)
-    len += GetLengthInMeters(line, line.size() - 1);
-  return len;
+  return GetStatistics().m_length;
 }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
@@ -236,25 +212,23 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
   return geometry;
 }
 
+TrackStatistics Track::GetStatistics() const
+{
+  if (!m_trackStatistics.has_value())
+    m_trackStatistics = TrackStatistics(m_data.m_geometry);
+  return m_trackStatistics.value();
+}
+
 std::optional<ElevationInfo> Track::GetElevationInfo() const
 {
   if (!HasAltitudes())
     return std::nullopt;
   if (!m_elevationInfo)
-    m_elevationInfo = ElevationInfo(GetData().m_geometry);
+    m_elevationInfo = ElevationInfo(GetData().m_geometry.m_lines);
   return m_elevationInfo;
 }
 
 double Track::GetDurationInSeconds() const
 {
-  double duration = 0.0;
-  if (!m_data.m_geometry.HasTimestamps())
-    return duration;
-  for (size_t i = 0; i < m_data.m_geometry.m_timestamps.size(); ++i)
-  {
-    ASSERT(m_data.m_geometry.HasTimestampsFor(i), ());
-    auto const & timestamps = m_data.m_geometry.m_timestamps[i];
-    duration += timestamps.back() - timestamps.front();
-  }
-  return duration;
+  return GetStatistics().m_duration;
 }
