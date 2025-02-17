@@ -19,7 +19,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 
 @end
 
-@interface MWMNavigationDashboardManager () <MWMSearchManagerObserver, MWMRoutePreviewDelegate>
+@interface MWMNavigationDashboardManager () <SearchOnMapManagerObserver, MWMRoutePreviewDelegate>
 
 @property(copy, nonatomic) NSDictionary *etaAttributes;
 @property(copy, nonatomic) NSDictionary *etaSecondaryAttributes;
@@ -50,6 +50,10 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
     _ownerView = view;
   }
   return self;
+}
+
+- (SearchOnMapManager *)searchManager {
+  return [[MapViewController sharedController] searchManager];
 }
 
 - (void)loadPreviewWithStatusBoxes {
@@ -236,14 +240,20 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 - (IBAction)stopRoutingButtonAction {
   [MWMSearch clear];
   [MWMRouter stopRouting];
+  [self.searchManager close];
 }
 
-#pragma mark - MWMSearchManagerObserver
+#pragma mark - SearchOnMapManagerObserver
 
-- (void)onSearchManagerStateChanged {
-  auto state = [MWMSearchManager manager].state;
-  if (state == MWMSearchManagerStateMapSearch)
-    [self setMapSearch];
+- (void)searchManagerWithDidChangeState:(SearchOnMapState)state {
+  switch (state) {
+    case SearchOnMapStateClosed:
+      [self.navigationInfoView setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
+      break;
+    case SearchOnMapStateHidden:
+    case SearchOnMapStateSearching:
+      [self setMapSearch];
+  }
 }
 
 #pragma mark - Available area
@@ -259,9 +269,9 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 
 - (void)setState:(MWMNavigationDashboardState)state {
   if (state == MWMNavigationDashboardStateHidden)
-    [MWMSearchManager removeObserver:self];
+    [self.searchManager removeObserver:self];
   else
-    [MWMSearchManager addObserver:self];
+    [self.searchManager addObserver:self];
   switch (state) {
     case MWMNavigationDashboardStateHidden:
       [self stateHidden];
