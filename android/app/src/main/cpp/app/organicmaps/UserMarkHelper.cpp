@@ -165,12 +165,13 @@ jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info)
                                                        "[Lapp/organicmaps/bookmarks/data/ElevationInfo$Point;"
                                                        "IIIIIJ)V");
   jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
+  // TODO (KK): elevation info should have only the elevation data - see the https://github.com/organicmaps/organicmaps/pull/10063
   return env->NewObject(g_elevationInfoClazz, ctorId,
                         jPoints.get(),
-                        static_cast<jint>(info.GetAscent()),
-                        static_cast<jint>(info.GetDescent()),
-                        static_cast<jint>(info.GetMinAltitude()),
-                        static_cast<jint>(info.GetMaxAltitude()),
+//                        static_cast<jint>(info.GetAscent()),
+//                        static_cast<jint>(info.GetDescent()),
+//                        static_cast<jint>(info.GetMinAltitude()),
+//                        static_cast<jint>(info.GetMaxAltitude()),
                         static_cast<jint>(info.GetDifficulty()));
 }
 
