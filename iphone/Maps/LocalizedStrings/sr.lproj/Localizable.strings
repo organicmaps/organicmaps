@@ -119,7 +119,7 @@
 "category_hotel" = "Хотел";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Атракција";
+"category_tourism" = "Туристичка атракција";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Забава";
@@ -131,7 +131,7 @@
 "category_nightlife" = "Ноћни живот";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
-"category_children" = "Породични одмор";
+"category_children" = "Све за децу";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
 "category_bank" = "Банка";
@@ -1492,7 +1492,7 @@
 
 "type.amenity.car_sharing" = "Дељење аутомобила";
 
-"type.amenity.car_wash" = "Перионица";
+"type.amenity.car_wash" = "Ауто-перионица";
 
 "type.amenity.casino" = "Казино";
 
@@ -1578,7 +1578,7 @@
 
 "type.amenity.loading_dock" = "Утоварна станица";
 
-"type.amenity.marketplace" = "Маркет";
+"type.amenity.marketplace" = "Пијаца";
 
 "type.amenity.motorcycle_parking" = "Паркинг за мотоцикле";
 
@@ -2510,7 +2510,7 @@
 
 "type.historic.tomb" = "Гробница";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */
@@ -3600,7 +3600,7 @@
 
 "type.shop.beverages" = "Пића";
 
-"type.shop.bicycle" = "Продавница бисикла";
+"type.shop.bicycle" = "Продавница бицикала";
 
 "type.shop.bookmaker" = "Кладионица";
 
@@ -3911,7 +3911,7 @@
 
 "type.tourism.artwork.statue" = "Статуа";
 
-"type.tourism.attraction" = "Атракција";
+"type.tourism.attraction" = "Туристичка атракција";
 
 "type.attraction.amusement_ride" = "Забавни парк";
 
@@ -3931,7 +3931,7 @@
 
 "type.attraction.water_slide" = "Тобоган";
 
-"type.tourism.attraction.specified" = "Атракција";
+"type.tourism.attraction.specified" = "Туристичка атракција";
 
 "type.tourism.camp_site" = "Камп";
 
