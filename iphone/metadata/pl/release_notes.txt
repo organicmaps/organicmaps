@@ -1,4 +1,4 @@
-• Nowe dane OpenStreetMap z 21 stycznia
+• Nowe dane OpenStreetMap z 13 lutego
 • Dotknij zarejestrowanej trasy, aby wyświetlić statystyki oraz interaktywny profil wysokości
 • Osobny przycisk do rejestracji trasy
 • Widżet Live Activity ze statystykami nagrywanej trasy (iOS 16.2 i nowsze)

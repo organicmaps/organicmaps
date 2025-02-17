@@ -1,4 +1,4 @@
-• Novos dados do OpenStreetMap de 21 de janeiro
+• Novos dados do OpenStreetMap de 13 de fevereiro
 • Exibe um sinal de limite de velocidade no modo de navegação
 • Adicionados os idiomas sérvio (cirílico) e letão
 • Android Auto: classificar favoritos, experiência aprimorada de solicitação de permissão de localização

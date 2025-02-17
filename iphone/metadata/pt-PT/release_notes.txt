@@ -1,4 +1,4 @@
-• Novos dados do OpenStreetMap a 21 de janeiro
+• Novos dados do OpenStreetMap a 13 de fevereiro
 • Toque nas faixas para apresentar estatísticas e um perfil de elevação interativo
 • Um botão de gravação de faixas independente
 • Widget de atividade ao vivo com gravação de faixas e estatísticas de faixas (iOS 16.2 e posteriores)

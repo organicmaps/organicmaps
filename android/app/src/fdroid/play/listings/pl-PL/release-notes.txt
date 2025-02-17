@@ -1,4 +1,4 @@
-• Nowe dane OpenStreetMap z 21 stycznia
+• Nowe dane OpenStreetMap z 13 lutego
 • Wyświetlanie znaku ograniczenia prędkości w trybie nawigacji
 • Dodano języki serbski (cyrylica) i łotewski
 • Android Auto: sortowanie zakładek, ulepszono prośbę o pozwolenie na lokalizację
