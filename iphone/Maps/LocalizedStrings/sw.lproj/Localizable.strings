@@ -2510,7 +2510,7 @@
 
 "type.historic.tomb" = "Kaburi";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */
