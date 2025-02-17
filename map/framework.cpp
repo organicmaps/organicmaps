@@ -1736,7 +1736,7 @@ void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && tr
 {
   m_trackRecordingUpdateHandler = std::move(trackRecordingDidUpdate);
   if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackInfo());
+    m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackStatistics());
 }
 
 void Framework::StopTrackRecording()
@@ -1768,7 +1768,7 @@ bool Framework::IsTrackRecordingEnabled() const
 
 void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
                                                pair<size_t, size_t> const & toRemove,
-                                               GpsTrackInfo const & trackInfo)
+                                               TrackStatistics const & trackStatistics)
 {
   ASSERT(m_drapeEngine.get() != nullptr, ());
 
@@ -1797,7 +1797,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
 
   if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(trackInfo);
+    m_trackRecordingUpdateHandler(trackStatistics);
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)

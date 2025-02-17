@@ -7,18 +7,24 @@
 
 #include "kml/types.hpp"
 
-namespace geometry
+namespace elevation_info_tests
 {
 using namespace geometry;
+using namespace location;
+
+GpsInfo const BuildGpsInfo(double latitude, double longitude, double altitude)
+{
+  GpsInfo gpsInfo;
+  gpsInfo.m_latitude = latitude;
+  gpsInfo.m_longitude = longitude;
+  gpsInfo.m_altitude = altitude;
+  return gpsInfo;
+}
 
 UNIT_TEST(ElevationInfo_EmptyMultiGeometry)
 {
   ElevationInfo ei;
   TEST_EQUAL(0, ei.GetSize(), ());
-  TEST_EQUAL(0, ei.GetAscent(), ());
-  TEST_EQUAL(0, ei.GetDescent(), ());
-  TEST_EQUAL(ei.GetMinAltitude(), kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ei.GetMaxAltitude(), kDefaultAltitudeMeters, ());
 }
 
 UNIT_TEST(ElevationInfo_FromMultiGeometry)
@@ -32,13 +38,9 @@ UNIT_TEST(ElevationInfo_FromMultiGeometry)
     point2,
     point3
   });
-  ElevationInfo ei(geometry);
+  ElevationInfo ei(geometry.m_lines);
 
   TEST_EQUAL(3, ei.GetSize(), ());
-  TEST_EQUAL(ei.GetMinAltitude(), 50, ());
-  TEST_EQUAL(ei.GetMaxAltitude(), 150, ());
-  TEST_EQUAL(ei.GetAscent(), 50, ()); // Ascent from 100 -> 150
-  TEST_EQUAL(ei.GetDescent(), 100, ()); // Descent from 150 -> 50
 
   double distance = 0;
   TEST_EQUAL(ei.GetPoints()[0].m_distance, distance, ());
@@ -46,23 +48,6 @@ UNIT_TEST(ElevationInfo_FromMultiGeometry)
   TEST_EQUAL(ei.GetPoints()[1].m_distance, distance, ());
   distance += mercator::DistanceOnEarth(point2, point3);
   TEST_EQUAL(ei.GetPoints()[2].m_distance, distance, ());
-}
-
-UNIT_TEST(ElevationInfo_NoAltitudePoints)
-{
-  kml::MultiGeometry geometry;
-  geometry.AddLine({
-    PointWithAltitude({0.0, 0.0}),
-    PointWithAltitude({1.0, 1.0}),
-    PointWithAltitude({2.0, 2.0})
-  });
-  ElevationInfo ei(geometry);
-
-  TEST_EQUAL(3, ei.GetSize(), ());
-  TEST_EQUAL(ei.GetMinAltitude(), kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ei.GetMaxAltitude(), kDefaultAltitudeMeters, ());
-  TEST_EQUAL(ei.GetAscent(), 0, ());
-  TEST_EQUAL(ei.GetDescent(), 0, ());
 }
 
 UNIT_TEST(ElevationInfo_MultipleLines)
@@ -82,32 +67,28 @@ UNIT_TEST(ElevationInfo_MultipleLines)
     PointWithAltitude({4.0, 4.0}, 200),
     PointWithAltitude({5.0, 5.0}, 250)
   });
-  ElevationInfo ei(geometry);
+  ElevationInfo ei(geometry.m_lines);
 
   TEST_EQUAL(8, ei.GetSize(), ());
-  TEST_EQUAL(ei.GetMinAltitude(), 50, ());
-  TEST_EQUAL(ei.GetMaxAltitude(), 250, ());
-  TEST_EQUAL(ei.GetAscent(), 125, ()); // Ascent from 100 -> 150, 50 -> 75, 200 -> 250
-  TEST_EQUAL(ei.GetDescent(), 25, ()); // Descent from 150 -> 140, 75 -> 60
 }
 
 UNIT_TEST(ElevationInfo_SegmentDistances)
 {
   kml::MultiGeometry geometry;
   geometry.AddLine({
-    geometry::PointWithAltitude({0.0, 0.0}),
-    geometry::PointWithAltitude({1.0, 0.0})
+    PointWithAltitude({0.0, 0.0}),
+    PointWithAltitude({1.0, 0.0})
   });
   geometry.AddLine({
-    geometry::PointWithAltitude({2.0, 0.0}),
-    geometry::PointWithAltitude({3.0, 0.0})
+    PointWithAltitude({2.0, 0.0}),
+    PointWithAltitude({3.0, 0.0})
   });
   geometry.AddLine({
-    geometry::PointWithAltitude({4.0, 0.0}),
-    geometry::PointWithAltitude({5.0, 0.0})
+    PointWithAltitude({4.0, 0.0}),
+    PointWithAltitude({5.0, 0.0})
   });
 
-  ElevationInfo ei(geometry);
+  ElevationInfo ei(geometry.m_lines);
   auto const & segmentDistances = ei.GetSegmentsDistances();
   auto const points = ei.GetPoints();
 
@@ -116,21 +97,23 @@ UNIT_TEST(ElevationInfo_SegmentDistances)
   TEST_EQUAL(segmentDistances[1], ei.GetPoints()[4].m_distance, ());
 }
 
-UNIT_TEST(ElevationInfo_PositiveAndNegativeAltitudes)
+UNIT_TEST(ElevationInfo_BuildWithGpsPoints)
 {
-  kml::MultiGeometry geometry;
-  geometry.AddLine({
-    PointWithAltitude({0.0, 0.0}, -10),
-    PointWithAltitude({1.0, 1.0}, 20),
-    PointWithAltitude({2.0, 2.0}, -5),
-    PointWithAltitude({3.0, 3.0}, 15)
+  auto ei = ElevationInfo();
+  ei.AddGpsPoints({
+    BuildGpsInfo(0.0, 0.0, 0),
+    BuildGpsInfo(1.0, 1.0, 50),
+    BuildGpsInfo(2.0, 2.0, 100),
   });
-  ElevationInfo ei(geometry);
+  ei.AddGpsPoints({
+    BuildGpsInfo(3.0, 3.0, -50)
+  });
+  ei.AddGpsPoints({
+    BuildGpsInfo(4.0, 4.0, 0)
+  });
+  ei.AddGpsPoints({});
 
-  TEST_EQUAL(4, ei.GetSize(), ());
-  TEST_EQUAL(ei.GetMinAltitude(), -10, ());
-  TEST_EQUAL(ei.GetMaxAltitude(), 20, ());
-  TEST_EQUAL(ei.GetAscent(), 50, ()); // Ascent from -10 -> 20 and -5 -> 15
-  TEST_EQUAL(ei.GetDescent(), 25, ()); // Descent from 20 -> -5
+  TEST_EQUAL(5, ei.GetSize(), ());
+  TEST_EQUAL(ei.GetSegmentsDistances().size(), 0, ());
 }
-} // namespace geometry
+} // namespace elevation_info_testa

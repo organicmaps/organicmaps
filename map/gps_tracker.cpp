@@ -75,6 +75,11 @@ size_t GpsTracker::GetTrackSize() const
   return m_track.GetSize();
 }
 
+TrackStatistics GpsTracker::GetTrackStatistics() const
+{
+  return m_track.GetTrackStatistics();
+}
+
 void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
 {
   m_track.SetCallback(fn);
