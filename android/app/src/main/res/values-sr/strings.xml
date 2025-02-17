@@ -129,7 +129,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Хотел</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Атракција</string>
+    <string name="category_tourism">Туристичка атракција</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Забава</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -137,7 +137,7 @@
     <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
     <string name="category_nightlife">Ноћни живот</string>
     <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
-    <string name="category_children">Породични одмор</string>
+    <string name="category_children">Све за децу</string>
     <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
     <string name="category_bank">Банка</string>
     <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
@@ -910,7 +910,7 @@
     <string name="type.amenity.cafe">Кафе</string>
     <string name="type.amenity.car_rental">Рентакар</string>
     <string name="type.amenity.car_sharing">Дељење аутомобила</string>
-    <string name="type.amenity.car_wash">Перионица</string>
+    <string name="type.amenity.car_wash">Ауто-перионица</string>
     <string name="type.amenity.casino">Казино</string>
     <string name="type.amenity.gambling">Коцкарница</string>
     <string name="type.leisure.adult_gaming_centre">Центар за игру одраслих</string>
@@ -954,7 +954,7 @@
     <string name="type.amenity.kindergarten">Вртић</string>
     <string name="type.amenity.library">Библиотека</string>
     <string name="type.amenity.loading_dock">Утоварна станица</string>
-    <string name="type.amenity.marketplace">Маркет</string>
+    <string name="type.amenity.marketplace">Пијаца</string>
     <string name="type.amenity.motorcycle_parking">Паркинг за мотоцикле</string>
     <string name="type.amenity.nightclub">Ноћни клуб</string>
     <string name="type.amenity.nursing_home">Старачки дом</string>
@@ -1965,7 +1965,7 @@
     <string name="type.shop.bathroom_furnishing">Намештај за купатило</string>
     <string name="type.shop.beauty">Козметички салон</string>
     <string name="type.shop.beverages">Пића</string>
-    <string name="type.shop.bicycle">Продавница бисикла</string>
+    <string name="type.shop.bicycle">Продавница бицикала</string>
     <string name="type.shop.bookmaker">Кладионица</string>
     <string name="type.shop.books">Књижара</string>
     <string name="type.shop.butcher">Месара</string>
@@ -2121,7 +2121,7 @@
     <string name="type.tourism.artwork.painting">Уметничко дело</string>
     <string name="type.tourism.artwork.sculpture">Скулптура</string>
     <string name="type.tourism.artwork.statue">Статуа</string>
-    <string name="type.tourism.attraction">Атракција</string>
+    <string name="type.tourism.attraction">Туристичка атракција</string>
     <string name="type.attraction.amusement_ride">Забавни парк</string>
     <string name="type.attraction.animal">Животињски кавез</string>
     <string name="type.attraction.carousel">Аутићи на струју</string>
@@ -2129,7 +2129,7 @@
     <string name="type.attraction.maze">Лавиринт</string>
     <string name="type.attraction.roller_coaster">Ролеркостер</string>
     <string name="type.attraction.water_slide">Тобоган</string>
-    <string name="type.tourism.attraction.specified">Атракција</string>
+    <string name="type.tourism.attraction.specified">Туристичка атракција</string>
     <string name="type.tourism.camp_site">Камп</string>
     <string name="type.tourism.caravan_site">Камп за караване</string>
     <!-- A rentable countryside vacation house. -->
