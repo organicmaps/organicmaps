@@ -218,10 +218,10 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
   if (!availableFeatures.wideLines)
     LOG(LWARNING, ("Widelines Vulkan feature is not supported."));
 
+  VkPhysicalDeviceFeatures enabledFeatures;
+  enabledFeatures.wideLines = availableFeatures.wideLines;
+
   VkDeviceCreateInfo deviceCreateInfo = {};
-  VkPhysicalDeviceFeatures enabledFeatures = {
-    .wideLines = availableFeatures.wideLines,
-  };
   deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
   deviceCreateInfo.pNext = nullptr;
   deviceCreateInfo.queueCreateInfoCount = 1;
