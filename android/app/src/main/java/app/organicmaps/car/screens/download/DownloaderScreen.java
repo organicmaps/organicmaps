@@ -109,7 +109,7 @@ class DownloaderScreen extends BaseScreen
     for (final var item : mMissingMaps.entrySet())
     {
       item.getValue().update();
-      MapManager.nativeDownload(item.getKey());
+      MapManager.startDownload(item.getKey());
     }
   }
 

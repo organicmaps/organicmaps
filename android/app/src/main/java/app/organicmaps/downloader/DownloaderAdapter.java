@@ -386,9 +386,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         }
         case CountryItem.STATUS_FAILED ->
         {
-          RetryFailedDownloadConfirmationListener listener =
-              new RetryFailedDownloadConfirmationListener(mActivity.getApplication());
-          MapManager.warn3gAndRetry(mActivity, mItem.id, listener);
+          MapManager.warn3gAndRetry(mActivity, mItem.id, null);
         }
         case CountryItem.STATUS_UPDATABLE ->
             MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.nativeUpdate(mItem.id));

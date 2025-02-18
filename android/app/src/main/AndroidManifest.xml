@@ -37,6 +37,7 @@
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
   <!--
     Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
@@ -488,6 +489,13 @@
       android:enabled="true"
       android:stopWithTask="false"
       />
+
+    <service
+        android:name=".downloader.DownloaderService"
+        android:foregroundServiceType="dataSync"
+        android:exported="false"
+        android:enabled="true"
+        android:stopWithTask="false"/>
 
     <provider
       android:name="androidx.core.content.FileProvider"
