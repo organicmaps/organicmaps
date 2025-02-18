@@ -26,6 +26,10 @@
     <string name="search_map">マップを検索</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">位置情報サービスが無効になっているか、このアプリからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">限られた精度</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">正確なナビゲーションを実現するには、設定で「正確な位置情報」を有効にしてください。</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">地図に表示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
