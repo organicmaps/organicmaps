@@ -7,10 +7,6 @@ android/app/src/main/res/mipmap*/ @organicmaps/design
 data/*.ttf @organicmaps/design
 data/resources*/ @organicmaps/design
 data/search-icons/ @organicmaps/design
-data/styles/default/light/**/*.png @organicmaps/design
-data/styles/default/light/**/*.svg @organicmaps/design
-data/styles/default/dark/**/*.png @organicmaps/design
-data/styles/default/dark/**/*.svg @organicmaps/design
 iphone/Maps/Images.xcassets/ @organicmaps/design
 # Android.
 android/ @organicmaps/android
