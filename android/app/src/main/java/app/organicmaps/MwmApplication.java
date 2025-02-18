@@ -16,13 +16,14 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+
 import app.organicmaps.background.OsmUploadWork;
-import app.organicmaps.downloader.Android7RootCertificateWorkaround;
-import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.display.DisplayManager;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
+import app.organicmaps.downloader.Android7RootCertificateWorkaround;
+import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
@@ -45,10 +46,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.List;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
@@ -77,9 +74,6 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
-
-  @NonNull
-  private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
@@ -128,6 +122,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
+  public static MwmApplication sInstance;
+
+  @NonNull
   public static SharedPreferences prefs(@NonNull Context context)
   {
     return context.getSharedPreferences(context.getString(R.string.pref_file_name), MODE_PRIVATE);
@@ -138,6 +135,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     super.onCreate();
     Logger.i(TAG, "Initializing application");
+
+    sInstance = this;
+
     LogsManager.INSTANCE.initFileLogging(this);
 
     Android7RootCertificateWorkaround.initializeIfNeeded(this);
@@ -229,8 +229,6 @@ public class MwmApplication extends Application implements Application.ActivityL
       return false;
 
     nativeInitFramework(onComplete);
-
-    MapManager.nativeSubscribe(mStorageCallbacks);
 
     initNativeStrings();
     ThemeSwitcher.INSTANCE.initialize(this);
@@ -362,26 +360,5 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Stopping location in the background");
       mLocationHelper.stop();
     }
-  }
-
-  private class StorageCallbackImpl implements MapManager.StorageCallback
-  {
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
-    {
-      for (MapManager.StorageCallbackData item : data)
-        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
-        {
-          if (MapManager.nativeIsAutoretryFailed())
-          {
-            DownloaderNotifier.notifyDownloadFailed(MwmApplication.this, item.countryId);
-          }
-
-          return;
-        }
-    }
-
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize) {}
   }
 }
