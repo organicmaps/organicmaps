@@ -3,8 +3,6 @@
 #import "DistanceFormatter.h"
 #import "DurationFormatter.h"
 
-#include "map/elevation_info.hpp"
-
 @implementation TrackInfo
 
 - (BOOL)hasElevationInfo {
@@ -19,31 +17,16 @@
 
 @implementation TrackInfo (Core)
 
-- (instancetype)initWithGpsTrackInfo:(GpsTrackInfo const &)trackInfo {
+- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics {
   if (self = [super init]) {
-    _distance = trackInfo.m_length;
-    _duration = trackInfo.m_duration;
-    _ascent = trackInfo.m_ascent;
-    _descent = trackInfo.m_descent;
-    _maxElevation = trackInfo.m_maxElevation;
-    _minElevation = trackInfo.m_minElevation;
+    _distance = statistics.m_length;
+    _duration = statistics.m_duration;
+    _ascent = statistics.m_ascent;
+    _descent = statistics.m_descent;
+    _maxElevation = statistics.m_maxElevation;
+    _minElevation = statistics.m_minElevation;
   }
   return self;
-}
-
-- (instancetype)initWithDistance:(double)distance duration:(double)duration {
-  if (self = [super init]) {
-    _distance = distance;
-    _duration = duration;
-  }
-  return self;
-}
-
-- (void)setElevationInfo:(ElevationInfo const &)elevationInfo {
-  _ascent = elevationInfo.GetAscent();
-  _descent = elevationInfo.GetDescent();
-  _maxElevation = elevationInfo.GetMaxAltitude();
-  _minElevation = elevationInfo.GetMinAltitude();
 }
 
 @end

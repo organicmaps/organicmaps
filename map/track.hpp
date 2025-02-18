@@ -3,6 +3,7 @@
 #include "kml/types.hpp"
 
 #include "map/elevation_info.hpp"
+#include "map/track_statistics.hpp"
 
 #include "drape_frontend/user_marks_provider.hpp"
 
@@ -31,6 +32,7 @@ public:
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
   double GetDurationInSeconds() const;
+  TrackStatistics GetStatistics() const;
   std::optional<ElevationInfo> GetElevationInfo() const;
   std::pair<m2::PointD, double> GetCenterPoint() const;
 
@@ -80,6 +82,7 @@ private:
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
+  mutable std::optional<TrackStatistics> m_trackStatistics;
   mutable std::optional<ElevationInfo> m_elevationInfo;
 
   struct InteractionData

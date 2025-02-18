@@ -2,20 +2,13 @@
 
 #include "platform/location.hpp"
 
+#include "map/track_statistics.hpp"
+#include "map/elevation_info.hpp"
+
 #include <deque>
 #include <limits>
 #include <utility>
 #include <vector>
-
-struct GpsTrackInfo
-{
-  double m_length;
-  double m_duration;
-  uint32_t m_ascent;
-  uint32_t m_descent;
-  int16_t m_minElevation;
-  int16_t m_maxElevation;
-};
 
 class GpsTrackCollection final
 {
@@ -46,7 +39,11 @@ public:
   /// Returns number of items in the collection
   size_t GetSize() const;
 
-  GpsTrackInfo GetTrackInfo() const { return m_trackInfo; }
+  /// Returns track statistics.
+  const TrackStatistics GetTrackStatistics() const { return m_statistics; }
+
+  /// Calculates and returns elevation info for the track.
+  const ElevationInfo & GetElevationInfo();
 
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,
@@ -72,5 +69,6 @@ private:
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
   size_t m_lastId;
-  GpsTrackInfo m_trackInfo;
+  TrackStatistics m_statistics;
+  ElevationInfo m_elevationInfo;
 };

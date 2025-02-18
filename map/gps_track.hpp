@@ -3,6 +3,7 @@
 #include "map/gps_track_collection.hpp"
 #include "map/gps_track_filter.hpp"
 #include "map/gps_track_storage.hpp"
+#include "map/elevation_info.hpp"
 
 #include "base/thread.hpp"
 
@@ -31,7 +32,8 @@ public:
   void AddPoints(std::vector<location::GpsInfo> const & points);
 
   /// Returns track statistics
-  GpsTrackInfo GetTrackInfo() const;
+  TrackStatistics GetTrackStatistics() const;
+  const ElevationInfo & GetElevationInfo() const;
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.
@@ -47,7 +49,7 @@ public:
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                          std::pair<size_t, size_t> const & toRemove,
-                         GpsTrackInfo const & trackInfo)>;
+                         TrackStatistics const & trackStatistics)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object

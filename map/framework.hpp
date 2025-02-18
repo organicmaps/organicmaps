@@ -15,9 +15,9 @@
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/track.hpp"
+#include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
-#include "map/gps_track_collection.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
@@ -437,13 +437,14 @@ public:
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();
 
-  using TrackRecordingUpdateHandler = platform::SafeCallback<void(GpsTrackInfo const & trackInfo)>;
+  using TrackRecordingUpdateHandler = platform::SafeCallback<void(TrackStatistics const & trackStatistics)>;
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
   void StopTrackRecording();
   void SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEmpty() const;
   bool IsTrackRecordingEnabled() const;
+  const ElevationInfo & GetTrackRecordingCurrentElevationInfo();
 
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
@@ -468,7 +469,7 @@ private:
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
                                       std::pair<size_t, size_t> const & toRemove,
-                                      GpsTrackInfo const & trackInfo);
+                                      TrackStatistics const & trackStatistics);
 
   TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
 

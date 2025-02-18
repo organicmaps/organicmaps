@@ -224,8 +224,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
     GetFramework().SetTrackRecordingUpdateHandler(nullptr);
     return;
   }
-  GetFramework().SetTrackRecordingUpdateHandler([trackRecordingDidUpdate](GpsTrackInfo const & gpsTrackInfo) {
-    TrackInfo * info = [[TrackInfo alloc] initWithGpsTrackInfo:gpsTrackInfo];
+  GetFramework().SetTrackRecordingUpdateHandler([trackRecordingDidUpdate](TrackStatistics const & statistics) {
+    TrackInfo * info = [[TrackInfo alloc] initWithTrackStatistics:statistics];
     trackRecordingDidUpdate(info);
   });
 }
