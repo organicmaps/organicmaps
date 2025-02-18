@@ -28,6 +28,10 @@
     <string name="search_map">Cari Peta</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Akurasi Terbatas</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Untuk memastikan navigasi yang akurat, aktifkan Lokasi Tepat dalam pengaturan.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Tampilkan di peta</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

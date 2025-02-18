@@ -26,6 +26,10 @@
     <string name="search_map">Tìm kiếm Bản đồ</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Độ chính xác hạn chế</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Để đảm bảo điều hướng chính xác, bật vị trí chính xác trong cài đặt.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Hiển thị trên bản đồ</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

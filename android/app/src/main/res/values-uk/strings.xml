@@ -29,6 +29,10 @@
     <string name="search_map">Пошук на мапі</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Обмежена точність</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Щоб забезпечити точну навігацію, увімкніть у налаштуваннях функцію Точне місцезнаходження.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Показати на мапі</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

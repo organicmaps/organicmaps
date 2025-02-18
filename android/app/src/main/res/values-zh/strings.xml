@@ -29,6 +29,10 @@
     <string name="search_map">搜索地图</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">精度有限</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">为确保导航准确，请在设置中启用 \"精确定位\"。</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">在地图上显示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

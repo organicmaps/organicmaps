@@ -808,7 +808,7 @@
     vi = Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.
     zh-Hans = 您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。
     zh-Hant = 您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。
-	
+
   [limited_accuracy]
     comment = A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on
     tags = android
