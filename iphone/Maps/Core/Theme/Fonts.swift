@@ -16,6 +16,7 @@ class Fonts: IFonts {
   var medium9 = UIFont.systemFont(ofSize: 9, weight:UIFont.Weight.medium)
   var medium10 = UIFont.systemFont(ofSize: 10, weight:UIFont.Weight.medium)
   var medium12 = UIFont.systemFont(ofSize: 12, weight:UIFont.Weight.medium)
+  var medium13 = UIFont.systemFont(ofSize: 13, weight:UIFont.Weight.medium)
   var medium14 = UIFont.systemFont(ofSize: 14, weight:UIFont.Weight.medium)
   var medium16 = UIFont.systemFont(ofSize: 16, weight:UIFont.Weight.medium)
   var medium17 = UIFont.systemFont(ofSize: 17, weight:UIFont.Weight.medium)

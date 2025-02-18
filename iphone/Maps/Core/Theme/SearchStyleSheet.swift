@@ -1,4 +1,5 @@
 enum SearchStyleSheet: String, CaseIterable {
+  case searchHeader
   case searchInstallButton = "SearchInstallButton"
   case searchBanner = "SearchBanner"
   case searchClosedBackground = "SearchClosedBackground"
@@ -16,6 +17,17 @@ enum SearchStyleSheet: String, CaseIterable {
 extension SearchStyleSheet: IStyleSheet {
   func styleResolverFor(colors: IColors, fonts: IFonts) -> Theme.StyleResolver {
     switch self {
+    case .searchHeader:
+      return .add { s in
+        s.backgroundColor = colors.primary
+        iPhoneSpecific {
+          s.shadowColor = UIColor.black
+          s.shadowOffset = CGSize(width: 0, height: 1)
+          s.shadowOpacity = 0.5
+          s.shadowRadius = 3
+          s.cornerRadius = 10
+        }
+      }
     case .searchInstallButton:
       return .add { s in
         s.cornerRadius = 10

@@ -1,8 +1,10 @@
 #import "MWMSearch.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
+#import "SearchResult+Core.h"
 #import "SwiftBridge.h"
 
+#include <CoreApi/MWMTypes.h>
 #include <CoreApi/Framework.h>
 
 #include "platform/network_policy.hpp"
@@ -15,7 +17,6 @@ using Observers = NSHashTable<Observer>;
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
 
 @property(nonatomic) NSUInteger suggestionsCount;
-@property(nonatomic) BOOL searchOnMap;
 
 @property(nonatomic) BOOL textChanged;
 
@@ -23,7 +24,7 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) NSUInteger lastSearchTimestamp;
 
-@property(nonatomic) MWMSearchIndex *itemsIndex;
+@property(nonatomic) SearchIndex *itemsIndex;
 
 @property(nonatomic) NSInteger searchCount;
 
@@ -35,7 +36,6 @@ using Observers = NSHashTable<Observer>;
   bool m_isCategory;
   search::Results m_everywhereResults;
   search::Results m_viewportResults;
-  std::vector<search::ProductInfo> m_productInfo;
 }
 
 #pragma mark - Instance
@@ -74,7 +74,6 @@ using Observers = NSHashTable<Observer>;
       {
         self.suggestionsCount = results.GetSuggestsCount();
         self->m_everywhereResults = std::move(results);
-        self->m_productInfo = std::move(productInfo);
 
         [self onSearchResultsUpdated];
       }
@@ -111,16 +110,8 @@ using Observers = NSHashTable<Observer>;
   [self reset];
   if (m_query.empty())
     return;
-
-  if (IPAD) {
-    [self searchInViewport];
-    [self searchEverywhere];
-  } else {
-    if (self.searchOnMap)
-      [self searchInViewport];
-    else
-      [self searchEverywhere];
-  }
+  [self searchInViewport];
+  [self searchEverywhere];
 }
 
 #pragma mark - Add/Remove Observers
@@ -163,18 +154,40 @@ using Observers = NSHashTable<Observer>;
   [manager update];
 }
 
-+ (void)showResult:(search::Result const &)result {
-  GetFramework().ShowSearchResult(result);
-}
-+ (search::Result const &)resultWithContainerIndex:(NSUInteger)index {
-  return [MWMSearch manager]->m_everywhereResults[index];
++ (void)showResultAtIndex:(NSUInteger)index {
+  auto const & result = [MWMSearch manager]->m_everywhereResults[index];
+  GetFramework().SelectSearchResult(result, true);
 }
 
-+ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index {
-  return [MWMSearch manager]->m_productInfo[index];
++ (SearchResult *)resultWithContainerIndex:(NSUInteger)index {
+  SearchResult * result = [[SearchResult alloc]
+                           initWithResult:[MWMSearch manager]->m_everywhereResults[index]
+                                 itemType:[MWMSearch resultTypeWithRow:index]];
+  return result;
 }
 
-+ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {
++ (void)showEverywhereSearchResultsOnMap {
+  MWMSearch * manager = [MWMSearch manager];
+  if (![MWMRouter isRoutingActive])
+    GetFramework().ShowSearchResults(manager->m_everywhereResults);
+}
+
++ (void)showViewportSearchResultsOnMap {
+  MWMSearch * manager = [MWMSearch manager];
+  if (![MWMRouter isRoutingActive])
+    [manager processViewportChangedEvent];
+}
+
++ (NSArray<SearchResult *> *)getResults {
+  NSMutableArray<SearchResult *> * results = [[NSMutableArray alloc] initWithCapacity:MWMSearch.resultsCount];
+  for (NSUInteger i = 0; i < MWMSearch.resultsCount; ++i) {
+    SearchResult * result = [MWMSearch resultWithContainerIndex:i];
+    [results addObject:result];
+  }
+  return [results copy];
+}
+
++ (SearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
 }
@@ -201,18 +214,6 @@ using Observers = NSHashTable<Observer>;
   [manager reset];
 }
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap {
-  if (IPAD)
-    return;
-  MWMSearch *manager = [MWMSearch manager];
-  if (manager.searchOnMap == searchOnMap)
-    return;
-  manager.searchOnMap = searchOnMap;
-  if (searchOnMap && ![MWMRouter isRoutingActive])
-    GetFramework().ShowSearchResults(manager->m_everywhereResults);
-  [manager update];
-}
-
 + (NSUInteger)suggestionsCount {
   return [MWMSearch manager].suggestionsCount;
 }
@@ -222,7 +223,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner {
   auto const resultsCount = self->m_everywhereResults.GetCount();
-  auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
+  auto const itemsIndex = [[SearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
                                                               resultsCount:resultsCount];
   [itemsIndex build];
   self.itemsIndex = itemsIndex;
@@ -258,8 +259,7 @@ using Observers = NSHashTable<Observer>;
 - (void)processViewportChangedEvent {
   if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
     return;
-  if (IPAD)
-    [self searchEverywhere];
+  [self searchEverywhere];
 }
 
 #pragma mark - Properties
