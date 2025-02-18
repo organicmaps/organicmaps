@@ -166,7 +166,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                 if (TextUtils.equals(mCurrentCountry.id, country) &&
                     MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
-                  MapManager.nativeDownload(mCurrentCountry.id);
+                  MapManager.startDownload(mCurrentCountry.id);
                 }
               }
             }
@@ -210,12 +210,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
       {
-        DownloaderNotifier.cancelNotification(mActivity.getApplicationContext());
-        MapManager.nativeRetry(mCurrentCountry.id);
+        MapManager.retryDownload(mCurrentCountry.id);
       }
       else
       {
-        MapManager.nativeDownload(mCurrentCountry.id);
+        MapManager.startDownload(mCurrentCountry.id);
         mActivity.requestPostNotificationsPermission();
       }
     }));

@@ -106,8 +106,8 @@ public final class MapManager
         })
         .setPositiveButton(R.string.downloader_retry, (dialog, which) -> {
           Application app = activity.getApplication();
-          RetryFailedDownloadConfirmationListener listener
-              = new ExpandRetryConfirmationListener(app, dialogClickListener);
+          ExpandRetryConfirmationListener listener
+              = new ExpandRetryConfirmationListener(dialogClickListener);
           warn3gAndRetry(activity, errorData.countryId, listener);
         }).create();
     dlg.setCanceledOnTouchOutside(false);
@@ -208,7 +208,7 @@ public final class MapManager
     return warnOn3g(activity, countryId, () -> {
       if (onAcceptListener != null)
         onAcceptListener.run();
-      nativeDownload(countryId);
+      startDownload(countryId);
     });
   }
 
@@ -217,8 +217,35 @@ public final class MapManager
     return warnOn3g(activity, countryId, () -> {
       if (onAcceptListener != null)
         onAcceptListener.run();
-      nativeRetry(countryId);
+      retryDownload(countryId);
     });
+  }
+
+  /**
+   * Enqueues failed items under given {@code root} node in downloader.
+   */
+  public static void retryDownload(@NonNull String countryId) {
+    DownloaderService.startForegroundService();
+    nativeRetry(countryId);
+  }
+
+  /**
+   * Enqueues the given list of nodes and its children in downloader.
+   */
+  public static void startDownload(String... countries) {
+    DownloaderService.startForegroundService();
+    for (var countryId : countries)
+    {
+      nativeDownload(countryId);
+    }
+  }
+
+  /**
+   * Enqueues given {@code root} node and its children in downloader.
+   */
+  public static void startDownload(@NonNull String countryId) {
+    DownloaderService.startForegroundService();
+    nativeDownload(countryId);
   }
 
   /**
@@ -314,12 +341,12 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node and its children in downloader.
    */
-  public static native void nativeDownload(String root);
+  private static native void nativeDownload(String root);
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
-  public static native void nativeRetry(String root);
+  private static native void nativeRetry(String root);
 
   /**
    * Enqueues given {@code root} node with its children in downloader.
