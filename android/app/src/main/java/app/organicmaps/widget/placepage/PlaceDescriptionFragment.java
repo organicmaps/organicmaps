@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
@@ -20,8 +21,10 @@ import java.util.Objects;
 
 public class PlaceDescriptionFragment extends BaseMwmFragment {
     public static final String EXTRA_DESCRIPTION = "description";
-    private static final String SOURCE_SUFFIX = "<p><b>wikipedia.org</b></p>";
-
+    private String getSourceSuffix() {
+        return "<p>" + getString(R.string.article_from_wikipedia) + "</p>";
+    }
+    
     @SuppressWarnings("NullableProblems")
     @NonNull
     private String mDescription;
@@ -52,21 +55,28 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
     private void setupWebView() {
         webView.setVerticalScrollBarEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDefaultTextEncodingName("utf-8");
-        webView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        webView.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent));
     }
 
     private void loadDescriptionWithAdaptiveStyling() {
+        
         // Determine current theme (light/dark)
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         boolean isDarkMode = nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
 
         // Adaptive color scheme
-        String textColor = isDarkMode ? "#E0E0E0" : "#333333";
-        String backgroundColor = isDarkMode ? "#32363A" : "#FFFFFF";
-        String headingColor = isDarkMode ? "#E0E0E0" : "#333333";
-        String linkColor = isDarkMode ? "#81D4FA" : "#1E88E5";
+        String textColor = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), 
+            isDarkMode ? R.color.text_light : R.color.text_dark)));
+        
+        String backgroundColor = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), 
+            isDarkMode ? R.color.bg_window_night : R.color.bg_window)));
+        
+        String headingColor = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), 
+            isDarkMode ? R.color.text_light : R.color.text_dark)));
+        
+        String linkColor = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), 
+            isDarkMode ? R.color.base_accent_night : R.color.base_accent)));
 
         // Comprehensive HTML and CSS
         String htmlContent = "<!DOCTYPE html>" +
@@ -90,7 +100,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
             "  max-width: 800px;" +
             "  margin: 0 auto;" +
             "  padding: 5% 2.5%;" +
-            "  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" +
+            "  font-family: Roboto, sans-serif;" +            
             "  line-height: 1.6;" +
             "  font-size: calc(14px + 0.5vw);" +
             "  color: " + textColor + ";" +
@@ -98,7 +108,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
             "}" +
             "h2, h3 {" +
             "  width: 100%;" +
-            "  text-align: center;" +
+            "  text-align: left;" +
             "  color: " + headingColor + ";" +
             "  margin: 3% 0 1% 0;" + 
             "  padding-bottom: 0.5%;" +  
@@ -106,11 +116,11 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
             "}" +
             "h2 {" +
             "  font-size: calc(1.5em + 0.5vw);" +
-              "  margin-top: 4%;" +  
+            "  margin-top: 4%;" +  
             "}" +
             "h3 {" +
             "  font-size: calc(1.2em + 0.4vw);" +
-               "  margin-top: 2%;" +  
+            "  margin-top: 2%;" +  
             "}" +
             "p {" +
             "  margin-bottom: 3%;" +
@@ -154,7 +164,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
             "</head>" +
             "<body>" +
             mDescription + 
-            SOURCE_SUFFIX + 
+            getSourceSuffix() +
             "</body>" +
             "</html>";
 
