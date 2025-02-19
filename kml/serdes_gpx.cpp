@@ -557,7 +557,11 @@ void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
 {
   writer << "<metadata>\n";
   if (auto const name = GetDefaultLanguage(categoryData.m_name))
-    writer << kIndent2 << "<name>" << *name << "</name>\n";
+  {
+    writer << kIndent2 << "<name>";
+    SaveStringWithCDATA(writer, *name);
+    writer << "</name>\n";
+  }
   if (auto const description = GetDefaultLanguage(categoryData.m_description))
   {
     writer << kIndent2 << "<desc>";
