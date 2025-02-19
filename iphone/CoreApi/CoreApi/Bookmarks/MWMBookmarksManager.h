@@ -124,7 +124,7 @@ NS_SWIFT_NAME(BookmarksManager)
  @param fileType Text/Binary/GPX
  */
 - (void)shareTrack:(MWMTrackID)trackId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion;
-- (void)finishShareCategory;
+- (void)finishSharing;
 
 - (void)setNotificationsEnabled:(BOOL)enabled;
 - (BOOL)areNotificationsEnabled;

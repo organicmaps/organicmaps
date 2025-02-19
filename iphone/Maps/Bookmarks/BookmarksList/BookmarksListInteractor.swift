@@ -158,7 +158,7 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func finishExportFile() {
-    bookmarksManager.finishShareCategory()
+    bookmarksManager.finishSharing()
   }
 
   func addToBookmarksManagerObserverList() {
