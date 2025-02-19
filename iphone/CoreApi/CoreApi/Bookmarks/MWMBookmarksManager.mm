@@ -651,7 +651,7 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   completion(status, urlToALocalFile);
 }
 
-- (void)finishShareCategory {
+- (void)finishSharing {
   if (!self.shareCategoryURL)
     return;
 

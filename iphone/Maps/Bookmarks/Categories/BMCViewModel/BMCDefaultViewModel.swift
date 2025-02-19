@@ -163,7 +163,7 @@ extension BMCDefaultViewModel {
   }
 
   func finishShareCategory() {
-    manager.finishShareCategory()
+    manager.finishSharing()
   }
 
   func addToObserverList() {

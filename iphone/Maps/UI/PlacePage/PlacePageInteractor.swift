@@ -316,7 +316,7 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
       case .success:
         guard let url else { fatalError("Invalid sharing url") }
         let shareViewController = ActivityViewController.share(for: url, message: self.placePageData.previewData.title!) { _,_,_,_ in
-          self.bookmarksManager.finishShareCategory()
+          self.bookmarksManager.finishSharing()
         }
         shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
       case .emptyCategory:
