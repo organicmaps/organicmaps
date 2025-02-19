@@ -56,7 +56,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment {
         webView.setVerticalScrollBarEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setDefaultTextEncodingName("utf-8");
-        webView.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent));
+        webView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
     }
 
     private void loadDescriptionWithAdaptiveStyling() {
