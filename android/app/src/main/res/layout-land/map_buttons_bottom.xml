@@ -13,25 +13,27 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/search_button_container" />
   <include
     layout="@layout/map_buttons_search_square"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/btn_bookmarks"
-    app:layout_constraintStart_toEndOf="@+id/help_button" />
+    app:layout_constraintEnd_toStartOf="@+id/bookmarks_button_container"
+    app:layout_constraintStart_toEndOf="@+id/help_button_container" />
   <include
     layout="@layout/map_buttons_bookmarks_square"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/menu_button"
-    app:layout_constraintStart_toEndOf="@+id/btn_search" />
+    app:layout_constraintEnd_toStartOf="@+id/menu_button_container"
+    app:layout_constraintStart_toEndOf="@+id/search_button_container" />
   <include
     layout="@layout/map_buttons_menu"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/bookmarks_button_container" />
 </androidx.constraintlayout.widget.ConstraintLayout>
