@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1">
 <metadata>
-  <name>My route</name>
+  <name><![CDATA[My route ><&"]]></name>
   <desc><![CDATA[You will see this in the document and can use reserved characters like < > & "]]></desc>
 </metadata>
 <wpt lat="48.209846" lon="16.376023">
