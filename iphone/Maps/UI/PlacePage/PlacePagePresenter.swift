@@ -4,13 +4,16 @@ protocol PlacePagePresenterProtocol: AnyObject {
   func showNextStop()
   func closeAnimated()
   func showAlert(_ alert: UIAlertController)
+  func showShareTrackMenu()
 }
 
-class PlacePagePresenter: NSObject {
+final class PlacePagePresenter: NSObject {
   private weak var view: PlacePageViewProtocol!
+  private weak var headerView: PlacePageHeaderViewProtocol!
 
-  init(view: PlacePageViewProtocol) {
+  init(view: PlacePageViewProtocol, headerView: PlacePageHeaderViewProtocol) {
     self.view = view
+    self.headerView = headerView
   }
 }
 
@@ -35,5 +38,9 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
 
   func showAlert(_ alert: UIAlertController) {
     view.showAlert(alert)
+  }
+
+  func showShareTrackMenu() {
+    headerView.showShareTrackMenu()
   }
 }
