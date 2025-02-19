@@ -117,10 +117,12 @@ public class MapButtonsController extends Fragment
     mNavMyPosition = new MyPositionButton(myPosition, (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.myPosition));
 
     // Some buttons do not exist in navigation mode
+    final View layersButtonContainer = mFrame.findViewById(R.id.layers_button_container);
     mToggleMapLayerButton = mFrame.findViewById(R.id.layers_button);
     if (mToggleMapLayerButton != null)
     {
       mToggleMapLayerButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
+      layersButtonContainer.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
       mToggleMapLayerButton.setVisibility(View.VISIBLE);
     }
 
