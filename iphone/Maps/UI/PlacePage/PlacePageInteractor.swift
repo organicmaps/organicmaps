@@ -295,8 +295,42 @@ extension PlacePageInteractor: PlacePageHeaderViewControllerDelegate {
 
   func previewDidPressShare(from sourceView: UIView) {
     guard let mapViewController else { return }
-    let shareViewController = ActivityViewController.share(forPlacePage: placePageData)
-    shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
+    switch placePageData.objectType {
+    case .POI, .bookmark:
+      let shareViewController = ActivityViewController.share(forPlacePage: placePageData)
+      shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
+    case .track:
+      presenter?.showShareTrackMenu()
+    default:
+      fatalError()
+    }
+  }
+
+  func previewDidPressExportTrack(_ type: KmlFileType, from sourceView: UIView) {
+    guard let trackId = placePageData.trackData?.trackId else {
+      fatalError("Track data should not be nil during the track export")
+    }
+    bookmarksManager.shareTrack(trackId, fileType: type) { [weak self] status, url in
+      guard let self, let mapViewController else { return }
+      switch status {
+      case .success:
+        guard let url else { fatalError("Invalid sharing url") }
+        let shareViewController = ActivityViewController.share(for: url, message: self.placePageData.previewData.title!) { _,_,_,_ in
+          self.bookmarksManager.finishShareCategory()
+        }
+        shareViewController.present(inParentViewController: mapViewController, anchorView: sourceView)
+      case .emptyCategory:
+        self.showAlert(withTitle: L("bookmarks_error_title_share_empty"),
+                        message: L("bookmarks_error_message_share_empty"))
+      case .archiveError, .fileError:
+        self.showAlert(withTitle: L("dialog_routing_system_error"),
+                        message: L("bookmarks_error_message_share_general"))
+      }
+    }
+  }
+
+  private func showAlert(withTitle title: String, message: String) {
+    MWMAlertViewController.activeAlert().presentInfoAlert(title, text: message)
   }
 }
 

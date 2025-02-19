@@ -622,6 +622,12 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   });
 }
 
+- (void)shareTrack:(MWMTrackID)trackId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion {
+  self.bm.PrepareTrackFileForSharing(trackId, [self, completion](auto sharingResult) {
+    [self handleSharingResult:sharingResult completion:completion];
+  }, convertFileTypeToCore(fileType));
+}
+
 - (void)handleSharingResult:(BookmarkManager::SharingResult)sharingResult completion:(SharingResultCompletionHandler)completion  {
   NSURL *urlToALocalFile = nil;
   MWMBookmarksShareStatus status;

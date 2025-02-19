@@ -27,7 +27,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   }
   
   lazy var headerViewController: PlacePageHeaderViewController = {
-    PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
+    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
   }()
 
   lazy var previewViewController: PlacePagePreviewViewController = {
@@ -81,7 +81,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   } ()
 
   lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
-    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
+    return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
   } ()
 
   init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {

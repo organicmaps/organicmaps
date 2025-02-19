@@ -20,7 +20,7 @@
     @unknown default:
       fatalError()
     }
-    let presenter = PlacePagePresenter(view: viewController)
+    let presenter = PlacePagePresenter(view: viewController, headerView: layout.headerViewController)
     viewController.setLayout(layout)
     viewController.interactor = interactor
     interactor.presenter = presenter
@@ -45,7 +45,7 @@
     @unknown default:
       fatalError()
     }
-    let presenter = PlacePagePresenter(view: viewController)
+    let presenter = PlacePagePresenter(view: viewController, headerView: layout.headerViewController)
     viewController.interactor = interactor
     interactor.presenter = presenter
     layout.presenter = presenter

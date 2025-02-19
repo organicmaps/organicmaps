@@ -116,6 +116,14 @@ NS_SWIFT_NAME(BookmarksManager)
                    - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`.  In other cases, it will be nil.
 */
 - (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion;
+
+/**
+    Shares a specific track with the given track ID.
+
+ @param trackId The identifier for the track to be shared.
+ @param fileType Text/Binary/GPX
+ */
+- (void)shareTrack:(MWMTrackID)trackId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion;
 - (void)finishShareCategory;
 
 - (void)setNotificationsEnabled:(BOOL)enabled;
