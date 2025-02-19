@@ -1,0 +1,6193 @@
+{
+  "data_format": 1,
+  "project": {
+    "icon_url": "https://organicmaps.app/logos/green-on-transparent.svg",
+    "doc_url": "https://github.com/organicmaps/organicmaps",
+    "contact_name": "Organic Maps",
+    "name": "Organic Maps (default)",
+    "description": "Free Android & iOS offline maps app for travelers, tourists, hikers, and cyclists",
+    "project_url": "https://organicmaps.app",
+    "contact_email": "hello@organicmaps.app"
+  },
+  "data_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/taginfo.json",
+  "data_updated": "2025-02-20T07:24:32.387604Z",
+  "tags": [
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/map.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/arcade-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "amusement_arcade",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petting_zoo-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "zoo",
+      "key": "tourism"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "farmyard",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bakery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bakery",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fuel-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fuel",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sample_collection-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sample_collection",
+      "key": "healthcare"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/podiatrist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "podiatrist",
+      "key": "healthcare"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-moscow-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/board.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-m.svg",
+      "object_types": ["node"],
+      "value": "shelter",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg",
+      "object_types": ["node"],
+      "value": "alpine_hut",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/taxi-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "taxi",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "service",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/driving_school-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "driving_school",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "field_hockey",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "wine",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fountain-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fountain",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/firehydrant-m.svg",
+      "object_types": ["node"],
+      "value": "fire_hydrant",
+      "key": "emergency"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cricket-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cricket",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fastfood-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "food_court",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beekeeper-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beekeeper",
+      "key": "craft"
+    },
+    {
+      "object_types": ["way"],
+      "value": "world_towns_level",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "maze",
+      "key": "attraction"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plumber-m.svg",
+      "object_types": ["node"],
+      "value": "hvac",
+      "key": "craft"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "nature_reserve",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gambling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gambling",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "ocean",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pitch",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "protected_area",
+      "key": "boundary"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clothes-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tailor",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/school-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "school",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "city_wall",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["way"],
+      "value": "chair_lift",
+      "key": "aerialway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/muslim-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/rental-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "rental",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sports_centre",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tank-m.svg",
+      "object_types": ["node"],
+      "value": "tank",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chemist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "chemist",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/postbox-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "post_box",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "lock_gate",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "narrow_gauge",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "pedestrian",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/buddhist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/auction-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "auction",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "continent",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cycleway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "roller_coaster",
+      "key": "attraction"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/emergency-phone-m.svg",
+      "object_types": ["node"],
+      "value": "phone",
+      "key": "emergency"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_entrance-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking_entrance",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "residential",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peakt-m.svg",
+      "object_types": ["node"],
+      "value": "peak",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_repair",
+      "key": "shop"
+    },
+    {
+      "object_types": ["area"],
+      "value": "heath",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "silo",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "station",
+      "key": "power"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg",
+      "object_types": ["area"],
+      "value": "services",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "bridleway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "residential",
+      "key": "highway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "garages",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-moscow-m.svg",
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/park-m.svg",
+      "object_types": ["area"],
+      "value": "park",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["way"],
+      "value": "track",
+      "key": "highway"
+    },
+    {
+      "object_types": [
+        "node",
+        "way",
+        "area"
+      ],
+      "value": "pier",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gallows",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "farm",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "substation",
+      "key": "power"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "confectionery",
+      "key": "craft"
+    },
+    {
+      "object_types": ["way"],
+      "value": "taxiway",
+      "key": "aeroway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/embassy-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "diplomatic",
+      "key": "office"
+    },
+    {
+      "object_types": ["way"],
+      "value": "ditch",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["node"],
+      "value": "town",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kindergarten-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "childcare",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "subway",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "farmland",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "runway",
+      "key": "aeroway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/marketplace-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "marketplace",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "dock",
+      "key": "waterway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic-m.svg",
+      "object_types": ["area"],
+      "value": "rest_area",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/railway-crossing-m.svg",
+      "object_types": ["node"],
+      "value": "level_crossing",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-rental-bicycle-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "rental",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-public_transport-m.svg",
+      "object_types": ["node"],
+      "value": "shelter",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/table-tennis-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "table_tennis",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "electrician",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "brothel",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "isolated_dwelling",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/handicraft-m.svg",
+      "object_types": ["node"],
+      "value": "handicraft",
+      "key": "craft"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hunting-tower-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "hunting_stand",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "suburb",
+      "key": "place"
+    },
+    {
+      "object_types": ["way"],
+      "value": "canal",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ticket-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ticket",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "hedge",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "archery",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle_repair-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "motorcycle_repair",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/banknote-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bureau_de_change",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/audiologist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "audiologist",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/traffic_signals.svg",
+      "object_types": ["node"],
+      "value": "traffic_signals",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "university",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pelota-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pelota",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "drinking_water",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bookmaker-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pawnbroker",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "turnstile",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mormon-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle-parking-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "motorcycle_parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling_alley-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bowling_alley",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "water_tap",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/baseball-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "baseball",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/carpenter-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "carpenter",
+      "key": "craft"
+    },
+    {
+      "object_types": ["area"],
+      "value": "education",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/campsite-m.svg",
+      "object_types": ["node"],
+      "value": "camp_site",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "confectionery",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bar-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bar",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/basketball-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "basketball",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "photographer",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tomb-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tomb",
+      "key": "historic"
+    },
+    {
+      "object_types": ["way"],
+      "value": "ferry",
+      "key": "route"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/copyshop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "copyshop",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "battlefield",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_repair",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bus-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bus_station",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/outdoor-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "outdoor",
+      "key": "shop"
+    },
+    {
+      "object_types": ["area"],
+      "value": "track",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "castle",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toilets-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "toilets",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "bridge",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank.svg",
+      "object_types": ["node"],
+      "value": "water_tower",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "motorway_junction",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "track",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "water_park",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic_table-m.svg",
+      "object_types": ["node"],
+      "value": "picnic_table",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/marina-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "marina",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/garden-m.svg",
+      "object_types": ["area"],
+      "value": "garden",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/elevator-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "elevator",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "disused",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "abandoned",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-meter-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vending_machine",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "unclassified",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/viewpoint-m.svg",
+      "object_types": ["node"],
+      "value": "viewpoint",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "forest",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "bridleway",
+      "key": "highway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cape",
+      "key": "natural"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/equestrian-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "equestrian",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "service",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dry_cleaning-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "dry_cleaning",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-m.svg",
+      "object_types": ["node"],
+      "value": "tower",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["area"],
+      "value": "scrub",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-s.svg",
+      "object_types": ["node"],
+      "value": "waste_basket",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "platform",
+      "key": "public_transport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "busway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-exit-s.svg",
+      "object_types": ["node"],
+      "value": "exit",
+      "key": "entrance"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volcano-m.svg",
+      "object_types": ["node"],
+      "value": "volcano",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "field",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk_link",
+      "key": "highway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "recreation_ground",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "neighbourhood",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "chain",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "subway",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/locomotive-m.svg",
+      "object_types": ["node"],
+      "value": "locomotive",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "aerodrome",
+      "key": "aeroway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stadium-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "stadium",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/slots-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "adult_gaming_centre",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/factory-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "works",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["area"],
+      "value": "park",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "living_street",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg",
+      "object_types": ["node"],
+      "value": "water_point",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "raceway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/brewery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "brewery",
+      "key": "craft"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/outdoor_seating-m.svg",
+      "object_types": ["node"],
+      "value": "outdoor_seating",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "golf",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/guidepost.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/helipad-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "helipad",
+      "key": "aeroway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "flowerbed",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-rental.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bicycle_rental",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "resort",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-wash-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_wash",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/assembly_point-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "assembly_point",
+      "key": "emergency"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "quarry",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/skiing-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "skiing",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "9pin",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "farm",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/craft-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tattoo",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "commercial",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/prison-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "prison",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "quarter",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toll_booth-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "toll_booth",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fitness_centre-m.svg",
+      "object_types": ["node"],
+      "value": "fitness_centre",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["area"],
+      "value": "glacier",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bookcase-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "public_bookcase",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/survey_point-m.svg",
+      "object_types": ["node"],
+      "value": "survey_point",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["way"],
+      "value": "embankment",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caravan_site-m.svg",
+      "object_types": ["node"],
+      "value": "caravan_site",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary",
+      "key": "highway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "railway",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/blacksmith-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "blacksmith",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wind_turbine-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "generator",
+      "key": "power"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "camera",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fitness_station-m.svg",
+      "object_types": ["node"],
+      "value": "fitness_station",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/winery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "winery",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "boundary_stone",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hospital-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "hospital",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chess-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "chess",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_sharing-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_sharing",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rope_tow",
+      "key": "aerialway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk",
+      "key": "highway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "desert",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "big_wheel",
+      "key": "attraction"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "amusement_ride",
+      "key": "attraction"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/padel-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "padel",
+      "key": "sport"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tram",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "grass",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gallery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gallery",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dump-station-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sanitary_dump_station",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "living_street",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "flagpole",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fort",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/police-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "police",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fuel-dispenser-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vending_machine",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg",
+      "object_types": ["node"],
+      "value": "sauna",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["area"],
+      "value": "terminal",
+      "key": "aeroway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/laundry-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "laundry",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shoes-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "shoemaker",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/key_cutter-m.svg",
+      "object_types": ["node"],
+      "value": "locksmith",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mobile_phone-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "mobile_phone",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hostel-m.svg",
+      "object_types": ["node"],
+      "value": "hostel",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "light_rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-office-m.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/interior_decoration-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "interior_decoration",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lottery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "lottery",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "town",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/statue-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "artwork",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "preserved",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ford-m.svg",
+      "object_types": [
+        "node",
+        "way"
+      ],
+      "value": "ford",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stone-m.svg",
+      "object_types": ["node"],
+      "value": "stone",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "conference_centre",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "unclassified",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sports-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sports",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/internet_cafe-m.svg",
+      "object_types": ["node"],
+      "value": "internet_cafe",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/photo-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "photo",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "steps",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/storage-tank.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "storage_tank",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mail-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "post_office",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-parking-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bicycle_parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "pedestrian",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "collector",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/social_facility-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "social_facility",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "stream",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "light_rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gift-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gift",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cliff",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/train-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "memorial",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/picnic-m.svg",
+      "object_types": ["node"],
+      "value": "picnic_site",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/skateboard-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "skateboard",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-entrance-m.svg",
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/australian-football-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "australian_football",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caravan-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "caravan",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/anchor-m.svg",
+      "object_types": ["node"],
+      "value": "anchor",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bowling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "10pin",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vehicle_inspection-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vehicle_inspection",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "step_1000",
+      "key": "isoline"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/theatre-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "theatre",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ice_cream-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ice_cream",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "churchyard",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shelter-m.svg",
+      "object_types": ["node"],
+      "value": "shelter",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/optician-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "optician",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg",
+      "object_types": ["node"],
+      "value": "hotel",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/erotic-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "erotic",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vending_machine",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cemetery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cemetery",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volleyball-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "volleyball",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beauty-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beauty",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/seafood-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "seafood",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/volleyball-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beachvolleyball",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/grinding_mill-m.svg",
+      "object_types": ["node"],
+      "value": "grinding_mill",
+      "key": "craft"
+    },
+    {
+      "object_types": ["way"],
+      "value": "pedestrian",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_pay-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "generator",
+      "key": "power"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg",
+      "object_types": ["node"],
+      "value": "shelter",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nightclub-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "nightclub",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "swimming",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shinto-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "platter",
+      "key": "aerialway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lawyer-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "lawyer",
+      "key": "office"
+    },
+    {
+      "object_types": ["area"],
+      "value": "meadow",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "way"
+      ],
+      "value": "weir",
+      "key": "waterway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "carousel",
+      "key": "attraction"
+    },
+    {
+      "object_types": ["node"],
+      "value": "state",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "payment_terminal",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/atm-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "atm",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archaeological-site-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "archaeological_site",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/speech_therapist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "speech_therapist",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bcontrol-m.svg",
+      "object_types": ["node"],
+      "value": "border_control",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/confectionery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "chocolate",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-repair-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tyres",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "track",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cycleway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "locality",
+      "key": "place"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shoes-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "shoes",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-emergency-s.svg",
+      "object_types": ["node"],
+      "value": "emergency_ward_entrance",
+      "key": "emergency"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lottery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bookmaker",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg",
+      "object_types": ["node"],
+      "value": "wilderness_hut",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "magic_carpet",
+      "key": "aerialway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "landfill",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/metal_construction-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "metal_construction",
+      "key": "craft"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "military",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "stream",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "mall",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "drain",
+      "key": "waterway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/florist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gardener",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sample_collection-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "laboratory",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peakt-m.svg",
+      "object_types": ["node"],
+      "value": "peak",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lighthouse-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "lighthouse",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["way"],
+      "value": "service",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/college-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "college",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "hardware",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tennis-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tennis",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/veterinary-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "veterinary",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "step_500",
+      "key": "isoline"
+    },
+    {
+      "object_types": ["way"],
+      "value": "step_10",
+      "key": "isoline"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/compressed_air-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "compressed_air",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "village_green",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "tower",
+      "key": "power"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/curling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "curling",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power_plant_wind-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "plant",
+      "key": "power"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/painter-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "painter",
+      "key": "craft"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/train-m.svg",
+      "object_types": ["node"],
+      "value": "halt",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/apartment-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "guest_house",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cycle_barrier-s.svg",
+      "object_types": ["node"],
+      "value": "cycle_barrier",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clinic-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "clinic",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "islet",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "university",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/peakt-s.svg",
+      "object_types": ["node"],
+      "value": "rock",
+      "key": "natural"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cinema-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cinema",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "hot_spring",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hackerspace-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "hackerspace",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beauty-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cosmetics",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "coastline",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-spb-m.svg",
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cross-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "memorial",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/garden_center-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "garden_centre",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "steps",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waterfall-m.svg",
+      "object_types": ["node"],
+      "value": "waterfall",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "funicular",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "monorail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "industrial",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-main-s.svg",
+      "object_types": ["node"],
+      "value": "main",
+      "key": "entrance"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kiosk-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "kiosk",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "citywalls",
+      "key": "historic"
+    },
+    {
+      "object_types": ["way"],
+      "value": "administrative",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gate-s.svg",
+      "object_types": ["node"],
+      "value": "kissing_gate",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-spb-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_pay-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "miniature_golf",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/newsagent_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "newsagent",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/garden-outline-m.svg",
+      "object_types": ["area"],
+      "value": "garden",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/zero-icon.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "swimming_pool",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/diving-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "scuba_diving",
+      "key": "sport"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "wetland",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "public_bath",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/antiques-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "antiques",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cemetery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "grave_yard",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "garden",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bbq-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bbq",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/embassy-m.svg",
+      "object_types": ["node"],
+      "value": "townhall",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tram-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tram_stop",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "garden",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cheese-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cheese",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-s.svg",
+      "object_types": ["node"],
+      "value": "loading_dock",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/jewish-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cycleway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tobacco-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "tobacco",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/home-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "nursing_home",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "convenience",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cutline",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monorail-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "reservoir",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "water_well",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["area"],
+      "value": "reservoir",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "alcohol",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hairdresser-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "hairdresser",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "funicular",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/computer-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "computer",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/language_school-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "language_school",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "health_food",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "abandoned",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/chimney-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "chimney",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["way"],
+      "value": "gondola",
+      "key": "aerialway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-m.svg",
+      "object_types": ["area"],
+      "value": "forest",
+      "key": "landuse"
+    },
+    {
+      "object_types": [
+        "node",
+        "way",
+        "area"
+      ],
+      "value": "breakwater",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["way"],
+      "value": "narrow_gauge",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/christian-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "ditch",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gallery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "arts_centre",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/park-outline-m.svg",
+      "object_types": ["area"],
+      "value": "park",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "state",
+      "key": "place"
+    },
+    {
+      "object_types": ["way"],
+      "value": "unclassified",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "monorail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lift_gate-m.svg",
+      "object_types": [
+        "node",
+        "way"
+      ],
+      "value": "lift_gate",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/jewelry-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "jewelry",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/physiotherapist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "physiotherapist",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "exhibition_centre",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "trunk_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "preserved",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cemetery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "grave",
+      "key": "cemetery"
+    },
+    {
+      "object_types": ["way"],
+      "value": "step_50",
+      "key": "isoline"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/museum-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "museum",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/historic-ship-m.svg",
+      "object_types": ["node"],
+      "value": "ship",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "residential",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wholesale-m.svg",
+      "object_types": ["node"],
+      "value": "wholesale",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/yoga-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "yoga",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/furniture-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "furniture",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/department_store-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "department_store",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/train-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fastfood-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fast_food",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "doityourself",
+      "key": "shop"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "archipelago",
+      "key": "place"
+    },
+    {
+      "object_types": ["area"],
+      "value": "reservoir",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/greengrocer-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "greengrocer",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground_private-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "stile",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cannon-m.svg",
+      "object_types": ["node"],
+      "value": "cannon",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cafe-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "cafe",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charging-station-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "charging_station",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/second_hand_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "second_hand",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electronics-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "electronics",
+      "key": "shop"
+    },
+    {
+      "object_types": ["area"],
+      "value": "salt_pond",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["way"],
+      "value": "service",
+      "key": "highway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/vending-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vending_machine",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "historic",
+      "key": "attraction"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "land",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mast-m.svg",
+      "object_types": ["node"],
+      "value": "tower",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "spring",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hockey-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ice_hockey",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/recycling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "recycling",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/florist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "florist",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bicycle-repair-station.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bicycle_repair_station",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bank-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bank",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pharmacy-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pharmacy",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/handball-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "handball",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/funeral_directors-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "funeral_directors",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charging-station-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "charging_station",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "country",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/recycling-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "waste_transfer_station",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car-part-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_parts",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parcel_locker-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parcel_locker",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bank-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "money_lender",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "way",
+        "area"
+      ],
+      "value": "dam",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "wall",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/zoo-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "zoo",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "earth_bank",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/america-football-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "american_football",
+      "key": "sport"
+    },
+    {
+      "object_types": ["way"],
+      "value": "motorway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stripclub-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "stripclub",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alcohol-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beverages",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-m.svg",
+      "object_types": ["node"],
+      "value": "water_point",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cave-m.svg",
+      "object_types": ["node"],
+      "value": "cave_entrance",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/media-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "video",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fabric",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "step_100",
+      "key": "isoline"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "bay",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/motorcycle_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "motorcycle",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "mast",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/gate-s.svg",
+      "object_types": ["node"],
+      "value": "gate",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/phone-m.svg",
+      "object_types": ["node"],
+      "value": "telephone",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "steps",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dentist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "dentist",
+      "key": "amenity"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "orchard",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/musical-instrument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "musical_instrument",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_sharing-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car_rental",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/power-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "plant",
+      "key": "power"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/video-games-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "video_games",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/lift_gate-m.svg",
+      "object_types": [
+        "node",
+        "way"
+      ],
+      "value": "swing_gate",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clothes-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "clothes",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "basin",
+      "key": "landuse"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "island",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "sea",
+      "key": "place"
+    },
+    {
+      "object_types": ["area"],
+      "value": "bare_rock",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/music-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "music",
+      "key": "shop"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/martial-arts-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "dojo",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/butcher-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "butcher",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wayside_shrine-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "wayside_shrine",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bakery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pastry",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/art-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "art",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "national_park",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking-disabled-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking_space",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "aerodrome",
+      "key": "aeroway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pillory",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "memorial",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cairn-m.svg",
+      "object_types": ["node"],
+      "value": "cairn",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["area"],
+      "value": "square",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/charity_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "charity",
+      "key": "shop"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "industrial",
+      "key": "landuse"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "grassland",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "construction",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/soccer-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "soccer",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/furniture-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "kitchen",
+      "key": "shop"
+    },
+    {
+      "object_types": ["area"],
+      "value": "aboriginal_lands",
+      "key": "boundary"
+    },
+    {
+      "object_types": ["way"],
+      "value": "residential",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "deli",
+      "key": "shop"
+    },
+    {
+      "object_types": [
+        "node",
+        "way"
+      ],
+      "value": "strait",
+      "key": "natural"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "path",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "variety_store",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/stationery_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "stationery",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/sawmill-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sawmill",
+      "key": "craft"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "zero",
+      "key": "isoline"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/college-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "university",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "administrative",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/soccer-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "futsal",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/fire_station-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "fire_station",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/nparkf-outline-m.svg",
+      "object_types": ["area"],
+      "value": "forest",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/kindergarten-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "kindergarten",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["area"],
+      "value": "platform",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/doityourself-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "houseware",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/blood_donation-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "blood_donation",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/electrician-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "electronics_repair",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_entrance_private-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking_entrance",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "line",
+      "key": "power"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "mixed_lift",
+      "key": "aerialway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ruins",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/geyser-m.svg",
+      "object_types": ["node"],
+      "value": "geyser",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "road",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/defibrillator-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "defibrillator",
+      "key": "emergency"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "object_types": ["area"],
+      "value": "shingle",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg",
+      "object_types": ["node"],
+      "value": "ice_rink",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/artwork-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "artwork",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["way"],
+      "value": "bridleway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "road",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/supermarket-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "supermarket",
+      "key": "shop"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beach",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mine-m.svg",
+      "object_types": ["node"],
+      "value": "mine",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/psychotherapist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "psychotherapist",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["area"],
+      "value": "protected_area",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/aquarium-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "aquarium",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pitch-m.svg",
+      "object_types": ["node"],
+      "value": "sports_hall",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["way"],
+      "value": "fence",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alpine_hut-m.svg",
+      "object_types": ["node"],
+      "value": "chalet",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/convenience-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "grocery",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dog_park-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "dog_park",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary_link",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/airport_gate-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "gate",
+      "key": "aeroway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/key_cutter-m.svg",
+      "object_types": ["node"],
+      "value": "key_cutter",
+      "key": "craft"
+    },
+    {
+      "object_types": ["area"],
+      "value": "scree",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cross-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "wayside_cross",
+      "key": "historic"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/restaurant-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "restaurant",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hindu-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "hamlet",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/wreck-m.svg",
+      "object_types": ["node"],
+      "value": "wreck",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg",
+      "object_types": ["node"],
+      "value": "water_tap",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/archery-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "shooting",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "pedestrian",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/place-of-worship-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/mountain-pass-m.svg",
+      "object_types": ["node"],
+      "value": "saddle",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "river",
+      "key": "waterway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/waste-basket-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "waste_disposal",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "playground",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/hotel-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "motel",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "rail",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/clinic-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "doctors",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "oneway",
+      "key": "hwtag"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/theme_park-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "theme_park",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pub-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pub",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "town",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-bicycle-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bicycle",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "world_level",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "community_centre",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ruins",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/book-shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "books",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-s.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/entrance-barrier-s.svg",
+      "object_types": ["node"],
+      "value": "entrance",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "retaining_wall",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "city_gate",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/playground-m.svg",
+      "object_types": ["node"],
+      "value": "bumper_car",
+      "key": "attraction"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "bollard",
+      "key": "barrier"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/toys-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "toys",
+      "key": "shop"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vineyard",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bus-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "bus_stop",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "drag_lift",
+      "key": "aerialway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/optometrist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "optometrist",
+      "key": "healthcare"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/dot-m.svg",
+      "object_types": ["node"],
+      "value": "block",
+      "key": "barrier"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shop-m.svg",
+      "object_types": ["node"],
+      "value": "pasta",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/windmill-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "windmill",
+      "key": "man_made"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/diving-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "diving",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/car_shop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "car",
+      "key": "shop"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/aircraft-m.svg",
+      "object_types": ["node"],
+      "value": "aircraft",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/monument-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "monument",
+      "key": "historic"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg",
+      "object_types": ["node"],
+      "value": "water_well",
+      "key": "man_made"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/subway-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/remains-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "ruins",
+      "key": "historic"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/military-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "military",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/banknote-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "money_transfer",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/animal-m.svg",
+      "object_types": ["node"],
+      "value": "animal",
+      "key": "attraction"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/beach-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "beach_resort",
+      "key": "leisure"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/music_school-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "music_school",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "primary",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/bench.svg",
+      "object_types": ["node"],
+      "value": "bench",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_underground-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/library-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "library",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/petshop-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "pet",
+      "key": "shop"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tram",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/caterer-m.svg",
+      "object_types": ["node"],
+      "value": "caterer",
+      "key": "craft"
+    },
+    {
+      "object_types": ["way"],
+      "value": "administrative",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/information-m.svg",
+      "object_types": ["node"],
+      "value": "information",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "village",
+      "key": "place"
+    },
+    {
+      "object_types": ["way"],
+      "value": "cable_car",
+      "key": "aerialway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/pub-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "biergarten",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/badminton-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "badminton",
+      "key": "sport"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/apartment-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "apartment",
+      "key": "tourism"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/tourism-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "attraction",
+      "key": "tourism"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/community-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "events_venue",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/needle_and_thread-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "sewing",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public-building-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "courthouse",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "administrative",
+      "key": "boundary"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/casino-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "casino",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["way"],
+      "value": "track",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["area"],
+      "value": "footway",
+      "key": "highway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "allotments",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/swimming-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "swimming_pool",
+      "key": "leisure"
+    },
+    {
+      "object_types": ["area"],
+      "value": "water",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "construction",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/funicular-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/star-l.svg",
+      "object_types": ["node"],
+      "value": "city",
+      "key": "place"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/cable-car-m.svg",
+      "object_types": ["node"],
+      "value": "station",
+      "key": "aerialway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/drinking-water-no-m.svg",
+      "object_types": ["node"],
+      "value": "spring",
+      "key": "natural"
+    },
+    {
+      "object_types": ["way"],
+      "value": "secondary_link",
+      "key": "highway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/ship-m.svg",
+      "object_types": ["node"],
+      "value": "ferry_terminal",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plumber-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "plumber",
+      "key": "craft"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/parking_private-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "parking",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "fish_pass",
+      "key": "waterway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/alternative-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "alternative",
+      "key": "healthcare"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/shower-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "shower",
+      "key": "amenity"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/public_bath-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "massage",
+      "key": "shop"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/plaque.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "memorial",
+      "key": "historic"
+    },
+    {
+      "object_types": ["way"],
+      "value": "tertiary",
+      "key": "highway"
+    },
+    {
+      "object_types": ["way"],
+      "value": "track",
+      "key": "highway"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "construction",
+      "key": "landuse"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/excrement_bags-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "vending_machine",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "station",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/climbing-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "climbing",
+      "key": "sport"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/taoist-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "place_of_worship",
+      "key": "amenity"
+    },
+    {
+      "object_types": ["node"],
+      "value": "subway_entrance",
+      "key": "railway"
+    },
+    {
+      "icon_url": "https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/styles/default/light/symbols/golf-m.svg",
+      "object_types": [
+        "node",
+        "area"
+      ],
+      "value": "golf_course",
+      "key": "leisure"
+    }
+  ]
+}
