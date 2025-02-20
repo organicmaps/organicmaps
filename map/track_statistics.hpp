@@ -6,6 +6,9 @@
 
 struct TrackStatistics
 {
+  using Points = kml::MultiGeometry::LineT;
+  using Timestamps = kml::MultiGeometry::TimeT;
+
   TrackStatistics();
   explicit TrackStatistics(kml::MultiGeometry const & geometry);
 
@@ -13,15 +16,13 @@ struct TrackStatistics
   double m_duration;
   double m_ascent;
   double m_descent;
-  int16_t m_minElevation;
-  int16_t m_maxElevation;
+  geometry::Altitude m_minElevation;
+  geometry::Altitude m_maxElevation;
 
   void AddGpsInfoPoint(location::GpsInfo const & point);
 private:
-  void AddPoints(kml::MultiGeometry::LineT const & line, bool isNewSegment);
-  void AddTimestamps(kml::MultiGeometry::TimeT const & timestamps, bool isNewSegment);
-  void InitializeNewSegment(geometry::PointWithAltitude const & firstPoint);
-  void ProcessPoints(kml::MultiGeometry::LineT const & points, size_t startIndex);
+  void AddPoints(Points const & points);
+  void AddTimestamps(Timestamps const & timestamps);
   bool HasNoPoints() const;
 
   geometry::PointWithAltitude m_previousPoint;
