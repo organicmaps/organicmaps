@@ -2111,6 +2111,7 @@
 /* A place where a lifeguard is on duty. */
 "type.emergency.lifeguard" = "Lifeguard";
 
+/* A mountain rescue base for search and rescue activities. */
 "type.emergency.mountain_rescue" = "Mountain Rescue Station";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
@@ -2510,7 +2511,7 @@
 
 "type.historic.tomb" = "Tomb";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
 "type.man_made.cross" = "Cross";
 
 /* Usually a Christian historical cross placed along a road. */
@@ -2738,7 +2739,8 @@
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Communications Tower";
 
-"type.man_made.petroleum_well" = "Oil or gas well";
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Oil or Gas Well";
 
 /* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Gas Flare";

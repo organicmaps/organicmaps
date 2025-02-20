@@ -2109,9 +2109,10 @@
 "type.emergency.phone" = "Telepon darurat";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Lifeguard";
+"type.emergency.lifeguard" = "Penjaga pantai";
 
-"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Stasiun penyelamatan gunung";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Pintu masuk";
@@ -2510,8 +2511,8 @@
 
 "type.historic.tomb" = "Pemandangan";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
-"type.man_made.cross" = "Cross";
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Salib";
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Salib di pinggir jalan";
@@ -2738,10 +2739,11 @@
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Menara Komunikasi";
 
-"type.man_made.petroleum_well" = "Oil or gas well";
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Sumur minyak atau gas";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gas Flare";
+"type.man_made.flare" = "Nyala gas";
 
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 

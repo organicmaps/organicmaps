@@ -1294,6 +1294,8 @@
     <string name="type.historic.stone">Pedra Histórica</string>
     <string name="type.historic.mine">Mina Histórica</string>
     <string name="type.historic.tank">Tanque Histórico</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Cruz</string>
     <string name="type.historic.wreck">Naufrágio</string>
     <string name="type.internet_access">Internet</string>
     <string name="type.internet_access.wlan">Internet</string>
