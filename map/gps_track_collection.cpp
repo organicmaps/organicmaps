@@ -33,7 +33,6 @@ size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max()
 
 GpsTrackCollection::GpsTrackCollection()
   : m_lastId(0)
-  , m_statistics(TrackStatistics())
 {}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)

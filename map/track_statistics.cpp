@@ -4,6 +4,8 @@
 #include "base/logging.hpp"
 
 using namespace geometry;
+using namespace location;
+using namespace kml;
 
 double constexpr kInvalidTimestamp = std::numeric_limits<double>::min();
 PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), kInvalidAltitude};
@@ -19,58 +21,63 @@ TrackStatistics::TrackStatistics()
     m_previousTimestamp(kInvalidTimestamp)
 {}
 
-TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry)
+TrackStatistics::TrackStatistics(MultiGeometry const & geometry)
   : TrackStatistics()
 {
   for (auto const & line : geometry.m_lines)
-    AddPoints(line, true);
+    AddPoints(line);
   if (geometry.HasTimestamps())
   {
     for (size_t i = 0; i < geometry.m_timestamps.size(); ++i)
     {
       ASSERT(geometry.HasTimestampsFor(i), ());
-      AddTimestamps(geometry.m_timestamps[i], true);
+      AddTimestamps(geometry.m_timestamps[i]);
     }
   }
 }
 
-void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
+void TrackStatistics::AddGpsInfoPoint(GpsInfo const & point)
 {
   auto const pointWithAltitude = geometry::PointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude), point.m_altitude);
-
-  AddPoints({pointWithAltitude}, false);
-  AddTimestamps({point.m_timestamp}, false);
-}
-
-void TrackStatistics::AddPoints(kml::MultiGeometry::LineT const & line, bool isNewSegment)
-{
-  if (line.empty())
-    return;
-
-  size_t startIndex = 0;
-  if (HasNoPoints() || isNewSegment)
+  auto const altitude = Altitude(point.m_altitude);
+  if (HasNoPoints())
   {
-    InitializeNewSegment(line[0]);
-    startIndex = 1;
+    m_minElevation = altitude;
+    m_maxElevation = altitude;
+    m_previousPoint = pointWithAltitude;
+    m_previousTimestamp = point.m_timestamp;
+    return;
   }
 
-  ProcessPoints(line, startIndex);
+  m_minElevation = std::min(m_minElevation, altitude);
+  m_maxElevation = std::max(m_maxElevation, altitude);
+
+  auto const deltaAltitude = altitude - m_previousPoint.GetAltitude();
+  if (deltaAltitude > 0)
+    m_ascent += deltaAltitude;
+  else
+    m_descent -= deltaAltitude;
+  m_length += mercator::DistanceOnEarth(m_previousPoint.GetPoint(), pointWithAltitude.GetPoint());
+  m_duration += point.m_timestamp - m_previousTimestamp;
+
+  m_previousPoint = pointWithAltitude;
+  m_previousTimestamp = point.m_timestamp;
 }
 
-void TrackStatistics::InitializeNewSegment(PointWithAltitude const & firstPoint)
+void TrackStatistics::AddPoints(Points const & points)
 {
-  auto const altitude = firstPoint.GetAltitude();
+  if (points.empty())
+    return;
 
   bool const hasNoPoints = HasNoPoints();
+  auto const & firstPoint = points[0];
+  auto const altitude = firstPoint.GetAltitude();
+
   m_minElevation = hasNoPoints ? altitude : std::min(m_minElevation, altitude);
   m_maxElevation = hasNoPoints ? altitude : std::max(m_maxElevation, altitude);
-
   m_previousPoint = firstPoint;
-}
 
-void TrackStatistics::ProcessPoints(kml::MultiGeometry::LineT const & points, size_t startIndex)
-{
-  for (size_t i = startIndex; i < points.size(); ++i)
+  for (size_t i = 1; i < points.size(); ++i)
   {
     auto const & point = points[i];
     auto const pointAltitude = point.GetAltitude();
@@ -89,16 +96,11 @@ void TrackStatistics::ProcessPoints(kml::MultiGeometry::LineT const & points, si
   }
 }
 
-void TrackStatistics::AddTimestamps(kml::MultiGeometry::TimeT const & timestamps, bool isNewSegment)
+void TrackStatistics::AddTimestamps(Timestamps const & timestamps)
 {
   if (timestamps.empty())
     return;
-
-  if (m_previousTimestamp == kInvalidTimestamp)
-    m_previousTimestamp = timestamps.front();
-
-  auto const baseTimestamp = isNewSegment ? timestamps.front() : m_previousTimestamp;
-  m_duration += timestamps.back() - baseTimestamp;
+  m_duration += timestamps.back() - timestamps.front();
   m_previousTimestamp = timestamps.back();
 }
 

@@ -182,4 +182,39 @@ UNIT_TEST(TrackStatistics_SmallAltitudeDelta)
   TEST_EQUAL(ts.m_ascent, 1.0, ());
   TEST_EQUAL(ts.m_descent, 0, ());
 }
+
+UNIT_TEST(TrackStatistics_MixedMultiGeometryAndGpsPoints)
+{
+  kml::MultiGeometry geometry;
+  auto const point1 = PointWithAltitude({0.0, 0.0}, 100);
+  auto const point2 = PointWithAltitude({1.0, 1.0}, 150);
+  auto const point3 = PointWithAltitude({2.0, 2.0}, 50);
+  geometry.AddLine({
+    point1,
+    point2,
+    point3
+  });
+  geometry.AddTimestamps({
+    5,
+    6,
+    7
+  });
+
+  auto ts = TrackStatistics(geometry);
+
+  const std::vector<GpsInfo> points = {
+    BuildGpsInfo(3.0, 3.0, 60, 8),
+    BuildGpsInfo(4.0, 4.0, 160, 10),
+    BuildGpsInfo(4.0, 4.0, 20, 15)
+  };
+
+  for (auto const & point : points)
+    ts.AddGpsInfoPoint(point);
+
+  TEST_EQUAL(ts.m_minElevation, 20, ());
+  TEST_EQUAL(ts.m_maxElevation, 160, ());
+  TEST_EQUAL(ts.m_ascent, 160, ()); // 50 + 10 + 100
+  TEST_EQUAL(ts.m_descent, 240, ()); // 100 + 140
+  TEST_EQUAL(ts.m_duration, 10, ()); // 10
+}
 } // namespace track_statistics_tests
