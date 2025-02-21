@@ -592,6 +592,15 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibi
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareTrackFileForSharing(JNIEnv * env, jclass, jlong trackId, jint kmlFileType)
+{
+  frm()->GetBookmarkManager().PrepareTrackFileForSharing(static_cast<kml::TrackId>(trackId), [env](BookmarkManager::SharingResult const & result)
+                                                    {
+                                                      OnPreparedFileForSharing(env, result);
+                                                    }, static_cast<KmlFileType>(kmlFileType));
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass, jlongArray catIds, jint kmlFileType)
 {
   auto const size = env->GetArrayLength(catIds);
