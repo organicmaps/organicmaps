@@ -57223,6 +57223,51 @@ cont {
   }
 }
 cont {
+  name: "man_made-utility_pole"
+  element {
+    scale: 15
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+}
+cont {
   name: "man_made-water_tap"
   element {
     scale: 12
@@ -74214,13 +74259,158 @@ cont {
 cont {
   name: "power-line"
   element {
+    scale: 13
+    lines {
+      width: 3.4
+      color: 2150839091
+      dashdot {
+        dd: 1.0
+        dd: 50.0
+      }
+      priority: 340
+      cap: BUTTCAP
+    }
+    lines {
+      width: 0.8
+      color: 2150839091
+      priority: 350
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.0
+      color: 1714631475
+      dashdot {
+        dd: 1.0
+        dd: 50.0
+      }
+      priority: 340
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.0
+      color: 1714631475
+      priority: 350
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.5
+      color: 1295201075
+      dashdot {
+        dd: 1.0
+        dd: 80.0
+      }
+      priority: 340
+    }
+    lines {
+      width: 1.3
+      color: 1295201075
+      priority: 350
+    }
+  }
+}
+cont {
+  name: "power-minor_line"
+  element {
     scale: 15
     lines {
       width: 4.0
       color: 2150839091
       dashdot {
         dd: 1.0
-        dd: 50.0
+        dd: 80.0
       }
       priority: 340
       cap: BUTTCAP
@@ -74239,7 +74429,7 @@ cont {
       color: 2150839091
       dashdot {
         dd: 1.0
-        dd: 50.0
+        dd: 80.0
       }
       priority: 340
     }
@@ -74252,8 +74442,8 @@ cont {
   element {
     scale: 17
     lines {
-      width: 4.5
-      color: 1714631475
+      width: 4.0
+      color: 2150839091
       dashdot {
         dd: 1.0
         dd: 80.0
@@ -74261,16 +74451,16 @@ cont {
       priority: 340
     }
     lines {
-      width: 1.3
-      color: 1714631475
+      width: 1.0
+      color: 2150839091
       priority: 350
     }
   }
   element {
     scale: 18
     lines {
-      width: 4.5
-      color: 1714631475
+      width: 4.0
+      color: 2150839091
       dashdot {
         dd: 1.0
         dd: 80.0
@@ -74278,16 +74468,16 @@ cont {
       priority: 340
     }
     lines {
-      width: 1.3
-      color: 1714631475
+      width: 1.0
+      color: 2150839091
       priority: 350
     }
   }
   element {
     scale: 19
     lines {
-      width: 4.5
-      color: 1714631475
+      width: 4.0
+      color: 2150839091
       dashdot {
         dd: 1.0
         dd: 80.0
@@ -74295,16 +74485,16 @@ cont {
       priority: 340
     }
     lines {
-      width: 1.3
-      color: 1714631475
+      width: 1.0
+      color: 2150839091
       priority: 350
     }
   }
   element {
     scale: 20
     lines {
-      width: 4.5
-      color: 1714631475
+      width: 4.0
+      color: 2150839091
       dashdot {
         dd: 1.0
         dd: 80.0
@@ -74312,8 +74502,8 @@ cont {
       priority: 340
     }
     lines {
-      width: 1.3
-      color: 1714631475
+      width: 1.0
+      color: 2150839091
       priority: 350
     }
   }
@@ -74578,6 +74768,51 @@ cont {
   }
 }
 cont {
+  name: "power-pole"
+  element {
+    scale: 15
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "mast-m"
+      priority: 230
+    }
+  }
+}
+cont {
   name: "power-station"
   element {
     scale: 17
@@ -74681,6 +74916,13 @@ cont {
 }
 cont {
   name: "power-tower"
+  element {
+    scale: 13
+    symbol {
+      name: "power-tower-m"
+      priority: 450
+    }
+  }
   element {
     scale: 14
     symbol {
