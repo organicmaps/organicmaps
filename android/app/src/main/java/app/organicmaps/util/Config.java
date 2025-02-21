@@ -7,7 +7,6 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 
@@ -25,7 +24,6 @@ public final class Config
   private static final String KEY_MISC_KAYAK_ACCEPTED = "IsKayakApproved";
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
-  private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
@@ -252,42 +250,23 @@ public final class Config
   }
 
   @NonNull
-  public static String getCurrentUiTheme(@NonNull Context context)
+  public static String getThemeSettings(@NonNull Context context)
   {
-    String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
-    String res = getString(KEY_MISC_UI_THEME, defaultTheme);
-
-    if (ThemeUtils.isValidTheme(context, res))
+    // Fallback & default theme
+    String fallbackTheme = MwmApplication.from(context).getString(R.string.theme_follow_system);
+    String res = getString(KEY_MISC_UI_THEME, fallbackTheme);
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isValidThemeMode(context, res))
       return res;
 
-    return defaultTheme;
+    return fallbackTheme;
   }
 
-  static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
+  public static boolean setThemeSettings(@NonNull Context context, @NonNull String theme)
   {
-    if (getCurrentUiTheme(context).equals(theme))
-      return;
-
-    setString(KEY_MISC_UI_THEME, theme);
-  }
-
-  @NonNull
-  public static String getUiThemeSettings(@NonNull Context context)
-  {
-    String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res) || ThemeUtils.isNavAutoTheme(context, res))
-      return res;
-
-    return autoTheme;
-  }
-
-  public static boolean setUiThemeSettings(@NonNull Context context, String theme)
-  {
-    if (getUiThemeSettings(context).equals(theme))
+    if (getThemeSettings(context).equals(theme))
       return false;
 
-    setString(KEY_MISC_UI_THEME_SETTINGS, theme);
+    setString(KEY_MISC_UI_THEME, theme);
     return true;
   }
 

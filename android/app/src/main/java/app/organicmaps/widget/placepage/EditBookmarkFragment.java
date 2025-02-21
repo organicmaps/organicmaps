@@ -103,7 +103,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   @Override
   protected int getCustomTheme()
   {
-    return getFullscreenTheme();
+    return R.style.MwmTheme_DialogFragment_Fullscreen;
   }
 
   @Nullable

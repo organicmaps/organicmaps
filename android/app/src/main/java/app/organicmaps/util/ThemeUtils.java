@@ -7,7 +7,6 @@ import android.util.TypedValue;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
 
 import app.organicmaps.R;
 
@@ -47,7 +46,7 @@ public final class ThemeUtils
 
   public static boolean isDefaultTheme(@NonNull Context context)
   {
-    return isDefaultTheme(context, Config.getCurrentUiTheme(context));
+    return isDefaultTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isDefaultTheme(@NonNull Context context, String theme)
@@ -58,7 +57,7 @@ public final class ThemeUtils
 
   public static boolean isNightTheme(@NonNull Context context)
   {
-    return isNightTheme(context, Config.getCurrentUiTheme(context));
+    return isNightTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isNightTheme(@NonNull Context context, String theme)
@@ -67,56 +66,48 @@ public final class ThemeUtils
     return nightTheme.equals(theme);
   }
 
-  public static boolean isAutoTheme(@NonNull Context context)
+  public static boolean isSystemTheme(@NonNull Context context)
   {
-    return isAutoTheme(context, Config.getUiThemeSettings(context));
+    return isSystemTheme(context, Config.getThemeSettings(context));
   }
 
-  public static boolean isAutoTheme(@NonNull Context context, String theme)
+  public static boolean isSystemTheme(@NonNull Context context, String theme)
   {
-    String autoTheme = context.getString(R.string.theme_auto);
-    return autoTheme.equals(theme);
+    String followSystemTheme = context.getString(R.string.theme_follow_system);
+    return followSystemTheme.equals(theme);
   }
 
   public static boolean isNavAutoTheme(@NonNull Context context)
   {
-    return isNavAutoTheme(context, Config.getUiThemeSettings(context));
+    return isNavAutoTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isNavAutoTheme(@NonNull Context context, String theme)
   {
     String navAutoTheme = context.getString(R.string.theme_nav_auto);
     return navAutoTheme.equals(theme);
-}
+  }
+
+  public static boolean isAutoTheme(@NonNull Context context)
+  {
+    return isSystemTheme(context, Config.getThemeSettings(context));
+  }
+
+  public static boolean isAutoTheme(@NonNull Context context, String theme)
+  {
+    String followSystemTheme = context.getString(R.string.theme_auto);
+    return followSystemTheme.equals(theme);
+  }
+
+  public static boolean isValidThemeMode(@NonNull Context context, String res)
+  {
+    return isSystemTheme(context, res) || isNavAutoTheme(context, res) || isAutoTheme(context, res);
+  }
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
   {
     String defaultTheme = context.getString(R.string.theme_default);
     String nightTheme = context.getString(R.string.theme_night);
     return (defaultTheme.equals(theme) || nightTheme.equals(theme));
-  }
-
-  @StyleRes
-  public static int getCardBgThemeResourceId(@NonNull Context context, @NonNull String theme)
-  {
-    if (isDefaultTheme(context, theme))
-      return R.style.MwmTheme_CardBg;
-
-    if (isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_CardBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
-  @StyleRes
-  public static int getWindowBgThemeResourceId(@NonNull Context context, @NonNull String theme)
-  {
-    if (isDefaultTheme(context, theme))
-      return R.style.MwmTheme_WindowBg;
-
-    if (isNightTheme(context, theme))
-      return R.style.MwmTheme_Night_WindowBg;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 }

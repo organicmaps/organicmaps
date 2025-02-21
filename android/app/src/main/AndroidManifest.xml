@@ -345,7 +345,7 @@
 
     <activity
         android:name="app.organicmaps.DownloadResourcesLegacyActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize" />
         android:screenOrientation="fullUser"/>
 
     <activity-alias
@@ -373,7 +373,7 @@
 
     <activity
         android:name="app.organicmaps.downloader.DownloaderActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/download_maps"
         android:parentActivityName="app.organicmaps.MwmActivity"
@@ -381,7 +381,7 @@
 
     <activity
         android:name="app.organicmaps.search.SearchActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/search_map"
         android:parentActivityName="app.organicmaps.MwmActivity"
@@ -389,10 +389,11 @@
 
     <activity
         android:name="app.organicmaps.settings.SettingsActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/settings"
-        android:parentActivityName="app.organicmaps.MwmActivity" />
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:theme="@style/MwmTheme.CardBg"/>
 
     <activity
         android:name="app.organicmaps.help.HelpActivity"
@@ -407,7 +408,7 @@
 
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/bookmarks_and_tracks"
         android:parentActivityName="app.organicmaps.MwmActivity"
@@ -415,7 +416,7 @@
 
     <activity
         android:name="app.organicmaps.bookmarks.BookmarkListActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/bookmarks"
         android:parentActivityName="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
@@ -423,7 +424,7 @@
 
     <activity
         android:name="app.organicmaps.editor.EditorActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
+        android:configChanges="uiMode|orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/edit_place"
         android:parentActivityName="app.organicmaps.MwmActivity"
@@ -457,7 +458,7 @@
       android:name="app.organicmaps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
     <activity
-        android:name="app.organicmaps.MapPlaceholderActivity"/>
+      android:name="app.organicmaps.MapPlaceholderActivity" />
     <activity
         android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
     <service
