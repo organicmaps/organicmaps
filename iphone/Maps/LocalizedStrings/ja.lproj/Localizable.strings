@@ -2109,9 +2109,10 @@
 "type.emergency.phone" = "緊急電話";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Lifeguard";
+"type.emergency.lifeguard" = "ライフガード";
 
-"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "山岳救助ステーション";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "エントランス";
@@ -2511,7 +2512,7 @@
 "type.historic.tomb" = "墓";
 
 /* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
-"type.man_made.cross" = "Cross";
+"type.man_made.cross" = "十字架";
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "歴史的な十字架";
@@ -2738,10 +2739,11 @@
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "通信塔";
 
-"type.man_made.petroleum_well" = "Oil or gas well";
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "石油またはガス井戸";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gas Flare";
+"type.man_made.flare" = "ガスフレア";
 
 "type.man_made.wastewater_plant" = "下水処理場";
 

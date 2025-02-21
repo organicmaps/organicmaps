@@ -515,6 +515,10 @@
     <string name="type.craft.tailor">Mshonaji nguo</string>
     <string name="type.cuisine.coffee_shop">Kahawa</string>
     <string name="type.emergency.assembly_point">Sehemu ya Mkutano wa Dharura</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Mlinzi wa maisha</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Kituo cha uokoaji wa milima</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Mlango Mkuu</string>
     <string name="type.entrance.exit">Utgång</string>
@@ -678,6 +682,8 @@
     <string name="type.historic.ship">Meli</string>
     <string name="type.historic.tank">Tangi ya kihistoria</string>
     <string name="type.historic.tomb">Kaburi</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Msalaba</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Msalaba wa njiani</string>
     <string name="type.historic.wayside_shrine">Kaburi la njia</string>
@@ -704,6 +710,10 @@
     <string name="type.man_made.communications_tower">Mnara wa Mawasiliano</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Mnara wa Mawasiliano</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Kisima ya mafuta au gesi</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Mshumaa wa gesi</string>
     <string name="type.natural">Uasilia</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Mwamba tupu</string>

@@ -2109,9 +2109,10 @@
 "type.emergency.phone" = "Telefon de urgență";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Lifeguard";
+"type.emergency.lifeguard" = "Salvamar";
 
-"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Stație de salvare montană";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Intrare";
@@ -2510,8 +2511,8 @@
 
 "type.historic.tomb" = "Mormânt";
 
-/* Usually has no historic and sometimes no religios context. E.g. a mountain summit cross. */
-"type.man_made.cross" = "Cross";
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Cruce";
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Troiță";
@@ -2738,10 +2739,11 @@
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Turnul de comunicații";
 
-"type.man_made.petroleum_well" = "Oil or gas well";
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Fântână de țiței sau gaz";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gas Flare";
+"type.man_made.flare" = "Torță de gaz";
 
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 

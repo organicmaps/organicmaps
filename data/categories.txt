@@ -12423,7 +12423,45 @@ zh-Hant:通訊塔
 
 # Please avoid synonyms like Gas/Fuel so that Gas station search doesn't return Gas wells :)
 man_made-petroleum_well
-en:Petroleum well|oil|boring
+en:Petroleum Well|Oil Well|Boring
+ar:بئر النفط
+be:4Нафтавая свідравіна|Свідравіна
+bg:4Нефтено находище|Сондаж
+cs:4Ropný vrt
+da:4Oliebrønd
+de:4Erdölbohrung|Ölquelle
+el:Πετρελαιοπηγή
+es:Pozo de petróleo|Pozo petrolífero
+et:Naftakaev
+eu:Petrolio putzua
+fa:چاه نفت
+fi:5Öljylähde
+fr:Puits de pétrole
+hi:तेल का कुआँ
+hu:Olajkút
+id:Sumur Minyak
+it:4Pozzo petrolifero
+ja:油井
+ko:유정
+lv:4Naftas urbums
+mr:तेल विहीर
+nb:4Oljebrønn
+nl:4Oliebron
+pl:4Szyb naftowy
+pt:Poço de petróleo
+pt-BR:4Poço de petróleo
+ro:4Puț de petrol
+ru:4Нефтяная скважина|Скважина
+sk:4Ropná studňa
+sr:Нафтна бушотина|Нафтна бушотина
+sv:4Oljebrunn
+sw:Kisima cha Mafuta
+th:บ่อน้ำมัน
+tr:Petrol Kuyusu
+uk:4Нафтова свердловина|Свердловина
+vi:Giếng dầu
+zh-Hans:石油井
+zh-Hant:石油井
 
 organic-only|organic-yes
 en:4organic|bio|biological|eco|ecological|healthy
@@ -15760,10 +15798,86 @@ fa:شیر آتش‌نشانی
 mr:अग्निशामक नाळ|फायर हायड्रंट
 
 emergency-lifeguard
-en:Lifeguard|lifesaver
+en:Lifeguard|Lifesaver
+ar: منقذ الطوارئ
+be: Ратавальнік
+bg: Спасител при извънредни ситуации | Спасител
+cs: Záchranář pohotovosti
+da: Nødlivredder
+de: Notfall-Rettungsschwimmer
+el: Επείγον ναυαγοσώστης
+es: Socorrista de emergencia
+et: Kiirabipäästja
+eu: Larrialdietako soroslea
+fa: نجات‌غریق اضطراری
+fi: Hätäpelastaja
+fr: Sauveteur d’urgence
+hi: आपातकालीन जीवनरक्षक
+hu: Sürgősségi vízimentő
+id: Penjaga Pantai Darurat
+it: Bagnino d’emergenza
+ja: 緊急救助員
+ko: 긴급 구조 요원
+lv: Ārkārtas glābējs
+mr: आपत्कालीन जीवरक्षक
+nb: Nødredder
+nl: Noodstrandwacht
+pl: Ratownik awaryjny
+pt: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
+pt-BR: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
+ro: Salvamar de urgență
+ru: Спасатель-экстренщик | Спасатель
+sk: Záchranár v núdzi
+sr: Хитан спасиоц | Спасиоц
+sv: Nödlivräddare
+sw: Mwokozi wa Dharura
+th: ผู้ช่วยชีวิตฉุกเฉิน
+tr: Acil Can Kurtaran
+uk: Рятувальник екстреної допомоги | Рятувальник
+vi: Cứu hộ khẩn cấp
+zh-Hans: 紧急救生员
+zh-Hant: 緊急救生員
 
 emergency-mountain_rescue
-en:Mountain Rescue Station
+en:Mountain Rescue Station|Search and Rescue
+ar:الإنقاذ الجبلي الطارئ
+be:4Аварыйна-выратавальная служба ў гарах|Горная выратавальная служба
+bg:4Спасителна служба в планината|Планинско спасяване
+cs:4Horská záchranná služba
+da:4Nød-bjergredning
+de:4Bergrettung Notdienst
+el:Επείγουσα ορεινή διάσωση
+es:Puesto de rescate de montaña
+et:Hädaolukorra mäepääste
+eu:Mendiko erreskate postua|Mendiko salbamendu postua
+fa:نجات کوهستانی اضطراری
+fi:5Hätävuoristopelastus
+fr:Sauveteurs en montagne d’urgence
+hi:आपातकालीन पर्वतीय बचाव
+hu:Hegyi mentőszolgálat sürgősségi
+id:Penyelamatan Gunung Darurat
+it:4Soccorso alpino di emergenza
+ja:緊急山岳救助
+ko:긴급 산악 구조
+lv:4Ārkārtas kalnu glābšana
+mr:आपत्कालीन पर्वतीय बचाव
+nb:4Nød-fjellredning
+nl:4Nood-bergredding
+pl:4Ratownictwo górskie awaryjne
+pt:Resgate de montanha de emergência
+pt-BR:4Resgate de montanha de emergência
+ro:4Salvare montană de urgență
+ru:4Аварийно-спасательная служба в горах|Горная спасательная служба
+sk:4Horská záchranná služba v núdzi
+sr:Хитна планинска спасилачка служба|Планинска спасилачка служба
+sv:4Nöd-bergskärning
+sw:Uokoaji wa Dharura Milimani
+th:กู้ภัยภูเขาฉุกเฉิน
+tr:Acil Dağ Kurtarma
+uk:4Аварійно-рятувальна служба в горах|Гірська рятувальна служба
+vi:Cứu hộ khẩn cấp trên núi
+zh-Hans:紧急山地救援
+zh-Hant:緊急山地救援
 
 leisure-fitness_station
 en:3Fitness Station|street workout
