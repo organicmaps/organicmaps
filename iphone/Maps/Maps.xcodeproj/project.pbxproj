@@ -495,6 +495,7 @@
 		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
 		ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */; };
+		ED70D55C2D5396F300738C1E /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED70D55A2D5396F300738C1E /* SearchResult.mm */; };
 		ED77556E2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */; };
 		ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */; };
 		ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */; };
@@ -855,7 +856,6 @@
 		340E1EE81E2F614400CE49BF /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		340E1EE91E2F614400CE49BF /* Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		340E1EEA1E2F614400CE49BF /* Welcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
-		342639461EA0FDB30025EB89 /* MWMSearchItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchItemType.h; sourceTree = "<group>"; };
 		3426DEB11F45AE2800D1C43C /* MWMRouterType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterType.h; sourceTree = "<group>"; };
 		3426DEB21F45AE5100D1C43C /* MWMRouterRecommendation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRouterRecommendation.h; sourceTree = "<group>"; };
 		3427AF0B1E49E3A500D466DB /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
@@ -1459,6 +1459,10 @@
 		ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewiCloudSwitchCell.swift; sourceTree = "<group>"; };
+		ED70D5582D5396F300738C1E /* SearchItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchItemType.h; sourceTree = "<group>"; };
+		ED70D5592D5396F300738C1E /* SearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
+		ED70D55A2D5396F300738C1E /* SearchResult.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchResult.mm; sourceTree = "<group>"; };
+		ED70D55B2D5396F300738C1E /* SearchResult+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchResult+Core.h"; sourceTree = "<group>"; };
 		ED77556D2C2C490B0051E656 /* UIAlertController+openInAppActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+openInAppActionSheet.swift"; sourceTree = "<group>"; };
 		ED79A5AA2BD7AA9C00952D1F /* LoadingOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlayViewController.swift; sourceTree = "<group>"; };
 		ED79A5AC2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+LoadingOverlay.swift"; sourceTree = "<group>"; };
@@ -2119,13 +2123,16 @@
 		340475391E081A4600C92850 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				ED70D5582D5396F300738C1E /* SearchItemType.h */,
+				ED70D5592D5396F300738C1E /* SearchResult.h */,
+				ED70D55A2D5396F300738C1E /* SearchResult.mm */,
+				ED70D55B2D5396F300738C1E /* SearchResult+Core.h */,
 				3404753A1E081A4600C92850 /* MWMSearch+CoreSpotlight.h */,
 				3404753B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm */,
 				3404753C1E081A4600C92850 /* MWMSearch.h */,
 				3404753D1E081A4600C92850 /* MWMSearch.mm */,
 				3404753E1E081A4600C92850 /* MWMSearchObserver.h */,
 				3430643F1E9FDC7300DC7665 /* SearchIndex.swift */,
-				342639461EA0FDB30025EB89 /* MWMSearchItemType.h */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -4656,6 +4663,7 @@
 				FA85D43D27958BF500B858E9 /* FaqController.swift in Sources */,
 				99A906ED23F6F7030005872B /* PlacePagePreviewViewController.swift in Sources */,
 				993DF10223F6BDB100AC231A /* Colors.swift in Sources */,
+				ED70D55C2D5396F300738C1E /* SearchResult.mm in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */,
 				99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */,
