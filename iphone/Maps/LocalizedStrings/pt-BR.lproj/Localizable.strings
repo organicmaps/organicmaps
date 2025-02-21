@@ -2109,7 +2109,7 @@
 "type.emergency.phone" = "Telefone de emergência";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Nadador-salvador";
+"type.emergency.lifeguard" = "Salva-vidas";
 
 /* A mountain rescue base for search and rescue activities. */
 "type.emergency.mountain_rescue" = "Estação de resgate na montanha";
@@ -2743,7 +2743,7 @@
 "type.man_made.petroleum_well" = "Poço de petróleo ou gás";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Tocha de gás";
+"type.man_made.flare" = "Flare";
 
 "type.man_made.wastewater_plant" = "Estação de tratamento de esgoto";
 
