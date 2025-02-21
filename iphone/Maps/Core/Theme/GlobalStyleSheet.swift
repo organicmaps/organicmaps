@@ -2,6 +2,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case tableView = "TableView"
   case tableCell = "TableCell"
   case tableViewCell = "MWMTableViewCell"
+  case defaultTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
@@ -80,6 +81,10 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .tableViewCell:
       return .addFrom(Self.tableCell) { s in
+      }
+    case .defaultTableViewCell:
+      return .add { s in
+        s.backgroundColor = colors.white
       }
     case .tableViewHeaderFooterView:
       return .add { s in

@@ -17,6 +17,7 @@ enum FontStyleSheet: String, CaseIterable {
   case medium9
   case medium10
   case medium12
+  case medium13
   case medium14
   case medium16
   case medium17
@@ -83,6 +84,7 @@ extension FontStyleSheet: IStyleSheet {
       case .medium9: return fonts.medium9
       case .medium10: return fonts.medium10
       case .medium12: return fonts.medium12
+      case .medium13: return fonts.medium13
       case .medium14: return fonts.medium14
       case .medium16: return fonts.medium16
       case .medium17: return fonts.medium17
