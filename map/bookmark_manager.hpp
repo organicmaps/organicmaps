@@ -179,7 +179,6 @@ public:
 
   void InitRegionAddressGetter(DataSource const & dataSource,
                                storage::CountryInfoGetter const & infoGetter);
-  void ResetRegionAddressGetter();
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
   void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
@@ -364,8 +363,6 @@ public:
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);
-  bool AreAllCompilationsVisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
-  bool AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
   void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
                                     bool visible);
 
@@ -596,7 +593,6 @@ private:
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
   bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
-  void ClearCategories();
 
   void MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
   void UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm);
@@ -658,7 +654,6 @@ private:
   template <typename UniquityChecker>
   void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
   bool CheckVisibility(bool isVisible) const;
-  bool CheckCompilationsVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool isVisible) const;
 
   struct SortBookmarkData
   {
@@ -722,7 +717,6 @@ private:
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
   void SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt, double distance);
   void DeleteTrackSelectionMark(kml::TrackId trackId);
-  void SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt);
   void ResetTrackInfoMark(kml::TrackId trackId);
 
   void UpdateTrackMarksMinZoom();

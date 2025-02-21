@@ -136,6 +136,20 @@ std::string MapObject::GetLocalizedAllTypes(bool withMainType) const
   return oss.str();
 }
 
+std::string MapObject::GetAllReadableTypes() const
+{
+  ASSERT(!m_types.Empty(), ());
+  feature::TypesHolder copy(m_types);
+  copy.SortBySpec();
+
+  std::ostringstream oss;
+
+  for (auto const type : copy)
+    oss << classif().GetReadableObjectName(type) << feature::kFieldsSeparator;
+  
+  return oss.str();
+}
+
 std::string_view MapObject::GetMetadata(MetadataID type) const
 {
   return m_metadata.Get(type);
