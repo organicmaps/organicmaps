@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.floatingactionbutton.FloatingActionButton
+<FrameLayout android:id="@+id/help_button_container"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/help_button"
-  style="@style/MwmWidget.MapButton.Square"
-  android:contentDescription="@string/help"
-  app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-  app:srcCompat="@drawable/ic_question_mark" />
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:clickable="true"
+  android:focusable="true"
+  android:padding="13dp">
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/help_button"
+    style="@style/MwmWidget.MapButton.Square"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:contentDescription="@string/help"
+    app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
+    app:srcCompat="@drawable/ic_question_mark" />
+</FrameLayout>

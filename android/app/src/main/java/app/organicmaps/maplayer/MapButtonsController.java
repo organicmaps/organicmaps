@@ -90,6 +90,7 @@ public class MapButtonsController extends Fragment
     mInnerRightButtonsFrame = mFrame.findViewById(R.id.map_buttons_inner_right);
     mBottomButtonsFrame = mFrame.findViewById(R.id.map_buttons_bottom);
 
+    final View helpButtonContainer = mFrame.findViewById(R.id.help_button_container);
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
     {
@@ -107,22 +108,30 @@ public class MapButtonsController extends Fragment
           .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
     mFrame.findViewById(R.id.nav_zoom_out)
           .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut));
+    final View bookmarksButtonContainer = mFrame.findViewById(R.id.bookmarks_button_container);
     final View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
     bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.bookmarks));
+    bookmarksButtonContainer.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.bookmarks));
+
     final View myPosition = mFrame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.myPosition));
 
     // Some buttons do not exist in navigation mode
+    final View layersButtonContainer = mFrame.findViewById(R.id.layers_button_container);
     mToggleMapLayerButton = mFrame.findViewById(R.id.layers_button);
     if (mToggleMapLayerButton != null)
     {
       mToggleMapLayerButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
+      layersButtonContainer.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
       mToggleMapLayerButton.setVisibility(View.VISIBLE);
     }
+
+    final View menuButtonContainer = mFrame.findViewById(R.id.menu_button_container);
     final View menuButton = mFrame.findViewById(R.id.menu_button);
     if (menuButton != null)
     {
       menuButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.menu));
+      menuButtonContainer.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.menu));
       // This hack is needed to show the badge on the initial startup. For some reason, updateMenuBadge does not work from onResume() there.
       menuButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
@@ -134,13 +143,19 @@ public class MapButtonsController extends Fragment
       });
     }
     if (helpButton != null)
+    {
       helpButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.help));
-
+      helpButtonContainer.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.help));
+    }
     mSearchWheel = new SearchWheel(mFrame,
                                    (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.search),
                                    (v) -> mMapButtonClickListener.onSearchCanceled(),
                                    mMapButtonsViewModel);
-    final View searchButton = mFrame.findViewById(R.id.btn_search);
+
+    final View searchButtonContainer = mFrame.findViewById(R.id.search_button_container);
+    final View searchButton = mFrame.findViewById(R.id.btn_search); // no on click listner for seearch button ?
+    searchButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.search));
+    searchButtonContainer.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.search));
 
     // Used to get the maximum height the buttons will evolve in
     mFrame.addOnLayoutChangeListener(new MapButtonsController.ContentViewLayoutChangeListener(mFrame));

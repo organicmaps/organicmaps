@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.floatingactionbutton.FloatingActionButton
+<FrameLayout android:id="@+id/search_button_container"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/btn_search"
-  style="@style/MwmWidget.MapButton.Square"
-  app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
-  android:contentDescription="@string/search"
-  app:srcCompat="@drawable/ic_search" />
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:clickable="true"
+  android:focusable="true"
+  android:padding="13dp">
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/btn_search"
+    style="@style/MwmWidget.MapButton.Square"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:contentDescription="@string/search"
+    app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
+    app:srcCompat="@drawable/ic_search" />
+</FrameLayout>
