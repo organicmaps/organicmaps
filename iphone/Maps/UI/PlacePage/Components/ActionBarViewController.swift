@@ -82,11 +82,11 @@ final class ActionBarViewController: UIViewController {
 
   private func configButton2() {
     var buttons: [ActionBarButtonType] = []
+    if canAddStop {
+      buttons.append(.routeAddStop)
+    }
     switch placePageData.objectType {
     case .POI, .bookmark:
-      if canAddStop {
-        buttons.append(.routeAddStop)
-      }
       buttons.append(.bookmark)
     case .track:
       buttons.append(.track)
