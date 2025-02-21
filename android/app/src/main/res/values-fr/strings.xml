@@ -29,6 +29,10 @@
     <string name="search_map">Rechercher sur la carte</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Précision limitée</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Pour garantir une navigation précise, activez l\'option Localisation précise dans les paramètres.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Voir sur la carte</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

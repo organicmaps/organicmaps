@@ -91,7 +91,7 @@ public class SplashActivity extends AppCompatActivity
     super.onResume();
     if (mCanceled)
       return;
-    if (!Config.isLocationRequested() && !LocationUtils.checkCoarseLocationPermission(this))
+    if (!Config.isLocationRequested() && !LocationUtils.checkLocationPermission(this))
     {
       Logger.d(TAG, "Requesting location permissions");
       mPermissionRequest.launch(new String[]{

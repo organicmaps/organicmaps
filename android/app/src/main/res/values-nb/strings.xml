@@ -28,6 +28,10 @@
     <string name="search_map">Søk kart</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Begrenset nøyaktighet</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">For å sikre nøyaktig navigering aktiverer du Precise Location i innstillingene.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Vis på kartet</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
