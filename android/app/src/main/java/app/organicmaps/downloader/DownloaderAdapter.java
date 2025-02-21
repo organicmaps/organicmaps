@@ -150,6 +150,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       ((MwmActivity) adapter.mActivity).closePlacePage();
     }
     deleteNode(item);
+    refreshData();
   }
 
   private record PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
@@ -204,14 +205,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         }
       }
 
-      if (mSearchResultsMode)
+      for (MapManager.StorageCallbackData item : data)
       {
-        for (MapManager.StorageCallbackData item : data)
-          updateItem(item.countryId);
-      }
-      else
-      {
-        refreshData();
+        updateItem(item.countryId);
       }
     }
 
