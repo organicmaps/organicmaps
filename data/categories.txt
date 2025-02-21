@@ -15822,8 +15822,8 @@ mr: आपत्कालीन जीवरक्षक
 nb: Nødredder
 nl: Noodstrandwacht
 pl: Ratownik awaryjny
-pt: Salva-vidas de emergência
-pt-BR: Salva-vidas de emergência
+pt: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
+pt-BR: Salva-vidas|Guarda-vidas|Nadador-salvador|Socorrista
 ro: Salvamar de urgență
 ru: Спасатель-экстренщик | Спасатель
 sk: Záchranár v núdzi

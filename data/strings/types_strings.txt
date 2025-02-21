@@ -11936,6 +11936,7 @@
     nl = Strandwacht
     pl = Ratownik
     pt = Nadador-salvador
+    pt-BR = Salva-vidas
     ro = Salvamar
     ru = Спасатель
     sk = Plavčík
@@ -19153,6 +19154,7 @@
     nl = Gasfakkel
     pl = Pochodnia gazowa
     pt = Tocha de gás
+    pt-BR = Flare
     ro = Torță de gaz
     ru = Газовый факел
     sk = Plynový pochod
