@@ -134,8 +134,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   self.navigationInfoView = nil;
   _navigationControlView.isVisible = NO;
   _navigationControlView = nil;
-  [_baseRoutePreviewStatus hide];
-  _baseRoutePreviewStatus = nil;
+  [self.baseRoutePreviewStatus hide];
   [_transportRoutePreviewStatus hide];
   _transportRoutePreviewStatus = nil;
 }
@@ -147,7 +146,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   [routePreview statePrepare];
   [routePreview selectRouter:[MWMRouter type]];
   [self updateGoButtonTitle];
-  [_baseRoutePreviewStatus hide];
+  [self.baseRoutePreviewStatus hide];
   [_transportRoutePreviewStatus hide];
   for (MWMRouteStartButton *button in self.goButtons)
     [button statePrepare];
@@ -204,8 +203,7 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
   self.navigationControlView.isVisible = YES;
-  [_baseRoutePreviewStatus hide];
-  _baseRoutePreviewStatus = nil;
+  [self.baseRoutePreviewStatus hide];
   [_transportRoutePreviewStatus hide];
   _transportRoutePreviewStatus = nil;
   [self onNavigationInfoUpdated];
