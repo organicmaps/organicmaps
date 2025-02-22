@@ -49,6 +49,7 @@ public class StringUtils
   public static native boolean nativeContainsNormalized(String str, String substr);
   public static native String[] nativeFilterContainsNormalized(String[] strings, String substr);
 
+  public static native int nativeFormatSpeed(double metersPerSecond);
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native Distance nativeFormatDistance(double meters);
   @NonNull

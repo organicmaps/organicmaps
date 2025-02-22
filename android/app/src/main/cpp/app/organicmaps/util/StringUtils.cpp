@@ -49,6 +49,12 @@ Java_app_organicmaps_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * en
   return jni::ToJavaStringArray(env, filtered);
 }
 
+JNIEXPORT jint JNICALL Java_app_organicmaps_util_StringUtils_nativeFormatSpeed(
+    JNIEnv * env, jclass thiz, jdouble metersPerSecond)
+{
+  return measurement_utils::FormatSpeed(metersPerSecond, measurement_utils::GetMeasurementUnits());
+}
+
 JNIEXPORT jobject JNICALL Java_app_organicmaps_util_StringUtils_nativeFormatSpeedAndUnits(
     JNIEnv * env, jclass thiz, jdouble metersPerSecond)
 {

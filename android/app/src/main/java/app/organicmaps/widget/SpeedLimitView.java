@@ -8,16 +8,14 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Pair;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import app.organicmaps.R;
-import app.organicmaps.util.StringUtils;
 
 public class SpeedLimitView extends View
 {
@@ -25,6 +23,10 @@ public class SpeedLimitView extends View
   {
     @ColorInt
     int BACKGROUND_COLOR = Color.WHITE;
+    @ColorInt
+    int BORDER_COLOR = Color.RED;
+    @ColorInt
+    int ALERT_COLOR = Color.RED;
     @ColorInt
     int TEXT_COLOR = Color.BLACK;
     @ColorInt
@@ -61,29 +63,28 @@ public class SpeedLimitView extends View
   private float mBorderRadius;
   private float mBorderWidth;
 
-  private double mSpeedLimitMps;
-  @Nullable
-  private String mSpeedLimitStr;
-
-  private double mCurrentSpeed;
+  private int mSpeedLimit = 0;
+  @NonNull
+  private String mSpeedLimitStr = "0";
+  private boolean mAlert = false;
 
   public SpeedLimitView(Context context, @Nullable AttributeSet attrs)
   {
     super(context, attrs);
 
     try (TypedArray data = context.getTheme()
-                                  .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
+        .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
-      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_BackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mBorderColor = data.getColor(R.styleable.SpeedLimitView_borderColor, ContextCompat.getColor(context, R.color.base_red));
-      mAlertColor = data.getColor(R.styleable.SpeedLimitView_alertColor, ContextCompat.getColor(context, R.color.base_red));
-      mTextColor = data.getColor(R.styleable.SpeedLimitView_textColor, DefaultValues.TEXT_COLOR);
-      mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_textAlertColor, DefaultValues.TEXT_ALERT_COLOR);
+      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
+      mBorderColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor, DefaultValues.BORDER_COLOR);
+      mAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor, DefaultValues.ALERT_COLOR);
+      mTextColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextColor, DefaultValues.TEXT_COLOR);
+      mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
       if (isInEditMode())
       {
-        mSpeedLimitMps = data.getInt(R.styleable.SpeedLimitView_editModeSpeedLimit, -1);
-        mSpeedLimitStr = mSpeedLimitMps > 0 ? String.valueOf(((int) mSpeedLimitMps)) : null;
-        mCurrentSpeed = data.getInt(R.styleable.SpeedLimitView_editModeCurrentSpeed, -1);
+        mSpeedLimit = data.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
+        mSpeedLimitStr = Integer.toString(mSpeedLimit);
+        mAlert = data.getBoolean(R.styleable.SpeedLimitView_speedLimitEditModeAlert, false);
       }
     }
 
@@ -101,29 +102,19 @@ public class SpeedLimitView extends View
     mTextPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
   }
 
-  public void setSpeedLimitMps(final double speedLimitMps)
+  public void setSpeedLimit(final int speedLimit, boolean alert)
   {
-    if (mSpeedLimitMps == speedLimitMps)
-      return;
+    final boolean speedLimitChanged = mSpeedLimit != speedLimit;
 
-    mSpeedLimitMps = speedLimitMps;
-    if (mSpeedLimitMps <= 0)
+    mSpeedLimit = speedLimit;
+    mAlert = alert;
+
+    if (speedLimitChanged)
     {
-      mSpeedLimitStr = null;
-      setVisibility(GONE);
-      return;
+      mSpeedLimitStr = Integer.toString(mSpeedLimit);
+      configureTextSize();
     }
 
-    final Pair<String, String> speedLimitAndUnits = StringUtils.nativeFormatSpeedAndUnits(mSpeedLimitMps);
-    setVisibility(VISIBLE);
-    mSpeedLimitStr = speedLimitAndUnits.first;
-    configureTextSize();
-    invalidate();
-  }
-
-  public void setCurrentSpeed(final double currentSpeed)
-  {
-    mCurrentSpeed = currentSpeed;
     invalidate();
   }
 
@@ -132,13 +123,15 @@ public class SpeedLimitView extends View
   {
     super.onDraw(canvas);
 
-    final boolean alert = mCurrentSpeed > mSpeedLimitMps && mSpeedLimitMps > 0;
+    final boolean validSpeedLimit = mSpeedLimit > 0;
+    if (!validSpeedLimit)
+      return;
 
     final float cx = mWidth / 2;
     final float cy = mHeight / 2;
 
-    drawSign(canvas, cx, cy, alert);
-    drawText(canvas, cx, cy, alert);
+    drawSign(canvas, cx, cy, mAlert);
+    drawText(canvas, cx, cy, mAlert);
   }
 
   private void drawSign(@NonNull Canvas canvas, float cx, float cy, boolean alert)
@@ -158,9 +151,6 @@ public class SpeedLimitView extends View
 
   private void drawText(@NonNull Canvas canvas, float cx, float cy, boolean alert)
   {
-    if (mSpeedLimitStr == null)
-      return;
-
     if (alert)
       mTextPaint.setColor(mTextAlertColor);
     else
@@ -170,6 +160,26 @@ public class SpeedLimitView extends View
     mTextPaint.getTextBounds(mSpeedLimitStr, 0, mSpeedLimitStr.length(), textBounds);
     final float textY = cy - textBounds.exactCenterY();
     canvas.drawText(mSpeedLimitStr, cx, textY, mTextPaint);
+  }
+
+  @Override
+  public boolean onTouchEvent(@NonNull MotionEvent event)
+  {
+    final float cx = mWidth / 2;
+    final float cy = mHeight / 2;
+    if (Math.pow(event.getX() - cx, 2) + Math.pow(event.getY() - cy, 2) <= Math.pow(mBackgroundRadius, 2))
+    {
+      performClick();
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean performClick()
+  {
+    super.performClick();
+    return false;
   }
 
   @Override
@@ -191,9 +201,6 @@ public class SpeedLimitView extends View
   // Apply binary search to determine the optimal text size that fits within the circular boundary.
   private void configureTextSize()
   {
-    if (mSpeedLimitStr == null)
-      return;
-
     final String text = mSpeedLimitStr;
     final float textRadius = mBorderRadius - mBorderWidth;
     final float textMaxSize = 2 * textRadius;

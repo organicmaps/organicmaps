@@ -16,6 +16,7 @@ import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.LanesView;
@@ -249,10 +250,10 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   {
     final Location location = LocationHelper.from(mFrame.getContext()).getSavedLocation();
     if (location == null) {
-      mSpeedLimit.setSpeedLimitMps(0);
+      mSpeedLimit.setSpeedLimit(0, false);
       return;
     }
-    mSpeedLimit.setCurrentSpeed(location.getSpeed());
-    mSpeedLimit.setSpeedLimitMps(info.speedLimitMps);
+    final boolean speedLimitExceeded = info.speedLimitMps < location.getSpeed();
+    mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
   }
 }
