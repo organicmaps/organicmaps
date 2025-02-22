@@ -1,0 +1,37 @@
+files:
+  - source: /android/app/src/main/res/values/strings.xml
+    translation: /android/app/src/main/res/values-%two_letters_code%/strings.xml
+    languages_mapping:
+      two_letters_code:
+        en-GB: en-rGB
+        es-ES: es
+        es-MX: es-rMX
+        fr-CA: fr-rCA
+        he: iw
+        id: in
+        pt-BR: pt-rBR
+        pt-PT: pt
+        zh-CN: zh
+        zh-TW: zh-rTW
+  - source: /iphone/Maps/LocalizedStrings/en.lproj/Localizable.strings
+    translation: /iphone/Maps/LocalizedStrings/%two_letters_code%.lproj/Localizable.strings
+    languages_mapping:
+      two_letters_code:
+        es-ES: es
+        pt-BR: pt-BR
+        pt-PT: pt
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+  - source: /iphone/Maps/LocalizedStrings/en.lproj/Localizable.stringsdict
+    translation: /iphone/Maps/LocalizedStrings/%two_letters_code%.lproj/Localizable.stringsdict
+    languages_mapping:
+      two_letters_code:
+        es-ES: es
+        pt-BR: pt-BR
+        pt-PT: pt
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+  - source: /data/sound-strings/en.json/localize.json
+    translation: /data/sound-strings/%two_letters_code%.json/localize.json
+  - source: /data/countries-strings/en.json/localize.json
+    translation: /data/countries-strings/%two_letters_code%.json/localize.json
