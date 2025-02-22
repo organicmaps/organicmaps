@@ -33,6 +33,8 @@ inline double constexpr KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 double ToSpeedKmPH(double speed, Units units);
 double MpsToUnits(double mps, Units units);
 
+/// @return Speed value in km/h for Metric and in mph for Imperial.
+int FormatSpeed(double metersPerSecond, Units units);
 /// @return Speed value string (without suffix) in km/h for Metric and in mph for Imperial.
 std::string FormatSpeedNumeric(double metersPerSecond, Units units);
 

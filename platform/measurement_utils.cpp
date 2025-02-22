@@ -199,11 +199,14 @@ double MpsToUnits(double metersPerSecond, Units units)
   UNREACHABLE();
 }
 
+int FormatSpeed(double metersPerSecond, Units units)
+{
+  return static_cast<int>(std::round(MpsToUnits(metersPerSecond, units)));
+}
+
 std::string FormatSpeedNumeric(double metersPerSecond, Units units)
 {
-  double const unitsPerHour = MpsToUnits(metersPerSecond, units);
-  double roundedValue = std::round(unitsPerHour);
-  return std::to_string(static_cast<int>(roundedValue));
+  return std::to_string(FormatSpeed(metersPerSecond, units));
 }
 
 std::string FormatOsmLink(double lat, double lon, int zoom)
