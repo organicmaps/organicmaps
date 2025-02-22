@@ -27336,7 +27336,7 @@
     hu = Rendezd…
     id = Urutkan…
     it = Ordina…
-    ja = 並び替え中…
+    ja = 並べ替え…
     ko = 분류…
     lt = Rikiuoti…
     lv = Kārtot…
@@ -27384,7 +27384,7 @@
     hu = Könyvelzők rendezése
     id = Urutkan bookmark
     it = Ordina i preferiti
-    ja = ブックマークの並び替え
+    ja = ブックマークの並べ替え
     ko = 북마크 분류하기
     lt = Rikiuoti adresyną
     lv = Kārtot grāmatzīmes
@@ -27431,7 +27431,7 @@
     hu = Alapértelmezés szerint
     id = Urutkan standar
     it = Ordina come predefinito
-    ja = デフォルトで並び替え
+    ja = デフォルトで並べ替え
     ko = 기본 값으로 분류
     lt = Rikiuoti numatytai
     lv = Kārtot pēc noklusējuma
@@ -27477,7 +27477,7 @@
     hu = Típus szerint
     id = Urutkan per tipe
     it = Ordina per tipo
-    ja = タイプで並び替え
+    ja = タイプで並べ替え
     ko = 유형으로 분류
     lt = Rikiuoti pagal rūšį
     lv = Kārtot pēc tipa
@@ -27523,7 +27523,7 @@
     hu = Távolság szerint
     id = Urutkan per jarak
     it = Ordina per distanza
-    ja = 距離で並び替え
+    ja = 距離で並べ替え
     ko = 거리로 분류
     lt = Rikiuoti pagal atstumą
     lv = Kārtot pēc attāluma
@@ -27569,7 +27569,7 @@
     hu = Dátum szerint
     id = Urutkan per tanggal
     it = Ordina per data
-    ja = 日付で並び替え
+    ja = 日付で並べ替え
     ko = 날짜로 분류
     lt = Rikiuoti pagal datą
     lv = Kārtot pēc datuma
@@ -27616,7 +27616,7 @@
     hu = Rendezés név szerint
     id = Urutkan berdasarkan nama
     it = Ordina per nome
-    ja = 名前でソートする
+    ja = 名前で並べ替え
     ko = 이름별로 정렬
     lt = Rūšiuoti pagal pavadinimą
     lv = Kārtot pēc nosaukuma
