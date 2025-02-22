@@ -7,9 +7,6 @@
 [submodule "3party/protobuf/protobuf"]
   path = 3party/protobuf/protobuf
   url = https://github.com/organicmaps/protobuf.git
-[submodule "tools/twine"]
-  path = tools/twine
-  url = https://github.com/organicmaps/twine.git
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
