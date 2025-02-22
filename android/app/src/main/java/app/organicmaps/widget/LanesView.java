@@ -59,14 +59,14 @@ public class LanesView extends View
 
     try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LanesView, 0, 0))
     {
-      backgroundColor = getAttrColor(data, R.styleable.LanesView_backgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mActiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_activeLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
-      mInactiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_inactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
-      mCornerRadius = (int) Math.max(data.getDimension(R.styleable.LanesView_cornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
+      backgroundColor = getAttrColor(data, R.styleable.LanesView_lanesBackgroundColor, DefaultValues.BACKGROUND_COLOR);
+      mActiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesActiveLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
+      mInactiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesInactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
+      mCornerRadius = (int) Math.max(data.getDimension(R.styleable.LanesView_lanesCornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
 
       if (isInEditMode())
       {
-        final int lanesCount = Math.max(1, data.getInt(R.styleable.LanesView_editModeLanesCount, DefaultValues.LANES_COUNT));
+        final int lanesCount = Math.max(1, data.getInt(R.styleable.LanesView_lanesEditModeLanesCount, DefaultValues.LANES_COUNT));
         createLanesForEditMode(lanesCount);
       }
     }
