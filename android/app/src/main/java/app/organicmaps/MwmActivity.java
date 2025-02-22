@@ -2319,15 +2319,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mAlertDialog = new StackedButtonsDialog.Builder(this)
         .setTitle(R.string.track_recording_alert_title)
         .setCancelable(false)
-        // Negative/Positive/Neutral doesn't do not have the usual meaning here.
-        .setPositiveButton(R.string.continue_recording, (dialog, which) -> {
+        // Negative/Positive/Neutral do not have their usual meaning here.
+        .setNegativeButton(R.string.continue_recording, (dialog, which) -> {
           mAlertDialog = null;
         })
         .setNeutralButton(R.string.stop_without_saving, (dialog, which) -> {
           stopTrackRecording();
           mAlertDialog = null;
         })
-        .setNegativeButton(R.string.save, (dialog, which) -> {
+        .setPositiveButton(R.string.save, (dialog, which) -> {
           saveAndStopTrackRecording();
           mAlertDialog = null;
         })
