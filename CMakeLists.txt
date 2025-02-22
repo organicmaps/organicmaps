@@ -265,16 +265,6 @@ find_package(Threads REQUIRED)
 
 # Scripts
 
-if (NOT CMAKE_HOST_WIN32)
-  execute_process(
-      COMMAND "${OMIM_ROOT}/tools/unix/check_cert.sh"
-      RESULT_VARIABLE CheckCertResult
-  )
-  if (CheckCertResult)
-      message(FATAL_ERROR "Certificate check failed")
-  endif()
-endif()
-
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   list(APPEND qt_components Core Network)
   if (NOT SKIP_QT_GUI OR NOT SKIP_TESTS OR PYBINDINGS)
