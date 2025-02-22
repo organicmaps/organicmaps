@@ -117,20 +117,19 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
       app:layout_constraintTop_toBottomOf="@id/street_frame"
-      app:activeLaneTintColor="?navLaneArrowActiveColor"
-      app:inactiveLaneTintColor="?navLaneArrowInactiveColor"
-      app:backgroundColor="?navLanesBackgroundColor"
-      app:cornerRadius="@dimen/margin_quarter"
-      app:editModeLanesCount="5"
+      app:lanesActiveLaneTintColor="?navLaneArrowActiveColor"
+      app:lanesInactiveLaneTintColor="?navLaneArrowInactiveColor"
+      app:lanesBackgroundColor="?navLanesBackgroundColor"
+      app:lanesCornerRadius="@dimen/margin_quarter"
+      app:lanesEditModeLanesCount="5"
       tools:visibility="visible" />
 
   <app.organicmaps.widget.SpeedLimitView
     android:id="@+id/nav_speed_limit"
+    style="@style/MwmWidget.SpeedLimit"
     android:layout_width="60dp"
     android:layout_height="60dp"
     android:layout_margin="@dimen/margin_half"
-    app:editModeCurrentSpeed="90"
-    app:editModeSpeedLimit="120"
     app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
     app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
     app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container" />
