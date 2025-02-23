@@ -22581,7 +22581,9 @@
     mr:other = %d खूणपत्रे
     nb = %d bokmerker
     nl = %d bladwijzers
-    pl = Zakładki: %d
+    pl:few = %d zakładki
+    pl:one = %d zakładka
+    pl:other = %d zakładek
     pt-BR:one = %d favorito
     pt-BR:other = %d favoritos
     pt:one = %d favorito
@@ -23830,9 +23832,8 @@
     nb = %d stier
     nl = %d tracks
     pl:few = %d trasy
-    pl:many = %d tras
     pl:one = %d trasa
-    pl:other = %d trasy
+    pl:other = %d tras
     pt-BR:one = %d trilha
     pt-BR:other = %d trilhas
     pt:one = %d trajeto
@@ -23850,7 +23851,9 @@
     sw = Njia %d
     th = %d ติดตามต่าง ๆ
     tr = %d rota
-    uk = %d треків
+    uk:few = %d треки
+    uk:one = %d трек
+    uk:other = %d треків
     vi = %d các chặn đường
     zh-Hans = %d 个轨迹
     zh-Hant = %d 個軌跡

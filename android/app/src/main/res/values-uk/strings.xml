@@ -666,6 +666,8 @@
     </plurals>
     <string name="restore">Відновити</string>
     <plurals name="tracks">
+        <item quantity="one">%d трек</item>
+        <item quantity="few">%d треки</item>
         <item quantity="other">%d треків</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

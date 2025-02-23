@@ -637,7 +637,9 @@
     <string name="bookmark_lists_hide_all">Ukryj wszystkie</string>
     <string name="bookmark_lists_show_all">Pokaż wszystkie</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">Zakładki: %d</item>
+        <item quantity="one">%d zakładka</item>
+        <item quantity="few">%d zakładki</item>
+        <item quantity="other">%d zakładek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Utwórz nową listę</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -662,8 +664,7 @@
     <plurals name="tracks">
         <item quantity="one">%d trasa</item>
         <item quantity="few">%d trasy</item>
-        <item quantity="many">%d tras</item>
-        <item quantity="other">%d trasy</item>
+        <item quantity="other">%d tras</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Prywatność</string>
