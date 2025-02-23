@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
 "dialog_routing_disclaimer_priority" = "— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;";
 "dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";

@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "خاکستری کبود";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:";
 "dialog_routing_disclaimer_priority" = "—شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;";
 "dialog_routing_disclaimer_precision" = "—نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;";

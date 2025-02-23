@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gråblå";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Husk følgende når du følger ruten:";
 "dialog_routing_disclaimer_priority" = "– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;";
 "dialog_routing_disclaimer_precision" = "– Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;";

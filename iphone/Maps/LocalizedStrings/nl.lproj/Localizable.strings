@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Grijsblauw";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
 "dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
 "dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
