@@ -16,6 +16,8 @@
 			<string>%d мітка</string>
 			<key>few</key>
 			<string>%d мітки</string>
+			<key>many</key>
+			<string>%d міток</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
