@@ -158,7 +158,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Tere!\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Maps-iga!";
+"share_bookmarks_email_body" = "Tere! \n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!";
 
 /* message title of loading file */
 "load_kmz_title" = "Järjehoidjate laadimine";
@@ -314,7 +314,7 @@
 "pref_calibration_title" = "Kompassi kalibreerimine";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.";
+"long_tap_toast" = "Kasutajaliidese nägemiseks vajuta kaarti pikalt";
 
 /* Update all button text */
 "downloader_update_all_button" = "Värskenda kõik";
@@ -580,7 +580,7 @@
 "message_invalid_feature_position" = "Ükski objekt ei saa siin asuda";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
+"osm_presentation" = "Kogukonna loodud OpenStreetMapi andmed seisuga %@. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist";
 "login_to_make_edits_visible" = "Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.";
 
 /* Error dialog no space */
@@ -763,7 +763,7 @@
 "downloader_hide_screen" = "Peida vaade";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "Allalaadimine %@…";
-"downloader_applying" = "%@ rakendamine";
+"downloader_applying" = "Võtame %@ kasutusele…";
 "bookmarks_error_message_share_general" = "Rakenduse vea tõttu ei saanud jagada";
 "bookmarks_error_title_share_empty" = "Jagamise viga";
 "bookmarks_error_message_share_empty" = "Tühja loetelu ei saa jagada";
@@ -801,7 +801,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Ära kunagi hoiata eest";
 "power_managment_title" = "Energiasäästlik režiim";
-"power_managment_description" = "Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama";
+"power_managment_description" = "Proovi funktsionaalsuse vähendamise arvel vähendada aku voolutarbimist.";
 "power_managment_setting_never" = "Mitte kunagi";
 "power_managment_setting_auto" = "Automaatne";
 "power_managment_setting_manual_max" = "Maksimaalne energiasääst";
@@ -1043,10 +1043,10 @@
 "icloud_synchronization_error_alert_title" = "iCloudi sünkroniseerimise tõrge";
 
 /* iCloud error message: Failed to synchronize due to connection error */
-"icloud_synchronization_error_connection_error" = "Viga: Sünkroniseerimine ebaõnnestus ühenduse vea tõttu.";
+"icloud_synchronization_error_connection_error" = "Viga: Sünkroniseerimine ei õnnestunud võrguühenduse vea tõttu";
 
 /* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
-"icloud_synchronization_error_quota_exceeded" = "Viga: iCloudi kvoodi ületamise tõttu ei õnnestunud sünkroniseerimine.";
+"icloud_synchronization_error_quota_exceeded" = "Viga: sünkroniseerimine ei õnnestunud iCloudi kvoodi ületamise tõttu";
 
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Viga: iCloud ei ole saadaval";
