@@ -34,6 +34,8 @@
 			<string>%d файл був знайдений. Ви побачите його після перетворення.</string>
 			<key>few</key>
 			<string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
+			<key>many</key>
+			<string>%d файлів було знайдено. Ви побачите їх після конвертації.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
@@ -46,8 +48,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>zero</key>
-			<string>%d треків</string>
+			<key>one</key>
+			<string>%d трек</string>
+			<key>few</key>
+			<string>%d треки</string>
 			<key>many</key>
 			<string>%d треків</string>
 		</dict>
