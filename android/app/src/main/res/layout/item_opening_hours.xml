@@ -17,8 +17,9 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginTop="@dimen/margin_base"
-    app:srcCompat="@drawable/ic_operating_hours" />
-
+    app:srcCompat="@drawable/ic_operating_hours"
+    app:tint="?iconTint" />
+  
   <LinearLayout
     android:id="@+id/empty_opening_hours"
     android:layout_width="match_parent"
