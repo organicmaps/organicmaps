@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.DownloaderActivity;
@@ -57,19 +58,12 @@ public class SplashActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
+    SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+    splashScreen.setKeepOnScreenCondition(() -> true);
     super.onCreate(savedInstanceState);
 
-    final Context context = getApplicationContext();
-    final String theme = Config.getCurrentUiTheme(context);
-    if (ThemeUtils.isDefaultTheme(context, theme))
-      setTheme(R.style.MwmTheme_Splash);
-    else if (ThemeUtils.isNightTheme(context, theme))
-      setTheme(R.style.MwmTheme_Night_Splash);
-    else
-      throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    setContentView(R.layout.activity_splash);
+
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());
     mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
