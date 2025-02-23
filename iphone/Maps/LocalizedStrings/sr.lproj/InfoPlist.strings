@@ -9,7 +9,7 @@
 "route" = "Путања";
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Откривање локације у позадини потребно је у потпуности уживати у функционалности апликације. Користи се за навигацију и чување недавно пређене стазе.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Одређивање ваше локације потребно је за навигацију и за снимање трасе.";
