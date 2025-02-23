@@ -8,10 +8,6 @@
 /* Used in home screen quick actions. */
 "route" = "Ruta";
 
-
-/********** gps strings **********/
-
-
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "La detecció de la ubicació en segon pla és necessària per gaudir plenament de la funcionalitat de l'aplicació. S'utilitza per a la navegació i desar la ruta feta recentment.";
 

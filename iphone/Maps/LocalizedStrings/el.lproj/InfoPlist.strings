@@ -8,10 +8,6 @@
 /* Used in home screen quick actions. */
 "route" = "Διαδρομή";
 
-
-/********** gps strings **********/
-
-
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Ο εντοπισμός τοποθεσίας στο παρασκήνιο είναι απαραίτητος για να απολαύσετε πλήρως τη λειτουργικότητα της εφαρμογής. Χρησιμοποιείται για πλοήγηση και αποθήκευση του κομματιού που ταξιδέψατε πρόσφατα.";
 
