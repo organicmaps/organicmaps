@@ -1,5 +1,7 @@
 
+
 /********** Strings **********/
+
 
 /* Button text (should be short) */
 "cancel" = "キャンセル";
@@ -9,7 +11,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "削除";
-
 "download_maps" = "マップをダウンロード";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -56,9 +57,7 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• 高速、ミニマリスト、コミュニティによる開発";
-
 "close" = "閉じる";
-
 "download" = "ダウンロード";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -93,6 +92,7 @@
 
 
 /********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "食事場所";
@@ -209,11 +209,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "距離";
-
 "share_my_location" = "現在地を共有する";
-
 "prefs_group_route" = "ナビゲーション";
-
 "pref_zoom_title" = "ズームボタン";
 
 /* Settings «Map» category: «Appearance» title */
@@ -260,11 +257,8 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "その他";
-
 "pref_map_auto_zoom" = "自動ズーム";
-
 "placepage_distance" = "距離";
-
 "search_show_on_map" = "地図に表示";
 
 /* Text in menu */
@@ -299,11 +293,8 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "寄付して最高の地図を一緒に作ろう！";
-
 "already_donated" = "寄付済み";
-
 "remind_me_later" = "後でリマインド";
-
 "support_organic_maps" = "Organic Maps を支援";
 
 /* Button in the main Help dialog */
@@ -344,16 +335,12 @@
 
 /* Country queued for download */
 "downloader_queued" = "キューに追加済み";
-
 "downloader_near_me_subtitle" = "現在地付近";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "地図";
-
 "downloader_download_all_button" = "全てをダウンロード";
-
 "downloader_downloading" = "ダウンロード中：";
-
 "downloader_search_results" = "見つかりました";
 
 /* Status of outdated country in the list */
@@ -385,9 +372,7 @@
 
 /* bookmark button text */
 "bookmark" = "お気に入り";
-
 "save" = "保存";
-
 "create" = "作成";
 
 /* red color */
@@ -442,63 +427,37 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "案内ルートに従う際は、以下の点にご留意ください：";
-
 "dialog_routing_disclaimer_priority" = "— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;";
-
 "dialog_routing_disclaimer_precision" = "— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;";
-
 "dialog_routing_disclaimer_recommendations" = "— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;";
-
 "dialog_routing_disclaimer_borders" = "— 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;";
-
 "dialog_routing_disclaimer_beware" = "よく注意して安全運転を心がけましょう！";
-
 "dialog_routing_check_gps" = "GPS信号をご確認ください";
-
 "dialog_routing_error_location_not_found" = "案内ルートを作成できません。現在のGPS座標が認識できません。";
-
 "dialog_routing_location_turn_wifi" = "GPS信号をご確認ください。Wi-Fiを有効にするとより正確な位置情報を取得できます。";
-
 "dialog_routing_location_turn_on" = "位置情報サービスを有効にしてください";
-
 "dialog_routing_location_unknown_turn_on" = "現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。";
-
 "dialog_routing_download_files" = "必要なファイルをダウンロード";
-
 "dialog_routing_download_and_update_all" = "案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロードまたはアップデートしてください。";
-
 "dialog_routing_unable_locate_route" = "ルートの位置を確認できません";
-
 "dialog_routing_change_start_or_end" = "出発地または目的地を調整してください。";
-
 "dialog_routing_change_start" = "出発地を調整";
-
 "dialog_routing_start_not_determined" = "案内ルートを作成できません。出発地が確認できませんでした。";
-
 "dialog_routing_select_closer_start" = "道路に近い位置にある出発地を設定してください。";
-
 "dialog_routing_change_end" = "目的地を調整";
-
 "dialog_routing_end_not_determined" = "案内ルートを作成できません。目的地を確認できませんでした。";
-
 "dialog_routing_select_closer_end" = "道路に近い位置にある目的地を設定してください。";
-
 "dialog_routing_change_intermediate" = "中間地点を確認できませんでした。";
-
 "dialog_routing_intermediate_not_determined" = "中間地点を調整してください。";
-
 "dialog_routing_system_error" = "システムエラー";
-
 "dialog_routing_application_error" = "エラーにより案内ルートを作成できませんでした。";
-
 "dialog_routing_try_again" = "もう一度お試しください";
-
 "dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
-
 "dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
 
 
 /********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "表示する";
@@ -514,20 +473,14 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
-
 "categories" = "カテゴリー";
-
 "history" = "履歴";
-
 "search_not_found" = "該当するものは見つかりませんでした。";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "検索する地域をダウンロードするか、近隣の町村名を追加してみてください。";
-
 "search_history_title" = "検索履歴";
-
 "search_history_text" = "最近の検索を表示します。";
-
 "clear_search" = "検索履歴を消去";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -535,50 +488,29 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "ウィキメディア・コモンズ";
-
 "p2p_your_location" = "現在位置";
-
 "p2p_start" = "開始";
-
 "p2p_from_here" = "出発地";
-
 "p2p_to_here" = "目的地";
-
 "p2p_only_from_current" = "ナビゲーションは現在位置からのみ利用できます。";
-
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
-
 "editor_time_add" = "スケジュール追加";
-
 "editor_time_delete" = "スケジュール削除";
 
 /* Text for allday switch. */
 "editor_time_allday" = "終日 (24時間)";
-
 "editor_time_open" = "営業中";
-
 "editor_time_close" = "閉店";
-
 "editor_time_add_closed" = "閉店時間追加";
-
 "editor_time_title" = "営業時間";
-
 "editor_time_advanced" = "詳細モード";
-
 "editor_time_simple" = "シンプルモード";
-
 "editor_hours_closed" = "閉店時間";
-
 "editor_example_values" = "値の例";
-
 "editor_add_select_location" = "場所を選択";
-
 "editor_done_dialog_1" = "世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。";
-
 "share_with_friends" = "友達にシェア";
-
 "editor_report_problem_send_button" = "送信";
-
 "autodownload" = "自動ダウンロード";
 
 /* Place Page opening hours text */
@@ -586,154 +518,93 @@
 
 /* Place Page opening hours text */
 "daily" = "毎日";
-
 "twentyfour_seven" = "昼と夜";
-
 "day_off_today" = "本日終業";
-
 "day_off" = "終業";
-
 "today" = "今日は";
-
 "opens_tomorrow_at" = "明日の %@ から営業";
-
 "opens_dayoftheweek_at" = "%1$@ の %2$@ から営業";
-
 "opens_at" = "%@ から営業";
-
 "opens_in" = "あと %@ に営業";
-
 "closes_at" = "%@ に閉店";
-
 "closes_in" = "あと %@ に閉店";
-
 "closed" = "閉店";
-
 "add_opening_hours" = "営業時間を追加";
-
 "no_osm_account" = "OpenStreetMapのアカウントをお持ちではないですか？";
-
 "register_at_openstreetmap" = "OpenStreetMapのアカウントを登録";
-
 "password_8_chars_min" = "パスワード(最低8文字)";
-
 "invalid_username_or_password" = "ユーザー名またはパスワードが無効です。";
-
 "login" = "ログイン";
-
 "login_osm" = "OpenStreetMapにログイン";
-
 "forgot_password" = "パスワードをお忘れですか？";
-
 "osm_account" = "OSMアカウント";
-
 "logout" = "ログアウト";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "最終更新";
-
 "thank_you" = "ありがとうございます";
-
 "edit_place" = "場所を編集";
-
 "place_name" = "場所の名前";
-
 "add_language" = "言語を追加";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "番地";
-
 "details" = "詳細";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "通りを追加";
-
 "choose_language" = "言語を選択";
-
 "choose_street" = "通りを選択";
-
 "postal_code" = "郵便番号";
-
 "cuisine" = "料理";
-
 "select_cuisine" = "料理を選択";
 
 /* login text field */
 "email_or_username" = "メールアドレスまたはユーザー名";
-
 "phone" = "電話";
-
 "level" = "階";
-
 "please_note" = "ご注意ください";
-
 "downloader_delete_map_dialog" = "すべてのマップの変更はマップとともに削除されます。";
-
 "downloader_update_maps" = "地図を更新";
-
 "downloader_search_field_hint" = "地図を検索";
-
 "migration_download_error_dialog" = "ダウンロードエラー";
-
 "common_check_internet_connection_dialog" = "デバイスがインターネットに接続されているか確認してください。";
-
 "downloader_no_space_title" = "十分な空き容量がありません";
-
 "downloader_no_space_message" = "不要データを削除してください";
-
 "editor_profile_changes" = "確認された変更";
-
 "editor_focus_map_on_location" = "地図をドラッグして、場所や企業の場所に十字を配置します。";
-
 "editor_add_select_category" = "カテゴリを選択";
-
 "editor_add_select_category_popular_subtitle" = "人気";
-
 "editor_add_select_category_all_subtitle" = "全てのカテゴリ";
-
 "editor_edit_place_title" = "編集中";
-
 "editor_add_place_title" = "追加中";
-
 "editor_edit_place_name_hint" = "場所の名前";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "現地の言葉でこう書かれている。";
-
 "editor_edit_place_category_title" = "カテゴリ";
-
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
-
 "dialog_incorrect_feature_position" = "位置を変更してください";
-
 "message_invalid_feature_position" = "ここにはオブジェクトを配置できません";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "コミュニティが作成した%@時点の OpenStreetMap のデータ。地図の編集や更新の方法については、OpenStreetMap.org を参照してください。";
-
 "login_to_make_edits_visible" = "OpenStreetMapのアカウントを作成するかログインして、あなたの地図編集を世界中に公開しましょう。";
 
 /* Error dialog no space */
 "migration_no_space_message" = "ダウンロードするには空き容量が必要です。不要なデータを削除してください。";
-
 "editor_sharing_title" = "Organic Mapsの地図を改善しました";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$dのうち%1$d";
-
 "download_over_mobile_header" = "モバイル通信でダウンロードしますか？";
-
 "download_over_mobile_message" = "プランによって、またはローミングしている場合、非常に高額になる可能性があります。";
-
 "error_enter_correct_house_number" = "正しい番地を入力してください";
-
 "editor_storey_number" = "フロアの数（最大%d）";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "最高%d階までのビルを編集";
-
 "editor_zip_code" = "郵便番号";
-
 "error_enter_correct_zip_code" = "正しい郵便番号を入力してください";
 
 /* Place Page title for long tap */
@@ -741,47 +612,29 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMapボランティアへの注意（オプション）";
-
 "editor_detailed_description_hint" = "詳細コメント";
-
 "editor_detailed_description" = "提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。";
-
 "editor_more_about_osm" = "OpenStreetMapについての詳細";
-
 "editor_operator" = "オペレーター";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "オペレーター: %@";
-
 "editor_category_unsuitable_title" = "適切なカテゴリーが見つからない？";
-
 "editor_category_unsuitable_text" = "つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>のステップバイステップの詳細な手順をチェックする。";
-
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
-
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
-
 "current_location_unknown_error_title" = "現在地は不明です。";
-
 "current_location_unknown_error_message" = "現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。";
-
 "location_services_disabled_header" = "位置情報が無効になっています";
-
 "location_services_disabled_message" = "デバイスの設定で位置情報へのアクセスを有効にしてください";
-
 "location_services_disabled_1" = "1. 「設定」を開きます";
-
 "location_services_disabled_2" = "2. 「位置情報」をタップします";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. 「アプリの使用中」を選択してください";
-
 "location_services_disabled_on_device_2" = "2.プライバシーを選択する";
-
 "location_services_disabled_on_device_3" = "3.位置情報サービスを選択する";
-
 "location_services_disabled_on_device_4" = "4.位置情報サービスをオンにする";
-
 "location_services_disabled_on_device_additional_message" = "または、位置情報なしでオーガニック・マップを使い続ける";
 
 /* abbreviation for meters */
@@ -798,17 +651,11 @@
 
 /* A unit of measure */
 "ft" = "ft";
-
 "miles_per_hour" = "mph";
-
 "hour" = "時間";
-
 "minute" = "分";
-
 "day" = "日";
-
 "placepage_more_button" = "さらに詳しく";
-
 "book_button" = "予約";
 
 /* A referral link on the place page for some hotels */
@@ -822,42 +669,25 @@
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_disable_button" = "Kayakの無効化";
-
 "placepage_call_button" = "電話をかける";
-
 "placepage_edit_bookmark_button" = "ブックマークを編集";
-
 "placepage_bookmark_name_hint" = "ブックマーク名";
-
 "placepage_personal_notes_hint" = "パーソナルメモ（テキストまたはHTML）";
-
 "placepage_delete_bookmark_button" = "ブックマークを削除";
-
 "editor_edits_sent_message" = "あなたのメモはOpenStreetMapに送られる";
-
 "editor_comment_hint" = "コメント…";
-
 "editor_reset_edits_message" = "ローカル編集をすべてリセットしますか?";
-
 "editor_reset_edits_button" = "リセット";
-
 "editor_remove_place_message" = "追加された場所を削除しますか？";
-
 "editor_remove_place_button" = "削除";
-
 "editor_place_doesnt_exist" = "場所が存在しません";
-
 "text_more_button" = "…続き";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "正しい電話番号を入力してください";
-
 "error_enter_correct_web" = "有効なURLを入力してください";
-
 "error_enter_correct_email" = "有効なメールアドレスを入力してください";
-
 "refresh" = "更新";
-
 "placepage_add_place_button" = "OpenStreetMapに場所を追加する";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -865,21 +695,16 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "個人情報を入力していないことを確認してください。";
-
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。";
-
 "navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
-
 "off_recent_track_background_button" = "無効にする";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "ご覧ください";
-
 "recent_track_background_dialog_message" = "Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
-
 "general_settings" = "一般設定";
 
 /* For the first routing */
@@ -890,26 +715,17 @@
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "一覧";
-
 "mobile_data_dialog" = "モバイル通信を使用して詳細な情報を表示しますか？";
-
 "mobile_data_option_always" = "常に使用";
-
 "mobile_data_option_today" = "今日だけ";
-
 "mobile_data_option_not_today" = "今日は使用しない";
-
 "mobile_data" = "モバイル通信";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "モバイル通信は場所、写真、価格やレビューのような詳細情報を表示するのに必要です。";
-
 "mobile_data_option_never" = "使用しない";
-
 "mobile_data_option_ask" = "常に確認";
-
 "traffic_update_maps_text" = "交通データを表示するには、地図を更新する必要があります。";
-
 "big_font" = "地図上のフォントサイズを大きくする";
 
 /* "traffic" as in road congestion */
@@ -917,11 +733,8 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
-
 "enable_logging" = "ログを有効化";
-
 "log_file_size" = "ログファイルのサイズ: %@";
-
 "transliteration_title" = "ラテン文字への翻字";
 
 /* Subway exits for public transport marks on the map */
@@ -932,17 +745,11 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "検索を使うか、地図上をタップして目的地を追加する";
-
 "planning_route_manage_route" = "ルートを編集";
-
 "button_plan" = "プラン";
-
 "placepage_remove_stop" = "停留所を削除";
-
 "planning_route_remove_title" = "ここにドラッグして削除";
-
 "placepage_add_stop" = "中間地点を追加";
-
 "start_from_my_position" = "出発地";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -950,83 +757,47 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "こちら";
-
 "core_entrance" = "入口";
-
 "error_enter_correct_name" = "正しい名前を入力してください";
-
 "bookmark_lists" = "リスト";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "すべて非表示";
-
 "bookmark_lists_show_all" = "すべて表示";
-
 "bookmarks_create_new_group" = "新しいリストを作成する";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "ブックマークとトラックをインポートする";
-
 "downloader_hide_screen" = "画面を非表示";
-
 "downloader_percent" = "%@ (%@ / %@)";
-
 "downloader_process" = "%@ をダウンロードしています…";
-
 "downloader_applying" = "%@ を適用中です…";
-
 "bookmarks_error_message_share_general" = "エラーのため共有できません";
-
 "bookmarks_error_title_share_empty" = "共有エラー";
-
 "bookmarks_error_message_share_empty" = "空のリストは共有できません";
-
 "bookmarks_error_message_empty_list_name" = "リスト名を入力してください";
-
 "bookmarks_error_title_list_name_already_taken" = "この名前はすでに使用されています";
-
 "bookmarks_error_title_list_name_too_long" = "この名前は長すぎます";
-
 "profile" = "OpenStreetMap プロフィール";
-
 "bookmarks_detect_title" = "新しいファイルが検出されました";
-
 "button_convert" = "変換";
-
 "bookmarks_convert_error_title" = "エラー";
-
 "bookmarks_convert_error_message" = "一部のファイルは変換されませんでした。";
-
 "restore" = "復元";
-
 "privacy_policy" = "プライバシーポリシー";
-
 "terms_of_use" = "利用規約";
-
 "button_layer_subway" = "地下鉄";
-
 "layers_title" = "マップのスタイルとレイヤー";
-
 "subway_data_unavailable" = "地下鉄路線図はご利用いただけません";
-
 "title_error_downloading_bookmarks" = "エラーが発生しました";
-
 "popular_place" = "人気";
-
 "export_file" = "KMZをエクスポートする";
-
 "export_file_gpx" = "GPXをエクスポートする";
-
 "delete_list" = "リストを削除";
-
 "hide_from_map" = "マップから隠す";
-
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました発生しました。もう一度やり直してください";
-
 "download_button" = "ダウンロード";
-
 "speedcams_alert_title" = "自動速度違反取締装置";
-
 "place_description_title" = "場所の説明";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -1037,19 +808,12 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "自動速度違反取締装置を警告しません";
-
 "power_managment_title" = "電力節約モード";
-
 "power_managment_description" = "自動モードが選択されている場合、このアプリケーションは現在のバッテリーの充電状態に応じてバッテリー消費の激しい機能の無効化を開始します";
-
 "power_managment_setting_never" = "無効";
-
 "power_managment_setting_auto" = "自動";
-
 "power_managment_setting_manual_max" = "最大電力節約";
-
 "enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
-
 "driving_options_title" = "経路オプション";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -1060,33 +824,19 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "フェリーを利用しない";
-
 "avoid_motorways" = "高速道路を避ける";
-
 "unable_to_calc_alert_title" = "ルートを計算できません";
-
 "unable_to_calc_alert_subtitle" = "ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。";
-
 "define_to_avoid_btn" = "迂回ルートを設定する";
-
 "change_driving_options_btn" = "経路オプションは有効になっています";
-
 "toll_road" = "有料道路";
-
 "unpaved_road" = "未舗装道路";
-
 "ferry_crossing" = "フェリー";
-
 "trip_start" = "出発";
-
 "pick_destination" = "目的地";
-
 "follow_my_position" = "リセンター";
-
 "search_results" = "検索結果";
-
 "then_turn" = "その後";
-
 "redirect_route_alert" = "ルートを再計算しますか?";
 
 /* A generic "Yes" button in dialogs */
@@ -1106,39 +856,22 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "ネットワーク： %@";
-
 "trip_finished" = "到着しました!";
-
 "keyboard_availability_alert" = "運転中はキーボードを使用できません";
-
 "dialog_routing_change_start_carplay" = "現在位置からはルートを計算できません";
-
 "dialog_routing_change_end_carplay" = "目的地へのルートは計算できません。別の地点を選択してください";
-
 "dialog_routing_check_gps_carplay" = "GPS信号がありません。開けた場所へ移動してください";
-
 "dialog_routing_unable_locate_route_carplay" = "ルートが計算できません。別のルート地点を設定して下さい";
-
 "dialog_routing_download_files_carplay" = "ルートを作成するには、不足しているマップを端末でダウンロードしてください";
-
 "dialog_routing_system_error_carplay" = "エラーが発生しました。アプリを再起動してください";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "ルートは現在位置から再計算されます";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "車ルートに変更されます";
-
 "not_all_shown_bookmarks_carplay" = "すべてのブックマークが表示されるわけではない";
-
 "switch_to_phone_bookmarks_carplay" = "携帯電話に切り替えてすべてのブックマークを見る";
-
 "ok" = "OK";
-
 "speedcams_alert_title_carplay_1" = "速度警告";
-
 "speedcams_alert_title_carplay_2" = "速度警告";
-
 "download_map_carplay" = "端末のOrganic Mapsのアプリにマップをダウンロードしてください";
-
 "carplay_roundabout_exit" = "第%@出口";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1146,98 +879,54 @@
 
 /* iOS */
 "sort_default" = "デフォルトで並び替え";
-
 "sort_type" = "タイプで並び替え";
-
 "sort_distance" = "距離で並び替え";
-
 "sort_date" = "日付で並び替え";
-
 "sort_name" = "名前でソートする";
-
 "week_ago_sorttype" = "1週間前";
-
 "month_ago_sorttype" = "1ケ月前";
-
 "moremonth_ago_sorttype" = "1ケ月以上前";
-
 "moreyear_ago_sorttype" = "1年以上前";
-
 "near_me_sorttype" = "近隣";
-
 "others_sorttype" = "その他";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "食べ物";
-
 "tourist_places" = "観光地";
-
 "museums" = "博物館";
-
 "parks" = "公園";
-
 "swim_places" = "水泳";
-
 "mountains" = "山";
-
 "animals" = "動物";
-
 "hotels" = "ホテル";
-
 "buildings" = "ビル";
-
 "money" = "お金";
-
 "shops" = "ショップ";
-
 "parkings" = "駐車場";
-
 "fuel_places" = "ガソリンスタンド";
-
 "medicine" = "医薬品";
-
 "search_in_the_list" = "リスト内で検索";
-
 "religious_places" = "礼拝所";
-
 "transit_not_found" = "この地域の地下鉄ナビはまだ利用できません";
-
 "dialog_pedestrian_route_is_long_header" = "地下鉄ルートが見つかりませんでした";
-
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
-
 "button_layer_isolines" = "地形";
-
 "isolines_activation_error_dialog" = "地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください";
-
 "isolines_location_error_dialog" = "地形レイヤーはこの地域ではまだ利用できません";
-
 "elevation_profile_diff_level" = "難易度";
-
 "elevation_profile_diff_level_easy" = "簡単";
-
 "elevation_profile_diff_level_moderate" = "普通";
-
 "elevation_profile_diff_level_hard" = "困難";
-
 "elevation_profile_ascent" = "上昇";
-
 "elevation_profile_descent" = "下降";
-
 "elevation_profile_min_elevation" = "最小標高";
-
 "elevation_profile_max_elevation" = "最大標高";
-
 "elevation_profile_difficulty" = "難易度";
-
 "elevation_profile_time" = "時間：";
-
 "isolines_toast_zooms_1_10" = "等高線を調べるようにズームインしてください";
-
 "downloader_updating_ios" = "更新中";
-
 "downloader_loading_ios" = "ダウンロード中";
 
 /* Autoupdate dialog on start */
@@ -1332,7 +1021,6 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地図";
-
 "drive_through" = "ドライブスルー";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1412,148 +1100,79 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
-
 "edit_track" = "ルートを編集";
 
 
 /********** Types **********/
 
 "type.addr_interpolation" = "アドレス/ブロック";
-
 "type.addr_interpolation.even" = "アドレス/ブロック";
-
 "type.addr_interpolation.odd" = "アドレス/ブロック";
-
 "type.aerialway" = "索道";
-
 "type.aerialway.cable_car" = "ロープウェイ";
-
 "type.aerialway.chair_lift" = "チェアリフト";
-
 "type.aerialway.drag_lift" = "牽引リフト";
-
 "type.aerialway.gondola" = "ゴンドラ";
-
 "type.aerialway.mixed_lift" = "混合リフト";
-
 "type.aerialway.station" = "ケーブルカー駅";
-
 "type.aeroway" = "空路";
-
 "type.aeroway.aerodrome" = "空港";
-
 "type.aeroway.aerodrome.international" = "空港";
-
 "type.aeroway.apron" = "エプロン";
-
 "type.aeroway.gate" = "搭乗口";
-
 "type.aeroway.helipad" = "ヘリポート";
-
 "type.aeroway.runway" = "滑走路";
-
 "type.aeroway.taxiway" = "誘導路";
-
 "type.aeroway.terminal" = "空港ターミナルビル";
-
 "type.amenity" = "アメニティー";
-
 "type.amenity.arts_centre" = "芸術センター";
-
 "type.amenity.atm" = "ATM";
-
 "type.amenity.bank" = "銀行";
-
 "type.amenity.bar" = "居酒屋";
-
 "type.amenity.bbq" = "バーベキューグリル";
-
 "type.amenity.bench" = "ベンチ";
-
 "type.amenity.bicycle_parking" = "駐輪場";
-
 "type.amenity.bicycle_rental" = "レンタサイクル";
-
 "type.amenity.bicycle_repair_station" = "自転車修理ステーション";
-
 "type.amenity.biergarten" = "ビアガーデン";
-
 "type.amenity.brothel" = "売春宿";
-
 "type.amenity.bureau_de_change" = "外貨両替所";
-
 "type.amenity.bus_station" = "バスステーション";
-
 "type.amenity.cafe" = "カフェ";
-
 "type.amenity.car_rental" = "レンタカー";
-
 "type.amenity.car_sharing" = "カーシェアリング";
-
 "type.amenity.car_wash" = "洗車場";
-
 "type.amenity.casino" = "カジノ";
-
 "type.amenity.gambling" = "ギャンブル";
-
 "type.leisure.adult_gaming_centre" = "アダルト ゲーム センター";
-
 "type.leisure.amusement_arcade" = "アーケード";
-
 "type.amenity.charging_station" = "充電ステーション";
-
 "type.amenity.charging_station.bicycle" = "自転車充電ステーション";
-
 "type.amenity.charging_station.motorcar" = "自動車充電ステーション";
-
 "type.amenity.childcare" = "託児所";
-
 "type.amenity.cinema" = "映画館";
-
 "type.leisure.bowling_alley" = "ボーリング場";
-
 "type.amenity.clinic" = "クリニック";
-
 "type.amenity.college" = "カレッジ";
-
 "type.amenity.community_centre" = "コミュニティセンター";
-
 "type.amenity.compressed_air" = "圧縮空気";
-
 "type.amenity.conference_centre" = "カンファレンスセンター";
-
 "type.amenity.courthouse" = "裁判所";
-
 "type.amenity.dentist" = "歯医者";
-
 "type.amenity.doctors" = "医院";
-
 "type.amenity.drinking_water" = "水飲み場";
-
 "type.drinking_water.yes" = "水飲み場";
-
 "type.amenity.driving_school" = "自動車教習所";
-
 "type.amenity.exhibition_centre" = "エキシビションセンター";
-
 "type.amenity.money_transfer" = "送金";
-
 "type.amenity.music_school" = "音楽学校";
-
 "type.amenity.language_school" = "語学学校";
-
 "type.office.diplomatic" = "大使館";
-
 "type.amenity.fast_food" = "ファストフード";
-
 "type.amenity.ferry_terminal" = "フェリー";
-
 "type.amenity.fire_station" = "消防署";
-
 "type.amenity.food_court" = "フードコート";
-
 "type.amenity.fountain" = "噴水";
-
 "type.amenity.fuel" = "ガソリンスタンド";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -1561,154 +1180,82 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "キリスト教墓地";
-
 "type.amenity.hospital" = "病院";
-
 "type.amenity.hunting_stand" = "狩猟スタンド";
-
 "type.amenity.ice_cream" = "アイスクリーム屋";
-
 "type.amenity.internet_cafe" = "インターネットカフェ";
-
 "type.amenity.kindergarten" = "幼稚園";
-
 "type.amenity.library" = "図書館";
-
 "type.amenity.loading_dock" = "発送センター";
-
 "type.amenity.marketplace" = "市場";
-
 "type.amenity.motorcycle_parking" = "バイク駐輪場";
-
 "type.amenity.nightclub" = "ナイトクラブ";
-
 "type.amenity.nursing_home" = "養護施設";
-
 "type.amenity.parking" = "駐車場";
-
 "type.amenity.parking.fee" = "駐車場";
-
 "type.amenity.parking.multi.storey" = "立体駐車場";
-
 "type.amenity.parking.multi.storey.fee" = "立体駐車場";
-
 "type.amenity.parking.no.access" = "専用駐車場";
-
 "type.amenity.parking.permissive" = "専用駐車場";
-
 "type.amenity.parking.private" = "専用駐車場";
-
 "type.amenity.parking.park_and_ride" = "駐車場";
-
 "type.amenity.parking.underground" = "地下駐車場";
-
 "type.amenity.parking.underground.fee" = "地下駐車場";
-
 "type.amenity.parking.underground.private" = "専用地下駐車場";
-
 "type.amenity.parking.street_side" = "路上駐車";
-
 "type.amenity.parking.street_side.fee" = "路上駐車";
-
 "type.amenity.parking.street_side.private" = "プライベート・ストリート・サイド・パーキング";
-
 "type.amenity.parking.lane" = "レーンパーキング";
-
 "type.amenity.parking.lane.fee" = "レーンパーキング";
-
 "type.amenity.parking.lane.private" = "専用レーン駐車場";
-
 "type.amenity.parking_entrance" = "駐車場入口";
-
 "type.amenity.parking_entrance.private" = "専用駐車場入り口";
-
 "type.amenity.parking_entrance.permissive" = "駐車場入口";
-
 "type.amenity.parking_space" = "駐車スペース";
-
 "type.amenity.parking_space.permissive" = "駐車スペース";
-
 "type.amenity.parking_space.private" = "駐車スペース";
-
 "type.amenity.parking_space.underground" = "駐車スペース";
-
 "type.amenity.parking_space.disabled" = "身障者用駐車スペース";
-
 "type.amenity.payment_terminal" = "決済端末";
-
 "type.amenity.pharmacy" = "薬局";
-
 "type.amenity.place_of_worship" = "礼拝";
-
 "type.amenity.place_of_worship.buddhist" = "寺院";
-
 "type.amenity.place_of_worship.christian" = "キリスト教会";
-
 "type.amenity.place_of_worship.christian.mormon" = "末日聖徒イエス・キリスト教会";
-
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "イエホバの証人の王国ホール";
-
 "type.amenity.place_of_worship.hindu" = "ヒンドゥー教寺院";
-
 "type.amenity.place_of_worship.jewish" = "ユダヤ教会";
-
 "type.amenity.place_of_worship.muslim" = "モスク";
-
 "type.amenity.place_of_worship.shinto" = "神社";
-
 "type.amenity.place_of_worship.taoist" = "道教寺院";
-
 "type.amenity.police" = "警察";
-
 "type.amenity.post_box" = "郵便ポスト";
-
 "type.amenity.post_office" = "郵便局";
-
 "type.amenity.prison" = "刑務所";
-
 "type.amenity.pub" = "バー";
-
 "type.amenity.public_bookcase" = "街角文庫";
 
 
 /********** Types: Recycling **********/
 
 "type.amenity.recycling.centre" = "リサイクルセンター";
-
 "type.amenity.recycling" = "リサイクルボックス";
-
 "type.amenity.recycling.container" = "リサイクルボックス";
-
 "type.recycling.batteries" = "バッテリー";
-
 "type.recycling.clothes" = "古着";
-
 "type.recycling.glass_bottles" = "ガラス瓶";
-
 "type.recycling.paper" = "紙くず";
-
 "type.recycling.plastic" = "プラスチックごみ";
-
 "type.recycling.plastic_bottles" = "ペットボトル";
-
 "type.recycling.scrap_metal" = "スクラップ金属";
-
 "type.recycling.small_appliances" = "電子廃棄物";
-
 "type.recycling.cardboard" = "Cardboard";
-
 "type.recycling.cans" = "Cans";
-
 "type.recycling.shoes" = "Shoes";
-
 "type.recycling.green_waste" = "Green/Organic Waste";
-
 "type.recycling.cartons" = "Cartons";
-
 "type.amenity.restaurant" = "レストラン";
-
 "type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
-
 "type.amenity.school" = "学校";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */
@@ -1722,113 +1269,59 @@
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Lean-to Shelter";
-
 "type.amenity.public_bath" = "公衆浴場";
-
 "type.amenity.shower" = "シャワー";
-
 "type.amenity.stripclub" = "ストリップクラブ";
-
 "type.amenity.taxi" = "タクシー";
-
 "type.amenity.telephone" = "公衆電話";
-
 "type.amenity.theatre" = "劇場";
-
 "type.amenity.toilets" = "トイレ";
-
 "type.toilets.yes" = "トイレ";
-
 "type.amenity.townhall" = "役場";
-
 "type.amenity.university" = "大学";
-
 "type.amenity.vending_machine" = "自動販売機";
-
 "type.amenity.vending_machine.cigarettes" = "たばこ自動販売機";
-
 "type.amenity.vending_machine.coffee" = "Coffee Dispenser";
-
 "type.amenity.vending_machine.condoms" = "Condoms Dispenser";
-
 "type.amenity.vending_machine.drinks" = "飲料自動販売機";
-
 "type.amenity.vending_machine.food" = "Food Dispenser";
-
 "type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
-
 "type.amenity.vending_machine.parking_tickets" = "駐車券支払機";
-
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通機関の券売機";
-
 "type.amenity.vending_machine.sweets" = "Sweets Dispenser";
-
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
-
 "type.amenity.parcel_locker" = "Parcel Locker";
-
 "type.amenity.vehicle_inspection" = "車検";
-
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
-
 "type.amenity.veterinary" = "獣医";
-
 "type.amenity.waste_basket" = "ゴミ箱";
-
 "type.amenity.waste_disposal" = "ゴミ";
-
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
-
 "type.amenity.water_point" = "給水所";
-
 "type.amenity.water_point.drinking_water_no" = "給水所";
-
 "type.barrier" = "障害物";
-
 "type.barrier.block" = "ブロック";
-
 "type.barrier.bollard" = "柱";
-
 "type.barrier.border_control" = "国境管理";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "城壁";
-
 "type.barrier.cycle_barrier" = "バリカー";
-
 "type.waterway.ditch" = "排水溝";
-
 "type.natural.water.moat" = "堀";
-
 "type.natural.water.wastewater" = "廃水";
-
 "type.barrier.entrance" = "エントランス";
-
 "type.barrier.fence" = "フェンス";
-
 "type.barrier.gate" = "ゲート";
-
 "type.barrier.hedge" = "生垣";
-
 "type.barrier.kissing_gate" = "ゲート";
-
 "type.barrier.lift_gate" = "ブームバリア";
-
 "type.barrier.retaining_wall" = "擁壁";
-
 "type.barrier.stile" = "回転扉";
-
 "type.barrier.turnstile" = "ターンスタイル";
-
 "type.barrier.swing_gate" = "ブームバリア";
-
 "type.barrier.toll_booth" = "料金所";
-
 "type.barrier.wall" = "壁";
-
 "type.boundary" = "境界線";
-
 "type.boundary.administrative" = "行政境界";
 
 /* Borders between countries. */
@@ -1839,276 +1332,145 @@
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Regional Boundary";
-
 "type.boundary.national_park" = "国立公園";
-
 "type.boundary.aboriginal_lands" = "先住民の土地";
-
 "type.boundary.protected_area" = "保護区域";
-
 "type.boundary.protected_area.1" = "保護区域";
-
 "type.boundary.protected_area.2" = "保護区域";
-
 "type.boundary.protected_area.3" = "保護区域";
-
 "type.boundary.protected_area.4" = "保護区域";
-
 "type.boundary.protected_area.5" = "保護区域";
-
 "type.boundary.protected_area.6" = "保護区域";
-
 "type.building" = "建物";
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "住所";
-
 "type.building.has_parts" = "建物";
-
 "type.building_part" = "建物";
-
 "type.building.garage" = "車庫";
-
 "type.building.train_station" = "駅ビル";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.cemetery.grave" = "墓";
-
 "type.craft" = "工房";
-
 "type.craft.beekeeper" = "養蜂家";
-
 "type.craft.blacksmith" = "鍛冶屋";
-
 "type.craft.brewery" = "醸造所";
-
 "type.craft.caterer" = "ケータリング";
-
 "type.craft.carpenter" = "大工";
-
 "type.craft.confectionery" = "菓子職人";
-
 "type.craft.electrician" = "電気技師";
-
 "type.craft.electronics_repair" = "電子機器修理";
-
 "type.craft.gardener" = "造園家";
-
 "type.craft.grinding_mill" = "粉砕機";
-
 "type.craft.handicraft" = "手芸";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "冷暖房空調";
-
 "type.craft.key_cutter" = "キーカット";
-
 "type.craft.locksmith" = "錠前屋";
-
 "type.craft.metal_construction" = "金属工";
-
 "type.craft.painter" = "塗装工";
-
 "type.craft.photographer" = "写真家";
-
 "type.shop.camera" = "カメラショップ";
-
 "type.craft.plumber" = "配管工";
-
 "type.craft.sawmill" = "製材所";
-
 "type.craft.shoemaker" = "靴修理";
-
 "type.craft.winery" = "ワイナリー";
-
 "type.craft.tailor" = "仕立て屋";
-
 "type.cuisine.african" = "アフリカ料理";
-
 "type.cuisine.american" = "アメリカ料理";
-
 "type.cuisine.arab" = "アラビア料理";
-
 "type.cuisine.argentinian" = "アルゼンチン料理";
-
 "type.cuisine.asian" = "アジア料理";
-
 "type.cuisine.austrian" = "オーストリア料理";
-
 "type.cuisine.bagel" = "ベーグル";
-
 "type.cuisine.balkan" = "バルカン料理";
-
 "type.cuisine.barbecue" = "バーベキュー";
-
 "type.cuisine.bavarian" = "ババロア料理";
-
 "type.cuisine.beef_bowl" = "牛丼";
-
 "type.cuisine.brazilian" = "ブラジル料理";
-
 "type.cuisine.breakfast" = "朝食";
-
 "type.cuisine.bubble_tea" = "Bubble Tea";
-
 "type.cuisine.burger" = "ハンバーガー";
-
 "type.cuisine.buschenschank" = "ブッシェンシャンク";
-
 "type.cuisine.cake" = "ケーキ";
-
 "type.cuisine.caribbean" = "カリブ料理";
-
 "type.cuisine.chicken" = "鶏肉";
-
 "type.cuisine.chinese" = "中華料理";
-
 "type.cuisine.coffee_shop" = "コーヒー";
-
 "type.cuisine.crepe" = "クレープ";
-
 "type.cuisine.croatian" = "クロアチア料理";
-
 "type.cuisine.curry" = "カレー";
-
 "type.cuisine.deli" = "デリ";
-
 "type.cuisine.diner" = "ダイナー";
-
 "type.cuisine.donut" = "ドーナッツ";
-
 "type.cuisine.ethiopian" = "エチオピア料理";
-
 "type.cuisine.filipino" = "フィリピン料理";
-
 "type.cuisine.fine_dining" = "高級料理";
-
 "type.cuisine.fish" = "魚料理";
-
 "type.cuisine.fish_and_chips" = "フィッシュ・アンド・チップス";
-
 "type.cuisine.french" = "フランス料理";
-
 "type.cuisine.friture" = "揚げ物";
-
 "type.cuisine.georgian" = "ジョージア料理";
-
 "type.cuisine.german" = "ドイツ料理";
-
 "type.cuisine.greek" = "ギリシャ料理";
-
 "type.cuisine.grill" = "グリル";
-
 "type.cuisine.heuriger" = "ホイリゲ";
-
 "type.cuisine.hotdog" = "ホットドッグ";
-
 "type.cuisine.hungarian" = "ハンガリー料理";
-
 "type.cuisine.ice_cream" = "アイスクリーム";
-
 "type.cuisine.indian" = "インド料理";
-
 "type.cuisine.indonesian" = "インドネシア料理";
-
 "type.cuisine.international" = "国際料理";
-
 "type.cuisine.irish" = "アイルランド料理";
-
 "type.cuisine.italian" = "イタリア料理";
-
 "type.cuisine.italian_pizza" = "イタリア料理；ピザ";
-
 "type.cuisine.japanese" = "日本料理";
-
 "type.cuisine.kebab" = "カバブ";
-
 "type.cuisine.korean" = "韓国料理";
-
 "type.cuisine.lao" = "ラオス料理";
-
 "type.cuisine.lebanese" = "レバノン料理";
-
 "type.cuisine.local" = "地元料理";
-
 "type.cuisine.malagasy" = "マダガスカル料理";
-
 "type.cuisine.malaysian" = "マレーシア料理";
-
 "type.cuisine.mediterranean" = "地中海料理";
-
 "type.cuisine.mexican" = "メキシコ料理";
-
 "type.cuisine.moroccan" = "モロッコ料理";
-
 "type.cuisine.noodles" = "麺類";
-
 "type.cuisine.oriental" = "東洋料理";
-
 "type.cuisine.pancake" = "ホットケーキ";
-
 "type.cuisine.pasta" = "パスタ";
-
 "type.cuisine.persian" = "ペルシャ料理";
-
 "type.cuisine.peruvian" = "ペルー料理";
-
 "type.cuisine.pizza" = "ピザ";
-
 "type.cuisine.polish" = "ポーランド料理";
-
 "type.cuisine.portuguese" = "ポルトガル料理";
-
 "type.cuisine.ramen" = "ラーメン";
-
 "type.cuisine.regional" = "郷土料理";
-
 "type.cuisine.russian" = "ロシア料理";
-
 "type.cuisine.sandwich" = "サンドイッチ";
-
 "type.cuisine.sausage" = "ソーセージ";
-
 "type.cuisine.savory_pancakes" = "おいしいホットケーキ";
-
 "type.cuisine.seafood" = "シーフード";
-
 "type.cuisine.soba" = "そば";
-
 "type.cuisine.spanish" = "スペイン料理";
-
 "type.cuisine.steak_house" = "ステーキハウス";
-
 "type.cuisine.sushi" = "寿司";
-
 "type.cuisine.tapas" = "タパス";
-
 "type.cuisine.tea" = "紅茶";
-
 "type.cuisine.thai" = "タイ料理";
-
 "type.cuisine.turkish" = "トルコ料理";
-
 "type.cuisine.vegan" = "ビーガン料理";
-
 "type.cuisine.vegetarian" = "ベジタリアン料理";
-
 "type.cuisine.vietnamese" = "ベトナム料理";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.assembly_point" = "緊急集合場所";
-
 "type.emergency.defibrillator" = "除細動器";
-
 "type.emergency.fire_hydrant" = "消火栓";
-
 "type.emergency.phone" = "緊急電話";
 
 /* A place where a lifeguard is on duty. */
 "type.emergency.lifeguard" = "Lifeguard";
-
 "type.emergency.mountain_rescue" = "Mountain Rescue Station";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
@@ -2116,48 +1478,32 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "正面玄関";
-
 "type.entrance.exit" = "終了する";
-
 "type.fee.yes" = "$";
-
 "type.fee.no" = "無料";
-
 "type.healthcare.laboratory" = "医療研究所";
-
 "type.healthcare.physiotherapist" = "理学療法士";
-
 "type.healthcare.alternative" = "代替医療";
-
 "type.healthcare.audiologist" = "オーディオロジー";
-
 "type.healthcare.blood_donation" = "献血センター";
-
 "type.healthcare.optometrist" = "オプトメトリー";
-
 "type.healthcare.podiatrist" = "足病学";
-
 "type.healthcare.psychotherapist" = "心理療法";
-
 "type.healthcare.sample_collection" = "サンプリング";
-
 "type.healthcare.speech_therapist" = "ロゴペディックス";
 
 
 /********** Types: Roads **********/
 
 "type.highway" = "道路";
-
 "type.highway.bridleway" = "馬道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "馬道(橋)";
-
 "type.highway.bridleway.permissive" = "馬道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "馬道(トンネル)";
-
 "type.highway.busway" = "バス専用道路";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2165,29 +1511,20 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "トンネル";
-
 "type.highway.bus_stop" = "バス停";
-
 "type.highway.construction" = "工事中の道路";
-
 "type.highway.cycleway" = "自転車道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "自転車道(橋)";
-
 "type.highway.cycleway.permissive" = "自転車道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "自転車道(トンネル)";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "歩道";
-
 "type.highway.footway.sidewalk" = "歩道";
-
 "type.highway.footway.crossing" = "横断歩道";
-
 "type.highway.footway.area" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2195,9 +1532,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "トンネル";
-
 "type.highway.ford" = "浅瀬";
-
 "type.highway.living_street" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2205,7 +1540,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "トンネル";
-
 "type.highway.motorway" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2213,9 +1547,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "トンネル";
-
 "type.highway.motorway_junction" = "ジャンクション";
-
 "type.highway.motorway_link" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2223,7 +1555,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "トンネル";
-
 "type.highway.path" = "歩道";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
@@ -2231,21 +1562,16 @@
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
 "type.highway.path.expert" = "非常に難しい、または区別がつかないトレイル";
-
 "type.highway.path.bicycle" = "歩道";
-
 "type.highway.footway.bicycle" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "橋";
-
 "type.highway.path.horse" = "歩道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "トンネル";
-
 "type.highway.pedestrian" = "ストリート";
-
 "type.highway.pedestrian.area" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2253,7 +1579,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "トンネル";
-
 "type.highway.primary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2261,7 +1586,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "トンネル";
-
 "type.highway.primary_link" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2269,11 +1593,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "トンネル";
-
 "type.highway.raceway" = "レース場";
-
 "type.highway.residential" = "ストリート";
-
 "type.highway.residential.area" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2281,9 +1602,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "トンネル";
-
 "type.highway.rest_area" = "休憩所";
-
 "type.highway.road" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2294,7 +1613,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "トンネル";
-
 "type.highway.secondary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2302,7 +1620,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "トンネル";
-
 "type.highway.secondary_link" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2310,25 +1627,18 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "トンネル";
-
 "type.highway.service" = "ストリート";
-
 "type.highway.service.area" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "橋";
-
 "type.highway.service.driveway" = "ストリート";
-
 "type.highway.service.parking_aisle" = "ストリート";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "トンネル";
-
 "type.highway.services" = "サービスエリア";
-
 "type.highway.speed_camera" = "自動速度違反取締装置";
-
 "type.highway.steps" = "歩道";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2336,7 +1646,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "トンネル";
-
 "type.highway.tertiary" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2344,7 +1653,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "トンネル";
-
 "type.highway.tertiary_link" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2352,23 +1660,17 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "トンネル";
-
 "type.highway.track" = "ストリート";
-
 "type.highway.track.area" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "橋";
-
 "type.highway.track.grade1" = "ストリート";
-
 "type.highway.track.no.access" = "ストリート";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "トンネル";
-
 "type.highway.traffic_signals" = "交通信号";
-
 "type.highway.trunk" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2376,7 +1678,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "トンネル";
-
 "type.highway.trunk_link" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2384,9 +1685,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "トンネル";
-
 "type.highway.unclassified" = "ストリート";
-
 "type.highway.unclassified.area" = "ストリート";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2394,118 +1693,64 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "トンネル";
-
 "type.area_highway.cycleway" = "自転車道";
-
 "type.area_highway.footway" = "歩道";
-
 "type.area_highway.living_street" = "ストリート";
-
 "type.area_highway.motorway" = "ストリート";
-
 "type.area_highway.path" = "歩道";
-
 "type.area_highway.pedestrian" = "ストリート";
-
 "type.area_highway.primary" = "ストリート";
-
 "type.area_highway.residential" = "ストリート";
-
 "type.area_highway.secondary" = "ストリート";
-
 "type.area_highway.service" = "ストリート";
-
 "type.area_highway.tertiary" = "ストリート";
-
 "type.area_highway.steps" = "歩道";
-
 "type.area_highway.track" = "ストリート";
-
 "type.area_highway.trunk" = "ストリート";
-
 "type.area_highway.unclassified" = "ストリート";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
 
 "type.historic" = "史跡";
-
 "type.historic.aircraft" = "歴史的な航空機";
-
 "type.historic.anchor" = "歴史的なアンカー";
-
 "type.historic.archaeological_site" = "考古遺跡";
-
 "type.historic.battlefield" = "古戦場";
-
 "type.historic.boundary_stone" = "境界標";
-
 "type.historic.cannon" = "大砲";
-
 "type.historic.castle" = "城";
-
 "type.historic.castle.castrum" = "カストラ";
-
 "type.historic.castle.defensive" = "城";
-
 "type.historic.castle.fortified_church" = "要塞化された教会";
-
 "type.historic.castle.fortress" = "要塞";
-
 "type.historic.castle.hillfort" = "ヒルフォート";
-
 "type.historic.castle.kremlin" = "クレムリ";
-
 "type.historic.castle.manor" = "マナー・ハウス";
-
 "type.historic.castle.palace" = "宮殿";
-
 "type.historic.castle.shiro" = "日本の城";
-
 "type.historic.castle.stately" = "城";
-
 "type.historic.city_gate" = "城門";
-
 "type.historic.citywalls" = "城壁";
-
 "type.historic.fort" = "歴史的な要塞";
-
 "type.historic.gallows" = "絞首台";
-
 "type.historic.locomotive" = "歴史的な機関車";
-
 "type.historic.memorial" = "記念碑";
-
 "type.historic.memorial.cross" = "メモリアルクロス";
-
 "type.historic.memorial.plaque" = "銘板";
-
 "type.historic.memorial.sculpture" = "彫刻";
-
 "type.historic.memorial.statue" = "塑像";
-
 "type.historic.memorial.stolperstein" = "ストルパーシュタイン";
-
 "type.historic.stone" = "歴史的な石";
-
 "type.historic.memorial.war_memorial" = "戦争記念施設";
-
 "type.historic.mine" = "歴史ある鉱山";
-
 "type.historic.monument" = "記念碑";
-
 "type.historic.pillory" = "さらし台";
-
 "type.historic.ruins" = "古跡";
-
 "type.historic.ship" = "退役船";
-
 "type.historic.tank" = "歴史的な戦車";
-
 "type.historic.tomb" = "墓";
 
 /* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
@@ -2513,53 +1758,29 @@
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "歴史的な十字架";
-
 "type.historic.wayside_shrine" = "歴史的な祠";
-
 "type.historic.wreck" = "難破船";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "インターネット";
-
 "type.internet_access.wlan" = "インターネット";
-
 "type.junction" = "交差点";
-
 "type.junction.circular" = "ラウンドアバウト";
-
 "type.junction.roundabout" = "ラウンドアバウト";
-
 "type.landuse" = "土地利用";
-
 "type.landuse.allotments" = "市民農園";
-
 "type.landuse.basin" = "水地";
-
 "type.landuse.brownfield" = "再開発用地";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -2567,167 +1788,86 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "キリスト教墓地";
-
 "type.landuse.churchyard" = "キリスト教教会付属地";
-
 "type.landuse.commercial" = "商業用地";
-
 "type.landuse.construction" = "建設工事中";
-
 "type.landuse.education" = "Educational Facility";
-
 "type.landuse.farmland" = "農地";
-
 "type.landuse.farmyard" = "農地";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.flowerbed" = "花壇";
-
 "type.landuse.forest" = "森林";
-
 "type.landuse.forest.coniferous" = "森林";
-
 "type.landuse.forest.deciduous" = "森林";
-
 "type.landuse.forest.mixed" = "森林";
-
 "type.landuse.garages" = "ガレージ";
-
 "type.landuse.grass" = "芝生";
-
 "type.landuse.greenfield" = "建設予定地";
-
 "type.landuse.greenhouse_horticulture" = "温室栽培";
-
 "type.landuse.industrial" = "工業用地";
-
 "type.landuse.landfill" = "埋立地";
-
 "type.landuse.meadow" = "牧草地";
-
 "type.landuse.military" = "軍用地";
-
 "type.landuse.orchard" = "果樹園";
-
 "type.landuse.quarry" = "採石場";
-
 "type.landuse.railway" = "鉄道施設";
-
 "type.landuse.recreation_ground" = "レクリエーション";
-
 "type.landuse.reservoir" = "貯水池";
-
 "type.landuse.residential" = "住宅地";
-
 "type.landuse.retail" = "小売店エリア";
-
 "type.landuse.salt_pond" = "塩田";
-
 "type.landuse.village_green" = "村の中心";
-
 "type.landuse.vineyard" = "ブドウ園";
-
 "type.leisure" = "レジャー";
-
 "type.leisure.common" = "レジャー(共有地)";
-
 "type.leisure.dog_park" = "ドッグエリア";
-
 "type.leisure.fitness_centre" = "フィットネスセンター、ジム";
-
 "type.leisure.fitness_station" = "フィットネスステーション";
-
 "type.leisure.dance" = "ダンスホール";
-
 "type.leisure.garden" = "庭園";
-
 "type.leisure.garden.residential" = "庭園";
-
 "type.leisure.golf_course" = "ゴルフコース";
-
 "type.leisure.miniature_golf" = "ミニゴルフ";
-
 "type.leisure.hackerspace" = "ハッカースペース";
-
 "type.leisure.ice_rink" = "アイスリンク";
-
 "type.leisure.marina" = "マリーナ";
-
 "type.leisure.nature_reserve" = "自然保護区";
-
 "type.leisure.outdoor_seating" = "屋外席";
-
 "type.leisure.park" = "公園";
-
 "type.leisure.park.no.access" = "公園";
-
 "type.leisure.park.permissive" = "公園";
-
 "type.leisure.park.private" = "公園";
-
 "type.leisure.picnic_table" = "ピクニック用のテーブル";
-
 "type.leisure.pitch" = "運動場";
-
 "type.leisure.playground" = "児童公園";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "サウナ";
-
 "type.leisure.slipway" = "スリップウェイ";
-
 "type.leisure.sports_centre" = "スポーツセンター";
-
 "type.sport.climbing" = "クライミングセンター";
-
 "type.sport.yoga" = "ヨガスタジオ";
-
 "type.leisure.stadium" = "スタジアム";
-
 "type.leisure.swimming_pool" = "プール";
-
 "type.leisure.swimming_pool.private" = "プール";
-
 "type.leisure.track" = "トラック";
-
 "type.leisure.track.area" = "トラック";
-
 "type.leisure.water_park" = "ウォーターパーク";
-
 "type.leisure.beach_resort" = "Beach Resort";
-
 "type.man_made" = "構造物";
-
 "type.man_made.breakwater" = "防波堤";
-
 "type.man_made.cairn" = "ケルン";
-
 "type.man_made.chimney" = "工場煙突";
-
 "type.man_made.cutline" = "森林の切れ目";
-
 "type.man_made.survey_point" = "測量標";
-
 "type.man_made.flagpole" = "Flagpole";
-
 "type.man_made.lighthouse" = "灯台";
-
 "type.man_made.mast" = "Mast";
-
 "type.man_made.pier" = "桟橋";
-
 "type.man_made.pipeline" = "パイプライン";
-
 "type.man_made.pipeline.overground" = "地表のパイプライン";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "監視カメラ";
-
 "type.man_made.tower" = "タワー";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
@@ -2735,38 +1875,23 @@
 
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "通信塔";
-
 "type.man_made.petroleum_well" = "Oil or gas well";
 
 /* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Gas Flare";
-
 "type.man_made.wastewater_plant" = "下水処理場";
-
 "type.man_made.water_tap" = "給水栓";
-
 "type.man_made.water_tap.drinking_water_no" = "給水栓";
-
 "type.man_made.water_tower" = "給水塔";
-
 "type.man_made.water_well" = "井戸";
-
 "type.man_made.water_well.drinking_water_no" = "井戸";
-
 "type.man_made.windmill" = "風車";
-
 "type.man_made.works" = "工場";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "軍事";
-
 "type.military.bunker" = "掩蔽壕";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "自然";
 
 /* A rocky land cover. */
@@ -2777,147 +1902,76 @@
 
 /* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
 "type.natural.scree" = "がれ";
-
 "type.natural.bay" = "港湾";
-
 "type.natural.beach" = "ビーチ";
-
 "type.natural.beach.sand" = "砂浜";
-
 "type.natural.beach.gravel" = "グラベルビーチ";
-
 "type.natural.cape" = "岬";
-
 "type.natural.cave_entrance" = "洞窟";
-
 "type.natural.cliff" = "崖";
-
 "type.natural.earth_bank" = "崖";
-
 "type.man_made.embankment" = "盛土";
-
 "type.natural.coastline" = "海岸線";
-
 "type.natural.desert" = "荒野";
-
 "type.natural.geyser" = "間欠泉";
-
 "type.natural.glacier" = "氷河";
-
 "type.natural.grassland" = "草原";
-
 "type.natural.heath" = "ヒース";
-
 "type.natural.hot_spring" = "温泉";
-
 "type.natural.water.lake" = "湖";
-
 "type.natural.water.lock" = "ロックチャンバー";
-
 "type.natural.water.pond" = "池";
-
 "type.natural.water.reservoir" = "貯水池";
-
 "type.natural.water.basin" = "水地";
-
 "type.natural.water.river" = "河川";
-
 "type.natural.land" = "陸地";
-
 "type.natural.meadow" = "牧草地";
-
 "type.natural.orchard" = "果樹園";
-
 "type.natural.peak" = "山頂";
-
 "type.natural.saddle" = "鞍部";
-
 "type.natural.rock" = "岩";
-
 "type.natural.scrub" = "雑木林";
-
 "type.natural.spring" = "泉";
-
 "type.natural.spring.drinking_water_no" = "泉";
-
 "type.natural.strait" = "海峡";
-
 "type.natural.tree_row" = "並木";
-
 "type.natural.vineyard" = "ブドウ園";
-
 "type.natural.volcano" = "火山";
-
 "type.natural.water" = "水地";
-
 "type.natural.wetland" = "湿地帯";
-
 "type.natural.wetland.bog" = "泥炭地";
-
 "type.natural.wetland.marsh" = "沼地";
-
 "type.noexit" = "行き止まり";
-
 "type.office" = "オフィス";
-
 "type.office.company" = "会社事務所";
-
 "type.office.estate_agent" = "不動産業者";
-
 "type.office.government" = "官庁";
-
 "type.office.insurance" = "保険会社";
-
 "type.office.lawyer" = "弁護士事務所";
-
 "type.office.ngo" = "NGO 事務局";
-
 "type.office.telecommunication" = "携帯電話事業者";
-
 "type.organic.only" = "Organic";
-
 "type.organic.yes" = "Organic";
-
 "type.place.city" = "市";
-
 "type.place.city.capital" = "首都";
-
 "type.place.city.capital.10" = "市";
-
 "type.place.city.capital.11" = "市";
-
 "type.place.city.capital.2" = "首都";
-
 "type.place.city.capital.3" = "市";
-
 "type.place.city.capital.4" = "市";
-
 "type.place.city.capital.5" = "市";
-
 "type.place.city.capital.6" = "市";
-
 "type.place.city.capital.7" = "市";
-
 "type.place.city.capital.8" = "市";
-
 "type.place.city.capital.9" = "市";
-
 "type.place.continent" = "大陸";
-
 "type.place.country" = "国";
-
 "type.place.county" = "郡";
-
 "type.place.farm" = "農場";
-
 "type.place.hamlet" = "村";
-
 "type.place.island" = "島";
-
 "type.place.islet" = "島";
-
 "type.place.isolated_dwelling" = "小規模な村";
-
 "type.place.locality" = "地域";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -2925,132 +1979,70 @@
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
 "type.place.neighbourhood" = "近隣";
-
 "type.place.ocean" = "海";
-
 "type.place.region" = "地方";
-
 "type.place.sea" = "海";
-
 "type.place.square" = "広場";
-
 "type.place.state" = "州";
-
 "type.place.state.USA" = "州";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "区";
-
 "type.place.town" = "町";
-
 "type.place.village" = "村";
-
 "type.power" = "電力";
-
 "type.power.generator" = "発電機";
-
 "type.power.generator.solar" = "太陽光発電機";
-
 "type.power.generator.wind" = "風力発電機";
-
 "type.power.generator.gas" = "ガスタービン発電所";
-
 "type.power.generator.hydro" = "水力発電所";
-
 "type.power.line" = "電力線";
-
 "type.power.line.underground" = "地下電力線";
-
 "type.power.minor_line" = "低圧電力線";
-
 "type.power.plant" = "発電所";
-
 "type.power.plant.coal" = "石炭火力発電所";
-
 "type.power.plant.gas" = "ガスタービン発電所";
-
 "type.power.plant.hydro" = "水力発電所";
-
 "type.power.plant.solar" = "太陽光発電所";
-
 "type.power.plant.wind" = "風力発電所";
-
 "type.power.station" = "変電所";
-
 "type.power.substation" = "変電所";
-
 "type.power.tower" = "電柱";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "公共交通機関";
-
 "type.public_transport.platform" = "公共交通機関のプラットホーム";
-
 "type.railway" = "鉄道";
-
 "type.railway.abandoned" = "廃線";
-
 "type.railway.abandoned.bridge" = "廃線(橋)";
-
 "type.railway.abandoned.tunnel" = "廃線(トンネル)";
-
 "type.railway.construction" = "建設中の鉄道";
-
 "type.railway.crossing" = "歩行者用踏切";
-
 "type.railway.disused" = "休止線";
-
 "type.railway.funicular" = "フニクラ";
-
 "type.railway.funicular.bridge" = "ケーブルカー(橋)";
-
 "type.railway.funicular.tunnel" = "ケーブルカー(トンネル)";
-
 "type.railway.halt" = "鉄道駅";
-
 "type.railway.level_crossing" = "踏切";
-
 "type.railway.light_rail" = "ライトレール";
-
 "type.railway.light_rail.bridge" = "ライトレール(橋)";
-
 "type.railway.light_rail.tunnel" = "ライトレール(トンネル)";
-
 "type.railway.monorail" = "モノレール";
-
 "type.railway.monorail.bridge" = "モノレール(橋)";
-
 "type.railway.monorail.tunnel" = "モノレール(トンネル)";
-
 "type.railway.narrow_gauge" = "狭軌鉄道";
-
 "type.railway.narrow_gauge.bridge" = "狭軌鉄道(橋)";
-
 "type.railway.narrow_gauge.tunnel" = "ja = 狭軌鉄道(トンネル)";
-
 "type.railway.platform" = "プラットホーム";
-
 "type.railway.preserved" = "保存鉄道";
-
 "type.railway.preserved.bridge" = "保存鉄道(橋)";
-
 "type.railway.preserved.tunnel" = "保存鉄道(トンネル)";
-
 "type.railway.rail" = "鉄道";
-
 "type.railway.rail.highspeed" = "高速鉄道";
-
 "type.railway.rail.tourism" = "観光鉄道";
-
 "type.railway.rail.main" = "鉄道";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
@@ -3058,1043 +2050,533 @@
 
 /* Non-passenger utility tracks: industrial, military, test. */
 "type.railway.rail.utility" = "実用鉄道";
-
 "type.railway.rail.spur" = "引き込み線";
 
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "補助線路";
-
 "type.railway.rail.bridge" = "鉄道(橋)";
-
 "type.railway.rail.highspeed.bridge" = "鉄道(橋)";
-
 "type.railway.rail.tourism.bridge" = "鉄道(橋)";
-
 "type.railway.rail.main.bridge" = "鉄道(橋)";
-
 "type.railway.rail.branch.bridge" = "鉄道(橋)";
-
 "type.railway.rail.utility.bridge" = "鉄道(橋)";
-
 "type.railway.rail.spur.bridge" = "鉄道(橋)";
-
 "type.railway.rail.service.bridge" = "鉄道(橋)";
-
 "type.railway.rail.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.highspeed.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.tourism.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.main.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.branch.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.utility.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.spur.tunnel" = "鉄道(鉄道)";
-
 "type.railway.rail.service.tunnel" = "鉄道(鉄道)";
-
 "type.railway.station" = "鉄道駅";
-
 "type.railway.station.funicular" = "フニクラ";
-
 "type.railway.station.light_rail" = "鉄道駅";
-
 "type.railway.station.light_rail.berlin" = "鉄道駅";
-
 "type.railway.station.light_rail.london" = "鉄道駅";
-
 "type.railway.station.light_rail.porto" = "鉄道駅";
-
 "type.railway.station.monorail" = "鉄道駅";
-
 "type.railway.station.subway" = "地下鉄";
-
 "type.railway.station.subway.adana" = "地下鉄";
-
 "type.railway.station.subway.algiers" = "地下鉄";
-
 "type.railway.station.subway.almaty" = "地下鉄";
-
 "type.railway.station.subway.amsterdam" = "地下鉄";
-
 "type.railway.station.subway.ankara" = "地下鉄";
-
 "type.railway.station.subway.athens" = "地下鉄";
-
 "type.railway.station.subway.baku" = "地下鉄";
-
 "type.railway.station.subway.bangkok" = "地下鉄";
-
 "type.railway.station.subway.barcelona" = "地下鉄";
-
 "type.railway.station.subway.beijing" = "地下鉄";
-
 "type.railway.station.subway.bengalore" = "地下鉄";
-
 "type.railway.station.subway.berlin" = "地下鉄";
-
 "type.railway.station.subway.bilbao" = "地下鉄";
-
 "type.railway.station.subway.brasilia" = "地下鉄";
-
 "type.railway.station.subway.brescia" = "地下鉄";
-
 "type.railway.station.subway.brussels" = "地下鉄";
-
 "type.railway.station.subway.bucharest" = "地下鉄";
-
 "type.railway.station.subway.budapest" = "地下鉄";
-
 "type.railway.station.subway.buenos_aires" = "地下鉄";
-
 "type.railway.station.subway.bursa" = "地下鉄";
-
 "type.railway.station.subway.cairo" = "地下鉄";
-
 "type.railway.station.subway.caracas" = "地下鉄";
-
 "type.railway.station.subway.catania" = "地下鉄";
-
 "type.railway.station.subway.changchun" = "地下鉄";
-
 "type.railway.station.subway.chengdu" = "地下鉄";
-
 "type.railway.station.subway.chicago" = "地下鉄";
-
 "type.railway.station.subway.chongqing" = "地下鉄";
-
 "type.railway.station.subway.dalian" = "地下鉄";
-
 "type.railway.station.subway.delhi" = "地下鉄";
-
 "type.railway.station.subway.dnepro" = "地下鉄";
-
 "type.railway.station.subway.dubai" = "地下鉄";
-
 "type.railway.station.subway.ekb" = "地下鉄";
-
 "type.railway.station.subway.fukuoka" = "地下鉄";
-
 "type.railway.station.subway.glasgow" = "地下鉄";
-
 "type.railway.station.subway.guangzhou" = "地下鉄";
-
 "type.railway.station.subway.hamburg" = "地下鉄";
-
 "type.railway.station.subway.helsinki" = "地下鉄";
-
 "type.railway.station.subway.hiroshima" = "地下鉄";
-
 "type.railway.station.subway.hongkong" = "地下鉄";
-
 "type.railway.station.subway.isfahan" = "地下鉄";
-
 "type.railway.station.subway.istanbul" = "地下鉄";
-
 "type.railway.station.subway.izmir" = "地下鉄";
-
 "type.railway.station.subway.kazan" = "地下鉄";
-
 "type.railway.station.subway.kharkiv" = "地下鉄";
-
 "type.railway.station.subway.kiev" = "地下鉄";
-
 "type.railway.station.subway.kobe" = "地下鉄";
-
 "type.railway.station.subway.kolkata" = "地下鉄";
-
 "type.railway.station.subway.kunming" = "地下鉄";
-
 "type.railway.station.subway.kyoto" = "地下鉄";
-
 "type.railway.station.subway.la" = "地下鉄";
-
 "type.railway.station.subway.lausanne" = "地下鉄";
-
 "type.railway.station.subway.lille" = "地下鉄";
-
 "type.railway.station.subway.lima" = "地下鉄";
-
 "type.railway.station.subway.lisboa" = "地下鉄";
-
 "type.railway.station.subway.london" = "地下鉄";
-
 "type.railway.station.subway.lyon" = "地下鉄";
-
 "type.railway.station.subway.madrid" = "地下鉄";
-
 "type.railway.station.subway.malaga" = "地下鉄";
-
 "type.railway.station.subway.manila" = "地下鉄";
-
 "type.railway.station.subway.maracaibo" = "地下鉄";
-
 "type.railway.station.subway.mashhad" = "地下鉄";
-
 "type.railway.station.subway.mecca" = "地下鉄";
-
 "type.railway.station.subway.medellin" = "地下鉄";
-
 "type.railway.station.subway.mexico" = "地下鉄";
-
 "type.railway.station.subway.milan" = "地下鉄";
-
 "type.railway.station.subway.minsk" = "地下鉄";
-
 "type.railway.station.subway.montreal" = "地下鉄";
-
 "type.railway.station.subway.moscow" = "地下鉄";
-
 "type.railway.station.subway.munchen" = "地下鉄";
-
 "type.railway.station.subway.nagoya" = "地下鉄";
-
 "type.railway.station.subway.newyork" = "地下鉄";
-
 "type.railway.station.subway.nnov" = "地下鉄";
-
 "type.railway.station.subway.novosibirsk" = "地下鉄";
-
 "type.railway.station.subway.osaka" = "地下鉄";
-
 "type.railway.station.subway.oslo" = "地下鉄";
-
 "type.railway.station.subway.palma" = "地下鉄";
-
 "type.railway.station.subway.panama" = "地下鉄";
-
 "type.railway.station.subway.paris" = "地下鉄";
-
 "type.railway.station.subway.philadelphia" = "地下鉄";
-
 "type.railway.station.subway.pyongyang" = "地下鉄";
-
 "type.railway.station.subway.rennes" = "地下鉄";
-
 "type.railway.station.subway.rio" = "地下鉄";
-
 "type.railway.station.subway.roma" = "地下鉄";
-
 "type.railway.station.subway.rotterdam" = "地下鉄";
-
 "type.railway.station.subway.samara" = "地下鉄";
-
 "type.railway.station.subway.santiago" = "地下鉄";
-
 "type.railway.station.subway.santo_domingo" = "地下鉄";
-
 "type.railway.station.subway.saopaulo" = "地下鉄";
-
 "type.railway.station.subway.sapporo" = "地下鉄";
-
 "type.railway.station.subway.sendai" = "地下鉄";
-
 "type.railway.station.subway.sf" = "地下鉄";
-
 "type.railway.station.subway.shanghai" = "地下鉄";
-
 "type.railway.station.subway.shenzhen" = "地下鉄";
-
 "type.railway.station.subway.shiraz" = "地下鉄";
-
 "type.railway.station.subway.singapore" = "地下鉄";
-
 "type.railway.station.subway.sofia" = "地下鉄";
-
 "type.railway.station.subway.spb" = "地下鉄";
-
 "type.railway.station.subway.stockholm" = "地下鉄";
-
 "type.railway.station.subway.tabriz" = "地下鉄";
-
 "type.railway.station.subway.taipei" = "地下鉄";
-
 "type.railway.station.subway.taoyuan" = "地下鉄";
-
 "type.railway.station.subway.tashkent" = "地下鉄";
-
 "type.railway.station.subway.tbilisi" = "地下鉄";
-
 "type.railway.station.subway.tehran" = "地下鉄";
-
 "type.railway.station.subway.tianjin" = "地下鉄";
-
 "type.railway.station.subway.tokyo" = "地下鉄";
-
 "type.railway.station.subway.valencia" = "地下鉄";
-
 "type.railway.station.subway.vienna" = "地下鉄";
-
 "type.railway.station.subway.warszawa" = "地下鉄";
-
 "type.railway.station.subway.washington" = "地下鉄";
-
 "type.railway.station.subway.wuhan" = "地下鉄";
-
 "type.railway.station.subway.yerevan" = "地下鉄";
-
 "type.railway.station.subway.yokohama" = "地下鉄";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line Bridge";
-
 "type.railway.subway.tunnel" = "Subway Line Tunnel";
-
 "type.railway.subway_entrance" = "地下鉄入り口";
-
 "type.railway.subway_entrance.adana" = "地下鉄入り口";
-
 "type.railway.subway_entrance.algiers" = "地下鉄入り口";
-
 "type.railway.subway_entrance.almaty" = "地下鉄入り口";
-
 "type.railway.subway_entrance.amsterdam" = "地下鉄入り口";
-
 "type.railway.subway_entrance.ankara" = "地下鉄入り口";
-
 "type.railway.subway_entrance.athens" = "地下鉄入り口";
-
 "type.railway.subway_entrance.baku" = "地下鉄入り口";
-
 "type.railway.subway_entrance.bangkok" = "地下鉄入り口";
-
 "type.railway.subway_entrance.barcelona" = "地下鉄入り口";
-
 "type.railway.subway_entrance.beijing" = "地下鉄入り口";
-
 "type.railway.subway_entrance.bengalore" = "地下鉄入り口";
-
 "type.railway.subway_entrance.berlin" = "地下鉄入り口";
-
 "type.railway.subway_entrance.bilbao" = "地下鉄入り口";
-
 "type.railway.subway_entrance.brasilia" = "地下鉄入り口";
-
 "type.railway.subway_entrance.brescia" = "地下鉄入り口";
-
 "type.railway.subway_entrance.brussels" = "地下鉄入り口";
-
 "type.railway.subway_entrance.bucharest" = "地下鉄入り口";
-
 "type.railway.subway_entrance.budapest" = "地下鉄入り口";
-
 "type.railway.subway_entrance.buenos_aires" = "地下鉄入り口";
-
 "type.railway.subway_entrance.bursa" = "地下鉄入り口";
-
 "type.railway.subway_entrance.cairo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.caracas" = "地下鉄入り口";
-
 "type.railway.subway_entrance.catania" = "地下鉄入り口";
-
 "type.railway.subway_entrance.changchun" = "地下鉄入り口";
-
 "type.railway.subway_entrance.chengdu" = "地下鉄入り口";
-
 "type.railway.subway_entrance.chicago" = "地下鉄入り口";
-
 "type.railway.subway_entrance.chongqing" = "地下鉄入り口";
-
 "type.railway.subway_entrance.dalian" = "地下鉄入り口";
-
 "type.railway.subway_entrance.delhi" = "地下鉄入り口";
-
 "type.railway.subway_entrance.dnepro" = "地下鉄入り口";
-
 "type.railway.subway_entrance.dubai" = "地下鉄入り口";
-
 "type.railway.subway_entrance.ekb" = "地下鉄入り口";
-
 "type.railway.subway_entrance.fukuoka" = "地下鉄入り口";
-
 "type.railway.subway_entrance.glasgow" = "地下鉄入り口";
-
 "type.railway.subway_entrance.guangzhou" = "地下鉄入り口";
-
 "type.railway.subway_entrance.hamburg" = "地下鉄入り口";
-
 "type.railway.subway_entrance.helsinki" = "地下鉄入り口";
-
 "type.railway.subway_entrance.hiroshima" = "地下鉄入り口";
-
 "type.railway.subway_entrance.hongkong" = "地下鉄入り口";
-
 "type.railway.subway_entrance.isfahan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.istanbul" = "地下鉄入り口";
-
 "type.railway.subway_entrance.izmir" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kazan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kharkiv" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kiev" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kobe" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kolkata" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kunming" = "地下鉄入り口";
-
 "type.railway.subway_entrance.kyoto" = "地下鉄入り口";
-
 "type.railway.subway_entrance.la" = "地下鉄入り口";
-
 "type.railway.subway_entrance.lausanne" = "地下鉄入り口";
-
 "type.railway.subway_entrance.lille" = "地下鉄入り口";
-
 "type.railway.subway_entrance.lima" = "地下鉄入り口";
-
 "type.railway.subway_entrance.lisboa" = "地下鉄入り口";
-
 "type.railway.subway_entrance.london" = "地下鉄入り口";
-
 "type.railway.subway_entrance.lyon" = "地下鉄入り口";
-
 "type.railway.subway_entrance.madrid" = "地下鉄入り口";
-
 "type.railway.subway_entrance.malaga" = "地下鉄入り口";
-
 "type.railway.subway_entrance.manila" = "地下鉄入り口";
-
 "type.railway.subway_entrance.maracaibo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.mashhad" = "地下鉄入り口";
-
 "type.railway.subway_entrance.mecca" = "地下鉄入り口";
-
 "type.railway.subway_entrance.medellin" = "地下鉄入り口";
-
 "type.railway.subway_entrance.mexico" = "地下鉄入り口";
-
 "type.railway.subway_entrance.milan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.minsk" = "地下鉄入り口";
-
 "type.railway.subway_entrance.montreal" = "地下鉄入り口";
-
 "type.railway.subway_entrance.moscow" = "地下鉄入り口";
-
 "type.railway.subway_entrance.munchen" = "地下鉄入り口";
-
 "type.railway.subway_entrance.nagoya" = "地下鉄入り口";
-
 "type.railway.subway_entrance.newyork" = "地下鉄入り口";
-
 "type.railway.subway_entrance.nnov" = "地下鉄入り口";
-
 "type.railway.subway_entrance.novosibirsk" = "地下鉄入り口";
-
 "type.railway.subway_entrance.osaka" = "地下鉄入り口";
-
 "type.railway.subway_entrance.oslo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.palma" = "地下鉄入り口";
-
 "type.railway.subway_entrance.panama" = "地下鉄入り口";
-
 "type.railway.subway_entrance.paris" = "地下鉄入り口";
-
 "type.railway.subway_entrance.philadelphia" = "地下鉄入り口";
-
 "type.railway.subway_entrance.pyongyang" = "地下鉄入り口";
-
 "type.railway.subway_entrance.rennes" = "地下鉄入り口";
-
 "type.railway.subway_entrance.rio" = "地下鉄入り口";
-
 "type.railway.subway_entrance.roma" = "地下鉄入り口";
-
 "type.railway.subway_entrance.rotterdam" = "地下鉄入り口";
-
 "type.railway.subway_entrance.samara" = "地下鉄入り口";
-
 "type.railway.subway_entrance.santiago" = "地下鉄入り口";
-
 "type.railway.subway_entrance.santo_domingo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.saopaulo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.sapporo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.sendai" = "地下鉄入り口";
-
 "type.railway.subway_entrance.sf" = "地下鉄入り口";
-
 "type.railway.subway_entrance.shanghai" = "地下鉄入り口";
-
 "type.railway.subway_entrance.shenzhen" = "地下鉄入り口";
-
 "type.railway.subway_entrance.shiraz" = "地下鉄入り口";
-
 "type.railway.subway_entrance.singapore" = "地下鉄入り口";
-
 "type.railway.subway_entrance.sofia" = "地下鉄入り口";
-
 "type.railway.subway_entrance.spb" = "地下鉄入り口";
-
 "type.railway.subway_entrance.stockholm" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tabriz" = "地下鉄入り口";
-
 "type.railway.subway_entrance.taipei" = "地下鉄入り口";
-
 "type.railway.subway_entrance.taoyuan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tashkent" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tbilisi" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tehran" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tianjin" = "地下鉄入り口";
-
 "type.railway.subway_entrance.tokyo" = "地下鉄入り口";
-
 "type.railway.subway_entrance.valencia" = "地下鉄入り口";
-
 "type.railway.subway_entrance.vienna" = "地下鉄入り口";
-
 "type.railway.subway_entrance.warszawa" = "地下鉄入り口";
-
 "type.railway.subway_entrance.washington" = "地下鉄入り口";
-
 "type.railway.subway_entrance.wuhan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.yerevan" = "地下鉄入り口";
-
 "type.railway.subway_entrance.yokohama" = "地下鉄入り口";
-
 "type.railway.tram" = "トラム";
-
 "type.railway.tram.bridge" = "トラム(橋)";
-
 "type.railway.tram.tunnel" = "トラム(トンネル)";
-
 "type.railway.tram_stop" = "トラム";
-
 "type.route" = "ルート";
-
 "type.route.ferry" = "フェリー航路";
-
 "type.route.shuttle_train" = "route-shuttle_train";
-
 "type.shop" = "買い物";
-
 "type.shop.alcohol" = "酒屋";
-
 "type.shop.bakery" = "パン屋";
-
 "type.shop.bathroom_furnishing" = "バスルームの備品";
-
 "type.shop.beauty" = "ビューティーサロン";
-
 "type.shop.beverages" = "ドリンク";
-
 "type.shop.bicycle" = "自転車屋";
-
 "type.shop.bookmaker" = "ブックメーカー";
-
 "type.shop.books" = "本屋";
-
 "type.shop.butcher" = "肉屋";
-
 "type.shop.cannabis" = "大麻店";
-
 "type.shop.car" = "カーディーラー";
-
 "type.shop.car_parts" = "車両部品";
-
 "type.shop.car_repair" = "自動車修理";
-
 "type.shop.car_repair.tyres" = "タイヤ修理";
-
 "type.shop.caravan" = "RV Dealership";
-
 "type.shop.carpet" = "カーペット";
-
 "type.shop.chemist" = "化学薬品店";
-
 "type.shop.chocolate" = "チョコレート屋";
-
 "type.shop.clothes" = "洋服";
-
 "type.shop.coffee" = "コーヒー屋";
-
 "type.shop.computer" = "コンピュータショップ";
-
 "type.shop.confectionery" = "菓子類";
-
 "type.shop.convenience" = "コンビニエンスストア";
-
 "type.shop.copyshop" = "コピーショップ";
-
 "type.shop.cosmetics" = "化粧品";
-
 "type.shop.curtain" = "カーテン";
-
 "type.shop.deli" = "デリカテッセンショップ";
-
 "type.shop.department_store" = "デパート";
-
 "type.shop.doityourself" = "工具店";
-
 "type.shop.dry_cleaning" = "クリーニング屋";
-
 "type.shop.electronics" = "電気店";
-
 "type.shop.erotic" = "アダルトショップ";
-
 "type.shop.fabric" = "生地屋";
-
 "type.shop.farm" = "ファームフードショップ";
-
 "type.shop.fashion_accessories" = "ファッションアクセサリー";
-
 "type.shop.florist" = "フローリスト/花屋";
-
 "type.shop.funeral_directors" = "葬儀屋";
-
 "type.shop.furniture" = "家具店";
-
 "type.shop.garden_centre" = "ガーデンセンター";
-
 "type.shop.gas" = "ガス屋";
-
 "type.shop.gift" = "ギフトショップ";
-
 "type.shop.greengrocer" = "八百屋";
-
 "type.shop.grocery" = "買い物";
-
 "type.shop.hairdresser" = "美容院/理容店";
-
 "type.shop.hardware" = "ホームセンター";
-
 "type.shop.health_food" = "健康食品店";
-
 "type.shop.hearing_aids" = "補聴器店";
-
 "type.shop.herbalist" = "ハーブ店";
-
 "type.shop.hifi" = "ハイファイオーディオ";
-
 "type.shop.houseware" = "家庭用品店";
-
 "type.shop.jewelry" = "宝石店";
-
 "type.shop.kiosk" = "キオスク";
-
 "type.shop.kitchen" = "キッチンストア";
-
 "type.shop.laundry" = "ランドリー";
-
 "type.shop.mall" = "モール";
-
 "type.shop.massage" = "マッサージ店";
-
 "type.shop.mobile_phone" = "携帯ショップ";
-
 "type.shop.money_lender" = "消費者金融";
-
 "type.shop.motorcycle" = "バイクショップ";
-
 "type.shop.motorcycle_repair" = "オートバイの修理";
-
 "type.shop.music" = "CDショップ";
-
 "type.shop.musical_instrument" = "楽器店";
-
 "type.shop.newsagent" = "新聞販売店";
-
 "type.shop.optician" = "眼鏡店";
-
 "type.shop.outdoor" = "アウトドア用品店";
-
 "type.shop.outpost" = "集荷場";
-
 "type.shop.pasta" = "パスタ・ショップ";
-
 "type.shop.pastry" = "ペストリー";
-
 "type.shop.pawnbroker" = "質屋";
-
 "type.shop.pet" = "ペットショップ";
-
 "type.shop.pet_grooming" = "ペットグルーミング";
-
 "type.shop.photo" = "写真屋";
-
 "type.shop.rental" = "レンタルショップ";
-
 "type.shop.rental.bicycle" = "レンタサイクルショップ";
-
 "type.shop.seafood" = "魚屋";
-
 "type.shop.second_hand" = "古物商";
-
 "type.shop.shoes" = "靴屋";
-
 "type.shop.sports" = "スポーツ用品店";
-
 "type.shop.stationery" = "文房具店";
-
 "type.shop.supermarket" = "スーパーマーケット";
-
 "type.shop.tattoo" = "タトゥースタジオ";
-
 "type.shop.tea" = "茶販売店";
-
 "type.shop.ticket" = "チケット売り場";
-
 "type.shop.toys" = "おもちゃ屋";
-
 "type.shop.travel_agency" = "旅行会社";
-
 "type.shop.tyres" = "タイヤ専門店";
-
 "type.shop.variety_store" = "雑貨店";
-
 "type.shop.video" = "ビデオショップ";
-
 "type.shop.video_games" = "ゲームショップ";
-
 "type.shop.wine" = "ワイン店";
-
 "type.shop.agrarian" = "農産物直売所";
-
 "type.shop.antiques" = "骨董品";
-
 "type.shop.appliance" = "家電店";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "アートショップ";
-
 "type.shop.baby_goods" = "キッズストア";
-
 "type.shop.bag" = "バッグストア";
-
 "type.shop.bed" = "ベッドショップ";
-
 "type.shop.boutique" = "ブティック";
-
 "type.shop.charity" = "チャリティーショップ";
-
 "type.shop.cheese" = "チーズ店";
-
 "type.shop.craft" = "美術工芸";
-
 "type.shop.dairy" = "乳製品";
-
 "type.shop.electrical" = "電気店";
-
 "type.shop.fishing" = "フィッシングストア";
-
 "type.shop.interior_decoration" = "室内装飾";
-
 "type.shop.lottery" = "宝くじ";
-
 "type.shop.medical_supply" = "医療用品";
-
 "type.shop.nutrition_supplements" = "栄養補助食品";
-
 "type.shop.paint" = "塗料";
-
 "type.shop.perfumery" = "香水";
-
 "type.shop.sewing" = "ミシン用品";
-
 "type.shop.storage_rental" = "ストレージレンタル";
-
 "type.shop.tobacco" = "タバコ";
-
 "type.shop.trade" = "貿易用品";
-
 "type.shop.watches" = "時計";
-
 "type.shop.wholesale" = "問屋";
-
 "type.sport" = "スポーツ";
-
 "type.sport.american_football" = "アメリカンフットボール";
-
 "type.sport.archery" = "アーチェリー";
-
 "type.sport.athletics" = "運動競技";
-
 "type.sport.australian_football" = "オーストラリアンフットボール";
-
 "type.sport.baseball" = "野球";
-
 "type.sport.basketball" = "バスケットボール";
-
 "type.sport.beachvolleyball" = "ビーチバレー";
-
 "type.sport.bowls" = "ローンボウルズ";
-
 "type.sport.chess" = "チェス";
-
 "type.sport.cricket" = "クリケット";
-
 "type.sport.curling" = "カーリング";
-
 "type.sport.equestrian" = "馬術";
-
 "type.sport.golf" = "ゴルフ";
-
 "type.sport.gymnastics" = "体操";
-
 "type.sport.handball" = "ハンドボール";
-
 "type.sport.multi" = "複数";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "スキューバダイビング";
-
 "type.sport.shooting" = "射撃競技";
-
 "type.sport.skateboard" = "スケートボード";
-
 "type.sport.skiing" = "スキー";
-
 "type.sport.soccer" = "サッカー";
-
 "type.sport.swimming" = "水泳";
-
 "type.sport.table_tennis" = "卓球";
-
 "type.sport.tennis" = "テニスコート";
-
 "type.sport.volleyball" = "バレーボール";
-
 "type.sport.10pin" = "ボウリング";
-
 "type.sport.9pin" = "ボウリング";
-
 "type.sport.padel" = "パデル";
-
 "type.sport.futsal" = "フットサル";
-
 "type.sport.ice_hockey" = "アイスホッケー";
-
 "type.sport.field_hockey" = "フィールドホッケー";
-
 "type.sport.badminton" = "バドミントン";
-
 "type.sport.pelota" = "バスクペロタ";
-
 "type.tourism" = "観光";
-
 "type.tourism.aquarium" = "水族館";
 
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "山小屋";
-
 "type.tourism.apartment" = "ホリデー・アパート";
-
 "type.tourism.artwork" = "芸術";
-
 "type.tourism.artwork.architecture" = "建築";
-
 "type.tourism.artwork.painting" = "絵画";
-
 "type.tourism.artwork.sculpture" = "彫刻";
-
 "type.tourism.artwork.statue" = "像";
-
 "type.tourism.attraction" = "アトラクション";
-
 "type.attraction.amusement_ride" = "遊園地";
-
 "type.attraction.animal" = "アニマル・エンクロージャー";
-
 "type.attraction.bumper_car" = "Bumper Car";
-
 "type.attraction.big_wheel" = "Big Wheel";
-
 "type.attraction.carousel" = "カルーセル";
-
 "type.attraction.historic" = "歴史的アトラクション";
-
 "type.attraction.maze" = "迷路";
-
 "type.attraction.roller_coaster" = "ジェットコースター";
-
 "type.attraction.water_slide" = "ウォータースライド";
-
 "type.tourism.attraction.specified" = "アトラクション";
-
 "type.tourism.camp_site" = "キャンプ場";
-
 "type.tourism.caravan_site" = "オートキャンプ場";
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "ホリデー・コテージ";
-
 "type.tourism.gallery" = "美術館";
-
 "type.tourism.guest_house" = "ゲストハウス";
-
 "type.tourism.hostel" = "ホステル";
-
 "type.tourism.hotel" = "ホテル";
-
 "type.tourism.information" = "インフォメーション";
-
 "type.tourism.information.board" = "情報板";
-
 "type.tourism.information.guidepost" = "道標";
-
 "type.tourism.information.map" = "観光マップ";
-
 "type.tourism.information.office" = "観光案内所";
-
 "type.tourism.information.visitor_centre" = "ビジターセンター";
-
 "type.tourism.motel" = "モーテル";
-
 "type.tourism.museum" = "博物館";
-
 "type.tourism.picnic_site" = "ピクニック場";
-
 "type.leisure.resort" = "リゾート";
-
 "type.tourism.theme_park" = "テーマパーク";
-
 "type.tourism.viewpoint" = "観光スポット";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "無人小屋";
-
 "type.tourism.zoo" = "動物園";
-
 "type.tourism.zoo.petting" = "ふれあい動物園";
-
 "type.traffic_calming" = "交通静穏化";
-
 "type.traffic_calming.bump" = "スピードバンプ";
-
 "type.traffic_calming.hump" = "スピードハンプ";
-
 "type.waterway" = "水域";
-
 "type.waterway.canal" = "運河";
-
 "type.waterway.canal.tunnel" = "運河";
-
 "type.waterway.fish_pass" = "魚道";
-
 "type.waterway.dam" = "ダム";
-
 "type.barrier.ditch" = "排水路";
-
 "type.natural.water.ditch" = "排水溝";
-
 "type.waterway.ditch.tunnel" = "暗渠";
-
 "type.waterway.dock" = "ドック";
-
 "type.waterway.drain" = "用水路";
-
 "type.natural.water.drain" = "用水路";
-
 "type.waterway.drain.tunnel" = "暗渠";
-
 "type.waterway.lock_gate" = "水門";
-
 "type.waterway.river" = "河川";
-
 "type.waterway.river.tunnel" = "河川";
-
 "type.waterway.stream" = "小川";
-
 "type.waterway.stream.ephemeral" = "小川";
-
 "type.waterway.stream.intermittent" = "小川";
-
 "type.waterway.stream.tunnel" = "小川";
-
 "type.waterway.waterfall" = "滝";
-
 "type.waterway.weir" = "堰";
-
 "type.wheelchair" = "車椅子";
-
 "type.wheelchair.limited" = "車椅子でのアクセス制限";
-
 "type.wheelchair.no" = "車椅子でのアクセスなし";
-
 "type.wheelchair.yes" = "車椅子でのアクセスあり";
-
 "type.aerialway.j.bar" = "J-bar Lift";
-
 "type.aerialway.magic_carpet" = "Magic Carpet";
-
 "type.aerialway.platter" = "Platter Lift";
-
 "type.aerialway.rope_tow" = "Rope Tow";
-
 "type.aerialway.t.bar" = "T-bar Lift";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
-
 "type.piste_type.downhill.area" = "Downhill Ski Run";
-
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
-
 "type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
-
 "type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
-
 "type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
-
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-
 "type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
-
 "type.piste_type.downhill.novice.area" = "Downhill Ski Run";
-
 "type.piste_type.nordic" = "Nordic Ski Trail";
-
 "type.piste_type.sled" = "Sledding Piste";
-
 "type.piste_type.sled.area" = "Sledding Piste";
-
 "type.piste_type.snow_park" = "スノーパーク";
-
 "type.piste_type.hike" = "スノーハイキングコース";
-
 "type.piste_type.connection" = "ピステ・コネクション";
-
 "type.piste_type.skitour" = "スキーツアートレイル";
-
 "type.amenity.events_venue" = "イベント会場";
-
 "type.shop.auction" = "オークション";
-
 "type.shop.collector" = "コレクタブル";
-
 "type.self_service.yes" = "セルフサービス可能";
-
 "type.self_service.only" = "セルフサービスのみ";
-
 "type.self_service.partially" = "一部セルフサービス";
-
 "type.self_service.no" = "セルフサービスはない";
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */

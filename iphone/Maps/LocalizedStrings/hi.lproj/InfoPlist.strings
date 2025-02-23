@@ -1,5 +1,7 @@
 
+
 /********** 3d touch strings **********/
+
 
 /* Used in home screen quick actions. */
 "search" = "खोज";
@@ -12,6 +14,7 @@
 
 
 /********** gps strings **********/
+
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "ऐप की कार्यक्षमता का पूरी तरह से आनंद लेने के लिए पृष्ठभूमि में स्थान का पता लगाना आवश्यक है। इसका उपयोग मार्गदर्शन और आपके हाल ही में किए गए यात्रा को सहेजने के लिए किया जाता है।";
