@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?";
 "dialog_routing_download_cross_route" = "Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Vis";
 

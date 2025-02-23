@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?";
 "dialog_routing_download_cross_route" = "Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Прикажи";
 

@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Voleu baixar el mapa i crar una ruta més òptima que travessi més d'un mapa?";
 "dialog_routing_download_cross_route" = "Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Mostra";
 

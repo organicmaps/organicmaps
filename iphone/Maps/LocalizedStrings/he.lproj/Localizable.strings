@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?";
 "dialog_routing_download_cross_route" = "הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "הצג";
 

@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Показать";
 

@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?";
 "dialog_routing_download_cross_route" = "Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Kuva";
 

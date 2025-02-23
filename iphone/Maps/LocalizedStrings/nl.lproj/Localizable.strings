@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Toon";
 
