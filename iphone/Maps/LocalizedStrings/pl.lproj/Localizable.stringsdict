@@ -15,8 +15,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d zakładka</string>
+			<key>few</key>
+			<string>%d zakładki</string>
 			<key>other</key>
-			<string>Zakładki: %d</string>
+			<string>%d zakładek</string>
 		</dict>
 	</dict>
 
@@ -53,10 +57,8 @@
 			<string>%d trasa</string>
 			<key>few</key>
 			<string>%d trasy</string>
-			<key>many</key>
-			<string>%d tras</string>
 			<key>other</key>
-			<string>%d trasy</string>
+			<string>%d tras</string>
 		</dict>
 	</dict>
 
