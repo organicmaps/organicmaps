@@ -1131,6 +1131,10 @@
     <string name="type.emergency.defibrillator">Defibrilator</string>
     <string name="type.emergency.fire_hydrant">Keran Kebakaran</string>
     <string name="type.emergency.phone">Telepon darurat</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Penjaga pantai</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Stasiun penyelamatan gunung</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Pintu masuk</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1345,6 +1349,8 @@
     <string name="type.historic.ship">Pemandangan</string>
     <string name="type.historic.tank">Tangki Bersejarah</string>
     <string name="type.historic.tomb">Pemandangan</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Salib</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Salib di pinggir jalan</string>
     <string name="type.historic.wayside_shrine">Kuil di pinggir jalan</string>
@@ -1397,6 +1403,10 @@
     <string name="type.man_made.communications_tower">Menara Komunikasi</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Menara Komunikasi</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Sumur minyak atau gas</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Nyala gas</string>
     <string name="type.man_made.water_tap">Keran Air</string>
     <string name="type.man_made.water_tap.drinking_water_no">Keran Air</string>
     <string name="type.man_made.water_tower">Menara air</string>

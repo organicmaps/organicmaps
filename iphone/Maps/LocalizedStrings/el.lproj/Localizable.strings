@@ -1,7 +1,5 @@
 
-
 /********** Strings **********/
-
 
 /* Button text (should be short) */
 "cancel" = "Άκυρο";
@@ -11,6 +9,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Διαγραφή";
+
 "download_maps" = "Λήψη χαρτών";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -57,7 +56,9 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
+
 "close" = "Κλείσιμο";
+
 "download" = "Λήψη";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -92,7 +93,6 @@
 
 
 /********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Μέρη για φαγητό";
@@ -209,8 +209,11 @@
 
 /* Length of track in cell that describes route */
 "length" = "Μήκος";
+
 "share_my_location" = "Κοινοποίηση της τοποθεσίας μου";
+
 "prefs_group_route" = "Πλοήγηση";
+
 "pref_zoom_title" = "Πλήκτρα μεγέθυνσης";
 
 /* Settings «Map» category: «Appearance» title */
@@ -257,8 +260,11 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Άλλo";
+
 "pref_map_auto_zoom" = "Αυτόματη μεγέθυνση";
+
 "placepage_distance" = "Απόσταση";
+
 "search_show_on_map" = "Προβολή στο χάρτη";
 
 /* Text in menu */
@@ -293,8 +299,11 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Κάντε δωρεά για να φτιάξουμε μαζί τους καλύτερους χάρτες!";
+
 "already_donated" = "Ήδη δωρεά";
+
 "remind_me_later" = "Υπενθύμισε αργότερα";
+
 "support_organic_maps" = "Υποστήριξε το Organic Maps";
 
 /* Button in the main Help dialog */
@@ -335,12 +344,16 @@
 
 /* Country queued for download */
 "downloader_queued" = "Στην ουρά";
+
 "downloader_near_me_subtitle" = "Κοντά μου";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Χάρτες";
+
 "downloader_download_all_button" = "Λήψη όλων";
+
 "downloader_downloading" = "Γίνεται λήψη:";
+
 "downloader_search_results" = "Βρέθηκαν";
 
 /* Status of outdated country in the list */
@@ -372,7 +385,9 @@
 
 /* bookmark button text */
 "bookmark" = "αγαπημένο";
+
 "save" = "Αποθήκευση";
+
 "create" = "δημιουργήστε";
 
 /* red color */
@@ -427,37 +442,63 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Όταν ακολουθείτε την διαδρομή, να θυμάστε:";
+
 "dialog_routing_disclaimer_priority" = "— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,";
+
 "dialog_routing_disclaimer_precision" = "— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,";
+
 "dialog_routing_disclaimer_recommendations" = "— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·";
+
 "dialog_routing_disclaimer_borders" = "— Προσέξτε τις διαδρομές στις παραμεθόριες περιοχές: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.";
+
 "dialog_routing_disclaimer_beware" = "Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!";
+
 "dialog_routing_check_gps" = "Ελέγξτε το σήμα GPS";
+
 "dialog_routing_error_location_not_found" = "Δεν είναι δυνατή η δημιουργία της διαδρομής. Δεν μπορούν να προσδιοριστούν οι τρέχουσες συντεταγμένες GPS.";
+
 "dialog_routing_location_turn_wifi" = "Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.";
+
 "dialog_routing_location_turn_on" = "Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας";
+
 "dialog_routing_location_unknown_turn_on" = "Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.";
+
 "dialog_routing_download_files" = "Κατεβάστε τα απαιτούμενα αρχεία";
+
 "dialog_routing_download_and_update_all" = "Κατεβάσετε ή ενημερώστε όλους τους χάρτες για όλο το μήκος της προβαλλόμενης διαδρομής ώστε να γίνει ο υπολογισμός της.";
+
 "dialog_routing_unable_locate_route" = "Δε μπορεί να εντοπιστεί η διαδρομή";
+
 "dialog_routing_change_start_or_end" = "Ρυθμίστε το σημείο εκκίνησης ή τον προορισμό σας.";
+
 "dialog_routing_change_start" = "Ρυθμίστε το σημείο εκκίνησης";
+
 "dialog_routing_start_not_determined" = "Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του σημείου εκκίνησης.";
+
 "dialog_routing_select_closer_start" = "Επιλέξτε σημείο εκκίνησης πιο κοντά σε κάποιο δρόμο.";
+
 "dialog_routing_change_end" = "Ρύθμιση προορισμού";
+
 "dialog_routing_end_not_determined" = "Η διαδρομή δεν δημιουργήθηκε. Δεν είναι δυνατός ο εντοπισμός του προορισμού.";
+
 "dialog_routing_select_closer_end" = "Επιλέξτε ένα σημείο προορισμού πιο κοντά σε κάποιο δρόμο.";
+
 "dialog_routing_change_intermediate" = "Δεν είναι δυνατός ο εντοπισμός ενδιάμεσου σημείου.";
+
 "dialog_routing_intermediate_not_determined" = "Ρυθμίστε το ενδιάμεσο σημείο.";
+
 "dialog_routing_system_error" = "Σφάλμα συστήματος";
+
 "dialog_routing_application_error" = "Δεν είναι δυνατή η δημιουργία διαδρομής λόγω σφάλματος της εφαρμογής.";
+
 "dialog_routing_try_again" = "Προσπαθήστε ξανά";
+
 "dialog_routing_download_and_build_cross_route" = "Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;";
+
 "dialog_routing_download_cross_route" = "Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.";
 
 
 /********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Εμφάνιση";
@@ -473,14 +514,20 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Κάντε λήψη και ενημέρωση όλων των χαρτών κατά μήκος της προβαλλόμενης διαδρομής για τον υπολογισμό της.";
+
 "categories" = "Κατηγορίες";
+
 "history" = "Ιστορικό";
+
 "search_not_found" = "Ωχ, δε βρέθηκαν αποτελέσματα.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Κατεβάστε την περιοχή στην οποία ψάχνετε ή δοκιμάστε να προσθέσετε το όνομα μιας κοντινής πόλης/χωριού.";
+
 "search_history_title" = "Ιστορικό αναζητήσεων";
+
 "search_history_text" = "Προβολή πρόσφατων αναζητήσεων.";
+
 "clear_search" = "Εκκαθάριση ιστορικού αναζητήσεων";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -488,29 +535,50 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Η τοποθεσία σας";
+
 "p2p_start" = "Έναρξη";
+
 "p2p_from_here" = "Διαδρομή από";
+
 "p2p_to_here" = "Διαδρομή προς";
+
 "p2p_only_from_current" = "Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.";
+
 "p2p_reroute_from_current" = "Θέλετε να σχεδιαστεί μια διαδρομή από την τρέχουσα τοποθεσία σας;";
+
 "editor_time_add" = "Προσθέσετε χρονοδιάγραμμα";
+
 "editor_time_delete" = "Διαγραφή χρονοδιαγράμματος";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Όλη την ημέρα (24 ώρες)";
+
 "editor_time_open" = "Ανοικτό";
+
 "editor_time_close" = "Κλειστό";
+
 "editor_time_add_closed" = "Προσθήκη μη-εργάσιμων ωρών";
+
 "editor_time_title" = "Εργάσιμες ώρες";
+
 "editor_time_advanced" = "Αναλυτική Προβολή";
+
 "editor_time_simple" = "Απλή προβολή";
+
 "editor_hours_closed" = "Μη-εργάσιμες ώρες";
+
 "editor_example_values" = "Παραδείγματα";
+
 "editor_add_select_location" = "Επιλέξτε τοποθεσία";
+
 "editor_done_dialog_1" = "Έχετε αλλάξει τον παγκόσμιο χάρτη. Μην το κρατάτε για τον εαυτό σας! Πείτε το στους φίλους σας και κάντε αλλαγές μαζί.";
+
 "share_with_friends" = "Μοιραστείτε το με φίλους";
+
 "editor_report_problem_send_button" = "Αποστολή";
+
 "autodownload" = "Αυτόματη λήψη";
 
 /* Place Page opening hours text */
@@ -518,93 +586,154 @@
 
 /* Place Page opening hours text */
 "daily" = "Καθημερινά";
+
 "twentyfour_seven" = "24/7";
+
 "day_off_today" = "Κλειστό σήμερα";
+
 "day_off" = "Κλειστό";
+
 "today" = "Σήμερα";
+
 "opens_tomorrow_at" = "Ανοίγει αύριο στις %@";
+
 "opens_dayoftheweek_at" = "Ανοίγει %1$@ στις %2$@";
+
 "opens_at" = "Ανοίγει στις %@";
+
 "opens_in" = "Ανοίγει σε %@";
+
 "closes_at" = "Κλείνει στις %@";
+
 "closes_in" = "Κλείνει σε %@";
+
 "closed" = "Κλειστό";
+
 "add_opening_hours" = "Προσθέστε ώρες λειτουργίας";
+
 "no_osm_account" = "Δεν έχετε λογαριασμό OpenStreetMap;";
+
 "register_at_openstreetmap" = "Εγγραφή στο OpenStreetMap";
+
 "password_8_chars_min" = "Κωδικός πρόσβασης (τουλάχιστον 8 χαρακτήρες)";
+
 "invalid_username_or_password" = "Μη έγκυρο όνομα χρήστη ή κωδικός πρόσβασης.";
+
 "login" = "Σύνδεση";
+
 "login_osm" = "Συνδεθείτε στο OpenStreetMap";
+
 "forgot_password" = "Ξαχάσατε τον κωδικό πρόσβασης;";
+
 "osm_account" = "Λογαριασμός OSM";
+
 "logout" = "Αποσύνδεση";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Τελευταία μεταφόρτωση";
+
 "thank_you" = "Σας ευχαριστούμε";
+
 "edit_place" = "Επεξεργασία τοποθεσίας";
+
 "place_name" = "Όνομα τοποθεσίας";
+
 "add_language" = "Προσθήκη γλώσσας";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Αριθμός κτιρίου";
+
 "details" = "Λεπτομέρειες";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Προσθέστε οδό";
+
 "choose_language" = "Επιλέξτε μια γλώσσα";
+
 "choose_street" = "Επιλέξτε μια οδό";
+
 "postal_code" = "Ταχυδρομικός Κώδικας";
+
 "cuisine" = "Κουζίνα";
+
 "select_cuisine" = "Επιλέξτε κουζίνα";
 
 /* login text field */
 "email_or_username" = "Email ή όνομα χρήστη";
+
 "phone" = "Τηλέφωνο";
+
 "level" = "Όροφος";
+
 "please_note" = "Λάβετε υπόψη";
+
 "downloader_delete_map_dialog" = "Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.";
+
 "downloader_update_maps" = "Ενημέρωση χαρτών";
+
 "downloader_search_field_hint" = "Εύρεση χάρτη";
+
 "migration_download_error_dialog" = "Σφάλμα λήψης";
+
 "common_check_internet_connection_dialog" = "Βεβαιωθείτε ότι η συσκευή σας είναι συνδεδεμένη στο Internet.";
+
 "downloader_no_space_title" = "Δεν υπάρχει αρκετός χώρος";
+
 "downloader_no_space_message" = "Διαγράψτε μη απαραίτητα δεδομένα";
+
 "editor_profile_changes" = "Επαληθευμένες αλλαγές";
+
 "editor_focus_map_on_location" = "Σύρετε το χάρτη για να τοποθετήσετε το σταυρό στη θέση του τόπου ή της επιχείρησης.";
+
 "editor_add_select_category" = "Επιλέξτε κατηγορία";
+
 "editor_add_select_category_popular_subtitle" = "Δημοφιλή";
+
 "editor_add_select_category_all_subtitle" = "Όλες οι κατηγορίες";
+
 "editor_edit_place_title" = "Επεξεργασία";
+
 "editor_add_place_title" = "Προσθήκη";
+
 "editor_edit_place_name_hint" = "Όνομα τοποθεσίας";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Όπως είναι γραμμένο στην τοπική γλώσσα";
+
 "editor_edit_place_category_title" = "Κατηγορία";
+
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";
+
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
+
 "message_invalid_feature_position" = "Δε μπορεί να τοποθετηθεί αντικείμενο εδώ";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα στις %@. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Δημιουργήστε έναν λογαριασμό OpenStreetMap ή συνδεθείτε για να δημοσιεύσετε τις επεξεργασίες του χάρτη σας στον κόσμο.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε μη απαραίτητα δεδομένα.";
+
 "editor_sharing_title" = "Βελτίωσα τους χάρτες Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
+
 "download_over_mobile_header" = "Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;";
+
 "download_over_mobile_message" = "Αυτό μπορεί να είναι πολύ ακριβό για μερικά πακέτα ή στην περίπτωση roaming.";
+
 "error_enter_correct_house_number" = "Εισαγάγετε έναν έγκυρο αριθμό κτιρίου";
+
 "editor_storey_number" = "Αριθμός ορόφων (μέγιστο %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d";
+
 "editor_zip_code" = "Ταχυδρομικός κώδικας";
+
 "error_enter_correct_zip_code" = "Εισάγετε έναν έγκυρο ταχυδρομικό κώδικα";
 
 /* Place Page title for long tap */
@@ -612,29 +741,47 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Σημείωση για τους εθελοντές του OpenStreetMap (προαιρετική)";
+
 "editor_detailed_description_hint" = "Λεπτομερές σχόλιο";
+
 "editor_detailed_description" = "Οι προτεινόμενες αλλαγές θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο Organic Maps.";
+
 "editor_more_about_osm" = "Περισσότερα σχετικά με το OpenStreetMap";
+
 "editor_operator" = "Χειριστής";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Χειριστής: %@";
+
 "editor_category_unsuitable_title" = "Δεν μπορείτε να βρείτε την κατάλληλη κατηγορία;";
+
 "editor_category_unsuitable_text" = "Οι Οργανικοί Χάρτες επιτρέπουν την προσθήκη απλών κατηγοριών σημείων μόνο, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Ελέγξτε τον <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">οδηγό μας</a> για λεπτομερείς οδηγίες βήμα προς βήμα.";
+
 "downloader_no_downloaded_maps_title" = "Δεν έχετε κατεβάσει χάρτες";
+
 "downloader_no_downloaded_maps_message" = "Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.";
+
 "current_location_unknown_error_title" = "Η τρέχουσα τοποθεσία είναι άγνωστη.";
+
 "current_location_unknown_error_message" = "Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.";
+
 "location_services_disabled_header" = "Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες";
+
 "location_services_disabled_message" = "Ενεργοποιήστε την υπηρεσία γεωεντοπισμού στις ρυθμίσεις της συσκευής";
+
 "location_services_disabled_1" = "1. Ανοίξτε τις ρυθμίσεις";
+
 "location_services_disabled_2" = "2. Πατήστε τοποθεσία";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Επιλέξτε «Ενώ χρησιμοποιείτε η εφαρμογή»";
+
 "location_services_disabled_on_device_2" = "2. Επιλέξτε Απόρρητο";
+
 "location_services_disabled_on_device_3" = "3. Επιλέξτε Υπηρεσίες τοποθεσίας";
+
 "location_services_disabled_on_device_4" = "4. Ενεργοποιήστε τις Υπηρεσίες τοποθεσίας";
+
 "location_services_disabled_on_device_additional_message" = "Ή συνεχίστε να χρησιμοποιείτε το Organic Maps χωρίς Τοποθεσία";
 
 /* abbreviation for meters */
@@ -651,11 +798,17 @@
 
 /* A unit of measure */
 "ft" = "πόδια";
+
 "miles_per_hour" = "mph";
+
 "hour" = "h";
+
 "minute" = "min";
+
 "day" = "d";
+
 "placepage_more_button" = "Περισσότερα";
+
 "book_button" = "Κράτηση";
 
 /* A referral link on the place page for some hotels */
@@ -669,25 +822,42 @@
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_disable_button" = "Απενεργοποίηση του Kayak";
+
 "placepage_call_button" = "Κλήση";
+
 "placepage_edit_bookmark_button" = "Επεξεργασία αγαπημένου";
+
 "placepage_bookmark_name_hint" = "Όνομα αγαπημένου";
+
 "placepage_personal_notes_hint" = "Προσωπικές σημειώσεις (κείμενο ή html)";
+
 "placepage_delete_bookmark_button" = "Διαγραφή αγαπημένου";
+
 "editor_edits_sent_message" = "Η σημείωσή σας θα σταλεί στο OpenStreetMap";
+
 "editor_comment_hint" = "Σχόλιο…";
+
 "editor_reset_edits_message" = "Απόρριψη όλων των τοπικών αλλαγών;";
+
 "editor_reset_edits_button" = "Απόρριψη";
+
 "editor_remove_place_message" = "Διαγραφή της τοποθεσίας που προστέθηκε;";
+
 "editor_remove_place_button" = "Διαγραφή";
+
 "editor_place_doesnt_exist" = "Η τοποθεσία δεν υπάρχει";
+
 "text_more_button" = "…περισσότερα";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Εισάγετε έναν έγκυρο αριθμό τηλεφώνου";
+
 "error_enter_correct_web" = "Εισάγετε μια έγκυρη ηλεκτρονική διεύθυνση";
+
 "error_enter_correct_email" = "Εισάγετε ένα έγκυρο email";
+
 "refresh" = "Ενημέρωση";
+
 "placepage_add_place_button" = "Προσθήκη τοποθεσίας στο OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -695,16 +865,21 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.";
+
 "editor_share_to_all_dialog_message_2" = "Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.";
+
 "navigation_stop_button" = "τέλος";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;";
+
 "off_recent_track_background_button" = "Απενεργοποίηση";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Τσέκαρε";
+
 "recent_track_background_dialog_message" = "Το Organic Maps χρησιμοποιεί την τοποθεσία σας στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
+
 "general_settings" = "Γενικές ρυθμίσεις";
 
 /* For the first routing */
@@ -715,17 +890,26 @@
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Λίστα";
+
 "mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";
+
 "mobile_data_option_always" = "Να χρησιμοποιείται πάντα";
+
 "mobile_data_option_today" = "Μόνο σήμερα";
+
 "mobile_data_option_not_today" = "Να μην χρησιμοποιηθεί σήμερα";
+
 "mobile_data" = "Ίντερνετ μέσω δικτύου κινητής";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Απαιτείται πρόσβαση στο ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.";
+
 "mobile_data_option_never" = "Να μην χρησιμοποιείται ποτέ";
+
 "mobile_data_option_ask" = "Να γίνεται πάντα ερώτηση";
+
 "traffic_update_maps_text" = "Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.";
+
 "big_font" = "Αύξηση μεγέθους γραμματοσειράς στο χάρτη";
 
 /* "traffic" as in road congestion */
@@ -733,8 +917,11 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
+
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
+
 "log_file_size" = "Μέγεθος αρχείου καταγραφής: %@";
+
 "transliteration_title" = "Μεταγραφή στα Λατινικά";
 
 /* Subway exits for public transport marks on the map */
@@ -745,11 +932,17 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Χρησιμοποιήστε την αναζήτηση ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο προορισμού";
+
 "planning_route_manage_route" = "Διαχείριση διαδρομής";
+
 "button_plan" = "Σχεδιασμός";
+
 "placepage_remove_stop" = "Αφαίρεση στάσης";
+
 "planning_route_remove_title" = "Σύρετε εδώ για αφαίρεση";
+
 "placepage_add_stop" = "Προσθήκη στάσης";
+
 "start_from_my_position" = "Έναρξη από";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -757,47 +950,83 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "εδώ";
+
 "core_entrance" = "Είσοδος";
+
 "error_enter_correct_name" = "Εισάγετε ένα σωστό όνομα";
+
 "bookmark_lists" = "Λίστες";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Απόκρυψη όλων";
+
 "bookmark_lists_show_all" = "Εμφάνιση όλων";
+
 "bookmarks_create_new_group" = "Δημιουργία νέας λίστας";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Εισαγωγή σελιδοδεικτών και διαδρομών";
+
 "downloader_hide_screen" = "Απόκρυψη οθόνης";
+
 "downloader_percent" = "%@ (%@ από %@)";
+
 "downloader_process" = "Λήψη %@…";
+
 "downloader_applying" = "Εφαρμογή %@…";
+
 "bookmarks_error_message_share_general" = "Αδυναμία κοινοποίησης λόγω σφάλματος εφαρμογής";
+
 "bookmarks_error_title_share_empty" = "Σφάλμα κατά την κοινοποίηση";
+
 "bookmarks_error_message_share_empty" = "Δεν είναι δυνατή η κοινή χρήση μιας κενής λίστας";
+
 "bookmarks_error_message_empty_list_name" = "Εισαγάγετε το όνομα της λίστας";
+
 "bookmarks_error_title_list_name_already_taken" = "Αυτό το όνομα χρησιμοποιείται ήδη";
+
 "bookmarks_error_title_list_name_too_long" = "Αυτό το όνομα είναι πολύ μεγάλο";
+
 "profile" = "Προφίλ OpenStreetMap";
+
 "bookmarks_detect_title" = "Εντοπίστηκαν νέα αρχεία";
+
 "button_convert" = "Μετατροπή";
+
 "bookmarks_convert_error_title" = "Σφάλμα";
+
 "bookmarks_convert_error_message" = "Ορισμένα αρχεία δεν μετατράπηκαν.";
+
 "restore" = "Επαναφορά";
+
 "privacy_policy" = "Πολιτική απορρήτου";
+
 "terms_of_use" = "Όροι χρήσης";
+
 "button_layer_subway" = "Μετρό";
+
 "layers_title" = "Στυλ χάρτη και επίπεδα";
+
 "subway_data_unavailable" = "Ο χάρτης μετρό δεν είναι διαθέσιμος";
+
 "title_error_downloading_bookmarks" = "Συνέβη κάποιο σφάλμα";
+
 "popular_place" = "Δημοφιλή";
+
 "export_file" = "Εξαγωγή KMZ";
+
 "export_file_gpx" = "Εξαγωγή GPX";
+
 "delete_list" = "Διαγραφή λίστας";
+
 "hide_from_map" = "Απόκρυψη από τον χάρτη";
+
 "tags_loading_error_subtitle" = "Ένα σφάλμα συνέβη κατά το φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε";
+
 "download_button" = "Κατέβασμα";
+
 "speedcams_alert_title" = "Κάμερες Ταχύτητας";
+
 "place_description_title" = "Περιγραφή μέρους";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -808,12 +1037,19 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Να μην ειδοποιούμαι ποτέ";
+
 "power_managment_title" = "Λειτουργία εξοικονόμησης ενέργειας";
+
 "power_managment_description" = "Θα γίνεται προσπάθεια εξοικονόμησης ενέργειας εις βάρος κάποιον λειτουργιών.";
+
 "power_managment_setting_never" = "Ποτέ";
+
 "power_managment_setting_auto" = "Αυτόματα";
+
 "power_managment_setting_manual_max" = "Πάντα";
+
 "enable_logging_warning_message" = "Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.";
+
 "driving_options_title" = "Ρυθμίσεις δρομολόγησης";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -824,19 +1060,33 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Αποφυγή πορθμείων";
+
 "avoid_motorways" = "Αποφυγή αυτοκινητόδρομων";
+
 "unable_to_calc_alert_title" = "Δεν ήταν δυνατός ο υπολογισμός διαδρομής";
+
 "unable_to_calc_alert_subtitle" = "Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι.";
+
 "define_to_avoid_btn" = "Ορισμός δρόμων προς αποφυγή";
+
 "change_driving_options_btn" = "Ρυθμίσεις δρομολόγησης ενεργοποιημένες";
+
 "toll_road" = "Δρόμος με διόδια";
+
 "unpaved_road" = "Χωματόδρομος";
+
 "ferry_crossing" = "Πορθμείο";
+
 "trip_start" = "Φύγαμε";
+
 "pick_destination" = "Προορισμός";
+
 "follow_my_position" = "Κεντράρισμα";
+
 "search_results" = "Αποτελέσματα αναζήτησης";
+
 "then_turn" = "Μετά";
+
 "redirect_route_alert" = "Θα θέλατε να επανυπολογιστεί η διαδρομή;";
 
 /* A generic "Yes" button in dialogs */
@@ -856,22 +1106,39 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Δίκτυο: %@";
+
 "trip_finished" = "Μόλις φτάσατε!";
+
 "keyboard_availability_alert" = "Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια της οδήγησης";
+
 "dialog_routing_change_start_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής από την τρέχουσα τοποθεσία σας";
+
 "dialog_routing_change_end_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο";
+
 "dialog_routing_check_gps_carplay" = "Δεν υπάρχει σήμα GPS. Μετακινηθείτε σε μια ανοικτή τοποθεσία";
+
 "dialog_routing_unable_locate_route_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής";
+
 "dialog_routing_download_files_carplay" = "Για να δημιουργήσετε μια διαδρομή, κατεβάστε τους χάρτες που λείπουν";
+
 "dialog_routing_system_error_carplay" = "Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής";
+
 "dialog_routing_rebuild_from_current_location_carplay" = "Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας";
+
 "dialog_routing_rebuild_for_vehicle_carplay" = "Η διαδρομή θα μετατραπεί σε διαδρομή με αυτοκίνητο";
+
 "not_all_shown_bookmarks_carplay" = "Δεν εμφανίζονται όλοι οι σελιδοδείκτες";
+
 "switch_to_phone_bookmarks_carplay" = "Μεταβείτε στο τηλέφωνο για να δείτε όλους τους σελιδοδείκτες";
+
 "ok" = "Οκ";
+
 "speedcams_alert_title_carplay_1" = "Κάμερες Ταχύτητας";
+
 "speedcams_alert_title_carplay_2" = "Ειδοποιήσεις ταχύτητας";
+
 "download_map_carplay" = "Κάντε λήψη χαρτών στην εφαρμογή, στη συσκευή σας";
+
 "carplay_roundabout_exit" = "%@ έξοδος";
 
 /* max. 10 symbols, both iOS and Android */
@@ -879,54 +1146,98 @@
 
 /* iOS */
 "sort_default" = "Ταξινόμηση κατά προεπιλογή";
+
 "sort_type" = "Ταξινόμηση ανά τύπο";
+
 "sort_distance" = "Ταξινόμηση κατά απόσταση";
+
 "sort_date" = "Ταξινόμηση κατά ημερομηνία";
+
 "sort_name" = "Ταξινόμηση με βάση το όνομα";
+
 "week_ago_sorttype" = "Μια βδομάδα πριν";
+
 "month_ago_sorttype" = "Ένα μήνα πριν";
+
 "moremonth_ago_sorttype" = "Περισσότερο από έναν μήνα πριν";
+
 "moreyear_ago_sorttype" = "Περισσότερο από ένα χρόνο πριν";
+
 "near_me_sorttype" = "Δίπλα μου";
+
 "others_sorttype" = "Άλλα";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "Φαγητό";
+
 "tourist_places" = "Αξιοθέατα";
+
 "museums" = "Μουσεία";
+
 "parks" = "Πάρκα";
+
 "swim_places" = "Κολύμβηση";
+
 "mountains" = "Βουνά";
+
 "animals" = "Ζώα";
+
 "hotels" = "Διαμονή";
+
 "buildings" = "Κτήρια";
+
 "money" = "Χρήματα";
+
 "shops" = "Καταστήματα";
+
 "parkings" = "Χώροι στάθμευσης";
+
 "fuel_places" = "Πρατήρια βενζίνης";
+
 "medicine" = "Φαρμακεία";
+
 "search_in_the_list" = "Αναζήτηση στη λίστα";
+
 "religious_places" = "Χώροι Λατρείας";
+
 "transit_not_found" = "Η πλοήγηση με μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
+
 "dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή μετρό";
+
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";
+
 "button_layer_isolines" = "Υψομετρικά";
+
 "isolines_activation_error_dialog" = "Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής";
+
 "isolines_location_error_dialog" = "Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή";
+
 "elevation_profile_diff_level" = "Επίπεδο δυσκολίας";
+
 "elevation_profile_diff_level_easy" = "Εύκολο";
+
 "elevation_profile_diff_level_moderate" = "Μέτριο";
+
 "elevation_profile_diff_level_hard" = "Δύσκολο";
+
 "elevation_profile_ascent" = "Ανάβαση";
+
 "elevation_profile_descent" = "Κατάβαση";
+
 "elevation_profile_min_elevation" = "Ελάχ. υψόμετρο";
+
 "elevation_profile_max_elevation" = "Μέγ. υψόμετρο";
+
 "elevation_profile_difficulty" = "Δυσκολία";
+
 "elevation_profile_time" = "Διάρκ:";
+
 "isolines_toast_zooms_1_10" = "Μεγεθύνετε για να δείτε περιγράμματα";
+
 "downloader_updating_ios" = "Γίνεται ενημέρωση";
+
 "downloader_loading_ios" = "Κατέβασμα";
 
 /* Autoupdate dialog on start */
@@ -1021,6 +1332,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Χάρτης";
+
 "drive_through" = "Οδηγώ μέσα από";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1100,79 +1412,148 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
+
 "edit_track" = "Επεξεργασία διαδρομής";
 
 
 /********** Types **********/
 
 "type.addr_interpolation" = "Διεύθυνση/Μπλοκ";
+
 "type.addr_interpolation.even" = "Διεύθυνση/Μπλοκ";
+
 "type.addr_interpolation.odd" = "Διεύθυνση/Μπλοκ";
+
 "type.aerialway" = "Τελεφερίκ";
+
 "type.aerialway.cable_car" = "Τελεφερίκ";
+
 "type.aerialway.chair_lift" = "Τελεφερίκ";
+
 "type.aerialway.drag_lift" = "Τελεφερίκ";
+
 "type.aerialway.gondola" = "Τελεφερίκ";
+
 "type.aerialway.mixed_lift" = "Τελεφερίκ";
+
 "type.aerialway.station" = "Σταθμός τελεφερίκ";
+
 "type.aeroway" = "Airspace Infrastructure";
+
 "type.aeroway.aerodrome" = "Αεροδρόμιο";
+
 "type.aeroway.aerodrome.international" = "Αεροδρόμιο";
+
 "type.aeroway.apron" = "Apron";
+
 "type.aeroway.gate" = "Gate";
+
 "type.aeroway.helipad" = "Ελικοδρόμιο";
+
 "type.aeroway.runway" = "Runway";
+
 "type.aeroway.taxiway" = "Taxiway";
+
 "type.aeroway.terminal" = "Terminal";
+
 "type.amenity" = "Εγκαταστάσεις υποδομής";
+
 "type.amenity.arts_centre" = "Κέντρο καλών τεχνών";
+
 "type.amenity.atm" = "ATM";
+
 "type.amenity.bank" = "Τράπεζα";
+
 "type.amenity.bar" = "Μπαρ";
+
 "type.amenity.bbq" = "Ψησταριά μπάρμπεκιου";
+
 "type.amenity.bench" = "Παγκάκι";
+
 "type.amenity.bicycle_parking" = "Χώρος στάθμευσης ποδηλάτων";
+
 "type.amenity.bicycle_rental" = "Ενοικιάσεις ποδηλάτων";
+
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+
 "type.amenity.biergarten" = "Μπυραρία";
+
 "type.amenity.brothel" = "Πορνείο";
+
 "type.amenity.bureau_de_change" = "Συνάλλαγμα";
+
 "type.amenity.bus_station" = "Σταθμός λεωφορείων";
+
 "type.amenity.cafe" = "Καφετέρια";
+
 "type.amenity.car_rental" = "Ενοικίαση αυτοκινήτου";
+
 "type.amenity.car_sharing" = "Παραχώρηση αυτοκινήτου";
+
 "type.amenity.car_wash" = "Καθαρισμός αυτοκινήτων";
+
 "type.amenity.casino" = "Καζίνο";
+
 "type.amenity.gambling" = "ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ";
+
 "type.leisure.adult_gaming_centre" = "Κέντρο παιχνιδιών ενηλίκων";
+
 "type.leisure.amusement_arcade" = "Στοά";
+
 "type.amenity.charging_station" = "Σταθμός φόρτισης";
+
 "type.amenity.charging_station.bicycle" = "Σταθμός φόρτισης ποδηλάτων";
+
 "type.amenity.charging_station.motorcar" = "Σταθμός φόρτισης αυτοκινήτων";
+
 "type.amenity.childcare" = "Βρεφικός σταθμός";
+
 "type.amenity.cinema" = "Κινηματογράφος";
+
 "type.leisure.bowling_alley" = "Αίθουσα σφαιρίσεως";
+
 "type.amenity.clinic" = "Κλινική";
+
 "type.amenity.college" = "Κολέγιο";
+
 "type.amenity.community_centre" = "Κέντρο κοινότητας";
+
 "type.amenity.compressed_air" = "Πεπιεσμένος αέρας";
+
 "type.amenity.conference_centre" = "Συνεδριακό Κέντρο";
+
 "type.amenity.courthouse" = "Δικαστικό μέγαρο";
+
 "type.amenity.dentist" = "Οδοντίατρος";
+
 "type.amenity.doctors" = "Γιατροί";
+
 "type.amenity.drinking_water" = "Πόσιμο νερό";
+
 "type.drinking_water.yes" = "Πόσιμο νερό";
+
 "type.amenity.driving_school" = "Σχολή οδήγησης";
+
 "type.amenity.exhibition_centre" = "Εκθεσιακό Κέντρο";
+
 "type.amenity.money_transfer" = "Μεταφορά χρημάτων";
+
 "type.amenity.music_school" = "Μουσική Σχολή";
+
 "type.amenity.language_school" = "Σχολή Γλωσσών";
+
 "type.office.diplomatic" = "Πρεσβεία";
+
 "type.amenity.fast_food" = "Ταχυφαγίο";
+
 "type.amenity.ferry_terminal" = "Πορθμείο";
+
 "type.amenity.fire_station" = "Σταθμός πυρόσβεσης";
+
 "type.amenity.food_court" = "Food Court";
+
 "type.amenity.fountain" = "Συντριβάνι";
+
 "type.amenity.fuel" = "Βενζινάδικο";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -1180,82 +1561,154 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Νεκροταφείο";
+
 "type.amenity.hospital" = "Νοσοκομείο";
+
 "type.amenity.hunting_stand" = "Βάση σκόπευσης";
+
 "type.amenity.ice_cream" = "Παγωτατζίδικο";
+
 "type.amenity.internet_cafe" = "Καφετέρια με Ίντερνετ";
+
 "type.amenity.kindergarten" = "Νηπιαγωγείο";
+
 "type.amenity.library" = "Βιβλιοθήκη";
+
 "type.amenity.loading_dock" = "Αποβάθρα φόρτωσης";
+
 "type.amenity.marketplace" = "Αγορά";
+
 "type.amenity.motorcycle_parking" = "Χώρος στάθμευσης μοτοσικλετών";
+
 "type.amenity.nightclub" = "Νυχτερινό κέντρο διασκέδασης";
+
 "type.amenity.nursing_home" = "Γηροκομείο";
+
 "type.amenity.parking" = "Χώρος στάθμευσης";
+
 "type.amenity.parking.fee" = "Χώρος στάθμευσης";
+
 "type.amenity.parking.multi.storey" = "Πολυώροφος χώρος στάθμευσης";
+
 "type.amenity.parking.multi.storey.fee" = "Πολυώροφος χώρος στάθμευσης";
+
 "type.amenity.parking.no.access" = "Ιδιωτικός χώρος στάθμευσης";
+
 "type.amenity.parking.permissive" = "Ιδιωτικός χώρος στάθμευσης";
+
 "type.amenity.parking.private" = "Ιδιωτικός χώρος στάθμευσης";
+
 "type.amenity.parking.park_and_ride" = "Χώρος στάθμευσης";
+
 "type.amenity.parking.underground" = "Υπόγειος χώρος στάθμευσης";
+
 "type.amenity.parking.underground.fee" = "Υπόγειος χώρος στάθμευσης";
+
 "type.amenity.parking.underground.private" = "Ιδιωτικός υπόγειος χώρος στάθμευσης";
+
 "type.amenity.parking.street_side" = "Στάθμευση στην πλευρά του δρόμου";
+
 "type.amenity.parking.street_side.fee" = "Στάθμευση στην πλευρά του δρόμου";
+
 "type.amenity.parking.street_side.private" = "Ιδιωτικός δρόμος πλευρικός χώρος στάθμευσης";
+
 "type.amenity.parking.lane" = "Λωρίδα στάθμευσης";
+
 "type.amenity.parking.lane.fee" = "Λωρίδα στάθμευσης";
+
 "type.amenity.parking.lane.private" = "Ιδιωτική λωρίδα στάθμευσης";
+
 "type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
+
 "type.amenity.parking_entrance.private" = "Ιδιωτική είσοδος στάθμευσης";
+
 "type.amenity.parking_entrance.permissive" = "Είσοδος στάθμευσης";
+
 "type.amenity.parking_space" = "Χώρος στάθμευσης";
+
 "type.amenity.parking_space.permissive" = "Χώρος στάθμευσης";
+
 "type.amenity.parking_space.private" = "Χώρος στάθμευσης";
+
 "type.amenity.parking_space.underground" = "Χώρος στάθμευσης";
+
 "type.amenity.parking_space.disabled" = "Χώρος στάθμευσης για ΑΜΕΑ";
+
 "type.amenity.payment_terminal" = "Τερματικό πληρωμών";
+
 "type.amenity.pharmacy" = "Φαρμακείο";
+
 "type.amenity.place_of_worship" = "Χώρος λατρείας";
+
 "type.amenity.place_of_worship.buddhist" = "Ναός";
+
 "type.amenity.place_of_worship.christian" = "Εκκλησία";
+
 "type.amenity.place_of_worship.christian.mormon" = "Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών";
+
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Αίθουσα Βασιλείας των Μαρτύρων του Ιεχωβά";
+
 "type.amenity.place_of_worship.hindu" = "Ναός";
+
 "type.amenity.place_of_worship.jewish" = "Συναγωγή";
+
 "type.amenity.place_of_worship.muslim" = "Τζαμί";
+
 "type.amenity.place_of_worship.shinto" = "Ιερό";
+
 "type.amenity.place_of_worship.taoist" = "Ναός";
+
 "type.amenity.police" = "Αστυνομία";
+
 "type.amenity.post_box" = "Ταχυδρομική θυρίδα";
+
 "type.amenity.post_office" = "Ταχυδρομείο";
+
 "type.amenity.prison" = "φυλακή";
+
 "type.amenity.pub" = "Παμπ";
+
 "type.amenity.public_bookcase" = "Ανταλλαγή βιβλίων";
 
 
 /********** Types: Recycling **********/
 
 "type.amenity.recycling.centre" = "Κέντρο ανακύκλωσης";
+
 "type.amenity.recycling" = "Κάδος ανακύκλωσης";
+
 "type.amenity.recycling.container" = "Κάδος ανακύκλωσης";
+
 "type.recycling.batteries" = "Μπαταρίες";
+
 "type.recycling.clothes" = "Παλιά ρούχα";
+
 "type.recycling.glass_bottles" = "Γυάλινα μπουκάλια";
+
 "type.recycling.paper" = "Απορρίμματα χαρτιού";
+
 "type.recycling.plastic" = "Πλαστικά απορρίμματα";
+
 "type.recycling.plastic_bottles" = "Πλαστικά μπουκάλια";
+
 "type.recycling.scrap_metal" = "Παλιοσίδερα";
+
 "type.recycling.small_appliances" = "Ηλεκτρονικά απορρίμματα";
+
 "type.recycling.cardboard" = "Cardboard";
+
 "type.recycling.cans" = "Cans";
+
 "type.recycling.shoes" = "Shoes";
+
 "type.recycling.green_waste" = "Green/Organic Waste";
+
 "type.recycling.cartons" = "Cartons";
+
 "type.amenity.restaurant" = "Εστιατόριο";
+
 "type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+
 "type.amenity.school" = "Σχολείο";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */
@@ -1269,59 +1722,113 @@
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Lean-to Shelter";
+
 "type.amenity.public_bath" = "Δημόσιο Λουτρό";
+
 "type.amenity.shower" = "Ντους";
+
 "type.amenity.stripclub" = "Stripclub";
+
 "type.amenity.taxi" = "Ταξί";
+
 "type.amenity.telephone" = "Τηλέφωνο";
+
 "type.amenity.theatre" = "Θέατρο";
+
 "type.amenity.toilets" = "Τουαλέτα";
+
 "type.toilets.yes" = "Τουαλέτα";
+
 "type.amenity.townhall" = "Δημαρχείο";
+
 "type.amenity.university" = "Πανεπιστήμιο";
+
 "type.amenity.vending_machine" = "Vending Machine";
+
 "type.amenity.vending_machine.cigarettes" = "Αυτόματος πωλητής τσιγάρων";
+
 "type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+
 "type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+
 "type.amenity.vending_machine.drinks" = "Αυτόματος πωλητής ποτών";
+
 "type.amenity.vending_machine.food" = "Food Dispenser";
+
 "type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+
 "type.amenity.vending_machine.parking_tickets" = "Εισιτήρια στάθμευσης";
+
 "type.amenity.vending_machine.public_transport_tickets" = "Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς";
+
 "type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+
 "type.amenity.parcel_locker" = "Parcel Locker";
+
 "type.amenity.vehicle_inspection" = "Έλεγχος οχήματος";
+
 "type.amenity.vending_machine.fuel" = "Fuel Pump";
+
 "type.amenity.veterinary" = "Κτηνίατρος";
+
 "type.amenity.waste_basket" = "Κάδος απορριμμάτων";
+
 "type.amenity.waste_disposal" = "Διαχείριση απορριμμάτων";
+
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
+
 "type.amenity.water_point" = "Παροχή νερού";
+
 "type.amenity.water_point.drinking_water_no" = "Παροχή νερού";
+
 "type.barrier" = "Barrier";
+
 "type.barrier.block" = "Εμπόδιο";
+
 "type.barrier.bollard" = "Πυλώνας";
+
 "type.barrier.border_control" = "Έλεγχος συνόρων";
+
 "type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "Τείχος της πόλης";
+
 "type.barrier.cycle_barrier" = "Cycle Barrier";
+
 "type.waterway.ditch" = "Αποστραγγιστική Τάφρο";
+
 "type.natural.water.moat" = "Τάφρος";
+
 "type.natural.water.wastewater" = "Λυμάτων";
+
 "type.barrier.entrance" = "Είσοδος";
+
 "type.barrier.fence" = "Fence";
+
 "type.barrier.gate" = "Πύλη";
+
 "type.barrier.hedge" = "Hedge";
+
 "type.barrier.kissing_gate" = "Πύλη";
+
 "type.barrier.lift_gate" = "Ανυψούμενη μπάρα";
+
 "type.barrier.retaining_wall" = "Retaining Wall";
+
 "type.barrier.stile" = "Τουρνικέ";
+
 "type.barrier.turnstile" = "Πεζοδρόμιο";
+
 "type.barrier.swing_gate" = "Ανυψούμενη μπάρα";
+
 "type.barrier.toll_booth" = "Σταθμός διοδίων";
+
 "type.barrier.wall" = "Wall";
+
 "type.boundary" = "Boundary";
+
 "type.boundary.administrative" = "Administrative Boundary";
 
 /* Borders between countries. */
@@ -1332,178 +1839,326 @@
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Regional Boundary";
+
 "type.boundary.national_park" = "Εθνικό πάρκο";
+
 "type.boundary.aboriginal_lands" = "Αυτόχθονες εκτάσεις";
+
 "type.boundary.protected_area" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.1" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.2" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.3" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.4" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.5" = "Προστατευόμενη Περιοχή";
+
 "type.boundary.protected_area.6" = "Προστατευόμενη Περιοχή";
+
 "type.building" = "Κτίριο";
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Διεύθυνση";
+
 "type.building.has_parts" = "Κτίριο";
+
 "type.building_part" = "Κτίριο";
+
 "type.building.garage" = "Γκαράζ";
+
 "type.building.train_station" = "Κτίριο σταθμού";
+
 "type.building.warehouse" = "Warehouse";
+
 "type.cemetery.grave" = "Τάφος";
+
 "type.craft" = "Τεχνική";
+
 "type.craft.beekeeper" = "Μελισσοκόμος";
+
 "type.craft.blacksmith" = "Σιδηρουργός";
+
 "type.craft.brewery" = "Ζυθοποιείο";
+
 "type.craft.caterer" = "Τροφοδότης";
+
 "type.craft.carpenter" = "Ξυλουργός";
+
 "type.craft.confectionery" = "Ζαχαροπλάστης";
+
 "type.craft.electrician" = "Ηλεκτρολόγος";
+
 "type.craft.electronics_repair" = "Επισκευή ηλεκτρονικών";
+
 "type.craft.gardener" = "Κηπουρός";
+
 "type.craft.grinding_mill" = "Μύλος λείανσης";
+
 "type.craft.handicraft" = "Χειροτεχνία";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ψυκτικός";
+
 "type.craft.key_cutter" = "Κοπή κλειδιού";
+
 "type.craft.locksmith" = "Κλειδαράς";
+
 "type.craft.metal_construction" = "Μεταλλουργός";
+
 "type.craft.painter" = "Μπογιατζής";
+
 "type.craft.photographer" = "Φωτογράφος";
+
 "type.shop.camera" = "Κατάστημα φωτογραφικών μηχανών";
+
 "type.craft.plumber" = "Υδραυλικός";
+
 "type.craft.sawmill" = "Πριστήριο";
+
 "type.craft.shoemaker" = "Υποδηματοποιός";
+
 "type.craft.winery" = "Οινοποιείο";
+
 "type.craft.tailor" = "Ράφτης";
+
 "type.cuisine.african" = "Αφρικανική";
+
 "type.cuisine.american" = "Αμερικάνικη";
+
 "type.cuisine.arab" = "Αραβική";
+
 "type.cuisine.argentinian" = "Αργεντίνικη";
+
 "type.cuisine.asian" = "Ασιάτικη";
+
 "type.cuisine.austrian" = "Αυστριακή";
+
 "type.cuisine.bagel" = "Κουλούρι";
+
 "type.cuisine.balkan" = "Βαλκανίων";
+
 "type.cuisine.barbecue" = "Μπάρμπεκιου";
+
 "type.cuisine.bavarian" = "Βαυαρική";
+
 "type.cuisine.beef_bowl" = "Σούπα με βοδινό";
+
 "type.cuisine.brazilian" = "Βραζιλιάνικη";
+
 "type.cuisine.breakfast" = "Πρωινό";
+
 "type.cuisine.bubble_tea" = "Bubble Tea";
+
 "type.cuisine.burger" = "Μπιφτέκι";
+
 "type.cuisine.buschenschank" = "Μπούσενσανκ (αυστριακή ταβέρνα)";
+
 "type.cuisine.cake" = "Κέικ";
+
 "type.cuisine.caribbean" = "Καραϊβική";
+
 "type.cuisine.chicken" = "Κοτόπουλο";
+
 "type.cuisine.chinese" = "Κινέζικη";
+
 "type.cuisine.coffee_shop" = "Καφές";
+
 "type.cuisine.crepe" = "Κρέπα";
+
 "type.cuisine.croatian" = "Κροατική";
+
 "type.cuisine.curry" = "Κάρι";
+
 "type.cuisine.deli" = "Εκλεκτά τρόφιμα";
+
 "type.cuisine.diner" = "Μικροεστιατόριο";
+
 "type.cuisine.donut" = "Ντόνατ";
+
 "type.cuisine.ethiopian" = "Αιθιοπίας";
+
 "type.cuisine.filipino" = "Φιλιππινέζικη";
+
 "type.cuisine.fine_dining" = "Εκλεκτά εστιατόρια";
+
 "type.cuisine.fish" = "Ψάρια";
+
 "type.cuisine.fish_and_chips" = "Ψάρια και πατάτες";
+
 "type.cuisine.french" = "Γαλλική";
+
 "type.cuisine.friture" = "Τηγανητά";
+
 "type.cuisine.georgian" = "Γεωργιανή";
+
 "type.cuisine.german" = "Γερμανική";
+
 "type.cuisine.greek" = "Ελληνική";
+
 "type.cuisine.grill" = "Ψησταριά";
+
 "type.cuisine.heuriger" = "Χόιριγκερ";
+
 "type.cuisine.hotdog" = "Χοτ Ντογκ";
+
 "type.cuisine.hungarian" = "Ουγγρική";
+
 "type.cuisine.ice_cream" = "Παγωτό";
+
 "type.cuisine.indian" = "Ινδική";
+
 "type.cuisine.indonesian" = "Ινδονησιακή";
+
 "type.cuisine.international" = "Διεθνής";
+
 "type.cuisine.irish" = "Ιρλανδέζικη";
+
 "type.cuisine.italian" = "Ιταλική";
+
 "type.cuisine.italian_pizza" = "Ιταλική, Πίτσα";
+
 "type.cuisine.japanese" = "Ιαπωνική";
+
 "type.cuisine.kebab" = "Κεμπάπ";
+
 "type.cuisine.korean" = "Κορεάτικη";
+
 "type.cuisine.lao" = "Λάος";
+
 "type.cuisine.lebanese" = "Λιβανέζικη";
+
 "type.cuisine.local" = "Τοπική";
+
 "type.cuisine.malagasy" = "Μαδαγασκάρης";
+
 "type.cuisine.malaysian" = "Μαλαισιανή";
+
 "type.cuisine.mediterranean" = "Μεσογειακή";
+
 "type.cuisine.mexican" = "Μεξικάνικη";
+
 "type.cuisine.moroccan" = "Μαροκινή";
+
 "type.cuisine.noodles" = "Χυλοπίτες";
+
 "type.cuisine.oriental" = "Άπω Ανατολής";
+
 "type.cuisine.pancake" = "Τηγανίτα";
+
 "type.cuisine.pasta" = "Ζυμαρικά";
+
 "type.cuisine.persian" = "Περσική";
+
 "type.cuisine.peruvian" = "Περουβιανή";
+
 "type.cuisine.pizza" = "Πίτσα";
+
 "type.cuisine.polish" = "Πολωνέζικη";
+
 "type.cuisine.portuguese" = "Πορτογαλική";
+
 "type.cuisine.ramen" = "Ράμεν";
+
 "type.cuisine.regional" = "Περιφερειακή";
+
 "type.cuisine.russian" = "Ρώσσικη";
+
 "type.cuisine.sandwich" = "Σάντουιτς";
+
 "type.cuisine.sausage" = "Λουκάνικο";
+
 "type.cuisine.savory_pancakes" = "Αλμυρές τηγανίτες";
+
 "type.cuisine.seafood" = "Θαλασσινά";
+
 "type.cuisine.soba" = "Σόμπα (λεπτά μακαρόνια)";
+
 "type.cuisine.spanish" = "Ισπανική";
+
 "type.cuisine.steak_house" = "Μπριζολάδικο";
+
 "type.cuisine.sushi" = "Σούσι";
+
 "type.cuisine.tapas" = "Τάπας";
+
 "type.cuisine.tea" = "Τσάι";
+
 "type.cuisine.thai" = "Ταϊλανδική";
+
 "type.cuisine.turkish" = "Τουρκική";
+
 "type.cuisine.vegan" = "Για χορτοφάγους";
+
 "type.cuisine.vegetarian" = "Χορτοφαγική";
+
 "type.cuisine.vietnamese" = "Βιετναμέζικη";
+
 "type.emergency" = "Emergency";
+
 "type.emergency.assembly_point" = "Σημείο συναρμολόγησης έκτακτης ανάγκης";
+
 "type.emergency.defibrillator" = "Πρώτες βοήθειες";
+
 "type.emergency.fire_hydrant" = "Πυροσβεστικός κρουνός";
+
 "type.emergency.phone" = "Τηλέφωνο έκτακτης ανάγκης";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Lifeguard";
-"type.emergency.mountain_rescue" = "Mountain Rescue Station";
+"type.emergency.lifeguard" = "Ναυαγοσώστης";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Σταθμός ορεινής διάσωσης";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Είσοδος";
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Κύρια είσοδος";
+
 "type.entrance.exit" = "Έξοδος";
+
 "type.fee.yes" = "$";
+
 "type.fee.no" = "Δωρεάν";
+
 "type.healthcare.laboratory" = "Ιατρικό Εργαστήριο";
+
 "type.healthcare.physiotherapist" = "Φυσικοθεραπευτής";
+
 "type.healthcare.alternative" = "Εναλλακτική ιατρική";
+
 "type.healthcare.audiologist" = "Ακοολογία";
+
 "type.healthcare.blood_donation" = "Κέντρο αιμοδοσίας";
+
 "type.healthcare.optometrist" = "Οπτομετρία";
+
 "type.healthcare.podiatrist" = "Ποδιατρική";
+
 "type.healthcare.psychotherapist" = "Ψυχοθεραπεία";
+
 "type.healthcare.sample_collection" = "Δειγματοληψία";
+
 "type.healthcare.speech_therapist" = "Λογοθεραπεία";
 
 
 /********** Types: Roads **********/
 
 "type.highway" = "Highway";
+
 "type.highway.bridleway" = "Bridle Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Γέφυρα";
+
 "type.highway.bridleway.permissive" = "Bridle Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Σήραγγα";
+
 "type.highway.busway" = "Αφιερωμένος δρόμος λεωφορείων";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1511,20 +2166,29 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Σήραγγα";
+
 "type.highway.bus_stop" = "Στάση λεωφορείου";
+
 "type.highway.construction" = "Οδός υπό κατασκευή";
+
 "type.highway.cycleway" = "Cycle Path";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Γέφυρα";
+
 "type.highway.cycleway.permissive" = "Cycle Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Σήραγγα";
+
 "type.highway.elevator" = "Elevator";
+
 "type.highway.footway" = "Διαδρομή";
+
 "type.highway.footway.sidewalk" = "Πεζοδρόμιο";
+
 "type.highway.footway.crossing" = "Διάβαση πεζών";
+
 "type.highway.footway.area" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1532,7 +2196,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Σήραγγα";
+
 "type.highway.ford" = "Πέρασμα";
+
 "type.highway.living_street" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1540,6 +2206,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Σήραγγα";
+
 "type.highway.motorway" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1547,7 +2214,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Σήραγγα";
+
 "type.highway.motorway_junction" = "Έξοδος";
+
 "type.highway.motorway_link" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1555,6 +2224,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Σήραγγα";
+
 "type.highway.path" = "Διαδρομή";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
@@ -1562,16 +2232,21 @@
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
 "type.highway.path.expert" = "Πολύ δύσκολο ή δυσδιάκριτο μονοπάτι";
+
 "type.highway.path.bicycle" = "Διαδρομή";
+
 "type.highway.footway.bicycle" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Γέφυρα";
+
 "type.highway.path.horse" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Σήραγγα";
+
 "type.highway.pedestrian" = "Οδός";
+
 "type.highway.pedestrian.area" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1579,6 +2254,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Σήραγγα";
+
 "type.highway.primary" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1586,6 +2262,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Σήραγγα";
+
 "type.highway.primary_link" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1593,8 +2270,11 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Σήραγγα";
+
 "type.highway.raceway" = "Πίστα αγώνων";
+
 "type.highway.residential" = "Οδός";
+
 "type.highway.residential.area" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1602,7 +2282,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Σήραγγα";
+
 "type.highway.rest_area" = "Χώρος ανάπαυσης αυτοκινητιστών";
+
 "type.highway.road" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1613,6 +2295,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Σήραγγα";
+
 "type.highway.secondary" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1620,6 +2303,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Σήραγγα";
+
 "type.highway.secondary_link" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1627,18 +2311,25 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Σήραγγα";
+
 "type.highway.service" = "Οδός";
+
 "type.highway.service.area" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Γέφυρα";
+
 "type.highway.service.driveway" = "Οδός";
+
 "type.highway.service.parking_aisle" = "Οδός";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Σήραγγα";
+
 "type.highway.services" = "Service Area";
+
 "type.highway.speed_camera" = "Κάμερα ταχύτητας";
+
 "type.highway.steps" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1646,6 +2337,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Σήραγγα";
+
 "type.highway.tertiary" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1653,6 +2345,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Σήραγγα";
+
 "type.highway.tertiary_link" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1660,17 +2353,23 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Σήραγγα";
+
 "type.highway.track" = "Οδός";
+
 "type.highway.track.area" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Γέφυρα";
+
 "type.highway.track.grade1" = "Οδός";
+
 "type.highway.track.no.access" = "Οδός";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Σήραγγα";
+
 "type.highway.traffic_signals" = "Φανάρια κυκλοφορίας";
+
 "type.highway.trunk" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1678,6 +2377,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Σήραγγα";
+
 "type.highway.trunk_link" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1685,7 +2385,9 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Σήραγγα";
+
 "type.highway.unclassified" = "Οδός";
+
 "type.highway.unclassified.area" = "Οδός";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1693,94 +2395,172 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Σήραγγα";
+
 "type.area_highway.cycleway" = "Cycle Path";
+
 "type.area_highway.footway" = "Διαδρομή";
+
 "type.area_highway.living_street" = "Οδός";
+
 "type.area_highway.motorway" = "Οδός";
+
 "type.area_highway.path" = "Διαδρομή";
+
 "type.area_highway.pedestrian" = "Οδός";
+
 "type.area_highway.primary" = "Οδός";
+
 "type.area_highway.residential" = "Οδός";
+
 "type.area_highway.secondary" = "Οδός";
+
 "type.area_highway.service" = "Οδός";
+
 "type.area_highway.tertiary" = "Οδός";
+
 "type.area_highway.steps" = "Διαδρομή";
+
 "type.area_highway.track" = "Οδός";
+
 "type.area_highway.trunk" = "Οδός";
+
 "type.area_highway.unclassified" = "Οδός";
+
 "type.highway.world_level" = "highway-world_level";
+
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
 
 "type.historic" = "Ιστορικό αντικείμενο";
+
 "type.historic.aircraft" = "Ιστορικό αεροσκάφος";
+
 "type.historic.anchor" = "Ιστορική Άγκυρα";
+
 "type.historic.archaeological_site" = "Αρχαιολογικός χώρος";
+
 "type.historic.battlefield" = "Πεδίο μάχης";
+
 "type.historic.boundary_stone" = "Οριακή πέτρα";
+
 "type.historic.cannon" = "Κανόνι";
+
 "type.historic.castle" = "Κάστρο";
+
 "type.historic.castle.castrum" = "Ρωμαϊκό κάστρο";
+
 "type.historic.castle.defensive" = "Κάστρο";
+
 "type.historic.castle.fortified_church" = "Οχυρωμένη εκκλησία";
+
 "type.historic.castle.fortress" = "Φρούριο";
+
 "type.historic.castle.hillfort" = "Φρούριο";
+
 "type.historic.castle.kremlin" = "Κρεμλίνο";
+
 "type.historic.castle.manor" = "Αρχοντικό";
+
 "type.historic.castle.palace" = "Παλάτι";
+
 "type.historic.castle.shiro" = "Ιαπωνικό κάστρο";
+
 "type.historic.castle.stately" = "Κάστρο";
+
 "type.historic.city_gate" = "Πύλη της πόλης";
+
 "type.historic.citywalls" = "Τείχος της πόλης";
+
 "type.historic.fort" = "Φορτ";
+
 "type.historic.gallows" = "Αγχόνη";
+
 "type.historic.locomotive" = "Ιστορική Ατμομηχανή";
+
 "type.historic.memorial" = "Μνημείο";
+
 "type.historic.memorial.cross" = "Σταυρός μνήμης";
+
 "type.historic.memorial.plaque" = "Μνημείο";
+
 "type.historic.memorial.sculpture" = "Μνημείο";
+
 "type.historic.memorial.statue" = "Μνημείο";
+
 "type.historic.memorial.stolperstein" = "Λίθοι Μνήμης";
+
 "type.historic.stone" = "Ιστορική Πέτρα";
+
 "type.historic.memorial.war_memorial" = "Μνημείο του Αγνώστου Στρατιώτη";
+
 "type.historic.mine" = "Ιστορικό Ορυχείο";
+
 "type.historic.monument" = "Μνημείο";
+
 "type.historic.pillory" = "Κύφωνας";
+
 "type.historic.ruins" = "Ερείπια";
+
 "type.historic.ship" = "Αξιοθέατο";
+
 "type.historic.tank" = "Ιστορική δεξαμενή";
+
 "type.historic.tomb" = "Αξιοθέατο";
 
 /* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
-"type.man_made.cross" = "Cross";
+"type.man_made.cross" = "Σταυρός";
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Σταυρός στην άκρη του δρόμου";
+
 "type.historic.wayside_shrine" = "Εικονοστάσιο στην άκρη του δρόμου";
+
 "type.historic.wreck" = "Ναυάγιο";
+
 "type.hwtag" = "hwtag";
+
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
 "type.hwtag.lit" = "hwtag-lit";
+
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
+
 "type.hwtag.nocar" = "hwtag-nocar";
+
 "type.hwtag.nofoot" = "hwtag-nofoot";
+
 "type.hwtag.oneway" = "hwtag-oneway";
+
 "type.hwtag.private" = "hwtag-private";
+
 "type.hwtag.toll" = "hwtag-toll";
+
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
 "type.hwtag.yescar" = "hwtag-yescar";
+
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
+
 "type.internet_access" = "Ίντερνετ";
+
 "type.internet_access.wlan" = "Ίντερνετ";
+
 "type.junction" = "Junction";
+
 "type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
+
 "type.landuse" = "Landuse";
+
 "type.landuse.allotments" = "Allotments";
+
 "type.landuse.basin" = "Μια λεκάνη νερού";
+
 "type.landuse.brownfield" = "Brownfield";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -1788,86 +2568,167 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Νεκροταφείο";
+
 "type.landuse.churchyard" = "Αυλόγυρος εκκλησίας";
+
 "type.landuse.commercial" = "Commercial Area";
+
 "type.landuse.construction" = "Construction Area";
+
 "type.landuse.education" = "Educational Facility";
+
 "type.landuse.farmland" = "Αγροτική γη";
+
 "type.landuse.farmyard" = "Farmyard";
+
 "type.landuse.field" = "Field";
+
 "type.landuse.flowerbed" = "Παρτέρι";
+
 "type.landuse.forest" = "Δάσος";
+
 "type.landuse.forest.coniferous" = "Δάσος";
+
 "type.landuse.forest.deciduous" = "Δάσος";
+
 "type.landuse.forest.mixed" = "Δάσος";
+
 "type.landuse.garages" = "Garages";
+
 "type.landuse.grass" = "Γκαζόν";
+
 "type.landuse.greenfield" = "Greenfield";
+
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
+
 "type.landuse.industrial" = "Industrial Area";
+
 "type.landuse.landfill" = "Σκουπιδότοπος";
+
 "type.landuse.meadow" = "Meadow";
+
 "type.landuse.military" = "Military Area";
+
 "type.landuse.orchard" = "Orchard";
+
 "type.landuse.quarry" = "Quarry";
+
 "type.landuse.railway" = "Σιδηροδρομικές εγκαταστάσεις";
+
 "type.landuse.recreation_ground" = "Recreation Ground";
+
 "type.landuse.reservoir" = "Νερό";
+
 "type.landuse.residential" = "Residential Area";
+
 "type.landuse.retail" = "Retail Area";
+
 "type.landuse.salt_pond" = "Salt Pond";
+
 "type.landuse.village_green" = "Land";
+
 "type.landuse.vineyard" = "Vineyard";
+
 "type.leisure" = "Leisure";
+
 "type.leisure.common" = "Public Land";
+
 "type.leisure.dog_park" = "Περιοχή για βόλτα σκύλων";
+
 "type.leisure.fitness_centre" = "Κέντρο γυμναστικής";
+
 "type.leisure.fitness_station" = "Γυμναστήριο";
+
 "type.leisure.dance" = "Αίθουσα χορού";
+
 "type.leisure.garden" = "Κήπος αναψυχής";
+
 "type.leisure.garden.residential" = "Κήπος αναψυχής";
+
 "type.leisure.golf_course" = "Γήπεδο γκολφ";
+
 "type.leisure.miniature_golf" = "Minigolf";
+
 "type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Ice Rink";
+
 "type.leisure.marina" = "Marina";
+
 "type.leisure.nature_reserve" = "Φυσικό απόθεμα";
+
 "type.leisure.outdoor_seating" = "Καθίσματα εξωτερικού χώρου";
+
 "type.leisure.park" = "Πάρκο";
+
 "type.leisure.park.no.access" = "Πάρκο";
+
 "type.leisure.park.permissive" = "Πάρκο";
+
 "type.leisure.park.private" = "Πάρκο";
+
 "type.leisure.picnic_table" = "Τραπέζι πικ-νικ";
+
 "type.leisure.pitch" = "Γήπεδο αθλοπαιδιών";
+
 "type.leisure.playground" = "Παιδική χαρά";
+
 "type.leisure.recreation_ground" = "Recreation Ground";
+
 "type.leisure.sauna" = "Σάουνα";
+
 "type.leisure.slipway" = "Slipway";
+
 "type.leisure.sports_centre" = "Αθλητικό κέντρο";
+
 "type.sport.climbing" = "Κέντρο αναρρίχησης";
+
 "type.sport.yoga" = "Στούντιο γιόγκα";
+
 "type.leisure.stadium" = "Γήπεδο";
+
 "type.leisure.swimming_pool" = "Πισίνα";
+
 "type.leisure.swimming_pool.private" = "Πισίνα";
+
 "type.leisure.track" = "Track";
+
 "type.leisure.track.area" = "Track";
+
 "type.leisure.water_park" = "Υδάτινο πάρκο";
+
 "type.leisure.beach_resort" = "Beach Resort";
+
 "type.man_made" = "Man Made";
+
 "type.man_made.breakwater" = "Breakwater";
+
 "type.man_made.cairn" = "Cairn";
+
 "type.man_made.chimney" = "Καμινάδα εργοστασίου";
+
 "type.man_made.cutline" = "Cutline";
+
 "type.man_made.survey_point" = "Γεωδαιτικό σημείο";
+
 "type.man_made.flagpole" = "Flagpole";
+
 "type.man_made.lighthouse" = "Φάρος";
+
 "type.man_made.mast" = "Mast";
+
 "type.man_made.pier" = "Pier";
+
 "type.man_made.pipeline" = "Pipeline";
+
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
 "type.man_made.silo" = "Silo";
+
 "type.man_made.storage_tank" = "Storage Tank";
+
 "type.man_made.surveillance" = "Κάμερα παρακολούθησης";
+
 "type.man_made.tower" = "Πύργος";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
@@ -1875,23 +2736,39 @@
 
 /* A regular telecommunications tower / mast. */
 "type.man_made.tower.communication" = "Πύργος Επικοινωνιών";
-"type.man_made.petroleum_well" = "Oil or gas well";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Πετρελαιοπηγή ή γεώτρηση αερίου";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gas Flare";
+"type.man_made.flare" = "Φλόγα αερίου";
+
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+
 "type.man_made.water_tap" = "Βρύση νερού";
+
 "type.man_made.water_tap.drinking_water_no" = "Βρύση νερού";
+
 "type.man_made.water_tower" = "Υδατόπυργος";
+
 "type.man_made.water_well" = "Πηγάδι νερού";
+
 "type.man_made.water_well.drinking_water_no" = "Πηγάδι νερού";
+
 "type.man_made.windmill" = "Ανεμόμυλος";
+
 "type.man_made.works" = "Industrial Works";
+
 "type.mapswithme" = "mapswithme";
+
 "type.mapswithme.grid" = "mapswithme-grid";
+
 "type.military" = "Military";
+
 "type.military.bunker" = "Στρατιωτική αποθήκη";
+
 "type.mountain_pass" = "Mountain Pass";
+
 "type.natural" = "Φύση";
 
 /* A rocky land cover. */
@@ -1902,76 +2779,147 @@
 
 /* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
 "type.natural.scree" = "Σάρα";
+
 "type.natural.bay" = "Κόλπος";
+
 "type.natural.beach" = "Παραλία";
+
 "type.natural.beach.sand" = "Αμμουδιά";
+
 "type.natural.beach.gravel" = "Παραλία Χαλίκι";
+
 "type.natural.cape" = "Ακρωτήρι";
+
 "type.natural.cave_entrance" = "Σπήλαιο";
+
 "type.natural.cliff" = "Γκρεμός";
+
 "type.natural.earth_bank" = "Γκρεμός";
+
 "type.man_made.embankment" = "Ανάχωμα";
+
 "type.natural.coastline" = "Ακτή";
+
 "type.natural.desert" = "Ερημος";
+
 "type.natural.geyser" = "Θερμοπίδακας";
+
 "type.natural.glacier" = "Παγετώνας";
+
 "type.natural.grassland" = "Βοσκότοποι";
+
 "type.natural.heath" = "Ρείκι";
+
 "type.natural.hot_spring" = "Θερμή πηγή";
+
 "type.natural.water.lake" = "Λίμνη";
+
 "type.natural.water.lock" = "Θάλαμος κλειδαριάς";
+
 "type.natural.water.pond" = "Δεξαμενή";
+
 "type.natural.water.reservoir" = "Δεξαμενή";
+
 "type.natural.water.basin" = "Μια λεκάνη νερού";
+
 "type.natural.water.river" = "Ποταμός";
+
 "type.natural.land" = "Στεριά";
+
 "type.natural.meadow" = "Λιβάδι";
+
 "type.natural.orchard" = "Οπωρώνας";
+
 "type.natural.peak" = "Κορυφή";
+
 "type.natural.saddle" = "Σέλα Βουνού";
+
 "type.natural.rock" = "Πέτρωμα";
+
 "type.natural.scrub" = "Θαμνώδες περιοχή";
+
 "type.natural.spring" = "Πηγή νερού";
+
 "type.natural.spring.drinking_water_no" = "Πηγή νερού";
+
 "type.natural.strait" = "Πορθμός";
+
 "type.natural.tree_row" = "Σειρά δέντρων";
+
 "type.natural.vineyard" = "Αμπελώνας";
+
 "type.natural.volcano" = "Ηφαίστειο";
+
 "type.natural.water" = "Σώμα νερού";
+
 "type.natural.wetland" = "Υγρότοπος";
+
 "type.natural.wetland.bog" = "Βάλτος";
+
 "type.natural.wetland.marsh" = "Έλος";
+
 "type.noexit" = "Dead End";
+
 "type.office" = "Γραφείο";
+
 "type.office.company" = "Γραφείο επιχείρησης";
+
 "type.office.estate_agent" = "Κτηματομεσίτης";
+
 "type.office.government" = "Κυβερνητικό γραφείο";
+
 "type.office.insurance" = "Ασφαλιστικό γραφείο";
+
 "type.office.lawyer" = "Δικηγόρος";
+
 "type.office.ngo" = "Γραφείο ΜΚΟ";
+
 "type.office.telecommunication" = "Εταιρεία κινητής τηλεφωνίας";
+
 "type.organic.only" = "Organic";
+
 "type.organic.yes" = "Organic";
+
 "type.place.city" = "Πόλη";
+
 "type.place.city.capital" = "Πρωτεύουσα";
+
 "type.place.city.capital.10" = "Πόλη";
+
 "type.place.city.capital.11" = "Πόλη";
+
 "type.place.city.capital.2" = "Πρωτεύουσα";
+
 "type.place.city.capital.3" = "Πόλη";
+
 "type.place.city.capital.4" = "Πόλη";
+
 "type.place.city.capital.5" = "Πόλη";
+
 "type.place.city.capital.6" = "Πόλη";
+
 "type.place.city.capital.7" = "Πόλη";
+
 "type.place.city.capital.8" = "Πόλη";
+
 "type.place.city.capital.9" = "Πόλη";
+
 "type.place.continent" = "Ήπειρος";
+
 "type.place.country" = "Χώρα";
+
 "type.place.county" = "Δήμος";
+
 "type.place.farm" = "Αγρόκτημα";
+
 "type.place.hamlet" = "Χωριουδάκι";
+
 "type.place.island" = "Νησί";
+
 "type.place.islet" = "Νησί";
+
 "type.place.isolated_dwelling" = "Απομονωμένη κατοικία";
+
 "type.place.locality" = "Τοποθεσία";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -1979,70 +2927,132 @@
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
 "type.place.neighbourhood" = "Γειτονιά";
+
 "type.place.ocean" = "Ωκεανός";
+
 "type.place.region" = "Περιοχή";
+
 "type.place.sea" = "Θάλασσα";
+
 "type.place.square" = "Πλατεία";
+
 "type.place.state" = "Πολιτεία";
+
 "type.place.state.USA" = "Πολιτεία";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Προάστιο";
+
 "type.place.town" = "Κωμόπολη";
+
 "type.place.village" = "Χωριό";
+
 "type.power" = "Power";
+
 "type.power.generator" = "Power Generator";
+
 "type.power.generator.solar" = "Ηλιακή γεννήτρια";
+
 "type.power.generator.wind" = "Ανεμογεννήτρια";
+
 "type.power.generator.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
 "type.power.generator.hydro" = "Υδροηλεκτρικό εργοστάσιο";
+
 "type.power.line" = "Power Line";
+
 "type.power.line.underground" = "Underground Power Line";
+
 "type.power.minor_line" = "Minor Power Line";
+
 "type.power.plant" = "Εργοστάσιο ηλεκτρισμού";
+
 "type.power.plant.coal" = "Εργοστάσιο παραγωγής ενέργειας από άνθρακα";
+
 "type.power.plant.gas" = "Μονάδα παραγωγής ηλεκτρικής ενέργειας αεριοστροβίλου";
+
 "type.power.plant.hydro" = "Υδροηλεκτρικό εργοστάσιο";
+
 "type.power.plant.solar" = "Ηλιακός σταθμός παραγωγής ενέργειας";
+
 "type.power.plant.wind" = "Αιολική μονάδα παραγωγής ενέργειας";
+
 "type.power.station" = "Power Station";
+
 "type.power.substation" = "Υποσταθμός";
+
 "type.power.tower" = "Πυλώνες μεταφοράς ρεύματος";
+
 "type.psurface" = "psurface";
+
 "type.psurface.paved_bad" = "psurface-paved_bad";
+
 "type.psurface.paved_good" = "psurface-paved_good";
+
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
+
 "type.public_transport" = "Public Transport";
+
 "type.public_transport.platform" = "Platform";
+
 "type.railway" = "Railway";
+
 "type.railway.abandoned" = "Abandoned Railway";
+
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+
 "type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+
 "type.railway.construction" = "Railway Construction";
+
 "type.railway.crossing" = "Railway Crossing";
+
 "type.railway.disused" = "Disused Railway";
+
 "type.railway.funicular" = "Μονωτικό τρενάκι";
+
 "type.railway.funicular.bridge" = "Funicular Bridge";
+
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
+
 "type.railway.halt" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.level_crossing" = "Σιδηροδρομική διέλευση";
+
 "type.railway.light_rail" = "Light Rail";
+
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
+
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+
 "type.railway.monorail" = "Μονοαξονικός σιδηρόδρομος";
+
 "type.railway.monorail.bridge" = "Monorail Bridge";
+
 "type.railway.monorail.tunnel" = "Monorail Tunnel";
+
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
+
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+
 "type.railway.platform" = "Railway Platform";
+
 "type.railway.preserved" = "Preserved Rail";
+
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
+
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+
 "type.railway.rail" = "Σιδηρόδρομος";
+
 "type.railway.rail.highspeed" = "Σιδηρόδρομος υψηλής ταχύτητας";
+
 "type.railway.rail.tourism" = "Τουριστικός σιδηρόδρομος";
+
 "type.railway.rail.main" = "Σιδηρόδρομος";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
@@ -2050,533 +3060,1043 @@
 
 /* Non-passenger utility tracks: industrial, military, test. */
 "type.railway.rail.utility" = "Σιδηρόδρομος κοινής ωφέλειας";
+
 "type.railway.rail.spur" = "Σιδηροδρομική ατραπός";
 
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Βοηθητική σιδηροδρομική γραμμή";
+
 "type.railway.rail.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.highspeed.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.tourism.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.main.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.branch.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.utility.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.spur.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.service.bridge" = "Σιδηροδρομική γέφυρα";
+
 "type.railway.rail.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.highspeed.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.tourism.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.main.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.branch.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.utility.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.spur.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.rail.service.tunnel" = "Σιδηροδρομική σήραγγα";
+
 "type.railway.station" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.funicular" = "Μονωτικό τρενάκι";
+
 "type.railway.station.light_rail" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.light_rail.berlin" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.light_rail.london" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.light_rail.porto" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.monorail" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.subway" = "Μετρό";
+
 "type.railway.station.subway.adana" = "Μετρό";
+
 "type.railway.station.subway.algiers" = "Μετρό";
+
 "type.railway.station.subway.almaty" = "Μετρό";
+
 "type.railway.station.subway.amsterdam" = "Μετρό";
+
 "type.railway.station.subway.ankara" = "Μετρό";
+
 "type.railway.station.subway.athens" = "Μετρό";
+
 "type.railway.station.subway.baku" = "Μετρό";
+
 "type.railway.station.subway.bangkok" = "Μετρό";
+
 "type.railway.station.subway.barcelona" = "Μετρό";
+
 "type.railway.station.subway.beijing" = "Μετρό";
+
 "type.railway.station.subway.bengalore" = "Μετρό";
+
 "type.railway.station.subway.berlin" = "Μετρό";
+
 "type.railway.station.subway.bilbao" = "Μετρό";
+
 "type.railway.station.subway.brasilia" = "Μετρό";
+
 "type.railway.station.subway.brescia" = "Μετρό";
+
 "type.railway.station.subway.brussels" = "Μετρό";
+
 "type.railway.station.subway.bucharest" = "Μετρό";
+
 "type.railway.station.subway.budapest" = "Μετρό";
+
 "type.railway.station.subway.buenos_aires" = "Μετρό";
+
 "type.railway.station.subway.bursa" = "Μετρό";
+
 "type.railway.station.subway.cairo" = "Μετρό";
+
 "type.railway.station.subway.caracas" = "Μετρό";
+
 "type.railway.station.subway.catania" = "Μετρό";
+
 "type.railway.station.subway.changchun" = "Μετρό";
+
 "type.railway.station.subway.chengdu" = "Μετρό";
+
 "type.railway.station.subway.chicago" = "Μετρό";
+
 "type.railway.station.subway.chongqing" = "Μετρό";
+
 "type.railway.station.subway.dalian" = "Μετρό";
+
 "type.railway.station.subway.delhi" = "Μετρό";
+
 "type.railway.station.subway.dnepro" = "Μετρό";
+
 "type.railway.station.subway.dubai" = "Μετρό";
+
 "type.railway.station.subway.ekb" = "Μετρό";
+
 "type.railway.station.subway.fukuoka" = "Μετρό";
+
 "type.railway.station.subway.glasgow" = "Μετρό";
+
 "type.railway.station.subway.guangzhou" = "Μετρό";
+
 "type.railway.station.subway.hamburg" = "Μετρό";
+
 "type.railway.station.subway.helsinki" = "Μετρό";
+
 "type.railway.station.subway.hiroshima" = "Μετρό";
+
 "type.railway.station.subway.hongkong" = "Μετρό";
+
 "type.railway.station.subway.isfahan" = "Μετρό";
+
 "type.railway.station.subway.istanbul" = "Μετρό";
+
 "type.railway.station.subway.izmir" = "Μετρό";
+
 "type.railway.station.subway.kazan" = "Μετρό";
+
 "type.railway.station.subway.kharkiv" = "Μετρό";
+
 "type.railway.station.subway.kiev" = "Μετρό";
+
 "type.railway.station.subway.kobe" = "Μετρό";
+
 "type.railway.station.subway.kolkata" = "Μετρό";
+
 "type.railway.station.subway.kunming" = "Μετρό";
+
 "type.railway.station.subway.kyoto" = "Μετρό";
+
 "type.railway.station.subway.la" = "Μετρό";
+
 "type.railway.station.subway.lausanne" = "Μετρό";
+
 "type.railway.station.subway.lille" = "Μετρό";
+
 "type.railway.station.subway.lima" = "Μετρό";
+
 "type.railway.station.subway.lisboa" = "Μετρό";
+
 "type.railway.station.subway.london" = "Μετρό";
+
 "type.railway.station.subway.lyon" = "Μετρό";
+
 "type.railway.station.subway.madrid" = "Μετρό";
+
 "type.railway.station.subway.malaga" = "Μετρό";
+
 "type.railway.station.subway.manila" = "Μετρό";
+
 "type.railway.station.subway.maracaibo" = "Μετρό";
+
 "type.railway.station.subway.mashhad" = "Μετρό";
+
 "type.railway.station.subway.mecca" = "Μετρό";
+
 "type.railway.station.subway.medellin" = "Μετρό";
+
 "type.railway.station.subway.mexico" = "Μετρό";
+
 "type.railway.station.subway.milan" = "Μετρό";
+
 "type.railway.station.subway.minsk" = "Μετρό";
+
 "type.railway.station.subway.montreal" = "Μετρό";
+
 "type.railway.station.subway.moscow" = "Μετρό";
+
 "type.railway.station.subway.munchen" = "Μετρό";
+
 "type.railway.station.subway.nagoya" = "Μετρό";
+
 "type.railway.station.subway.newyork" = "Μετρό";
+
 "type.railway.station.subway.nnov" = "Μετρό";
+
 "type.railway.station.subway.novosibirsk" = "Μετρό";
+
 "type.railway.station.subway.osaka" = "Μετρό";
+
 "type.railway.station.subway.oslo" = "Μετρό";
+
 "type.railway.station.subway.palma" = "Μετρό";
+
 "type.railway.station.subway.panama" = "Μετρό";
+
 "type.railway.station.subway.paris" = "Μετρό";
+
 "type.railway.station.subway.philadelphia" = "Μετρό";
+
 "type.railway.station.subway.pyongyang" = "Μετρό";
+
 "type.railway.station.subway.rennes" = "Μετρό";
+
 "type.railway.station.subway.rio" = "Μετρό";
+
 "type.railway.station.subway.roma" = "Μετρό";
+
 "type.railway.station.subway.rotterdam" = "Μετρό";
+
 "type.railway.station.subway.samara" = "Μετρό";
+
 "type.railway.station.subway.santiago" = "Μετρό";
+
 "type.railway.station.subway.santo_domingo" = "Μετρό";
+
 "type.railway.station.subway.saopaulo" = "Μετρό";
+
 "type.railway.station.subway.sapporo" = "Μετρό";
+
 "type.railway.station.subway.sendai" = "Μετρό";
+
 "type.railway.station.subway.sf" = "Μετρό";
+
 "type.railway.station.subway.shanghai" = "Μετρό";
+
 "type.railway.station.subway.shenzhen" = "Μετρό";
+
 "type.railway.station.subway.shiraz" = "Μετρό";
+
 "type.railway.station.subway.singapore" = "Μετρό";
+
 "type.railway.station.subway.sofia" = "Μετρό";
+
 "type.railway.station.subway.spb" = "Μετρό";
+
 "type.railway.station.subway.stockholm" = "Μετρό";
+
 "type.railway.station.subway.tabriz" = "Μετρό";
+
 "type.railway.station.subway.taipei" = "Μετρό";
+
 "type.railway.station.subway.taoyuan" = "Μετρό";
+
 "type.railway.station.subway.tashkent" = "Μετρό";
+
 "type.railway.station.subway.tbilisi" = "Μετρό";
+
 "type.railway.station.subway.tehran" = "Μετρό";
+
 "type.railway.station.subway.tianjin" = "Μετρό";
+
 "type.railway.station.subway.tokyo" = "Μετρό";
+
 "type.railway.station.subway.valencia" = "Μετρό";
+
 "type.railway.station.subway.vienna" = "Μετρό";
+
 "type.railway.station.subway.warszawa" = "Μετρό";
+
 "type.railway.station.subway.washington" = "Μετρό";
+
 "type.railway.station.subway.wuhan" = "Μετρό";
+
 "type.railway.station.subway.yerevan" = "Μετρό";
+
 "type.railway.station.subway.yokohama" = "Μετρό";
+
 "type.railway.subway" = "Subway Line";
+
 "type.railway.subway.bridge" = "Subway Line Bridge";
+
 "type.railway.subway.tunnel" = "Subway Line Tunnel";
+
 "type.railway.subway_entrance" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.adana" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.algiers" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.almaty" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.amsterdam" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.ankara" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.athens" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.baku" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.bangkok" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.barcelona" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.beijing" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.bengalore" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.berlin" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.bilbao" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.brasilia" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.brescia" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.brussels" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.bucharest" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.budapest" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.buenos_aires" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.bursa" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.cairo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.caracas" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.catania" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.changchun" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.chengdu" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.chicago" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.chongqing" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.dalian" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.delhi" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.dnepro" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.dubai" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.ekb" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.fukuoka" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.glasgow" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.guangzhou" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.hamburg" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.helsinki" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.hiroshima" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.hongkong" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.isfahan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.istanbul" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.izmir" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kazan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kharkiv" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kiev" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kobe" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kolkata" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kunming" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.kyoto" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.la" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.lausanne" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.lille" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.lima" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.lisboa" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.london" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.lyon" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.madrid" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.malaga" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.manila" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.maracaibo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.mashhad" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.mecca" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.medellin" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.mexico" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.milan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.minsk" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.montreal" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.moscow" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.munchen" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.nagoya" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.newyork" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.nnov" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.novosibirsk" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.osaka" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.oslo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.palma" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.panama" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.paris" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.philadelphia" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.pyongyang" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.rennes" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.rio" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.roma" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.rotterdam" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.samara" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.santiago" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.santo_domingo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.saopaulo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.sapporo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.sendai" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.sf" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.shanghai" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.shenzhen" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.shiraz" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.singapore" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.sofia" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.spb" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.stockholm" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tabriz" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.taipei" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.taoyuan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tashkent" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tbilisi" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tehran" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tianjin" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.tokyo" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.valencia" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.vienna" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.warszawa" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.washington" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.wuhan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.yerevan" = "Είσοδος μετρό";
+
 "type.railway.subway_entrance.yokohama" = "Είσοδος μετρό";
+
 "type.railway.tram" = "Tram Line";
+
 "type.railway.tram.bridge" = "Tram Line Bridge";
+
 "type.railway.tram.tunnel" = "Tram Line Tunnel";
+
 "type.railway.tram_stop" = "Στάση τραμ";
+
 "type.route" = "Route";
+
 "type.route.ferry" = "Ferry";
+
 "type.route.shuttle_train" = "route-shuttle_train";
+
 "type.shop" = "Κατάστημα";
+
 "type.shop.alcohol" = "Κάβα";
+
 "type.shop.bakery" = "Αρτοποιείο";
+
 "type.shop.bathroom_furnishing" = "Έπιπλα μπάνιου";
+
 "type.shop.beauty" = "Σαλόνι αισθητικής";
+
 "type.shop.beverages" = "Οινοπνευματώδη";
+
 "type.shop.bicycle" = "Κατάστημα ποδηλάτων";
+
 "type.shop.bookmaker" = "Πράκτορας στοιχημάτων";
+
 "type.shop.books" = "Βιβλιοπωλείο";
+
 "type.shop.butcher" = "Κρεοπωλείο";
+
 "type.shop.cannabis" = "Κατάστημα κάνναβης";
+
 "type.shop.car" = "Αντιπροσωπεία αυτοκινήτων";
+
 "type.shop.car_parts" = "Εξαρτήματα αυτοκινήτου";
+
 "type.shop.car_repair" = "Συνεργείο αυτοκινήτων";
+
 "type.shop.car_repair.tyres" = "Βουλκανιζατέρ";
+
 "type.shop.caravan" = "RV Dealership";
+
 "type.shop.carpet" = "Χαλιά";
+
 "type.shop.chemist" = "Χημικά προϊόντα";
+
 "type.shop.chocolate" = "Σοκολατοποιία";
+
 "type.shop.clothes" = "Κατάστημα ρούχων";
+
 "type.shop.coffee" = "Καφεκοπτείο";
+
 "type.shop.computer" = "Κατάστημα πληροφορικής";
+
 "type.shop.confectionery" = "Γλυκά";
+
 "type.shop.convenience" = "Ψιλικατζίδικο";
+
 "type.shop.copyshop" = "Φωτοτυπείο";
+
 "type.shop.cosmetics" = "Καλλυντικά";
+
 "type.shop.curtain" = "Κουρτίνες";
+
 "type.shop.deli" = "Κατάστημα Delicatessen";
+
 "type.shop.department_store" = "Πολυκατάστημα";
+
 "type.shop.doityourself" = "Είδη κιγκαλερίας";
+
 "type.shop.dry_cleaning" = "Στεγνό καθάρισμα";
+
 "type.shop.electronics" = "Ηλεκτρονικά";
+
 "type.shop.erotic" = "Κατάστημα ερωτικών ειδών";
+
 "type.shop.fabric" = "Υφασματοπωλείο";
+
 "type.shop.farm" = "Κατάστημα Αγροτικών Τροφίμων";
+
 "type.shop.fashion_accessories" = "Αξεσουάρ μόδας";
+
 "type.shop.florist" = "Ανθοπωλείο";
+
 "type.shop.funeral_directors" = "Γραφεία τελετών";
+
 "type.shop.furniture" = "Κατάστημα επίπλων";
+
 "type.shop.garden_centre" = "Κατάστημα ειδών κήπου";
+
 "type.shop.gas" = "Κατάστημα υγραερίου";
+
 "type.shop.gift" = "Είδη δώρου";
+
 "type.shop.greengrocer" = "Μανάβικο";
+
 "type.shop.grocery" = "Παντοπωλείο";
+
 "type.shop.hairdresser" = "Κομμωτής";
+
 "type.shop.hardware" = "Κατάστημα υλικού";
+
 "type.shop.health_food" = "Κατάστημα υγιεινής διατροφής";
+
 "type.shop.hearing_aids" = "Κατάστημα βοηθημάτων ακοής";
+
 "type.shop.herbalist" = "Κατάστημα με βότανα";
+
 "type.shop.hifi" = "Ήχος HiFi";
+
 "type.shop.houseware" = "Κατάστημα οικιακών ειδών";
+
 "type.shop.jewelry" = "Κοσμηματοπωλείο";
+
 "type.shop.kiosk" = "Περίπτερο";
+
 "type.shop.kitchen" = "Κατάστημα κουζίνας";
+
 "type.shop.laundry" = "Άπλυτα";
+
 "type.shop.mall" = "Εμπορικό κέντρο";
+
 "type.shop.massage" = "Αίθουσα μασάζ";
+
 "type.shop.mobile_phone" = "Κινητή Τηλεφωνία";
+
 "type.shop.money_lender" = "Δανειστής χρημάτων";
+
 "type.shop.motorcycle" = "Κατάστημα μοτοσυκλετών";
+
 "type.shop.motorcycle_repair" = "Επισκευή μοτοσυκλετών";
+
 "type.shop.music" = "Κατάστημα δίσκων";
+
 "type.shop.musical_instrument" = "Κατάστημα μουσικών οργάνων";
+
 "type.shop.newsagent" = "Εφημεριδοπώλης";
+
 "type.shop.optician" = "Κατάστημα οπτικών";
+
 "type.shop.outdoor" = "Εξοπλισμός υπαίθρου";
+
 "type.shop.outpost" = "Σημείο παραλαβής";
+
 "type.shop.pasta" = "Κατάστημα ζυμαρικών";
+
 "type.shop.pastry" = "Ζύμη";
+
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
+
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
+
 "type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
+
 "type.shop.photo" = "Φωτογραφείο";
+
 "type.shop.rental" = "Κατάστημα ενοικίασης";
+
 "type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
+
 "type.shop.seafood" = "Κατάστημα με θαλασσινά";
+
 "type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";
+
 "type.shop.shoes" = "Υποδηματοπωλείο";
+
 "type.shop.sports" = "Αθλητικά είδη";
+
 "type.shop.stationery" = "Κατάστημα γραφικής ύλης";
+
 "type.shop.supermarket" = "Σούπερ μάρκετ";
+
 "type.shop.tattoo" = "Τατουάζ";
+
 "type.shop.tea" = "Τεϊοπωλείο";
+
 "type.shop.ticket" = "Κατάστημα πώλησης εισιτηρίων";
+
 "type.shop.toys" = "Κατάστημα παιχνιδιών";
+
 "type.shop.travel_agency" = "Ταξιδιωτικό γραφείο";
+
 "type.shop.tyres" = "Βουλκανιζατέρ";
+
 "type.shop.variety_store" = "Παντοπωλείο";
+
 "type.shop.video" = "Βίντεο Κλαμπ";
+
 "type.shop.video_games" = "Κατάστημα βιντεοπαιχνιδιών";
+
 "type.shop.wine" = "Οινοπωλείο";
+
 "type.shop.agrarian" = "Αγροτικό κατάστημα";
+
 "type.shop.antiques" = "Αντίκες";
+
 "type.shop.appliance" = "Κατάστημα οικιακών συσκευών";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Κατάστημα Τεχνών";
+
 "type.shop.baby_goods" = "Παιδικό κατάστημα";
+
 "type.shop.bag" = "Κατάστημα τσαντών";
+
 "type.shop.bed" = "Κατάστημα κρεβατιών";
+
 "type.shop.boutique" = "Μπουτίκ";
+
 "type.shop.charity" = "Φιλανθρωπικό κατάστημα";
+
 "type.shop.cheese" = "Τυροκομείο";
+
 "type.shop.craft" = "Τέχνες και χειροτεχνήματα";
+
 "type.shop.dairy" = "Γαλακτοκομικά προϊόντα";
+
 "type.shop.electrical" = "Μαγαζί ηλεκτρικών ειδών";
+
 "type.shop.fishing" = "Κατάστημα ψαρέματος";
+
 "type.shop.interior_decoration" = "Διακοσμήσεις εσωτερικών χώρων";
+
 "type.shop.lottery" = "Λαχεία";
+
 "type.shop.medical_supply" = "Ιατρικά Είδη";
+
 "type.shop.nutrition_supplements" = "Συμπληρώματα Διατροφής";
+
 "type.shop.paint" = "Βαφές";
+
 "type.shop.perfumery" = "Αρωματοποιία";
+
 "type.shop.sewing" = "Είδη Ραπτικής";
+
 "type.shop.storage_rental" = "Ενοικίαση αποθηκευτικού χώρου";
+
 "type.shop.tobacco" = "Καπνός";
+
 "type.shop.trade" = "Εμπόριο Προμήθειες";
+
 "type.shop.watches" = "Ρολόγια";
+
 "type.shop.wholesale" = "Κατάστημα χονδρικής";
+
 "type.sport" = "Αθλητισμός";
+
 "type.sport.american_football" = "αμερικάνικο ποδόσφαιρο";
+
 "type.sport.archery" = "Τοξοβολία";
+
 "type.sport.athletics" = "Στίβος";
+
 "type.sport.australian_football" = "Αυστραλιανό ποδόσφαιρο";
+
 "type.sport.baseball" = "Μπέιζμπολ";
+
 "type.sport.basketball" = "Μπάσκετ";
+
 "type.sport.beachvolleyball" = "Μπιτς βόλεϊ";
+
 "type.sport.bowls" = "Bowls";
+
 "type.sport.chess" = "Σκάκι";
+
 "type.sport.cricket" = "Cricket";
+
 "type.sport.curling" = "Κέρλινγκ";
+
 "type.sport.equestrian" = "Ιππασία";
+
 "type.sport.golf" = "Γκολφ";
+
 "type.sport.gymnastics" = "Γυμναστική";
+
 "type.sport.handball" = "Τόπι";
+
 "type.sport.multi" = "Διάφορα αθλήματα";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Κατάδυση";
+
 "type.sport.shooting" = "Κυνήγι";
+
 "type.sport.skateboard" = "Σκέιτμπορντινγκ";
+
 "type.sport.skiing" = "Χιονοδρόμια";
+
 "type.sport.soccer" = "Ποδόσφαιρο";
+
 "type.sport.swimming" = "Κολύμβηση";
+
 "type.sport.table_tennis" = "Επιτραπέζια αντισφαίριση";
+
 "type.sport.tennis" = "Γήπεδο τένις";
+
 "type.sport.volleyball" = "Πετοσφαίριση";
+
 "type.sport.10pin" = "Μπόουλινγκ";
+
 "type.sport.9pin" = "Μπόουλινγκ";
+
 "type.sport.padel" = "Padel";
+
 "type.sport.futsal" = "Futsal";
+
 "type.sport.ice_hockey" = "Χόκεϊ στον παγο";
+
 "type.sport.field_hockey" = "Χόκεϊ επί χόρτου";
+
 "type.sport.badminton" = "Αντιπτέριση";
+
 "type.sport.pelota" = "Βασκική πελότα";
+
 "type.tourism" = "Tourism";
+
 "type.tourism.aquarium" = "Ενυδρείο";
 
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Ορεινό καταφύγιο";
+
 "type.tourism.apartment" = "Διαμέρισμα διακοπών";
+
 "type.tourism.artwork" = "Έργα τέχνης";
+
 "type.tourism.artwork.architecture" = "Έργα τέχνης";
+
 "type.tourism.artwork.painting" = "Έργα τέχνης";
+
 "type.tourism.artwork.sculpture" = "Έργα τέχνης";
+
 "type.tourism.artwork.statue" = "Έργα τέχνης";
+
 "type.tourism.attraction" = "Αξιοθέατα";
+
 "type.attraction.amusement_ride" = "Βόλτα ψυχαγωγίας";
+
 "type.attraction.animal" = "Περίφραξη ζώων";
+
 "type.attraction.bumper_car" = "Bumper Car";
+
 "type.attraction.big_wheel" = "Big Wheel";
+
 "type.attraction.carousel" = "Στροβιλοδρόμιο";
+
 "type.attraction.historic" = "Ιστορικό αξιοθέατο";
+
 "type.attraction.maze" = "Λαβύρινθος";
+
 "type.attraction.roller_coaster" = "Τρενάκι του λούνα παρκ";
+
 "type.attraction.water_slide" = "Διαφάνεια νερού";
+
 "type.tourism.attraction.specified" = "Αξιοθέατα";
+
 "type.tourism.camp_site" = "Κάμπινγκ";
+
 "type.tourism.caravan_site" = "Χώρος για τροχόσπιτα";
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Εξοχικό σπίτι διακοπών";
+
 "type.tourism.gallery" = "Αξιοθέατο";
+
 "type.tourism.guest_house" = "Ξενώνας";
+
 "type.tourism.hostel" = "Πανδοχείο";
+
 "type.tourism.hotel" = "Ξενοδοχείο";
+
 "type.tourism.information" = "Τουριστικές πληροφορίες";
+
 "type.tourism.information.board" = "Πίνακας πληροφοριών";
+
 "type.tourism.information.guidepost" = "Οδηγός";
+
 "type.tourism.information.map" = "Τουριστικός χάρτης";
+
 "type.tourism.information.office" = "Ενημέρωση τουριστών";
+
 "type.tourism.information.visitor_centre" = "Κέντρο Επισκεπτών";
+
 "type.tourism.motel" = "Μοτέλ";
+
 "type.tourism.museum" = "Μουσείο";
+
 "type.tourism.picnic_site" = "Χώρος εκδρομής";
+
 "type.leisure.resort" = "Θέρετρο";
+
 "type.tourism.theme_park" = "Αξιοθέατο";
+
 "type.tourism.viewpoint" = "Θέα";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Καλύβα";
+
 "type.tourism.zoo" = "Ζωολογικός κήπος";
+
 "type.tourism.zoo.petting" = "Ζωολογικό κήπο";
+
 "type.traffic_calming" = "Traffic Calming";
+
 "type.traffic_calming.bump" = "Traffic Bump";
+
 "type.traffic_calming.hump" = "Traffic Hump";
+
 "type.waterway" = "Waterway";
+
 "type.waterway.canal" = "Κανάλι";
+
 "type.waterway.canal.tunnel" = "Κανάλι";
+
 "type.waterway.fish_pass" = "Σκάλα ψαριών";
+
 "type.waterway.dam" = "Dam";
+
 "type.barrier.ditch" = "Ditch";
+
 "type.natural.water.ditch" = "Αποστραγγιστική Τάφρο";
+
 "type.waterway.ditch.tunnel" = "Υπόγειος οχετός";
+
 "type.waterway.dock" = "Waterway Dock";
+
 "type.waterway.drain" = "Drain";
+
 "type.natural.water.drain" = "Drain";
+
 "type.waterway.drain.tunnel" = "Υπόγειος οχετός";
+
 "type.waterway.lock_gate" = "Φράγμα";
+
 "type.waterway.river" = "Ποταμός";
+
 "type.waterway.river.tunnel" = "Ποταμός";
+
 "type.waterway.stream" = "Ποταμός";
+
 "type.waterway.stream.ephemeral" = "Ποταμός";
+
 "type.waterway.stream.intermittent" = "Ποταμός";
+
 "type.waterway.stream.tunnel" = "Ποταμός";
+
 "type.waterway.waterfall" = "Καταρράκτης";
+
 "type.waterway.weir" = "Weir";
+
 "type.wheelchair" = "Wheelchair";
+
 "type.wheelchair.limited" = "Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες";
+
 "type.wheelchair.no" = "Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες";
+
 "type.wheelchair.yes" = "Εξοπλισμένο για άτομα με ειδικές ανάγκες";
+
 "type.aerialway.j.bar" = "J-bar Lift";
+
 "type.aerialway.magic_carpet" = "Magic Carpet";
+
 "type.aerialway.platter" = "Platter Lift";
+
 "type.aerialway.rope_tow" = "Rope Tow";
+
 "type.aerialway.t.bar" = "T-bar Lift";
+
 "type.piste_type.downhill" = "Downhill Ski Run";
+
 "type.piste_type.downhill.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
+
 "type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
+
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+
 "type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+
 "type.piste_type.nordic" = "Nordic Ski Trail";
+
 "type.piste_type.sled" = "Sledding Piste";
+
 "type.piste_type.sled.area" = "Sledding Piste";
+
 "type.piste_type.snow_park" = "Snow Park";
+
 "type.piste_type.hike" = "Μονοπάτι πεζοπορίας χιονιού";
+
 "type.piste_type.connection" = "Σύνδεση πίστας";
+
 "type.piste_type.skitour" = "Μονοπάτι Skitour";
+
 "type.amenity.events_venue" = "Κέντρο εκδηλώσεων";
+
 "type.shop.auction" = "Δημοπρασία";
+
 "type.shop.collector" = "Συλλεκτικά αντικείμενα";
+
 "type.self_service.yes" = "Διαθέσιμη αυτοεξυπηρέτηση";
+
 "type.self_service.only" = "Μόνο αυτοεξυπηρέτηση";
+
 "type.self_service.partially" = "Μερική αυτοεξυπηρέτηση";
+
 "type.self_service.no" = "Δεν υπάρχει αυτοεξυπηρέτηση";
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */

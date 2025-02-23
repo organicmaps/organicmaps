@@ -1222,6 +1222,10 @@
     <string name="type.emergency.defibrillator">Defibrilátor</string>
     <string name="type.emergency.fire_hydrant">Požiarny hydrant</string>
     <string name="type.emergency.phone">Núdzový telefón</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Plavčík</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Horská záchranná stanica</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Vstup</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1444,6 +1448,8 @@
     <string name="type.historic.ship">Loď</string>
     <string name="type.historic.tank">Historický tank</string>
     <string name="type.historic.tomb">Hrobka</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Kríž</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Kríž pri ceste</string>
     <string name="type.historic.wayside_shrine">Svätyňa pri ceste</string>
@@ -1537,6 +1543,10 @@
     <string name="type.man_made.communications_tower">Komunikačná veža</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikačná veža</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Ropná alebo plynová studňa</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Plynový pochod</string>
     <string name="type.man_made.wastewater_plant">Čistička odpadových vôd</string>
     <string name="type.man_made.water_tap">Vodovodný kohútik</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vodovodný kohútik</string>

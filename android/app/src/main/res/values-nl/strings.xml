@@ -1233,6 +1233,10 @@
     <string name="type.emergency.defibrillator">Defibrillator (AED)</string>
     <string name="type.emergency.fire_hydrant">Brandkraan</string>
     <string name="type.emergency.phone">Praatpaal</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Strandwacht</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Bergreddingstation</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Ingang</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1455,6 +1459,8 @@
     <string name="type.historic.ship">Historisch schip</string>
     <string name="type.historic.tank">Historische tank</string>
     <string name="type.historic.tomb">Graftombe</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Kruis</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Wegkruis</string>
     <string name="type.historic.wayside_shrine">Kruisbeeld</string>
@@ -1553,6 +1559,10 @@
     <string name="type.man_made.communications_tower">Communicatie Toren</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Communicatie Toren</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Olie- of gasput</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Gasfakkel</string>
     <string name="type.man_made.wastewater_plant">Waterzuiveringsinstallatie</string>
     <string name="type.man_made.water_tap">Waterkraan</string>
     <string name="type.man_made.water_tap.drinking_water_no">Waterkraan</string>

@@ -1256,6 +1256,10 @@
     <string name="type.emergency.defibrillator">Дефибриллятор</string>
     <string name="type.emergency.fire_hydrant">Пожарный гидрант</string>
     <string name="type.emergency.phone">Телефон для экстренных вызовов</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Спасатель</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Горная спасательная станция</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Вход</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1478,6 +1482,8 @@
     <string name="type.historic.ship">Корабль</string>
     <string name="type.historic.tank">Исторический танк</string>
     <string name="type.historic.tomb">Гробница</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Крест</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Христианский крест</string>
     <string name="type.historic.wayside_shrine">Святыня</string>
@@ -1580,6 +1586,10 @@
     <string name="type.man_made.communications_tower">Телекоммуникационная башня</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Вышка связи</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Нефтяная или газовая скважина</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Газовый факел</string>
     <string name="type.man_made.wastewater_plant">Очистные сооружения</string>
     <string name="type.man_made.water_tap">Водопроводный кран</string>
     <string name="type.man_made.water_tap.drinking_water_no">Водопроводный кран</string>

@@ -861,7 +861,19 @@
     <!-- SECTION: Types -->
     <string name="type.amenity.charging_station.bicycle">Velosipēdu uzlāde</string>
 
+    <!-- SECTION: Types: Recycling -->
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Glābējs</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
+
     <!-- SECTION: Types: Historic -->
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Krusts</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Gāzes deglis</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
     <string name="type.place.quarter">Apkaime</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->

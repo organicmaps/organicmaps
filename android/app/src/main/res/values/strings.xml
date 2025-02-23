@@ -1281,6 +1281,7 @@
     <string name="type.emergency.phone">Emergency Phone</string>
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Lifeguard</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Mountain Rescue Station</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Entrance</string>
@@ -1624,7 +1625,8 @@
     <string name="type.man_made.communications_tower">Communications Tower</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Communications Tower</string>
-    <string name="type.man_made.petroleum_well">Oil or gas well</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Oil or Gas Well</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gas Flare</string>
     <string name="type.man_made.wastewater_plant">Wastewater Treatment Plant</string>

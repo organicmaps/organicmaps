@@ -1240,6 +1240,10 @@
     <string name="type.emergency.defibrillator">Desfibrilador</string>
     <string name="type.emergency.fire_hydrant">Boca de incendio</string>
     <string name="type.emergency.phone">Teléfono de emergencias</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Socorrista</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Estación de rescate en montaña</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Entrada</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1462,6 +1466,8 @@
     <string name="type.historic.ship">Barco</string>
     <string name="type.historic.tank">Tanque histórico</string>
     <string name="type.historic.tomb">Tumba</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Cruz</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Cruz de término</string>
     <string name="type.historic.wayside_shrine">Peto de ánimas</string>
@@ -1564,6 +1570,10 @@
     <string name="type.man_made.communications_tower">Torre de comunicaciones</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Pozo de petróleo o gas</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Antorcha de gas</string>
     <string name="type.man_made.wastewater_plant">Planta de tratamiento de aguas residuales</string>
     <string name="type.man_made.water_tap">Toma de agua</string>
     <string name="type.man_made.water_tap.drinking_water_no">Toma de agua</string>

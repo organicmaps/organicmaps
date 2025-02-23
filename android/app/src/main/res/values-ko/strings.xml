@@ -1136,6 +1136,10 @@
     <string name="type.emergency.defibrillator">제세동기</string>
     <string name="type.emergency.fire_hydrant">소화전</string>
     <string name="type.emergency.phone">긴급 전화</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">인명 구조원</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">산악 구조 센터</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">입구</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1349,6 +1353,8 @@
     <string name="type.historic.ship">배</string>
     <string name="type.historic.tank">역사적인 탱크</string>
     <string name="type.historic.tomb">무덤</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">십자가</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">길가의 십자가</string>
     <string name="type.historic.wayside_shrine">길가의 신사</string>
@@ -1405,6 +1411,10 @@
     <string name="type.man_made.communications_tower">커뮤니케이션 타워</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">커뮤니케이션 타워</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">석유 또는 가스 우물</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">가스 플레어</string>
     <string name="type.man_made.water_tap">수도꼭지</string>
     <string name="type.man_made.water_tap.drinking_water_no">수도꼭지</string>
     <string name="type.man_made.water_tower">급수탑</string>

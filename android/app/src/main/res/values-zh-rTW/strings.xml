@@ -1105,6 +1105,7 @@
     <string name="type.barrier.toll_booth">收費站</string>
     <string name="type.barrier.wall">墻</string>
     <string name="type.boundary">邊界</string>
+    <string name="type.boundary.administrative">行政區域界線</string>
     <!-- Borders between countries. -->
     <string name="type.boundary.administrative.2">國家行政區域界線</string>
     <!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
@@ -1245,6 +1246,10 @@
     <string name="type.emergency.defibrillator">心臟電擊器</string>
     <string name="type.emergency.fire_hydrant">消防栓</string>
     <string name="type.emergency.phone">緊急電話</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">救生員</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">山地救援站</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">入口</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1467,6 +1472,8 @@
     <string name="type.historic.ship">歷史船</string>
     <string name="type.historic.tank">歷史悠久的坦克</string>
     <string name="type.historic.tomb">陵墓</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">十字架</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">路旁十字架</string>
     <string name="type.historic.wayside_shrine">路旁神龕</string>
@@ -1554,6 +1561,10 @@
     <string name="type.man_made.communications_tower">通訊塔</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">通訊塔</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">石油或天然氣井</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">燃氣火炬</string>
     <string name="type.man_made.water_tap">水龍頭</string>
     <string name="type.man_made.water_tap.drinking_water_no">水龍頭</string>
     <string name="type.man_made.water_tower">水塔</string>

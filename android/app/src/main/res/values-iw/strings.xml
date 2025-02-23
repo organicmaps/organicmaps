@@ -1228,6 +1228,10 @@
     <string name="type.emergency.defibrillator">דפיברילטור/מפעם</string>
     <string name="type.emergency.fire_hydrant">ברז כיבוי אש</string>
     <string name="type.emergency.phone">טלפון חירום</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">מציל</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">תחנת חילוץ הרים</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">כניסה</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1451,6 +1455,8 @@
     <string name="type.historic.ship">ספינה</string>
     <string name="type.historic.tank">טנק היסטורי</string>
     <string name="type.historic.tomb">קֶבֶר</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">צלב</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">צלב בצד הדרך</string>
     <string name="type.historic.wayside_shrine">מקדש בצד הדרך</string>
@@ -1562,6 +1568,10 @@
     <string name="type.man_made.communications_tower">מגדל תקשורת</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">מגדל תקשורת</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">באר נפט או גז</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">להבת גז</string>
     <string name="type.man_made.wastewater_plant">מפעל טיפול בשפכים</string>
     <string name="type.man_made.water_tap">ברז מים</string>
     <string name="type.man_made.water_tap.drinking_water_no">ברז מים</string>

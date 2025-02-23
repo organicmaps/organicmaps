@@ -1226,6 +1226,10 @@
     <string name="type.emergency.defibrillator">Defibrillaattori</string>
     <string name="type.emergency.fire_hydrant">Paloposti</string>
     <string name="type.emergency.phone">Hätäpuhelin</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Hengenpelastaja</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Vuoristopelastusasema</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Sisäänkäynti</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1447,6 +1451,8 @@
     <string name="type.historic.ship">Alus</string>
     <string name="type.historic.tank">Historiallinen tankki</string>
     <string name="type.historic.tomb">Hautakammio</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Risti</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Tienvarren risti</string>
     <string name="type.historic.wayside_shrine">Tienvarren pyhäkkö</string>
@@ -1531,6 +1537,10 @@
     <string name="type.man_made.communications_tower">Viestintätorni</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Viestintätorni</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Öljy- tai kaasuk welli</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Kaasupoltin</string>
     <string name="type.man_made.water_tap">Vesihana</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vesihana</string>
     <string name="type.man_made.water_tower">Vesitorni</string>

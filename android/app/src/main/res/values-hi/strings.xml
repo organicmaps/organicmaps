@@ -869,6 +869,10 @@
     <string name="type.emergency.defibrillator">डीफ़िब्रिलिएटर</string>
     <string name="type.emergency.fire_hydrant">फ़ायर हाइड्रेंट</string>
     <string name="type.emergency.phone">आपातकालीन फ़ोन</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">जीवन रक्षक</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">पर्वत बचाव स्टेशन</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">प्रवेश द्वार</string>
     <string name="type.healthcare.laboratory">प्रयोगशाला</string>
@@ -958,6 +962,8 @@
     <string name="type.historic.ruins">खँडहर</string>
     <string name="type.historic.ship">जलयान</string>
     <string name="type.historic.tomb">मकबरे</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">क्रॉस</string>
     <string name="type.historic.wayside_shrine">रास्ते का तीर्थ</string>
     <string name="type.internet_access">इंटरनेट उपलब्ध</string>
     <string name="type.internet_access.wlan">वाई-फाई उपलब्ध</string>
@@ -997,6 +1003,10 @@
     <string name="type.man_made.chimney">धुआँकश</string>
     <string name="type.man_made.lighthouse">प्रकाशस्तम्भ</string>
     <string name="type.man_made.tower">बुर्ज</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">तेल या गैस कुआं</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">गैस फ्लेयर</string>
     <string name="type.man_made.wastewater_plant">अपशिष्ट जलोपचार</string>
     <string name="type.man_made.water_tap">पानी का नल</string>
     <string name="type.man_made.water_tap.drinking_water_no">पानी का नल</string>
