@@ -2234,7 +2234,6 @@
     <string name="dialog_kayak_disable_button">Онемогући Kayak</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
     <string name="matrix">[Matrix]</string>
-    <string name="mastodon"></string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="aa_location_permissions_request">Organic Maps треба приступ локацији. Када је сигурно, проверите обавештење на свом телефону.</string>
     <string name="editor_osm_history">Ваша историја уређивања</string>
