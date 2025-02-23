@@ -1160,6 +1160,10 @@
     <string name="type.emergency.defibrillator">Defibrilator</string>
     <string name="type.emergency.fire_hydrant">Hidrant</string>
     <string name="type.emergency.phone">Telefon de urgență</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Salvamar</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Stație de salvare montană</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Intrare</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1374,6 +1378,8 @@
     <string name="type.historic.ship">Navă</string>
     <string name="type.historic.tank">Tanc istoric</string>
     <string name="type.historic.tomb">Mormânt</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Cruce</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Troiță</string>
     <string name="type.historic.wayside_shrine">Altarul de la marginea drumului</string>
@@ -1427,6 +1433,10 @@
     <string name="type.man_made.communications_tower">Turnul de comunicații</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Turnul de comunicații</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Fântână de țiței sau gaz</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Torță de gaz</string>
     <string name="type.man_made.water_tap">Robinet cu apă</string>
     <string name="type.man_made.water_tap.drinking_water_no">Robinet cu apă</string>
     <string name="type.man_made.water_tower">Turn de apă</string>

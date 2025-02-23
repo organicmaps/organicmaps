@@ -1113,6 +1113,10 @@
     <string name="type.craft.locksmith">Serraller</string>
     <string name="type.shop.camera">Botiga de càmeres</string>
     <string name="type.emergency.assembly_point">Punt de reunió d\'emergència</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Socorrista</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Estació de rescat de muntanya</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Entrada principal</string>
     <string name="type.entrance.exit">Sortida</string>
@@ -1161,6 +1165,8 @@
     <string name="type.historic.mine">Mina històrica</string>
     <string name="type.historic.monument">Monument</string>
     <string name="type.historic.tank">Tanc històric</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Creu</string>
     <string name="type.historic.wreck">Naufragi</string>
     <string name="type.junction">Cruïlla</string>
     <string name="type.junction.circular">Rotonda</string>
@@ -1176,6 +1182,10 @@
     <string name="type.man_made.communications_tower">Torre de comunicacions</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicacions</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Poço de petroli o gas</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Flama de gas</string>
     <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
     <string name="type.natural.shingle">Còdol</string>
     <string name="type.natural.hot_spring">Font termal</string>

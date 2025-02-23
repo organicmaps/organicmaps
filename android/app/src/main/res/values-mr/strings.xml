@@ -1111,6 +1111,10 @@
     <string name="type.emergency.defibrillator">कंपनरोधक</string>
     <string name="type.emergency.fire_hydrant">अग्निशामक नळ</string>
     <string name="type.emergency.phone">संकटकालीन फोन</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">जीवरक्षक</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">पर्वत बचाव स्थानक</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">प्रवेशद्वार</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1330,6 +1334,8 @@
     <string name="type.historic.ship">जहाज</string>
     <string name="type.historic.tank">ऐतिहासिक टाकी</string>
     <string name="type.historic.tomb">थडगे</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">क्रॉस</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">ख्रिश्चन क्रॉस</string>
     <string name="type.historic.wayside_shrine">देवस्थान</string>
@@ -1421,6 +1427,10 @@
     <string name="type.man_made.communications_tower">कम्युनिकेशन टॉवर</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">कम्युनिकेशन टॉवर</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">तेल किंवा गॅस विहीर</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">गॅस फ्लेयर</string>
     <string name="type.man_made.wastewater_plant">सांडपाणी संयंत्र(प्लांट)</string>
     <string name="type.man_made.water_tap">पाण्याचा नळ</string>
     <string name="type.man_made.water_tap.drinking_water_no">पाण्याचा नळ</string>

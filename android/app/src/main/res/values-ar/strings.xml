@@ -1247,6 +1247,10 @@
     <string name="type.emergency.defibrillator">مزيل الرجفان</string>
     <string name="type.emergency.fire_hydrant">صنبور الإطفاء</string>
     <string name="type.emergency.phone">هاتف الطوارئ</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">منقذ</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">محطة إنقاذ الجبال</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">مدخل</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1469,6 +1473,8 @@
     <string name="type.historic.ship">سفينة</string>
     <string name="type.historic.tank">الخزان التاريخي</string>
     <string name="type.historic.tomb">قبر</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">صليب</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">صليب جانب الطريق</string>
     <string name="type.historic.wayside_shrine">ضريح جانب الطريق</string>
@@ -1556,6 +1562,10 @@
     <string name="type.man_made.communications_tower">برج اتصالات</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">برج اتصالات</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">بئر نفط أو غاز</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">شعلة الغاز</string>
     <string name="type.man_made.water_tap">حنفية مياه</string>
     <string name="type.man_made.water_tap.drinking_water_no">حنفية مياه</string>
     <string name="type.man_made.water_tower">برج مياه</string>

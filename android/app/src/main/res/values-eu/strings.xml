@@ -1228,6 +1228,10 @@
     <string name="type.emergency.defibrillator">Desfibriladorea</string>
     <string name="type.emergency.fire_hydrant">Suteen hidrantea</string>
     <string name="type.emergency.phone">Larrialdi zenbakia</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Soroslea</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Mendiko erreskate estazioa</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Sarrera</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1446,6 +1450,8 @@
     <string name="type.historic.ship">Turismoa</string>
     <string name="type.historic.tank">Depositu historikoa</string>
     <string name="type.historic.tomb">Ehorztoki</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Gurutze</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Bideko gurutze</string>
     <string name="type.historic.wayside_shrine">Bide bazterreko baseliza</string>
@@ -1501,6 +1507,10 @@
     <string name="type.man_made.communications_tower">Komunikazio Dorrea</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikazio Dorrea</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Petrolio edo gas putzua</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Gas zuzia|Gas sugarra</string>
     <string name="type.man_made.water_tap">Ura hartzea</string>
     <string name="type.man_made.water_tap.drinking_water_no">Ura hartzea</string>
     <string name="type.man_made.water_tower">Ur depositua</string>

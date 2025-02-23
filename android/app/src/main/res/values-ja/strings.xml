@@ -1211,6 +1211,10 @@
     <string name="type.emergency.defibrillator">除細動器</string>
     <string name="type.emergency.fire_hydrant">消火栓</string>
     <string name="type.emergency.phone">緊急電話</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">ライフガード</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">山岳救助ステーション</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">エントランス</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1432,6 +1436,8 @@
     <string name="type.historic.ship">退役船</string>
     <string name="type.historic.tank">歴史的な戦車</string>
     <string name="type.historic.tomb">墓</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">十字架</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">歴史的な十字架</string>
     <string name="type.historic.wayside_shrine">歴史的な祠</string>
@@ -1526,6 +1532,10 @@
     <string name="type.man_made.communications_tower">通信塔</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">通信塔</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">石油またはガス井戸</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">ガスフレア</string>
     <string name="type.man_made.wastewater_plant">下水処理場</string>
     <string name="type.man_made.water_tap">給水栓</string>
     <string name="type.man_made.water_tap.drinking_water_no">給水栓</string>

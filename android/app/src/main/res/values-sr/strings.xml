@@ -1222,6 +1222,10 @@
     <string name="type.emergency.defibrillator">Дефибрилатор</string>
     <string name="type.emergency.fire_hydrant">Пожарни хидрант</string>
     <string name="type.emergency.phone">Ургентни телефон</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Спасилац</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Планинска спасилачка станица</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Улаз</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1444,6 +1448,8 @@
     <string name="type.historic.ship">Лађа</string>
     <string name="type.historic.tank">Историјски тенк</string>
     <string name="type.historic.tomb">Гробница</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Крст</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Крст поред пута</string>
     <string name="type.historic.wayside_shrine">Светилиште поред пута</string>
@@ -1543,6 +1549,10 @@
     <string name="type.man_made.communications_tower">Телекомуникациони торањ</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Телекомуникациони торањ</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Naftna ili gasna bušotina</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Газни факел</string>
     <string name="type.man_made.wastewater_plant">Пречишћивач отпадних вода</string>
     <string name="type.man_made.water_tap">Јавна чесма</string>
     <string name="type.man_made.water_tap.drinking_water_no">Јавна чесма</string>

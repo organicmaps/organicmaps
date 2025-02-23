@@ -1192,6 +1192,10 @@
     <string name="type.emergency.defibrillator">Πρώτες βοήθειες</string>
     <string name="type.emergency.fire_hydrant">Πυροσβεστικός κρουνός</string>
     <string name="type.emergency.phone">Τηλέφωνο έκτακτης ανάγκης</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Ναυαγοσώστης</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Σταθμός ορεινής διάσωσης</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Είσοδος</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1406,6 +1410,8 @@
     <string name="type.historic.ship">Αξιοθέατο</string>
     <string name="type.historic.tank">Ιστορική δεξαμενή</string>
     <string name="type.historic.tomb">Αξιοθέατο</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Σταυρός</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Σταυρός στην άκρη του δρόμου</string>
     <string name="type.historic.wayside_shrine">Εικονοστάσιο στην άκρη του δρόμου</string>
@@ -1461,6 +1467,10 @@
     <string name="type.man_made.communications_tower">Πύργος Επικοινωνιών</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Πύργος Επικοινωνιών</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Πετρελαιοπηγή ή γεώτρηση αερίου</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Φλόγα αερίου</string>
     <string name="type.man_made.water_tap">Βρύση νερού</string>
     <string name="type.man_made.water_tap.drinking_water_no">Βρύση νερού</string>
     <string name="type.man_made.water_tower">Υδατόπυργος</string>

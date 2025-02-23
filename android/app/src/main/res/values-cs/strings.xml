@@ -1150,6 +1150,10 @@
     <string name="type.emergency.defibrillator">Defibrilátor</string>
     <string name="type.emergency.fire_hydrant">Požární hydrant</string>
     <string name="type.emergency.phone">Tísňového volání</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Plavčík</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Horská záchranná stanice</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Vchod</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1364,6 +1368,8 @@
     <string name="type.historic.ship">Pamětihodnost</string>
     <string name="type.historic.tank">Historický tank</string>
     <string name="type.historic.tomb">Pamětihodnost</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Kříž</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Přícestný kříž</string>
     <string name="type.historic.wayside_shrine">Drobná sakrální památka</string>
@@ -1417,6 +1423,10 @@
     <string name="type.man_made.communications_tower">Komunikační věž</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Komunikační věž</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Ropný nebo plynový vrt</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Plynový hořák</string>
     <string name="type.man_made.water_tap">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tower">Vodárna</string>

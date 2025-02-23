@@ -1231,6 +1231,10 @@
     <string name="type.emergency.defibrillator">Défibrillateur</string>
     <string name="type.emergency.fire_hydrant">Bouche d’incendie</string>
     <string name="type.emergency.phone">Téléphone d\'urgence</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Sauveteur</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Station de sauvetage en montagne</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Entrée</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1452,6 +1456,8 @@
     <string name="type.historic.ship">Navire</string>
     <string name="type.historic.tank">Char historique</string>
     <string name="type.historic.tomb">Tombe historique</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Croix</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Croix de chemin</string>
     <string name="type.historic.wayside_shrine">Oratoire</string>
@@ -1538,6 +1544,10 @@
     <string name="type.man_made.communications_tower">Tour de communication</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Tour de communication</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Puits de pétrole ou de gaz</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Torche à gaz</string>
     <string name="type.man_made.wastewater_plant">Station d\'épuration</string>
     <string name="type.man_made.water_tap">Robinet d\'eau</string>
     <string name="type.man_made.water_tap.drinking_water_no">Robinet d\'eau</string>

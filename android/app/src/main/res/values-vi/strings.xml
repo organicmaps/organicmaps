@@ -1134,6 +1134,10 @@
     <string name="type.emergency.defibrillator">Máy khử rung tim</string>
     <string name="type.emergency.fire_hydrant">Vòi chữa cháy</string>
     <string name="type.emergency.phone">Điện thoại khẩn cấp</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Nhân viên cứu hộ</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Trạm cứu hộ trên núi</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Lối vào</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -1348,6 +1352,8 @@
     <string name="type.historic.ship">Diểm tham quan</string>
     <string name="type.historic.tank">Xe tăng lịch sử</string>
     <string name="type.historic.tomb">Diểm tham quan</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Thập tự</string>
     <!-- Usually a Christian historical cross placed along a road. -->
     <string name="type.historic.wayside_cross">Đường chéo</string>
     <string name="type.historic.wayside_shrine">Đền thờ</string>
@@ -1401,6 +1407,10 @@
     <string name="type.man_made.communications_tower">Tháp truyền thông</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Tháp truyền thông</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Giếng dầu hoặc khí</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Đuốc khí</string>
     <string name="type.man_made.water_tap">Vòi nước</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vòi nước</string>
     <string name="type.man_made.water_tower">Tháp Nước</string>
