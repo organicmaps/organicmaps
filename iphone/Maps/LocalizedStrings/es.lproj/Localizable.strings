@@ -1,5 +1,7 @@
 
+
 /********** Strings **********/
+
 
 /* Button text (should be short) */
 "cancel" = "Cancelar";
@@ -9,7 +11,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Eliminar";
-
 "download_maps" = "Descargar mapas";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -56,9 +57,7 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Rápido, minimalista, desarrollado por la comunidad";
-
 "close" = "Cerrar";
-
 "download" = "Descargar";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -93,6 +92,7 @@
 
 
 /********** Search categories **********/
+
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Dónde comer";
@@ -209,11 +209,8 @@
 
 /* Length of track in cell that describes route */
 "length" = "Longitud";
-
 "share_my_location" = "Compartir mi ubicación";
-
 "prefs_group_route" = "Navegación";
-
 "pref_zoom_title" = "Botones de zoom";
 
 /* Settings «Map» category: «Appearance» title */
@@ -260,11 +257,8 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Otros";
-
 "pref_map_auto_zoom" = "Zoom automático";
-
 "placepage_distance" = "Distancia";
-
 "search_show_on_map" = "Ver en el mapa";
 
 /* Text in menu */
@@ -299,11 +293,8 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "¡Haz un donativo para construir juntos los mejores mapas!";
-
 "already_donated" = "Ya donado";
-
 "remind_me_later" = "Recordar más tarde";
-
 "support_organic_maps" = "Apoyar Organic Maps";
 
 /* Button in the main Help dialog */
@@ -344,16 +335,12 @@
 
 /* Country queued for download */
 "downloader_queued" = "En cola";
-
 "downloader_near_me_subtitle" = "Cerca de mí";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapas";
-
 "downloader_download_all_button" = "Descargar todos";
-
 "downloader_downloading" = "Descargando:";
-
 "downloader_search_results" = "Encontrado";
 
 /* Status of outdated country in the list */
@@ -385,9 +372,7 @@
 
 /* bookmark button text */
 "bookmark" = "marcador";
-
 "save" = "Guardar";
-
 "create" = "crear";
 
 /* red color */
@@ -442,63 +427,37 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Al seguir la ruta, tenga en cuenta:";
-
 "dialog_routing_disclaimer_priority" = "— Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;";
-
 "dialog_routing_disclaimer_precision" = "— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;";
-
 "dialog_routing_disclaimer_recommendations" = "— Las rutas sugeridas deben entenderse solo como recomendaciones;";
-
 "dialog_routing_disclaimer_borders" = "— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;";
-
 "dialog_routing_disclaimer_beware" = "¡Manténgase alerta y seguro en las rutas!";
-
 "dialog_routing_check_gps" = "Verificar la señal del GPS";
-
 "dialog_routing_error_location_not_found" = "No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.";
-
 "dialog_routing_location_turn_wifi" = "Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.";
-
 "dialog_routing_location_turn_on" = "Activar servicios de ubicación";
-
 "dialog_routing_location_unknown_turn_on" = "No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.";
-
 "dialog_routing_download_files" = "Descargar archivos requeridos";
-
 "dialog_routing_download_and_update_all" = "Descargue y actualice toda la información de mapas y rutas junto con el trayecto proyectado para calcular la ruta.";
-
 "dialog_routing_unable_locate_route" = "Imposible de encontrar una ruta";
-
 "dialog_routing_change_start_or_end" = "Ajuste su punto de inicio o su destino.";
-
 "dialog_routing_change_start" = "Ajustar el punto de inicio";
-
 "dialog_routing_start_not_determined" = "La ruta no se creó. No se pudo encontrar el punto de inicio.";
-
 "dialog_routing_select_closer_start" = "Seleccione un punto de inicio cercano a una carretera.";
-
 "dialog_routing_change_end" = "Ajustar destino";
-
 "dialog_routing_end_not_determined" = "La ruta no se creó. No se pudo encontrar el destino.";
-
 "dialog_routing_select_closer_end" = "Seleccione un punto de destino cercano a una carretera.";
-
 "dialog_routing_change_intermediate" = "No se ha podido ubicar la parada intermedia.";
-
 "dialog_routing_intermediate_not_determined" = "Por favor, ajuste la parada intermedia.";
-
 "dialog_routing_system_error" = "Error del sistema";
-
 "dialog_routing_application_error" = "No se pudo crear la ruta debido a un error en la aplicación.";
-
 "dialog_routing_try_again" = "Intentar nuevamente";
-
 "dialog_routing_download_and_build_cross_route" = "¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?";
-
 "dialog_routing_download_cross_route" = "Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.";
 
 
 /********** Strings for downloading map from search **********/
+
 
 /* «Show» context menu */
 "show" = "Mostrar";
@@ -514,20 +473,14 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Descargue y actualice todos los mapas a lo largo del camino proyectado para calcular la ruta.";
-
 "categories" = "Categorías";
-
 "history" = "Historial";
-
 "search_not_found" = "Lo siento, no se han encontrado resultados.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Descargue la región en la que está buscando o pruebe a añadir el nombre de una ciudad/pueblo cercano.";
-
 "search_history_title" = "Historial de búsquedas";
-
 "search_history_text" = "Ver búsquedas recientes.";
-
 "clear_search" = "Eliminar el historial de búsqueda";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -535,50 +488,29 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-
 "p2p_your_location" = "Su ubicación";
-
 "p2p_start" = "Empezar";
-
 "p2p_from_here" = "Ruta desde";
-
 "p2p_to_here" = "Ruta hacia";
-
 "p2p_only_from_current" = "La navegación solo está disponible desde su ubicación actual.";
-
 "p2p_reroute_from_current" = "¿Quiere que planeemos una ruta desde su ubicación actual?";
-
 "editor_time_add" = "Añadir horario";
-
 "editor_time_delete" = "Eliminar horario";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Todo el día (24 horas)";
-
 "editor_time_open" = "Abierto";
-
 "editor_time_close" = "Cerrado";
-
 "editor_time_add_closed" = "Añadir horas de cierre";
-
 "editor_time_title" = "Horario de apertura";
-
 "editor_time_advanced" = "Modo avanzado";
-
 "editor_time_simple" = "Modo sencillo";
-
 "editor_hours_closed" = "Horas de cierre";
-
 "editor_example_values" = "Valores de ejemplo";
-
 "editor_add_select_location" = "Seleccione la ubicación";
-
 "editor_done_dialog_1" = "Ha cambiado el mapa del mundo. ¡No se lo guarde para usted! Dígaselo a sus amigos y edítenlo juntos.";
-
 "share_with_friends" = "Compartir con amigos";
-
 "editor_report_problem_send_button" = "Enviar";
-
 "autodownload" = "Descarga automática";
 
 /* Place Page opening hours text */
@@ -586,154 +518,93 @@
 
 /* Place Page opening hours text */
 "daily" = "Diario";
-
 "twentyfour_seven" = "24/7";
-
 "day_off_today" = "Cerrado hoy";
-
 "day_off" = "Cerrado";
-
 "today" = "Hoy";
-
 "opens_tomorrow_at" = "Abre mañana a las %@";
-
 "opens_dayoftheweek_at" = "Abre el %1$@ a las %2$@";
-
 "opens_at" = "Abre a las %@";
-
 "opens_in" = "Abre en %@";
-
 "closes_at" = "Cierra a las %@";
-
 "closes_in" = "Cierra en %@";
-
 "closed" = "Cerrado";
-
 "add_opening_hours" = "Añadir horarios de apertura";
-
 "no_osm_account" = "¿No tiene cuenta en OpenStreetMap?";
-
 "register_at_openstreetmap" = "Registrarse en OpenStreetMap";
-
 "password_8_chars_min" = "Contraseña (mínimo 8 caracteres)";
-
 "invalid_username_or_password" = "Usuario o contraseña incorrectos.";
-
 "login" = "Iniciar sesión";
-
 "login_osm" = "Iniciar sesión en OpenStreetMap";
-
 "forgot_password" = "¿Ha olvidado su contraseña?";
-
 "osm_account" = "Cuenta OSM";
-
 "logout" = "Cerrar sesión";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Última carga";
-
 "thank_you" = "Gracias";
-
 "edit_place" = "Editar el lugar";
-
 "place_name" = "Nombre del lugar";
-
 "add_language" = "Añadir un idioma";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Número de casa";
-
 "details" = "Detalles";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Añadir una calle";
-
 "choose_language" = "Elegir un idioma";
-
 "choose_street" = "Elija una calle";
-
 "postal_code" = "Código postal";
-
 "cuisine" = "Cocina";
-
 "select_cuisine" = "Seleccionar cocina";
 
 /* login text field */
 "email_or_username" = "Correo electrónico o usuario";
-
 "phone" = "Teléfono";
-
 "level" = "Piso";
-
 "please_note" = "Atención";
-
 "downloader_delete_map_dialog" = "Todas las ediciones hechas al mapa se eliminarán junto con este.";
-
 "downloader_update_maps" = "Actualizar mapas";
-
 "downloader_search_field_hint" = "Buscar en el mapa";
-
 "migration_download_error_dialog" = "Error de descarga";
-
 "common_check_internet_connection_dialog" = "Revise la configuración y asegúrese de que su dispositivo esté conectado a Internet.";
-
 "downloader_no_space_title" = "No hay suficiente espacio";
-
 "downloader_no_space_message" = "Elimine los datos innecesarios";
-
 "editor_profile_changes" = "Cambios verificados";
-
 "editor_focus_map_on_location" = "Arrastre el mapa para colocar la cruz en la ubicación del lugar o negocio.";
-
 "editor_add_select_category" = "Seleccionar categoría";
-
 "editor_add_select_category_popular_subtitle" = "Popular";
-
 "editor_add_select_category_all_subtitle" = "Todas las categorías";
-
 "editor_edit_place_title" = "Editar";
-
 "editor_add_place_title" = "Añadir";
-
 "editor_edit_place_name_hint" = "Nombre del lugar";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Como está escrito en la lengua local";
-
 "editor_edit_place_category_title" = "Categoría";
-
 "whatsnew_editor_message_1" = "Añada lugares nuevos al mapa y edite los existentes directamente desde la aplicación.";
-
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
-
 "message_invalid_feature_position" = "No se puede ubicar ningún objeto aquí";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Datos de OpenStreetMap creados por la comunidad a partir de %@. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org";
-
 "login_to_make_edits_visible" = "Cree una cuenta OpenStreetMap o inicie sesión para publicar sus ediciones de mapas en todo el mundo.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Necesita más espacio para descargar. Elimine los datos innecesarios.";
-
 "editor_sharing_title" = "He mejorado los mapas de Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d de %2$d";
-
 "download_over_mobile_header" = "¿Descargar con conexión de red móvil?";
-
 "download_over_mobile_message" = "Podría ser muy caro con ciertos planes o con itinerancia de datos.";
-
 "error_enter_correct_house_number" = "Introducir el número de domicilio correcto";
-
 "editor_storey_number" = "Número de plantas (máx. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "El número de plantas no debe superar %d";
-
 "editor_zip_code" = "Código postal";
-
 "error_enter_correct_zip_code" = "Introduzca el código postal correcto";
 
 /* Place Page title for long tap */
@@ -741,47 +612,29 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Nota para los voluntarios de OpenStreetMap (opcional)";
-
 "editor_detailed_description_hint" = "Comentario detallado";
-
 "editor_detailed_description" = "Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.";
-
 "editor_more_about_osm" = "Más acerca de OpenStreetMap";
-
 "editor_operator" = "Operador";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
-
 "editor_category_unsuitable_title" = "¿No halla una categoría adecuada?";
-
 "editor_category_unsuitable_text" = "Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nuestra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obtener instrucciones detalladas paso a paso.";
-
 "downloader_no_downloaded_maps_title" = "No ha descargado ningún mapa";
-
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
-
 "current_location_unknown_error_title" = "La ubicación actual es desconocida.";
-
 "current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
-
 "location_services_disabled_header" = "La identificación de la ubicación está desactivada";
-
 "location_services_disabled_message" = "Active el acceso a la geolocalización en los ajustes del dispositivo";
-
 "location_services_disabled_1" = "1. Abra Ajustes";
-
 "location_services_disabled_2" = "2. Pulse Localización";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Seleccione Cuando se use la app";
-
 "location_services_disabled_on_device_2" = "2. Seleccione Privacidad";
-
 "location_services_disabled_on_device_3" = "3. Seleccione Localización";
-
 "location_services_disabled_on_device_4" = "4. Active la Localización";
-
 "location_services_disabled_on_device_additional_message" = "O seguir utilizando Organic Maps sin localización";
 
 /* abbreviation for meters */
@@ -798,17 +651,11 @@
 
 /* A unit of measure */
 "ft" = "pie";
-
 "miles_per_hour" = "mph";
-
 "hour" = "h";
-
 "minute" = "min";
-
 "day" = "d";
-
 "placepage_more_button" = "Más";
-
 "book_button" = "Reservar";
 
 /* A referral link on the place page for some hotels */
@@ -822,42 +669,25 @@
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_disable_button" = "Desactivar Kayak";
-
 "placepage_call_button" = "Llamar";
-
 "placepage_edit_bookmark_button" = "Editar marcador";
-
 "placepage_bookmark_name_hint" = "Nombre del marcador";
-
 "placepage_personal_notes_hint" = "Notas personales (texto o html)";
-
 "placepage_delete_bookmark_button" = "Eliminar marcador";
-
 "editor_edits_sent_message" = "Su nota se enviará a OpenStreetMap";
-
 "editor_comment_hint" = "Comentario…";
-
 "editor_reset_edits_message" = "¿Restablecer todos los cambios locales?";
-
 "editor_reset_edits_button" = "Restablecer";
-
 "editor_remove_place_message" = "¿Eliminar el lugar añadido?";
-
 "editor_remove_place_button" = "Eliminar";
-
 "editor_place_doesnt_exist" = "El lugar no existe";
-
 "text_more_button" = "…más";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Introduzca un número de teléfono correcto";
-
 "error_enter_correct_web" = "Introduzca una dirección web válida";
-
 "error_enter_correct_email" = "Introduzca un email válido";
-
 "refresh" = "Actualizar";
-
 "placepage_add_place_button" = "Añadir lugar a OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -865,21 +695,16 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Asegúrate de que no has introducido ningún dato personal.";
-
 "editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.";
-
 "navigation_stop_button" = "Detener";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "¿Desactivar la grabación de su ruta recientemente recorrida?";
-
 "off_recent_track_background_button" = "Deshabilitar";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Comprueba";
-
 "recent_track_background_dialog_message" = "Organic Maps usa su geolocalización en segundo plano para registrar su ruta recorrida recientemente.";
-
 "general_settings" = "Ajustes generales";
 
 /* For the first routing */
@@ -890,26 +715,17 @@
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Lista";
-
 "mobile_data_dialog" = "¿Usar Internet móvil para mostrar información detallada?";
-
 "mobile_data_option_always" = "Usar siempre";
-
 "mobile_data_option_today" = "Solo hoy";
-
 "mobile_data_option_not_today" = "No usar hoy";
-
 "mobile_data" = "Internet móvil";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.";
-
 "mobile_data_option_never" = "No usar nunca";
-
 "mobile_data_option_ask" = "Preguntar siempre";
-
 "traffic_update_maps_text" = "Para mostrar los datos de tráfico, deben actualizarse los mapas.";
-
 "big_font" = "Aumentar el tamaño de fuente en el mapa";
 
 /* "traffic" as in road congestion */
@@ -917,11 +733,8 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Los datos de tráfico no están disponibles";
-
 "enable_logging" = "Habilitar historial";
-
 "log_file_size" = "Tamaño del archivo de registro: %@";
-
 "transliteration_title" = "Transliteración al latín";
 
 /* Subway exits for public transport marks on the map */
@@ -932,17 +745,11 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Busca o toca en el mapa para añadir el destino";
-
 "planning_route_manage_route" = "Administrar ruta";
-
 "button_plan" = "Planificar";
-
 "placepage_remove_stop" = "Eliminar parada";
-
 "planning_route_remove_title" = "Arrastre aquí para eliminar";
-
 "placepage_add_stop" = "Añadir parada";
-
 "start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -950,83 +757,47 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "aquí";
-
 "core_entrance" = "Entrada";
-
 "error_enter_correct_name" = "Por favor, introduzca el nombre correcto";
-
 "bookmark_lists" = "Listas";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Ocultar todo";
-
 "bookmark_lists_show_all" = "Mostrar todo";
-
 "bookmarks_create_new_group" = "Crear nueva lista";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Importar marcadores y trazas";
-
 "downloader_hide_screen" = "Ocultar pantalla";
-
 "downloader_percent" = "%@ (%@ de %@)";
-
 "downloader_process" = "Descargando %@…";
-
 "downloader_applying" = "Aplicando %@…";
-
 "bookmarks_error_message_share_general" = "No se puede compartir debido a un error de la aplicación";
-
 "bookmarks_error_title_share_empty" = "Error al compartir";
-
 "bookmarks_error_message_share_empty" = "No se puede compartir una lista vacía";
-
 "bookmarks_error_message_empty_list_name" = "Por favor ingrese el nombre de la lista";
-
 "bookmarks_error_title_list_name_already_taken" = "Este nombre ya ha sido tomado";
-
 "bookmarks_error_title_list_name_too_long" = "Este nombre es demasiado largo";
-
 "profile" = "Perfil de OpenStreetMap";
-
 "bookmarks_detect_title" = "Nuevos archivos detectados";
-
 "button_convert" = "Convertir";
-
 "bookmarks_convert_error_title" = "Error";
-
 "bookmarks_convert_error_message" = "Algunos archivos no fueron convertidos.";
-
 "restore" = "Restaurar";
-
 "privacy_policy" = "Política de privacidad";
-
 "terms_of_use" = "Condiciones de uso";
-
 "button_layer_subway" = "Metro";
-
 "layers_title" = "Estilos y capas del mapa";
-
 "subway_data_unavailable" = "El mapa del metro no está disponible";
-
 "title_error_downloading_bookmarks" = "Se ha producido un error";
-
 "popular_place" = "Popular";
-
 "export_file" = "Exportar KMZ";
-
 "export_file_gpx" = "Exportar GPX";
-
 "delete_list" = "Eliminar lista";
-
 "hide_from_map" = "Ocultar del mapa";
-
 "tags_loading_error_subtitle" = "Durante la carga de las etiquetas, se produjo un error, por favor inténtelo de nuevo";
-
 "download_button" = "Descargar";
-
 "speedcams_alert_title" = "Cámaras de velocidad";
-
 "place_description_title" = "Descripción del lugar";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -1037,19 +808,12 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "No alertar nunca";
-
 "power_managment_title" = "Modo de ahorro de energía";
-
 "power_managment_description" = "Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones que consumen energía, según la carga actual del teléfono";
-
 "power_managment_setting_never" = "Nunca";
-
 "power_managment_setting_auto" = "Automático";
-
 "power_managment_setting_manual_max" = "Ahorro de energía máximo";
-
 "enable_logging_warning_message" = "Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.";
-
 "driving_options_title" = "Opciones de enrutamiento";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -1060,33 +824,19 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferris";
-
 "avoid_motorways" = "Evitar autopistas";
-
 "unable_to_calc_alert_title" = "No se puede calcular la ruta";
-
 "unable_to_calc_alert_subtitle" = "Desafortunadamente, no pudimos encontrar una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo";
-
 "define_to_avoid_btn" = "Defina las carreteras a evitar";
-
 "change_driving_options_btn" = "Opciones de enrutamiento habilitadas";
-
 "toll_road" = "Carretera con pago de peaje";
-
 "unpaved_road" = "Camino sin pavimento";
-
 "ferry_crossing" = "Cruce de ferri";
-
 "trip_start" = "Vamos";
-
 "pick_destination" = "Destino";
-
 "follow_my_position" = "Centrar";
-
 "search_results" = "Resultados de búsqueda";
-
 "then_turn" = "Después";
-
 "redirect_route_alert" = "¿Quiere reconstruir la ruta?";
 
 /* A generic "Yes" button in dialogs */
@@ -1106,39 +856,22 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Red: %@";
-
 "trip_finished" = "¡Ya ha llegado!";
-
 "keyboard_availability_alert" = "Teclado no disponible durante la conducción";
-
 "dialog_routing_change_start_carplay" = "No se puede construir la ruta desde su ubicación actual";
-
 "dialog_routing_change_end_carplay" = "No se puede construir una ruta al destino. Elija por favor otro punto";
-
 "dialog_routing_check_gps_carplay" = "No hay señal GPS. Muévase por favor a una zona abierta";
-
 "dialog_routing_unable_locate_route_carplay" = "No se puede construir una ruta. Especifique por favor otros puntos de ruta";
-
 "dialog_routing_download_files_carplay" = "Para construir una ruta, descargue los mapas faltantes en su dispositivo";
-
 "dialog_routing_system_error_carplay" = "Ocurrió un error. Reinicie la aplicación";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "La ruta se reconstruirá desde su ubicación actual";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a coche";
-
 "not_all_shown_bookmarks_carplay" = "No se muestran todos los marcadores";
-
 "switch_to_phone_bookmarks_carplay" = "Cambia al teléfono para ver todos los favoritos";
-
 "ok" = "Ok";
-
 "speedcams_alert_title_carplay_1" = "Cám.velocidad";
-
 "speedcams_alert_title_carplay_2" = "Alerta velocidad";
-
 "download_map_carplay" = "Descargue los mapas en la aplicación Organic Maps en su dispositivo";
-
 "carplay_roundabout_exit" = "%@ salida";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1146,98 +879,54 @@
 
 /* iOS */
 "sort_default" = "Ordenar por defecto";
-
 "sort_type" = "Ordenar por tipo";
-
 "sort_distance" = "Ordenar por distancia";
-
 "sort_date" = "Ordenar por fecha";
-
 "sort_name" = "Ordenar por nombre";
-
 "week_ago_sorttype" = "Hace una semana";
-
 "month_ago_sorttype" = "Hace un mes";
-
 "moremonth_ago_sorttype" = "Hace más de un mes";
-
 "moreyear_ago_sorttype" = "Hace más de un año";
-
 "near_me_sorttype" = "Cerca de mí";
-
 "others_sorttype" = "Otros";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "Comida";
-
 "tourist_places" = "Sitios de interés";
-
 "museums" = "Museos";
-
 "parks" = "Parques";
-
 "swim_places" = "Natación";
-
 "mountains" = "Montañas";
-
 "animals" = "Animales";
-
 "hotels" = "Hoteles";
-
 "buildings" = "Edificios";
-
 "money" = "Dinero";
-
 "shops" = "Tiendas";
-
 "parkings" = "Estacionamiento";
-
 "fuel_places" = "Gasolineras";
-
 "medicine" = "Medicina";
-
 "search_in_the_list" = "Buscar en la lista";
-
 "religious_places" = "Lugares sagrados";
-
 "transit_not_found" = "Navegación en Metro aún no disponible en esta región";
-
 "dialog_pedestrian_route_is_long_header" = "Ruta de metro no encontrada";
-
 "dialog_pedestrian_route_is_long_message" = "Elija por favor el punto de inicio o fin de ruta más cercano a una estación de metro";
-
 "button_layer_isolines" = "Alturas";
-
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
-
 "isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";
-
 "elevation_profile_diff_level" = "Nivel de dificultad";
-
 "elevation_profile_diff_level_easy" = "Fácil";
-
 "elevation_profile_diff_level_moderate" = "Moderado";
-
 "elevation_profile_diff_level_hard" = "Difícil";
-
 "elevation_profile_ascent" = "Ascenso";
-
 "elevation_profile_descent" = "Descenso";
-
 "elevation_profile_min_elevation" = "Elevación mín.";
-
 "elevation_profile_max_elevation" = "Elevación máx.";
-
 "elevation_profile_difficulty" = "Dificultad";
-
 "elevation_profile_time" = "Tiempo:";
-
 "isolines_toast_zooms_1_10" = "Amplíe el mapa para ver las isolíneas";
-
 "downloader_updating_ios" = "Actualizando";
-
 "downloader_loading_ios" = "Descargando";
 
 /* Autoupdate dialog on start */
@@ -1332,7 +1021,6 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-
 "drive_through" = "Servicio al coche";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1412,148 +1100,79 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "La ruta está vacía - no hay nada que guardar";
-
 "edit_track" = "Editar traza";
 
 
 /********** Types **********/
 
 "type.addr_interpolation" = "Dirección/Bloque";
-
 "type.addr_interpolation.even" = "Dirección/Bloque";
-
 "type.addr_interpolation.odd" = "Dirección/Bloque";
-
 "type.aerialway" = "Transporte aéreo";
-
 "type.aerialway.cable_car" = "Teleférico";
-
 "type.aerialway.chair_lift" = "Telesilla";
-
 "type.aerialway.drag_lift" = "Telesquí";
-
 "type.aerialway.gondola" = "Telecabina";
-
 "type.aerialway.mixed_lift" = "Telecabina/telesilla";
-
 "type.aerialway.station" = "Estación de teleférico";
-
 "type.aeroway" = "Infraestructura aérea";
-
 "type.aeroway.aerodrome" = "Aeropuerto";
-
 "type.aeroway.aerodrome.international" = "Aeropuerto internacional";
-
 "type.aeroway.apron" = "Plataforma";
-
 "type.aeroway.gate" = "Puerta de embarque";
-
 "type.aeroway.helipad" = "Helipuerto";
-
 "type.aeroway.runway" = "Pista de despegue";
-
 "type.aeroway.taxiway" = "Pista de rodaje";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Infraestructura";
-
 "type.amenity.arts_centre" = "Centro de arte";
-
 "type.amenity.atm" = "Cajero automático";
-
 "type.amenity.bank" = "Banco";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Barbacoa";
-
 "type.amenity.bench" = "Asiento";
-
 "type.amenity.bicycle_parking" = "Aparcamiento de bicicletas";
-
 "type.amenity.bicycle_rental" = "Alquiler de bicicletas";
-
 "type.amenity.bicycle_repair_station" = "Estación de reparación de bicicletas";
-
 "type.amenity.biergarten" = "Biergarten";
-
 "type.amenity.brothel" = "Burdel";
-
 "type.amenity.bureau_de_change" = "Casa de cambio";
-
 "type.amenity.bus_station" = "Estación de autobuses";
-
 "type.amenity.cafe" = "Café";
-
 "type.amenity.car_rental" = "Alquiler de coches";
-
 "type.amenity.car_sharing" = "Compartir coche";
-
 "type.amenity.car_wash" = "Lavado de coches";
-
 "type.amenity.casino" = "Casino";
-
 "type.amenity.gambling" = "Juegos de apuestas";
-
 "type.leisure.adult_gaming_centre" = "Centro de juegos para adultos";
-
 "type.leisure.amusement_arcade" = "Arcade";
-
 "type.amenity.charging_station" = "Estación de carga";
-
 "type.amenity.charging_station.bicycle" = "Estación de carga de bicicletas";
-
 "type.amenity.charging_station.motorcar" = "Estación de carga de automóviles";
-
 "type.amenity.childcare" = "Guardería";
-
 "type.amenity.cinema" = "Cine";
-
 "type.leisure.bowling_alley" = "Bolera";
-
 "type.amenity.clinic" = "Clínica";
-
 "type.amenity.college" = "Colegio";
-
 "type.amenity.community_centre" = "Centro comunitario";
-
 "type.amenity.compressed_air" = "Aire comprimido";
-
 "type.amenity.conference_centre" = "Centro de conferencias";
-
 "type.amenity.courthouse" = "Juzgado";
-
 "type.amenity.dentist" = "Dentista";
-
 "type.amenity.doctors" = "Consultorio médico";
-
 "type.amenity.drinking_water" = "Agua potable";
-
 "type.drinking_water.yes" = "Agua potable";
-
 "type.amenity.driving_school" = "Autoescuela";
-
 "type.amenity.exhibition_centre" = "Centro de exposiciones";
-
 "type.amenity.money_transfer" = "Transferencia de dinero";
-
 "type.amenity.music_school" = "Escuela de música";
-
 "type.amenity.language_school" = "Escuela de idiomas";
-
 "type.office.diplomatic" = "Embajada";
-
 "type.amenity.fast_food" = "Comida rápida";
-
 "type.amenity.ferry_terminal" = "Transbordador";
-
 "type.amenity.fire_station" = "Parque de bomberos";
-
 "type.amenity.food_court" = "Zona de comidas";
-
 "type.amenity.fountain" = "Fuente";
-
 "type.amenity.fuel" = "Gasolinera";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -1561,154 +1180,82 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Cementerio cristiano";
-
 "type.amenity.hospital" = "Hospital";
-
 "type.amenity.hunting_stand" = "Puesto de caza";
-
 "type.amenity.ice_cream" = "Heladería";
-
 "type.amenity.internet_cafe" = "Cibercafé";
-
 "type.amenity.kindergarten" = "Escuela infantil";
-
 "type.amenity.library" = "Biblioteca";
-
 "type.amenity.loading_dock" = "Muelle de carga";
-
 "type.amenity.marketplace" = "Mercado";
-
 "type.amenity.motorcycle_parking" = "Aparcamiento de motocicletas";
-
 "type.amenity.nightclub" = "Discoteca";
-
 "type.amenity.nursing_home" = "Residencia de ancianos";
-
 "type.amenity.parking" = "Aparcamiento";
-
 "type.amenity.parking.fee" = "Aparcamiento";
-
 "type.amenity.parking.multi.storey" = "Edificio de aparcamiento";
-
 "type.amenity.parking.multi.storey.fee" = "Edificio de aparcamiento";
-
 "type.amenity.parking.no.access" = "Aparcamiento privado";
-
 "type.amenity.parking.permissive" = "Aparcamiento privado";
-
 "type.amenity.parking.private" = "Aparcamiento privado";
-
 "type.amenity.parking.park_and_ride" = "Aparcamiento disuasorio";
-
 "type.amenity.parking.underground" = "Aparcamiento subterráneo";
-
 "type.amenity.parking.underground.fee" = "Aparcamiento subterráneo";
-
 "type.amenity.parking.underground.private" = "Aparcamiento subterráneo privado";
-
 "type.amenity.parking.street_side" = "Aparcamiento en la calle";
-
 "type.amenity.parking.street_side.fee" = "Aparcamiento en la calle";
-
 "type.amenity.parking.street_side.private" = "Aparcamiento en la calle privado";
-
 "type.amenity.parking.lane" = "Aparcamiento en carril";
-
 "type.amenity.parking.lane.fee" = "Aparcamiento en carril";
-
 "type.amenity.parking.lane.private" = "Aparcamiento en carril privado";
-
 "type.amenity.parking_entrance" = "Entrada al aparcamiento";
-
 "type.amenity.parking_entrance.private" = "Entrada al aparcamiento privado";
-
 "type.amenity.parking_entrance.permissive" = "Entrada al aparcamiento";
-
 "type.amenity.parking_space" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.permissive" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.private" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.underground" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.disabled" = "Plaza de aparcamiento para discapacitados";
-
 "type.amenity.payment_terminal" = "Terminal de pago";
-
 "type.amenity.pharmacy" = "Farmacia";
-
 "type.amenity.place_of_worship" = "Lugar de culto";
-
 "type.amenity.place_of_worship.buddhist" = "Templo budista";
-
 "type.amenity.place_of_worship.christian" = "Iglesia";
-
 "type.amenity.place_of_worship.christian.mormon" = "Iglesia de Jesucristo de los Santos de los Últimos Días";
-
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Salón del Reino de los Testigos de Jehová";
-
 "type.amenity.place_of_worship.hindu" = "Templo hinduista";
-
 "type.amenity.place_of_worship.jewish" = "Sinagoga";
-
 "type.amenity.place_of_worship.muslim" = "Mezquita";
-
 "type.amenity.place_of_worship.shinto" = "Santuario sintoísta";
-
 "type.amenity.place_of_worship.taoist" = "Templo taoísta";
-
 "type.amenity.police" = "Policía";
-
 "type.amenity.post_box" = "Buzón de correos";
-
 "type.amenity.post_office" = "Oficina de correos";
-
 "type.amenity.prison" = "Prisión";
-
 "type.amenity.pub" = "Pub";
-
 "type.amenity.public_bookcase" = "Intercambio de libros";
 
 
 /********** Types: Recycling **********/
 
 "type.amenity.recycling.centre" = "Centro de reciclaje";
-
 "type.amenity.recycling" = "Contenedor de reciclaje";
-
 "type.amenity.recycling.container" = "Contenedor de reciclaje";
-
 "type.recycling.batteries" = "Baterías";
-
 "type.recycling.clothes" = "Ropa";
-
 "type.recycling.glass_bottles" = "Envases de vidrio";
-
 "type.recycling.paper" = "Papel";
-
 "type.recycling.plastic" = "Plástico";
-
 "type.recycling.plastic_bottles" = "Botellas de plástico";
-
 "type.recycling.scrap_metal" = "Residuos de metal";
-
 "type.recycling.small_appliances" = "Residuos electrónicos";
-
 "type.recycling.cardboard" = "Cartón";
-
 "type.recycling.cans" = "Latas";
-
 "type.recycling.shoes" = "Calzado";
-
 "type.recycling.green_waste" = "Orgánico";
-
 "type.recycling.cartons" = "Envases de cartón";
-
 "type.amenity.restaurant" = "Restaurante";
-
 "type.amenity.sanitary_dump_station" = "Estación de vaciado para caravanas";
-
 "type.amenity.school" = "Escuela";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */
@@ -1722,113 +1269,59 @@
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Alpende";
-
 "type.amenity.public_bath" = "Baños públicos";
-
 "type.amenity.shower" = "Ducha";
-
 "type.amenity.stripclub" = "Club de estriptis";
-
 "type.amenity.taxi" = "Sitio de taxis";
-
 "type.amenity.telephone" = "Teléfono";
-
 "type.amenity.theatre" = "Teatro";
-
 "type.amenity.toilets" = "WC";
-
 "type.toilets.yes" = "WC";
-
 "type.amenity.townhall" = "Ayuntamiento";
-
 "type.amenity.university" = "Universidad";
-
 "type.amenity.vending_machine" = "Máquina expendedora";
-
 "type.amenity.vending_machine.cigarettes" = "Máquina expendedora de tabaco";
-
 "type.amenity.vending_machine.coffee" = "Máquina expendedora de café";
-
 "type.amenity.vending_machine.condoms" = "Máquina expendedora de condones";
-
 "type.amenity.vending_machine.drinks" = "Máquina expendedora de bebidas";
-
 "type.amenity.vending_machine.food" = "Máquina expendedora de comida";
-
 "type.amenity.vending_machine.newspapers" = "Máquina expendedora de periódicos";
-
 "type.amenity.vending_machine.parking_tickets" = "Parquímetro";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de billetes de transporte público";
-
 "type.amenity.vending_machine.sweets" = "Máquina expendedora de dulces";
-
 "type.amenity.vending_machine.excrement_bags" = "Maquina expendedora de bolsas para excrementos";
-
 "type.amenity.parcel_locker" = "Taquilla de paquetes";
-
 "type.amenity.vehicle_inspection" = "Inspección de vehículos";
-
 "type.amenity.vending_machine.fuel" = "Maquina expendedora de combustible";
-
 "type.amenity.veterinary" = "Clínica veterinaria";
-
 "type.amenity.waste_basket" = "Papelera";
-
 "type.amenity.waste_disposal" = "Contenedor de basura";
-
 "type.amenity.waste_transfer_station" = "Estación de transferencia de residuos";
-
 "type.amenity.water_point" = "Fuente de agua para caravanas";
-
 "type.amenity.water_point.drinking_water_no" = "Fuente de agua para caravanas";
-
 "type.barrier" = "Barrera";
-
 "type.barrier.block" = "Bloque";
-
 "type.barrier.bollard" = "Bolardo";
-
 "type.barrier.border_control" = "Control fronterizo";
-
 "type.barrier.chain" = "Cadena";
-
 "type.barrier.city_wall" = "Muralla";
-
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
-
 "type.waterway.ditch" = "Zanja de drenaje";
-
 "type.natural.water.moat" = "Foso";
-
 "type.natural.water.wastewater" = "Aguas residuales";
-
 "type.barrier.entrance" = "Entrada";
-
 "type.barrier.fence" = "Valla";
-
 "type.barrier.gate" = "Verja";
-
 "type.barrier.hedge" = "Seto";
-
 "type.barrier.kissing_gate" = "Puerta peatonal";
-
 "type.barrier.lift_gate" = "Barrera levadiza";
-
 "type.barrier.retaining_wall" = "Muro de contención";
-
 "type.barrier.stile" = "Escalón";
-
 "type.barrier.turnstile" = "Torniquete";
-
 "type.barrier.swing_gate" = "Barrera batiente";
-
 "type.barrier.toll_booth" = "Cabina de peaje";
-
 "type.barrier.wall" = "Muro";
-
 "type.boundary" = "Frontera";
-
 "type.boundary.administrative" = "Frontera administrativa";
 
 /* Borders between countries. */
@@ -1839,271 +1332,141 @@
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Frontera de región";
-
 "type.boundary.national_park" = "Parque nacional";
-
 "type.boundary.aboriginal_lands" = "Tierras indígenas";
-
 "type.boundary.protected_area" = "Área protegida";
-
 "type.boundary.protected_area.1" = "Área protegida";
-
 "type.boundary.protected_area.2" = "Área protegida";
-
 "type.boundary.protected_area.3" = "Área protegida";
-
 "type.boundary.protected_area.4" = "Área protegida";
-
 "type.boundary.protected_area.5" = "Área protegida";
-
 "type.boundary.protected_area.6" = "Área protegida";
-
 "type.building" = "Edificio";
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Dirección";
-
 "type.building.has_parts" = "Edificio";
-
 "type.building_part" = "Edificio";
-
 "type.building.garage" = "Garaje";
-
 "type.building.train_station" = "Edificio de la estación";
-
 "type.building.warehouse" = "Almacén";
-
 "type.cemetery.grave" = "Tumba";
-
 "type.craft" = "Gremios";
-
 "type.craft.beekeeper" = "Apicultor";
-
 "type.craft.blacksmith" = "Herrero";
-
 "type.craft.brewery" = "Fábrica de cerveza";
-
 "type.craft.caterer" = "Catering";
-
 "type.craft.carpenter" = "Carpintero";
-
 "type.craft.confectionery" = "Confitería";
-
 "type.craft.electrician" = "Electricista";
-
 "type.craft.electronics_repair" = "Reparación de aparatos electrónicos";
-
 "type.craft.gardener" = "Paisajista";
-
 "type.craft.grinding_mill" = "Molino de molienda";
-
 "type.craft.handicraft" = "Artesanía";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Calefacción, ventilación y aire acondicionado";
-
 "type.craft.key_cutter" = "Copista de llaves";
-
 "type.craft.locksmith" = "Cerrajero";
-
 "type.craft.metal_construction" = "Trabajador del metal";
-
 "type.craft.painter" = "Pintor";
-
 "type.craft.photographer" = "Fotógrafo";
-
 "type.shop.camera" = "Tienda de cámaras";
-
 "type.craft.plumber" = "Fontanero";
-
 "type.craft.sawmill" = "Serrería";
-
 "type.craft.shoemaker" = "Zapatero";
-
 "type.craft.winery" = "Bodega";
-
 "type.craft.tailor" = "Sastre";
-
 "type.cuisine.african" = "Cocina africana";
-
 "type.cuisine.american" = "Cocina americana";
-
 "type.cuisine.arab" = "Cocina árabe";
-
 "type.cuisine.argentinian" = "Cocina argentina";
-
 "type.cuisine.asian" = "Cocina asiática";
-
 "type.cuisine.austrian" = "Cocina austriaca";
-
 "type.cuisine.bagel" = "Bágel";
-
 "type.cuisine.balkan" = "Cocina balcánica";
-
 "type.cuisine.barbecue" = "Barbacoa";
-
 "type.cuisine.bavarian" = "Cocina bávara";
-
 "type.cuisine.beef_bowl" = "Gyūdon";
-
 "type.cuisine.brazilian" = "Cocina brasileña";
-
 "type.cuisine.breakfast" = "Desayunos";
-
 "type.cuisine.bubble_tea" = "Té de burbujas";
-
 "type.cuisine.burger" = "Hamburguesas";
-
 "type.cuisine.buschenschank" = "Buschenschank";
-
 "type.cuisine.cake" = "Tartas";
-
 "type.cuisine.caribbean" = "Cocina caribeña";
-
 "type.cuisine.chicken" = "Pollos";
-
 "type.cuisine.chinese" = "Cocina china";
-
 "type.cuisine.coffee_shop" = "Café";
-
 "type.cuisine.crepe" = "Crepes";
-
 "type.cuisine.croatian" = "Cocina croata";
-
 "type.cuisine.curry" = "Curri";
-
 "type.cuisine.deli" = "Delicatesen";
-
 "type.cuisine.diner" = "Cena";
-
 "type.cuisine.donut" = "Rosquillas";
-
 "type.cuisine.ethiopian" = "Cocina etíope";
-
 "type.cuisine.filipino" = "Cocina filipina";
-
 "type.cuisine.fine_dining" = "Restaurante elegante";
-
 "type.cuisine.fish" = "Pescados";
-
 "type.cuisine.fish_and_chips" = "Pescado rebozado con patatas";
-
 "type.cuisine.french" = "Cocina francesa";
-
 "type.cuisine.friture" = "Frituras";
-
 "type.cuisine.georgian" = "Cocina georgiana";
-
 "type.cuisine.german" = "Cocina alemana";
-
 "type.cuisine.greek" = "Cocina griega";
-
 "type.cuisine.grill" = "Parrilla";
-
 "type.cuisine.heuriger" = "Heuriger";
-
 "type.cuisine.hotdog" = "Perritos calientes";
-
 "type.cuisine.hungarian" = "Cocina húngara";
-
 "type.cuisine.ice_cream" = "Helados";
-
 "type.cuisine.indian" = "Cocina hindú";
-
 "type.cuisine.indonesian" = "Cocina indonesia";
-
 "type.cuisine.international" = "Cocina internacional";
-
 "type.cuisine.irish" = "Cocina irlandesa";
-
 "type.cuisine.italian" = "Cocina italiana";
-
 "type.cuisine.italian_pizza" = "Cocina italiana, pizzas";
-
 "type.cuisine.japanese" = "Cocina japonesa";
-
 "type.cuisine.kebab" = "Kebabs";
-
 "type.cuisine.korean" = "Cocina coreana";
-
 "type.cuisine.lao" = "Cocina laosiana";
-
 "type.cuisine.lebanese" = "Cocina libanesa";
-
 "type.cuisine.local" = "Cocina local";
-
 "type.cuisine.malagasy" = "Cocina malgache";
-
 "type.cuisine.malaysian" = "Cocina malaya";
-
 "type.cuisine.mediterranean" = "Cocina mediterránea";
-
 "type.cuisine.mexican" = "Cocina mexicana";
-
 "type.cuisine.moroccan" = "Cocina marroquí";
-
 "type.cuisine.noodles" = "Tallarines";
-
 "type.cuisine.oriental" = "Cocina oriental";
-
 "type.cuisine.pancake" = "Tortitas";
-
 "type.cuisine.pasta" = "Pastas";
-
 "type.cuisine.persian" = "Cocina persa";
-
 "type.cuisine.peruvian" = "Cocina peruana";
-
 "type.cuisine.pizza" = "Pizzas";
-
 "type.cuisine.polish" = "Cocina polaca";
-
 "type.cuisine.portuguese" = "Cocina portuguesa";
-
 "type.cuisine.ramen" = "Ramen";
-
 "type.cuisine.regional" = "Cocina regional";
-
 "type.cuisine.russian" = "Cocina rusa";
-
 "type.cuisine.sandwich" = "Sándwiches";
-
 "type.cuisine.sausage" = "Salchichas";
-
 "type.cuisine.savory_pancakes" = "Tortitas saladas";
-
 "type.cuisine.seafood" = "Mariscos";
-
 "type.cuisine.soba" = "Soba";
-
 "type.cuisine.spanish" = "Cocina española";
-
 "type.cuisine.steak_house" = "Asador";
-
 "type.cuisine.sushi" = "Sushi";
-
 "type.cuisine.tapas" = "Tapas";
-
 "type.cuisine.tea" = "Té";
-
 "type.cuisine.thai" = "Cocina tailandesa";
-
 "type.cuisine.turkish" = "Cocina turca";
-
 "type.cuisine.vegan" = "Cocina vegana";
-
 "type.cuisine.vegetarian" = "Cocina vegetariana";
-
 "type.cuisine.vietnamese" = "Cocina vietnamita";
-
 "type.emergency" = "Emergencia";
-
 "type.emergency.assembly_point" = "Punto de reunión de emergencia";
-
 "type.emergency.defibrillator" = "Desfibrilador";
-
 "type.emergency.fire_hydrant" = "Boca de incendio";
-
 "type.emergency.phone" = "Teléfono de emergencias";
 
 /* A place where a lifeguard is on duty. */
@@ -2117,48 +1480,32 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrada principal";
-
 "type.entrance.exit" = "Salida";
-
 "type.fee.yes" = "$";
-
 "type.fee.no" = "Gratis";
-
 "type.healthcare.laboratory" = "Laboratorio médico";
-
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
-
 "type.healthcare.alternative" = "Medicina alternativa";
-
 "type.healthcare.audiologist" = "Audiología";
-
 "type.healthcare.blood_donation" = "Centro de donación de sangre";
-
 "type.healthcare.optometrist" = "Optometría";
-
 "type.healthcare.podiatrist" = "Podología";
-
 "type.healthcare.psychotherapist" = "Psicoterapia";
-
 "type.healthcare.sample_collection" = "Muestreo";
-
 "type.healthcare.speech_therapist" = "Logopedia";
 
 
 /********** Types: Roads **********/
 
 "type.highway" = "Carretera";
-
 "type.highway.bridleway" = "Camino de caballos";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Puente";
-
 "type.highway.bridleway.permissive" = "Camino de caballos";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Túnel";
-
 "type.highway.busway" = "Carretera exclusiva para autobuses";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2166,29 +1513,20 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Túnel";
-
 "type.highway.bus_stop" = "Parada de autobús";
-
 "type.highway.construction" = "Carretera en construcción";
-
 "type.highway.cycleway" = "Ciclovía";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Puente";
-
 "type.highway.cycleway.permissive" = "Ciclovía";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Túnel";
-
 "type.highway.elevator" = "Ascensor";
-
 "type.highway.footway" = "Camino";
-
 "type.highway.footway.sidewalk" = "Acera";
-
 "type.highway.footway.crossing" = "Paso de peatones";
-
 "type.highway.footway.area" = "Zona peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2196,9 +1534,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel peatonal";
-
 "type.highway.ford" = "Vado";
-
 "type.highway.living_street" = "Calle de prioridad peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2206,7 +1542,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Túnel";
-
 "type.highway.motorway" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2214,9 +1549,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Túnel de autopista";
-
 "type.highway.motorway_junction" = "Salida";
-
 "type.highway.motorway_link" = "Enlace de autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2224,7 +1557,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Túnel";
-
 "type.highway.path" = "Camino";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
@@ -2232,21 +1564,16 @@
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
 "type.highway.path.expert" = "Sendero muy difícil o indistinguible";
-
 "type.highway.path.bicycle" = "Camino para bicicletas";
-
 "type.highway.footway.bicycle" = "Camino para bicicletas";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Puente";
-
 "type.highway.path.horse" = "Sendero de herradura";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
-
 "type.highway.pedestrian" = "Calle peatonal";
-
 "type.highway.pedestrian.area" = "Zona peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2254,7 +1581,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel peatonal";
-
 "type.highway.primary" = "Carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2262,7 +1588,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Túnel de carretera principal";
-
 "type.highway.primary_link" = "Enlace de carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2270,11 +1595,8 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Túnel";
-
 "type.highway.raceway" = "Circuito";
-
 "type.highway.residential" = "Calle residencial";
-
 "type.highway.residential.area" = "Calle residencial";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2282,9 +1604,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Túnel de calle residencial";
-
 "type.highway.rest_area" = "Área de descanso";
-
 "type.highway.road" = "Carretera";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2295,7 +1615,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Túnel";
-
 "type.highway.secondary" = "Carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2303,7 +1622,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Túnel de carretera secundaria";
-
 "type.highway.secondary_link" = "Enlace de carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2311,25 +1629,18 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Túnel";
-
 "type.highway.service" = "Vía de servicio";
-
 "type.highway.service.area" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente de carretera de servicio";
-
 "type.highway.service.driveway" = "Vía de servicio";
-
 "type.highway.service.parking_aisle" = "Pasillo de estacionamiento";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel de vía de servicio";
-
 "type.highway.services" = "Área de servicio";
-
 "type.highway.speed_camera" = "Radar de velocidad";
-
 "type.highway.steps" = "Escaleras";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2337,7 +1648,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
-
 "type.highway.tertiary" = "Carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2345,7 +1655,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Túnel";
-
 "type.highway.tertiary_link" = "Enlace de carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2353,23 +1662,17 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Túnel";
-
 "type.highway.track" = "Pista";
-
 "type.highway.track.area" = "Pista";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Puente";
-
 "type.highway.track.grade1" = "Pista";
-
 "type.highway.track.no.access" = "Pista";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Túnel";
-
 "type.highway.traffic_signals" = "Semáforos";
-
 "type.highway.trunk" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2377,7 +1680,6 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Túnel";
-
 "type.highway.trunk_link" = "Enlace de vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2385,9 +1687,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Túnel";
-
 "type.highway.unclassified" = "Carretera sin clasificar";
-
 "type.highway.unclassified.area" = "Carretera sin clasificar";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -2395,118 +1695,64 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Túnel de carretera sin clasificar";
-
 "type.area_highway.cycleway" = "Ciclovía";
-
 "type.area_highway.footway" = "Camino";
-
 "type.area_highway.living_street" = "Calle de prioridad peatonal";
-
 "type.area_highway.motorway" = "Autopista";
-
 "type.area_highway.path" = "Camino";
-
 "type.area_highway.pedestrian" = "Calle peatonal";
-
 "type.area_highway.primary" = "Carretera principal";
-
 "type.area_highway.residential" = "Calle residencial";
-
 "type.area_highway.secondary" = "Carretera secundaria";
-
 "type.area_highway.service" = "Vía de servicio";
-
 "type.area_highway.tertiary" = "Carretera terciaria";
-
 "type.area_highway.steps" = "Escaleras";
-
 "type.area_highway.track" = "Pista";
-
 "type.area_highway.trunk" = "Vía troncal";
-
 "type.area_highway.unclassified" = "Carretera sin clasificar";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
 
 /********** Types: Historic **********/
 
 "type.historic" = "Objeto histórico";
-
 "type.historic.aircraft" = "Avión histórico";
-
 "type.historic.anchor" = "Ancla histórica";
-
 "type.historic.archaeological_site" = "Yacimiento arqueológico";
-
 "type.historic.battlefield" = "Campo de batalla";
-
 "type.historic.boundary_stone" = "Hito fronterizo";
-
 "type.historic.cannon" = "Cañón";
-
 "type.historic.castle" = "Castillo";
-
 "type.historic.castle.castrum" = "Castrum";
-
 "type.historic.castle.defensive" = "Castillo defensivo";
-
 "type.historic.castle.fortified_church" = "Iglesia fortificada";
-
 "type.historic.castle.fortress" = "Fortaleza";
-
 "type.historic.castle.hillfort" = "Castro";
-
 "type.historic.castle.kremlin" = "Kremlin";
-
 "type.historic.castle.manor" = "Casa solariega";
-
 "type.historic.castle.palace" = "Palacio";
-
 "type.historic.castle.shiro" = "Castillo japonés";
-
 "type.historic.castle.stately" = "Castillo";
-
 "type.historic.city_gate" = "Puerta de la ciudad";
-
 "type.historic.citywalls" = "Muralla";
-
 "type.historic.fort" = "Fuerte";
-
 "type.historic.gallows" = "Horca";
-
 "type.historic.locomotive" = "Locomotora histórica";
-
 "type.historic.memorial" = "Monumento conmemorativo";
-
 "type.historic.memorial.cross" = "Cruz conmemorativa";
-
 "type.historic.memorial.plaque" = "Placa conmemorativa";
-
 "type.historic.memorial.sculpture" = "Escultura";
-
 "type.historic.memorial.statue" = "Estatua";
-
 "type.historic.memorial.stolperstein" = "Stolperstein";
-
 "type.historic.stone" = "Piedra histórica";
-
 "type.historic.memorial.war_memorial" = "Memorial de guerra";
-
 "type.historic.mine" = "Mina histórica";
-
 "type.historic.monument" = "Monumento";
-
 "type.historic.pillory" = "Picota";
-
 "type.historic.ruins" = "Ruinas";
-
 "type.historic.ship" = "Barco";
-
 "type.historic.tank" = "Tanque histórico";
-
 "type.historic.tomb" = "Tumba";
 
 /* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
@@ -2514,53 +1760,29 @@
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Cruz de término";
-
 "type.historic.wayside_shrine" = "Peto de ánimas";
-
 "type.historic.wreck" = "Naufragio";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Cruce";
-
 "type.junction.circular" = "Rotonda";
-
 "type.junction.roundabout" = "Rotonda";
-
 "type.landuse" = "Uso del suelo";
-
 "type.landuse.allotments" = "Huerto urbano";
-
 "type.landuse.basin" = "Cuenca";
-
 "type.landuse.brownfield" = "Solar abandonado";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -2568,167 +1790,86 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Cementerio cristiano";
-
 "type.landuse.churchyard" = "Camposanto";
-
 "type.landuse.commercial" = "Zona comercial";
-
 "type.landuse.construction" = "Construcción";
-
 "type.landuse.education" = "Instalaciones educativas";
-
 "type.landuse.farmland" = "Tierras agrícolas";
-
 "type.landuse.farmyard" = "Granja";
-
 "type.landuse.field" = "Campo";
-
 "type.landuse.flowerbed" = "Cama de flores";
-
 "type.landuse.forest" = "Bosque";
-
 "type.landuse.forest.coniferous" = "Bosque de coníferas";
-
 "type.landuse.forest.deciduous" = "Bosque caducifolio";
-
 "type.landuse.forest.mixed" = "Bosque mixto";
-
 "type.landuse.garages" = "Garajes";
-
 "type.landuse.grass" = "Césped";
-
 "type.landuse.greenfield" = "Invernadero";
-
 "type.landuse.greenhouse_horticulture" = "Invernadero";
-
 "type.landuse.industrial" = "Zona industrial";
-
 "type.landuse.landfill" = "Vertedero";
-
 "type.landuse.meadow" = "Pradera";
-
 "type.landuse.military" = "Área militar";
-
 "type.landuse.orchard" = "Huerto";
-
 "type.landuse.quarry" = "Cantera";
-
 "type.landuse.railway" = "Instalaciones ferroviarias";
-
 "type.landuse.recreation_ground" = "Área recreativa";
-
 "type.landuse.reservoir" = "Embalse";
-
 "type.landuse.residential" = "Zona residencial";
-
 "type.landuse.retail" = "Zona comercial";
-
 "type.landuse.salt_pond" = "Salina";
-
 "type.landuse.village_green" = "Espacio verde";
-
 "type.landuse.vineyard" = "Viñedo";
-
 "type.leisure" = "Ocio";
-
 "type.leisure.common" = "Zona pública";
-
 "type.leisure.dog_park" = "Parque para perros";
-
 "type.leisure.fitness_centre" = "Centro de fitness";
-
 "type.leisure.fitness_station" = "Parque de fitness";
-
 "type.leisure.dance" = "Salón de baile";
-
 "type.leisure.garden" = "Jardín";
-
 "type.leisure.garden.residential" = "Jardín residencial";
-
 "type.leisure.golf_course" = "Campo de golf";
-
 "type.leisure.miniature_golf" = "Minigolf";
-
 "type.leisure.hackerspace" = "Espacio para hackers";
-
 "type.leisure.ice_rink" = "Pisa de patinaje";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Reserva natural";
-
 "type.leisure.outdoor_seating" = "Asientos al aire libre";
-
 "type.leisure.park" = "Parque";
-
 "type.leisure.park.no.access" = "Parque";
-
 "type.leisure.park.permissive" = "Parque";
-
 "type.leisure.park.private" = "Parque";
-
 "type.leisure.picnic_table" = "Mesa de picnic";
-
 "type.leisure.pitch" = "Cancha";
-
 "type.leisure.playground" = "Patio de recreo";
-
 "type.leisure.recreation_ground" = "Zona recreativa";
-
 "type.leisure.sauna" = "Sauna";
-
 "type.leisure.slipway" = "Rampa de barcos";
-
 "type.leisure.sports_centre" = "Complejo deportivo";
-
 "type.sport.climbing" = "Centro de escalada";
-
 "type.sport.yoga" = "Centro de yoga";
-
 "type.leisure.stadium" = "Estadio";
-
 "type.leisure.swimming_pool" = "Piscina";
-
 "type.leisure.swimming_pool.private" = "Piscina privada";
-
 "type.leisure.track" = "Pista deportiva";
-
 "type.leisure.track.area" = "Pista deportiva";
-
 "type.leisure.water_park" = "Parque acuático";
-
 "type.leisure.beach_resort" = "Resort de playa";
-
 "type.man_made" = "Construcción";
-
 "type.man_made.breakwater" = "Rompeolas";
-
 "type.man_made.cairn" = "Mojón";
-
 "type.man_made.chimney" = "Chimenea de fábrica";
-
 "type.man_made.cutline" = "Línea de corte forestal";
-
 "type.man_made.survey_point" = "Punto geodésico";
-
 "type.man_made.flagpole" = "Mástil de bandera";
-
 "type.man_made.lighthouse" = "Faro";
-
 "type.man_made.mast" = "Mástil";
-
 "type.man_made.pier" = "Muelle";
-
 "type.man_made.pipeline" = "Tubería";
-
 "type.man_made.pipeline.overground" = "Tubería aérea";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Cisterna";
-
 "type.man_made.surveillance" = "Cámara de vigilancia";
-
 "type.man_made.tower" = "Torre";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
@@ -2742,33 +1883,19 @@
 
 /* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Antorcha de gas";
-
 "type.man_made.wastewater_plant" = "Planta de tratamiento de aguas residuales";
-
 "type.man_made.water_tap" = "Toma de agua";
-
 "type.man_made.water_tap.drinking_water_no" = "Toma de agua";
-
 "type.man_made.water_tower" = "Depósito de agua";
-
 "type.man_made.water_well" = "Pozo";
-
 "type.man_made.water_well.drinking_water_no" = "Pozo";
-
 "type.man_made.windmill" = "Molino";
-
 "type.man_made.works" = "Fábrica";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Militar";
-
 "type.military.bunker" = "Búnker";
-
 "type.mountain_pass" = "Puerto de montaña";
-
 "type.natural" = "Naturaleza";
 
 /* A rocky land cover. */
@@ -2779,147 +1906,76 @@
 
 /* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
 "type.natural.scree" = "Pedregal";
-
 "type.natural.bay" = "Bahía";
-
 "type.natural.beach" = "Playa";
-
 "type.natural.beach.sand" = "Playa de arena";
-
 "type.natural.beach.gravel" = "Playa de grava";
-
 "type.natural.cape" = "Cabo";
-
 "type.natural.cave_entrance" = "Cueva";
-
 "type.natural.cliff" = "Acantilado";
-
 "type.natural.earth_bank" = "Acantilado";
-
 "type.man_made.embankment" = "Terraplén";
-
 "type.natural.coastline" = "Costa";
-
 "type.natural.desert" = "Desierto";
-
 "type.natural.geyser" = "Géiser";
-
 "type.natural.glacier" = "Glaciar";
-
 "type.natural.grassland" = "Herbazal";
-
 "type.natural.heath" = "Brezal";
-
 "type.natural.hot_spring" = "Aguas termales";
-
 "type.natural.water.lake" = "Lago";
-
 "type.natural.water.lock" = "Cámara de bloqueo";
-
 "type.natural.water.pond" = "Estanque";
-
 "type.natural.water.reservoir" = "Embalse";
-
 "type.natural.water.basin" = "Cuenca";
-
 "type.natural.water.river" = "Río";
-
 "type.natural.land" = "Tierra";
-
 "type.natural.meadow" = "Prado";
-
 "type.natural.orchard" = "Huerto frutal";
-
 "type.natural.peak" = "Cima";
-
 "type.natural.saddle" = "Collado";
-
 "type.natural.rock" = "Roca";
-
 "type.natural.scrub" = "Matorrales";
-
 "type.natural.spring" = "Manantial";
-
 "type.natural.spring.drinking_water_no" = "Manantial";
-
 "type.natural.strait" = "Estrecho";
-
 "type.natural.tree_row" = "Fila de árboles";
-
 "type.natural.vineyard" = "Viña";
-
 "type.natural.volcano" = "Volcán";
-
 "type.natural.water" = "Cuerpo de agua";
-
 "type.natural.wetland" = "Terreno pantanoso";
-
 "type.natural.wetland.bog" = "Turbera";
-
 "type.natural.wetland.marsh" = "Ciénaga";
-
 "type.noexit" = "Sin salida";
-
 "type.office" = "Oficina";
-
 "type.office.company" = "Oficina";
-
 "type.office.estate_agent" = "Agente inmobiliario";
-
 "type.office.government" = "Oficina gubernamental";
-
 "type.office.insurance" = "Oficina de seguros";
-
 "type.office.lawyer" = "Despacho de abogados";
-
 "type.office.ngo" = "Sede de ONG";
-
 "type.office.telecommunication" = "Operadora de telefonía";
-
 "type.organic.only" = "Orgánico";
-
 "type.organic.yes" = "Orgánico";
-
 "type.place.city" = "Ciudad";
-
 "type.place.city.capital" = "Capital";
-
 "type.place.city.capital.10" = "Ciudad";
-
 "type.place.city.capital.11" = "Ciudad";
-
 "type.place.city.capital.2" = "Capital";
-
 "type.place.city.capital.3" = "Ciudad";
-
 "type.place.city.capital.4" = "Ciudad";
-
 "type.place.city.capital.5" = "Ciudad";
-
 "type.place.city.capital.6" = "Ciudad";
-
 "type.place.city.capital.7" = "Ciudad";
-
 "type.place.city.capital.8" = "Ciudad";
-
 "type.place.city.capital.9" = "Ciudad";
-
 "type.place.continent" = "Continente";
-
 "type.place.country" = "País";
-
 "type.place.county" = "Condado";
-
 "type.place.farm" = "Granja";
-
 "type.place.hamlet" = "Aldea";
-
 "type.place.island" = "Isla";
-
 "type.place.islet" = "Isla";
-
 "type.place.isolated_dwelling" = "Vivienda aislada";
-
 "type.place.locality" = "Localidad";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -2927,132 +1983,70 @@
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
 "type.place.neighbourhood" = "Vecindario";
-
 "type.place.ocean" = "Océano";
-
 "type.place.region" = "Región";
-
 "type.place.sea" = "Mar";
-
 "type.place.square" = "Plaza";
-
 "type.place.state" = "Estado";
-
 "type.place.state.USA" = "Estado";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Barrio";
-
 "type.place.town" = "Pueblo";
-
 "type.place.village" = "Pueblo";
-
 "type.power" = "Energía";
-
 "type.power.generator" = "Generador";
-
 "type.power.generator.solar" = "Generador solar";
-
 "type.power.generator.wind" = "Generador de viento";
-
 "type.power.generator.gas" = "Planta de energía de turbina de gas";
-
 "type.power.generator.hydro" = "Planta de energía hidroeléctrica";
-
 "type.power.line" = "Línea eléctrica";
-
 "type.power.line.underground" = "Línea eléctrica subterránea";
-
 "type.power.minor_line" = "Línea eléctrica de baja tensión";
-
 "type.power.plant" = "Planta de energía";
-
 "type.power.plant.coal" = "Central eléctrica de carbón";
-
 "type.power.plant.gas" = "Planta de energía de turbina de gas";
-
 "type.power.plant.hydro" = "Planta de energía hidroeléctrica";
-
 "type.power.plant.solar" = "Planta de energía solar";
-
 "type.power.plant.wind" = "Planta eólica";
-
 "type.power.station" = "Estación eléctrica";
-
 "type.power.substation" = "Subestación eléctrica";
-
 "type.power.tower" = "Poste eléctrico";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Transporte público";
-
 "type.public_transport.platform" = "Plataforma";
-
 "type.railway" = "Vía férrea";
-
 "type.railway.abandoned" = "Vía férrea abandonada";
-
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
-
 "type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
-
 "type.railway.construction" = "Vía férrea en construcción";
-
 "type.railway.crossing" = "Paso a nivel";
-
 "type.railway.disused" = "Vía férrea en desuso";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular Bridge";
-
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
-
 "type.railway.halt" = "Punto de parada";
-
 "type.railway.level_crossing" = "Cruce de ferrocarril";
-
 "type.railway.light_rail" = "Tren ligero";
-
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
-
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
-
 "type.railway.monorail" = "Tren de monorraíl";
-
 "type.railway.monorail.bridge" = "Monorail Bridge";
-
 "type.railway.monorail.tunnel" = "Monorail Tunnel";
-
 "type.railway.narrow_gauge" = "Vía férrea de ancho estrecho";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
-
 "type.railway.platform" = "Plataforma de vía férrea";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
-
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
-
 "type.railway.rail" = "Ferrocarril";
-
 "type.railway.rail.highspeed" = "Ferrocarril de alta velocidad";
-
 "type.railway.rail.tourism" = "Ferrocarril turístico";
-
 "type.railway.rail.main" = "Ferrocarril";
 
 /* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
@@ -3060,1043 +2054,533 @@
 
 /* Non-passenger utility tracks: industrial, military, test. */
 "type.railway.rail.utility" = "Ferrocarril utilitario";
-
 "type.railway.rail.spur" = "Espolón ferroviario";
 
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Vía férrea de maniobras";
-
 "type.railway.rail.bridge" = "Puente ferroviario";
-
 "type.railway.rail.highspeed.bridge" = "Puente ferroviario";
-
 "type.railway.rail.tourism.bridge" = "Puente ferroviario";
-
 "type.railway.rail.main.bridge" = "Puente ferroviario";
-
 "type.railway.rail.branch.bridge" = "Puente ferroviario";
-
 "type.railway.rail.utility.bridge" = "Puente ferroviario";
-
 "type.railway.rail.spur.bridge" = "Puente ferroviario";
-
 "type.railway.rail.service.bridge" = "Puente ferroviario";
-
 "type.railway.rail.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.highspeed.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.tourism.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.main.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.branch.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.utility.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.spur.tunnel" = "Túnel ferroviario";
-
 "type.railway.rail.service.tunnel" = "Túnel ferroviario";
-
 "type.railway.station" = "Estación de tren";
-
 "type.railway.station.funicular" = "Funicular";
-
 "type.railway.station.light_rail" = "Estación de tren";
-
 "type.railway.station.light_rail.berlin" = "Estación de tren";
-
 "type.railway.station.light_rail.london" = "Estación de tren";
-
 "type.railway.station.light_rail.porto" = "Estación de tren";
-
 "type.railway.station.monorail" = "Estación de tren";
-
 "type.railway.station.subway" = "Metro";
-
 "type.railway.station.subway.adana" = "Metro";
-
 "type.railway.station.subway.algiers" = "Metro";
-
 "type.railway.station.subway.almaty" = "Metro";
-
 "type.railway.station.subway.amsterdam" = "Metro";
-
 "type.railway.station.subway.ankara" = "Metro";
-
 "type.railway.station.subway.athens" = "Metro";
-
 "type.railway.station.subway.baku" = "Metro";
-
 "type.railway.station.subway.bangkok" = "Metro";
-
 "type.railway.station.subway.barcelona" = "Metro";
-
 "type.railway.station.subway.beijing" = "Metro";
-
 "type.railway.station.subway.bengalore" = "Metro";
-
 "type.railway.station.subway.berlin" = "Metro";
-
 "type.railway.station.subway.bilbao" = "Metro";
-
 "type.railway.station.subway.brasilia" = "Metro";
-
 "type.railway.station.subway.brescia" = "Metro";
-
 "type.railway.station.subway.brussels" = "Metro";
-
 "type.railway.station.subway.bucharest" = "Metro";
-
 "type.railway.station.subway.budapest" = "Metro";
-
 "type.railway.station.subway.buenos_aires" = "Metro";
-
 "type.railway.station.subway.bursa" = "Metro";
-
 "type.railway.station.subway.cairo" = "Metro";
-
 "type.railway.station.subway.caracas" = "Metro";
-
 "type.railway.station.subway.catania" = "Metro";
-
 "type.railway.station.subway.changchun" = "Metro";
-
 "type.railway.station.subway.chengdu" = "Metro";
-
 "type.railway.station.subway.chicago" = "Metro";
-
 "type.railway.station.subway.chongqing" = "Metro";
-
 "type.railway.station.subway.dalian" = "Metro";
-
 "type.railway.station.subway.delhi" = "Metro";
-
 "type.railway.station.subway.dnepro" = "Metro";
-
 "type.railway.station.subway.dubai" = "Metro";
-
 "type.railway.station.subway.ekb" = "Metro";
-
 "type.railway.station.subway.fukuoka" = "Metro";
-
 "type.railway.station.subway.glasgow" = "Metro";
-
 "type.railway.station.subway.guangzhou" = "Metro";
-
 "type.railway.station.subway.hamburg" = "Metro";
-
 "type.railway.station.subway.helsinki" = "Metro";
-
 "type.railway.station.subway.hiroshima" = "Metro";
-
 "type.railway.station.subway.hongkong" = "Metro";
-
 "type.railway.station.subway.isfahan" = "Metro";
-
 "type.railway.station.subway.istanbul" = "Metro";
-
 "type.railway.station.subway.izmir" = "Metro";
-
 "type.railway.station.subway.kazan" = "Metro";
-
 "type.railway.station.subway.kharkiv" = "Metro";
-
 "type.railway.station.subway.kiev" = "Metro";
-
 "type.railway.station.subway.kobe" = "Metro";
-
 "type.railway.station.subway.kolkata" = "Metro";
-
 "type.railway.station.subway.kunming" = "Metro";
-
 "type.railway.station.subway.kyoto" = "Metro";
-
 "type.railway.station.subway.la" = "Metro";
-
 "type.railway.station.subway.lausanne" = "Metro";
-
 "type.railway.station.subway.lille" = "Metro";
-
 "type.railway.station.subway.lima" = "Metro";
-
 "type.railway.station.subway.lisboa" = "Metro";
-
 "type.railway.station.subway.london" = "Metro";
-
 "type.railway.station.subway.lyon" = "Metro";
-
 "type.railway.station.subway.madrid" = "Metro";
-
 "type.railway.station.subway.malaga" = "Metro";
-
 "type.railway.station.subway.manila" = "Metro";
-
 "type.railway.station.subway.maracaibo" = "Metro";
-
 "type.railway.station.subway.mashhad" = "Metro";
-
 "type.railway.station.subway.mecca" = "Metro";
-
 "type.railway.station.subway.medellin" = "Metro";
-
 "type.railway.station.subway.mexico" = "Metro";
-
 "type.railway.station.subway.milan" = "Metro";
-
 "type.railway.station.subway.minsk" = "Metro";
-
 "type.railway.station.subway.montreal" = "Metro";
-
 "type.railway.station.subway.moscow" = "Metro";
-
 "type.railway.station.subway.munchen" = "Metro";
-
 "type.railway.station.subway.nagoya" = "Metro";
-
 "type.railway.station.subway.newyork" = "Metro";
-
 "type.railway.station.subway.nnov" = "Metro";
-
 "type.railway.station.subway.novosibirsk" = "Metro";
-
 "type.railway.station.subway.osaka" = "Metro";
-
 "type.railway.station.subway.oslo" = "Metro";
-
 "type.railway.station.subway.palma" = "Metro";
-
 "type.railway.station.subway.panama" = "Metro";
-
 "type.railway.station.subway.paris" = "Metro";
-
 "type.railway.station.subway.philadelphia" = "Metro";
-
 "type.railway.station.subway.pyongyang" = "Metro";
-
 "type.railway.station.subway.rennes" = "Metro";
-
 "type.railway.station.subway.rio" = "Metro";
-
 "type.railway.station.subway.roma" = "Metro";
-
 "type.railway.station.subway.rotterdam" = "Metro";
-
 "type.railway.station.subway.samara" = "Metro";
-
 "type.railway.station.subway.santiago" = "Metro";
-
 "type.railway.station.subway.santo_domingo" = "Metro";
-
 "type.railway.station.subway.saopaulo" = "Metro";
-
 "type.railway.station.subway.sapporo" = "Metro";
-
 "type.railway.station.subway.sendai" = "Metro";
-
 "type.railway.station.subway.sf" = "Metro";
-
 "type.railway.station.subway.shanghai" = "Metro";
-
 "type.railway.station.subway.shenzhen" = "Metro";
-
 "type.railway.station.subway.shiraz" = "Metro";
-
 "type.railway.station.subway.singapore" = "Metro";
-
 "type.railway.station.subway.sofia" = "Metro";
-
 "type.railway.station.subway.spb" = "Metro";
-
 "type.railway.station.subway.stockholm" = "Metro";
-
 "type.railway.station.subway.tabriz" = "Metro";
-
 "type.railway.station.subway.taipei" = "Metro";
-
 "type.railway.station.subway.taoyuan" = "Metro";
-
 "type.railway.station.subway.tashkent" = "Metro";
-
 "type.railway.station.subway.tbilisi" = "Metro";
-
 "type.railway.station.subway.tehran" = "Metro";
-
 "type.railway.station.subway.tianjin" = "Metro";
-
 "type.railway.station.subway.tokyo" = "Metro";
-
 "type.railway.station.subway.valencia" = "Metro";
-
 "type.railway.station.subway.vienna" = "Metro";
-
 "type.railway.station.subway.warszawa" = "Metro";
-
 "type.railway.station.subway.washington" = "Metro";
-
 "type.railway.station.subway.wuhan" = "Metro";
-
 "type.railway.station.subway.yerevan" = "Metro";
-
 "type.railway.station.subway.yokohama" = "Metro";
-
 "type.railway.subway" = "Línea de metro";
-
 "type.railway.subway.bridge" = "Puente de metro";
-
 "type.railway.subway.tunnel" = "Túnel de metro";
-
 "type.railway.subway_entrance" = "Entrada al metro";
-
 "type.railway.subway_entrance.adana" = "Entrada al metro";
-
 "type.railway.subway_entrance.algiers" = "Entrada al metro";
-
 "type.railway.subway_entrance.almaty" = "Entrada al metro";
-
 "type.railway.subway_entrance.amsterdam" = "Entrada al metro";
-
 "type.railway.subway_entrance.ankara" = "Entrada al metro";
-
 "type.railway.subway_entrance.athens" = "Entrada al metro";
-
 "type.railway.subway_entrance.baku" = "Entrada al metro";
-
 "type.railway.subway_entrance.bangkok" = "Entrada al metro";
-
 "type.railway.subway_entrance.barcelona" = "Entrada al metro";
-
 "type.railway.subway_entrance.beijing" = "Entrada al metro";
-
 "type.railway.subway_entrance.bengalore" = "Entrada al metro";
-
 "type.railway.subway_entrance.berlin" = "Entrada al metro";
-
 "type.railway.subway_entrance.bilbao" = "Entrada al metro";
-
 "type.railway.subway_entrance.brasilia" = "Entrada al metro";
-
 "type.railway.subway_entrance.brescia" = "Entrada al metro";
-
 "type.railway.subway_entrance.brussels" = "Entrada al metro";
-
 "type.railway.subway_entrance.bucharest" = "Entrada al metro";
-
 "type.railway.subway_entrance.budapest" = "Entrada al metro";
-
 "type.railway.subway_entrance.buenos_aires" = "Entrada al metro";
-
 "type.railway.subway_entrance.bursa" = "Entrada al metro";
-
 "type.railway.subway_entrance.cairo" = "Entrada al metro";
-
 "type.railway.subway_entrance.caracas" = "Entrada al metro";
-
 "type.railway.subway_entrance.catania" = "Entrada al metro";
-
 "type.railway.subway_entrance.changchun" = "Entrada al metro";
-
 "type.railway.subway_entrance.chengdu" = "Entrada al metro";
-
 "type.railway.subway_entrance.chicago" = "Entrada al metro";
-
 "type.railway.subway_entrance.chongqing" = "Entrada al metro";
-
 "type.railway.subway_entrance.dalian" = "Entrada al metro";
-
 "type.railway.subway_entrance.delhi" = "Entrada al metro";
-
 "type.railway.subway_entrance.dnepro" = "Entrada al metro";
-
 "type.railway.subway_entrance.dubai" = "Entrada al metro";
-
 "type.railway.subway_entrance.ekb" = "Entrada al metro";
-
 "type.railway.subway_entrance.fukuoka" = "Entrada al metro";
-
 "type.railway.subway_entrance.glasgow" = "Entrada al metro";
-
 "type.railway.subway_entrance.guangzhou" = "Entrada al metro";
-
 "type.railway.subway_entrance.hamburg" = "Entrada al metro";
-
 "type.railway.subway_entrance.helsinki" = "Entrada al metro";
-
 "type.railway.subway_entrance.hiroshima" = "Entrada al metro";
-
 "type.railway.subway_entrance.hongkong" = "Entrada al metro";
-
 "type.railway.subway_entrance.isfahan" = "Entrada al metro";
-
 "type.railway.subway_entrance.istanbul" = "Entrada al metro";
-
 "type.railway.subway_entrance.izmir" = "Entrada al metro";
-
 "type.railway.subway_entrance.kazan" = "Entrada al metro";
-
 "type.railway.subway_entrance.kharkiv" = "Entrada al metro";
-
 "type.railway.subway_entrance.kiev" = "Entrada al metro";
-
 "type.railway.subway_entrance.kobe" = "Entrada al metro";
-
 "type.railway.subway_entrance.kolkata" = "Entrada al metro";
-
 "type.railway.subway_entrance.kunming" = "Entrada al metro";
-
 "type.railway.subway_entrance.kyoto" = "Entrada al metro";
-
 "type.railway.subway_entrance.la" = "Entrada al metro";
-
 "type.railway.subway_entrance.lausanne" = "Entrada al metro";
-
 "type.railway.subway_entrance.lille" = "Entrada al metro";
-
 "type.railway.subway_entrance.lima" = "Entrada al metro";
-
 "type.railway.subway_entrance.lisboa" = "Entrada al metro";
-
 "type.railway.subway_entrance.london" = "Entrada al metro";
-
 "type.railway.subway_entrance.lyon" = "Entrada al metro";
-
 "type.railway.subway_entrance.madrid" = "Entrada al metro";
-
 "type.railway.subway_entrance.malaga" = "Entrada al metro";
-
 "type.railway.subway_entrance.manila" = "Entrada al metro";
-
 "type.railway.subway_entrance.maracaibo" = "Entrada al metro";
-
 "type.railway.subway_entrance.mashhad" = "Entrada al metro";
-
 "type.railway.subway_entrance.mecca" = "Entrada al metro";
-
 "type.railway.subway_entrance.medellin" = "Entrada al metro";
-
 "type.railway.subway_entrance.mexico" = "Entrada al metro";
-
 "type.railway.subway_entrance.milan" = "Entrada al metro";
-
 "type.railway.subway_entrance.minsk" = "Entrada al metro";
-
 "type.railway.subway_entrance.montreal" = "Entrada al metro";
-
 "type.railway.subway_entrance.moscow" = "Entrada al metro";
-
 "type.railway.subway_entrance.munchen" = "Entrada al metro";
-
 "type.railway.subway_entrance.nagoya" = "Entrada al metro";
-
 "type.railway.subway_entrance.newyork" = "Entrada al metro";
-
 "type.railway.subway_entrance.nnov" = "Entrada al metro";
-
 "type.railway.subway_entrance.novosibirsk" = "Entrada al metro";
-
 "type.railway.subway_entrance.osaka" = "Entrada al metro";
-
 "type.railway.subway_entrance.oslo" = "Entrada al metro";
-
 "type.railway.subway_entrance.palma" = "Entrada al metro";
-
 "type.railway.subway_entrance.panama" = "Entrada al metro";
-
 "type.railway.subway_entrance.paris" = "Entrada al metro";
-
 "type.railway.subway_entrance.philadelphia" = "Entrada al metro";
-
 "type.railway.subway_entrance.pyongyang" = "Entrada al metro";
-
 "type.railway.subway_entrance.rennes" = "Entrada al metro";
-
 "type.railway.subway_entrance.rio" = "Entrada al metro";
-
 "type.railway.subway_entrance.roma" = "Entrada al metro";
-
 "type.railway.subway_entrance.rotterdam" = "Entrada al metro";
-
 "type.railway.subway_entrance.samara" = "Entrada al metro";
-
 "type.railway.subway_entrance.santiago" = "Entrada al metro";
-
 "type.railway.subway_entrance.santo_domingo" = "Entrada al metro";
-
 "type.railway.subway_entrance.saopaulo" = "Entrada al metro";
-
 "type.railway.subway_entrance.sapporo" = "Entrada al metro";
-
 "type.railway.subway_entrance.sendai" = "Entrada al metro";
-
 "type.railway.subway_entrance.sf" = "Entrada al metro";
-
 "type.railway.subway_entrance.shanghai" = "Entrada al metro";
-
 "type.railway.subway_entrance.shenzhen" = "Entrada al metro";
-
 "type.railway.subway_entrance.shiraz" = "Entrada al metro";
-
 "type.railway.subway_entrance.singapore" = "Entrada al metro";
-
 "type.railway.subway_entrance.sofia" = "Entrada al metro";
-
 "type.railway.subway_entrance.spb" = "Entrada al metro";
-
 "type.railway.subway_entrance.stockholm" = "Entrada al metro";
-
 "type.railway.subway_entrance.tabriz" = "Entrada al metro";
-
 "type.railway.subway_entrance.taipei" = "Entrada al metro";
-
 "type.railway.subway_entrance.taoyuan" = "Entrada al metro";
-
 "type.railway.subway_entrance.tashkent" = "Entrada al metro";
-
 "type.railway.subway_entrance.tbilisi" = "Entrada al metro";
-
 "type.railway.subway_entrance.tehran" = "Entrada al metro";
-
 "type.railway.subway_entrance.tianjin" = "Entrada al metro";
-
 "type.railway.subway_entrance.tokyo" = "Entrada al metro";
-
 "type.railway.subway_entrance.valencia" = "Entrada al metro";
-
 "type.railway.subway_entrance.vienna" = "Entrada al metro";
-
 "type.railway.subway_entrance.warszawa" = "Entrada al metro";
-
 "type.railway.subway_entrance.washington" = "Entrada al metro";
-
 "type.railway.subway_entrance.wuhan" = "Entrada al metro";
-
 "type.railway.subway_entrance.yerevan" = "Entrada al metro";
-
 "type.railway.subway_entrance.yokohama" = "Entrada al metro";
-
 "type.railway.tram" = "Línea de tranvía";
-
 "type.railway.tram.bridge" = "Puente de tranvía";
-
 "type.railway.tram.tunnel" = "Túnel de tranvía";
-
 "type.railway.tram_stop" = "Parada de tranvía";
-
 "type.route" = "Ruta";
-
 "type.route.ferry" = "Ruta de ferry";
-
 "type.route.shuttle_train" = "route-shuttle_train";
-
 "type.shop" = "Tienda";
-
 "type.shop.alcohol" = "Licorería";
-
 "type.shop.bakery" = "Panadería";
-
 "type.shop.bathroom_furnishing" = "Equipamiento de baño";
-
 "type.shop.beauty" = "Salón de belleza";
-
 "type.shop.beverages" = "Bebidas";
-
 "type.shop.bicycle" = "Tienda de bicicletas";
-
 "type.shop.bookmaker" = "Casa de apuestas";
-
 "type.shop.books" = "Librería";
-
 "type.shop.butcher" = "Carnicería";
-
 "type.shop.cannabis" = "Tienda de cánnabis";
-
 "type.shop.car" = "Concesionario de coches";
-
 "type.shop.car_parts" = "Piezas de automóvil";
-
 "type.shop.car_repair" = "Taller";
-
 "type.shop.car_repair.tyres" = "Reparación de neumáticos";
-
 "type.shop.caravan" = "Concesionario de caravanas";
-
 "type.shop.carpet" = "Alfombras";
-
 "type.shop.chemist" = "Droguería";
-
 "type.shop.chocolate" = "Chocolatería";
-
 "type.shop.clothes" = "Tienda de ropa";
-
 "type.shop.coffee" = "Tienda de café";
-
 "type.shop.computer" = "Tienda de informática";
-
 "type.shop.confectionery" = "Confitería";
-
 "type.shop.convenience" = "Tienda de barrio";
-
 "type.shop.copyshop" = "Centro de copiado";
-
 "type.shop.cosmetics" = "Tienda de cosméticos";
-
 "type.shop.curtain" = "Cortinas";
-
 "type.shop.deli" = "Tienda de delicatessen";
-
 "type.shop.department_store" = "Grandes almacenes";
-
 "type.shop.doityourself" = "Tienda de bricolaje";
-
 "type.shop.dry_cleaning" = "Tintorería";
-
 "type.shop.electronics" = "Electrónica";
-
 "type.shop.erotic" = "Sex Shop";
-
 "type.shop.fabric" = "Tienda de telas";
-
 "type.shop.farm" = "Tienda de alimentos de granja";
-
 "type.shop.fashion_accessories" = "Accesorios de moda";
-
 "type.shop.florist" = "Floristería";
-
 "type.shop.funeral_directors" = "Funeraria";
-
 "type.shop.furniture" = "Tienda de muebles";
-
 "type.shop.garden_centre" = "Vivero";
-
 "type.shop.gas" = "Tienda de gasolina";
-
 "type.shop.gift" = "Tienda de regalos";
-
 "type.shop.greengrocer" = "Frutería";
-
 "type.shop.grocery" = "Tienda de comestibles";
-
 "type.shop.hairdresser" = "Peluquería";
-
 "type.shop.hardware" = "Ferretería";
-
 "type.shop.health_food" = "Tienda de comida saludable";
-
 "type.shop.hearing_aids" = "Tienda de audífonos";
-
 "type.shop.herbalist" = "Herbolario";
-
 "type.shop.hifi" = "Audio de alta fidelidad";
-
 "type.shop.houseware" = "Tienda de artículos para el hogar";
-
 "type.shop.jewelry" = "Joyería";
-
 "type.shop.kiosk" = "Quiosco";
-
 "type.shop.kitchen" = "Tienda de cocina";
-
 "type.shop.laundry" = "Lavandería";
-
 "type.shop.mall" = "Centro comercial";
-
 "type.shop.massage" = "Salón de masajes";
-
 "type.shop.mobile_phone" = "Móviles";
-
 "type.shop.money_lender" = "Prestamista";
-
 "type.shop.motorcycle" = "Tienda de motos";
-
 "type.shop.motorcycle_repair" = "Reparación de motos";
-
 "type.shop.music" = "Tienda de discos";
-
 "type.shop.musical_instrument" = "Instrumentos musicales";
-
 "type.shop.newsagent" = "Puesto de venta de periódicos";
-
 "type.shop.optician" = "Óptica";
-
 "type.shop.outdoor" = "Equipamiento de ocio al aire libre";
-
 "type.shop.outpost" = "Punto de recogida";
-
 "type.shop.pasta" = "Tienda de pasta";
-
 "type.shop.pastry" = "Pastelería";
-
 "type.shop.pawnbroker" = "Casa de empeños";
-
 "type.shop.pet" = "Tienda de mascotas";
-
 "type.shop.pet_grooming" = "Aseo de mascotas";
-
 "type.shop.photo" = "Artículos de fotografía";
-
 "type.shop.rental" = "Tienda de alquiler";
-
 "type.shop.rental.bicycle" = "Tienda de alquiler de bicicletas";
-
 "type.shop.seafood" = "Pescadería";
-
 "type.shop.second_hand" = "Tienda de segunda mano";
-
 "type.shop.shoes" = "Zapatería";
-
 "type.shop.sports" = "Artículos de deporte";
-
 "type.shop.stationery" = "Papelería";
-
 "type.shop.supermarket" = "Supermercado";
-
 "type.shop.tattoo" = "Tatuajes";
-
 "type.shop.tea" = "Tienda de té";
-
 "type.shop.ticket" = "Venta de entradas";
-
 "type.shop.toys" = "Tienda de juguetes";
-
 "type.shop.travel_agency" = "Agencia de viajes";
-
 "type.shop.tyres" = "Tienda de neumáticos";
-
 "type.shop.variety_store" = "Tienda de variedades";
-
 "type.shop.video" = "Tienda de vídeo";
-
 "type.shop.video_games" = "Tienda de videojuegos";
-
 "type.shop.wine" = "Tienda de vinos";
-
 "type.shop.agrarian" = "Tienda agrícola";
-
 "type.shop.antiques" = "Antigüedades";
-
 "type.shop.appliance" = "Tienda de electrodomésticos";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Tienda de arte";
-
 "type.shop.baby_goods" = "Tienda de niños";
-
 "type.shop.bag" = "Tienda de bolsos";
-
 "type.shop.bed" = "Tienda de camas";
-
 "type.shop.boutique" = "Boutique";
-
 "type.shop.charity" = "Tienda de caridad";
-
 "type.shop.cheese" = "Tienda de quesos";
-
 "type.shop.craft" = "Artes y manualidades";
-
 "type.shop.dairy" = "Productos lácteos";
-
 "type.shop.electrical" = "Tienda de electricidad";
-
 "type.shop.fishing" = "Tienda de pesca";
-
 "type.shop.interior_decoration" = "Decoración de interiores";
-
 "type.shop.lottery" = "Boletos de lotería";
-
 "type.shop.medical_supply" = "Suministros médicos";
-
 "type.shop.nutrition_supplements" = "Suplementos nutricionales";
-
 "type.shop.paint" = "Pinturas";
-
 "type.shop.perfumery" = "Perfumería";
-
 "type.shop.sewing" = "Materiales de costura";
-
 "type.shop.storage_rental" = "Alquiler de almacenamiento";
-
 "type.shop.tobacco" = "Tabaco";
-
 "type.shop.trade" = "Suministros comerciales";
-
 "type.shop.watches" = "Relojes";
-
 "type.shop.wholesale" = "Almacén al por mayor";
-
 "type.sport" = "Deporte";
-
 "type.sport.american_football" = "Fútbol americano";
-
 "type.sport.archery" = "Tiro al arco";
-
 "type.sport.athletics" = "Atletismo";
-
 "type.sport.australian_football" = "Fútbol australiano";
-
 "type.sport.baseball" = "Béisbol";
-
 "type.sport.basketball" = "Baloncesto";
-
 "type.sport.beachvolleyball" = "Voleibol de playa";
-
 "type.sport.bowls" = "Bolos sobre hierba";
-
 "type.sport.chess" = "Ajedrez";
-
 "type.sport.cricket" = "Críquet";
-
 "type.sport.curling" = "Curling";
-
 "type.sport.equestrian" = "Equitación";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gimnasia";
-
 "type.sport.handball" = "Balonmano";
-
 "type.sport.multi" = "Varios deportes";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Submarinismo";
-
 "type.sport.shooting" = "Tiro deportivo";
-
 "type.sport.skateboard" = "Monopatinaje";
-
 "type.sport.skiing" = "Esquí";
-
 "type.sport.soccer" = "Fútbol";
-
 "type.sport.swimming" = "Natación";
-
 "type.sport.table_tennis" = "Tenis de mesa";
-
 "type.sport.tennis" = "Cancha de tenis";
-
 "type.sport.volleyball" = "Voleibol";
-
 "type.sport.10pin" = "Bowling";
-
 "type.sport.9pin" = "Bowling";
-
 "type.sport.padel" = "Pádel";
-
 "type.sport.futsal" = "Fútbol sala";
-
 "type.sport.ice_hockey" = "Hockey sobre hielo";
-
 "type.sport.field_hockey" = "Hockey sobre césped";
-
 "type.sport.badminton" = "Bádminton";
-
 "type.sport.pelota" = "Pelota vasca";
-
 "type.tourism" = "Turismo";
-
 "type.tourism.aquarium" = "Acuario";
 
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Albergue de montaña";
-
 "type.tourism.apartment" = "Apartamento de vacaciones";
-
 "type.tourism.artwork" = "Obra de arte";
-
 "type.tourism.artwork.architecture" = "Arte arquitectónico";
-
 "type.tourism.artwork.painting" = "Pintura";
-
 "type.tourism.artwork.sculpture" = "Escultura";
-
 "type.tourism.artwork.statue" = "Estatua";
-
 "type.tourism.attraction" = "Atracción turística";
-
 "type.attraction.amusement_ride" = "Atracción";
-
 "type.attraction.animal" = "Recinto de animales";
-
 "type.attraction.bumper_car" = "Coches de choque";
-
 "type.attraction.big_wheel" = "Noria";
-
 "type.attraction.carousel" = "Carrusel";
-
 "type.attraction.historic" = "Atracción de historia";
-
 "type.attraction.maze" = "Laberinto";
-
 "type.attraction.roller_coaster" = "Montaña rusa";
-
 "type.attraction.water_slide" = "Tobogán acuático";
-
 "type.tourism.attraction.specified" = "Atracción turística";
-
 "type.tourism.camp_site" = "Paraje de campamento";
-
 "type.tourism.caravan_site" = "Zona de caravanas";
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Casa de vacaciones";
-
 "type.tourism.gallery" = "Galería";
-
 "type.tourism.guest_house" = "Casa de huéspedes";
-
 "type.tourism.hostel" = "Albergue juvenil";
-
 "type.tourism.hotel" = "Hotel";
-
 "type.tourism.information" = "Información turística";
-
 "type.tourism.information.board" = "Tablón de información";
-
 "type.tourism.information.guidepost" = "Poste indicador";
-
 "type.tourism.information.map" = "Mapa turístico";
-
 "type.tourism.information.office" = "Oficina de turismo";
-
 "type.tourism.information.visitor_centre" = "Centro de visitantes";
-
 "type.tourism.motel" = "Motel";
-
 "type.tourism.museum" = "Museo";
-
 "type.tourism.picnic_site" = "Zona de picnic";
-
 "type.leisure.resort" = "Resort";
-
 "type.tourism.theme_park" = "Parque temático";
-
 "type.tourism.viewpoint" = "Mirador";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Cabaña";
-
 "type.tourism.zoo" = "Zoológico";
-
 "type.tourism.zoo.petting" = "Zoológico interactivo";
-
 "type.traffic_calming" = "Pacificación del tráfico";
-
 "type.traffic_calming.bump" = "Banda reductora";
-
 "type.traffic_calming.hump" = "Resalte";
-
 "type.waterway" = "Curso de agua";
-
 "type.waterway.canal" = "Canal";
-
 "type.waterway.canal.tunnel" = "Túnel de canal";
-
 "type.waterway.fish_pass" = "Escalera de peces";
-
 "type.waterway.dam" = "Presa";
-
 "type.barrier.ditch" = "Zanja";
-
 "type.natural.water.ditch" = "Zanja de drenaje";
-
 "type.waterway.ditch.tunnel" = "Obra de drenaje";
-
 "type.waterway.dock" = "Muelle";
-
 "type.waterway.drain" = "Desagüe";
-
 "type.natural.water.drain" = "Desagüe";
-
 "type.waterway.drain.tunnel" = "Obra de drenaje";
-
 "type.waterway.lock_gate" = "Compuerta";
-
 "type.waterway.river" = "Río";
-
 "type.waterway.river.tunnel" = "Río";
-
 "type.waterway.stream" = "Arroyo";
-
 "type.waterway.stream.ephemeral" = "Arroyo efímero";
-
 "type.waterway.stream.intermittent" = "Arroyo intermitente";
-
 "type.waterway.stream.tunnel" = "Arroyo";
-
 "type.waterway.waterfall" = "Cascada";
-
 "type.waterway.weir" = "Aliviadero";
-
 "type.wheelchair" = "Silla de ruedas";
-
 "type.wheelchair.limited" = "Parcialmente accesible en silla de ruedas";
-
 "type.wheelchair.no" = "No accesible en silla de ruedas";
-
 "type.wheelchair.yes" = "Accesible en silla de ruedas";
-
 "type.aerialway.j.bar" = "Telesilla barra en J";
-
 "type.aerialway.magic_carpet" = "Alfombra mágica";
-
 "type.aerialway.platter" = "Telesilla de disco";
-
 "type.aerialway.rope_tow" = "Telesilla de cuerda";
-
 "type.aerialway.t.bar" = "Telesilla barra en T";
-
 "type.piste_type.downhill" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.area" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.advanced" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.advanced.area" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.easy" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.easy.area" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.expert" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.expert.area" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.freeride" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.intermediate" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.intermediate.area" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.novice" = "Pista de esquí alpino";
-
 "type.piste_type.downhill.novice.area" = "Pista de esquí alpino";
-
 "type.piste_type.nordic" = "Pista de esquí nórdico";
-
 "type.piste_type.sled" = "Pista para trineos";
-
 "type.piste_type.sled.area" = "Pista para trineos";
-
 "type.piste_type.snow_park" = "Parque de nieve";
-
 "type.piste_type.hike" = "Ruta de senderismo en la nieve";
-
 "type.piste_type.connection" = "Conexión de pistas";
-
 "type.piste_type.skitour" = "Sendero Skitour";
-
 "type.amenity.events_venue" = "Lugar para eventos";
-
 "type.shop.auction" = "Subasta";
-
 "type.shop.collector" = "Coleccionables";
-
 "type.self_service.yes" = "Autoservicio disponible";
-
 "type.self_service.only" = "Sólo autoservicio";
-
 "type.self_service.partially" = "Autoservicio parcial";
-
 "type.self_service.no" = "Sin autoservicio";
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
