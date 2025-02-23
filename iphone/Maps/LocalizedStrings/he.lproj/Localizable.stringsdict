@@ -33,9 +33,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</string>
+			<string>נמצא %d קובץ. תוכלו לראות אותו לאחר ההמרה.</string>
 			<key>other</key>
-			<string>נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</string>
+			<string>נמצאו %d קבצים. תוכלו לראות אותם לאחר ההמרה.</string>
 		</dict>
 	</dict>
 

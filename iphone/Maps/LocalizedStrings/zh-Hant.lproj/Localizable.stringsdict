@@ -30,8 +30,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>找到 %d 個文件，轉換後您可以看到它。</string>
 			<key>other</key>
-			<string>找到 %d 個文件，轉換後您才能看到它們。</string>
+			<string>找到 %d 個文件，轉換後您可以看到它們。</string>
 		</dict>
 	</dict>
 

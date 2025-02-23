@@ -15,8 +15,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
+			<key>one</key>
 			<string>%d markagailu</string>
+			<key>other</key>
+			<string>%d markagailuak</string>
 		</dict>
 	</dict>
 
@@ -48,9 +50,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>arrasto %d</string>
-			<key>other</key>
 			<string>%d arrasto</string>
+			<key>other</key>
+			<string>%d arrastos</string>
 		</dict>
 	</dict>
 

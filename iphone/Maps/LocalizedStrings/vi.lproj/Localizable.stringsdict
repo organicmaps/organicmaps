@@ -31,7 +31,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</string>
+			<string>%d files were found. You can see them after conversion.</string>
 		</dict>
 	</dict>
 
@@ -45,8 +45,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d chặng đường</string>
 			<key>other</key>
-			<string>%d các chặn đường</string>
+			<string>%d các chặng đường</string>
 		</dict>
 	</dict>
 

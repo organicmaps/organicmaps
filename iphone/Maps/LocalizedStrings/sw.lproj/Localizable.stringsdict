@@ -16,7 +16,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>Alamisho %d</string>
+			<string>%d alamisho</string>
 		</dict>
 	</dict>
 
@@ -33,7 +33,7 @@
 			<key>one</key>
 			<string>Faili %d ilipatikana. Utaiona baada ya uongofu.</string>
 			<key>other</key>
-			<string>Files %d zimepatikana. Utawaona baada ya uongofu.</string>
+			<string>Files %d zimepatikana. Utaziona baada ya uongofu.</string>
 		</dict>
 	</dict>
 
@@ -47,6 +47,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>Njia %d</string>
 			<key>other</key>
 			<string>Njia %d</string>
 		</dict>

@@ -641,7 +641,7 @@
     <string name="profile">Profilo OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d file è stato trovato. Lo vedrai dopo la conversione.</item>
-        <item quantity="other">%d file trovati. Li vedrai dopo la conversione.</item>
+        <item quantity="other">%d file sono stati trovati. Li vedrai dopo la conversione.</item>
     </plurals>
     <string name="restore">Ripristina</string>
     <plurals name="tracks">
