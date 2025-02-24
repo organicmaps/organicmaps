@@ -656,8 +656,8 @@ highway-tertiary-bridge::shield                     # shield::shield z13- (also 
 highway-tertiary-tunnel::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z16-)
 === 2960
 
-barrier-city_wall
-historic-citywalls
+barrier-city_wall                                   # pathtext z16- (also has line z14-)
+historic-citywalls                                  # pathtext z16- (also has line z14-)
 === 2957
 
 highway-residential::shield                         # shield::shield z15- (also has pathtext z13-, line z12-)
@@ -1002,7 +1002,7 @@ amenity-shelter-public_transport                    # icon z14- (also has captio
 emergency-lifeguard                                 # icon z14- (also has caption(optional) z18-)
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
-natural-cliff
+natural-cliff                                       # pathtext z14- (also has line z12-)
 === 1500
 
 sport-american_football                             # icon z17- (also has caption(optional) z17-)
@@ -1073,7 +1073,7 @@ natural-spring-drinking_water_no                    # icon z12- (also has captio
 
 isoline-step_10                                     # pathtext z16- (also has line z15-)
 isoline-zero                                        # pathtext z15- (also has line z15-)
-power-line
+power-line                                          # pathtext z15- (also has line z15-, line::dash z15-)
 === 1000
 
 amenity-grave_yard                                  # icon z17- (also has caption(optional) z17-, area z14-)
@@ -1163,7 +1163,7 @@ shop-wholesale                                      # icon z18- (also has captio
 
 amenity-shower                                      # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z15- (also has caption(optional) z18-)
-man_made-embankment
+man_made-embankment                                 # pathtext z18- (also has line z16-)
 office                                              # icon z18- (also has caption(optional) z18-)
 shop                                                # icon z18- (also has caption(optional) z18-)
 === 470

@@ -36,7 +36,7 @@ aerialway-rope_tow                                  # line z13- (also has line::
 aerialway-t-bar                                     # line z13- (also has line::dash z13-, pathtext z15-)
 === 370
 
-historic-citywalls                                  # line z14-
+historic-citywalls                                  # line z14- (also has pathtext z16-)
 === 360
 
 power-line                                          # line z19- (also has line::dash z19-)
@@ -56,7 +56,7 @@ hwtag-oneway::arrows                                # line::arrows z15-
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330
 
-barrier-city_wall                                   # line z14-
+barrier-city_wall                                   # line z14- (also has pathtext z16-)
 barrier-fence                                       # line z16-
 barrier-hedge                                       # line z16-
 barrier-wall                                        # line z16-
@@ -417,8 +417,8 @@ landuse-garages                                     # area z15-
 === 110
 
 barrier-retaining_wall                              # line z16-
-man_made-embankment                                 # line z16-
-natural-cliff                                       # line z14-
+man_made-embankment                                 # line z16- (also has pathtext z18-)
+natural-cliff                                       # line z14- (also has pathtext z16-)
 natural-earth_bank                                  # line z14-
 === 100
 
