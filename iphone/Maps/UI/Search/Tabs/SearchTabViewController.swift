@@ -1,7 +1,6 @@
-import CoreFoundation
 @objc(MWMSearchTabViewControllerDelegate)
 protocol SearchTabViewControllerDelegate: AnyObject {
-  func searchTabController(_ viewContoller: SearchTabViewController, didSearch: String, withCategory: Bool)
+  func searchTabController(_ viewController: SearchTabViewController, didSearch: String, withCategory: Bool)
 }
 
 @objc(MWMSearchTabViewController)
