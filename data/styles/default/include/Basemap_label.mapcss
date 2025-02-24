@@ -496,6 +496,25 @@ node|z15-[natural=beach],
 area|z16-[leisure=beach_resort],
 {text: name; font-size: 10; text-color: @poi_label; text-offset: 1;}
 
+/* Barriers, cliffs */
+
+line[natural=cliff],
+line[barrier=city_wall],
+line[historic=citywalls],
+line[man_made=embankment],
+{text-position: line;}
+
+line|z16-[natural=cliff],
+line|z16-[barrier=city_wall],
+line|z16-[historic=citywalls],
+line|z18-[man_made=embankment],
+{text: name; font-size: 9; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+line|z18-[natural=cliff],
+line|z18-[barrier=city_wall],
+line|z18-[historic=citywalls],
+line|z18-[man_made=embankment],
+{font-size: 10;}
+
 /* 6.WATER */
 
 node|z1-[place=ocean],

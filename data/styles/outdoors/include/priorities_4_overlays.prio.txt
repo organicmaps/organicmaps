@@ -656,6 +656,10 @@ highway-tertiary-bridge::shield                     # shield::shield z13- (also 
 highway-tertiary-tunnel::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z16-)
 === 2960
 
+barrier-city_wall
+historic-citywalls
+=== 2957
+
 highway-residential::shield                         # shield::shield z15- (also has pathtext z13-, line z12-)
 highway-residential-area::shield                    # shield::shield z15- (also has pathtext z13-, line z12-)
 highway-residential-bridge::shield                  # shield::shield z15- (also has pathtext z13-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-)
@@ -998,6 +1002,7 @@ amenity-shelter-public_transport                    # icon z14- (also has captio
 emergency-lifeguard                                 # icon z14- (also has caption(optional) z18-)
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
 leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
+natural-cliff
 === 1500
 
 sport-american_football                             # icon z17- (also has caption(optional) z17-)
@@ -1157,6 +1162,7 @@ shop-wholesale                                      # icon z18- (also has captio
 
 amenity-shower                                      # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z15- (also has caption(optional) z18-)
+man_made-embankment
 office                                              # icon z18- (also has caption(optional) z18-)
 shop                                                # icon z18- (also has caption(optional) z18-)
 === 470
