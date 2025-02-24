@@ -1017,7 +1017,7 @@ deprecated|deprecated;901;x
 railway|subway|gray;[railway=subway][colour=gray];x;name;int_name;902;railway|subway|tunnel
 deprecated|deprecated;903;x
 railway|subway|lightblue;[railway=subway][colour=lightblue];x;name;int_name;904;railway|subway|tunnel
-deprecated|deprecated;905;x
+amenity|motorcycle_rental;[amenity=motorcycle_rental],[shop=motorcycle][motorcycle:rental=yes],[shop=motorcycle][rental=yes],[amenity=scooter_rental];;;;905;
 railway|subway|lightgreen;[railway=subway][colour=lightgreen];x;name;int_name;906;railway|subway|tunnel
 place|quarter;907;
 railway|subway|violet;[railway=subway][colour=violet];x;name;int_name;908;railway|subway|tunnel

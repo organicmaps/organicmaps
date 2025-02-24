@@ -277,6 +277,7 @@ historic-fort                                       # icon z12- (also has captio
 
 amenity-car_rental                                  # icon z18- (also has caption(optional) z18-)
 amenity-car_sharing                                 # icon z18- (also has caption(optional) z18-)
+amenity-motorcycle_rental
 shop-car                                            # icon z17-
 === 2400
 

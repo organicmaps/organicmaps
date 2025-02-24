@@ -1180,6 +1180,51 @@
     zh-Hans = 汽车出租์
     zh-Hant = 租車
 
+  [type.amenity.motorcycle_rental]
+    en = Motorcycle Rental
+    af = Motorfietshuur
+    ar = تأجير الدراجات النارية
+    az = Motosiklet Kirayəsi
+    be = Пракат матацыклаў
+    bg = Мотоциклети под наем
+    ca = Lloguer de motos
+    cs = Půjčovna motocyklů
+    da = Udlejning af motorcykler
+    de = Motorradvermietung
+    el = Ενοικίαση μοτοσικλέτας
+    es = Alquiler de motos
+    et = Mootorratta rentimine
+    eu = Motorren alokairua
+    fa = اجاره موتور سیکلت
+    fi = Moottoripyörän vuokraus
+    fr = Location de motos
+    he = השכרת אופנועים
+    hi = मटरसइकल करय
+    hu = Motorkerékpár bérlés
+    id = Penyewaan Sepeda Motor
+    it = Noleggio moto
+    ja = レンタルバイク
+    ko = 오토바이 대여
+    lt = Motociklų nuoma
+    lv = Motociklu noma
+    mr = मटरसयकल भडयन
+    nb = Utleie av motorsykkel
+    nl = Motorverhuur
+    pl = Wynajem motocykli
+    pt = Aluguer de motociclos
+    pt-BR = Aluguel de motocicletas
+    ro = Închiriere motociclete
+    ru = Прокат мотоциклов
+    sk = Požičovňa motocyklov
+    sv = Motorcykeluthyrning
+    sw = Kukodisha pikipiki
+    th = รถมอเตอรไซค
+    tr = Motosiklet Kiralama
+    uk = Оренда мотоциклів
+    vi = Cho thuê xe máy
+    zh-Hans = 摩托车租赁
+    zh-Hant = 摩托車租賃
+
   [type.amenity.car_sharing]
     en = Car Sharing
     af = Motordeel

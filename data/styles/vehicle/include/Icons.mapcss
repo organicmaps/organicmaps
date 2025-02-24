@@ -801,6 +801,7 @@ area|z16-[amenity=parking],
 node|z17-[amenity=car_wash],
 area|z17-[amenity=car_wash],
 node|z17-[amenity=toilets],
+node|z18-[amenity=motorcycle_rental],
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental],
 node|z18-[amenity=car_sharing],
@@ -886,6 +887,9 @@ node|z17-[amenity=toilets],
 {icon-image: toilets-m.svg; font-size: 13.75;}
 node|z18-[amenity=toilets],
 {font-size: 14.5;}
+
+node|z18-[amenity=motorcycle_rental],
+{icon-image: motorcycle_rental-m.svg; font-size: 14.5;}
 
 node|z18-[amenity=car_rental],
 area|z18-[amenity=car_rental]

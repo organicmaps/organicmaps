@@ -795,6 +795,7 @@ shop-seafood                                        # icon z16- (also has captio
 aeroway-helipad                                     # icon z16- (also has caption(optional) z16-)
 amenity-bicycle_repair_station                      # icon z17- (also has caption(optional) z17-)
 amenity-car_rental                                  # icon z18- (also has caption(optional) z18-)
+amenity-motorcycle_rental
 === 2500
 
 amenity-cinema                                      # icon z17- (also has caption(optional) z17-)
