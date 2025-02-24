@@ -934,6 +934,7 @@
     <string name="type.amenity.bus_station">Автовокзал</string>
     <string name="type.amenity.cafe">Кафе</string>
     <string name="type.amenity.car_rental">Прокат авто</string>
+    <string name="type.amenity.motorcycle_rental">Оренда мотоциклів</string>
     <string name="type.amenity.car_sharing">Каршерінг</string>
     <string name="type.amenity.car_wash">Автомийка</string>
     <string name="type.amenity.casino">Казино</string>

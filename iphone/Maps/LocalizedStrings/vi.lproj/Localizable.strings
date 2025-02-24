@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Trạm xe buýt";
 "type.amenity.cafe" = "Cà phê";
 "type.amenity.car_rental" = "Ô tô";
+"type.amenity.motorcycle_rental" = "Cho thuê xe máy";
 "type.amenity.car_sharing" = "Chia sẻ Xe";
 "type.amenity.car_wash" = "Rửa Xe";
 "type.amenity.casino" = "Giải trí";

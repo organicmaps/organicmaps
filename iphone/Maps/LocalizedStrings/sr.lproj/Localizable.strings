@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Аутобуска станица";
 "type.amenity.cafe" = "Кафе";
 "type.amenity.car_rental" = "Рентакар";
+"type.amenity.motorcycle_rental" = "Motorcycle Rental";
 "type.amenity.car_sharing" = "Дељење аутомобила";
 "type.amenity.car_wash" = "Ауто-перионица";
 "type.amenity.casino" = "Казино";

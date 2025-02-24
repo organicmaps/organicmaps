@@ -912,6 +912,7 @@
     <string name="type.amenity.bus_station">Autobusové nástupište</string>
     <string name="type.amenity.cafe">Kaviareň</string>
     <string name="type.amenity.car_rental">Autopožičovňa</string>
+    <string name="type.amenity.motorcycle_rental">Požičovňa motocyklov</string>
     <string name="type.amenity.car_sharing">Zdieľanie automobilov</string>
     <string name="type.amenity.car_wash">Autoumývareň</string>
     <string name="type.amenity.casino">Kasíno</string>

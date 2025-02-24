@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Linja-autoasema";
 "type.amenity.cafe" = "Kahvila";
 "type.amenity.car_rental" = "Autovuokraamo";
+"type.amenity.motorcycle_rental" = "Moottoripyörän vuokraus";
 "type.amenity.car_sharing" = "Autojen yhteiskäyttö";
 "type.amenity.car_wash" = "Autopesula";
 "type.amenity.casino" = "Kasino";

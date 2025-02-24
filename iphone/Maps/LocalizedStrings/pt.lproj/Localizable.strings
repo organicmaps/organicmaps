@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Estação de autocarros";
 "type.amenity.cafe" = "Café";
 "type.amenity.car_rental" = "Aluguer de automóveis";
+"type.amenity.motorcycle_rental" = "Aluguer de motociclos";
 "type.amenity.car_sharing" = "Partilha de carro";
 "type.amenity.car_wash" = "Lavagem de veículos";
 "type.amenity.casino" = "Casino";

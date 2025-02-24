@@ -910,6 +910,7 @@
     <string name="type.amenity.bus_station">Autostazione</string>
     <string name="type.amenity.cafe">Caffè</string>
     <string name="type.amenity.car_rental">Noleggio automobili</string>
+    <string name="type.amenity.motorcycle_rental">Noleggio moto</string>
     <string name="type.amenity.car_sharing">Car sharing</string>
     <string name="type.amenity.car_wash">Lavaggio auto</string>
     <string name="type.amenity.casino">Casinò</string>

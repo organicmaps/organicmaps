@@ -883,6 +883,7 @@
     <string name="type.amenity.bus_station">बस स्थानक</string>
     <string name="type.amenity.cafe">अमृततुल्य</string>
     <string name="type.amenity.car_rental">भाड्याची गाडी</string>
+    <string name="type.amenity.motorcycle_rental">मटरसयकल भडयन</string>
     <string name="type.amenity.car_sharing">कार शेअरिंग</string>
     <string name="type.amenity.car_wash">कार धुणे</string>
     <string name="type.amenity.casino">जुगारगृह</string>

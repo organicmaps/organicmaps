@@ -915,6 +915,7 @@
     <string name="type.amenity.bus_station">Bussijaam</string>
     <string name="type.amenity.cafe">Kohvik</string>
     <string name="type.amenity.car_rental">Autorent</string>
+    <string name="type.amenity.motorcycle_rental">Mootorratta rentimine</string>
     <string name="type.amenity.car_sharing">Autojagamine</string>
     <string name="type.amenity.car_wash">Autopesula</string>
     <string name="type.amenity.casino">Kasiino</string>

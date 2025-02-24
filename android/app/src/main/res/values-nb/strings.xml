@@ -910,6 +910,7 @@
     <string name="type.amenity.bus_station">Busstasjon</string>
     <string name="type.amenity.cafe">Kafé</string>
     <string name="type.amenity.car_rental">Bilutleie</string>
+    <string name="type.amenity.motorcycle_rental">Utleie av motorsykkel</string>
     <string name="type.amenity.car_sharing">Bildeling</string>
     <string name="type.amenity.car_wash">Bilvask</string>
     <string name="type.amenity.casino">Kasino</string>

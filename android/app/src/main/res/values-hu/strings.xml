@@ -879,6 +879,7 @@
     <string name="type.amenity.bus_station">Buszpályaudvar</string>
     <string name="type.amenity.cafe">Kávézó</string>
     <string name="type.amenity.car_rental">Autókölcsönző</string>
+    <string name="type.amenity.motorcycle_rental">Motorkerékpár bérlés</string>
     <string name="type.amenity.car_sharing">Közösségi autóbérlés</string>
     <string name="type.amenity.car_wash">Autómosó</string>
     <string name="type.amenity.casino">Kaszinó</string>

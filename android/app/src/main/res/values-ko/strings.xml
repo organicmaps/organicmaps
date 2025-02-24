@@ -858,6 +858,7 @@
     <string name="type.amenity.bus_station">버스 터미널</string>
     <string name="type.amenity.cafe">카페</string>
     <string name="type.amenity.car_rental">카 렌탈</string>
+    <string name="type.amenity.motorcycle_rental">오토바이 대여</string>
     <string name="type.amenity.car_sharing">카 셰어링</string>
     <string name="type.amenity.car_wash">세차</string>
     <string name="type.amenity.casino">카지노</string>

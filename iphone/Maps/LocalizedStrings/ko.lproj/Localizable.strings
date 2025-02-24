@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "버스 터미널";
 "type.amenity.cafe" = "카페";
 "type.amenity.car_rental" = "카 렌탈";
+"type.amenity.motorcycle_rental" = "오토바이 대여";
 "type.amenity.car_sharing" = "카 셰어링";
 "type.amenity.car_wash" = "세차";
 "type.amenity.casino" = "카지노";

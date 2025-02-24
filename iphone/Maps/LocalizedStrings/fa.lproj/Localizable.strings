@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "حمل و نقل";
 "type.amenity.cafe" = "کافه";
 "type.amenity.car_rental" = "مکان اجاره ماشین";
+"type.amenity.motorcycle_rental" = "اجاره موتور سیکلت";
 "type.amenity.car_sharing" = "Car Sharing";
 "type.amenity.car_wash" = "کارواش";
 "type.amenity.casino" = "قمارخانه";

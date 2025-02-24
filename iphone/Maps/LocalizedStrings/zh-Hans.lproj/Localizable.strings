@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "公交车站";
 "type.amenity.cafe" = "咖啡馆่";
 "type.amenity.car_rental" = "汽车出租์";
+"type.amenity.motorcycle_rental" = "摩托车租赁";
 "type.amenity.car_sharing" = "拼车点";
 "type.amenity.car_wash" = "洗车";
 "type.amenity.casino" = "赌场";

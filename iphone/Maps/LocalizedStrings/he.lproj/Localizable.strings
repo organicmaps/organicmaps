@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "תחנת אוטובוס";
 "type.amenity.cafe" = "בית קפה";
 "type.amenity.car_rental" = "השכרת רכב";
+"type.amenity.motorcycle_rental" = "השכרת אופנועים";
 "type.amenity.car_sharing" = "רכב שיתופי";
 "type.amenity.car_wash" = "שטיפת רכב";
 "type.amenity.casino" = "קזינו";

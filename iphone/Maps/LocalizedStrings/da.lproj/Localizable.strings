@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Busstation";
 "type.amenity.cafe" = "Café";
 "type.amenity.car_rental" = "Biludlejning";
+"type.amenity.motorcycle_rental" = "Udlejning af motorcykler";
 "type.amenity.car_sharing" = "Delebiler";
 "type.amenity.car_wash" = "Bilvask";
 "type.amenity.casino" = "Kasino";

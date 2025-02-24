@@ -930,6 +930,7 @@
     <string name="type.amenity.bus_station">Otogar</string>
     <string name="type.amenity.cafe">Kafe</string>
     <string name="type.amenity.car_rental">Araç Kiralama</string>
+    <string name="type.amenity.motorcycle_rental">Motosiklet Kiralama</string>
     <string name="type.amenity.car_sharing">Araç Paylaşımı</string>
     <string name="type.amenity.car_wash">Araba Yıkama</string>
     <string name="type.amenity.casino">Kumarhane</string>

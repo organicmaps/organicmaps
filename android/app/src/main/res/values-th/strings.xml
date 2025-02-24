@@ -860,6 +860,7 @@
     <string name="type.amenity.bus_station">สถานีขนส่ง</string>
     <string name="type.amenity.cafe">คาเฟ่</string>
     <string name="type.amenity.car_rental">รถยนต์</string>
+    <string name="type.amenity.motorcycle_rental">รถมอเตอรไซค</string>
     <string name="type.amenity.car_sharing">การใช้รถร่วมกัน</string>
     <string name="type.amenity.car_wash">ล้างรถ</string>
     <string name="type.amenity.casino">คาสิโน</string>

@@ -856,6 +856,7 @@
     <string name="type.amenity.bus_station">حمل و نقل</string>
     <string name="type.amenity.cafe">کافه</string>
     <string name="type.amenity.car_rental">مکان اجاره ماشین</string>
+    <string name="type.amenity.motorcycle_rental">اجاره موتور سیکلت</string>
     <string name="type.amenity.car_wash">کارواش</string>
     <string name="type.amenity.casino">قمارخانه</string>
     <string name="type.amenity.gambling">قمار</string>

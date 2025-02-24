@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Busstation";
 "type.amenity.cafe" = "Café";
 "type.amenity.car_rental" = "Autoverhuur";
+"type.amenity.motorcycle_rental" = "Motorverhuur";
 "type.amenity.car_sharing" = "Autodelen";
 "type.amenity.car_wash" = "Car Wash";
 "type.amenity.casino" = "Casino";

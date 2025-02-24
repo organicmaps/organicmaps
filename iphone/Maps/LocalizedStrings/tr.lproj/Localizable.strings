@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Otogar";
 "type.amenity.cafe" = "Kafe";
 "type.amenity.car_rental" = "Araç Kiralama";
+"type.amenity.motorcycle_rental" = "Motosiklet Kiralama";
 "type.amenity.car_sharing" = "Araç Paylaşımı";
 "type.amenity.car_wash" = "Araba Yıkama";
 "type.amenity.casino" = "Kumarhane";

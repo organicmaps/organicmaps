@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Autobusové nádraží";
 "type.amenity.cafe" = "Kavárna";
 "type.amenity.car_rental" = "Půjčovna aut";
+"type.amenity.motorcycle_rental" = "Půjčovna motocyklů";
 "type.amenity.car_sharing" = "Sdílení aut";
 "type.amenity.car_wash" = "Myčka aut";
 "type.amenity.casino" = "Casino";

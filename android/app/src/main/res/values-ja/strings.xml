@@ -923,6 +923,7 @@
     <string name="type.amenity.bus_station">バスステーション</string>
     <string name="type.amenity.cafe">カフェ</string>
     <string name="type.amenity.car_rental">レンタカー</string>
+    <string name="type.amenity.motorcycle_rental">レンタルバイク</string>
     <string name="type.amenity.car_sharing">カーシェアリング</string>
     <string name="type.amenity.car_wash">洗車場</string>
     <string name="type.amenity.casino">カジノ</string>

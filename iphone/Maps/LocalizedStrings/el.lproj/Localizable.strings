@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Σταθμός λεωφορείων";
 "type.amenity.cafe" = "Καφετέρια";
 "type.amenity.car_rental" = "Ενοικίαση αυτοκινήτου";
+"type.amenity.motorcycle_rental" = "Ενοικίαση μοτοσικλέτας";
 "type.amenity.car_sharing" = "Παραχώρηση αυτοκινήτου";
 "type.amenity.car_wash" = "Καθαρισμός αυτοκινήτων";
 "type.amenity.casino" = "Καζίνο";

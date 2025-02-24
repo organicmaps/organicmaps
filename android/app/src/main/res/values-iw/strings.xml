@@ -914,6 +914,7 @@
     <string name="type.amenity.bus_station">תחנת אוטובוס</string>
     <string name="type.amenity.cafe">בית קפה</string>
     <string name="type.amenity.car_rental">השכרת רכב</string>
+    <string name="type.amenity.motorcycle_rental">השכרת אופנועים</string>
     <string name="type.amenity.car_sharing">רכב שיתופי</string>
     <string name="type.amenity.car_wash">שטיפת רכב</string>
     <string name="type.amenity.casino">קזינו</string>

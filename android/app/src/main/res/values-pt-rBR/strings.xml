@@ -833,6 +833,7 @@
     <string name="type.amenity.bus_station">Rodoviária</string>
     <string name="type.amenity.cafe">Café</string>
     <string name="type.amenity.car_rental">Aluguel de automóveis</string>
+    <string name="type.amenity.motorcycle_rental">Aluguel de motocicletas</string>
     <string name="type.amenity.car_sharing">Compartilhamento de carro</string>
     <string name="type.amenity.car_wash">Lava-jato</string>
     <string name="type.amenity.casino">Cassino</string>

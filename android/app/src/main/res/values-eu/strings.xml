@@ -919,6 +919,7 @@
     <string name="type.amenity.bus_station">Autobus geltokia</string>
     <string name="type.amenity.cafe">Kafea</string>
     <string name="type.amenity.car_rental">Alokairuko autoa</string>
+    <string name="type.amenity.motorcycle_rental">Motorren alokairua</string>
     <string name="type.amenity.car_sharing">Partekatu autoa</string>
     <string name="type.amenity.car_wash">Kotxe garbiketa</string>
     <string name="type.amenity.casino">Kasinoa</string>

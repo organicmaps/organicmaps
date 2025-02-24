@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Bussijaam";
 "type.amenity.cafe" = "Kohvik";
 "type.amenity.car_rental" = "Autorent";
+"type.amenity.motorcycle_rental" = "Mootorratta rentimine";
 "type.amenity.car_sharing" = "Autojagamine";
 "type.amenity.car_wash" = "Autopesula";
 "type.amenity.casino" = "Kasiino";

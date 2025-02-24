@@ -901,6 +901,7 @@
     <string name="type.amenity.bus_station">Avtobus dayanacağı</string>
     <string name="type.amenity.cafe">Kafe</string>
     <string name="type.amenity.car_rental">Avtomobil icarəsi</string>
+    <string name="type.amenity.motorcycle_rental">Motosiklet Kirayəsi</string>
     <string name="type.amenity.car_sharing">Avtomobil Paylaşımı</string>
     <string name="type.amenity.car_wash">Avtomobil yuma</string>
     <string name="type.amenity.casino">Casino</string>

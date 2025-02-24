@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Autobus geltokia";
 "type.amenity.cafe" = "Kafea";
 "type.amenity.car_rental" = "Alokairuko autoa";
+"type.amenity.motorcycle_rental" = "Motorren alokairua";
 "type.amenity.car_sharing" = "Partekatu autoa";
 "type.amenity.car_wash" = "Kotxe garbiketa";
 "type.amenity.casino" = "Kasinoa";

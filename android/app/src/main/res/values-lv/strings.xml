@@ -859,6 +859,7 @@
     <string name="edit_track">Ceļa labošana</string>
 
     <!-- SECTION: Types -->
+    <string name="type.amenity.motorcycle_rental">Motociklu noma</string>
     <string name="type.amenity.charging_station.bicycle">Velosipēdu uzlāde</string>
 
     <!-- SECTION: Types: Recycling -->
