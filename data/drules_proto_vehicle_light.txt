@@ -2105,6 +2105,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-motorcycle_rental"
+  element {
+    scale: 18
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2400
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+}
+cont {
   name: "amenity-parcel_locker"
   element {
     scale: 17

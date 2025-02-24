@@ -7675,6 +7675,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-motorcycle_rental"
+  element {
+    scale: 17
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "motorcycle_rental-m"
+      priority: 2500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7500
+    }
+  }
+}
+cont {
   name: "amenity-music_school"
   element {
     scale: 17

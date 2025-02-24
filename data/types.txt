@@ -902,7 +902,7 @@ mapswithme
 railway|subway|tunnel
 mapswithme
 railway|subway|tunnel
-mapswithme
+*amenity|motorcycle_rental
 railway|subway|tunnel
 *place|quarter
 railway|subway|tunnel

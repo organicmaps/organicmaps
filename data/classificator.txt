@@ -86,6 +86,7 @@ world  +
         marketplace  -
         money_transfer  -
         motorcycle_parking  -
+        motorcycle_rental  -
         music_school  -
         nightclub  -
         nursing_home  -
