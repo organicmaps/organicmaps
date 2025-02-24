@@ -1,16 +1,25 @@
-final class SearchCategoryCell: MWMTableViewCell {
-  @IBOutlet weak var iconImageView: UIImageView!
-  @IBOutlet weak var titleLabel: UILabel!
+final class SearchCategoryCell: UITableViewCell {
 
-  private var category: String = ""
-  func update(with category: String) {
-    self.category = category
-    iconImageView.mwm_name = String(format: "ic_%@", category)
-    titleLabel.text = L(category)
+  private var categoryName: String = ""
+
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: .default, reuseIdentifier: reuseIdentifier)
+    setStyle(.defaultTableViewCell)
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  func configure(with categoryName: String) {
+    self.categoryName = categoryName
+    textLabel?.text = L(categoryName)
+    imageView?.mwm_name = String(format: "ic_%@", categoryName)
   }
 
   override func applyTheme() {
     super.applyTheme()
-    iconImageView.mwm_name = String(format: "ic_%@", category)
+    imageView?.mwm_name = String(format: "ic_%@", categoryName)
   }
 }

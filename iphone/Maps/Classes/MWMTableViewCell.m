@@ -23,14 +23,19 @@
 - (void)setIsSeparatorHidden:(BOOL)isSeparatorHidden
 {
   _isSeparatorHidden = isSeparatorHidden;
-  if (isSeparatorHidden)
-    [self hideSeparators];
+  isSeparatorHidden ? [self hideSeparators] : [self showSeparators];
 }
 
 - (void)hideSeparators
 {
   for (UIView * view in self.subviews)
     view.hidden = [[[view class] className] isEqualToString:@"_UITableViewCellSeparatorView"];
+}
+
+- (void)showSeparators
+{
+  for (UIView * view in self.subviews)
+    view.hidden = NO;
 }
 
 - (void)layoutSubviews

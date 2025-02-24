@@ -11,11 +11,10 @@
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
-		337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 337F98A021D37B5700C8AC27 /* SearchHistoryViewController.xib */; };
 		337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */; };
 		337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B121D3BAE600C8AC27 /* SearchCategoriesViewController.swift */; };
 		337F98B421D3C9F200C8AC27 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B321D3C9F200C8AC27 /* SearchHistoryViewController.swift */; };
-		337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */; };
+		337F98B821D3D67E00C8AC27 /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F98B721D3D67E00C8AC27 /* SearchHistoryCell.swift */; };
 		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
 		3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */; };
 		3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475191E081A4600C92850 /* MWMKeyboard.m */; };
@@ -508,6 +507,7 @@
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
 		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
+		ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */; };
 		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
 		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
@@ -523,6 +523,7 @@
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
 		EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */; };
+		EDDE060E2D6CAEAF000C328A /* SearchHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDDE060D2D6CAEAF000C328A /* SearchHistoryViewController.xib */; };
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
@@ -622,9 +623,6 @@
 		F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FCFD1E097B9F0083EBEC /* MWMSearchNoResults.m */; };
 		F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCFE1E097B9F0083EBEC /* MWMSearchNoResults.xib */; };
 		F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FD011E097B9F0083EBEC /* MWMSearchView.xib */; };
-		F6E2FF001E097BA00083EBEC /* SearchCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FD0E1E097B9F0083EBEC /* SearchCategoryCell.xib */; };
-		F6E2FF061E097BA00083EBEC /* SearchHistoryClearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FD121E097B9F0083EBEC /* SearchHistoryClearCell.xib */; };
-		F6E2FF151E097BA00083EBEC /* SearchHistoryQueryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FD1A1E097B9F0083EBEC /* SearchHistoryQueryCell.xib */; };
 		F6E2FF2D1E097BA00083EBEC /* MWMSearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD2A1E097BA00083EBEC /* MWMSearchCell.mm */; };
 		F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD2C1E097BA00083EBEC /* MWMSearchCommonCell.mm */; };
 		F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FD2D1E097BA00083EBEC /* MWMSearchCommonCell.xib */; };
@@ -797,11 +795,10 @@
 		30034C602B3F0B8A005D961A /* az */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryCell.swift; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
-		337F98A021D37B5700C8AC27 /* SearchHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryViewController.xib; sourceTree = "<group>"; };
 		337F98A521D37B7400C8AC27 /* SearchTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTabViewController.swift; sourceTree = "<group>"; };
 		337F98B121D3BAE600C8AC27 /* SearchCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoriesViewController.swift; sourceTree = "<group>"; };
 		337F98B321D3C9F200C8AC27 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
-		337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryQueryCell.swift; sourceTree = "<group>"; };
+		337F98B721D3D67E00C8AC27 /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
 		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
 		3404164A1E7BF42D00E2B6D6 /* UIView+Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Coordinates.swift"; sourceTree = "<group>"; };
 		340475181E081A4600C92850 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboard.h; sourceTree = "<group>"; };
@@ -1475,6 +1472,7 @@
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
+		ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+FilledWithColor.swift"; sourceTree = "<group>"; };
 		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
 		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
@@ -1490,6 +1488,7 @@
 		EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
 		EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
+		EDDE060D2D6CAEAF000C328A /* SearchHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryViewController.xib; sourceTree = "<group>"; };
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
@@ -1675,9 +1674,6 @@
 		F6E2FCFD1E097B9F0083EBEC /* MWMSearchNoResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MWMSearchNoResults.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6E2FCFE1E097B9F0083EBEC /* MWMSearchNoResults.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchNoResults.xib; sourceTree = "<group>"; };
 		F6E2FD011E097B9F0083EBEC /* MWMSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchView.xib; sourceTree = "<group>"; };
-		F6E2FD0E1E097B9F0083EBEC /* SearchCategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCategoryCell.xib; sourceTree = "<group>"; };
-		F6E2FD121E097B9F0083EBEC /* SearchHistoryClearCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryClearCell.xib; sourceTree = "<group>"; };
-		F6E2FD1A1E097B9F0083EBEC /* SearchHistoryQueryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHistoryQueryCell.xib; sourceTree = "<group>"; };
 		F6E2FD231E097BA00083EBEC /* MWMSearchTabbedViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTabbedViewProtocol.h; sourceTree = "<group>"; };
 		F6E2FD291E097BA00083EBEC /* MWMSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchCell.h; sourceTree = "<group>"; };
 		F6E2FD2A1E097BA00083EBEC /* MWMSearchCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchCell.mm; sourceTree = "<group>"; };
@@ -2240,6 +2236,7 @@
 		3454D7981E07F045004AF2AD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */,
 				99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */,
 				99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */,
 				34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */,
@@ -3864,7 +3861,6 @@
 			children = (
 				337F98B121D3BAE600C8AC27 /* SearchCategoriesViewController.swift */,
 				3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */,
-				F6E2FD0E1E097B9F0083EBEC /* SearchCategoryCell.xib */,
 			);
 			path = CategoriesTab;
 			sourceTree = "<group>";
@@ -3872,11 +3868,9 @@
 		F6E2FD0F1E097B9F0083EBEC /* HistoryTab */ = {
 			isa = PBXGroup;
 			children = (
-				F6E2FD121E097B9F0083EBEC /* SearchHistoryClearCell.xib */,
-				337F98B721D3D67E00C8AC27 /* SearchHistoryQueryCell.swift */,
-				F6E2FD1A1E097B9F0083EBEC /* SearchHistoryQueryCell.xib */,
+				EDDE060D2D6CAEAF000C328A /* SearchHistoryViewController.xib */,
+				337F98B721D3D67E00C8AC27 /* SearchHistoryCell.swift */,
 				337F98B321D3C9F200C8AC27 /* SearchHistoryViewController.swift */,
-				337F98A021D37B5700C8AC27 /* SearchHistoryViewController.xib */,
 			);
 			path = HistoryTab;
 			sourceTree = "<group>";
@@ -4272,6 +4266,7 @@
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				4501B1942077C35A001B9173 /* resources-xxxhdpi_light in Resources */,
 				3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */,
+				EDDE060E2D6CAEAF000C328A /* SearchHistoryViewController.xib in Resources */,
 				4761BE2B252D3DB900EE2DE4 /* SubgroupCell.xib in Resources */,
 				99F9A0E72462CA1700AE21E0 /* DownloadAllView.xib in Resources */,
 				349D1AD51E2E325B004A2006 /* BottomMenuItemCell.xib in Resources */,
@@ -4318,7 +4313,6 @@
 				FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_light.bin in Resources */,
 				47CA68F2250B54AF00671019 /* BookmarksListCell.xib in Resources */,
-				337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
@@ -4335,12 +4329,9 @@
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */,
-				F6E2FF001E097BA00083EBEC /* SearchCategoryCell.xib in Resources */,
 				F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
-				F6E2FF061E097BA00083EBEC /* SearchHistoryClearCell.xib in Resources */,
 				BB7626B61E85599C0031D71C /* icudt75l.dat in Resources */,
 				34AB665C1FC5AA330078E451 /* TransportTransitIntermediatePoint.xib in Resources */,
-				F6E2FF151E097BA00083EBEC /* SearchHistoryQueryCell.xib in Resources */,
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
 				34AB660E1FC5AA320078E451 /* NavigationControlView.xib in Resources */,
 				408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */,
@@ -4679,6 +4670,7 @@
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,
 				99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
+				ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
 				47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */,
 				ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */,
@@ -4767,7 +4759,7 @@
 				47E460AD240D737D00385B45 /* OpeinigHoursLocalization.swift in Sources */,
 				99F9A0E52462CA0E00AE21E0 /* DownloadAllView.swift in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
-				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,
+				337F98B821D3D67E00C8AC27 /* SearchHistoryCell.swift in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
 				CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */,
 				993DF11F23F6BDB100AC231A /* UITableViewCellRenderer.swift in Sources */,

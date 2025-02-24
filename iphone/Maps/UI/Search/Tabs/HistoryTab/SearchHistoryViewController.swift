@@ -29,9 +29,7 @@ final class SearchHistoryViewController: MWMViewController {
     if frameworkHelper.isSearchHistoryEmpty() {
       showNoResultsView()
     } else {
-      tableView.registerNib(cellClass: SearchHistoryQueryCell.self)
-      let nib = UINib(nibName: "SearchHistoryClearCell", bundle: nil)
-      tableView.register(nib, forCellReuseIdentifier: SearchHistoryViewController.clearCellIdentifier)
+      tableView.register(cell: SearchHistoryCell.self)
     }
     tableView.keyboardDismissMode = .onDrag
   }
@@ -59,14 +57,12 @@ extension SearchHistoryViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(cell: SearchHistoryCell.self, indexPath: indexPath)
     if indexPath.row == lastQueries.count {
-      let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryViewController.clearCellIdentifier,
-                                               for: indexPath)
-      return cell
+      cell.configure(for: .clear)
+    } else {
+      cell.configure(for: .query(lastQueries[indexPath.row]))
     }
-    
-    let cell = tableView.dequeueReusableCell(cell: SearchHistoryQueryCell.self, indexPath: indexPath)
-    cell.update(with: lastQueries[indexPath.row])
     return cell
   }
 }
@@ -85,5 +81,6 @@ extension SearchHistoryViewController: UITableViewDelegate {
       let query = lastQueries[indexPath.row]
       delegate?.searchHistoryViewController(self, didSelect: query)
     }
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }

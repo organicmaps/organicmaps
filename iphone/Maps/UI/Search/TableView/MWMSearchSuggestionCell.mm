@@ -3,7 +3,6 @@
 @interface MWMSearchSuggestionCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView * icon;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * separatorLeftOffset;
 
 @end
 
@@ -31,7 +30,7 @@
 - (void)setIsLastCell:(BOOL)isLastCell
 {
   _isLastCell = isLastCell;
-  self.separatorLeftOffset.constant = isLastCell ? 0.0 : 60.0;
+  self.separatorInset = UIEdgeInsetsMake(0, isLastCell ? 0 : kSearchCellSeparatorInset, 0, 0);
 }
 
 @end
