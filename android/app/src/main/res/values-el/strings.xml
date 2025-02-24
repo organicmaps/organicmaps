@@ -914,6 +914,7 @@
     <string name="type.amenity.bus_station">Σταθμός λεωφορείων</string>
     <string name="type.amenity.cafe">Καφετέρια</string>
     <string name="type.amenity.car_rental">Ενοικίαση αυτοκινήτου</string>
+    <string name="type.amenity.motorcycle_rental">Ενοικίαση μοτοσικλέτας</string>
     <string name="type.amenity.car_sharing">Παραχώρηση αυτοκινήτου</string>
     <string name="type.amenity.car_wash">Καθαρισμός αυτοκινήτων</string>
     <string name="type.amenity.casino">Καζίνο</string>

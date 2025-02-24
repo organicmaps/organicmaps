@@ -857,6 +857,7 @@
     <string name="type.amenity.bus_station">Trạm xe buýt</string>
     <string name="type.amenity.cafe">Cà phê</string>
     <string name="type.amenity.car_rental">Ô tô</string>
+    <string name="type.amenity.motorcycle_rental">Cho thuê xe máy</string>
     <string name="type.amenity.car_sharing">Chia sẻ Xe</string>
     <string name="type.amenity.car_wash">Rửa Xe</string>
     <string name="type.amenity.casino">Giải trí</string>

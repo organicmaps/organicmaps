@@ -856,6 +856,7 @@
     <string name="type.amenity.bus_station">Stasiun bus</string>
     <string name="type.amenity.cafe">Kafe</string>
     <string name="type.amenity.car_rental">Rental mobil</string>
+    <string name="type.amenity.motorcycle_rental">Penyewaan Sepeda Motor</string>
     <string name="type.amenity.car_sharing">Berbagi mobil</string>
     <string name="type.amenity.car_wash">Cuci Mobil</string>
     <string name="type.amenity.casino">Hiburan</string>

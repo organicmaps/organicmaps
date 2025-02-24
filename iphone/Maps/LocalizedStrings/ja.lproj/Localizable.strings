@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "バスステーション";
 "type.amenity.cafe" = "カフェ";
 "type.amenity.car_rental" = "レンタカー";
+"type.amenity.motorcycle_rental" = "レンタルバイク";
 "type.amenity.car_sharing" = "カーシェアリング";
 "type.amenity.car_wash" = "洗車場";
 "type.amenity.casino" = "カジノ";

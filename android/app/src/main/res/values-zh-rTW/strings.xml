@@ -936,6 +936,7 @@
     <string name="type.amenity.bus_station">公車站</string>
     <string name="type.amenity.cafe">咖啡廳</string>
     <string name="type.amenity.car_rental">租車</string>
+    <string name="type.amenity.motorcycle_rental">摩托車租賃</string>
     <string name="type.amenity.car_sharing">汽車共用</string>
     <string name="type.amenity.car_wash">洗車</string>
     <string name="type.amenity.casino">賭場</string>

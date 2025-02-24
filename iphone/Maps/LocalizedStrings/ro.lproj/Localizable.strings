@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Gara de autobuz";
 "type.amenity.cafe" = "Cafenea";
 "type.amenity.car_rental" = "Închiriere mașini";
+"type.amenity.motorcycle_rental" = "Închiriere motociclete";
 "type.amenity.car_sharing" = "Car Sharing";
 "type.amenity.car_wash" = "Spălătorie auto";
 "type.amenity.casino" = "Divertisment";

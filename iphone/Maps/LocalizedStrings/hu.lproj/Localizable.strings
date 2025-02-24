@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Buszpályaudvar";
 "type.amenity.cafe" = "Kávézó";
 "type.amenity.car_rental" = "Autókölcsönző";
+"type.amenity.motorcycle_rental" = "Motorkerékpár bérlés";
 "type.amenity.car_sharing" = "Közösségi autóbérlés";
 "type.amenity.car_wash" = "Autómosó";
 "type.amenity.casino" = "Kaszinó";

@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Busbahnhof";
 "type.amenity.cafe" = "Café";
 "type.amenity.car_rental" = "Autovermietung";
+"type.amenity.motorcycle_rental" = "Motorradvermietung";
 "type.amenity.car_sharing" = "Carsharing";
 "type.amenity.car_wash" = "Autowaschanlage";
 "type.amenity.casino" = "Kasino";

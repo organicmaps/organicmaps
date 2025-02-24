@@ -644,6 +644,7 @@
     <string name="type.amenity.bus_station">बस स्टेशन</string>
     <string name="type.amenity.cafe">कॉफ़ीख़ाना</string>
     <string name="type.amenity.car_rental">किराए पर गाड़ियाँ</string>
+    <string name="type.amenity.motorcycle_rental">मटरसइकल करय</string>
     <string name="type.amenity.car_sharing">गाड़ी साँझा</string>
     <string name="type.amenity.car_wash">कार धुलाई</string>
     <string name="type.amenity.casino">कैसीनो</string>

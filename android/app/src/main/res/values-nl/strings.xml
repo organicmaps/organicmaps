@@ -923,6 +923,7 @@
     <string name="type.amenity.bus_station">Busstation</string>
     <string name="type.amenity.cafe">Café</string>
     <string name="type.amenity.car_rental">Autoverhuur</string>
+    <string name="type.amenity.motorcycle_rental">Motorverhuur</string>
     <string name="type.amenity.car_sharing">Autodelen</string>
     <string name="type.amenity.car_wash">Car Wash</string>
     <string name="type.amenity.casino">Casino</string>

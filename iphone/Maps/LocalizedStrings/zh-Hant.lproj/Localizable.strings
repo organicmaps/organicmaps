@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "公車站";
 "type.amenity.cafe" = "咖啡廳";
 "type.amenity.car_rental" = "租車";
+"type.amenity.motorcycle_rental" = "摩托車租賃";
 "type.amenity.car_sharing" = "汽車共用";
 "type.amenity.car_wash" = "洗車";
 "type.amenity.casino" = "賭場";

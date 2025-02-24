@@ -922,6 +922,7 @@
     <string name="type.amenity.bus_station">Busbahnhof</string>
     <string name="type.amenity.cafe">Café</string>
     <string name="type.amenity.car_rental">Autovermietung</string>
+    <string name="type.amenity.motorcycle_rental">Motorradvermietung</string>
     <string name="type.amenity.car_sharing">Carsharing</string>
     <string name="type.amenity.car_wash">Autowaschanlage</string>
     <string name="type.amenity.casino">Kasino</string>

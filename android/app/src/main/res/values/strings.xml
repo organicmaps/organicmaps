@@ -964,6 +964,7 @@
     <string name="type.amenity.bus_station">Bus Station</string>
     <string name="type.amenity.cafe">Cafe</string>
     <string name="type.amenity.car_rental">Car Rental</string>
+    <string name="type.amenity.motorcycle_rental">Motorcycle Rental</string>
     <string name="type.amenity.car_sharing">Car Sharing</string>
     <string name="type.amenity.car_wash">Car Wash</string>
     <string name="type.amenity.casino">Casino</string>

@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "สถานีขนส่ง";
 "type.amenity.cafe" = "คาเฟ่";
 "type.amenity.car_rental" = "รถยนต์";
+"type.amenity.motorcycle_rental" = "รถมอเตอรไซค";
 "type.amenity.car_sharing" = "การใช้รถร่วมกัน";
 "type.amenity.car_wash" = "ล้างรถ";
 "type.amenity.casino" = "คาสิโน";

@@ -889,6 +889,7 @@
     <string name="type.amenity.bus_station">Gara de autobuz</string>
     <string name="type.amenity.cafe">Cafenea</string>
     <string name="type.amenity.car_rental">Închiriere mașini</string>
+    <string name="type.amenity.motorcycle_rental">Închiriere motociclete</string>
     <string name="type.amenity.car_wash">Spălătorie auto</string>
     <string name="type.amenity.casino">Divertisment</string>
     <string name="type.amenity.gambling">Jocuri de noroc</string>

@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "बस स्थानक";
 "type.amenity.cafe" = "अमृततुल्य";
 "type.amenity.car_rental" = "भाड्याची गाडी";
+"type.amenity.motorcycle_rental" = "मटरसयकल भडयन";
 "type.amenity.car_sharing" = "कार शेअरिंग";
 "type.amenity.car_wash" = "कार धुणे";
 "type.amenity.casino" = "जुगारगृह";

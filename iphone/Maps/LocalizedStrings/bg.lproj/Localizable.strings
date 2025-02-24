@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Bus Station";
 "type.amenity.cafe" = "Cafe";
 "type.amenity.car_rental" = "Car Rental";
+"type.amenity.motorcycle_rental" = "Мотоциклети под наем";
 "type.amenity.car_sharing" = "Car Sharing";
 "type.amenity.car_wash" = "Car Wash";
 "type.amenity.casino" = "Casino";

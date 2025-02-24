@@ -928,6 +928,7 @@
     <string name="type.amenity.bus_station">Estació d’autobusos</string>
     <string name="type.amenity.cafe">Cafè</string>
     <string name="type.amenity.car_rental">Lloguer de cotxes</string>
+    <string name="type.amenity.motorcycle_rental">Lloguer de motos</string>
     <string name="type.amenity.car_sharing">Cotxe multiusuari</string>
     <string name="type.amenity.car_wash">Rentatge de cotxes</string>
     <string name="type.amenity.casino">Casino</string>

@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Busstasjon";
 "type.amenity.cafe" = "Kafé";
 "type.amenity.car_rental" = "Bilutleie";
+"type.amenity.motorcycle_rental" = "Utleie av motorsykkel";
 "type.amenity.car_sharing" = "Bildeling";
 "type.amenity.car_wash" = "Bilvask";
 "type.amenity.casino" = "Kasino";

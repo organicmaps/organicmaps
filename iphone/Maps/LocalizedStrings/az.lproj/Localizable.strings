@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Avtobus dayanacağı";
 "type.amenity.cafe" = "Kafe";
 "type.amenity.car_rental" = "Avtomobil icarəsi";
+"type.amenity.motorcycle_rental" = "Motosiklet Kirayəsi";
 "type.amenity.car_sharing" = "Avtomobil Paylaşımı";
 "type.amenity.car_wash" = "Avtomobil yuma";
 "type.amenity.casino" = "Casino";

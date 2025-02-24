@@ -1140,6 +1140,7 @@
 "type.amenity.bus_station" = "Stasiun bus";
 "type.amenity.cafe" = "Kafe";
 "type.amenity.car_rental" = "Rental mobil";
+"type.amenity.motorcycle_rental" = "Penyewaan Sepeda Motor";
 "type.amenity.car_sharing" = "Berbagi mobil";
 "type.amenity.car_wash" = "Cuci Mobil";
 "type.amenity.casino" = "Hiburan";

@@ -935,6 +935,7 @@
     <string name="type.amenity.bus_station">محطة حافلات</string>
     <string name="type.amenity.cafe">مقهى</string>
     <string name="type.amenity.car_rental">تأجير سيارات</string>
+    <string name="type.amenity.motorcycle_rental">تأجير الدراجات النارية</string>
     <string name="type.amenity.car_sharing">مشاركة السيارة</string>
     <string name="type.amenity.car_wash">مغسلة سيارات</string>
     <string name="type.amenity.casino">كازينو</string>

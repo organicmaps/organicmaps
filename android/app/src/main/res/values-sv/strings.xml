@@ -856,6 +856,7 @@
     <string name="type.amenity.bus_station">Busstation</string>
     <string name="type.amenity.cafe">Café</string>
     <string name="type.amenity.car_rental">Biluthyrning</string>
+    <string name="type.amenity.motorcycle_rental">Motorcykeluthyrning</string>
     <string name="type.amenity.car_sharing">Samåkning</string>
     <string name="type.amenity.car_wash">Biltvätt</string>
     <string name="type.amenity.casino">Kasino</string>

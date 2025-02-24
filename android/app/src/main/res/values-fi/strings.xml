@@ -917,6 +917,7 @@
     <string name="type.amenity.bus_station">Linja-autoasema</string>
     <string name="type.amenity.cafe">Kahvila</string>
     <string name="type.amenity.car_rental">Autovuokraamo</string>
+    <string name="type.amenity.motorcycle_rental">Moottoripyörän vuokraus</string>
     <string name="type.amenity.car_sharing">Autojen yhteiskäyttö</string>
     <string name="type.amenity.car_wash">Autopesula</string>
     <string name="type.amenity.casino">Kasino</string>
