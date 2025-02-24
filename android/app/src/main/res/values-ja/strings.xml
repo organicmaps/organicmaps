@@ -726,9 +726,9 @@
     <string name="trip_finished">到着しました!</string>
     <string name="ok">OK</string>
     <!-- max. 10 symbols, both iOS and Android -->
-    <string name="sort">並び替え中…</string>
+    <string name="sort">並べ替え…</string>
     <!-- Android, title, max 20-22 symbols -->
-    <string name="sort_bookmarks">ブックマークの並び替え</string>
+    <string name="sort_bookmarks">ブックマークの並べ替え</string>
     <!-- Android -->
     <string name="by_default">デフォルトで</string>
     <!-- Android -->

@@ -875,14 +875,14 @@
 "carplay_roundabout_exit" = "第%@出口";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "並び替え中…";
+"sort" = "並べ替え…";
 
 /* iOS */
-"sort_default" = "デフォルトで並び替え";
-"sort_type" = "タイプで並び替え";
-"sort_distance" = "距離で並び替え";
-"sort_date" = "日付で並び替え";
-"sort_name" = "名前でソートする";
+"sort_default" = "デフォルトで並べ替え";
+"sort_type" = "タイプで並べ替え";
+"sort_distance" = "距離で並べ替え";
+"sort_date" = "日付で並べ替え";
+"sort_name" = "名前で並べ替え";
 "week_ago_sorttype" = "1週間前";
 "month_ago_sorttype" = "1ケ月前";
 "moremonth_ago_sorttype" = "1ケ月以上前";
