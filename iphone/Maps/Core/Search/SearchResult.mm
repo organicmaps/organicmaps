@@ -26,9 +26,10 @@
 
 @implementation SearchResult(Core)
 
-- (instancetype)initWithResult:(const search::Result &)result itemType:(SearchItemType)itemType {
+- (instancetype)initWithResult:(const search::Result &)result itemType:(SearchItemType)itemType index:(NSUInteger)index {
   self = [super init];
   if (self) {
+    _index = index;
     _titleText = result.GetString().empty() ? @(result.GetLocalizedFeatureType().c_str()) : @(result.GetString().c_str());
     _addressText = @(result.GetAddress().c_str());
     _infoText = @(result.GetFeatureDescription().c_str());

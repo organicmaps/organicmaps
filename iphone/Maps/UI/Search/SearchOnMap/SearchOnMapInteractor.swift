@@ -45,8 +45,8 @@ final class SearchOnMapInteractor: NSObject {
       return processSelectedText(searchText, isCategory: isCategory)
     case .searchButtonDidTap(let searchText):
       return processSearchButtonDidTap(searchText)
-    case .didSelectResult(let result, let index, let searchText):
-      return processSelectedResult(result, index: index, searchText: searchText)
+    case .didSelectResult(let result, let searchText):
+      return processSelectedResult(result, searchText: searchText)
     case .didSelectPlaceOnMap:
       return isIPad ? .none : .setSearchScreenHidden(true)
     case .didDeselectPlaceOnMap:
@@ -93,14 +93,14 @@ final class SearchOnMapInteractor: NSObject {
     return .selectText(searchText.text)
   }
 
-  private func processSelectedResult(_ result: SearchResult, index: Int, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
+  private func processSelectedResult(_ result: SearchResult, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
     switch result.itemType {
     case .regular:
       searchManager.saveQuery(searchText.text,
                               forInputLocale:searchText.locale)
       switch routingTooltipSearch {
       case .none:
-        searchManager.showResult(at: UInt(index))
+        searchManager.showResult(at: result.index)
       case .start:
         let point = MWMRoutePoint(cgPoint: result.point,
                                title: result.titleText,
