@@ -130,7 +130,7 @@ final class SearchOnMapTests: XCTestCase {
     let results = SearchResult.stubResults()
     searchManager.results = results
 
-    interactor.handle(.didSelectResult(results[0], atIndex: 0, withSearchText: searchText))
+    interactor.handle(.didSelectResult(results[0], withSearchText: searchText))
     XCTAssertEqual(currentState, .hidden)
     XCTAssertEqual(view.viewModel.presentationStep, .hidden)
   }
@@ -158,7 +158,7 @@ final class SearchOnMapTests: XCTestCase {
     let results = SearchResult.stubResults()
     searchManager.results = results
 
-    interactor.handle(.didSelectResult(results[0], atIndex: 0, withSearchText: searchText))
+    interactor.handle(.didSelectResult(results[0], withSearchText: searchText))
     XCTAssertEqual(currentState, .hidden)
     XCTAssertEqual(view.viewModel.presentationStep, .hidden)
 
@@ -207,7 +207,7 @@ final class SearchOnMapTests: XCTestCase {
     interactor.handle(.didType(searchText))
 
     let suggestion = SearchResult(titleText: "", type: .suggestion, suggestion: "suggestion")
-    interactor.handle(.didSelectResult(suggestion, atIndex: 0, withSearchText: searchText))
+    interactor.handle(.didSelectResult(suggestion, withSearchText: searchText))
 
     XCTAssertEqual(view.viewModel.searchingText, "suggestion")
     XCTAssertEqual(view.viewModel.contentState, .searching)

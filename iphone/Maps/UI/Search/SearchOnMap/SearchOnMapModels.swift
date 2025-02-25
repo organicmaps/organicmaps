@@ -49,7 +49,7 @@ enum SearchOnMap {
     case didStartTyping
     case didType(SearchText)
     case didSelectText(SearchText, isCategory: Bool)
-    case didSelectResult(SearchResult, atIndex: Int, withSearchText: SearchText)
+    case didSelectResult(SearchResult, withSearchText: SearchText)
     case searchButtonDidTap(SearchText)
     case clearButtonDidTap
     case didSelectPlaceOnMap
