@@ -303,7 +303,7 @@ extension SearchOnMapViewController: UITableViewDataSource {
 extension SearchOnMapViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = searchResults[indexPath.row]
-    interactor.handle(.didSelectResult(result, atIndex: indexPath.row, withSearchText: headerView.searchText))
+    interactor.handle(.didSelectResult(result, withSearchText: headerView.searchText))
     tableView.deselectRow(at: indexPath, animated: true)
   }
 

@@ -160,9 +160,9 @@ using Observers = NSHashTable<Observer>;
 }
 
 + (SearchResult *)resultWithContainerIndex:(NSUInteger)index {
-  SearchResult * result = [[SearchResult alloc]
-                           initWithResult:[MWMSearch manager]->m_everywhereResults[index]
-                                 itemType:[MWMSearch resultTypeWithRow:index]];
+  SearchResult * result = [[SearchResult alloc] initWithResult:[MWMSearch manager]->m_everywhereResults[index]
+                                                      itemType:[MWMSearch resultTypeWithRow:index]
+                                                         index:index];
   return result;
 }
 

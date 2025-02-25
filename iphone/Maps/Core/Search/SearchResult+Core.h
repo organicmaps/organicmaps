@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchResult (Core)
 
-- (instancetype)initWithResult:(const search::Result &)result itemType:(SearchItemType)itemType;
+- (instancetype)initWithResult:(const search::Result &)result itemType:(SearchItemType)itemType index:(NSUInteger)index;
 
 @end
 
