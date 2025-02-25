@@ -719,6 +719,7 @@ world  +
         tower  +
             communication  -
             {}
+        utility_pole  -
         wastewater_plant  -
         water_tap  +
             drinking_water_no  -
@@ -883,6 +884,7 @@ world  +
             solar  -
             wind  -
             {}
+        pole  -
         station  -
         substation  -
         tower  -

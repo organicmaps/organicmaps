@@ -1074,7 +1074,7 @@ natural-spring-drinking_water_no                    # icon z12- (also has captio
 
 isoline-step_10                                     # pathtext z16- (also has line z15-)
 isoline-zero                                        # pathtext z15- (also has line z15-)
-power-line                                          # pathtext z15- (also has line z15-, line::dash z15-)
+power-line                                          # pathtext z15- (also has line z13-, line::dash z13-)
 === 1000
 
 amenity-grave_yard                                  # icon z17- (also has caption(optional) z17-, area z14-)
@@ -1177,7 +1177,7 @@ man_made-mast                                       # icon z13- (also has captio
 man_made-silo                                       # icon z13- (also has caption(optional) z14-)
 man_made-storage_tank                               # icon z13- (also has caption(optional) z14-)
 man_made-water_tower                                # icon z13- (also has caption(optional) z14-)
-power-tower                                         # icon z14-
+power-tower                                         # icon z13-
 === 450
 
 amenity-parking                                     # icon z16- (also has caption(optional) z18-, area z15-)
@@ -1200,14 +1200,14 @@ emergency-emergency_ward_entrance                   # icon z18- (also has captio
 building                                            # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
 building-has_parts                                  # caption z16- (also has area z14-)
-man_made-utility_pole
+man_made-utility_pole                               # icon z15-
 power-plant                                         # icon z17-
 power-plant-coal                                    # icon z17-
 power-plant-gas                                     # icon z17-
 power-plant-hydro                                   # icon z17-
 power-plant-solar                                   # icon z17-
 power-plant-wind                                    # icon z13- (also has caption(optional) z16-)
-power-pole
+power-pole                                          # icon z15-
 power-station                                       # icon z17- (also has caption(optional) z17-)
 === 230
 

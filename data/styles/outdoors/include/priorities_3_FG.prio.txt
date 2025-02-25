@@ -39,12 +39,12 @@ aerialway-t-bar                                     # line z13- (also has line::
 historic-citywalls                                  # line z14- (also has pathtext z16-)
 === 360
 
-power-line                                          # line z15- (also has line::dash z15-, pathtext z15-)
-power-minor_line
+power-line                                          # line z13- (also has line::dash z13-, pathtext z15-)
+power-minor_line                                    # line z15- (also has line::dash z15-)
 === 350
 
-power-line::dash                                    # line::dash z15- (also has line z15-, pathtext z15-)
-power-minor_line::dash
+power-line::dash                                    # line::dash z13- (also has line z13-, pathtext z15-)
+power-minor_line::dash                              # line::dash z15- (also has line z15-)
 === 340
 
 highway-cycleway                                    # line z11- (also has pathtext z13-)
