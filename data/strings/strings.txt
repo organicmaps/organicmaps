@@ -242,7 +242,7 @@
   [download_has_failed]
     comment = Settings/Downloader - info for country when download fails
     tags = android
-    en = Download has failed. Touch to try again.
+    en = Download has failed. Tap to try again.
     af = Aflaai het misluk. Tik om weer te probeer.
     ar = فشلت عملية التنزيل، انقر لإعادة المحاولة
     az = Yükləmə uğursuz oldu. Yenidən cəhd etmək üçün toxunun.
@@ -1287,7 +1287,7 @@
   [about_proposition_3]
     comment = Text in About screen
     tags = android,ios
-    en = • Fast, minimalist, developed by community
+    en = • Fast, minimalist, developed by the community
     af = • Vinnig, minimalisties, ontwikkel deur die gemeenskap
     ar = • سريع وبسيط، تم تطويره بواسطة المجتمع
     az = • Sürətli, minimalist, icma tərəfindən hazırlanmışdır
@@ -9954,7 +9954,7 @@
 
   [dialog_routing_disclaimer_priority]
     tags = android,ios
-    en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
+    en = — Road conditions, traffic laws, and road signs always take priority over navigation hints;
     af = – Padtoestande, verkeersreëls en padtekens neem kry voorkeur bo die navigasiewenke;
     ar = — إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;
     az = — Yol şəraiti, yol hərəkəti qaydaları və yol nişanları həmişə naviqasiya məsləhətindən üstündür;
@@ -20808,7 +20808,7 @@
 
   [mobile_data_option_not_today]
     tags = android,ios
-    en = Do not Use Today
+    en = Do Not Use Today
     af = Moenie vandag gebruik nie
     ar = عدم الاستخدام اليوم
     az = Bu gün istifadə etməyin
@@ -21544,7 +21544,7 @@
 
   [transliteration_title]
     tags = android,ios
-    en = Transliteration into Latin alphabet
+    en = Transliterate into Latin alphabet
     af = Transliterasie in Latynse alfabet
     ar = كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي
     az = Latın transliterasiyası
@@ -22252,7 +22252,7 @@
 
   [dialog_error_storage_message]
     tags = android
-    en = External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@organicmaps.app
+    en = External storage is not accessible. The SD card may have been removed, damaged, or the file system is read-only. Please, check your SD card or contact us at support@organicmaps.app
     af = Eksterne bergspasie is nie toeganklik nie. Die SD-kaart is dalk verwyder, beskadig, of die lêerstelsel is leesalleen. Gaan u SD-kaart na of kontak ons by support@organicmaps.app
     ar = التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support@organicmaps.app
     az = Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support@organicmaps.app ünvanında bizimlə əlaqə saxlayın
@@ -31613,7 +31613,7 @@
   [aa_request_permission_activity_text]
     comment = The text in the activity for location permission request.
     tags = android
-    en = Organic Maps in Android Auto needs a location permission to work effectively
+    en = Organic Maps in Android Auto needs location permissions to work effectively
     af = Organic Maps in Android Auto het 'n liggingtoestemming nodig om effektief te werk
     ar = تحتاج الخرائط العضوية في Android Auto إلى إذن تحديد الموقع للعمل بفعالية
     be = Для эфектыўнай працы Organic Maps у Android Auto патрабуецца дазвол на вызначэнне месцазнаходжання
@@ -32510,9 +32510,9 @@
     zh-Hant = iCloud 同步是一項正在開發中的實驗性功能。確保您已備份所有書籤和軌跡。
 
   [icloud_disabled_title]
-    comment = Title for the "iCloud is Disabled" alert.
+    comment = Title for the "iCloud Is Disabled" alert.
     tags = ios
-    en = iCloud is Disabled
+    en = iCloud Is Disabled
     af = iCloud is gedeaktiveer
     ar = تم تعطيل iCloud
     az = iCloud Deaktivdir
@@ -32892,9 +32892,9 @@
     zh-Hant = 錯誤：iCloud 不可用
 
   [open_in_app]
-    comment = Title for the "Open In Another App" button on the PlacePage.
+    comment = Title for the "Open in Another App" button on the PlacePage.
     tags = android,ios
-    en = Open In Another App
+    en = Open in Another App
     af = Maak oop in 'n ander toepassing
     ar = فتح في تطبيق آخر
     az = Başqa Tətbiqdə Açın
@@ -33794,7 +33794,7 @@
 
   [uri_open_location_failed]
     tags = android
-    en = No App installed that can open the location
+    en = No app installed that can open the location
     af = Geen toepassing geïnstalleer wat die ligging kan oopmaak nie
     ar = لم يتم تثبيت أي تطبيق يمكنه فتح الموقع
     az = Məkanı aça biləcək proqram quraşdırılmayıb
