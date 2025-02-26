@@ -808,7 +808,7 @@
     vi = Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.
     zh-Hans = 您当前已禁用此设备或应用程序的所有位置服务，请在设置中启用。
     zh-Hant = 您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。
-	
+
   [limited_accuracy]
     comment = A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on
     tags = android
@@ -7110,7 +7110,7 @@
     zh-Hant = 捐助，以共同打造最好的地圖！
 
   [already_donated]
-    tags = ios,android
+    tags = android,ios
     en = Already donated
     af = Reeds geskenk
     ar = تم التبرع
@@ -7154,7 +7154,7 @@
     zh-Hant = 已捐贈
 
   [remind_me_later]
-    tags = ios,android
+    tags = android,ios
     en = Remind later
     af = Herinner later
     ar = ذكر لاحقاً
@@ -7199,7 +7199,7 @@
     zh-Hant = 稍後提醒
 
   [support_organic_maps]
-    tags = ios,android
+    tags = android,ios
     en = Support Organic Maps
     af = Ondersteun Organic Maps
     ar = دعم Organic Maps
@@ -17747,7 +17747,7 @@
     zh-Hant = 操作員: %@
 
   [editor_category_unsuitable_title]
-    tags = ios,android
+    tags = android,ios
     en = Can't find a suitable category?
     af = Kan u nie 'n geskikte kategorie vind nie?
     ar = لا يمكن العثور على فئة مناسبة؟
@@ -17794,7 +17794,7 @@
     zh-Hant = 找不到合適的類別？
 
   [editor_category_unsuitable_text]
-    tags = ios,android
+    tags = android,ios
     en = Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.
     af = Organiese kaarte laat toe om slegs eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomlynings, ens. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org< /a>. Gaan ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> na vir gedetailleerde stap-vir-stap-instruksies.
     ar = تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.
@@ -19070,7 +19070,7 @@
 
   [dialog_kayak_disable_button]
     comment = A disable button text in the explanation dialog that opens hotel details page on Kayak website.
-    tags = android,ios
+    tags = android
     en = Disable Kayak
     af = Deaktiveer Kayak
     ar = تعطيل Kayak
@@ -20669,53 +20669,6 @@
     vi = Từ chối
     zh-Hans = 拒绝
     zh-Hant = 拒絕
-
-  [search_in_table]
-    comment = A noun - a button name used to show search results in list form
-    tags = ios
-    en = List
-    af = Lys
-    ar = قائمة
-    az = Siyahı
-    be = Спіс
-    bg = Списък
-    ca = Llista
-    cs = Seznam
-    da = Liste
-    de = Liste
-    el = Λίστα
-    es = Lista
-    et = Loetelu
-    eu = Zerrenda
-    fa = لیست
-    fi = Luettelo
-    fr = Liste
-    he = רשימה
-    hi = सूची
-    hu = Lista
-    id = Daftar
-    it = Elenco
-    ja = 一覧
-    ko = 목록
-    lt = Sąrašas
-    lv = Saraksts
-    mr = यादी
-    nb = Liste
-    nl = Lijst
-    pl = Lista
-    pt = Lista
-    pt-BR = Lista
-    ro = Listă
-    ru = Список
-    sk = Zoznam
-    sr = Листа
-    sv = Lista
-    th = รายการ
-    tr = Liste
-    uk = Список
-    vi = Danh sách
-    zh-Hans = 列表
-    zh-Hant = 列表
 
   [mobile_data_dialog]
     tags = android,ios
@@ -29690,7 +29643,7 @@
     zh-Hant = 最高高度
 
   [elevation_profile_difficulty]
-    tags = android,ios
+    tags = android
     en = Difficulty
     af = Moeilikheid
     ar = درجة الصعوبة
@@ -29783,7 +29736,7 @@
     zh-Hant = 距離：
 
   [elevation_profile_time]
-    tags = android,ios
+    tags = android
     en = Time:
     af = Tyd:
     ar = المدة:
@@ -33793,7 +33746,7 @@
     zh-Hant = 選擇顏色
 
   [edit_track]
-    tags = ios,android
+    tags = android,ios
     en = Edit Track
     af = Wysig Roete
     ar = تعديل المسار
