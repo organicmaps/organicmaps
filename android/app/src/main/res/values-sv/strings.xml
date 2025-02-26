@@ -26,6 +26,10 @@
     <string name="search_map">Sök karta</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Du har inaktiverat alla platstjänster för denna enhet eller app. Vänligen aktivera dem i Inställningar.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Begränsad noggrannhet</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">För att säkerställa korrekt navigering aktiverar du Precise Location i inställningarna.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Visa på kartan</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

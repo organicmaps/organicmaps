@@ -26,6 +26,10 @@
     <string name="search_map">Prohledat mapu</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Omezená přesnost</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Chcete-li zajistit přesnou navigaci, povolte v nastavení možnost Přesná poloha.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Ukázat na mapě</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
