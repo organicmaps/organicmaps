@@ -60,7 +60,7 @@ public class RoutingController
     default void onResetToPlanningState() {}
     default void onBuiltRoute() {}
     default void onDrivingOptionsWarning() {}
-    default boolean isSubwayEnabled() { return false; }
+
     default void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps) {}
     default void onDrivingOptionsBuildError() {}
 
@@ -333,43 +333,21 @@ public class RoutingController
   {
     setState(State.NONE);
     setBuildState(BuildState.NONE);
-    prepare(getStartPoint(), getEndPoint(), false);
+    prepare(getStartPoint(), getEndPoint());
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    prepare(startPoint, endPoint, false);
-  }
-
-  public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint, boolean fromApi)
-  {
     Logger.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
-    initLastRouteType(startPoint, endPoint, fromApi);
+    initLastRouteType(startPoint, endPoint);
     prepare(startPoint, endPoint, mLastRouterType);
   }
 
-  private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint,
-                                 boolean fromApi)
+  private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
-    if (shouldForceTransitRoute(fromApi))
-    {
-      mLastRouterType = Framework.ROUTER_TYPE_TRANSIT;
-      return;
-    }
-
     if (startPoint != null && endPoint != null)
       mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(), startPoint.getLon(),
                                                       endPoint.getLat(), endPoint.getLon());
-  }
-
-  private boolean isSubwayEnabled()
-  {
-    return mContainer != null && mContainer.isSubwayEnabled();
-  }
-
-  private boolean shouldForceTransitRoute(boolean fromApi)
-  {
-    return mState == State.NONE && isSubwayEnabled() && !fromApi;
   }
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
