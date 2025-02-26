@@ -608,7 +608,7 @@
     da = Genberegning af ruten
     de = Neuberechnung der Route
     el = Επαναϋπολογισμός της διαδρομής
-    es = Recalcular la ruta
+    es = Recalculando la ruta
     et = Marsruudi ümberarvutamine
     eu = Ibilbidea berriro kalkulatzea
     fa = محاسبه مجدد مسیر
