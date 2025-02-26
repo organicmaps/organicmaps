@@ -72,7 +72,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Маркери</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Маркери и путање</string>
+    <string name="bookmarks_and_tracks">Ознаке и трасе</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Моја места</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -110,7 +110,6 @@
     <string name="measurement_units">Јединице мере</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изаберите између километара и миља</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Где јести</string>
@@ -158,7 +157,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">За кампер возила</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Напомене</string>
@@ -358,7 +356,6 @@
     <string name="gray">Сива</string>
     <!-- blue gray color -->
     <string name="blue_gray">Плаво сива</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Када пратите руту, обратите пажњу на:</string>
     <string name="dialog_routing_disclaimer_priority">— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;</string>
@@ -388,7 +385,6 @@
     <string name="not_now">Не сада</string>
     <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
     <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Да бисте почели да претражујете и правите руте, молим Вас да преузмете мапу. Након тога веза са интернетом Вам више неће бити потребна.</string>
     <string name="search_select_map">Изабери мапу</string>
@@ -738,7 +734,6 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
     <string name="tourist_places">Атракције</string>
@@ -870,7 +865,6 @@
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аутоматски у навигацији</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адреса/Блок</string>
     <string name="type.addr_interpolation.even">Адреса/Блок</string>
@@ -999,7 +993,6 @@
     <string name="type.amenity.prison">Затвор</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Размена књига</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Центар за рециклажу</string>
     <string name="type.amenity.recycling">Контејнер за рециклажу</string>
@@ -1242,7 +1235,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапеут</string>
     <string name="type.healthcare.sample_collection">Прикупљање анализа</string>
     <string name="type.healthcare.speech_therapist">Логопед</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Ауто-пут</string>
     <string name="type.highway.bridleway">Коњска стаза</string>
@@ -1408,7 +1400,6 @@
     <string name="type.area_highway.track">Макадам</string>
     <string name="type.area_highway.trunk">Улица</string>
     <string name="type.area_highway.unclassified">Некласификовани пут</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Историјски објекат</string>
     <string name="type.historic.aircraft">Историјски авион</string>
@@ -2231,4 +2222,38 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="gb">ГБ</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="copyright">Copyright</string>
+    <string name="editor_add_select_location">Изаберите локацију</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="github">GitHub</string>
+    <string name="mb">МБ</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="elevation_profile_max_elevation">Максимална висина</string>
+    <string name="already_donated">Већ је донирано</string>
+    <string name="remind_me_later">Подсети касније</string>
+    <string name="support_organic_maps">Подржите Organic Maps</string>
+    <string name="dialog_kayak_disable_button">Онемогући Kayak</string>
+    <string name="elevation_profile_min_elevation">Минимална висина</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="aa_location_permissions_request">Organic Maps треба приступ локацији. Када је сигурно, проверите обавештење на свом телефону.</string>
+    <string name="editor_osm_history">Ваша историја уређивања</string>
+    <string name="editor_osm_notes">Ваши подаци о мапи</string>
+    <string name="aa_request_permission_notification">Апликацији је потребна ваша дозвола</string>
+    <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
+    <string name="social_media">Друштвени медиј</string>
+    <string name="building">Зграда</string>
+    <string name="core_placepage_unknown_place">Тачка на мапи</string>
 </resources>

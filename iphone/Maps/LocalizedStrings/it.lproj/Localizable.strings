@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annulla";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unità di misura";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Dove mangiare";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Per camper";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Grigiazzurro";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Quando segui il percorso, ricorda che:";
 "dialog_routing_disclaimer_priority" = "— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sulle indicazioni del navigatore;";
 "dialog_routing_disclaimer_precision" = "— La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Riprova";
 "dialog_routing_download_and_build_cross_route" = "Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?";
 "dialog_routing_download_cross_route" = "Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Più di un anno fa";
 "near_me_sorttype" = "Vicino a me";
 "others_sorttype" = "Altro";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Cibo";
 "tourist_places" = "Luoghi d'interesse";
 "museums" = "Musei";

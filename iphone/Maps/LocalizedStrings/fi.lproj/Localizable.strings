@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Peruuta";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Mittayksiköt";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Missä syödä";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavaanaritilat";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
 "dialog_routing_disclaimer_priority" = "— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;";
 "dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Yritä uudelleen";
 "dialog_routing_download_and_build_cross_route" = "Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?";
 "dialog_routing_download_cross_route" = "Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Näytä";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Yli vuosi sitten";
 "near_me_sorttype" = "Lähelläni";
 "others_sorttype" = "Muut";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ruoka";
 "tourist_places" = "Nähtävyydet";
 "museums" = "Museot";

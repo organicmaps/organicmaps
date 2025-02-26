@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Anuluj";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Jednostki miary";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Gdzie zjeść";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Kamper";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Szaroniebieski";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Jadąc wyznaczoną trasą, pamiętaj, że:";
 "dialog_routing_disclaimer_priority" = "— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;";
 "dialog_routing_disclaimer_precision" = "— Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Spróbuj ponownie";
 "dialog_routing_download_and_build_cross_route" = "Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?";
 "dialog_routing_download_cross_route" = "Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Pokaż";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Ponad rok temu";
 "near_me_sorttype" = "W pobliżu";
 "others_sorttype" = "Inne";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Jedzenie";
 "tourist_places" = "Zabytki";
 "museums" = "Muzea";

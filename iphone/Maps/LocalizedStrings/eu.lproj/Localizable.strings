@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Utzi";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Neurketa unitateak";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Non jan";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karabanak";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris urdinxka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Arrastoa jarraitzean, kontuan izan:";
 "dialog_routing_disclaimer_priority" = "— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
 "dialog_routing_disclaimer_precision" = "— Mapa zehazgabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Saiatu berriro";
 "dialog_routing_download_and_build_cross_route" = "Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?";
 "dialog_routing_download_cross_route" = "Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Erakutsi";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Duela urtebete baino gehiago";
 "near_me_sorttype" = "Nigandik gertu";
 "others_sorttype" = "Beste batzuk";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Janariak";
 "tourist_places" = "Toki interesgarriak";
 "museums" = "Museoak";

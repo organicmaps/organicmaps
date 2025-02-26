@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Cancelar";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unidades de medida";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Dónde comer";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanas";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris azulado";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Al seguir la ruta, tenga en cuenta:";
 "dialog_routing_disclaimer_priority" = "— Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;";
 "dialog_routing_disclaimer_precision" = "— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Intentar nuevamente";
 "dialog_routing_download_and_build_cross_route" = "¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?";
 "dialog_routing_download_cross_route" = "Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostrar";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Hace más de un año";
 "near_me_sorttype" = "Cerca a mí";
 "others_sorttype" = "Otros";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Comida";
 "tourist_places" = "Sitios de interés";
 "museums" = "Museos";

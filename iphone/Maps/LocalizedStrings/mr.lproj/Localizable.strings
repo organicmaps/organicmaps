@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "रद्द करा";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "मापन एकके";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "जेवायचे ठिकाण";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV Facilities";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "निळा राखाडी";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "प्रवास करताना, कृपात लक्षात ठेवा:";
 "dialog_routing_disclaimer_priority" = "— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;";
 "dialog_routing_disclaimer_precision" = "— नकाशा चुकीचा असू शकतो, आणि सुचवलेला मार्ग हा इष्टस्थानापर्यंत पोहोचण्यासाठी नेहमी सर्वोत्तम मार्ग असेलच असे नाही;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "कृपया पुर्नरप्रयत्न करा";
 "dialog_routing_download_and_build_cross_route" = "एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?";
 "dialog_routing_download_cross_route" = "या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "दाखवा";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "एक वर्षांपूर्वी";
 "near_me_sorttype" = "माझ्या जवळ";
 "others_sorttype" = "इतर";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "अन्न";
 "tourist_places" = "पर्यटन स्थळ";
 "museums" = "संग्रहालय";

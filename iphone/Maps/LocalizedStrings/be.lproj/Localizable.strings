@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Скасаваць";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Адзінкі вымярэння";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Дзе паесці";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для аўтадамоў";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Блакітна-шэры";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Падчас руху па маршруце памятайце:";
 "dialog_routing_disclaimer_priority" = "— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;";
 "dialog_routing_disclaimer_precision" = "— Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Паспрабуйце зноў";
 "dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?";
 "dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Паказаць";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Больш за год таму";
 "near_me_sorttype" = "Каля мяне";
 "others_sorttype" = "Іншыя";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ежа";
 "tourist_places" = "Славутасці";
 "museums" = "Музеі";

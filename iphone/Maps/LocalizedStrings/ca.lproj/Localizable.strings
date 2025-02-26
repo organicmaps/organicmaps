@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Cancel·la";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unitats de mesura";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "On menjar";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanes";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris blavós";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Quan seguiu la ruta, tingueu present:";
 "dialog_routing_disclaimer_priority" = "— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;";
 "dialog_routing_disclaimer_precision" = "— El mapa pot ser imprecís, i la ruta suggerida potser no sempre és la via més òptima per a arribar a la destinació;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Torneu-ho a intentar";
 "dialog_routing_download_and_build_cross_route" = "Voleu baixar el mapa i crar una ruta més òptima que travessi més d'un mapa?";
 "dialog_routing_download_cross_route" = "Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Fa més d'un any";
 "near_me_sorttype" = "Prop meu";
 "others_sorttype" = "Altres";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Menjar";
 "tourist_places" = "Llocs d'interès";
 "museums" = "Museus";

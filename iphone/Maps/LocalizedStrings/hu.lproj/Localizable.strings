@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Mégse";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Mértékegységek";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Hol lehet enni valamit";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV számára";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Kékes Szürke";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:";
 "dialog_routing_disclaimer_priority" = "— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;";
 "dialog_routing_disclaimer_precision" = "— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Kérjük, próbálja újra";
 "dialog_routing_download_and_build_cross_route" = "Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?";
 "dialog_routing_download_cross_route" = "Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mutat";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Több mint egy éve";
 "near_me_sorttype" = "Hozzám közel";
 "others_sorttype" = "Más";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Étel";
 "tourist_places" = "Látnivalók";
 "museums" = "Múzeumok";

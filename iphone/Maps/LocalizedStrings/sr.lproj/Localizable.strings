@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Одустани";
 
@@ -76,7 +72,7 @@
 "bookmarks" = "Маркери";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Маркери и путање";
+"bookmarks_and_tracks" = "Ознаке и трасе";
 
 /* Default bookmark list name */
 "core_my_places" = "Моја места";
@@ -89,10 +85,6 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Јединице мере";
-
-
-/********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Где јести";
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "За кампер возила";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz\n\nУживај у путовању са Organic Maps-ом!";
 
 /* message title of loading file */
@@ -293,9 +281,9 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Донирате да бисмо заједно направили најбоље мапе!";
-"already_donated" = "Already donated";
-"remind_me_later" = "Remind later";
-"support_organic_maps" = "Support Organic Maps";
+"already_donated" = "Већ је донирано";
+"remind_me_later" = "Подсети касније";
+"support_organic_maps" = "Подржите Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Плаво сива";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Када пратите руту, обратите пажњу на:";
 "dialog_routing_disclaimer_priority" = "— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бити нетачна и предложена рута не мора увек бити најоптималнији начин да стигнете на одредиште;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Молим Вас, покушајте поново";
 "dialog_routing_download_and_build_cross_route" = "Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?";
 "dialog_routing_download_cross_route" = "Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Прикажи";
@@ -507,7 +487,7 @@
 "editor_time_simple" = "Једноставни режим";
 "editor_hours_closed" = "Нерадно време";
 "editor_example_values" = "Примери";
-"editor_add_select_location" = "Select Location";
+"editor_add_select_location" = "Изаберите локацију";
 "editor_done_dialog_1" = "Направили сте промену на мапи света! Не чувајте је само за себе; реците својим пријатељима и наставите да је мењате заједно.";
 "share_with_friends" = "Подели са пријатељима";
 "editor_report_problem_send_button" = "Пошаљи";
@@ -572,7 +552,7 @@
 "downloader_no_space_title" = "Нема довољно простора";
 "downloader_no_space_message" = "Молим Вас да обришете непотребне податке";
 "editor_profile_changes" = "Верификоване промене";
-"editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
+"editor_focus_map_on_location" = "Превуците мапу да поставите крст на локацију места или посла.";
 "editor_add_select_category" = "Изаберите категорију";
 "editor_add_select_category_popular_subtitle" = "Популарно";
 "editor_add_select_category_all_subtitle" = "Све категорије";
@@ -608,7 +588,7 @@
 "error_enter_correct_zip_code" = "Унесите исправан поштански број";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
+"core_placepage_unknown_place" = "Тачка на мапи";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Напомена за OpenStreetMap волонтере (није обавезна)";
@@ -668,11 +648,11 @@
 "dialog_kayak_button" = "Детаљи на Kayak-у";
 
 /* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Disable Kayak";
+"dialog_kayak_disable_button" = "Онемогући Kayak";
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_bookmark_name_hint" = "Коментар…";
-"placepage_personal_notes_hint" = "Personal notes (text or html)";
+"placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
 "placepage_delete_bookmark_button" = "Обриши маркер";
 "editor_edits_sent_message" = "Ваша напомена ће бити послана на OpenStreetMap";
 "editor_comment_hint" = "Коментар…";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Пре више од годину дана";
 "near_me_sorttype" = "Близу мене";
 "others_sorttype" = "Остали";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Храна";
 "tourist_places" = "Атракције";
 "museums" = "Музеји";
@@ -921,8 +897,8 @@
 "elevation_profile_diff_level_hard" = "Тешко";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
-"elevation_profile_min_elevation" = "Min. elevation";
-"elevation_profile_max_elevation" = "Max. elevation";
+"elevation_profile_min_elevation" = "Минимална висина";
+"elevation_profile_max_elevation" = "Максимална висина";
 "elevation_profile_difficulty" = "Тежина";
 "elevation_profile_time" = "Време:";
 "isolines_toast_zooms_1_10" = "Увећајте да бисте видели изолиније";

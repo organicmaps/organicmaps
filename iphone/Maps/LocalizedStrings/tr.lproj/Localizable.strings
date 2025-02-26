@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "İptal";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Ölçü birimleri";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Nerede yenir";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavan tesisleri";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Rotanızı takip ederken şunları lütfen unutmayın:";
 "dialog_routing_disclaimer_priority" = "— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;";
 "dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Lütfen tekrar deneyin";
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 "dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Göster";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Bir yıldan daha önce";
 "near_me_sorttype" = "Bana yakınlarda";
 "others_sorttype" = "Diğerleri";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Yiyecek";
 "tourist_places" = "Görülecek yerler";
 "museums" = "Müzeler";

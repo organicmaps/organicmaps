@@ -1,8 +1,4 @@
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "search" = "Search";
 
@@ -11,10 +7,6 @@
 
 /* Used in home screen quick actions. */
 "route" = "مسیر";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "تشخیص مکان در پس زمینه برای لذت بردن کامل از عملکرد برنامه ضروری است. برای ناوبری و ذخیره مسیرهای اخیر سفر شده شما استفاده می شود.";

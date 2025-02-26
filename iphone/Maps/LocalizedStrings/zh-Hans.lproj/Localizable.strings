@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "取消";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "测量单位";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "在哪儿吃";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "房车设施";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "蓝灰色";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "按照路线行进时，请谨记：";
 "dialog_routing_disclaimer_priority" = "— 路况、交通法规和路标始终优先于导航建议；";
 "dialog_routing_disclaimer_precision" = "— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路线；";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "请再试一次";
 "dialog_routing_download_and_build_cross_route" = "您是否要下载地图，以规划跨越边界的更佳路线？";
 "dialog_routing_download_cross_route" = "下载地图，以规划一条跨越边界的更佳路线。";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "显示";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "一年多以前";
 "near_me_sorttype" = "在我附近";
 "others_sorttype" = "其他";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "美食";
 "tourist_places" = "旅游景点";
 "museums" = "博物馆";

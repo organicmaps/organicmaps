@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Ləğv et";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Ölçü vahidləri";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Harada yemək";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karvan qurğuları";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Mavi-boz";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Marşrutunuzu izləyərkən aşağıdakıları yadda saxlayın:";
 "dialog_routing_disclaimer_priority" = "— Yol şəraiti, yol hərəkəti qaydaları və yol nişanları həmişə naviqasiya məsləhətindən üstündür;";
 "dialog_routing_disclaimer_precision" = "— Xəritə dəqiq olmaya bilər və tövsiyə olunan marşrut təyinat yerinə çatmağın ən yaxşı yolu olmaya bilər;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Zəhmət olmasa bir daha cəhd edin";
 "dialog_routing_download_and_build_cross_route" = "Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?";
 "dialog_routing_download_cross_route" = "Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Göstər";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Bir ildən çox əvvəl";
 "near_me_sorttype" = "Mənə yaxın";
 "others_sorttype" = "Digərləri";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Qida";
 "tourist_places" = "Görməli yerlər";
 "museums" = "Muzeylər";

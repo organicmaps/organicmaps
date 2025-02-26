@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "निरस्त करना";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "नाप की इकाइयां";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "कहाँ खाना है";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "आरवी सुविधाएं";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "नमस्ते!\n\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz\n\nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blue Gray";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "मार्ग का अनुसरण करते समय कृपया ध्यान रखें:";
 "dialog_routing_disclaimer_priority" = "— सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;";
 "dialog_routing_disclaimer_precision" = "— नक्शा गलत हो सकता है, और सुझाया गया मार्ग हमेशा गंतव्य तक पहुंचने का सबसे इष्टतम तरीका नहीं हो सकता है;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Show";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "More than a year ago";
 "near_me_sorttype" = "Near me";
 "others_sorttype" = "Others";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Food";
 "tourist_places" = "Sights";
 "museums" = "Museums";

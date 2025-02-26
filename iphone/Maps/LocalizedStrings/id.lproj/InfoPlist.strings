@@ -1,8 +1,4 @@
 
-
-/********** 3d touch strings **********/
-
-
 /* Used in home screen quick actions. */
 "search" = "Cari";
 
@@ -11,10 +7,6 @@
 
 /* Used in home screen quick actions. */
 "route" = "Rute";
-
-
-/********** gps strings **********/
-
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.";

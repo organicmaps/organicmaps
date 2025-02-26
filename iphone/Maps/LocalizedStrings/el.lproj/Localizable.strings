@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Άκυρο";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Μονάδες μέτρησης";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Μέρη για φαγητό";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Για RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το Organic Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://omaps.app/get?kmz\n\nΚαλή διασκέδαση ταξιδεύοντας με το Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Γκρίζο μπλε";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Όταν ακολουθείτε την διαδρομή, να θυμάστε:";
 "dialog_routing_disclaimer_priority" = "— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,";
 "dialog_routing_disclaimer_precision" = "— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Προσπαθήστε ξανά";
 "dialog_routing_download_and_build_cross_route" = "Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;";
 "dialog_routing_download_cross_route" = "Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Εμφάνιση";
@@ -889,10 +869,6 @@
 "moreyear_ago_sorttype" = "Περισσότερο από ένα χρόνο πριν";
 "near_me_sorttype" = "Δίπλα μου";
 "others_sorttype" = "Άλλα";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Φαγητό";
 "tourist_places" = "Αξιοθέατα";
 "museums" = "Μουσεία";
