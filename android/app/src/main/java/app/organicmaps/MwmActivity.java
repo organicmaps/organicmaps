@@ -77,7 +77,6 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
-import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointInfo;
@@ -1673,12 +1672,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mRoutingPlanInplaceController.showDrivingOptionView();
-  }
-
-  @Override
-  public boolean isSubwayEnabled()
-  {
-    return SubwayManager.from(this).isEnabled();
   }
 
   @Override
