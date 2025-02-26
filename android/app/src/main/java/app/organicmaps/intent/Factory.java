@@ -99,7 +99,7 @@ public class Factory
           RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
                                                                     from.mName, "", from.mLat, from.mLon),
                                           MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                    to.mName, "", to.mLat, to.mLon), true);
+                                                                    to.mName, "", to.mLat, to.mLon));
           return true;
         case RequestType.SEARCH:
         {
