@@ -1814,7 +1814,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    locationHelper.restartWithNewMode();
+    locationHelper.start();
 
     if ((newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE) && !LocationUtils.checkFineLocationPermission(this))
     {
