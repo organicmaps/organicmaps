@@ -29,6 +29,10 @@
     <string name="search_map">Search Map</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Limited Accuracy</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">To ensure accurate navigation enable Precise Location in settings.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Show on the map</string>
     <!-- Message to display at the center of the screen when the country download has failed -->

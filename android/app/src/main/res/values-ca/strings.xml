@@ -26,6 +26,10 @@
     <string name="search_map">Cerca en el mapa</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Tots els serveis de geolocalització d’aquest aparell o aplicació estan desactivats. Activeu-los a la configuració.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Precisió limitada</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Per assegurar la navegació precisa, activeu la ubicació precisa en la configuració.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostra-ho al mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
