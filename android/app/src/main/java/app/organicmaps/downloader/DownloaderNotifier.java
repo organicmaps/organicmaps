@@ -41,7 +41,7 @@ public class DownloaderNotifier
   {
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
     final NotificationChannelCompat channel = new NotificationChannelCompat.Builder(CHANNEL_ID,
-        NotificationManagerCompat.IMPORTANCE_DEFAULT)
+        NotificationManagerCompat.IMPORTANCE_LOW)
         .setName(context.getString(R.string.notification_channel_downloader))
         .setShowBadge(true)
         .setVibrationEnabled(false)
