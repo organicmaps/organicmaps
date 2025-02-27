@@ -5,7 +5,7 @@ android/app/src/main/res/drawable*/ @organicmaps/design
 android/app/src/main/res/font/ @organicmaps/design
 android/app/src/main/res/mipmap*/ @organicmaps/design
 data/*.ttf @organicmaps/design
-data/resources*/ @organicmaps/design
+/data/resources-svg/ @organicmaps/design
 data/search-icons/ @organicmaps/design
 iphone/Maps/Images.xcassets/ @organicmaps/design
 # Android.
@@ -36,6 +36,8 @@ data/conf/isolines/ @organicmaps/data
 docs/SUBWAY_GENERATION.md @organicmaps/data
 docs/MAPS.md @organicmaps/data
 docs/EXPERIMENTAL_PUBLIC_TRANSPORT_SUPPORT.md @organicmaps/data
+# no owner (changed often to add a new POI)
+/generator/generator_tests/osm_type_test.cpp
 # Map Styles.
 data/styles/ @organicmaps/styles
 data/types.txt @organicmaps/styles
