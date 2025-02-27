@@ -40,7 +40,6 @@ To run the `tools/unix/generate_localizations.sh` script, it is necessary to hav
   - Android stores description: [`android/app/src/fdroid/play/`](../android/app/src/fdroid/play/)
   - Apple App Store description: [`iphone/metadata/`](../iphone/metadata/)
 
-  - Popular brands of map features: [`data/strings/brands_strings.txt`](../data/strings/brands_strings.txt)
   - Search keywords for popular brands: [`data/categories_brands.txt`](../data/categories_brands.txt)
   - Search keywords for cuisine types: [`data/categories_cuisines.txt`](../data/categories_cuisines.txt)
 
