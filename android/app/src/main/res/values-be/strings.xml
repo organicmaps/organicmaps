@@ -622,6 +622,8 @@
     <string name="routing_add_start_point">Скарыстайцеся пошукам або націсніце на мапе, каб дадаць пачатак маршруту</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Скарыстайцеся пошукам або націсніце на мапе, каб дадаць пункт прызначэння</string>
+    <string name="planning_route_manage_route">Кіраваць маршрутам</string>
+    <string name="button_plan">Пракласці</string>
     <string name="placepage_remove_stop">Выдаліць прыпынак</string>
     <string name="placepage_add_stop">Дадаць прыпынак</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
