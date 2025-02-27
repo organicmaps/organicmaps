@@ -149,6 +149,10 @@ public class Framework
     return nativeGetGe0Url(lat, lon, zoomLevel, name).replaceFirst(
             Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
   }
+  public static String getCoordUrl(double lat, double lon, double zoomLevel, String name)
+  {
+    return nativeGetCoordUrl(lat, lon, zoomLevel, name);
+  }
 
   /**
    * Generates Bitmap with route altitude image chart taking into account current map style.
@@ -196,6 +200,9 @@ public class Framework
   public static native String nativeFormatSpeed(double speed);
 
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
+
+  public static native String nativeGetCoordUrl(double lat, double lon, double zoomLevel, String name);
+
   public static native String nativeGetGeoUri(double lat, double lon, double zoomLevel, String name);
 
   public static native String nativeGetAddress(double lat, double lon);

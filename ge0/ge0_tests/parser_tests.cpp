@@ -312,4 +312,69 @@ UNIT_TEST(OtherPrefixes)
   TestSuccess("https://omaps.app/Byqqqqqqqq", 45, 0, 4.25, "");
   TestFailure("https://omaps.app/Byqqqqqqq");
 }
+UNIT_TEST(PlainCoordinateUrl_Valid)
+{
+
+  TestSuccess("https://omaps.app/0,0", 0.0, 0.0, 18.0, "");
+  TestSuccess("https://omaps.app/-10,10", -10.0, 10.0, 18.0, "");
+  TestSuccess("https://omaps.app/10,0.32", 10.0, 0.32, 18.0, "");
+  TestSuccess("https://omaps.app/.123,-.456", 0.123, -0.456, 18.0, "");
+
+  TestSuccess("https://omaps.app/0.00000,0.00000", 0.0, 0.0, 18.0, "");
+  TestSuccess("https://omaps.app/45.00000,-90.00000", 45.0, -90.0, 18.0, "");
+  TestSuccess("https://omaps.app/-45.12345,179.99999", -45.12345, 179.99999, 18.0, "");
+  TestSuccess("https://omaps.app/89.99999,-179.99999", 89.99999, -179.99999, 18.0, "");
+  TestSuccess("https://omaps.app/-89.99999,179.99999", -89.99999, 179.99999, 18.0, "");
+
+  TestSuccess("https://omaps.app/12.34567,76.54321/Place", 12.34567, 76.54321, 18.0, "Place");
+  TestSuccess("https://omaps.app/12.34567,76.54321/Place%20Name", 12.34567, 76.54321, 18.0, "Place_Name");
+  TestSuccess("https://omaps.app/12.34567,76.54321/My_Poi", 12.34567, 76.54321, 18.0, "My Poi");
+
+  TestSuccess("https://omaps.app/13.02227,77.76043/", 13.02227, 77.76043, 18.0, "");
+
+  TestSuccess("https://omaps.app/13.02227,77.76043/Place////", 13.02227, 77.76043, 18.0, "Place");
+  TestSuccess("https://omaps.app/13.02227,77.76043////Place////", 13.02227, 77.76043, 18.0, "Place");
+
+  // Special Character
+  TestSuccess("https://omaps.app/13.02227,77.76043?foo=bar", 13.02227, 77.76043, 18.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043#section", 13.02227, 77.76043, 18.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043/Place?foo=bar#section", 13.02227, 77.76043, 18.0, "Place");
+
+  TestSuccess("https://omaps.app/12.34567,76.54321,10.5", 12.34567, 76.54321, 10.5, "");
+  TestSuccess("https://omaps.app/12.34567,76.54321,15.75/Place", 12.34567, 76.54321, 15.75, "Place");
+  TestSuccess("https://omaps.app/13.02227,77.76043,18.0", 13.02227, 77.76043, 18.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043,20/AnotherPlace", 13.02227, 77.76043, 20.0, "AnotherPlace");
+  TestSuccess("https://omaps.app/13.02227,77.76043,17.5/Place///?foo=bar#section", 13.02227, 77.76043, 17.5, "Place");
+}
+
+UNIT_TEST(PlainCoordinateUrl_Invalid)
+{
+  TestFailure("https://omaps.app/1302227 77.76043");
+  TestFailure("https://omaps.app/1302227-77.76043");
+
+  TestFailure("https://omaps.app/abc,77.76043");
+  TestFailure("https://omaps.app/13.02227,xyz");
+  TestFailure("https://omaps.app/13.02227,Infinity");
+
+  TestFailure("https://omaps.app/13.02227,77.76043,");        
+  TestFailure("https://omaps.app/13.02227,77.76043,abc");       
+  TestFailure("https://omaps.app/13.02227,77.76043,100");       
+  TestFailure("https://omaps.app/13.02227,77.76043,0.5");       
+  TestFailure("https://omaps.app/13.02227,77.76043,22.5");      
+
+  TestFailure("https://omaps.app/13.02227,77.76043,100,extra");  
+  TestFailure("https://omaps.app/13.02227,,77.76043");
+  TestFailure("https://omaps.app/,");
+  TestFailure("https://omaps.app/,/Name");
+  TestFailure("https://omaps.app//Name");
+
+  TestFailure("https://omaps.app/13.02227,77.76043foo");
+  TestFailure("https://omaps.app/foo13.02227,77.76043");
+
+  TestFailure("https://omaps.app/91.00000,0.00000");
+  TestFailure("https://omaps.app/-91.00000,0.00000");
+  TestFailure("https://omaps.app/0.00000,181.00000");
+  TestFailure("https://omaps.app/0.00000,-181.00000");
+}
+
 }  // namespace ge0
