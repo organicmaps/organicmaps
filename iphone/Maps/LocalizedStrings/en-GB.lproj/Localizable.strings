@@ -55,7 +55,7 @@
 "about_proposition_2" = "• No battery drain, works offline";
 
 /* Text in About screen */
-"about_proposition_3" = "• Fast, minimalist, developed by community";
+"about_proposition_3" = "• Fast, minimalist, developed by the community";
 
 "close" = "Close";
 
@@ -443,7 +443,7 @@
 
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
+"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
 
@@ -891,7 +891,7 @@
 
 "mobile_data_option_today" = "Only Today";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Do Not Use Today";
 
 "mobile_data" = "Mobile Internet";
 
@@ -916,7 +916,7 @@
 
 "log_file_size" = "Log file size: %@";
 
-"transliteration_title" = "Transliteration into Latin alphabet";
+"transliteration_title" = "Transliterate into Latin alphabet";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Exit";
@@ -1337,8 +1337,8 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud synchronization is an experimental feature under development. Make sure that you have made a backup of all your bookmarks and tracks.";
 
-/* Title for the "iCloud is Disabled" alert. */
-"icloud_disabled_title" = "iCloud is Disabled";
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Is Disabled";
 
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
@@ -1361,8 +1361,8 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud is not available";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
-"open_in_app" = "Open In Another App";
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Open in Another App";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Self-service";
