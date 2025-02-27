@@ -35,7 +35,7 @@
 			<key>one</key>
 			<string>S'ha trobat %d fitxer. Podeu veure'l després de la conversió.</string>
 			<key>other</key>
-			<string>S'han trobat %d fiters. Podeu veure'ls després de la conversió.</string>
+			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
 		</dict>
 	</dict>
 

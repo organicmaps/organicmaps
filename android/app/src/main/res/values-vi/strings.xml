@@ -622,12 +622,10 @@
     <string name="please_wait">Vui lòng chờ…</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="profile">Hồ sơ OpenStreetMap</string>
-    <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</item>
-    </plurals>
     <string name="restore">Khôi phục</string>
     <plurals name="tracks">
-        <item quantity="other">%d các chặn đường</item>
+        <item quantity="one">%d chặng đường</item>
+        <item quantity="other">%d các chặng đường</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Sự riêng tư</string>

@@ -660,11 +660,13 @@
     <string name="phone_number">電話番号</string>
     <string name="profile">OpenStreetMap プロフィール</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>
+        <item quantity="one">%d ファイルが見つかりました。変換後にそれを見ることができます。</item>
+        <item quantity="other">%d ファイルが見つかりました。変換後にそれを見ることができます。</item>
     </plurals>
     <string name="restore">復元</string>
     <plurals name="tracks">
-        <item quantity="other">%dの追跡</item>
+        <item quantity="one">%d の追跡</item>
+        <item quantity="other">%d の追跡</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">プライバシー</string>

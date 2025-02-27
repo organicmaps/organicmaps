@@ -638,6 +638,7 @@
     <string name="bookmark_lists_hide_all">Skryť všetko</string>
     <string name="bookmark_lists_show_all">Zobraziť všetko</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d záložka</item>
         <item quantity="other">%d záložiek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Vytvoriť nový zoznam</string>
@@ -655,12 +656,13 @@
     <string name="phone_number">Telefónne číslo</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">Bol nájdený %d súbor. Uvidíte to po konverzii.</item>
+        <item quantity="one">Bol nájdený %d súbor. Uvidíte ho po konverzii.</item>
         <item quantity="few">Boli nájdené %d súbory. Uvidíte ich po konverzii.</item>
         <item quantity="other">Bolo nájdených %d súborov. Uvidíte ich po konverzii.</item>
     </plurals>
     <string name="restore">Obnoviť</string>
     <plurals name="tracks">
+        <item quantity="one">%d sledovanie</item>
         <item quantity="other">%d sledovania</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

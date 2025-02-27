@@ -668,6 +668,7 @@
     </plurals>
     <string name="restore">Restaurer</string>
     <plurals name="tracks">
+        <item quantity="one">%d piste</item>
         <item quantity="other">%d pistes</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

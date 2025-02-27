@@ -616,8 +616,8 @@
     <string name="phone_number">شماره تلفن</string>
     <string name="profile">OpenStreetMap نمایه</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.</item>
-        <item quantity="other">%d فایل پیدا شد. بعد از تبدیل آن‌ها را می‌بینید.</item>
+        <item quantity="one">%d فایل پیدا شد. بعد از تبدیل آن را خواهید دید.</item>
+        <item quantity="other">%d فایل پیدا شد. بعد از تبدیل آنها را خواهید دید.</item>
     </plurals>
     <string name="restore">بازیابی</string>
     <plurals name="tracks">

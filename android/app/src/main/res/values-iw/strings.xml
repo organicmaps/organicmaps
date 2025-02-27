@@ -652,8 +652,8 @@
     <string name="phone_number">מספר טלפון</string>
     <string name="profile">פרופיל OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</item>
-        <item quantity="other">נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</item>
+        <item quantity="one">נמצא %d קובץ. תוכלו לראות אותו לאחר ההמרה.</item>
+        <item quantity="other">נמצאו %d קבצים. תוכלו לראות אותם לאחר ההמרה.</item>
     </plurals>
     <string name="restore">שחזור</string>
     <plurals name="tracks">

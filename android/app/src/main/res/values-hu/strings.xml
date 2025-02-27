@@ -617,7 +617,8 @@
     <string name="bookmark_lists_hide_all">Összes elrejtése</string>
     <string name="bookmark_lists_show_all">Összes megjelenítése</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">könyvjelzők %d</item>
+        <item quantity="one">%d könyvjelző</item>
+        <item quantity="other">%d könyvjelzők</item>
     </plurals>
     <string name="bookmarks_create_new_group">Új lista létrehozása</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -634,12 +635,13 @@
     <string name="phone_number">Telefonszám</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d fájlt találtunk. Látni fogja őket a konvertálás után.</item>
-        <item quantity="other">%d fájl található. Látni fogja őket a konvertálás után.</item>
+        <item quantity="one">%d fájl található. Látni fogod azt a konvertálás után.</item>
+        <item quantity="other">%d fájl található. Látni fogod őket a konvertálás után.</item>
     </plurals>
     <string name="restore">Visszaállítás</string>
     <plurals name="tracks">
-        <item quantity="other">%d út</item>
+        <item quantity="one">%d út</item>
+        <item quantity="other">%d útvonalak</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Adatvédelem</string>

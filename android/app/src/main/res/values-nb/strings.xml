@@ -639,6 +639,7 @@
     <string name="bookmark_lists_hide_all">Skjul alle</string>
     <string name="bookmark_lists_show_all">Vis alle</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d bokmerke</item>
         <item quantity="other">%d bokmerker</item>
     </plurals>
     <string name="bookmarks_create_new_group">Opprett ny liste</string>
@@ -656,11 +657,12 @@
     <string name="phone_number">Telefonnummer</string>
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d filen ble funnet. Du vil se dem etter konverteringen.</item>
+        <item quantity="one">%d fil funnet. Du vil se den etter konverteringen.</item>
         <item quantity="other">%d filer funnet. Du vil se dem etter konverteringen.</item>
     </plurals>
     <string name="restore">Restaurere</string>
     <plurals name="tracks">
+        <item quantity="one">%d sti</item>
         <item quantity="other">%d stier</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

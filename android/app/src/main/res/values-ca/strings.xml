@@ -661,7 +661,7 @@
     <string name="profile">Perfil d\'OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">S\'ha trobat %d fitxer. Podeu veure\'l després de la conversió.</item>
-        <item quantity="other">S\'han trobat %d fiters. Podeu veure\'ls després de la conversió.</item>
+        <item quantity="other">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
     </plurals>
     <string name="restore">Restaura</string>
     <plurals name="tracks">

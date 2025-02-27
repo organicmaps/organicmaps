@@ -630,6 +630,7 @@
     </plurals>
     <string name="restore">पूर्ववत् करा</string>
     <plurals name="tracks">
+        <item quantity="one">%d ट्रॅक</item>
         <item quantity="other">%d ट्रॅक</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
