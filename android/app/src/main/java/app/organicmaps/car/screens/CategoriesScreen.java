@@ -30,15 +30,15 @@ public class CategoriesScreen extends BaseMapScreen
   private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId)
   {
   }
-
+  //TODO: previously handled theme by itself, but now icons are dynamic so not needed.
   private static final List<CategoryData> CATEGORIES = Arrays.asList(
-      new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
-      new CategoryData(R.string.category_parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
-      new CategoryData(R.string.category_eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
-      new CategoryData(R.string.category_food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
-      new CategoryData(R.string.category_hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
-      new CategoryData(R.string.category_toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
-      new CategoryData(R.string.category_rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night)
+      new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel),
+      new CategoryData(R.string.category_parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking),
+      new CategoryData(R.string.category_eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat),
+      new CategoryData(R.string.category_food, R.drawable.ic_category_food, R.drawable.ic_category_food),
+      new CategoryData(R.string.category_hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel),
+      new CategoryData(R.string.category_toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet),
+      new CategoryData(R.string.category_rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv)
   );
 
   private final int MAX_CATEGORIES_SIZE;

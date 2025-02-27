@@ -97,9 +97,6 @@ public class MapButtonsController extends Fragment
         helpButton.setImageResource(R.drawable.ic_christmas_tree);
       else
         helpButton.setImageResource(R.drawable.logo);
-      // Keep this button colorful in normal theme.
-      if (!ThemeUtils.isNightTheme(requireContext()))
-        helpButton.getDrawable().setTintList(null);
     }
 
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
