@@ -16,12 +16,16 @@ static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
 static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
 static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
 static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
+static auto const s_fediverseRegex = regex(R"(^@?[a-zA-Z0-9_]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
+static auto const s_blueskyRegex = regex(R"(^@?[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$)");
 
 constexpr string_view kFacebook{"contact:facebook"};
 constexpr string_view kInstagram{"contact:instagram"};
 constexpr string_view kTwitter{"contact:twitter"};
 constexpr string_view kVk{"contact:vk"};
 constexpr string_view kLine{"contact:line"};
+constexpr string_view kFediverse{"contact:mastodon"};
+constexpr string_view kBluesky{"contact:bluesky"};
 
 constexpr string_view kProfilePhp{"profile.php"};
 
@@ -41,6 +45,7 @@ constexpr string_view kDotVkontakteRu{".vkontakte.ru"};
 constexpr string_view kLineMe{"line.me"};
 constexpr string_view kPageLineMe{"page.line.me"};
 constexpr string_view kDotLineMe{".line.me"};
+constexpr string_view kBskyApp{"bsky.app"};
 
 // URLs constants
 constexpr string_view kUrlFacebook{"https://facebook.com/"};
@@ -48,6 +53,7 @@ constexpr string_view kUrlInstagram{"https://instagram.com/"};
 constexpr string_view kUrlTwitter{"https://twitter.com/"};
 constexpr string_view kUrlVk{"https://vk.com/"};
 constexpr string_view kUrlLine{"https://line.me/R/ti/p/@"};
+constexpr string_view kUrlBluesky{"https://bsky.app/profile/"};
 constexpr string_view kHttp{"http://"};
 constexpr string_view kHttps{"https://"};
 
@@ -63,6 +69,13 @@ size_t GetProtocolNameLength(string const & website)
 bool IsProtocolSpecified(string const & website)
 {
   return 0 != GetProtocolNameLength(website);
+}
+
+string fediverseHandleToUrl(string_view handle)
+{
+    // Convert stored username@domain.name to https://domain.name/username
+    vector<string_view> const handleElements = strings::Tokenize(handle, "@");
+    return string{kHttps}.append(handleElements[1]).append("/@").append(handleElements[0]);
 }
 
 // TODO: Current implementation looks only for restricted symbols from ASCII block ignoring
@@ -239,16 +252,16 @@ string ValidateAndFormat_vk(string const & vkPage)
   return {};
 }
 
-// Strip '%40' and `@` chars from Line ID start.
-string stripAtSymbol(string const & lineId)
+// Strip '%40' and `@` chars from string start if they exist.
+string stripAtSymbol(string const & inputString)
 {
-  if (lineId.empty())
-    return lineId;
-  if (lineId.front() == '@')
-    return lineId.substr(1);
-  if (lineId.starts_with("%40"))
-    return lineId.substr(3);
-  return lineId;
+  if (inputString.empty())
+    return inputString;
+  if (inputString.front() == '@')
+    return inputString.substr(1);
+  if (inputString.starts_with("%40"))
+    return inputString.substr(3);
+  return inputString;
 }
 
 string ValidateAndFormat_contactLine(string const & linePage)
@@ -313,6 +326,79 @@ string ValidateAndFormat_contactLine(string const & linePage)
     if (linePage.starts_with(kHttps))
       return linePage.substr(8);
     return linePage;
+  }
+
+  return {};
+}
+
+string ValidateAndFormat_fediverse(string const & fediPage)
+{
+  if (fediPage.empty())
+    return {};
+
+  // Parse {@?}{username}@{domain.name} format
+  if (regex_match(fediPage, s_fediverseRegex))
+    return stripAtSymbol(fediPage);
+
+  // If it doesn't match the above format, it can only be an URL format.
+  if (!ValidateWebsite(fediPage))
+    return {};
+
+  // Parse https://{domain.name}{@ || /users/}{username} formats
+  url::Url const parsedUrl = url::Url::FromString(fediPage);
+  string const parsedDomain = strings::MakeLowerCase(parsedUrl.GetHost());
+  string path = parsedUrl.GetPath();
+  path.erase(path.find_last_not_of('/') + 1); // Strip any trailing '/' symbol
+
+  // Could be /users/ type - check and remove to be left with just username.
+  if (path.starts_with("users/")) // first slash is already removed by GetPath()
+  {
+    path.erase(0, 6);
+    path = stripAtSymbol(path); // handle technically wrong but parseable domain/users/@username
+  }
+  // domain.name/@username - username has to start with @
+  else if (path.starts_with("@"))
+    path = stripAtSymbol(path);
+  // unknown/invalid format
+  else
+      return {};
+
+  // Then construct the final username@domain.name format
+  path.append("@").append(parsedDomain);
+  // and make sure it's valid
+  if (regex_match(path, s_fediverseRegex))
+    return path;
+  else
+    return {};
+}
+
+string ValidateAndFormat_bluesky(string const & bskyPage)
+{
+  if (bskyPage.empty())
+    return {};
+
+  // Try matching {@?}{user/domain.name} format to avoid doing the other stuff
+  if (regex_match(bskyPage, s_blueskyRegex))
+    return stripAtSymbol(bskyPage);
+
+  // If not, it must match the URL format
+  if (ValidateWebsite(bskyPage))
+  {
+    // Match https://bsky.app/profile/{username/domain.name}
+    url::Url const pageUrl = url::Url::FromString(bskyPage);
+    string_view const domain = pageUrl.GetHost();
+    string path = pageUrl.GetPath();
+
+    // First remove url bits if they exist
+    if (domain.starts_with(kBskyApp) && path.starts_with("profile/"))
+    {
+      path.erase(0, 8); // Strip "profile/" part
+      path.erase(path.find_last_not_of('/') + 1); // Strip last '/' symbol if exists
+
+      // Then make sure it matches {@?}{user/domain.name}
+      if (regex_match(path, s_blueskyRegex))
+        return stripAtSymbol(path);
+    }
   }
 
   return {};
@@ -449,9 +535,79 @@ bool ValidateLinePage(string const & page)
   return (domain == kLineMe || domain.ends_with(kDotLineMe));
 }
 
+bool ValidateFediversePage(string const & page)
+{
+  if (page.empty())
+    return true;
+
+  // Match @username@instance.name format
+  if (regex_match(page, s_fediverseRegex))
+    return true;
+
+  // If it doesn't match the above format, it can only be an URL format.
+  if (!ValidateWebsite(page))
+    return false;
+
+  // Try to match https://{domain.name}{@ || /users/}{username} formats
+  url::Url const pageUrl = url::Url::FromString(page);
+  string_view const domain = pageUrl.GetHost();
+  string path = pageUrl.GetPath();
+
+  // Could be /users/ type - check and remove to be left with just username.
+  if (path.starts_with("users/")) // first slash is already removed by GetPath()
+  {
+    path.erase(0, 6);
+    path = stripAtSymbol(path); // handle technically wrong but parseable domain/users/@username
+  }
+  // domain.name/@username - username has to start with @
+  else if (path.starts_with("@"))
+    path = stripAtSymbol(path);
+  // unknown/invalid format
+  else
+    return false;
+
+  path.erase(path.find_last_not_of('/') + 1); // Strip any trailing '/' symbol
+  // Then construct the username@domain.name format
+  path.append("@").append(domain);
+  // And return if it's valid or not
+  return regex_match(path, s_fediverseRegex);
+}
+
+bool ValidateBlueskyPage(string const & page)
+{
+  // A valid username can be any domain name, so the username rules don't apply.
+  if (page.empty())
+    return true;
+
+  // Match {@?}{user/domain.name} format
+  if (regex_match(page, s_blueskyRegex))
+    return true;
+
+  // Has to be an url format now
+  if (!ValidateWebsite(page))
+    return false;
+
+  // Match https://bsky.app/profile/{username/domain.name}
+  url::Url const pageUrl = url::Url::FromString(page);
+  string_view const domain = pageUrl.GetHost();
+  string path = pageUrl.GetPath();
+
+  // First remove url bits if they exist
+  if (domain.starts_with(kBskyApp) && path.starts_with("profile/"))
+  {
+    path.erase(0, 8); // Strip "profile/" part
+    path.erase(path.find_last_not_of('/') + 1); // Strip last '/' symbol if exists
+    // Then try to parse the remaining text as a username again
+    if (regex_match(path, s_blueskyRegex))
+      return true;
+  }
+
+  return false;
+}
+
 bool isSocialContactTag(string_view tag)
 {
-  return tag == kInstagram || tag == kFacebook || tag == kTwitter || tag == kVk || tag == kLine;
+  return tag == kInstagram || tag == kFacebook || tag == kTwitter || tag == kVk || tag == kLine || tag == kFediverse || tag == kBluesky;
 }
 
 bool isSocialContactTag(MapObject::MetadataID const metaID)
@@ -460,7 +616,9 @@ bool isSocialContactTag(MapObject::MetadataID const metaID)
          metaID == MapObject::MetadataID::FMD_CONTACT_FACEBOOK ||
          metaID == MapObject::MetadataID::FMD_CONTACT_TWITTER ||
          metaID == MapObject::MetadataID::FMD_CONTACT_VK ||
-         metaID == MapObject::MetadataID::FMD_CONTACT_LINE;
+         metaID == MapObject::MetadataID::FMD_CONTACT_LINE ||
+         metaID == MapObject::MetadataID::FMD_CONTACT_FEDIVERSE ||
+         metaID == MapObject::MetadataID ::FMD_CONTACT_BLUESKY;
 }
 
 // Functions ValidateAndFormat_{facebook,instagram,twitter,vk}(...) by default strip domain name
@@ -477,6 +635,10 @@ string socialContactToURL(string_view tag, string_view value)
     return string{kUrlTwitter}.append(value);
   if (tag == kVk)
     return string{kUrlVk}.append(value);
+  if (tag == kFediverse)
+    return fediverseHandleToUrl(value);
+  if (tag == kBluesky) // In future
+    return string{kUrlBluesky}.append(value);
   if (tag == kLine)
   {
     if (value.find('/') == string::npos) // 'value' is a username.
@@ -502,6 +664,10 @@ string socialContactToURL(MapObject::MetadataID metaID, string_view value)
       return string{kUrlTwitter}.append(value);
     case MapObject::MetadataID::FMD_CONTACT_VK:
       return string{kUrlVk}.append(value);
+    case MapObject::MetadataID::FMD_CONTACT_FEDIVERSE:
+      return fediverseHandleToUrl(value);
+    case MapObject::MetadataID::FMD_CONTACT_BLUESKY:
+      return string{kUrlBluesky}.append(value);
     case MapObject::MetadataID::FMD_CONTACT_LINE:
       if (value.find('/') == string::npos) // 'value' is a username.
         return string{kUrlLine}.append(value);
