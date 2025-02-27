@@ -52,7 +52,7 @@ public class TrackRecordingService extends Service implements LocationListener
   {
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStartTrackRecording();
-    LocationHelper.from(context).restartWithNewMode();
+    LocationHelper.from(context).start();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
 
@@ -178,9 +178,7 @@ public class TrackRecordingService extends Service implements LocationListener
 
     // Subscribe to location updates. This call is idempotent.
     locationHelper.addListener(this);
-
-    // Restart the location with more frequent refresh interval for Track Recording.
-    locationHelper.restartWithNewMode();
+    locationHelper.start();
 
     return START_NOT_STICKY;
   }

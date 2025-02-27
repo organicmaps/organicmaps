@@ -34,10 +34,7 @@ import app.organicmaps.util.log.Logger;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private static final long INTERVAL_FOLLOW_MS = 0;
-  private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
-  private static final long INTERVAL_NAVIGATION_MS = 0;
-  private static final long INTERVAL_TRACK_RECORDING = 0;
+  private static final long INTERVAL_MS = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
@@ -55,7 +52,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private MapObject mMyPosition;
   @NonNull
   private BaseLocationProvider mLocationProvider;
-  private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
   private Handler mHandler;
@@ -261,7 +257,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
     mActive = true;
-    mLocationProvider.start(mInterval);
+    mLocationProvider.start(INTERVAL_MS);
   }
 
   // RouteSimulationProvider doesn't really require location permissions.
@@ -272,7 +268,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.stop();
     mLocationProvider = new RouteSimulationProvider(mContext, this, points);
     mActive = true;
-    mLocationProvider.start(mInterval);
+    mLocationProvider.start(INTERVAL_MS);
   }
 
   @Override
@@ -316,46 +312,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mListeners.removeObserver(listener);
   }
 
-  private long calcLocationUpdatesInterval()
-  {
-    if (RoutingController.get().isNavigating())
-      return INTERVAL_NAVIGATION_MS;
-
-    if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      return INTERVAL_TRACK_RECORDING;
-
-    final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
-    return switch (mode)
-    {
-      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
-          INTERVAL_FOLLOW_MS;
-      case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
-      default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
-    };
-  }
-
-  /**
-   * Restart the location with a new refresh interval if changed.
-   */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void restartWithNewMode()
-  {
-    if (!isActive())
-    {
-      start();
-      return;
-    }
-
-    final long newInterval = calcLocationUpdatesInterval();
-    if (newInterval == mInterval)
-      return;
-
-    Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + newInterval);
-    mLocationProvider.stop();
-    mInterval = newInterval;
-    mLocationProvider.start(newInterval);
-  }
-
   /**
    * Starts polling location updates.
    */
@@ -374,12 +330,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (LocationUtils.checkFineLocationPermission(mContext))
       SensorHelper.from(mContext).start();
 
-    final long oldInterval = mInterval;
-    mInterval = calcLocationUpdatesInterval();
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
+        " mInFirstRun = " + mInFirstRun);
     mActive = true;
-    mLocationProvider.start(mInterval);
+    mLocationProvider.start(INTERVAL_MS);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
     subscribeToGnssStatusUpdates();
   }
