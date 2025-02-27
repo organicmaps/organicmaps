@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइझेशन हे विकासाधीन प्रायोगिक वैशिष्ट्य आहे. तुम्ही तुमच्या सर्व बुकमार्क्स आणि ट्रॅकचा बॅकअप घेतला असल्याची खात्री करा.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud अक्षम आहे";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
 
 /* To indicate if the place proposed self service... */

@@ -443,7 +443,7 @@
 
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
+"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
 
@@ -891,7 +891,7 @@
 
 "mobile_data_option_today" = "Only Today";
 
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Do Not Use Today";
 
 "mobile_data" = "Mobile Internet";
 
@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Imezimwa";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Fungua Katika Programu Nyingine";
 
 /* To indicate if the place proposed self service... */

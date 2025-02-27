@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud är inaktiverat";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Öppna i en annan app";
 
 /* To indicate if the place proposed self service... */

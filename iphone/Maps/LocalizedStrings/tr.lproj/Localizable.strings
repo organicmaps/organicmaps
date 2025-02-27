@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve kayıtlı rotalarınızın yedeğini aldığınızdan emin olun.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Devre Dışı";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Başka Bir Uygulamada Aç";
 
 /* To indicate if the place proposed self service... */

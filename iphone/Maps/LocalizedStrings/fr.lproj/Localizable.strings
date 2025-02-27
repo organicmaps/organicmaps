@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "La synchronisation iCloud est une fonctionnalité expérimentale en cours de développement. Assure-toi d'avoir fait une sauvegarde de tous tes signets et pistes.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud est désactivé";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Erreur : iCloud n'est pas disponible";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Ouvrir dans une autre application";
 
 /* To indicate if the place proposed self service... */

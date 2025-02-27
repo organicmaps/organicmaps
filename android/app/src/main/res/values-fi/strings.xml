@@ -859,7 +859,7 @@
     <string name="website_menu">Valikkolinkki</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Näytä valikko</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Avaa toisessa sovelluksessa</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Itsepalvelu</string>

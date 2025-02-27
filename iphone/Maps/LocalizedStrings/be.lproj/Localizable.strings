@@ -1337,7 +1337,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Сінхранізацыя з iCloud - гэта эксперыментальная функцыя, якая знаходзіцца ў стадыі распрацоўкі. Пераканайцеся, што вы зрабілі рэзервовую копію ўсіх сваіх закладак і трэкаў.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud адключаны";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1361,7 +1361,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Памылка: iCloud недаступны";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Адкрыць у іншай прыладзе";
 
 /* To indicate if the place proposed self service... */

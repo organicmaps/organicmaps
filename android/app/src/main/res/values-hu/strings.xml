@@ -831,7 +831,7 @@
     <string name="website_menu">Menü link</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menü megtekintése</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Megnyitás egy másik alkalmazásban</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Önkiszolgáló</string>
