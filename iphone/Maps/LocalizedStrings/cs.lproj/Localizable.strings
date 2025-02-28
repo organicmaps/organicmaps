@@ -1998,11 +1998,11 @@
 "type.railway.monorail" = "Jednokolejná železnice";
 "type.railway.monorail.bridge" = "Most jednokolejné železnice";
 "type.railway.monorail.tunnel" = "Tunel jednokolejné železnice";
-"type.railway.narrow_gauge" = "Úzkorozchodná železnice tunel";
+"type.railway.narrow_gauge" = "Tunel úzkorozchodné železnice";
 "type.railway.narrow_gauge.bridge" = "Most úzkorozchodné železnice";
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
-"type.railway.platform" = "Railway Platform";
-"type.railway.preserved" = "Preserved Rail";
+"type.railway.narrow_gauge.tunnel" = "Tunel úzkorozchodné železnice";
+"type.railway.platform" = "Železniční nástupiště";
+"type.railway.preserved" = "Zachovalá železnice tunel";
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 "type.railway.rail" = "Železnice";
