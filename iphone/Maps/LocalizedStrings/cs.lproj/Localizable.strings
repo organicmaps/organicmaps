@@ -2275,10 +2275,10 @@
 "type.railway.subway_entrance.yokohama" = "Vchod do podchodu";
 "type.railway.tram" = "Tramvajová trať";
 "type.railway.tram.bridge" = "Most tramvajové trati";
-"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram.tunnel" = "Tunel tramvajové trati";
 "type.railway.tram_stop" = "Tramvajová zastávka";
-"type.route" = "Route";
-"type.route.ferry" = "Ferry";
+"type.route" = "Trasa";
+"type.route.ferry" = "Přívoz";
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Obchod";
 "type.shop.alcohol" = "Obchod s alkoholem";
@@ -2295,7 +2295,7 @@
 "type.shop.car_parts" = "Autodíly";
 "type.shop.car_repair" = "Auto opravna";
 "type.shop.car_repair.tyres" = "Pneuservis";
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Prodejce obytných vozů";
 "type.shop.carpet" = "Koberce";
 "type.shop.chemist" = "Drogerie";
 "type.shop.chocolate" = "Obchod s čokoládou";
@@ -2325,14 +2325,14 @@
 "type.shop.greengrocer" = "Ovoce a zelenina";
 "type.shop.grocery" = "Potraviny";
 "type.shop.hairdresser" = "Kadeřnictví";
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Železářství";
 "type.shop.health_food" = "Prodejna zdravé výživy";
 "type.shop.hearing_aids" = "Obchod se sluchadly";
 "type.shop.herbalist" = "Obchod s bylinkami";
 "type.shop.hifi" = "HiFi audio";
 "type.shop.houseware" = "Obchod s domácími potřebami";
 "type.shop.jewelry" = "Klenotnictví";
-"type.shop.kiosk" = "Kiosk";
+"type.shop.kiosk" = "Kiosek";
 "type.shop.kitchen" = "Prodejna kuchyní";
 "type.shop.laundry" = "Prádelna";
 "type.shop.mall" = "Obchoďák";
@@ -2435,7 +2435,7 @@
 "type.sport.field_hockey" = "Pozemní hokej";
 "type.sport.badminton" = "Badminton";
 "type.sport.pelota" = "Baskická pelota";
-"type.tourism" = "Tourism";
+"type.tourism" = "Turistika";
 "type.tourism.aquarium" = "Akvárium";
 
 /* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
@@ -2449,8 +2449,8 @@
 "type.tourism.attraction" = "Atrakce";
 "type.attraction.amusement_ride" = "Zábavní jízda";
 "type.attraction.animal" = "Ohrada pro zvířata";
-"type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.bumper_car" = "Autodrom";
+"type.attraction.big_wheel" = "Ruské kolo";
 "type.attraction.carousel" = "Kolotoč";
 "type.attraction.historic" = "Historická atrakce";
 "type.attraction.maze" = "Bludiště";
