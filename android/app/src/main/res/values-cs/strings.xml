@@ -412,7 +412,7 @@
     <string name="editor_time_title">Otevírací doba</string>
     <string name="editor_time_advanced">Pokročilý režim</string>
     <string name="editor_time_simple">Jednoduchý režim</string>
-    <string name="editor_hours_closed">Doba, kdy je zavřeno</string>
+    <string name="editor_hours_closed">Zavřeno</string>
     <string name="editor_example_values">Vzorové hodnoty</string>
     <string name="editor_correct_mistake">Opravit chybu</string>
     <string name="editor_add_select_location">Zvolte umístění</string>
@@ -634,8 +634,8 @@
     </plurals>
     <string name="restore">Obnovit</string>
     <plurals name="tracks">
-        <item quantity="one">%d stop</item>
-        <item quantity="few"/>
+        <item quantity="one">%d stopa</item>
+        <item quantity="few">%d stopy</item>
         <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -1197,7 +1197,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.footway.tunnel">Tunel</string>
+    <string name="type.highway.footway.tunnel">Tunel pro pěší</string>
     <string name="type.highway.ford">Brod</string>
     <string name="type.highway.living_street">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1208,7 +1208,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.motorway.tunnel">Tunel</string>
+    <string name="type.highway.motorway.tunnel">Silniční tunel</string>
     <string name="type.highway.motorway_junction">Dopravní uzel</string>
     <string name="type.highway.motorway_link">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1232,7 +1232,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">Tunel</string>
+    <string name="type.highway.pedestrian.tunnel">Tunel pro pěší</string>
     <string name="type.highway.primary">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
