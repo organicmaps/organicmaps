@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "एक वर्षांपूर्वी";
 "near_me_sorttype" = "माझ्या जवळ";
 "others_sorttype" = "इतर";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "अन्न";
 "tourist_places" = "पर्यटन स्थळ";
 "museums" = "संग्रहालय";

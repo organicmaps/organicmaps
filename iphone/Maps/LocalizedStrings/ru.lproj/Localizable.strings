@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Больше года назад";
 "near_me_sorttype" = "Рядом со мной";
 "others_sorttype" = "Другие";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Еда";
 "tourist_places" = "Достопримечательности";
 "museums" = "Музеи";

@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Zaidi ya mwaka mmoja uliopita";
 "near_me_sorttype" = "Karibu yangu";
 "others_sorttype" = "Nyingine";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Chakula";
 "tourist_places" = "Vivutio";
 "museums" = "Makumbusho";

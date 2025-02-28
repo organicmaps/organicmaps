@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Pred viac ako rokom";
 "near_me_sorttype" = "Blízko mňa";
 "others_sorttype" = "Iné";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Jedlo";
 "tourist_places" = "Pamiatky";
 "museums" = "Múzeá";

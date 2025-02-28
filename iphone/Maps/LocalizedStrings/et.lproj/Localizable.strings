@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Üle aasta tagasi";
 "near_me_sorttype" = "Minu lähedal";
 "others_sorttype" = "Muud";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Toit";
 "tourist_places" = "Vaatamisväärsused";
 "museums" = "Muuseumid";

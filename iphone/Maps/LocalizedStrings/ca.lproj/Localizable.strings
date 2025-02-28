@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Fa més d'un any";
 "near_me_sorttype" = "Prop meu";
 "others_sorttype" = "Altres";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Menjar";
 "tourist_places" = "Llocs d'interès";
 "museums" = "Museus";
