@@ -2177,7 +2177,7 @@
     <string name="type.landuse.recreation_ground">Rekreační areál</string>
     <string name="type.landuse.meadow">Louka</string>
     <string name="type.power.line">Elektrické vedení</string>
-    <string name="type.power.pole">Power Pole</string>
+    <string name="type.power.pole">Sloup elektrického vedení</string>
     <string name="type.landuse.greenfield">Zatravněná plocha</string>
     <string name="type.junction.circular">Kruhový objezd</string>
     <string name="type.landuse">Využití území</string>
@@ -2216,4 +2216,5 @@
     <string name="type.psurface.paved_good">psurface-paved_good</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Veřejná doprava</string>
+    <string name="type.man_made.utility_pole">Užitkový sloup</string>
 </resources>
