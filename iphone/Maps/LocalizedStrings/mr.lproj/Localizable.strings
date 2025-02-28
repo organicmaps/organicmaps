@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV Facilities";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!";
 
 /* message title of loading file */

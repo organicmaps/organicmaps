@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV用";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!";
 
 /* message title of loading file */

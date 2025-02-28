@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Para trailers";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!";
 
 /* message title of loading file */

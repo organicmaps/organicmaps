@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV용";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */

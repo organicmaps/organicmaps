@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "आरवी सुविधाएं";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "नमस्ते!\n\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz\n\nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!";
 
 /* message title of loading file */

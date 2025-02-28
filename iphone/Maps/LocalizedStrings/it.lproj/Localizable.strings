@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Per camper";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!";
 
 /* message title of loading file */

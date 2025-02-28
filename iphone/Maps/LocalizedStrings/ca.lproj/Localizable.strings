@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanes";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
 
 /* message title of loading file */

@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karvan qurğuları";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!";
 
 /* message title of loading file */
