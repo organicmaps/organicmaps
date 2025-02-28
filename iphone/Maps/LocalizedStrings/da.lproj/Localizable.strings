@@ -1454,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psykoterapi";
 "type.healthcare.sample_collection" = "Prøvetagning";
 "type.healthcare.speech_therapist" = "Tale terapi";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
