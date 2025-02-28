@@ -316,7 +316,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_stringsBundle.SetDefaultString("core_exit", "Exit");
   m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Map Point");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
-  m_stringsBundle.SetDefaultString("core_my_position", "My Position");
+  m_stringsBundle.SetDefaultString("core_my_location", "My location");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
 
   m_featuresFetcher.InitClassificator();
@@ -786,7 +786,7 @@ void Framework::FillMyPositionInfo(place_page::Info & info, place_page::BuildInf
   auto const position = GetCurrentPosition();
   CHECK(position, ());
   info.SetMercator(*position);
-  info.SetCustomName(m_stringsBundle.GetString("core_my_position"));
+  info.SetCustomName(m_stringsBundle.GetString("core_my_location"));
 
   UserMark const * mark = FindUserMarkInTapPosition(buildInfo);
   if (mark != nullptr && mark->GetMarkType() == UserMark::Type::ROUTING)
