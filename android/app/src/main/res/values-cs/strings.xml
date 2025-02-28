@@ -633,8 +633,9 @@
     </plurals>
     <string name="restore">Obnovit</string>
     <plurals name="tracks">
-        <item quantity="one">%d cesta</item>
-        <item quantity="other">%d cest</item>
+        <item quantity="one">%d stop</item>
+        <item quantity="few"></item>
+        <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Soukromí</string>
