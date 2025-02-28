@@ -10875,7 +10875,7 @@ de:3Autowerkstatt|Kfz|Reparaturwerkstatt|Auto|4Werkstatt
 hi:3वाहन मरम्मत की दुकान
 hu:3Autószerelő|Autószerviz|Gépkocsiszerviz|Autójavító|4javítóműhely|kocsi
 id:Bengkel mobil
-it:3Riparazione auto|auto|macchina|3automobile|vettura
+it:Meccanico|3Riparazione auto|auto|macchina|3automobile|vettura
 ja:1自動車修理|車|自動車|カー|リペア|修理|カーリペア
 ko:자동차 수리|정비|자동차 수리소|차 수리소
 lv:Autoserviss|serviss|remonts|mehāniķis|U+1F527
