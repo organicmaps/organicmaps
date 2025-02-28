@@ -9,7 +9,7 @@
     <string name="delete">Smazat</string>
     <string name="download_maps">Stáhnout mapy</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Stahování selhalo, zkuste to znovu.</string>
+    <string name="download_has_failed">Stahování selhalo. Klepnutím to zkusíte znovu.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Stahování…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Uložit mapy na</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
+    <string name="maps_storage_summary">Vyberte místo, kam mají být stahovány mapy.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapy</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -335,9 +335,9 @@
     <!-- light blue color -->
     <string name="light_blue">Světle modrá</string>
     <!-- cyan color -->
-    <string name="cyan">Cyan</string>
+    <string name="cyan">Azurová</string>
     <!-- teal color -->
-    <string name="teal">Teal</string>
+    <string name="teal">Čajová</string>
     <!-- lime color -->
     <string name="lime">Limeta</string>
     <!-- deep orange color -->
@@ -482,7 +482,7 @@
     <string name="placepage_add_business_button">Přidat organizaci</string>
     <string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.</string>
+    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci Organic Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.
 \nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!</string>
@@ -502,7 +502,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pro dobrovolníky OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps.</string>
+    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
     <string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
@@ -600,7 +600,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>
     <string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
-    <string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Externí úložiště není k dispozici. Pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte svou SD kartu nebo nás kontaktujte na support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulovat špatné úložiště</string>
     <string name="core_entrance">Vstup</string>
     <string name="error_enter_correct_name">Zadejte prosím správný název</string>
@@ -610,6 +610,7 @@
     <string name="bookmark_lists_show_all">Zobrazit vše</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d záložka</item>
+        <item quantity="few">%d záložky</item>
         <item quantity="other">%d záložek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
@@ -648,7 +649,7 @@
     <string name="bookmarks_empty_list_title">Seznam je prázdný</string>
     <string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
     <string name="category_desc_more">…ještě</string>
-    <string name="export_file">Export KMZ</string>
+    <string name="export_file">Exportovat KMZ</string>
     <string name="export_file_gpx">Export GPX</string>
     <string name="delete_list">Smazat seznam</string>
     <string name="public_access">Veřejně přístupné</string>
@@ -804,7 +805,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tato aplikace potřebuje vaše povolení</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps v systému Android Auto potřebují k efektivní práci povolení k poloze</string>
+    <string name="aa_request_permission_activity_text">Organic Maps v systému Android Auto potřebují k efektivní práci oprávnění k poloze</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Udělení oprávnění</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -849,10 +850,10 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdná - není co ukládat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu</string>
+    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu.</string>
     <string name="choose_color">Vyberte barvu</string>
     <string name="edit_track">Upravit trasu</string>
-    <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která by mohla otevřít umístění</string>
+    <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která dokáže otevřít umístění</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto v navigaci</string>
     <!-- SECTION: Types -->
@@ -953,15 +954,15 @@
     <string name="type.amenity.payment_terminal">Platební terminál</string>
     <string name="type.amenity.pharmacy">Lékárna</string>
     <string name="type.amenity.place_of_worship">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.buddhist">Chrám</string>
-    <string name="type.amenity.place_of_worship.christian">Chrám</string>
+    <string name="type.amenity.place_of_worship.buddhist">Buddhistický chrám</string>
+    <string name="type.amenity.place_of_worship.christian">Kostel</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Církev Ježíše Krista Svatých posledních dnů</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sál Království Jehovových svědků</string>
-    <string name="type.amenity.place_of_worship.hindu">Chrám</string>
+    <string name="type.amenity.place_of_worship.hindu">Hinduistický chrám</string>
     <string name="type.amenity.place_of_worship.jewish">Synagoga</string>
     <string name="type.amenity.place_of_worship.muslim">Mešita</string>
     <string name="type.amenity.place_of_worship.shinto">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.taoist">Chrám</string>
+    <string name="type.amenity.place_of_worship.taoist">Taoistický chrám</string>
     <string name="type.amenity.police">Policie</string>
     <string name="type.amenity.post_box">Poštovní schránka</string>
     <string name="type.amenity.post_office">Pošta</string>
@@ -1161,7 +1162,7 @@
     <string name="type.entrance">Vchod</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Hlavní vchod</string>
-    <string name="type.entrance.exit">Exit</string>
+    <string name="type.entrance.exit">Východ</string>
     <string name="type.fee.no">Zdarma</string>
     <string name="type.healthcare.laboratory">Lékařská laboratoř</string>
     <string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
@@ -1359,7 +1360,7 @@
     <string name="type.historic.memorial.plaque">Pomník</string>
     <string name="type.historic.memorial.sculpture">Pomník</string>
     <string name="type.historic.memorial.statue">Pomník</string>
-    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.historic.memorial.stolperstein">Kámen zmizelých</string>
     <string name="type.historic.stone">Historický kámen</string>
     <string name="type.historic.memorial.war_memorial">Válečný památník</string>
     <string name="type.historic.mine">Historický důl</string>
@@ -2008,9 +2009,9 @@
     <string name="type.wheelchair.limited">Omezený vstup pro vozíčkáře</string>
     <string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
     <string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Snowpark</string>
     <string name="type.piste_type.hike">Zimní stezka</string>
-    <string name="type.piste_type.connection">Piste Connection</string>
+    <string name="type.piste_type.connection">Připojení sjezdovky</string>
     <string name="type.piste_type.skitour">Stezka Skitour</string>
     <string name="type.amenity.events_venue">Místo konání akcí</string>
     <string name="type.shop.auction">Aukce</string>
@@ -2024,8 +2025,9 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Vchod do pohotovostního oddělení</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
-    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.amenity.dojo">Dódžó</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sportovní hala</string>
     <string name="type.railway.narrow_gauge.bridge">Most úzkorozchodné železnice</string>
+    <string name="type.fee.yes">$</string>
 </resources>
