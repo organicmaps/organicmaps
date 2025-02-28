@@ -2068,7 +2068,7 @@
     <string name="connection_failure">Selhání připojení</string>
     <string name="type.amenity.bar">Bar</string>
     <string name="type.barrier.cycle_barrier">Cyklistická bariéra</string>
-    <string name="type.boundary.administrative">Administrative Boundary</string>
+    <string name="type.boundary.administrative">Administrativní hranice</string>
     <string name="type.aerialway">Letecká trasa</string>
     <string name="type.amenity.vending_machine.coffee">Automat na kávu</string>
     <string name="opens_in">Otevírá za %s</string>
