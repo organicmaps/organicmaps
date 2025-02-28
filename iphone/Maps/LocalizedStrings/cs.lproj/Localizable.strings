@@ -2273,7 +2273,7 @@
 "type.railway.subway_entrance.wuhan" = "Vchod do podchodu";
 "type.railway.subway_entrance.yerevan" = "Vchod do podchodu";
 "type.railway.subway_entrance.yokohama" = "Vchod do podchodu";
-"type.railway.tram" = "Tramvajová linka";
+"type.railway.tram" = "Tramvajová trať";
 "type.railway.tram.bridge" = "Most tramvajové trati";
 "type.railway.tram.tunnel" = "Tram Line Tunnel";
 "type.railway.tram_stop" = "Tramvajová zastávka";
