@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Modro sivá";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Pri sledovaní trasy majte na pamäti nasledujúce:";
 "dialog_routing_disclaimer_priority" = "— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;";
 "dialog_routing_disclaimer_precision" = "— Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;";

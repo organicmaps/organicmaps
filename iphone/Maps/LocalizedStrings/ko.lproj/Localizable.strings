@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "청회색";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "경로를 따라갈 때는 다음 사항에 주의해 주세요:";
 "dialog_routing_disclaimer_priority" = "— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;";
 "dialog_routing_disclaimer_precision" = "— 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;";

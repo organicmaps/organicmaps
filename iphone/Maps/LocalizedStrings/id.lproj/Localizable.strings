@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Biru Keabu-abuan";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Saat mengikuti rute, harap diingat:";
 "dialog_routing_disclaimer_priority" = "— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;";
 "dialog_routing_disclaimer_precision" = "— Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;";

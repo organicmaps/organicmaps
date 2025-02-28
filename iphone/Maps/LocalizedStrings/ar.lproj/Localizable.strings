@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "رمادي أزرق";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "عند اتباع المسار، يُرجى الانتباه إلى ما يلي:";
 "dialog_routing_disclaimer_priority" = "— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;";
 "dialog_routing_disclaimer_precision" = "— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";

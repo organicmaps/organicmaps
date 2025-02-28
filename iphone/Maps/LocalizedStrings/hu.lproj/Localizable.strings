@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Kékes Szürke";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:";
 "dialog_routing_disclaimer_priority" = "— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;";
 "dialog_routing_disclaimer_precision" = "— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";

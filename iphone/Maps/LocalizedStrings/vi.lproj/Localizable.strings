@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Xám xanh da trời";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Khi đi theo tuyến đường, hãy lưu ý:";
 "dialog_routing_disclaimer_priority" = "— Điều kiện đường, luật giao thông và biển báo đường bộ luôn được ưu tiên hơn lời khuyên định hướng;";
 "dialog_routing_disclaimer_precision" = "— Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;";

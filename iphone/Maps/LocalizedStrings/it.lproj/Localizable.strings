@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Grigiazzurro";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Quando segui il percorso, ricorda che:";
 "dialog_routing_disclaimer_priority" = "— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sulle indicazioni del navigatore;";
 "dialog_routing_disclaimer_precision" = "— La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;";

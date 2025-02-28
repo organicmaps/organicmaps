@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Плаво сива";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Када пратите руту, обратите пажњу на:";
 "dialog_routing_disclaimer_priority" = "— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бити нетачна и предложена рута не мора увек бити најоптималнији начин да стигнете на одредиште;";

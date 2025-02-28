@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blue Grey";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
