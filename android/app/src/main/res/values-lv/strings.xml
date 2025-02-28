@@ -114,7 +114,6 @@
     <string name="measurement_units">Mērvienības</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Izvēlieties starp jūdzēm un kilometriem</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kur paēst</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Ūdens</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Dzīvojamo auto labierīcības</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Piezīmes</string>
@@ -366,7 +364,6 @@
     <string name="gray">Pelēka</string>
     <!-- blue gray color -->
     <string name="blue_gray">Zilpelēka</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Sekojot maršrutam, ievērojiet:</string>
     <string name="dialog_routing_disclaimer_priority">— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;</string>
@@ -396,7 +393,6 @@
     <string name="not_now">Ne tagad</string>
     <string name="dialog_routing_download_and_build_cross_route">Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?</string>
     <string name="dialog_routing_download_cross_route">Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lejupielādējiet karti, lai sāktu meklēt un veidot maršrutus. Pēc tam tīkla pieslēgumu vairs nevajadzēs.</string>
     <string name="search_select_map">Atlasīt karti</string>
@@ -629,7 +625,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
-    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simulēt bojātu krātuvi</string>
     <string name="core_entrance">Ieeja</string>
     <string name="error_enter_correct_name">Ierakstiet pareizu nosaukumu</string>
@@ -750,7 +746,6 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>
     <string name="tourist_places">Apskates objekti</string>
@@ -863,17 +858,14 @@
     <string name="power_save_dialog_summary">Lai navigācija būtu pēc iespējas precīzāka, iesakām tālruņa baterijas iesatatījumos izslēgt energotaupības režīmu.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
     <string name="edit_track">Ceļa labošana</string>
-
     <!-- SECTION: Types -->
     <string name="type.amenity.motorcycle_rental">Motociklu noma</string>
     <string name="type.amenity.charging_station.bicycle">Velosipēdu uzlāde</string>
-
     <!-- SECTION: Types: Recycling -->
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Glābējs</string>
     <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
-
     <!-- SECTION: Types: Historic -->
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
