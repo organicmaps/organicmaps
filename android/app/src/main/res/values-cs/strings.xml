@@ -2232,7 +2232,7 @@
     <string name="type.railway.narrow_gauge">Tunel úzkorozchodné železnice</string>
     <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
     <string name="type.railway.platform">Železniční nástupiště</string>
-    <string name="type.railway.preserved">Zachovalá železnice tunel</string>
+    <string name="type.railway.preserved">Zachovalá železnice</string>
     <string name="type.railway.narrow_gauge.tunnel">Tunel úzkorozchodné železnice</string>
     <string name="type.railway.subway.tunnel">Tunel trasy metra</string>
     <string name="type.railway.preserved.tunnel">Tunel zachovalé železnice</string>
@@ -2240,4 +2240,5 @@
     <string name="type.railway.tram.bridge">Most tramvajové trati</string>
     <string name="type.railway.tram">Tramvajová linka</string>
     <string name="type.railway.preserved.bridge">Most zachovalé železnice</string>
+    <string name="type.railway.subway">Trasa metra</string>
 </resources>
