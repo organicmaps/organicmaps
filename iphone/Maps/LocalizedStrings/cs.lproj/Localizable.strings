@@ -2002,9 +2002,9 @@
 "type.railway.narrow_gauge.bridge" = "Most úzkorozchodné železnice";
 "type.railway.narrow_gauge.tunnel" = "Tunel úzkorozchodné železnice";
 "type.railway.platform" = "Železniční nástupiště";
-"type.railway.preserved" = "Zachovalá železnice tunel";
-"type.railway.preserved.bridge" = "Preserved Rail Bridge";
-"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.preserved" = "Zachovalá železnice";
+"type.railway.preserved.bridge" = "Most zachovalé železnice";
+"type.railway.preserved.tunnel" = "Tunel zachovalé železnice";
 "type.railway.rail" = "Železnice";
 "type.railway.rail.highspeed" = "Vysokorychlostní železnice";
 "type.railway.rail.tourism" = "Turistická železnice";
@@ -2156,9 +2156,9 @@
 "type.railway.station.subway.wuhan" = "Metro";
 "type.railway.station.subway.yerevan" = "Metro";
 "type.railway.station.subway.yokohama" = "Metro";
-"type.railway.subway" = "Subway Line";
-"type.railway.subway.bridge" = "Subway Line Bridge";
-"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway" = "Trasa metra";
+"type.railway.subway.bridge" = "Most trasy metra";
+"type.railway.subway.tunnel" = "Tunel trasy metra";
 "type.railway.subway_entrance" = "Vchod do podchodu";
 "type.railway.subway_entrance.adana" = "Vchod do podchodu";
 "type.railway.subway_entrance.algiers" = "Vchod do podchodu";
@@ -2273,8 +2273,8 @@
 "type.railway.subway_entrance.wuhan" = "Vchod do podchodu";
 "type.railway.subway_entrance.yerevan" = "Vchod do podchodu";
 "type.railway.subway_entrance.yokohama" = "Vchod do podchodu";
-"type.railway.tram" = "Tram Line";
-"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram" = "Tramvajová linka";
+"type.railway.tram.bridge" = "Most tramvajové trati";
 "type.railway.tram.tunnel" = "Tram Line Tunnel";
 "type.railway.tram_stop" = "Tramvajová zastávka";
 "type.route" = "Route";
