@@ -114,7 +114,6 @@
     <string name="measurement_units">יחידות מדידה</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">איפה לאכול</string>
@@ -160,7 +159,6 @@
     <string name="category_water">מים</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">עבור קרוואנים</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">הערות</string>
@@ -361,7 +359,6 @@
     <string name="gray">אפור</string>
     <!-- blue gray color -->
     <string name="blue_gray">כחול אפרפר</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:</string>
     <string name="dialog_routing_disclaimer_priority">— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;</string>
@@ -391,7 +388,6 @@
     <string name="not_now">לא עכשיו</string>
     <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
     <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.</string>
     <string name="search_select_map">בחר מפה</string>
@@ -627,7 +623,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
     <string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
-    <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
     <string name="core_entrance">כניסה</string>
     <string name="error_enter_correct_name">נא להזין שם תקין</string>
@@ -745,7 +741,6 @@
     <string name="moreyear_ago_sorttype">לפני יותר משנה</string>
     <string name="near_me_sorttype">קרוב אלי</string>
     <string name="others_sorttype">אחרים</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">אוכל</string>
     <string name="tourist_places">תיירות</string>
@@ -885,7 +880,6 @@
     <string name="uri_open_location_failed">לא מותקנת אפליקציה שיכולה לפתוח את המיקום</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">אוטומטי בניווט</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">כתובת/שכונה</string>
     <string name="type.addr_interpolation.even">כתובת/שכונה</string>
@@ -1013,7 +1007,6 @@
     <string name="type.amenity.prison">בית כלא</string>
     <string name="type.amenity.pub">פאב</string>
     <string name="type.amenity.public_bookcase">כוננית ספרים ציבורית</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">מרכז מיחזור</string>
     <string name="type.amenity.recycling">מיכל מיחזור</string>
@@ -1256,7 +1249,6 @@
     <string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
     <string name="type.healthcare.sample_collection">מרכז איסוף דגימות</string>
     <string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">כביש</string>
     <string name="type.highway.bridleway">שביל סוסים</string>
@@ -1422,7 +1414,6 @@
     <string name="type.area_highway.track">מסלול</string>
     <string name="type.area_highway.trunk">כביש בין עירוני</string>
     <string name="type.area_highway.unclassified">כביש לא מסומן/מזערי</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">חפץ היסטורי</string>
     <string name="type.historic.aircraft">מטוס היסטורי</string>
