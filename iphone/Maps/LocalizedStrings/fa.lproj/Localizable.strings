@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "جزئیات در Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak را غیرفعال کنید";
 "placepage_call_button" = "تماس";
 "placepage_edit_bookmark_button" = "ویرایش نشانه‌ها";
 "placepage_bookmark_name_hint" = "نام نشانه‌ها";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "کاهش";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "لیست";
 "mobile_data_dialog" = "از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟";
 "mobile_data_option_always" = "همیشه استفاده کن";
 "mobile_data_option_today" = "فقط امروز";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "پایین آمدن";
 "elevation_profile_min_elevation" = "کم ارتفاع";
 "elevation_profile_max_elevation" = "بیش ارتفاع";
-"elevation_profile_difficulty" = "دشواری";
-"elevation_profile_time" = "زمان:";
 "isolines_toast_zooms_1_10" = "برای بررسی خطوط تراز زوم کنید";
 "downloader_updating_ios" = "در حال بروزرسانی";
 "downloader_loading_ios" = "در حال دانلود";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "همگام سازی iCloud یک ویژگی آزمایشی در دست توسعه است. مطمئن شوید که از تمام نشانکu200cها و آهنگu200cهای خود یک نسخه پشتیبان تهیه کردهu200cاید.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud غیرفعال است";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "خطا: iCloud در دسترس نیست";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "در یک برنامه دیگر باز کنید";
 
 /* To indicate if the place proposed self service... */

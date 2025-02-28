@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Xizək sürmə haqqında təfərrüatlar";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak-ı söndürün";
 "placepage_call_button" = "Zəng";
 "placepage_edit_bookmark_button" = "Əlfəcini redaktə edin";
 "placepage_bookmark_name_hint" = "Əlfəcin Adı";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Rədd et";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Siyahı";
 "mobile_data_dialog" = "Ətraflı məlumatı görmək üçün mobil internetdən istifadə etmək istəyirsiniz?";
 "mobile_data_option_always" = "İstənilən vaxt istifadə edin";
 "mobile_data_option_today" = "Sadəcə bu gün";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Eniş";
 "elevation_profile_min_elevation" = "Min. hündürlük";
 "elevation_profile_max_elevation" = "Maks. hündürlük";
-"elevation_profile_difficulty" = "Çətinlik";
-"elevation_profile_time" = "Müddət:";
 "isolines_toast_zooms_1_10" = "İzohipləri görmək üçün xəritəni böyüdün";
 "downloader_updating_ios" = "Yenilənir";
 "downloader_loading_ios" = "Endirilir";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud sinxronizasiyası inkişaf mərhələsində olan eksperimental xüsusiyyətdir. Bütün əlfəcinlərinizin və treklərinizin ehtiyat nüsxəsini yaratdığınızdan əmin olun.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Deaktivdir";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Xəta: iCloud mövcud deyil";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Başqa Tətbiqdə Açın";
 
 /* To indicate if the place proposed self service... */

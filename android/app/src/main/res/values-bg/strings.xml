@@ -29,6 +29,10 @@
     <string name="search_map">Търсене в карта</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">В момента всички услуги за местоположение за това устройство или приложение са деактивирани. Моля, разрешете ги в Настройки.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Ограничена точност</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">За да осигурите точна навигация, активирайте функцията \"Точно местоположение\" в настройките.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Показване на картата</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -771,7 +775,7 @@
     <string name="website_menu">Връзка към менюто</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Преглед на менюто</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Отваряне в друго приложение</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Самообслужване</string>

@@ -56,7 +56,7 @@
 "about_proposition_2" = "• No battery drain, works offline";
 
 /* Text in About screen */
-"about_proposition_3" = "• Fast, minimalist, developed by community";
+"about_proposition_3" = "• Fast, minimalist, developed by the community";
 "close" = "Close";
 "download" = "Download";
 
@@ -427,7 +427,7 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
+"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
 "dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
 "dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.";
@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Details on Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Disable Kayak";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";
@@ -712,13 +709,10 @@
 
 /* For the first routing */
 "decline" = "Decline";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "List";
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 "mobile_data_option_always" = "Use Always";
 "mobile_data_option_today" = "Only Today";
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Do Not Use Today";
 "mobile_data" = "Mobile Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -735,7 +729,7 @@
 "traffic_data_unavailable" = "Traffic data is not available";
 "enable_logging" = "Enable logging";
 "log_file_size" = "Log file size: %@";
-"transliteration_title" = "Transliteration into Latin alphabet";
+"transliteration_title" = "Transliterate into Latin alphabet";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Exit";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";
 "elevation_profile_max_elevation" = "Max. elevation";
-"elevation_profile_difficulty" = "Difficulty";
-"elevation_profile_time" = "Time:";
 "isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
 "downloader_updating_ios" = "Updating";
 "downloader_loading_ios" = "Downloading";
@@ -1035,8 +1027,8 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud synchronization is an experimental feature under development. Make sure that you have made a backup of all your bookmarks and tracks.";
 
-/* Title for the "iCloud is Disabled" alert. */
-"icloud_disabled_title" = "iCloud is Disabled";
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud Is Disabled";
 
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Please enable iCloud in your device's settings to use this feature.";
@@ -1059,8 +1051,8 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud is not available";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
-"open_in_app" = "Open In Another App";
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Open in Another App";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Self-service";

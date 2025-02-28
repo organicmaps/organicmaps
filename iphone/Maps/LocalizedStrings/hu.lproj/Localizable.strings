@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Részletek a Kayak-on";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak kikapcsolása";
 "placepage_call_button" = "Hívás";
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Elutasít";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Lista";
 "mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 "mobile_data_option_always" = "Mindig használja";
 "mobile_data_option_today" = "Csak ma";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Leereszkedés";
 "elevation_profile_min_elevation" = "Min. magasság";
 "elevation_profile_max_elevation" = "Max. magasság";
-"elevation_profile_difficulty" = "Nehézség";
-"elevation_profile_time" = "Idő";
 "isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
 "downloader_updating_ios" = "Feltöltés";
 "downloader_loading_ios" = "Letöltés";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Az iCloud-szinkronizálás egy fejlesztés alatt álló kísérleti funkció. Győződjön meg róla, hogy készített biztonsági másolatot az összes könyvjelzőjéről és zeneszámáról.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "Az iCloud letiltva";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hiba: Az iCloud nem elérhető";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Megnyitás egy másik alkalmazásban";
 
 /* To indicate if the place proposed self service... */

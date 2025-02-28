@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Detalii pe Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Dezactivați Kayak";
 "placepage_call_button" = "Apelează";
 "placepage_edit_bookmark_button" = "Modifică locul preferat";
 "placepage_bookmark_name_hint" = "Numele locului preferat";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Refuză";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Listă";
 "mobile_data_dialog" = "Folosești internetul mobil pentru a vedea informații detaliate?";
 "mobile_data_option_always" = "Folosește mereu";
 "mobile_data_option_today" = "Doar astăzi";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Coborâre";
 "elevation_profile_min_elevation" = "Min. altitudine";
 "elevation_profile_max_elevation" = "Max. altitudine";
-"elevation_profile_difficulty" = "Dificultate";
-"elevation_profile_time" = "Timp:";
 "isolines_toast_zooms_1_10" = "Mărește harta pentru a vedea izoliniile";
 "downloader_updating_ios" = "Se actualizează";
 "downloader_loading_ios" = "Se descarcă";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Sincronizarea iCloud este o funcție experimentală aflată în curs de dezvoltare. Asigurați-vă că ați făcut o copie de rezervă a tuturor marcajelor și pieselor dvs.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud este dezactivat";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Eroare: iCloud nu este disponibil";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Deschidere în altă aplicație";
 
 /* To indicate if the place proposed self service... */

@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Information på Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Inaktivera Kayak";
 "placepage_call_button" = "Ring";
 "placepage_edit_bookmark_button" = "Redigera bokmärke";
 "placepage_bookmark_name_hint" = "Bokmärkesnamn";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Neka";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Lista";
 "mobile_data_dialog" = "Använd mobilt nätverk för att visa detaljerad information?";
 "mobile_data_option_always" = "Använd alltid";
 "mobile_data_option_today" = "Endast idag";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Backe";
 "elevation_profile_min_elevation" = "Min. höjd";
 "elevation_profile_max_elevation" = "Max. höjd";
-"elevation_profile_difficulty" = "Svårighet";
-"elevation_profile_time" = "Tid:";
 "isolines_toast_zooms_1_10" = "Förstora kartan för att se höjdlinjer";
 "downloader_updating_ios" = "Uppdaterar";
 "downloader_loading_ios" = "Nedladdning";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud är inaktiverat";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Öppna i en annan app";
 
 /* To indicate if the place proposed self service... */

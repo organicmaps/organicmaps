@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "التفاصيل على Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "تعطيل Kayak";
 "placepage_call_button" = "اتصال";
 "placepage_edit_bookmark_button" = "تحرير العلامة المرجعية";
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "رفض";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "قائمة";
 "mobile_data_dialog" = "استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟";
 "mobile_data_option_always" = "استخدام دائمًا";
 "mobile_data_option_today" = "اليوم فقط";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "تنازلي";
 "elevation_profile_min_elevation" = "أقل ارتفاع";
 "elevation_profile_max_elevation" = "أعلى ارتفاع";
-"elevation_profile_difficulty" = "درجة الصعوبة";
-"elevation_profile_time" = "المدة:";
 "isolines_toast_zooms_1_10" = "قم بالتقريب لتكتشف خطوط الكنتور";
 "downloader_updating_ios" = "جاري التحديث";
 "downloader_loading_ios" = "جاري التنزيل";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "تعد مزامنة iCloud ميزة تجريبية قيد التطوير. تأكد من عمل نسخة احتياطية لجميع الإشارات المرجعية والمسارات الخاصة بك.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "تم تعطيل iCloud";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "خطأ: iCloud غير متوفر";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "فتح في تطبيق آخر";
 
 /* To indicate if the place proposed self service... */

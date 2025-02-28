@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Details op Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak uitschakelen";
 "placepage_call_button" = "Bel";
 "placepage_edit_bookmark_button" = "Bewerk bladwijzer";
 "placepage_bookmark_name_hint" = "Bladwijzernaam";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Weiger";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Lijst";
 "mobile_data_dialog" = "Mobiel internet gebruiken om gedetailleerde informatie weer te geven?";
 "mobile_data_option_always" = "Gebruik altijd";
 "mobile_data_option_today" = "Alleen vandaag";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Daling";
 "elevation_profile_min_elevation" = "Min. hoogte";
 "elevation_profile_max_elevation" = "Max. hoogte";
-"elevation_profile_difficulty" = "Moeilijkheid";
-"elevation_profile_time" = "Tijd:";
 "isolines_toast_zooms_1_10" = "Zoom in om hoogtelijnen te bekijken";
 "downloader_updating_ios" = "Updaten";
 "downloader_loading_ios" = "Downloaden";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud synchronisatie is een experimentele functie in ontwikkeling. Zorg ervoor dat je een back-up hebt gemaakt van al je bladwijzers en tracks.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud is uitgeschakeld";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Fout: iCloud is niet beschikbaar";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Openen in een andere app";
 
 /* To indicate if the place proposed self service... */

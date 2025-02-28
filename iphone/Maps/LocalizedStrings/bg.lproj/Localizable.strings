@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Подробности в Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Деактивиране на Kayak";
 "placepage_call_button" = "Обаждане";
 "placepage_edit_bookmark_button" = "Редакция на отметка";
 "placepage_bookmark_name_hint" = "Име на отметка";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Отказване";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Списък";
 "mobile_data_dialog" = "Използване на мобилни данни за подробна информация?";
 "mobile_data_option_always" = "Винаги";
 "mobile_data_option_today" = "Само днес";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Спускане";
 "elevation_profile_min_elevation" = "Мин. височина";
 "elevation_profile_max_elevation" = "Макс. височина";
-"elevation_profile_difficulty" = "Трудност";
-"elevation_profile_time" = "Време:";
 "isolines_toast_zooms_1_10" = "Увеличете мащаба, за да разгледате изолиниите";
 "downloader_updating_ios" = "Updating";
 "downloader_loading_ios" = "Downloading";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Синхронизацията в iCloud е експериментална функция в процес на разработка. Уверете се, че сте направили резервно копие на всичките си отметки и песни.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud е деактивиран";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Грешка: iCloud не е наличен";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Отваряне в друго приложение";
 
 /* To indicate if the place proposed self service... */

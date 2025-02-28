@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Kayak의 세부 정보";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak 비활성화";
 "placepage_call_button" = "전화";
 "placepage_edit_bookmark_button" = "즐겨찾기 편집";
 "placepage_bookmark_name_hint" = "즐겨찾기 이름";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "거부";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "목록";
 "mobile_data_dialog" = "모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?";
 "mobile_data_option_always" = "항상 사용";
 "mobile_data_option_today" = "오늘만";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
 "elevation_profile_max_elevation" = "최대 높이";
-"elevation_profile_difficulty" = "난이도";
-"elevation_profile_time" = "소비 시간:";
 "isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
 "downloader_updating_ios" = "업데이트 중";
 "downloader_loading_ios" = "다운로드 중";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud 동기화는 개발 중인 실험적 기능입니다. 모든 북마크와 트랙을 백업해 두었는지 확인하세요.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud가 비활성화됨";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "오류: iCloud를 사용할 수 없습니다.";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "다른 앱에서 열기";
 
 /* To indicate if the place proposed self service... */

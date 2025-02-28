@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Strings -->
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Usahihi mdogo</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Ili kuhakikisha urambazaji sahihi huwezesha eneo sahihi katika mipangilio.</string>
     <!-- Text in About screen -->
     <string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
     <!-- Text in About screen -->
@@ -383,7 +387,7 @@
     <string name="website_menu">Kiungo cha menyu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Tazama Menyu</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Fungua Katika Programu Nyingine</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Kujihudumia</string>

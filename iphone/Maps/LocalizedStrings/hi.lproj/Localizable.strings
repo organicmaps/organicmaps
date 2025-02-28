@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "कयाक पर विवरण";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak अकषम कर";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";
@@ -712,13 +709,10 @@
 
 /* For the first routing */
 "decline" = "मैंने गिराया";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "सूची";
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 "mobile_data_option_always" = "हमेशा उपयोग करें";
 "mobile_data_option_today" = "Only Today";
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Do Not Use Today";
 "mobile_data" = "मोबाइल इंटरनेट";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Descent";
 "elevation_profile_min_elevation" = "Min. elevation";
 "elevation_profile_max_elevation" = "Max. elevation";
-"elevation_profile_difficulty" = "Difficulty";
-"elevation_profile_time" = "Time:";
 "isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
 "downloader_updating_ios" = "Updating";
 "downloader_loading_ios" = "Downloading";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइज़ेशन विकासाधीन एक प्रायोगिक सुविधा है। सुनिश्चित करें कि आपने अपने सभी बुकमार्क और ट्रैक का बैकअप बना लिया है।";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud अक्षम है";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "त्रुटि: iCloud उपलब्ध नहीं है";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "किसी अन्य ऐप में खोलें";
 
 /* To indicate if the place proposed self service... */

@@ -26,6 +26,10 @@
     <string name="search_map">חפש במפה</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. יש להפעילם דרך \"הגדרות\" (Settings).</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">דיוק מוגבל</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">כדי להבטיח ניווט מדויק לאפשר מיקום מדויק בהגדרות.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">הצג במפה</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -851,7 +855,7 @@
     <string name="website_menu">קישור לתפריט</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">תפריט תצוגה</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">פתח באפליקציה אחרת</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">שירות עצמי</string>

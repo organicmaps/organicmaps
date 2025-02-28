@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Mer informasjon om Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Deaktiver Kayak";
 "placepage_call_button" = "Ring";
 "placepage_edit_bookmark_button" = "Rediger bokmerke";
 "placepage_bookmark_name_hint" = "Bokmerkenavn";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Avvis";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Liste";
 "mobile_data_dialog" = "Bruke mobilt Internett til å vise detaljert informasjon?";
 "mobile_data_option_always" = "Bruk alltid";
 "mobile_data_option_today" = "Bare i dag";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Nedstigning";
 "elevation_profile_min_elevation" = "Min. høyde";
 "elevation_profile_max_elevation" = "Maks. høyde";
-"elevation_profile_difficulty" = "Vanskelighet";
-"elevation_profile_time" = "I rute";
 "isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
 "downloader_updating_ios" = "Oppdatering";
 "downloader_loading_ios" = "Nedlasting";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud-synkronisering er en eksperimentell funksjon under utvikling. Sørg for at du har tatt en sikkerhetskopi av alle bokmerkene og sporene dine.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud er deaktivert";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Feil: iCloud er ikke tilgjengelig";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Åpne i en annen app";
 
 /* To indicate if the place proposed self service... */

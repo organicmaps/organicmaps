@@ -9,7 +9,7 @@
     <string name="delete">Delete</string>
     <string name="download_maps">Download Maps</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Download has failed. Touch to try again.</string>
+    <string name="download_has_failed">Download has failed. Tap to try again.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Downloading…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -29,6 +29,10 @@
     <string name="search_map">Search Map</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">You currently have all Location Services for this device or application disabled. Please enable them in Settings.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Limited Accuracy</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">To ensure accurate navigation enable Precise Location in settings.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Show on the map</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -43,7 +47,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• No battery drain, works offline</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Fast, minimalist, developed by community</string>
+    <string name="about_proposition_3">• Fast, minimalist, developed by the community</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Open-source application created by enthusiasts and volunteers.</string>
     <!-- The button that opens system location settings -->
@@ -389,7 +393,7 @@
 
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
-    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over the navigation hints;</string>
+    <string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over navigation hints;</string>
     <string name="dialog_routing_disclaimer_precision">— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Suggested routes should only be understood as recommendations;</string>
     <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.</string>
@@ -625,7 +629,7 @@
     <string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
     <string name="mobile_data_option_always">Use Always</string>
     <string name="mobile_data_option_today">Only Today</string>
-    <string name="mobile_data_option_not_today">Do not Use Today</string>
+    <string name="mobile_data_option_not_today">Do Not Use Today</string>
     <string name="mobile_data">Mobile Internet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Mobile internet is required for map update notifications and uploading edits.</string>
@@ -644,7 +648,7 @@
 \nOpen your device\'s settings → Language and input → Speech → Text to speech output.
 \nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
     <string name="prefs_languages_information_off_link">For more information please check this guide.</string>
-    <string name="transliteration_title">Transliteration into Latin alphabet</string>
+    <string name="transliteration_title">Transliterate into Latin alphabet</string>
     <string name="learn_more">Learn more</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Exit</string>
@@ -657,7 +661,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
     <string name="dialog_error_storage_title">Storage access problem</string>
-    <string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">External storage is not accessible. The SD card may have been removed, damaged, or the file system is read-only. Please, check your SD card or contact us at support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulate bad storage</string>
     <string name="core_entrance">Entrance</string>
     <string name="error_enter_correct_name">Please enter a correct name</string>
@@ -876,7 +880,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">This app needs your permission</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto needs a location permission to work effectively</string>
+    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto needs location permissions to work effectively</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Grant Permissions</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -899,8 +903,8 @@
     <string name="website_menu">Menu Link</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">View Menu</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
-    <string name="open_in_app">Open In Another App</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Open in Another App</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Self-service</string>
     <string name="select_option">Select option</string>
@@ -924,7 +928,7 @@
     <string name="error_no_file_manager_app">Unable to display folder selection dialog because no suitable app is installed on your device. Please install a file manager app and try again.</string>
     <string name="choose_color">Choose Color</string>
     <string name="edit_track">Edit Track</string>
-    <string name="uri_open_location_failed">No App installed that can open the location</string>
+    <string name="uri_open_location_failed">No app installed that can open the location</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigation</string>
 

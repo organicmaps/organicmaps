@@ -29,6 +29,10 @@
     <string name="search_map">搜尋地圖</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">精度有限</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">為了確保准確的導航啟用設置中的精確位置。</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">在地圖上顯示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -871,7 +875,7 @@
     <string name="website_menu">選單連結</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">查看選單</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">在另一個應用程式中打開</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">自助服務</string>

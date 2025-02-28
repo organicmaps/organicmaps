@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "פרטים על Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "השבת את Kayak";
 "placepage_call_button" = "התקשר";
 "placepage_edit_bookmark_button" = "ערוך סימניה";
 "placepage_bookmark_name_hint" = "שם סימניה";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "דחה";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "רשימה";
 "mobile_data_dialog" = "השתמש באינטרנט סלולרי כדי להראות מידע מפורט?";
 "mobile_data_option_always" = "השתמש תמיד";
 "mobile_data_option_today" = "רק היום";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "ירידה";
 "elevation_profile_min_elevation" = "מינ' גובה";
 "elevation_profile_max_elevation" = "מקס' גובה";
-"elevation_profile_difficulty" = "קושי";
-"elevation_profile_time" = "זמן:";
 "isolines_toast_zooms_1_10" = "התקרב כדי לחקור קווי מתאר";
 "downloader_updating_ios" = "מעדכן";
 "downloader_loading_ios" = "מוריד";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "סנכרון iCloud הוא תכונה ניסיונית בפיתוח. ודא שעשית גיבוי של כל הסימניות והרצועות שלך.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud מושבת";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "שגיאה: iCloud אינו זמין";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "פתח באפליקציה אחרת";
 
 /* To indicate if the place proposed self service... */

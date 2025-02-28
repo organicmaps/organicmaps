@@ -29,6 +29,10 @@
     <string name="search_map">جست‌وجوی نقشه</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">دقت محدود</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">برای اطمینان از دقیق ناوبری ، موقعیت مکانی دقیق را در تنظیمات فعال کنید.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">بر روی نقشه نمایش بده</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -804,7 +808,7 @@
     <string name="website_menu">لینک منو</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">مشاهده منو</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">در یک برنامه دیگر باز کنید</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">سلف سرویس</string>

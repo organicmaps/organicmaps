@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "客涯 (Kayak) 上的详细信息";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "禁用 Kayak";
 "placepage_call_button" = "呼叫";
 "placepage_edit_bookmark_button" = "编辑书签";
 "placepage_bookmark_name_hint" = "书签名称";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "拒绝";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "列表";
 "mobile_data_dialog" = "使用移动网络显示更多详细信息吗？";
 "mobile_data_option_always" = "始终使用";
 "mobile_data_option_today" = "仅在今天";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "下坡";
 "elevation_profile_min_elevation" = "最低高度";
 "elevation_profile_max_elevation" = "最高高度";
-"elevation_profile_difficulty" = "难度";
-"elevation_profile_time" = "时间：";
 "isolines_toast_zooms_1_10" = "放大地图以查看等高线";
 "downloader_updating_ios" = "更新";
 "downloader_loading_ios" = "正在下载";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud 同步是一项正在开发的实验性功能。请确保备份了所有书签和轨迹。";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud 已禁用";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "错误：iCloud 不可用";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "在另一个应用程序中打开";
 
 /* To indicate if the place proposed self service... */

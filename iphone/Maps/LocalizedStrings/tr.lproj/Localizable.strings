@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Kayak hakkında detaylar";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak'yı devre dışı bırak";
 "placepage_call_button" = "Ara";
 "placepage_edit_bookmark_button" = "Yer İmini Düzenle";
 "placepage_bookmark_name_hint" = "Yer İmi Adı";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Reddet";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Liste";
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 "mobile_data_option_always" = "Her Zaman Kullan";
 "mobile_data_option_today" = "Sadece Bugün";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "İniş";
 "elevation_profile_min_elevation" = "Min. yükselti";
 "elevation_profile_max_elevation" = "Maks. yükselti";
-"elevation_profile_difficulty" = "Zorluk";
-"elevation_profile_time" = "Süre:";
 "isolines_toast_zooms_1_10" = "İzohipsleri görmek için haritayı büyütün";
 "downloader_updating_ios" = "Güncelleniyor";
 "downloader_loading_ios" = "İndiriliyor";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve kayıtlı rotalarınızın yedeğini aldığınızdan emin olun.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Devre Dışı";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Başka Bir Uygulamada Aç";
 
 /* To indicate if the place proposed self service... */

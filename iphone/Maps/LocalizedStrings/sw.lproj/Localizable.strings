@@ -427,7 +427,7 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
+"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
 "dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
 "dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Maelezo kuhusu Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Lemaza Kayak";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";
@@ -712,13 +709,10 @@
 
 /* For the first routing */
 "decline" = "Decline";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "List";
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 "mobile_data_option_always" = "Use Always";
 "mobile_data_option_today" = "Only Today";
-"mobile_data_option_not_today" = "Do not Use Today";
+"mobile_data_option_not_today" = "Do Not Use Today";
 "mobile_data" = "Mobile Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Ushukaji";
 "elevation_profile_min_elevation" = "Min. mwinuko";
 "elevation_profile_max_elevation" = "Max. mwinuko";
-"elevation_profile_difficulty" = "Ugumu";
-"elevation_profile_time" = "Muda:";
 "isolines_toast_zooms_1_10" = "Vuta karibu kutalii mistari ya kontua";
 "downloader_updating_ios" = "Inasasisha";
 "downloader_loading_ios" = "Inapakua";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Usawazishaji wa iCloud ni kipengele cha majaribio kinachoendelezwa. Hakikisha kuwa umefanya nakala rudufu ya alamisho na nyimbo zako zote.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Imezimwa";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Hitilafu: iCloud haipatikani";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Fungua Katika Programu Nyingine";
 
 /* To indicate if the place proposed self service... */

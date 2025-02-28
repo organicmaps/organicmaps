@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Informācija par „Kayak“";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Atslēgt Kayak";
 "placepage_call_button" = "Zvanīt";
 "placepage_edit_bookmark_button" = "Rediģēt grāmatzīmi";
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Noraidīt";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Saraksts";
 "mobile_data_dialog" = "Izmantot mobilos datus, lai parādītu plašāku informāciju?";
 "mobile_data_option_always" = "Izmantot vienmēr";
 "mobile_data_option_today" = "Tikai šodien";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Kritums";
 "elevation_profile_min_elevation" = "Zemākais punkts";
 "elevation_profile_max_elevation" = "Augstākais punkts";
-"elevation_profile_difficulty" = "Sarežģītība";
-"elevation_profile_time" = "Laiks:";
 "isolines_toast_zooms_1_10" = "Pietuviniet, lai izpētītu izolīnijas";
 "downloader_updating_ios" = "Atjaunina";
 "downloader_loading_ios" = "Lejupielādē";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "„iCloud“ sinhronizācija šobrīd ir eksperimentāla iespēja, ko joprojām veidojam. Pirms tās izmantošanas izveidojiet grāmatzīmju un ceļu dublējumkopijas.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "„iCloud“ ir izslēgts";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Kļūda: „iCloud“ nav pieejams";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Atvērt citā lietotnē";
 
 /* To indicate if the place proposed self service... */

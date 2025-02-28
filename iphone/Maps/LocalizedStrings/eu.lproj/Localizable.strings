@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Xehetasunak Kayak-en";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Desgaitu Kayak";
 "placepage_call_button" = "Deitu";
 "placepage_edit_bookmark_button" = "Editatu markagailua";
 "placepage_bookmark_name_hint" = "Markagailuaren izena";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Ukatu";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Zerrenda";
 "mobile_data_dialog" = "Internet mugikorra erabili informazio zehatza bistaratzeko?";
 "mobile_data_option_always" = "Erabili beti";
 "mobile_data_option_today" = "Gaur bakarrik";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Maldan behera";
 "elevation_profile_min_elevation" = "Goragune min.";
 "elevation_profile_max_elevation" = "Goragune max.";
-"elevation_profile_difficulty" = "Zailtasuna";
-"elevation_profile_time" = "Denbora:";
 "isolines_toast_zooms_1_10" = "Handitu mapa sestra kurbak ikusteko";
 "downloader_updating_ios" = "Eguneratzen";
 "downloader_loading_ios" = "Deskargatzen";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud sinkronizazioa garatzen ari den ezaugarri esperimental bat da. Ziurtatu zure laster-marka eta ibilbide guztien babeskopia egin duzula.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud desgaituta dago";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Errorea: iCloud ez dago erabilgarri";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Ireki beste aplikazio batean";
 
 /* To indicate if the place proposed self service... */

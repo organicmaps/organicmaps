@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Детаљи на Kayak-у";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Disable Kayak";
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_bookmark_name_hint" = "Коментар…";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Одбиј";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Листа";
 "mobile_data_dialog" = "Користи мобилни интернет ради приказа детљних информација?";
 "mobile_data_option_always" = "Увек користи";
 "mobile_data_option_today" = "Само данас";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Спуст";
 "elevation_profile_min_elevation" = "Min. elevation";
 "elevation_profile_max_elevation" = "Max. elevation";
-"elevation_profile_difficulty" = "Тежина";
-"elevation_profile_time" = "Време:";
 "isolines_toast_zooms_1_10" = "Увећајте да бисте видели изолиније";
 "downloader_updating_ios" = "Ажурирање";
 "downloader_loading_ios" = "Преузимање";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud синхронизација је експеримантална функционалност која је још увек у развоју. Проверите да ли сте направили резервну копију (бекап) свих ваших маркера и путања.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud је искључен";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Грешка: iCloud није доступан";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Отвори у другој апликацији";
 
 /* To indicate if the place proposed self service... */

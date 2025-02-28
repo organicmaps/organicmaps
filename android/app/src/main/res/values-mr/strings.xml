@@ -26,6 +26,10 @@
     <string name="search_map">नकाश्यात शोधा</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू करा.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">मर्यादित अचूकता</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">अचूक नेव्हिगेशन सुनिश्चित करण्यासाठी सेटिंग्जमध्ये अचूक स्थान सक्षम करा.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">नकाशावर दाखवा</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -823,7 +827,7 @@
     <string name="website_menu">मेनू लिंक</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">मेनू पहा</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">दुसऱ्या ॲपमध्ये उघडा</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">स्व: सेवा</string>

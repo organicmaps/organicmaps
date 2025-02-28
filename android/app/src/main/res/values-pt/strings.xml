@@ -26,6 +26,10 @@
     <string name="search_map">Pesquisar mapa</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Precisão limitada</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Para garantir uma navegação precisa, active a opção Localização precisa nas definições.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -822,7 +826,7 @@
     <string name="website_menu">Link do menu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Ver menu</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Abrir noutra aplicação</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Autosserviço</string>

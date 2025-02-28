@@ -27,6 +27,10 @@
     <string name="search_map">Αναζήτηση στο χάρτη</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τες από τις Ρυθμίσεις.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Περιορισμένη ακρίβεια</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Για να εξασφαλίσετε ακριβή πλοήγηση, ενεργοποιήστε την Ακριβής τοποθεσία στις ρυθμίσεις.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Εμφάνιση στο χάρτη</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -857,7 +861,7 @@
     <string name="website_menu">Σύνδεσμος μενού</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Προβολή μενού</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Άνοιγμα σε άλλη εφαρμογή</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Αυτοεξυπηρέτηση</string>

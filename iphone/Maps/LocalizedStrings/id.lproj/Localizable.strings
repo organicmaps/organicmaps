@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Perincian di Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Nonaktifkan Kayak";
 "placepage_call_button" = "Hubungi";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Nama Bookmark";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Tolak";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Daftar";
 "mobile_data_dialog" = "Gunakan internet seluler untuk memperlihatkan informasi terperinci?";
 "mobile_data_option_always" = "Selalu Gunakan";
 "mobile_data_option_today" = "Hanya Hari Ini";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Menurun";
 "elevation_profile_min_elevation" = "Min. tinggi";
 "elevation_profile_max_elevation" = "Maks. tinggi";
-"elevation_profile_difficulty" = "Kesulitan";
-"elevation_profile_time" = "Waktu:";
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
 "downloader_updating_ios" = "Memperbarui";
 "downloader_loading_ios" = "Mengunduh";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Sinkronisasi iCloud adalah fitur eksperimental yang sedang dikembangkan. Pastikan Anda telah membuat cadangan semua penanda dan lagu Anda.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Dinonaktifkan";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Kesalahan: iCloud tidak tersedia";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Buka di Aplikasi Lain";
 
 /* To indicate if the place proposed self service... */

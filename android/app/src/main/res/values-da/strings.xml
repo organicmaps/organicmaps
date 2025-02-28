@@ -26,6 +26,10 @@
     <string name="search_map">Søg kort</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Begrænset nøjagtighed</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">For at sikre nøjagtig navigation skal du aktivere Præcis placering i indstillingerne.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Vis på kortet</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -804,7 +808,7 @@
     <string name="website_menu">Link til menu</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Vis menu</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Åbn i en anden app</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Selvbetjening</string>

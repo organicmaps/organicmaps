@@ -26,6 +26,10 @@
     <string name="search_map">Bilatu mapan</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Zehaztasun mugatua</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Nabigazio zehatzagoa ziurtatzeko, gaitu kokapen zehatza ezarpenetan.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Erakutsi mapan</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -856,7 +860,7 @@
     <string name="website_menu">Menuaren esteka</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Ikusi menua</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">Ireki beste aplikazio batean</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Autozerbitzu</string>

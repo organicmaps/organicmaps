@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "कायाक वर तपशील";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak अकषम कर";
 "placepage_call_button" = "फोन करा";
 "placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "नाकारा";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "यादी";
 "mobile_data_dialog" = "तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?";
 "mobile_data_option_always" = "नेहमी वापरा";
 "mobile_data_option_today" = "फक्त आज";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "उतरण";
 "elevation_profile_min_elevation" = "किमान उंची";
 "elevation_profile_max_elevation" = "कमाल उंची";
-"elevation_profile_difficulty" = "काठिण्य";
-"elevation_profile_time" = "वेळ:";
 "isolines_toast_zooms_1_10" = "समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा";
 "downloader_updating_ios" = "अद्ययावत करत आहे";
 "downloader_loading_ios" = "डाउनलोड करत आहे";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "iCloud सिंक्रोनाइझेशन हे विकासाधीन प्रायोगिक वैशिष्ट्य आहे. तुम्ही तुमच्या सर्व बुकमार्क्स आणि ट्रॅकचा बॅकअप घेतला असल्याची खात्री करा.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud अक्षम आहे";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "त्रुटी: iCloud उपलब्ध नाही";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "दुसऱ्या ॲपमध्ये उघडा";
 
 /* To indicate if the place proposed self service... */

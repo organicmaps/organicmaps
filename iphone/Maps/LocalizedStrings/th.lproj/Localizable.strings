@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "รายละเอียดบน Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "ปดการใชงาน Kayak";
 "placepage_call_button" = "โทร";
 "placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "ปฏิเสธ";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "รายการ";
 "mobile_data_dialog" = "ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?";
 "mobile_data_option_always" = "ใช้เสมอ";
 "mobile_data_option_today" = "วันนี้เท่านั้น";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "การลง";
 "elevation_profile_min_elevation" = "ต่ำสุด";
 "elevation_profile_max_elevation" = "สูงสุด";
-"elevation_profile_difficulty" = "ลำบาก";
-"elevation_profile_time" = "เวลา:";
 "isolines_toast_zooms_1_10" = "ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง";
 "downloader_updating_ios" = "การอัปเดต";
 "downloader_loading_ios" = "การดาวน์โหลด";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "การซิงโครไนซ์ iCloud เป็นคุณสมบัติทดลองที่อยู่ระหว่างการพัฒนา ตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลบุ๊กมาร์กและแทร็กทั้งหมดของคุณแล้ว";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud ถูกปิดใช้งาน";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "ข้อผิดพลาด: iCloud ไม่พร้อมใช้งาน";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "เปิดในแอปอื่น";
 
 /* To indicate if the place proposed self service... */

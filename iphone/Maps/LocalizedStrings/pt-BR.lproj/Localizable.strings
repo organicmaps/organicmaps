@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Detalhes em Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Desativar Kayak";
 "placepage_call_button" = "Ligar";
 "placepage_edit_bookmark_button" = "Editar favorito";
 "placepage_bookmark_name_hint" = "Nome do favorito";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Declinar";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Lista";
 "mobile_data_dialog" = "Utilizar a internet móvel para mostrar informações detalhadas?";
 "mobile_data_option_always" = "Utilizar sempre";
 "mobile_data_option_today" = "Apenas hoje";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Descida";
 "elevation_profile_min_elevation" = "Elevação mín.";
 "elevation_profile_max_elevation" = "Elevação máx.";
-"elevation_profile_difficulty" = "Dificuldade";
-"elevation_profile_time" = "Tempo:";
 "isolines_toast_zooms_1_10" = "Use o zoom para explorar as isolinhas";
 "downloader_updating_ios" = "Atualizando";
 "downloader_loading_ios" = "Baixando";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "A sincronização do iCloud é um recurso experimental em desenvolvimento. Certifique-se de que você tenha feito um backup de todos os seus favoritos e trilhas.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "O iCloud está desativado";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Erro: o iCloud não está disponível";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Abrir em outro aplicativo";
 
 /* To indicate if the place proposed self service... */

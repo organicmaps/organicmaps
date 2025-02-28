@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Podrobnosti na Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Zakázať Kayak";
 "placepage_call_button" = "Zavolať";
 "placepage_edit_bookmark_button" = "Upraviť záložku";
 "placepage_bookmark_name_hint" = "Názov záložky";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Odmietnuť";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Zoznam";
 "mobile_data_dialog" = "Použiť mobilný internet na zobrazenie podrobnejších informácií?";
 "mobile_data_option_always" = "Vždy použiť";
 "mobile_data_option_today" = "Iba dnes";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Klesanie";
 "elevation_profile_min_elevation" = "Min. výška";
 "elevation_profile_max_elevation" = "Max. výška";
-"elevation_profile_difficulty" = "Obtiažnosť";
-"elevation_profile_time" = "Čas:";
 "isolines_toast_zooms_1_10" = "Priblížením preskúmajte izočiary";
 "downloader_updating_ios" = "Aktualizovanie";
 "downloader_loading_ios" = "Sťahovanie";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Synchronizácia s iCloudom je experimentálna funkcia, ktorá je vo vývoji. Uistite sa, že ste si vytvorili zálohu všetkých svojich záložiek a skladieb.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "Služba iCloud je vypnutá";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Chyba: iCloud nie je k dispozícii";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Otvoriť v inej aplikácii";
 
 /* To indicate if the place proposed self service... */

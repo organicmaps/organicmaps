@@ -28,6 +28,10 @@
     <string name="search_map">ค้นหาแผนที่</string>
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">ความแม่นยำ จำกัด</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">เพื่อให้แน่ใจว่าการนำทางที่ถูกต้องเปิดใช้งานตำแหน่งที่แม่นยำในการตั้งค่า</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">แสดงบนแผนที่</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -807,7 +811,7 @@
     <string name="website_menu">ลิงค์เมนู</string>
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">ดูเมนู</string>
-    <!-- Title for the "Open In Another App" button on the PlacePage. -->
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
     <string name="open_in_app">เปิดในแอปอื่น</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">บริการตนเอง</string>

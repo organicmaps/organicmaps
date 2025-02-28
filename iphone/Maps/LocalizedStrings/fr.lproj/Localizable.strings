@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Détails sur Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Désactiver Kayak";
 "placepage_call_button" = "Appeler";
 "placepage_edit_bookmark_button" = "Éditer le signet";
 "placepage_bookmark_name_hint" = "Nom du signet";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Refuser";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Liste";
 "mobile_data_dialog" = "Utiliser l'Internet mobile pour afficher les informations détaillées ?";
 "mobile_data_option_always" = "Toujours utiliser";
 "mobile_data_option_today" = "Aujourd'hui seulement";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Descente";
 "elevation_profile_min_elevation" = "Min. élévation";
 "elevation_profile_max_elevation" = "Max. élévation";
-"elevation_profile_difficulty" = "Difficulté";
-"elevation_profile_time" = "Temps :";
 "isolines_toast_zooms_1_10" = "Zoomez pour voir les courbes de niveaux";
 "downloader_updating_ios" = "Misе à jour";
 "downloader_loading_ios" = "Téléchargement";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "La synchronisation iCloud est une fonctionnalité expérimentale en cours de développement. Assure-toi d'avoir fait une sauvegarde de tous tes signets et pistes.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud est désactivé";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Erreur : iCloud n'est pas disponible";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Ouvrir dans une autre application";
 
 /* To indicate if the place proposed self service... */

@@ -666,9 +666,6 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Einzelheiten bei Kayak";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_disable_button" = "Kayak deaktivieren";
 "placepage_call_button" = "Anrufen";
 "placepage_edit_bookmark_button" = "Lesezeichen bearbeiten";
 "placepage_bookmark_name_hint" = "Name des Lesezeichens";
@@ -712,9 +709,6 @@
 
 /* For the first routing */
 "decline" = "Ablehnen";
-
-/* A noun - a button name used to show search results in list form */
-"search_in_table" = "Liste";
 "mobile_data_dialog" = "Mobiles Internet verwenden, um genauere Informationen anzuzeigen?";
 "mobile_data_option_always" = "Immer verwenden";
 "mobile_data_option_today" = "Nur heute";
@@ -923,8 +917,6 @@
 "elevation_profile_descent" = "Bergab";
 "elevation_profile_min_elevation" = "Min. Höhe";
 "elevation_profile_max_elevation" = "Max. Höhe";
-"elevation_profile_difficulty" = "Schwierigkeitsgrad";
-"elevation_profile_time" = "Dauer:";
 "isolines_toast_zooms_1_10" = "Karte vergrößern, um Höhelinien sichtbar zu machen";
 "downloader_updating_ios" = "Aktualisierung";
 "downloader_loading_ios" = "Herunterladen";
@@ -1035,7 +1027,7 @@
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "Die iCloud-Synchronisierung ist eine experimentelle Funktion, die noch entwickelt wird. Vergewissere dich, dass du eine Sicherungskopie all deiner Lesezeichen und Titel erstellt hast.";
 
-/* Title for the "iCloud is Disabled" alert. */
+/* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud ist deaktiviert";
 
 /* Message for the "iCloud is Disabled" alert. */
@@ -1059,7 +1051,7 @@
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Fehler: iCloud ist nicht verfügbar";
 
-/* Title for the "Open In Another App" button on the PlacePage. */
+/* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "In einer anderen App öffnen";
 
 /* To indicate if the place proposed self service... */
