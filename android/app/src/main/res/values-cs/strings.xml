@@ -851,7 +851,7 @@
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdná - není co ukládat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu.</string>
-    <string name="choose_color">Vyberte barvu</string>
+    <string name="choose_color">Vybrat barvu</string>
     <string name="edit_track">Upravit trasu</string>
     <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která dokáže otevřít umístění</string>
     <!-- preference string for using auto theme only in navigation mode -->
@@ -1537,7 +1537,7 @@
     <string name="type.power.plant.wind">Větrná elektrárna</string>
     <string name="type.power.substation">Rozvodna</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Sloup elektrického vedení</string>
+    <string name="type.power.tower">Věž elektrického vedení</string>
     <string name="type.railway.funicular">Lanovka</string>
     <string name="type.railway.halt">Železniční stanice</string>
     <string name="type.railway.level_crossing">Přejezd</string>
@@ -1833,7 +1833,7 @@
     <string name="type.shop.curtain">Závěsy</string>
     <string name="type.shop.deli">Prodejna lahůdek</string>
     <string name="type.shop.department_store">Obchodní dům</string>
-    <string name="type.shop.doityourself">Železářství</string>
+    <string name="type.shop.doityourself">Domácí potřeby</string>
     <string name="type.shop.dry_cleaning">Chemické čištění</string>
     <string name="type.shop.electronics">Elektronika</string>
     <string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
@@ -2229,7 +2229,7 @@
     <string name="type.railway.light_rail.bridge">Most lehké železnice</string>
     <string name="type.railway.abandoned.tunnel">Zaniklý železniční tunel</string>
     <string name="type.railway.monorail.bridge">Most jednokolejné železnice</string>
-    <string name="type.railway.narrow_gauge">Tunel úzkorozchodné železnice</string>
+    <string name="type.railway.narrow_gauge">Úzkorozchodná železnice</string>
     <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
     <string name="type.railway.platform">Železniční nástupiště</string>
     <string name="type.railway.preserved">Zachovalá železnice</string>
