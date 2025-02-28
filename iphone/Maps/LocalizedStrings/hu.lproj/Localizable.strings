@@ -273,7 +273,7 @@
 "instagram" = "Instagram";
 
 /* Text in the editor */
-"vk" = "VK";
+"vk" = "VKontakte";
 
 /* Text in menu */
 "rate_the_app" = "Értékeld az alkalmazást";
@@ -480,7 +480,7 @@
 "clear_search" = "A keresési előzmények törlése";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Wikipédia";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
@@ -619,7 +619,7 @@
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb. Kérjük, hogy az ilyen kategóriákat közvetlenül a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
-"current_location_unknown_error_title" = "Current location is unknown.";
+"current_location_unknown_error_title" = "Jelenlegi helyzet ismeretlen.";
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 "location_services_disabled_header" = "Helyzetmeghatározás kikapcsolva";
 "location_services_disabled_message" = "Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban";
