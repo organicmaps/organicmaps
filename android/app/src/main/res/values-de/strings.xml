@@ -114,7 +114,6 @@
     <string name="measurement_units">Maßeinheiten</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wählen Sie zwischen Kilometern und Meilen</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Essmöglichkeiten</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Wasser</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Einrichtungen für Wohnmobile</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notizen</string>
@@ -365,7 +363,6 @@
     <string name="gray">Grau</string>
     <!-- blue gray color -->
     <string name="blue_gray">Graublau</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
     <string name="dialog_routing_disclaimer_priority">– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
@@ -395,7 +392,6 @@
     <string name="not_now">Nicht jetzt</string>
     <string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
     <string name="dialog_routing_download_cross_route">Laden Sie zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
     <string name="search_select_map">Karte auswählen</string>
@@ -633,7 +629,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
-    <string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
     <string name="core_entrance">Eingang</string>
     <string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
@@ -750,7 +746,6 @@
     <string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
     <string name="near_me_sorttype">In meiner Nähe</string>
     <string name="others_sorttype">Sonstiges</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Essen</string>
     <string name="tourist_places">Sehenswürdigkeiten</string>
@@ -894,7 +889,6 @@
     <string name="uri_open_location_failed">Keine App installiert, die den Speicherort öffnen kann</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in der Navigation</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresse/Block</string>
     <string name="type.addr_interpolation.even">Adresse/Block</string>
@@ -1019,7 +1013,6 @@
     <string name="type.amenity.prison">Gefängnis</string>
     <string name="type.amenity.pub">Kneipe</string>
     <string name="type.amenity.public_bookcase">Bücherschrank</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recyclinghof</string>
     <string name="type.amenity.recycling">Wertstoffcontainer</string>
@@ -1252,7 +1245,6 @@
     <string name="type.healthcare.psychotherapist">Psychotherapie</string>
     <string name="type.healthcare.sample_collection">Probenahme</string>
     <string name="type.healthcare.speech_therapist">Logopädie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straße</string>
     <string name="type.highway.bridleway">Reitweg</string>
@@ -1418,7 +1410,6 @@
     <string name="type.area_highway.track">Forst-/Feldweg</string>
     <string name="type.area_highway.trunk">Schnellstraße</string>
     <string name="type.area_highway.unclassified">Nebenstraße</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisches Objekt</string>
     <string name="type.historic.aircraft">Historisches Flugzeug</string>
