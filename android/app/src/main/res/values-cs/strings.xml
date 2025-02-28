@@ -1157,7 +1157,7 @@
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Plavčík</string>
     <!-- A mountain rescue base for search and rescue activities. -->
-    <string name="type.emergency.mountain_rescue">Horská záchranná stanice</string>
+    <string name="type.emergency.mountain_rescue">Stanice horské služby</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Vchod</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
@@ -2115,4 +2115,36 @@
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="type.amenity.casino">Kasino</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.highway">Dálnice</string>
+    <string name="type.boundary.administrative.3">Hranice oblasti</string>
+    <string name="type.cuisine.bubble_tea">Bubble Tea</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.junction">Propojení</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.emergency">Nouzová stanice</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.highway.bridleway">Hipostezka</string>
+    <string name="type.highway.services">Služební oblast</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.area_highway.cycleway">Cyklostezka</string>
+    <string name="type.boundary.administrative.2">Státní hranice</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.highway.cycleway.permissive">Cyklostezka</string>
+    <string name="type.boundary.administrative.4">Hranice oblasti</string>
+    <string name="type.highway.bridleway.permissive">Hipostezka</string>
+    <string name="type.highway.cycleway">Cyklostezka</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.building.warehouse">Sklad</string>
+    <string name="type.highway.elevator">Výtah</string>
 </resources>
