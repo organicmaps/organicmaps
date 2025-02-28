@@ -2217,4 +2217,18 @@
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Veřejná doprava</string>
     <string name="type.man_made.utility_pole">Užitkový sloup</string>
+    <string name="type.railway.abandoned">Zaniklá železnice</string>
+    <string name="type.railway.crossing">Železniční přejezd</string>
+    <string name="type.railway.funicular.tunnel">Tunel pozemní lanové dráhy</string>
+    <string name="type.railway.disused">Nepoužívaná železnice</string>
+    <string name="type.railway.light_rail">Lehká železnice</string>
+    <string name="type.railway.abandoned.bridge">Zaniklý železniční most</string>
+    <string name="type.railway.construction">Železniční stavba</string>
+    <string name="type.railway.funicular.bridge">Most pozemní lanové dráhy</string>
+    <string name="type.railway.light_rail.tunnel">Tunel lehké železnice</string>
+    <string name="type.railway.light_rail.bridge">Most lehké železnice</string>
+    <string name="type.railway.abandoned.tunnel">Zaniklý železniční tunel</string>
+    <string name="type.railway.monorail.bridge">Most jednokolejné železnice</string>
+    <string name="type.railway.narrow_gauge">Úzkorozchodná železnice tunel</string>
+    <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
 </resources>
