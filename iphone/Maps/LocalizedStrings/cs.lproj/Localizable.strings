@@ -394,10 +394,10 @@
 "light_blue" = "Světle modrá";
 
 /* cyan color */
-"cyan" = "Cyan";
+"cyan" = "Azurová";
 
 /* teal color */
-"teal" = "Teal";
+"teal" = "Čajová";
 
 /* lime color */
 "lime" = "Limeta";
@@ -765,7 +765,7 @@
 "subway_data_unavailable" = "Mapa metra není dostupná";
 "title_error_downloading_bookmarks" = "Někde se stala chyba";
 "popular_place" = "Popular";
-"export_file" = "Export KMZ";
+"export_file" = "Exportovat KMZ";
 "export_file_gpx" = "Export GPX";
 "delete_list" = "Smazat seznam";
 "hide_from_map" = "Neukazovat na mapě";
@@ -1184,15 +1184,15 @@
 "type.amenity.payment_terminal" = "Platební terminál";
 "type.amenity.pharmacy" = "Lékárna";
 "type.amenity.place_of_worship" = "Posvátné místo";
-"type.amenity.place_of_worship.buddhist" = "Chrám";
-"type.amenity.place_of_worship.christian" = "Chrám";
+"type.amenity.place_of_worship.buddhist" = "Buddhistický chrám";
+"type.amenity.place_of_worship.christian" = "Kostel";
 "type.amenity.place_of_worship.christian.mormon" = "Církev Ježíše Krista Svatých posledních dnů";
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Sál Království Jehovových svědků";
-"type.amenity.place_of_worship.hindu" = "Chrám";
+"type.amenity.place_of_worship.hindu" = "Hinduistický chrám";
 "type.amenity.place_of_worship.jewish" = "Synagoga";
 "type.amenity.place_of_worship.muslim" = "Mešita";
 "type.amenity.place_of_worship.shinto" = "Posvátné místo";
-"type.amenity.place_of_worship.taoist" = "Chrám";
+"type.amenity.place_of_worship.taoist" = "Taoistický chrám";
 "type.amenity.police" = "Policie";
 "type.amenity.post_box" = "Poštovní schránka";
 "type.amenity.post_office" = "Pošta";
@@ -1445,7 +1445,7 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Hlavní vchod";
-"type.entrance.exit" = "Exit";
+"type.entrance.exit" = "Východ";
 "type.fee.yes" = "$";
 "type.fee.no" = "Zdarma";
 "type.healthcare.laboratory" = "Lékařská laboratoř";
@@ -1709,7 +1709,7 @@
 "type.historic.memorial.plaque" = "Pomník";
 "type.historic.memorial.sculpture" = "Pomník";
 "type.historic.memorial.statue" = "Pomník";
-"type.historic.memorial.stolperstein" = "Stolperstein";
+"type.historic.memorial.stolperstein" = "Kámen zmizelých";
 "type.historic.stone" = "Historický kámen";
 "type.historic.memorial.war_memorial" = "Válečný památník";
 "type.historic.mine" = "Historický důl";
@@ -2544,9 +2544,9 @@
 "type.piste_type.nordic" = "Nordic Ski Trail";
 "type.piste_type.sled" = "Sledding Piste";
 "type.piste_type.sled.area" = "Sledding Piste";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.snow_park" = "Snowpark";
 "type.piste_type.hike" = "Zimní stezka";
-"type.piste_type.connection" = "Piste Connection";
+"type.piste_type.connection" = "Připojení sjezdovky";
 "type.piste_type.skitour" = "Stezka Skitour";
 "type.amenity.events_venue" = "Místo konání akcí";
 "type.shop.auction" = "Aukce";
@@ -2563,7 +2563,7 @@
 "type.emergency.emergency_ward_entrance" = "Vchod do pohotovostního oddělení";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
-"type.amenity.dojo" = "Dojo";
+"type.amenity.dojo" = "Dódžó";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sportovní hala";
