@@ -2229,7 +2229,7 @@
     <string name="type.railway.light_rail.bridge">Most lehké železnice</string>
     <string name="type.railway.abandoned.tunnel">Zaniklý železniční tunel</string>
     <string name="type.railway.monorail.bridge">Most jednokolejné železnice</string>
-    <string name="type.railway.narrow_gauge">Úzkorozchodná železnice tunel</string>
+    <string name="type.railway.narrow_gauge">Tunel úzkorozchodné železnice</string>
     <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
     <string name="type.railway.platform">Železniční nástupiště</string>
     <string name="type.railway.preserved">Zachovalá železnice tunel</string>
