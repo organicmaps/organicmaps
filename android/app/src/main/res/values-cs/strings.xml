@@ -44,7 +44,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Žádné vybíjení baterie, funguje offline</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Rychlé, minimalistické, vyvinutý komunitou</string>
+    <string name="about_proposition_3">• Rychlé, minimalistické, vyvinuté komunitou</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
     <!-- The button that opens system location settings -->
@@ -178,9 +178,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Ahoj, zkoukni mojí lokaci v Organic Maps! %1$s nebo %2$s Nemáš offline mapy? Stáhni tady: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Koukni na moji značku na mapě v Organic Maps</string>
+    <string name="bookmark_share_email_subject">Koukni na mojí značku na mapě v Organic Maps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě na Organic Maps</string>
+    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě v Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Ahoj,
 \n
@@ -270,7 +270,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Pohybem telefonu do osmičky zkalibrujte kompas a zafixujte směr šipky na mapě.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.</string>
+    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Aktualizovat vše</string>
     <!-- Cancel all button text -->
@@ -348,10 +348,10 @@
     <string name="blue_gray">Modrošedá</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
-    <string name="dialog_routing_disclaimer_priority">• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.</string>
+    <string name="dialog_routing_disclaimer_priority">— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;</string>
     <string name="dialog_routing_disclaimer_precision">— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy je třeba brát pouze jako doporučení;</string>
-    <string name="dialog_routing_disclaimer_borders">— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;</string>
+    <string name="dialog_routing_disclaimer_borders">— U stop v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.</string>
     <string name="dialog_routing_disclaimer_beware">Na silnici buďte pozorní a chovejte se bezpečně!</string>
     <string name="dialog_routing_check_gps">Zkontrolovat signál GPS</string>
     <string name="dialog_routing_error_location_not_found">Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.</string>
@@ -679,7 +679,7 @@
     <string name="avoid_ferry">Vyhnout se přejezdům trajektů</string>
     <string name="avoid_motorways">Vyhněte se dálnici</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
-    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
+    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím možnosti trasy a zkuste to znovu.</string>
     <string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
     <string name="change_driving_options_btn">Možnosti trasy aktivní</string>
     <string name="toll_road">Silnice s mýtným</string>
@@ -2026,4 +2026,5 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sportovní hala</string>
+    <string name="type.railway.narrow_gauge.bridge">Most úzkorozchodné železnice</string>
 </resources>
