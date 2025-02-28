@@ -115,7 +115,6 @@
     <string name="measurement_units">Ölçü vahidləri</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Mil və ya kilometr seçin</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Harada yemək</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Su</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karvan qurğuları</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Qeydlər</string>
@@ -366,7 +364,6 @@
     <string name="gray">Boz</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi-boz</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Marşrutunuzu izləyərkən aşağıdakıları yadda saxlayın:</string>
     <string name="dialog_routing_disclaimer_priority">— Yol şəraiti, yol hərəkəti qaydaları və yol nişanları həmişə naviqasiya məsləhətindən üstündür;</string>
@@ -396,7 +393,6 @@
     <string name="not_now">İndi yox</string>
     <string name="dialog_routing_download_and_build_cross_route">Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?</string>
     <string name="dialog_routing_download_cross_route">Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Axtarmaq və marşrut yaratmağa başlamaq üçün xəritəni endirin. Yüklədikdən sonra artıq internet bağlantısına ehtiyacınız olmayacaq.</string>
     <string name="search_select_map">Xəritə seçin</string>
@@ -635,7 +631,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun. <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a> ətraflı məlumat əldə edin.</string>
     <string name="dialog_error_storage_title">Yaddaş giriş problemi</string>
-    <string name="dialog_error_storage_message">Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support\@organicmaps.app ünvanında bizimlə əlaqə saxlayın</string>
+    <string name="dialog_error_storage_message">Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support@organicmaps.app ünvanında bizimlə əlaqə saxlayın</string>
     <string name="setting_emulate_bad_storage">Zədələnmiş yaddaşı təqlid edin</string>
     <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Düzgün ad daxil edin</string>
@@ -751,7 +747,6 @@
     <string name="moreyear_ago_sorttype">Bir ildən çox əvvəl</string>
     <string name="near_me_sorttype">Mənə yaxın</string>
     <string name="others_sorttype">Digərləri</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Qida</string>
     <string name="tourist_places">Görməli yerlər</string>
@@ -873,7 +868,6 @@
     <string name="uri_open_location_failed">Məkanı aça biləcək proqram quraşdırılmayıb</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Naviqasiyada avtomatik</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Ünvan/Blok</string>
     <string name="type.addr_interpolation.even">Ünvan/Blok</string>
@@ -1003,7 +997,6 @@
     <string name="type.amenity.prison">Həbsxana</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Kitab mübadiləsi</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Təkrar Emal Mərkəzi</string>
     <string name="type.amenity.recycling">Təkrar emal konteyneri</string>
@@ -1232,7 +1225,6 @@
     <string name="type.healthcare.psychotherapist">Psixoterapiya</string>
     <string name="type.healthcare.sample_collection">Nümunə götürmə</string>
     <string name="type.healthcare.speech_therapist">Loqopediya</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Avtomobil yolu</string>
     <string name="type.highway.bridleway">Atlı yolu</string>
@@ -1398,7 +1390,6 @@
     <string name="type.area_highway.track">Uçuş zolağı</string>
     <string name="type.area_highway.trunk">Dövlət şossesi</string>
     <string name="type.area_highway.unclassified">Yan yol</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarix</string>
     <string name="type.historic.aircraft">Tarixi Təyyarə</string>
