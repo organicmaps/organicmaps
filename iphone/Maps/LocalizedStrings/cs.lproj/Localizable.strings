@@ -1283,16 +1283,16 @@
 "type.barrier.toll_booth" = "Mýtné";
 "type.barrier.wall" = "Zeď";
 "type.boundary" = "Hranice";
-"type.boundary.administrative" = "Administrative Boundary";
+"type.boundary.administrative" = "Administrativní hranice";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Státní hranice";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.3" = "Regional Boundary";
+"type.boundary.administrative.3" = "Hranice oblasti";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.administrative.4" = "Hranice oblasti";
 "type.boundary.national_park" = "Národní park";
 "type.boundary.aboriginal_lands" = "Domorodá území";
 "type.boundary.protected_area" = "Chráněné území";
@@ -1310,7 +1310,7 @@
 "type.building_part" = "Stavba";
 "type.building.garage" = "Garáž";
 "type.building.train_station" = "Staniční budova";
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Sklad";
 "type.cemetery.grave" = "Hrob";
 "type.craft" = "Řemeslo";
 "type.craft.beekeeper" = "Včelař";
@@ -1424,7 +1424,7 @@
 "type.cuisine.vegan" = "Veganská kuchyně";
 "type.cuisine.vegetarian" = "Vegetariánská kuchyně";
 "type.cuisine.vietnamese" = "Vietnamská kuchyně";
-"type.emergency" = "Emergency";
+"type.emergency" = "Nouzová stanice";
 "type.emergency.assembly_point" = "Nouzové shromažďovací místo";
 "type.emergency.defibrillator" = "Defibrilátor";
 "type.emergency.fire_hydrant" = "Požární hydrant";
@@ -1434,7 +1434,7 @@
 "type.emergency.lifeguard" = "Plavčík";
 
 /* A mountain rescue base for search and rescue activities. */
-"type.emergency.mountain_rescue" = "Horská záchranná stanice";
+"type.emergency.mountain_rescue" = "Stanice horské služby";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
 "type.entrance" = "Vchod";
@@ -1454,12 +1454,12 @@
 "type.healthcare.psychotherapist" = "Psychoterapie";
 "type.healthcare.sample_collection" = "Odběr vzorků";
 "type.healthcare.speech_therapist" = "Logopedie";
-"type.highway" = "Highway";
-"type.highway.bridleway" = "Bridle Path";
+"type.highway" = "Dálnice";
+"type.highway.bridleway" = "Hipostezka";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Most";
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Hipostezka";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunel";
@@ -1472,15 +1472,15 @@
 "type.highway.busway.tunnel" = "Tunel";
 "type.highway.bus_stop" = "Autobusová zastávka";
 "type.highway.construction" = "Silnice v rekonstrukci";
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Cyklostezka";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Most";
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Cyklostezka";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunel";
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Výtah";
 "type.highway.footway" = "Cesta";
 "type.highway.footway.sidewalk" = "Chodník";
 "type.highway.footway.crossing" = "Přechod pro chodce";
@@ -1596,7 +1596,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunel";
-"type.highway.services" = "Service Area";
+"type.highway.services" = "Služební oblast";
 "type.highway.speed_camera" = "Rychlostní kamera";
 "type.highway.steps" = "Cesta";
 
@@ -1652,7 +1652,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunel";
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "Cyklostezka";
 "type.area_highway.footway" = "Cesta";
 "type.area_highway.living_street" = "Ulice";
 "type.area_highway.motorway" = "Ulice";
@@ -1734,7 +1734,7 @@
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
-"type.junction" = "Junction";
+"type.junction" = "Propojení";
 "type.junction.circular" = "Roundabout";
 "type.junction.roundabout" = "Roundabout";
 "type.landuse" = "Landuse";
