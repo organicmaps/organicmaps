@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Žádné vybíjení baterie, funguje offline";
 
 /* Text in About screen */
-"about_proposition_3" = "• Rychlé, minimalistické, vyvinutý komunitou";
+"about_proposition_3" = "• Rychlé, minimalistické, vyvinuté komunitou";
 "close" = "Zavřít";
 "download" = "Stáhnout";
 
@@ -172,10 +172,10 @@
 "unknown_current_position" = "Vaše poloha zatím nebyla určena";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Koukni na moji značku na mapě v Organic Maps";
+"bookmark_share_email_subject" = "Koukni na mojí značku na mapě v Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě na Organic Maps";
+"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě v Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Kalibrace kompasu";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.";
+"long_tap_toast" = "Dlouhým klepnutím na mapu znovu zobrazíte rozhraní";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovat vše";
@@ -411,10 +411,10 @@
 /* blue gray color */
 "blue_gray" = "Modrošedá";
 "dialog_routing_disclaimer_title" = "Při navigaci podle trasy mějte na paměti následující:";
-"dialog_routing_disclaimer_priority" = "• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.";
+"dialog_routing_disclaimer_priority" = "— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;";
 "dialog_routing_disclaimer_precision" = "— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;";
 "dialog_routing_disclaimer_recommendations" = "— Navrhované trasy je třeba brát pouze jako doporučení;";
-"dialog_routing_disclaimer_borders" = "— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;";
+"dialog_routing_disclaimer_borders" = "— U stop v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.";
 "dialog_routing_disclaimer_beware" = "Na silnici buďte pozorní a chovejte se bezpečně!";
 "dialog_routing_check_gps" = "Zkontrolovat signál GPS";
 "dialog_routing_error_location_not_found" = "Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.";
@@ -568,7 +568,7 @@
 "message_invalid_feature_position" = "Objekt zde nemůže být umístěn";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.";
+"osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org";
 "login_to_make_edits_visible" = "Vytvořte si účet OpenStreetMap nebo se přihlaste a zveřejněte své úpravy mapy ve světě.";
 
 /* Error dialog no space */
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Vyhnout se přejezdům trajektů";
 "avoid_motorways" = "Vyhněte se dálnici";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
-"unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu";
+"unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím možnosti trasy a zkuste to znovu.";
 "define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
 "change_driving_options_btn" = "Možnosti trasy aktivní";
 "toll_road" = "Silnice s mýtným";
@@ -2015,7 +2015,7 @@
 "type.railway.monorail.bridge" = "Monorail Bridge";
 "type.railway.monorail.tunnel" = "Monorail Tunnel";
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.bridge" = "Most úzkorozchodné železnice";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 "type.railway.platform" = "Railway Platform";
 "type.railway.preserved" = "Preserved Rail";
