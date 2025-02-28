@@ -642,7 +642,8 @@
     <string name="bookmark_lists_hide_all">Hamısını gizlət</string>
     <string name="bookmark_lists_show_all">Hamısını göstər</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">%d əlfəcin</item>
+        <item quantity="one">%d əlfəcin</item>
+        <item quantity="other">%d əlfəcinlər</item>
     </plurals>
     <string name="bookmarks_create_new_group">Yeni siyahı yaradın</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -659,10 +660,12 @@
     <string name="phone_number">Telefon nömrəsi</string>
     <string name="profile">OpenStreetMap profili</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d fayl tapıldı. Dönüşümdən sonra onları görəcəksiniz.</item>
+        <item quantity="one">%d fayl tapıldı. Onu dönüşümdən sonra görəcəksiniz.</item>
+        <item quantity="other">%d fayl tapıldı. Onları dönüşümdən sonra görəcəksiniz.</item>
     </plurals>
     <string name="restore">Bərpa</string>
     <plurals name="tracks">
+        <item quantity="one">%d istiqamət</item>
         <item quantity="other">%d istiqamətlər</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

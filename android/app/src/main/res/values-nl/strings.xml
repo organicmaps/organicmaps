@@ -639,6 +639,7 @@
     <string name="bookmark_lists_hide_all">Verberg alles</string>
     <string name="bookmark_lists_show_all">Toon alles</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d bladwijzer</item>
         <item quantity="other">%d bladwijzers</item>
     </plurals>
     <string name="bookmarks_create_new_group">Maak een nieuwe lijst</string>
@@ -657,10 +658,11 @@
     <string name="profile">OpenStreetMap-profiel</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d bestand gevonden. Je ziet het na het converteren.</item>
-        <item quantity="other">Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.</item>
+        <item quantity="other">%d bestanden gevonden. Je zult ze na de conversie zien.</item>
     </plurals>
     <string name="restore">Zet terug</string>
     <plurals name="tracks">
+        <item quantity="one">%d track</item>
         <item quantity="other">%d tracks</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

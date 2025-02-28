@@ -83,6 +83,7 @@
     <string name="bookmark_lists_hide_all">Ocultar todo</string>
     <string name="bookmark_lists_show_all">Mostrar todo</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d marcador</item>
         <item quantity="other">%d marcadores</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crear lista nueva</string>
@@ -102,6 +103,7 @@
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
+        <item quantity="one">%d rastreo</item>
         <item quantity="other">%d rastreos</item>
     </plurals>
     <string name="privacy_policy">Política de Privacidad</string>

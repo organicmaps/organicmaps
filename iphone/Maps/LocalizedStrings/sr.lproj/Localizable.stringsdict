@@ -17,6 +17,8 @@
 			<string>d</string>
 			<key>one</key>
 			<string>%d маркер</string>
+			<key>few</key>
+			<string>%d маркери</string>
 			<key>other</key>
 			<string>%d маркера</string>
 		</dict>

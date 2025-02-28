@@ -624,10 +624,11 @@
     <string name="phone_number">Nomor telepon</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d file telah ditemukan. Anda akan melihatnya setelah konversi.</item>
+        <item quantity="other">%d file ditemukan. Anda akan melihatnya setelah konversi.</item>
     </plurals>
     <string name="restore">Mengembalikan</string>
     <plurals name="tracks">
+        <item quantity="one">trek %d</item>
         <item quantity="other">trek %d</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

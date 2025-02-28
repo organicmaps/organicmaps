@@ -602,6 +602,7 @@
     <string name="bookmark_lists_hide_all">Skjul alle</string>
     <string name="bookmark_lists_show_all">Vis alle</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d bogmærke</item>
         <item quantity="other">%d bogmærker</item>
     </plurals>
     <string name="bookmarks_create_new_group">Opret ny liste</string>
@@ -620,10 +621,11 @@
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fil blev fundet. Du vil se det efter konvertering.</item>
-        <item quantity="other">Der er fundet %d filer. Du vil se dem efter konvertering.</item>
+        <item quantity="other">%d filer blev fundet. Du vil se dem efter konvertering.</item>
     </plurals>
     <string name="restore">Gendan</string>
     <plurals name="tracks">
+        <item quantity="one">%d rute</item>
         <item quantity="other">%d ruter</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

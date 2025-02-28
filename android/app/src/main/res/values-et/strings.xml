@@ -657,6 +657,7 @@
     </plurals>
     <string name="restore">Taasta</string>
     <plurals name="tracks">
+        <item quantity="one">%d rada</item>
         <item quantity="other">%d rada</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

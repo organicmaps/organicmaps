@@ -628,6 +628,7 @@
     <string name="bookmark_lists_show_all">Прикажи све</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d маркер</item>
+        <item quantity="few">%d маркери</item>
         <item quantity="other">%d маркера</item>
     </plurals>
     <string name="bookmarks_create_new_group">Креирај нову листу</string>

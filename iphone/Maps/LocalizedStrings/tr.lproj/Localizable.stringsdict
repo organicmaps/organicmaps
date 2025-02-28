@@ -15,8 +15,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
+			<key>one</key>
 			<string>%d yer imi</string>
+			<key>other</key>
+			<string>%d yer imleri</string>
 		</dict>
 	</dict>
 
@@ -30,8 +32,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d dosya bulundu. Dönüştürmeden sonra onu görebilirsiniz.</string>
 			<key>other</key>
-			<string>%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</string>
+			<string>%d dosya bulundu. Dönüştürmeden sonra onları görebilirsiniz.</string>
 		</dict>
 	</dict>
 
@@ -45,8 +49,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
+			<key>one</key>
 			<string>%d rota</string>
+			<key>other</key>
+			<string>%d rotalar</string>
 		</dict>
 	</dict>
 

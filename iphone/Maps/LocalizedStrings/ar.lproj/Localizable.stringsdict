@@ -15,8 +15,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d إشارة مرجعية</string>
+			<key>two</key>
+			<string>%d إشارتان مرجعيتان</string>
+			<key>few</key>
+			<string>%d إشارات مرجعية</string>
+			<key>many</key>
+			<string>%d إشارةً مرجعيةً</string>
 			<key>other</key>
-			<string>%d من الإشارات المرجعية</string>
+			<string>%d إشارةً مرجعيةً</string>
 		</dict>
 	</dict>
 
@@ -30,8 +38,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>تم العثور على %d ملف. يمكنك رؤيته بعد التحويل.</string>
+			<key>two</key>
+			<string>تم العثور على %d ملفين. يمكنك رؤيتهما بعد التحويل.</string>
+			<key>few</key>
+			<string>تم العثور على %d ملفات. يمكنك رؤيتها بعد التحويل.</string>
+			<key>many</key>
+			<string>تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</string>
 			<key>other</key>
-			<string>تم العثور على %d ملفات. سوف تراهم بعد التحويل.</string>
+			<string>تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</string>
 		</dict>
 	</dict>
 
@@ -45,8 +61,16 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d مسار</string>
+			<key>two</key>
+			<string>%d مساران</string>
+			<key>few</key>
+			<string>%d مسارات</string>
+			<key>many</key>
+			<string>%d مسارًا</string>
 			<key>other</key>
-			<string>مسار %d</string>
+			<string>%d مسارًا</string>
 		</dict>
 	</dict>
 

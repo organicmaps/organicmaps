@@ -625,10 +625,12 @@
     <string name="phone_number">หมายเลขโทรศัพท์</string>
     <string name="profile">โปรไฟล์ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
+        <item quantity="one">พบ %d ไฟล์ คุณจะเห็นมันหลังจากการแปลง</item>
+        <item quantity="other">พบ %d ไฟล์ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
     </plurals>
     <string name="restore">ฟื้นฟู</string>
     <plurals name="tracks">
+        <item quantity="one">%d ติดตาม</item>
         <item quantity="other">%d ติดตามต่าง ๆ</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

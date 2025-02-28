@@ -184,7 +184,7 @@
     <string name="bookmark_lists_hide_all">Ficha zote</string>
     <string name="bookmark_lists_show_all">Onyesha zote</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">Alamisho %d</item>
+        <item quantity="other">%d alamisho</item>
     </plurals>
     <string name="bookmarks_create_new_group">Unda orodha mpya</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -201,10 +201,11 @@
     <string name="phone_number">Nambari ya simu</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>
-        <item quantity="other">Files %d zimepatikana. Utawaona baada ya uongofu.</item>
+        <item quantity="other">Files %d zimepatikana. Utaziona baada ya uongofu.</item>
     </plurals>
     <string name="restore">Rejesha</string>
     <plurals name="tracks">
+        <item quantity="one">Njia %d</item>
         <item quantity="other">Njia %d</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

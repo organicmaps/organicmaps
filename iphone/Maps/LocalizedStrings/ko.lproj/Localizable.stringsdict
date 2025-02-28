@@ -31,7 +31,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</string>
+			<string>%d 개의 파일이 발견되었습니다. 변환 후 확인할 수 있습니다.</string>
 		</dict>
 	</dict>
 
@@ -45,6 +45,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d 추적</string>
 			<key>other</key>
 			<string>%d 추적</string>
 		</dict>

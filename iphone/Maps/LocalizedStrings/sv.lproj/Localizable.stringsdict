@@ -15,6 +15,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d bokmärke</string>
 			<key>other</key>
 			<string>%d bokmärken</string>
 		</dict>
@@ -33,7 +35,7 @@
 			<key>one</key>
 			<string>%d fil hittades. Du kommer att se den efter omvandlingen.</string>
 			<key>other</key>
-			<string>%d filer har hittats. Du kommer att se dem efter omvandlingen.</string>
+			<string>%d filer hittades. Du kommer att se dem efter omvandlingen.</string>
 		</dict>
 	</dict>
 

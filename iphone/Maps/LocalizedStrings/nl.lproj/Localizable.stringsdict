@@ -15,6 +15,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d bladwijzer</string>
 			<key>other</key>
 			<string>%d bladwijzers</string>
 		</dict>
@@ -33,7 +35,7 @@
 			<key>one</key>
 			<string>%d bestand gevonden. Je ziet het na het converteren.</string>
 			<key>other</key>
-			<string>Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.</string>
+			<string>%d bestanden gevonden. Je zult ze na de conversie zien.</string>
 		</dict>
 	</dict>
 
@@ -47,6 +49,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d track</string>
 			<key>other</key>
 			<string>%d tracks</string>
 		</dict>

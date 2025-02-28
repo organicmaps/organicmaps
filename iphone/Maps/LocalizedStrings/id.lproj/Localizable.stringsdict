@@ -31,7 +31,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%d file telah ditemukan. Anda akan melihatnya setelah konversi.</string>
+			<string>%d file ditemukan. Anda akan melihatnya setelah konversi.</string>
 		</dict>
 	</dict>
 
@@ -45,6 +45,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>trek %d</string>
 			<key>other</key>
 			<string>trek %d</string>
 		</dict>

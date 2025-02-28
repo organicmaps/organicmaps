@@ -35,7 +35,7 @@
 			<key>one</key>
 			<string>%d file è stato trovato. Lo vedrai dopo la conversione.</string>
 			<key>other</key>
-			<string>%d file trovati. Li vedrai dopo la conversione.</string>
+			<string>%d file sono stati trovati. Li vedrai dopo la conversione.</string>
 		</dict>
 	</dict>
 

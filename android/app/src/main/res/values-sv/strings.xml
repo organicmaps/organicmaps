@@ -604,6 +604,7 @@
     <string name="bookmark_lists_hide_all">Dölj alla</string>
     <string name="bookmark_lists_show_all">Visa alla</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d bokmärke</item>
         <item quantity="other">%d bokmärken</item>
     </plurals>
     <string name="bookmarks_create_new_group">Skapa ny lista</string>
@@ -622,7 +623,7 @@
     <string name="profile">OpenStreetMap profil</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>
-        <item quantity="other">%d filer har hittats. Du kommer att se dem efter omvandlingen.</item>
+        <item quantity="other">%d filer hittades. Du kommer att se dem efter omvandlingen.</item>
     </plurals>
     <string name="restore">Återställa</string>
     <plurals name="tracks">

@@ -30,8 +30,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d ファイルが見つかりました。変換後にそれを見ることができます。</string>
 			<key>other</key>
-			<string>%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</string>
+			<string>%d ファイルが見つかりました。変換後にそれを見ることができます。</string>
 		</dict>
 	</dict>
 
@@ -45,8 +47,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d の追跡</string>
 			<key>other</key>
-			<string>%dの追跡</string>
+			<string>%d の追跡</string>
 		</dict>
 	</dict>
 

@@ -655,7 +655,11 @@
     <string name="bookmark_lists_hide_all">إخفاء الكل</string>
     <string name="bookmark_lists_show_all">إظهار الكل</string>
     <plurals name="bookmarks_places">
-        <item quantity="other">%d من الإشارات المرجعية</item>
+        <item quantity="one">%d إشارة مرجعية</item>
+        <item quantity="two">%d إشارتان مرجعيتان</item>
+        <item quantity="few">%d إشارات مرجعية</item>
+        <item quantity="many">%d إشارةً مرجعيةً</item>
+        <item quantity="other">%d إشارةً مرجعيةً</item>
     </plurals>
     <string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -672,11 +676,19 @@
     <string name="phone_number">رقم الهاتف</string>
     <string name="profile">ملف الشخصي على خريطة الشارع المفتوحة</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
+        <item quantity="one">تم العثور على %d ملف. يمكنك رؤيته بعد التحويل.</item>
+        <item quantity="two">تم العثور على %d ملفين. يمكنك رؤيتهما بعد التحويل.</item>
+        <item quantity="few">تم العثور على %d ملفات. يمكنك رؤيتها بعد التحويل.</item>
+        <item quantity="many">تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</item>
+        <item quantity="other">تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</item>
     </plurals>
     <string name="restore">استعادة</string>
     <plurals name="tracks">
-        <item quantity="other">مسار %d</item>
+        <item quantity="one">%d مسار</item>
+        <item quantity="two">%d مساران</item>
+        <item quantity="few">%d مسارات</item>
+        <item quantity="many">%d مسارًا</item>
+        <item quantity="other">%d مسارًا</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">خصوصية</string>

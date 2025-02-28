@@ -670,7 +670,8 @@
     <string name="phone_number">電話號碼</string>
     <string name="profile">OpenStreetMap 資料</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">找到 %d 個文件，轉換後您才能看到它們。</item>
+        <item quantity="one">找到 %d 個文件，轉換後您可以看到它。</item>
+        <item quantity="other">找到 %d 個文件，轉換後您可以看到它們。</item>
     </plurals>
     <string name="restore">恢復</string>
     <plurals name="tracks">

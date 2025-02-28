@@ -622,10 +622,11 @@
     <string name="phone_number">전화 번호</string>
     <string name="profile">OpenStreetMap 프로필</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>
+        <item quantity="other">%d 개의 파일이 발견되었습니다. 변환 후 확인할 수 있습니다.</item>
     </plurals>
     <string name="restore">복원</string>
     <plurals name="tracks">
+        <item quantity="one">%d 추적</item>
         <item quantity="other">%d 추적</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

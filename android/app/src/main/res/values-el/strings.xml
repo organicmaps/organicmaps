@@ -657,7 +657,7 @@
     <string name="profile">Προφίλ OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
-        <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
+        <item quantity="other">Βρέθηκαν %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
     </plurals>
     <string name="restore">Επαναφορά</string>
     <plurals name="tracks">
