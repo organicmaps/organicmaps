@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
 "dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "表示する";
 

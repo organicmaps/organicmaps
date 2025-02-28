@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?";
 "dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Visa";
 
