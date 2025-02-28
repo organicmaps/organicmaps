@@ -2238,7 +2238,7 @@
     <string name="type.railway.preserved.tunnel">Tunel zachovalé železnice</string>
     <string name="type.railway.subway.bridge">Most trasy metra</string>
     <string name="type.railway.tram.bridge">Most tramvajové trati</string>
-    <string name="type.railway.tram">Tramvajová linka</string>
+    <string name="type.railway.tram">Tramvajová trať</string>
     <string name="type.railway.preserved.bridge">Most zachovalé železnice</string>
     <string name="type.railway.subway">Trasa metra</string>
 </resources>
