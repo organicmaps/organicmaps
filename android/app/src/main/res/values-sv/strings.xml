@@ -102,7 +102,6 @@
     <string name="measurement_units">Längdenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Välj mellan mile och kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Matmöjligheter</string>
@@ -148,7 +147,6 @@
     <string name="category_water">Vatten</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">För husbil</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Anteckningar</string>
@@ -342,7 +340,6 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Ljusblå grå</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">När du följer vägen, kom ihåg att:</string>
     <string name="dialog_routing_disclaimer_priority">— Vägförhållanden, trafiklagar och vägskyltar alltid ska prioriteras över navigeringsråd;</string>
@@ -372,7 +369,6 @@
     <string name="not_now">Inte nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?</string>
     <string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">För att börja söka och hitta rutter, ladda ner kartan. Efter det behöver du ingen internetanslutning längre.</string>
     <string name="search_select_map">Välj karta</string>
@@ -597,7 +593,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
-    <string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
     <string name="core_entrance">Ingång</string>
     <string name="error_enter_correct_name">Ange ett korrekt namn</string>
@@ -714,7 +710,6 @@
     <string name="moreyear_ago_sorttype">Över ett år sedan</string>
     <string name="near_me_sorttype">Nära mig</string>
     <string name="others_sorttype">Andra</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mat</string>
     <string name="tourist_places">Sevärdheter</string>
@@ -841,7 +836,6 @@
     <string name="uri_open_location_failed">Ingen app installerad som kan öppna platsen</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigering</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adress/Block</string>
     <string name="type.addr_interpolation.even">Adress/Block</string>
@@ -955,7 +949,6 @@
     <string name="type.amenity.prison">Fängelse</string>
     <string name="type.amenity.pub">Krog</string>
     <string name="type.amenity.public_bookcase">Bokskåp</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Återvinningscentral</string>
     <string name="type.amenity.recycling">Behållare för återvinningsbart avfall</string>
@@ -1159,7 +1152,6 @@
     <string name="type.healthcare.psychotherapist">Psykoterapi</string>
     <string name="type.healthcare.sample_collection">Provtagning</string>
     <string name="type.healthcare.speech_therapist">Logopedics</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Bro</string>
@@ -1317,7 +1309,6 @@
     <string name="type.area_highway.track">Gata</string>
     <string name="type.area_highway.trunk">Gata</string>
     <string name="type.area_highway.unclassified">Gata</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historiskt objekt</string>
     <string name="type.historic.aircraft">Historiska flygplan</string>
