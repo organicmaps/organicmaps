@@ -2231,4 +2231,7 @@
     <string name="type.railway.monorail.bridge">Most jednokolejné železnice</string>
     <string name="type.railway.narrow_gauge">Úzkorozchodná železnice tunel</string>
     <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
+    <string name="type.railway.platform">Železniční nástupiště</string>
+    <string name="type.railway.preserved">Zachovalá železnice tunel</string>
+    <string name="type.railway.narrow_gauge.tunnel">Tunel úzkorozchodné železnice</string>
 </resources>
