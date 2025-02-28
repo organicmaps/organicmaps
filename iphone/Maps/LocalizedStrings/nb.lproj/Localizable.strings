@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
 "edit_track" = "Rediger ruten";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresse/blokk";
 "type.addr_interpolation.even" = "Adresse/blokk";
 "type.addr_interpolation.odd" = "Adresse/blokk";

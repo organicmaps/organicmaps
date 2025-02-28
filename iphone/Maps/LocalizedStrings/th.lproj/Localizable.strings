@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
 "edit_track" = "แก้ไขเส้นทาง";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.even" = "ที่อยู่/บล็อค";
 "type.addr_interpolation.odd" = "ที่อยู่/บล็อค";

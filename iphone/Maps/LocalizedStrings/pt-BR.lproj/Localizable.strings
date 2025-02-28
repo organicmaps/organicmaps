@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
 "edit_track" = "Editar trilha";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Endereço/Bloco";
 "type.addr_interpolation.even" = "Endereço/Bloco";
 "type.addr_interpolation.odd" = "Endereço/Bloco";

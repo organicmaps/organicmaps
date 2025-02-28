@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
 "edit_track" = "ルートを編集";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "アドレス/ブロック";
 "type.addr_interpolation.even" = "アドレス/ブロック";
 "type.addr_interpolation.odd" = "アドレス/ブロック";

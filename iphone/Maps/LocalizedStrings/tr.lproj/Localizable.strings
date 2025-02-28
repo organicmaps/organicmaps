@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
 "edit_track" = "Kaydı düzenle";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/Blok";
 "type.addr_interpolation.even" = "Adres/Blok";
 "type.addr_interpolation.odd" = "Adres/Blok";

@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
 "edit_track" = "עריכת מסלול";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "כתובת/שכונה";
 "type.addr_interpolation.even" = "כתובת/שכונה";
 "type.addr_interpolation.odd" = "כתובת/שכונה";

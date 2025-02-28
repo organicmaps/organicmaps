@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 "edit_track" = "Muuda rada";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Aadress/plokk";
 "type.addr_interpolation.even" = "Aadress/plokk";
 "type.addr_interpolation.odd" = "Aadress/plokk";

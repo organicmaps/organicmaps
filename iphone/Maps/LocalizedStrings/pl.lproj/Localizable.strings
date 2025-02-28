@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
 "edit_track" = "Edytuj trasę";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/Blok";
 "type.addr_interpolation.even" = "Adres/Blok";
 "type.addr_interpolation.odd" = "Adres/Blok";

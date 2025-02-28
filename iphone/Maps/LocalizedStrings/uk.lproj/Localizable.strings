@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
 "edit_track" = "Редагувати маршрут";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Адреса/блок";
 "type.addr_interpolation.even" = "Адреса/блок";
 "type.addr_interpolation.odd" = "Адреса/блок";

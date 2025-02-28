@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Traseul este gol - nu este nimic de salvat";
 "edit_track" = "Editează traseul";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresă/Bloc";
 "type.addr_interpolation.even" = "Adresă/Bloc";
 "type.addr_interpolation.odd" = "Adresă/Bloc";

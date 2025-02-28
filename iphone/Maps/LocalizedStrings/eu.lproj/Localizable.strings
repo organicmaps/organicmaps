@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ibilbidea hutsik dago; ez dago ezer gordetzeko";
 "edit_track" = "Editatu arrastoa";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Helbidea/Blokea";
 "type.addr_interpolation.even" = "Helbidea/Blokea";
 "type.addr_interpolation.odd" = "Helbidea/Blokea";

@@ -1069,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
 "edit_track" = "Muokkaa reittiä";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Osoite/lohko";
 "type.addr_interpolation.even" = "Osoite/lohko";
 "type.addr_interpolation.odd" = "Osoite/lohko";
