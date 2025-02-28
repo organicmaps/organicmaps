@@ -2241,4 +2241,17 @@
     <string name="type.railway.tram">Tramvajová trať</string>
     <string name="type.railway.preserved.bridge">Most zachovalé železnice</string>
     <string name="type.railway.subway">Trasa metra</string>
+    <string name="type.shop.hardware">Železářství</string>
+    <string name="type.railway.tram.tunnel">Tunel tramvajové trati</string>
+    <string name="type.shop.supermarket">Supermarket</string>
+    <string name="type.tourism.hostel">Hostel</string>
+    <string name="type.route.ferry">Přívoz</string>
+    <string name="type.tourism">Turistika</string>
+    <string name="type.route">Trasa</string>
+    <string name="type.shop.kiosk">Kiosek</string>
+    <string name="type.sport.bowls">Bowls</string>
+    <string name="type.shop.caravan">Prodejce obytných vozů</string>
+    <string name="type.attraction.bumper_car">Autodrom</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.attraction.big_wheel">Ruské kolo</string>
 </resources>
