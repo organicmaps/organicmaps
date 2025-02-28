@@ -92,7 +92,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Haritaları şuraya kaydet:</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
+    <string name="maps_storage_summary">Haritaları indirmek için klasör seçin.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Haritalar</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -262,7 +262,7 @@
     <string name="placepage_distance">Mesafe</string>
     <string name="search_show_on_map">Haritada görüntüle</string>
     <!-- Text in menu -->
-    <string name="website">Web Sitesi</string>
+    <string name="website">İnternet Sitesi</string>
     <!-- Text in About menu, opens Organic Maps news website -->
     <string name="news">Haberler</string>
     <!-- Settings: Send feedback button and dialog title -->
@@ -494,7 +494,7 @@
     <string name="common_check_internet_connection_dialog">Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.</string>
     <string name="downloader_no_space_title">Yeterli alan yok</string>
     <string name="downloader_no_space_message">Lütfen gereksiz verileri silin</string>
-    <string name="editor_login_error_dialog">Giriş hatası</string>
+    <string name="editor_login_error_dialog">Giriş hatası.</string>
     <string name="editor_profile_changes">Doğrulanan Düzenleme</string>
     <string name="editor_focus_map_on_location">Çarpı işaretini mekân veya işletmenin konumuna yerleştirmek için haritayı sürükleyin.</string>
     <string name="editor_edit_place_title">Düzenleme</string>
@@ -695,7 +695,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Hiçbir zaman uyarma</string>
     <string name="power_managment_title">Güç tasarrufu modu</string>
-    <string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
+    <string name="power_managment_description">İşlevsellik pahasına güç kullanımını azaltmaya çalışın.</string>
     <string name="power_managment_setting_never">Asla</string>
     <string name="power_managment_setting_auto">Otomatik</string>
     <string name="power_managment_setting_manual_max">Maksimum güç tasarrufu</string>
@@ -710,7 +710,7 @@
     <string name="avoid_ferry">Vapurdan kaçın</string>
     <string name="avoid_motorways">Otobandan kaçın</string>
     <string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
-    <string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
+    <string name="unable_to_calc_alert_subtitle">Bir rota bulunamadı. Bu, yönlendirme seçeneklerinizden veya eksik OpenStreetMap verilerinizden kaynaklanabilir. Lütfen yönlendirme seçeneklerinizi değiştirin ve yeniden deneyin.</string>
     <string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
     <string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
     <string name="toll_road">Paralı yol</string>
@@ -1521,7 +1521,7 @@
     <string name="type.leisure.garden">Bahçe</string>
     <string name="type.leisure.garden.residential">Konut Bahçesi</string>
     <string name="type.leisure.golf_course">Golf Sahası</string>
-    <string name="type.leisure.miniature_golf">Minigolf</string>
+    <string name="type.leisure.miniature_golf">Mini golf</string>
     <string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
     <string name="type.leisure.marina">Liman</string>
     <string name="type.leisure.nature_reserve">Doğal Koruma Alanı</string>
@@ -2133,8 +2133,8 @@
     <string name="type.sport.table_tennis">Masa tenisi</string>
     <string name="type.sport.tennis">Tenis Kortu</string>
     <string name="type.sport.volleyball">Voleybol</string>
-    <string name="type.sport.10pin">Bowling</string>
-    <string name="type.sport.9pin">Bowling</string>
+    <string name="type.sport.10pin">Bovling</string>
+    <string name="type.sport.9pin">Bovling</string>
     <string name="type.sport.padel">Padel</string>
     <string name="type.sport.futsal">Futsal</string>
     <string name="type.sport.ice_hockey">Buz Hokeyi</string>
@@ -2252,4 +2252,16 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spor salonu</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="menu">Menü</string>
+    <string name="telegram">Telegram</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="vk">VK</string>
+    <string name="gb">GB</string>
 </resources>
