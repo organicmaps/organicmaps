@@ -21,7 +21,6 @@
     <string name="address">Anwani</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Hifadhi ramani kwenye</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
@@ -41,7 +40,6 @@
     <string name="category_water">Maji</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
@@ -105,11 +103,9 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
@@ -177,7 +173,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
-    <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Onyeshana hifadhi mbaya</string>
     <string name="core_entrance">Kiingilio</string>
     <string name="error_enter_correct_name">Tafadhali, weka jina sahihi</string>
@@ -293,7 +289,6 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Chakula</string>
     <string name="tourist_places">Vivutio</string>
@@ -418,7 +413,6 @@
     <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Urambazaji otomatiki</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Anwani/Zuia</string>
     <string name="type.addr_interpolation.even">Anwani/Zuia</string>
@@ -469,7 +463,6 @@
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Ukumbi wa Ufalme wa Mashahidi wa Yehova</string>
     <string name="type.amenity.post_office">Ofisi ya posta</string>
     <string name="type.amenity.prison">Jela</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.recycling.batteries">Betri</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
@@ -541,7 +534,6 @@
     <string name="type.healthcare.psychotherapist">Tiba ya kisaikolojia</string>
     <string name="type.healthcare.sample_collection">Sampuli</string>
     <string name="type.healthcare.speech_therapist">Tiba ya hotuba</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Daraja</string>
@@ -650,7 +642,6 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Mtaro</string>
     <string name="type.area_highway.path">Njia</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Kitu cha kihistoria</string>
     <string name="type.historic.aircraft">Ndege ya kihistoria</string>
