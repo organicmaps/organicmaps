@@ -116,7 +116,6 @@
     <string name="measurement_units">Ölçü birimleri</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Mil veya kilometre seçimini yap</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Nerede yenir</string>
@@ -164,7 +163,6 @@
     <string name="category_water">Su</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavan tesisleri</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notlar</string>
@@ -367,7 +365,6 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi Gri</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
     <string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;</string>
@@ -397,7 +394,6 @@
     <string name="not_now">Şimdi Değil</string>
     <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
     <string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
     <string name="search_select_map">Haritayı Seçin</string>
@@ -636,7 +632,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
+    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support@organicmaps.app adresinden bizimle iletişime geçin</string>
     <string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
     <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Lütfen doğru bir isim girin</string>
@@ -754,7 +750,6 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Yiyecek</string>
     <string name="tourist_places">Görülecek yerler</string>
@@ -902,7 +897,6 @@
     <string name="uri_open_location_failed">Konumu açabilecek yüklü bir uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Navigasyonda otomatik</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adres/Blok</string>
     <string name="type.addr_interpolation.even">Adres/Blok</string>
@@ -1032,7 +1026,6 @@
     <string name="type.amenity.prison">Hapishane</string>
     <string name="type.amenity.pub">Meyhane</string>
     <string name="type.amenity.public_bookcase">Kitap Değişimi</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Geri Dönüşüm Merkezi</string>
     <string name="type.amenity.recycling">Atık Toplama Merkezi</string>
@@ -1267,7 +1260,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapi</string>
     <string name="type.healthcare.sample_collection">Örnekleme</string>
     <string name="type.healthcare.speech_therapist">Logopedi</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Otoyol</string>
     <string name="type.highway.bridleway">Atlı Yolu</string>
@@ -1433,7 +1425,6 @@
     <string name="type.area_highway.track">Pist</string>
     <string name="type.area_highway.trunk">Devlet Yolu</string>
     <string name="type.area_highway.unclassified">Tali Yol</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarihi</string>
     <string name="type.historic.aircraft">Tarihi Uçak</string>
