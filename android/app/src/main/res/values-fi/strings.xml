@@ -116,7 +116,6 @@
     <string name="measurement_units">Mittayksiköt</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Valitse mailit tai kilometrit</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Missä syödä</string>
@@ -164,7 +163,6 @@
     <string name="category_water">Vesi</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavaanaritilat</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Muistiinpanot</string>
@@ -364,7 +362,6 @@
     <string name="gray">Harmaa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Siniharmaa</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
     <string name="dialog_routing_disclaimer_priority">— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;</string>
@@ -394,7 +391,6 @@
     <string name="not_now">Ei nyt</string>
     <string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?</string>
     <string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.</string>
     <string name="search_select_map">Valitse kartta</string>
@@ -631,7 +627,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
     <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
-    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista tai ota yhteyttä osoitteeseen support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista tai ota yhteyttä osoitteeseen support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
     <string name="core_entrance">Sisäänkäynti</string>
     <string name="error_enter_correct_name">Anna oikea nimi</string>
@@ -749,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ruoka</string>
     <string name="tourist_places">Nähtävyydet</string>
@@ -889,7 +884,6 @@
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaattinen navigointi</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Osoite/lohko</string>
     <string name="type.addr_interpolation.even">Osoite/lohko</string>
@@ -1016,7 +1010,6 @@
     <string name="type.amenity.prison">Vankila</string>
     <string name="type.amenity.pub">Pubi</string>
     <string name="type.amenity.public_bookcase">Kirjahylly</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Kierrätyskeskus</string>
     <string name="type.amenity.recycling">Kierrätysjäteastia</string>
@@ -1253,7 +1246,6 @@
     <string name="type.healthcare.psychotherapist">Psykoterapia</string>
     <string name="type.healthcare.sample_collection">Näytteenotto</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Valtatie</string>
     <string name="type.highway.bridleway">Ratsastustie</string>
@@ -1418,7 +1410,6 @@
     <string name="type.area_highway.track">Katu</string>
     <string name="type.area_highway.trunk">Päätie</string>
     <string name="type.area_highway.unclassified">Katu</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historiallinen esine</string>
     <string name="type.historic.aircraft">Historiallinen lentokone</string>
