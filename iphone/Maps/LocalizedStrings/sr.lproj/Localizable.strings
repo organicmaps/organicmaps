@@ -28,7 +28,7 @@
 "later" = "Касније";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
-"search" = "Тражи";
+"search" = "Претрага";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Да";
@@ -72,7 +72,7 @@
 "bookmarks" = "Маркери";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Маркери и путање";
+"bookmarks_and_tracks" = "Маркери и трасе";
 
 /* Default bookmark list name */
 "core_my_places" = "Моја места";
