@@ -114,7 +114,6 @@
     <string name="measurement_units">Meracie jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vyberte si míle alebo kilometre</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kde sa najesť</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Voda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Pre RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
@@ -365,7 +363,6 @@
     <string name="gray">Sivá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modro sivá</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Pri sledovaní trasy majte na pamäti nasledujúce:</string>
     <string name="dialog_routing_disclaimer_priority">— Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;</string>
@@ -395,7 +392,6 @@
     <string name="not_now">Nie teraz</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Stiahnutím mapy už nebudete potrebovať pripojenie k internetu a môžete si začať vyhľadávať a vytvárať trasy.</string>
     <string name="search_select_map">Vybrať mapu</string>
@@ -631,7 +627,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.</string>
     <string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
-    <string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
     <string name="core_entrance">Vchod | vjazd</string>
     <string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
@@ -750,7 +746,6 @@
     <string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
     <string name="near_me_sorttype">Blízko mňa</string>
     <string name="others_sorttype">Iné</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedlo</string>
     <string name="tourist_places">Pamiatky</string>
@@ -888,7 +883,6 @@
     <string name="uri_open_location_failed">Nie je nainštalovaná žiadna aplikácia, ktorá by mohla otvoriť umiestnenie</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaticky v navigácii</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresa/blok</string>
     <string name="type.addr_interpolation.even">Adresa/blok</string>
@@ -1012,7 +1006,6 @@
     <string name="type.amenity.prison">Väznica</string>
     <string name="type.amenity.pub">Pohostinstvo</string>
     <string name="type.amenity.public_bookcase">Knižná búdka</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Zberné suroviny</string>
     <string name="type.amenity.recycling">Recyklačný kontajner</string>
@@ -1251,7 +1244,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Odber vzoriek</string>
     <string name="type.healthcare.speech_therapist">Logopédia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Cesta</string>
     <string name="type.highway.bridleway">Cesta pre jazdca na zvierati</string>
@@ -1417,7 +1409,6 @@
     <string name="type.area_highway.track">Poľná cesta</string>
     <string name="type.area_highway.trunk">Cesta</string>
     <string name="type.area_highway.unclassified">Cesta bez administratívneho zaradenia</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>
     <string name="type.historic.aircraft">Historické lietadlo</string>
