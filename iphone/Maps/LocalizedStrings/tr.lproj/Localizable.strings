@@ -250,7 +250,7 @@
 "search_show_on_map" = "Haritada görüntüle";
 
 /* Text in menu */
-"website" = "Web Sitesi";
+"website" = "İnternet Sitesi";
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Haberler";
@@ -783,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Hiçbir zaman uyarma";
 "power_managment_title" = "Güç tasarrufu modu";
-"power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
+"power_managment_description" = "İşlevsellik pahasına güç kullanımını azaltmaya çalışın.";
 "power_managment_setting_never" = "Asla";
 "power_managment_setting_auto" = "Otomatik";
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Vapurdan kaçın";
 "avoid_motorways" = "Otobandan kaçın";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
-"unable_to_calc_alert_subtitle" = "Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin";
+"unable_to_calc_alert_subtitle" = "Bir rota bulunamadı. Bu, yönlendirme seçeneklerinizden veya eksik OpenStreetMap verilerinizden kaynaklanabilir. Lütfen yönlendirme seçeneklerinizi değiştirin ve yeniden deneyin.";
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
 "change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 "toll_road" = "Paralı yol";
@@ -1782,7 +1782,7 @@
 "type.leisure.garden" = "Bahçe";
 "type.leisure.garden.residential" = "Konut Bahçesi";
 "type.leisure.golf_course" = "Golf Sahası";
-"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.miniature_golf" = "Mini golf";
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Buz Pateni Pisti";
 "type.leisure.marina" = "Liman";
@@ -2427,8 +2427,8 @@
 "type.sport.table_tennis" = "Masa tenisi";
 "type.sport.tennis" = "Tenis Kortu";
 "type.sport.volleyball" = "Voleybol";
-"type.sport.10pin" = "Bowling";
-"type.sport.9pin" = "Bowling";
+"type.sport.10pin" = "Bovling";
+"type.sport.9pin" = "Bovling";
 "type.sport.padel" = "Padel";
 "type.sport.futsal" = "Futsal";
 "type.sport.ice_hockey" = "Buz Hokeyi";
