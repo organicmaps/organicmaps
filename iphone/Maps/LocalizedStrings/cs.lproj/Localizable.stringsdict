@@ -12,8 +12,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d záložek</string>
 			<key>one</key>
 			<string>%d záložka</string>
+			<key>few</key>
+			<string>%d záložek</string>
 			<key>other</key>
 			<string>%d záložek</string>
 		</dict>
@@ -28,10 +32,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Bylo nalezeno %d souborů. Uvidíte je po konverzi.</string>
 			<key>one</key>
-			<string>%d soubor byl nalezen. Uvidíte ho po konverzi.</string>
+			<string>Bylo nalezen %d soubor. Uvidíte jej po konverzi.</string>
 			<key>few</key>
-			<string>%d soubory byly nalezeny. Uvidíte je po konverzi.</string>
+			<string>Byly nalezeny %d soubory. Uvidíte je po konverzi.</string>
 			<key>other</key>
 			<string>Bylo nalezeno %d souborů. Uvidíte je po konverzi.</string>
 		</dict>
