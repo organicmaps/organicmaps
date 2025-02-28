@@ -66,18 +66,18 @@ STRINGS_UTILS="$OMIM_PATH/tools/python/strings_utils.py"
 CLEAN_STRINGS="$OMIM_PATH/tools/python/clean_strings_txt.py"
 "$CLEAN_STRINGS" --validate
 
-MERGED_FILE="$(mktemp)"
-cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
+STRINGS_FILE=$STRINGS_PATH/strings.txt
+TYPES_STRINGS_FILE=$STRINGS_PATH/types_strings.txt
 
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
-"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$MERGED_FILE" "$OMIM_PATH/android/app/src/main/res/"
-"$TWINE" generate-all-localization-files --format apple --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
-"$TWINE" generate-all-localization-files --format apple-plural --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$STRINGS_FILE" "$OMIM_PATH/android/app/src/main/res/"
+"$TWINE" generate-all-localization-files --include translated --format android  --file-name types_string.xml --untagged --tags android "$TYPES_STRINGS_FILE" "$OMIM_PATH/android/app/src/main/res/"
+"$TWINE" generate-all-localization-files --format apple --untagged --tags ios "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+"$TWINE" generate-all-localization-files --format apple-plural --untagged --tags ios "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+"$TWINE" generate-all-localization-files --format apple --file-name LocalizableTypes.strings --untagged --tags ios "$TYPES_STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format jquery "$OMIM_DATA/countries_names.txt" "$OMIM_DATA/countries-strings/"
 "$TWINE" generate-all-localization-files --format jquery "$STRINGS_PATH/sound.txt" "$OMIM_DATA/sound-strings/"
-
-rm "$MERGED_FILE"
 
 # Generate list of languages and add list in gradle.properties to be used in build.gradle in resConfig
 SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[a-zA-Z]{2,})?) = .*$/\1/p" "$STRINGS_PATH/strings.txt" | sort -u | tr '\n' ',' | sed -e 's/-/_/g' -e 's/,$//')
