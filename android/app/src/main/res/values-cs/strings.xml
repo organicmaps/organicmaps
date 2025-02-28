@@ -2123,7 +2123,7 @@
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
     <string name="type.internet_access">Internet</string>
     <string name="type.internet_access.wlan">Internet</string>
-    <string name="type.junction">Propojení</string>
+    <string name="type.junction">Křižovatka</string>
     <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.emergency">Nouzová stanice</string>
     <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
