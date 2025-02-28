@@ -1,115 +1,121 @@
 # Translations
 
-## Help us to review/proofread translations
+Translations are managed through [Weblate][weblate]. Please [contribute][contribute] translations via the [Weblate][weblate], and the system and maintainers will handle the rest.
 
-You can join our [GitHub translation teams](https://github.com/orgs/organicmaps/teams/translations/teams),
-so any contributor can tag all teams (or a specific language team) to get help with the review.
+## Components
 
-Please respond in the relevant [GitHub discussion](https://github.com/orgs/organicmaps/discussions/8538), or let us know at hello@organicmaps.app
+The project consists of multiple components, each with its own translation files.
 
-## Contribute translations directly
+| Weblate Component                                   | Description                                                | Translation Files                                                                                        |
+| --------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [Android][android_weblate]                          | UI strings                                                 | [android/app/src/main/res/values\*/strings.xml][android_git] ([en][android_git_en])                      |
+| [Android feature types][android_typestrings_weblate] | Map feature types                                        | [android/app/src/main/res/values\*/type_strings.xml][android_git] ([en][android_type_strings_git_en])    |
+| [iOS][ios_weblate]                                  | UI strings                                                 | [iphone/Maps/LocalizedStrings/\*.lproj/Localizable.strings][ios_git] ([en][ios_git_en])                  |
+| [iOS Type Strings][ios_typestrings_weblate]         | OpenStreetMap Types                                        | [iphone/Maps/LocalizedStrings/\*.lproj/LocalizableTypes.strings][ios_git] ([en][ios_typestrings_git_en]) |
+| [iOS Plurals][ios_plurals_weblate]                  | UI strings (plurals)                                       | [iphone/Maps/LocalizedStrings/\*.lproj/Localizable.stringsdict][ios_git] ([en][ios_plurals_git_en])      |
+| [iOS Plist][ios_plist_weblate]                      | UI strings (system-level)                                  | [iphone/Maps/LocalizedStrings/\*.lproj/InfoPlist.strings][ios_git] ([en][ios_plist_git_en])              |
+| [TTS][tts_weblate]                                  | Voice announcement strings for navigation directions (TTS) | [data/sound-strings/\*.json][tts_git] ([en][tts_git_en])                                                 |
+| [Countries][countries_weblate]                      | Country names for downloader                               | [data/country-strings/\*.json][countries_git] ([en][countries_git_en])                                   |
+| Search keywords                                     | Search keywords/aliases/synonyms                           | [data/categories.txt][categories_git]                                                                    |
+| Search keywords (cuisines)                          | Search keywords for cuisine types                          | [data/categories_cuisines.txt][categories_cuisines_git]                                                  |
+| AppStore Descriptions                               | AppStore descriptions                                      | [iphone/metadata][appstore_git] ([en][appstore_git_en])                                                  |
+| Android Stores Descriptions                                | Google, F-Droid, Huawei store descriptions                 | [android/app/src/fdroid/play][googleplay_git] ([en][googleplay_git_en])                                  |
+| [Website][website_weblate]                          | Website content                                            | [organicmaps/website][website_git] ([see details][website_guide])                                        |
 
-Adding and updating translations is easy!
-1. Change the translation file you want, e.g. [strings.txt](../data/strings/strings.txt) ([raw text version](https://raw.githubusercontent.com/organicmaps/organicmaps/master/data/strings/strings.txt))
-2. Commit your string changes with the title `[strings] {description of changes}`
-3. (Optional) run the `tools/unix/generate_localizations.sh` script
-4. (Optional) Commit the updated files with the title `[strings] Regenerated`
-5. Send a pull request!
+Components without links haven't been integrated into Weblate and must be translated directly via [GitHub Pull Requests](CONTRIBUTING.md).
 
-Please make sure to add a [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to your commit descriptions.
+## Translating
 
-## Requirements
+### Workflow
 
-To run the `tools/unix/generate_localizations.sh` script, it is necessary to have installed `ruby`.
+Translations are managed through [Weblate][weblate]. Direct submissions to this repository are not recommended but possible in specific cases (like batch-changes). Please prefer using the Weblate for translations whenever possible. Weblate periodically creates pull requests, which [@organicmaps/mergers][mergers] review and merge as usual.
 
-## Translation files
+### Cross-Component Synchronization
 
-- Main:
-  - Application UI strings: [`data/strings/strings.txt`](../data/strings/strings.txt)
-  - A few iOS specific strings: [`iphone/plist.txt`](../iphone/plist.txt)
+Android and iOS share most of the strings. Weblate automatically syncs translations between components (e.g., from Android to iOS and vice versa), so updating a string in one place is usually sufficient.
 
-- POI Categories:
-  - Names of map features/types: [`data/strings/types_strings.txt`](../data/strings/types_strings.txt)
-  - Search keywords/aliases/synonyms for map features: [`data/categories.txt`](../data/categories.txt)
+## Machine Translation
 
-  The POI definitions in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) help finding the most suitable translation. Both POI files should be kept in sync, so make sure that every category name is also contained in the coresponding search keyword list. Strings in _categories.txt_ should, however, not contain common tokens like e.g. Shop, Store or Center as separate words.
+Weblate is configured to generate machine translations using the best available tools. Auto-translated entries are added as suggestions.
 
-- Additional:
-  - Text-to-speech strings for navigation: [`data/strings/sound.txt`](../data/strings/sound.txt)
+### Failing checks
 
-  - Android stores description: [`android/app/src/fdroid/play/`](../android/app/src/fdroid/play/)
-  - Apple App Store description: [`iphone/metadata/`](../iphone/metadata/)
+Please review any issues flagged by automated checks, such as missing placeholders, inconsistencies, and other potential errors. Use the filter [`has:check AND state:>=translated language:de`][failing_checks], replacing `de` with your target language.
 
-  - Search keywords for popular brands: [`data/categories_brands.txt`](../data/categories_brands.txt)
-  - Search keywords for cuisine types: [`data/categories_cuisines.txt`](../data/categories_cuisines.txt)
+## Developing
 
-  - Country / map region names: [`data/countries_names.txt`](../data/countries_names.txt)
+### Workflow
 
-  - [other strings](STRUCTURE.md#strings-and-translations) files
+Translations are handled by the translation team via [**Weblate**][weblate], with no direct developer involvement required. Developers are only responsible for adding English base strings to the source file (see [Components](#components)). Weblate manages the rest. If you're confident in a language, feel free to contribute translations, but please avoid adding machine translations or translating languages you are not familiar with.
 
-Language codes used are from [ISO 639-1 standard](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
-If a string is not translated into a particular language then it falls back to English or a "parent" language (e.g. `es-MX` falls back to `es`).
+### Tools
 
-## Tools
+Android developers can utilize the built-in features of Android Studio to add and modify strings efficiently. iOS developers are advised to edit `Localizable.strings` as a text file, as Xcode’s interface only supports "String Catalog," which is not currently in use. JSON files can be modified using any text editor. To ensure consistency, always follow the established structure and include a comment when adding new strings.
 
-To find strings without translations substitute `ar` with your language code and run the following script:
-```
-tools/python/strings_utils.py -l ar -pm
-```
-By default, it searches `strings.txt`, to check `types_strings.txt` add a `-t` option.
-There are many more other options, e.g. print various translation statistics, validate and re-format translation files.
-Check `tools/python/strings_utils.py -h` to see all of them.
+### Cross-Component Synchronization
 
-To check consistency of types_strings.txt with categories.txt run:
-```
-ruby tools/ruby/category_consistency/check_consistency.rb
-```
+When adding new strings, first check the base file of the component for existing ones. If no relevant strings are found, look for them on the corresponding platform (e.g., iOS when adding Android strings or vice versa). To maintain consistency across platforms, always reuse the existing string key from the other platform with the same English base string.
 
-## Automatic translations
+## Maintaining
 
-In some cases automatically translated strings are better than no translation at all.
-There are two scripts to automate given string's translation into multiple languages.
-Please [install Translate Shell](https://www.soimort.org/translate-shell/#installation) first to be able to run them.
+## Under the Hood
 
-### DeepL + Google Translate fallback
+Weblate maintains an internal copy of the Git repository. The repository URL can be found under _Manage → Repository Maintenance → Weblate Repository_. All components, except for the website, share the same internal Weblate repository.
 
-The first one uses free DeepL API where possible and provides a significantly better quality translations.
-It requires registering a [DeepL account](https://www.deepl.com/pro#developer) and [getting API key](https://www.deepl.com/account/summary).
-You may be asked for a credit card for verification, but it won't be charged.
-Requires Python version >= 3.7.
+Translations are extracted from the repository and stored in an internal database, which is used by the Weblate UI. Every 24 hours, this internal database is synchronized back to the internal repository. This process can also be triggered manually via _Manage → Repository Maintenance → Commit_.
 
-```bash
-export DEEPL_FREE_API_KEY=<your DeepL API key here>
-# Generates translations in both categories.txt and strings.txt formats at the same time:
-tools/python/translate.py English text to translate here
-# Use two-letter language codes with a colon for a non-English source language:
-tools/python/translate.py de:German text to translate here
-```
+After committing changes from the internal database to the internal repository, Weblate pushes all updates to the `weblate-i18n` branch of the main GitHub repository and creates or updates a pull request (PR) to `master`. This operation can be manually triggered via _Manage → Repository Maintenance → Push_.
 
-### Google Translate only
+### Reviewing PRs
 
-The second one is not recommended, it uses Google API and sometimes translations are incorrect.
-Also it does not support European Portuguese (pt or pt-PT), and always generates Brazil Portuguese.
+Translations are intended to be reviewed by the community on Weblate. However, if it's a user's first contribution or if there is any doubt, a quick scan and comparison with the English source can be useful.
 
-```bash
-# Generates translations in categories.txt format
-tools/unix/translate_categories.sh "Route"
-# Translations in strings.txt format
-DELIM=" = " tools/unix/translate_categories.sh "Route"
-```
+It is recommended to add comments directly on Weblate, as translators primarily work within that platform. If the contributor has a GitHub account, you may tag them in the pull request, but there is no guarantee that they will respond.
 
-## Technical details
+### Resolving Conflicts
 
-Most of the translation files (strings, types_strings...) are in Twine file format ([syntax reference](https://github.com/organicmaps/twine/blob/organicmaps/README.md)).
-OM uses a custom version of the [Twine](https://github.com/organicmaps/twine)
-tool (resides in `tools/twine/` submodule) to generate platform-native (Android, iOS)
-localization files from a single translation file.
+The recommended approach for resolving conflicts is as follows:
 
-The `tools/unix/generate_localizations.sh` script launches this conversion
-(and installs Twine beforehand if necessary).
+1. Commit all changes from the internal database to the internal Git repository:  
+   _Manage → Repository Maintenance → Commit (button)_.
+2. Update the `weblate-i18n` branch on GitHub:  
+   _Manage → Repository Maintenance → Push (button)_.
+3. Locally checkout the `weblate-i18n` branch.
+4. Rebase it onto `master`, resolving any conflicts during the process.
+5. Push the branch to GitHub to update the pull request, then merge the branch or PR into `master`.
+6. Reset Weblate to sync changes from GitHub:  
+   _Manage → Repository Maintenance → Reset (button)_.
 
-Search keywords translation files use a custom format described in the beginning of `data/categories.txt`.
-
-A `tools/python/clean_strings_txt.py` script is used to sync `strings.txt` with real UI strings usage as found in the codebase.
-
-There are preliminary plans to refactor translations workflow and migrate to Weblate.
+[weblate]: https://hosted.weblate.org/projects/organicmaps/
+[contribute]: https://docs.weblate.org/en/latest/workflows.html
+[android_weblate]: https://hosted.weblate.org/projects/organicmaps/android/
+[android_git]: https://github.com/organicmaps/organicmaps/blob/master/android/app/src/main/res/
+[android_git_en]: https://github.com/organicmaps/organicmaps/blob/master/android/app/src/main/res/values/strings.xml
+[android_typestrings_weblate]: https://hosted.weblate.org/projects/organicmaps/android-typestrings/
+[android_typestrings_git_en]: https://github.com/organicmaps/organicmaps/blob/master/android/app/src/main/res/values/types_strings.xml
+[countries_weblate]: https://hosted.weblate.org/projects/organicmaps/countries/
+[countries_git]: https://github.com/organicmaps/organicmaps/tree/master/data/countries-strings
+[countries_git_en]: https://github.com/organicmaps/organicmaps/blob/master/data/countries-strings/en.json/localize.json
+[ios_weblate]: https://hosted.weblate.org/projects/organicmaps/ios/
+[ios_git]: https://github.com/organicmaps/organicmaps/blob/master/iphone/Maps/LocalizedStrings/
+[ios_git_en]: https://github.com/organicmaps/organicmaps/blob/master/iphone/Maps/LocalizedStrings/en.lproj/Localizable.strings
+[ios_plist_weblate]: https://hosted.weblate.org/projects/organicmaps/ios-plist/
+[ios_plist_git_en]: https://github.com/organicmaps/organicmaps/blob/master/iphone/Maps/LocalizedStrings/en.lproj/InfoPlist.strings
+[ios_typestrings_weblate]: https://hosted.weblate.org/projects/organicmaps/ios-typestrings/
+[ios_typestrings_git_en]: https://github.com/organicmaps/organicmaps/blob/master/iphone/Maps/LocalizedStrings/en.lproj/LocalizableTypes.strings
+[ios_plurals_weblate]: https://hosted.weblate.org/projects/organicmaps/ios-plurals/
+[ios_plurals_git_en]: https://github.com/organicmaps/organicmaps/blob/master/iphone/Maps/LocalizedStrings/en.lproj/Localizable.stringsdict
+[tts_weblate]: https://hosted.weblate.org/projects/organicmaps/tts/
+[tts_git]: https://github.com/organicmaps/organicmaps/tree/master/data/sound-strings
+[tts_git_en]: https://github.com/organicmaps/organicmaps/blob/master/data/sound-strings/en.json/localize.json
+[categories_git]: https://github.com/organicmaps/organicmaps/blob/master/data/categories.txt
+[categories_cuisines_git]: https://github.com/organicmaps/organicmaps/blob/master/data/categories_cuisines.txt
+[website_weblate]: https://hosted.weblate.org/projects/organicmaps/website/
+[website_git]: https://github.com/organicmaps/website/
+[website_guide]: https://github.com/organicmaps/website/blob/master/TRANSLATIONS.md
+[appstore_git]: https://github.com/organicmaps/organicmaps/tree/master/iphone/metadata
+[appstore_git_en]: https://github.com/organicmaps/organicmaps/tree/master/iphone/metadata/en-US
+[googleplay_git]: https://github.com/organicmaps/organicmaps/tree/master/android/app/src/fdroid/play
+[googleplay_git_en]: https://github.com/organicmaps/organicmaps/tree/master/android/app/src/fdroid/play/listings/en-US
+[mergers]: https://github.com/orgs/organicmaps/teams/mergers/members
+[failing_checks]: https://hosted.weblate.org/search/organicmaps/?q=has%3Acheck+AND+state%3A%3E%3Dtranslated+language%3Aru&sort_by=target&checksum=
