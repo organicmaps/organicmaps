@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pro RV";
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Ahoj! \n\nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz \n\nUžij si cestování s Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -502,12 +502,12 @@
 "day_off_today" = "Dnes zavřeno";
 "day_off" = "Zavřeno";
 "today" = "Dnes";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
-"closes_in" = "Closes in %@";
+"opens_tomorrow_at" = "Otevírá zítra v %@";
+"opens_dayoftheweek_at" = "Otevírá %1$@ v %2$@";
+"opens_at" = "Otevírá v %@";
+"opens_in" = "Otevírá za %@";
+"closes_at" = "Zavírá v %@";
+"closes_in" = "Zavírá za %@";
 "closed" = "Zavřeno";
 "add_opening_hours" = "Přidat otevírací dobu";
 "no_osm_account" = "Nemáte účet u OpenStreetMap?";
@@ -764,7 +764,7 @@
 "layers_title" = "Styly a vrstvy mapy";
 "subway_data_unavailable" = "Mapa metra není dostupná";
 "title_error_downloading_bookmarks" = "Někde se stala chyba";
-"popular_place" = "Popular";
+"popular_place" = "Populární";
 "export_file" = "Exportovat KMZ";
 "export_file_gpx" = "Export GPX";
 "delete_list" = "Smazat seznam";
@@ -910,16 +910,16 @@
 "whats_new_auto_update_button_later" = "Aktualizovat ručně později";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Odstranit stopu";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Opravdu chcete tuto stopu odstranit?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Název stopy";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Přesunout";
 
 /* edit track screen title */
 "track_title" = "Dráha";
@@ -1966,7 +1966,7 @@
 "type.power.substation" = "Rozvodna";
 
 /* A tower or pylon carrying high voltage electricity cables. */
-"type.power.tower" = "Sloup elektrického vedení";
+"type.power.tower" = "Věž elektrického vedení";
 
 /* A single pole supporting minor power lines. */
 "type.power.pole" = "Sloup elektrického vedení";
@@ -1998,7 +1998,7 @@
 "type.railway.monorail" = "Jednokolejná železnice";
 "type.railway.monorail.bridge" = "Most jednokolejné železnice";
 "type.railway.monorail.tunnel" = "Tunel jednokolejné železnice";
-"type.railway.narrow_gauge" = "Tunel úzkorozchodné železnice";
+"type.railway.narrow_gauge" = "Úzkorozchodná železnice";
 "type.railway.narrow_gauge.bridge" = "Most úzkorozchodné železnice";
 "type.railway.narrow_gauge.tunnel" = "Tunel úzkorozchodné železnice";
 "type.railway.platform" = "Železniční nástupiště";
@@ -2309,7 +2309,7 @@
 "type.shop.curtain" = "Závěsy";
 "type.shop.deli" = "Prodejna lahůdek";
 "type.shop.department_store" = "Obchodní dům";
-"type.shop.doityourself" = "Železářství";
+"type.shop.doityourself" = "Domácí potřeby";
 "type.shop.dry_cleaning" = "Chemické čištění";
 "type.shop.electronics" = "Elektronika";
 "type.shop.erotic" = "Obchod s erotickými pomůckami";
@@ -2483,20 +2483,20 @@
 "type.tourism.wilderness_hut" = "Chata v divočině";
 "type.tourism.zoo" = "zoologická zahrada";
 "type.tourism.zoo.petting" = "ZOO pro domácí mazlíčky";
-"type.traffic_calming" = "Traffic Calming";
-"type.traffic_calming.bump" = "Traffic Bump";
-"type.traffic_calming.hump" = "Traffic Hump";
-"type.waterway" = "Waterway";
+"type.traffic_calming" = "Zklidnění dopravy";
+"type.traffic_calming.bump" = "Zpomalovací práh";
+"type.traffic_calming.hump" = "Zpomalovací hrbol";
+"type.waterway" = "Vodní cesta";
 "type.waterway.canal" = "Kanál";
 "type.waterway.canal.tunnel" = "Kanál";
 "type.waterway.fish_pass" = "Žebřík pro ryby";
-"type.waterway.dam" = "Dam";
-"type.barrier.ditch" = "Ditch";
+"type.waterway.dam" = "Přehrada";
+"type.barrier.ditch" = "Příkop";
 "type.natural.water.ditch" = "Drenážní příkop";
 "type.waterway.ditch.tunnel" = "Propustek";
-"type.waterway.dock" = "Waterway Dock";
-"type.waterway.drain" = "Drain";
-"type.natural.water.drain" = "Drain";
+"type.waterway.dock" = "Dok";
+"type.waterway.drain" = "Odvodnění";
+"type.natural.water.drain" = "Odvodnění";
 "type.waterway.drain.tunnel" = "Propustek";
 "type.waterway.lock_gate" = "Stavidlo";
 "type.waterway.river" = "Řeka";
@@ -2506,32 +2506,32 @@
 "type.waterway.stream.intermittent" = "Řeka";
 "type.waterway.stream.tunnel" = "Řeka";
 "type.waterway.waterfall" = "Vodopád";
-"type.waterway.weir" = "Weir";
-"type.wheelchair" = "Wheelchair";
+"type.waterway.weir" = "Jez";
+"type.wheelchair" = "Vozíčkář";
 "type.wheelchair.limited" = "Omezený vstup pro vozíčkáře";
 "type.wheelchair.no" = "Bez přístupu pro vozíčkáře";
 "type.wheelchair.yes" = "Plný vstup pro vozíčkáře";
-"type.aerialway.j.bar" = "J-bar Lift";
-"type.aerialway.magic_carpet" = "Magic Carpet";
-"type.aerialway.platter" = "Platter Lift";
-"type.aerialway.rope_tow" = "Rope Tow";
-"type.aerialway.t.bar" = "T-bar Lift";
-"type.piste_type.downhill" = "Downhill Ski Run";
-"type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
-"type.piste_type.nordic" = "Nordic Ski Trail";
-"type.piste_type.sled" = "Sledding Piste";
-"type.piste_type.sled.area" = "Sledding Piste";
+"type.aerialway.j.bar" = "Jednokotva";
+"type.aerialway.magic_carpet" = "Jezdící koberec";
+"type.aerialway.platter" = "Poma";
+"type.aerialway.rope_tow" = "Kotvička";
+"type.aerialway.t.bar" = "Kotva";
+"type.piste_type.downhill" = "Sjezdovka";
+"type.piste_type.downhill.area" = "Sjezdovka";
+"type.piste_type.downhill.advanced" = "Pokročilá sjezdovka";
+"type.piste_type.downhill.advanced.area" = "Pokročilá sjezdovka";
+"type.piste_type.downhill.easy" = "Jednoduchá sjezdovka";
+"type.piste_type.downhill.easy.area" = "Jednoduchá sjezdovka";
+"type.piste_type.downhill.expert" = "Těžká sjezdovka";
+"type.piste_type.downhill.expert.area" = "Těžká sjezdovka";
+"type.piste_type.downhill.freeride" = "Freeridová sjezdovka";
+"type.piste_type.downhill.intermediate" = "Středně těžká sjezdovka";
+"type.piste_type.downhill.intermediate.area" = "Středně těžká sjezdovka";
+"type.piste_type.downhill.novice" = "Sjezdovka pro začátečníky";
+"type.piste_type.downhill.novice.area" = "Sjezdovka pro začátečníky";
+"type.piste_type.nordic" = "Lyžařská stopa";
+"type.piste_type.sled" = "Sáňkařská dráha";
+"type.piste_type.sled.area" = "Sáňkařská dráha";
 "type.piste_type.snow_park" = "Snowpark";
 "type.piste_type.hike" = "Zimní stezka";
 "type.piste_type.connection" = "Připojení sjezdovky";
