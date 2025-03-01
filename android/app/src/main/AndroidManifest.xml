@@ -83,6 +83,27 @@
       android:manageSpaceActivity="${applicationId}.ManageSpaceActivity"
       tools:targetApi="33">
 
+    <receiver
+        android:name=".homewidgets.FavoriteBookmarkWidget"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        </intent-filter>
+        <meta-data
+            android:name="android.appwidget.provider"
+            android:resource="@xml/favorite_bookmark_widget_info" />
+    </receiver>
+
+    <activity
+        android:name=".homewidgets.FavoriteBookmarkWidgetConfigActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Light"
+        android:label="@string/widget_name">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+
     <!-- Allows for config and orientation change without killing/restarting main activity -->
     <activity
       android:name="app.organicmaps.SplashActivity"
@@ -360,12 +381,18 @@
       </intent-filter>
     </activity-alias>
 
-    <activity
-        android:name="app.organicmaps.MwmActivity"
-        android:launchMode="singleTask"
-        android:configChanges="uiMode"
-        android:screenOrientation="fullUser"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity
+    android:name="app.organicmaps.MwmActivity"
+    android:launchMode="singleTask"
+    android:configChanges="uiMode"
+    android:screenOrientation="fullUser"
+    android:exported="true"
+    android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+    <intent-filter>
+        <action android:name="app.organicmaps.action.SHOW_BOOKMARK" />
+        <category android:name="android.intent.category.DEFAULT" />
+    </intent-filter>
+</activity>
 
     <activity-alias
         android:name="${applicationId}.ManageSpaceActivity"
