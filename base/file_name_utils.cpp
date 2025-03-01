@@ -58,11 +58,7 @@ string GetDirectory(string const & name)
 
 string::value_type GetNativeSeparator()
 {
-#ifdef OMIM_OS_WINDOWS
-    return '\\';
-#else
-    return '/';
-#endif
+  return '/';
 }
 
 string AddSlashIfNeeded(string const & path)
