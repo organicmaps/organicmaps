@@ -1,8 +1,8 @@
-• Neue OpenStreetMap-Daten vom 21. Januar
-• Anzeige eines Geschwindigkeitsbegrenzungsschildes im Navigationsmodus
-• Serbische (Kyrillisch) und Lettische Sprachen hinzugefügt
-• Android Auto: Lesezeichen sortieren, verbessertes Erlebnis bei der Anforderung von Standortberechtigungen
-• Turm-POIs hinzugefügt
-• Eine Einstellung für Kayak.com-Hotellinks und eine Opt-out-Option bei der ersten Nutzung hinzugefügt.
+• New OpenStreetMap data as of February 27
+• Ability to manually arrange intermediate route points
+• Share a single selected track from the list
+• Improved routing for bicycles
+• Display a system notification when downloading maps and don't interrupt background downloads
+• Added a flashing Track Recording widget
 
-…weitere Details unter omaps.org/news
+…more details at omaps.org/news

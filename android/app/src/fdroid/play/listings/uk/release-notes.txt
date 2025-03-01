@@ -1,8 +1,8 @@
-• Нові дані OpenStreetMap від 21 січня
-• Знак перевищення швидкості підчас навігації
-• Додано перклади сербською (кирилиця) та латиською мовами
-• Android Auto: сортування міток, покращено процес запиту на отримання дозволу на розміщення
-• Вежі відображаються на мапі
-• Додано налаштування для посилань до Kayak.com для готелів та демонструється запит при першому використанні
+• New OpenStreetMap data as of February 27
+• Ability to manually arrange intermediate route points
+• Share a single selected track from the list
+• Improved routing for bicycles
+• Display a system notification when downloading maps and don't interrupt background downloads
+• Added a flashing Track Recording widget
 
-…більше подробиць на omaps.org/news
+…more details at omaps.org/news

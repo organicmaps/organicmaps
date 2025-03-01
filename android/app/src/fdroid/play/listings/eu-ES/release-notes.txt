@@ -1,8 +1,8 @@
-• Urtarrilaren 21ko OpenStreetMap-eko datu berriak
-• Abiadura muga erakusten da nabigazio moduan
-• Serbiera (zirilikoa) eta letoniera hizkuntzak gehitu dira
-• Android Auto: gogokoak ordena daitezke, kokapen permisuaren eskaeraren esperientzia hobetu da
-• Dorreen interes puntuak gehitu dira
-• Kayak.com-eko hotelen estekak eta lehenengo erabileran ez erakusteko aukera gehitu dira
+• New OpenStreetMap data as of February 27
+• Ability to manually arrange intermediate route points
+• Share a single selected track from the list
+• Improved routing for bicycles
+• Display a system notification when downloading maps and don't interrupt background downloads
+• Added a flashing Track Recording widget
 
-…zehaztasun gehiago omaps.org/news webgunean
+…more details at omaps.org/news
