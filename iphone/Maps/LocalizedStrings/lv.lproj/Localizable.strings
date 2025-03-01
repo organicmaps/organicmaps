@@ -727,7 +727,7 @@
 "start_from_my_position" = "Sākt no";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Ierakstieties „OpenStraatMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
+"alert_reauth_message_ios" = "Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "te";
@@ -752,7 +752,7 @@
 "bookmarks_error_message_empty_list_name" = "Ierakstiet saraksta nosaukumu";
 "bookmarks_error_title_list_name_already_taken" = "Šāds nosaukums jau ir aizņemts";
 "bookmarks_error_title_list_name_too_long" = "Nosaukums ir par garu";
-"profile" = "„OpenStraatMap“ profils";
+"profile" = "„OpenStreetMap“ profils";
 "bookmarks_detect_title" = "Atrastas jaunas datnes";
 "button_convert" = "Konvertēt";
 "bookmarks_convert_error_title" = "Kļūda";
