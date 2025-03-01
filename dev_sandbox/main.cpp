@@ -246,6 +246,7 @@ int main(int argc, char * argv[])
   float xs = 1.0f, ys = 1.0f;
   glfwGetWindowContentScale(window, &xs, &ys);
   float visualScale = std::max(xs, ys);
+  glfwSetGamma(monitor, 1.0f);
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
