@@ -1,20 +1,31 @@
-• Нові дані OpenStreetMap від 21 січня
-• Натисніть на трек, щоб побачити статистику та графік рельєфу
-• Окрема кнопка для запису треків
-• Абсолютно новій віджет із статистикою в реальномі часі (для iOS16.2 та піздніше)
-• Додано переклади сербською (кирилиця) та латиською мовами
-• Вежі відображаються на мапі
+• New OpenStreetMap data as of February 27
+• Search: split screen to show both the map and the list at the same time
+• Ability to share a single selected track from the list
+• Improved routing for bicycles
+• Added tracks and bookmarks colors into exported GPX files
 
-• Додано спеціальні іконки для метро в Гонконгу й Шеньчжені та для трамвайних ліній в Берліні
-• Кнопка з координатами отримала контексне меню в панені інформації для POI
-• Кожного разу при переході до повноекранного режиму відображається вспливаюча підказка
-• Додадкове пояснення для випадку відсутньої категорії в редакторі
-• Різні кольори для газонів та лугів
-• Меньш насичений колір для присадибних ділянок
-• Жовті щитки для доріг більше не відображаються зеленим кольором в нічному режимі
-• Ділянки з рослинами відображаються раніше в режимі автомобільної навігації 
-• Підтримка складних нецифрових номерів поверхів для POI
-• Покращено пошук для гірських вершин та сідловин
-• В OSM редакторі додано пошук англійською
-• Оновлення перекладів естонською, фінською, німецькою, італійською та турецькою мовами
-• ...та ще багано виправлень та покращень
+Map:
+• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
+• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
+• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
+• Added captions to named Cliffs, City Walls, Embankments, Power Lines
+• Tuned visibility and priority of some niche shops
+
+OSM editor:
+• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
+• Don't hide OSM login page when offline
+• Added icons to address and number of floors input fields
+• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
+
+Other:
+• Open track's info page automatically upon record finish / track save
+• Show "Add Stop" button for the selected track point when in the navigation mode
+• Voice directions: announce route recalculation
+• Better looking track elevation profiles
+• Made Track Recording live activity widget properly dismissable
+• Don't always default to the subway routing mode when the subway layer is active
+• Fixed bookmarks storing POI name in a wrong language
+• Fixed on-building POIs disappearing when in perspective view
+• Fixed empty speed limit sign displayed in foot navigation
+• Fixed stuck map rotation gesture when zoomed in max
+• iCloud sync bug fixes and some minor UI fixes

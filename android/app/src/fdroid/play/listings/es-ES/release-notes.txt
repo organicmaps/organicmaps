@@ -1,8 +1,8 @@
-• Nuevos datos de OpenStreetMap del 21 de enero
-• Límite de velocidad en el modo de navegación
-• Añadidos idiomas serbio (cirílico) y letón
-• Android Auto: opción de ordenar marcadores, mejorada la experiencia al solicitar ubicación
-• Añadidos PDI de torres
-• Añadidas opciones para enlaces de hotel de Kayak.com y de exclusión al primer uso
+• New OpenStreetMap data as of February 27
+• Ability to manually arrange intermediate route points
+• Share a single selected track from the list
+• Improved routing for bicycles
+• Display a system notification when downloading maps and don't interrupt background downloads
+• Added a flashing Track Recording widget
 
-…más detalles en omaps.org/news
+…more details at omaps.org/news

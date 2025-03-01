@@ -1,8 +1,8 @@
-• Новые данные OpenStreetMap от 21 января
-• Отображение ограничения скорости в режиме навигации
-• Android Auto: сортировка меток, улучшены запросы на разрешение местоположения
-• На карту добавлены башни
-• Добавлена ​​настройка для отключения ссылок на отели с Kayak.com и возможность отказа при первом использовании
-• Добавлены сербский (кириллица) и латышский языки
+• New OpenStreetMap data as of February 27
+• Ability to manually arrange intermediate route points
+• Share a single selected track from the list
+• Improved routing for bicycles
+• Display a system notification when downloading maps and don't interrupt background downloads
+• Added a flashing Track Recording widget
 
-…и многое другое на omaps.org/news
+…more details at omaps.org/news
