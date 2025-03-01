@@ -27,6 +27,7 @@
 "onto":"към",
 "take_exit_number":"Вземете изхода",
 "take_exit_number_street_verb":"NULL",
+"route_recalculating":"Преизчисляване на маршрута",
 "destination":"Ще стигнете местоназначението си.",
 "you_have_reached_the_destination":"Пристигнахте в местоназначението си.",
 "in_50_meters":"След петдесет метра",
