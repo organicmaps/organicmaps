@@ -2245,4 +2245,19 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spordisaal</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="instagram">Instagram</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="github">GitHub</string>
+    <string name="menu">Menüü</string>
+    <string name="gb">GB</string>
+    <string name="telegram">Telegram</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="vk">VK</string>
+    <string name="facebook">Facebook</string>
 </resources>
