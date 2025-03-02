@@ -2474,14 +2474,14 @@
 "type.tourism.information.visitor_centre" = "Návštěvnické centrum";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Muzeum";
-"type.tourism.picnic_site" = "Piknik";
+"type.tourism.picnic_site" = "Místo pro piknik";
 "type.leisure.resort" = "Letovisko";
 "type.tourism.theme_park" = "Pamětihodnost";
 "type.tourism.viewpoint" = "Vyhlídka";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Chata v divočině";
-"type.tourism.zoo" = "zoologická zahrada";
+"type.tourism.zoo" = "Zoologická zahrada";
 "type.tourism.zoo.petting" = "ZOO pro domácí mazlíčky";
 "type.traffic_calming" = "Zklidnění dopravy";
 "type.traffic_calming.bump" = "Zpomalovací práh";
