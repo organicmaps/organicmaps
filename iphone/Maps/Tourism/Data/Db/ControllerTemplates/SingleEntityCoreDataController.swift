@@ -2,30 +2,34 @@ import CoreData
 import Combine
 
 class SingleEntityCoreDataController<Entity: NSManagedObject>: NSObject, NSFetchedResultsControllerDelegate {
-  private let container: NSPersistentContainer
+  
   private var fetchedResultsController: NSFetchedResultsController<Entity>?
   var entitySubject = PassthroughSubject<Entity?, ResourceError>()
   
-  init(modelName: String) {
-    container = NSPersistentContainer(name: modelName)
-    super.init()
-    container.loadPersistentStores { (description, error) in
-      if let error = error {
-        fatalError("Failed to load Core Data stack: \(error)")
-      }
-    }
-  }
+  private let viewContext = CoreDataManager.shared.viewContext
+  private let backgroundContext = CoreDataManager.shared.backgroundContext
   
-  var context: NSManagedObjectContext {
-    return container.viewContext
-  }
+//  init(modelName: String) {
+//    container = NSPersistentContainer(name: modelName)
+//    super.init()
+//    container.loadPersistentStores { (description, error) in
+//      if let error = error {
+//        fatalError("Failed to load Core Data stack: \(error)")
+//      }
+//    }
+//    container.viewContext.automaticallyMergesChangesFromParent = true
+//  }
+  
+//  var context: NSManagedObjectContext {
+//    return container.viewContext
+//  }
   
   func observeEntity(fetchRequest: NSFetchRequest<Entity>, sortDescriptor: NSSortDescriptor) {
     fetchRequest.sortDescriptors = [sortDescriptor]
     
     fetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest,
-      managedObjectContext: context,
+      managedObjectContext: viewContext,
       sectionNameKeyPath: nil,
       cacheName: nil
     )
@@ -47,9 +51,9 @@ class SingleEntityCoreDataController<Entity: NSManagedObject>: NSObject, NSFetch
   func updateEntity(updateBlock: @escaping (Entity) -> Void, fetchRequest: NSFetchRequest<Entity>) -> AnyPublisher<Void, ResourceError> {
     Future { promise in
       do {
-        let entityToUpdate = try self.context.fetch(fetchRequest).first ?? Entity(context: self.context)
+        let entityToUpdate = try self.viewContext.fetch(fetchRequest).first ?? Entity(context: self.viewContext)
         updateBlock(entityToUpdate)
-        try self.context.save()
+        try self.viewContext.save()
         
         promise(.success(()))
       } catch {

@@ -5,7 +5,7 @@ import Combine
 class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate {
   static let shared = ReviewsPersistenceController()
   
-  let container: NSPersistentContainer
+  private let viewContext = CoreDataManager.shared.viewContext
   
   private var reviewsForPlaceFetchedResultsController: NSFetchedResultsController<ReviewEntity>?
   private var reviewsPlannedToPostFetchedResultsController: NSFetchedResultsController<ReviewPlannedToPostEntity>?
@@ -13,31 +13,36 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   let reviewsForPlaceSubject = PassthroughSubject<[Review], ResourceError>()
   let reviewsPlannedToPostSubject = PassthroughSubject<[ReviewPlannedToPostEntity], ResourceError>()
   
-  override init() {
-    container = NSPersistentContainer(name: "Place")
-    super.init()
-    container.loadPersistentStores { (storeDescription, error) in
-      if let error = error as NSError? {
-        fatalError("Unresolved error \(error), \(error.userInfo)")
-      }
-    }
-  }
+//  override init() {
+//    container = NSPersistentContainer(name: "Place")
+//    super.init()
+//    container.loadPersistentStores { (storeDescription, error) in
+//      if let error = error as NSError? {
+//        fatalError("Unresolved error \(error), \(error.userInfo)")
+//      }
+//    }
+//    container.viewContext.automaticallyMergesChangesFromParent = true
+//  }
   
   // MARK: - Review Operations
   func insertReviews(_ reviews: [Review]) {
-    let context = container.viewContext
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    do {
-      for review in reviews {
-        let newReview = ReviewEntity(context: context)
-        newReview.id = review.id
-        updateReviewEntity(newReview, with: review)
+    backgroundContext.perform {
+      do {
+        for review in reviews {
+          let newReview = ReviewEntity(context: backgroundContext)
+          newReview.id = review.id
+          self.updateReviewEntity(newReview, with: review)
+        }
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to insert/update reviews: \(error)")
       }
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to insert/update reviews: \(error)")
     }
+    
+    
   }
   
   private func updateReviewEntity(_ entity: ReviewEntity, with review: Review) {
@@ -51,88 +56,110 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   }
   
   func deleteReview(id: Int64) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id == %lld", id)
     
-    do {
-      let reviews = try context.fetch(fetchRequest)
-      for review in reviews {
-        context.delete(review)
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "id == %lld", id)
+      
+      do {
+        let reviews = try backgroundContext.fetch(fetchRequest)
+        for review in reviews {
+          backgroundContext.delete(review)
+        }
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to delete review: \(error)")
       }
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to delete review: \(error)")
     }
+    
   }
   
   func deleteReviews(ids: [Int64]) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id IN %@", ids)
+  
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    do {
-      let reviews = try context.fetch(fetchRequest)
-      for review in reviews {
-        context.delete(review)
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "id IN %@", ids)
+      
+      do {
+        let reviews = try backgroundContext.fetch(fetchRequest)
+        for review in reviews {
+          backgroundContext.delete(review)
+        }
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to delete reviews: \(error)")
       }
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to delete reviews: \(error)")
     }
+    
   }
   
   func deleteAllReviews() {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewEntity.fetchRequest()
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-    deleteRequest.resultType = .resultTypeObjectIDs
     
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewEntity.fetchRequest()
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+      deleteRequest.resultType = .resultTypeObjectIDs
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to delete all places: \(error)")
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to delete all places: \(error)")
+      }
     }
+    
   }
   
   func deleteAllPlaceReviews(placeId: Int64) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "placeId == %lld", placeId)
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-    deleteRequest.resultType = .resultTypeObjectIDs
     
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "placeId == %lld", placeId)
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+      deleteRequest.resultType = .resultTypeObjectIDs
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to delete place reviews: \(error)")
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to delete place reviews: \(error)")
+      }
     }
+    
+    
   }
   
   func observeReviewsForPlace(placeId: Int64) {
+    
     let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "placeId == %lld", placeId)
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
     
     reviewsForPlaceFetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest,
-      managedObjectContext: container.viewContext,
+      managedObjectContext: viewContext,
       sectionNameKeyPath: nil,
       cacheName: nil
     )
@@ -153,15 +180,14 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   }
   
   func markReviewForDeletion(id: Int64, deletionPlanned: Bool = true) {
-    let context = container.viewContext
     let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "id == %lld", id)
     
     do {
-      let reviews = try context.fetch(fetchRequest)
+      let reviews = try viewContext.fetch(fetchRequest)
       if let review = reviews.first {
         review.deletionPlanned = deletionPlanned
-        try context.save()
+        try viewContext.save()
       }
     } catch {
       print(error)
@@ -170,12 +196,11 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   }
   
   func getReviewsPlannedForDeletion() -> [ReviewEntity] {
-    let context = container.viewContext
     let fetchRequest: NSFetchRequest<ReviewEntity> = ReviewEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "deletionPlanned == YES")
     
     do {
-      return try context.fetch(fetchRequest)
+      return try viewContext.fetch(fetchRequest)
     } catch {
       print(error)
       print("Failed to fetch reviews planned for deletion: \(error)")
@@ -186,50 +211,60 @@ class ReviewsPersistenceController: NSObject, NSFetchedResultsControllerDelegate
   //    // MARK: - Planned Review Operations
   
   func insertReviewPlannedToPost(_ review: ReviewToPost) {
-    let context = container.viewContext
-    let newReview = ReviewPlannedToPostEntity(context: context)
-    newReview.placeId = review.placeId
-    newReview.comment = review.comment
-    newReview.rating = Int32(review.rating)
-    let imagesJson = DBUtils.encodeToJsonString(review.images)
-    newReview.imagesJson = imagesJson
     
-    do {
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to insert planned review: \(error)")
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let newReview = ReviewPlannedToPostEntity(context: backgroundContext)
+      newReview.placeId = review.placeId
+      newReview.comment = review.comment
+      newReview.rating = Int32(review.rating)
+      let imagesJson = DBUtils.encodeToJsonString(review.images)
+      newReview.imagesJson = imagesJson
+      
+      do {
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to insert planned review: \(error)")
+      }
     }
+    
+    
   }
   
   func deleteReviewPlannedToPost(placeId: Int64) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewPlannedToPostEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "placeId == %lld", placeId)
     
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-    deleteRequest.resultType = .resultTypeObjectIDs
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ReviewPlannedToPostEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "placeId == %lld", placeId)
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print(error)
-      print("Failed to delete planned review: \(error)")
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+      deleteRequest.resultType = .resultTypeObjectIDs
+      
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print(error)
+        print("Failed to delete planned review: \(error)")
+      }
     }
+    
   }
   
   func getReviewsPlannedToPost() -> [ReviewPlannedToPostEntity] {
-    let context = container.viewContext
     let fetchRequest: NSFetchRequest<ReviewPlannedToPostEntity> = ReviewPlannedToPostEntity.fetchRequest()
     
     do {
-      return try context.fetch(fetchRequest)
+      return try viewContext.fetch(fetchRequest)
     } catch {
       print(error)
       print("Failed to fetch planned reviews: \(error)")

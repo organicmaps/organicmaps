@@ -6,7 +6,7 @@ class CurrencyPersistenceController {
     private let coreDataController: SingleEntityCoreDataController<CurrencyRatesEntity>
     
     private init() {
-        coreDataController = SingleEntityCoreDataController(modelName: "Currency")
+        coreDataController = SingleEntityCoreDataController()
     }
     
     var currencyRatesSubject: PassthroughSubject<CurrencyRatesEntity?, ResourceError> {

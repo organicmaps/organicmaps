@@ -4,7 +4,7 @@ import Combine
 class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate {
   static let shared = PlacesPersistenceController()
   
-  let container: NSPersistentContainer
+  private let viewContext = CoreDataManager.shared.viewContext
   
   private var searchFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
   private var placesByCatFetchedResultsController: NSFetchedResultsController<PlaceEntity>?
@@ -21,33 +21,38 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   let favoritePlacesSubject = PassthroughSubject<[PlaceShort], ResourceError>()
   
   
-  init(inMemory: Bool = false) {
-    container = NSPersistentContainer(name: "Place")
-    if inMemory {
-      container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-    }
-    super.init()
-    container.loadPersistentStores { (storeDescription, error) in
-      if let error = error as NSError? {
-        fatalError("Unresolved error \(error), \(error.userInfo)")
-      }
-    }
-  }
+//  init(inMemory: Bool = false) {
+//    container = NSPersistentContainer(name: "Place")
+//    if inMemory {
+//      container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+//    }
+//    super.init()
+//    container.loadPersistentStores { (storeDescription, error) in
+//      if let error = error as NSError? {
+//        fatalError("Unresolved error \(error), \(error.userInfo)")
+//      }
+//    }
+//    container.viewContext.automaticallyMergesChangesFromParent = true
+//  }
   
   // MARK: Places
   func insertPlaces(_ places: [PlaceFull], categoryId: Int64) {
-    let context = container.viewContext
     
-    do {
-      for place in places {
-        let newPlace = PlaceEntity(context: context)
-        newPlace.id = place.id
-        updatePlace(newPlace, with: place, categoryId: categoryId)
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform { [weak self] in
+      do {
+        for place in places {
+          let newPlace = PlaceEntity(context: backgroundContext)
+          newPlace.id = place.id
+          self?.updatePlace(newPlace, with: place, categoryId: categoryId)
+        }
+        try backgroundContext.save()
+      } catch {
+        print("Failed to save context: \(error)")
       }
-      try context.save()
-    } catch {
-      print("Failed to save context: \(error)")
     }
+    
   }
   
   private func updatePlace(_ placeEntity: PlaceEntity, with place: PlaceFull, categoryId: Int64) {
@@ -63,47 +68,57 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   }
   
   func deleteAllPlaces() {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PlaceEntity.fetchRequest()
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
     
-    // Configure the request to return the IDs of the deleted objects
-    deleteRequest.resultType = .resultTypeObjectIDs
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PlaceEntity.fetchRequest()
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print("Failed to delete all places: \(error)")
+      // Configure the request to return the IDs of the deleted objects
+      deleteRequest.resultType = .resultTypeObjectIDs
+      
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print("Failed to delete all places: \(error)")
+      }
     }
+    
   }
   
   func deleteAllPlacesByCategory(categoryId: Int64) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PlaceEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "categoryId == %d", categoryId)
     
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    // Configure the request to return the IDs of the deleted objects
-    deleteRequest.resultType = .resultTypeObjectIDs
-    
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PlaceEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "categoryId == %d", categoryId)
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print("Failed to delete places by category \(categoryId): \(error)")
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+      
+      // Configure the request to return the IDs of the deleted objects
+      deleteRequest.resultType = .resultTypeObjectIDs
+      
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print("Failed to delete places by category \(categoryId): \(error)")
+      }
     }
+    
   }
   
   // MARK: Observe places
@@ -114,7 +129,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
       fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", query)
     }
     
-    searchFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    searchFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil)
     
     searchFetchedResultsController?.delegate = self
     
@@ -134,7 +149,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.predicate = NSPredicate(format: "categoryId == %d", categoryId)
     
     placesByCatFetchedResultsController = NSFetchedResultsController(
-      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+      fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
     placesByCatFetchedResultsController?.delegate = self
@@ -156,7 +171,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.fetchLimit = 15
     
     topSightsFetchedResultsController = NSFetchedResultsController(
-      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+      fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
     topSightsFetchedResultsController?.delegate = self
@@ -178,7 +193,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.fetchLimit = 15
     
     topRestaurantsFetchedResultsController = NSFetchedResultsController(
-      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+      fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
     topRestaurantsFetchedResultsController?.delegate = self
@@ -200,7 +215,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.fetchLimit = 1
     
     singlePlaceFetchedResultsController = NSFetchedResultsController(
-      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+      fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
     singlePlaceFetchedResultsController?.delegate = self
@@ -230,7 +245,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     
     favoritePlacesFetchedResultsController = NSFetchedResultsController(
-      fetchRequest: fetchRequest, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil
+      fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil
     )
     
     favoritePlacesFetchedResultsController?.delegate = self
@@ -246,7 +261,6 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   }
   
   func getFavoritePlaces(query: String = "") -> [PlaceEntity] {
-    let context = container.viewContext
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
     var predicates = [
@@ -258,7 +272,7 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
     fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     
     do {
-      return try context.fetch(fetchRequest)
+      return try viewContext.fetch(fetchRequest)
     } catch {
       print("Failed to fetch favorite places: \(error)")
       return []
@@ -266,60 +280,74 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   }
   
   func setFavorite(placeId: Int64, isFavorite: Bool) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id == %lld", placeId)
     
-    do {
-      if let place = try context.fetch(fetchRequest).first {
-        place.isFavorite = isFavorite
-        try context.save()
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "id == %lld", placeId)
+      
+      do {
+        if let place = try backgroundContext.fetch(fetchRequest).first {
+          place.isFavorite = isFavorite
+          try backgroundContext.save()
+        }
+      } catch {
+        print("Failed to set favorite status: \(error)")
       }
-    } catch {
-      print("Failed to set favorite status: \(error)")
     }
+    
   }
   
   func addFavoritingRecordForSync(placeId: Int64, isFavorite: Bool) {
-    let context = container.viewContext
-    let favoriteSyncEntity = FavoriteSyncEntity(context: context)
-    favoriteSyncEntity.placeId = placeId
-    favoriteSyncEntity.isFavorite = isFavorite
     
-    do {
-      try context.save()
-    } catch {
-      print("Failed to add favorite sync: \(error)")
+    let backgroundContext = CoreDataManager.shared.backgroundContext
+    
+    backgroundContext.perform {
+      let favoriteSyncEntity = FavoriteSyncEntity(context: backgroundContext)
+      favoriteSyncEntity.placeId = placeId
+      favoriteSyncEntity.isFavorite = isFavorite
+      
+      do {
+        try backgroundContext.save()
+      } catch {
+        print("Failed to add favorite sync: \(error)")
+      }
     }
+    
   }
   
   func removeFavoritingRecordsForSync(placeIds: [Int64]) {
-    let context = container.viewContext
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FavoriteSyncEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "placeId IN %@", placeIds)
     
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-    deleteRequest.resultType = .resultTypeObjectIDs
+    let backgroundContext = CoreDataManager.shared.backgroundContext
     
-    do {
-      let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-      let changes: [AnyHashable: Any] = [
-        NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
-      ]
+    backgroundContext.perform {
+      let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FavoriteSyncEntity.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "placeId IN %@", placeIds)
       
-      NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
-      try context.save()
-    } catch {
-      print("Failed to remove favoriting records for sync: \(error)")
+      let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+      deleteRequest.resultType = .resultTypeObjectIDs
+      
+      do {
+        let result = try backgroundContext.execute(deleteRequest) as? NSBatchDeleteResult
+        let changes: [AnyHashable: Any] = [
+          NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []
+        ]
+        
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext])
+        try backgroundContext.save()
+      } catch {
+        print("Failed to remove favoriting records for sync: \(error)")
+      }
     }
+    
   }
   
   func getFavoritingRecordsForSync() -> [FavoriteSyncEntity] {
-    let context = container.viewContext
     let fetchRequest: NSFetchRequest<FavoriteSyncEntity> = FavoriteSyncEntity.fetchRequest()
     
     do {
-      return try context.fetch(fetchRequest)
+      return try viewContext.fetch(fetchRequest)
     } catch {
       print("Failed to fetch favorite sync data: \(error)")
       return []

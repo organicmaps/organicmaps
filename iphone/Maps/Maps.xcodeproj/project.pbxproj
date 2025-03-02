@@ -301,7 +301,6 @@
 		527D5E7F2C60E69C00736A85 /* Layouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E7E2C60E69C00736A85 /* Layouting.swift */; };
 		527D5E822C60EFEE00736A85 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */; };
 		528D72A12C5BBBF700D53210 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528D72A02C5BBBF700D53210 /* Colors.xcassets */; };
-		529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */; };
 		529A5F192C85BFF0004FE4A1 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F182C85BFF0004FE4A1 /* ToastView.swift */; };
 		529A5F1E2C86DDE5004FE4A1 /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */; };
 		529A5F202C86DE14004FE4A1 /* CoordinatesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */; };
@@ -369,7 +368,6 @@
 		52ECA81A2C8A25D800F213B3 /* PlaceTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECA8192C8A25D800F213B3 /* PlaceTopBar.swift */; };
 		52ED919D2C71F639000EE25B /* SimpleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED919C2C71F639000EE25B /* SimpleResponse.swift */; };
 		52ED919F2C71F718000EE25B /* SignUpRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */; };
-		52ED91A32C7200C4000EE25B /* Currency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */; };
 		52ED91A52C72C50F000EE25B /* CurrencyRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91A42C72C50F000EE25B /* CurrencyRepositoryImpl.swift */; };
 		52ED91A72C72C58A000EE25B /* CurrencyPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91A62C72C58A000EE25B /* CurrencyPersistenceController.swift */; };
 		52ED91A92C73020A000EE25B /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED91A82C73020A000EE25B /* CurrencyService.swift */; };
@@ -608,13 +606,14 @@
 		CED0E0372C902532008C61CA /* ThemeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0362C902532008C61CA /* ThemeDTO.swift */; };
 		CED0E0392C904868008C61CA /* NavigationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0382C904868008C61CA /* NavigationUtils.swift */; };
 		CED0E03B2C904A06008C61CA /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E03A2C904A06008C61CA /* FavoritesViewModel.swift */; };
-		CED0E03E2C905140008C61CA /* Place.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CED0E03C2C905140008C61CA /* Place.xcdatamodeld */; };
 		CED0E0422C9077D3008C61CA /* HashesPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0412C9077D3008C61CA /* HashesPersistenceController.swift */; };
 		CED0E0452C918ED4008C61CA /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0442C918ED4008C61CA /* Hash.swift */; };
 		CED0E0472C919F44008C61CA /* PlacesPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0462C919F44008C61CA /* PlacesPersistenceController.swift */; };
 		CED0E04A2C91A2A9008C61CA /* DBUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E0492C91A2A9008C61CA /* DBUtils.swift */; };
 		CED0E04C2C91A6A3008C61CA /* CoordinatesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */; };
 		CED0E04E2C91A702008C61CA /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E04D2C91A702008C61CA /* UserEntity.swift */; };
+		E11202462D744BFA001B3B24 /* TourismDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E11202442D744BFA001B3B24 /* TourismDB.xcdatamodeld */; };
+		E112024A2D7454F3001B3B24 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11202492D7454EF001B3B24 /* CoreDataManager.swift */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
@@ -1370,7 +1369,6 @@
 		527D5E7E2C60E69C00736A85 /* Layouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layouting.swift; sourceTree = "<group>"; };
 		527D5E812C60EFEE00736A85 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		528D72A02C5BBBF700D53210 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalData.xcdatamodel; sourceTree = "<group>"; };
 		529A5F182C85BFF0004FE4A1 /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		529A5F1D2C86DDE5004FE4A1 /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
 		529A5F1F2C86DE14004FE4A1 /* CoordinatesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesDTO.swift; sourceTree = "<group>"; };
@@ -1438,7 +1436,6 @@
 		52ECA8192C8A25D800F213B3 /* PlaceTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTopBar.swift; sourceTree = "<group>"; };
 		52ED919C2C71F639000EE25B /* SimpleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleResponse.swift; sourceTree = "<group>"; };
 		52ED919E2C71F718000EE25B /* SignUpRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequestDTO.swift; sourceTree = "<group>"; };
-		52ED91A22C7200C4000EE25B /* CurrencyRates.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurrencyRates.xcdatamodel; sourceTree = "<group>"; };
 		52ED91A42C72C50F000EE25B /* CurrencyRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRepositoryImpl.swift; sourceTree = "<group>"; };
 		52ED91A62C72C58A000EE25B /* CurrencyPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPersistenceController.swift; sourceTree = "<group>"; };
 		52ED91A82C73020A000EE25B /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
@@ -1661,13 +1658,14 @@
 		CED0E0362C902532008C61CA /* ThemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDTO.swift; sourceTree = "<group>"; };
 		CED0E0382C904868008C61CA /* NavigationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtils.swift; sourceTree = "<group>"; };
 		CED0E03A2C904A06008C61CA /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
-		CED0E03D2C905140008C61CA /* Place.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Place.xcdatamodel; sourceTree = "<group>"; };
 		CED0E0412C9077D3008C61CA /* HashesPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashesPersistenceController.swift; sourceTree = "<group>"; };
 		CED0E0442C918ED4008C61CA /* Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		CED0E0462C919F44008C61CA /* PlacesPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesPersistenceController.swift; sourceTree = "<group>"; };
 		CED0E0492C91A2A9008C61CA /* DBUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUtils.swift; sourceTree = "<group>"; };
 		CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesEntity.swift; sourceTree = "<group>"; };
 		CED0E04D2C91A702008C61CA /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
+		E11202452D744BFA001B3B24 /* TourismDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TourismDB.xcdatamodel; sourceTree = "<group>"; };
+		E11202492D7454EF001B3B24 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -3120,6 +3118,7 @@
 		5260D3C92C64F58A00C673B4 /* Db */ = {
 			isa = PBXGroup;
 			children = (
+				E11202492D7454EF001B3B24 /* CoreDataManager.swift */,
 				CED0E0492C91A2A9008C61CA /* DBUtils.swift */,
 				CED0E0402C9077B7008C61CA /* PersistenceControllers */,
 				3D2D79B82C7C4FC30062BC3D /* ControllerTemplates */,
@@ -3502,11 +3501,9 @@
 		52ED91A02C72007C000EE25B /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */,
-				52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */,
-				CED0E03C2C905140008C61CA /* Place.xcdatamodeld */,
 				CED0E04B2C91A6A3008C61CA /* CoordinatesEntity.swift */,
 				CED0E04D2C91A702008C61CA /* UserEntity.swift */,
+				E11202442D744BFA001B3B24 /* TourismDB.xcdatamodeld */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -5120,6 +5117,7 @@
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
 				3D2D79BA2C7C508E0062BC3D /* SingleEntityCoreDataController.swift in Sources */,
 				993DF11123F6BDB100AC231A /* UILabelRenderer.swift in Sources */,
+				E112024A2D7454F3001B3B24 /* CoreDataManager.swift in Sources */,
 				52A48AE12C882FEE0081E522 /* SearchViewModel.swift in Sources */,
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				52D588BA2C5CE2E800AB96B3 /* Font.swift in Sources */,
@@ -5162,7 +5160,6 @@
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
 				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
-				52ED91A32C7200C4000EE25B /* Currency.xcdatamodeld in Sources */,
 				52522F462C6DFE060015709C /* AppTopBar.swift in Sources */,
 				52E2D3A42C59F9CE00A8843A /* WelcomeViewController.swift in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
@@ -5171,7 +5168,6 @@
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				529A5F3F2C86E09B004FE4A1 /* HashDTO.swift in Sources */,
 				993DF11B23F6BDB100AC231A /* UIViewRenderer.swift in Sources */,
-				529A5F162C8595BB004FE4A1 /* PersonalData.xcdatamodeld in Sources */,
 				99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */,
 				9989273A2449E60200260CE2 /* BottomMenuViewController.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
@@ -5262,6 +5258,7 @@
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.m in Sources */,
 				52E95F0D2C6C797B00A3FE2E /* ProfileViewController.swift in Sources */,
 				CE2D27F82CA2C49F00094565 /* BackButtonWithText.m in Sources */,
+				E11202462D744BFA001B3B24 /* TourismDB.xcdatamodeld in Sources */,
 				F6E2FD8C1E097BA00083EBEC /* MWMNoMapsView.m in Sources */,
 				529A5F312C86DF61004FE4A1 /* Review Models.swift in Sources */,
 				34D3B0361E389D05004100F9 /* MWMEditorSelectTableViewCell.m in Sources */,
@@ -5359,7 +5356,6 @@
 				993DF10223F6BDB100AC231A /* Colors.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				AC79C8922A65AB9500594C24 /* UIColor+hexString.swift in Sources */,
-				CED0E03E2C905140008C61CA /* Place.xcdatamodeld in Sources */,
 				99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */,
 				CED0E04A2C91A2A9008C61CA /* DBUtils.swift in Sources */,
 				993DF11623F6BDB100AC231A /* UIWindowRenderer.swift in Sources */,
@@ -6037,34 +6033,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		529A5F112C859535004FE4A1 /* PersonalData.xcdatamodeld */ = {
+		E11202442D744BFA001B3B24 /* TourismDB.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */,
+				E11202452D744BFA001B3B24 /* TourismDB.xcdatamodel */,
 			);
-			currentVersion = 529A5F122C859535004FE4A1 /* PersonalData.xcdatamodel */;
-			path = PersonalData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		52ED91A12C7200C4000EE25B /* Currency.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				52ED91A22C7200C4000EE25B /* CurrencyRates.xcdatamodel */,
-			);
-			currentVersion = 52ED91A22C7200C4000EE25B /* CurrencyRates.xcdatamodel */;
-			path = Currency.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		CED0E03C2C905140008C61CA /* Place.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CED0E03D2C905140008C61CA /* Place.xcdatamodel */,
-			);
-			currentVersion = CED0E03D2C905140008C61CA /* Place.xcdatamodel */;
-			name = Place.xcdatamodeld;
-			path = /Users/user/Projects/Tourism/iphone/Maps/Tourism/Data/Db/DataModels/Place.xcdatamodeld;
+			currentVersion = E11202452D744BFA001B3B24 /* TourismDB.xcdatamodel */;
+			path = TourismDB.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

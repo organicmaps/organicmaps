@@ -6,7 +6,7 @@ class PersonalDataPersistenceController {
   private let coreDataController: SingleEntityCoreDataController<PersonalDataEntity>
   
   private init() {
-    coreDataController = SingleEntityCoreDataController(modelName: "PersonalData")
+    coreDataController = SingleEntityCoreDataController()
   }
   
   var personalDataSubject: PassthroughSubject<PersonalDataEntity?, ResourceError> {
