@@ -2289,4 +2289,15 @@
     <string name="type.place.neighbourhood">Предграђе</string>
     <string name="type.fee.yes">$</string>
     <string name="aa_request_permission_activity_text">Органским мапама у Андроид Ауту потребне су дозволе за локацију да би ефикасно радиле</string>
+    <string name="type.railway.light_rail.tunnel">Тунеле лаке железнице</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
+    <string name="type.railway.funicular.bridge">Мост успињаче</string>
+    <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
+    <string name="type.railway.narrow_gauge.bridge">Мост уског колосека</string>
+    <string name="type.railway.preserved.bridge">Стари железнички мост</string>
+    <string name="type.railway.preserved.tunnel">Стари железнички тунел</string>
+    <string name="type.attraction.big_wheel">Панорамски точак</string>
+    <string name="type.shop.hearing_aids">Продавница слушних апарата</string>
+    <string name="type.attraction.bumper_car">Браник</string>
 </resources>
