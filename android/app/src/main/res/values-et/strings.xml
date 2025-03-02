@@ -21,7 +21,7 @@
     <!-- Update maps later button text -->
     <string name="later">Hiljem</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
-    <string name="search">Otsi</string>
+    <string name="search">Search</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Otsi kaardilt</string>
     <!-- Location services are disabled by user alert - message -->
