@@ -268,6 +268,9 @@
 "news" = "समाचार";
 
 /* Text in menu */
+"mastodon" = "Mastodon";
+
+/* Text in menu */
 "facebook" = "फेसबुक";
 
 /* Text in menu */
@@ -278,6 +281,9 @@
 
 /* Text in the editor */
 "vk" = "VK";
+
+/* Text in menu */
+"bluesky" = "Bluesky";
 
 /* Text in menu */
 "rate_the_app" = "एप्लिकेशन की श्रेणी बताओ";
