@@ -9,7 +9,7 @@
     <string name="delete">Kustuta</string>
     <string name="download_maps">Lae kaarte</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.</string>
+    <string name="download_has_failed">Allalaadimine ei õnnestunud. Puuduta uuesti proovimiseks.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Allalaadimine…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -40,7 +40,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt välja töötatud</string>
+    <string name="about_proposition_3">• Kiire, minimalistlik, loodud kogukonna poolt</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Asukoha seaded</string>
     <string name="close">Sulge</string>
@@ -84,7 +84,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Salvesta kaardid asukohta</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Vali asukoht, kuhu kaardid tuleks alla laadida</string>
+    <string name="maps_storage_summary">Vali kaust, kuhu kaardid tuleks alla laadida.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Kaardid</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -160,10 +160,7 @@
     <string name="description">Märkmed</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps järjehoidjaid jagati Sinuga</string>
-    <string name="share_bookmarks_email_body">Tere!
-\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz
-\n
-\nNaudi reisimist Organic Maps-iga!</string>
+    <string name="share_bookmarks_email_body">Tere! \nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
@@ -280,7 +277,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Liigutage telefoni kaheksakandilise liigutusega, et kalibreerida kompass ja määrata noole suund kaardil.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.</string>
+    <string name="long_tap_toast">Kasutajaliidese nägemiseks vajuta kaarti pikalt.</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Värskenda kõik</string>
     <!-- Cancel all button text -->
@@ -358,7 +355,7 @@
     <string name="blue_gray">Hallikas-sinine</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Marsruuti järgides palun pea meeles:</string>
-    <string name="dialog_routing_disclaimer_priority">- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;</string>
+    <string name="dialog_routing_disclaimer_priority">- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise üle;</string>
     <string name="dialog_routing_disclaimer_precision">- Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;</string>
     <string name="dialog_routing_disclaimer_recommendations">- Soovitatud marsruute tuleks võtta just sellistena;</string>
     <string name="dialog_routing_disclaimer_borders">- Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.</string>
@@ -497,11 +494,10 @@
     <string name="placepage_add_business_button">Lisa ettevõte</string>
     <string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Ühenduse loodud OpenStreetMapi andmed alates %s. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.</string>
+    <string name="osm_presentation">Kogukonna loodud OpenStreetMapi andmed seisuga %s. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Maps\'i peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saate lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.
-\nSeotudge kogukonnaga ja aidake teha kõigile paremat kaarti!</string>
-    <string name="login_to_make_edits_visible">Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
+    <string name="login_to_make_edits_visible">Oma kaardimuudatuste avaldamiseks kogu maailmale loo OpenStreetMapi konto või logi sisse olemasoleva kasutajakontoga.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Lae mobiilivõrgu kaudu?</string>
@@ -608,7 +604,7 @@
 \nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.
 \nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaadake seda juhist.</string>
-    <string name="transliteration_title">Transliteratsioon ladina keelde</string>
+    <string name="transliteration_title">Transliteratsioon ladina tähtedesse</string>
     <string name="learn_more">Lisateave</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Välju</string>
@@ -623,7 +619,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Palun logige sisse OpenStreetMap\'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">kuskil</a>.</string>
     <string name="dialog_error_storage_title">Salvestusruumi ligipääsu probleem</string>
-    <string name="dialog_error_storage_message">Välismälu pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrollige oma SD-kaarti või võtke meiega ühendust aadressil support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Välina andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Jäljenda vigast salvestusruumi</string>
     <string name="core_entrance">Sissepääs</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
@@ -829,7 +825,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">See rakendus vajab teie luba</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto orgaanilised kaardid vajavad tõhusaks tööks asukoha luba</string>
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto liidestusega vajab tõhusaks tööks luba asukoha tuvastamiseks</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lubade andmine</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -853,7 +849,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menüü vaatamine</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Avatud teises rakenduses</string>
+    <string name="open_in_app">Ava muus rakenduses</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Iseteenindus</string>
     <string name="select_option">Valige valik</string>
@@ -877,7 +873,7 @@
     <string name="error_no_file_manager_app">Kaustavaliku dialoogi ei ole võimalik kuvada, sest teie seadmesse ei ole paigaldatud sobivat rakendust. Palun installige failihaldurirakendus ja proovige uuesti.</string>
     <string name="choose_color">Vali värv</string>
     <string name="edit_track">Muuda rada</string>
-    <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis saaks asukoha avada</string>
+    <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis oskaks asukohta avada</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaatne navigeerimine</string>
     <!-- SECTION: Types -->
@@ -2260,4 +2256,6 @@
     <string name="mastodon">Mastodon</string>
     <string name="vk">VK</string>
     <string name="facebook">Facebook</string>
+    <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
+    <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
 </resources>
