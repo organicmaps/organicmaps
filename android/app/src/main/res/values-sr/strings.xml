@@ -1749,9 +1749,9 @@
     <string name="type.railway.station.subway.cairo">Метро</string>
     <string name="type.railway.station.subway.caracas">Метро</string>
     <string name="type.railway.station.subway.catania">Метро</string>
-    <string name="type.railway.station.subway.changchun">Метро станица</string>
-    <string name="type.railway.station.subway.chengdu">Метро станица</string>
-    <string name="type.railway.station.subway.chicago">Метро станица</string>
+    <string name="type.railway.station.subway.changchun">Метро</string>
+    <string name="type.railway.station.subway.chengdu">Метро</string>
+    <string name="type.railway.station.subway.chicago">Метро</string>
     <string name="type.railway.station.subway.chongqing">Метро станица</string>
     <string name="type.railway.station.subway.dalian">Метро станица</string>
     <string name="type.railway.station.subway.delhi">Метро станица</string>
