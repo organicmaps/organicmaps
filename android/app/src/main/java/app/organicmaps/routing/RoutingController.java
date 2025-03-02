@@ -778,7 +778,8 @@ public class RoutingController
     Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */,
                                   type, 0 /* intermediateIndex */,
                                   point.isMyPosition(),
-                                  point.getLat(), point.getLon());
+                                  point.getLat(), point.getLon(),
+                                  true /* reorderIntermediatePoints */);
   }
 
   @NonNull
