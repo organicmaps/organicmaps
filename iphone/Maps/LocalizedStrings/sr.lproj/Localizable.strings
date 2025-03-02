@@ -2066,9 +2066,9 @@
 "type.railway.station.subway.cairo" = "Метро";
 "type.railway.station.subway.caracas" = "Метро";
 "type.railway.station.subway.catania" = "Метро";
-"type.railway.station.subway.changchun" = "Метро станица";
-"type.railway.station.subway.chengdu" = "Метро станица";
-"type.railway.station.subway.chicago" = "Метро станица";
+"type.railway.station.subway.changchun" = "Метро";
+"type.railway.station.subway.chengdu" = "Метро";
+"type.railway.station.subway.chicago" = "Метро";
 "type.railway.station.subway.chongqing" = "Метро станица";
 "type.railway.station.subway.dalian" = "Метро станица";
 "type.railway.station.subway.delhi" = "Метро станица";
