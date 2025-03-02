@@ -38,6 +38,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,53 @@ public class PlacePageController extends Fragment implements
 
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageRouteSettingsListener mPlacePageRouteSettingsListener;
-  private final Observer<Integer> mPlacePageDistanceToTopObserver = this::updateStatusBarBackground;
+
+  private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>()
+  {
+    private float mPlacePageCornerRadius;
+
+    // This updates mPlacePageStatusBarBackground visibility and mPlacePage corner radius
+    // effectively handling when place page fills the screen vertically
+    @Override
+    public void onChanged(Integer distanceToTop)
+    {
+      // This callback may be called before insets are updated when resuming the app
+      if (mCurrentWindowInsets == null)
+        return;
+      final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
+      // Only animate the status bar background if the place page can reach it
+      if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
+      {
+        final int animationStartHeight = topInset * 3;
+        int newHeight = 0;
+        if (distanceToTop < animationStartHeight)
+          newHeight = Math.min(topInset * (animationStartHeight - distanceToTop) / 100, topInset);
+        if (newHeight > 0)
+        {
+          mPlacePageStatusBarBackground.setTranslationY(distanceToTop - newHeight);
+          if (!UiUtils.isVisible(mPlacePageStatusBarBackground))
+            onScreenFilled();
+        }
+        else if (UiUtils.isVisible(mPlacePageStatusBarBackground))
+          onScreenUnfilled();
+      }
+    }
+
+    private void onScreenFilled()
+    {
+      UiUtils.show(mPlacePageStatusBarBackground);
+      MaterialShapeDrawable bg = (MaterialShapeDrawable) mPlacePage.getBackground();
+      mPlacePageCornerRadius = bg.getTopLeftCornerResolvedSize();
+      bg.setCornerSize(0);
+    }
+
+    private void onScreenUnfilled()
+    {
+      UiUtils.hide(mPlacePageStatusBarBackground);
+      MaterialShapeDrawable bg = (MaterialShapeDrawable) mPlacePage.getBackground();
+      bg.setCornerSize(mPlacePageCornerRadius);
+    }
+  };
 
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
   {
@@ -574,30 +621,6 @@ public class PlacePageController extends Fragment implements
     }
     else
       close();
-  }
-
-  private void updateStatusBarBackground(int distanceToTop)
-  {
-    // This callback may be called before insets are updated when resuming the app
-    if (mCurrentWindowInsets == null)
-      return;
-    final int topInset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-    // Only animate the status bar background if the place page can reach it
-    if (mCoordinator.getHeight() - mPlacePageContainer.getHeight() < topInset)
-    {
-      final int animationStartHeight = topInset * 3;
-      int newHeight = 0;
-      if (distanceToTop < animationStartHeight)
-        newHeight = Math.min(topInset * (animationStartHeight - distanceToTop) / 100, topInset);
-      if (newHeight > 0)
-      {
-        mPlacePageStatusBarBackground.setTranslationY(distanceToTop - newHeight);
-        if (!UiUtils.isVisible(mPlacePageStatusBarBackground))
-          UiUtils.show(mPlacePageStatusBarBackground);
-      }
-      else if (UiUtils.isVisible(mPlacePageStatusBarBackground))
-        UiUtils.hide(mPlacePageStatusBarBackground);
-    }
   }
 
   @Override
