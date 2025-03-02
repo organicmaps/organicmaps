@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Atcelt";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Mērvienības";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kur paēst";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Dzīvojamo auto labierīcības";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Zilpelēka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Sekojot maršrutam, ievērojiet:";
 "dialog_routing_disclaimer_priority" = "— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;";
 "dialog_routing_disclaimer_precision" = "— Karte var būt kļūdaina, kā arī ieteiktais maršruts ne vienmēr būs optimālākais galamērķa sasniegšanai;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Mēģiniet vēlreiz";
 "dialog_routing_download_and_build_cross_route" = "Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?";
 "dialog_routing_download_cross_route" = "Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Rādīt";
@@ -588,7 +568,7 @@
 "message_invalid_feature_position" = "Šeit objekti nevar atrasties";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Kopiena veidotie „OpenStreetMap“ dati uz %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
+"osm_presentation" = "Kopienas veidotie „OpenStreetMap“ dati, %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
 "login_to_make_edits_visible" = "Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.";
 
 /* Error dialog no space */
@@ -747,7 +727,7 @@
 "start_from_my_position" = "Sākt no";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Ierakstieties „OpenStraatMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
+"alert_reauth_message_ios" = "Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "te";
@@ -772,7 +752,7 @@
 "bookmarks_error_message_empty_list_name" = "Ierakstiet saraksta nosaukumu";
 "bookmarks_error_title_list_name_already_taken" = "Šāds nosaukums jau ir aizņemts";
 "bookmarks_error_title_list_name_too_long" = "Nosaukums ir par garu";
-"profile" = "„OpenStraatMap“ profils";
+"profile" = "„OpenStreetMap“ profils";
 "bookmarks_detect_title" = "Atrastas jaunas datnes";
 "button_convert" = "Konvertēt";
 "bookmarks_convert_error_title" = "Kļūda";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Vairāk nekā pirms gada";
 "near_me_sorttype" = "Man tuvumā";
 "others_sorttype" = "Cits";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ēdiens";
 "tourist_places" = "Apskates objekti";
 "museums" = "Muzeji";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Ceļa labošana";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Address/Block";
 "type.addr_interpolation.even" = "Address/Block";
 "type.addr_interpolation.odd" = "Address/Block";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Prison";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Recycling Center";
 "type.amenity.recycling" = "Recycling Container";
 "type.amenity.recycling.container" = "Recycling Container";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapist";
 "type.healthcare.sample_collection" = "Sample Collection Centre";
 "type.healthcare.speech_therapist" = "Logopedics";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Minor Road";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historic Object";
 "type.historic.aircraft" = "Historic Aircraft";
 "type.historic.anchor" = "Historic Anchor";

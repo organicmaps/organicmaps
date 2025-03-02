@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "取消";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "測量單位";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "在哪裡吃";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "露營車設施";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "藍灰色";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "依照路線行進時，請牢記：";
 "dialog_routing_disclaimer_priority" = "— 路況、交通法規和路標始終優先於導航建議；";
 "dialog_routing_disclaimer_precision" = "— 地圖可能不準確，建議的路線可能並非總是前往目的地的最佳路線；";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "請再試一次";
 "dialog_routing_download_and_build_cross_route" = "您是否要下載地圖，以規劃跨越邊界的更佳路線？";
 "dialog_routing_download_cross_route" = "下載地圖，以規劃一條跨越邊界的更佳路線。";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "顯示";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "一年多以前";
 "near_me_sorttype" = "在我附近";
 "others_sorttype" = "其他";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "食物";
 "tourist_places" = "旅遊景點";
 "museums" = "博物館";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
 "edit_track" = "編輯軌跡";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "監獄";
 "type.amenity.pub" = "酒館";
 "type.amenity.public_bookcase" = "書架";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "回收中心";
 "type.amenity.recycling" = "回收箱";
 "type.amenity.recycling.container" = "回收箱";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "心理治療";
 "type.healthcare.sample_collection" = "採樣";
 "type.healthcare.speech_therapist" = "言語治療";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "歷史地點";
 "type.historic.aircraft" = "歷史悠久的飛機";
 "type.historic.anchor" = "歷史錨";

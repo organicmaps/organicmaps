@@ -4,12 +4,12 @@
     <!-- Button text (should be short) -->
     <string name="back">Tagasi</string>
     <!-- Button text (should be short) -->
-    <string name="cancel">Tühista</string>
+    <string name="cancel">Katkesta</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Kustuta</string>
-    <string name="download_maps">Lae kaarte</string>
+    <string name="download_maps">Laadi kaarte</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.</string>
+    <string name="download_has_failed">Allalaadimine ei õnnestunud. Puuduta uuesti proovimiseks.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Allalaadimine…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -25,38 +25,36 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Otsi kaardilt</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.</string>
+    <string name="location_is_disabled_long_text">Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadistustes.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Piiratud täpsus</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Täpse navigeerimise tagamiseks lülitage seadetes sisse Täpne asukoht.</string>
+    <string name="precise_location_is_disabled_long_text">Täpse teekonna juhatamise tagamiseks lülita seadistustes sisse Täpne asukoht.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Kuva kaardil</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
-    <string name="country_status_download_failed">Allalaadimine ebaõnnestus</string>
+    <string name="country_status_download_failed">Allalaadimine ei õnnestunud</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Proovi uuesti</string>
-    <string name="about_menu_title">Organic Maps kohta</string>
+    <string name="about_menu_title">Rakendused teave: Organic Maps</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt välja töötatud</string>
+    <string name="about_proposition_3">• Kiire, minimalistlik, loodud kogukonna poolt</string>
     <!-- The button that opens system location settings -->
-    <string name="location_settings">Asukoha seaded</string>
+    <string name="location_settings">Asukoha seadistused</string>
     <string name="close">Sulge</string>
-    <string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
-    <string name="download">Lae alla</string>
+    <string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu nutiseade ei ole toetatud.</string>
+    <string name="download">Laadi alla</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
+    <string name="disconnect_usb_cable">Organic Mapsi kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel</string>
-    <string name="download_resources">Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.
-\nSee kasutab %s mälumahtu.</string>
-    <string name="download_resources_continue">Mine kaardile</string>
-    <string name="downloading_country_can_proceed">Allalaadimine %s. Võid nüüd
-\nkaardiga jätkata.</string>
-    <string name="download_country_ask">Laadida alla %s?</string>
-    <string name="update_country_ask">Värskendada %s?</string>
+    <string name="download_resources">Enne rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart. \nSee kasutab %s mälumahtu.</string>
+    <string name="download_resources_continue">Ava kaardivaade</string>
+    <string name="downloading_country_can_proceed">Allalaadimisel on %s. Võid nüüd \nkaardiga jätkata.</string>
+    <string name="download_country_ask">Kas laadime alla %s?</string>
+    <string name="update_country_ask">Kas värskendame %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Peata</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -84,7 +82,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Salvesta kaardid asukohta</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Vali asukoht, kuhu kaardid tuleks alla laadida</string>
+    <string name="maps_storage_summary">Vali kaust, kuhu kaardid tuleks alla laadida.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Kaardid</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -108,7 +106,6 @@
     <string name="measurement_units">Mõõtühikud</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vali miilide ja kilomeetrite vahel</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kus süüa</string>
@@ -156,20 +153,16 @@
     <string name="category_water">Vesi</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Haagiselamud</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Märkmed</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps järjehoidjaid jagati Sinuga</string>
-    <string name="share_bookmarks_email_body">Tere!
-\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz
-\n
-\nNaudi reisimist Organic Maps-iga!</string>
+    <string name="share_bookmarks_email_body">Tere! \n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need, kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.</string>
+    <string name="load_kmz_successful">Järjehoidjad on edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaatest.</string>
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
@@ -282,13 +275,13 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Liigutage telefoni kaheksakandilise liigutusega, et kalibreerida kompass ja määrata noole suund kaardil.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.</string>
+    <string name="long_tap_toast">Kasutajaliidese nägemiseks vajuta kaarti pikalt</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Värskenda kõik</string>
     <!-- Cancel all button text -->
     <string name="downloader_cancel_all">Tühista kõik</string>
     <!-- Downloaded maps list header -->
-    <string name="downloader_downloaded_subtitle">Alla laetud</string>
+    <string name="downloader_downloaded_subtitle">Allalaaditud</string>
     <!-- Country queued for download -->
     <string name="downloader_queued">Järjekorras</string>
     <string name="downloader_near_me_subtitle">Minu lähedal</string>
@@ -358,10 +351,9 @@
     <string name="gray">Hall</string>
     <!-- blue gray color -->
     <string name="blue_gray">Hallikas-sinine</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Marsruuti järgides palun pea meeles:</string>
-    <string name="dialog_routing_disclaimer_priority">- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;</string>
+    <string name="dialog_routing_disclaimer_priority">- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise üle;</string>
     <string name="dialog_routing_disclaimer_precision">- Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;</string>
     <string name="dialog_routing_disclaimer_recommendations">- Soovitatud marsruute tuleks võtta just sellistena;</string>
     <string name="dialog_routing_disclaimer_borders">- Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.</string>
@@ -388,9 +380,8 @@
     <string name="not_now">Mitte praegu</string>
     <string name="dialog_routing_download_and_build_cross_route">Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?</string>
     <string name="dialog_routing_download_cross_route">Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">Marsruutide otsimise ja loomise alustamiseks lae kaart alla. Pärast seda ei ole Interneti-ühendus enam vajalik.</string>
+    <string name="search_without_internet_advertisement">Teekondade otsimiseks ja loomise alustamiseks laadi kaart alla. Pärast seda ei ole internetiühendus enam vajalik.</string>
     <string name="search_select_map">Vali kaart</string>
     <!-- «Show» context menu -->
     <string name="show">Kuva</string>
@@ -501,11 +492,10 @@
     <string name="placepage_add_business_button">Lisa ettevõte</string>
     <string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Ühenduse loodud OpenStreetMapi andmed alates %s. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.</string>
+    <string name="osm_presentation">Kogukonna loodud OpenStreetMapi andmed seisuga %s. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Maps\'i peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saate lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.
-\nSeotudge kogukonnaga ja aidake teha kõigile paremat kaarti!</string>
-    <string name="login_to_make_edits_visible">Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
+    <string name="login_to_make_edits_visible">Oma kaardimuudatuste avaldamiseks kogu maailmale loo OpenStreetMapi konto või logi sisse olemasoleva kasutajakontoga.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Lae mobiilivõrgu kaudu?</string>
@@ -521,7 +511,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Märkus OpenStreetMapi vabatahtlikele (vabatahtlik)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Kirjeldage kaardil olevaid vigu või asju, mida ei saa Organic Mapsiga muuta.</string>
+    <string name="editor_note_hint">Kirjelda kaardil olevaid vigu või objekte, mida ei saa Organic Mapsiga muuta</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Teie muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.</string>
     <string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
@@ -612,7 +602,7 @@
 \nAvage oma seadme seaded → Keel ja sisend → Kõne → Tekst kõneks väljund.
 \nSiin saate hallata kõnesünteesi seadeid (näiteks alla laadida keelepaketti võrguühenduseta kasutamiseks) ja valida mõne muu teksti kõneks muutmise mootori.</string>
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaadake seda juhist.</string>
-    <string name="transliteration_title">Transliteratsioon ladina keelde</string>
+    <string name="transliteration_title">Transliteratsioon ladina tähtedesse</string>
     <string name="learn_more">Lisateave</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Välju</string>
@@ -627,7 +617,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Palun logige sisse OpenStreetMap\'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">kuskil</a>.</string>
     <string name="dialog_error_storage_title">Salvestusruumi ligipääsu probleem</string>
-    <string name="dialog_error_storage_message">Välismälu pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrollige oma SD-kaarti või võtke meiega ühendust aadressil support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Välina andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Jäljenda vigast salvestusruumi</string>
     <string name="core_entrance">Sissepääs</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
@@ -690,7 +680,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Ära kunagi hoiata eest</string>
     <string name="power_managment_title">Energiasäästlik režiim</string>
-    <string name="power_managment_description">Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama</string>
+    <string name="power_managment_description">Proovi funktsionaalsuse vähendamise arvel vähendada aku voolutarbimist.</string>
     <string name="power_managment_setting_never">Mitte kunagi</string>
     <string name="power_managment_setting_auto">Automaatne</string>
     <string name="power_managment_setting_manual_max">Maksimaalne energiasääst</string>
@@ -745,7 +735,6 @@
     <string name="moreyear_ago_sorttype">Üle aasta tagasi</string>
     <string name="near_me_sorttype">Minu lähedal</string>
     <string name="others_sorttype">Muud</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Toit</string>
     <string name="tourist_places">Vaatamisväärsused</string>
@@ -768,7 +757,7 @@
     <string name="dialog_pedestrian_route_is_long_header">Metroo marsruuti ei leidu</string>
     <string name="dialog_pedestrian_route_is_long_message">Palun vali metroojaamale lähemal asuv algus- või lõpp-punkt</string>
     <string name="button_layer_isolines">Maastik</string>
-    <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks värskenda või lae alla piirkonna kaart</string>
+    <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks värskenda või laadi alla piirkonna kaart</string>
     <string name="isolines_location_error_dialog">Topograafiline kiht ei ole selles piirkonnas veel saadaval</string>
     <string name="elevation_profile_ascent">Tõus</string>
     <string name="elevation_profile_descent">Langus</string>
@@ -834,7 +823,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">See rakendus vajab teie luba</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto orgaanilised kaardid vajavad tõhusaks tööks asukoha luba</string>
+    <string name="aa_request_permission_activity_text">Organic Maps Android Auto liidestusega vajab tõhusaks tööks luba asukoha tuvastamiseks</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lubade andmine</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -858,7 +847,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menüü vaatamine</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Avatud teises rakenduses</string>
+    <string name="open_in_app">Ava muus rakenduses</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Iseteenindus</string>
     <string name="select_option">Valige valik</string>
@@ -882,10 +871,9 @@
     <string name="error_no_file_manager_app">Kaustavaliku dialoogi ei ole võimalik kuvada, sest teie seadmesse ei ole paigaldatud sobivat rakendust. Palun installige failihaldurirakendus ja proovige uuesti.</string>
     <string name="choose_color">Vali värv</string>
     <string name="edit_track">Muuda rada</string>
-    <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis saaks asukoha avada</string>
+    <string name="uri_open_location_failed">Ei ole paigaldatud rakendust, mis oskaks asukohta avada</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaatne navigeerimine</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Aadress/plokk</string>
     <string name="type.addr_interpolation.even">Aadress/plokk</string>
@@ -1015,7 +1003,6 @@
     <string name="type.amenity.prison">Vangla</string>
     <string name="type.amenity.pub">Pubi</string>
     <string name="type.amenity.public_bookcase">Raamatuvahetus</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Taaskasutuskeskus</string>
     <string name="type.amenity.recycling">Taaskasutuskonteiner</string>
@@ -1090,7 +1077,7 @@
     <string name="type.barrier.lift_gate">Tõstevärav</string>
     <string name="type.barrier.retaining_wall">Tugisein</string>
     <string name="type.barrier.stile">Trepp</string>
-    <string name="type.barrier.turnstile">Turnstile</string>
+    <string name="type.barrier.turnstile">Pöördvärav</string>
     <string name="type.barrier.swing_gate">Tiibvärav</string>
     <string name="type.barrier.toll_booth">Tolliputka</string>
     <string name="type.barrier.wall">Müür</string>
@@ -1151,7 +1138,7 @@
     <string name="type.cuisine.argentinian">Argentiina</string>
     <string name="type.cuisine.asian">Aasia</string>
     <string name="type.cuisine.austrian">Austria</string>
-    <string name="type.cuisine.bagel">Bagel</string>
+    <string name="type.cuisine.bagel">Rõngassaiake</string>
     <string name="type.cuisine.balkan">Balkani</string>
     <string name="type.cuisine.barbecue">Grill</string>
     <string name="type.cuisine.bavarian">Baieri</string>
@@ -1159,8 +1146,8 @@
     <string name="type.cuisine.brazilian">Brasiilia</string>
     <string name="type.cuisine.breakfast">Hommikusöök</string>
     <string name="type.cuisine.bubble_tea">Mullitee</string>
-    <string name="type.cuisine.burger">Burger</string>
-    <string name="type.cuisine.buschenschank">Buschenschank</string>
+    <string name="type.cuisine.burger">Hamburger</string>
+    <string name="type.cuisine.buschenschank">Austria veinikõrts (buschenschank)</string>
     <string name="type.cuisine.cake">Kook</string>
     <string name="type.cuisine.caribbean">Kariibi</string>
     <string name="type.cuisine.chicken">Kana</string>
@@ -1169,7 +1156,7 @@
     <string name="type.cuisine.crepe">Krepp</string>
     <string name="type.cuisine.croatian">Horvaatia</string>
     <string name="type.cuisine.curry">Karri</string>
-    <string name="type.cuisine.deli">Deli</string>
+    <string name="type.cuisine.deli">Delikatesstoitude pood</string>
     <string name="type.cuisine.diner">Söögikoht</string>
     <string name="type.cuisine.donut">Sõõrik</string>
     <string name="type.cuisine.ethiopian">Etioopia</string>
@@ -1183,7 +1170,7 @@
     <string name="type.cuisine.german">Saksa</string>
     <string name="type.cuisine.greek">Kreeka</string>
     <string name="type.cuisine.grill">Grill</string>
-    <string name="type.cuisine.heuriger">Heuriger</string>
+    <string name="type.cuisine.heuriger">Austria hooajaline veinikõrts (heuriger)</string>
     <string name="type.cuisine.hotdog">Hotdog</string>
     <string name="type.cuisine.hungarian">Ungari</string>
     <string name="type.cuisine.ice_cream">Jäätis</string>
@@ -1210,7 +1197,7 @@
     <string name="type.cuisine.pasta">Pasta</string>
     <string name="type.cuisine.persian">Pärsia</string>
     <string name="type.cuisine.peruvian">Peruuvia</string>
-    <string name="type.cuisine.pizza">Pizza</string>
+    <string name="type.cuisine.pizza">Pitsa</string>
     <string name="type.cuisine.polish">Poola</string>
     <string name="type.cuisine.portuguese">Portugali</string>
     <string name="type.cuisine.ramen">Ramen</string>
@@ -1237,7 +1224,7 @@
     <string name="type.emergency.fire_hydrant">Tuletõrjehüdrant</string>
     <string name="type.emergency.phone">Hädaabi telefon</string>
     <!-- A place where a lifeguard is on duty. -->
-    <string name="type.emergency.lifeguard">Päästja</string>
+    <string name="type.emergency.lifeguard">Vetelpäästja</string>
     <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Mäepäästejaam</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
@@ -1256,7 +1243,6 @@
     <string name="type.healthcare.psychotherapist">Psühhoteraapia</string>
     <string name="type.healthcare.sample_collection">Proovivõtmine</string>
     <string name="type.healthcare.speech_therapist">Logopeedia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Maantee</string>
     <string name="type.highway.bridleway">Valjarada</string>
@@ -1422,7 +1408,6 @@
     <string name="type.area_highway.track">Rada</string>
     <string name="type.area_highway.trunk">Magistraaltee</string>
     <string name="type.area_highway.unclassified">Vähetähtis tee</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ajalooline objekt</string>
     <string name="type.historic.aircraft">Ajalooline lennuk</string>
@@ -1566,9 +1551,9 @@
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Sidetorn</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
-    <string name="type.man_made.petroleum_well">Nafta- või gaasikaev</string>
+    <string name="type.man_made.petroleum_well">Nafta või gaasipuurauk</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
-    <string name="type.man_made.flare">Gaasi leeke</string>
+    <string name="type.man_made.flare">Tööstuslik tõrvikpõleti</string>
     <string name="type.man_made.wastewater_plant">Reoveepuhasti</string>
     <string name="type.man_made.water_tap">Veekraan</string>
     <string name="type.man_made.water_tap.drinking_water_no">Veekraan</string>
@@ -1690,7 +1675,7 @@
     <string name="type.power.station">Elektrijaam</string>
     <string name="type.power.substation">Alajaam</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Elektripost</string>
+    <string name="type.power.tower">Kõrgepingemast</string>
     <string name="type.psurface">Pind</string>
     <string name="type.public_transport">Ühistransport</string>
     <string name="type.public_transport.platform">Platvorm</string>
@@ -2048,7 +2033,7 @@
     <string name="type.shop.mall">Kaubanduskeskus</string>
     <string name="type.shop.massage">Massaažisalong</string>
     <string name="type.shop.mobile_phone">Mobiiltelefonid</string>
-    <string name="type.shop.money_lender">Rahalaenutaja</string>
+    <string name="type.shop.money_lender">Kiirlaenukontor</string>
     <string name="type.shop.motorcycle">Mootorrattapood</string>
     <string name="type.shop.motorcycle_repair">Mootorrataste remont</string>
     <string name="type.shop.music">Plaadipood</string>
@@ -2254,4 +2239,35 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spordisaal</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="instagram">Instagram</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="github">GitHub</string>
+    <string name="menu">Menüü</string>
+    <string name="gb">GB</string>
+    <string name="telegram">Telegram</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="vk">VK</string>
+    <string name="facebook">Facebook</string>
+    <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
+    <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="type.amenity.shelter.lean_to">Poolvarikatus</string>
+    <string name="mb">MB</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">Korrus: %s</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
+    <string name="type.man_made.utility_pole">Valgustus- või sidepost</string>
+    <string name="type.fee.yes">$/€</string>
+    <string name="type.attraction.bumper_car">Põrkavad elektriautod</string>
+    <string name="type.attraction.big_wheel">Vaateratas</string>
+    <string name="type.leisure.hackerspace">Häkkerite ühisruum</string>
+    <string name="type.power.pole">Elektripost</string>
 </resources>

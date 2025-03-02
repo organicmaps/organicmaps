@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "בטל";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "יחידות מדידה";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "איפה לאכול";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "עבור קרוואנים";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "כחול אפרפר";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:";
 "dialog_routing_disclaimer_priority" = "— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;";
 "dialog_routing_disclaimer_precision" = "— ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "נסה שוב";
 "dialog_routing_download_and_build_cross_route" = "האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?";
 "dialog_routing_download_cross_route" = "הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "הצג";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "לפני יותר משנה";
 "near_me_sorttype" = "קרוב אלי";
 "others_sorttype" = "אחרים";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "אוכל";
 "tourist_places" = "תיירות";
 "museums" = "מוזיאונים";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
 "edit_track" = "עריכת מסלול";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "כתובת/שכונה";
 "type.addr_interpolation.even" = "כתובת/שכונה";
 "type.addr_interpolation.odd" = "כתובת/שכונה";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "בית כלא";
 "type.amenity.pub" = "פאב";
 "type.amenity.public_bookcase" = "כוננית ספרים ציבורית";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "מרכז מיחזור";
 "type.amenity.recycling" = "מיכל מיחזור";
 "type.amenity.recycling.container" = "מיכל מיחזור";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "פסיכותרפיה";
 "type.healthcare.sample_collection" = "מרכז איסוף דגימות";
 "type.healthcare.speech_therapist" = "ריפוי בדיבור";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "כביש";
 "type.highway.bridleway" = "שביל סוסים";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "כביש לא מסומן/מזערי";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "חפץ היסטורי";
 "type.historic.aircraft" = "מטוס היסטורי";
 "type.historic.anchor" = "עוגן היסטורי";

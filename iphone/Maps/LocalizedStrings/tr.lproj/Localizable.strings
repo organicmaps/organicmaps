@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "İptal";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Ölçü birimleri";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Nerede yenir";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavan tesisleri";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!";
 
 /* message title of loading file */
@@ -262,7 +250,7 @@
 "search_show_on_map" = "Haritada görüntüle";
 
 /* Text in menu */
-"website" = "Web Sitesi";
+"website" = "İnternet Sitesi";
 
 /* Text in About menu, opens Organic Maps news website */
 "news" = "Haberler";
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Rotanızı takip ederken şunları lütfen unutmayın:";
 "dialog_routing_disclaimer_priority" = "— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;";
 "dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Lütfen tekrar deneyin";
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 "dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Göster";
@@ -803,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Hiçbir zaman uyarma";
 "power_managment_title" = "Güç tasarrufu modu";
-"power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
+"power_managment_description" = "İşlevsellik pahasına güç kullanımını azaltmaya çalışın.";
 "power_managment_setting_never" = "Asla";
 "power_managment_setting_auto" = "Otomatik";
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
@@ -820,7 +800,7 @@
 "avoid_ferry" = "Vapurdan kaçın";
 "avoid_motorways" = "Otobandan kaçın";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
-"unable_to_calc_alert_subtitle" = "Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin";
+"unable_to_calc_alert_subtitle" = "Bir rota bulunamadı. Bu, yönlendirme seçeneklerinizden veya eksik OpenStreetMap verilerinizden kaynaklanabilir. Lütfen yönlendirme seçeneklerinizi değiştirin ve yeniden deneyin.";
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
 "change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 "toll_road" = "Paralı yol";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Bir yıldan daha önce";
 "near_me_sorttype" = "Bana yakınlarda";
 "others_sorttype" = "Diğerleri";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Yiyecek";
 "tourist_places" = "Görülecek yerler";
 "museums" = "Müzeler";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
 "edit_track" = "Kaydı düzenle";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/Blok";
 "type.addr_interpolation.even" = "Adres/Blok";
 "type.addr_interpolation.odd" = "Adres/Blok";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Hapishane";
 "type.amenity.pub" = "Meyhane";
 "type.amenity.public_bookcase" = "Kitap Değişimi";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Geri Dönüşüm Merkezi";
 "type.amenity.recycling" = "Atık Toplama Merkezi";
 "type.amenity.recycling.container" = "Atık Toplama Merkezi";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapi";
 "type.healthcare.sample_collection" = "Örnekleme";
 "type.healthcare.speech_therapist" = "Logopedi";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Otoyol";
 "type.highway.bridleway" = "Atlı Yolu";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Tali Yol";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Tarihi";
 "type.historic.aircraft" = "Tarihi Uçak";
 "type.historic.anchor" = "Tarihi Çapa";
@@ -1822,7 +1782,7 @@
 "type.leisure.garden" = "Bahçe";
 "type.leisure.garden.residential" = "Konut Bahçesi";
 "type.leisure.golf_course" = "Golf Sahası";
-"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.miniature_golf" = "Mini golf";
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Buz Pateni Pisti";
 "type.leisure.marina" = "Liman";
@@ -2467,8 +2427,8 @@
 "type.sport.table_tennis" = "Masa tenisi";
 "type.sport.tennis" = "Tenis Kortu";
 "type.sport.volleyball" = "Voleybol";
-"type.sport.10pin" = "Bowling";
-"type.sport.9pin" = "Bowling";
+"type.sport.10pin" = "Bovling";
+"type.sport.9pin" = "Bovling";
 "type.sport.padel" = "Padel";
 "type.sport.futsal" = "Futsal";
 "type.sport.ice_hockey" = "Buz Hokeyi";

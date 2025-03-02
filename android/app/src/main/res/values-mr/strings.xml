@@ -94,7 +94,6 @@
     <string name="measurement_units">मापन एकके</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">मैल की किलोमीटर ह्यामध्ये निवडा</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">जेवायचे ठिकाण</string>
@@ -140,7 +139,6 @@
     <string name="category_recycling">भंगारवाला</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">पाणी</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">चिठ्ठया</string>
@@ -337,7 +335,6 @@
     <string name="gray">राखाडी</string>
     <!-- blue gray color -->
     <string name="blue_gray">निळा राखाडी</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">प्रवास करताना, कृपात लक्षात ठेवा:</string>
     <string name="dialog_routing_disclaimer_priority">— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;</string>
@@ -367,7 +364,6 @@
     <string name="not_now">आता नाही</string>
     <string name="dialog_routing_download_and_build_cross_route">एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?</string>
     <string name="dialog_routing_download_cross_route">या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.</string>
     <string name="search_select_map">नकाशा निवडा</string>
@@ -600,7 +596,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
     <string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>
-    <string name="dialog_error_storage_message">बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support\@organicmaps.app वर आमच्याशी संपर्क साधा</string>
+    <string name="dialog_error_storage_message">बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support@organicmaps.app वर आमच्याशी संपर्क साधा</string>
     <string name="setting_emulate_bad_storage">खराब साठ्याचे अनुकरण करा</string>
     <string name="core_entrance">प्रवेशद्वार</string>
     <string name="error_enter_correct_name">कृपया योग्य नाव प्रविष्ट करा</string>
@@ -718,7 +714,6 @@
     <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
     <string name="near_me_sorttype">माझ्या जवळ</string>
     <string name="others_sorttype">इतर</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">अन्न</string>
     <string name="tourist_places">पर्यटन स्थळ</string>
@@ -858,7 +853,6 @@
     <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">पत्ता/ब्लॉक</string>
     <string name="type.addr_interpolation.even">पत्ता/ब्लॉक</string>
@@ -969,7 +963,6 @@
     <string name="type.amenity.post_office">टपालघर</string>
     <string name="type.amenity.prison">तुरुंग</string>
     <string name="type.amenity.pub">पब</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">भंगार केंद्र</string>
     <string name="type.amenity.recycling">रीसायकलिंग कंटेनर</string>
@@ -1139,7 +1132,6 @@
     <string name="type.healthcare.psychotherapist">मानसोपचार</string>
     <string name="type.healthcare.sample_collection">नमुना</string>
     <string name="type.healthcare.speech_therapist">स्पीच थेरपी</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">महामार्ग</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1302,7 +1294,6 @@
     <string name="type.area_highway.track">ट्रॅक</string>
     <string name="type.area_highway.trunk">राष्ट्रीय महामार्ग</string>
     <string name="type.area_highway.unclassified">किरकोळ रस्ता</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">ऐतिहासिक</string>
     <string name="type.historic.aircraft">ऐतिहासिक विमान</string>

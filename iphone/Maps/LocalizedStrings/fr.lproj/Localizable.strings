@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annuler";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unités de mesure";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Un endroit pour manger";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Aménagements pour camping-car";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris-bleu";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :";
 "dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
 "dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination ;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Veuillez réessayer";
 "dialog_routing_download_and_build_cross_route" = "Voulez-vous télécharger la carte et créer un itinéraire plus direct s'étendant sur plus d'une carte ?";
 "dialog_routing_download_cross_route" = "Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Afficher";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Il y a plus d'un an";
 "near_me_sorttype" = "Près de moi";
 "others_sorttype" = "Autres";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Aliments";
 "tourist_places" = "Choses à voir";
 "museums" = "Musées";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "L'itinéraire est vide - il n'y a rien à sauvegarder";
 "edit_track" = "Modifier le trace";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresse/Bloc";
 "type.addr_interpolation.even" = "Adresse/Bloc";
 "type.addr_interpolation.odd" = "Adresse/Bloc";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Prison";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Microbibliothèque";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Centre de recyclage";
 "type.amenity.recycling" = "Conteneur de recyclage";
 "type.amenity.recycling.container" = "Conteneur de recyclage";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psychothérapie";
 "type.healthcare.sample_collection" = "Prélèvements biologiques";
 "type.healthcare.speech_therapist" = "Logopédie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Chemin équestre";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Rue";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objet historique";
 "type.historic.aircraft" = "Avion historique";
 "type.historic.anchor" = "Ancre historique";

@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Annuleer";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Afstandseenheid";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Waar iets gaan eten";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanfaciliteiten";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Grijsblauw";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
 "dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
 "dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Probeer het opnieuw";
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Toon";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Meer dan een jaar geleden";
 "near_me_sorttype" = "Dicht bij mij";
 "others_sorttype" = "Andere";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Eten";
 "tourist_places" = "Bezienswaardigheden";
 "museums" = "Musea";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
 "edit_track" = "Route bewerken";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/blok";
 "type.addr_interpolation.even" = "Adres/blok";
 "type.addr_interpolation.odd" = "Adres/blok";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekenkast";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Milieustraat";
 "type.amenity.recycling" = "Recycling container";
 "type.amenity.recycling.container" = "Recycling container";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapie";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Straat";
 "type.highway.bridleway" = "Ruiterpad";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Straat";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historisch object";
 "type.historic.aircraft" = "Historische vliegtuigen";
 "type.historic.anchor" = "Historisch anker";

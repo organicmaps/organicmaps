@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Avbryt";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Längdenheter";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Matmöjligheter";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "För husbil";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Ljusblå grå";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "När du följer vägen, kom ihåg att:";
 "dialog_routing_disclaimer_priority" = "— Vägförhållanden, trafiklagar och vägskyltar alltid ska prioriteras över navigeringsråd;";
 "dialog_routing_disclaimer_precision" = "— Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Försök igen";
 "dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?";
 "dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Visa";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Över ett år sedan";
 "near_me_sorttype" = "Nära mig";
 "others_sorttype" = "Andra";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mat";
 "tourist_places" = "Sevärdheter";
 "museums" = "Museer";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
 "edit_track" = "Redigera rutt";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adress/Block";
 "type.addr_interpolation.even" = "Adress/Block";
 "type.addr_interpolation.odd" = "Adress/Block";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Fängelse";
 "type.amenity.pub" = "Krog";
 "type.amenity.public_bookcase" = "Bokskåp";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Återvinningscentral";
 "type.amenity.recycling" = "Behållare för återvinningsbart avfall";
 "type.amenity.recycling.container" = "Behållare för återvinningsbart avfall";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psykoterapi";
 "type.healthcare.sample_collection" = "Provtagning";
 "type.healthcare.speech_therapist" = "Logopedics";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Gata";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historiskt objekt";
 "type.historic.aircraft" = "Historiska flygplan";
 "type.historic.anchor" = "Historiskt ankare";

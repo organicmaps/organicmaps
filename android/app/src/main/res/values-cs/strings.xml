@@ -9,7 +9,7 @@
     <string name="delete">Smazat</string>
     <string name="download_maps">Stáhnout mapy</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Stahování selhalo, zkuste to znovu.</string>
+    <string name="download_has_failed">Stahování selhalo. Klepnutím to zkusíte znovu.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Stahování…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -44,7 +44,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Žádné vybíjení baterie, funguje offline</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Rychlé, minimalistické, vyvinutý komunitou</string>
+    <string name="about_proposition_3">• Rychlé, minimalistické, vyvinuté komunitou</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
     <!-- The button that opens system location settings -->
@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Uložit mapy na</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
+    <string name="maps_storage_summary">Vyberte místo, kam mají být stahovány mapy.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapy</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -102,7 +102,6 @@
     <string name="measurement_units">Měřicí jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vyberte si míle nebo kilometry</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kde se najíst</string>
@@ -150,7 +149,6 @@
     <string name="category_water">Voda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Pro RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
@@ -180,9 +178,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Ahoj, zkoukni mojí lokaci v Organic Maps! %1$s nebo %2$s Nemáš offline mapy? Stáhni tady: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Koukni na moji značku na mapě v Organic Maps</string>
+    <string name="bookmark_share_email_subject">Koukni na mojí značku na mapě v Organic Maps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě na Organic Maps</string>
+    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě v Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Ahoj,
 \n
@@ -272,7 +270,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Pohybem telefonu do osmičky zkalibrujte kompas a zafixujte směr šipky na mapě.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.</string>
+    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Aktualizovat vše</string>
     <!-- Cancel all button text -->
@@ -337,9 +335,9 @@
     <!-- light blue color -->
     <string name="light_blue">Světle modrá</string>
     <!-- cyan color -->
-    <string name="cyan">Cyan</string>
+    <string name="cyan">Azurová</string>
     <!-- teal color -->
-    <string name="teal">Teal</string>
+    <string name="teal">Čajová</string>
     <!-- lime color -->
     <string name="lime">Limeta</string>
     <!-- deep orange color -->
@@ -348,13 +346,12 @@
     <string name="gray">Šedá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modrošedá</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
-    <string name="dialog_routing_disclaimer_priority">• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.</string>
+    <string name="dialog_routing_disclaimer_priority">— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;</string>
     <string name="dialog_routing_disclaimer_precision">— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy je třeba brát pouze jako doporučení;</string>
-    <string name="dialog_routing_disclaimer_borders">— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;</string>
+    <string name="dialog_routing_disclaimer_borders">— U stop v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.</string>
     <string name="dialog_routing_disclaimer_beware">Na silnici buďte pozorní a chovejte se bezpečně!</string>
     <string name="dialog_routing_check_gps">Zkontrolovat signál GPS</string>
     <string name="dialog_routing_error_location_not_found">Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.</string>
@@ -378,7 +375,6 @@
     <string name="not_now">Nyní ne</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.</string>
     <string name="search_select_map">Vybrat mapu</string>
@@ -416,7 +412,7 @@
     <string name="editor_time_title">Otevírací doba</string>
     <string name="editor_time_advanced">Pokročilý režim</string>
     <string name="editor_time_simple">Jednoduchý režim</string>
-    <string name="editor_hours_closed">Doba, kdy je zavřeno</string>
+    <string name="editor_hours_closed">Pauza</string>
     <string name="editor_example_values">Vzorové hodnoty</string>
     <string name="editor_correct_mistake">Opravit chybu</string>
     <string name="editor_add_select_location">Zvolte umístění</string>
@@ -486,7 +482,7 @@
     <string name="placepage_add_business_button">Přidat organizaci</string>
     <string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.</string>
+    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci Organic Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.
 \nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!</string>
@@ -506,7 +502,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pro dobrovolníky OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps.</string>
+    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
     <string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
@@ -604,7 +600,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>
     <string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
-    <string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Externí úložiště není k dispozici. Pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte svou SD kartu nebo nás kontaktujte na support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulovat špatné úložiště</string>
     <string name="core_entrance">Vstup</string>
     <string name="error_enter_correct_name">Zadejte prosím správný název</string>
@@ -614,6 +610,7 @@
     <string name="bookmark_lists_show_all">Zobrazit vše</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d záložka</item>
+        <item quantity="few">%d záložky</item>
         <item quantity="other">%d záložek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
@@ -637,8 +634,9 @@
     </plurals>
     <string name="restore">Obnovit</string>
     <plurals name="tracks">
-        <item quantity="one">%d cesta</item>
-        <item quantity="other">%d cest</item>
+        <item quantity="one">%d stopa</item>
+        <item quantity="few">%d stopy</item>
+        <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Soukromí</string>
@@ -651,7 +649,7 @@
     <string name="bookmarks_empty_list_title">Seznam je prázdný</string>
     <string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
     <string name="category_desc_more">…ještě</string>
-    <string name="export_file">Export KMZ</string>
+    <string name="export_file">Exportovat KMZ</string>
     <string name="export_file_gpx">Export GPX</string>
     <string name="delete_list">Smazat seznam</string>
     <string name="public_access">Veřejně přístupné</string>
@@ -683,7 +681,7 @@
     <string name="avoid_ferry">Vyhnout se přejezdům trajektů</string>
     <string name="avoid_motorways">Vyhněte se dálnici</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
-    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
+    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím možnosti trasy a zkuste to znovu.</string>
     <string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
     <string name="change_driving_options_btn">Možnosti trasy aktivní</string>
     <string name="toll_road">Silnice s mýtným</string>
@@ -723,7 +721,6 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jídlo</string>
     <string name="tourist_places">Památky</string>
@@ -808,7 +805,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tato aplikace potřebuje vaše povolení</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps v systému Android Auto potřebují k efektivní práci povolení k poloze</string>
+    <string name="aa_request_permission_activity_text">Organic Maps v systému Android Auto potřebují k efektivní práci oprávnění k poloze</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Udělení oprávnění</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -853,13 +850,12 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdná - není co ukládat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu</string>
-    <string name="choose_color">Vyberte barvu</string>
+    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu.</string>
+    <string name="choose_color">Vybrat barvu</string>
     <string name="edit_track">Upravit trasu</string>
-    <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která by mohla otevřít umístění</string>
+    <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která dokáže otevřít umístění</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto v navigaci</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Adresa/blok</string>
     <string name="type.addr_interpolation.even">Adresa/blok</string>
@@ -958,22 +954,21 @@
     <string name="type.amenity.payment_terminal">Platební terminál</string>
     <string name="type.amenity.pharmacy">Lékárna</string>
     <string name="type.amenity.place_of_worship">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.buddhist">Chrám</string>
-    <string name="type.amenity.place_of_worship.christian">Chrám</string>
+    <string name="type.amenity.place_of_worship.buddhist">Buddhistický chrám</string>
+    <string name="type.amenity.place_of_worship.christian">Kostel</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Církev Ježíše Krista Svatých posledních dnů</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sál Království Jehovových svědků</string>
-    <string name="type.amenity.place_of_worship.hindu">Chrám</string>
+    <string name="type.amenity.place_of_worship.hindu">Hinduistický chrám</string>
     <string name="type.amenity.place_of_worship.jewish">Synagoga</string>
     <string name="type.amenity.place_of_worship.muslim">Mešita</string>
     <string name="type.amenity.place_of_worship.shinto">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.taoist">Chrám</string>
+    <string name="type.amenity.place_of_worship.taoist">Taoistický chrám</string>
     <string name="type.amenity.police">Policie</string>
     <string name="type.amenity.post_box">Poštovní schránka</string>
     <string name="type.amenity.post_office">Pošta</string>
     <string name="type.amenity.prison">Vězení</string>
     <string name="type.amenity.pub">Hospoda</string>
     <string name="type.amenity.public_bookcase">Knihovna</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recyklační středisko</string>
     <string name="type.amenity.recycling">Recyklační nádoba</string>
@@ -1162,12 +1157,12 @@
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Plavčík</string>
     <!-- A mountain rescue base for search and rescue activities. -->
-    <string name="type.emergency.mountain_rescue">Horská záchranná stanice</string>
+    <string name="type.emergency.mountain_rescue">Stanice horské služby</string>
     <!-- This is for secondary entrances, for main entrances see type.entrance.main -->
     <string name="type.entrance">Vchod</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Hlavní vchod</string>
-    <string name="type.entrance.exit">Exit</string>
+    <string name="type.entrance.exit">Východ</string>
     <string name="type.fee.no">Zdarma</string>
     <string name="type.healthcare.laboratory">Lékařská laboratoř</string>
     <string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
@@ -1179,7 +1174,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapie</string>
     <string name="type.healthcare.sample_collection">Odběr vzorků</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Most</string>
@@ -1203,7 +1197,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.footway.tunnel">Tunel</string>
+    <string name="type.highway.footway.tunnel">Tunel pro pěší</string>
     <string name="type.highway.ford">Brod</string>
     <string name="type.highway.living_street">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1214,7 +1208,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.motorway.tunnel">Tunel</string>
+    <string name="type.highway.motorway.tunnel">Silniční tunel</string>
     <string name="type.highway.motorway_junction">Dopravní uzel</string>
     <string name="type.highway.motorway_link">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -1238,7 +1232,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">Tunel</string>
+    <string name="type.highway.pedestrian.tunnel">Tunel pro pěší</string>
     <string name="type.highway.primary">Ulice</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Most</string>
@@ -1337,7 +1331,6 @@
     <string name="type.area_highway.track">Ulice</string>
     <string name="type.area_highway.trunk">Ulice</string>
     <string name="type.area_highway.unclassified">Ulice</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>
     <string name="type.historic.aircraft">Historická letadla</string>
@@ -1367,7 +1360,7 @@
     <string name="type.historic.memorial.plaque">Pomník</string>
     <string name="type.historic.memorial.sculpture">Pomník</string>
     <string name="type.historic.memorial.statue">Pomník</string>
-    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.historic.memorial.stolperstein">Kámen zmizelých</string>
     <string name="type.historic.stone">Historický kámen</string>
     <string name="type.historic.memorial.war_memorial">Válečný památník</string>
     <string name="type.historic.mine">Historický důl</string>
@@ -1435,7 +1428,7 @@
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Ropný nebo plynový vrt</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
-    <string name="type.man_made.flare">Plynový hořák</string>
+    <string name="type.man_made.flare">Fléra</string>
     <string name="type.man_made.water_tap">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tap.drinking_water_no">Vodovodní kohoutek</string>
     <string name="type.man_made.water_tower">Vodárna</string>
@@ -1544,7 +1537,7 @@
     <string name="type.power.plant.wind">Větrná elektrárna</string>
     <string name="type.power.substation">Rozvodna</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Sloup elektrického vedení</string>
+    <string name="type.power.tower">Věž elektrického vedení</string>
     <string name="type.railway.funicular">Lanovka</string>
     <string name="type.railway.halt">Železniční stanice</string>
     <string name="type.railway.level_crossing">Přejezd</string>
@@ -1840,7 +1833,7 @@
     <string name="type.shop.curtain">Závěsy</string>
     <string name="type.shop.deli">Prodejna lahůdek</string>
     <string name="type.shop.department_store">Obchodní dům</string>
-    <string name="type.shop.doityourself">Železářství</string>
+    <string name="type.shop.doityourself">Domácí potřeby</string>
     <string name="type.shop.dry_cleaning">Chemické čištění</string>
     <string name="type.shop.electronics">Elektronika</string>
     <string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
@@ -1991,13 +1984,13 @@
     <string name="type.tourism.information.office">Informační centrum</string>
     <string name="type.tourism.information.visitor_centre">Návštěvnické centrum</string>
     <string name="type.tourism.museum">Muzeum</string>
-    <string name="type.tourism.picnic_site">Piknik</string>
+    <string name="type.tourism.picnic_site">Místo pro piknik</string>
     <string name="type.leisure.resort">Letovisko</string>
     <string name="type.tourism.theme_park">Pamětihodnost</string>
     <string name="type.tourism.viewpoint">Vyhlídka</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Chata v divočině</string>
-    <string name="type.tourism.zoo">zoologická zahrada</string>
+    <string name="type.tourism.zoo">Zoologická zahrada</string>
     <string name="type.tourism.zoo.petting">ZOO pro domácí mazlíčky</string>
     <string name="type.waterway.canal">Kanál</string>
     <string name="type.waterway.canal.tunnel">Kanál</string>
@@ -2016,9 +2009,9 @@
     <string name="type.wheelchair.limited">Omezený vstup pro vozíčkáře</string>
     <string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
     <string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Snowpark</string>
     <string name="type.piste_type.hike">Zimní stezka</string>
-    <string name="type.piste_type.connection">Piste Connection</string>
+    <string name="type.piste_type.connection">Připojení sjezdovky</string>
     <string name="type.piste_type.skitour">Stezka Skitour</string>
     <string name="type.amenity.events_venue">Místo konání akcí</string>
     <string name="type.shop.auction">Aukce</string>
@@ -2032,7 +2025,267 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Vchod do pohotovostního oddělení</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
-    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.amenity.dojo">Dódžó</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sportovní hala</string>
+    <string name="type.railway.narrow_gauge.bridge">Most úzkorozchodné železnice</string>
+    <string name="type.fee.yes">$</string>
+    <string name="maps_storage_removable">SD karta</string>
+    <string name="closes_in">Zavírá za %s</string>
+    <string name="type.barrier.chain">Řetěz</string>
+    <string name="type.amenity.vending_machine.newspapers">Automat na noviny</string>
+    <string name="gb">GB</string>
+    <string name="type.amenity.parcel_locker">Schránka na balíky</string>
+    <string name="type.aeroway.helipad">Helipad</string>
+    <string name="type.aeroway.gate">Brána</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="type.aeroway.apron">Odbavovací plocha</string>
+    <string name="github">GitHub</string>
+    <string name="menu">Nabídka</string>
+    <string name="type.aeroway.runway">Vzletová a přistávací dráha</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="editor_add_phone">Přidat telefon</string>
+    <string name="delete_place_empty_comment_error">Uveďte prosím důvod odstranění místa</string>
+    <string name="navigation_stop_button">Zastavit načítání momentální stránky</string>
+    <string name="type.aerialway.mixed_lift">Smíšená lanovka</string>
+    <string name="type.aeroway">Letecká infrastruktura</string>
+    <string name="type.recycling.green_waste">Zelený/organický odpad</string>
+    <string name="type.recycling.cartons">Kartony</string>
+    <string name="type.amenity.taxi">Stanoviště taxislužby</string>
+    <string name="type.amenity.vending_machine">Prodejní automat</string>
+    <string name="type.barrier.fence">Plot</string>
+    <string name="type.aerialway.chair_lift">Sedačková lanovka</string>
+    <string name="type.aeroway.terminal">Terminál</string>
+    <string name="disk_error">Nepodařilo se vytvořit složku a přesunout soubory v interní paměti zařízení nebo na SD kartě</string>
+    <string name="error_enter_correct_instagram_page">Zadejte platné uživatelské jméno nebo webovou adresu Instagramu</string>
+    <string name="type.amenity.vending_machine.fuel">Palivové čerpadlo</string>
+    <string name="type.barrier.hedge">Živý plot</string>
+    <string name="error_enter_correct_vk_page">Zadejte platné uživatelské jméno nebo webovou adresu VK</string>
+    <string name="mb">MB</string>
+    <string name="error_enter_correct_twitter_page">Zadejte platné uživatelské jméno nebo webovou adresu Twitteru</string>
+    <string name="disconnect_usb_cable_title">Odpojte kabel USB</string>
+    <string name="type.aerialway.drag_lift">Vlek</string>
+    <string name="connection_failure">Selhání připojení</string>
+    <string name="type.amenity.bar">Bar</string>
+    <string name="type.barrier.cycle_barrier">Cyklistická bariéra</string>
+    <string name="type.boundary.administrative">Administrativní hranice</string>
+    <string name="type.aerialway">Letecká trasa</string>
+    <string name="type.amenity.vending_machine.coffee">Automat na kávu</string>
+    <string name="opens_in">Otevírá za %s</string>
+    <string name="maps_storage_shared">Interní sdílené úložiště</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="level_value_generic">Podlaží: %s</string>
+    <string name="maps_storage_free_size">%1$s z %2$s volných</string>
+    <string name="maps_storage_internal">Interní soukromé úložiště</string>
+    <string name="maps_storage_external">Externí sdílené úložiště</string>
+    <string name="share_bookmarks_email_body">Ahoj! \n \nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz \n \nUžij si cestování s Organic Maps!</string>
+    <string name="vk">VK</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="error_enter_correct_facebook_page">Zadejte platnou webovou adresu, účet nebo název stránky na Facebooku</string>
+    <string name="type.aerialway.cable_car">Lanová dráha</string>
+    <string name="type.amenity.food_court">Food Court</string>
+    <string name="type.recycling.cardboard">Lepenka</string>
+    <string name="type.recycling.cans">Plechovky</string>
+    <string name="type.recycling.shoes">Boty</string>
+    <string name="type.amenity.sanitary_dump_station">Vypouštěcí stanice nádrže</string>
+    <string name="type.amenity.vending_machine.food">Automat na jídlo</string>
+    <string name="type.amenity.vending_machine.excrement_bags">Automat na sáčky na exkrementy</string>
+    <string name="type.barrier.retaining_wall">Opěrná zeď</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="type.barrier">Bariéra</string>
+    <string name="type.amenity.waste_transfer_station">Překladiště odpadu</string>
+    <string name="type.barrier.wall">Zeď</string>
+    <string name="type.boundary">Hranice</string>
+    <string name="type.man_made.silo">Silo</string>
+    <string name="type.amenity.vending_machine.condoms">Automat na kondomy</string>
+    <string name="type.amenity.shelter.lean_to">Otevřený přístřešek</string>
+    <string name="disk_error_title">Chyba disku</string>
+    <string name="type.aeroway.taxiway">Pojezdová dráha</string>
+    <string name="error_enter_correct_line_page">Zadejte platné LINE ID nebo webovou adresu</string>
+    <string name="move_maps_error">Chyba při přesouvání souborů mapy</string>
+    <string name="type.aerialway.gondola">Kabinková lanovka</string>
+    <string name="read_in_wikipedia">Wikipedie</string>
+    <string name="type.amenity.vending_machine.sweets">Automat na sladkosti</string>
+    <string name="instagram">Instagram</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="type.amenity.casino">Kasino</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.highway">Dálnice</string>
+    <string name="type.boundary.administrative.3">Hranice oblasti</string>
+    <string name="type.cuisine.bubble_tea">Bubble Tea</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.junction">Křižovatka</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.emergency">Nouzová stanice</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.highway.bridleway">Hipostezka</string>
+    <string name="type.highway.services">Služební oblast</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.area_highway.cycleway">Cyklostezka</string>
+    <string name="type.boundary.administrative.2">Státní hranice</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.highway.cycleway.permissive">Cyklostezka</string>
+    <string name="type.boundary.administrative.4">Hranice oblasti</string>
+    <string name="type.highway.bridleway.permissive">Hipostezka</string>
+    <string name="type.highway.cycleway">Cyklostezka</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.building.warehouse">Sklad</string>
+    <string name="type.highway.elevator">Výtah</string>
+    <string name="type.landuse.greenhouse_horticulture">Skleník</string>
+    <string name="type.landuse.industrial">Průmyslová oblast</string>
+    <string name="type.landuse.vineyard">Vinice</string>
+    <string name="type.man_made.breakwater">Vlnolam</string>
+    <string name="type.man_made.cutline">Průsek</string>
+    <string name="type.power">Energie</string>
+    <string name="type.leisure.ice_rink">Ledové kluziště</string>
+    <string name="type.leisure.marina">Přístav</string>
+    <string name="type.landuse.commercial">Komerční zóna</string>
+    <string name="type.landuse.construction">Stavební oblast</string>
+    <string name="type.landuse.education">Vzdělávací zařízení</string>
+    <string name="type.landuse.farmyard">Statek</string>
+    <string name="type.landuse.salt_pond">Solné jezírko</string>
+    <string name="type.leisure">Volný čas</string>
+    <string name="type.leisure.common">Veřejný prostor</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.leisure.track">Trať</string>
+    <string name="type.leisure.track.area">Trať</string>
+    <string name="type.man_made.pipeline.overground">Povrchové potrubí</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.mountain_pass">Horský průsmyk</string>
+    <string name="type.noexit">Slepý konec</string>
+    <string name="type.power.station">Elektrostanice</string>
+    <string name="type.man_made.works">Průmysl</string>
+    <string name="type.junction.roundabout">Kruhový objezd</string>
+    <string name="type.leisure.recreation_ground">Rekreační areál</string>
+    <string name="type.power.line.underground">Podzemní elektrické vedení</string>
+    <string name="type.landuse.recreation_ground">Rekreační areál</string>
+    <string name="type.landuse.meadow">Louka</string>
+    <string name="type.power.line">Elektrické vedení</string>
+    <string name="type.power.pole">Sloup elektrického vedení</string>
+    <string name="type.landuse.greenfield">Zatravněná plocha</string>
+    <string name="type.junction.circular">Kruhový objezd</string>
+    <string name="type.landuse">Využití území</string>
+    <string name="type.landuse.allotments">Pozemky</string>
+    <string name="type.landuse.brownfield">Brownfield</string>
+    <string name="type.landuse.garages">Garáže</string>
+    <string name="type.landuse.retail">Nákupní oblast</string>
+    <string name="type.leisure.slipway">Skluzavka</string>
+    <string name="type.man_made.survey_point">Geodetický bod</string>
+    <string name="type.leisure.beach_resort">Plážový resort</string>
+    <string name="type.man_made">Lidská stavba</string>
+    <string name="type.man_made.mast">Stožár</string>
+    <string name="type.man_made.pier">Molo</string>
+    <string name="type.man_made.pipeline">Potrubí</string>
+    <string name="type.man_made.storage_tank">Cisterna</string>
+    <string name="type.man_made.wastewater_plant">Čistírna odpadních vod</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.organic.only">Přírodní</string>
+    <string name="type.organic.yes">Přírodní</string>
+    <string name="type.power.minor_line">Vedlejší elektrické vedení</string>
+    <string name="type.power.generator">Generátor elektřiny</string>
+    <string name="type.man_made.cairn">Mužik</string>
+    <string name="type.landuse.orchard">Sad</string>
+    <string name="type.landuse.field">Pole</string>
+    <string name="type.man_made.flagpole">Vlajkový stožár</string>
+    <string name="type.military">Armáda</string>
+    <string name="type.landuse.military">Vojenský prostor</string>
+    <string name="type.landuse.quarry">Lom</string>
+    <string name="type.landuse.residential">Obytná oblast</string>
+    <string name="type.landuse.village_green">Půda</string>
+    <string name="type.public_transport.platform">Platforma</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.railway">Železnice</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
+    <string name="type.public_transport">Veřejná doprava</string>
+    <string name="type.man_made.utility_pole">Užitkový sloup</string>
+    <string name="type.railway.abandoned">Zaniklá železnice</string>
+    <string name="type.railway.crossing">Železniční přejezd</string>
+    <string name="type.railway.funicular.tunnel">Tunel pozemní lanové dráhy</string>
+    <string name="type.railway.disused">Nepoužívaná železnice</string>
+    <string name="type.railway.light_rail">Lehká železnice</string>
+    <string name="type.railway.abandoned.bridge">Zaniklý železniční most</string>
+    <string name="type.railway.construction">Železniční stavba</string>
+    <string name="type.railway.funicular.bridge">Most pozemní lanové dráhy</string>
+    <string name="type.railway.light_rail.tunnel">Tunel lehké železnice</string>
+    <string name="type.railway.light_rail.bridge">Most lehké železnice</string>
+    <string name="type.railway.abandoned.tunnel">Zaniklý železniční tunel</string>
+    <string name="type.railway.monorail.bridge">Most jednokolejné železnice</string>
+    <string name="type.railway.narrow_gauge">Úzkorozchodná železnice</string>
+    <string name="type.railway.monorail.tunnel">Tunel jednokolejné železnice</string>
+    <string name="type.railway.platform">Železniční nástupiště</string>
+    <string name="type.railway.preserved">Zachovalá železnice</string>
+    <string name="type.railway.narrow_gauge.tunnel">Tunel úzkorozchodné železnice</string>
+    <string name="type.railway.subway.tunnel">Tunel trasy metra</string>
+    <string name="type.railway.preserved.tunnel">Tunel zachovalé železnice</string>
+    <string name="type.railway.subway.bridge">Most trasy metra</string>
+    <string name="type.railway.tram.bridge">Most tramvajové trati</string>
+    <string name="type.railway.tram">Tramvajová trať</string>
+    <string name="type.railway.preserved.bridge">Most zachovalé železnice</string>
+    <string name="type.railway.subway">Trasa metra</string>
+    <string name="type.shop.hardware">Železářství</string>
+    <string name="type.railway.tram.tunnel">Tunel tramvajové trati</string>
+    <string name="type.shop.supermarket">Supermarket</string>
+    <string name="type.tourism.hostel">Hostel</string>
+    <string name="type.route.ferry">Přívoz</string>
+    <string name="type.tourism">Turistika</string>
+    <string name="type.route">Trasa</string>
+    <string name="type.shop.kiosk">Kiosek</string>
+    <string name="type.sport.bowls">Bowls</string>
+    <string name="type.shop.caravan">Prodejce obytných vozů</string>
+    <string name="type.attraction.bumper_car">Autodrom</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.attraction.big_wheel">Ruské kolo</string>
+    <string name="type.natural.water.drain">Odvodnění</string>
+    <string name="type.piste_type.downhill.expert">Těžká sjezdovka</string>
+    <string name="type.waterway">Vodní cesta</string>
+    <string name="type.waterway.weir">Jez</string>
+    <string name="type.piste_type.downhill.easy">Jednoduchá sjezdovka</string>
+    <string name="type.traffic_calming.bump">Zpomalovací práh</string>
+    <string name="type.traffic_calming.hump">Zpomalovací hrbol</string>
+    <string name="type.aerialway.platter">Poma</string>
+    <string name="type.piste_type.downhill.novice">Sjezdovka pro začátečníky</string>
+    <string name="type.piste_type.downhill">Sjezdovka</string>
+    <string name="type.piste_type.downhill.intermediate">Středně těžká sjezdovka</string>
+    <string name="type.aerialway.magic_carpet">Jezdící koberec</string>
+    <string name="type.piste_type.downhill.freeride">Freeridová sjezdovka</string>
+    <string name="type.aerialway.t.bar">Kotva</string>
+    <string name="type.tourism.motel">Motel</string>
+    <string name="type.tourism.hotel">Hotel</string>
+    <string name="type.waterway.dam">Přehrada</string>
+    <string name="type.piste_type.downhill.easy.area">Jednoduchá sjezdovka</string>
+    <string name="type.piste_type.downhill.expert.area">Těžká sjezdovka</string>
+    <string name="type.aerialway.j.bar">Jednokotva</string>
+    <string name="type.piste_type.downhill.advanced">Pokročilá sjezdovka</string>
+    <string name="type.piste_type.downhill.intermediate.area">Středně těžká sjezdovka</string>
+    <string name="type.piste_type.downhill.novice.area">Sjezdovka pro začátečníky</string>
+    <string name="type.piste_type.nordic">Lyžařská stopa</string>
+    <string name="type.piste_type.sled.area">Sáňkařská dráha</string>
+    <string name="type.piste_type.downhill.area">Sjezdovka</string>
+    <string name="type.piste_type.sled">Sáňkařská dráha</string>
+    <string name="type.traffic_calming">Zklidnění dopravy</string>
+    <string name="type.wheelchair">Vozíčkář</string>
+    <string name="type.waterway.dock">Dok</string>
+    <string name="type.waterway.drain">Odvodnění</string>
+    <string name="type.piste_type.downhill.advanced.area">Pokročilá sjezdovka</string>
+    <string name="type.aerialway.rope_tow">Kotvička</string>
+    <string name="type.barrier.ditch">Příkop</string>
 </resources>

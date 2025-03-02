@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "لغو";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "واحد اندازه‌گیری";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "کجا غذا بخوریم";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV برای";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "خاکستری کبود";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:";
 "dialog_routing_disclaimer_priority" = "—شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;";
 "dialog_routing_disclaimer_precision" = "—نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "لطفا دوباره تلاش کنید";
 "dialog_routing_download_and_build_cross_route" = "ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟";
 "dialog_routing_download_cross_route" = "دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "نمایش";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "بیش از یک سال قبل";
 "near_me_sorttype" = "نزدیک من";
 "others_sorttype" = "دیگران";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "غذا";
 "tourist_places" = "مناظر";
 "museums" = "موزه‌ها";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
 "edit_track" = "ویرایش مسیر";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "آدرس/بلاک";
 "type.addr_interpolation.even" = "آدرس/بلاک";
 "type.addr_interpolation.odd" = "آدرس/بلاک";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "زندا   ن";
 "type.amenity.pub" = "میکده";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "مرکز بازیافت";
 "type.amenity.recycling" = "ظرف بازیافت";
 "type.amenity.recycling.container" = "ظرف بازیافت";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "روان درمانی";
 "type.healthcare.sample_collection" = "نمونه برداری";
 "type.healthcare.speech_therapist" = "گفتار درمانی";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "جاده";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "شیء تاریخی";
 "type.historic.aircraft" = "هواپیمای تاریخی";
 "type.historic.anchor" = "لنگر تاریخی";

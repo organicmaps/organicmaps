@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Cancel";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Measurement units";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Where to eat";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV Facilities";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blue Grey";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Show";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "More than a year ago";
 "near_me_sorttype" = "Near me";
 "others_sorttype" = "Others";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Food";
 "tourist_places" = "Sights";
 "museums" = "Museums";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Address/Block";
 "type.addr_interpolation.even" = "Address/Block";
 "type.addr_interpolation.odd" = "Address/Block";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Prison";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Recycling Centre";
 "type.amenity.recycling" = "Recycling Container";
 "type.amenity.recycling.container" = "Recycling Container";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapist";
 "type.healthcare.sample_collection" = "Sample Collection Centre";
 "type.healthcare.speech_therapist" = "Logopedics";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Minor Road";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historic Object";
 "type.historic.aircraft" = "Historic Aircraft";
 "type.historic.anchor" = "Historic Anchor";

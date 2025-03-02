@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Cancel";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Measurement units";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Sehemu ya kula";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Kwa RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Kijivu Buluu";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Show";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Zaidi ya mwaka mmoja uliopita";
 "near_me_sorttype" = "Karibu yangu";
 "others_sorttype" = "Nyingine";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Chakula";
 "tourist_places" = "Vivutio";
 "museums" = "Makumbusho";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Njia ni tupu - hakuna cha kuhifadhi";
 "edit_track" = "Hariri Njia";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Anwani/Zuia";
 "type.addr_interpolation.even" = "Anwani/Zuia";
 "type.addr_interpolation.odd" = "Anwani/Zuia";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Jela";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Recycling Center";
 "type.amenity.recycling" = "Recycling Container";
 "type.amenity.recycling.container" = "Recycling Container";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Tiba ya kisaikolojia";
 "type.healthcare.sample_collection" = "Sampuli";
 "type.healthcare.speech_therapist" = "Tiba ya hotuba";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Minor Road";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Kitu cha kihistoria";
 "type.historic.aircraft" = "Ndege ya kihistoria";
 "type.historic.anchor" = "Nanga ya kihistoria";

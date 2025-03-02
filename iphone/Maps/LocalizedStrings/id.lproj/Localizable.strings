@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Batalkan";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unit Pengukuran";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Tempat makan";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Untuk RV";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Biru Keabu-abuan";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Saat mengikuti rute, harap diingat:";
 "dialog_routing_disclaimer_priority" = "— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;";
 "dialog_routing_disclaimer_precision" = "— Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Mohon coba lagi";
 "dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
 "dialog_routing_download_cross_route" = "Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Tampilkan";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
 "near_me_sorttype" = "Dekat dengan saya";
 "others_sorttype" = "Lainnya";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Makanan";
 "tourist_places" = "Tempat Rekreasi";
 "museums" = "Museum";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "edit_track" = "Edit Jalur";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Alamat/Blokir";
 "type.addr_interpolation.even" = "Alamat/Blokir";
 "type.addr_interpolation.odd" = "Alamat/Blokir";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Penjara";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Rak Buku";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "TPA";
 "type.amenity.recycling" = "Wadah daur ulang";
 "type.amenity.recycling.container" = "Wadah daur ulang";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapi";
 "type.healthcare.sample_collection" = "Pengambilan sampel";
 "type.healthcare.speech_therapist" = "Logopedik";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Jalan";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objek bersejarah";
 "type.historic.aircraft" = "Pesawat Bersejarah";
 "type.historic.anchor" = "Jangkar Bersejarah";

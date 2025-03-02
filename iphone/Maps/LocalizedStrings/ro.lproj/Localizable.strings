@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Anulare";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Unități de măsură";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Unde să mănânci";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Pentru rulote";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gri albăstriu";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Când parcurgi traseul, ai în vedere următoarele:";
 "dialog_routing_disclaimer_priority" = "— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;";
 "dialog_routing_disclaimer_precision" = "— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Încearcă din nou";
 "dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Arată";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Cu mai mult de un an în urmă";
 "near_me_sorttype" = "Lângă mine";
 "others_sorttype" = "Altele";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mâncare";
 "tourist_places" = "Obiective turistice";
 "museums" = "Muzee";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Traseul este gol - nu este nimic de salvat";
 "edit_track" = "Editează traseul";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresă/Bloc";
 "type.addr_interpolation.even" = "Adresă/Bloc";
 "type.addr_interpolation.odd" = "Adresă/Bloc";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Închisoare";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bibliotecă";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Centru de reciclare";
 "type.amenity.recycling" = "Containere pentru reciclare";
 "type.amenity.recycling.container" = "Containere pentru reciclare";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psihoterapie";
 "type.healthcare.sample_collection" = "Eșantionare";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Stradă";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Obiect istoric";
 "type.historic.aircraft" = "Avioane istorice";
 "type.historic.anchor" = "Ancoră istorică";

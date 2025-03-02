@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Mégse";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Mértékegységek";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Hol lehet enni valamit";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "RV számára";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
@@ -277,7 +265,7 @@
 "instagram" = "Instagram";
 
 /* Text in the editor */
-"vk" = "VK";
+"vk" = "VKontakte";
 
 /* Text in menu */
 "rate_the_app" = "Értékeld az alkalmazást";
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Kékes Szürke";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:";
 "dialog_routing_disclaimer_priority" = "— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;";
 "dialog_routing_disclaimer_precision" = "— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";
@@ -455,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?";
 "dialog_routing_download_cross_route" = "Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Mutat";
 
@@ -484,7 +464,7 @@
 "clear_search" = "A keresési előzmények törlése";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Wikipédia";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
@@ -623,7 +603,7 @@
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb. Kérjük, hogy az ilyen kategóriákat közvetlenül a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
-"current_location_unknown_error_title" = "Current location is unknown.";
+"current_location_unknown_error_title" = "Jelenlegi helyzet ismeretlen.";
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 "location_services_disabled_header" = "Helyzetmeghatározás kikapcsolva";
 "location_services_disabled_message" = "Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Több mint egy éve";
 "near_me_sorttype" = "Hozzám közel";
 "others_sorttype" = "Más";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Étel";
 "tourist_places" = "Látnivalók";
 "museums" = "Múzeumok";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Az útvonal üres - nincs mit menteni";
 "edit_track" = "Útvonal szerkesztése";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Cím/blokk";
 "type.addr_interpolation.even" = "Cím/blokk";
 "type.addr_interpolation.odd" = "Cím/blokk";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Börtön";
 "type.amenity.pub" = "Kocsma";
 "type.amenity.public_bookcase" = "Nyilvános könyvespolc";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Újrahasznosító központ";
 "type.amenity.recycling" = "Újrahasznosító konténer";
 "type.amenity.recycling.container" = "Újrahasznosító konténer";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Pszichoterápia";
 "type.healthcare.sample_collection" = "Mintavétel";
 "type.healthcare.speech_therapist" = "Logopédia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Kis utca";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Történelmi tárgy";
 "type.historic.aircraft" = "Történelmi Repülőgép";
 "type.historic.anchor" = "Történelmi horgony";

@@ -114,7 +114,6 @@
     <string name="measurement_units">Neurketa unitateak</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Aukeratu mila eta kilometroen artean</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Non jan</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Ura</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karabanak</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Oharrak</string>
@@ -366,7 +364,6 @@
     <string name="gray">Grisa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris urdinxka</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Arrastoa jarraitzean, kontuan izan:</string>
     <string name="dialog_routing_disclaimer_priority">— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;</string>
@@ -396,7 +393,6 @@
     <string name="not_now">Orain ez</string>
     <string name="dialog_routing_download_and_build_cross_route">Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?</string>
     <string name="dialog_routing_download_cross_route">Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Ibilbideak bilatzen eta sortzen hasteko, deskargatu mapa. Horren ondoren, ez duzu Interneterako konexiorik beharko.</string>
     <string name="search_select_map">Hautatu mapa</string>
@@ -614,7 +610,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Iritzi orokorra</string>
     <string name="prefs_languages_information">TTS sistema erabiltzen dugu ahots argibideetarako. Android gailu askok Google TTS erabiltzen dute. Google Play-tik deskargatu edo egunera dezakezu (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak > Hizkuntza eta sarrera > Hizkera > Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
+    <string name="prefs_languages_information_off">Zenbait hizkuntzatan, beste ahots-sintetizadore bat edo hizkuntza-pakete gehigarri bat instalatu behar duzu aplikazio-dendatik (Google Play, Galaxy Store, App Gallery, FDroid). Ireki gailua Ezarpenak &gt; Hizkuntza eta sarrera &gt; Hizkera &gt; Hizketarako testurako aukerak. Hemen ahots-sintesiaren ezarpenak kudea ditzakezu (adibidez, hizkuntza pakete bat deskargatu, konexiorik gabe erabiltzeko) edo testu-hizketarako beste motor bat hauta dezakezu.</string>
     <string name="prefs_languages_information_off_link">Informazio gehiago lortzeko, ikusi gida hau.</string>
     <string name="transliteration_title">Latinezko transliterazioa</string>
     <string name="learn_more">Irakurri gehiago</string>
@@ -631,7 +627,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
     <string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
-    <string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support\@organicmaps.app helbidera</string>
+    <string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support@organicmaps.app helbidera</string>
     <string name="setting_emulate_bad_storage">Emulatu kaltetutako biltegiratzea</string>
     <string name="core_entrance">Sarrera</string>
     <string name="error_enter_correct_name">Mesedez, idatzi baliozko izen bat</string>
@@ -749,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Janariak</string>
     <string name="tourist_places">Toki interesgarriak</string>
@@ -891,7 +886,6 @@
     <string name="uri_open_location_failed">Ez dago kokapena ireki dezakeen aplikaziorik instalatu</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Nabigazioan automatikoa</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Helbidea/Blokea</string>
     <string name="type.addr_interpolation.even">Helbidea/Blokea</string>
@@ -1019,7 +1013,6 @@
     <string name="type.amenity.prison">Kartzela</string>
     <string name="type.amenity.pub">Taberna</string>
     <string name="type.amenity.public_bookcase">Liburu trukea</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Birziklapen zentroa</string>
     <string name="type.amenity.recycling">Birziklatzeko edukiontzia</string>
@@ -1256,7 +1249,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapia</string>
     <string name="type.healthcare.sample_collection">Laginketa</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Zubia</string>
@@ -1418,7 +1410,6 @@
     <string name="type.area_highway.track">Kalea</string>
     <string name="type.area_highway.trunk">Kalea</string>
     <string name="type.area_highway.unclassified">Kalea</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objektu historikoa</string>
     <string name="type.historic.aircraft">Hegazkin historikoa</string>

@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Utzi";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Neurketa unitateak";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Non jan";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karabanak";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gris urdinxka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Arrastoa jarraitzean, kontuan izan:";
 "dialog_routing_disclaimer_priority" = "— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
 "dialog_routing_disclaimer_precision" = "— Mapa zehazgabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Saiatu berriro";
 "dialog_routing_download_and_build_cross_route" = "Mapa deskargatu eta mapa bat baino gehiago hartzen duen ibilbide hobe bat sortu nahi duzu?";
 "dialog_routing_download_cross_route" = "Deskargatu mapa osagarriak mapa honen mugak gainditzen dituen ibilbide hobea sortzeko.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Erakutsi";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Duela urtebete baino gehiago";
 "near_me_sorttype" = "Nigandik gertu";
 "others_sorttype" = "Beste batzuk";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Janariak";
 "tourist_places" = "Toki interesgarriak";
 "museums" = "Museoak";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ibilbidea hutsik dago; ez dago ezer gordetzeko";
 "edit_track" = "Editatu arrastoa";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Helbidea/Blokea";
 "type.addr_interpolation.even" = "Helbidea/Blokea";
 "type.addr_interpolation.odd" = "Helbidea/Blokea";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Kartzela";
 "type.amenity.pub" = "Taberna";
 "type.amenity.public_bookcase" = "Liburu trukea";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Birziklapen zentroa";
 "type.amenity.recycling" = "Birziklatzeko edukiontzia";
 "type.amenity.recycling.container" = "Birziklatzeko edukiontzia";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapia";
 "type.healthcare.sample_collection" = "Laginketa";
 "type.healthcare.speech_therapist" = "Logopedia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Kalea";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objektu historikoa";
 "type.historic.aircraft" = "Hegazkin historikoa";
 "type.historic.anchor" = "Aingura Historikoa";

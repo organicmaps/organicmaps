@@ -1,17 +1,13 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
-"cancel" = "Tühista";
+"cancel" = "Katkesta";
 
 /* Button which interrupts country download */
 "cancel_download" = "Tühista allalaadimine";
 
 /* Button which deletes downloaded country */
 "delete" = "Kustuta";
-"download_maps" = "Lae kaarte";
+"download_maps" = "Laadi kaarte";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Allalaadimine…";
@@ -44,21 +40,21 @@
 "country_status_download_without_size" = "Lae kaart alla";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Allalaadimine ebaõnnestus";
+"country_status_download_failed" = "Allalaadimine ei õnnestunud";
 
 /* Text in About screen */
-"about_headline" = "Free for everyone, made with love";
+"about_headline" = "Tasuta ja vaba kõigi jaoks, tehtud armastusega";
 
 /* Text in About screen */
-"about_proposition_1" = "• No ads, no tracking, no data collection";
+"about_proposition_1" = "• Pole reklaame, jälitamist ega andmekogumist";
 
 /* Text in About screen */
 "about_proposition_2" = "• Ei tühjenda akut, töötab võrguühenduseta";
 
 /* Text in About screen */
-"about_proposition_3" = "• Kiire, minimalistlik, kogukonna poolt välja töötatud";
+"about_proposition_3" = "• Kiire, minimalistlik, loodud kogukonna poolt";
 "close" = "Sulge";
-"download" = "Lae alla";
+"download" = "Laadi alla";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_button" = "Jätka";
@@ -89,10 +85,6 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Mõõtühikud";
-
-
-/********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Kus süüa";
@@ -162,17 +154,13 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Haagiselamud";
-
-
-/********** Other translations **********/
-
-"share_bookmarks_email_body" = "Tere!\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, lae rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Maps-iga!";
+"share_bookmarks_email_body" = "Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!";
 
 /* message title of loading file */
 "load_kmz_title" = "Järjehoidjate laadimine";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.";
+"load_kmz_successful" = "Järjehoidjad on edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaatest.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.";
@@ -322,13 +310,13 @@
 "pref_calibration_title" = "Kompassi kalibreerimine";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.";
+"long_tap_toast" = "Kasutajaliidese nägemiseks vajuta kaarti pikalt";
 
 /* Update all button text */
 "downloader_update_all_button" = "Värskenda kõik";
 
 /* Downloaded maps list header */
-"downloader_downloaded_subtitle" = "Alla laetud";
+"downloader_downloaded_subtitle" = "Allalaaditud";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Saadaval";
@@ -422,12 +410,8 @@
 
 /* blue gray color */
 "blue_gray" = "Hallikas-sinine";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Marsruuti järgides palun pea meeles:";
-"dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;";
+"dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise üle;";
 "dialog_routing_disclaimer_precision" = "- Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;";
 "dialog_routing_disclaimer_recommendations" = "- Soovitatud marsruute tuleks võtta just sellistena;";
 "dialog_routing_disclaimer_borders" = "- Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Palun proovi uuesti";
 "dialog_routing_download_and_build_cross_route" = "Kas sooviksid kaardi alla laadida ja luua optimaalsema rohkem kui ühte kaarti hõlmava marsruudi?";
 "dialog_routing_download_cross_route" = "Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Kuva";
@@ -588,8 +568,8 @@
 "message_invalid_feature_position" = "Ükski objekt ei saa siin asuda";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
-"login_to_make_edits_visible" = "Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.";
+"osm_presentation" = "Kogukonna loodud OpenStreetMapi andmed seisuga %@. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist";
+"login_to_make_edits_visible" = "Oma kaardimuudatuste avaldamiseks kogu maailmale loo OpenStreetMapi konto või logi sisse olemasoleva kasutajakontoga.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Alla laadimiseks vajad rohkem ruumi. Palun kustuta ebavajalikke andmeid.";
@@ -729,7 +709,7 @@
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 "enable_logging" = "Luba logimine";
 "log_file_size" = "Logifaili suurus: %@";
-"transliteration_title" = "Transliteratsioon ladina keelde";
+"transliteration_title" = "Transliteratsioon ladina tähtedesse";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Välju";
@@ -765,7 +745,7 @@
 "downloader_hide_screen" = "Peida vaade";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "Allalaadimine %@…";
-"downloader_applying" = "%@ rakendamine";
+"downloader_applying" = "Võtame %@ kasutusele…";
 "bookmarks_error_message_share_general" = "Rakenduse vea tõttu ei saanud jagada";
 "bookmarks_error_title_share_empty" = "Jagamise viga";
 "bookmarks_error_message_share_empty" = "Tühja loetelu ei saa jagada";
@@ -803,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Ära kunagi hoiata eest";
 "power_managment_title" = "Energiasäästlik režiim";
-"power_managment_description" = "Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama";
+"power_managment_description" = "Proovi funktsionaalsuse vähendamise arvel vähendada aku voolutarbimist.";
 "power_managment_setting_never" = "Mitte kunagi";
 "power_managment_setting_auto" = "Automaatne";
 "power_managment_setting_manual_max" = "Maksimaalne energiasääst";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Üle aasta tagasi";
 "near_me_sorttype" = "Minu lähedal";
 "others_sorttype" = "Muud";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Toit";
 "tourist_places" = "Vaatamisväärsused";
 "museums" = "Muuseumid";
@@ -907,7 +883,7 @@
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv algus- või lõpp-punkt";
 "button_layer_isolines" = "Maastik";
-"isolines_activation_error_dialog" = "Topograafilise kihi aktiveerimiseks ja kasutamiseks värskenda või lae alla piirkonna kaart";
+"isolines_activation_error_dialog" = "Topograafilise kihi aktiveerimiseks ja kasutamiseks värskenda või laadi alla piirkonna kaart";
 "isolines_location_error_dialog" = "Topograafiline kiht ei ole selles piirkonnas veel saadaval";
 "elevation_profile_diff_level" = "Raskusaste";
 "elevation_profile_diff_level_easy" = "Lihtne";
@@ -1043,16 +1019,16 @@
 "icloud_synchronization_error_alert_title" = "iCloudi sünkroniseerimise tõrge";
 
 /* iCloud error message: Failed to synchronize due to connection error */
-"icloud_synchronization_error_connection_error" = "Viga: Sünkroniseerimine ebaõnnestus ühenduse vea tõttu.";
+"icloud_synchronization_error_connection_error" = "Viga: Sünkroniseerimine ei õnnestunud võrguühenduse vea tõttu";
 
 /* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
-"icloud_synchronization_error_quota_exceeded" = "Viga: iCloudi kvoodi ületamise tõttu ei õnnestunud sünkroniseerimine.";
+"icloud_synchronization_error_quota_exceeded" = "Viga: sünkroniseerimine ei õnnestunud iCloudi kvoodi ületamise tõttu";
 
 /* iCloud error message: iCloud is not available */
 "icloud_synchronization_error_cloud_is_unavailable" = "Viga: iCloud ei ole saadaval";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Avatud teises rakenduses";
+"open_in_app" = "Ava muus rakenduses";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Iseteenindus";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 "edit_track" = "Muuda rada";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Aadress/plokk";
 "type.addr_interpolation.even" = "Aadress/plokk";
 "type.addr_interpolation.odd" = "Aadress/plokk";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Vangla";
 "type.amenity.pub" = "Pubi";
 "type.amenity.public_bookcase" = "Raamatuvahetus";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Taaskasutuskeskus";
 "type.amenity.recycling" = "Taaskasutuskonteiner";
 "type.amenity.recycling.container" = "Taaskasutuskonteiner";
@@ -1261,7 +1229,7 @@
 "type.amenity.shelter.basic_hut" = "Vivouac-küünla";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Poolvarikatus";
 "type.amenity.public_bath" = "Avalik vann";
 "type.amenity.shower" = "Dušš";
 "type.amenity.stripclub" = "Stripiklubi";
@@ -1310,7 +1278,7 @@
 "type.barrier.lift_gate" = "Tõstevärav";
 "type.barrier.retaining_wall" = "Tugisein";
 "type.barrier.stile" = "Trepp";
-"type.barrier.turnstile" = "Turnstile";
+"type.barrier.turnstile" = "Pöördvärav";
 "type.barrier.swing_gate" = "Tiibvärav";
 "type.barrier.toll_booth" = "Tolliputka";
 "type.barrier.wall" = "Müür";
@@ -1376,7 +1344,7 @@
 "type.cuisine.argentinian" = "Argentiina";
 "type.cuisine.asian" = "Aasia";
 "type.cuisine.austrian" = "Austria";
-"type.cuisine.bagel" = "Bagel";
+"type.cuisine.bagel" = "Rõngassaiake";
 "type.cuisine.balkan" = "Balkani";
 "type.cuisine.barbecue" = "Grill";
 "type.cuisine.bavarian" = "Baieri";
@@ -1384,8 +1352,8 @@
 "type.cuisine.brazilian" = "Brasiilia";
 "type.cuisine.breakfast" = "Hommikusöök";
 "type.cuisine.bubble_tea" = "Mullitee";
-"type.cuisine.burger" = "Burger";
-"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.burger" = "Hamburger";
+"type.cuisine.buschenschank" = "Austria veinikõrts (buschenschank)";
 "type.cuisine.cake" = "Kook";
 "type.cuisine.caribbean" = "Kariibi";
 "type.cuisine.chicken" = "Kana";
@@ -1394,7 +1362,7 @@
 "type.cuisine.crepe" = "Krepp";
 "type.cuisine.croatian" = "Horvaatia";
 "type.cuisine.curry" = "Karri";
-"type.cuisine.deli" = "Deli";
+"type.cuisine.deli" = "Delikatesstoitude pood";
 "type.cuisine.diner" = "Söögikoht";
 "type.cuisine.donut" = "Sõõrik";
 "type.cuisine.ethiopian" = "Etioopia";
@@ -1408,7 +1376,7 @@
 "type.cuisine.german" = "Saksa";
 "type.cuisine.greek" = "Kreeka";
 "type.cuisine.grill" = "Grill";
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
 "type.cuisine.hotdog" = "Hotdog";
 "type.cuisine.hungarian" = "Ungari";
 "type.cuisine.ice_cream" = "Jäätis";
@@ -1435,7 +1403,7 @@
 "type.cuisine.pasta" = "Pasta";
 "type.cuisine.persian" = "Pärsia";
 "type.cuisine.peruvian" = "Peruuvia";
-"type.cuisine.pizza" = "Pizza";
+"type.cuisine.pizza" = "Pitsa";
 "type.cuisine.polish" = "Poola";
 "type.cuisine.portuguese" = "Portugali";
 "type.cuisine.ramen" = "Ramen";
@@ -1463,7 +1431,7 @@
 "type.emergency.phone" = "Hädaabi telefon";
 
 /* A place where a lifeguard is on duty. */
-"type.emergency.lifeguard" = "Päästja";
+"type.emergency.lifeguard" = "Vetelpäästja";
 
 /* A mountain rescue base for search and rescue activities. */
 "type.emergency.mountain_rescue" = "Mäepäästejaam";
@@ -1474,7 +1442,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Peasissekäik";
 "type.entrance.exit" = "Väljumine";
-"type.fee.yes" = "$";
+"type.fee.yes" = "$/€";
 "type.fee.no" = "Tasuta";
 "type.healthcare.laboratory" = "Meditsiinilabor";
 "type.healthcare.physiotherapist" = "Füsioterapeut";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psühhoteraapia";
 "type.healthcare.sample_collection" = "Proovivõtmine";
 "type.healthcare.speech_therapist" = "Logopeedia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Maantee";
 "type.highway.bridleway" = "Valjarada";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Vähetähtis tee";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Ajalooline objekt";
 "type.historic.aircraft" = "Ajalooline lennuk";
 "type.historic.anchor" = "Ajalooline ankur";
@@ -1823,7 +1783,7 @@
 "type.leisure.garden.residential" = "Elamu aed";
 "type.leisure.golf_course" = "Golfirada";
 "type.leisure.miniature_golf" = "Minigolf";
-"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.hackerspace" = "Häkkerite ühisruum";
 "type.leisure.ice_rink" = "Liuväli";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Looduskaitseala";
@@ -1872,10 +1832,10 @@
 "type.man_made.tower.communication" = "Sidetorn";
 
 /* A deep hole drilled into the earth to extract oil or gas. */
-"type.man_made.petroleum_well" = "Nafta- või gaasikaev";
+"type.man_made.petroleum_well" = "Nafta või gaasipuurauk";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Gaasi leeke";
+"type.man_made.flare" = "Tööstuslik tõrvikpõleti";
 "type.man_made.wastewater_plant" = "Reoveepuhasti";
 "type.man_made.water_tap" = "Veekraan";
 "type.man_made.water_tap.drinking_water_no" = "Veekraan";
@@ -2006,13 +1966,13 @@
 "type.power.substation" = "Alajaam";
 
 /* A tower or pylon carrying high voltage electricity cables. */
-"type.power.tower" = "Elektripost";
+"type.power.tower" = "Kõrgepingemast";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Elektripost";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Valgustus- või sidepost";
 "type.psurface" = "Pind";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -2378,7 +2338,7 @@
 "type.shop.mall" = "Kaubanduskeskus";
 "type.shop.massage" = "Massaažisalong";
 "type.shop.mobile_phone" = "Mobiiltelefonid";
-"type.shop.money_lender" = "Rahalaenutaja";
+"type.shop.money_lender" = "Kiirlaenukontor";
 "type.shop.motorcycle" = "Mootorrattapood";
 "type.shop.motorcycle_repair" = "Mootorrataste remont";
 "type.shop.music" = "Plaadipood";
@@ -2489,8 +2449,8 @@
 "type.tourism.attraction" = "Turismiatraktsioon";
 "type.attraction.amusement_ride" = "Lõbustus Ride";
 "type.attraction.animal" = "Loomade aedik";
-"type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.bumper_car" = "Põrkavad elektriautod";
+"type.attraction.big_wheel" = "Vaateratas";
 "type.attraction.carousel" = "Karussell";
 "type.attraction.historic" = "Ajalooline vaatamisväärsus";
 "type.attraction.maze" = "Labürint";

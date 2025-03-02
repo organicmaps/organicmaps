@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Avbryt";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Måleenheter";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Spisesteder";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Bobilanlegg";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gråblå";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Husk følgende når du følger ruten:";
 "dialog_routing_disclaimer_priority" = "– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;";
 "dialog_routing_disclaimer_precision" = "– Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Vennligst prøv igjen";
 "dialog_routing_download_and_build_cross_route" = "Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?";
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Mer enn ett år siden";
 "near_me_sorttype" = "Nær meg";
 "others_sorttype" = "Andre";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mat";
 "tourist_places" = "Severdigheter";
 "museums" = "Museer";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
 "edit_track" = "Rediger ruten";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adresse/blokk";
 "type.addr_interpolation.even" = "Adresse/blokk";
 "type.addr_interpolation.odd" = "Adresse/blokk";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Fengsel";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bokhylle";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Resirkuleringssenter";
 "type.amenity.recycling" = "Gjenvinningsbeholder";
 "type.amenity.recycling.container" = "Gjenvinningsbeholder";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Psykoterapi";
 "type.healthcare.sample_collection" = "Prøvetaking";
 "type.healthcare.speech_therapist" = "Snakketerapi";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Ridevei";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Småvei";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historisk gjenstand";
 "type.historic.aircraft" = "Historisk fly";
 "type.historic.anchor" = "Historisk anker";

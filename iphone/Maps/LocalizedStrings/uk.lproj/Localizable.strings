@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Скасувати";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Одиниці виміру";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Де поїсти";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для автобудинків";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Привіт!\n\nДодаю мої мiтки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Сіро-блакитний";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Під час руху за маршрутом пам'ятайте:";
 "dialog_routing_disclaimer_priority" = "— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Спробуйте знову";
 "dialog_routing_download_and_build_cross_route" = "Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?";
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Показати";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Понад рік тому";
 "near_me_sorttype" = "Поруч зі мною";
 "others_sorttype" = "Інші";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Їжа";
 "tourist_places" = "Пам’ятки";
 "museums" = "Музеї";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
 "edit_track" = "Редагувати маршрут";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Адреса/блок";
 "type.addr_interpolation.even" = "Адреса/блок";
 "type.addr_interpolation.odd" = "Адреса/блок";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "В'язниця";
 "type.amenity.pub" = "Паб";
 "type.amenity.public_bookcase" = "Книгообмін";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Прийом вторсировини";
 "type.amenity.recycling" = "Контейнер для вторсировини";
 "type.amenity.recycling.container" = "Контейнер для вторсировини";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Психотерапія";
 "type.healthcare.sample_collection" = "Збір аналізів";
 "type.healthcare.speech_therapist" = "Логопедія";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Дорога";
 "type.highway.bridleway" = "Кінна доріжка";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Невелика дорога";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Історичний об'єкт";
 "type.historic.aircraft" = "Історичний літак";
 "type.historic.anchor" = "Історичний якір";

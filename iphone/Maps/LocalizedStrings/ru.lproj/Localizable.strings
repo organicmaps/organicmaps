@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Отмена";
 
@@ -90,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Единицы измерения";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Где поесть";
 
@@ -162,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для автодомов";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
@@ -422,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Серо-голубой";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
 "dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
@@ -454,10 +438,6 @@
 "dialog_routing_try_again" = "Попробуйте снова";
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Показать";
@@ -883,10 +863,6 @@
 "moreyear_ago_sorttype" = "Больше года назад";
 "near_me_sorttype" = "Рядом со мной";
 "others_sorttype" = "Другие";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Еда";
 "tourist_places" = "Достопримечательности";
 "museums" = "Музеи";
@@ -1093,10 +1069,6 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
 "edit_track" = "Редактировать трек";
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Адрес/Блок";
 "type.addr_interpolation.even" = "Адрес/Блок";
 "type.addr_interpolation.odd" = "Адрес/Блок";
@@ -1227,10 +1199,6 @@
 "type.amenity.prison" = "Тюрьма";
 "type.amenity.pub" = "Паб";
 "type.amenity.public_bookcase" = "Книгообмен";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Приём вторсырья";
 "type.amenity.recycling" = "Контейнер для вторсырья";
 "type.amenity.recycling.container" = "Контейнер для вторсырья";
@@ -1486,10 +1454,6 @@
 "type.healthcare.psychotherapist" = "Психотерапия";
 "type.healthcare.sample_collection" = "Сбор анализов";
 "type.healthcare.speech_therapist" = "Логопедия";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Дорога";
 "type.highway.bridleway" = "Конная дорожка";
 
@@ -1705,10 +1669,6 @@
 "type.area_highway.unclassified" = "Небольшая дорога";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Исторический объект";
 "type.historic.aircraft" = "Исторический самолет";
 "type.historic.anchor" = "Исторический якорь";

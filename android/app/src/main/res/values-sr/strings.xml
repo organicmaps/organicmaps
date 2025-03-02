@@ -9,7 +9,7 @@
     <string name="delete">Обриши</string>
     <string name="download_maps">Преузми мапе</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Преузимање није успело. Додирни за поновни покушај.</string>
+    <string name="download_has_failed">Преузимање није успело. Тапните за поновни покушај.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Преузимање…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -21,7 +21,7 @@
     <!-- Update maps later button text -->
     <string name="later">Касније</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
-    <string name="search">Тражи</string>
+    <string name="search">Претрага</string>
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Тражи на мапи</string>
     <!-- Location services are disabled by user alert - message -->
@@ -72,13 +72,13 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Маркери</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Маркери и путање</string>
+    <string name="bookmarks_and_tracks">Маркери и трасе</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Моја места</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Назив</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
-    <string name="address">Адреса</string>
+    <string name="address">Адресе</string>
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
     <string name="list">Листа</string>
     <!-- Settings button in system menu -->
@@ -110,7 +110,6 @@
     <string name="measurement_units">Јединице мере</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изаберите између километара и миља</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Где јести</string>
@@ -158,7 +157,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">За кампер возила</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Напомене</string>
@@ -222,7 +220,7 @@
     <!-- Settings general group in settings screen -->
     <string name="prefs_group_general">Општа подешавања</string>
     <!-- Settings information group in settings screen -->
-    <string name="prefs_group_information">Информације</string>
+    <string name="prefs_group_information">Инфо</string>
     <string name="prefs_group_route">Навигација</string>
     <string name="pref_zoom_title">Дугмад за увећавање/умањивање</string>
     <string name="pref_zoom_summary">Прикажи на мапи</string>
@@ -358,7 +356,6 @@
     <string name="gray">Сива</string>
     <!-- blue gray color -->
     <string name="blue_gray">Плаво сива</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Када пратите руту, обратите пажњу на:</string>
     <string name="dialog_routing_disclaimer_priority">— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;</string>
@@ -388,7 +385,6 @@
     <string name="not_now">Не сада</string>
     <string name="dialog_routing_download_and_build_cross_route">Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?</string>
     <string name="dialog_routing_download_cross_route">Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Да бисте почели да претражујете и правите руте, молим Вас да преузмете мапу. Након тога веза са интернетом Вам више неће бити потребна.</string>
     <string name="search_select_map">Изабери мапу</string>
@@ -620,7 +616,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
-    <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support\\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Екстерна меморија није доступна. СД картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу СД картицу или нас контактирајте на support\\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Симулирај неисправну меморију</string>
     <string name="core_entrance">Улаз</string>
     <string name="error_enter_correct_name">Молим Вас да унесете исправан назив</string>
@@ -741,7 +737,6 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Храна</string>
     <string name="tourist_places">Атракције</string>
@@ -873,7 +868,6 @@
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аутоматски у навигацији</string>
-
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">Адреса/Блок</string>
     <string name="type.addr_interpolation.even">Адреса/Блок</string>
@@ -1002,7 +996,6 @@
     <string name="type.amenity.prison">Затвор</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Размена књига</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Центар за рециклажу</string>
     <string name="type.amenity.recycling">Контејнер за рециклажу</string>
@@ -1245,7 +1238,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапеут</string>
     <string name="type.healthcare.sample_collection">Прикупљање анализа</string>
     <string name="type.healthcare.speech_therapist">Логопед</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Ауто-пут</string>
     <string name="type.highway.bridleway">Коњска стаза</string>
@@ -1411,7 +1403,6 @@
     <string name="type.area_highway.track">Макадам</string>
     <string name="type.area_highway.trunk">Улица</string>
     <string name="type.area_highway.unclassified">Некласификовани пут</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Историјски објекат</string>
     <string name="type.historic.aircraft">Историјски авион</string>
@@ -1464,7 +1455,7 @@
     <string name="type.junction.roundabout">Кружни ток</string>
     <string name="type.landuse">Пољопривредно земљиште</string>
     <string name="type.landuse.allotments">Парцела</string>
-    <string name="type.landuse.basin">Резервоар</string>
+    <string name="type.landuse.basin">Базен</string>
     <string name="type.landuse.brownfield">Грађевинско земљиште</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Гробље</string>
@@ -1517,7 +1508,7 @@
     <string name="type.leisure.park">Парк</string>
     <string name="type.leisure.park.no.access">Парк</string>
     <string name="type.leisure.park.permissive">Парк</string>
-    <string name="type.leisure.park.private">Парк</string>
+    <string name="type.leisure.park.private">Приватни парк</string>
     <string name="type.leisure.picnic_table">Сто за пикник</string>
     <string name="type.leisure.pitch">Спортски терен</string>
     <string name="type.leisure.playground">Игралиште</string>
@@ -1555,7 +1546,7 @@
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftna ili gasna bušotina</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
-    <string name="type.man_made.flare">Газни факел</string>
+    <string name="type.man_made.flare">Гасни факел</string>
     <string name="type.man_made.wastewater_plant">Пречишћивач отпадних вода</string>
     <string name="type.man_made.water_tap">Јавна чесма</string>
     <string name="type.man_made.water_tap.drinking_water_no">Јавна чесма</string>
@@ -1663,7 +1654,7 @@
     <string name="type.power.generator.wind">Ветрогенератор</string>
     <string name="type.power.generator.gas">Гасно-турбинска електрана</string>
     <string name="type.power.generator.hydro">Хидроелектрана</string>
-    <string name="type.power.line">Далековод</string>
+    <string name="type.power.line">Електровод</string>
     <string name="type.power.line.underground">Подземни далековод</string>
     <string name="type.power.plant">Електрана</string>
     <string name="type.power.plant.coal">Термоелектрана</string>
@@ -1734,34 +1725,34 @@
     <string name="type.railway.station.light_rail.london">Железничка станица</string>
     <string name="type.railway.station.light_rail.porto">Железничка станица</string>
     <string name="type.railway.station.monorail">Железничка станица</string>
-    <string name="type.railway.station.subway">Метро станица</string>
-    <string name="type.railway.station.subway.adana">Метро станица</string>
-    <string name="type.railway.station.subway.algiers">Метро станица</string>
-    <string name="type.railway.station.subway.almaty">Метро станица</string>
-    <string name="type.railway.station.subway.amsterdam">Метро станица</string>
-    <string name="type.railway.station.subway.ankara">Метро станица</string>
-    <string name="type.railway.station.subway.athens">Метро станица</string>
-    <string name="type.railway.station.subway.baku">Метро станица</string>
-    <string name="type.railway.station.subway.bangkok">Метро станица</string>
-    <string name="type.railway.station.subway.barcelona">Метро станица</string>
-    <string name="type.railway.station.subway.beijing">Метро станица</string>
-    <string name="type.railway.station.subway.bengalore">Метро станица</string>
-    <string name="type.railway.station.subway.berlin">Метро станица</string>
-    <string name="type.railway.station.subway.bilbao">Метро станица</string>
-    <string name="type.railway.station.subway.brasilia">Метро станица</string>
-    <string name="type.railway.station.subway.brescia">Метро станица</string>
-    <string name="type.railway.station.subway.brussels">Метро станица</string>
-    <string name="type.railway.station.subway.bucharest">Метро станица</string>
-    <string name="type.railway.station.subway.budapest">Метро станица</string>
-    <string name="type.railway.station.subway.buenos_aires">Метро станица</string>
-    <string name="type.railway.station.subway.bursa">Метро станица</string>
-    <string name="type.railway.station.subway.cairo">Метро станица</string>
-    <string name="type.railway.station.subway.caracas">Метро станица</string>
-    <string name="type.railway.station.subway.catania">Метро станица</string>
-    <string name="type.railway.station.subway.changchun">Метро станица</string>
-    <string name="type.railway.station.subway.chengdu">Метро станица</string>
-    <string name="type.railway.station.subway.chicago">Метро станица</string>
-    <string name="type.railway.station.subway.chongqing">Метро станица</string>
+    <string name="type.railway.station.subway">Метро</string>
+    <string name="type.railway.station.subway.adana">Метро</string>
+    <string name="type.railway.station.subway.algiers">Метро</string>
+    <string name="type.railway.station.subway.almaty">Метро</string>
+    <string name="type.railway.station.subway.amsterdam">Метро</string>
+    <string name="type.railway.station.subway.ankara">Метро</string>
+    <string name="type.railway.station.subway.athens">Метро</string>
+    <string name="type.railway.station.subway.baku">Метро</string>
+    <string name="type.railway.station.subway.bangkok">Метро</string>
+    <string name="type.railway.station.subway.barcelona">Метро</string>
+    <string name="type.railway.station.subway.beijing">Метро</string>
+    <string name="type.railway.station.subway.bengalore">Метро</string>
+    <string name="type.railway.station.subway.berlin">Метро</string>
+    <string name="type.railway.station.subway.bilbao">Метро</string>
+    <string name="type.railway.station.subway.brasilia">Метро</string>
+    <string name="type.railway.station.subway.brescia">Метро</string>
+    <string name="type.railway.station.subway.brussels">Метро</string>
+    <string name="type.railway.station.subway.bucharest">Метро</string>
+    <string name="type.railway.station.subway.budapest">Метро</string>
+    <string name="type.railway.station.subway.buenos_aires">Метро</string>
+    <string name="type.railway.station.subway.bursa">Метро</string>
+    <string name="type.railway.station.subway.cairo">Метро</string>
+    <string name="type.railway.station.subway.caracas">Метро</string>
+    <string name="type.railway.station.subway.catania">Метро</string>
+    <string name="type.railway.station.subway.changchun">Метро</string>
+    <string name="type.railway.station.subway.chengdu">Метро</string>
+    <string name="type.railway.station.subway.chicago">Метро</string>
+    <string name="type.railway.station.subway.chongqing">Метро</string>
     <string name="type.railway.station.subway.dalian">Метро станица</string>
     <string name="type.railway.station.subway.delhi">Метро станица</string>
     <string name="type.railway.station.subway.dnepro">Метро станица</string>
@@ -2234,4 +2225,79 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <string name="gb">ГБ</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="editor_add_select_location">Изаберите локацију</string>
+    <string name="limited_accuracy">Ограничена тачност</string>
+    <string name="github">GitHub</string>
+    <string name="editor_focus_map_on_location">Превуците мапу да бисте поставили крст на локацију места или посла.</string>
+    <string name="precise_location_is_disabled_long_text">Да бисте осигурали тачну навигацију, омогућите прецизну локацију у подешавањима.</string>
+    <string name="mb">МБ</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="already_donated">Већ донирано</string>
+    <string name="remind_me_later">Подсети касније</string>
+    <string name="support_organic_maps">Подршка Organic Maps</string>
+    <string name="dialog_kayak_disable_button">Онемогућити Kayak</string>
+    <string name="elevation_profile_min_elevation">Минимална надморска висина</string>
+    <string name="elevation_profile_max_elevation">Максимална надморска висина</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
+    <string name="core_placepage_unknown_place">Тачка на мапи</string>
+    <string name="copyright">Copyright</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="editor_osm_history">Ваша историја уређивања</string>
+    <string name="editor_osm_notes">Ваши подаци о мапи</string>
+    <string name="building">Зграда</string>
+    <string name="social_media">Друштвени медиј</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="aa_location_permissions_request">Organic Maps треба приступ локацији. Када је сигурно, проверите обавештење на свом телефону.</string>
+    <string name="aa_request_permission_notification">Апликацији је потребна ваша дозвола</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.man_made.utility_pole">Далеководни стуб</string>
+    <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
+    <string name="type.power.pole">Далековод стуб</string>
+    <string name="type.power.minor_line">Нисконапонски далековод</string>
+    <string name="type.leisure.recreation_ground">Рекреативни терен</string>
+    <string name="type.leisure.hackerspace">Хакерски клуб</string>
+    <string name="type.man_made.cairn">Пирамида од камена</string>
+    <string name="type.place.neighbourhood">Предграђе</string>
+    <string name="type.fee.yes">$</string>
+    <string name="aa_request_permission_activity_text">Органским мапама у Андроид Ауту потребне су дозволе за локацију да би ефикасно радиле</string>
+    <string name="type.railway.light_rail.tunnel">Тунеле лаке железнице</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
+    <string name="type.railway.funicular.bridge">Мост успињаче</string>
+    <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
+    <string name="type.railway.narrow_gauge.bridge">Мост уског колосека</string>
+    <string name="type.railway.preserved.bridge">Стари железнички мост</string>
+    <string name="type.railway.preserved.tunnel">Стари железнички тунел</string>
+    <string name="type.attraction.big_wheel">Панорамски точак</string>
+    <string name="type.shop.hearing_aids">Продавница слушних апарата</string>
+    <string name="type.attraction.bumper_car">Браник</string>
 </resources>
