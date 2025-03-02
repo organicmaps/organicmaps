@@ -1,31 +1,31 @@
-• New OpenStreetMap data as of February 27
-• Search: split screen to show both the map and the list at the same time
-• Ability to share a single selected track from the list
-• Improved routing for bicycles
-• Added tracks and bookmarks colors into exported GPX files
+• Новые данные OpenStreetMap от 27 февраля
+• Поиск: разделение экрана для одновременного отображения карты и списка
+• Возможность поделиться одним выбранным треком из списка
+• Улучшенная маршрутизация для велосипедов
+• Добавлены цвета треков и закладок в экспортированные файлы GPX
 
-Map:
-• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
-• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
-• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
-• Added captions to named Cliffs, City Walls, Embankments, Power Lines
-• Tuned visibility and priority of some niche shops
+Карта:
+• Добавлены магазины слуховых аппаратов, вышки связи, кресты, нефтяные/газовые скважины, газовые факелы, спасатели, прокат мотоциклов, горноспасательные станции, обелиски (как памятники)
+• Активный отдых: повышена видимость домиков, укрытий, охотничьих стоянок, вышек, туров, водонапорных башен
+• Активный отдых: добавлены второстепенные линии электропередач и столбы; улучшена видимость магистральных линий электропередач и опор
+• Добавлены подписи к именованным скалам, городским стенам, набережным, линиям электропередач
+• Настроена видимость и приоритет некоторых специализированных магазинов
 
-OSM editor:
-• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
-• Don't hide OSM login page when offline
-• Added icons to address and number of floors input fields
-• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
+Редактор OSM:
+• Добавлена ​​возможность редактирования атрибутов POI «Самообслуживание» и «Уличные сидения»
+• Не скрывать страницу входа в OSM в автономном режиме
+• Добавлены значки в поля ввода адреса и количества этажей
+• Исправлено множество других ошибок, спасибо участнику @map-per, который проделал большую работу под капотом!
 
-Other:
-• Open track's info page automatically upon record finish / track save
-• Show "Add Stop" button for the selected track point when in the navigation mode
-• Voice directions: announce route recalculation
-• Better looking track elevation profiles
-• Made Track Recording live activity widget properly dismissable
-• Don't always default to the subway routing mode when the subway layer is active
-• Fixed bookmarks storing POI name in a wrong language
-• Fixed on-building POIs disappearing when in perspective view
-• Fixed empty speed limit sign displayed in foot navigation
-• Fixed stuck map rotation gesture when zoomed in max
-• iCloud sync bug fixes and some minor UI fixes
+Разное:
+• Автоматическое открытие страницы информации о треке после завершения записи/сохранения трека
+• Отображение кнопки «Добавить остановку» для выбранной точки трека в режиме навигации
+• Голосовые указания: объявляют пересчет маршрута
+• Улучшенные профили высот трека
+• Виджет активности записи трека в реальном времени теперь можно корректно закрыть
+• Не всегда по умолчанию переходит в режим маршрутизации метро, ​​когда активен слой метро
+• Исправлены закладки, сохраняющие название POI на неправильном языке
+• Исправлено исчезновение POI на здании в перспективном виде
+• Исправлен пустой знак ограничения скорости, отображаемый в пешеходной навигации
+• Исправлен застрявший жест вращения карты при максимальном увеличении
+• Исправлены ошибки синхронизации iCloud и некоторые незначительные исправления пользовательского интерфейса
