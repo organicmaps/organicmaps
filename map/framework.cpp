@@ -3407,6 +3407,9 @@ bool Framework::ShouldShowProducts() const
   if (!m_usageStats.IsLoyalUser())
     return false;
 
+  if (!HasPlacePageInfo()) // happens after the POI is deleted via the editor
+    return false;
+
   if (!storage::IsPointCoveredByDownloadedMaps(GetCurrentPlacePageInfo().GetMercator(), m_storage, *m_infoGetter))
     return false;
 
