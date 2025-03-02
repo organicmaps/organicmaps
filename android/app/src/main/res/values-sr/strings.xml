@@ -9,7 +9,7 @@
     <string name="delete">Обриши</string>
     <string name="download_maps">Преузми мапе</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Преузимање није успело. Додирни за поновни покушај.</string>
+    <string name="download_has_failed">Преузимање није успело. Тапните за поновни покушај.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Преузимање…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
