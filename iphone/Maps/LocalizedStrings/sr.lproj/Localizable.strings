@@ -78,7 +78,7 @@
 "core_my_places" = "Моја места";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
-"address" = "Адреса";
+"address" = "Адресе";
 
 /* Settings button in system menu */
 "settings" = "Подешавања";
