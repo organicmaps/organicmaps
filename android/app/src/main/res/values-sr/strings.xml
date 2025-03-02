@@ -2279,4 +2279,14 @@
     <string name="type.mapswithme.grid">mapswithme-grid</string>
     <string name="type.mapswithme">mapswithme</string>
     <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.man_made.utility_pole">Далеководни стуб</string>
+    <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
+    <string name="type.power.pole">Далековод стуб</string>
+    <string name="type.power.minor_line">Нисконапонски далековод</string>
+    <string name="type.leisure.recreation_ground">Рекреативни терен</string>
+    <string name="type.leisure.hackerspace">Хакерски клуб</string>
+    <string name="type.man_made.cairn">Пирамида од камена</string>
+    <string name="type.place.neighbourhood">Предграђе</string>
+    <string name="type.fee.yes">$</string>
+    <string name="aa_request_permission_activity_text">Органским мапама у Андроид Ауту потребне су дозволе за локацију да би ефикасно радиле</string>
 </resources>
