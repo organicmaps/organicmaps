@@ -2247,4 +2247,11 @@
     <string name="mastodon">Mastodon</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
     <string name="core_placepage_unknown_place">Тачка на мапи</string>
+    <string name="copyright">Copyright</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="editor_osm_history">Ваша историја уређивања</string>
+    <string name="editor_osm_notes">Ваши подаци о мапи</string>
+    <string name="building">Зграда</string>
+    <string name="social_media">Друштвени медиј</string>
 </resources>
