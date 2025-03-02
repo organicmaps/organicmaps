@@ -43,16 +43,16 @@
 "country_status_download_failed" = "Allalaadimine ebaõnnestus";
 
 /* Text in About screen */
-"about_headline" = "Free for everyone, made with love";
+"about_headline" = "Tasuta ja vaba kõigi jaoks, tehtud armastusega";
 
 /* Text in About screen */
-"about_proposition_1" = "• No ads, no tracking, no data collection";
+"about_proposition_1" = "• Pole reklaame, jälitamist ega andmekogumist";
 
 /* Text in About screen */
 "about_proposition_2" = "• Ei tühjenda akut, töötab võrguühenduseta";
 
 /* Text in About screen */
-"about_proposition_3" = "• Kiire, minimalistlik, kogukonna poolt välja töötatud";
+"about_proposition_3" = "• Kiire, minimalistlik, loodud kogukonna poolt";
 "close" = "Sulge";
 "download" = "Lae alla";
 
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Kompassi kalibreerimine";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Puudutage pikalt kaardil uuesti, et näha kasutajaliidest.";
+"long_tap_toast" = "Kasutajaliidese nägemiseks vajuta kaarti pikalt.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Värskenda kõik";
@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "Hallikas-sinine";
 "dialog_routing_disclaimer_title" = "Marsruuti järgides palun pea meeles:";
-"dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;";
+"dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise üle;";
 "dialog_routing_disclaimer_precision" = "- Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;";
 "dialog_routing_disclaimer_recommendations" = "- Soovitatud marsruute tuleks võtta just sellistena;";
 "dialog_routing_disclaimer_borders" = "- Olge piiritsoonides marsruutidega ettevaatlik: meie rakenduse loodud marsruudid võivad mõnikord ületada riigipiire volitamata kohtades.";
@@ -569,7 +569,7 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
-"login_to_make_edits_visible" = "Looge OpenStreetMapi konto või logige sisse, et avaldada oma kaardimuudatusi kogu maailmale.";
+"login_to_make_edits_visible" = "Oma kaardimuudatuste avaldamiseks kogu maailmale loo OpenStreetMapi konto või logi sisse olemasoleva kasutajakontoga.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Alla laadimiseks vajad rohkem ruumi. Palun kustuta ebavajalikke andmeid.";
@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
 "enable_logging" = "Luba logimine";
 "log_file_size" = "Logifaili suurus: %@";
-"transliteration_title" = "Transliteratsioon ladina keelde";
+"transliteration_title" = "Transliteratsioon ladina tähtedesse";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Välju";
@@ -1028,7 +1028,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Viga: iCloud ei ole saadaval";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Avatud teises rakenduses";
+"open_in_app" = "Ava muus rakenduses";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Iseteenindus";
