@@ -1077,7 +1077,7 @@
     <string name="type.barrier.lift_gate">Tõstevärav</string>
     <string name="type.barrier.retaining_wall">Tugisein</string>
     <string name="type.barrier.stile">Trepp</string>
-    <string name="type.barrier.turnstile">Turnstile</string>
+    <string name="type.barrier.turnstile">Pöördvärav</string>
     <string name="type.barrier.swing_gate">Tiibvärav</string>
     <string name="type.barrier.toll_booth">Tolliputka</string>
     <string name="type.barrier.wall">Müür</string>
@@ -1138,7 +1138,7 @@
     <string name="type.cuisine.argentinian">Argentiina</string>
     <string name="type.cuisine.asian">Aasia</string>
     <string name="type.cuisine.austrian">Austria</string>
-    <string name="type.cuisine.bagel">Bagel</string>
+    <string name="type.cuisine.bagel">Rõngassaiake</string>
     <string name="type.cuisine.balkan">Balkani</string>
     <string name="type.cuisine.barbecue">Grill</string>
     <string name="type.cuisine.bavarian">Baieri</string>
@@ -1146,8 +1146,8 @@
     <string name="type.cuisine.brazilian">Brasiilia</string>
     <string name="type.cuisine.breakfast">Hommikusöök</string>
     <string name="type.cuisine.bubble_tea">Mullitee</string>
-    <string name="type.cuisine.burger">Burger</string>
-    <string name="type.cuisine.buschenschank">Buschenschank</string>
+    <string name="type.cuisine.burger">Hamburger</string>
+    <string name="type.cuisine.buschenschank">Austria veinikõrts (buschenschank)</string>
     <string name="type.cuisine.cake">Kook</string>
     <string name="type.cuisine.caribbean">Kariibi</string>
     <string name="type.cuisine.chicken">Kana</string>
@@ -1156,7 +1156,7 @@
     <string name="type.cuisine.crepe">Krepp</string>
     <string name="type.cuisine.croatian">Horvaatia</string>
     <string name="type.cuisine.curry">Karri</string>
-    <string name="type.cuisine.deli">Deli</string>
+    <string name="type.cuisine.deli">Delikatesstoitude pood</string>
     <string name="type.cuisine.diner">Söögikoht</string>
     <string name="type.cuisine.donut">Sõõrik</string>
     <string name="type.cuisine.ethiopian">Etioopia</string>
@@ -1170,7 +1170,7 @@
     <string name="type.cuisine.german">Saksa</string>
     <string name="type.cuisine.greek">Kreeka</string>
     <string name="type.cuisine.grill">Grill</string>
-    <string name="type.cuisine.heuriger">Heuriger</string>
+    <string name="type.cuisine.heuriger">Austria hooajaline veinikõrts (heuriger)</string>
     <string name="type.cuisine.hotdog">Hotdog</string>
     <string name="type.cuisine.hungarian">Ungari</string>
     <string name="type.cuisine.ice_cream">Jäätis</string>
@@ -1197,7 +1197,7 @@
     <string name="type.cuisine.pasta">Pasta</string>
     <string name="type.cuisine.persian">Pärsia</string>
     <string name="type.cuisine.peruvian">Peruuvia</string>
-    <string name="type.cuisine.pizza">Pizza</string>
+    <string name="type.cuisine.pizza">Pitsa</string>
     <string name="type.cuisine.polish">Poola</string>
     <string name="type.cuisine.portuguese">Portugali</string>
     <string name="type.cuisine.ramen">Ramen</string>
@@ -1675,7 +1675,7 @@
     <string name="type.power.station">Elektrijaam</string>
     <string name="type.power.substation">Alajaam</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Elektripost</string>
+    <string name="type.power.tower">Kõrgepingemast</string>
     <string name="type.psurface">Pind</string>
     <string name="type.public_transport">Ühistransport</string>
     <string name="type.public_transport.platform">Platvorm</string>
