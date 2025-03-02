@@ -1735,7 +1735,7 @@
 "type.junction.roundabout" = "Кружни ток";
 "type.landuse" = "Пољопривредно земљиште";
 "type.landuse.allotments" = "Парцела";
-"type.landuse.basin" = "Резервоар";
+"type.landuse.basin" = "Базен";
 "type.landuse.brownfield" = "Грађевинско земљиште";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -1791,7 +1791,7 @@
 "type.leisure.park" = "Парк";
 "type.leisure.park.no.access" = "Парк";
 "type.leisure.park.permissive" = "Парк";
-"type.leisure.park.private" = "Парк";
+"type.leisure.park.private" = "Приватни парк";
 "type.leisure.picnic_table" = "Сто за пикник";
 "type.leisure.pitch" = "Спортски терен";
 "type.leisure.playground" = "Игралиште";
@@ -1835,7 +1835,7 @@
 "type.man_made.petroleum_well" = "Naftna ili gasna bušotina";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Газни факел";
+"type.man_made.flare" = "Гасни факел";
 "type.man_made.wastewater_plant" = "Пречишћивач отпадних вода";
 "type.man_made.water_tap" = "Јавна чесма";
 "type.man_made.water_tap.drinking_water_no" = "Јавна чесма";
@@ -1953,7 +1953,7 @@
 "type.power.generator.wind" = "Ветрогенератор";
 "type.power.generator.gas" = "Гасно-турбинска електрана";
 "type.power.generator.hydro" = "Хидроелектрана";
-"type.power.line" = "Далековод";
+"type.power.line" = "Електровод";
 "type.power.line.underground" = "Подземни далековод";
 "type.power.minor_line" = "Нисконапонски далековод";
 "type.power.plant" = "Електрана";
