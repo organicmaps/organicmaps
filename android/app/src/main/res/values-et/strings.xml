@@ -2258,4 +2258,6 @@
     <string name="facebook">Facebook</string>
     <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
     <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="type.amenity.shelter.lean_to">Lean-to Shelter</string>
 </resources>
