@@ -78,7 +78,7 @@
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Назив</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
-    <string name="address">Адреса</string>
+    <string name="address">Адресе</string>
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
     <string name="list">Листа</string>
     <!-- Settings button in system menu -->
@@ -220,7 +220,7 @@
     <!-- Settings general group in settings screen -->
     <string name="prefs_group_general">Општа подешавања</string>
     <!-- Settings information group in settings screen -->
-    <string name="prefs_group_information">Информације</string>
+    <string name="prefs_group_information">Инфо</string>
     <string name="prefs_group_route">Навигација</string>
     <string name="pref_zoom_title">Дугмад за увећавање/умањивање</string>
     <string name="pref_zoom_summary">Прикажи на мапи</string>
@@ -616,7 +616,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
-    <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support\\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Екстерна меморија није доступна. СД картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу СД картицу или нас контактирајте на support\\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Симулирај неисправну меморију</string>
     <string name="core_entrance">Улаз</string>
     <string name="error_enter_correct_name">Молим Вас да унесете исправан назив</string>
