@@ -1984,13 +1984,13 @@
     <string name="type.tourism.information.office">Informační centrum</string>
     <string name="type.tourism.information.visitor_centre">Návštěvnické centrum</string>
     <string name="type.tourism.museum">Muzeum</string>
-    <string name="type.tourism.picnic_site">Piknik</string>
+    <string name="type.tourism.picnic_site">Místo pro piknik</string>
     <string name="type.leisure.resort">Letovisko</string>
     <string name="type.tourism.theme_park">Pamětihodnost</string>
     <string name="type.tourism.viewpoint">Vyhlídka</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Chata v divočině</string>
-    <string name="type.tourism.zoo">zoologická zahrada</string>
+    <string name="type.tourism.zoo">Zoologická zahrada</string>
     <string name="type.tourism.zoo.petting">ZOO pro domácí mazlíčky</string>
     <string name="type.waterway.canal">Kanál</string>
     <string name="type.waterway.canal.tunnel">Kanál</string>
