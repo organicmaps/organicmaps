@@ -673,7 +673,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Upewnij się, że nie podałeś osobistych danych.";
 "editor_share_to_all_dialog_message_2" = "Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.";
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Zatrzymaj";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Wyłączyć rejestrowanie niedawno przebytej trasy?";
@@ -1229,7 +1229,7 @@
 "type.amenity.shelter.basic_hut" = "Chata Biwakowa";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Schronienie typu \"chata-do-przybudówki\"";
 "type.amenity.public_bath" = "Łaźnia publiczna";
 "type.amenity.shower" = "Prysznic";
 "type.amenity.stripclub" = "Klub ze striptizem";
@@ -1253,7 +1253,7 @@
 "type.amenity.vending_machine.excrement_bags" = "Automat z torebkami na odchody";
 "type.amenity.parcel_locker" = "Paczkomat";
 "type.amenity.vehicle_inspection" = "Stacja kontroli pojazdów";
-"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.vending_machine.fuel" = "Pompa paliwowa";
 "type.amenity.veterinary" = "Weterynarz";
 "type.amenity.waste_basket" = "Kosz na śmieci";
 "type.amenity.waste_disposal" = "Wysypisko śmieci";
@@ -1351,7 +1351,7 @@
 "type.cuisine.beef_bowl" = "Gyūdon";
 "type.cuisine.brazilian" = "Kuchnia brazylijska";
 "type.cuisine.breakfast" = "Śniadaniarnia";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Herbata bąbelkowa";
 "type.cuisine.burger" = "Burgery";
 "type.cuisine.buschenschank" = "Winiarnia";
 "type.cuisine.cake" = "Ciasta";
@@ -1758,7 +1758,7 @@
 "type.landuse.garages" = "Garaże";
 "type.landuse.grass" = "Trawnik";
 "type.landuse.greenfield" = "Obszar pod zabudowę";
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "Szklarnia";
 "type.landuse.industrial" = "Obszar przemysłowy";
 "type.landuse.landfill" = "Składowisko odpadów";
 "type.landuse.meadow" = "Łąka";
@@ -1774,7 +1774,7 @@
 "type.landuse.village_green" = "Nawsie";
 "type.landuse.vineyard" = "Winnica";
 "type.leisure" = "Wypoczynek";
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "Ziemia publiczna";
 "type.leisure.dog_park" = "Wybieg dla psów";
 "type.leisure.fitness_centre" = "Centrum fitness";
 "type.leisure.fitness_station" = "Stacja fitness";
@@ -1807,8 +1807,8 @@
 "type.leisure.track" = "Track";
 "type.leisure.track.area" = "Track";
 "type.leisure.water_park" = "Park wodny";
-"type.leisure.beach_resort" = "Beach Resort";
-"type.man_made" = "Man Made";
+"type.leisure.beach_resort" = "Resort plażowy";
+"type.man_made" = "Stworzone przez człowieka";
 "type.man_made.breakwater" = "Falochron";
 "type.man_made.cairn" = "Kopiec";
 "type.man_made.chimney" = "Komin fabryki";
@@ -1821,7 +1821,7 @@
 "type.man_made.pipeline" = "Rurociąg";
 "type.man_made.pipeline.overground" = "Rurociąg nad ziemią";
 "type.man_made.silo" = "Silos";
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "Zbiornik Magazynowy";
 "type.man_made.surveillance" = "Kamera monitoringu";
 "type.man_made.tower" = "Wieża";
 
@@ -1848,7 +1848,7 @@
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Wojskowe";
 "type.military.bunker" = "Bunkier";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Przełęcz górska";
 "type.natural" = "Natura";
 
 /* A rocky land cover. */
