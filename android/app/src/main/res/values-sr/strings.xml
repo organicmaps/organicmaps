@@ -2225,4 +2225,26 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <string name="gb">ГБ</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="editor_add_select_location">Изаберите локацију</string>
+    <string name="limited_accuracy">Ограничена тачност</string>
+    <string name="github">GitHub</string>
+    <string name="editor_focus_map_on_location">Превуците мапу да бисте поставили крст на локацију места или посла.</string>
+    <string name="precise_location_is_disabled_long_text">Да бисте осигурали тачну навигацију, омогућите прецизну локацију у подешавањима.</string>
+    <string name="mb">МБ</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="already_donated">Већ донирано</string>
+    <string name="remind_me_later">Подсети касније</string>
+    <string name="support_organic_maps">Подршка Organic Maps</string>
+    <string name="dialog_kayak_disable_button">Онемогућити Kayak</string>
+    <string name="elevation_profile_min_elevation">Минимална надморска висина</string>
+    <string name="elevation_profile_max_elevation">Максимална надморска висина</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
+    <string name="core_placepage_unknown_place">Тачка на мапи</string>
 </resources>
