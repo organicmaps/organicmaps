@@ -219,9 +219,14 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
     LOG(LWARNING, ("Widelines Vulkan feature is not supported."));
 
   VkDeviceCreateInfo deviceCreateInfo = {};
+
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wmissing-field-initializers"
   VkPhysicalDeviceFeatures enabledFeatures = {
-    .wideLines = availableFeatures.wideLines,
+    .wideLines = availableFeatures.wideLines
   };
+  #pragma clang diagnostic pop
+
   deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
   deviceCreateInfo.pNext = nullptr;
   deviceCreateInfo.queueCreateInfoCount = 1;
