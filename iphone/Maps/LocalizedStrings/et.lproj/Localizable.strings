@@ -28,7 +28,7 @@
 "later" = "Hiljem";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
-"search" = "Otsi";
+"search" = "Search";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Jah";
