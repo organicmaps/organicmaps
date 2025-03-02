@@ -2260,4 +2260,10 @@
     <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="type.amenity.shelter.lean_to">Lean-to Shelter</string>
+    <string name="mb">MB</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">Korrus: %s</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
 </resources>
