@@ -1,31 +1,31 @@
-• New OpenStreetMap data as of February 27
-• Search: split screen to show both the map and the list at the same time
-• Ability to share a single selected track from the list
-• Improved routing for bicycles
-• Added tracks and bookmarks colors into exported GPX files
+• Nouvelles données OpenStreetMap du 27 février
+• Recherche : écran partagé pour afficher simultanément la carte et la liste
+• Possibilité de partager une seule piste sélectionnée dans la liste
+• Amélioration du routage pour les vélos
+• Ajout de pistes et de couleurs de signets dans les fichiers GPX exportés
 
-Map:
-• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
-• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
-• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
-• Added captions to named Cliffs, City Walls, Embankments, Power Lines
-• Tuned visibility and priority of some niche shops
+Carte :
+• Ajout de magasins d'appareils auditifs, de tours de communication, de croix, de puits de pétrole/gaz, de torchères à gaz, de sauveteurs, de locations de motos, de postes de secours en montagne, d'obélisques (en tant que monuments), de quartiers séparés (qui étaient auparavant fusionnés avec les quartiers)
+• Extérieur : visibilité accrue des cabanes, abris, postes de chasse, tours, cairns, réservoirs de stockage, silos
+• Extérieur : ajout de lignes électriques secondaires, de poteaux électriques et de services publics ; visibilité accrue des principales lignes électriques et pylônes
+• Ajout de légendes aux falaises nommées, aux murs de la ville, aux remblais et aux lignes électriques
+• Visibilité et priorité optimisées de certains magasins de niche
 
-OSM editor:
-• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
-• Don't hide OSM login page when offline
-• Added icons to address and number of floors input fields
-• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
+Éditeur OSM :
+• Ajout de la possibilité de modifier les attributs POI « Libre-service » et « Terrasse en extérieur »
+• Ne pas masquer la page de connexion OSM en mode hors ligne
+• Ajout d'icônes aux champs de saisie d'adresse et de nombre d'étages
+• Correction de nombreux autres bugs, grâce au contributeur @map-per qui a fait beaucoup de travail en coulisses !
 
-Other:
-• Open track's info page automatically upon record finish / track save
-• Show "Add Stop" button for the selected track point when in the navigation mode
-• Voice directions: announce route recalculation
-• Better looking track elevation profiles
-• Made Track Recording live activity widget properly dismissable
-• Don't always default to the subway routing mode when the subway layer is active
-• Fixed bookmarks storing POI name in a wrong language
-• Fixed on-building POIs disappearing when in perspective view
-• Fixed empty speed limit sign displayed in foot navigation
-• Fixed stuck map rotation gesture when zoomed in max
-• iCloud sync bug fixes and some minor UI fixes
+Autre :
+• Ouvrir automatiquement la page d'informations de la piste à la fin de l'enregistrement/enregistrement de la piste
+• Afficher le bouton « Ajouter un arrêt » pour le point de piste sélectionné en mode navigation
+• Directions vocales : annoncer le recalcul de l'itinéraire
+• Profils d'élévation de piste plus esthétiques
+• Le widget d'activité en direct d'enregistrement de piste peut désormais être correctement supprimé
+• Ne pas toujours passer par défaut au mode de routage du métro lorsque la couche de métro est active
+• Correction des signets stockant le nom du POI dans une mauvaise langue
+• Correction des POI sur bâtiment qui disparaissaient en vue perspective
+• Correction du panneau de limitation de vitesse vide affiché dans la navigation à pied
+• Correction du geste de rotation de carte bloqué lors d'un zoom avant maximal
+• Correction des bugs de synchronisation iCloud et quelques corrections mineures de l'interface utilisateur

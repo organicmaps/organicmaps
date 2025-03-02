@@ -1,31 +1,31 @@
-• New OpenStreetMap data as of February 27
-• Search: split screen to show both the map and the list at the same time
-• Ability to share a single selected track from the list
-• Improved routing for bicycles
-• Added tracks and bookmarks colors into exported GPX files
+• Neue OpenStreetMap-Daten vom 27. Februar
+• Suche: geteilter Bildschirm, um sowohl die Karte als auch die Liste gleichzeitig anzuzeigen
+• Möglichkeit, einen einzelnen ausgewählten Track aus der Liste zu teilen
+• Verbesserte Routenführung für Fahrräder
+• Track- und Lesezeichenfarben zu exportierten GPX-Dateien hinzugefügt
 
-Map:
-• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
-• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
-• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
-• Added captions to named Cliffs, City Walls, Embankments, Power Lines
-• Tuned visibility and priority of some niche shops
+Karte:
+• Hörgerätegeschäfte, Kommunikationstürme, Kreuze, Öl-/Gasquellen, Gasfackeln, Rettungsschwimmer, Motorradverleihe, Bergrettungsstationen, Obelisken (als Denkmäler), separate Viertel (wurden zuvor mit Nachbarschaften zusammengelegt) hinzugefügt
+• Außenbereich: verbesserte Sichtbarkeit von Hütten, Unterständen, Jagdständen, Türmen, Steinhaufen, Lagertanks, Silos
+• Außenbereich: kleinere Stromleitungen, Versorgungs- und Strommasten hinzugefügt; verbesserte Sichtbarkeit wichtiger Stromleitungen und Masten
+• Beschriftungen für benannte Klippen, Stadtmauern, Böschungen und Stromleitungen hinzugefügt
+• Sichtbarkeit und Priorität einiger Nischengeschäfte angepasst
 
-OSM editor:
-• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
-• Don't hide OSM login page when offline
-• Added icons to address and number of floors input fields
-• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
+OSM-Editor:
+• Möglichkeit zum Bearbeiten der POI-Attribute „Selbstbedienung“ und „Sitzplätze im Freien“ hinzugefügt
+• OSM-Anmeldeseite offline nicht ausblenden
+• Symbole für Eingabefelder für Adressen und Stockwerkanzahl hinzugefügt
+• Viele weitere Fehler behoben, danke an den Mitwirkenden @map-per, der viel Arbeit hinter den Kulissen geleistet hat!
 
-Other:
-• Open track's info page automatically upon record finish / track save
-• Show "Add Stop" button for the selected track point when in the navigation mode
-• Voice directions: announce route recalculation
-• Better looking track elevation profiles
-• Made Track Recording live activity widget properly dismissable
-• Don't always default to the subway routing mode when the subway layer is active
-• Fixed bookmarks storing POI name in a wrong language
-• Fixed on-building POIs disappearing when in perspective view
-• Fixed empty speed limit sign displayed in foot navigation
-• Fixed stuck map rotation gesture when zoomed in max
-• iCloud sync bug fixes and some minor UI fixes
+Sonstiges:
+• Infoseite der Strecke automatisch öffnen, wenn Aufzeichnung beendet/Strecke gespeichert ist
+• Schaltfläche „Stopp hinzufügen“ für den ausgewählten Streckenpunkt im Navigationsmodus anzeigen
+• Sprachanweisungen: Routenneuberechnung ankündigen
+• Besser aussehende Streckenhöhenprofile
+• Live-Aktivitäts-Widget für Streckenaufzeichnung jetzt richtig abschaltbar
+• Standardmäßig wird nicht immer der U-Bahn-Routingmodus verwendet, wenn die U-Bahn-Ebene aktiv ist
+• Behoben: Lesezeichen speichern POI-Namen in der falschen Sprache
+• Behoben: Verschwinden von POIs auf Gebäuden in der perspektivischen Ansicht
+• Behoben: Leeres Tempolimit-Schild bei Fußnavigation angezeigt
+• Behoben: Feststeckende Kartenrotationsgeste bei maximalem Zoom
+• Fehlerbehebungen bei iCloud-Synchronisierung und einige kleinere UI-Korrekturen

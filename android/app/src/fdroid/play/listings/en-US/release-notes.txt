@@ -3,6 +3,6 @@
 • Share a single selected track from the list
 • Improved routing for bicycles
 • Display a system notification when downloading maps and don't interrupt background downloads
-• Added a flashing Track Recording widget
+• Added a Track Recording indicator on the main screen
 
 …more details at omaps.org/news

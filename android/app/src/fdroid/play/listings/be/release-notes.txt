@@ -1,8 +1,8 @@
-• New OpenStreetMap data as of February 27
-• Ability to manually arrange intermediate route points
-• Share a single selected track from the list
-• Improved routing for bicycles
-• Display a system notification when downloading maps and don't interrupt background downloads
-• Added a flashing Track Recording widget
+• Новыя дадзеныя OpenStreetMap ад 27 лютага
+• Магчымасць уручную расстаўляць прамежкавыя кропкі маршруту
+• Экспарт аднаго абранага трэка са спісу
+• Палепшаная маршрутызацыя для веласіпедыстаў
+• Дададзена сістэмнае апавяшчэнне пры загрузцы карт, фонавыя загрузкі больш не перарываюцца
+• Дададзены мігатлівы віджэт запісу трэка
 
-…more details at omaps.org/news
+…і шматлікае іншае на omaps.org/news
