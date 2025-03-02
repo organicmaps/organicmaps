@@ -2326,6 +2326,12 @@
     <string name="type.self_service.only">Self-service only</string>
     <string name="type.self_service.partially">Partial self-service</string>
     <string name="type.self_service.no">No self-service</string>
+    <string name="widget_name">Favorite Place</string>
+    <string name="widget_description">Quick access to your favorite places</string>
+    <string name="favorite_place">Favorite Place</string>
+    <string name="select_category">Select category</string>
+    <string name="select_bookmark">Select bookmark</string>
+    <string name="failed_to_create_widget">Failed to create widget</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
     <string name="type.amenity.social_facility">Social Facility</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->

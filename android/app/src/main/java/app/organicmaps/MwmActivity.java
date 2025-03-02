@@ -45,6 +45,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
+import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.display.DisplayChangedListener;
@@ -114,6 +115,7 @@ import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -326,6 +328,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeShowCountry(countryId, false);
       return;
     }
+    
+final int categoryIndex = intent.getIntExtra("CATEGORY_INDEX", -1);
+final int bookmarkIndex = intent.getIntExtra("BOOKMARK_INDEX", -1);
+
+if (categoryIndex >= 0 && bookmarkIndex >= 0) {
+    List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    
+    if (categoryIndex < categories.size()) {
+        BookmarkCategory category = categories.get(categoryIndex);
+        
+        if (bookmarkIndex < category.getBookmarksCount()) {
+            long widgetbookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(category.getId(), bookmarkIndex);
+            BookmarkManager.INSTANCE.showBookmarkOnMap(widgetbookmarkId);
+            return;
+        }
+    }
+}
 
     final IntentProcessor[] mIntentProcessors = {
         new Factory.UrlProcessor(),
