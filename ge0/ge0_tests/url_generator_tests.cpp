@@ -342,6 +342,42 @@ UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
   TEST_EQUAL("om://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
 
+UNIT_TEST(GenerateCoordUrl_SmokeTest)
+{
+  string res = GenerateCoordUrl(0, 0, 19, "Name");
+  TEST_EQUAL("https://omaps.app/0.00000,0.00000,19/Name", res, ());
+}
+
+UNIT_TEST(GenerateCoordUrl_NameIsEmpty)
+{
+  string res = GenerateCoordUrl(0, 0, 19, "");
+  TEST_EQUAL("https://omaps.app/0.00000,0.00000,19", res, ());
+}
+
+UNIT_TEST(GenerateCoordUrl_SpaceIsReplacedWithUnderscore)
+{
+  string res = GenerateCoordUrl(0, 0, 19, "Hello World");
+  TEST_EQUAL("https://omaps.app/0.00000,0.00000,19/Hello_World", res, ());
+}
+
+UNIT_TEST(GenerateCoordUrl_UnderscoreIsReplacedWithSpaceEncoded)
+{
+  string res = GenerateCoordUrl(0, 0, 19, "Hello_World");
+  TEST_EQUAL("https://omaps.app/0.00000,0.00000,19/Hello%20World", res, ());
+}
+
+UNIT_TEST(GenerateCoordUrl_ControlCharsAreEscaped)
+{
+  string res = GenerateCoordUrl(0, 0, 19, "Hello\tWorld\n");
+  TEST_EQUAL("https://omaps.app/0.00000,0.00000,19/Hello%09World%0A", res, ());
+}
+
+UNIT_TEST(GenerateCoordUrl_FractionalZoom)
+{
+  string res = GenerateCoordUrl(10, 20, 8.25, "Name");
+  TEST_EQUAL("https://omaps.app/10.00000,20.00000,8/Name", res, ());
+}
+
 UNIT_TEST(GenerateGeoUri_SmokeTest)
 {
   string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
