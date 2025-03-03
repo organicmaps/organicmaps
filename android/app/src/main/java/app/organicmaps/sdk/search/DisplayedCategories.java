@@ -1,8 +1,8 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import androidx.annotation.NonNull;
 
-class DisplayedCategories
+public class DisplayedCategories
 {
   @NonNull
   public static String[] getKeys()

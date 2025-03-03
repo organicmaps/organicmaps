@@ -1,8 +1,7 @@
-package app.organicmaps.search;
+package app.organicmaps.sdk.search;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
@@ -50,6 +49,8 @@ public final class SearchRecents
   }
 
   private static native void nativeGetList(List<String> result);
+
   private static native void nativeAdd(String locale, String query);
+
   private static native void nativeClear();
 }
