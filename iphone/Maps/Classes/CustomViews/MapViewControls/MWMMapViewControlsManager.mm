@@ -288,7 +288,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     _trackRecordingButton = nil;
   }
   else if (!trackRecordingButtonHidden && !_trackRecordingButton) {
-    _trackRecordingButton = [[TrackRecordingViewController alloc] init];
+    _trackRecordingButton = [[TrackRecordingButtonViewController alloc] init];
     [MWMMapWidgetsHelper updateLayoutForAvailableArea];
   }
 }
