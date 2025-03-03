@@ -12,7 +12,7 @@ std::string GetLocalizedTypeName(std::string const & type)
   std::replace(key.begin(), key.end(), '-', '.');
   std::replace(key.begin(), key.end(), ':', '_');
 
-  return [NSLocalizedString(@(key.c_str()), @"") UTF8String];
+  return [NSLocalizedStringFromTableInBundle(@(key.c_str()), @"LocalizableTypes", NSBundle.mainBundle, @"") UTF8String];
 }
 
 std::string GetLocalizedBrandName(std::string const & brand)
