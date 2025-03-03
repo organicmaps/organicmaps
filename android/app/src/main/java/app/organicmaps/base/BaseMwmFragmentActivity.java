@@ -1,9 +1,9 @@
 package app.organicmaps.base;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +13,6 @@ import androidx.activity.SystemBarStyle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -25,7 +24,7 @@ import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.RtlUtils;
-import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
@@ -40,20 +39,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @NonNull
   private String mThemeName;
 
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
-  {
-    Context context = getApplicationContext();
-
-    if (ThemeUtils.isDefaultTheme(context, theme))
-        return R.style.MwmTheme;
-
-    if (ThemeUtils.isNightTheme(context, theme))
-      return R.style.MwmTheme_Night;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
   /**
    * Shows splash screen and initializes the core in case when it was not initialized.
    *
@@ -65,8 +50,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mThemeName = Config.getCurrentUiTheme(getApplicationContext());
-    setTheme(getThemeResourceId(mThemeName));
+    mThemeName = Config.getThemeSettings(getApplicationContext());
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
@@ -125,11 +109,20 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   public void onPostResume()
   {
     super.onPostResume();
-    if (!mThemeName.equals(Config.getCurrentUiTheme(getApplicationContext())))
+    if (!mThemeName.equals(Config.getThemeSettings(getApplicationContext())))
     {
+      // TODO: is this still needed?
       // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
       UiThread.runLater(this::recreate);
     }
+  }
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    ThemeSwitcher.INSTANCE.restart(false);
+    UiThread.runLater(this::recreate);
   }
 
   @Override

@@ -38,7 +38,7 @@
       android:layout_marginTop="@dimen/margin_half"
       android:layout_marginBottom="@dimen/margin_half"
       android:layout_toEndOf="@id/floating_triangle"
-      android:background="?elevationProfileSelectedPointBg"
+      android:background="@drawable/bg_point_desc"
       android:elevation="@dimen/margin_eighth"
       android:maxWidth="@dimen/dialog_min_height"
       android:padding="@dimen/margin_quarter_plus"

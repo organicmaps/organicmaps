@@ -1,60 +1,27 @@
 package app.organicmaps.util;
 
-import android.app.Activity;
-import android.app.UiModeManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.location.Location;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import java.util.Calendar;
+
 import app.organicmaps.Framework;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.display.DisplayManager;
-import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.util.log.Logger;
 
 public enum ThemeSwitcher
 {
   INSTANCE;
 
-  private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
   private static boolean mRendererActive = false;
-
-  private final Runnable mAutoThemeChecker = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      String nightTheme = MwmApplication.from(mContext).getString(R.string.theme_night);
-      String defaultTheme = MwmApplication.from(mContext).getString(R.string.theme_default);
-      String theme = defaultTheme;
-      Location last = LocationHelper.from(mContext).getSavedLocation();
-
-      boolean navAuto = RoutingController.get().isNavigating() && ThemeUtils.isNavAutoTheme(mContext);
-
-      if (navAuto || ThemeUtils.isAutoTheme(mContext))
-      {
-        if (last == null)
-          theme = Config.getCurrentUiTheme(mContext);
-        else
-        {
-          long currentTime = System.currentTimeMillis() / 1000;
-          boolean day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
-          theme = (day ? defaultTheme : nightTheme);
-        }
-      }
-
-      setThemeAndMapStyle(theme);
-      UiThread.cancelDelayedTasks(mAutoThemeChecker);
-
-      if (navAuto || ThemeUtils.isAutoTheme(mContext))
-        UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
-    }
-  };
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -74,79 +41,37 @@ public enum ThemeSwitcher
    *                         <code>true</code> only if the map is rendered and visible on the screen
    *                         at this moment, otherwise <code>false</code>.
    */
-  @androidx.annotation.UiThread
+  @UiThread
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String theme = Config.getUiThemeSettings(mContext);
-    if (ThemeUtils.isAutoTheme(mContext, theme) || ThemeUtils.isNavAutoTheme(mContext, theme))
-    {
-      mAutoThemeChecker.run();
-      return;
-    }
-
-    UiThread.cancelDelayedTasks(mAutoThemeChecker);
-    setThemeAndMapStyle(theme);
+    String savedTheme = Config.getThemeSettings(mContext);
+    // TODO: Handle debug commands
+    String resolvedTheme = resolveBasicTheme(savedTheme);
+    int resolvedMapStyle = resolveMapStyle(resolvedTheme);
+    setAndroidTheme(resolvedTheme);
+    setMapStyle(resolvedMapStyle);
   }
 
-  private void setThemeAndMapStyle(@NonNull String theme)
+  /**
+   * Applies the theme to UI elements
+   * @param theme MUST be theme_light/dark
+   */
+  private void setAndroidTheme(@NonNull String theme)
   {
-    UiModeManager uiModeManager = (UiModeManager) mContext.getSystemService(Context.UI_MODE_SERVICE);
-    String oldTheme = Config.getCurrentUiTheme(mContext);
-    @Framework.MapStyle
-    int oldStyle = Framework.nativeGetMapStyle();
-
-    @Framework.MapStyle
-    int style;
     if (ThemeUtils.isNightTheme(mContext, theme))
-    {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES);
-      else
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-      if (RoutingController.get().isVehicleNavigation())
-        style = Framework.MAP_STYLE_VEHICLE_DARK;
-      else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = Framework.MAP_STYLE_OUTDOORS_DARK;
-      else
-        style = Framework.MAP_STYLE_DARK;
-    }
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    else if (ThemeUtils.isDefaultTheme(mContext, theme))
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     else
-    {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-        uiModeManager.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO);
-      else
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-      if (RoutingController.get().isVehicleNavigation())
-        style = Framework.MAP_STYLE_VEHICLE_CLEAR;
-      else if (Framework.nativeIsOutdoorsLayerEnabled())
-        style = Framework.MAP_STYLE_OUTDOORS_CLEAR;
-      else
-        style = Framework.MAP_STYLE_CLEAR;
-    }
-
-    if (!theme.equals(oldTheme))
-    {
-      Config.setCurrentUiTheme(mContext, theme);
-      DownloaderStatusIcon.clearCache();
-
-      final Activity a = MwmApplication.from(mContext).getTopActivity();
-      if (a != null && !a.isFinishing())
-        a.recreate();
-    }
-    else
-    {
-      // If the UI theme is not changed we just need to change the map style if needed.
-      int currentStyle = Framework.nativeGetMapStyle();
-      if (currentStyle == style)
-        return;
-      SetMapStyle(style);
-    }
+      throw new IllegalArgumentException(theme + " passed, but only theme_light/dark are allowed.");
   }
 
-  private void SetMapStyle(@Framework.MapStyle int style)
+  /**
+   * Applies the style to the map
+   * @param style a Framework mapstyle
+   */
+  private void setMapStyle(@Framework.MapStyle int style)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
@@ -158,5 +83,86 @@ public enum ThemeSwitcher
       Framework.nativeSetMapStyle(style);
     else
       Framework.nativeMarkMapStyle(style);
+  }
+
+  /**
+   * resolve dynamic themes (auto, navauto, follow system) to basic ones (light or dark)
+   * @return theme handle-able by android theme system.
+   */
+  private String resolveBasicTheme(@NonNull String theme)
+  {
+    if (ThemeUtils.isSystemTheme(mContext, theme))
+    {
+      int uiMode = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+      return uiMode == Configuration.UI_MODE_NIGHT_YES
+              ? mContext.getResources().getString(R.string.theme_night)
+              : mContext.getResources().getString(R.string.theme_default);
+    }
+    else if (ThemeUtils.isAutoTheme(mContext, theme))
+      return calcAutoTheme();
+    else if (ThemeUtils.isNavAutoTheme(mContext, theme))
+    {
+      // navauto always falls back to light mode
+      if (RoutingController.get().isVehicleNavigation())
+        return calcAutoTheme();
+      else
+        return mContext.getResources().getString(R.string.theme_default);
+    }
+    else
+      // Passthrough for normal themes
+      return theme;
+  }
+
+  /**
+   * Resolve the map (drape) style from a resolved theme string.
+   * @param theme MUST be theme_light/dark
+   * @return drape/core compatible map style
+   */
+  private int resolveMapStyle(@NonNull String theme)
+  {
+    if (ThemeUtils.isNightTheme(mContext, theme))
+    {
+      if (RoutingController.get().isVehicleNavigation())
+        return Framework.MAP_STYLE_VEHICLE_DARK;
+      else if (Framework.nativeIsOutdoorsLayerEnabled())
+        return Framework.MAP_STYLE_OUTDOORS_DARK;
+      else
+        return Framework.MAP_STYLE_DARK;
+    }
+    else if (ThemeUtils.isDefaultTheme(mContext, theme))
+    {
+      if (RoutingController.get().isVehicleNavigation())
+        return Framework.MAP_STYLE_VEHICLE_CLEAR;
+      else if (Framework.nativeIsOutdoorsLayerEnabled())
+        return Framework.MAP_STYLE_OUTDOORS_CLEAR;
+      else
+        return Framework.MAP_STYLE_CLEAR;
+    }
+    else
+      throw new IllegalArgumentException(theme + " passed, but only theme_light/dark are allowed.");
+  }
+
+  /**
+   * Determine light/dark theme based on time and location,
+   * or fall back to time-based (06:00-18:00) when there's no location fix
+   * @return theme_light/dark string
+   */
+  private String calcAutoTheme()
+  {
+    String defaultTheme = mContext.getResources().getString(R.string.theme_default);
+    String nightTheme = mContext.getResources().getString(R.string.theme_night);
+    Location last = LocationHelper.from(mContext).getSavedLocation();
+    long currentTime = System.currentTimeMillis() / 1000;
+    boolean day;
+
+    if (last != null)
+      day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
+    else
+    {
+      currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+      day = (currentTime < 18 && currentTime > 6);
+    }
+
+    return (day ? defaultTheme : nightTheme);
   }
 }

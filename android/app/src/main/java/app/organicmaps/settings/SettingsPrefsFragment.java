@@ -395,19 +395,15 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final ListPreference pref = getPreference(getString(R.string.pref_map_style));
 
-    String curTheme = Config.getUiThemeSettings(requireContext());
+    String curTheme = Config.getThemeSettings(requireContext());
     pref.setValue(curTheme);
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final String themeName = (String) newValue;
-      if (!Config.setUiThemeSettings(requireContext(), themeName))
+      if (!Config.setThemeSettings(requireContext(), themeName))
         return true;
 
       ThemeSwitcher.INSTANCE.restart(false);
-
-      ThemeMode mode = ThemeMode.getInstance(requireContext().getApplicationContext(), themeName);
-      CharSequence summary = pref.getEntries()[mode.ordinal()];
-      pref.setSummary(summary);
       return true;
     });
   }
@@ -503,32 +499,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     MapLanguageCode.setMapLanguageCode(language.code);
     getSettingsActivity().onBackPressed();
-  }
-
-  enum ThemeMode
-  {
-    DEFAULT(R.string.theme_default),
-    NIGHT(R.string.theme_night),
-    AUTO(R.string.theme_auto),
-    NAV_AUTO(R.string.theme_nav_auto);
-
-    private final int mModeStringId;
-
-    ThemeMode(@StringRes int modeStringId)
-    {
-      mModeStringId = modeStringId;
-    }
-
-    @NonNull
-    public static ThemeMode getInstance(@NonNull Context context, @NonNull String src)
-    {
-      for (ThemeMode each : values())
-      {
-        if (context.getResources().getString(each.mModeStringId).equals(src))
-          return each;
-      }
-      return AUTO;
-    }
   }
 
   public enum SpeedCameraMode
