@@ -986,12 +986,10 @@ Java_app_organicmaps_Framework_nativeGetCoordUrl(JNIEnv * env, jclass, jdouble l
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
   std::string nameStr = jni::ToNativeString(env, name);
-  char buf[256];
-  if (!nameStr.empty())
-    snprintf(buf, sizeof(buf), "https://omaps.app/%.5f,%.5f,%.0f/%s", lat, lon, scale, nameStr.c_str());
-  else
-    snprintf(buf, sizeof(buf), "https://omaps.app/%.5f,%.5f,%.0f", lat, lon, scale);
-  return jni::ToJavaString(env, buf);
+  static const char kHttpSharePrefix[] = "https://omaps.app/";
+  string const url = ge0::GenerateCoordUrl(lat, lon, scale, nameStr);
+  return jni::ToJavaString(env, url);
+
 }
 
 JNIEXPORT jstring JNICALL

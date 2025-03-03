@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <indexer/scales.hpp>
 
 namespace ge0
 {
@@ -79,20 +80,51 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
     int count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
     if (count == 2 && pos == (int)coords.size())
     {
-      zoom = 18.0;
+      zoom = scales::GetUpperComfortScale();
     }
     else
     {
-      pos = 0;
-      count = sscanf(coords.data(), " %lf , %lf , %lf %n", &lat, &lon, &zoom, &pos);
-      if (count != 3 || pos != (int)coords.size())
+      int commaCount = std::count(coords.begin(), coords.end(), ',');
+      if (commaCount == 1)
+      {
+        pos = 0;
+        count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
+        if (count != 2 || pos != (int)coords.size())
+          return false;
+        zoom = scales::GetUpperComfortScale();
+      }
+      else if (commaCount == 2)
+      {
+        pos = 0;
+        count = sscanf(coords.data(), " %lf , %lf , %lf %n", &lat, &lon, &zoom, &pos);
+        if (count == 3 && pos == (int)coords.size())
+        {
+          // Parsed zoom successfully.
+        }
+        else
+        {
+          pos = 0;
+          count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
+          if (count == 2)
+            zoom = scales::GetUpperComfortScale();
+          else
+            return false;
+        }
+      }
+      else
+      {
         return false;
+      }
     }
-    if (lat < -90.0 || lat > 90.0 || lon < -180.0 || lon > 180.0)
+
+    if (lat < -kLatAbsLimit || lat > kLatAbsLimit || lon < -kLonAbsLimit || lon > kLonAbsLimit)
       return false;
-    if (!std::isfinite(zoom) || zoom < 1.0 || zoom > 22.0)
-      return false;
-      
+    if (!std::isfinite(zoom))
+      zoom = scales::GetUpperStyleScale();
+    if (zoom < 1.0)
+      zoom = 1.0;
+    if (zoom > scales::GetUpperStyleScale())
+      zoom = scales::GetUpperStyleScale();
     result.m_lat = lat;
     result.m_lon = lon;
     result.m_zoomLevel = zoom;
