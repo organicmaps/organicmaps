@@ -1,4 +1,4 @@
-final class TrackRecordingViewController: MWMViewController {
+final class TrackRecordingButtonViewController: MWMViewController {
 
   private enum Constants {
     static let buttonDiameter = CGFloat(48)
