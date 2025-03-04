@@ -231,6 +231,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
       removePreference(getString(R.string.pref_settings_general), pref);
+    else
+      pref.setVisible(true);
   }
 
   private void initAutoZoomPrefsCallbacks()
