@@ -50,20 +50,10 @@ public final class ThemeUtils
     return defaultTheme.equals(theme);
   }
 
-  public static boolean isNightTheme(@NonNull Context context)
-  {
-    return isNightTheme(context, Config.getThemeSettings(context));
-  }
-
   public static boolean isNightTheme(@NonNull Context context, String theme)
   {
     String nightTheme = context.getString(R.string.theme_night);
     return nightTheme.equals(theme);
-  }
-
-  public static boolean isSystemTheme(@NonNull Context context)
-  {
-    return isSystemTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isSystemTheme(@NonNull Context context, String theme)
@@ -72,20 +62,10 @@ public final class ThemeUtils
     return followSystemTheme.equals(theme);
   }
 
-  public static boolean isNavAutoTheme(@NonNull Context context)
-  {
-    return isNavAutoTheme(context, Config.getThemeSettings(context));
-  }
-
   public static boolean isNavAutoTheme(@NonNull Context context, String theme)
   {
     String navAutoTheme = context.getString(R.string.theme_nav_auto);
     return navAutoTheme.equals(theme);
-  }
-
-  public static boolean isAutoTheme(@NonNull Context context)
-  {
-    return isSystemTheme(context, Config.getThemeSettings(context));
   }
 
   public static boolean isAutoTheme(@NonNull Context context, String theme)

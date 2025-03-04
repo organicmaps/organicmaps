@@ -46,7 +46,7 @@ public class TrafficButton
   void turnOff()
   {
     stopWaitingAnimation();
-// Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
+// TODO: Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
 //    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
 //                                                                           : R.drawable.ic_traffic_on);
   }
@@ -54,7 +54,7 @@ public class TrafficButton
   void turnOn()
   {
     stopWaitingAnimation();
-// Don't set theme programatically - use an xml with a night variant instead.  Also convert to svg.
+// TODO: Don't set theme programatically - use an xml with a night variant instead.  Also convert to svg.
 //    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
 //                                                                           : R.drawable.ic_traffic_on);
   }
@@ -62,7 +62,7 @@ public class TrafficButton
   void markAsOutdated()
   {
     stopWaitingAnimation();
-// Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
+// TODO: Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
 //    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_outdated_night
 //                                                                           : R.drawable.ic_traffic_outdated);
   }

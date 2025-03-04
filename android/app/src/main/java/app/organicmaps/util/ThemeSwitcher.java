@@ -93,7 +93,7 @@ public enum ThemeSwitcher
       return calcAutoTheme();
     else if (ThemeUtils.isNavAutoTheme(mContext, theme))
     {
-      // navauto always falls back to light mode
+      // navauto should always be light, except in nav mode
       if (RoutingController.get().isVehicleNavigation())
         return calcAutoTheme();
       else
