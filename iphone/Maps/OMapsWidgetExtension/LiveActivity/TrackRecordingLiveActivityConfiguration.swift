@@ -15,7 +15,7 @@ struct TrackRecordingLiveActivityConfiguration: Widget {
       } compactLeading: {
         AppLogo()
       } compactTrailing: {
-        StatisticValueView(context.state.duration.value)
+        StatisticValueView(viewModel: context.state.duration)
       } minimal: {
         // TODO: Implement the minimal view
       }
