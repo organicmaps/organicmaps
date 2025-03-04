@@ -68,6 +68,7 @@
       android:title="@string/setting_emulate_bad_storage"
       app:singleLineTitle="false"
       android:defaultValue="false"
+      app:isPreferenceVisible="false"
       android:order="13"/>
     <ListPreference
       android:key="@string/pref_use_mobile_data"
