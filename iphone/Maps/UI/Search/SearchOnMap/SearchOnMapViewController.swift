@@ -73,7 +73,7 @@ final class SearchOnMapViewController: UIViewController {
 
   // MARK: - Private methods
   private func setupViews() {
-    view.setStyle(.background)
+    view.setStyle(.clearBackground)
     setupTapGestureRecognizer()
     setupHeaderView()
     setupContainerView()
