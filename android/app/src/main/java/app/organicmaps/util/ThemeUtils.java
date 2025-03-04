@@ -44,11 +44,6 @@ public final class ThemeUtils
     return VALUE_BUFFER.resourceId;
   }
 
-  public static boolean isDefaultTheme(@NonNull Context context)
-  {
-    return isDefaultTheme(context, Config.getThemeSettings(context));
-  }
-
   public static boolean isDefaultTheme(@NonNull Context context, String theme)
   {
     String defaultTheme = context.getString(R.string.theme_default);

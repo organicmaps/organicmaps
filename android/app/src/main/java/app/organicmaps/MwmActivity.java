@@ -566,8 +566,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshLightStatusBar()
   {
+    int darkModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     UiUtils.setLightStatusBar(this, !(
-        ThemeUtils.isNightTheme(this)
+        (darkModeFlags == Configuration.UI_MODE_NIGHT_YES)
         || RoutingController.get().isPlanning()
         || Framework.nativeGetChoosePositionMode() != Framework.ChoosePositionMode.NONE
     ));

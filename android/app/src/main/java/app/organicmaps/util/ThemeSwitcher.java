@@ -59,9 +59,9 @@ public enum ThemeSwitcher
    */
   private void setAndroidTheme(@NonNull String theme)
   {
-//    if (ThemeUtils.isSystemTheme(mContext, theme))
-//      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-    if (ThemeUtils.isNightTheme(mContext, theme))
+    if (ThemeUtils.isSystemTheme(mContext, theme))
+      AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    else if (ThemeUtils.isNightTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     else if (ThemeUtils.isDefaultTheme(mContext, theme))
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
