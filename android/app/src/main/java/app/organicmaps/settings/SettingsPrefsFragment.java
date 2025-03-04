@@ -400,6 +400,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final String themeName = (String) newValue;
+      pref.setValue(themeName);
+      pref.setSummary(pref.getEntry());
       if (!Config.setThemeSettings(requireContext(), themeName))
         return true;
 
