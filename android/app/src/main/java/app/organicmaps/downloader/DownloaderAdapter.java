@@ -424,7 +424,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           super.updateIcon(country);
           mIcon.setFocusable(country.isExpandable() && country.status != CountryItem.STATUS_DONE);
         }
-      }.setOnIconClickListener(v -> processClick(true)).setOnCancelClickListener(v -> MapManager.nativeCancel(mItem.id));
+      }.setOnIconClickListener(v -> processClick(true)).setOnCancelClickListener(v -> {
+        MapManager.nativeCancel(mItem.id);
+        refreshData();
+      });
 
       mName = frame.findViewById(R.id.name);
       mSubtitle = frame.findViewById(R.id.subtitle);
