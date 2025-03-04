@@ -55,12 +55,20 @@ private extension TrackRecordingLiveActivityAttributes.ContentState {
     let ascent = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.ascent))
     let descent = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.descent))
 
-    self.distance = StatisticsViewModel(key: "", value: distance)
-    self.duration = StatisticsViewModel(key: "", value: duration)
-    self.maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: maxElevation)
-    self.minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: minElevation)
-    self.ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: ascent)
-    self.descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: descent)
+    self.distance = ValueViewModel(value: distance)
+    self.duration = ValueViewModel(value: duration)
+    self.ascent = DetailViewModel(.ascent, value: ascent)
+    self.descent = DetailViewModel(.descent, value: descent)
+    self.minElevation = DetailViewModel(.minElevation, value: minElevation)
+    self.maxElevation = DetailViewModel(.maxElevation, value: maxElevation)
+  }
+}
+
+private extension TrackRecordingLiveActivityAttributes.ContentState.DetailViewModel {
+  init(_ elevationDescription: ElevationDescription, value: String) {
+    self.value = value
+    self.key = elevationDescription.title
+    self.imageName = elevationDescription.imageName
   }
 }
 

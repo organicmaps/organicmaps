@@ -9,18 +9,18 @@ struct TrackRecordingLiveActivityView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       HStack(alignment: .top, spacing: 24) {
-        StatisticValueView(state.duration.value)
-        StatisticValueView(state.distance.value)
+        StatisticValueView(viewModel: state.duration)
+        StatisticValueView(viewModel: state.distance)
         Spacer()
         AppLogo()
           .frame(width: 20, height: 20)
       }
       .padding([.top, .leading, .trailing], 16)
       HStack(alignment: .top, spacing: 20) {
-        StatisticDetailView(title: state.ascent.value, subtitle: state.ascent.key)
-        StatisticDetailView(title: state.descent.value, subtitle: state.descent.key)
-        StatisticDetailView(title: state.maxElevation.value, subtitle: state.maxElevation.key)
-        StatisticDetailView(title: state.minElevation.value, subtitle: state.minElevation.key)
+        StatisticDetailView(viewModel: state.ascent)
+        StatisticDetailView(viewModel: state.descent)
+        StatisticDetailView(viewModel: state.maxElevation)
+        StatisticDetailView(viewModel: state.minElevation)
       }
       .padding([.leading, .trailing, .bottom], 16)
     }
@@ -37,28 +37,30 @@ struct TrackRecordingLiveActivityWidget_Previews: PreviewProvider {
       let activityAttributes = TrackRecordingLiveActivityAttributes()
       let activityState = TrackRecordingLiveActivityAttributes.ContentState(
         duration: .init(
-          key: "Duration",
-          value: "1h 12min"
+          value: "10d 10h 12min"
         ),
         distance: .init(
-          key: "Distance",
-          value: "12 km"
+          value: "1245 km"
         ),
         ascent: .init(
           key: "Ascent",
-          value: "100 m"
+          value: "100 m",
+          imageName: "ic_em_ascent_24"
         ),
         descent: .init(
           key: "Descent",
-          value: "100 m"
+          value: "100 m",
+          imageName: "ic_em_descent_24"
         ),
         maxElevation: .init(
           key: "Max Elevation",
-          value: "100 m"
+          value: "9999 m",
+          imageName: "ic_em_max_attitude_24"
         ),
         minElevation: .init(
           key: "Min Elevation",
-          value: "10 m"
+          value: "1000 m",
+          imageName: "ic_em_min_attitude_24"
         )
       )
 

@@ -18,6 +18,12 @@ fileprivate struct DescriptionsViewModel {
   let title: String
   let value: UInt
   let imageName: String
+
+  init(_ description: ElevationDescription, value: UInt) {
+    self.title = description.title
+    self.value = value
+    self.imageName = description.imageName
+  }
 }
 
 final class ElevationProfilePresenter: NSObject {
@@ -50,10 +56,10 @@ final class ElevationProfilePresenter: NSObject {
 
   private static func descriptionModels(for trackInfo: TrackInfo) -> [DescriptionsViewModel] {
     [
-      DescriptionsViewModel(title: L("elevation_profile_ascent"), value: trackInfo.ascent, imageName: "ic_em_ascent_24"),
-      DescriptionsViewModel(title: L("elevation_profile_descent"), value: trackInfo.descent, imageName: "ic_em_descent_24"),
-      DescriptionsViewModel(title: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation, imageName: "ic_em_max_attitude_24"),
-      DescriptionsViewModel(title: L("elevation_profile_min_elevation"), value: trackInfo.minElevation, imageName: "ic_em_min_attitude_24")
+      DescriptionsViewModel(.ascent, value: trackInfo.ascent),
+      DescriptionsViewModel(.descent, value: trackInfo.descent),
+      DescriptionsViewModel(.minElevation, value: trackInfo.maxElevation),
+      DescriptionsViewModel(.maxElevation, value: trackInfo.minElevation)
     ]
   }
 
