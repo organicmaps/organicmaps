@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -514,6 +516,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (newUiModeIsCarConnected || newUiModeIsCarDisconnected)
       return;
+
+    makeNavigationBarTransparentInLightMode();
     recreate();
   }
 
@@ -530,6 +534,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
+    makeNavigationBarTransparentInLightMode();
 
     mPlacePageViewModel = new ViewModelProvider(this).get(PlacePageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
@@ -1103,6 +1108,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     refreshSearchToolbar();
     setFullscreen(isFullscreen());
+    makeNavigationBarTransparentInLightMode();
     if (ChoosePositionMode.get() != ChoosePositionMode.None)
     {
       UiUtils.show(mPointChooser);
@@ -2449,5 +2455,27 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(TAG, "trim memory, level = " + level);
     if (level >= TRIM_MEMORY_RUNNING_LOW)
       Framework.nativeMemoryWarning();
+  }
+
+  private void makeNavigationBarTransparentInLightMode()
+  {
+    int nightMask = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    if (nightMask == Configuration.UI_MODE_NIGHT_NO) // if light mode
+    {
+      Window window = getWindow();
+      window.setNavigationBarColor(Color.TRANSPARENT);
+      window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+      int flags = window.getDecorView().getSystemUiVisibility();
+      flags |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1)
+        flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+
+      window.getDecorView().setSystemUiVisibility(flags);
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        window.setNavigationBarContrastEnforced(false);
+    }
   }
 }
