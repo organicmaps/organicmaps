@@ -120,9 +120,7 @@ public class SharingUtils
     final String subject = context.getString(R.string.share);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-        .nativeGetDrawScale(), "");
-    final String coordUrl = Framework.getCoordUrl(loc.getLatitude(), loc.getLongitude(), Framework
+    final String coordUrl = Framework.nativeGetCoordUrl(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
     final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
@@ -142,10 +140,8 @@ public class SharingUtils
                            context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(object.getLat(), object.getLon(),
-                                                    object.getScale(), object.getName());
-    final String coordUrl = Framework.getCoordUrl(object.getLat(), object.getLon(),
-                                                    object.getScale(), object.getName());
+    final String coordUrl = Framework.nativeGetCoordUrl(object.getLat(), object.getLon(),
+                                                        object.getScale(), object.getName());
     final String httpUrl = Framework.getHttpGe0Url(object.getLat(), object.getLon(),
                                                    object.getScale(), object.getName());
     final String address = TextUtils.isEmpty(object.getAddress()) ? object.getName() : object.getAddress();
@@ -163,10 +159,8 @@ public class SharingUtils
     final String subject = context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(),
-                                                    bookmark.getScale(), bookmark.getName());
-    final String coordUrl = Framework.getCoordUrl(bookmark.getLat(), bookmark.getLon(),
-                                                  bookmark.getScale(), bookmark.getName());
+    final String coordUrl = Framework.nativeGetCoordUrl(bookmark.getLat(), bookmark.getLon(),
+                                                        bookmark.getScale(), bookmark.getName());
     final String httpUrl = Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(),
                                                    bookmark.getScale(), bookmark.getName());
     StringBuilder text = new StringBuilder();

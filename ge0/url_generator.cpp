@@ -105,17 +105,17 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
 
 std::string GenerateCoordUrl(double lat, double lon, double zoom, std::string const & name)
 {
-  static const std::string kHttpSharePrefix = "https://omaps.app/";
-  std::string url = kHttpSharePrefix;
+  std::string url = "https://omaps.app/";
 
   char buf[64];
-  snprintf(buf, sizeof(buf), "%.5f,%.5f,%.0f", lat, lon, zoom);
+  auto const writtenChars = snprintf(buf, sizeof(buf), "%.5f,%.5f,%.0f", lat, lon, zoom);
+  CHECK(writtenChars > 0 && writtenChars < static_cast<int>(sizeof(buf)), ("Buffer is too small", writtenChars, lat, lon, zoom));
   url.append(buf);
 
   if (!name.empty())
   {
-      url.push_back('/');
-      url.append(UrlEncodeString(TransformName(name)));
+    url.push_back('/');
+    url.append(UrlEncodeString(TransformName(name)));
   }
 
   return url;

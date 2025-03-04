@@ -344,12 +344,15 @@ UNIT_TEST(PlainCoordinateUrl_Valid)
   TestSuccess("https://omaps.app/12.34567,76.54321,10.5", 12.34567, 76.54321, 10.5, "");
   TestSuccess("https://omaps.app/12.34567,76.54321,15.75/Place", 12.34567, 76.54321, 15.75, "Place");
   TestSuccess("https://omaps.app/13.02227,77.76043,18.0", 13.02227, 77.76043, 18.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043,18.0#", 13.02227, 77.76043, 18.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043,18.0?", 13.02227, 77.76043, 18.0, "");
   TestSuccess("https://omaps.app/13.02227,77.76043,20/AnotherPlace", 13.02227, 77.76043, 20.0, "AnotherPlace");
   TestSuccess("https://omaps.app/13.02227,77.76043,17.5/Place///?foo=bar#section", 13.02227, 77.76043, 17.5, "Place");
 
   // Out of range clamping
   TestSuccess("https://omaps.app/13.02227,77.76043,100", 13.02227, 77.76043, 20.0, "");
   TestSuccess("https://omaps.app/13.02227,77.76043,0.5", 13.02227, 77.76043, 1.0, "");
+  TestSuccess("https://omaps.app/13.02227,77.76043,-0.5", 13.02227, 77.76043, 1.0, "");
   TestSuccess("https://omaps.app/13.02227,77.76043,22.5", 13.02227, 77.76043, 20.0, "");
 
   TestSuccess("https://omaps.app/13.02227,77.76043,abc", 13.02227, 77.76043, 17.0, "");

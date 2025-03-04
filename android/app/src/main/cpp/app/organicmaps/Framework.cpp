@@ -985,9 +985,8 @@ Java_app_organicmaps_Framework_nativeGetCoordUrl(JNIEnv * env, jclass, jdouble l
 {
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
-  std::string nameStr = jni::ToNativeString(env, name);
-  static const char kHttpSharePrefix[] = "https://omaps.app/";
-  string const url = ge0::GenerateCoordUrl(lat, lon, scale, nameStr);
+  std::string const nameStr = jni::ToNativeString(env, name);
+  std::string const url = ge0::GenerateCoordUrl(lat, lon, scale, nameStr);
   return jni::ToJavaString(env, url);
 
 }
