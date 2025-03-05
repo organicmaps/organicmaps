@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "כתובת/שכונה";
 "type.addr_interpolation.even" = "כתובת/שכונה";
 "type.addr_interpolation.odd" = "כתובת/שכונה";

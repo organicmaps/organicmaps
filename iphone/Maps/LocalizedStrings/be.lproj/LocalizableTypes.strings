@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Адрас/Блок";
 "type.addr_interpolation.even" = "Адрас/Блок";
 "type.addr_interpolation.odd" = "Адрас/Блок";

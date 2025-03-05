@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "地址/區塊";
 "type.addr_interpolation.even" = "地址/區塊";
 "type.addr_interpolation.odd" = "地址/區塊";

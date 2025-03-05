@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Osoite/lohko";
 "type.addr_interpolation.even" = "Osoite/lohko";
 "type.addr_interpolation.odd" = "Osoite/lohko";

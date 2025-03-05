@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Helbidea/Blokea";
 "type.addr_interpolation.even" = "Helbidea/Blokea";
 "type.addr_interpolation.odd" = "Helbidea/Blokea";

@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Alamat/Blokir";
 "type.addr_interpolation.even" = "Alamat/Blokir";
 "type.addr_interpolation.odd" = "Alamat/Blokir";

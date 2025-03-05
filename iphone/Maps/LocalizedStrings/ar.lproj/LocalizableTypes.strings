@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "العنوان / البلوك";
 "type.addr_interpolation.even" = "العنوان / البلوك";
 "type.addr_interpolation.odd" = "العنوان / البلوك";
