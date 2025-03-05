@@ -4988,7 +4988,6 @@
     nl = Restaurant
     pl = Restauracja
     pt = Restaurante
-    pt-BR = Restaurante
     ru = Ресторан
     sk = Reštaurácia
     sr = Ресторан
@@ -5052,7 +5051,6 @@
     nl = School
     pl = Szkoła
     pt = Escola
-    pt-BR = Escola
     ro = Școală
     ru = Школа
     sk = Škola
@@ -5095,7 +5093,6 @@
     nl = Beschutting
     pl = Wiata
     pt = Abrigo
-    pt-BR = Abrigo
     ro = Adăpost
     ru = Навес
     sk = Prístrešok
@@ -5246,7 +5243,6 @@
     nl = Douche
     pl = Prysznic
     pt = Chuveiro
-    pt-BR = Chuveiro
     ro = Duș
     ru = Душ
     sk = Sprcha
@@ -5325,7 +5321,6 @@
     nl = Taxi
     pl = Postój taksówek
     pt = Táxi
-    pt-BR = Táxi
     ru = Такси
     sk = Taxík
     sr = Такси станица
@@ -5363,7 +5358,6 @@
     nl = Telefoon
     pl = Telefon
     pt = Telefone
-    pt-BR = Telefone
     ro = Telefon
     ru = Телефон
     sk = Telefón
@@ -5404,7 +5398,6 @@
     nl = Theater
     pl = Teatr
     pt = Teatro
-    pt-BR = Teatro
     ro = Teatru
     ru = Театр
     sk = Divadlo
@@ -5529,7 +5522,6 @@
     nl = Universiteit
     pl = Uniwersytet
     pt = Universidade
-    pt-BR = Universidade
     ro = Universitate
     ru = Университет
     sk = Univerzita
@@ -5562,7 +5554,6 @@
     nl = Automaat
     pl = Automat sprzedający
     pt = Máquina de venda automática
-    pt-BR = Máquina de venda automática
     ru = Торговый автомат
     sk = Výdajný automat
     sr = Аутомат
@@ -5600,7 +5591,6 @@
     nl = Sigarettenautomaat
     pl = Automat z papierosami
     pt = Máquina de venda de cigarros
-    pt-BR = Máquina de venda de cigarros
     ro = Automat de țigări
     ru = Автомат с сигаретами
     sk = Automat na cigarety
@@ -5692,7 +5682,6 @@
     nl = Drankautomaat
     pl = Automat z napojami
     pt = Máquina de venda de bebidas
-    pt-BR = Máquina de venda de bebidas
     ro = Automat de băuturi
     ru = Автомат с напитками
     sk = Nápojový automat
@@ -6019,7 +6008,6 @@
     nl = Dierenarts
     pl = Weterynarz
     pt = Veterinário
-    pt-BR = Veterinário
     ro = Cabinet veterinar
     ru = Ветеринарная клиника
     sk = Veterinár
@@ -6061,7 +6049,6 @@
     nl = Vuilnisbak
     pl = Kosz na śmieci
     pt = Caixote do lixo
-    pt-BR = Cesto de lixo
     ro = Pubelă
     ru = Урна
     sk = Odpadkový kôš
@@ -6170,7 +6157,6 @@
     nl = Waterpunt
     pl = Ujęcie wody
     pt = Ponto de água
-    pt-BR = Ponto de água
     ro = Punct de alimentare cu apă
     ru = Вода для автодомов
     sk = Voda
@@ -6206,7 +6192,6 @@
     nl = Barrière
     pl = Bariera
     pt = Barreira
-    pt-BR = Barreira
     ru = Преграда
     sk = Zábrana
     sr = Баријера
@@ -6242,7 +6227,6 @@
     nl = Blok
     pl = Blok
     pt = Bloco
-    pt-BR = Bloco
     ro = Bloc
     ru = Блок
     sk = Blok
@@ -6282,7 +6266,6 @@
     nl = Pilaar
     pl = Słupek
     pt = Pilarete
-    pt-BR = Pilarete
     ro = Stâlp
     ru = Столбик
     sk = Pilier
@@ -6322,7 +6305,6 @@
     nl = Grenscontrole
     pl = Kontrola graniczna
     pt = Controlo de fronteira
-    pt-BR = Controle de fronteira
     ro = Control vamal
     ru = Погранконтроль
     sk = Hraničná kontrola
@@ -6383,7 +6365,6 @@
     nl = Fietsbarrière
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
-    pt-BR = Barreira de bicicletas
     ru = Велосипедный барьер
     sk = Cyklistická zábrana
     sr = Бедем
@@ -6421,7 +6402,6 @@
     nl = Sloot
     pl = Rów melioracyjny
     pt = Vala de drenagem
-    pt-BR = Vala de drenagem
     ro = Șanț de drenaj
     ru = Дренажная канава
     sk = Drenážna priekopa
@@ -6505,7 +6485,6 @@
     nl = Afvalwater
     pl = Ścieki
     pt = Águas residuais
-    pt-BR = Águas residuais
     ro = Ape uzate
     ru = Сточные воды
     sk = Odpadová voda
@@ -6546,7 +6525,6 @@
     nl = Ingang
     pl = Wejście
     pt = Entrada
-    pt-BR = Entrada
     ro = Intrare
     ru = Проход
     sk = Vstup
@@ -6615,7 +6593,6 @@
     nl = Poort
     pl = Brama
     pt = Portão
-    pt-BR = Portão
     ro = Poartă
     ru = Ворота
     sk = Brána
@@ -6647,7 +6624,6 @@
     nl = Heg
     pl = Żywopłot
     pt = Sebe
-    pt-BR = Sebe
     ru = Живая изгородь
     sk = Živý plot
     sr = Жива ограда
@@ -6728,7 +6704,6 @@
     nl = Keermuur
     pl = Mur oporowy
     pt = Muro de retenção
-    pt-BR = Muro de retenção
     ru = Поддерживающая стена
     sk = Oporná stena
     sr = Потпорни зид
@@ -6916,7 +6891,6 @@
     nl = Muur
     pl = Mur
     pt = Muro
-    pt-BR = Muro
     ru = Стена
     sk = Múr
     sr = Зид
@@ -6943,7 +6917,6 @@
     nl = Grens
     pl = Granica
     pt = Fronteira
-    pt-BR = Fronteira
     ru = Граница
     sk = Hranica
     sr = Граница
@@ -6970,7 +6943,6 @@
     nl = Administratieve grens
     pl = Granica administracyjna
     pt = Fronteira administrativa
-    pt-BR = Fronteira administrativa
     ru = Административная граница
     sk = Administratívna hranica
     sr = Административна граница
@@ -6997,7 +6969,6 @@
     nl = Natiegrens
     pl = Granica państwa
     pt = Fronteira de país
-    pt-BR = Fronteira de país
     ru = Граница страны
     sk = Národná hranica
     sr = Гранични прелаз
@@ -7022,7 +6993,6 @@
     nl = Regiogrens
     pl = Granica regionu
     pt = Fronteira de região
-    pt-BR = Fronteira de região
     ru = Граница региона
     sk = Hranica regiónu
     sr = Регионална граница
@@ -7061,7 +7031,6 @@
     nl = Nationaal park
     pl = Park narodowy
     pt = Parque nacional
-    pt-BR = Parque nacional
     ro = Parcul național
     ru = Национальный парк
     sk = Národný park
@@ -7148,7 +7117,6 @@
     nl = Beschermd gebied
     pl = Strefa chroniona
     pt = Área protegida
-    pt-BR = Área protegida
     ro = Zonă protejată
     ru = Заповедная зона
     sk = Chránené územie
@@ -7207,7 +7175,6 @@
     nl = Gebouw
     pl = Budynek
     pt = Edifício
-    pt-BR = Edifício
     ro = Clădire
     ru = Здание
     sk = Budova
@@ -7233,7 +7200,6 @@
     de = Adresse
     el = Διεύθυνση
     es = Dirección
-    es-MX = Dirección
     et = Aadress
     eu = Helbidea
     fa = آدرس
@@ -7295,7 +7261,6 @@
     nl = Garage
     pl = Garaż
     pt = Garagem
-    pt-BR = Garagem
     ro = Garaj
     ru = Гараж
     sk = Garáž
@@ -7369,7 +7334,6 @@
     nl = Magazijn
     pl = Magazyn
     pt = Armazém
-    pt-BR = Armazém
     ru = Склад
     sk = Sklad
     sr = Депо
@@ -7406,7 +7370,6 @@
     nl = Graf
     pl = Mogiła
     pt = Túmulo
-    pt-BR = Túmulo
     ro = Mormânt
     ru = Могила
     sk = Hrob
@@ -7994,7 +7957,6 @@
     nl = Sleutel snijden
     pl = Cięcie kluczy
     pt = Chaveiro
-    pt-BR = Chaveiro
     ro = Tăierea cheilor
     ru = Изготовление ключей
     sk = Rezanie kľúčov
@@ -8037,7 +7999,6 @@
     nl = Slotenmaker
     pl = Ślusarz
     pt = Serralheiro
-    pt-BR = Serralheiro
     ro = Lăcătuș
     ru = Слесарь
     sk = Zámočník
@@ -8205,7 +8166,6 @@
     nl = Camerawinkel
     pl = Sklep z aparatami
     pt = Loja de câmeras
-    pt-BR = Loja de câmeras
     ro = Magazin de aparate foto
     ru = Магазин фотоаппаратов
     sk = Obchod s fotoaparátmi
@@ -8455,7 +8415,6 @@
     nl = Afrikaans
     pl = Kuchnia afrykańska
     pt = Cozinha africana
-    pt-BR = Cozinha africana
     ro = Bucătărie africană
     ru = Африканская кухня
     sk = Africká kuchyňa
@@ -8493,7 +8452,6 @@
     nl = Amerikaans
     pl = Kuchnia amerykańska
     pt = Cozinha americana
-    pt-BR = Cozinha americana
     ro = Bucătărie americană
     ru = Американская кухня
     sk = Americká kuchyňa
@@ -8531,7 +8489,6 @@
     nl = Arabisch
     pl = Kuchnia arabska
     pt = Cozinha árabe
-    pt-BR = Cozinha árabe
     ro = Bucătărie arabă
     ru = Арабская кухня
     sk = Arabská kuchyňa
@@ -8569,7 +8526,6 @@
     nl = Argentijns
     pl = Kuchnia argentyńska
     pt = Cozinha argentina
-    pt-BR = Cozinha argentina
     ro = Bucătărie argentiniană
     ru = Аргентинская кухня
     sk = Argentínska kuchyňa
@@ -8607,7 +8563,6 @@
     nl = Aziatisch
     pl = Kuchnia azjatycka
     pt = Cozinha asiática
-    pt-BR = Cozinha asiática
     ro = Bucătărie asiatică
     ru = Азиатская кухня
     sk = Ázijská kuchyňa
@@ -8645,7 +8600,6 @@
     nl = Oostenrijks
     pl = Kuchnia austriacka
     pt = Cozinha austríaca
-    pt-BR = Cozinha austríaca
     ro = Bucătărie austriacă
     ru = Австрийская кухня
     sk = Rakúska kuchyňa
@@ -8683,7 +8637,6 @@
     nl = Bagels
     pl = Bajgle
     pt = Bagel
-    pt-BR = Bagel
     ro = Bagel
     ru = Бeйглы
     sk = Bagely
@@ -8721,7 +8674,6 @@
     nl = Balkan
     pl = Kuchnia bałkańska
     pt = Cozinha balcânica
-    pt-BR = Cozinha balcânica
     ro = Bucătărie balcanică
     ru = Балканская кухня
     sk = Balkánska kuchyňa
@@ -8760,7 +8712,6 @@
     nl = Barbecue
     pl = Dania z grilla
     pt = Churrasco
-    pt-BR = Churrasco
     ro = Grătar
     ru = Барбекю
     sk = Gril
@@ -8798,7 +8749,6 @@
     nl = Beiers
     pl = Kuchnia bawarska
     pt = Cozinha bávara
-    pt-BR = Cozinha bávara
     ro = Bucătărie bavareză
     ru = Баварская кухня
     sk = Bavorská kuchyňa
@@ -8835,7 +8785,6 @@
     nl = Gyudon
     pl = Gyūdon
     pt = Tigela com carne bovina
-    pt-BR = Tigela com carne bovina
     ro = Gyudon
     ru = Говядина
     sk = Misa hovädzieho
@@ -8873,7 +8822,6 @@
     nl = Braziliaans
     pl = Kuchnia brazylijska
     pt = Cozinha brasileira
-    pt-BR = Cozinha brasileira
     ro = Bucătărie braziliană
     ru = Бразильская кухня
     sk = Brazílska kuchyňa
@@ -8970,7 +8918,6 @@
     nl = Hamburgers
     pl = Burgery
     pt = Hambúrguer
-    pt-BR = Hambúrguer
     ro = Burger
     ru = Бургеры
     sk = Hamburger
@@ -9007,7 +8954,6 @@
     nl = Buschenschank
     pl = Winiarnia
     pt = Buschenschank
-    pt-BR = Buschenschank
     ro = Tavernă
     ru = Домашняя таверна (бушеншанк)
     sk = Viecha
@@ -9046,7 +8992,6 @@
     nl = Taart
     pl = Ciasta
     pt = Bolo
-    pt-BR = Bolo
     ro = Tort
     ru = Кондитерская
     sk = Koláče
@@ -9084,7 +9029,6 @@
     nl = Caraïbisch
     pl = Kuchnia karaibska
     pt = Cozinha caribenha
-    pt-BR = Cozinha caribenha
     ro = Bucătărie caraibă
     ru = Карибская кухня
     sk = Karibská kuchyňa
@@ -9123,7 +9067,6 @@
     nl = Kip
     pl = Kurczak
     pt = Frango
-    pt-BR = Frango
     ro = Pui
     ru = Блюда из курицы
     sk = Hydina
@@ -9162,7 +9105,6 @@
     nl = Chinees
     pl = Kuchnia chińska
     pt = Cozinha chinesa
-    pt-BR = Cozinha chinesa
     ro = Bucătărie chineză
     ru = Китайская кухня
     sk = Čína
@@ -9201,7 +9143,6 @@
     nl = Koffie
     pl = Kawa
     pt = Café
-    pt-BR = Café
     ro = Cafenea
     ru = Кофе
     sk = Káva
@@ -9278,7 +9219,6 @@
     nl = Kroatisch
     pl = Kuchnia chorwacka
     pt = Cozinha croata
-    pt-BR = Cozinha croata
     ro = Bucătărie croată
     ru = Хорватская кухня
     sk = Chorvátska kuchyňa
@@ -9357,7 +9297,6 @@
     nl = Deli
     pl = Delikatesy
     pt = Iguarias regionais
-    pt-BR = Iguarias regionais
     ro = Deli
     ru = Деликатесы
     sk = Delikatesy
@@ -9472,7 +9411,6 @@
     nl = Ethiopisch
     pl = Kuchnia etiopska
     pt = Cozinha etíope
-    pt-BR = Cozinha etíope
     ro = Bucătărie etiopiană
     ru = Эфиопская кухня
     sk = Etiópska kuchyňa
@@ -9510,7 +9448,6 @@
     nl = Filipijns
     pl = Kuchnia filipińska
     pt = Cozinha filipina
-    pt-BR = Cozinha filipina
     ro = Bucătărie filipineză
     ru = Филиппинская кухня
     sk = Filipínska kuchyňa
@@ -9548,7 +9485,6 @@
     nl = Gastronomisch
     pl = Wykwintna kuchnia
     pt = Alta gastronomia
-    pt-BR = Alta gastronomia
     ro = Restaurant elegant
     ru = Ресторан высокой кухни
     sk = Exkluzívna reštaurácia
@@ -9587,7 +9523,6 @@
     nl = Vis
     pl = Ryby
     pt = Peixe
-    pt-BR = Peixe
     ro = Pește
     ru = Рыбный ресторан
     sk = Ryby
@@ -9620,7 +9555,6 @@
     nb = Fisk og pommes frites
     pl = Ryba i frytki
     pt = Peixe e batatas fritas
-    pt-BR = Peixe e batatas fritas
     ro = Pește și cartofi pai
     ru = Рыба и картофель фри
     sk = Ryba s hranolkami
@@ -9658,7 +9592,6 @@
     nl = Frans
     pl = Kuchnia francuska
     pt = Cozinha francesa
-    pt-BR = Cozinha francesa
     ro = Bucătărie franceză
     ru = Французская кухня
     sk = Francúzska kuchyňa
@@ -9734,7 +9667,6 @@
     nl = Georgisch
     pl = Kuchnia gruzińska
     pt = Cozinha georgiana
-    pt-BR = Cozinha georgiana
     ro = Bucătărie georgiană
     ru = Грузинская кухня
     sk = Gruzínska kuchyňa
@@ -9772,7 +9704,6 @@
     nl = Duits
     pl = Kuchnia niemiecka
     pt = Cozinha alemã
-    pt-BR = Cozinha alemã
     ro = Bucătărie germană
     ru = Немецкая кухня
     sk = Nemecká kuchyňa
@@ -9810,7 +9741,6 @@
     nl = Grieks
     pl = Kuchnia grecka
     pt = Cozinha grega
-    pt-BR = Cozinha grega
     ro = Bucătărie grecească
     ru = Греческая кухня
     sk = Grécka kuchyňa
@@ -9884,7 +9814,6 @@
     nl = Heuriger
     pl = Heuriger
     pt = Heuriger
-    pt-BR = Heuriger
     ro = Tavernă
     ru = Винная таверна (хойригер)
     sk = Viecha (Heuriger)
@@ -9922,7 +9851,6 @@
     nl = Hotdogs
     pl = Hot-dogi
     pt = Cachorro-quente
-    pt-BR = Cachorro-quente
     ro = Hot dog
     ru = Хот-доги
     sk = Párok v rožku
@@ -9960,7 +9888,6 @@
     nl = Hongaars
     pl = Kuchnia węgierska
     pt = Cozinha húngara
-    pt-BR = Cozinha húngara
     ro = Bucătărie maghiară
     ru = Венгерская кухня
     sk = Maďarská kuchyňa
@@ -10038,7 +9965,6 @@
     nl = Indisch
     pl = Kuchnia indyjska
     pt = Cozinha indiana
-    pt-BR = Cozinha indiana
     ro = Bucătărie indiană
     ru = Индийская кухня
     sk = Indická kuchyňa
@@ -10076,7 +10002,6 @@
     nl = Indonesisch
     pl = Kuchnia indonezyjska
     pt = Cozinha indonésia
-    pt-BR = Cozinha indonésia
     ro = Bucătărie indoneziană
     ru = Индонезийская кухня
     sk = Indonézska kuchyňa
@@ -10115,7 +10040,6 @@
     nl = Internationaal
     pl = Kuchnia międzynarodowa
     pt = Cozinha internacional
-    pt-BR = Cozinha internacional
     ro = Bucătărie internațională
     ru = Международная кухня
     sk = Medzinárodné jedlá
@@ -10192,7 +10116,6 @@
     nl = Italiaans
     pl = Kuchnia włoska
     pt = Cozinha italiana
-    pt-BR = Cozinha italiana
     ro = Bucătărie italiană
     ru = Итальянская кухня
     sk = Talianska kuchyňa
@@ -10231,7 +10154,6 @@
     nl = Italiaans, pizza
     pl = Kuchnia włoska, pizza
     pt = Italiana, piza
-    pt-BR = Italiana, pizza
     ro = Pizza
     ru = Итальянская, пиццерия
     sk = Talianska kuchyňa; pizza
@@ -10270,7 +10192,6 @@
     nl = Japans
     pl = Kuchnia japońska
     pt = Cozinha japonesa
-    pt-BR = Cozinha japonesa
     ro = Bucătărie japoneză
     ru = Японская кухня
     sk = Japonská kuchyňa
@@ -10346,7 +10267,6 @@
     nl = Koreaans
     pl = Kuchnia koreańska
     pt = Cozinha coreana
-    pt-BR = Cozinha coreana
     ro = Bucătărie coreană
     ru = Корейская
     sk = Kórejská kuchyňa
@@ -10384,7 +10304,6 @@
     nl = Laotiaans
     pl = Kuchnia laoska
     pt = Cozinha laosiana
-    pt-BR = Cozinha laosiana
     ro = Bucătărie laoțiană
     ru = Лаосская кухня
     sk = Laoská kuchyňa
@@ -10422,7 +10341,6 @@
     nl = Libanees
     pl = Kuchnia libańska
     pt = Cozinha libanesa
-    pt-BR = Cozinha libanesa
     ro = Bucătărie libaneză
     ru = Ливанская кухня
     sk = Libanonská kuchyňa
@@ -10461,7 +10379,6 @@
     nl = Regionale keuken
     pl = Kuchnia lokalna
     pt = Cozinha local
-    pt-BR = Cozinha local
     ro = Bucătărie locală
     ru = Местная кухня
     sk = Miestna kuchyňa
@@ -10499,7 +10416,6 @@
     nl = Malagassisch
     pl = Kuchnia malgaska
     pt = Cozinha malgaxe
-    pt-BR = Cozinha malgaxe
     ro = Bucătărie malgașă
     ru = Мадагаскарская кухня
     sk = Madagaskarská kuchyňa
@@ -10537,7 +10453,6 @@
     nl = Maleisisch
     pl = Kuchnia malezyjska
     pt = Cozinha malaia
-    pt-BR = Cozinha malaia
     ro = Bucătărie malaysiană
     ru = Малазийская кухня
     sk = Malajzijská kuchyňa
@@ -10575,7 +10490,6 @@
     nl = Mediterraans
     pl = Kuchnia śródziemnomorska
     pt = Cozinha mediterrânea
-    pt-BR = Cozinha mediterrânea
     ro = Bucătărie mediteraneeană
     ru = Средиземноморская кухня
     sk = Stredomorská kuchyňa
@@ -10613,7 +10527,6 @@
     nl = Mexicaans
     pl = Kuchnia meksykańska
     pt = Cozinha mexicana
-    pt-BR = Cozinha mexicana
     ro = Bucătărie mexicană
     ru = Мексиканская кухня
     sk = Mexická kuchyňa
@@ -10651,7 +10564,6 @@
     nl = Marokkaans
     pl = Kuchnia marokańska
     pt = Cozinha marroquina
-    pt-BR = Cozinha marroquina
     ro = Bucătărie marocană
     ru = Марокканская кухня
     sk = Marocká kuchyňa
@@ -10728,7 +10640,6 @@
     nl = Oosters
     pl = Kuchnia orientalna
     pt = Cozinha oriental
-    pt-BR = Cozinha oriental
     ro = Bucătărie orientală
     ru = Восточная кухня
     sk = Orientálna kuchyňa
@@ -10805,7 +10716,6 @@
     nl = Pasta
     pl = Makarony
     pt = Massa
-    pt-BR = Massa
     ro = Paste
     ru = Паста
     sk = Cestoviny
@@ -10843,7 +10753,6 @@
     nl = Perzisch
     pl = Kuchnia perska
     pt = Cozinha persa
-    pt-BR = Cozinha persa
     ro = Bucătărie persană
     ru = Иранская кухня
     sk = Perzská kuchyňa
@@ -10881,7 +10790,6 @@
     nl = Peruaans
     pl = Kuchnia peruwiańska
     pt = Cozinha peruana
-    pt-BR = Cozinha peruana
     ro = Bucătărie peruană
     ru = Перуанская кухня
     sk = Peruánska kuchyňa
@@ -10958,7 +10866,6 @@
     nl = Pools
     pl = Kuchnia polska
     pt = Cozinha polonesa
-    pt-BR = Cozinha polonesa
     ro = Bucătărie poloneză
     ru = Польская кухня
     sk = Poľská kuchyňa
@@ -10996,7 +10903,6 @@
     nl = Portugees
     pl = Kuchnia portugalska
     pt = Cozinha portuguesa
-    pt-BR = Cozinha portuguesa
     ro = Bucătărie portugheză
     ru = Португальская кухня
     sk = Portugalská kuchyňa
@@ -11033,7 +10939,6 @@
     nl = Ramennoedels
     pl = Zupa ramen
     pt = Lámen
-    pt-BR = Lámen
     ro = Ramen
     ru = Рамен
     sk = Rámen (japonská rezancová polievka)
@@ -11072,7 +10977,6 @@
     nl = Regionale keuken
     pl = Kuchnia regionalna
     pt = Cozinha regional
-    pt-BR = Cozinha regional
     ro = Bucătărie regională
     ru = Региональная кухня
     sk = Regionálna kuchyňa
@@ -11110,7 +11014,6 @@
     nl = Russisch
     pl = Kuchnia rosyjska
     pt = Cozinha russa
-    pt-BR = Cozinha russa
     ro = Bucătărie rusă
     ru = Русская кухня
     sk = Ruská kuchyňa
@@ -11149,7 +11052,6 @@
     nl = Broodjes
     pl = Kanapki
     pt = Sanduíches
-    pt-BR = Sanduíches
     ro = Sandwich
     ru = Сэндвичи
     sk = Sendvič
@@ -11265,7 +11167,6 @@
     nl = Vis en zeevruchten
     pl = Owoce morza
     pt = Frutos do mar
-    pt-BR = Frutos do mar
     ro = Fructe de mare
     ru = Морепродукты
     sk = Morské plody
@@ -11303,7 +11204,6 @@
     nl = Soba
     pl = Soba
     pt = Soba
-    pt-BR = Soba
     ro = Soba
     ru = Соба
     sk = Soba
@@ -11341,7 +11241,6 @@
     nl = Spaans
     pl = Kuchnia hiszpańska
     pt = Cozinha espanhola
-    pt-BR = Cozinha espanhola
     ro = Bucătărie spaniolă
     ru = Испанская кухня
     sk = Španielska kuchyňa
@@ -11379,7 +11278,6 @@
     nl = Steakhouse
     pl = Steki
     pt = Churrasqueira
-    pt-BR = Churrascaria
     ro = Steakhouse
     ru = Стейк-хаус
     sk = Steak house
@@ -11417,7 +11315,6 @@
     nl = Sushi
     pl = Sushi
     pt = Sushi
-    pt-BR = Sushi
     ro = Sushi
     ru = Суши
     sk = Suši
@@ -11455,7 +11352,6 @@
     nl = Tapas
     pl = Tapas
     pt = Tapas
-    pt-BR = Tapas
     ro = Tapas
     ru = Тапас-бар
     sk = Tapas
@@ -11494,7 +11390,6 @@
     nl = Thee
     pl = Herbaciarnia
     pt = Chás
-    pt-BR = Chás
     ro = Ceai
     ru = Чайная
     sk = Čaj
@@ -11532,7 +11427,6 @@
     nl = Thais gerechten
     pl = Kuchnia tajska
     pt = Cozinha tailandesa
-    pt-BR = Cozinha tailandesa
     ro = Bucătărie tailandeză
     ru = Тайская кухня
     sk = Thajská kuchyňa
@@ -11570,7 +11464,6 @@
     nl = Turks
     pl = Kuchnia turecka
     pt = Cozinha turca
-    pt-BR = Cozinha turca
     ro = Bucătărie turcă
     ru = Турецкая кухня
     sk = Turecká kuchyňa
@@ -11608,7 +11501,6 @@
     nl = Veganistisch
     pl = Kuchnia wegańska
     pt = Cozinha vegana
-    pt-BR = Cozinha vegana
     ro = Bucătărie vegană
     ru = Веганская кухня
     sk = Vegánske jedlá
@@ -11647,7 +11539,6 @@
     nl = Vegetarisch
     pl = Kuchnia wegetariańska
     pt = Cozinha vegetariana
-    pt-BR = Cozinha vegetariana
     ro = Bucătărie vegetariană
     ru = Вегетарианская кухня
     sk = Vegetariánske jedlá
@@ -11685,7 +11576,6 @@
     nl = Vietnamees
     pl = Kuchnia wietnamska
     pt = Cozinha vietnamita
-    pt-BR = Cozinha vietnamita
     ro = Bucătărie vietnameză
     ru = Вьетнамская кухня
     sk = Vietnamská kuchyňa
@@ -11714,7 +11604,6 @@
     nl = Noodgeval
     pl = Ratunkowe
     pt = Emergência
-    pt-BR = Emergência
     ru = Экстренная служба
     sk = Pohotovosť
     sr = Хитна служба
@@ -11791,7 +11680,6 @@
     nl = Defibrillator (AED)
     pl = Defibrylator
     pt = Desfibrilador
-    pt-BR = Desfibrilador
     ro = Defibrilator
     ru = Дефибриллятор
     sk = Defibrilátor
@@ -11871,7 +11759,6 @@
     nl = Praatpaal
     pl = Telefon alarmowy
     pt = Telefone de emergência
-    pt-BR = Telefone de emergência
     ro = Telefon de urgență
     ru = Телефон для экстренных вызовов
     sk = Núdzový telefón
@@ -12005,7 +11892,6 @@
     nl = Ingang
     pl = Wejście
     pt = Entrada
-    pt-BR = Entrada
     ro = Intrare
     ru = Вход
     sk = Vstup
@@ -12048,7 +11934,6 @@
     nl = Hoofdingang
     pl = Główne wejście
     pt = Entrada principal
-    pt-BR = Entrada principal
     ro = Intrarea principala
     ru = Главный вход
     sk = Hlavný vchod
@@ -12182,7 +12067,6 @@
     nl = Medisch laboratorium
     pl = Laboratorium medyczne
     pt = Laboratório médico
-    pt-BR = Laboratório médico
     ro = Laborator medical
     ru = Медицинская лаборатория
     sk = Lekárske laboratórium
@@ -12225,7 +12109,6 @@
     nl = Fysiotherapeut
     pl = Fizjoterapeuta
     pt = Fisioterapeuta
-    pt-BR = Fisioterapeuta
     ro = Fizioterapeut
     ru = Физиотерапевт
     sk = Fyzioterapeut
@@ -12268,7 +12151,6 @@
     nl = Alternatieve geneeskunde
     pl = Medycyna alternatywna
     pt = Medicina alternativa
-    pt-BR = Medicina alternativa
     ro = Medicină alternativă
     ru = Альтернативная медицина
     sk = Alternatívna medicína
@@ -12398,7 +12280,6 @@
     nl = Optometrie
     pl = Optometria
     pt = Optometria
-    pt-BR = Optometria
     ro = Optometrie
     ru = Оптометрия
     sk = Optometria
@@ -12441,7 +12322,6 @@
     nl = Podologie
     pl = Podiatria
     pt = Podiatria
-    pt-BR = Podiatria
     ro = Podiatrie
     ru = Подиатрия
     sk = Podiatria
@@ -12484,7 +12364,6 @@
     nl = Psychotherapie
     pl = Psychoterapia
     pt = Psicoterapia
-    pt-BR = Psicoterapia
     ro = Psihoterapie
     ru = Психотерапия
     sk = Psychoterapia
@@ -12527,7 +12406,6 @@
     nl = Bemonstering
     pl = Punkt pobrań laboratoryjnych
     pt = Amostragem
-    pt-BR = Amostragem
     ro = Eșantionare
     ru = Сбор анализов
     sk = Odber vzoriek
@@ -12570,7 +12448,6 @@
     nl = Logopedie
     pl = Logopeda
     pt = Terapia da fala
-    pt-BR = Terapia da fala
     ro = Logopedie
     ru = Логопедия
     sk = Logopédia
@@ -12603,7 +12480,6 @@
     nl = Straat
     pl = Droga
     pt = Rodovia
-    pt-BR = Rodovia
     ru = Дорога
     sk = Cesta
     sr = Ауто-пут
@@ -12629,7 +12505,6 @@
     nl = Ruiterpad
     pl = Droga dla koni
     pt = Caminho para cavaleiros
-    pt-BR = Caminho para cavaleiros
     ru = Конная дорожка
     sk = Cesta pre jazdca na zvierati
     sr = Коњска стаза
@@ -12811,7 +12686,6 @@
     nl = Fietspad
     pl = Droga rowerowa
     pt = Ciclovia
-    pt-BR = Ciclovia
     ru = Велодорожка
     sk = Cyklocesta
     sr = Бициклистичка стаза
@@ -12903,7 +12777,6 @@
     nl = Voetpad
     pl = Droga piesza
     pt = Caminho pedonal
-    pt-BR = Caminho pedonal
     ro = Cale
     ru = Пешеходная дорожка
     sk = Cesta pre chodcov
@@ -13075,7 +12948,6 @@
     de = Furt
     el = Πέρασμα
     es = Vado
-    es-MX = Vado
     et = Koolmekoht
     eu = Ford (lekukoa)
     fa = گدار
@@ -13130,7 +13002,6 @@
     nl = Straat
     pl = Ulica w strefie zamieszkania
     pt = Zona de coexistência
-    pt-BR = Zona de coexistência
     ro = Stradă
     ru = Жилая зона
     sk = Obytná zóna
@@ -13369,7 +13240,6 @@
     nl = Moeilijk of slecht zichtbaar pad
     pl = Trudny lub słabo widoczny szlak
     pt = Trilho difícil ou pouco visível
-    pt-BR = Trilha difícil ou pouco visível
     ro = Traseu dificil sau puțin vizibil
     ru = Сложная или плохо видимая тропа
     sk = Náročná alebo zle viditeľná trasa
@@ -13416,7 +13286,6 @@
     nl = Zeer moeilijk of niet te onderscheiden spoor
     pl = Bardzo trudny lub niedostrzegalny szlak
     pt = Trilho muito difícil ou indistinguível
-    pt-BR = Trilha muito difícil ou indistinguível
     ro = Traseu foarte dificil sau imposibil de distins
     ru = Очень сложная или неразличимая тропа
     sk = Veľmi náročná alebo nezreteľná stopa
@@ -13505,7 +13374,6 @@
     nl = Voetgangersgebied
     pl = Deptak
     pt = Rua pedonal
-    pt-BR = Rua pedonal
     ro = Stradă
     ru = Пешеходная улица
     sk = Ulica
@@ -13707,7 +13575,6 @@
     nl = Straat
     pl = Droga lokalna
     pt = Rua residencial
-    pt-BR = Rua residencial
     ro = Stradă
     ru = Улица
     sk = Miestna komunikácia
@@ -13759,7 +13626,6 @@
     nl = Parkeerplaats
     pl = Miejsce wypoczynku
     pt = Área de descanso
-    pt-BR = Área de descanso
     ro = Zonă de odihnă
     ru = Зона отдыха
     sk = Odpočívadlo
@@ -13799,7 +13665,6 @@
     nl = Straat
     pl = Ulica
     pt = Estrada
-    pt-BR = Estrada
     ro = Stradă
     ru = Дорога
     sk = Ulica
@@ -13825,7 +13690,6 @@
     de = Brücke
     el = Γέφυρα
     es = Puente
-    es-MX = Puente
     et = Sild
     eu = Zubia
     fa = پل
@@ -13842,7 +13706,6 @@
     nl = Brug
     pl = Most
     pt = Ponte
-    pt-BR = Ponte
     ro = Pod
     ru = Мост
     sk = Most
@@ -13873,7 +13736,6 @@
     de = Tunnel
     el = Σήραγγα
     es = Túnel
-    es-MX = Túnel
     et = Tunnel
     eu = Tunel
     fa = تونل
@@ -13890,7 +13752,6 @@
     nl = Tunnel
     pl = Tunel
     pt = Túnel
-    pt-BR = Túnel
     ro = Tunel
     ru = Тоннель
     sk = Tunel
@@ -14006,7 +13867,6 @@
     nl = Straat
     pl = Droga dojazdowa
     pt = Estrada de acesso ou serviço
-    pt-BR = Estrada de acesso ou serviço
     ro = Stradă
     ru = Проезд
     sk = Účelová cesta
@@ -14059,7 +13919,6 @@
     mr = पार्किंग गल्ली
     pl = Miejsca parkingowe
     pt = Estrada de estacionamento
-    pt-BR = Estrada de estacionamento
     ru = Парковочный проезд
     sk = Cesta na parkovisku
     sr = Пут на паркингу
@@ -14129,7 +13988,6 @@
     nl = Flitspaal
     pl = Fotoradar
     pt = Radar de velocidade
-    pt-BR = Radar de velocidade
     ro = Detector de viteză
     ru = Камера скорости
     sk = Rýchlostná kamera
@@ -14168,7 +14026,6 @@
     nl = Trap
     pl = Schody
     pt = Escadas
-    pt-BR = Escadas
     ro = Cale
     ru = Лестница
     sk = Schody
@@ -14345,7 +14202,6 @@
     nl = Verkeerslichten
     pl = Sygnalizacja świetlna
     pt = Semáforo
-    pt-BR = Semáforo
     ro = Semafoare
     ru = Светофор
     sk = Semafor
@@ -14457,7 +14313,6 @@
     nl = Straat
     pl = Ulica
     pt = Estrada sem classificação
-    pt-BR = Estrada sem classificação
     ro = Stradă
     ru = Небольшая дорога
     sk = Cesta bez administratívneho zaradenia
@@ -14534,7 +14389,6 @@
   [type.area_highway.track]
     ref = type.highway.track
     pt = Pista para desportos não motorizados
-    pt-BR = Pista para desportos não motorizados
 
   [type.area_highway.trunk]
     ref = type.highway.trunk
@@ -14621,7 +14475,6 @@
     nl = Historische vliegtuigen
     pl = Historyczny samolot
     pt = Aeronaves Históricas
-    pt-BR = Aeronaves Históricas
     ro = Avioane istorice
     ru = Исторический самолет
     sk = Historické lietadlo
@@ -14664,7 +14517,6 @@
     nl = Historisch anker
     pl = Historyczna kotwica
     pt = Âncora Histórica
-    pt-BR = Âncora Histórica
     ro = Ancoră istorică
     ru = Исторический якорь
     sk = Historická kotva
@@ -14836,7 +14688,6 @@
     nl = Kanon
     pl = Armata
     pt = Canhão
-    pt-BR = Canhão
     ro = Tun
     ru = Пушка
     sk = Delo
@@ -15513,7 +15364,6 @@
     nl = Historische locomotief
     pl = Zabytkowa lokomotywa
     pt = Locomotiva Histórica
-    pt-BR = Locomotiva Histórica
     ro = Locomotiva istorică
     ru = Исторический локомотив
     sk = Historická lokomotíva
@@ -15598,7 +15448,6 @@
     nl = Herdenkingskruis
     pl = Krzyż pomnikowy
     pt = Cruz memorial
-    pt-BR = Cruz de memorial
     ro = Cruce comemorativă
     ru = Памятный крест
     sk = Pamätný kríž
@@ -15810,7 +15659,6 @@
     nl = Historische steen
     pl = Historyczny kamień
     pt = Pedra Histórica
-    pt-BR = Pedra Histórica
     ro = Piatra istorica
     ru = Исторический камень
     sk = Historický kameň
@@ -15896,7 +15744,6 @@
     nl = Historische mijn
     pl = Kopalnia Historyczna
     pt = Mina Histórica
-    pt-BR = Mina Histórica
     ro = Mina istorică
     ru = Историческая шахта
     sk = Historická baňa
@@ -16106,7 +15953,6 @@
     nl = Historische tank
     pl = Historyczny czołg
     pt = Tanque Histórico
-    pt-BR = Tanque Histórico
     ro = Tanc istoric
     ru = Исторический танк
     sk = Historický tank
@@ -16195,7 +16041,6 @@
     nl = Kruis
     pl = Krzyż
     pt = Cruz
-    pt-BR = Cruz
     ro = Cruce
     ru = Крест
     sk = Kríž
@@ -16322,7 +16167,6 @@
     nl = Schipbreuk
     pl = Wrak statku
     pt = Naufrágio
-    pt-BR = Naufrágio
     ro = Naufragiu
     ru = Кораблекрушение
     sk = Trosky lode
@@ -16403,7 +16247,6 @@
     mr = इंटरनेट
     nl = Internet
     pt = Internet
-    pt-BR = Internet
     ru = Интернет
     sr = Интернет
     th = อินเทอร์เน็ต
@@ -16428,7 +16271,6 @@
     mr = इंटरनेट
     nl = Draadloos internet
     pt = Internet
-    pt-BR = Internet
     ru = Интернет
     sr = Интернет
     th = อินเทอร์เน็ต
@@ -16454,7 +16296,6 @@
     nl = Kruispunt
     pl = Skrzyżowanie
     pt = Cruzamento
-    pt-BR = Cruzamento
     ru = Перекрёсток
     sk = Križovatka
     sr = Раскрсница
@@ -16484,7 +16325,6 @@
     nl = Rotonde
     pl = Rondo
     pt = Rotunda
-    pt-BR = Rotatória
     ru = Кольцо
     sk = Kruhový objazd
     sr = Кружни ток
@@ -16513,7 +16353,6 @@
     nl = Landgebruik
     pl = Zagospodarowanie ziemi
     pt = Uso do solo
-    pt-BR = Uso do solo
     ru = Землепользование
     sk = Využitie pôdy
     sr = Пољопривредно земљиште
@@ -16576,7 +16415,6 @@
     nl = Waterbassin
     pl = Zbiornik
     pt = Reservatório
-    pt-BR = Reservatório
     ro = Bazin de apă
     ru = Резервуар
     sk = Vodná nádrž
@@ -16603,7 +16441,6 @@
     ja = 再開発用地
     pl = Teren do zabudowy
     pt = Terreno industrial devoluto
-    pt-BR = Terreno industrial devoluto
     ru = Земля для застройки
     sr = Грађевинско земљиште
     tr = Terkedilmiş Endüstri Bölgesi
@@ -16632,7 +16469,6 @@
     de = Kirchhof
     el = Αυλόγυρος εκκλησίας
     es = Camposanto
-    es-MX = Camposanto
     et = Kirikuõu
     eu = Hilerria
     fa = حیاط کلیسا
@@ -16648,7 +16484,6 @@
     nl = Kerkhof
     pl = Teren kościelny
     pt = Adro de igreja
-    pt-BR = Adro de igreja
     ro = Curtea Bisericii
     ru = Церковный двор
     sk = Cintorín
@@ -16680,7 +16515,6 @@
     nl = Commercieel gebied
     pl = Teren handlu i usług
     pt = Área comercial
-    pt-BR = Área comercial
     ru = Коммерческая застройка
     sk = Komerčná oblasť
     sr = Кмерцијална област
@@ -16706,7 +16540,6 @@
     nl = Bouwplaats
     pl = Teren budowy
     pt = Construção
-    pt-BR = Construção
     ru = Стройка
     sk = Stavenisko
     sr = Градилиште
@@ -16765,7 +16598,6 @@
     nl = Landbouwgrond
     pl = Grunt rolny
     pt = Campo agrícola
-    pt-BR = Campo agrícola
     ro = Teren arabil
     ru = Сельскохозяйственная земля
     sk = Poľnohospodárska pôda
@@ -16819,7 +16651,6 @@
     nl = Veld
     pl = Pole
     pt = Campo
-    pt-BR = Campo
     ru = Поле
     sk = Pole
     sr = Поље
@@ -16898,7 +16729,6 @@
     nl = Bos
     pl = Las
     pt = Floresta
-    pt-BR = Floresta
     ro = Pădure
     ru = Лес
     sk = Les
@@ -16976,7 +16806,6 @@
     nl = Loofbos
     pl = Las liściasty
     pt = Floresta de folha caduca
-    pt-BR = Floresta de folha caduca
     ro = Pădure
     ru = Лиственный лес
     sk = Listnatý les
@@ -17016,7 +16845,6 @@
     nl = Gemengd bos
     pl = Las mieszany
     pt = Floresta
-    pt-BR = Floresta
     ro = Pădure
     ru = Смешанный лес
     sk = Zmiešaný les
@@ -17044,7 +16872,6 @@
     nl = Garages
     pl = Garaże
     pt = Garagens
-    pt-BR = Garagens
     ru = Гаражи
     sk = Garáže
     sr = Гаража
@@ -17110,7 +16937,6 @@
     mr = हरितक्षेत्र
     pl = Obszar pod zabudowę
     pt = Terreno com construção planeada
-    pt-BR = Terreno com construção planeada
     ru = Земля для застройки
     sr = Грађевинско земљиште
     tr = Yeşil Alan
@@ -17132,7 +16958,6 @@
     mr = हरितगृह
     nl = Kassen
     pt = Estufas
-    pt-BR = Estufas
     ru = Теплицы
     sk = Skleník
     sr = Стакленик
@@ -17158,7 +16983,6 @@
     nl = Industrieterrein
     pl = Obszar przemysłowy
     pt = Terreno industrial
-    pt-BR = Terreno industrial
     ru = Промзона
     sk = Priemyselná zóna
     sr = Индустријска зона
@@ -17177,7 +17001,6 @@
     de = Müllhalde
     el = Σκουπιδότοπος
     es = Vertedero
-    es-MX = Vertedero
     et = Prügila
     eu = Iraulketa
     fa = دفن گاه زباله
@@ -17225,7 +17048,6 @@
     nl = Weiland
     pl = Łąka
     pt = Pradaria
-    pt-BR = Pradaria
     ru = Луг
     sk = Lúka
     sr = Ливада
@@ -17251,7 +17073,6 @@
     nl = Militair terrein
     pl = Teren wojskowy
     pt = Área militar
-    pt-BR = Área militar
     ru = Военная зона
     sk = Vojenská oblasť
     sr = Војна област
@@ -17277,7 +17098,6 @@
     nl = Boomgaard
     pl = Sad
     pt = Pomar
-    pt-BR = Pomar
     ru = Сад
     sk = Sad
     sr = Воћњак
@@ -17303,7 +17123,6 @@
     nl = Steengroeve
     pl = Kamieniołom
     pt = Pedreira
-    pt-BR = Pedreira
     ru = Карьер
     sk = Lom
     sr = Каменолом
@@ -17339,7 +17158,6 @@
     nl = Spoorwegfaciliteiten
     pl = Obiekty kolejowe
     pt = Área ferroviária
-    pt-BR = Área ferroviária
     ro = Instalații feroviare
     ru = Железнодорожные сооружения
     sk = Priestory železnice
@@ -17370,7 +17188,6 @@
     nl = Recreatiezone
     pl = Teren rekreacyjny
     pt = Área de lazer
-    pt-BR = Área de lazer
     ru = База отдыха
     sk = Priestranstvo na rekreáciu
     sr = Простор за рекреацију
@@ -17404,7 +17221,6 @@
     nb = Vann
     pl = Woda
     pt = Água
-    pt-BR = Água
     ro = Apă
     ru = Водоём
     sk = Voda
@@ -17434,7 +17250,6 @@
     nl = Woonwijk
     pl = Tereny zamieszkania
     pt = Área residencial
-    pt-BR = Área residencial
     ru = Жилая зона
     sk = Obytná zóna
     sr = Стамбена зона
@@ -17486,7 +17301,6 @@
     nl = Zoutpoel
     pl = Słone jezioro
     pt = Salinas
-    pt-BR = Salinas
     ru = Соляной пруд
     sk = Salina
     sr = Слано језеро
@@ -17508,7 +17322,6 @@
     nl = Dorpspark
     pl = Nawsie
     pt = Espaço verde de um vilarejo
-    pt-BR = Espaço verde de um vilarejo
     ru = Парк
     sk = Zeleň
     sr = Зеленило
@@ -17533,7 +17346,6 @@
     nl = Wijngaard
     pl = Winnica
     pt = Vinha
-    pt-BR = Vinha
     ru = Виноградник
     sk = Vinohrad
     sr = Виноград
@@ -17557,7 +17369,6 @@
     nl = Ontspanning
     pl = Wypoczynek
     pt = Lazer
-    pt-BR = Lazer
     ru = Место для отдыха
     sk = Voľný čas
     sr = Слободно време
@@ -17578,7 +17389,6 @@
     mr = सार्वजनिक जमीन
     nl = Openbare grond
     pt = Terreno baldio
-    pt-BR = Terreno baldio
     ru = Общественная земля
     sr = Јавно земљиште
     tr = Kamu Alanı
@@ -17734,7 +17544,6 @@
     nl = Danszaal
     pl = Sala taneczna
     pt = Salão de dança
-    pt-BR = Salão de dança
     ro = Sala de dans
     ru = Танцпол
     sk = Tančiareň
@@ -17799,7 +17608,6 @@
     he = גן מגורים
     pl = Ogród przydomowy
     pt = Jardim residencial
-    pt-BR = Jardim residencial
     ru = Частный сад
     sr = Врт у дворишту
     tr = Konut Bahçesi
@@ -17832,7 +17640,6 @@
     nl = Golfbaan
     pl = Kurs golfowy
     pt = Campo de golfe
-    pt-BR = Campo de golfe
     ro = Teren de golf
     ru = Площадка для гольфа
     sk = Golfové ihrisko
@@ -17942,7 +17749,6 @@
     ja = マリーナ
     nl = Jachthaven
     pt = Marina
-    pt-BR = Marina
     ru = Причал
     sk = Marína
     sr = Марина
@@ -17978,7 +17784,6 @@
     nl = Natuurreservaat
     pl = Rezerwat przyrody
     pt = Reserva natural
-    pt-BR = Reserva natural
     ro = Rezervație naturală
     ru = Заповедник
     sk = Prírodná rezervácia
@@ -18043,7 +17848,6 @@
     de = Park
     el = Πάρκο
     es = Parque
-    es-MX = Parque
     et = Park
     eu = Parkea
     fa = پارک
@@ -18117,7 +17921,6 @@
     nl = Picknicktafel
     pl = Stół piknikowy
     pt = Mesa de piqueniques
-    pt-BR = Mesa de piqueniques
     ro = Masă de picnic
     ru = Стол для пикника
     sk = Piknikový stôl
@@ -18221,7 +18024,6 @@
     nl = Recreatieterrein
     pl = Teren rekreacji
     pt = Zona recreativa
-    pt-BR = Zona recreativa
     ru = Зона для отдыха
     tr = Rekreasyon Alanı
     uk = Зона для відпочинку
@@ -18238,7 +18040,6 @@
     de = Sauna
     el = Σάουνα
     es = Sauna
-    es-MX = Sauna
     et = Saun
     eu = Sauna
     fa = سونا
@@ -18255,7 +18056,6 @@
     nl = Sauna
     pl = Sauna
     pt = Sauna
-    pt-BR = Sauna
     ro = Saună
     ru = Сауна
     sk = Sauna
@@ -18284,7 +18084,6 @@
     nl = Scheepshelling
     pl = Pochylnia
     pt = Rampa de barcos
-    pt-BR = Rampa de barcos
     ru = Лодочный спуск
     sk = Lodný sklz
     sr = Навоз
@@ -18401,7 +18200,6 @@
     nl = Yogastudio
     pl = Studio jogi
     pt = Estúdio de ioga
-    pt-BR = Estúdio de ioga
     ro = Studio yoga
     ru = Йога-центр
     sk = Štúdio jogy
@@ -18440,7 +18238,6 @@
     nl = Stadion
     pl = Stadion
     pt = Estádio
-    pt-BR = Estádio
     ro = Stadion
     ru = Стадион
     sk = Štadión
@@ -18481,7 +18278,6 @@
     nl = Zwembad
     pl = Basen
     pt = Piscina
-    pt-BR = Piscina
     ro = Piscină
     ru = Плавательный бассейн
     sk = Kúpalisko
@@ -18519,7 +18315,6 @@
     mr = ट्रॅक
     nl = Parcours
     pt = Pista para desportos não motorizados
-    pt-BR = Pista para esportes não motorizados
     ru = Беговая дорожка
     sk = Pretekárska dráha
     sr = Тркачка стаза
@@ -18557,7 +18352,6 @@
     nl = Waterpark
     pl = Park wodny
     pt = Parque aquático
-    pt-BR = Parque aquático
     ro = Parc acvatic
     ru = Аквапарк
     sk = Vodný park
@@ -18602,7 +18396,6 @@
     mr = मानवनिर्मित
     nl = Kunstmatige constructies
     pt = Construção humana
-    pt-BR = Construção humana
     ru = Искусственное сооружение
     sk = Vytvorené človekom
     sr = Грађевинске структуре
