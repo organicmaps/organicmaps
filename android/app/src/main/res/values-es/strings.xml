@@ -187,7 +187,7 @@
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Lo sentimos, la configuración del almacenamiento de mapas está desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">La descarga del mapa está en curso ahora.</string>
+    <string name="downloading_is_active">La descarga del mapa está en curso.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">¡Mira mi ubicación actual en Organic Maps!. %1$s o %2$s ¿No tienes mapas offline? Descarga aquí: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
