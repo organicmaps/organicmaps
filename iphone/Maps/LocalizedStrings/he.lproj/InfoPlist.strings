@@ -8,10 +8,6 @@
 /* Used in home screen quick actions. */
 "route" = "נתיב";
 
-
-/********** gps strings **********/
-
-
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "גילוי המיקום הנוכחי ברקע נחוץ כדי ליהנות באופן מלא מהפונקציונליות של האפליקציה. הוא משמש לניווט ולשמירה על המסלול שנסעת לאחרונה.";
 
