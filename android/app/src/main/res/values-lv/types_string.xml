@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Types -->
+    <string name="type.amenity.motorcycle_rental">Motociklu noma</string>
+    <string name="type.amenity.charging_station.bicycle">Velosipēdu uzlāde</string>
+
+    <!-- SECTION: Types: Recycling -->
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Glābējs</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
+
+    <!-- SECTION: Types: Historic -->
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Krusts</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Gāzes deglis</string>
+    <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
+    <string name="type.place.quarter">Apkaime</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">Maza apkaime</string>
+    <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
+    <string name="type.place.suburb">Pilsētas apgabals</string>
+    <string name="type.shop.hearing_aids">Dzirdes aparātu veikals</string>
+    <string name="type.shop.pasta">Makaronu veikals</string>
+    <string name="type.attraction.amusement_ride">Atrakciju brauciens</string>
+    <string name="type.attraction.carousel">Karuselis</string>
+    <string name="type.attraction.historic">Vēsturiska atrakcija</string>
+    <string name="type.attraction.maze">Labirints</string>
+    <string name="type.attraction.roller_coaster">Amerikāņu kalniņi</string>
+    <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
+</resources>
