@@ -198,7 +198,7 @@
     <string name="tracks_title">Spor</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Længde</string>
-    <string name="share_my_location">Del min lokation</string>
+    <string name="share_my_location">Del min placering</string>
     <string name="prefs_group_route">Navigation</string>
     <string name="pref_zoom_title">Zoom-knapper</string>
     <string name="pref_zoom_summary">Vis på skærmen</string>
