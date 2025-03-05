@@ -898,10 +898,10 @@
 "type.power.tower" = "Poste eléctrico";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Poste Eléctrico";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Poste";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -932,8 +932,8 @@
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 "type.railway.platform" = "Plataforma de vía férrea";
 "type.railway.preserved" = "Preserved Rail";
-"type.railway.preserved.bridge" = "Preserved Rail Bridge";
-"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.preserved.bridge" = "Puente Ferroviario Conservado";
+"type.railway.preserved.tunnel" = "Túnel Ferroviario Conservado";
 "type.railway.rail" = "Ferrocarril";
 "type.railway.rail.highspeed" = "Ferrocarril de alta velocidad";
 "type.railway.rail.tourism" = "Ferrocarril turístico";
