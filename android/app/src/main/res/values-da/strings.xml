@@ -869,4 +869,18 @@
     <string name="mastodon">Mastodon</string>
     <string name="move_maps_error">Fejl ved flytning af kortfiler</string>
     <string name="disk_error">Kan ikke oprette mapper og flytte filer på enhedens interne hukommelse eller sd-kort</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="editor_line_social_network">LINJE</string>
+    <string name="github">GitHub</string>
+    <string name="prefs_group_general">Generelle indstillinger</string>
+    <string name="vk">VK</string>
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="menu">Menu</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagram">Instagram</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="change_map_locale">Sprog på kort</string>
+    <string name="prefs_group_information">Information</string>
 </resources>
