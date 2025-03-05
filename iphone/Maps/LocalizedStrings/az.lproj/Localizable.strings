@@ -1,7 +1,5 @@
 
-
 /********** Strings **********/
-
 
 /* Button text (should be short) */
 "cancel" = "Ləğv et";
@@ -11,6 +9,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Sil";
+
 "download_maps" = "Xəritəni yüklə";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -57,7 +56,9 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Sürətli, minimalist, icma tərəfindən hazırlanmışdır";
+
 "close" = "Yaxın";
+
 "download" = "Yüklə";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -92,7 +93,6 @@
 
 
 /********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Harada yemək";
@@ -209,8 +209,11 @@
 
 /* Length of track in cell that describes route */
 "length" = "Uzunluq";
+
 "share_my_location" = "Məkanımı Paylaşın";
+
 "prefs_group_route" = "Naviqasiya";
+
 "pref_zoom_title" = "Böyütmə düymələri";
 
 /* Settings «Map» category: «Appearance» title */
@@ -257,8 +260,11 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Digər";
+
 "pref_map_auto_zoom" = "Avtomatik böyütmə";
+
 "placepage_distance" = "Məsafə";
+
 "search_show_on_map" = "Xəritədə baxın";
 
 /* Text in menu */
@@ -293,8 +299,11 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Ən yaxşı xəritələri birlikdə qurmaq üçün ianə edin!";
+
 "already_donated" = "Artıq ianə edildi";
+
 "remind_me_later" = "Daha sonra xatırlat";
+
 "support_organic_maps" = "Organic Maps-i dəstəkləmək";
 
 /* Button in the main Help dialog */
@@ -335,12 +344,16 @@
 
 /* Country queued for download */
 "downloader_queued" = "Növbədə";
+
 "downloader_near_me_subtitle" = "Mənə yaxın";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Xəritələr";
+
 "downloader_download_all_button" = "Hamısını Yükləyin";
+
 "downloader_downloading" = "Endirilir:";
+
 "downloader_search_results" = "Tapıldı";
 
 /* Status of outdated country in the list */
@@ -372,7 +385,9 @@
 
 /* bookmark button text */
 "bookmark" = "əlfəcin";
+
 "save" = "Yadda saxla";
+
 "create" = "yaratmaq";
 
 /* red color */
@@ -427,37 +442,63 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Marşrutunuzu izləyərkən aşağıdakıları yadda saxlayın:";
+
 "dialog_routing_disclaimer_priority" = "— Yol şəraiti, yol hərəkəti qaydaları və yol nişanları həmişə naviqasiya məsləhətindən üstündür;";
+
 "dialog_routing_disclaimer_precision" = "— Xəritə dəqiq olmaya bilər və tövsiyə olunan marşrut təyinat yerinə çatmağın ən yaxşı yolu olmaya bilər;";
+
 "dialog_routing_disclaimer_recommendations" = "— Təklif olunan marşrutlar yalnız tövsiyə kimi hesab edilməlidir;";
+
 "dialog_routing_disclaimer_borders" = "— Sərhəd bölgələrində marşrutlarla diqqətli olun: tətbiqimiz yaradılan marşrutlar bəzən icazə verilməyən yerlərdə ölkə sərhədlərini keçə bilər.";
+
 "dialog_routing_disclaimer_beware" = "Xahiş edirəm, yolda diqqətli və təhlükəsiz olun!";
+
 "dialog_routing_check_gps" = "GPS siqnalını yoxlayın";
+
 "dialog_routing_error_location_not_found" = "Marşrut yaratmaq mümkün deyil. Cari GPS koordinatlarını müəyyən etmək mümkün olmadı.";
+
 "dialog_routing_location_turn_wifi" = "Zəhmət olmasa GPS siqnalınızı yoxlayın. Wi-Fi-ı aktivləşdirmək məkan dəqiqliyini artırır.";
+
 "dialog_routing_location_turn_on" = "Məkan xidmətlərini aktivləşdirin";
+
 "dialog_routing_location_unknown_turn_on" = "Cari GPS koordinatlarını müəyyən etmək mümkün deyil. Marşrutları hesablamaq üçün məkan xidmətlərini aktivləşdirin.";
+
 "dialog_routing_download_files" = "Lazımi faylları yükləyin";
+
 "dialog_routing_download_and_update_all" = "Marşrutu hesablamaq üçün proqnozlaşdırılan yol boyunca bütün xəritələri endirin və ya yeniləyin.";
+
 "dialog_routing_unable_locate_route" = "Marşrut müəyyənləşdirmək mümkün deyil";
+
 "dialog_routing_change_start_or_end" = "Zəhmət olmasa başlanğıc nöqtənizi və ya təyinat yerinizi müəyyənləşdirin.";
+
 "dialog_routing_change_start" = "Başlanğıc nöqtəsini təyin edin";
+
 "dialog_routing_start_not_determined" = "Marşrut yaratmaq mümkün olmadı. Başlanğıc nöqtəsini təyin etmək mümkün deyil.";
+
 "dialog_routing_select_closer_start" = "Zəhmət olmasa yola daha yaxın bir başlanğıc nöqtəsi seçin.";
+
 "dialog_routing_change_end" = "Hədəfinizi təyin edin";
+
 "dialog_routing_end_not_determined" = "Marşrut yaradılmadı. Təyinatı tapmaq mümkün deyil.";
+
 "dialog_routing_select_closer_end" = "Zəhmət olmasa yola yaxın bir təyinat yeri seçin.";
+
 "dialog_routing_change_intermediate" = "Aralıq nöqtəni tapmaq mümkün deyil.";
+
 "dialog_routing_intermediate_not_determined" = "Zəhmət olmasa aralıq nöqtənizi təyin edin.";
+
 "dialog_routing_system_error" = "Sistem xətası";
+
 "dialog_routing_application_error" = "Tətbiq xətası səbəbindən marşrut yaratmaq mümkün olmadı.";
+
 "dialog_routing_try_again" = "Zəhmət olmasa bir daha cəhd edin";
+
 "dialog_routing_download_and_build_cross_route" = "Xəritəni endirmək və çoxsaylı xəritələr arasında daha rahat marşrut yaratmaq istərdinizmi?";
+
 "dialog_routing_download_cross_route" = "Bu xəritənin sərhədlərini keçən daha rahat marşrut yaratmaq üçün xəritəni endirin.";
 
 
 /********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Göstər";
@@ -473,14 +514,20 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marşrut hesablamaq üçün proqnozlaşdırılan yol boyunca bütün xəritəni endirin və yeniləyin.";
+
 "categories" = "Kateqoriyalar";
+
 "history" = "Keçmiş";
+
 "search_not_found" = "Üzr istəyirik, heç bir nəticə tapılmadı.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Axtardığınız bölgəni endirin və ya yaxınlıqdakı şəhər/kənd adını əlavə etməyə cəhd edin.";
+
 "search_history_title" = "Axtarış tarixçəsi";
+
 "search_history_text" = "Son axtarışlara baxın.";
+
 "clear_search" = "Axtarış Tarixçəsini silin";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -488,29 +535,50 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Məkanınız";
+
 "p2p_start" = "Başla";
+
 "p2p_from_here" = "Başlanğıc";
+
 "p2p_to_here" = "Son dayanacaq";
+
 "p2p_only_from_current" = "Naviqasiya yalnız cari yerinizdən mümkündür.";
+
 "p2p_reroute_from_current" = "Hazırkı yerinizdən marşrut planlaşdırmağımızı istərdinizmi?";
+
 "editor_time_add" = "Plan əlavə edin";
+
 "editor_time_delete" = "Cədvəli silin";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Bütün gün (24 saat)";
+
 "editor_time_open" = "Açıq";
+
 "editor_time_close" = "Bağlı";
+
 "editor_time_add_closed" = "Qeyri-iş saatları əlavə edin";
+
 "editor_time_title" = "İş saatları";
+
 "editor_time_advanced" = "Qabaqcıl rejim";
+
 "editor_time_simple" = "Sadə rejim";
+
 "editor_hours_closed" = "Qeyri-iş saatları";
+
 "editor_example_values" = "Nümunə Dəyərləri";
+
 "editor_add_select_location" = "Yer seçin";
+
 "editor_done_dialog_1" = "Siz dünya xəritəsini dəyişdiniz. Gizlətməyin! Dostlarınıza deyin və birlikdə redaktə edin.";
+
 "share_with_friends" = "Dostlarınızla paylaşın";
+
 "editor_report_problem_send_button" = "Göndər";
+
 "autodownload" = "Avtomatik yükləmə";
 
 /* Place Page opening hours text */
@@ -518,93 +586,154 @@
 
 /* Place Page opening hours text */
 "daily" = "Hər gün";
+
 "twentyfour_seven" = "7/24";
+
 "day_off_today" = "Bu gün bağlıdır";
+
 "day_off" = "Bağlı";
+
 "today" = "Bu gün";
+
 "opens_tomorrow_at" = "Sabah açılır %@";
+
 "opens_dayoftheweek_at" = "%1$@ %2$@ açılır";
+
 "opens_at" = "Açılır %@";
+
 "opens_in" = "%@ sonra açılır";
+
 "closes_at" = "Bağlanır %@";
+
 "closes_in" = "%@ sonra bağlanır";
+
 "closed" = "Bağlı";
+
 "add_opening_hours" = "Açılış saatlarını əlavə edin";
+
 "no_osm_account" = "OpenStreetMap hesabınız yoxdur?";
+
 "register_at_openstreetmap" = "OpenStreetMap üçün qeydiyyatdan keçin";
+
 "password_8_chars_min" = "Parol (ən azı 8 simvol)";
+
 "invalid_username_or_password" = "Yanlış istifadəçi adı və ya şifrə.";
+
 "login" = "Daxil ol";
+
 "login_osm" = "OpenStreetMap-a daxil olun";
+
 "forgot_password" = "Parolu unutmusunuz?";
+
 "osm_account" = "OSM Hesabı";
+
 "logout" = "Çıxış";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Son yükləmə";
+
 "thank_you" = "Təşəkkür edirik";
+
 "edit_place" = "Məkanı Redaktə edin";
+
 "place_name" = "Yerin Adı";
+
 "add_language" = "Dil əlavə edin";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Bina nömrəsi";
+
 "details" = "Təfərrüatlar";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Küçə əlavə edin";
+
 "choose_language" = "Dil seçin";
+
 "choose_street" = "Küçə seçin";
+
 "postal_code" = "Poçt kodu";
+
 "cuisine" = "Mətbəx";
+
 "select_cuisine" = "Mətbəx seçin";
 
 /* login text field */
 "email_or_username" = "E-poçt və ya istifadəçi adı";
+
 "phone" = "Telefon";
+
 "level" = "Mərtəbə";
+
 "please_note" = "Diqqət edin";
+
 "downloader_delete_map_dialog" = "Bütün xəritə dəyişiklikləri xəritə ilə birlikdə silinəcək.";
+
 "downloader_update_maps" = "Xəritələri yeniləyin";
+
 "downloader_search_field_hint" = "Xəritəni tapın";
+
 "migration_download_error_dialog" = "Yükləmə xətası";
+
 "common_check_internet_connection_dialog" = "Zəhmət olmasa cihazınızın internetə qoşulduğundan əmin olun.";
+
 "downloader_no_space_title" = "Kifayət qədər yer yoxdur";
+
 "downloader_no_space_message" = "Zəhmət olmasa lazımsız məlumatları silin";
+
 "editor_profile_changes" = "Təsdiqlənmiş Dəyişikliklər";
+
 "editor_focus_map_on_location" = "Xaç işarəsini yer və ya biznesin yerinə qoymaq üçün xəritəni dartın.";
+
 "editor_add_select_category" = "Kateqoriya seçin";
+
 "editor_add_select_category_popular_subtitle" = "Məşhur";
+
 "editor_add_select_category_all_subtitle" = "Bütün kateqoriyalar";
+
 "editor_edit_place_title" = "Redaktə";
+
 "editor_add_place_title" = "Əlavə";
+
 "editor_edit_place_name_hint" = "Yerin adı";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Yerli dildə yazıldığı kimi";
+
 "editor_edit_place_category_title" = "Kateqoriya";
+
 "whatsnew_editor_message_1" = "Xəritəyə yeni yerlər əlavə edin və mövcud yerləri birbaşa tətbiqdən redaktə edin.";
+
 "dialog_incorrect_feature_position" = "Ünvanı dəyişdirin";
+
 "message_invalid_feature_position" = "Burada obyekti yerləşdirmək mümkün deyil";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "%@ tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin";
+
 "login_to_make_edits_visible" = "OpenStreetMap hesabı yaradın və ya xəritə redaktələrinizi dünyada dərc etmək üçün daxil olun.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Endirmək üçün daha çox yerə ehtiyacınız var. Zəhmət olmasa önəmli olmayan məlumatları silin.";
+
 "editor_sharing_title" = "Organic Maps xəritələrini təkmilləşdirdim";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
+
 "download_over_mobile_header" = "Mobil şəbəkə vasitəsilə endirilsin?";
+
 "download_over_mobile_message" = "Bəzi planlarda və ya rouminqlə bu olduqca bahalı hesab oluna bilərr.";
+
 "error_enter_correct_house_number" = "Etibarlı bina nömrəsini daxil edin";
+
 "editor_storey_number" = "Mərtəbə sayı (maks. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "Mərtəbələrin sayı %d-dən çox olmamalıdır";
+
 "editor_zip_code" = "Poçt kodu";
+
 "error_enter_correct_zip_code" = "Etibarlı poçt kodu daxil edin";
 
 /* Place Page title for long tap */
@@ -612,29 +741,47 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)";
+
 "editor_detailed_description_hint" = "Ətraflı şərh";
+
 "editor_detailed_description" = "Təklif etdiyiniz dəyişikliklər OpenStreetMap icmasına yerləşdiriləcək. Zəhmət olmasa Organic Maps'da redaktə edilə bilməyən əlavə detalları izah edin.";
+
 "editor_more_about_osm" = "OpenStreetMap haqqında əlavə məlumat";
+
 "editor_operator" = "Operator";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operator: %@";
+
 "editor_category_unsuitable_title" = "Uyğun kateqoriya tapa bilmirsiniz?";
+
 "editor_category_unsuitable_text" = "Üzvi Xəritələr yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, bu o deməkdir ki, şəhərlər, yollar, göllər, bina konturları və s. yoxdur. Lütfən, belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimatlar üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdçimizi</a> yoxlayın.";
+
 "downloader_no_downloaded_maps_title" = "Siz heç bir xəritə endirməmisiniz";
+
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
+
 "current_location_unknown_error_title" = "Cari yer məlum deyil.";
+
 "current_location_unknown_error_message" = "Məkanınızı axtararkən xəta baş verdi. Cihazınızın düzgün işlədiyini yoxlayın və sonra yenidən cəhd edin.";
+
 "location_services_disabled_header" = "Məkan xidmətləri deaktiv edilib";
+
 "location_services_disabled_message" = "Cihaz parametrlərində geolokasiyaya girişi aktiv edin";
+
 "location_services_disabled_1" = "1. Parametrləri açın";
+
 "location_services_disabled_2" = "2. Məkan üzərinə toxunun";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. \"Tətbiqdən istifadə edərkən\" seçin";
+
 "location_services_disabled_on_device_2" = "2. Məxfilik seçin";
+
 "location_services_disabled_on_device_3" = "3. Məkan Xidmətləri seçin";
+
 "location_services_disabled_on_device_4" = "4. Məkan Xidmətlərini yandırın";
+
 "location_services_disabled_on_device_additional_message" = "Və ya Məkan olmadan Üzvi Xəritələrdən istifadə etməyə davam edin";
 
 /* abbreviation for meters */
@@ -651,11 +798,17 @@
 
 /* A unit of measure */
 "ft" = "Addım";
+
 "miles_per_hour" = "mil/saat";
+
 "hour" = "saat";
+
 "minute" = "dəq";
+
 "day" = "gün";
+
 "placepage_more_button" = "Digər";
+
 "book_button" = "Rezervasyon";
 
 /* A referral link on the place page for some hotels */
@@ -666,25 +819,42 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Xizək sürmə haqqında təfərrüatlar";
+
 "placepage_call_button" = "Zəng";
+
 "placepage_edit_bookmark_button" = "Əlfəcini redaktə edin";
+
 "placepage_bookmark_name_hint" = "Əlfəcin Adı";
+
 "placepage_personal_notes_hint" = "Şəxsi qeydlər (mətn və ya html)";
+
 "placepage_delete_bookmark_button" = "Əlfəcini silin";
+
 "editor_edits_sent_message" = "Təklif etdiyiniz dəyişikliklər təqdim edildi";
+
 "editor_comment_hint" = "Şərh…";
+
 "editor_reset_edits_message" = "Bütün yerli dəyişikliklər ləğv edilsin?";
+
 "editor_reset_edits_button" = "İmtina";
+
 "editor_remove_place_message" = "Əlavə edilmiş məkan silinsin?";
+
 "editor_remove_place_button" = "Sil";
+
 "editor_place_doesnt_exist" = "Bu yer mövcud deyil";
+
 "text_more_button" = "…daha çox";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Etibarlı telefon nömrəsi daxil edin";
+
 "error_enter_correct_web" = "Etibarlı veb ünvanı daxil edin";
+
 "error_enter_correct_email" = "Etibarlı e-poçt ünvanını daxil edin";
+
 "refresh" = "Yenilə";
+
 "placepage_add_place_button" = "OpenStreetMap-a Yer əlavə edin";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -692,16 +862,21 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Heç bir şəxsi məlumat daxil etmədiyinizə əmin olun.";
+
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap redaktorları dəyişikliklərinizi yoxlayacaq və hər hansı sualınız olarsa, sizinlə əlaqə saxlayacaq.";
+
 "navigation_stop_button" = "Dayan";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Son səyahət etdiyiniz marşrutun qeydə alınması deaktiv edilsin?";
+
 "off_recent_track_background_button" = "Deaktiv edin";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Yoxla";
+
 "recent_track_background_dialog_message" = "Organic Maps son səyahət etdiyiniz marşrutu qeyd etmək üçün arxa fonda geolokasiyadan istifadə edir.";
+
 "general_settings" = "Ümumi Parametrlər";
 
 /* For the first routing */
@@ -709,17 +884,26 @@
 
 /* For the first routing */
 "decline" = "Rədd et";
+
 "mobile_data_dialog" = "Ətraflı məlumatı görmək üçün mobil internetdən istifadə etmək istəyirsiniz?";
+
 "mobile_data_option_always" = "İstənilən vaxt istifadə edin";
+
 "mobile_data_option_today" = "Sadəcə bu gün";
+
 "mobile_data_option_not_today" = "Bu gün istifadə etməyin";
+
 "mobile_data" = "Mobil Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Xəritə yeniləmə bildirişləri və redaktələrin yüklənməsi üçün mobil internet tələb olunur.";
+
 "mobile_data_option_never" = "Heç vaxt istifadə etməyin";
+
 "mobile_data_option_ask" = "Həmişə Soruşun";
+
 "traffic_update_maps_text" = "Nəqliyyat məlumatlarını göstərmək üçün xəritələr yenilənməlidir.";
+
 "big_font" = "Xəritədə şrift ölçüsünü artırın";
 
 /* "traffic" as in road congestion */
@@ -727,8 +911,11 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Nəqliyyat məlumatları mövcud deyil";
+
 "enable_logging" = "Girişi aktivləşdirin";
+
 "log_file_size" = "Giriş faylının ölçüsü: %@";
+
 "transliteration_title" = "Latın transliterasiyası";
 
 /* Subway exits for public transport marks on the map */
@@ -739,11 +926,17 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Təyinat nöqtəsi əlavə etmək üçün axtarışdan istifadə edin və ya xəritədə klikləyin";
+
 "planning_route_manage_route" = "Marşrutu idarə et";
+
 "button_plan" = "Plan";
+
 "placepage_remove_stop" = "Kəsmə nöqtəsini silin";
+
 "planning_route_remove_title" = "Silmək üçün bura çəkin";
+
 "placepage_add_stop" = "Dayanacaq nöqtəsini əlavə edin";
+
 "start_from_my_position" = "Buradan başlayın";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -751,47 +944,83 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "burada";
+
 "core_entrance" = "Giriş";
+
 "error_enter_correct_name" = "Düzgün ad daxil edin";
+
 "bookmark_lists" = "Siyahılar";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Hamısını gizlət";
+
 "bookmark_lists_show_all" = "Hamısını göstər";
+
 "bookmarks_create_new_group" = "Yeni siyahı yaradın";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Əlfəcinləri və fraqmentləri idxal edin";
+
 "downloader_hide_screen" = "Ekranı Gizlət";
+
 "downloader_percent" = "%@ (%@ / %@)";
+
 "downloader_process" = "%@ endirilir…";
+
 "downloader_applying" = "%@ həyata keçirilir…";
+
 "bookmarks_error_message_share_general" = "Tətbiq xətası səbəbindən paylaşmaq mümkün deyil";
+
 "bookmarks_error_title_share_empty" = "Paylaşım xətası";
+
 "bookmarks_error_message_share_empty" = "Boş siyahı paylaşıla bilməz";
+
 "bookmarks_error_message_empty_list_name" = "Siyahı adını daxil edin";
+
 "bookmarks_error_title_list_name_already_taken" = "Bu ad artıq götürülüb";
+
 "bookmarks_error_title_list_name_too_long" = "Bu ad çox uzundur";
+
 "profile" = "OpenStreetMap profili";
+
 "bookmarks_detect_title" = "Yeni fayllar aşkar edildi";
+
 "button_convert" = "Çevir";
+
 "bookmarks_convert_error_title" = "Səhv";
+
 "bookmarks_convert_error_message" = "Bəzi fayllar çevrilmədi.";
+
 "restore" = "Bərpa";
+
 "privacy_policy" = "Gizlilik Siyasəti";
+
 "terms_of_use" = "İstifadə qaydaları";
+
 "button_layer_subway" = "Metro";
+
 "layers_title" = "Xəritə Üslubları və Qatları";
+
 "subway_data_unavailable" = "Metro xəritəsi mövcud deyil";
+
 "title_error_downloading_bookmarks" = "Xəta baş verdi";
+
 "popular_place" = "Məşhur";
+
 "export_file" = "KMZ ixrac edin";
+
 "export_file_gpx" = "GPX ixrac edin";
+
 "delete_list" = "Siyahını silin";
+
 "hide_from_map" = "Xəritədən gizlədin";
+
 "tags_loading_error_subtitle" = "Etiketləri yükləyərkən xəta baş verdi, zəhmət olmasa yenidən cəhd edin";
+
 "download_button" = "Yüklə";
+
 "speedcams_alert_title" = "Sürət kameraları";
+
 "place_description_title" = "Məkan Təsviri";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -802,12 +1031,19 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Heç xəbərdar etməyin";
+
 "power_managment_title" = "Enerji qənaət rejimi";
+
 "power_managment_description" = "Bəzi funksionallıq hesabına enerji istehlakını azaltmağa çalışın.";
+
 "power_managment_setting_never" = "Heç vaxt";
+
 "power_managment_setting_auto" = "Avtomatik";
+
 "power_managment_setting_manual_max" = "Maksimum enerji qənaəti";
+
 "enable_logging_warning_message" = "Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər";
+
 "driving_options_title" = "Marşrutlaşdırma seçimləri";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -818,19 +1054,33 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Bərə keçidlərindən çəkinin";
+
 "avoid_motorways" = "Magistral yoldan çəkinin";
+
 "unable_to_calc_alert_title" = "Marşrutu hesablamaq mümkün deyil";
+
 "unable_to_calc_alert_subtitle" = "Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin";
+
 "define_to_avoid_btn" = "Qarşısını almaq üçün yolları müəyyənləşdirin";
+
 "change_driving_options_btn" = "Sürmə seçimləri aktiv edildi";
+
 "toll_road" = "Ücrətli yol";
+
 "unpaved_road" = "Asfaltsız yol";
+
 "ferry_crossing" = "Bərə keçidi";
+
 "trip_start" = "Gedək";
+
 "pick_destination" = "Hədəf";
+
 "follow_my_position" = "Yenidən mərkəzləşdirin";
+
 "search_results" = "Axtarış nəticələri";
+
 "then_turn" = "Daha sonra";
+
 "redirect_route_alert" = "Marşrutu yenidən yaratmaq istərdinizmi?";
 
 /* A generic "Yes" button in dialogs */
@@ -850,22 +1100,39 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Şəbəkə: %@";
+
 "trip_finished" = "Sən gəldin!";
+
 "keyboard_availability_alert" = "Sürücülük zamanı klaviatura istifadə edilə bilməz";
+
 "dialog_routing_change_start_carplay" = "Cari məkanınızdan marşrut yaratmaq mümkün deyil";
+
 "dialog_routing_change_end_carplay" = "Təyinat yerinə marşrut yaratmaq mümkün deyil. Zəhmət olmasa başqa nöqtə seçin";
+
 "dialog_routing_check_gps_carplay" = "GPS siqnalı yoxdur. Zəhmət olmasa açıq sahəyə keçin";
+
 "dialog_routing_unable_locate_route_carplay" = "Marşrut yaratmaq mümkün deyil. Zəhmət olmasa başqa marşrut nöqtəsini göstərin";
+
 "dialog_routing_download_files_carplay" = "Marşrutlar yaratmaq üçün əksik xəritələri cihazınıza endirin";
+
 "dialog_routing_system_error_carplay" = "Xəta baş verdi. Zəhmət olmasa tətbiqi yenidən başladın";
+
 "dialog_routing_rebuild_from_current_location_carplay" = "Marşrut cari yerinizdən yenidən yaradılacaq";
+
 "dialog_routing_rebuild_for_vehicle_carplay" = "Marşrut sürücülük marşrutuna çevriləcək";
+
 "not_all_shown_bookmarks_carplay" = "Bütün əlfəcinlər göstərilmir";
+
 "switch_to_phone_bookmarks_carplay" = "Bütün əlfəcinləri görmək üçün telefona keçin";
+
 "ok" = "Yaxşı";
+
 "speedcams_alert_title_carplay_1" = "Sürət kameraları";
+
 "speedcams_alert_title_carplay_2" = "Sürət xəbərdarlıqları";
+
 "download_map_carplay" = "Organic Maps tətbiqindən xəritələri cihazınıza endirin";
+
 "carplay_roundabout_exit" = "%@ çıxın";
 
 /* max. 10 symbols, both iOS and Android */
@@ -873,52 +1140,94 @@
 
 /* iOS */
 "sort_default" = "Defolt olaraq çeşidləyin";
+
 "sort_type" = "Növə görə çeşidləyin";
+
 "sort_distance" = "Məsafəyə görə çeşidləyin";
+
 "sort_date" = "Tarixə görə çeşidləyin";
+
 "sort_name" = "Ada görə çeşidləyin";
+
 "week_ago_sorttype" = "Bir həftə əvvəl";
+
 "month_ago_sorttype" = "Bir ay əvvəl";
+
 "moremonth_ago_sorttype" = "Bir aydan çox əvvəl";
+
 "moreyear_ago_sorttype" = "Bir ildən çox əvvəl";
+
 "near_me_sorttype" = "Mənə yaxın";
+
 "others_sorttype" = "Digərləri";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "Qida";
+
 "tourist_places" = "Görməli yerlər";
+
 "museums" = "Muzeylər";
+
 "parks" = "Parklar";
+
 "swim_places" = "Üzgüçülük";
+
 "mountains" = "Dağlar";
+
 "animals" = "Heyvanlar";
+
 "hotels" = "Otellər";
+
 "buildings" = "Binalar";
+
 "money" = "Pul";
+
 "shops" = "Ticarət mərkəzləri";
+
 "parkings" = "Dayanacaqlar";
+
 "fuel_places" = "Yanacaqdoldurma məntəqələri";
+
 "medicine" = "Dərman";
+
 "search_in_the_list" = "Siyahıda axtarın";
+
 "religious_places" = "Dini yerlər";
+
 "transit_not_found" = "Metro naviqasiyası bu ərazidə hələ mövcud deyil";
+
 "dialog_pedestrian_route_is_long_header" = "Metro marşrutu tapılmadı";
+
 "dialog_pedestrian_route_is_long_message" = "Metro stansiyasına ən yaxın marşrutun başlanğıc və ya bitmə nöqtəsini seçin";
+
 "button_layer_isolines" = "Ərazi";
+
 "isolines_activation_error_dialog" = "Ərazi qatını aktivləşdirmək və istifadə etmək üçün xəritəni yeniləyin və ya endirin";
+
 "isolines_location_error_dialog" = "Bu bölgədə relyef təbəqəsi hələ mövcud deyil";
+
 "elevation_profile_diff_level" = "Çətinlik səviyyəsi";
+
 "elevation_profile_diff_level_easy" = "Asan";
+
 "elevation_profile_diff_level_moderate" = "Orta";
+
 "elevation_profile_diff_level_hard" = "Çətin";
+
 "elevation_profile_ascent" = "Qalxmaq";
+
 "elevation_profile_descent" = "Eniş";
+
 "elevation_profile_min_elevation" = "Min. hündürlük";
+
 "elevation_profile_max_elevation" = "Maks. hündürlük";
+
 "isolines_toast_zooms_1_10" = "İzohipləri görmək üçün xəritəni böyüdün";
+
 "downloader_updating_ios" = "Yenilənir";
+
 "downloader_loading_ios" = "Endirilir";
 
 /* Autoupdate dialog on start */
@@ -1013,6 +1322,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Xəritə";
+
 "drive_through" = "Sürüşmə";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1092,4 +1402,5 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Marşrut boşdur - saxlamaq üçün heç nə yoxdur";
+
 "edit_track" = "Marşrutu redaktə edin";
