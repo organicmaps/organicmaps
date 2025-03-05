@@ -33,7 +33,7 @@
 "type.amenity.bus_station" = "Аутобуска станица";
 "type.amenity.cafe" = "Кафе";
 "type.amenity.car_rental" = "Рентакар";
-"type.amenity.motorcycle_rental" = "Motorcycle Rental";
+"type.amenity.motorcycle_rental" = "Изнајмљивање мотоцикала";
 "type.amenity.car_sharing" = "Дељење аутомобила";
 "type.amenity.car_wash" = "Ауто-перионица";
 "type.amenity.casino" = "Казино";
@@ -310,7 +310,7 @@
 "type.cuisine.greek" = "Грчка";
 "type.cuisine.grill" = "Грил";
 "type.cuisine.heuriger" = "Винска таверна";
-"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hotdog" = "Хот дог";
 "type.cuisine.hungarian" = "Мађарска";
 "type.cuisine.ice_cream" = "Сладолед";
 "type.cuisine.indian" = "Индијска";
@@ -724,7 +724,7 @@
 "type.leisure.garden.residential" = "Врт у дворишту";
 "type.leisure.golf_course" = "Терен за голф";
 "type.leisure.miniature_golf" = "Мини-голф";
-"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.hackerspace" = "Хакерски простор";
 "type.leisure.ice_rink" = "Клизалиште";
 "type.leisure.marina" = "Марина";
 "type.leisure.nature_reserve" = "Природни резерват";
@@ -736,7 +736,7 @@
 "type.leisure.picnic_table" = "Сто за пикник";
 "type.leisure.pitch" = "Спортски терен";
 "type.leisure.playground" = "Игралиште";
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Рекреациони простор";
 "type.leisure.sauna" = "Сауна";
 "type.leisure.slipway" = "Навоз";
 "type.leisure.sports_centre" = "Спортски центар";
@@ -751,7 +751,7 @@
 "type.leisure.beach_resort" = "Ресорт на плажи";
 "type.man_made" = "Грађевинске структуре";
 "type.man_made.breakwater" = "Лукобран";
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Каменолом";
 "type.man_made.chimney" = "Димњак";
 "type.man_made.cutline" = "Шумски пут";
 "type.man_made.survey_point" = "Геодетска тачка";
@@ -876,7 +876,7 @@
 "type.place.quarter" = "Насеље";
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
-"type.place.neighbourhood" = "Neighbourhood";
+"type.place.neighbourhood" = "Кварт";
 "type.place.ocean" = "Океан";
 "type.place.region" = "Регион";
 "type.place.sea" = "Море";
@@ -896,7 +896,7 @@
 "type.power.generator.hydro" = "Хидроелектрана";
 "type.power.line" = "Далековод";
 "type.power.line.underground" = "Подземни далековод";
-"type.power.minor_line" = "Minor Power Line";
+"type.power.minor_line" = "Мања далеководна линија";
 "type.power.plant" = "Електрана";
 "type.power.plant.coal" = "Термоелектрана";
 "type.power.plant.gas" = "Гасно-турбинска електрана";
@@ -910,7 +910,7 @@
 "type.power.tower" = "Далековод";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Далековод";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
 "type.man_made.utility_pole" = "Utility Pole";
