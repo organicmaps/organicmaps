@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Över ett år sedan";
 "near_me_sorttype" = "Nära mig";
 "others_sorttype" = "Andra";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mat";
 "tourist_places" = "Sevärdheter";
 "museums" = "Museer";

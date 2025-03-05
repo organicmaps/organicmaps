@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "1年以上前";
 "near_me_sorttype" = "近隣";
 "others_sorttype" = "その他";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "食べ物";
 "tourist_places" = "観光地";
 "museums" = "博物館";

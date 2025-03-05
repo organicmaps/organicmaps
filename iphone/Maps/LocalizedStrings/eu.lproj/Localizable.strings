@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Duela urtebete baino gehiago";
 "near_me_sorttype" = "Nigandik gertu";
 "others_sorttype" = "Beste batzuk";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Janariak";
 "tourist_places" = "Toki interesgarriak";
 "museums" = "Museoak";

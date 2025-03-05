@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Cu mai mult de un an în urmă";
 "near_me_sorttype" = "Lângă mine";
 "others_sorttype" = "Altele";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Mâncare";
 "tourist_places" = "Obiective turistice";
 "museums" = "Muzee";

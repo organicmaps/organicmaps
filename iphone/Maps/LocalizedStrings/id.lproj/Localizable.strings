@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
 "near_me_sorttype" = "Dekat dengan saya";
 "others_sorttype" = "Lainnya";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Makanan";
 "tourist_places" = "Tempat Rekreasi";
 "museums" = "Museum";

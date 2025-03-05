@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "1년 그 이상 전";
 "near_me_sorttype" = "나와 가까운 곳";
 "others_sorttype" = "기타";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "음식";
 "tourist_places" = "명소";
 "museums" = "박물관";

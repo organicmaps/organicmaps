@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Больш за год таму";
 "near_me_sorttype" = "Каля мяне";
 "others_sorttype" = "Іншыя";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ежа";
 "tourist_places" = "Славутасці";
 "museums" = "Музеі";

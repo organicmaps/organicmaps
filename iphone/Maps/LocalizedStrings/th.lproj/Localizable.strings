@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "มากกว่าหนึ่งปีที่ผ่านมา";
 "near_me_sorttype" = "ใกล้ฉัน";
 "others_sorttype" = "อื่นๆ";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "อาหาร";
 "tourist_places" = "ที่ท่องเที่ยว";
 "museums" = "พิพิธภัณฑ์";

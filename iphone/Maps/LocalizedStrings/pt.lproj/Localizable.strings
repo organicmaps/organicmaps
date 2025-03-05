@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Mais de um ano atrás";
 "near_me_sorttype" = "Perto de mim";
 "others_sorttype" = "Outros";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Comida";
 "tourist_places" = "Atrações turísticas";
 "museums" = "Museus";
