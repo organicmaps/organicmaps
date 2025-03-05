@@ -86,10 +86,6 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "יחידות מדידה";
 
-
-/********** Search categories **********/
-
-
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "איפה לאכול";
 
