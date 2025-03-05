@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "您是否要下载地图，以规划跨越边界的更佳路线？";
 "dialog_routing_download_cross_route" = "下载地图，以规划一条跨越边界的更佳路线。";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "显示";
 
