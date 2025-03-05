@@ -777,10 +777,10 @@
 "type.highway.footway.area" = "Camino";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Puente";
+"type.highway.footway.bridge" = "Puente peatonal";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Túnel";
+"type.highway.footway.tunnel" = "Túnel peatonal";
 
 "type.highway.ford" = "Vado";
 
@@ -795,10 +795,10 @@
 "type.highway.motorway" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Puente";
+"type.highway.motorway.bridge" = "Puente de autopista";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Túnel";
+"type.highway.motorway.tunnel" = "Túnel de autopista";
 
 "type.highway.motorway_junction" = "Salida";
 
@@ -835,10 +835,10 @@
 "type.highway.pedestrian.area" = "Calle peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Puente";
+"type.highway.pedestrian.bridge" = "Puente peatonal";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Túnel";
+"type.highway.pedestrian.tunnel" = "Túnel peatonal";
 
 "type.highway.primary" = "Carretera principal";
 
@@ -846,7 +846,7 @@
 "type.highway.primary.bridge" = "Puente";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.primary.tunnel" = "Túnel";
+"type.highway.primary.tunnel" = "Túnel de carretera principal";
 
 "type.highway.primary_link" = "Carretera principal";
 
@@ -866,7 +866,7 @@
 "type.highway.residential.bridge" = "Puente";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.residential.tunnel" = "Túnel";
+"type.highway.residential.tunnel" = "Túnel de calle residencial";
 
 "type.highway.rest_area" = "Área de descanso";
 

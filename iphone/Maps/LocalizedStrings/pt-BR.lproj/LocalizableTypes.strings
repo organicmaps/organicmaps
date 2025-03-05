@@ -358,7 +358,7 @@
 
 "type.amenity.veterinary" = "Veterinário";
 
-"type.amenity.waste_basket" = "Cesto de lixo";
+"type.amenity.waste_basket" = "Caixote do lixo";
 
 "type.amenity.waste_disposal" = "Depósito de lixo";
 
@@ -374,7 +374,7 @@
 
 "type.barrier.bollard" = "Pilarete";
 
-"type.barrier.border_control" = "Controle de fronteira";
+"type.barrier.border_control" = "Controlo de fronteira";
 
 "type.barrier.chain" = "Chain";
 
@@ -603,7 +603,7 @@
 
 "type.cuisine.italian" = "Cozinha italiana";
 
-"type.cuisine.italian_pizza" = "Italiana, pizza";
+"type.cuisine.italian_pizza" = "Italiana, piza";
 
 "type.cuisine.japanese" = "Cozinha japonesa";
 
@@ -663,7 +663,7 @@
 
 "type.cuisine.spanish" = "Cozinha espanhola";
 
-"type.cuisine.steak_house" = "Churrascaria";
+"type.cuisine.steak_house" = "Churrasqueira";
 
 "type.cuisine.sushi" = "Sushi";
 
@@ -813,10 +813,10 @@
 "type.highway.path" = "Caminho";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Trilha difícil ou pouco visível";
+"type.highway.path.difficult" = "Caminho";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Trilha muito difícil ou indistinguível";
+"type.highway.path.expert" = "Caminho";
 
 "type.highway.path.bicycle" = "Caminho para ciclistas";
 
@@ -906,7 +906,7 @@
 
 "type.highway.service.driveway" = "Via de acesso";
 
-"type.highway.service.parking_aisle" = "Estrada de estacionamento";
+"type.highway.service.parking_aisle" = "Estrada de acesso ou serviço";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel rodoviário";
@@ -1005,7 +1005,7 @@
 
 "type.area_highway.steps" = "Travessia";
 
-"type.area_highway.track" = "Pista para desportos não motorizados";
+"type.area_highway.track" = "Estrada rústica";
 
 "type.area_highway.trunk" = "Via expressa";
 
@@ -1066,7 +1066,7 @@
 
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.cross" = "Cruz de memorial";
+"type.historic.memorial.cross" = "Cruz memorial";
 
 "type.historic.memorial.plaque" = "Placa comemorativa";
 
@@ -1136,9 +1136,9 @@
 
 "type.junction" = "Cruzamento";
 
-"type.junction.circular" = "Rotatória";
+"type.junction.circular" = "Rotunda";
 
-"type.junction.roundabout" = "Rotatória";
+"type.junction.roundabout" = "Rotunda";
 
 "type.landuse" = "Uso do solo";
 
@@ -1228,7 +1228,7 @@
 
 "type.leisure.garden" = "Jardim";
 
-"type.leisure.garden.residential" = "Jardim residencial";
+"type.leisure.garden.residential" = "Jardim";
 
 "type.leisure.golf_course" = "Campo de golfe";
 
@@ -1276,9 +1276,9 @@
 
 "type.leisure.swimming_pool.private" = "Piscina";
 
-"type.leisure.track" = "Pista para esportes não motorizados";
+"type.leisure.track" = "Pista para desportos não motorizados";
 
-"type.leisure.track.area" = "Pista para esportes não motorizados";
+"type.leisure.track.area" = "Pista para desportos não motorizados";
 
 "type.leisure.water_park" = "Parque aquático";
 
