@@ -2,7 +2,7 @@
 "type.addr_interpolation.even" = "Adresa/blok";
 "type.addr_interpolation.odd" = "Adresa/blok";
 "type.aerialway" = "Lanová dráha";
-"type.aerialway.cable_car" = "Velká kabinková lanovka";
+"type.aerialway.cable_car" = "Visutá lanovka";
 "type.aerialway.chair_lift" = "Sedačková lanovka";
 "type.aerialway.drag_lift" = "Vlek";
 "type.aerialway.gondola" = "Kabinková lanovka";
@@ -10,7 +10,7 @@
 "type.aerialway.station" = "Stanice lanové dráhy";
 "type.aeroway" = "Letecká infrastruktura";
 "type.aeroway.aerodrome" = "Letiště";
-"type.aeroway.aerodrome.international" = "Letiště";
+"type.aeroway.aerodrome.international" = "Mezinárodní letiště";
 "type.aeroway.apron" = "Odbavovací plocha";
 "type.aeroway.gate" = "Brána";
 "type.aeroway.helipad" = "Helipad";
@@ -38,7 +38,7 @@
 "type.amenity.car_wash" = "Myčka aut";
 "type.amenity.casino" = "Kasino";
 "type.amenity.gambling" = "Hazardní hry";
-"type.leisure.adult_gaming_centre" = "Centrum her pro dospělé";
+"type.leisure.adult_gaming_centre" = "Herní centrum pro dospělé";
 "type.leisure.amusement_arcade" = "Pasáž";
 "type.amenity.charging_station" = "Nabíjecí stanice";
 "type.amenity.charging_station.bicycle" = "Nabíjecí stanice pro jízdní kola";
@@ -73,14 +73,14 @@
 "type.amenity.grave_yard" = "Hřbitov";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
-"type.amenity.grave_yard.christian" = "Hřbitov";
+"type.amenity.grave_yard.christian" = "Křesťanský hřbitov";
 "type.amenity.hospital" = "Nemocnice";
 "type.amenity.hunting_stand" = "Lovecké stanoviště";
 "type.amenity.ice_cream" = "Stánek se zmrzlinou";
 "type.amenity.internet_cafe" = "Internetová kavárna";
-"type.amenity.kindergarten" = "Školka";
+"type.amenity.kindergarten" = "Mateřská škola";
 "type.amenity.library" = "Knihovna";
-"type.amenity.loading_dock" = "Nakládaci dok";
+"type.amenity.loading_dock" = "Nakládací stanice";
 "type.amenity.marketplace" = "Tržiště";
 "type.amenity.motorcycle_parking" = "Parkování pro motocykly";
 "type.amenity.nightclub" = "Noční klub";
@@ -92,7 +92,7 @@
 "type.amenity.parking.no.access" = "Soukromé parkoviště";
 "type.amenity.parking.permissive" = "Soukromé parkoviště";
 "type.amenity.parking.private" = "Soukromé parkoviště";
-"type.amenity.parking.park_and_ride" = "Parkoviště";
+"type.amenity.parking.park_and_ride" = "Parkoviště P+R";
 "type.amenity.parking.underground" = "Podzemní parkoviště";
 "type.amenity.parking.underground.fee" = "Podzemní parkoviště";
 "type.amenity.parking.underground.private" = "Soukromé podzemní parkoviště";
@@ -113,21 +113,21 @@
 "type.amenity.payment_terminal" = "Platební terminál";
 "type.amenity.pharmacy" = "Lékárna";
 "type.amenity.place_of_worship" = "Posvátné místo";
-"type.amenity.place_of_worship.buddhist" = "Chrám";
-"type.amenity.place_of_worship.christian" = "Chrám";
+"type.amenity.place_of_worship.buddhist" = "Buddhistický chrám";
+"type.amenity.place_of_worship.christian" = "Kostel";
 "type.amenity.place_of_worship.christian.mormon" = "Církev Ježíše Krista Svatých posledních dnů";
-"type.amenity.place_of_worship.christian.jehovahs_witness" = "Sál Království Jehovových svědků";
-"type.amenity.place_of_worship.hindu" = "Chrám";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Sál Království svědků Jehovových";
+"type.amenity.place_of_worship.hindu" = "Hinduistický chrám";
 "type.amenity.place_of_worship.jewish" = "Synagoga";
 "type.amenity.place_of_worship.muslim" = "Mešita";
 "type.amenity.place_of_worship.shinto" = "Posvátné místo";
-"type.amenity.place_of_worship.taoist" = "Chrám";
+"type.amenity.place_of_worship.taoist" = "Taoistický chrám";
 "type.amenity.police" = "Policie";
 "type.amenity.post_box" = "Poštovní schránka";
 "type.amenity.post_office" = "Pošta";
 "type.amenity.prison" = "Vězení";
 "type.amenity.pub" = "Hospoda";
-"type.amenity.public_bookcase" = "Knihovna";
+"type.amenity.public_bookcase" = "Výměna knih";
 "type.amenity.recycling.centre" = "Recyklační středisko";
 "type.amenity.recycling" = "Recyklační nádoba";
 "type.amenity.recycling.container" = "Recyklační nádoba";
@@ -155,13 +155,13 @@
 "type.amenity.shelter.public_transport" = "Přístřešek";
 
 /* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
-"type.amenity.shelter.basic_hut" = "Bivakovací Chata";
+"type.amenity.shelter.basic_hut" = "Bivakovací chata";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Otevřený přístřešek";
 "type.amenity.public_bath" = "Veřejné lázně";
 "type.amenity.shower" = "Sprcha";
-"type.amenity.stripclub" = "Stripcklub";
+"type.amenity.stripclub" = "Stripklub";
 "type.amenity.taxi" = "Stanoviště taxislužby";
 "type.amenity.telephone" = "Telefon";
 "type.amenity.theatre" = "Divadlo";
@@ -177,7 +177,7 @@
 "type.amenity.vending_machine.food" = "Automat na jídlo";
 "type.amenity.vending_machine.newspapers" = "Automat na noviny";
 "type.amenity.vending_machine.parking_tickets" = "Parkovací automat";
-"type.amenity.vending_machine.public_transport_tickets" = "Prodejní automat lístků na městskou dopravu";
+"type.amenity.vending_machine.public_transport_tickets" = "Automat na jízdenky";
 "type.amenity.vending_machine.sweets" = "Automat na sladkosti";
 "type.amenity.vending_machine.excrement_bags" = "Automat na sáčky na exkrementy";
 "type.amenity.parcel_locker" = "Schránka na balíky";
@@ -187,11 +187,11 @@
 "type.amenity.waste_basket" = "Odpadkový koš";
 "type.amenity.waste_disposal" = "Odpadky";
 "type.amenity.waste_transfer_station" = "Překladiště odpadu";
-"type.amenity.water_point" = "Vodní zdroj";
-"type.amenity.water_point.drinking_water_no" = "Vodní zdroj";
+"type.amenity.water_point" = "Doplňovací místo vodní nádrže";
+"type.amenity.water_point.drinking_water_no" = "Doplňovací místo vodní nádrže";
 "type.barrier" = "Bariéra";
 "type.barrier.block" = "Blok";
-"type.barrier.bollard" = "Pilíř";
+"type.barrier.bollard" = "Sloupek";
 "type.barrier.border_control" = "Pohraniční kontrola";
 "type.barrier.chain" = "Řetěz";
 "type.barrier.city_wall" = "Městská zeď";
@@ -204,11 +204,11 @@
 "type.barrier.gate" = "Brána";
 "type.barrier.hedge" = "Živý plot";
 "type.barrier.kissing_gate" = "Brána";
-"type.barrier.lift_gate" = "Závora";
+"type.barrier.lift_gate" = "Zvedací brána";
 "type.barrier.retaining_wall" = "Opěrná zeď";
-"type.barrier.stile" = "Sloupek";
+"type.barrier.stile" = "Přechodová branka";
 "type.barrier.turnstile" = "Turniket";
-"type.barrier.swing_gate" = "Závora";
+"type.barrier.swing_gate" = "Otočná závora";
 "type.barrier.toll_booth" = "Mýtné";
 "type.barrier.wall" = "Zeď";
 "type.boundary" = "Hranice";
@@ -370,7 +370,7 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Hlavní vchod";
-"type.entrance.exit" = "Exit";
+"type.entrance.exit" = "Východ";
 "type.fee.yes" = "$";
 "type.fee.no" = "Zdarma";
 "type.healthcare.laboratory" = "Lékařská laboratoř";
@@ -626,7 +626,7 @@
 "type.historic.memorial.plaque" = "Pomník";
 "type.historic.memorial.sculpture" = "Pomník";
 "type.historic.memorial.statue" = "Pomník";
-"type.historic.memorial.stolperstein" = "Stolperstein";
+"type.historic.memorial.stolperstein" = "Kámen zmizelých";
 "type.historic.stone" = "Historický kámen";
 "type.historic.memorial.war_memorial" = "Válečný památník";
 "type.historic.mine" = "Historický důl";
@@ -895,7 +895,7 @@
 "type.power.substation" = "Rozvodna";
 
 /* A tower or pylon carrying high voltage electricity cables. */
-"type.power.tower" = "Sloup elektrického vedení";
+"type.power.tower" = "Věž elektrického vedení";
 
 /* A single pole supporting minor power lines. */
 "type.power.pole" = "Sloup elektrického vedení";
@@ -1238,7 +1238,7 @@
 "type.shop.curtain" = "Závěsy";
 "type.shop.deli" = "Prodejna lahůdek";
 "type.shop.department_store" = "Obchodní dům";
-"type.shop.doityourself" = "Železářství";
+"type.shop.doityourself" = "Domácí potřeby";
 "type.shop.dry_cleaning" = "Chemické čištění";
 "type.shop.electronics" = "Elektronika";
 "type.shop.erotic" = "Obchod s erotickými pomůckami";
@@ -1448,22 +1448,22 @@
 "type.piste_type.downhill" = "Sjezdovka";
 "type.piste_type.downhill.area" = "Sjezdovka";
 "type.piste_type.downhill.advanced" = "Pokročilá sjezdovka";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
-"type.piste_type.downhill.freeride" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
-"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
-"type.piste_type.downhill.novice" = "Downhill Ski Run";
-"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
-"type.piste_type.nordic" = "Nordic Ski Trail";
-"type.piste_type.sled" = "Sledding Piste";
-"type.piste_type.sled.area" = "Sledding Piste";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.downhill.advanced.area" = "Pokročilá sjezdovka";
+"type.piste_type.downhill.easy" = "Jednoduchá sjezdovka";
+"type.piste_type.downhill.easy.area" = "Jednoduchá sjezdovka";
+"type.piste_type.downhill.expert" = "Těžká sjezdovka";
+"type.piste_type.downhill.expert.area" = "Těžká sjezdovka";
+"type.piste_type.downhill.freeride" = "Freeridová sjezdovka";
+"type.piste_type.downhill.intermediate" = "Středně těžká sjezdovka";
+"type.piste_type.downhill.intermediate.area" = "Středně těžká sjezdovka";
+"type.piste_type.downhill.novice" = "Sjezdovka pro začátečníky";
+"type.piste_type.downhill.novice.area" = "Sjezdovka pro začátečníky";
+"type.piste_type.nordic" = "Lyžařská stopa";
+"type.piste_type.sled" = "Sáňkařská dráha";
+"type.piste_type.sled.area" = "Sáňkařská dráha";
+"type.piste_type.snow_park" = "Snowpark";
 "type.piste_type.hike" = "Zimní stezka";
-"type.piste_type.connection" = "Piste Connection";
+"type.piste_type.connection" = "Připojení sjezdovky";
 "type.piste_type.skitour" = "Stezka Skitour";
 "type.amenity.events_venue" = "Místo konání akcí";
 "type.shop.auction" = "Aukce";
@@ -1480,7 +1480,7 @@
 "type.emergency.emergency_ward_entrance" = "Vchod do pohotovostního oddělení";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
-"type.amenity.dojo" = "Dojo";
+"type.amenity.dojo" = "Dódžó";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sportovní hala";
