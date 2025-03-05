@@ -43,7 +43,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
 
   public void destroySurface()
   {
-    mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), isAdded());
+    if (getActivity() != null)
+      mMap.onSurfaceDestroyed(getActivity().isChangingConfigurations(), isAdded());
   }
 
   public boolean isContextCreated()
