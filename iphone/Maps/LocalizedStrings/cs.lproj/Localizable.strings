@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?";
 "dialog_routing_download_cross_route" = "Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Ukázat";
 

@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "Arată";
 

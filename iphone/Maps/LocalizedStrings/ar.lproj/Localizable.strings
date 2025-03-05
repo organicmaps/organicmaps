@@ -439,10 +439,6 @@
 "dialog_routing_download_and_build_cross_route" = "هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟";
 "dialog_routing_download_cross_route" = "تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
 
-
-/********** Strings for downloading map from search **********/
-
-
 /* «Show» context menu */
 "show" = "عرض";
 
