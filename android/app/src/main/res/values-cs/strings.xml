@@ -412,7 +412,7 @@
     <string name="editor_time_title">Otevírací doba</string>
     <string name="editor_time_advanced">Pokročilý režim</string>
     <string name="editor_time_simple">Jednoduchý režim</string>
-    <string name="editor_hours_closed">Doba, kdy je zavřeno</string>
+    <string name="editor_hours_closed">Pauza</string>
     <string name="editor_example_values">Vzorové hodnoty</string>
     <string name="editor_correct_mistake">Opravit chybu</string>
     <string name="editor_add_select_location">Zvolte umístění</string>
