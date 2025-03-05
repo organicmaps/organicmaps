@@ -28,7 +28,7 @@
 "later" = "Касније";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
-"search" = "Тражи";
+"search" = "Претрага";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Да";
@@ -109,7 +109,7 @@
 "category_shopping" = "Куповина";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second Hand";
+"category_secondhand" = "Половна одећа";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Хотел";
@@ -289,9 +289,9 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Донирате да бисмо заједно направили најбоље мапе!";
-"already_donated" = "Already donated";
-"remind_me_later" = "Remind later";
-"support_organic_maps" = "Support Organic Maps";
+"already_donated" = "Већ је донирано";
+"remind_me_later" = "Подсећати касније";
+"support_organic_maps" = "Подршка Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "Copyright";
@@ -503,7 +503,7 @@
 "editor_time_simple" = "Једноставни режим";
 "editor_hours_closed" = "Нерадно време";
 "editor_example_values" = "Примери";
-"editor_add_select_location" = "Select Location";
+"editor_add_select_location" = "Изаберите локацију";
 "editor_done_dialog_1" = "Направили сте промену на мапи света! Не чувајте је само за себе; реците својим пријатељима и наставите да је мењате заједно.";
 "share_with_friends" = "Подели са пријатељима";
 "editor_report_problem_send_button" = "Пошаљи";
@@ -529,7 +529,7 @@
 "no_osm_account" = "Немате OpenStreetMap налог?";
 "register_at_openstreetmap" = "Региструјте се на OpenStreetMap-у";
 "password_8_chars_min" = "Лозинка (минимум 8 знакова)";
-"invalid_username_or_password" = "Неисправно корисничко име или лозинка";
+"invalid_username_or_password" = "Неисправно корисничко име или лозинка.";
 "login" = "Пријавите се";
 "login_osm" = "Пријава на OpenStreetMap";
 "forgot_password" = "Заборављена лозинка?";
@@ -568,7 +568,7 @@
 "downloader_no_space_title" = "Нема довољно простора";
 "downloader_no_space_message" = "Молим Вас да обришете непотребне податке";
 "editor_profile_changes" = "Верификоване промене";
-"editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
+"editor_focus_map_on_location" = "Превуците мапу да поставите крст на локацију места или посла.";
 "editor_add_select_category" = "Изаберите категорију";
 "editor_add_select_category_popular_subtitle" = "Популарно";
 "editor_add_select_category_all_subtitle" = "Све категорије";
@@ -604,7 +604,7 @@
 "error_enter_correct_zip_code" = "Унесите исправан поштански број";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
+"core_placepage_unknown_place" = "Тачка на мапи";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Напомена за OpenStreetMap волонтере (није обавезна)";
@@ -664,8 +664,8 @@
 "dialog_kayak_button" = "Детаљи на Kayak-у";
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
-"placepage_bookmark_name_hint" = "Коментар…";
-"placepage_personal_notes_hint" = "Personal notes (text or html)";
+"placepage_bookmark_name_hint" = "Назив маркера";
+"placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
 "placepage_delete_bookmark_button" = "Обриши маркер";
 "editor_edits_sent_message" = "Ваша напомена ће бити послана на OpenStreetMap";
 "editor_comment_hint" = "Коментар…";
@@ -772,7 +772,7 @@
 "bookmarks_detect_title" = "Пронађени су нови фајлови";
 "button_convert" = "Конвертуј";
 "bookmarks_convert_error_title" = "Грешка";
-"bookmarks_convert_error_message" = "Неки фајлови нису конвертовани";
+"bookmarks_convert_error_message" = "Неки фајлови нису конвертовани.";
 "restore" = "Реконструиши";
 "privacy_policy" = "Политика приватности";
 "terms_of_use" = "Услови коришћења";
@@ -849,9 +849,9 @@
 "trip_finished" = "Стигли сте!";
 "keyboard_availability_alert" = "Тастатура је онемогућена у току вожње";
 "dialog_routing_change_start_carplay" = "Није могуће направити руту са ваше тренутне локације";
-"dialog_routing_change_end_carplay" = "Није могуће направити руту до изабраног одредишта. Молим Вас изаберите другу крајњу тачку.";
-"dialog_routing_check_gps_carplay" = "Нема GPS сигнала. Молим Вас да се померите на отворен простор.";
-"dialog_routing_unable_locate_route_carplay" = "Није могуће направити руту. Изаберите друге тачке на рути.";
+"dialog_routing_change_end_carplay" = "Није могуће направити руту до изабраног одредишта. Изаберите друго одредиште.";
+"dialog_routing_check_gps_carplay" = "Нема ГПС сигнала. Померите се на отворен простор";
+"dialog_routing_unable_locate_route_carplay" = "Није могуће направити руту. Изаберите друге тачке на рути";
 "dialog_routing_download_files_carplay" = "Да бисте направили руту, преузмите недостајуће мапе на ваш уређај";
 "dialog_routing_system_error_carplay" = "Дошло је до грешке. Молим Вас рестартујте апликацију";
 "dialog_routing_rebuild_from_current_location_carplay" = "Рута ће бити поново направљена од ваше тренутне локације";
@@ -911,8 +911,8 @@
 "elevation_profile_diff_level_hard" = "Тешко";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
-"elevation_profile_min_elevation" = "Min. elevation";
-"elevation_profile_max_elevation" = "Max. elevation";
+"elevation_profile_min_elevation" = "Минимална висина";
+"elevation_profile_max_elevation" = "Максимална висина";
 "isolines_toast_zooms_1_10" = "Увећајте да бисте видели изолиније";
 "downloader_updating_ios" = "Ажурирање";
 "downloader_loading_ios" = "Преузимање";
