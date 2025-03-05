@@ -12,7 +12,7 @@
 "type.aeroway.aerodrome" = "Аеродром";
 "type.aeroway.aerodrome.international" = "Интернационални аеродром";
 "type.aeroway.apron" = "Перон";
-"type.aeroway.gate" = "Капија за укрцавање";
+"type.aeroway.gate" = "Капија";
 "type.aeroway.helipad" = "Хелиодром";
 "type.aeroway.runway" = "Писта";
 "type.aeroway.taxiway" = "Рулна стаза";
@@ -203,7 +203,7 @@
 "type.barrier.fence" = "Ограда";
 "type.barrier.gate" = "Капија";
 "type.barrier.hedge" = "Жива ограда";
-"type.barrier.kissing_gate" = "Капија";
+"type.barrier.kissing_gate" = "Сточна капија";
 "type.barrier.lift_gate" = "Рампа";
 "type.barrier.retaining_wall" = "Потпорни зид";
 "type.barrier.stile" = "Прелаз преко ограде";
@@ -739,7 +739,7 @@
 "type.leisure.beach_resort" = "Ресорт на плажи";
 "type.man_made" = "Грађевинске структуре";
 "type.man_made.breakwater" = "Лукобран";
-"type.man_made.cairn" = "Каменолом";
+"type.man_made.cairn" = "Громила";
 "type.man_made.chimney" = "Димњак";
 "type.man_made.cutline" = "Шумски пут";
 "type.man_made.survey_point" = "Геодетска тачка";
@@ -864,7 +864,7 @@
 "type.place.quarter" = "Насеље";
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
-"type.place.neighbourhood" = "Кварт";
+"type.place.neighbourhood" = "Насеље";
 "type.place.ocean" = "Океан";
 "type.place.region" = "Регион";
 "type.place.sea" = "Море";
@@ -882,7 +882,7 @@
 "type.power.generator.wind" = "Ветрогенератор";
 "type.power.generator.gas" = "Гасно-турбинска електрана";
 "type.power.generator.hydro" = "Хидроелектрана";
-"type.power.line" = "Далековод";
+"type.power.line" = "Далеководна мрежа";
 "type.power.line.underground" = "Подземни далековод";
 "type.power.minor_line" = "Мања далеководна линија";
 "type.power.plant" = "Електрана";
@@ -901,7 +901,7 @@
 "type.power.pole" = "Далековод";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Услужни стуб";
 "type.psurface" = "Површина";
 "type.psurface.paved_bad" = "Лош асфалт";
 "type.psurface.paved_good" = "Добар асфалт";
@@ -917,23 +917,23 @@
 "type.railway.crossing" = "Пружни прелаз";
 "type.railway.disused" = "Напуштена пруга";
 "type.railway.funicular" = "Успињача";
-"type.railway.funicular.bridge" = "Funicular Bridge";
-"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.funicular.bridge" = "Мост успињаче";
+"type.railway.funicular.tunnel" = "Тунел успињаче";
 "type.railway.halt" = "Железничка станица";
 "type.railway.level_crossing" = "Пружни прелаз";
 "type.railway.light_rail" = "Железнички семафор";
 "type.railway.light_rail.bridge" = "Лака железница";
-"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.light_rail.tunnel" = "Тунел лаке железнице";
 "type.railway.monorail" = "Једношинска пруга";
 "type.railway.monorail.bridge" = "Једношински мост";
 "type.railway.monorail.tunnel" = "Једношински тунел";
 "type.railway.narrow_gauge" = "Пруга уског колосека";
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.narrow_gauge.bridge" = "Железнички мост уског колосека";
+"type.railway.narrow_gauge.tunnel" = "Тунел уског колосека";
 "type.railway.platform" = "Железнички перон";
 "type.railway.preserved" = "Туристичка пруга";
-"type.railway.preserved.bridge" = "Preserved Rail Bridge";
-"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.preserved.bridge" = "Очувани железнички мост";
+"type.railway.preserved.tunnel" = "Очуван железнички тунел";
 "type.railway.rail" = "Пруга";
 "type.railway.rail.highspeed" = "Пруга велике брзине";
 "type.railway.rail.tourism" = "Туристичка железница";
@@ -1256,7 +1256,7 @@
 "type.shop.hairdresser" = "Фризер";
 "type.shop.hardware" = "Гвожђара";
 "type.shop.health_food" = "Здрава храна";
-"type.shop.hearing_aids" = "Hearing Aid Store";
+"type.shop.hearing_aids" = "Продавница слушног апарата";
 "type.shop.herbalist" = "Продавница биља";
 "type.shop.hifi" = "HiFi аудио";
 "type.shop.houseware" = "Кућне потрепштине";
@@ -1378,8 +1378,8 @@
 "type.tourism.attraction" = "Туристичка атракција";
 "type.attraction.amusement_ride" = "Забавни парк";
 "type.attraction.animal" = "Животињски кавез";
-"type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.bumper_car" = "Аутићи";
+"type.attraction.big_wheel" = "Панорамски точак";
 "type.attraction.carousel" = "Аутићи на струју";
 "type.attraction.historic" = "Историјска атракција";
 "type.attraction.maze" = "Лавиринт";
@@ -1427,7 +1427,7 @@
 "type.waterway.drain" = "Канал";
 "type.natural.water.drain" = "Канал";
 "type.waterway.drain.tunnel" = "Канал";
-"type.waterway.lock_gate" = "Капија";
+"type.waterway.lock_gate" = "Бродска преводница";
 "type.waterway.river" = "Река";
 "type.waterway.river.tunnel" = "Река";
 "type.waterway.stream" = "Поток";
