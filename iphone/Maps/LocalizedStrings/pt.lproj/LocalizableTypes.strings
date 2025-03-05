@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Morada/Bloco";
 "type.addr_interpolation.even" = "Morada/Bloco";
 "type.addr_interpolation.odd" = "Morada/Bloco";

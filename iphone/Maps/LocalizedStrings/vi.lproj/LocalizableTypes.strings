@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Địa chỉ/Khối";
 "type.addr_interpolation.even" = "Địa chỉ/Khối";
 "type.addr_interpolation.odd" = "Địa chỉ/Khối";

@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "पत्ता/ब्लॉक";
 "type.addr_interpolation.even" = "पत्ता/ब्लॉक";
 "type.addr_interpolation.odd" = "पत्ता/ब्लॉक";

@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Dirección/Bloque";
 "type.addr_interpolation.even" = "Dirección/Bloque";
 "type.addr_interpolation.odd" = "Dirección/Bloque";
