@@ -901,4 +901,9 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="vk">VK</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="level_value_generic">Nivel: %s</string>
 </resources>
