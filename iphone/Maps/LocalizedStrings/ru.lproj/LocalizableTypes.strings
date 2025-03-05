@@ -902,10 +902,10 @@
 "type.power.tower" = "Опора ЛЭП";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Столб ЛЭП";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Столб";
 "type.psurface" = "Поверхность";
 "type.psurface.paved_bad" = "Плохая асфальтированная";
 "type.psurface.paved_good" = "Хорошая асфальтированная";
