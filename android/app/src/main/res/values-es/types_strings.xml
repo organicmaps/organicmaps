@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Prisión</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Intercambio de libros</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro de reciclaje</string>
     <string name="type.amenity.recycling">Contenedor de reciclaje</string>
@@ -372,7 +371,6 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Muestreo</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Carretera</string>
     <string name="type.highway.bridleway">Camino de caballos</string>
@@ -538,7 +536,6 @@
     <string name="type.area_highway.track">Pista</string>
     <string name="type.area_highway.trunk">Vía troncal</string>
     <string name="type.area_highway.unclassified">Carretera sin clasificar</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objeto histórico</string>
     <string name="type.historic.aircraft">Avión histórico</string>
@@ -1359,4 +1356,8 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pabellón deportivo</string>
+    <string name="type.railway.preserved.bridge">Puente Ferroviario Conservado</string>
+    <string name="type.railway.preserved.tunnel">Túnel Ferroviario Conservado</string>
+    <string name="type.power.pole">Poste Eléctrico</string>
+    <string name="type.man_made.utility_pole">Poste</string>
 </resources>
