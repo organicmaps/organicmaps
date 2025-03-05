@@ -158,7 +158,7 @@
 "type.amenity.shelter.basic_hut" = "Vivouac-küünla";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Poolvarikatus";
 "type.amenity.public_bath" = "Avalik vann";
 "type.amenity.shower" = "Dušš";
 "type.amenity.stripclub" = "Stripiklubi";
@@ -207,7 +207,7 @@
 "type.barrier.lift_gate" = "Tõstevärav";
 "type.barrier.retaining_wall" = "Tugisein";
 "type.barrier.stile" = "Trepp";
-"type.barrier.turnstile" = "Turnstile";
+"type.barrier.turnstile" = "Pöördvärav";
 "type.barrier.swing_gate" = "Tiibvärav";
 "type.barrier.toll_booth" = "Tolliputka";
 "type.barrier.wall" = "Müür";
@@ -273,7 +273,7 @@
 "type.cuisine.argentinian" = "Argentiina";
 "type.cuisine.asian" = "Aasia";
 "type.cuisine.austrian" = "Austria";
-"type.cuisine.bagel" = "Bagel";
+"type.cuisine.bagel" = "Rõngassaiake";
 "type.cuisine.balkan" = "Balkani";
 "type.cuisine.barbecue" = "Grill";
 "type.cuisine.bavarian" = "Baieri";
@@ -281,8 +281,8 @@
 "type.cuisine.brazilian" = "Brasiilia";
 "type.cuisine.breakfast" = "Hommikusöök";
 "type.cuisine.bubble_tea" = "Mullitee";
-"type.cuisine.burger" = "Burger";
-"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.burger" = "Hamburger";
+"type.cuisine.buschenschank" = "Austria veinikõrts (buschenschank)";
 "type.cuisine.cake" = "Kook";
 "type.cuisine.caribbean" = "Kariibi";
 "type.cuisine.chicken" = "Kana";
@@ -291,7 +291,7 @@
 "type.cuisine.crepe" = "Krepp";
 "type.cuisine.croatian" = "Horvaatia";
 "type.cuisine.curry" = "Karri";
-"type.cuisine.deli" = "Deli";
+"type.cuisine.deli" = "Delikatesstoitude pood";
 "type.cuisine.diner" = "Söögikoht";
 "type.cuisine.donut" = "Sõõrik";
 "type.cuisine.ethiopian" = "Etioopia";
@@ -305,7 +305,7 @@
 "type.cuisine.german" = "Saksa";
 "type.cuisine.greek" = "Kreeka";
 "type.cuisine.grill" = "Grill";
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
 "type.cuisine.hotdog" = "Hotdog";
 "type.cuisine.hungarian" = "Ungari";
 "type.cuisine.ice_cream" = "Jäätis";
@@ -895,13 +895,13 @@
 "type.power.substation" = "Alajaam";
 
 /* A tower or pylon carrying high voltage electricity cables. */
-"type.power.tower" = "Elektripost";
+"type.power.tower" = "Kõrgepingemast";
 
 /* A single pole supporting minor power lines. */
 "type.power.pole" = "Elektripost";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Valgustus- või sidepost";
 "type.psurface" = "Pind";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -1379,7 +1379,7 @@
 "type.attraction.amusement_ride" = "Lõbustus Ride";
 "type.attraction.animal" = "Loomade aedik";
 "type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.big_wheel" = "Vaateratas";
 "type.attraction.carousel" = "Karussell";
 "type.attraction.historic" = "Ajalooline vaatamisväärsus";
 "type.attraction.maze" = "Labürint";
