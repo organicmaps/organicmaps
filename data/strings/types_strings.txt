@@ -69,7 +69,6 @@
     nl = Kabelbaan
     pl = Transport linowy
     pt = Transporte aéreo
-    pt-BR = Transporte aéreo
     ru = Канатная дорога
     sr = Гондола
     tr = Teleferik
@@ -99,7 +98,6 @@
     nl = Cabinelift
     pl = Kolej linowa
     pt = Teleférico
-    pt-BR = Teleférico
     ru = Канатная дорога
     sk = Lanovka
     sr = Ваздушни трамвај
@@ -129,7 +127,6 @@
     nl = Stoeltjeslift
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
-    pt-BR = Telecadeira
     ru = Кресельная канатная дорога
     sk = Sedačková lanovka
     sr = Ски-лифт
@@ -159,7 +156,6 @@
     nl = Sleeplift
     pl = Wyciąg orczykowy
     pt = Telesquis
-    pt-BR = Telesquis
     ru = Бугельная канатная дорога
     sk = Vlek
     sr = Ски-лифт једносед
@@ -189,7 +185,6 @@
     nl = Gondelbaan
     pl = Gondola kolejki linowej
     pt = Telecabine
-    pt-BR = Telecabine
     ru = Канатная дорога
     sk = Kabínová lanovka
     sr = Гондола
@@ -218,7 +213,6 @@
     nl = Gecombineerde kabelbaan
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
-    pt-BR = Teleférico híbrido
     ru = Канатная дорога
     sr = Комбинована жичара
     tr = Teleferik
@@ -252,7 +246,6 @@
     nl = Kabelwagenstation
     pl = Stacja kolejki linowej
     pt = Estação de teleférico
-    pt-BR = Estação de teleférico
     ro = Stație de teleferic
     ru = Канатная дорога
     sk = Lanovka
@@ -282,7 +275,6 @@
     nl = Luchtvaartinfrastructuur
     pl = Infrastruktura lotnicza
     pt = Via aérea
-    pt-BR = Via aérea
     ru = Аэрокосмическая инфраструктура
     sr = Ваздушна инфраструктура
     tr = Hava Sahası Altyapısı
@@ -318,7 +310,6 @@
     nl = Vliegveld
     pl = Lotnisko
     pt = Aeroporto ou aeródromo
-    pt-BR = Aeroporto ou aeródromo
     ro = Aeroport
     ru = Аэропорт
     sk = Letisko
@@ -359,7 +350,6 @@
     nl = Vliegveld
     pl = Lotnisko międzynarodowe
     pt = Aeroporto internacional
-    pt-BR = Aeroporto internacional
     ro = Aeroport
     ru = Международный аэропорт
     sk = Medzinárodné letisko
@@ -389,7 +379,6 @@
     nl = Platform
     pl = Płyta postojowa samolotów
     pt = Plataforma de estacionamento de aviões
-    pt-BR = Plataforma de estacionamento de aviões
     ru = Перрон
     sk = Odbavovacia plocha
     sr = Перон
@@ -450,7 +439,6 @@
     nl = Heliplatform
     pl = Lądowisko dla helikopterów
     pt = Heliponto
-    pt-BR = Heliponto
     ro = Heliport
     ru = Вертолётная площадка
     sk = Pristávacia plocha pre vrtuľníky
@@ -483,7 +471,6 @@
     nl = Startbaan
     pl = Droga startowa
     pt = Pista de aeroporto ou aeródromo
-    pt-BR = Pista de aeroporto ou aeródromo
     ru = Взлётно-посадочная полоса
     sk = Pristávacia dráha
     sr = Писта
@@ -690,7 +677,6 @@
     nl = Bank
     pl = Bank
     pt = Banco
-    pt-BR = Banco
     ro = Bancă
     ru = Банк
     sk = Banka
@@ -807,7 +793,6 @@
     nl = Zitbank
     pl = Ławka
     pt = Assento
-    pt-BR = Assento
     ro = Banchetă
     ru = Скамейка
     sk = Lavička
@@ -892,7 +877,6 @@
     nl = Fietsverhuur
     pl = Wynajem rowerów
     pt = Aluguer de bicicletas
-    pt-BR = Aluguel de bicicletas
     ro = Închiriere de biciclete
     ru = Велопрокат
     sk = Požičovňa bicyklov
@@ -961,7 +945,6 @@
     nl = Biertuin
     pl = Ogródek piwny
     pt = Biergarten
-    pt-BR = Biergarten
     ro = Berărie
     ru = Пивная под открытым небом
     sk = Piváreň
@@ -1043,7 +1026,6 @@
     nl = Wisselkantoor
     pl = Kantor
     pt = Casa de câmbio
-    pt-BR = Casa de câmbio
     ro = Schimb valutar
     ru = Обмен валюты
     sk = Zmenáreň
@@ -1125,7 +1107,6 @@
     nl = Café
     pl = Kawiarnia
     pt = Café
-    pt-BR = Café
     ro = Cafenea
     ru = Кафе
     sk = Kaviareň
@@ -1167,7 +1148,6 @@
     nl = Autoverhuur
     pl = Wynajem samochodów
     pt = Aluguer de automóveis
-    pt-BR = Aluguel de automóveis
     ro = Închiriere mașini
     ru = Прокат авто
     sk = Autopožičovňa
@@ -1416,7 +1396,6 @@
     nl = Gamingcentrum voor volwassenen
     pl = Centrum gier dla dorosłych
     pt = Centro de jogos para adultos
-    pt-BR = Centro de jogos para adultos
     ro = Centru de jocuri pentru adulți
     ru = Игровой центр для взрослых
     sk = Centrum hier pre dospelých
@@ -1628,7 +1607,6 @@
     nl = Crèche
     pl = Opieka nad dziećmi
     pt = Creche
-    pt-BR = Creche
     ro = De îngrijire a copilului
     ru = Детская комната
     sk = Jasle
@@ -1669,7 +1647,6 @@
     nl = Bioscoop
     pl = Kino
     pt = Cinema
-    pt-BR = Cinema
     ru = Кинотеатр
     sk = Kino
     sr = Биоскоп
@@ -1794,7 +1771,6 @@
     nl = Hogeschool
     pl = Szkoła wyższa
     pt = Escola técnica
-    pt-BR = Escola técnica
     ro = Colegiu
     ru = Колледж
     sk = Vysoká škola
@@ -1835,7 +1811,6 @@
     nl = Gemeenschapscentrum
     pl = Centrum społecznościowe
     pt = Centro comunitário
-    pt-BR = Centro comunitário
     ro = Centru comunitar
     ru = Культурно-досуговый центр
     sk = Dom kultúry
@@ -1961,7 +1936,6 @@
     nl = Rechtbank
     pl = Sąd
     pt = Tribunal
-    pt-BR = Tribunal
     ro = Judecătorie
     ru = Суд
     sk = Súd
@@ -2002,7 +1976,6 @@
     nl = Tandarts
     pl = Dentysta
     pt = Dentista
-    pt-BR = Dentista
     ru = Стоматология
     sk = Zubár
     sr = Стоматолог
@@ -2042,7 +2015,6 @@
     nl = Huisartsenpost
     pl = Lekarz
     pt = Consultório médico
-    pt-BR = Consultório médico
     ru = Врач
     sk = Ambulancia
     sr = Доктор
@@ -2082,7 +2054,6 @@
     nl = Drinkwater
     pl = Woda pitna
     pt = Água potável
-    pt-BR = Água potável
     ro = Apă de băut
     ru = Питьевая вода
     sk = Pitná voda
@@ -2214,7 +2185,6 @@
     nl = Overschrijving
     pl = Transfer pieniędzy
     pt = Transferência de dinheiro
-    pt-BR = Transferência de dinheiro
     ro = Transfer de bani
     ru = Денежные переводы
     sk = Prevod peňazí
@@ -2340,7 +2310,6 @@
     nl = Ambassade
     pl = Ambasada
     pt = Embaixada ou consulado
-    pt-BR = Embaixada ou consulado
     ro = Ambasadă
     ru = Посольство
     sk = Veľvyslanectvo
@@ -2495,7 +2464,6 @@
     mr = जेवायचे ठिकाण
     pl = Sekcja gastronomiczna
     pt = Praça de alimentação
-    pt-BR = Praça de alimentação
     ru = Ресторанный дворик
     sr = Ресторанска башта
     tr = Yemek katı
@@ -2531,7 +2499,6 @@
     nl = Fontein
     pl = Fontanna
     pt = Fonte decorativa
-    pt-BR = Fonte decorativa
     ro = Fântână
     ru = Фонтан
     sk = Fontána
@@ -2574,7 +2541,6 @@
     nl = Tankstation
     pl = Stacja paliw
     pt = Posto de combustível
-    pt-BR = Posto de combustível
     ro = Benzinărie
     ru = АЗС
     sk = Benzínová pumpa
@@ -2617,7 +2583,6 @@
     nl = Kerkhof
     pl = Cmentarz
     pt = Cemitério
-    pt-BR = Cemitério
     ro = Cimitir
     ru = Кладбище
     sk = Cintorín
@@ -2650,7 +2615,6 @@
     nl = Christelijk kerkhof
     pl = Cmentarz chrześcijański
     pt = Cemitério cristão
-    pt-BR = Cemitério cristão
     ru = Христианское кладбище
     sk = Kresťanský cintorín
     sr = Хришћанско гробље
@@ -2686,7 +2650,6 @@
     nl = Ziekenhuis
     pl = Szpital
     pt = Hospital
-    pt-BR = Hospital
     ro = Spital
     ru = Больница
     sk = Nemocnica
@@ -2809,7 +2772,6 @@
     nl = Internetcafé
     pl = Kafejka internetowa
     pt = Cibercafé
-    pt-BR = Cibercafé
     ru = Интернет-кафе
     sk = Internetová kaviareň
     sr = Интернет кафе
@@ -2890,7 +2852,6 @@
     nl = Bibliotheek
     pl = Biblioteka
     pt = Biblioteca
-    pt-BR = Biblioteca
     ro = Bibliotecă
     ru = Библиотека
     sk = Knižnica
@@ -2933,7 +2894,6 @@
     nl = Laad-dock
     pl = Dok przeładunkowy
     pt = Doca de carregamento
-    pt-BR = Doca de carregamento
     ro = Încărcare doc
     ru = Погрузочный док
     sk = Nakladacia rampa
@@ -3242,7 +3202,6 @@
     nl = Privé parkeerplaats
     pl = Parking prywatny
     pt = Estacionamento privado
-    pt-BR = Estacionamento privado
     ro = Parcare privată
     ru = Частная парковка
     sk = Súkromné parkovisko
@@ -3374,7 +3333,6 @@
     nl = Ondergronds privéparkeren
     pl = Prywatny parking podziemny
     pt = Estacionamento subterrâneo privado
-    pt-BR = Estacionamento subterrâneo privativo
     ro = Parcare subterană privată
     ru = Частная подземная парковка
     sk = Súkromné podzemné parkovisko
@@ -3462,7 +3420,6 @@
     nl = Prive straat parkeren aan de zijkant
     pl = Prywatna ulica parking boczny
     pt = Estacionamento ao lado da rua privado
-    pt-BR = Estacionamento ao lado da rua privativo
     ro = Privat parcare laterală pe stradă
     ru = Частная придорожная парковка
     sk = Súkromné bočné parkovisko na ulici
@@ -3776,7 +3733,6 @@
     nl = Betaalautomaat
     pl = Wpłatomat
     pt = Terminal de pagamento
-    pt-BR = Terminal de pagamento
     ro = Terminal de plăți
     ru = Терминал оплаты
     sk = Platobný terminál
@@ -3817,7 +3773,6 @@
     nl = Apotheek
     pl = Apteka
     pt = Farmácia
-    pt-BR = Farmácia
     ro = Farmacie
     ru = Аптека
     sk = Lekáreň
@@ -3858,7 +3813,6 @@
     nl = Gebedsplaats
     pl = Świątynia
     pt = Local de culto
-    pt-BR = Local de culto
     ro = Loc de cult
     ru = Храм
     sk = Svätyňa
@@ -3898,7 +3852,6 @@
     nl = Tempel
     pl = Świątynia buddyjska
     pt = Templo budista
-    pt-BR = Templo budista
     ro = Templu
     ru = Храм
     sk = Budhistický chrám
@@ -3939,7 +3892,6 @@
     nl = Kerk
     pl = Kościół chrześcijański
     pt = Igreja cristã
-    pt-BR = Igreja cristã
     ro = Biserică
     ru = Церковь
     sk = Kostol
@@ -4021,7 +3973,6 @@
     nl = Koninkrijkszaal van Jehovah's Getuigen
     pl = Sala Królestwa Świadków Jehowy
     pt = Salão do Reino das Testemunhas de Jeová
-    pt-BR = Salão do Reino das Testemunhas de Jeová
     ro = Sala Împărăției Martorilor lui Iehova
     ru = Зала Царства Свидетелей Иеговы
     sk = Sála Kráľovstva Jehovových svedkov
@@ -4062,7 +4013,6 @@
     nl = Tempel
     pl = Świątynia hinduistyczna
     pt = Templo hindu
-    pt-BR = Templo hindu
     ro = Templu
     ru = Храм
     sk = Hinduistický chrám
@@ -4102,7 +4052,6 @@
     nl = Synagoge
     pl = Synagoga
     pt = Sinagoga
-    pt-BR = Sinagoga
     ro = Sinagogă
     ru = Синагога
     sk = Synagóga
@@ -4143,7 +4092,6 @@
     nl = Moskee
     pl = Meczet
     pt = Mesquita
-    pt-BR = Mesquita
     ro = Moschee
     ru = Мечеть
     sk = Mešita
@@ -4184,7 +4132,6 @@
     nl = Heiligdom
     pl = Kapliczka szintoistyczna
     pt = Templo shintoísta
-    pt-BR = Templo shintoísta
     ro = Sanctuar
     ru = Святилище
     sk = Šintoistická svätyňa
@@ -4225,7 +4172,6 @@
     nl = Tempel
     pl = Świątynia taoistyczna
     pt = Templo taoísta
-    pt-BR = Templo taoísta
     ro = Templu
     ru = Храм
     sk = Taoistická svätyňa
@@ -4265,7 +4211,6 @@
     nl = Politie
     pl = Policja
     pt = Polícia
-    pt-BR = Polícia
     ro = Poliție
     ru = Полиция
     sk = Polícia
@@ -4308,7 +4253,6 @@
     nl = Brievenbus
     pl = Skrzynka pocztowa
     pt = Caixa de correio
-    pt-BR = Caixa de correio
     ro = Cutie poștală
     ru = Почтовый ящик
     sk = Poštová schránka
@@ -4393,7 +4337,6 @@
     nl = Gevangenis
     pl = Więzienie
     pt = Prisão
-    pt-BR = Prisão
     ro = Închisoare
     ru = Тюрьма
     sk = Väznica
@@ -4471,7 +4414,6 @@
     nl = Boekenkast
     pl = Wymiana książek
     pt = Biblioteca livre
-    pt-BR = Biblioteca livre
     ro = Bibliotecă
     ru = Книгообмен
     sk = Knižná búdka
@@ -4516,7 +4458,6 @@
     nl = Milieustraat
     pl = Centrum przetwórstwa odpadów
     pt = Centro de reciclagem
-    pt-BR = Centro de reciclagem
     ro = Centru de reciclare
     ru = Приём вторсырья
     sk = Zberné suroviny
@@ -4558,7 +4499,6 @@
     nl = Recycling container
     pl = Pojemnik do recyklingu
     pt = Contentor de reciclagem
-    pt-BR = Contêiner de reciclagem
     ro = Containere pentru reciclare
     ru = Контейнер для вторсырья
     sk = Recyklačný kontajner
@@ -4603,7 +4543,6 @@
     nl = Batterijen
     pl = Baterie
     pt = Baterias
-    pt-BR = Baterias
     ro = Baterii
     ru = Батарейки
     sk = Batérie
@@ -4645,7 +4584,6 @@
     nl = Oude kleding
     pl = Stare ubrania
     pt = Roupas velhas
-    pt-BR = Roupas velhas
     ro = Haine vechi
     ru = Одежда
     sk = Staré oblečenie
@@ -4686,7 +4624,6 @@
     nl = Glazen flessen
     pl = Szkło
     pt = Garrafas de vidro
-    pt-BR = Garrafas de vidro
     ro = Deșeuri de sticlă
     ru = Стеклотара
     sk = Sklenené fľaše
@@ -4727,7 +4664,6 @@
     nl = Papierafval
     pl = Makulatura
     pt = Papel
-    pt-BR = Papel
     ro = Deșeuri de hârtie
     ru = Бумага
     sk = Papierový odpad
@@ -4851,7 +4787,6 @@
     nl = Schroot
     pl = Złom
     pt = Sucata
-    pt-BR = Sucata
     ro = Resturi de metal
     ru = Металлолом
     sk = Kovový šrot
