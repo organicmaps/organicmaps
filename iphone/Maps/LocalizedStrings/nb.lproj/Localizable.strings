@@ -1,7 +1,5 @@
 
-
 /********** Strings **********/
-
 
 /* Button text (should be short) */
 "cancel" = "Avbryt";
@@ -11,6 +9,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Slett";
+
 "download_maps" = "Last ned kart";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -57,7 +56,9 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Rask, minimalistisk, utviklet av fellesskapet";
+
 "close" = "Lukk";
+
 "download" = "Last ned";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -92,7 +93,6 @@
 
 
 /********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Spisesteder";
@@ -209,8 +209,11 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lengde";
+
 "share_my_location" = "Del posisjonen min";
+
 "prefs_group_route" = "Navigasjon";
+
 "pref_zoom_title" = "Zoom-knapper";
 
 /* Settings «Map» category: «Appearance» title */
@@ -257,8 +260,11 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Andre";
+
 "pref_map_auto_zoom" = "Automatisk zooming";
+
 "placepage_distance" = "Avstand";
+
 "search_show_on_map" = "Vis på kartet";
 
 /* Text in menu */
@@ -293,8 +299,11 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Doner for å bygge de beste kartene sammen!";
+
 "already_donated" = "Allerede donert";
+
 "remind_me_later" = "Påminn senere";
+
 "support_organic_maps" = "Støtte Organic Maps";
 
 /* Button in the main Help dialog */
@@ -335,12 +344,16 @@
 
 /* Country queued for download */
 "downloader_queued" = "Lagt i kø";
+
 "downloader_near_me_subtitle" = "I nærheten";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kart";
+
 "downloader_download_all_button" = "Last ned alle";
+
 "downloader_downloading" = "Laster ned:";
+
 "downloader_search_results" = "Funnet";
 
 /* Status of outdated country in the list */
@@ -372,7 +385,9 @@
 
 /* bookmark button text */
 "bookmark" = "bokmerk";
+
 "save" = "Lagre";
+
 "create" = "opprett";
 
 /* red color */
@@ -427,37 +442,63 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Husk følgende når du følger ruten:";
+
 "dialog_routing_disclaimer_priority" = "– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;";
+
 "dialog_routing_disclaimer_precision" = "– Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;";
+
 "dialog_routing_disclaimer_recommendations" = "– Foreslåtte ruter bør bare anses som anbefalinger;";
+
 "dialog_routing_disclaimer_borders" = "— Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;";
+
 "dialog_routing_disclaimer_beware" = "Kjør trygt!";
+
 "dialog_routing_check_gps" = "Sjekk GPS-signal";
+
 "dialog_routing_error_location_not_found" = "Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.";
+
 "dialog_routing_location_turn_wifi" = "Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.";
+
 "dialog_routing_location_turn_on" = "Aktiver stedstjenester";
+
 "dialog_routing_location_unknown_turn_on" = "Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.";
+
 "dialog_routing_download_files" = "Last ned nødvendige filer";
+
 "dialog_routing_download_and_update_all" = "Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.";
+
 "dialog_routing_unable_locate_route" = "Kunne ikke finne rute";
+
 "dialog_routing_change_start_or_end" = "Endre startpunkt eller bestemmelsessted.";
+
 "dialog_routing_change_start" = "Endre startpunkt";
+
 "dialog_routing_start_not_determined" = "Ingen rute ble opprettet. Startpunktet ble ikke funnet.";
+
 "dialog_routing_select_closer_start" = "Velg et startpunkt som er i nærheten av en vei.";
+
 "dialog_routing_change_end" = "Endre bestemmelsessted";
+
 "dialog_routing_end_not_determined" = "Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.";
+
 "dialog_routing_select_closer_end" = "Velg et bestemmelsessted som er i nærheten av en vei.";
+
 "dialog_routing_change_intermediate" = "Kunne ikke finne mellomstopp.";
+
 "dialog_routing_intermediate_not_determined" = "Kontroller og juster mellomstopp.";
+
 "dialog_routing_system_error" = "Systemfeil";
+
 "dialog_routing_application_error" = "En applikasjonsfeil førte til at ruten ikke kunne opprettes.";
+
 "dialog_routing_try_again" = "Vennligst prøv igjen";
+
 "dialog_routing_download_and_build_cross_route" = "Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?";
+
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
 
 
 /********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -473,14 +514,20 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.";
+
 "categories" = "Kategorier";
+
 "history" = "Historikk";
+
 "search_not_found" = "Beklager, jeg fant ingenting.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Last ned regionen du søker i, eller prøv å legge til et bynavn i nærheten.";
+
 "search_history_title" = "Søkehistorikk";
+
 "search_history_text" = "Vis de siste søkene raskt.";
+
 "clear_search" = "Tøm søkehistorikk";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -488,29 +535,50 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Din beliggenhet";
+
 "p2p_start" = "Start";
+
 "p2p_from_here" = "Fra";
+
 "p2p_to_here" = "Rute til";
+
 "p2p_only_from_current" = "Navigering er kun tilgjengelig fra din nåværende beliggenhet.";
+
 "p2p_reroute_from_current" = "Vil du vi skal planlegge en rute fra din nåværende posisjon?";
+
 "editor_time_add" = "Legg til tidsrom";
+
 "editor_time_delete" = "Slett tidsrom";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Hele dagen (24 timer)";
+
 "editor_time_open" = "Åpen";
+
 "editor_time_close" = "Stengt";
+
 "editor_time_add_closed" = "Legg til stengt tid";
+
 "editor_time_title" = "Åpningstider";
+
 "editor_time_advanced" = "Avansert modus";
+
 "editor_time_simple" = "Enkel modus";
+
 "editor_hours_closed" = "Stengt";
+
 "editor_example_values" = "Eksempelverdier";
+
 "editor_add_select_location" = "Velg sted";
+
 "editor_done_dialog_1" = "Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.";
+
 "share_with_friends" = "Del med venner";
+
 "editor_report_problem_send_button" = "Send";
+
 "autodownload" = "Automatisk nedlasting";
 
 /* Place Page opening hours text */
@@ -518,93 +586,154 @@
 
 /* Place Page opening hours text */
 "daily" = "Daglig";
+
 "twentyfour_seven" = "Dag og natt";
+
 "day_off_today" = "Fridag i dag";
+
 "day_off" = "Fridag";
+
 "today" = "I dag";
+
 "opens_tomorrow_at" = "Åpner i morgen klokka %@";
+
 "opens_dayoftheweek_at" = "Åpner %1$@ klokka %2$@";
+
 "opens_at" = "Åpner klokka %@";
+
 "opens_in" = "Åpner om %@";
+
 "closes_at" = "Stenger %@";
+
 "closes_in" = "Stenger om %@";
+
 "closed" = "Stengt";
+
 "add_opening_hours" = "Legg til åpningstider";
+
 "no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
+
 "register_at_openstreetmap" = "Registrer deg";
+
 "password_8_chars_min" = "Passord (minimum 8 tegn)";
+
 "invalid_username_or_password" = "Ugyldig brukernavn eller passord.";
+
 "login" = "Logg inn";
+
 "login_osm" = "Logg på OpenStreetMap";
+
 "forgot_password" = "Glemt passordet?";
+
 "osm_account" = "OSM-konto";
+
 "logout" = "Logg ut";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Siste opplasting";
+
 "thank_you" = "Takk skal du ha";
+
 "edit_place" = "Rediger stedet";
+
 "place_name" = "Stedsnavn";
+
 "add_language" = "Legg til et språk";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Et husnummer";
+
 "details" = "Detaljer";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Legg til en gate";
+
 "choose_language" = "Velg et språk";
+
 "choose_street" = "Velg en gate";
+
 "postal_code" = "Postnummer";
+
 "cuisine" = "Matrett";
+
 "select_cuisine" = "Velg matrett";
 
 /* login text field */
 "email_or_username" = "E-postadresse eller brukernavn";
+
 "phone" = "Telefon";
+
 "level" = "Gulv";
+
 "please_note" = "Vær oppmerksom på at";
+
 "downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";
+
 "downloader_update_maps" = "Oppdater kart";
+
 "downloader_search_field_hint" = "Finn kartet";
+
 "migration_download_error_dialog" = "Nedlastningsfeil";
+
 "common_check_internet_connection_dialog" = "Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.";
+
 "downloader_no_space_title" = "Ikke nok plass";
+
 "downloader_no_space_message" = "Fjern unødvendig data";
+
 "editor_profile_changes" = "Bekreftede endringer";
+
 "editor_focus_map_on_location" = "Dra kartet for å plassere korset der stedet eller virksomheten befinner seg.";
+
 "editor_add_select_category" = "Velg kategori";
+
 "editor_add_select_category_popular_subtitle" = "Populære";
+
 "editor_add_select_category_all_subtitle" = "Alle kategorier";
+
 "editor_edit_place_title" = "Redigerer";
+
 "editor_add_place_title" = "Legger til";
+
 "editor_edit_place_name_hint" = "Navn på stedet";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Som det står skrevet på det lokale språket";
+
 "editor_edit_place_category_title" = "Kategori";
+
 "whatsnew_editor_message_1" = "Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.";
+
 "dialog_incorrect_feature_position" = "Endre plassering";
+
 "message_invalid_feature_position" = "Et objekt kan ikke plasseres her";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Fellesskapsopprettede OpenStreetMap-data fra %@. Les mer om hvordan du redigerer og oppdaterer kartet på OpenStreetMap.org.";
+
 "login_to_make_edits_visible" = "Opprett en OpenStreetMap-konto eller logg inn for å publisere kartredigeringene dine til hele verden.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.";
+
 "editor_sharing_title" = "Jeg har forbedret Organic Maps kartene";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d av %2$d";
+
 "download_over_mobile_header" = "Last ned med mobildata?";
+
 "download_over_mobile_message" = "Dette kan medføre store kostnader med enkelte dataplaner eller om du roamer.";
+
 "error_enter_correct_house_number" = "Skriv riktig husnummer";
+
 "editor_storey_number" = "Antall etasjer (maks. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "Rediger bygningen med maks. %d etasjer";
+
 "editor_zip_code" = "Postnummer";
+
 "error_enter_correct_zip_code" = "Angi riktig postnummer";
 
 /* Place Page title for long tap */
@@ -612,29 +741,47 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Merknad til OpenStreetMap-frivillige (valgfritt)";
+
 "editor_detailed_description_hint" = "Detaljert kommentar";
+
 "editor_detailed_description" = "De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.";
+
 "editor_more_about_osm" = "Mer om OpenStreetMap";
+
 "editor_operator" = "Operatør";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operatør: %@";
+
 "editor_category_unsuitable_title" = "Finner du ikke en passende kategori?";
+
 "editor_category_unsuitable_text" = "Organic Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Sjekk vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detaljerte trinnvise instruksjoner.";
+
 "downloader_no_downloaded_maps_title" = "Du har ikke lastet ned noen kart";
+
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";
+
 "current_location_unknown_error_title" = "Gjeldende plassering er ukjent.";
+
 "current_location_unknown_error_message" = "Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.";
+
 "location_services_disabled_header" = "Lokalisering er deaktivert";
+
 "location_services_disabled_message" = "Tillat bruk av av geografisk lokalisering i enhetens innstillinger";
+
 "location_services_disabled_1" = "1. Åpne Innstillinger";
+
 "location_services_disabled_2" = "2. Trykk Lokalisering";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3.Velg når appen er i bruk";
+
 "location_services_disabled_on_device_2" = "2. Velg Personvern";
+
 "location_services_disabled_on_device_3" = "3. Velg Stedstjenester";
+
 "location_services_disabled_on_device_4" = "4. Slå på Stedstjenester";
+
 "location_services_disabled_on_device_additional_message" = "Eller fortsett å bruke Organic Maps uten plassering";
 
 /* abbreviation for meters */
@@ -651,11 +798,17 @@
 
 /* A unit of measure */
 "ft" = "fot";
+
 "miles_per_hour" = "mph";
+
 "hour" = "t";
+
 "minute" = "min";
+
 "day" = "d";
+
 "placepage_more_button" = "Mer";
+
 "book_button" = "Bestill";
 
 /* A referral link on the place page for some hotels */
@@ -666,25 +819,42 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Mer informasjon om Kayak";
+
 "placepage_call_button" = "Ring";
+
 "placepage_edit_bookmark_button" = "Rediger bokmerke";
+
 "placepage_bookmark_name_hint" = "Bokmerkenavn";
+
 "placepage_personal_notes_hint" = "Personlige notater (text or html)";
+
 "placepage_delete_bookmark_button" = "Slett bokmerke";
+
 "editor_edits_sent_message" = "Notatet ditt vil bli sendt til OpenStreetMap";
+
 "editor_comment_hint" = "Kommentar…";
+
 "editor_reset_edits_message" = "Nullstille alle lokale endringer?";
+
 "editor_reset_edits_button" = "Nullstill";
+
 "editor_remove_place_message" = "Fjerne et tilføyd sted?";
+
 "editor_remove_place_button" = "Fjern";
+
 "editor_place_doesnt_exist" = "Sted finnes ikke";
+
 "text_more_button" = "…mer";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Skriv riktig telefonnummer";
+
 "error_enter_correct_web" = "Oppgi en gyldig nettadresse";
+
 "error_enter_correct_email" = "Oppgi en gyldig epostadresse";
+
 "refresh" = "Oppdatere";
+
 "placepage_add_place_button" = "Legg til sted i OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -692,16 +862,21 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Sørg for at du ikke har skrevet noe personlig informasjon.";
+
 "editor_share_to_all_dialog_message_2" = "OpenStreetMap-redaktører vil sjekke endringene og ta kontakt med deg hvis de har spørsmål.";
+
 "navigation_stop_button" = "Stopp";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Deaktivere opptak av nylig reiste rute?";
+
 "off_recent_track_background_button" = "Deaktiver";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Sjekk ut";
+
 "recent_track_background_dialog_message" = "Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
+
 "general_settings" = "Generelle innstillinger";
 
 /* For the first routing */
@@ -709,17 +884,26 @@
 
 /* For the first routing */
 "decline" = "Avvis";
+
 "mobile_data_dialog" = "Bruke mobilt Internett til å vise detaljert informasjon?";
+
 "mobile_data_option_always" = "Bruk alltid";
+
 "mobile_data_option_today" = "Bare i dag";
+
 "mobile_data_option_not_today" = "Ikke bruk i dag";
+
 "mobile_data" = "Mobilt Internett";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.";
+
 "mobile_data_option_never" = "Aldri bruk";
+
 "mobile_data_option_ask" = "Alltid spør";
+
 "traffic_update_maps_text" = "For å vise trafikkdata må kartene i appen være oppdaterte.";
+
 "big_font" = "Forstørr skriften på kartet";
 
 /* "traffic" as in road congestion */
@@ -727,8 +911,11 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
+
 "enable_logging" = "Aktiver loggføring";
+
 "log_file_size" = "Loggfilstørrelse: %@";
+
 "transliteration_title" = "Omskrivning til latin";
 
 /* Subway exits for public transport marks on the map */
@@ -739,11 +926,17 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Bruk søk eller trykk på kartet for å legge til et destinasjonspunkt";
+
 "planning_route_manage_route" = "Administrere rute";
+
 "button_plan" = "Planlegge";
+
 "placepage_remove_stop" = "Fjern stopp";
+
 "planning_route_remove_title" = "Dra hit for å fjerne";
+
 "placepage_add_stop" = "Angi stopp";
+
 "start_from_my_position" = "Start fra";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -751,47 +944,83 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "her";
+
 "core_entrance" = "Inngang";
+
 "error_enter_correct_name" = "Skriv inn korrekt navn";
+
 "bookmark_lists" = "Lister";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Skjul alle";
+
 "bookmark_lists_show_all" = "Vis alle";
+
 "bookmarks_create_new_group" = "Opprett ny liste";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Importer bokmerker og spor";
+
 "downloader_hide_screen" = "Skjul skjerm";
+
 "downloader_percent" = "%@ (%@ av %@)";
+
 "downloader_process" = "Laster ned %@ …";
+
 "downloader_applying" = "Bruker %@ …";
+
 "bookmarks_error_message_share_general" = "Kan ikke dele på grunn av en programfeil";
+
 "bookmarks_error_title_share_empty" = "Delingsfeil";
+
 "bookmarks_error_message_share_empty" = "Kan ikke dele en tom liste";
+
 "bookmarks_error_message_empty_list_name" = "Vennligst skriv inn listenavnet";
+
 "bookmarks_error_title_list_name_already_taken" = "Dette navnet er allerede tatt";
+
 "bookmarks_error_title_list_name_too_long" = "Dette navnet er for langt";
+
 "profile" = "OpenStreetMap profil";
+
 "bookmarks_detect_title" = "Nye filer oppdaget";
+
 "button_convert" = "Konvertere";
+
 "bookmarks_convert_error_title" = "Feil";
+
 "bookmarks_convert_error_message" = "Noen filer ble ikke konvertert.";
+
 "restore" = "Restaurere";
+
 "privacy_policy" = "Personvernpolitikk";
+
 "terms_of_use" = "Bruksbetingelser";
+
 "button_layer_subway" = "T-bane";
+
 "layers_title" = "Kartstiler og -lag";
+
 "subway_data_unavailable" = "T-banekart er utilgjengelig";
+
 "title_error_downloading_bookmarks" = "Det oppsto en feil";
+
 "popular_place" = "Populær";
+
 "export_file" = "Eksporter KMZ";
+
 "export_file_gpx" = "Eksporter GPX";
+
 "delete_list" = "Slett liste";
+
 "hide_from_map" = "Skjul fra kart";
+
 "tags_loading_error_subtitle" = "Det oppsto en feil under lasting av emneknagger, prøv igjen";
+
 "download_button" = "Last ned";
+
 "speedcams_alert_title" = "Fartskamera";
+
 "place_description_title" = "Plasser beskrivelse";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -802,12 +1031,19 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Advar aldri";
+
 "power_managment_title" = "Strømsparemodus";
+
 "power_managment_description" = "Når automatisk modus er valgt, begynner programmet å deaktivere batteridriftfunksjonene avhengig av det nåværende batterinivået";
+
 "power_managment_setting_never" = "Aldri";
+
 "power_managment_setting_auto" = "Automatisk";
+
 "power_managment_setting_manual_max" = "Maksimum strømsparing";
+
 "enable_logging_warning_message" = "Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.";
+
 "driving_options_title" = "Kjørealternativer";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -818,19 +1054,33 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Unngå fergeoverganger";
+
 "avoid_motorways" = "Unngå motorveien";
+
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
+
 "unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
+
 "define_to_avoid_btn" = "Definer veier som skal unngås";
+
 "change_driving_options_btn" = "Kjørealternativer aktivert";
+
 "toll_road" = "Bompengevei";
+
 "unpaved_road" = "Uasfaltert vei";
+
 "ferry_crossing" = "Fergeovergang";
+
 "trip_start" = "La oss begynne";
+
 "pick_destination" = "Destinasjon";
+
 "follow_my_position" = "Sentrer";
+
 "search_results" = "Søkeresultater";
+
 "then_turn" = "Deretter";
+
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";
 
 /* A generic "Yes" button in dialogs */
@@ -850,22 +1100,39 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Nettverk: %@";
+
 "trip_finished" = "Du har ankommet!";
+
 "keyboard_availability_alert" = "Tastatur er ikke tilgjengelig mens en kjører";
+
 "dialog_routing_change_start_carplay" = "Kan ikke planlegge rute fra din nåværende posisjon";
+
 "dialog_routing_change_end_carplay" = "Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon";
+
 "dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Vennligst gå til et åpent område";
+
 "dialog_routing_unable_locate_route_carplay" = "Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute";
+
 "dialog_routing_download_files_carplay" = "For å beregne rute last ned manglende kart på enheten din";
+
 "dialog_routing_system_error_carplay" = "Feil oppstod. Vennligst restart appen";
+
 "dialog_routing_rebuild_from_current_location_carplay" = "Rute vil planlegges fra din nåværende posisjon";
+
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
+
 "not_all_shown_bookmarks_carplay" = "Ikke alle bokmerker vises";
+
 "switch_to_phone_bookmarks_carplay" = "Bytt til telefonen for å se alle bokmerker";
+
 "ok" = "Ok";
+
 "speedcams_alert_title_carplay_1" = "Kamera-info";
+
 "speedcams_alert_title_carplay_2" = "Kamera-advarsel";
+
 "download_map_carplay" = "Vennligst last ned kart i Organic Maps appen på enheten din";
+
 "carplay_roundabout_exit" = "%@ avkjøring";
 
 /* max. 10 symbols, both iOS and Android */
@@ -873,52 +1140,94 @@
 
 /* iOS */
 "sort_default" = "Sortere som standard";
+
 "sort_type" = "Sortere etter type";
+
 "sort_distance" = "Sortere etter avstand";
+
 "sort_date" = "Sortere etter dato";
+
 "sort_name" = "Sorter etter navn";
+
 "week_ago_sorttype" = "For en uke siden";
+
 "month_ago_sorttype" = "For en måned siden";
+
 "moremonth_ago_sorttype" = "Mer enn en måned siden";
+
 "moreyear_ago_sorttype" = "Mer enn ett år siden";
+
 "near_me_sorttype" = "Nær meg";
+
 "others_sorttype" = "Andre";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "Mat";
+
 "tourist_places" = "Severdigheter";
+
 "museums" = "Museer";
+
 "parks" = "Parker";
+
 "swim_places" = "Svømming";
+
 "mountains" = "Fjell";
+
 "animals" = "Dyr";
+
 "hotels" = "Hoteller";
+
 "buildings" = "Bygninger";
+
 "money" = "Penger";
+
 "shops" = "Butikker";
+
 "parkings" = "Parkeringer";
+
 "fuel_places" = "Bensinstasjoner";
+
 "medicine" = "Medisin";
+
 "search_in_the_list" = "Søk på lista";
+
 "religious_places" = "Hellige steder";
+
 "transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
+
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
+
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";
+
 "button_layer_isolines" = "Høyder";
+
 "isolines_activation_error_dialog" = "For å bruke høydekurver oppdater eller last opp kartet til nødvendig område";
+
 "isolines_location_error_dialog" = "Høydekurver er ikke tilgjengelige i dette området ennå";
+
 "elevation_profile_diff_level" = "Vanskelighetsgrad";
+
 "elevation_profile_diff_level_easy" = "Lett";
+
 "elevation_profile_diff_level_moderate" = "Middels";
+
 "elevation_profile_diff_level_hard" = "Vanskelig";
+
 "elevation_profile_ascent" = "Stigning";
+
 "elevation_profile_descent" = "Nedstigning";
+
 "elevation_profile_min_elevation" = "Min. høyde";
+
 "elevation_profile_max_elevation" = "Maks. høyde";
+
 "isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
+
 "downloader_updating_ios" = "Oppdatering";
+
 "downloader_loading_ios" = "Nedlasting";
 
 /* Autoupdate dialog on start */
@@ -1013,6 +1322,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Kart";
+
 "drive_through" = "Gjennomkjøring";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1092,4 +1402,5 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Ruten er tom - ingenting å lagre";
+
 "edit_track" = "Rediger ruten";

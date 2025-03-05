@@ -1,7 +1,5 @@
 
-
 /********** Strings **********/
-
 
 /* Button text (should be short) */
 "cancel" = "إلغاء";
@@ -11,6 +9,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "حذف";
+
 "download_maps" = "تنزيل الخرائط";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -57,7 +56,9 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• سريع وبسيط، تم تطويره بواسطة المجتمع";
+
 "close" = "إغلاق";
+
 "download" = "تنزيل";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -92,7 +93,6 @@
 
 
 /********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "أمكان لتناول الطعام";
@@ -209,8 +209,11 @@
 
 /* Length of track in cell that describes route */
 "length" = "الطول";
+
 "share_my_location" = "مشاركة موقعي";
+
 "prefs_group_route" = "الملاحة";
+
 "pref_zoom_title" = "أزرار التكبير والتصغير";
 
 /* Settings «Map» category: «Appearance» title */
@@ -257,8 +260,11 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "آخر";
+
 "pref_map_auto_zoom" = "تكبير تلقائي";
+
 "placepage_distance" = "المسافة";
+
 "search_show_on_map" = "مشاهدة على الخريطة";
 
 /* Text in menu */
@@ -293,8 +299,11 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "تبرع لبناء أفضل الخرائط معًا!";
+
 "already_donated" = "تم التبرع";
+
 "remind_me_later" = "ذكر لاحقاً";
+
 "support_organic_maps" = "دعم Organic Maps";
 
 /* Button in the main Help dialog */
@@ -335,12 +344,16 @@
 
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
+
 "downloader_near_me_subtitle" = "قريب مني";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "الخرائط";
+
 "downloader_download_all_button" = "تنزيل الكل";
+
 "downloader_downloading" = "يتم التنزيل:";
+
 "downloader_search_results" = "تم العثور على";
 
 /* Status of outdated country in the list */
@@ -372,7 +385,9 @@
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
+
 "save" = "حفظ";
+
 "create" = "إنشاء";
 
 /* red color */
@@ -427,37 +442,63 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "عند اتباع المسار، يُرجى الانتباه إلى ما يلي:";
+
 "dialog_routing_disclaimer_priority" = "— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;";
+
 "dialog_routing_disclaimer_precision" = "— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";
+
 "dialog_routing_disclaimer_recommendations" = "— يجب التعامل مع المسارات المقترحة كتوصيات فقط;";
+
 "dialog_routing_disclaimer_borders" = "— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها;";
+
 "dialog_routing_disclaimer_beware" = "يجب أن تظل يقظًا وآمنًا على الطريق!";
+
 "dialog_routing_check_gps" = "تحقق من إشارة نظام تحديد الموقع الجغرافي";
+
 "dialog_routing_error_location_not_found" = "تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.";
+
 "dialog_routing_location_turn_wifi" = "الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.";
+
 "dialog_routing_location_turn_on" = "تفعيل خدمات الموقع الجغرافي";
+
 "dialog_routing_location_unknown_turn_on" = "لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب";
+
 "dialog_routing_download_files" = "تنزيل الملفات المطلوبة";
+
 "dialog_routing_download_and_update_all" = "قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.";
+
 "dialog_routing_unable_locate_route" = "تعذر إيجاد المسار";
+
 "dialog_routing_change_start_or_end" = "الرجاء تعديل نقطة بدء أو تعديل وجهتك.";
+
 "dialog_routing_change_start" = "تعديل نقطة البدء";
+
 "dialog_routing_start_not_determined" = "لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.";
+
 "dialog_routing_select_closer_start" = "يُرجى تحديد نقطة بدء أكثر قربًا للطريق.";
+
 "dialog_routing_change_end" = "تعديل الوجهة";
+
 "dialog_routing_end_not_determined" = "لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.";
+
 "dialog_routing_select_closer_end" = "يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.";
+
 "dialog_routing_change_intermediate" = "تعذر تحديد مكان النقطة الوسيطة.";
+
 "dialog_routing_intermediate_not_determined" = "الرجاء ضبط النقطة الوسيطة الخاصة بك.";
+
 "dialog_routing_system_error" = "خطأ في النظام";
+
 "dialog_routing_application_error" = "تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.";
+
 "dialog_routing_try_again" = "الرجاء إعادة المحاولة";
+
 "dialog_routing_download_and_build_cross_route" = "هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟";
+
 "dialog_routing_download_cross_route" = "تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.";
 
 
 /********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "عرض";
@@ -473,14 +514,20 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
+
 "categories" = "التصنيفات";
+
 "history" = "سجل البحث";
+
 "search_not_found" = "المعذرة، لم أعثر على أية نتائج.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.";
+
 "search_history_title" = "سجل البحث";
+
 "search_history_text" = "عرض عمليات البحث الأخيرة.";
+
 "clear_search" = "مسح سجل البحث";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -488,29 +535,50 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "موقعك";
+
 "p2p_start" = "ابدأ";
+
 "p2p_from_here" = "الطريق من هنا";
+
 "p2p_to_here" = "الطريق إلى";
+
 "p2p_only_from_current" = "تتوفر الملاحة من خلال موقعك الحالي فقط.";
+
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
+
 "editor_time_add" = "إضافة جدول";
+
 "editor_time_delete" = "حذف جدول";
 
 /* Text for allday switch. */
 "editor_time_allday" = "طوال اليوم (٢٤ ساعة)";
+
 "editor_time_open" = "مفتوح";
+
 "editor_time_close" = "مغلق";
+
 "editor_time_add_closed" = "إضافة ساعات راحة";
+
 "editor_time_title" = "ساعات العمل";
+
 "editor_time_advanced" = "الوضع المتقدم";
+
 "editor_time_simple" = "الوضع البسيط";
+
 "editor_hours_closed" = "ساعات الراحة";
+
 "editor_example_values" = "أمثلة على القيم";
+
 "editor_add_select_location" = "اختر الموقع";
+
 "editor_done_dialog_1" = "لقد ساهمت بتحسين خريطة العالم. لا تخفي ذلك! أخبر أصدقائك، وحسنوها معاً.";
+
 "share_with_friends" = "شارك مع الأصدقاء";
+
 "editor_report_problem_send_button" = "إرسال";
+
 "autodownload" = "التنزيل التلقائي";
 
 /* Place Page opening hours text */
@@ -518,93 +586,154 @@
 
 /* Place Page opening hours text */
 "daily" = "يومياً";
+
 "twentyfour_seven" = "٢٤/٧(ليلاً ونهاراً)";
+
 "day_off_today" = "مغلق اليوم";
+
 "day_off" = "مغلق";
+
 "today" = "اليوم";
+
 "opens_tomorrow_at" = "Opens tomorrow at %@";
+
 "opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+
 "opens_at" = "يفتح في %@";
+
 "opens_in" = "يفتح بعد %@";
+
 "closes_at" = "يغلق في %@";
+
 "closes_in" = "يغلق في غضون %@";
+
 "closed" = "مغلق";
+
 "add_opening_hours" = "أضف ساعات العمل";
+
 "no_osm_account" = "ليس لديك حساب في خريطة الشارع المفتوحة؟";
+
 "register_at_openstreetmap" = "التسجيل في خريطة الشارع المفتوحة";
+
 "password_8_chars_min" = "كلمة المرور (٨ أحرف بحد أدنى)";
+
 "invalid_username_or_password" = "اسم المستخدم أو كلمة المرور غير صالحة.";
+
 "login" = "تسجيل الدخول";
+
 "login_osm" = "تسجيل الدخول الى OpenStreetMap";
+
 "forgot_password" = "هل نسيت كلمة المرور؟";
+
 "osm_account" = "حساب على خريطة الشارع المفتوحة";
+
 "logout" = "تسجيل الخروج";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "آخر تعديل";
+
 "thank_you" = "شكراً لك";
+
 "edit_place" = "تعديل المكان";
+
 "place_name" = "اسم المكان";
+
 "add_language" = "إضافة لغة";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "رقم المنزل";
+
 "details" = "التفاصيل";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "إضافة شارع";
+
 "choose_language" = "اختر اللغة";
+
 "choose_street" = "اختر الشارع";
+
 "postal_code" = "الرمز البريدي";
+
 "cuisine" = "المطبخ";
+
 "select_cuisine" = "اختر المطبخ";
 
 /* login text field */
 "email_or_username" = "البريد الإلكتروني أو اسم المستخدم";
+
 "phone" = "رقم الهاتف";
+
 "level" = "طابق";
+
 "please_note" = "يرجى العلم أنه،";
+
 "downloader_delete_map_dialog" = "سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.";
+
 "downloader_update_maps" = "تحديث الخرائط";
+
 "downloader_search_field_hint" = "ابحث عن خريطة";
+
 "migration_download_error_dialog" = "خطأ بالتنزيل";
+
 "common_check_internet_connection_dialog" = "يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.";
+
 "downloader_no_space_title" = "لا تتوفر مساحة كافية";
+
 "downloader_no_space_message" = "من فضلك، قم بإزالة البيانات غير الضرورية";
+
 "editor_profile_changes" = "التعديلات التي تم التحقق منها";
+
 "editor_focus_map_on_location" = "اسحب الخريطة لوضع الصليب في موقع المكان أو النشاط التجاري.";
+
 "editor_add_select_category" = "اختر الفئة";
+
 "editor_add_select_category_popular_subtitle" = "رائج";
+
 "editor_add_select_category_all_subtitle" = "جميع الفئات";
+
 "editor_edit_place_title" = "يتم التعديل";
+
 "editor_add_place_title" = "يتم الإضافة";
+
 "editor_edit_place_name_hint" = "اسم المكان";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "كما هو مكتوب باللغة المحلية";
+
 "editor_edit_place_category_title" = "الفئة";
+
 "whatsnew_editor_message_1" = "قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.";
+
 "dialog_incorrect_feature_position" = "تغيير الموقع";
+
 "message_invalid_feature_position" = "لا يمكن تحديد موقع الكائن هنا";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %@. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "أنشئ حساباً على OpenStreetMap أو سجّل الدخول لنشر تعديلاتك على الخريطة للعالم.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، الرجاء قم بحذف البيانات غير الضرورية.";
+
 "editor_sharing_title" = "لقد قمت بتحسين خرائط تطبيق Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d من%2$d";
+
 "download_over_mobile_header" = "تنزيل باستخدام بيانات الجوال؟";
+
 "download_over_mobile_message" = "قد يكون هذا مكلفاً جداً في بعض الاحيان أو عند التجوال.";
+
 "error_enter_correct_house_number" = "أدخل رقم بناء صحيح";
+
 "editor_storey_number" = "عدد الطوابق (بحد أقصى %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "يجب ألا يتجاوز عدد طوابق المبنى %d";
+
 "editor_zip_code" = "الرمز البريدي";
+
 "error_enter_correct_zip_code" = "أدخل الرمز البريدي صالح";
 
 /* Place Page title for long tap */
@@ -612,29 +741,47 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "ملاحظة لمتطوعي OpenStreetMap (اختياري)";
+
 "editor_detailed_description_hint" = "تعليق مفصّل";
+
 "editor_detailed_description" = "سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps";
+
 "editor_more_about_osm" = "المزيد عن خريطة الشارع المفتوحة";
+
 "editor_operator" = "المشغل";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "المشغل: %@";
+
 "editor_category_unsuitable_title" = "لا يمكن العثور على فئة مناسبة؟";
+
 "editor_category_unsuitable_text" = "تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. راجع موقعنا <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.";
+
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
+
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.";
+
 "current_location_unknown_error_title" = "الموقع الحالي غير معروف.";
+
 "current_location_unknown_error_message" = "حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.";
+
 "location_services_disabled_header" = "تم تعطيل خدمات تحديد الموقع الجغرافي";
+
 "location_services_disabled_message" = "قم بإعطاء التطبيق السماحية بالوصول إلى الموقع الجغرافي في إعدادات الجهاز";
+
 "location_services_disabled_1" = "1. افتح الإعدادات";
+
 "location_services_disabled_2" = "2. انقر على الموقع";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. اختيار التفعيل أثناء استخدام التطبيق";
+
 "location_services_disabled_on_device_2" = "2. حدد الخصوصية";
+
 "location_services_disabled_on_device_3" = "3. حدد خدمات الموقع";
+
 "location_services_disabled_on_device_4" = "4. قم بتشغيل خدمات الموقع";
+
 "location_services_disabled_on_device_additional_message" = "أو استمر في استخدام الخرائط العضوية بدون الموقع";
 
 /* abbreviation for meters */
@@ -651,11 +798,17 @@
 
 /* A unit of measure */
 "ft" = "قدم";
+
 "miles_per_hour" = "ميل/ساعة";
+
 "hour" = "س";
+
 "minute" = "د";
+
 "day" = "يوم";
+
 "placepage_more_button" = "المزيد";
+
 "book_button" = "حجز";
 
 /* A referral link on the place page for some hotels */
@@ -666,25 +819,42 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "التفاصيل على Kayak";
+
 "placepage_call_button" = "اتصال";
+
 "placepage_edit_bookmark_button" = "تحرير العلامة المرجعية";
+
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
+
 "placepage_personal_notes_hint" = "ملاحظات شخصية (نص أو html)";
+
 "placepage_delete_bookmark_button" = "حذف العلامة المرجعية";
+
 "editor_edits_sent_message" = "سيتم إرسال ملاحظتك إلى OpenStreetMap";
+
 "editor_comment_hint" = "تعليق…";
+
 "editor_reset_edits_message" = "هل تريد مسح كافة التغييرات المحلية؟";
+
 "editor_reset_edits_button" = "مسح";
+
 "editor_remove_place_message" = "إزالة مكان الذي تمت إضافته؟";
+
 "editor_remove_place_button" = "إزالة";
+
 "editor_place_doesnt_exist" = "المكان غير موجود";
+
 "text_more_button" = "…المزيد";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "أدخل رقم هاتف صالح";
+
 "error_enter_correct_web" = "أدخل عنوان ويب صالح";
+
 "error_enter_correct_email" = "أدخل بريداً إلكترونياً صالحاً";
+
 "refresh" = "تحديث";
+
 "placepage_add_place_button" = "أضف مكانًا إلى OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -692,16 +862,21 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "تأكد من أنك لم تقم بإدخال أية بيانات شخصية.";
+
 "editor_share_to_all_dialog_message_2" = "سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.";
+
 "navigation_stop_button" = "توقف";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "هل تريد تعطيل تسجيل مسارات سفرك؟";
+
 "off_recent_track_background_button" = "تعطيل";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "اتطلع على";
+
 "recent_track_background_dialog_message" = "يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
+
 "general_settings" = "الإعدادات العامة";
 
 /* For the first routing */
@@ -709,17 +884,26 @@
 
 /* For the first routing */
 "decline" = "رفض";
+
 "mobile_data_dialog" = "استخدام بيانات الجوال لإظهار المعلومات التفصيلية؟";
+
 "mobile_data_option_always" = "استخدام دائمًا";
+
 "mobile_data_option_today" = "اليوم فقط";
+
 "mobile_data_option_not_today" = "عدم الاستخدام اليوم";
+
 "mobile_data" = "بيانات الجوال";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "إننا نحتاج بيانات الجوال لعرض معلومات تفصيلية عن الأماكن والإشارات المرجعية.";
+
 "mobile_data_option_never" = "عدم الاستخدام مطلقًا";
+
 "mobile_data_option_ask" = "السؤال دوماً";
+
 "traffic_update_maps_text" = "لعرض البيانات المرورية، يجب تحديث الخرائط.";
+
 "big_font" = "زيادة حجم الخط على الخريطة";
 
 /* "traffic" as in road congestion */
@@ -727,8 +911,11 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
+
 "enable_logging" = "تفعيل التسجيل";
+
 "log_file_size" = "حجم ملف السجل: %@";
+
 "transliteration_title" = "كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي";
 
 /* Subway exits for public transport marks on the map */
@@ -739,11 +926,17 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "استخدام البحث أو النقر على الخريطة لإضافة نقطة وجهة";
+
 "planning_route_manage_route" = "إدارة المسار";
+
 "button_plan" = "خطة";
+
 "placepage_remove_stop" = "إزالة نقطة توقف";
+
 "planning_route_remove_title" = "اسحب هنا للإزالة";
+
 "placepage_add_stop" = "إضافة نقطة توقف";
+
 "start_from_my_position" = "بدء من";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -751,47 +944,83 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "هنا";
+
 "core_entrance" = "المدخل";
+
 "error_enter_correct_name" = "الرجاء إدخال اسم صحيح";
+
 "bookmark_lists" = "قوائم";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "إخفاء الكل";
+
 "bookmark_lists_show_all" = "إظهار الكل";
+
 "bookmarks_create_new_group" = "إنشاء قائمة جديدة";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "استيراد الإشارات المرجعية والمسارات";
+
 "downloader_hide_screen" = "إخفاء الشاشة";
+
 "downloader_percent" = "%@ (%@ من %@)";
+
 "downloader_process" = "جاري التنزيل %@…";
+
 "downloader_applying" = "جاري التطبيق %@…";
+
 "bookmarks_error_message_share_general" = "تعذرت المشاركة بسبب خطأ في التطبيق";
+
 "bookmarks_error_title_share_empty" = "خطأ في المشاركة";
+
 "bookmarks_error_message_share_empty" = "لا يمكن مشاركة قائمة فارغة";
+
 "bookmarks_error_message_empty_list_name" = "يرجى إدخال اسم القائمة";
+
 "bookmarks_error_title_list_name_already_taken" = "هذا الاسم موجود سابقا";
+
 "bookmarks_error_title_list_name_too_long" = "هذا الاسم طويل جداً";
+
 "profile" = "ملف الشخصي على خريطة الشارع المفتوحة";
+
 "bookmarks_detect_title" = "تم اكتشاف ملفات جديدة";
+
 "button_convert" = "تحول";
+
 "bookmarks_convert_error_title" = "خطأ";
+
 "bookmarks_convert_error_message" = "لم يتم تحويل بعض الملفات.";
+
 "restore" = "استعادة";
+
 "privacy_policy" = "سياسة الخصوصية";
+
 "terms_of_use" = "شروط الاستخدام";
+
 "button_layer_subway" = "مترو الانفاق";
+
 "layers_title" = "أنماط الخريطة وطبقاتها";
+
 "subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
+
 "title_error_downloading_bookmarks" = "حدث خطأ";
+
 "popular_place" = "رائج";
+
 "export_file" = "تصدير KMZ";
+
 "export_file_gpx" = "تصدير GPX";
+
 "delete_list" = "حذف القائمة";
+
 "hide_from_map" = "إخفاء من الخريطة";
+
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
+
 "download_button" = "تنزيل";
+
 "speedcams_alert_title" = "تحذيرات كاميرات السرعة";
+
 "place_description_title" = "وصف المكان";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -802,12 +1031,19 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "لا تحذرني من أبداً";
+
 "power_managment_title" = "وضع توفير الطاقة";
+
 "power_managment_description" = "عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي";
+
 "power_managment_setting_never" = "أبدًا";
+
 "power_managment_setting_auto" = "تلقائي";
+
 "power_managment_setting_manual_max" = "توفير الطاقة الأقصى";
+
 "enable_logging_warning_message" = "هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.";
+
 "driving_options_title" = "خيارات رسم المسار";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -818,19 +1054,33 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "تجنب استخدام العبّارات";
+
 "avoid_motorways" = "تجنب الطريق السريع";
+
 "unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
+
 "unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا";
+
 "define_to_avoid_btn" = "حدد الطرق التي يجب تجنبها";
+
 "change_driving_options_btn" = "تم تفعيل خيارات رسم الطريق";
+
 "toll_road" = "طريق برسوم مرور";
+
 "unpaved_road" = "طريق غير معبد";
+
 "ferry_crossing" = "استخدام عبّارة";
+
 "trip_start" = "هيا بنا";
+
 "pick_destination" = "جهة الوصول";
+
 "follow_my_position" = "العودة إلى الوسط";
+
 "search_results" = "نتائج البحث";
+
 "then_turn" = "ثم";
+
 "redirect_route_alert" = "هل تريد إعادة رسم الطريق?";
 
 /* A generic "Yes" button in dialogs */
@@ -850,22 +1100,39 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "الشبكة: %@";
+
 "trip_finished" = "لقد وصلت!";
+
 "keyboard_availability_alert" = "لوحة الكتابة غير متاحة أثناء القيادة";
+
 "dialog_routing_change_start_carplay" = "لا يمكن رسم طريق من موقعك الحالي";
+
 "dialog_routing_change_end_carplay" = "لا يمكن رسم طريق لجهة الوصول. يرجي اختيار مكان آخر";
+
 "dialog_routing_check_gps_carplay" = "لا يوجد إشارة نظام تحديد المواقع الجغرافية. يرجى الانتقال لمنطقة مفتوح";
+
 "dialog_routing_unable_locate_route_carplay" = "لا يمكن رسم طريق. يرجى تحديد أماكن أخرى على الطريق";
+
 "dialog_routing_download_files_carplay" = "كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك";
+
 "dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
+
 "dialog_routing_rebuild_from_current_location_carplay" = "سيتم إعادة رسم الطريق من موقعك الحالي";
+
 "dialog_routing_rebuild_for_vehicle_carplay" = "سيتم تعديل الطريق ليكون خاص بالسيارة";
+
 "not_all_shown_bookmarks_carplay" = "لا يتم عرض جميع الإشارات المرجعية";
+
 "switch_to_phone_bookmarks_carplay" = "قم بالتبديل إلى الهاتف لرؤية جميع الإشارات المرجعية";
+
 "ok" = "موافق";
+
 "speedcams_alert_title_carplay_1" = "كاميرات السرعة";
+
 "speedcams_alert_title_carplay_2" = "تحذير بشأن السرعة";
+
 "download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك";
+
 "carplay_roundabout_exit" = "المخرج رقم %@";
 
 /* max. 10 symbols, both iOS and Android */
@@ -873,52 +1140,94 @@
 
 /* iOS */
 "sort_default" = "ترتيب افتراضي";
+
 "sort_type" = "رتّب حسب النوع";
+
 "sort_distance" = "رتّب حسب المسافة";
+
 "sort_date" = "رتّب حسب التاريخ";
+
 "sort_name" = "الترتيب حسب الاسم";
+
 "week_ago_sorttype" = "منذ أسبوع";
+
 "month_ago_sorttype" = "منذ شهر";
+
 "moremonth_ago_sorttype" = "منذ أكثر من شهر";
+
 "moreyear_ago_sorttype" = "منذ أكثر من سنة";
+
 "near_me_sorttype" = "قريب مني";
+
 "others_sorttype" = "أخرى";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "طعام";
+
 "tourist_places" = "أماكن سياحية";
+
 "museums" = "متاحف";
+
 "parks" = "حدائق";
+
 "swim_places" = "سباحة";
+
 "mountains" = "جبال";
+
 "animals" = "حيوانات";
+
 "hotels" = "فنادق";
+
 "buildings" = "أبنية";
+
 "money" = "نقود";
+
 "shops" = "متاجر";
+
 "parkings" = "مواقف سيارات";
+
 "fuel_places" = "محطات وقود";
+
 "medicine" = "دواء";
+
 "search_in_the_list" = "ابحث في القائمة";
+
 "religious_places" = "أماكن دينية";
+
 "transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
+
 "dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مترو الانفاق";
+
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";
+
 "button_layer_isolines" = "تضاريس";
+
 "isolines_activation_error_dialog" = "لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة";
+
 "isolines_location_error_dialog" = "الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة";
+
 "elevation_profile_diff_level" = "مستوى الصعوبة";
+
 "elevation_profile_diff_level_easy" = "سهل";
+
 "elevation_profile_diff_level_moderate" = "معتدل";
+
 "elevation_profile_diff_level_hard" = "صعب";
+
 "elevation_profile_ascent" = "تصاعدي";
+
 "elevation_profile_descent" = "تنازلي";
+
 "elevation_profile_min_elevation" = "أقل ارتفاع";
+
 "elevation_profile_max_elevation" = "أعلى ارتفاع";
+
 "isolines_toast_zooms_1_10" = "قم بالتقريب لتكتشف خطوط الكنتور";
+
 "downloader_updating_ios" = "جاري التحديث";
+
 "downloader_loading_ios" = "جاري التنزيل";
 
 /* Autoupdate dialog on start */
@@ -1013,6 +1322,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "الخريطة";
+
 "drive_through" = "الشراء من السيارة";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1092,4 +1402,5 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "المسار فارغ - لا يوجد شيء للحفظ";
+
 "edit_track" = "تعديل المسار";

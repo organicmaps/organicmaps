@@ -1,7 +1,5 @@
 
-
 /********** Strings **********/
-
 
 /* Button text (should be short) */
 "cancel" = "Cancelar";
@@ -11,6 +9,7 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Eliminar";
+
 "download_maps" = "Descarregar mapas";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -57,7 +56,9 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Rápido, minimalista, desenvolvido pela comunidade";
+
 "close" = "Fechar";
+
 "download" = "Descarregar";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -92,7 +93,6 @@
 
 
 /********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Onde comer";
@@ -209,8 +209,11 @@
 
 /* Length of track in cell that describes route */
 "length" = "Comprimento";
+
 "share_my_location" = "Partilhar a minha localização";
+
 "prefs_group_route" = "Navegação";
+
 "pref_zoom_title" = "Botões de ampliação";
 
 /* Settings «Map» category: «Appearance» title */
@@ -257,8 +260,11 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Outro";
+
 "pref_map_auto_zoom" = "Ampliação automática";
+
 "placepage_distance" = "Distância";
+
 "search_show_on_map" = "Ver no mapa";
 
 /* Text in menu */
@@ -293,8 +299,11 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Faz um donativo para construirmos juntos os melhores mapas!";
+
 "already_donated" = "Já doei";
+
 "remind_me_later" = "Lembre-me mais tarde";
+
 "support_organic_maps" = "Apoie o Organic Maps";
 
 /* Button in the main Help dialog */
@@ -335,12 +344,16 @@
 
 /* Country queued for download */
 "downloader_queued" = "Na fila";
+
 "downloader_near_me_subtitle" = "Perto de mim";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Mapas";
+
 "downloader_download_all_button" = "Descarregar tudo";
+
 "downloader_downloading" = "A descarregar:";
+
 "downloader_search_results" = "Encontrado";
 
 /* Status of outdated country in the list */
@@ -372,7 +385,9 @@
 
 /* bookmark button text */
 "bookmark" = "favorito";
+
 "save" = "Guardar";
+
 "create" = "criar";
 
 /* red color */
@@ -427,37 +442,63 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Ao seguir o trajeto, lembre-se que:";
+
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;";
+
 "dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;";
+
 "dialog_routing_disclaimer_recommendations" = "— Os trajetos indicados devem ser considerados apenas como sugestões;";
+
 "dialog_routing_disclaimer_borders" = "— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;";
+
 "dialog_routing_disclaimer_beware" = "Fique sempre atento nas estradas!";
+
 "dialog_routing_check_gps" = "Verifique o sinal do GPS";
+
 "dialog_routing_error_location_not_found" = "O trajeto não foi criado porque não foi possível identificar as coordenadas do GPS.";
+
 "dialog_routing_location_turn_wifi" = "Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.";
+
 "dialog_routing_location_turn_on" = "Ative os serviços de localização";
+
 "dialog_routing_location_unknown_turn_on" = "Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que o trajeto seja criado.";
+
 "dialog_routing_download_files" = "Descarregar os ficheiros necessários";
+
 "dialog_routing_download_and_update_all" = "Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que o trajeto seja criado.";
+
 "dialog_routing_unable_locate_route" = "Não foi possível encontrar uma rota";
+
 "dialog_routing_change_start_or_end" = "Ajuste o ponto de partida ou o ponto de chegada.";
+
 "dialog_routing_change_start" = "Ajuste o ponto de partida";
+
 "dialog_routing_start_not_determined" = "A rota não foi criada, porque não foi possível localizar o ponto de partida.";
+
 "dialog_routing_select_closer_start" = "Selecione um ponto de partida mais perto de uma estrada.";
+
 "dialog_routing_change_end" = "Ajuste o ponto de chegada";
+
 "dialog_routing_end_not_determined" = "A rota não foi criada, porque não foi possível localizar o ponto de chegada.";
+
 "dialog_routing_select_closer_end" = "Selecione um ponto de chegada mais perto de uma estrada.";
+
 "dialog_routing_change_intermediate" = "Não foi possível localizar o ponto intermédio.";
+
 "dialog_routing_intermediate_not_determined" = "Ajuste o ponto intermédio.";
+
 "dialog_routing_system_error" = "Erro de sistema";
+
 "dialog_routing_application_error" = "Não foi possível criar uma rota devido a um erro na aplicação.";
+
 "dialog_routing_try_again" = "Tente novamente";
+
 "dialog_routing_download_and_build_cross_route" = "Quer descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?";
+
 "dialog_routing_download_cross_route" = "Descarregue o mapa para traçar uma rota melhor que vai além dos limites deste mapa.";
 
 
 /********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Mostrar";
@@ -473,14 +514,20 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.";
+
 "categories" = "Categorias";
+
 "history" = "Histórico";
+
 "search_not_found" = "Lamento, mas não foram encontrados resultados.";
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Descarregue a região onde está a pesquisar ou tente adicionar o nome de uma cidade ou aldeia próxima.";
+
 "search_history_title" = "Histórico de pesquisas";
+
 "search_history_text" = "Ver as pesquisas recentes.";
+
 "clear_search" = "Limpar histórico de pesquisas";
 
 /* Place Page link to Wikipedia article (if map object has it). */
@@ -488,29 +535,50 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
+
 "p2p_your_location" = "Localização atual";
+
 "p2p_start" = "Iniciar";
+
 "p2p_from_here" = "De";
+
 "p2p_to_here" = "Itinerário para";
+
 "p2p_only_from_current" = "Só é possível navegar a partir da sua localização atual.";
+
 "p2p_reroute_from_current" = "Quer planear uma rota a partir da sua localização atual?";
+
 "editor_time_add" = "Adicionar horário";
+
 "editor_time_delete" = "Eliminar horário";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Todo o dia (24 horas)";
+
 "editor_time_open" = "Aberto";
+
 "editor_time_close" = "Fechado";
+
 "editor_time_add_closed" = "Inserir horas de encerrrado";
+
 "editor_time_title" = "Horário de funcionamento";
+
 "editor_time_advanced" = "Modo avançado";
+
 "editor_time_simple" = "Modo simples";
+
 "editor_hours_closed" = "Horas sem funcionamento";
+
 "editor_example_values" = "Valores de exemplo";
+
 "editor_add_select_location" = "Selecione a localização";
+
 "editor_done_dialog_1" = "Alterou o mapa mundial. Não mantenha as alterações para si mesmo! Diga aos seus amigos e editem-no juntos.";
+
 "share_with_friends" = "Partilhar com amigos";
+
 "editor_report_problem_send_button" = "Enviar";
+
 "autodownload" = "Descarregamento automático";
 
 /* Place Page opening hours text */
@@ -518,93 +586,154 @@
 
 /* Place Page opening hours text */
 "daily" = "Diariamente";
+
 "twentyfour_seven" = "24 horas por dia";
+
 "day_off_today" = "Fechado hoje";
+
 "day_off" = "Fechado";
+
 "today" = "Hoje";
+
 "opens_tomorrow_at" = "Abre amanhã às %@";
+
 "opens_dayoftheweek_at" = "Abre %1$@ às %2$@";
+
 "opens_at" = "Abre às %@";
+
 "opens_in" = "Opens in %@";
+
 "closes_at" = "Encerra às %@";
+
 "closes_in" = "Closes in %@";
+
 "closed" = "Fechado";
+
 "add_opening_hours" = "Adicionar horário de funcionamento";
+
 "no_osm_account" = "Não tem uma conta no OpenStreetMap?";
+
 "register_at_openstreetmap" = "Crie uma conta no OpenStreetMap";
+
 "password_8_chars_min" = "Palavra-chave (mínimo de 8 caracteres)";
+
 "invalid_username_or_password" = "Nome de utilizador ou palavra-chave inválida.";
+
 "login" = "Iniciar sessão";
+
 "login_osm" = "Entrar no OpenStreetMap";
+
 "forgot_password" = "Esqueceu-se da palavra-chave?";
+
 "osm_account" = "Conta OSM";
+
 "logout" = "Terminar sessão";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Último envio";
+
 "thank_you" = "Obrigado";
+
 "edit_place" = "Editar o local";
+
 "place_name" = "Nome do local";
+
 "add_language" = "Adicionar um idioma";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Nº de porta";
+
 "details" = "Detalhes";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Adicionar uma rua";
+
 "choose_language" = "Escolher um idioma";
+
 "choose_street" = "Escolher uma rua";
+
 "postal_code" = "Código postal";
+
 "cuisine" = "Culinária";
+
 "select_cuisine" = "Selecione a culinária";
 
 /* login text field */
 "email_or_username" = "Email ou nome de utilizador";
+
 "phone" = "Telefone";
+
 "level" = "Andar";
+
 "please_note" = "Aviso";
+
 "downloader_delete_map_dialog" = "Todas as alterações ao mapa serão eliminadas juntamente com o mapa.";
+
 "downloader_update_maps" = "Atualizar mapas";
+
 "downloader_search_field_hint" = "Encontrar o mapa";
+
 "migration_download_error_dialog" = "Erro de descarregamento";
+
 "common_check_internet_connection_dialog" = "Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.";
+
 "downloader_no_space_title" = "Não tem espaço suficiente";
+
 "downloader_no_space_message" = "Por favor, remova os dados desnecessários";
+
 "editor_profile_changes" = "Alterações verificadas";
+
 "editor_focus_map_on_location" = "Mova o mapa para colocar a cruz na localização da empresa ou do local.";
+
 "editor_add_select_category" = "Selecionar categoria";
+
 "editor_add_select_category_popular_subtitle" = "Popular";
+
 "editor_add_select_category_all_subtitle" = "Todas as categorias";
+
 "editor_edit_place_title" = "Edição";
+
 "editor_add_place_title" = "A adicionar";
+
 "editor_edit_place_name_hint" = "Nome do lugar";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
 "editor_default_language_hint" = "Como escrito na língua local";
+
 "editor_edit_place_category_title" = "Categoria";
+
 "whatsnew_editor_message_1" = "Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da aplicação.";
+
 "dialog_incorrect_feature_position" = "Mudar local";
+
 "message_invalid_feature_position" = "Nenhum objeto pode ser posicionado aqui";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Dados do OpenStreetMap criados pela comunidade a partir de %@. Sabe mais sobre como editar e atualizar o mapa em OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Crie uma conta OpenStreetMap ou inicie sessão para publicar as suas edições de mapas para o mundo.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Para descarregar, é necessário mais espaço. Por favor, elimine os dados desnecessários.";
+
 "editor_sharing_title" = "Melhorei os mapas do Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d de %2$d";
+
 "download_over_mobile_header" = "Descarregar utilizando uma conexão de rede de telemóveis?";
+
 "download_over_mobile_message" = "Isto pode ser muito caro com alguns planos ou em roaming.";
+
 "error_enter_correct_house_number" = "Introduza um número de endereço correto";
+
 "editor_storey_number" = "Número de pisos (máx. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "O número de pisos não pode ser maior que %d";
+
 "editor_zip_code" = "Código Postal";
+
 "error_enter_correct_zip_code" = "Introduza o código postal correto";
 
 /* Place Page title for long tap */
@@ -612,29 +741,47 @@
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Nota para os voluntários do OpenStreetMap (opcional)";
+
 "editor_detailed_description_hint" = "Comentário detalhado";
+
 "editor_detailed_description" = "As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no Organic Maps.";
+
 "editor_more_about_osm" = "Mais sobre o OpenStreetMap";
+
 "editor_operator" = "Operador";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
+
 "editor_category_unsuitable_title" = "Não encontra uma categoria adequada?";
+
 "editor_category_unsuitable_text" = "O Organic Maps permite-lhe adicionar apenas categorias de pontos simples, ou seja, nada de cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente ao <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte o nosso <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guia</a> para instruções detalhadas passo a passo.";
+
 "downloader_no_downloaded_maps_title" = "Não descarregou quaisquer mapas";
+
 "downloader_no_downloaded_maps_message" = "Descarregar mapas para encontrar a localização e navegar offline.";
+
 "current_location_unknown_error_title" = "A localização atual é desconhecida.";
+
 "current_location_unknown_error_message" = "Ocorreu um erro ao pesquisar a sua localização. Verifique se o seu dispositivo está a funcionar devidamente e volte a tentar mais tarde.";
+
 "location_services_disabled_header" = "Os serviços de localização estão desativados";
+
 "location_services_disabled_message" = "Conceda o acesso à geolocalização nas configurações do dispositivo";
+
 "location_services_disabled_1" = "1. Abra a aplicação “Definições“";
+
 "location_services_disabled_2" = "2. Toque em \"Localização\"";
 
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Selecione “Durante a utilização da aplicação“";
+
 "location_services_disabled_on_device_2" = "2. Selecione “Privacidade e segurança“";
+
 "location_services_disabled_on_device_3" = "3. Selecione “Serviços de localização“";
+
 "location_services_disabled_on_device_4" = "4. Ative “Serviços de localização“";
+
 "location_services_disabled_on_device_additional_message" = "Ou continue a utilizar o Organic Maps sem localização";
 
 /* abbreviation for meters */
@@ -651,11 +798,17 @@
 
 /* A unit of measure */
 "ft" = "ft";
+
 "miles_per_hour" = "mph";
+
 "hour" = "h";
+
 "minute" = "min";
+
 "day" = "dia";
+
 "placepage_more_button" = "Mais";
+
 "book_button" = "Reservas";
 
 /* A referral link on the place page for some hotels */
@@ -666,25 +819,42 @@
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
 "dialog_kayak_button" = "Detalhes em Kayak";
+
 "placepage_call_button" = "Telefonar";
+
 "placepage_edit_bookmark_button" = "Editar favorito";
+
 "placepage_bookmark_name_hint" = "Nome do favorito";
+
 "placepage_personal_notes_hint" = "Notas pessoais (texto ou html)";
+
 "placepage_delete_bookmark_button" = "Eliminar favorito";
+
 "editor_edits_sent_message" = "A sua nota será enviada ao OpenStreetMap";
+
 "editor_comment_hint" = "Comentário…";
+
 "editor_reset_edits_message" = "Eliminar todas as alterações locais?";
+
 "editor_reset_edits_button" = "Eliminar";
+
 "editor_remove_place_message" = "Eliminar o local adicionado?";
+
 "editor_remove_place_button" = "Eliminar";
+
 "editor_place_doesnt_exist" = "O local não existe";
+
 "text_more_button" = "…mais";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Introduza um número de telefone correto";
+
 "error_enter_correct_web" = "Preencha com um endereço válido na Internet";
+
 "error_enter_correct_email" = "Preencha com um endereço válido de email";
+
 "refresh" = "Atualizar";
+
 "placepage_add_place_button" = "Adicionar um local no OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -692,16 +862,21 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se que não incluiu nenhuns dados pessoais.";
+
 "editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.";
+
 "navigation_stop_button" = "Parar";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Desativar gravação do seu trajeto recente?";
+
 "off_recent_track_background_button" = "Desativar";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Verificar";
+
 "recent_track_background_dialog_message" = "O Organic Maps usa a sua localização geográfica em segundo plano para gravar o seu trajeto recente.";
+
 "general_settings" = "Configurações gerais";
 
 /* For the first routing */
@@ -709,17 +884,26 @@
 
 /* For the first routing */
 "decline" = "Recusar";
+
 "mobile_data_dialog" = "Utilizar os dados móveis para mostrar informações detalhadas?";
+
 "mobile_data_option_always" = "Utilizar sempre";
+
 "mobile_data_option_today" = "Apenas hoje";
+
 "mobile_data_option_not_today" = "Não utilizar hoje";
+
 "mobile_data" = "Dados móveis";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.";
+
 "mobile_data_option_never" = "Nunca utilizar";
+
 "mobile_data_option_ask" = "Perguntar sempre";
+
 "traffic_update_maps_text" = "Para ver os dados de tráfego, os mapas têm de ser atualizados.";
+
 "big_font" = "Aumentar tamanho da fonte no mapa";
 
 /* "traffic" as in road congestion */
@@ -727,8 +911,11 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Os dados de tráfego não estão disponíveis";
+
 "enable_logging" = "Ativar o histórico";
+
 "log_file_size" = "Tamanho do ficheiro de registo: %@";
+
 "transliteration_title" = "Transliteração para o latim";
 
 /* Subway exits for public transport marks on the map */
@@ -739,11 +926,17 @@
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Use a busca ou toque no mapa para adicionar um ponto de destino";
+
 "planning_route_manage_route" = "Gerir rota";
+
 "button_plan" = "Planear";
+
 "placepage_remove_stop" = "Remover paragem";
+
 "planning_route_remove_title" = "Arraste aqui para remover";
+
 "placepage_add_stop" = "Adicionar paragem";
+
 "start_from_my_position" = "Iniciar a partir de";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -751,47 +944,83 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "aqui";
+
 "core_entrance" = "Entrada";
+
 "error_enter_correct_name" = "Introduza um nome correto";
+
 "bookmark_lists" = "Listas";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Ocultar tudo";
+
 "bookmark_lists_show_all" = "Mostrar tudo";
+
 "bookmarks_create_new_group" = "Criar nova lista";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Importar favoritos e trajetos";
+
 "downloader_hide_screen" = "Ocultar ecrã";
+
 "downloader_percent" = "%@ (%@ de %@)";
+
 "downloader_process" = "A transferir %@…";
+
 "downloader_applying" = "A aplicar %@…";
+
 "bookmarks_error_message_share_general" = "Não foi possível partilhar devido a um erro da aplicação";
+
 "bookmarks_error_title_share_empty" = "Erro ao partilhar";
+
 "bookmarks_error_message_share_empty" = "Não é possível partilhar uma lista vazia";
+
 "bookmarks_error_message_empty_list_name" = "Por favor introduza o nome da lista";
+
 "bookmarks_error_title_list_name_already_taken" = "Este nome já está a ser utilizado";
+
 "bookmarks_error_title_list_name_too_long" = "Este nome é muito longo";
+
 "profile" = "Perfil no OpenStreetMap";
+
 "bookmarks_detect_title" = "Foram detetados novos ficheiros";
+
 "button_convert" = "Converter";
+
 "bookmarks_convert_error_title" = "Erro";
+
 "bookmarks_convert_error_message" = "Alguns ficheiros não foram convertidos.";
+
 "restore" = "Restaurar";
+
 "privacy_policy" = "Política de privacidade";
+
 "terms_of_use" = "Termos de utilização";
+
 "button_layer_subway" = "Metropolitano";
+
 "layers_title" = "Estilos e camadas de mapas";
+
 "subway_data_unavailable" = "O mapa de metropolitano não está disponível";
+
 "title_error_downloading_bookmarks" = "Surgiu um erro";
+
 "popular_place" = "Popular";
+
 "export_file" = "Exportar KMZ";
+
 "export_file_gpx" = "Exportar GPX";
+
 "delete_list" = "Eliminar lista";
+
 "hide_from_map" = "Remover do mapa";
+
 "tags_loading_error_subtitle" = "Surgiu um erro ao carregar as etiquetas, por favor tente novamente";
+
 "download_button" = "Descarregar";
+
 "speedcams_alert_title" = "Radares de velocidade";
+
 "place_description_title" = "Descrição do local";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
@@ -802,12 +1031,19 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Nunca avisar";
+
 "power_managment_title" = "Modo de economia de energia";
+
 "power_managment_description" = "Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel";
+
 "power_managment_setting_never" = "Nunca";
+
 "power_managment_setting_auto" = "Automático";
+
 "power_managment_setting_manual_max" = "Máxima economia de energia";
+
 "enable_logging_warning_message" = "Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.";
+
 "driving_options_title" = "Configurações de direção";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -818,19 +1054,33 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferribotes";
+
 "avoid_motorways" = "Evitar autoestradas";
+
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
+
 "unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
+
 "define_to_avoid_btn" = "Definir as estradas a evitar";
+
 "change_driving_options_btn" = "Configurações de direção ativadas";
+
 "toll_road" = "Estrada com portagem";
+
 "unpaved_road" = "Estrada não pavimentada";
+
 "ferry_crossing" = "Ferry";
+
 "trip_start" = "Começar";
+
 "pick_destination" = "Destino";
+
 "follow_my_position" = "Recentrar";
+
 "search_results" = "Resultados da pesquisa";
+
 "then_turn" = "A seguir";
+
 "redirect_route_alert" = "Quer recalcular o percurso?";
 
 /* A generic "Yes" button in dialogs */
@@ -850,22 +1100,39 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Rede: %@";
+
 "trip_finished" = "Chegou ao destino!";
+
 "keyboard_availability_alert" = "O teclado não está disponível ao coduzir";
+
 "dialog_routing_change_start_carplay" = "Não foi possível calcular o percurso a partir da localização atual";
+
 "dialog_routing_change_end_carplay" = "Não foi possível calcular o percurso para o destino. Escolha outro";
+
 "dialog_routing_check_gps_carplay" = "Sem sinal de GPS. Desloque-se para uma área sem obstáculos no céu";
+
 "dialog_routing_unable_locate_route_carplay" = "Não foi possível calcular o percurso. Escolha outros pontos do percurso";
+
 "dialog_routing_download_files_carplay" = "Para calcular o percurso é preciso descarregar primeiro os mapas";
+
 "dialog_routing_system_error_carplay" = "Surgiu um erro. Por favor reinicie a aplicação";
+
 "dialog_routing_rebuild_from_current_location_carplay" = "O percurso será recalculado a partir da sua localização atual";
+
 "dialog_routing_rebuild_for_vehicle_carplay" = "O percurso será convertido num percurso para automóvel";
+
 "not_all_shown_bookmarks_carplay" = "Nem todos os marcadores são mostrados";
+
 "switch_to_phone_bookmarks_carplay" = "Muda para o telemóvel para ver todos os favoritos";
+
 "ok" = "Ok";
+
 "speedcams_alert_title_carplay_1" = "Radares";
+
 "speedcams_alert_title_carplay_2" = "Avisos de velocidade";
+
 "download_map_carplay" = "Descarregue mapas da aplicação Organic Maps no seu dispositivo";
+
 "carplay_roundabout_exit" = "%@ saída";
 
 /* max. 10 symbols, both iOS and Android */
@@ -873,52 +1140,94 @@
 
 /* iOS */
 "sort_default" = "Ordenação predefinida";
+
 "sort_type" = "Ordenar por tipo";
+
 "sort_distance" = "Ordenar por distância";
+
 "sort_date" = "Ordenar por data";
+
 "sort_name" = "Ordenar por nome";
+
 "week_ago_sorttype" = "Uma semana atrás";
+
 "month_ago_sorttype" = "Um mês atrás";
+
 "moremonth_ago_sorttype" = "Mais de um mês atrás";
+
 "moreyear_ago_sorttype" = "Mais de um ano atrás";
+
 "near_me_sorttype" = "Perto de mim";
+
 "others_sorttype" = "Outros";
 
 
 /********** Bookmark types used for sorting **********/
 
 "food_places" = "Comida";
+
 "tourist_places" = "Atrações turísticas";
+
 "museums" = "Museus";
+
 "parks" = "Parques";
+
 "swim_places" = "Natação";
+
 "mountains" = "Montanhas";
+
 "animals" = "Animais";
+
 "hotels" = "Hotéis";
+
 "buildings" = "Prédios";
+
 "money" = "Dinheiro";
+
 "shops" = "Lojas";
+
 "parkings" = "Estacionamentos";
+
 "fuel_places" = "Postos de combustível";
+
 "medicine" = "Medicina";
+
 "search_in_the_list" = "Pesquisar na lista";
+
 "religious_places" = "Lugares religiosos";
+
 "transit_not_found" = "A navegação de metropolitano ainda não está disponível nesta região";
+
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metro";
+
 "dialog_pedestrian_route_is_long_message" = "Escolha um ponto inicial ou final do percurso próximo da estação de metropolitano";
+
 "button_layer_isolines" = "Terreno";
+
 "isolines_activation_error_dialog" = "Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área";
+
 "isolines_location_error_dialog" = "A camada Terreno ainda não está disponível nesta área";
+
 "elevation_profile_diff_level" = "Nível de dificuldade";
+
 "elevation_profile_diff_level_easy" = "Fácil";
+
 "elevation_profile_diff_level_moderate" = "Moderado";
+
 "elevation_profile_diff_level_hard" = "Difícil";
+
 "elevation_profile_ascent" = "Subida";
+
 "elevation_profile_descent" = "Descida";
+
 "elevation_profile_min_elevation" = "Elevação mín.";
+
 "elevation_profile_max_elevation" = "Elevação máx.";
+
 "isolines_toast_zooms_1_10" = "Amplie o mapa para ver as curvas de nível";
+
 "downloader_updating_ios" = "A atualizar";
+
 "downloader_loading_ios" = "A descarregar";
 
 /* Autoupdate dialog on start */
@@ -1013,6 +1322,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
+
 "drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
@@ -1092,4 +1402,5 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
+
 "edit_track" = "Editar trajeto";
