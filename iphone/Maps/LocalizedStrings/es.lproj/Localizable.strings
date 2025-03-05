@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Los datos de tráfico no están disponibles";
 "enable_logging" = "Habilitar historial";
 "log_file_size" = "Tamaño del archivo de registro: %@";
-"transliteration_title" = "Transliteración al latín";
+"transliteration_title" = "Transliteración al alfabeto latino";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Salida";
