@@ -108,7 +108,6 @@
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Escolha entre milhas e quilômetros</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Onde comer</string>
@@ -156,7 +155,6 @@
     <string name="category_water">Água</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Para trailers</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Anotações</string>
@@ -191,7 +189,7 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem mapas offline instalados? Baixe aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps.</string>
+    <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja no mapa a minha localização atual via Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
@@ -338,7 +336,6 @@
     <string name="gray">Cinza</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul escuro</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Ao seguir a rota, lembre-se que:</string>
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;</string>
@@ -367,7 +364,6 @@
     <string name="not_now">Agora não</string>
     <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.</string>
     <string name="search_select_map">Selecionar mapa</string>
@@ -550,7 +546,7 @@
     <string name="feedback_general">Opinão geral</string>
     <string name="prefs_languages_information">Utilizamos o sistema TTS (texto-para-voz) para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
-    <string name="transliteration_title">Transliteração para alfabeto latino</string>
+    <string name="transliteration_title">Transliterar para alfabeto latino</string>
     <string name="learn_more">Saber mais</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Saída</string>
@@ -621,7 +617,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Nunca avisar</string>
     <string name="power_managment_title">Modo de economia de energia</string>
-    <string name="power_managment_description">Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual</string>
+    <string name="power_managment_description">Tentar reduzir o consumo de energia em detrimento de algumas funcionalidades.</string>
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Máxima economia de energia</string>
@@ -636,7 +632,7 @@
     <string name="avoid_ferry">Evitar balsas</string>
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
-    <string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente</string>
+    <string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.</string>
     <string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
     <string name="change_driving_options_btn">Opções de direção ativadas</string>
     <string name="toll_road">Pedágio</string>
@@ -670,7 +666,6 @@
     <string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
     <string name="near_me_sorttype">Próximo de mim</string>
     <string name="others_sorttype">Outros</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
     <string name="tourist_places">Pontos turíticos</string>
@@ -690,7 +685,7 @@
     <string name="religious_places">Lugares religiosos</string>
     <string name="select_list">Escolher a lista</string>
     <string name="transit_not_found">A navegação por metrô ainda não está disponível nesta região</string>
-    <string name="dialog_pedestrian_route_is_long_header">Rota por metrô não encontrada</string>
+    <string name="dialog_pedestrian_route_is_long_header">Não foi encontrada nenhuma rota de metrô</string>
     <string name="dialog_pedestrian_route_is_long_message">Escolha outro ponto de início ou fim perto da estação de metrô</string>
     <string name="button_layer_isolines">Relevo</string>
     <string name="isolines_activation_error_dialog">Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região</string>
@@ -802,4 +797,8 @@
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automático na navegação</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="about_proposition_3">• Rápido, minimalista, desenvolvido pela comunidade</string>
+    <string name="drive_through">Drive-through</string>
+    <string name="editor_operator">Operador</string>
 </resources>
