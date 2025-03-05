@@ -5,13 +5,11 @@
     <string name="location_settings">Configuración de ubicación</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
     <string name="address">Dirección</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclaje</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Agua</string>
-
     <!-- SECTION: Other translations -->
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Fallo al abrir el archivo %1$s
@@ -59,7 +57,6 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris azulado</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
@@ -174,7 +171,6 @@
     <string name="moreyear_ago_sorttype">Hace más de un año</string>
     <string name="near_me_sorttype">Cerca a mí</string>
     <string name="others_sorttype">Otros</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
     <string name="tourist_places">Sitios de interés</string>
@@ -220,4 +216,6 @@
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de ubicación para funcionar de manera eficaz</string>
     <string name="drive_through">Servicio al auto</string>
+    <string name="back">Atrás</string>
+    <string name="cancel">Cancelar</string>
 </resources>
