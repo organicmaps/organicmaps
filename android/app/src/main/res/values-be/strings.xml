@@ -885,4 +885,11 @@
     <string name="menu">Меню</string>
     <string name="editor_line_social_network">LINE</string>
     <string name="mastodon">Mastodon</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="facebook">Facebook</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="vk">VK</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagram">Instagram</string>
+    <string name="github">GitHub</string>
 </resources>
