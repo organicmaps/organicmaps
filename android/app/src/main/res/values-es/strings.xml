@@ -17,7 +17,7 @@
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Millas</string>
     <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Mi posición</string>
+    <string name="core_my_position">Mi ubicación</string>
     <!-- Update maps later button text -->
     <string name="later">Luego</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -29,7 +29,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Precisión limitada</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Para garantizar una navegación más exacta, active la opción de ubicación precisa en los ajustes.</string>
+    <string name="precise_location_is_disabled_long_text">Para garantizar una navegación más exacta, active la Precisión de la ubicación en los ajustes.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostrar en el mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -55,7 +55,7 @@
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">Desconecte el cable USB o inserte una tarjeta de memoria SD para usar Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Libere primero espacio en la memoria SD o almacenamiento USB para usar la aplicación</string>
+    <string name="not_enough_free_space_on_sdcard">Libere espacio en la memoria SD o almacenamiento USB para usar la aplicación</string>
     <string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.
 \nSe requieren %s de almacenamiento.</string>
     <string name="download_resources_continue">Ir al mapa</string>
@@ -166,9 +166,7 @@
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Marcadores de Organic Maps compartidos con usted</string>
-    <string name="share_bookmarks_email_body">Hola!
-\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz
-\n¡Disfrute viajando con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Hola! \nAdjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n¡Disfrute viajando con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
     <!-- Kmz file successful loading -->
@@ -906,4 +904,5 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="level_value_generic">Nivel: %s</string>
+    <string name="editor_line_social_network">LINE</string>
 </resources>
