@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Uložit mapy na</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Vyberte místo, kam by měly být mapy stahovány</string>
+    <string name="maps_storage_summary">Vyberte místo, kam mají být stahovány mapy.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapy</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -102,7 +102,6 @@
     <string name="measurement_units">Měřicí jednotky</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vyberte si míle nebo kilometry</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kde se najíst</string>
@@ -150,7 +149,6 @@
     <string name="category_water">Voda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Pro RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
@@ -180,9 +178,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Ahoj, zkoukni mojí lokaci v Organic Maps! %1$s nebo %2$s Nemáš offline mapy? Stáhni tady: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Koukni na moji značku na mapě v Organic Maps</string>
+    <string name="bookmark_share_email_subject">Koukni na mojí značku na mapě v Organic Maps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě na Organic Maps</string>
+    <string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě v Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Ahoj,
 \n
@@ -272,7 +270,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Pohybem telefonu do osmičky zkalibrujte kompas a zafixujte směr šipky na mapě.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.</string>
+    <string name="long_tap_toast">Dlouhým klepnutím na mapu znovu zobrazíte rozhraní</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Aktualizovat vše</string>
     <!-- Cancel all button text -->
@@ -337,9 +335,9 @@
     <!-- light blue color -->
     <string name="light_blue">Světle modrá</string>
     <!-- cyan color -->
-    <string name="cyan">Cyan</string>
+    <string name="cyan">Azurová</string>
     <!-- teal color -->
-    <string name="teal">Teal</string>
+    <string name="teal">Čajová</string>
     <!-- lime color -->
     <string name="lime">Limeta</string>
     <!-- deep orange color -->
@@ -348,13 +346,12 @@
     <string name="gray">Šedá</string>
     <!-- blue gray color -->
     <string name="blue_gray">Modrošedá</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Při navigaci podle trasy mějte na paměti následující:</string>
-    <string name="dialog_routing_disclaimer_priority">• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.</string>
+    <string name="dialog_routing_disclaimer_priority">— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;</string>
     <string name="dialog_routing_disclaimer_precision">— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Navrhované trasy je třeba brát pouze jako doporučení;</string>
-    <string name="dialog_routing_disclaimer_borders">— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;</string>
+    <string name="dialog_routing_disclaimer_borders">— U stop v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.</string>
     <string name="dialog_routing_disclaimer_beware">Na silnici buďte pozorní a chovejte se bezpečně!</string>
     <string name="dialog_routing_check_gps">Zkontrolovat signál GPS</string>
     <string name="dialog_routing_error_location_not_found">Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.</string>
@@ -378,7 +375,6 @@
     <string name="not_now">Nyní ne</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?</string>
     <string name="dialog_routing_download_cross_route">Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.</string>
     <string name="search_select_map">Vybrat mapu</string>
@@ -486,7 +482,7 @@
     <string name="placepage_add_business_button">Přidat organizaci</string>
     <string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.</string>
+    <string name="osm_presentation">Data OpenStreetMap vytvořená komunitou ke dni %s. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci Organic Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.
 \nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!</string>
@@ -506,7 +502,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pro dobrovolníky OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps.</string>
+    <string name="editor_note_hint">Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy se nahrají do veřejné databáze <a href="https://wiki.openstreetmap.org/wiki/Cs:Co_je_OpenStreetMap">OpenStreetMap</a>. Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
     <string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
@@ -614,6 +610,7 @@
     <string name="bookmark_lists_show_all">Zobrazit vše</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d záložka</item>
+        <item quantity="few">%d záložky</item>
         <item quantity="other">%d záložek</item>
     </plurals>
     <string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
@@ -637,8 +634,9 @@
     </plurals>
     <string name="restore">Obnovit</string>
     <plurals name="tracks">
-        <item quantity="one">%d cesta</item>
-        <item quantity="other">%d cest</item>
+        <item quantity="one">%d stopa</item>
+        <item quantity="few">%d stopy</item>
+        <item quantity="other">%d stop</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Soukromí</string>
@@ -651,7 +649,7 @@
     <string name="bookmarks_empty_list_title">Seznam je prázdný</string>
     <string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
     <string name="category_desc_more">…ještě</string>
-    <string name="export_file">Export KMZ</string>
+    <string name="export_file">Exportovat KMZ</string>
     <string name="export_file_gpx">Export GPX</string>
     <string name="delete_list">Smazat seznam</string>
     <string name="public_access">Veřejně přístupné</string>
@@ -683,7 +681,7 @@
     <string name="avoid_ferry">Vyhnout se přejezdům trajektů</string>
     <string name="avoid_motorways">Vyhněte se dálnici</string>
     <string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
-    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
+    <string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.</string>
     <string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
     <string name="change_driving_options_btn">Možnosti trasy aktivní</string>
     <string name="toll_road">Silnice s mýtným</string>
@@ -723,7 +721,6 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jídlo</string>
     <string name="tourist_places">Památky</string>
@@ -853,10 +850,51 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Trasa je prázdná - není co ukládat</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu</string>
+    <string name="error_no_file_manager_app">Nelze zobrazit dialogové okno pro výběr složky, protože v zařízení není nainstalována žádná vhodná aplikace. Nainstalujte si prosím aplikaci pro správu souborů a zkuste to znovu.</string>
     <string name="choose_color">Vyberte barvu</string>
     <string name="edit_track">Upravit trasu</string>
     <string name="uri_open_location_failed">Není nainstalována žádná aplikace, která by mohla otevřít umístění</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto v navigaci</string>
+    <string name="maps_storage_removable">SD karta</string>
+    <string name="closes_in">Zavírá za %s</string>
+    <string name="gb">GB</string>
+    <string name="github">GitHub</string>
+    <string name="menu">Nabídka</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="delete_place_empty_comment_error">Uveďte prosím důvod odstranění místa</string>
+    <string name="navigation_stop_button">Zastavit</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="editor_add_phone">Přidat telefon</string>
+    <string name="vk">VK</string>
+    <string name="error_enter_correct_instagram_page">Zadejte platné uživatelské jméno nebo webovou adresu Instagramu</string>
+    <string name="error_enter_correct_twitter_page">Zadejte platné uživatelské jméno nebo webovou adresu Twitteru</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="maps_storage_free_size">%1$s z %2$s volných</string>
+    <string name="share_bookmarks_email_body">Ahoj! \n \nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz \n \nUžij si cestování s Organic Maps!</string>
+    <string name="disk_error">Nepodařilo se vytvořit složku a přesunout soubory v interní paměti zařízení nebo na SD kartě</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="error_enter_correct_vk_page">Zadejte platné uživatelské jméno nebo webovou adresu VK</string>
+    <string name="mb">MB</string>
+    <string name="disconnect_usb_cable_title">Odpojte kabel USB</string>
+    <string name="connection_failure">Chyba připojení</string>
+    <string name="opens_in">Otevírá za %s</string>
+    <string name="maps_storage_shared">Interní sdílené úložiště</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="level_value_generic">Podlaží: %s</string>
+    <string name="maps_storage_internal">Interní soukromé úložiště</string>
+    <string name="maps_storage_external">Externí sdílené úložiště</string>
+    <string name="telegram">Telegram</string>
+    <string name="error_enter_correct_facebook_page">Zadejte platnou webovou adresu, účet nebo název stránky na Facebooku</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="disk_error_title">Chyba disku</string>
+    <string name="error_enter_correct_line_page">Zadejte platné ID nebo webovou adresu LINE</string>
+    <string name="move_maps_error">Chyba při přesouvání souborů mapy</string>
+    <string name="read_in_wikipedia">Wikipedie</string>
+    <string name="instagram">Instagram</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 </resources>
