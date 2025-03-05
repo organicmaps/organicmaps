@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Žádné vybíjení baterie, funguje offline";
 
 /* Text in About screen */
-"about_proposition_3" = "• Rychlé, minimalistické, vyvinutý komunitou";
+"about_proposition_3" = "• Rychlé, minimalistické, vyvinuté komunitou";
 "close" = "Zavřít";
 "download" = "Stáhnout";
 
@@ -111,7 +111,7 @@
 "category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Pamětihodnost";
+"category_tourism" = "Památky";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Zábava";
@@ -153,8 +153,8 @@
 "category_water" = "Voda";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Pro RV";
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"category_rv" = "Pro obytné vozy";
+"share_bookmarks_email_body" = "Ahoj!\n \nV příloze najdeš mé záložky; otevři je v aplikaci Organic Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://omaps.app/get?kmz\n \nUžij si cestování s Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -178,7 +178,7 @@
 "my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě v Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Zkopírováno do schránky: %@";
@@ -232,16 +232,16 @@
 "pref_tts_enable_title" = "Hlasové instrukce";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Oznamujte názvy ulic";
+"pref_tts_street_names_title" = "Oznamovat názvy ulic";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.";
+"pref_tts_street_names_description" = "Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který máte odbočit.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Jazyk hlasu";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testování hlasových pokynů (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Otestovat hlasové pokyny (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Ostatní";
@@ -459,7 +459,7 @@
 
 /* The message when user did not find anything in the search. */
 "search_not_found_query" = "Stáhněte si oblast, ve které hledáte, nebo zkuste přidat název blízkého města/obce.";
-"search_history_title" = "Prohledat historii";
+"search_history_title" = "Historie vyhledávání";
 "search_history_text" = "Získejte rychlý přístup k hledaným výrazům.";
 "clear_search" = "Vymazat historii vyhledávání";
 
@@ -491,7 +491,7 @@
 "editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
 "share_with_friends" = "Sdílejte s kamarády";
 "editor_report_problem_send_button" = "Odeslat";
-"autodownload" = "Automaticky stahovat";
+"autodownload" = "Automaticky stahovat mapy";
 
 /* Place Page opening hours text */
 "closed_now" = "Nyní je zavřeno";
@@ -502,12 +502,12 @@
 "day_off_today" = "Dnes zavřeno";
 "day_off" = "Zavřeno";
 "today" = "Dnes";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
-"closes_in" = "Closes in %@";
+"opens_tomorrow_at" = "Otevírá zítra v %@";
+"opens_dayoftheweek_at" = "Otevírá %1$@ v %2$@";
+"opens_at" = "Otevírá v %@";
+"opens_in" = "Otevírá za %@";
+"closes_at" = "Zavírá v %@";
+"closes_in" = "Zavírá za %@";
 "closed" = "Zavřeno";
 "add_opening_hours" = "Přidat otevírací dobu";
 "no_osm_account" = "Nemáte účet u OpenStreetMap?";
@@ -515,7 +515,7 @@
 "password_8_chars_min" = "Heslo (minimálně 8 znaků)";
 "invalid_username_or_password" = "Neplatné uživatelské jméno nebo heslo.";
 "login" = "Přihlásit se";
-"login_osm" = "Přihlaste se do OpenStreetMap";
+"login_osm" = "Přihlásit se do OpenStreetMap";
 "forgot_password" = "Zapomenuté heslo?";
 "osm_account" = "Účet OSM";
 "logout" = "Odhlášení";
@@ -540,7 +540,7 @@
 "select_cuisine" = "Vybrat kuchyni";
 
 /* login text field */
-"email_or_username" = "Email nebo uživatelské jméno";
+"email_or_username" = "E-mail nebo uživatelské jméno";
 "phone" = "Telefon";
 "level" = "Podlaží";
 "please_note" = "Vezměte prosím na vědomí";
@@ -568,8 +568,8 @@
 "message_invalid_feature_position" = "Objekt zde nemůže být umístěn";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.";
-"login_to_make_edits_visible" = "Vytvořte si účet OpenStreetMap nebo se přihlaste a zveřejněte své úpravy mapy ve světě.";
+"osm_presentation" = "Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org";
+"login_to_make_edits_visible" = "Vytvořte si účet OpenStreetMap nebo se přihlaste a zveřejněte své úpravy mapy celému světu.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.";
@@ -594,8 +594,8 @@
 "editor_other_info" = "Poznámka pro dobrovolníky OpenStreetMap (nepovinné)";
 "editor_detailed_description_hint" = "Podrobný komentář";
 "editor_detailed_description" = "Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.";
-"editor_more_about_osm" = "Více o projektu OpenStreetMap";
-"editor_operator" = "Operátor";
+"editor_more_about_osm" = "Další informace o projektu OpenStreetMap";
+"editor_operator" = "Provozovatel";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operátor: %@";
@@ -649,30 +649,30 @@
 "placepage_call_button" = "Volat";
 "placepage_edit_bookmark_button" = "Upravit záložku";
 "placepage_bookmark_name_hint" = "Název záložky";
-"placepage_personal_notes_hint" = "Vlastní poznámka (text nebo html)";
+"placepage_personal_notes_hint" = "Vlastní poznámka (text nebo HTML)";
 "placepage_delete_bookmark_button" = "Smazat záložku";
 "editor_edits_sent_message" = "Vaše poznámka bude odeslána do OpenStreetMap";
 "editor_comment_hint" = "Poznámka…";
 "editor_reset_edits_message" = "Vymazat všechny místní změny?";
-"editor_reset_edits_button" = "Vymazat";
+"editor_reset_edits_button" = "Zahodit";
 "editor_remove_place_message" = "Odstranit přidané místo?";
 "editor_remove_place_button" = "Odstranit";
 "editor_place_doesnt_exist" = "Místo neexistuje";
 "text_more_button" = "…dále";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Zadejte správné telefonní číslo";
+"error_enter_correct_phone" = "Zadejte platné telefonní číslo";
 "error_enter_correct_web" = "Zadat platnou webovou adresu";
-"error_enter_correct_email" = "Zadat platný email";
+"error_enter_correct_email" = "Zadejte platný e-mail";
 "refresh" = "Aktualizovat";
 "placepage_add_place_button" = "Přidat místo do OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
-"editor_share_to_all_dialog_title" = "Chcete jej poslat všem uživatelům?";
+"editor_share_to_all_dialog_title" = "Chcete změnu odeslat všem uživatelům?";
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Ujistěte se, že jste nezadali žádná osobní data.";
-"editor_share_to_all_dialog_message_2" = "Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.";
+"editor_share_to_all_dialog_message_2" = "Editoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.";
 "navigation_stop_button" = "Zastavit";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
@@ -696,7 +696,7 @@
 "mobile_data" = "Mobilní data";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "K zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze je třeba mobilní internet.";
+"mobile_data_description" = "Pro zobrazení oznámení o aktualizacích map a nahrávání úprav je potřeba internet.";
 "mobile_data_option_never" = "Nikdy nepoužívat";
 "mobile_data_option_ask" = "Vždy se zeptat";
 "traffic_update_maps_text" = "Ke zobrazení údajů o provozu musí být aktualizovány mapy.";
@@ -738,7 +738,7 @@
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "Skrýt vše";
 "bookmark_lists_show_all" = "Zobrazit vše";
-"bookmarks_create_new_group" = "Vytvořte nový seznam";
+"bookmarks_create_new_group" = "Vytvořit nový seznam";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Import záložek a stop";
@@ -764,41 +764,41 @@
 "layers_title" = "Styly a vrstvy mapy";
 "subway_data_unavailable" = "Mapa metra není dostupná";
 "title_error_downloading_bookmarks" = "Někde se stala chyba";
-"popular_place" = "Popular";
+"popular_place" = "Populární";
 "export_file" = "Exportovat KMZ";
 "export_file_gpx" = "Export GPX";
 "delete_list" = "Smazat seznam";
 "hide_from_map" = "Neukazovat na mapě";
 "tags_loading_error_subtitle" = "Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou";
 "download_button" = "Stáhnout";
-"speedcams_alert_title" = "Detektory rychlosti";
+"speedcams_alert_title" = "Radary";
 "place_description_title" = "Popis místa";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Varování před překročením rychlosti";
+"pref_tts_speedcams_auto" = "Varovat při překročení rychlosti";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "Vždy upozorňovat";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Nikdy neupozorňovat";
-"power_managment_title" = "Režim spořič baterie";
-"power_managment_description" = "Pokud je zapnut automatický režim spořiče baterie, aplikace začne vypínat funkce vybíjející baterii, v závislosti na její momentální úrovni nabití.";
-"power_managment_setting_never" = "Nikdy nepoužívat";
-"power_managment_setting_auto" = "Automatický";
-"power_managment_setting_manual_max" = "Maximální šetření baterií";
-"enable_logging_warning_message" = "Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.";
+"power_managment_title" = "Režim spořiče baterie";
+"power_managment_description" = "Pokusit se snížit spotřebu energie na úkor některých funkcí.";
+"power_managment_setting_never" = "Nikdy";
+"power_managment_setting_auto" = "Při vybité baterii";
+"power_managment_setting_manual_max" = "Vždy";
+"enable_logging_warning_message" = "Dočasně zapněte, abyste mohli zaznamenat a ručně nám poslat podrobná diagnostická data o vašem problému pomocí tlačítka „Nahlásit chybu“ v okně nápovědy. Protokoly mohou zahrnovat informace o poloze.";
 "driving_options_title" = "Možnosti trasy";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Vyhněte se zpoplatněným silnicím";
+"avoid_tolls" = "Vyhnout se mýtnému";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Vyhnout se nezpevněným silnicím";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_ferry" = "Vyhnout se přejezdům trajektů";
-"avoid_motorways" = "Vyhněte se dálnici";
+"avoid_ferry" = "Vyhnout se trajektům";
+"avoid_motorways" = "Vyhnout se dálnicím";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
 "unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
 "define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
@@ -910,16 +910,16 @@
 "whats_new_auto_update_button_later" = "Aktualizovat ručně později";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Odstranit stopu";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Opravdu chcete tuto stopu odstranit?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Název stopy";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Přesunout";
 
 /* edit track screen title */
 "track_title" = "Dráha";
@@ -1052,7 +1052,7 @@
 "recover_all" = "Obnovit vše";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Nahrát trasu";
+"start_track_recording" = "Zaznamenat trasu";
 
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Zastavit nahrávání trasy";
