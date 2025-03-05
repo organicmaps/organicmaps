@@ -50,13 +50,6 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   {
     super.onViewCreated(view, savedInstanceState);
 
-    int color;
-    if (ThemeUtils.isDefaultTheme(requireContext()))
-      color = ContextCompat.getColor(requireContext(), R.color.bg_cards);
-    else
-      color = ContextCompat.getColor(requireContext(), R.color.bg_cards_night);
-    view.setBackgroundColor(color);
-
     RecyclerView recyclerView = getListView();
     ViewCompat.setOnApplyWindowInsetsListener(recyclerView, new ScrollableContentInsetsListener(recyclerView));
   }

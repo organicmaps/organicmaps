@@ -5715,7 +5715,7 @@
 
   [pref_appearance_title]
     comment = Settings «Map» category: «Appearance» title
-    tags = ios
+    tags = android,ios
     en = Appearance
     ar = المظهر
     az = Görünüş
@@ -5759,9 +5759,9 @@
     zh-Hans = 外观
     zh-Hant = 外觀
 
-  [pref_appearance_light]
-    comment = Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation.
-    tags = ios
+  [light]
+    comment = Generic «Light» string (eg. light theme, not lamps)
+    tags = android,ios
     en = Light
     ar = فاتح
     az = Parlaq
@@ -5805,9 +5805,9 @@
     zh-Hans = 浅色
     zh-Hant = 淺色
 
-  [pref_appearance_dark]
-    comment = Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation.
-    tags = ios
+  [dark]
+    comment = Generic «Dark» string
+    tags = android,ios
     en = Dark
     ar = داكن
     az = Tünd
@@ -5850,6 +5850,53 @@
     vi = Tối
     zh-Hans = 深色
     zh-Hant = 深色
+
+  [follow_system]
+    comment = Appearance setting, OM should follow the system theme
+    tags = android
+    en = Follow System
+    af = Volg Stelsel
+    ar = نظام المتابعة
+    az = Sistemi izləyin
+    be = Сачыце за сістэмай
+    bg = Следване на системата
+    ca = Seguiu el sistema
+    cs = Sledování systému
+    da = Følg systemet
+    de = System folgen
+    el = Ακολουθήστε το σύστημα
+    es = Sistema de seguimiento
+    et = Jälgi süsteemi
+    eu = Jarraitu Sistema
+    fa = سیستم را دنبال کنید
+    fi = Seuraa järjestelmää
+    fr = Suivre le système
+    he = עקוב אחר מערכת
+    hi = सिस्टम का पालन करें
+    hu = Rendszer követése
+    id = Ikuti Sistem
+    it = Seguire il sistema
+    ja = フォローシステム
+    ko = 팔로우 시스템
+    lt = Sekite sistemą
+    lv = Sekojiet sistēmai
+    mr = सिस्टम फॉलो करा
+    nb = Følg systemet
+    nl = Systeem volgen
+    pl = Proszę śledzić system
+    pt = Siga o sistema
+    pt-BR = Seguir o sistema
+    ro = Urmați sistemul
+    ru = Система следования
+    sk = Sledovanie systému
+    sv = Följ systemet
+    sw = Fuata Mfumo
+    th = ติดตามระบบ
+    tr = Sistemi Takip Edin
+    uk = Система стеження
+    vi = Theo dõi hệ thống
+    zh-Hans = 遵循系统
+    zh-Hant = 關注系統
 
   [off]
     comment = Generic «Off» string

@@ -39,29 +39,32 @@ public class TrafficButton
   {
     Context context = trafficBtn.getContext();
     Resources res = context.getResources();
-    final int animResId = ThemeUtils.getResource(context, R.attr.trafficLoadingAnimation);
+    final int animResId = R.drawable.anim_traffic_loading;
     return (AnimationDrawable) Objects.requireNonNull(ResourcesCompat.getDrawable(res, animResId, context.getTheme()));
   }
 
   void turnOff()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
-                                                                           : R.drawable.ic_traffic_on);
+// TODO: Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
+//    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
+//                                                                           : R.drawable.ic_traffic_on);
   }
 
   void turnOn()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
-                                                                           : R.drawable.ic_traffic_on);
+// TODO: Don't set theme programatically - use an xml with a night variant instead.  Also convert to svg.
+//    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
+//                                                                           : R.drawable.ic_traffic_on);
   }
 
   void markAsOutdated()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_outdated_night
-                                                                           : R.drawable.ic_traffic_outdated);
+// TODO: Don't set theme programatically - use an xml with a night variant instead. Also convert to svg.
+//    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_outdated_night
+//                                                                           : R.drawable.ic_traffic_outdated);
   }
 
   void startWaitingAnimation()
