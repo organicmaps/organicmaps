@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blue Gray";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "मार्ग का अनुसरण करते समय कृपया ध्यान रखें:";
 "dialog_routing_disclaimer_priority" = "— सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;";
 "dialog_routing_disclaimer_precision" = "— नक्शा गलत हो सकता है, और सुझाया गया मार्ग हमेशा गंतव्य तक पहुंचने का सबसे इष्टतम तरीका नहीं हो सकता है;";

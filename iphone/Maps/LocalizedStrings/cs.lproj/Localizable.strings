@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Modrošedá";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Při navigaci podle trasy mějte na paměti následující:";
 "dialog_routing_disclaimer_priority" = "— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;";
 "dialog_routing_disclaimer_precision" = "— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;";

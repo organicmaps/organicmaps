@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Gri albăstriu";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Când parcurgi traseul, ai în vedere următoarele:";
 "dialog_routing_disclaimer_priority" = "— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;";
 "dialog_routing_disclaimer_precision" = "— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;";

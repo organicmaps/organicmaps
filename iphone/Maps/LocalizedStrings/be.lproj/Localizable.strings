@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Блакітна-шэры";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Падчас руху па маршруце памятайце:";
 "dialog_routing_disclaimer_priority" = "— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;";
 "dialog_routing_disclaimer_precision" = "— Мапа можа быць недакладнай, а прапанаваны маршрут не заўжды найлепшым;";

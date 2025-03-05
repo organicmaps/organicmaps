@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "青灰色";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "案内ルートに従う際は、以下の点にご留意ください：";
 "dialog_routing_disclaimer_priority" = "— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;";
 "dialog_routing_disclaimer_precision" = "— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;";

@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Hallikas-sinine";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Marsruuti järgides palun pea meeles:";
 "dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;";
 "dialog_routing_disclaimer_precision" = "- Kaart võib olla ebatäpne ja soovitatud marsruut ei pruugi alati olla kõige optimaalsem viis sihtkohta jõudmiseks;";

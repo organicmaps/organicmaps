@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Mavi-boz";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Marşrutunuzu izləyərkən aşağıdakıları yadda saxlayın:";
 "dialog_routing_disclaimer_priority" = "— Yol şəraiti, yol hərəkəti qaydaları və yol nişanları həmişə naviqasiya məsləhətindən üstündür;";
 "dialog_routing_disclaimer_precision" = "— Xəritə dəqiq olmaya bilər və tövsiyə olunan marşrut təyinat yerinə çatmağın ən yaxşı yolu olmaya bilər;";
