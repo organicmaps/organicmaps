@@ -610,9 +610,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinión general</string>
     <string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
+    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz.\nAquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
     <string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
-    <string name="transliteration_title">Transliteración al latín</string>
+    <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <string name="learn_more">Leer más</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Salida</string>
