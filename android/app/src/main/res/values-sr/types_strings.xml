@@ -15,7 +15,7 @@
     <string name="type.aeroway.aerodrome">Аеродром</string>
     <string name="type.aeroway.aerodrome.international">Интернационални аеродром</string>
     <string name="type.aeroway.apron">Перон</string>
-    <string name="type.aeroway.gate">Капија за укрцавање</string>
+    <string name="type.aeroway.gate">Капија</string>
     <string name="type.aeroway.helipad">Хелиодром</string>
     <string name="type.aeroway.runway">Писта</string>
     <string name="type.aeroway.taxiway">Рулна стаза</string>
@@ -200,7 +200,7 @@
     <string name="type.barrier.fence">Ограда</string>
     <string name="type.barrier.gate">Капија</string>
     <string name="type.barrier.hedge">Жива ограда</string>
-    <string name="type.barrier.kissing_gate">Капија</string>
+    <string name="type.barrier.kissing_gate">Сточна капија</string>
     <string name="type.barrier.lift_gate">Рампа</string>
     <string name="type.barrier.retaining_wall">Потпорни зид</string>
     <string name="type.barrier.stile">Прелаз преко ограде</string>
@@ -786,7 +786,7 @@
     <string name="type.power.generator.wind">Ветрогенератор</string>
     <string name="type.power.generator.gas">Гасно-турбинска електрана</string>
     <string name="type.power.generator.hydro">Хидроелектрана</string>
-    <string name="type.power.line">Далековод</string>
+    <string name="type.power.line">Далеководна мрежа</string>
     <string name="type.power.line.underground">Подземни далековод</string>
     <string name="type.power.plant">Електрана</string>
     <string name="type.power.plant.coal">Термоелектрана</string>
@@ -1304,7 +1304,7 @@
     <string name="type.waterway.drain">Канал</string>
     <string name="type.natural.water.drain">Канал</string>
     <string name="type.waterway.drain.tunnel">Канал</string>
-    <string name="type.waterway.lock_gate">Капија</string>
+    <string name="type.waterway.lock_gate">Бродска преводница</string>
     <string name="type.waterway.river">Река</string>
     <string name="type.waterway.river.tunnel">Река</string>
     <string name="type.waterway.stream">Поток</string>
@@ -1361,7 +1361,7 @@
     <string name="type.hwtag.toll">hwtag-toll</string>
     <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
     <string name="type.mapswithme">mapswithme</string>
-    <string name="type.place.neighbourhood">Кварт</string>
+    <string name="type.place.neighbourhood">Насеље</string>
     <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
     <string name="type.hwtag">hwtag</string>
     <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
@@ -1369,7 +1369,7 @@
     <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
     <string name="type.hwtag.oneway">hwtag-oneway</string>
     <string name="type.power.pole">Далековод</string>
-    <string name="type.man_made.cairn">Каменолом</string>
+    <string name="type.man_made.cairn">Громила</string>
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
     <string name="type.mapswithme.grid">mapswithme-grid</string>
     <string name="type.leisure.recreation_ground">Рекреациони простор</string>
@@ -1381,4 +1381,17 @@
     <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
     <string name="type.leisure.hackerspace">Хакерски простор</string>
+    <string name="type.attraction.bumper_car">Аутићи</string>
+    <string name="type.attraction.big_wheel">Панорамски точак</string>
+    <string name="type.railway.funicular.bridge">Мост успињаче</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.railway.light_rail.tunnel">Тунел лаке железнице</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.railway.preserved.tunnel">Очуван железнички тунел</string>
+    <string name="type.man_made.utility_pole">Услужни стуб</string>
+    <string name="type.railway.narrow_gauge.bridge">Железнички мост уског колосека</string>
+    <string name="type.railway.preserved.bridge">Очувани железнички мост</string>
+    <string name="type.shop.hearing_aids">Продавница слушног апарата</string>
+    <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
+    <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
 </resources>
