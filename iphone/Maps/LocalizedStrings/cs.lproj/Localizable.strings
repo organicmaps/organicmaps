@@ -485,7 +485,7 @@
 "editor_time_title" = "Otevírací doba";
 "editor_time_advanced" = "Pokročilý režim";
 "editor_time_simple" = "Jednoduchý režim";
-"editor_hours_closed" = "Doba, kdy je zavřeno";
+"editor_hours_closed" = "Pauza";
 "editor_example_values" = "Vzorové hodnoty";
 "editor_add_select_location" = "Zvolte umístění";
 "editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
