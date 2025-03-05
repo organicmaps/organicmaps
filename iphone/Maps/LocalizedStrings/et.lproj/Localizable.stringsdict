@@ -30,10 +30,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Leidsime %d faili.</string>
 			<key>one</key>
-			<string>%d fail leiti. Näed seda peale teisendamist.</string>
+			<string>Leidsime %d faili. Näed seda peale teisendamist.</string>
 			<key>other</key>
-			<string>%d faili leiti. Näed neid peale teisendamist.</string>
+			<string>Leidsime %d faili. Näed neid peale teisendamist.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
@@ -46,6 +48,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d rada</string>
 			<key>one</key>
 			<string>%d rada</string>
 			<key>other</key>
