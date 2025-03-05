@@ -115,7 +115,6 @@
     <string name="measurement_units">Адзінкі вымярэння</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Выкарыстоўваць кіламетры або мілі</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Дзе паесці</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Вада</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Для аўтадамоў</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Нататкі</string>
@@ -366,7 +364,6 @@
     <string name="gray">Шэры</string>
     <!-- blue gray color -->
     <string name="blue_gray">Блакітна-шэры</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Падчас руху па маршруце памятайце:</string>
     <string name="dialog_routing_disclaimer_priority">— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;</string>
@@ -396,7 +393,6 @@
     <string name="not_now">Не зараз</string>
     <string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?</string>
     <string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да інтэрнэту вам больш не спатрэбіцца.</string>
     <string name="search_select_map">Выбраць мапу</string>
@@ -745,7 +741,6 @@
     <string name="moreyear_ago_sorttype">Больш за год таму</string>
     <string name="near_me_sorttype">Каля мяне</string>
     <string name="others_sorttype">Іншыя</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ежа</string>
     <string name="tourist_places">Славутасці</string>
@@ -885,4 +880,9 @@
     <string name="uri_open_location_failed">Не ўстаноўлена праграма, якая можа адкрыць месцазнаходжанне</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аўто ў навігацыі</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="move_maps_error">Памылка перамяшчэння файлаў мапы</string>
+    <string name="menu">Меню</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="mastodon">Mastodon</string>
 </resources>
