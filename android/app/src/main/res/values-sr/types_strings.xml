@@ -128,7 +128,6 @@
     <string name="type.amenity.prison">Затвор</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Размена књига</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Центар за рециклажу</string>
     <string name="type.amenity.recycling">Контејнер за рециклажу</string>
@@ -299,7 +298,7 @@
     <string name="type.cuisine.greek">Грчка</string>
     <string name="type.cuisine.grill">Грил</string>
     <string name="type.cuisine.heuriger">Винска таверна</string>
-    <string name="type.cuisine.hotdog">Hotdog</string>
+    <string name="type.cuisine.hotdog">Хот дог</string>
     <string name="type.cuisine.hungarian">Мађарска</string>
     <string name="type.cuisine.ice_cream">Сладолед</string>
     <string name="type.cuisine.indian">Индијска</string>
@@ -371,7 +370,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапеут</string>
     <string name="type.healthcare.sample_collection">Прикупљање анализа</string>
     <string name="type.healthcare.speech_therapist">Логопед</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Ауто-пут</string>
     <string name="type.highway.bridleway">Коњска стаза</string>
@@ -537,7 +535,6 @@
     <string name="type.area_highway.track">Макадам</string>
     <string name="type.area_highway.trunk">Улица</string>
     <string name="type.area_highway.unclassified">Некласификовани пут</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Историјски објекат</string>
     <string name="type.historic.aircraft">Историјски авион</string>
@@ -1360,4 +1357,28 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.place.neighbourhood">Кварт</string>
+    <string name="type.amenity.motorcycle_rental">Изнајмљивање мотоцикала</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.power.pole">Далековод</string>
+    <string name="type.man_made.cairn">Каменолом</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.leisure.recreation_ground">Рекреациони простор</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.power.minor_line">Мања далеководна линија</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.leisure.hackerspace">Хакерски простор</string>
 </resources>
