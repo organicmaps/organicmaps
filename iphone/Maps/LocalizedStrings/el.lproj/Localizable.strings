@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Περισσότερο από ένα χρόνο πριν";
 "near_me_sorttype" = "Δίπλα μου";
 "others_sorttype" = "Άλλα";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Φαγητό";
 "tourist_places" = "Αξιοθέατα";
 "museums" = "Μουσεία";

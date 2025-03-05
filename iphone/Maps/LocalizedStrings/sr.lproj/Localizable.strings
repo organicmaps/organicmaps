@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Пре више од годину дана";
 "near_me_sorttype" = "Близу мене";
 "others_sorttype" = "Остали";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Храна";
 "tourist_places" = "Атракције";
 "museums" = "Музеји";

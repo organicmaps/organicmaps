@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Több mint egy éve";
 "near_me_sorttype" = "Hozzám közel";
 "others_sorttype" = "Más";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Étel";
 "tourist_places" = "Látnivalók";
 "museums" = "Múzeumok";

@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "לפני יותר משנה";
 "near_me_sorttype" = "קרוב אלי";
 "others_sorttype" = "אחרים";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "אוכל";
 "tourist_places" = "תיירות";
 "museums" = "מוזיאונים";

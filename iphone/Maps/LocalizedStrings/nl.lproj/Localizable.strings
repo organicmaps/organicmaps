@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Meer dan een jaar geleden";
 "near_me_sorttype" = "Dicht bij mij";
 "others_sorttype" = "Andere";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Eten";
 "tourist_places" = "Bezienswaardigheden";
 "museums" = "Musea";

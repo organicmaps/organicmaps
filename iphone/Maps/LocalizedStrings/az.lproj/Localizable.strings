@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Bir ildən çox əvvəl";
 "near_me_sorttype" = "Mənə yaxın";
 "others_sorttype" = "Digərləri";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Qida";
 "tourist_places" = "Görməli yerlər";
 "museums" = "Muzeylər";

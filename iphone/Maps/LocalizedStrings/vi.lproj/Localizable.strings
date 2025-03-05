@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Hơn một năm trước";
 "near_me_sorttype" = "Ở gần tôi";
 "others_sorttype" = "Khác";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Đồ ăn";
 "tourist_places" = "Danh lam thắng cảnh";
 "museums" = "Bảo tàng";

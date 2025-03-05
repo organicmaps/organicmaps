@@ -863,10 +863,6 @@
 "moreyear_ago_sorttype" = "Vairāk nekā pirms gada";
 "near_me_sorttype" = "Man tuvumā";
 "others_sorttype" = "Cits";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Ēdiens";
 "tourist_places" = "Apskates objekti";
 "museums" = "Muzeji";
