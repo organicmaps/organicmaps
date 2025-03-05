@@ -7,7 +7,6 @@
     <string name="type.amenity.fuel">Petrol Station</string>
     <string name="type.amenity.loading_dock">Loading Bay</string>
     <string name="type.amenity.post_box">Postbox</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recycling Centre</string>
     <string name="type.amenity.taxi">Taxi Rank</string>
@@ -15,11 +14,9 @@
     <string name="type.cuisine.donut">Doughnut</string>
     <string name="type.cuisine.savory_pancakes">Savoury Pancakes</string>
     <string name="type.healthcare.blood_donation">Blood Donation Centre</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway.sidewalk">Pavement</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.leisure.common">Common Land</string>
     <string name="type.leisure.sports_centre">Sports Centre</string>
@@ -287,4 +284,6 @@
     <string name="type.sport.soccer">Football</string>
     <string name="type.tourism.camp_site">Campsite</string>
     <string name="type.tourism.caravan_site">Caravan Park</string>
+    <string name="type.power.pole">Power Pole</string>
+    <string name="type.man_made.utility_pole">Utility Pole</string>
 </resources>
