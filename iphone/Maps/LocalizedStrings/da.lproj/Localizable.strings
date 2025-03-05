@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Faciliteter til autocamper";
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Hej! \n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n\nGod rejse med Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Indlæser bogmærker";
@@ -502,12 +502,12 @@
 "day_off_today" = "Fridag i dag";
 "day_off" = "Fridag";
 "today" = "I dag";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
-"closes_in" = "Closes in %@";
+"opens_tomorrow_at" = "Åbner i morgen kl. %@";
+"opens_dayoftheweek_at" = "Åbner %1$@ kl. %2$@";
+"opens_at" = "Åbner kl. %@";
+"opens_in" = "Åbner om %@";
+"closes_at" = "Lukker kl. %@";
+"closes_in" = "Lukker om %@";
 "closed" = "Lukket";
 "add_opening_hours" = "Tilføj arbejdstid";
 "no_osm_account" = "Ingen konto på OpenStreetMap?";
@@ -676,12 +676,12 @@
 "navigation_stop_button" = "Stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Vil du deaktivere gemningen af din seneste rejserute?";
+"recent_track_background_dialog_title" = "Deaktiver optagelse af din nyligt tilbagelagte rute?";
 "off_recent_track_background_button" = "Deaktiver";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Tjek";
-"recent_track_background_dialog_message" = "Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
+"recent_track_background_dialog_message" = "Organic Maps anvender din placering i baggrunden til at gemme din nyligt tilbagelagte rute.";
 "general_settings" = "Generelle indstillinger";
 
 /* For the first routing */
@@ -764,7 +764,7 @@
 "layers_title" = "Kortstile og -lag";
 "subway_data_unavailable" = "Kort over undergrundsbaner er ikke tilgængeligt";
 "title_error_downloading_bookmarks" = "Der er opstået en fejl";
-"popular_place" = "Popular";
+"popular_place" = "Populær";
 "export_file" = "Eksporter KMZ";
 "export_file_gpx" = "Eksporter GPX";
 "delete_list" = "Slet liste";
@@ -811,7 +811,7 @@
 "follow_my_position" = "Centrer igen";
 "search_results" = "Søgeresultater";
 "then_turn" = "Derefter";
-"redirect_route_alert" = "Vil du genopbygge en rute igen?";
+"redirect_route_alert" = "Vil du genopbygge ruten igen?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "Ja";
@@ -832,21 +832,21 @@
 "network" = "Netværk: %@";
 "trip_finished" = "Du er ankommet!";
 "keyboard_availability_alert" = "Keyboard er ikke tilgængelig under kørsel";
-"dialog_routing_change_start_carplay" = "Det er ikke muligt at beregne rute fra din nuværende position";
+"dialog_routing_change_start_carplay" = "Det er ikke muligt at beregne rute fra din nuværende placering";
 "dialog_routing_change_end_carplay" = "Det er ikke muligt at beregne rute til din destination. Vælg en anden destination";
 "dialog_routing_check_gps_carplay" = "Intet GPS signal. Flyt til et område med dækning";
-"dialog_routing_unable_locate_route_carplay" = "Det er ikke muligt at beregne rute. Vælg andre forbindelses-punkter for ruten";
-"dialog_routing_download_files_carplay" = "Download manglende kort til din enhed, for at lave ruten";
+"dialog_routing_unable_locate_route_carplay" = "Kan ikke oprette en rute. Angiv andre rutepunkter";
+"dialog_routing_download_files_carplay" = "For at oprette en rute skal du downloade manglende kort på din enhed";
 "dialog_routing_system_error_carplay" = "Der opstod en fejl. Genstart programmet";
-"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil blive beregnet igen, ud fra din nuværende position";
-"dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil blive ændret til en kørselsrute";
+"dialog_routing_rebuild_from_current_location_carplay" = "Ruten vil blive beregnet igen, ud fra din nuværende placering";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Ruten vil blive ændret til en bilrute";
 "not_all_shown_bookmarks_carplay" = "Ikke alle bogmærker vises";
 "switch_to_phone_bookmarks_carplay" = "Skift til telefonen for at se alle bogmærker";
 "ok" = "Ok";
 "speedcams_alert_title_carplay_1" = "Radarkontrol";
 "speedcams_alert_title_carplay_2" = "Radar advarsel";
 "download_map_carplay" = "Download kort i Organic Maps appen, på din enhed";
-"carplay_roundabout_exit" = "%@ exit";
+"carplay_roundabout_exit" = "%@ afkørsel";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sorter…";
@@ -910,19 +910,19 @@
 "whats_new_auto_update_button_later" = "Opdater manuelt senere";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Slet spor";
 
 /* The track deletion confirmaion alert message. */
 "placepage_delete_track_confirmation_alert_message" = "Er du sikker på, at du vil slette dette spor?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Spornavn";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Flyt";
 
 /* edit track screen title */
-"track_title" = "Rute";
+"track_title" = "Spor";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
