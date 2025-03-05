@@ -197,7 +197,7 @@
 
 /* Length of track in cell that describes route */
 "length" = "Længde";
-"share_my_location" = "Del min lokation";
+"share_my_location" = "Del min placering";
 "prefs_group_route" = "Navigation";
 "pref_zoom_title" = "Zoom-knapper";
 
