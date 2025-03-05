@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "ストリート";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "史跡";
 "type.historic.aircraft" = "歴史的な航空機";
 "type.historic.anchor" = "歴史的なアンカー";

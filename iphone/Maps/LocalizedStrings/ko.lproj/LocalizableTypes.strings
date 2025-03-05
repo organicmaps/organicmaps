@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "거리";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "역사적 물건";
 "type.historic.aircraft" = "\"역사적인 항공기\"";
 "type.historic.anchor" = "역사적인 앵커";

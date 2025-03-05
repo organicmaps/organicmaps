@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Rue";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objet historique";
 "type.historic.aircraft" = "Avion historique";
 "type.historic.anchor" = "Ancre historique";

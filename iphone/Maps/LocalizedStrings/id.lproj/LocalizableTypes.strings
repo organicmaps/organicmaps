@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Jalan";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Objek bersejarah";
 "type.historic.aircraft" = "Pesawat Bersejarah";
 "type.historic.anchor" = "Jangkar Bersejarah";
