@@ -102,7 +102,6 @@
     <string name="measurement_units">Måleenhed</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -150,7 +149,6 @@
     <string name="category_water">Vand</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Til RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Noter</string>
@@ -340,7 +338,6 @@
     <string name="gray">Grå</string>
     <!-- blue gray color -->
     <string name="blue_gray">Blågrå</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Når du følger en rute, skal du være opmærksom på følgende:</string>
     <string name="dialog_routing_disclaimer_priority">— Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;</string>
@@ -370,7 +367,6 @@
     <string name="not_now">Ikke nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
     <string name="dialog_routing_download_cross_route">Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
     <string name="search_select_map">Vælk kortet</string>
@@ -713,7 +709,6 @@
     <string name="moreyear_ago_sorttype">Mere end et år siden</string>
     <string name="near_me_sorttype">I nærheden</string>
     <string name="others_sorttype">Andre</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Mad</string>
     <string name="tourist_places">Seværdigheder</string>
@@ -840,4 +835,38 @@
     <string name="uri_open_location_failed">Ingen app installeret, der kan åbne stedet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto i navigation</string>
+    <string name="disconnect_usb_cable_title">Frakobl USB-kabel</string>
+    <string name="editor_add_phone">Tilføj telefon</string>
+    <string name="download_map_title">Download oversigtskortet over verden</string>
+    <string name="opens_in">Åbner om %s</string>
+    <string name="maps_storage_free_size">%1$s fri af %2$s</string>
+    <string name="enable_show_on_lock_screen">Vis på låseskærmen</string>
+    <string name="facebook">Facebook</string>
+    <string name="error_enter_correct_facebook_page">Indtast en gyldig Facebook-webadresse, -konto eller -sidenavn</string>
+    <string name="connection_failure">Forbindelsesfejl</string>
+    <string name="mb">MB</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="error_enter_correct_twitter_page">Indtast et gyldigt Twitter-brugernavn eller en webadresse</string>
+    <string name="share_bookmarks_email_body">Hej! \n \nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!</string>
+    <string name="delete_place_empty_comment_error">Angiv begrundelsen for at slette stedet</string>
+    <string name="disk_error_title">Diskfejl</string>
+    <string name="error_enter_correct_instagram_page">Indtast et gyldigt Instagram-brugernavn eller en webadresse</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="navigation_stop_button">Stop</string>
+    <string name="error_enter_correct_vk_page">Indtast et gyldigt VK-brugernavn eller en webadresse</string>
+    <string name="gb">GB</string>
+    <string name="error_enter_correct_line_page">Indtast et gyldigt LINE ID eller en webadresse</string>
+    <string name="maps_storage_internal">Intern privat lagerplads</string>
+    <string name="maps_storage_shared">Intern delt lagerplads</string>
+    <string name="maps_storage_removable">SD-kort</string>
+    <string name="maps_storage_external">Ekstern delt lagerplads</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">Etage: %s</string>
+    <string name="closes_in">Lukker om %s</string>
+    <string name="enable_show_on_lock_screen_description">Når den er aktiveret, fungerer appen på låseskærmen, selv når enheden er låst.</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="move_maps_error">Fejl ved flytning af kortfiler</string>
+    <string name="disk_error">Kan ikke oprette mapper og flytte filer på enhedens interne hukommelse eller sd-kort</string>
 </resources>
