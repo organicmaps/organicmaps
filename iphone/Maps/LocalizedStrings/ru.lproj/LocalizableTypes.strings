@@ -884,7 +884,7 @@
 "type.power.generator.hydro" = "Гидроэлектростанция";
 "type.power.line" = "Линия электропередач";
 "type.power.line.underground" = "Подземная линия электропередач";
-"type.power.minor_line" = "Линия электропередачи низкого напряжения";
+"type.power.minor_line" = "Небольшая ЛЭП";
 "type.power.plant" = "Электростанция";
 "type.power.plant.coal" = "Угольная электростанция";
 "type.power.plant.gas" = "Газотурбинная электростанция";
