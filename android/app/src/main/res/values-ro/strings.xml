@@ -1292,6 +1292,7 @@
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.speed_camera">Detector de viteză</string>
     <string name="type.highway.steps">Cale</string>
+    <string name="type.highway.ladder">Scară</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Pod</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

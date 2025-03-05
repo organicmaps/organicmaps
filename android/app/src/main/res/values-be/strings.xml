@@ -1131,6 +1131,7 @@
     <string name="type.highway.service.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Тунэль</string>
+    <string name="type.highway.ladder">Драбіны</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Мост</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

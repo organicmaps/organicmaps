@@ -1368,6 +1368,7 @@
     <string name="type.highway.services">Teenindusala</string>
     <string name="type.highway.speed_camera">Kiiruskaamera</string>
     <string name="type.highway.steps">Trepp</string>
+    <string name="type.highway.ladder">Redel</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Sild</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

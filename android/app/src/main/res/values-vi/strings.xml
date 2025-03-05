@@ -1264,6 +1264,7 @@
     <string name="type.highway.service.tunnel">Đường hầm</string>
     <string name="type.highway.speed_camera">Camera bắn tốc độ</string>
     <string name="type.highway.steps">Đường</string>
+    <string name="type.highway.ladder">Thang</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Cầu</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

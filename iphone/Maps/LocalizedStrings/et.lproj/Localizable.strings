@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Teenindusala";
 "type.highway.speed_camera" = "Kiiruskaamera";
 "type.highway.steps" = "Trepp";
+"type.highway.ladder" = "Redel";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Sild";

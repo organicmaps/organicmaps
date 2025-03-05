@@ -621,6 +621,7 @@
     <string name="type.highway.service.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Mtaro</string>
+    <string name="type.highway.ladder">Ngazi</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Daraja</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

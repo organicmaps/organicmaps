@@ -1387,6 +1387,7 @@
     <string name="type.highway.services">服务区</string>
     <string name="type.highway.speed_camera">超速摄像头</string>
     <string name="type.highway.steps">阶梯</string>
+    <string name="type.highway.ladder">梯子</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">桥</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

@@ -1635,6 +1635,7 @@
 "type.highway.services" = "सेवा क्षेत्र";
 "type.highway.speed_camera" = "वेग कॅमेरा";
 "type.highway.steps" = "पायऱ्या";
+"type.highway.ladder" = "शिडी    nb = Stige";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "पूल";

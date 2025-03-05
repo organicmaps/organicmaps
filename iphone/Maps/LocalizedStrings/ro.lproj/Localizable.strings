@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Detector de viteză";
 "type.highway.steps" = "Cale";
+"type.highway.ladder" = "Scară";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Pod";

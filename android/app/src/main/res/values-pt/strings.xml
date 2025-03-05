@@ -1324,6 +1324,7 @@
     <string name="type.highway.services">Área de serviço</string>
     <string name="type.highway.speed_camera">Radar de velocidade</string>
     <string name="type.highway.steps">Escadas</string>
+    <string name="type.highway.ladder">Escada</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Ponte</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

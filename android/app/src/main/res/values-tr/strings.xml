@@ -1379,6 +1379,7 @@
     <string name="type.highway.services">Servis Alanı</string>
     <string name="type.highway.speed_camera">Hız Kamerası</string>
     <string name="type.highway.steps">Merdiven</string>
+    <string name="type.highway.ladder">Merdiven</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Köprü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

@@ -1374,6 +1374,7 @@
     <string name="type.highway.services">Servicegebied</string>
     <string name="type.highway.speed_camera">Flitspaal</string>
     <string name="type.highway.steps">Trap</string>
+    <string name="type.highway.ladder">Ladder</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Brug</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

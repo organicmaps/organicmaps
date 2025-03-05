@@ -1635,6 +1635,7 @@
 "type.highway.services" = "サービスエリア";
 "type.highway.speed_camera" = "自動速度違反取締装置";
 "type.highway.steps" = "歩道";
+"type.highway.ladder" = "はしご";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "橋";

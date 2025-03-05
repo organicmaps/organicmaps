@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "스피드 카메라";
 "type.highway.steps" = "길";
+"type.highway.ladder" = "사다리";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "다리";

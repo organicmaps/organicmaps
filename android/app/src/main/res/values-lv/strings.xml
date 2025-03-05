@@ -874,6 +874,9 @@
     <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
 
+    <!-- SECTION: Types: Roads -->
+    <string name="type.highway.ladder">Trepes</string>
+
     <!-- SECTION: Types: Historic -->
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>

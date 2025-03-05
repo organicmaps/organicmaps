@@ -1351,6 +1351,7 @@
     <string name="type.highway.services">サービスエリア</string>
     <string name="type.highway.speed_camera">自動速度違反取締装置</string>
     <string name="type.highway.steps">歩道</string>
+    <string name="type.highway.ladder">はしご</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">橋</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

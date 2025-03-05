@@ -1272,6 +1272,7 @@
     <string name="type.highway.service.tunnel">อุโมงค์</string>
     <string name="type.highway.speed_camera">กล้องตรวจจับความเร็ว</string>
     <string name="type.highway.steps">เส้นทาง</string>
+    <string name="type.highway.ladder">บันไดปีน</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">สะพาน</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

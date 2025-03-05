@@ -1178,6 +1178,7 @@
     <string name="type.highway.service.tunnel">تونل</string>
     <string name="type.highway.speed_camera">دوربین سرعت سنج</string>
     <string name="type.highway.steps">مسیر</string>
+    <string name="type.highway.ladder">نردبان</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">پل</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

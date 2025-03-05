@@ -1635,6 +1635,7 @@
 "type.highway.services" = "מתחם שירות";
 "type.highway.speed_camera" = "מצלמת מהירות";
 "type.highway.steps" = "מדרגות";
+"type.highway.ladder" = "סוּלָם";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "גשר";

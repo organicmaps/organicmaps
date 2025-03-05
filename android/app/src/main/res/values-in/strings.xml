@@ -1264,6 +1264,7 @@
     <string name="type.highway.service.tunnel">Terowongan</string>
     <string name="type.highway.speed_camera">Kamera Kecepatan</string>
     <string name="type.highway.steps">Jalur</string>
+    <string name="type.highway.ladder">Tangga</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Menjembatani</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

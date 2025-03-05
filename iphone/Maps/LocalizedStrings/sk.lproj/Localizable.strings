@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Účelová oblasť";
 "type.highway.speed_camera" = "Rýchlostná kamera";
 "type.highway.steps" = "Schody";
+"type.highway.ladder" = "Rebrík";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Most";

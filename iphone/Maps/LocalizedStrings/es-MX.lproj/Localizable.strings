@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Área de servicio";
 "type.highway.speed_camera" = "Radar de velocidad";
 "type.highway.steps" = "Escaleras";
+"type.highway.ladder" = "Escalera";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Puente";

@@ -1284,6 +1284,7 @@
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.speed_camera">Rychlostní kamera</string>
     <string name="type.highway.steps">Cesta</string>
+    <string name="type.highway.ladder">Žebřík</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

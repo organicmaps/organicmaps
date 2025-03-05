@@ -1370,6 +1370,7 @@
     <string name="type.highway.services">Aire de service</string>
     <string name="type.highway.speed_camera">Radar de vitesse</string>
     <string name="type.highway.steps">Escaliers</string>
+    <string name="type.highway.ladder">Échelle</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Pont</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

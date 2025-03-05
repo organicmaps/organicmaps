@@ -1368,6 +1368,7 @@
     <string name="type.highway.services">מתחם שירות</string>
     <string name="type.highway.speed_camera">מצלמת מהירות</string>
     <string name="type.highway.steps">מדרגות</string>
+    <string name="type.highway.ladder">סוּלָם</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">גשר</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

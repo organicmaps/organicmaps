@@ -1324,6 +1324,7 @@
     <string name="type.highway.service.tunnel">Σήραγγα</string>
     <string name="type.highway.speed_camera">Κάμερα ταχύτητας</string>
     <string name="type.highway.steps">Διαδρομή</string>
+    <string name="type.highway.ladder">Σκάλα</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

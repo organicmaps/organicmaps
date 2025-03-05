@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "กล้องตรวจจับความเร็ว";
 "type.highway.steps" = "เส้นทาง";
+"type.highway.ladder" = "บันไดปีน";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "สะพาน";

@@ -1635,6 +1635,7 @@
 "type.highway.services" = "موقف الراحة";
 "type.highway.speed_camera" = "كاميرا لرصد السرعة";
 "type.highway.steps" = "درج";
+"type.highway.ladder" = "السلم";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "جسر";

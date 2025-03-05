@@ -1380,6 +1380,7 @@
     <string name="type.highway.services">Miejsce obsługi podróżnych</string>
     <string name="type.highway.speed_camera">Fotoradar</string>
     <string name="type.highway.steps">Schody</string>
+    <string name="type.highway.ladder">Drabina</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Most</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

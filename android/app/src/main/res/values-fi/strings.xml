@@ -1364,6 +1364,7 @@
     <string name="type.highway.services">Palvelualue</string>
     <string name="type.highway.speed_camera">Nopeusvalvontakamera</string>
     <string name="type.highway.steps">Portaat</string>
+    <string name="type.highway.ladder">Tikkaat</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Silta</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

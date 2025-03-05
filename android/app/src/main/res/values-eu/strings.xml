@@ -1364,6 +1364,7 @@
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.speed_camera">Abiadura kamera</string>
     <string name="type.highway.steps">Bidea</string>
+    <string name="type.highway.ladder">Eskailera</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Zubia</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

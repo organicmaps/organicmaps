@@ -928,6 +928,7 @@
     <string name="type.highway.service.driveway">सर्विस रोड</string>
     <string name="type.highway.service.parking_aisle">सर्विस रोड</string>
     <string name="type.highway.speed_camera">तेज़ गति कैमेरा</string>
+    <string name="type.highway.ladder">सीढ़ी    hu = Létra</string>
     <string name="type.highway.tertiary">तृतीयक सड़क</string>
     <string name="type.highway.tertiary_link">तृतीयक सड़क</string>
     <string name="type.highway.track">सड़क</string>

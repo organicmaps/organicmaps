@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Зона обслуживания";
 "type.highway.speed_camera" = "Камера скорости";
 "type.highway.steps" = "Лестница";
+"type.highway.ladder" = "Лестница";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Мост";

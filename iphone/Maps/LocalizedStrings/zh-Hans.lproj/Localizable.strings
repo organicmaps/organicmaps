@@ -1635,6 +1635,7 @@
 "type.highway.services" = "服务区";
 "type.highway.speed_camera" = "超速摄像头";
 "type.highway.steps" = "阶梯";
+"type.highway.ladder" = "梯子";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "桥";

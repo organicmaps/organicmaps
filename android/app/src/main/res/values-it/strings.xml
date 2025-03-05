@@ -1360,6 +1360,7 @@
     <string name="type.highway.service.tunnel">Tunnel</string>
     <string name="type.highway.speed_camera">Autovelox</string>
     <string name="type.highway.steps">Scale</string>
+    <string name="type.highway.ladder">Scala</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Ponte</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

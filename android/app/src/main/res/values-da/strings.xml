@@ -1255,6 +1255,7 @@
     <string name="type.highway.service.tunnel">Tunnel</string>
     <string name="type.highway.speed_camera">Automatisk Trafikkontrol</string>
     <string name="type.highway.steps">Sti</string>
+    <string name="type.highway.ladder">Stige</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

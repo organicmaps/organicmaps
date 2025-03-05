@@ -1344,6 +1344,7 @@
     <string name="type.highway.services">Xidmət Sahəsi</string>
     <string name="type.highway.speed_camera">Sürət kamerası</string>
     <string name="type.highway.steps">Pilləkənlər</string>
+    <string name="type.highway.ladder">Nərdivan</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Körpü</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

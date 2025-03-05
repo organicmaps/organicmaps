@@ -1398,6 +1398,7 @@
     <string name="type.highway.services">موقف الراحة</string>
     <string name="type.highway.speed_camera">كاميرا لرصد السرعة</string>
     <string name="type.highway.steps">درج</string>
+    <string name="type.highway.ladder">السلم</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">جسر</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

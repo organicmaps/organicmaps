@@ -1264,6 +1264,7 @@
     <string name="type.highway.service.tunnel">Tunnel</string>
     <string name="type.highway.speed_camera">Hastighetskamera</string>
     <string name="type.highway.steps">Gångväg</string>
+    <string name="type.highway.ladder">Stege</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

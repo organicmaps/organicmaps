@@ -1268,6 +1268,7 @@
     <string name="type.highway.service.tunnel">터널</string>
     <string name="type.highway.speed_camera">스피드 카메라</string>
     <string name="type.highway.steps">길</string>
+    <string name="type.highway.ladder">사다리</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">다리</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

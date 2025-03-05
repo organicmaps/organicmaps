@@ -1385,6 +1385,7 @@
     <string name="type.highway.services">Зона обслуговування</string>
     <string name="type.highway.speed_camera">Камера швидкості</string>
     <string name="type.highway.steps">Сходи</string>
+    <string name="type.highway.ladder">Драбина.</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Міст</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

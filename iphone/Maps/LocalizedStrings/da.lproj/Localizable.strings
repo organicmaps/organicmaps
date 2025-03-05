@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Automatisk Trafikkontrol";
 "type.highway.steps" = "Sti";
+"type.highway.ladder" = "Stige";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Bro";

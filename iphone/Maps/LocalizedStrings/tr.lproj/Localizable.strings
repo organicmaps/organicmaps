@@ -1635,6 +1635,7 @@
 "type.highway.services" = "Servis Alanı";
 "type.highway.speed_camera" = "Hız Kamerası";
 "type.highway.steps" = "Merdiven";
+"type.highway.ladder" = "Merdiven";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Köprü";

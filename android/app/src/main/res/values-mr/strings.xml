@@ -1248,6 +1248,7 @@
     <string name="type.highway.services">सेवा क्षेत्र</string>
     <string name="type.highway.speed_camera">वेग कॅमेरा</string>
     <string name="type.highway.steps">पायऱ्या</string>
+    <string name="type.highway.ladder">शिडी    nb = Stige</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">पूल</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->

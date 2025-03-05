@@ -1364,6 +1364,7 @@
     <string name="type.highway.services">Raststätte</string>
     <string name="type.highway.speed_camera">Blitzer</string>
     <string name="type.highway.steps">Treppe</string>
+    <string name="type.highway.ladder">Leiter</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Brücke</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
