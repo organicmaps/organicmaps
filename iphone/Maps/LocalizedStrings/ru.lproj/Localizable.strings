@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Серо-голубой";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
 "dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";

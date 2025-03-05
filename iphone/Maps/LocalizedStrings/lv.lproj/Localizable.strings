@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Zilpelēka";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Sekojot maršrutam, ievērojiet:";
 "dialog_routing_disclaimer_priority" = "— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;";
 "dialog_routing_disclaimer_precision" = "— Karte var būt kļūdaina, kā arī ieteiktais maršruts ne vienmēr būs optimālākais galamērķa sasniegšanai;";

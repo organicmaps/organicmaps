@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "蓝灰色";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "按照路线行进时，请谨记：";
 "dialog_routing_disclaimer_priority" = "— 路况、交通法规和路标始终优先于导航建议；";
 "dialog_routing_disclaimer_precision" = "— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路线；";

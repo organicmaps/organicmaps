@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "สีฟ้าอมเทา";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "ขณะกำลังเดินทางตามเส้นทาง โปรดจำไว้ว่า:";
 "dialog_routing_disclaimer_priority" = "— สภาพถนน กฎจราจร และสัญลักษณ์บนถนนย่อมมีความสำคัญกว่าคำแนะนำเพื่อบอกทางเสมอ;";
 "dialog_routing_disclaimer_precision" = "— แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;";
