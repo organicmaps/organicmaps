@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Некласификовани пут";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Историјски објекат";
 "type.historic.aircraft" = "Историјски авион";
 "type.historic.anchor" = "Историјско сидро";

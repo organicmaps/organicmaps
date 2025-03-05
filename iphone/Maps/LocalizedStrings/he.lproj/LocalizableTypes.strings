@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "כביש לא מסומן/מזערי";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "חפץ היסטורי";
 "type.historic.aircraft" = "מטוס היסטורי";
 "type.historic.anchor" = "עוגן היסטורי";

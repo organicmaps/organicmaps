@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Невелика дорога";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Історичний об'єкт";
 "type.historic.aircraft" = "Історичний літак";
 "type.historic.anchor" = "Історичний якір";

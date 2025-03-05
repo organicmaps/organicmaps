@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Katu";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historiallinen esine";
 "type.historic.aircraft" = "Historiallinen lentokone";
 "type.historic.anchor" = "Historiallinen ankkuri";

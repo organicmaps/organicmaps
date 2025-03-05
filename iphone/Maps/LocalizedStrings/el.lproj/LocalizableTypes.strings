@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Οδός";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Ιστορικό αντικείμενο";
 "type.historic.aircraft" = "Ιστορικό αεροσκάφος";
 "type.historic.anchor" = "Ιστορική Άγκυρα";

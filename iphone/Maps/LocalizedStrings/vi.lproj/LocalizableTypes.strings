@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "Phố";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Đối tượng lịch sử";
 "type.historic.aircraft" = "Máy bay lịch sử";
 "type.historic.anchor" = "Mỏ Neo lịch sử";

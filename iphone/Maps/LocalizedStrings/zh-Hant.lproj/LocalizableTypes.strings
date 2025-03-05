@@ -598,10 +598,6 @@
 "type.area_highway.unclassified" = "道路";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "歷史地點";
 "type.historic.aircraft" = "歷史悠久的飛機";
 "type.historic.anchor" = "歷史錨";
