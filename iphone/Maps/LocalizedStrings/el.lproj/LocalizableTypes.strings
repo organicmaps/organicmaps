@@ -128,10 +128,6 @@
 "type.amenity.prison" = "φυλακή";
 "type.amenity.pub" = "Παμπ";
 "type.amenity.public_bookcase" = "Ανταλλαγή βιβλίων";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Κέντρο ανακύκλωσης";
 "type.amenity.recycling" = "Κάδος ανακύκλωσης";
 "type.amenity.recycling.container" = "Κάδος ανακύκλωσης";

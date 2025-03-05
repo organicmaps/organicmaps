@@ -128,10 +128,6 @@
 "type.amenity.prison" = "감옥";
 "type.amenity.pub" = "술집";
 "type.amenity.public_bookcase" = "도서 교환";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "재활용센터";
 "type.amenity.recycling" = "재활용 쓰레기통";
 "type.amenity.recycling.container" = "재활용 쓰레기통";

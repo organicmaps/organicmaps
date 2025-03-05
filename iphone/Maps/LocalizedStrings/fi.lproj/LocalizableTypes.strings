@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Vankila";
 "type.amenity.pub" = "Pubi";
 "type.amenity.public_bookcase" = "Kirjahylly";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Kierrätyskeskus";
 "type.amenity.recycling" = "Kierrätysjäteastia";
 "type.amenity.recycling.container" = "Kierrätysjäteastia";

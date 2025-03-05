@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Więzienie";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Wymiana książek";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Centrum przetwórstwa odpadów";
 "type.amenity.recycling" = "Pojemnik do recyklingu";
 "type.amenity.recycling.container" = "Pojemnik do recyklingu";

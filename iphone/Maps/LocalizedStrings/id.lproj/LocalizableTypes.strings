@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Penjara";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Rak Buku";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "TPA";
 "type.amenity.recycling" = "Wadah daur ulang";
 "type.amenity.recycling.container" = "Wadah daur ulang";

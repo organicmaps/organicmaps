@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Fengsel";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bokhylle";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Resirkuleringssenter";
 "type.amenity.recycling" = "Gjenvinningsbeholder";
 "type.amenity.recycling.container" = "Gjenvinningsbeholder";

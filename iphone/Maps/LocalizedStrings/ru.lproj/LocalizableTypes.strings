@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Тюрьма";
 "type.amenity.pub" = "Паб";
 "type.amenity.public_bookcase" = "Книгообмен";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Приём вторсырья";
 "type.amenity.recycling" = "Контейнер для вторсырья";
 "type.amenity.recycling.container" = "Контейнер для вторсырья";

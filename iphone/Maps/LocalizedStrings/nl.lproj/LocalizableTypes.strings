@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekenkast";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Milieustraat";
 "type.amenity.recycling" = "Recycling container";
 "type.amenity.recycling.container" = "Recycling container";

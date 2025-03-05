@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Închisoare";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Bibliotecă";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Centru de reciclare";
 "type.amenity.recycling" = "Containere pentru reciclare";
 "type.amenity.recycling.container" = "Containere pentru reciclare";

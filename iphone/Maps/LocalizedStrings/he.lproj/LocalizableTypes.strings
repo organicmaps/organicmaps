@@ -128,10 +128,6 @@
 "type.amenity.prison" = "בית כלא";
 "type.amenity.pub" = "פאב";
 "type.amenity.public_bookcase" = "כוננית ספרים ציבורית";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "מרכז מיחזור";
 "type.amenity.recycling" = "מיכל מיחזור";
 "type.amenity.recycling.container" = "מיכל מיחזור";

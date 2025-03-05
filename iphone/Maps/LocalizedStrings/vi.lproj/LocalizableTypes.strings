@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Nhà tù";
 "type.amenity.pub" = "Quán rượu";
 "type.amenity.public_bookcase" = "Kệ sách";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Trung tâm tái sinh";
 "type.amenity.recycling" = "Thùng rác";
 "type.amenity.recycling.container" = "Thùng rác";

@@ -128,10 +128,6 @@
 "type.amenity.prison" = "คุก";
 "type.amenity.pub" = "ผับ";
 "type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "ศูนย์รีไซเคิล";
 "type.amenity.recycling" = "บรรจุภัณฑ์รีไซเคิล";
 "type.amenity.recycling.container" = "บรรจุภัณฑ์รีไซเคิล";
