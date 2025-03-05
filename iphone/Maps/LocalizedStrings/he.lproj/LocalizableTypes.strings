@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "פסיכותרפיה";
 "type.healthcare.sample_collection" = "מרכז איסוף דגימות";
 "type.healthcare.speech_therapist" = "ריפוי בדיבור";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "כביש";
 "type.highway.bridleway" = "שביל סוסים";
 

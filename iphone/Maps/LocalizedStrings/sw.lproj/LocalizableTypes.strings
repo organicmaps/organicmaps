@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Tiba ya kisaikolojia";
 "type.healthcare.sample_collection" = "Sampuli";
 "type.healthcare.speech_therapist" = "Tiba ya hotuba";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 

@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "心理療法";
 "type.healthcare.sample_collection" = "サンプリング";
 "type.healthcare.speech_therapist" = "ロゴペディックス";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "道路";
 "type.highway.bridleway" = "馬道";
 

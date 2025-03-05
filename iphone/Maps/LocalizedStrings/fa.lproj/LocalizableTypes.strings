@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "روان درمانی";
 "type.healthcare.sample_collection" = "نمونه برداری";
 "type.healthcare.speech_therapist" = "گفتار درمانی";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 

@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapi";
 "type.healthcare.sample_collection" = "Örnekleme";
 "type.healthcare.speech_therapist" = "Logopedi";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Otoyol";
 "type.highway.bridleway" = "Atlı Yolu";
 

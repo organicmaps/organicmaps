@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Psikoterapia";
 "type.healthcare.sample_collection" = "Laginketa";
 "type.healthcare.speech_therapist" = "Logopedia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 

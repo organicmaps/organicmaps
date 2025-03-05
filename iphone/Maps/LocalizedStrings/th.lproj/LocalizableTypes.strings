@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "จิตบำบัด";
 "type.healthcare.sample_collection" = "การสุ่มตัวอย่าง";
 "type.healthcare.speech_therapist" = "การบำบัดด้วยการพูด";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
