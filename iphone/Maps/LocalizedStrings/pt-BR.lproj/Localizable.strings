@@ -172,7 +172,7 @@
 "unknown_current_position" = "A sua localização ainda não foi determinada";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps.";
+"bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Veja no mapa a minha localização atual via Organic Maps!";
@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Não existem dados de tráfego";
 "enable_logging" = "Ativar o histórico";
 "log_file_size" = "Tamanho do arquivo de registro: %@";
-"transliteration_title" = "Transliteração para alfabeto latino";
+"transliteration_title" = "Transliterar para alfabeto latino";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Saída";
@@ -783,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Nunca avisar";
 "power_managment_title" = "Modo de economia de energia";
-"power_managment_description" = "Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual";
+"power_managment_description" = "Tentar reduzir o consumo de energia em detrimento de algumas funcionalidades.";
 "power_managment_setting_never" = "Nunca";
 "power_managment_setting_auto" = "Automático";
 "power_managment_setting_manual_max" = "Máxima economia de energia";
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Evitar balsas";
 "avoid_motorways" = "Evitar rodovias";
 "unable_to_calc_alert_title" = "Incapaz de calcular rota";
-"unable_to_calc_alert_subtitle" = "Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente";
+"unable_to_calc_alert_subtitle" = "Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.";
 "define_to_avoid_btn" = "Definir as estradas a serem evitadas";
 "change_driving_options_btn" = "Opções de direção ativadas";
 "toll_road" = "Pedágio";
@@ -880,7 +880,7 @@
 "search_in_the_list" = "Buscar na lista";
 "religious_places" = "Lugares religiosos";
 "transit_not_found" = "A navegação por metrô ainda não está disponível nesta região";
-"dialog_pedestrian_route_is_long_header" = "Rota por metrô não encontrada";
+"dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metrô";
 "dialog_pedestrian_route_is_long_message" = "Escolha outro ponto de início ou fim perto da estação de metrô";
 "button_layer_isolines" = "Relevo";
 "isolines_activation_error_dialog" = "Para ativar e usar a camada Relevo, atualize ou baixe o mapa da região";
