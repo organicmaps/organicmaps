@@ -481,7 +481,7 @@
 		ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */; };
 		ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
 		ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */; };
-		ED2E32912D10501700807A08 /* TrackRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */; };
+		ED2E32912D10501700807A08 /* TrackRecordingButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
 		ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */; };
 		ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */; };
@@ -519,11 +519,14 @@
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */; };
+		ED8A921C2D772904009E063B /* ElevationDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A921B2D772904009E063B /* ElevationDescription.swift */; };
 		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
 		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
 		ED9857082C4ED02D00694F6C /* MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9857072C4ED02D00694F6C /* MailComposer.swift */; };
 		ED9966802B94FBC20083CE55 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED99667D2B94FBC20083CE55 /* ColorPicker.swift */; };
+		ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */; };
+		ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */; };
 		EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */; };
 		EDBD68072B625724005DD151 /* LocationServicesDisabledAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */; };
 		EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */; };
@@ -1449,7 +1452,7 @@
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
-		ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingViewController.swift; sourceTree = "<group>"; };
+		ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonViewController.swift; sourceTree = "<group>"; };
 		ED4DC7732CAEDECC0029B338 /* ProductButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductButton.swift; sourceTree = "<group>"; };
 		ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
@@ -1485,11 +1488,14 @@
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
 		ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+FilledWithColor.swift"; sourceTree = "<group>"; };
+		ED8A921B2D772904009E063B /* ElevationDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationDescription.swift; sourceTree = "<group>"; };
 		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
 		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
 		ED9857072C4ED02D00694F6C /* MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposer.swift; sourceTree = "<group>"; };
 		ED99667D2B94FBC20083CE55 /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageTrackRecordingLayout.swift; sourceTree = "<group>"; };
+		ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManagerTests.swift; sourceTree = "<group>"; };
 		EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileFormatter.swift; sourceTree = "<group>"; };
 		EDBD68062B625724005DD151 /* LocationServicesDisabledAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationServicesDisabledAlert.xib; sourceTree = "<group>"; };
 		EDBD680A2B62572E005DD151 /* LocationServicesDisabledAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesDisabledAlert.swift; sourceTree = "<group>"; };
@@ -2569,7 +2575,7 @@
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
-				ED49D76F2CF0E3A8004AF27E /* TrackRecordingViewController.swift */,
+				ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */,
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
@@ -2765,6 +2771,7 @@
 		4B4153B62BF9709100EE4B02 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED9DDF982D6F6D8000645BC8 /* TrackRecorder */,
 				EDF838AB2C00B9C7007E4E67 /* iCloudTests */,
 				4B4153B72BF970A000EE4B02 /* TextToSpeech */,
 			);
@@ -3031,6 +3038,7 @@
 				99C6532123F2F506004322F3 /* IPlacePageLayout.swift */,
 				99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */,
 				993DF0B423F6B2EF00AC231A /* PlacePageTrackLayout.swift */,
+				ED9DDF872D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -3050,6 +3058,7 @@
 		99DEF9D523E420D2006BFD21 /* ElevationProfile */ = {
 			isa = PBXGroup;
 			children = (
+				ED8A921B2D772904009E063B /* ElevationDescription.swift */,
 				99514BB223E82B450085D3A7 /* ElevationProfilePresenter.swift */,
 				EDA1EAA32CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift */,
 				99514BB423E82B450085D3A7 /* ElevationProfileViewController.swift */,
@@ -3310,6 +3319,14 @@
 				ED99667D2B94FBC20083CE55 /* ColorPicker.swift */,
 			);
 			path = ColorPicker;
+			sourceTree = "<group>";
+		};
+		ED9DDF982D6F6D8000645BC8 /* TrackRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				ED9DDF9B2D6F6DA300645BC8 /* TrackRecordingManagerTests.swift */,
+			);
+			path = TrackRecorder;
 			sourceTree = "<group>";
 		};
 		EDC4E3422C5D1BD3009286A2 /* RecentlyDeletedTests */ = {
@@ -4488,8 +4505,9 @@
 				99F3EB1223F418C900C713F8 /* PlacePageInteractor.swift in Sources */,
 				340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */,
 				993DF0CC23F6BD0600AC231A /* ElevationDetailsPresenter.swift in Sources */,
+				ED8A921C2D772904009E063B /* ElevationDescription.swift in Sources */,
 				34AB666B1FC5AA330078E451 /* TransportTransitCell.swift in Sources */,
-				ED2E32912D10501700807A08 /* TrackRecordingViewController.swift in Sources */,
+				ED2E32912D10501700807A08 /* TrackRecordingButtonViewController.swift in Sources */,
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
 				993DF11123F6BDB100AC231A /* UILabelRenderer.swift in Sources */,
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
@@ -4630,6 +4648,7 @@
 				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
+				ED9DDF882D6F151000645BC8 /* PlacePageTrackRecordingLayout.swift in Sources */,
 				ED0B1FEF2CAA9A25006E31A4 /* UIView+Highlight.swift in Sources */,
 				99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.m in Sources */,
@@ -4907,6 +4926,7 @@
 				EDF838C32C00B9D6007E4E67 /* UbiquitousDirectoryMonitorDelegateMock.swift in Sources */,
 				EDF838BE2C00B9D0007E4E67 /* LocalDirectoryMonitorDelegateMock.swift in Sources */,
 				EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */,
+				ED9DDF9D2D6F6F7900645BC8 /* TrackRecordingManagerTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
 				ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */,
 				4B83AE4B2C2E642100B0C3BC /* TTSTesterTest.m in Sources */,

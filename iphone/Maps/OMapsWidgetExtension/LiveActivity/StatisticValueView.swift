@@ -1,14 +1,10 @@
 import SwiftUI
 
 struct StatisticValueView: View {
-  private let value: String
-
-  init(_ value: String) {
-    self.value = value
-  }
+  let viewModel: TrackRecordingLiveActivityAttributes.ContentState.ValueViewModel
 
   var body: some View {
-    Text(value)
+    Text(viewModel.value)
       .contentTransition(.numericText())
       .minimumScaleFactor(0.1)
       .font(.title3.bold().monospacedDigit())
