@@ -176,10 +176,10 @@
 "unknown_current_position" = "Vaše poloha zatím nebyla určena";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Koukni na moji značku na mapě v Organic Maps";
+"bookmark_share_email_subject" = "Koukni na mojí značku na mapě v Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě na Organic Maps";
+"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě v Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -314,7 +314,7 @@
 "pref_calibration_title" = "Kalibrace kompasu";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Dlouhým klepnutím na mapu znovu zobrazíte rozhraní.";
+"long_tap_toast" = "Dlouhým klepnutím na mapu znovu zobrazíte rozhraní";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovat vše";
@@ -398,10 +398,10 @@
 "light_blue" = "Světle modrá";
 
 /* cyan color */
-"cyan" = "Cyan";
+"cyan" = "Azurová";
 
 /* teal color */
-"teal" = "Teal";
+"teal" = "Čajová";
 
 /* lime color */
 "lime" = "Limeta";
@@ -419,10 +419,10 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Při navigaci podle trasy mějte na paměti následující:";
-"dialog_routing_disclaimer_priority" = "• Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.";
+"dialog_routing_disclaimer_priority" = "— Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace;";
 "dialog_routing_disclaimer_precision" = "— Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;";
 "dialog_routing_disclaimer_recommendations" = "— Navrhované trasy je třeba brát pouze jako doporučení;";
-"dialog_routing_disclaimer_borders" = "— U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;";
+"dialog_routing_disclaimer_borders" = "— U stop v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech.";
 "dialog_routing_disclaimer_beware" = "Na silnici buďte pozorní a chovejte se bezpečně!";
 "dialog_routing_check_gps" = "Zkontrolovat signál GPS";
 "dialog_routing_error_location_not_found" = "Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.";
@@ -476,7 +476,7 @@
 "clear_search" = "Vymazat historii vyhledávání";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Wikipedie";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
@@ -685,7 +685,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Ujistěte se, že jste nezadali žádná osobní data.";
 "editor_share_to_all_dialog_message_2" = "Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.";
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Zastavit";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Zakázat zaznamenávání vaší nedávno ujeté trasy?";
@@ -777,7 +777,7 @@
 "subway_data_unavailable" = "Mapa metra není dostupná";
 "title_error_downloading_bookmarks" = "Někde se stala chyba";
 "popular_place" = "Popular";
-"export_file" = "Export KMZ";
+"export_file" = "Exportovat KMZ";
 "export_file_gpx" = "Export GPX";
 "delete_list" = "Smazat seznam";
 "hide_from_map" = "Neukazovat na mapě";
@@ -812,7 +812,7 @@
 "avoid_ferry" = "Vyhnout se přejezdům trajektů";
 "avoid_motorways" = "Vyhněte se dálnici";
 "unable_to_calc_alert_title" = "Nelze vypočítat trasu";
-"unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu";
+"unable_to_calc_alert_subtitle" = "Bohužel jsme nemohli nalézt trasu. Mohlo se tak stát kvůli vámi definovaným možnostem trasy nebo nekompletním datům OpenStreetMap. Změňte prosím nastavenímožnosti trasy a zkuste to znovu.";
 "define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
 "change_driving_options_btn" = "Možnosti trasy aktivní";
 "toll_road" = "Silnice s mýtným";
