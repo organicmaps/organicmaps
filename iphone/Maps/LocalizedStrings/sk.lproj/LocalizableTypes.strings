@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Väznica";
 "type.amenity.pub" = "Pohostinstvo";
 "type.amenity.public_bookcase" = "Knižná búdka";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Zberné suroviny";
 "type.amenity.recycling" = "Recyklačný kontajner";
 "type.amenity.recycling.container" = "Recyklačný kontajner";

@@ -128,10 +128,6 @@
 "type.amenity.prison" = "कारागार";
 "type.amenity.pub" = "सराय";
 "type.amenity.public_bookcase" = "सार्वजनिक किताबों की अलमारी";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "रीसाइक्लिंग सेंटर";
 "type.amenity.recycling" = "रीसाइक्लिंग कंटेनर";
 "type.amenity.recycling.container" = "रीसाइक्लिंग कंटेनर";

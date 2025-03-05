@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Börtön";
 "type.amenity.pub" = "Kocsma";
 "type.amenity.public_bookcase" = "Nyilvános könyvespolc";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Újrahasznosító központ";
 "type.amenity.recycling" = "Újrahasznosító konténer";
 "type.amenity.recycling.container" = "Újrahasznosító konténer";

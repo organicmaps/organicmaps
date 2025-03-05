@@ -128,10 +128,6 @@
 "type.amenity.prison" = "तुरुंग";
 "type.amenity.pub" = "पब";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "भंगार केंद्र";
 "type.amenity.recycling" = "रीसायकलिंग कंटेनर";
 "type.amenity.recycling.container" = "रीसायकलिंग कंटेनर";

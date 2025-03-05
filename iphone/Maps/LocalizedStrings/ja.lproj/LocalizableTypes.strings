@@ -128,10 +128,6 @@
 "type.amenity.prison" = "刑務所";
 "type.amenity.pub" = "バー";
 "type.amenity.public_bookcase" = "街角文庫";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "リサイクルセンター";
 "type.amenity.recycling" = "リサイクルボックス";
 "type.amenity.recycling.container" = "リサイクルボックス";

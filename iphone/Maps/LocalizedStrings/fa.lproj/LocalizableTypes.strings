@@ -128,10 +128,6 @@
 "type.amenity.prison" = "زندا   ن";
 "type.amenity.pub" = "میکده";
 "type.amenity.public_bookcase" = "Book Exchange";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "مرکز بازیافت";
 "type.amenity.recycling" = "ظرف بازیافت";
 "type.amenity.recycling.container" = "ظرف بازیافت";

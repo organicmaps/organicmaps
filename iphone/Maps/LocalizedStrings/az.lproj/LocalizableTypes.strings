@@ -128,10 +128,6 @@
 "type.amenity.prison" = "Həbsxana";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Kitab mübadiləsi";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Təkrar Emal Mərkəzi";
 "type.amenity.recycling" = "Təkrar emal konteyneri";
 "type.amenity.recycling.container" = "Təkrar emal konteyneri";
