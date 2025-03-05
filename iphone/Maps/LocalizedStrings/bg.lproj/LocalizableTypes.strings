@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Психотерапия";
 "type.healthcare.sample_collection" = "Вземане на проби";
 "type.healthcare.speech_therapist" = "Логопедия";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 

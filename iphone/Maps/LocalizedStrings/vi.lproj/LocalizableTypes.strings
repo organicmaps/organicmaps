@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Tâm lý trị liệu";
 "type.healthcare.sample_collection" = "lấy mẫu";
 "type.healthcare.speech_therapist" = "Ngôn ngữ trị liệu";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 

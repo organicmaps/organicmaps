@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Psychotherapie";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Straat";
 "type.highway.bridleway" = "Ruiterpad";
 

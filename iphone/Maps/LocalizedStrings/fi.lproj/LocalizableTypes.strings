@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Psykoterapia";
 "type.healthcare.sample_collection" = "Näytteenotto";
 "type.healthcare.speech_therapist" = "Logopedia";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Valtatie";
 "type.highway.bridleway" = "Ratsastustie";
 

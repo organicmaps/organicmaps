@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "العلاج النفسي";
 "type.healthcare.sample_collection" = "أخذ العينات";
 "type.healthcare.speech_therapist" = "علاج النطق";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "طريق السريع";
 "type.highway.bridleway" = "طريق خيول";
 

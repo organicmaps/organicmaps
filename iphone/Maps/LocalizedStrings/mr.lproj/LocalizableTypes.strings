@@ -383,10 +383,6 @@
 "type.healthcare.psychotherapist" = "मानसोपचार";
 "type.healthcare.sample_collection" = "नमुना";
 "type.healthcare.speech_therapist" = "स्पीच थेरपी";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "महामार्ग";
 "type.highway.bridleway" = "Bridle Path";
 
