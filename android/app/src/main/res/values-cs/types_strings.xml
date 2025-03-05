@@ -6,7 +6,7 @@
     <string name="type.addr_interpolation.odd">Adresa/blok</string>
     <string name="type.aerialway.station">Stanice lanové dráhy</string>
     <string name="type.aeroway.aerodrome">Letiště</string>
-    <string name="type.aeroway.aerodrome.international">Letiště</string>
+    <string name="type.aeroway.aerodrome.international">Mezinárodní letiště</string>
     <string name="type.amenity">Prostor</string>
     <string name="type.amenity.arts_centre">Umělecké centrum</string>
     <string name="type.amenity.atm">Bankomat</string>
@@ -26,7 +26,7 @@
     <string name="type.amenity.car_sharing">Sdílení aut</string>
     <string name="type.amenity.car_wash">Myčka aut</string>
     <string name="type.amenity.gambling">Hazardní hry</string>
-    <string name="type.leisure.adult_gaming_centre">Centrum her pro dospělé</string>
+    <string name="type.leisure.adult_gaming_centre">Herní centrum pro dospělé</string>
     <string name="type.leisure.amusement_arcade">Pasáž</string>
     <string name="type.amenity.charging_station">Nabíjecí stanice</string>
     <string name="type.amenity.charging_station.bicycle">Nabíjecí stanice pro jízdní kola</string>
@@ -58,14 +58,14 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Hřbitov</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-    <string name="type.amenity.grave_yard.christian">Hřbitov</string>
+    <string name="type.amenity.grave_yard.christian">Křesťanský hřbitov</string>
     <string name="type.amenity.hospital">Nemocnice</string>
     <string name="type.amenity.hunting_stand">Lovecké stanoviště</string>
     <string name="type.amenity.ice_cream">Stánek se zmrzlinou</string>
     <string name="type.amenity.internet_cafe">Internetová kavárna</string>
-    <string name="type.amenity.kindergarten">Školka</string>
+    <string name="type.amenity.kindergarten">Mateřská škola</string>
     <string name="type.amenity.library">Knihovna</string>
-    <string name="type.amenity.loading_dock">Nakládaci dok</string>
+    <string name="type.amenity.loading_dock">Nakládací stanice</string>
     <string name="type.amenity.marketplace">Tržiště</string>
     <string name="type.amenity.motorcycle_parking">Parkování pro motocykly</string>
     <string name="type.amenity.nightclub">Noční klub</string>
@@ -77,7 +77,7 @@
     <string name="type.amenity.parking.no.access">Soukromé parkoviště</string>
     <string name="type.amenity.parking.permissive">Soukromé parkoviště</string>
     <string name="type.amenity.parking.private">Soukromé parkoviště</string>
-    <string name="type.amenity.parking.park_and_ride">Parkoviště</string>
+    <string name="type.amenity.parking.park_and_ride">Parkoviště P+R</string>
     <string name="type.amenity.parking.underground">Podzemní parkoviště</string>
     <string name="type.amenity.parking.underground.fee">Podzemní parkoviště</string>
     <string name="type.amenity.parking.underground.private">Soukromé podzemní parkoviště</string>
@@ -98,21 +98,21 @@
     <string name="type.amenity.payment_terminal">Platební terminál</string>
     <string name="type.amenity.pharmacy">Lékárna</string>
     <string name="type.amenity.place_of_worship">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.buddhist">Chrám</string>
-    <string name="type.amenity.place_of_worship.christian">Chrám</string>
+    <string name="type.amenity.place_of_worship.buddhist">Buddhistický chrám</string>
+    <string name="type.amenity.place_of_worship.christian">Kostel</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Církev Ježíše Krista Svatých posledních dnů</string>
-    <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sál Království Jehovových svědků</string>
-    <string name="type.amenity.place_of_worship.hindu">Chrám</string>
+    <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sál Království svědků Jehovových</string>
+    <string name="type.amenity.place_of_worship.hindu">Hinduistický chrám</string>
     <string name="type.amenity.place_of_worship.jewish">Synagoga</string>
     <string name="type.amenity.place_of_worship.muslim">Mešita</string>
     <string name="type.amenity.place_of_worship.shinto">Posvátné místo</string>
-    <string name="type.amenity.place_of_worship.taoist">Chrám</string>
+    <string name="type.amenity.place_of_worship.taoist">Taoistický chrám</string>
     <string name="type.amenity.police">Policie</string>
     <string name="type.amenity.post_box">Poštovní schránka</string>
     <string name="type.amenity.post_office">Pošta</string>
     <string name="type.amenity.prison">Vězení</string>
     <string name="type.amenity.pub">Hospoda</string>
-    <string name="type.amenity.public_bookcase">Knihovna</string>
+    <string name="type.amenity.public_bookcase">Výměna knih</string>
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recyklační středisko</string>
     <string name="type.amenity.recycling">Recyklační nádoba</string>
@@ -132,10 +132,10 @@
     <!-- A weather shelter by the public transport stop. -->
     <string name="type.amenity.shelter.public_transport">Přístřešek</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-    <string name="type.amenity.shelter.basic_hut">Bivakovací Chata</string>
+    <string name="type.amenity.shelter.basic_hut">Bivakovací chata</string>
     <string name="type.amenity.public_bath">Veřejné lázně</string>
     <string name="type.amenity.shower">Sprcha</string>
-    <string name="type.amenity.stripclub">Stripcklub</string>
+    <string name="type.amenity.stripclub">Stripklub</string>
     <string name="type.amenity.telephone">Telefon</string>
     <string name="type.amenity.theatre">Divadlo</string>
     <string name="type.amenity.toilets">Záchody</string>
@@ -145,15 +145,15 @@
     <string name="type.amenity.vending_machine.cigarettes">Automat na cigarety</string>
     <string name="type.amenity.vending_machine.drinks">Automat na nápoje</string>
     <string name="type.amenity.vending_machine.parking_tickets">Parkovací automat</string>
-    <string name="type.amenity.vending_machine.public_transport_tickets">Prodejní automat lístků na městskou dopravu</string>
+    <string name="type.amenity.vending_machine.public_transport_tickets">Automat na jízdenky</string>
     <string name="type.amenity.vehicle_inspection">Kontrola vozidla</string>
     <string name="type.amenity.veterinary">Veterinář</string>
     <string name="type.amenity.waste_basket">Odpadkový koš</string>
     <string name="type.amenity.waste_disposal">Odpadky</string>
-    <string name="type.amenity.water_point">Vodní zdroj</string>
-    <string name="type.amenity.water_point.drinking_water_no">Vodní zdroj</string>
+    <string name="type.amenity.water_point">Doplňovací místo vodní nádrže</string>
+    <string name="type.amenity.water_point.drinking_water_no">Doplňovací místo vodní nádrže</string>
     <string name="type.barrier.block">Blok</string>
-    <string name="type.barrier.bollard">Pilíř</string>
+    <string name="type.barrier.bollard">Sloupek</string>
     <string name="type.barrier.border_control">Pohraniční kontrola</string>
     <string name="type.barrier.city_wall">Městská zeď</string>
     <string name="type.waterway.ditch">Drenážní příkop</string>
@@ -162,10 +162,10 @@
     <string name="type.barrier.entrance">Vstup</string>
     <string name="type.barrier.gate">Brána</string>
     <string name="type.barrier.kissing_gate">Brána</string>
-    <string name="type.barrier.lift_gate">Závora</string>
-    <string name="type.barrier.stile">Sloupek</string>
+    <string name="type.barrier.lift_gate">Zvedací brána</string>
+    <string name="type.barrier.stile">Přechodová branka</string>
     <string name="type.barrier.turnstile">Turniket</string>
-    <string name="type.barrier.swing_gate">Závora</string>
+    <string name="type.barrier.swing_gate">Otočná závora</string>
     <string name="type.barrier.toll_booth">Mýtné</string>
     <string name="type.boundary.national_park">Národní park</string>
     <string name="type.boundary.aboriginal_lands">Domorodá území</string>
@@ -306,7 +306,7 @@
     <string name="type.entrance">Vchod</string>
     <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
     <string name="type.entrance.main">Hlavní vchod</string>
-    <string name="type.entrance.exit">Exit</string>
+    <string name="type.entrance.exit">Východ</string>
     <string name="type.fee.no">Zdarma</string>
     <string name="type.healthcare.laboratory">Lékařská laboratoř</string>
     <string name="type.healthcare.physiotherapist">Fyzioterapeut</string>
@@ -504,7 +504,7 @@
     <string name="type.historic.memorial.plaque">Pomník</string>
     <string name="type.historic.memorial.sculpture">Pomník</string>
     <string name="type.historic.memorial.statue">Pomník</string>
-    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.historic.memorial.stolperstein">Kámen zmizelých</string>
     <string name="type.historic.stone">Historický kámen</string>
     <string name="type.historic.memorial.war_memorial">Válečný památník</string>
     <string name="type.historic.mine">Historický důl</string>
@@ -681,7 +681,7 @@
     <string name="type.power.plant.wind">Větrná elektrárna</string>
     <string name="type.power.substation">Rozvodna</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Sloup elektrického vedení</string>
+    <string name="type.power.tower">Věž elektrického vedení</string>
     <string name="type.railway.funicular">Pozemní lanová dráha</string>
     <string name="type.railway.halt">Železniční stanice</string>
     <string name="type.railway.level_crossing">Přejezd</string>
@@ -977,7 +977,7 @@
     <string name="type.shop.curtain">Závěsy</string>
     <string name="type.shop.deli">Prodejna lahůdek</string>
     <string name="type.shop.department_store">Obchodní dům</string>
-    <string name="type.shop.doityourself">Železářství</string>
+    <string name="type.shop.doityourself">Domácí potřeby</string>
     <string name="type.shop.dry_cleaning">Chemické čištění</string>
     <string name="type.shop.electronics">Elektronika</string>
     <string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
@@ -1153,9 +1153,9 @@
     <string name="type.wheelchair.limited">Omezený vstup pro vozíčkáře</string>
     <string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
     <string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Snowpark</string>
     <string name="type.piste_type.hike">Zimní stezka</string>
-    <string name="type.piste_type.connection">Piste Connection</string>
+    <string name="type.piste_type.connection">Připojení sjezdovky</string>
     <string name="type.piste_type.skitour">Stezka Skitour</string>
     <string name="type.amenity.events_venue">Místo konání akcí</string>
     <string name="type.shop.auction">Aukce</string>
@@ -1169,7 +1169,7 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Vchod do pohotovostního oddělení</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
-    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.amenity.dojo">Dódžó</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sportovní hala</string>
     <string name="type.psurface">psurface</string>
@@ -1262,7 +1262,7 @@
     <string name="type.man_made.flagpole">Vlajkový stožár</string>
     <string name="type.aerialway.chair_lift">Sedačková lanovka</string>
     <string name="type.internet_access.wlan">Internet</string>
-    <string name="type.aerialway.cable_car">Velká kabinková lanovka</string>
+    <string name="type.aerialway.cable_car">Visutá lanovka</string>
     <string name="type.landuse.vineyard">Vinice</string>
     <string name="type.leisure.beach_resort">Plážový areál</string>
     <string name="type.route.shuttle_train">route-shuttle_train</string>
@@ -1378,4 +1378,17 @@
     <string name="type.aerialway.j.bar">Jednokotva</string>
     <string name="type.piste_type.downhill">Sjezdovka</string>
     <string name="type.piste_type.downhill.area">Sjezdovka</string>
+    <string name="type.piste_type.downhill.advanced.area">Pokročilá sjezdovka</string>
+    <string name="type.piste_type.downhill.expert">Těžká sjezdovka</string>
+    <string name="type.piste_type.downhill.novice.area">Sjezdovka pro začátečníky</string>
+    <string name="type.piste_type.downhill.easy.area">Jednoduchá sjezdovka</string>
+    <string name="type.piste_type.downhill.novice">Sjezdovka pro začátečníky</string>
+    <string name="type.piste_type.downhill.easy">Jednoduchá sjezdovka</string>
+    <string name="type.piste_type.nordic">Lyžařská stopa</string>
+    <string name="type.piste_type.downhill.expert.area">Těžká sjezdovka</string>
+    <string name="type.piste_type.downhill.freeride">Freeridová sjezdovka</string>
+    <string name="type.piste_type.downhill.intermediate">Středně těžká sjezdovka</string>
+    <string name="type.piste_type.downhill.intermediate.area">Středně těžká sjezdovka</string>
+    <string name="type.piste_type.sled">Sáňkařská dráha</string>
+    <string name="type.piste_type.sled.area">Sáňkařská dráha</string>
 </resources>
