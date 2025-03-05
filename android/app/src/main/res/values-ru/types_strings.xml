@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Тюрьма</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Книгообмен</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Приём вторсырья</string>
     <string name="type.amenity.recycling">Контейнер для вторсырья</string>
@@ -372,7 +371,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапия</string>
     <string name="type.healthcare.sample_collection">Сбор анализов</string>
     <string name="type.healthcare.speech_therapist">Логопедия</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Дорога</string>
     <string name="type.highway.bridleway">Конная дорожка</string>
@@ -538,7 +536,6 @@
     <string name="type.area_highway.track">Грунтовка</string>
     <string name="type.area_highway.trunk">Трасса</string>
     <string name="type.area_highway.unclassified">Небольшая дорога</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Исторический объект</string>
     <string name="type.historic.aircraft">Исторический самолет</string>
@@ -1377,4 +1374,6 @@
     <string name="type.amenity.dojo">Додзё</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивный зал</string>
+    <string name="type.man_made.utility_pole">Столб</string>
+    <string name="type.power.pole">Столб ЛЭП</string>
 </resources>
