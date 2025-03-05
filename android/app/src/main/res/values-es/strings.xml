@@ -9,7 +9,7 @@
     <string name="delete">Eliminar</string>
     <string name="download_maps">Descargar mapas</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Error durante la descarga. Pulse para intentarlo de nuevo.</string>
+    <string name="download_has_failed">Error durante la descarga. Toque para intentarlo de nuevo.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Descargando…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -114,7 +114,6 @@
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Elija entre millas y kilómetros</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dónde comer</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Agua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Caravanas</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
@@ -365,10 +363,9 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris azulado</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Al seguir la ruta, tenga en cuenta:</string>
-    <string name="dialog_routing_disclaimer_priority">— Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;</string>
+    <string name="dialog_routing_disclaimer_priority">— Las condiciones y señales de la ruta y las reglas de tráfico siempre tienen prioridad sobre las sugerencias de navegación;</string>
     <string name="dialog_routing_disclaimer_precision">— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Las rutas sugeridas deben entenderse solo como recomendaciones;</string>
     <string name="dialog_routing_disclaimer_borders">— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;</string>
@@ -395,7 +392,6 @@
     <string name="not_now">No ahora</string>
     <string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarque más de un mapa?</string>
     <string name="dialog_routing_download_cross_route">Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para empezar a buscar y crear rutas, descargue el mapa. Después de eso, ya no necesitará una conexión a Internet.</string>
     <string name="search_select_map">Seleccionar mapa</string>
@@ -749,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Hace más de un año</string>
     <string name="near_me_sorttype">Cerca de mí</string>
     <string name="others_sorttype">Otros</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
     <string name="tourist_places">Sitios de interés</string>
@@ -844,7 +839,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Esta aplicación necesita tu permiso</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de localización para funcionar eficazmente</string>
+    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita permiso de ubicación para funcionar eficazmente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -895,4 +890,15 @@
     <string name="uri_open_location_failed">No hay ninguna aplicación instalada que pueda abrir la ubicación</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto en navegación</string>
+    <string name="instagram">Instagram</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="telegram">Telegram</string>
+    <string name="github">GitHub</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="facebook">Facebook</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="vk">VK</string>
 </resources>
