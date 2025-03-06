@@ -150,15 +150,17 @@ public enum ThemeSwitcher
     String defaultTheme = mContext.getResources().getString(R.string.theme_default);
     String nightTheme = mContext.getResources().getString(R.string.theme_night);
     Location last = LocationHelper.from(mContext).getSavedLocation();
-    long currentTime = System.currentTimeMillis() / 1000;
     boolean day;
 
     if (last != null)
+    {
+      long currentTime = System.currentTimeMillis() / 1000;
       day = Framework.nativeIsDayTime(currentTime, last.getLatitude(), last.getLongitude());
+    }
     else
     {
-      currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-      day = (currentTime < 18 && currentTime > 6);
+      int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+      day = (currentHour < 18 && currentHour > 6);
     }
 
     return (day ? defaultTheme : nightTheme);
