@@ -9,16 +9,20 @@
   <SwitchPreferenceCompat
       android:key="@string/pref_tts_street_names"
       android:title="@string/pref_tts_street_names_title"
+      app:isPreferenceVisible="false"
       android:summary="@string/pref_tts_street_names_description"
       android:defaultValue="false" />
   <ListPreference
       android:key="@string/pref_tts_language"
+      app:isPreferenceVisible="false"
       android:title="@string/pref_tts_language_title" />
   <SeekBarPreference
       android:key="@string/pref_tts_volume"
+      app:isPreferenceVisible="false"
       android:title="@string/volume" />
   <Preference
       android:key="@string/pref_tts_test_voice"
+      app:isPreferenceVisible="false"
       android:title="@string/pref_tts_test_voice_title" />
   <Preference
       android:key="@string/pref_tts_open_system_settings"
