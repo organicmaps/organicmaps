@@ -59,8 +59,7 @@
     <string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.
 \nSe requieren %s de almacenamiento.</string>
     <string name="download_resources_continue">Ir al mapa</string>
-    <string name="downloading_country_can_proceed">Descargando %s. Puede ahora
-\nproceder al mapa</string>
+    <string name="downloading_country_can_proceed">Descargando %s. Puede ahora \nproceder al mapa.</string>
     <string name="download_country_ask">¿Descargar %s?</string>
     <string name="update_country_ask">¿Actualizar %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -86,7 +85,7 @@
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
     <string name="list">Lista</string>
     <!-- Settings button in system menu -->
-    <string name="settings">Ajustes</string>
+    <string name="settings">Configuración</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Guardar mapas en</string>
     <!-- Detailed description of Maps Storage settings button -->
@@ -108,8 +107,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Error al mover los archivos de mapas</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Esto podría tardar varios minutos.
-\nPor favor, espere…</string>
+    <string name="wait_several_minutes">Esto podría tardar varios minutos. \nAguarde un momento…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -154,7 +152,7 @@
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Policía</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
+    <string name="category_wifi">Wifi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclaje</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -604,7 +602,7 @@
     <string name="traffic_update_app">Por favor, actualice Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Los datos de tráfico no están disponibles</string>
-    <string name="enable_logging">Habilitar historial</string>
+    <string name="enable_logging">Activar registros</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinión general</string>
     <string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
