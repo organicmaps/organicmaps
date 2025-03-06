@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Lura</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Ikkanċella</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Ħassar</string>
+    <string name="download_maps">Niżżel il-mapep</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">It-tniżżil falla. Għaffas biex terġa tipprova.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Tniżżil…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometri</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Mili</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
+    <!-- Update maps later button text -->
+    <string name="later">Aktar tard</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Fittex</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Fittex fuq il-mappa</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Uri fuq il-mappa</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">It-tniżżil falla</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Erġa prova</string>
+    <string name="about_menu_title">Dwar Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">B\' xejn għal kulħadd, magħmul bl-imħabba</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Bla reklami, bla traċċar, bla kollezjoni ta\' data</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Bla ħela ta\' batterija, jaħdem offline</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Malajr, minimalista, żvillupat mill-komunità</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Apliażżjoni tas-sors miftuħ magħmula min dilettanti u il-voluntiera</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Settings tal-lokażżjoni</string>
+    <string name="close">Ġħalaq</string>
+    <string name="unsupported_phone">L-applikazzjoni għanda bżonn \'hardware accelerated OpenGL\'. Sfortunatament, l-apparat tiegħek ma jappoġġjax dan.</string>
+    <string name="download">Niżżel</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Jekk jogħġbok żid ftit spazju fuq il-karta tal-memorja jew il-ħażna tal-USB biex tkun tista tuża l-applikazzjoni</string>
+    <string name="download_resources">Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. 
+\nDan ser juża %s ta\' storage.</string>
+    <string name="download_resources_continue">Mur għal Mappa</string>
+    <string name="downloading_country_can_proceed">Tniżżil %s. Issa tista
+\ntkompli għal mappa.</string>
+    <string name="download_country_ask">Tniżżel %s?</string>
+    <string name="update_country_ask">Aġġorna %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pawsa</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Kompli</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s tniżżil falla</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Żid lista ġdida</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Isem tal-lista tal-Bookmark</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Bookmarks u Korsi</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Il-Postijiet Tiegħi</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Isem</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Indirizz</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Lista</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Issalvagwardja il-mapep ġo</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Għażel il-post fejn tixtieq tniżżel il-mapep.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Mapep imniżżla</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Ħażna internali privata</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Ħażna internali maqsuma</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Karta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ħażna esterna maqsuma</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s b\' xejn min %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Iċċaqlaq il-mapep?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Errur waqt it-tmexxija tal-fajls tal-mapep</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Din tista tieħu diversi minuti. 
+\nJekk jogħġbok stenna…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Unitajiet tal-kejl</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Għażel bejn mili u kilometri</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Għażel fejn tiekol</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Tal-Merċa</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Trasport</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkeġġ</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Xiri</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Lukanda</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Siti</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Divertiment</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">ATM</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Ħajja tal-lejl</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Vaganza tal-Familja</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Bank</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Spiżerija</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Sptar</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Loki</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Uffiċċju postali</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Puliżija</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Riċiklaġġ</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Ilma</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Faċilitajiet tal-RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Noti</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Organic Maps bookmarks maqsuma miegħek</string>
+    <string name="share_bookmarks_email_body">Helow!
+\n
+\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz
+\n
+\nĦu pjaċir ivvjaġġa ġo Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Tgħobijja tal-bookmarks</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Il-fajl falla biex jiftaħ %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Editja</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Il-lokażżjoni tiegħek mhuwiex determinat s\'issa</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">It-tniżżil tal-mappa għaddej bħalissa.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Ara il-lokażżjoni kurrenti tiegħi ġo Organic Maps! %1$s or %2$s M\'għandekx mapep offlajn? Niżżel hawn: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Merħba, ara il-pin tiegħi fuq Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Merħba, ara il-lokażżjoni kurrenti tiegħi fuq il-mappa ta\'Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Merħba, 
+\n
+\nJien qiegħed hawn: %1$s. Għaffas din il-link %2$s jew fuq din %3$s biex tara il-post fuq il-mappa.
+\n
+\nGrazzi.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Aqsam</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">E-mejl</string>
+</resources>
