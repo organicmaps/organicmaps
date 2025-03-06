@@ -45,6 +45,7 @@ import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
+import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.display.DisplayChangedListener;
@@ -114,6 +115,7 @@ import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -325,6 +327,38 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Framework.nativeShowCountry(countryId, false);
       return;
+    }
+
+    if (intent != null && "app.organicmaps.action.SHOW_BOOKMARK".equals(intent.getAction()))
+    {
+      boolean fromWidget = intent.getBooleanExtra("FROM_WIDGET", false);
+
+      String bookmarkName = intent.getStringExtra("BOOKMARK_NAME");
+      double lat = intent.getDoubleExtra("BOOKMARK_LAT", Double.NaN);
+      double lon = intent.getDoubleExtra("BOOKMARK_LON", Double.NaN);
+      String categoryName = intent.getStringExtra("BOOKMARK_CATEGORY");
+
+      if (!Double.isNaN(lat) && !Double.isNaN(lon))
+      {
+        try
+        {
+          BookmarkInfo nearestBookmark = BookmarkManager.INSTANCE.findBookmarkByCoordinates(
+              lat, lon, bookmarkName, categoryName
+          );
+
+          if (nearestBookmark != null)
+          {
+
+            BookmarkManager.INSTANCE.showBookmarkOnMap(nearestBookmark.getBookmarkId());
+            return;
+          }
+        } catch (Exception e)
+        {
+
+        }
+
+        Framework.nativeZoomToPoint(lat, lon, 16, true);
+      }
     }
 
     final IntentProcessor[] mIntentProcessors = {
