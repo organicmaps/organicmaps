@@ -126,6 +126,12 @@ using namespace osm_auth_ios;
   
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   // application:openUrl:options is called later for deep links if YES is returned.
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self handleNavigationForAppStartup];
+    [self moveToDushanbeIfNotInTjk];
+  });
+  
   return YES;
 }
 
@@ -210,11 +216,6 @@ using namespace osm_auth_ios;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
   auto & f = GetFramework();
-  
-  [self handleNavigationForAppStartup];
-  
-  [self moveToDushanbeIfNotInTjk];
-  
   
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
