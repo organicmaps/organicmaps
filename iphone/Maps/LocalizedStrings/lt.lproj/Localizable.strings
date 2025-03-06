@@ -1,0 +1,1095 @@
+
+
+/********** Strings **********/
+
+
+/* Button text (should be short) */
+"cancel" = "Atšaukti";
+
+/* Button which interrupts country download */
+"cancel_download" = "Atšaukti atsisiuntimą";
+
+/* Button which deletes downloaded country */
+"delete" = "Naikinti";
+"download_maps" = "Atsisiųsti žemėlapius";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Atsisiunčiama…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Kilometrai";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Palikite atsiliepimą";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Mylios";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Mano vieta";
+
+/* Update maps later button text */
+"later" = "Vėliau";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Ieškoti";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Taip";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Rodyti žemėlapyje";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Atsisiųsti žemėlapį";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Atsisiuntimas nepavyko";
+
+/* Text in About screen */
+"about_headline" = "Nemokama visiems, sukurta su meile";
+
+/* Text in About screen */
+"about_proposition_1" = "• Nėra reklamų, sekimo, duomenų rinkimo";
+
+/* Text in About screen */
+"about_proposition_2" = "• Neišsikrauna akumuliatorius, veikia neprisijungus prie interneto";
+
+/* Text in About screen */
+"about_proposition_3" = "• Greitas, minimalistinis, sukurtas bendruomenės";
+"close" = "Uždaryti";
+"download" = "Atsisiųsti";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Tęsti";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Pridėti naują sąrašą";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Adresyno sąrašo pavadinimas";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Adresyno sąrašai";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Adresynas";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Bookmarks and Tracks";
+
+/* Default bookmark list name */
+"core_my_places" = "Mano vietos";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Adresas";
+
+/* Settings button in system menu */
+"settings" = "Nustatymai";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Matavimo vienetai";
+
+
+/********** Search categories **********/
+
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Kur valgyti";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Bakalėjos";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transportas";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Degalai";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkingas";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Apsipirkimas";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Second Hand";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Viešbutis";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Įžymybės";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Pramogos";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Bankomatas";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Naktinis gyvenimas";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Šeimos atostogos";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bankas";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Vaistinė";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Ligoninė";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Tualetas";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Paštas";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Policija";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Perdirbimas";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Vanduo";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Rekreacinio transporto aikštelės";
+
+
+/********** Other translations **********/
+
+"share_bookmarks_email_body" = "Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!";
+
+/* message title of loading file */
+"load_kmz_title" = "Įkeliamas adresynas";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "Nepavyko įkelti adresyno. Failas gali būti pažeistas.";
+
+/* resource for context menu */
+"edit" = "Redaguoti";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Jūsų vieta dar nenustatyta";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Labas, pažvelk, ką aš prisegiau Organic Maps!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Labas, pažvelk į mano dabartinę vietą Organic Maps žemėlapyje!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "El. paštas";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Nukopijuota į iškarpinę: %@";
+
+/* place preview title */
+"info" = "Informacija";
+
+/* Used for bookmark editing */
+"done" = "Baigta";
+
+/* Prints version number in About dialog */
+"version" = "Organic Maps versija: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "Takai";
+
+/* Length of track in cell that describes route */
+"length" = "Ilgis";
+"share_my_location" = "Bendrinti mano vietą";
+"prefs_group_route" = "Navigacija";
+"pref_zoom_title" = "Mastelio mygtukai";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Išvaizda";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Šviesus";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tamsus";
+
+/* Generic «Off» string */
+"off" = "Išjungtas";
+
+/* Generic «On» string */
+"on" = "Įjungtas";
+
+/* Generic «Auto» string */
+"auto" = "Automatinis";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspektyvinė peržiūra";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D pastatai";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D pastatai yra išjungti energijos taupymo režime";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Balso instrukcijos";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Announce Street Names";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Balso kalba";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Kita";
+"pref_map_auto_zoom" = "Automatinis mastelis";
+"placepage_distance" = "Atstumas";
+"search_show_on_map" = "Rodyti žemėlapyje";
+
+/* Text in menu */
+"website" = "Svetainė";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Naujienos";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Įvertinkite programėlę";
+
+/* Text in menu */
+"help" = "Pagalba";
+
+/* Button in the main Help dialog */
+"faq" = "Dažniausiai užduodami klausimai";
+
+/* Button in the main menu */
+"donate" = "Aukoti";
+
+/* Tex label above the Donate button */
+"donate_description" = "Paaukokite, kad kartu sukurtume geriausius žemėlapius!";
+"already_donated" = "Jau noziedoju";
+"remind_me_later" = "Priminti vėliau";
+"support_organic_maps" = "Paremti Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "Autoriaus teisės";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Pranešti klaidą";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Praneškite arba ištaisykite neteisingus žemėlapio duomenis";
+
+/* Button in the About screen */
+"volunteer" = "Savanoriauti";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Sekite ir susisiekite su mumis:";
+
+/* Alert text */
+"email_error_body" = "El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@";
+
+/* Alert title */
+"email_error_title" = "Klaida siunčiant laišką";
+
+/* Settings item title */
+"pref_calibration_title" = "Kompaso kalibravimas";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Dar kartą ilgai bakstelėkite žemėlapį, kad pamatytumėte sąsają";
+
+/* Update all button text */
+"downloader_update_all_button" = "Naujinti viską";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Atsisiųsta";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Prieinama";
+
+/* Country queued for download */
+"downloader_queued" = "Eilėje";
+"downloader_near_me_subtitle" = "Arti manęs";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "Žemėlapiai";
+"downloader_download_all_button" = "Atsisiųsti viską";
+"downloader_downloading" = "Atsisiunčiama:";
+"downloader_search_results" = "Rasta";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Naujinti";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Nepavyko";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Sustabdykite navigaciją, kad panaikintumėte žemėlapį.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Maršrutai gali būti sukurti, jei jie yra vieno regiono žemėlapio ribose.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Atsisiųsti žemėlapį";
+
+/* Item status in downloader. */
+"downloader_retry" = "Bandyti dar kartą";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Naikinti žemėlapį";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Atsisųsti visus žemėlapius palei jūsų maršrutą";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Jei norite sukurti maršrutą, jums reikės atsisiųsti ir atnaujinti visus žemėlapius iš jūsų vietos ir tikslo.";
+
+/* bookmark button text */
+"bookmark" = "adresynas";
+"save" = "Išsaugoti";
+"create" = "kurti";
+
+/* red color */
+"red" = "Raudonas";
+
+/* yellow color */
+"yellow" = "Geltonas";
+
+/* blue color */
+"blue" = "Mėlynas";
+
+/* green color */
+"green" = "Žalias";
+
+/* purple color */
+"purple" = "Violetinis";
+
+/* orange color */
+"orange" = "Oranžinis";
+
+/* brown color */
+"brown" = "Rudas";
+
+/* pink color */
+"pink" = "Rožinis";
+
+/* deep purple color */
+"deep_purple" = "Tamsiai violetinis";
+
+/* light blue color */
+"light_blue" = "Šviesiai mėlynas";
+
+/* cyan color */
+"cyan" = "Žydras";
+
+/* teal color */
+"teal" = "Tamsiai žydras";
+
+/* lime color */
+"lime" = "Citrininis";
+
+/* deep orange color */
+"deep_orange" = "Tamsiai oranžinis";
+
+/* gray color */
+"gray" = "Pilkas";
+
+/* blue gray color */
+"blue_gray" = "Mėlynai pilkas";
+
+
+/********** Routing dialogs strings **********/
+
+"dialog_routing_disclaimer_title" = "Keliaudami maršrutu įsidėmėkite:";
+"dialog_routing_disclaimer_priority" = "— Kelių kokybė, eismo taisyklės ir kelio ženklai turi aukštesnį prioritetą už navigacijos užuominas;";
+"dialog_routing_disclaimer_precision" = "— Žemėlapis gali būti klaidingas ir patariamas maršrutas ne visada bus optimalus būdas pasiekti tikslą;";
+"dialog_routing_disclaimer_recommendations" = "— Patariami maršrutai turi būti suprasti kaip rekomendacijos;";
+"dialog_routing_disclaimer_borders" = "— Būkite atsargūs su maršrutais šalia sienų ribų: maršrutai, sukurti mūsų programėlės, kartais pereina valstybių sienas neleistinose vietose.";
+"dialog_routing_disclaimer_beware" = "Būkite budrūs ir saugūs keliuose!";
+"dialog_routing_check_gps" = "Tikrinti GPS signalą";
+"dialog_routing_error_location_not_found" = "Nepavyko sukurti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.";
+"dialog_routing_location_turn_wifi" = "Patikrinkite GPS signalą. Wi-Fi įjungimas pagerins vietos tikslumą.";
+"dialog_routing_location_turn_on" = "Įjungti vietovės tarnybas";
+"dialog_routing_location_unknown_turn_on" = "Įjunkite, kad nustatytumėte dabartines GPS koordinates. Įjunkite vietovės tarnybas, kad apskaičiuotumėte maršrutą.";
+"dialog_routing_download_files" = "Atsisiųsti reikalingus failus";
+"dialog_routing_download_and_update_all" = "Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.";
+"dialog_routing_unable_locate_route" = "Nepavyko nustatyti maršruto";
+"dialog_routing_change_start_or_end" = "Suderinkite jūsų pradžios tašką arba tikslą.";
+"dialog_routing_change_start" = "Derinti pradžios tašką";
+"dialog_routing_start_not_determined" = "Maršrutas nesukurtas. Nepavyko nustatyti pradžios taško.";
+"dialog_routing_select_closer_start" = "Pasirinkite pradžios tašką, kuo artesnį prie kelio.";
+"dialog_routing_change_end" = "Derinti tikslą";
+"dialog_routing_end_not_determined" = "Maršrutas nesukurtas. Nepavyko nustatyti tikslo.";
+"dialog_routing_select_closer_end" = "Pasirinkite tikslo tašką, kuo artesnį prie kelio.";
+"dialog_routing_change_intermediate" = "Nepavyko nustatyti tarpinio taško.";
+"dialog_routing_intermediate_not_determined" = "Suderinkite tarpinį tašką.";
+"dialog_routing_system_error" = "Sistemos klaida";
+"dialog_routing_application_error" = "Nepavyko sukurti maršruto dėl programėlės klaidos.";
+"dialog_routing_try_again" = "Bandykite iš naujo";
+"dialog_routing_download_and_build_cross_route" = "Norėtumėte atsisiųsti žemėlapį, kad sukurtumėte labiau optimalų maršrutą, apimantį daugiau nei vieną žemėlapį?";
+"dialog_routing_download_cross_route" = "Atsisiųsti papildomų žemėlapių, kad sukurtumėte geresnį maršrutą, pereinantį šio žemėlapio ribas.";
+
+
+/********** Strings for downloading map from search **********/
+
+
+/* «Show» context menu */
+"show" = "Rodyti";
+
+/* «Hide» context menu */
+"hide" = "Slėpti";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Maršruto planavimas nepavyko";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Atvykimas %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.";
+"categories" = "Kategorijos";
+"history" = "Istorija";
+"search_not_found" = "Ai! Nerasta rezultatų.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Atsisiųskite regioną, kuriame ieškote, arba pabandykite pridėti netoliese esančio miesto / kaimo pavadinimą.";
+"search_history_title" = "Istorija";
+"search_history_text" = "Rodyti paskiausias paieškas.";
+"clear_search" = "Valyti istoriją";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Vikipedija";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Vikiteka";
+"p2p_your_location" = "Jūsų vieta";
+"p2p_start" = "Pradėti";
+"p2p_from_here" = "Maršrutas iš";
+"p2p_to_here" = "Maršrutas į";
+"p2p_only_from_current" = "Navigacija yra prieinama tik iš jūsų dabartinės vietos.";
+"p2p_reroute_from_current" = "Norite, kad mes suplanuotumėme maršrutą iš jūsų dabartinės vietos?";
+"editor_time_add" = "Planas";
+"editor_time_delete" = "Naikinti planą";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Visą dieną (24 valandos)";
+"editor_time_open" = "Atidaryta";
+"editor_time_close" = "Uždaryta";
+"editor_time_add_closed" = "Add Non-Business Hours";
+"editor_time_title" = "Business Hours";
+"editor_time_advanced" = "Išplėstinis režimas";
+"editor_time_simple" = "Paprastas režimas";
+"editor_hours_closed" = "Non-Business Hours";
+"editor_example_values" = "Example Values";
+"editor_add_select_location" = "Pasirinkite vietą";
+"editor_done_dialog_1" = "Pakeitėte pasaulio žemėlapį. Nelaikykite jo sau! Pasakykite savo draugams ir redaguokite jį kartu.";
+"share_with_friends" = "Bendrinti su draugais";
+"editor_report_problem_send_button" = "Siųsti";
+"autodownload" = "Automatinis atsisiuntimas";
+
+/* Place Page opening hours text */
+"closed_now" = "Dabar uždaryta";
+
+/* Place Page opening hours text */
+"daily" = "Kasdien";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "Šiandien uždaryta";
+"day_off" = "Uždaryta";
+"today" = "Šiandien";
+"opens_tomorrow_at" = "Atsidaro rytoj %@";
+"opens_dayoftheweek_at" = "Atsidaro %1$@ %2$@";
+"opens_at" = "Atsidaro %@";
+"opens_in" = "Atsidaro už %@";
+"closes_at" = "Užsidaro %@";
+"closes_in" = "Užsidaro už %@";
+"closed" = "Uždaryta";
+"add_opening_hours" = "Pridėti darbo valandas";
+"no_osm_account" = "Neturite OpenStreetMap paskyros?";
+"register_at_openstreetmap" = "Registruokitės OpenStreetMap";
+"password_8_chars_min" = "Slaptažodis (bent 8 simboliai)";
+"invalid_username_or_password" = "Netinkamas naudotojo vardas arba slaptažodis.";
+"login" = "Prisijungti";
+"login_osm" = "Prisijungti OpenStreetMap";
+"forgot_password" = "Pamiršote slaptažodį?";
+"osm_account" = "OSM paskyra";
+"logout" = "Atsijungti";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Paskutinis įkėlimas";
+"thank_you" = "Ačiū";
+"edit_place" = "Redaguoti vietą";
+"place_name" = "Vietos pavadinimas";
+"add_language" = "Pridėti kalbą";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Pastato numeris";
+"details" = "Išamiau";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Pridėti gatvę";
+"choose_language" = "Pasirinkite kalbą";
+"choose_street" = "Pasirinkite gatvę";
+"postal_code" = "Pašto kodas";
+"cuisine" = "Virtuvė";
+"select_cuisine" = "Pasirinkti virtuvę";
+
+/* login text field */
+"email_or_username" = "El. paštas arba naudotojo vardas";
+"phone" = "Telefonas";
+"level" = "Aukštas";
+"please_note" = "Atkreipkite dėmesį";
+"downloader_delete_map_dialog" = "Visi jūsų žemėlapio pakeitimai bus panaikinti kartu su žemėlapiu.";
+"downloader_update_maps" = "Naujinti žemėlapius";
+"downloader_search_field_hint" = "Rasti žemėlapį";
+"migration_download_error_dialog" = "Atsisiuntimo klaida";
+"common_check_internet_connection_dialog" = "Patikrinkite nustatymus ir įsitikinkite, kad jūsų įrenginys turi prieigą prie interneto.";
+"downloader_no_space_title" = "Nepakanka vietos";
+"downloader_no_space_message" = "Panaikinkite nereikalingus duomenis";
+"editor_profile_changes" = "Patvirtinti pakeitimai";
+"editor_focus_map_on_location" = "Vilkite žemėlapį, kad kryžius atsidurtų ties vieta, kurioje yra vieta arba įmonė.";
+"editor_add_select_category" = "Pasirinkti kategoriją";
+"editor_add_select_category_popular_subtitle" = "Populiarios";
+"editor_add_select_category_all_subtitle" = "Visos kategorijos";
+"editor_edit_place_title" = "Redaguojama";
+"editor_add_place_title" = "Pridedama";
+"editor_edit_place_name_hint" = "Vietos pavadinimas";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Kaip rašoma vietos kalba";
+"editor_edit_place_category_title" = "Kategorija";
+"whatsnew_editor_message_1" = "Pridėkite naujų vietų į žemėlapį ir redaguokite esamas tiesiai iš programėlės.";
+"dialog_incorrect_feature_position" = "Keisti vietą";
+"message_invalid_feature_position" = "Nerasta objektų";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Bendruomenės sukurti OpenStreetMap duomenys nuo %@. Sužinokite daugiau apie tai, kaip redaguoti ir atnaujinti žemėlapį OpenStreetMap.org";
+"login_to_make_edits_visible" = "Sukurkite \"OpenStreetMap\" paskyrą arba prisijunkite, kad galėtumėte skelbti savo žemėlapio pakeitimus pasauliui.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Jei norite atsisiųsti, reikia daugiau vietos. Panaikinkite nereikalingus duomenis.";
+"editor_sharing_title" = "Patobulinau Organic Maps žemėlapius";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d iš %2$d";
+"download_over_mobile_header" = "Atsisiųsti naudojant korinį tinklą?";
+"download_over_mobile_message" = "Tai gali būti itin brangu su kai kuriais planais arba jei yra tarptinklinis ryšys.";
+"error_enter_correct_house_number" = "Įveskite pastato numerį";
+"editor_storey_number" = "Aukštų skaičius (daugiausia %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Aukštų skaičius negali viršyti %d";
+"editor_zip_code" = "ZIP kodas";
+"error_enter_correct_zip_code" = "Įveskite ZIP kodą";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Žemėlapio taškas";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Pastaba OpenStreetMap savanoriams (neprivaloma)";
+"editor_detailed_description_hint" = "Išsamus komentaras";
+"editor_detailed_description" = "Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.";
+"editor_more_about_osm" = "Daugiau apie OpenStreetMap";
+"editor_operator" = "Operatorius";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Operatorius: %@";
+"editor_category_unsuitable_title" = "Nerandate tinkamos kategorijos?";
+"editor_category_unsuitable_text" = "\"Organic Maps\" leidžia pridėti tik paprastas taškų kategorijas, t. y. jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. Tokias kategorijas pridėkite tiesiai į <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Peržiūrėkite mūsų <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vadovą</a>, kur rasite išsamias instrukcijas žingsnis po žingsnio.";
+"downloader_no_downloaded_maps_title" = "Neatsisiuntėte jokių žemėlapių";
+"downloader_no_downloaded_maps_message" = "Atsisiųskite žemėlapius, kad ieškotumėte vietos ir keliautumėte neprisijungę prie tinklo.";
+"current_location_unknown_error_title" = "Dabartinė vieta yra nežinoma.";
+"current_location_unknown_error_message" = "Įvyko klaida ieškant jūsų vietos. Įsitikinkite,kad jūsų įrenginys veikia tinkamai ir bandykite iš naujo.";
+"location_services_disabled_header" = "Vietovės tarnybos yra išjungtos";
+"location_services_disabled_message" = "Įjungti Enable access to geolocation in the device settings";
+"location_services_disabled_1" = "1. Atidarykite nustatymus";
+"location_services_disabled_2" = "2. Bakstelėkite „Vietovė“";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Pasirinkite Naudojant programėlę";
+"location_services_disabled_on_device_2" = "2. Pasirinkite Privatumas";
+"location_services_disabled_on_device_3" = "3. Pasirinkite Vietos nustatymo paslaugos";
+"location_services_disabled_on_device_4" = "4. Įjunkite vietos nustatymo paslaugas";
+"location_services_disabled_on_device_additional_message" = "Arba toliau naudokite \"Organic Maps\" be vietos";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "km/h";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "ft";
+"miles_per_hour" = "mph";
+"hour" = "h";
+"minute" = "min";
+"day" = "d";
+"placepage_more_button" = "Daugiau";
+"book_button" = "Knyga";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Photos, reviews, booking";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details on Kayak";
+"placepage_call_button" = "Skambinti";
+"placepage_edit_bookmark_button" = "Redaguoti adresyną";
+"placepage_bookmark_name_hint" = "Adresyno pavadinimas";
+"placepage_personal_notes_hint" = "Asmeniniai užrašai (tekstas arba html)";
+"placepage_delete_bookmark_button" = "Naikinti adresyną";
+"editor_edits_sent_message" = "Jūsų pastaba bus išsiųsta į OpenStreetMap";
+"editor_comment_hint" = "Komentaras…";
+"editor_reset_edits_message" = "Anuliuoti visus vietinius pakeitimus?";
+"editor_reset_edits_button" = "Anuliuoti";
+"editor_remove_place_message" = "Naikinti pridėtą vietą?";
+"editor_remove_place_button" = "Naikinti";
+"editor_place_doesnt_exist" = "Vieta neegzistuoja";
+"text_more_button" = "…daugiau";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Įveskite telefono numerį";
+"error_enter_correct_web" = "Įveskite saityno adresą";
+"error_enter_correct_email" = "Įveskite el. paštą";
+"refresh" = "Naujinti";
+"placepage_add_place_button" = "Pridėti vietą į OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Tikrai norite tai išsiųsti visiems naudotojams?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Įsitikinkite, kad neįvedėte asmeninių duomenų.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap redaktoriai peržiūrės pakeitimus ir su jumis susisieks, jei kils klausimų.";
+"navigation_stop_button" = "Stabdyti";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Išjungti paskiausiai nukeliautų maršrutų įrašymą?";
+"off_recent_track_background_button" = "Išjungti";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Check out";
+"recent_track_background_dialog_message" = "Organic Maps naudota jūsų geografinę vietą fone, kad įrašytų jūsų paskiausiai nukeliautus maršrutus.";
+"general_settings" = "Bendrieji nustatymai";
+
+/* For the first routing */
+"accept" = "Priimti";
+
+/* For the first routing */
+"decline" = "Atmesti";
+"mobile_data_dialog" = "Naudoti mobilųjų internetą, kad parodytumėme išsamią informaciją?";
+"mobile_data_option_always" = "Visada naudoti";
+"mobile_data_option_today" = "Tik šiandien";
+"mobile_data_option_not_today" = "Šiandien nenaudoti";
+"mobile_data" = "Mobilusis internetas";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Mobilusis internetas yra reikalingas, kad gautumėte žemėlapių naujinimo pranešimus, ir vietų bei adresyno išsamios informacijos rodymui.";
+"mobile_data_option_never" = "Niekada nenaudoti";
+"mobile_data_option_ask" = "Visada klausti";
+"traffic_update_maps_text" = "Žemėlapiai turi būti atnaujinti, kad parodytumėme eismo duomenis.";
+"big_font" = "Padidinti šrifto dydi žemėlapyje";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Programėlė turi būti atnaujinti, kad parodytumėme eismo duomenis.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Eismo duomenis neprieinami";
+"enable_logging" = "Įjungti duomenų įrašymą";
+"log_file_size" = "Žurnalo failo dydis: %@";
+"transliteration_title" = "Transliteracija į lotynų";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Išeiti";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Naudokite paiešką arba bakstelėkite žemėlapyje, kad pridėtumėte maršruto pradžios tašką";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Naudokite paiešką arba bakstelėkite žemėlapyje, kad pridėtumėte paskirties tašką";
+"planning_route_manage_route" = "Tvarkyti maršrutą";
+"button_plan" = "Planas";
+"placepage_remove_stop" = "Šalinti stabdymą";
+"planning_route_remove_title" = "Vilkite čia, kad pašalintumėte";
+"placepage_add_stop" = "Pridėti sustojimą";
+"start_from_my_position" = "Pradėti iš";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Prisijunkite prie \"OpenStreetMap\", kad automatiškai įkeltumėte visus savo žemėlapio pakeitimus. Sužinokite daugiau";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "čia";
+"core_entrance" = "Įėjimas";
+"error_enter_correct_name" = "Įveskite teisingą pavadinimą";
+"bookmark_lists" = "Sąrašai";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Slėpti visus";
+"bookmark_lists_show_all" = "Rodyti visus";
+"bookmarks_create_new_group" = "Kurti naują sąrašą";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Žymeklių ir takelių importavimas";
+"downloader_hide_screen" = "Slėpti ekraną";
+"downloader_percent" = "%@ (%@ iš %@)";
+"downloader_process" = "Atsisiunčiama %@…";
+"downloader_applying" = "Taikoma %@…";
+"bookmarks_error_message_share_general" = "Napvyko bendrinti dėl programėlės klaidos";
+"bookmarks_error_title_share_empty" = "Bendrinimo klaida";
+"bookmarks_error_message_share_empty" = "Negalima bendrinti tuščio sąrašo";
+"bookmarks_error_message_empty_list_name" = "Įveskite sąrašo pavadinimą";
+"bookmarks_error_title_list_name_already_taken" = "Pavadinimas jau egzistuoja";
+"bookmarks_error_title_list_name_too_long" = "Pavadinimas per ilgas";
+"profile" = "OpenStreetMap profilis";
+"bookmarks_detect_title" = "Aptikti nauji failai";
+"button_convert" = "Konvertuoti";
+"bookmarks_convert_error_title" = "Klaida";
+"bookmarks_convert_error_message" = "Kai kurie failai nebuvo konvertuoti.";
+"restore" = "Atkurti";
+"privacy_policy" = "Privatumo politika";
+"terms_of_use" = "Naudojimo sąlygos";
+"button_layer_subway" = "Metro";
+"layers_title" = "Žemėlapio stiliai ir sluoksniai";
+"subway_data_unavailable" = "Metro žemėlapis neprieinamas";
+"title_error_downloading_bookmarks" = "Įvyko klaida";
+"popular_place" = "Populiarūs";
+"export_file" = "Eksportuoti KMZ";
+"export_file_gpx" = "GPX eksportavimas";
+"delete_list" = "Naikinti sąrašą";
+"hide_from_map" = "Slėpti nuo žemėlapio";
+"tags_loading_error_subtitle" = "Įvyko klaida įkeliant žymes, bandykite iš naujo";
+"download_button" = "Atsisiųsti";
+"speedcams_alert_title" = "Greičio matuokliai";
+"place_description_title" = "Vietos aprašymas";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Įspėti apie greičio viršijimą";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Visada įspėti";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Neįspėti";
+"power_managment_title" = "Energijos taupymo režimas";
+"power_managment_description" = "Jei pasirinktas automatinis režimas, programėlė išjungia akumuliatorių eikvojančias funkcijas, atsižvelgiant į dabartinį įkrovos lygį";
+"power_managment_setting_never" = "Niekada";
+"power_managment_setting_auto" = "Automatinis";
+"power_managment_setting_manual_max" = "Maksimalus taupymas";
+"enable_logging_warning_message" = "Ši parinktis įjungia duomenų įrašymą diagnostiniams tikslams. Jis gali praversti mūsų komandai problemų aptikimui. Laikinai įjunkite šią parinktį, kad įrašytumėte ir mums išsiųstumėte išsamų klaidų žurnalą.";
+"driving_options_title" = "Maršruto pasirinkimo parinktis";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Avoid tolls";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Vengti neasfaltuotų kelių";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Vengti kelionių keltu";
+"avoid_motorways" = "Avoid freeways";
+"unable_to_calc_alert_title" = "Nepavyko apskaičiuoti maršruto";
+"unable_to_calc_alert_subtitle" = "Deja, mums nepavyko rasti maršruto tikriausiai dėl jūsų pasirinktų parinkčių. Pakeiskite jas ir bandykite dar kartą.";
+"define_to_avoid_btn" = "Apibrėžti vengiamus kelius";
+"change_driving_options_btn" = "Maršruto pasirinkimo parinktys įjungtos";
+"toll_road" = "Mokamas kelias";
+"unpaved_road" = "Neasfaltuoas kelias";
+"ferry_crossing" = "Kelionė keltu";
+"trip_start" = "Pirmyn";
+"pick_destination" = "Tikslas";
+"follow_my_position" = "Centruoti";
+"search_results" = "Paieškos rezultatai";
+"then_turn" = "Then";
+"redirect_route_alert" = "Norite perkurti maršrutą?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Taip";
+
+/* A generic "No" button in dialogs */
+"no" = "Ne";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Taip";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Ne";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Talpa: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Tinklas: %@";
+"trip_finished" = "Atvykote!";
+"keyboard_availability_alert" = "Klaviatūra nėra prieinama už vairo";
+"dialog_routing_change_start_carplay" = "Nepavyko sukurti maršruto iš jūsų dabartinės vietos";
+"dialog_routing_change_end_carplay" = "Nepavyko sukurti maršruto iki jūsų tikslo. Pasirinkite kitą tašką";
+"dialog_routing_check_gps_carplay" = "Nėra GPS signalo. Pereikite prie atviros vietos";
+"dialog_routing_unable_locate_route_carplay" = "Nepavyko sukurti maršruto. Nurodykite kitus maršruto taškus";
+"dialog_routing_download_files_carplay" = "Atsisiųskite trūkstamus žemėlapius, kad sukurtumėte maršrutą";
+"dialog_routing_system_error_carplay" = "Įvyko klaida. Iš naujo paleiskite programėlę";
+"dialog_routing_rebuild_from_current_location_carplay" = "Maršrutas bus perkurtas iš jūsų dabartinės vietos";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Maršrutas bus konvertuotas automobilinį";
+"not_all_shown_bookmarks_carplay" = "Rodomos ne visos žymės";
+"switch_to_phone_bookmarks_carplay" = "Perjungimas į telefoną, kad pamatytumėte visas žymes";
+"ok" = "Gerai";
+"speedcams_alert_title_carplay_1" = "Greičio matuokliai";
+"speedcams_alert_title_carplay_2" = "Greičio įspėjimas";
+"download_map_carplay" = "Atsisiųskite žemėlapius Organic Maps programėlėje";
+"carplay_roundabout_exit" = "%@ išeiti";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Rikiuoti…";
+
+/* iOS */
+"sort_default" = "Rikiuoti numatytai";
+"sort_type" = "Rikiuoti pagal rūšį";
+"sort_distance" = "Rikiuoti pagal atstumą";
+"sort_date" = "Rikiuoti pagal datą";
+"sort_name" = "Rūšiuoti pagal pavadinimą";
+"week_ago_sorttype" = "Prieš savaitę";
+"month_ago_sorttype" = "Prieš mėnesį";
+"moremonth_ago_sorttype" = "Daugiau nei prieš mėnesį";
+"moreyear_ago_sorttype" = "Daugiau nei prieš metus";
+"near_me_sorttype" = "Arti manęs";
+"others_sorttype" = "Kita";
+
+
+/********** Bookmark types used for sorting **********/
+
+"food_places" = "Maistas";
+"tourist_places" = "Įžymybės";
+"museums" = "Muziejai";
+"parks" = "Parkai";
+"swim_places" = "Plaukimas";
+"mountains" = "Kalnai";
+"animals" = "Gyvūnai";
+"hotels" = "Viešbučiai";
+"buildings" = "Pastatai";
+"money" = "Pinigai";
+"shops" = "Parduotuvės";
+"parkings" = "Parkingai";
+"fuel_places" = "Degalinės";
+"medicine" = "Medicina";
+"search_in_the_list" = "Ieškoti sąraše";
+"religious_places" = "Religinės vietos";
+"transit_not_found" = "Metro navigacija šiame regione yra neprieinama";
+"dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
+"dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ir pabaigos tašką, arčiausią metros stoties";
+"button_layer_isolines" = "Reljefas";
+"isolines_activation_error_dialog" = "Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti topografinį sluoksnį";
+"isolines_location_error_dialog" = "Topografinis sluoksnis šiai vietovei yra neprieinamas";
+"elevation_profile_diff_level" = "Sudėtingumo lygis";
+"elevation_profile_diff_level_easy" = "Lengvas";
+"elevation_profile_diff_level_moderate" = "Normalus";
+"elevation_profile_diff_level_hard" = "Sunkus";
+"elevation_profile_ascent" = "Pakilimas";
+"elevation_profile_descent" = "Nusileidimas";
+"elevation_profile_min_elevation" = "Min. aukštis";
+"elevation_profile_max_elevation" = "Didž. aukštis";
+"isolines_toast_zooms_1_10" = "Priartinkite, kad tyrinėtumėte izolinijas";
+"downloader_updating_ios" = "Naujinama";
+"downloader_loading_ios" = "Atsisiųsti";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Naujinti atsisiųstus žemėlapius";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Žemėlapių atnaujinimas suteikia naujausią informaciją apie objektus";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Naujinti (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Atnaujinsiu vėliau";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Naikinta taką";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Ar tikrai norite ištrinti šį įrašą?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Tako pavadinimas";
+
+/* move track or bookmark from the list button text */
+"move" = "Perkelti";
+
+/* edit track screen title */
+"track_title" = "Takas";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Thank you for using our community-built maps!";
+
+/* App tip #01 */
+"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+
+/* App tip #02 */
+"app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";
+
+/* App tip #03 */
+"app_tip_03" = "If you know a software developer, you can ask him or her to implement a feature that you need.";
+
+/* App tip #04 */
+"app_tip_04" = "Bakstelėkite bet kurią žemėlapio vietą ir pasirinkite bet ką. Ilgai bakstelėkite, kad paslėptumėte ir vėl parodytumėte sąsają.";
+
+/* App tip #05 */
+"app_tip_05" = "Did you know that your current location on the map can be selected?";
+
+/* App tip #06 */
+"app_tip_06" = "You can help to translate our app into your language.";
+
+/* App tip #07 */
+"app_tip_07" = "Our app is developed by a few enthusiasts and the community.";
+
+/* App tip #08 */
+"app_tip_08" = "You can easily fix and improve the map data.";
+
+/* App tip #09 */
+"app_tip_09" = "Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "You are now using Organic Maps on the phone screen";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "You are now using Organic Maps on the car screen";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Continue on the phone";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "To the car screen";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Žygiai pėsčiomis";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Eksportuoti visas žymes ir takelius";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Keisti spalvą";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Žemėlapis";
+"drive_through" = "Pravažiavimas per";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Meniu nuoroda";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Ar norėtumėte išsiųsti pranešimą apie klaidą kūrėjams?\nMes pasikliaujame savo naudotojais, nes \"Organic Maps\" nerenka jokios informacijos apie klaidas automatiškai. Iš anksto dėkojame, kad remiate \"Organic Maps\"!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "\"iCloud\" sinchronizavimo įjungimas";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "\"iCloud\" sinchronizavimas yra kuriama eksperimentinė funkcija. Įsitikinkite, kad padarėte atsarginę visų savo žymeklių ir takelių kopiją.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "\"iCloud\" yra išjungtas";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Jei norite naudotis šia funkcija, įjunkite \"iCloud\" įrenginio nustatymuose.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Įjungti";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Atsarginė kopija";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "\"iCloud\" sinchronizavimo sutrikimas";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Klaida: Nepavyko sinchronizuoti dėl ryšio klaidos";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Klaida: Nepavyko sinchronizuoti dėl viršytos \"iCloud\" kvotos";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Klaida: \"iCloud\" nepasiekiamas";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Atidaryti kitoje programoje";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Savitarna";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Lauko sėdimosios vietos";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Neseniai ištrinti sąrašai";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Išvalyti";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Ištrinti viską";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Atkurti";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Atkurti viską";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Įrašyti maršrutą";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Sustabdyti maršruto įrašymą";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Sustabdyti neįrašius";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Tęsti įrašymą";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Išsaugoti į žymes ir maršrutus?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Maršrutas tuščias - nėra ką išsaugoti";
+"edit_track" = "Redaguoti maršrutą";
