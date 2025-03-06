@@ -117,7 +117,6 @@
     <string name="measurement_units">Единицы измерения</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Использовать километры или мили</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Где поесть</string>
@@ -165,7 +164,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Для автодомов</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примечание</string>
@@ -370,7 +368,6 @@
     <string name="gray">Серый</string>
     <!-- blue gray color -->
     <string name="blue_gray">Серо-голубой</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>
     <string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;</string>
@@ -400,7 +397,6 @@
     <string name="not_now">Не сейчас</string>
     <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
     <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
     <string name="search_select_map">Выбрать карту</string>
@@ -762,7 +758,6 @@
     <string name="moreyear_ago_sorttype">Больше года назад</string>
     <string name="near_me_sorttype">Рядом со мной</string>
     <string name="others_sorttype">Другие</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Еда</string>
     <string name="tourist_places">Достопримечательности</string>
@@ -910,4 +905,9 @@
     <string name="uri_open_location_failed">Не установлено приложение, которое может открыть местоположение</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навигации</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
 </resources>

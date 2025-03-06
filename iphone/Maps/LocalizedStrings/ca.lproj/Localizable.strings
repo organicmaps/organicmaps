@@ -81,7 +81,7 @@
 "address" = "Adreça";
 
 /* Settings button in system menu */
-"settings" = "Configuració";
+"settings" = "Paràmetres";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Unitats de mesura";
@@ -160,7 +160,7 @@
 "load_kmz_title" = "S'estan carregant els marcadors";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Els marcadors s'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.";
+"load_kmz_successful" = "Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "No s'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.";
@@ -197,7 +197,7 @@
 
 /* Length of track in cell that describes route */
 "length" = "Longitud";
-"share_my_location" = "Comparteix la meva ubicacio";
+"share_my_location" = "Comparteix la meva ubicació";
 "prefs_group_route" = "Navegació";
 "pref_zoom_title" = "Botons de zoom";
 
@@ -247,7 +247,7 @@
 "pref_tts_other_section_title" = "Altres";
 "pref_map_auto_zoom" = "Zoom automàtic";
 "placepage_distance" = "Distància";
-"search_show_on_map" = "Veure al mapa";
+"search_show_on_map" = "Visualitza al mapa";
 
 /* Text in menu */
 "website" = "Lloc web";
@@ -286,10 +286,10 @@
 "support_organic_maps" = "Donar suport a Organic Maps";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Drets d’autor";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Informació d'errors";
+"report_a_bug" = "Informa d’un error";
 
 /* Button in the About screen */
 "report_incorrect_map_bug" = "Informa o corregeix dades de mapa incorrectes";
@@ -682,7 +682,7 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Verifica";
 "recent_track_background_dialog_message" = "Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.";
-"general_settings" = "Configuració general";
+"general_settings" = "Paràmetres generals";
 
 /* For the first routing */
 "accept" = "D'acord";
@@ -690,7 +690,7 @@
 /* For the first routing */
 "decline" = "Ho rebutjo";
 "mobile_data_dialog" = "Voleu usar Internet mòbil per a mostrar informació detallada?";
-"mobile_data_option_always" = "Sempre";
+"mobile_data_option_always" = "Usa’l sempre";
 "mobile_data_option_today" = "Només avui";
 "mobile_data_option_not_today" = "Avui no";
 "mobile_data" = "Internet mòbil";
@@ -709,10 +709,10 @@
 "traffic_data_unavailable" = "No hi ha dades de trànsit disponibles.";
 "enable_logging" = "Activa el registre";
 "log_file_size" = "Mida del fitxer de registre: %@";
-"transliteration_title" = "Translitertació a l'alfabet llatí";
+"transliteration_title" = "Transliteració a l’alfabet llatí";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Surt";
+"core_exit" = "Sortida";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
 "routing_add_start_point" = "Utilitzeu la cerca o toqueu el mapa per afegir un punt de partida de la ruta";
@@ -742,8 +742,8 @@
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
 "bookmarks_import" = "Importa marcadors i les traces";
-"downloader_hide_screen" = "Oculta la pantalla";
-"downloader_percent" = "%@ (%@ de %@)";
+"downloader_hide_screen" = "Amaga la pantalla";
+"downloader_percent" = "%@ (%@/%@)";
 "downloader_process" = "S'està baixant %@…";
 "downloader_applying" = "S'està aplicant %@…";
 "bookmarks_error_message_share_general" = "No s'ha pogut compartir a causa d'un error de l'aplicació";
@@ -786,7 +786,7 @@
 "power_managment_description" = "Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria";
 "power_managment_setting_never" = "Mai";
 "power_managment_setting_auto" = "Automàtic";
-"power_managment_setting_manual_max" = "Estalvi d'energia màxim";
+"power_managment_setting_manual_max" = "Sempre";
 "enable_logging_warning_message" = "L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.";
 "driving_options_title" = "Opcions de la ruta";
 
@@ -891,8 +891,8 @@
 "elevation_profile_diff_level_hard" = "Difícil";
 "elevation_profile_ascent" = "Ascens";
 "elevation_profile_descent" = "Descens";
-"elevation_profile_min_elevation" = "Min. elevació";
-"elevation_profile_max_elevation" = "Màx. elevació";
+"elevation_profile_min_elevation" = "Elevació mín.";
+"elevation_profile_max_elevation" = "Elevació màx.";
 "isolines_toast_zooms_1_10" = "Aproplieu el mapa per a explorar les isolínies";
 "downloader_updating_ios" = "S'està actualitzant";
 "downloader_loading_ios" = "Està baixant";
@@ -949,7 +949,7 @@
 "app_tip_03" = "Si coneixeu un desenvolupador de programari, podeu demanar-li que implementi una funcionalitat que necessiteu.";
 
 /* App tip #04 */
-"app_tip_04" = "Toqueu qualsevol lloc del mapa per seleccionar qualsevol cosa. Toqueu llargament per ocultar i mostrar la interfície.";
+"app_tip_04" = "Toqueu qualsevol lloc del mapa per seleccionar qualsevol cosa. Toqueu llargament per amagar i mostrar la interfície.";
 
 /* App tip #05 */
 "app_tip_05" = "Sabíeu que podeu seleccionar la vostra ubicació actual al mapa?";

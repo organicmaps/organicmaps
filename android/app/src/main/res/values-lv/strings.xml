@@ -114,7 +114,6 @@
     <string name="measurement_units">Mērvienības</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Izvēlieties starp jūdzēm un kilometriem</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Kur paēst</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Ūdens</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Dzīvojamo auto labierīcības</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Piezīmes</string>
@@ -197,7 +195,7 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Apskatiet manu atrašanās vietu „Organic Maps“ lietotnē! %1$s vai %2$s Vai Jums nav nesaistes kartes? Lejupielādējiet to: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi „Organic Maps“ kartē!</string>
+    <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi Organic Maps kartē!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
@@ -366,7 +364,6 @@
     <string name="gray">Pelēka</string>
     <!-- blue gray color -->
     <string name="blue_gray">Zilpelēka</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Sekojot maršrutam, ievērojiet:</string>
     <string name="dialog_routing_disclaimer_priority">— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;</string>
@@ -396,7 +393,6 @@
     <string name="not_now">Ne tagad</string>
     <string name="dialog_routing_download_and_build_cross_route">Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?</string>
     <string name="dialog_routing_download_cross_route">Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lejupielādējiet karti, lai sāktu meklēt un veidot maršrutus. Pēc tam tīkla pieslēgumu vairs nevajadzēs.</string>
     <string name="search_select_map">Atlasīt karti</string>
@@ -508,13 +504,12 @@
     <string name="editor_edit_place_category_title">Kategorija</string>
     <string name="detailed_problem_description">Plašāks problēmas apraksts</string>
     <string name="editor_report_problem_other_title">Cita problēma</string>
-    <string name="placepage_add_business_button">Pievienot uzņēmumu</string>
+    <string name="placepage_add_business_button">Pievienot iestādi</string>
     <string name="message_invalid_feature_position">Šeit objekti nevar atrasties</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Kopiena veidotie „OpenStreetMap“ dati uz %s. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.</string>
+    <string name="osm_presentation">Kopienas veidotie „OpenStreetMap“ dati, %s. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir Organic Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.
-\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir Organic Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!</string>
     <string name="login_to_make_edits_visible">Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d no %2$d</string>
@@ -655,7 +650,7 @@
     <string name="bookmarks_error_message_list_name_already_taken">Izvēlieties citu nosaukumu</string>
     <string name="please_wait">Uzgaidiet…</string>
     <string name="phone_number">Tālruņa numurs</string>
-    <string name="profile">„OpenStraatMap“ profils</string>
+    <string name="profile">„OpenStreetMap“ profils</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="zero">Lietotne atrada %d jaunu datņu. Varat tās apskatīt pēc konvertācijas.</item>
         <item quantity="one">Lietotne atrada %d jaunu datni. Varat to apskatīt pēc konvertācijas.</item>
@@ -750,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ēdiens</string>
     <string name="tourist_places">Apskates objekti</string>
@@ -863,4 +857,11 @@
     <string name="power_save_dialog_summary">Lai navigācija būtu pēc iespējas precīzāka, iesakām tālruņa baterijas iesatatījumos izslēgt energotaupības režīmu.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
     <string name="edit_track">Ceļa labošana</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="change_map_locale">Kartes valoda</string>
+    <string name="already_donated">Jau esmu ziedojis/usi</string>
+    <string name="wikimedia_commons">Vikikrātuve</string>
+    <string name="core_placepage_unknown_place">Punkts kartē</string>
+    <string name="nav_auto">Automātisks navigācijas laikā</string>
+    <string name="start_track_recording">Ierakstīt ceļu</string>
 </resources>

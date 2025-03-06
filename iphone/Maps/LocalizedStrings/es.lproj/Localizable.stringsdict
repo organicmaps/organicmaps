@@ -48,10 +48,14 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d trayectos</string>
 			<key>one</key>
-			<string>%d ruta</string>
+			<string>%d trayectos</string>
+			<key>many</key>
+			<string>%d trayectos</string>
 			<key>other</key>
-			<string>%d rutas</string>
+			<string>%d trayectos</string>
 		</dict>
 	</dict>
 </dict>

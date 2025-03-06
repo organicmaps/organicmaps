@@ -124,7 +124,6 @@
     <string name="type.amenity.prison">Gefängnis</string>
     <string name="type.amenity.pub">Kneipe</string>
     <string name="type.amenity.public_bookcase">Bücherschrank</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Recyclinghof</string>
     <string name="type.amenity.recycling">Wertstoffcontainer</string>
@@ -196,7 +195,7 @@
     <string name="type.barrier.fence">Zaun</string>
     <string name="type.barrier.gate">Tor</string>
     <string name="type.barrier.hedge">Hecke</string>
-    <string name="type.barrier.kissing_gate">Tor</string>
+    <string name="type.barrier.kissing_gate">Kissing Gate</string>
     <string name="type.barrier.lift_gate">Schranke</string>
     <string name="type.barrier.retaining_wall">Stützmauer</string>
     <string name="type.barrier.stile">Zaunübertritt</string>
@@ -227,7 +226,7 @@
     <string name="type.craft.beekeeper">Imker</string>
     <string name="type.craft.blacksmith">Schmied</string>
     <string name="type.craft.brewery">Brauerei</string>
-    <string name="type.craft.caterer">Caterer</string>
+    <string name="type.craft.caterer">Partyservice</string>
     <string name="type.craft.carpenter">Zimmermann</string>
     <string name="type.craft.confectionery">Süßwarenladen</string>
     <string name="type.craft.electrician">Elektriker</string>
@@ -357,7 +356,6 @@
     <string name="type.healthcare.psychotherapist">Psychotherapie</string>
     <string name="type.healthcare.sample_collection">Probenahme</string>
     <string name="type.healthcare.speech_therapist">Logopädie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straße</string>
     <string name="type.highway.bridleway">Reitweg</string>
@@ -523,7 +521,6 @@
     <string name="type.area_highway.track">Forst-/Feldweg</string>
     <string name="type.area_highway.trunk">Schnellstraße</string>
     <string name="type.area_highway.unclassified">Nebenstraße</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisches Objekt</string>
     <string name="type.historic.aircraft">Historisches Flugzeug</string>
@@ -1219,7 +1216,7 @@
     <!-- Used to tag a scuba diving site. -->
     <string name="type.sport.scuba_diving">Gerätetauchen</string>
     <string name="type.sport.shooting">Schießen</string>
-    <string name="type.sport.skateboard">Skateboarding</string>
+    <string name="type.sport.skateboard">Skateboarden</string>
     <string name="type.sport.skiing">Skifahren</string>
     <string name="type.sport.soccer">Fußball</string>
     <string name="type.sport.swimming">Schwimmen</string>
@@ -1328,7 +1325,7 @@
     <string name="type.piste_type.nordic">Langlaufloipe</string>
     <string name="type.piste_type.sled">Rodelbahn</string>
     <string name="type.piste_type.sled.area">Rodelbahn</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Schneepark</string>
     <string name="type.piste_type.hike">Schneewanderweg</string>
     <string name="type.piste_type.connection">Pistenanschluss</string>
     <string name="type.piste_type.skitour">Skitour Pfad</string>
@@ -1347,4 +1344,52 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sporthalle</string>
+    <string name="type.man_made.pipeline">Pipeline</string>
+    <string name="type.amenity.bar">Bar</string>
+    <string name="type.amenity.restaurant">Restaurant</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.leisure.hackerspace">Hackerraum</string>
+    <string name="type.sport.yoga">Yoga Studio</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.noexit">Sackgasse</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.shop.kiosk">Kiosk</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.boundary.administrative.2">Landesgrenze</string>
+    <string name="type.building.garage">Garage</string>
+    <string name="type.cuisine.fish_and_chips">Fisch und Chips</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.leisure.beach_resort">Beach Resort</string>
+    <string name="type.amenity.food_court">Food Court</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.man_made.utility_pole">Versorgungsmast</string>
+    <string name="type.cuisine.bubble_tea">Bubble Tea</string>
+    <string name="type.aeroway.gate">Tor</string>
+    <string name="type.amenity.biergarten">Biergarten</string>
+    <string name="type.amenity.kindergarten">Kindergarten</string>
+    <string name="type.public_transport.platform">Plattform</string>
+    <string name="type.boundary.administrative.4">Regionale Grenze</string>
+    <string name="type.boundary.administrative.3">Regionale Grenze</string>
+    <string name="type.power.pole">Strommast</string>
+    <string name="type.man_made.pipeline.overground">Oberirdische Rohrleitung</string>
 </resources>

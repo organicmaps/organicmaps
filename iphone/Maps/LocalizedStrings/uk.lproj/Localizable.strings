@@ -172,10 +172,10 @@
 "unknown_current_position" = "Ваше місце розташування не визначено";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Поглянь на мою мiтку на мапі Organic Maps";
+"bookmark_share_email_subject" = "Поглянь на мою мiтку на мапі Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Поглянь на моє поточне місцезнаходження на мапі Organic Maps";
+"my_position_share_email_subject" = "Поглянь на моє поточне розташування на мапі Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Ел. пошта";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;";
 "dialog_routing_disclaimer_precision" = "— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;";
 "dialog_routing_disclaimer_recommendations" = "— Запропоновані маршрути — лише рекомендації;";
-"dialog_routing_disclaimer_borders" = "— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;";
+"dialog_routing_disclaimer_borders" = "— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях.";
 "dialog_routing_disclaimer_beware" = "Будьте уважні на дорогах і бережіть себе!";
 "dialog_routing_check_gps" = "Перевірте сигнал GPS";
 "dialog_routing_error_location_not_found" = "Маршрут не побудовано. Поточну геопозицію не визначено.";
@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Дані про трафік недоступні";
 "enable_logging" = "Включити логіювання";
 "log_file_size" = "Розмір файлу журналу: %@.";
-"transliteration_title" = "Транслітерація латинськими літерами";
+"transliteration_title" = "Транслітерувати латиницею";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Вихід";
@@ -783,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Ніколи не попереджати";
 "power_managment_title" = "Режим енергозбереження";
-"power_managment_description" = "Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону";
+"power_managment_description" = "Спроба зменшити енергоспоживання коштом деяких функцій.";
 "power_managment_setting_never" = "Ніколи";
 "power_managment_setting_auto" = "Автоматично";
 "power_managment_setting_manual_max" = "Максимальне енергозбереження";
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Уникати поромів";
 "avoid_motorways" = "Уникати автострад";
 "unable_to_calc_alert_title" = "Неможливо побудувати маршрут";
-"unable_to_calc_alert_subtitle" = "На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз";
+"unable_to_calc_alert_subtitle" = "Не вдалося знайти маршрут. Це може бути пов'язано з вашими параметрами прокладання маршруту або неповними даними OpenStreetMap. Змініть параметри і спробуйте ще раз.";
 "define_to_avoid_btn" = "Налаштувати шляхи об’їзду";
 "change_driving_options_btn" = "Увімкнено налаштування об’їзду";
 "toll_road" = "Платна дорога";
@@ -849,7 +849,7 @@
 "carplay_roundabout_exit" = "%@ з’їзд";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "Сортувати";
+"sort" = "Сортувати…";
 
 /* iOS */
 "sort_default" = "Сортувати за промовчанням";
@@ -880,7 +880,7 @@
 "search_in_the_list" = "Шукати в списку";
 "religious_places" = "Святі місця";
 "transit_not_found" = "Навігація на метро ще недоступна в цьому регіоні";
-"dialog_pedestrian_route_is_long_header" = "Маршрут метро не знайдено";
+"dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
 "button_layer_isolines" = "Висоти";
 "isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості";
@@ -1028,7 +1028,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Помилка: iCloud недоступний";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Відкрити в іншій програмі";
+"open_in_app" = "Відкрити в іншому застосунку";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Самообслуговування";

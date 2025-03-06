@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Więzienie</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Wymiana książek</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centrum przetwórstwa odpadów</string>
     <string name="type.amenity.recycling">Pojemnik do recyklingu</string>
@@ -368,7 +367,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Punkt pobrań laboratoryjnych</string>
     <string name="type.healthcare.speech_therapist">Logopeda</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Droga</string>
     <string name="type.highway.bridleway">Droga dla koni</string>
@@ -534,7 +532,6 @@
     <string name="type.area_highway.track">Droga na pola lub do lasu</string>
     <string name="type.area_highway.trunk">Ulica</string>
     <string name="type.area_highway.unclassified">Ulica</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obiekt historyczny</string>
     <string name="type.historic.aircraft">Historyczny samolot</string>
@@ -1307,4 +1304,13 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Hala sportowa</string>
+    <string name="type.leisure.track.area">Ścieżka</string>
+    <string name="type.landuse.greenhouse_horticulture">Szklarnia</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.leisure.track">Ścieżka</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.leisure.marina">Przystań</string>
+    <string name="type.mapswithme">mapswithme</string>
 </resources>

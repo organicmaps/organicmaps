@@ -75,7 +75,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadores</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Marcadores y rutas</string>
+    <string name="bookmarks_and_tracks">Marcadores y trayectos</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Mis lugares</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -170,7 +170,7 @@
     <!-- Kmz file successful loading -->
     <string name="load_kmz_successful">¡Los marcadores se han cargado con éxito! Puede encontrarlos en el mapa o en la pantalla de Gestión de marcadores.</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">La carga de marcadores ha fallado. El archivo puede estar corrupto o ser defectuoso.</string>
+    <string name="load_kmz_failed">No se pudieron cargar los marcadores. El archivo podría tener daños o defectos.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">La aplicación no reconoce el tipo de archivo:
 \n%1$s</string>
@@ -181,7 +181,7 @@
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">Su ubicación aún no ha sido determinada</string>
+    <string name="unknown_current_position">Aún no se determina su ubicación</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Lo sentimos, la configuración del almacenamiento de mapas está desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
@@ -201,7 +201,7 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Compartir</string>
     <!-- Share by email button text, also used in editor and About. -->
-    <string name="email">Email</string>
+    <string name="email">Correo</string>
     <!-- Text for message when used successfully copied something -->
     <string name="copied_to_clipboard">Copiado al portapapeles: %s</string>
     <!-- Used for bookmark editing -->
@@ -211,7 +211,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">¿Quiere salir de su cuenta de OpenStreetMap?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Rutas</string>
+    <string name="tracks_title">Trayectos</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Longitud</string>
     <string name="share_my_location">Compartir mi ubicación</string>
@@ -220,7 +220,7 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Información</string>
     <string name="prefs_group_route">Navegación</string>
-    <string name="pref_zoom_title">Botones de zoom</string>
+    <string name="pref_zoom_title">Botones de zum</string>
     <string name="pref_zoom_summary">Visualización en la pantalla</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Modo nocturno</string>
@@ -235,7 +235,7 @@
     <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">Edificios en 3D</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">Los edificios 3D se apagan en el modo de ahorro de energía</string>
+    <string name="pref_map_3d_buildings_disabled_summary">Los edificios 3D se desactivan en el modo de ahorro de energía</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Instrucciones de voz</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -250,7 +250,7 @@
     <string name="pref_tts_playing_test_voice">Compruebe el volumen o la configuración de texto a voz del sistema si ahora no oye la voz.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
     <string name="pref_tts_unavailable">No disponible</string>
-    <string name="pref_map_auto_zoom">Zoom automático</string>
+    <string name="pref_map_auto_zoom">Zum automático</string>
     <string name="placepage_distance">Distancia</string>
     <string name="search_show_on_map">Ver en el mapa</string>
     <!-- Menu button -->
@@ -269,7 +269,7 @@
     <string name="faq">Preguntas frecuentes</string>
     <!-- Button in the main menu -->
     <string name="donate">Donar</string>
-    <string name="already_donated">Ya donado</string>
+    <string name="already_donated">Ya he donado</string>
     <string name="remind_me_later">Recordar más tarde</string>
     <string name="support_organic_maps">Apoyar Organic Maps</string>
     <!-- Button in the main Help dialog -->
@@ -283,7 +283,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Mueva el teléfono en forma de ocho para calibrar la brújula y fijar la dirección de la flecha en el mapa.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Vuelve a pulsar prolongadamente sobre el mapa para ver la interfaz</string>
+    <string name="long_tap_toast">Vuelva a pulsar prolongadamente sobre el mapa para ver la interfaz</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Actualizar todos</string>
     <!-- Cancel all button text -->
@@ -298,11 +298,11 @@
     <string name="downloader_download_all_button">Descargar todos</string>
     <string name="downloader_downloading">Descargando:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Para eliminar el mapa, por favor, detenga la navegación.</string>
+    <string name="downloader_delete_map_while_routing_dialog">Para eliminar el mapa, detenga la navegación.</string>
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Sólo se pueden crear rutas que estén totalmente contenidas en un mapa de una sola región.</string>
     <!-- Context menu item for downloader. -->
-    <string name="downloader_download_map">Descargar el mapa</string>
+    <string name="downloader_download_map">Descargar mapa</string>
     <!-- Item status in downloader. -->
     <string name="downloader_retry">Reintentar</string>
     <!-- Item in context menu. -->
@@ -361,11 +361,11 @@
     <string name="blue_gray">Gris azulado</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Al seguir la ruta, tenga en cuenta:</string>
-    <string name="dialog_routing_disclaimer_priority">— Las condiciones y señales de la ruta y las reglas de tráfico siempre tienen prioridad sobre las sugerencias de navegación;</string>
+    <string name="dialog_routing_disclaimer_priority">— Las condiciones del camino, las reglas de tránsito y los señalamientos siempre tienen prioridad sobre las sugerencias de navegación;</string>
     <string name="dialog_routing_disclaimer_precision">— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Las rutas sugeridas deben entenderse solo como recomendaciones;</string>
     <string name="dialog_routing_disclaimer_borders">— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;</string>
-    <string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y seguro en las rutas!</string>
+    <string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y a salvo durante el viaje!</string>
     <string name="dialog_routing_check_gps">Verificar la señal del GPS</string>
     <string name="dialog_routing_error_location_not_found">No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.</string>
     <string name="dialog_routing_location_turn_wifi">Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.</string>
@@ -397,7 +397,7 @@
     <string name="hide">Ocultar</string>
     <string name="categories">Categorías</string>
     <string name="history">Historial</string>
-    <string name="search_not_found">Lo siento, no se han encontrado resultados.</string>
+    <string name="search_not_found">No se encontró ningún resultado.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Descargue la región en la que está buscando o pruebe a añadir el nombre de una ciudad/pueblo cercano.</string>
     <string name="search_history_title">Historial de búsquedas</string>
@@ -410,7 +410,7 @@
     <string name="p2p_from_here">Ruta desde</string>
     <string name="p2p_to_here">Ruta hacia</string>
     <string name="p2p_only_from_current">La navegación solo está disponible desde su ubicación actual.</string>
-    <string name="p2p_reroute_from_current">¿Quiere que planeemos una ruta desde su ubicación actual?</string>
+    <string name="p2p_reroute_from_current">¿Quiere planificar un itinerario desde su ubicación actual?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Siguiente</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
@@ -451,7 +451,7 @@
     <string name="edit_opening_hours">Editar los horarios de apertura</string>
     <string name="no_osm_account">¿No tiene cuenta en OpenStreetMap?</string>
     <string name="register_at_openstreetmap">Registrarse en OpenStreetMap</string>
-    <string name="login">Iniciar sesión</string>
+    <string name="login">Acceder</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">No se ha iniciado sesión</string>
     <string name="login_osm">Iniciar sesión en OpenStreetMap</string>
@@ -502,7 +502,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa libre y abierto. Es la principal fuente de datos cartográficos de Organic Maps y funciona de forma similar a Wikipedia. Usted puede añadir o editar lugares y éstos pasan a estar disponibles para millones de usuarios de todo el mundo.\N¡Únase a la comunidad y ayude a crear un mapa mejor para todos!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa libre y abierto. Es la principal fuente de datos cartográficos de Organic Maps y funciona de forma similar a Wikipedia. Usted puede añadir o editar lugares y estos pasan a estar disponibles para millones de usuarios de todo el mundo.\n¡Únase a la comunidad y ayude a crear un mapa mejor para todos!</string>
     <string name="login_to_make_edits_visible">Cree una cuenta OpenStreetMap o inicie sesión para publicar sus ediciones de mapas en todo el mundo.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d de %2$d</string>
@@ -569,7 +569,7 @@
     <!-- Phone number error message -->
     <string name="error_enter_correct_phone">Introduzca un número de teléfono correcto</string>
     <string name="error_enter_correct_web">Introduzca una dirección web válida</string>
-    <string name="error_enter_correct_email">Introduzca un email válido</string>
+    <string name="error_enter_correct_email">Introduzca un correo válido</string>
     <string name="error_enter_correct_facebook_page">Introduzca una dirección web, una cuenta o un nombre de página de Facebook válidos</string>
     <string name="error_enter_correct_instagram_page">Introduzca una dirección web o un nombre de cuenta de Instagram válidos</string>
     <string name="error_enter_correct_twitter_page">Introduzca una dirección web o un nombre de usuario válido de Twitter</string>
@@ -583,7 +583,7 @@
     <string name="editor_share_to_all_dialog_message_2">Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.</string>
     <string name="navigation_stop_button">Detener</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Registro de la pista</string>
+    <string name="track_recording">Grabando el trayecto</string>
     <!-- For the first routing -->
     <string name="accept">Aceptar</string>
     <!-- For the first routing -->
@@ -598,7 +598,7 @@
     <string name="mobile_data_option_never">No usar nunca</string>
     <string name="mobile_data_option_ask">Preguntar siempre</string>
     <string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
-    <string name="big_font">Aumentar el tamaño de fuente en el mapa</string>
+    <string name="big_font">Aumentar tamaño del texto en el mapa</string>
     <string name="traffic_update_app">Por favor, actualice Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Los datos de tráfico no están disponibles</string>
@@ -637,16 +637,16 @@
     </plurals>
     <string name="bookmarks_create_new_group">Crear nueva lista</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importar marcadores y trazas</string>
+    <string name="bookmarks_import">Importar marcadores y trayectos</string>
     <string name="bookmarks_error_message_share_general">No se puede compartir debido a un error de la aplicación</string>
     <string name="bookmarks_error_title_share_empty">Error al compartir</string>
     <string name="bookmarks_error_message_share_empty">No se puede compartir una lista vacía</string>
-    <string name="bookmarks_error_title_empty_list_name">El nombre no puede estar vacío</string>
-    <string name="bookmarks_error_message_empty_list_name">Por favor ingrese el nombre de la lista</string>
+    <string name="bookmarks_error_title_empty_list_name">El nombre no puede quedar vacío</string>
+    <string name="bookmarks_error_message_empty_list_name">Proporcione el nombre de la lista</string>
     <string name="bookmarks_new_list_hint">Lista nueva</string>
-    <string name="bookmarks_error_title_list_name_already_taken">Este nombre ya ha sido tomado</string>
-    <string name="bookmarks_error_message_list_name_already_taken">Por favor elija otro nombre</string>
-    <string name="please_wait">Por favor, espere…</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Este nombre ya existe</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Elija otro nombre</string>
+    <string name="please_wait">Espere…</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
@@ -655,12 +655,13 @@
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
-        <item quantity="one">%d ruta</item>
-        <item quantity="other">%d rutas</item>
+        <item quantity="one">%d trayecto</item>
+        <item quantity="many">%d trayectos</item>
+        <item quantity="other">%d trayectos</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privacidad</string>
-    <string name="privacy_policy">Política de privacidad</string>
+    <string name="privacy_policy">Normativa de privacidad</string>
     <string name="terms_of_use">Condiciones de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
     <string name="button_layer_subway">Metro</string>
@@ -686,26 +687,26 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">No alertar nunca</string>
     <string name="power_managment_title">Modo de ahorro de energía</string>
-    <string name="power_managment_description">Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones que consumen energía, según la carga actual del teléfono</string>
+    <string name="power_managment_description">Se tratará de reducir el consumo de energía a expensas de ciertas funcionalidades.</string>
     <string name="power_managment_setting_never">Nunca</string>
-    <string name="power_managment_setting_auto">Automático</string>
-    <string name="power_managment_setting_manual_max">Ahorro de energía máximo</string>
-    <string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.</string>
+    <string name="power_managment_setting_auto">Cuando queda poca energía</string>
+    <string name="power_managment_setting_manual_max">Siempre</string>
+    <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
     <string name="access_rules_author_only">Edición en línea</string>
     <string name="driving_options_title">Opciones de enrutamiento</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar peajes</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-    <string name="avoid_unpaved">Evitar vías sin pavimentar</string>
+    <string name="avoid_unpaved">Evitar caminos sin pavimentar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evitar ferris</string>
     <string name="avoid_motorways">Evitar autopistas</string>
     <string name="unable_to_calc_alert_title">No se puede calcular la ruta</string>
-    <string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos encontrar una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
-    <string name="define_to_avoid_btn">Defina las carreteras a evitar</string>
-    <string name="change_driving_options_btn">Opciones de enrutamiento habilitadas</string>
-    <string name="toll_road">Carretera con pago de peaje</string>
-    <string name="unpaved_road">Camino sin pavimento</string>
+    <string name="unable_to_calc_alert_subtitle">No se pudo encontrar una ruta. Quizá se deba a las opciones de enrutamiento o a datos faltantes en OpenStreetMap. Revise sus opciones de enrutamiento y vuelva a intentarlo.</string>
+    <string name="define_to_avoid_btn">Defina los caminos para evitar</string>
+    <string name="change_driving_options_btn">Opciones de enrutamiento activadas</string>
+    <string name="toll_road">Carretera de peaje</string>
+    <string name="unpaved_road">Camino sin pavimentar</string>
     <string name="ferry_crossing">Cruce de ferri</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
@@ -719,8 +720,8 @@
     <string name="capacity">Capacidad: %s</string>
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="network">Red: %s</string>
-    <string name="trip_finished">¡Ya ha llegado!</string>
-    <string name="ok">Ok</string>
+    <string name="trip_finished">¡Ha llegado!</string>
+    <string name="ok">Aceptar</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordenar…</string>
     <!-- Android, title, max 20-22 symbols -->
@@ -789,11 +790,11 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Mostrar en la pantalla de bloqueo</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Cuando está habilitado, no tiene que desbloquear su dispositivo mientras la aplicación se está ejecutando.</string>
+    <string name="enable_show_on_lock_screen_description">Cuando se activa, no tiene que desbloquear el dispositivo para ejecutar la aplicación.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Idioma del mapa</string>
     <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Datos de mapas de OpenStreetMap</string>
+    <string name="splash_subtitle">Datos cartográficos de OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->
     <string name="tts_info_link">https://organicmaps.app/es/faq/instrucciones-de-voz-tts-en-android/</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
@@ -844,11 +845,11 @@
     <string name="browser_not_available">El navegador web no está disponible</string>
     <string name="volume">Volumen</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Exportar todos los marcadores y pistas</string>
+    <string name="bookmarks_export">Exportar todos los marcadores y trayectos</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
+    <string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Sabe si su dispositivo la admite?</string>
     <string name="drive_through">Servicio al coche</string>
     <string name="clear_the_search">Borrar búsqueda</string>
     <string name="zoom_in">Acercar</string>
@@ -866,23 +867,23 @@
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Asientos al aire libre</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">Para una navegación más precisa, te recomendamos que desactives el modo de ahorro de energía en los ajustes de la batería del teléfono.</string>
+    <string name="power_save_dialog_summary">Para una navegación más precisa, recomendamos que desactive el modo de ahorro de energía en la configuración de la batería del teléfono.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Grabar ruta</string>
+    <string name="start_track_recording">Grabar trayecto</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Detener grabación de ruta</string>
+    <string name="stop_track_recording">Detener grabación de trayecto</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Parar sin guardar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar grabación</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">¿Guardar en Marcadores y Rutas?</string>
+    <string name="track_recording_alert_title">¿Guardar en Marcadores y trayectos?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">La ruta está vacía - no hay nada que guardar</string>
+    <string name="track_recording_toast_nothing_to_save">El trayecto está vacío; no hay nada que guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">No se puede mostrar el diálogo de selección de carpetas porque no hay ninguna app adecuada instalada en su dispositivo. Instale una aplicación de gestión de archivos e inténtelo de nuevo</string>
+    <string name="error_no_file_manager_app">No se puede mostrar el diálogo de selección de carpetas porque no hay ninguna aplicación adecuada instalada en el dispositivo. Instale un gestor de archivos e inténtelo de nuevo.</string>
     <string name="choose_color">Elegir color</string>
-    <string name="edit_track">Editar traza</string>
+    <string name="edit_track">Editar trayecto</string>
     <string name="uri_open_location_failed">No hay ninguna aplicación instalada que pueda abrir la ubicación</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto en navegación</string>

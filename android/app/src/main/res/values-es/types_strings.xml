@@ -393,7 +393,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Túnel</string>
     <string name="type.highway.elevator">Ascensor</string>
-    <string name="type.highway.footway">Camino</string>
+    <string name="type.highway.footway">Senda</string>
     <string name="type.highway.footway.sidewalk">Acera</string>
     <string name="type.highway.footway.crossing">Paso de peatones</string>
     <string name="type.highway.footway.area">Zona peatonal</string>
@@ -418,7 +418,7 @@
     <string name="type.highway.motorway_link.bridge">Puente</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Túnel</string>
-    <string name="type.highway.path">Camino</string>
+    <string name="type.highway.path">Sendero</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
     <string name="type.highway.path.difficult">Sendero difícil o poco visible</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
@@ -522,10 +522,10 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Túnel de carretera sin clasificar</string>
     <string name="type.area_highway.cycleway">Ciclovía</string>
-    <string name="type.area_highway.footway">Camino</string>
+    <string name="type.area_highway.footway">Senda</string>
     <string name="type.area_highway.living_street">Calle de prioridad peatonal</string>
     <string name="type.area_highway.motorway">Autopista</string>
-    <string name="type.area_highway.path">Camino</string>
+    <string name="type.area_highway.path">Sendero</string>
     <string name="type.area_highway.pedestrian">Calle peatonal</string>
     <string name="type.area_highway.primary">Carretera principal</string>
     <string name="type.area_highway.residential">Calle residencial</string>
@@ -608,7 +608,7 @@
     <string name="type.landuse.forest.mixed">Bosque mixto</string>
     <string name="type.landuse.garages">Garajes</string>
     <string name="type.landuse.grass">Césped</string>
-    <string name="type.landuse.greenfield">Invernadero</string>
+    <string name="type.landuse.greenfield">Terreno no urbanizado</string>
     <string name="type.landuse.greenhouse_horticulture">Invernadero</string>
     <string name="type.landuse.industrial">Zona industrial</string>
     <string name="type.landuse.landfill">Vertedero</string>
@@ -804,7 +804,7 @@
     <string name="type.power.station">Estación eléctrica</string>
     <string name="type.power.substation">Subestación eléctrica</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
-    <string name="type.power.tower">Poste eléctrico</string>
+    <string name="type.power.tower">Torre eléctrica</string>
     <string name="type.public_transport">Transporte público</string>
     <string name="type.public_transport.platform">Plataforma</string>
     <string name="type.railway">Vía férrea</string>
@@ -1345,7 +1345,7 @@
     <string name="type.shop.auction">Subasta</string>
     <string name="type.shop.collector">Coleccionables</string>
     <string name="type.self_service.yes">Autoservicio disponible</string>
-    <string name="type.self_service.only">Sólo autoservicio</string>
+    <string name="type.self_service.only">Solo autoservicio</string>
     <string name="type.self_service.partially">Autoservicio parcial</string>
     <string name="type.self_service.no">Sin autoservicio</string>
     <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
@@ -1356,8 +1356,10 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pabellón deportivo</string>
-    <string name="type.railway.preserved.bridge">Puente Ferroviario Conservado</string>
-    <string name="type.railway.preserved.tunnel">Túnel Ferroviario Conservado</string>
-    <string name="type.power.pole">Poste Eléctrico</string>
+    <string name="type.railway.preserved.bridge">Puente ferroviario conservado</string>
+    <string name="type.railway.preserved.tunnel">Túnel ferroviario conservado</string>
+    <string name="type.power.pole">Poste eléctrico</string>
     <string name="type.man_made.utility_pole">Poste</string>
+    <string name="type.railway.abandoned.tunnel">Túnel ferroviario abandonado</string>
+    <string name="type.railway.abandoned.bridge">Puente ferroviario abandonado</string>
 </resources>

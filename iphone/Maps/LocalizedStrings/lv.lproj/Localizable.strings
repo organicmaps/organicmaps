@@ -172,7 +172,7 @@
 "unknown_current_position" = "Jūsu atrašanās vieta vēl nav noteikta";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, apskatiet manu grāmatzīmi „Organic Maps“ kartē!";
+"bookmark_share_email_subject" = "Hei, apskatiet manu grāmatzīmi Organic Maps kartē!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!";
@@ -281,7 +281,7 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Ziedojiet, lai kopā varam veidot vislabākās kartes!";
-"already_donated" = "Already donated";
+"already_donated" = "Jau esmu ziedojis/usi";
 "remind_me_later" = "Atgādināt vēlāk";
 "support_organic_maps" = "Atbalstīt Organic Maps";
 
@@ -467,7 +467,7 @@
 "read_in_wikipedia" = "Vikipēdija";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "Vikikrātuve";
 "p2p_your_location" = "Jūsu atrašanās vieta";
 "p2p_start" = "Sākt";
 "p2p_from_here" = "Maršruts no";
@@ -568,7 +568,7 @@
 "message_invalid_feature_position" = "Šeit objekti nevar atrasties";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Kopiena veidotie „OpenStreetMap“ dati uz %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
+"osm_presentation" = "Kopienas veidotie „OpenStreetMap“ dati, %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
 "login_to_make_edits_visible" = "Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.";
 
 /* Error dialog no space */
@@ -588,7 +588,7 @@
 "error_enter_correct_zip_code" = "Ierakstiet pasta indeksu";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
+"core_placepage_unknown_place" = "Punkts kartē";
 
 /* Title for OSM note section in the editor */
 "editor_other_info" = "Note to OpenStreetMap volunteers (optional)";
@@ -727,7 +727,7 @@
 "start_from_my_position" = "Sākt no";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
-"alert_reauth_message_ios" = "Ierakstieties „OpenStraatMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
+"alert_reauth_message_ios" = "Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "te";
@@ -752,7 +752,7 @@
 "bookmarks_error_message_empty_list_name" = "Ierakstiet saraksta nosaukumu";
 "bookmarks_error_title_list_name_already_taken" = "Šāds nosaukums jau ir aizņemts";
 "bookmarks_error_title_list_name_too_long" = "Nosaukums ir par garu";
-"profile" = "„OpenStraatMap“ profils";
+"profile" = "„OpenStreetMap“ profils";
 "bookmarks_detect_title" = "Atrastas jaunas datnes";
 "button_convert" = "Konvertēt";
 "bookmarks_convert_error_title" = "Kļūda";
@@ -1052,7 +1052,7 @@
 "recover_all" = "Atjaunot visu";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Record Track";
+"start_track_recording" = "Ierakstīt ceļu";
 
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stop Track Recording";

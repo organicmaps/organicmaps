@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Presó</string>
     <string name="type.amenity.pub">Taverna</string>
     <string name="type.amenity.public_bookcase">Intercanvi de llibres</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centre de reciclatge</string>
     <string name="type.amenity.recycling">Contenidor de reciclatge</string>
@@ -206,13 +205,13 @@
     <string name="type.barrier.retaining_wall">Mur de contenció</string>
     <string name="type.barrier.turnstile">Torniquet</string>
     <string name="type.boundary.aboriginal_lands">Terres indígenes</string>
-    <string name="type.boundary.protected_area">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.1">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.2">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.3">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.4">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.5">Àrea Protegida</string>
-    <string name="type.boundary.protected_area.6">Àrea Protegida</string>
+    <string name="type.boundary.protected_area">Àrea protegida</string>
+    <string name="type.boundary.protected_area.1">Àrea protegida</string>
+    <string name="type.boundary.protected_area.2">Àrea protegida</string>
+    <string name="type.boundary.protected_area.3">Àrea protegida</string>
+    <string name="type.boundary.protected_area.4">Àrea protegida</string>
+    <string name="type.boundary.protected_area.5">Àrea protegida</string>
+    <string name="type.boundary.protected_area.6">Àrea protegida</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adreça</string>
     <string name="type.building.train_station">Edifici de l\'Estació</string>
@@ -230,7 +229,6 @@
     <string name="type.entrance.main">Entrada principal</string>
     <string name="type.entrance.exit">Sortida</string>
     <string name="type.fee.no">Gratuït</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
     <string name="type.highway.footway.sidewalk">Vorera</string>
@@ -244,7 +242,6 @@
     <string name="type.highway.footway.bicycle">Camí</string>
     <string name="type.highway.path.horse">Camí</string>
     <string name="type.area_highway.path">Camí</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Avions històrics</string>
     <string name="type.historic.anchor">Àncora històrica</string>
@@ -387,7 +384,7 @@
     <string name="type.attraction.carousel">Carrusel</string>
     <string name="type.attraction.historic">Atracció històrica</string>
     <string name="type.attraction.maze">Laberint</string>
-    <string name="type.attraction.roller_coaster">Muntanya Russa</string>
+    <string name="type.attraction.roller_coaster">Muntanya russa</string>
     <string name="type.attraction.water_slide">Tobogan aquàtic</string>
     <string name="type.tourism.attraction.specified">Atracció</string>
     <string name="type.tourism.camp_site">Paratge d’acampada</string>
@@ -396,7 +393,7 @@
     <string name="type.tourism.chalet">Casa rural de vacances</string>
     <string name="type.tourism.gallery">Galeria d’art</string>
     <string name="type.tourism.guest_house">Casa d’hostes</string>
-    <string name="type.tourism.information">Información turística</string>
+    <string name="type.tourism.information">Informació turística</string>
     <string name="type.tourism.information.board">Tauler informatiu</string>
     <string name="type.tourism.information.map">Mapa turístic</string>
     <string name="type.tourism.information.office">Oficina de turisme</string>
@@ -454,4 +451,53 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Pavelló esportiu</string>
+    <string name="type.boundary.national_park">Parc nacional</string>
+    <string name="type.craft.hvac">Calefacció, ventilació i aire condicionat</string>
+    <string name="type.man_made.tower">Torre</string>
+    <string name="type.man_made.storage_tank">Tanc d’emmagatzematge</string>
+    <string name="type.sport.chess">Escacs</string>
+    <string name="type.sport">Esport</string>
+    <string name="type.building">Edifici</string>
+    <string name="type.sport.badminton">Bàdminton</string>
+    <string name="type.sport.pelota">Pilota basca</string>
+    <string name="type.sport.swimming">Natació</string>
+    <string name="type.man_made.surveillance">Càmera de vigilància</string>
+    <string name="type.sport.equestrian">Esports eqüestres</string>
+    <string name="type.sport.athletics">Atletisme</string>
+    <string name="type.man_made.silo">Sitja</string>
+    <string name="type.man_made.windmill">Molí de vent</string>
+    <string name="type.craft.photographer">Fotògraf</string>
+    <string name="type.highway.bus_stop">Parada d’autobús</string>
+    <string name="type.highway.busway.bridge">Pont</string>
+    <string name="type.emergency">Emergències</string>
+    <string name="type.highway.speed_camera">Càmera de trànsit</string>
+    <string name="type.highway.track">Sender</string>
+    <string name="type.highway.track.grade1">Sender</string>
+    <string name="type.historic">Objecte històric</string>
+    <string name="type.highway.track.no.access">Sender</string>
+    <string name="type.highway.track.area">Sender</string>
+    <string name="type.highway.traffic_signals">Semàfor</string>
+    <string name="type.landuse.greenfield">Terreny urbanitzable</string>
+    <string name="type.landuse">Ús del sòl</string>
+    <string name="type.landuse.landfill">Abocador</string>
+    <string name="type.landuse.industrial">Àrea industrial</string>
+    <string name="type.landuse.greenhouse_horticulture">Hivernacle</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.landuse.quarry">Pedrera</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.leisure.park.no.access">Parc privat</string>
+    <string name="type.leisure.park.permissive">Parc</string>
+    <string name="type.leisure.park.private">Parc privat</string>
+    <string name="type.leisure.park">Parc</string>
+    <string name="type.landuse.forest">Bosc</string>
+    <string name="type.leisure.garden">Jardí</string>
+    <string name="type.landuse.garages">Garatges</string>
+    <string name="type.man_made.embankment">Terraplè</string>
+    <string name="type.natural.beach">Platja</string>
+    <string name="type.natural.water.river">Riu</string>
+    <string name="type.place.city">Ciutat</string>
+    <string name="type.power">Energia</string>
+    <string name="type.place.island">Illa</string>
+    <string name="type.place.islet">Illot</string>
+    <string name="type.public_transport">Transport públic</string>
 </resources>

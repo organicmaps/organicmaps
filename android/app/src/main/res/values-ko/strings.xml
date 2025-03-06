@@ -101,10 +101,9 @@
     <string name="measurement_units">측정 단위</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
-    <string name="category_eat">어디서먹을까</string>
+    <string name="category_eat">어디서 먹을까</string>
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">식료품들</string>
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
@@ -149,7 +148,6 @@
     <string name="category_water">물</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV용</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">메모</string>
@@ -205,7 +203,7 @@
     <!-- Length of track in cell that describes route -->
     <string name="length">길이</string>
     <string name="share_my_location">내 위치 공유</string>
-    <string name="prefs_group_route">네비게이션</string>
+    <string name="prefs_group_route">내비게이션</string>
     <string name="pref_zoom_title">확대/축소 버튼</string>
     <string name="pref_zoom_summary">화면에 표시</string>
     <!-- Settings «Map» category: «Night style» title -->
@@ -343,7 +341,6 @@
     <string name="gray">회색</string>
     <!-- blue gray color -->
     <string name="blue_gray">청회색</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">경로를 따라갈 때는 다음 사항에 주의해 주세요:</string>
     <string name="dialog_routing_disclaimer_priority">— 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;</string>
@@ -373,7 +370,6 @@
     <string name="not_now">나중에</string>
     <string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
     <string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
     <string name="search_select_map">지도 선택</string>
@@ -602,7 +598,7 @@
     <string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
     <string name="core_entrance">입구</string>
     <string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
-    <string name="bookmark_lists">기울기</string>
+    <string name="bookmark_lists">목록</string>
     <!-- Do not display all bookmark lists on the map -->
     <string name="bookmark_lists_hide_all">모두 숨기기</string>
     <string name="bookmark_lists_show_all">모두 표시</string>
@@ -672,7 +668,7 @@
     <string name="avoid_unpaved">비포장 도로 피하기</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">여객선 횡단길 피하기</string>
-    <string name="avoid_motorways">고속도로를 피하세요</string>
+    <string name="avoid_motorways">고속도로 피하기</string>
     <string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
     <string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
     <string name="define_to_avoid_btn">피할 도로 정의하기</string>
@@ -714,7 +710,6 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">음식</string>
     <string name="tourist_places">명소</string>
@@ -823,9 +818,9 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">트랙 녹음</string>
+    <string name="start_track_recording">트랙 기록</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">트랙 기록을 중지하시겠습니까</string>
+    <string name="stop_track_recording">트랙 기록 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">저장하지 않고 중지</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
@@ -840,5 +835,6 @@
     <string name="edit_track">경로 편집</string>
     <string name="uri_open_location_failed">위치를 열 수 있는 앱이 설치되어 있지 않습니다.</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">내비게이션의 자동</string>
+    <string name="nav_auto">내비게이션에서 자동</string>
+    <string name="change_map_locale">지도 언어</string>
 </resources>

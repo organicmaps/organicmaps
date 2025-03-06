@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Karten speichern auf</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Wählen Sie den Speicherort für die heruntergeladenen Karten</string>
+    <string name="maps_storage_summary">Wählen Sie den Speicherort für die heruntergeladenen Karten.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Heruntergeladene Karten</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -114,7 +114,6 @@
     <string name="measurement_units">Maßeinheiten</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wählen Sie zwischen Kilometern und Meilen</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Essmöglichkeiten</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Wasser</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Einrichtungen für Wohnmobile</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notizen</string>
@@ -199,7 +197,7 @@
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an</string>
+    <string name="my_position_share_email_subject">Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hi,
 \n
@@ -249,7 +247,7 @@
     <!-- Settings «Route» category: «Tts announce street names» title -->
     <string name="pref_tts_street_names_title">Straßennamen ankündigen</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
-    <string name="pref_tts_street_names_description">Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt</string>
+    <string name="pref_tts_street_names_description">Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt.</string>
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Sprache für Sprachführung</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
@@ -264,7 +262,7 @@
     <!-- Text in menu -->
     <string name="website">Webseite</string>
     <!-- Text in About menu, opens Organic Maps news website -->
-    <string name="news">News</string>
+    <string name="news">Neuigkeiten</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
     <!-- Text in menu -->
@@ -365,13 +363,12 @@
     <string name="gray">Grau</string>
     <!-- blue gray color -->
     <string name="blue_gray">Graublau</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Wenn Sie der Route folgen, beachten Sie bitte:</string>
     <string name="dialog_routing_disclaimer_priority">– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;</string>
     <string name="dialog_routing_disclaimer_precision">– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;</string>
-    <string name="dialog_routing_disclaimer_borders">— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;</string>
+    <string name="dialog_routing_disclaimer_borders">— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.</string>
     <string name="dialog_routing_disclaimer_beware">Bitte fahren Sie aufmerksam und sicher!</string>
     <string name="dialog_routing_check_gps">GPS-Signal prüfen</string>
     <string name="dialog_routing_error_location_not_found">Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.</string>
@@ -395,7 +392,6 @@
     <string name="not_now">Nicht jetzt</string>
     <string name="dialog_routing_download_and_build_cross_route">Möchten Sie die Karte herunterladen und eine bessere Route erstellen, die mehr als eine Karte umfasst?</string>
     <string name="dialog_routing_download_cross_route">Laden Sie zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
     <string name="search_select_map">Karte auswählen</string>
@@ -541,7 +537,7 @@
     <string name="editor_category_unsuitable_text">Mit Organic Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.</string>
     <string name="downloader_no_downloaded_maps_title">Keine Karten heruntergeladen</string>
     <string name="downloader_no_downloaded_maps_message">Laden Sie Karten für die Offline-Suche und Navigation herunter.</string>
-    <string name="current_location_unknown_error_title">Aktueller Standort unbekannt</string>
+    <string name="current_location_unknown_error_title">Aktueller Standort ist unbekannt.</string>
     <!-- abbreviation for meters -->
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
@@ -600,7 +596,7 @@
     <string name="mobile_data_dialog">Mobiles Internet verwenden, um genauere Informationen anzuzeigen?</string>
     <string name="mobile_data_option_always">Immer verwenden</string>
     <string name="mobile_data_option_today">Nur heute</string>
-    <string name="mobile_data_option_not_today">Heute nicht verwenden</string>
+    <string name="mobile_data_option_not_today">Heute Nicht Verwenden</string>
     <string name="mobile_data">Mobiles Internet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Für Benachrichtigungen über Kartenaktualisierungen und das Hochladen von Änderungen ist eine mobile Internetverbindung erforderlich.</string>
@@ -614,9 +610,8 @@
     <string name="enable_logging">Protokollierung aktivieren</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Allgemeines Feedback</string>
-    <string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren können.</string>
-    <string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid). 
-\nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
+    <string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren können</string>
+    <string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachgenerator oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play, Galaxy Store, App Gallery, FDroid).\nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe.\nHier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Sprachausgabeprogramm auswählen.</string>
     <string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
     <string name="transliteration_title">Transliteration ins Lateinische</string>
     <string name="learn_more">Weitere Informationen</string>
@@ -633,7 +628,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
-    <string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
     <string name="core_entrance">Eingang</string>
     <string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
@@ -642,6 +637,7 @@
     <string name="bookmark_lists_hide_all">Alle ausblenden</string>
     <string name="bookmark_lists_show_all">Alle anzeigen</string>
     <plurals name="bookmarks_places">
+        <item quantity="one">%d Lesezeichen</item>
         <item quantity="other">%d Lesezeichen</item>
     </plurals>
     <string name="bookmarks_create_new_group">Neue Liste erstellen</string>
@@ -695,7 +691,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Niemals warnen</string>
     <string name="power_managment_title">Stromsparmodus</string>
-    <string name="power_managment_description">Wenn der Stromsparmodus aktiviert ist, wird die App stromintensive Funktionen je nach aktuellem Ladezustand des Akkus deaktivieren</string>
+    <string name="power_managment_description">Versuchen Sie, den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.</string>
     <string name="power_managment_setting_never">Niemals</string>
     <string name="power_managment_setting_auto">Auto</string>
     <string name="power_managment_setting_manual_max">Maximale Stromsparung</string>
@@ -710,7 +706,7 @@
     <string name="avoid_ferry">Fähren vermeiden</string>
     <string name="avoid_motorways">Autobahnen vermeiden</string>
     <string name="unable_to_calc_alert_title">Route kann nicht berechnet werden</string>
-    <string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit den gewählten Optionen erstellen. Ändern Sie die Einstellungen und versuchen Sie es erneut</string>
+    <string name="unable_to_calc_alert_subtitle">Eine Route konnte nicht gefunden werden. Dies kann an Ihren Routing-Optionen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändern Sie Ihre Routing-Optionen und versuchen Sie es erneut.</string>
     <string name="define_to_avoid_btn">Routenbeschränkung einstellen</string>
     <string name="change_driving_options_btn">Routenbeschränkungen aktiv</string>
     <string name="toll_road">Mautstraße</string>
@@ -750,7 +746,6 @@
     <string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
     <string name="near_me_sorttype">In meiner Nähe</string>
     <string name="others_sorttype">Sonstiges</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Essen</string>
     <string name="tourist_places">Sehenswürdigkeiten</string>
@@ -843,7 +838,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Diese App braucht deine Erlaubnis</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto benötigt eine Standortberechtigung, um effektiv zu funktionieren</string>
+    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto benötigt Standortberechtigungen, um effektiv zu funktionieren</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Erlaubnis erteilen</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -888,10 +883,29 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Route ist leer - nichts zu speichern</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Das Dialogfeld zur Ordnerauswahl kann nicht angezeigt werden, da keine geeignete App auf Ihrem Gerät installiert ist. Bitte installieren Sie eine Dateimanager-App und versuchen Sie es erneut</string>
+    <string name="error_no_file_manager_app">Das Dialogfeld zur Ordnerauswahl kann nicht angezeigt werden, da keine geeignete App auf Ihrem Gerät installiert ist. Bitte installieren Sie eine Dateimanager-App und versuchen Sie es erneut.</string>
     <string name="choose_color">Farbe auswählen</string>
     <string name="edit_track">Track bearbeiten</string>
     <string name="uri_open_location_failed">Keine App installiert, die den Speicherort öffnen kann</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in der Navigation</string>
+    <string name="menu">Menü</string>
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="editor_line_social_network">LINIE</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="vk">VK</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="gb">GB</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="mb">MB</string>
+    <string name="instagram">Instagram</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="facebook">Facebook</string>
 </resources>

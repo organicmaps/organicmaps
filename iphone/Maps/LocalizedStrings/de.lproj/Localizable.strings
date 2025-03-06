@@ -175,7 +175,7 @@
 "bookmark_share_email_subject" = "Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an";
+"my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -235,7 +235,7 @@
 "pref_tts_street_names_title" = "Straßennamen ankündigen";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt";
+"pref_tts_street_names_description" = "Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Sprache für Sprachführung";
@@ -253,7 +253,7 @@
 "website" = "Webseite";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "News";
+"news" = "Neuigkeiten";
 
 /* Text in menu */
 "facebook" = "Facebook";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "– Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;";
 "dialog_routing_disclaimer_precision" = "– Die Karte kann ungenau sein, und die vorgeschlagene Route ist möglicherweise nicht der optimale Weg, um das Ziel zu erreichen;";
 "dialog_routing_disclaimer_recommendations" = "— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
-"dialog_routing_disclaimer_borders" = "— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;";
+"dialog_routing_disclaimer_borders" = "— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten.";
 "dialog_routing_disclaimer_beware" = "Bitte fahren Sie aufmerksam und sicher!";
 "dialog_routing_check_gps" = "GPS-Signal prüfen";
 "dialog_routing_error_location_not_found" = "Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.";
@@ -603,7 +603,7 @@
 "editor_category_unsuitable_text" = "Mit Organic Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> hinzu. In unserem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.";
 "downloader_no_downloaded_maps_title" = "Keine Karten heruntergeladen";
 "downloader_no_downloaded_maps_message" = "Laden Sie Karten für die Offline-Suche und Navigation herunter.";
-"current_location_unknown_error_title" = "Aktueller Standort unbekannt";
+"current_location_unknown_error_title" = "Aktueller Standort ist unbekannt.";
 "current_location_unknown_error_message" = "Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.";
 "location_services_disabled_header" = "Standortdienste sind deaktiviert";
 "location_services_disabled_message" = "Aktivieren Sie den Zugang zur Positionsbestimmung in den Geräteeinstellungen";
@@ -692,7 +692,7 @@
 "mobile_data_dialog" = "Mobiles Internet verwenden, um genauere Informationen anzuzeigen?";
 "mobile_data_option_always" = "Immer verwenden";
 "mobile_data_option_today" = "Nur heute";
-"mobile_data_option_not_today" = "Heute nicht verwenden";
+"mobile_data_option_not_today" = "Heute Nicht Verwenden";
 "mobile_data" = "Mobiles Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -783,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Niemals warnen";
 "power_managment_title" = "Stromsparmodus";
-"power_managment_description" = "Wenn der Stromsparmodus aktiviert ist, wird die App stromintensive Funktionen je nach aktuellem Ladezustand des Akkus deaktivieren";
+"power_managment_description" = "Versuchen Sie, den Stromverbrauch auf Kosten einiger Funktionen zu reduzieren.";
 "power_managment_setting_never" = "Niemals";
 "power_managment_setting_auto" = "Auto";
 "power_managment_setting_manual_max" = "Maximale Stromsparung";
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Fähren vermeiden";
 "avoid_motorways" = "Autobahnen vermeiden";
 "unable_to_calc_alert_title" = "Route kann nicht berechnet werden";
-"unable_to_calc_alert_subtitle" = "Leider konnten wir keine Route mit den gewählten Optionen erstellen. Ändern Sie die Einstellungen und versuchen Sie es erneut";
+"unable_to_calc_alert_subtitle" = "Eine Route konnte nicht gefunden werden. Dies kann an Ihren Routing-Optionen oder an unvollständigen OpenStreetMap-Daten liegen. Bitte ändern Sie Ihre Routing-Optionen und versuchen Sie es erneut.";
 "define_to_avoid_btn" = "Routenbeschränkung einstellen";
 "change_driving_options_btn" = "Routenbeschränkungen aktiv";
 "toll_road" = "Mautstraße";

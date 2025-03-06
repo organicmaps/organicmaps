@@ -1,7 +1,3 @@
-
-
-/********** Types **********/
-
 "type.addr_interpolation" = "Adres/blok";
 "type.addr_interpolation.even" = "Adres/blok";
 "type.addr_interpolation.odd" = "Adres/blok";
@@ -132,10 +128,6 @@
 "type.amenity.prison" = "Gevangenis";
 "type.amenity.pub" = "Kroeg";
 "type.amenity.public_bookcase" = "Boekekas";
-
-
-/********** Types: Recycling **********/
-
 "type.amenity.recycling.centre" = "Herwinningsentrum";
 "type.amenity.recycling" = "Herwinningshouer";
 "type.amenity.recycling.container" = "Herwinningshouer";
@@ -391,10 +383,6 @@
 "type.healthcare.psychotherapist" = "Psigoterapeut";
 "type.healthcare.sample_collection" = "Bemonstering";
 "type.healthcare.speech_therapist" = "Logopedie";
-
-
-/********** Types: Roads **********/
-
 "type.highway" = "Snelweg";
 "type.highway.bridleway" = "Ruiterpad";
 
@@ -610,10 +598,6 @@
 "type.area_highway.unclassified" = "Straat";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
-
-/********** Types: Historic **********/
-
 "type.historic" = "Historiese voorwerp";
 "type.historic.aircraft" = "Historic Aircraft";
 "type.historic.anchor" = "Historic Anchor";

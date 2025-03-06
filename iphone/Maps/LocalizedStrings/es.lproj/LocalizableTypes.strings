@@ -410,7 +410,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Túnel";
 "type.highway.elevator" = "Ascensor";
-"type.highway.footway" = "Camino";
+"type.highway.footway" = "Senda";
 "type.highway.footway.sidewalk" = "Acera";
 "type.highway.footway.crossing" = "Paso de peatones";
 "type.highway.footway.area" = "Zona peatonal";
@@ -443,7 +443,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Túnel";
-"type.highway.path" = "Camino";
+"type.highway.path" = "Sendero";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
 "type.highway.path.difficult" = "Sendero difícil o poco visible";
@@ -582,10 +582,10 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Túnel de carretera sin clasificar";
 "type.area_highway.cycleway" = "Ciclovía";
-"type.area_highway.footway" = "Camino";
+"type.area_highway.footway" = "Senda";
 "type.area_highway.living_street" = "Calle de prioridad peatonal";
 "type.area_highway.motorway" = "Autopista";
-"type.area_highway.path" = "Camino";
+"type.area_highway.path" = "Sendero";
 "type.area_highway.pedestrian" = "Calle peatonal";
 "type.area_highway.primary" = "Carretera principal";
 "type.area_highway.residential" = "Calle residencial";
@@ -686,7 +686,7 @@
 "type.landuse.forest.mixed" = "Bosque mixto";
 "type.landuse.garages" = "Garajes";
 "type.landuse.grass" = "Césped";
-"type.landuse.greenfield" = "Invernadero";
+"type.landuse.greenfield" = "Terreno no urbanizado";
 "type.landuse.greenhouse_horticulture" = "Invernadero";
 "type.landuse.industrial" = "Zona industrial";
 "type.landuse.landfill" = "Vertedero";
@@ -895,10 +895,10 @@
 "type.power.substation" = "Subestación eléctrica";
 
 /* A tower or pylon carrying high voltage electricity cables. */
-"type.power.tower" = "Poste eléctrico";
+"type.power.tower" = "Torre eléctrica";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Poste Eléctrico";
+"type.power.pole" = "Poste eléctrico";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
 "type.man_made.utility_pole" = "Poste";
@@ -911,8 +911,8 @@
 "type.public_transport.platform" = "Plataforma";
 "type.railway" = "Vía férrea";
 "type.railway.abandoned" = "Vía férrea abandonada";
-"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
-"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.abandoned.bridge" = "Puente ferroviario abandonado";
+"type.railway.abandoned.tunnel" = "Túnel ferroviario abandonado";
 "type.railway.construction" = "Vía férrea en construcción";
 "type.railway.crossing" = "Paso a nivel";
 "type.railway.disused" = "Vía férrea en desuso";
@@ -932,8 +932,8 @@
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 "type.railway.platform" = "Plataforma de vía férrea";
 "type.railway.preserved" = "Preserved Rail";
-"type.railway.preserved.bridge" = "Puente Ferroviario Conservado";
-"type.railway.preserved.tunnel" = "Túnel Ferroviario Conservado";
+"type.railway.preserved.bridge" = "Puente ferroviario conservado";
+"type.railway.preserved.tunnel" = "Túnel ferroviario conservado";
 "type.railway.rail" = "Ferrocarril";
 "type.railway.rail.highspeed" = "Ferrocarril de alta velocidad";
 "type.railway.rail.tourism" = "Ferrocarril turístico";
@@ -1469,7 +1469,7 @@
 "type.shop.auction" = "Subasta";
 "type.shop.collector" = "Coleccionables";
 "type.self_service.yes" = "Autoservicio disponible";
-"type.self_service.only" = "Sólo autoservicio";
+"type.self_service.only" = "Solo autoservicio";
 "type.self_service.partially" = "Autoservicio parcial";
 "type.self_service.no" = "Sin autoservicio";
 

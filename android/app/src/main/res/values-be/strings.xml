@@ -892,4 +892,23 @@
     <string name="telegram">Telegram</string>
     <string name="instagram">Instagram</string>
     <string name="github">GitHub</string>
+    <string name="level_value_generic">Узровень: %s</string>
+    <string name="disk_error_title">Памылка дыска</string>
+    <string name="error_enter_correct_twitter_page">Увядзіце сапраўднае імя карыстальніка або спасылку Twitter</string>
+    <string name="editor_add_phone">Дадаць тэлефон</string>
+    <string name="disk_error">Немагчыма стварыць папку і перамясціць файлы на ўнутраную памяць прылады або на SD-картку</string>
+    <string name="error_enter_correct_facebook_page">Увядзіце сапраўдны вэб-адрас уліковага запісу ці імя старонкі Facebook</string>
+    <string name="error_enter_correct_instagram_page">Увядзіце сапраўднае імя карыстальніка або спасылку Instagram</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">Знойдзен %d файл. Вы можаце ўбачыць яго пасля пераўтварэння.</item>
+        <item quantity="few">Знойдзена %d файла. Вы можаце ўбачыць іх пасля пераўтварэння.</item>
+        <item quantity="many">Знойдзена %d файлаў. Вы можаце ўбачыць іх пасля пераўтварэння.</item>
+        <item quantity="other">Знойдзена %d файлаў. Вы можаце ўбачыць іх пасля пераўтварэння.</item>
+    </plurals>
+    <string name="error_enter_correct_vk_page">Увядзіце сапраўднае імя карыстальніка або спасылку VK</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 </resources>

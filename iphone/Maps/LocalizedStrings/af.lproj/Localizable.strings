@@ -1,8 +1,4 @@
 
-
-/********** Strings **********/
-
-
 /* Button text (should be short) */
 "cancel" = "Kanselleer";
 
@@ -89,10 +85,6 @@
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Afstandseenhede";
-
-
-/********** Search categories **********/
-
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Waar om te eet";

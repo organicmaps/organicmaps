@@ -687,7 +687,7 @@
 "type.landuse.garages" = "Garaże";
 "type.landuse.grass" = "Trawnik";
 "type.landuse.greenfield" = "Obszar pod zabudowę";
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenhouse_horticulture" = "Szklarnia";
 "type.landuse.industrial" = "Obszar przemysłowy";
 "type.landuse.landfill" = "Składowisko odpadów";
 "type.landuse.meadow" = "Łąka";
@@ -714,7 +714,7 @@
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Lodowisko";
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Przystań";
 "type.leisure.nature_reserve" = "Rezerwat przyrody";
 "type.leisure.outdoor_seating" = "Siedzenia zewnętrzne";
 "type.leisure.park" = "Park";
@@ -733,8 +733,8 @@
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Basen";
 "type.leisure.swimming_pool.private" = "Basen";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Ścieżka";
+"type.leisure.track.area" = "Ścieżka";
 "type.leisure.water_park" = "Park wodny";
 "type.leisure.beach_resort" = "Beach Resort";
 "type.man_made" = "Man Made";
