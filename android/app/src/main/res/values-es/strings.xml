@@ -17,7 +17,7 @@
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Millas</string>
     <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Mi ubicación</string>
+    <string name="core_my_position">Mi posición</string>
     <!-- Update maps later button text -->
     <string name="later">Luego</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
