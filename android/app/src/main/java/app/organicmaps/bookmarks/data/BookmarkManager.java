@@ -148,187 +148,24 @@ public enum BookmarkManager
   }
 
   @Nullable
-  public BookmarkInfo findBookmarkByCoordinates(double latitude, double longitude, @Nullable String name, @Nullable String categoryName)
+  public BookmarkInfo findBookmarkByCoordinates(double lat, double lon, @Nullable String name, @Nullable String categoryName)
   {
-    final double MAX_DISTANCE_TOLERANCE = 50.0;
+    long bookmarkId = nativeFindBookmarkAtPoint(lat, lon);
 
-    List<BookmarkCategory> categories = getCategories();
+    if (bookmarkId == -1)
+      return null;
 
-    BookmarkInfo closestMatch = null;
-    double closestDistance = Double.MAX_VALUE;
+    BookmarkInfo info = getBookmarkInfo(bookmarkId);
 
-    for (BookmarkCategory category : categories)
+    if (info != null &&
+        (name == null || name.isEmpty() || name.equals(info.getName())) &&
+        (categoryName == null || categoryName.isEmpty() ||
+            categoryName.equals(getCategoryById(info.getCategoryId()).getName())))
     {
-      if (categoryName != null && !categoryName.isEmpty() &&
-          !category.getName().equals(categoryName))
-      {
-        continue;
-      }
-
-      for (int i = 0; i < category.getBookmarksCount(); i++)
-      {
-        long bookmarkId = getBookmarkIdByPosition(category.getId(), i);
-        BookmarkInfo bookmarkInfo = getBookmarkInfo(bookmarkId);
-
-        if (bookmarkInfo == null)
-          continue;
-
-        boolean nameMatches = name == null || name.isEmpty() ||
-            bookmarkInfo.getName().equals(name);
-
-        double distance = calculateDistance(latitude, longitude,
-            bookmarkInfo.getLat(),
-            bookmarkInfo.getLon());
-
-        if (nameMatches && distance <= MAX_DISTANCE_TOLERANCE)
-        {
-          if (distance < closestDistance)
-          {
-            closestMatch = bookmarkInfo;
-            closestDistance = distance;
-          }
-        }
-      }
-    }
-
-    return closestMatch;
-  }
-
-  @Nullable
-  private BookmarkInfo findExactBookmarkByCoordinates(double lat, double lon, @Nullable String name, @Nullable String categoryName)
-  {
-    final double COORD_TOLERANCE = 0.0001;
-
-    List<BookmarkCategory> categories = getCategories();
-
-    if (categoryName != null && !categoryName.isEmpty())
-    {
-      for (BookmarkCategory category : categories)
-      {
-        if (categoryName.equals(category.getName()))
-        {
-          for (int i = 0; i < category.getBookmarksCount(); i++)
-          {
-            long bookmarkId = getBookmarkIdByPosition(category.getId(), i);
-            BookmarkInfo bookmark = getBookmarkInfo(bookmarkId);
-
-            if (bookmark != null &&
-                (name == null || name.isEmpty() || name.equals(bookmark.getName())) &&
-                Math.abs(bookmark.getLat() - lat) < COORD_TOLERANCE &&
-                Math.abs(bookmark.getLon() - lon) < COORD_TOLERANCE)
-            {
-              return bookmark;
-            }
-          }
-        }
-      }
-    }
-
-    for (BookmarkCategory category : categories)
-    {
-      for (int i = 0; i < category.getBookmarksCount(); i++)
-      {
-        long bookmarkId = getBookmarkIdByPosition(category.getId(), i);
-        BookmarkInfo bookmark = getBookmarkInfo(bookmarkId);
-
-        if (bookmark != null &&
-            (name == null || name.isEmpty() || name.equals(bookmark.getName())) &&
-            Math.abs(bookmark.getLat() - lat) < COORD_TOLERANCE &&
-            Math.abs(bookmark.getLon() - lon) < COORD_TOLERANCE)
-        {
-          return bookmark;
-        }
-      }
+      return info;
     }
 
     return null;
-  }
-
-  @Nullable
-  private BookmarkInfo findNearestBookmark(double lat, double lon, double maxDistanceMeters,
-                                           @Nullable String name, @Nullable String categoryName)
-  {
-    List<BookmarkCategory> categories = getCategories();
-    BookmarkInfo closestBookmark = null;
-    double closestDistance = Double.MAX_VALUE;
-
-    if (categoryName != null && !categoryName.isEmpty())
-    {
-      for (BookmarkCategory category : categories)
-      {
-        if (categoryName.equals(category.getName()))
-        {
-          BookmarkInfo categoryResult = findNearestInCategory(category, lat, lon,
-              maxDistanceMeters, name, closestDistance);
-          if (categoryResult != null)
-          {
-            return categoryResult;
-          }
-          break;
-        }
-      }
-    }
-
-    for (BookmarkCategory category : categories)
-    {
-      if (categoryName != null && !categoryName.isEmpty() && categoryName.equals(category.getName()))
-      {
-        continue;
-      }
-
-      BookmarkInfo categoryResult = findNearestInCategory(category, lat, lon,
-          maxDistanceMeters, name, closestDistance);
-      if (categoryResult != null)
-      {
-        closestBookmark = categoryResult;
-        closestDistance = calculateDistance(lat, lon, closestBookmark.getLat(), closestBookmark.getLon());
-      }
-    }
-
-    return closestBookmark;
-  }
-
-  @Nullable
-  private BookmarkInfo findNearestInCategory(BookmarkCategory category, double lat, double lon,
-                                             double maxDistanceMeters, @Nullable String name, double currentClosestDistance)
-  {
-    BookmarkInfo closestBookmark = null;
-    double closestDistance = currentClosestDistance;
-
-    for (int i = 0; i < category.getBookmarksCount(); i++)
-    {
-      long bookmarkId = getBookmarkIdByPosition(category.getId(), i);
-      BookmarkInfo bookmark = getBookmarkInfo(bookmarkId);
-
-      if (bookmark != null && (name == null || name.isEmpty() || name.equals(bookmark.getName())))
-      {
-        double distance = calculateDistance(lat, lon, bookmark.getLat(), bookmark.getLon());
-
-        if (distance < closestDistance && distance <= maxDistanceMeters)
-        {
-          closestBookmark = bookmark;
-          closestDistance = distance;
-        }
-      }
-    }
-
-    return closestBookmark;
-  }
-
-  private double calculateDistance(double lat1, double lon1, double lat2, double lon2)
-  {
-    final double earthRadius = 6371000;
-
-    double dLat = Math.toRadians(lat2 - lat1);
-    double dLon = Math.toRadians(lon2 - lon1);
-
-    double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return earthRadius * c;
   }
 
   // Called from JNI.
@@ -926,6 +763,8 @@ public enum BookmarkManager
   {
     return nativeGetElevationActivePointDistance(trackId);
   }
+
+  private native long nativeFindBookmarkAtPoint(double lat, double lon);
 
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);

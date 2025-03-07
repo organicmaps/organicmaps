@@ -9,4 +9,5 @@
     android:widgetCategory="home_screen"
     android:description="@string/widget_description"
     android:configure="app.organicmaps.bookmarks.FavoriteBookmarkWidgetConfigActivity" />
+
     

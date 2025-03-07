@@ -331,7 +331,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (intent != null && "app.organicmaps.action.SHOW_BOOKMARK".equals(intent.getAction()))
     {
-      boolean fromWidget = intent.getBooleanExtra("FROM_WIDGET", false);
 
       String bookmarkName = intent.getStringExtra("BOOKMARK_NAME");
       double lat = intent.getDoubleExtra("BOOKMARK_LAT", Double.NaN);
@@ -340,23 +339,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (!Double.isNaN(lat) && !Double.isNaN(lon))
       {
-        try
+        BookmarkInfo nearestBookmark = BookmarkManager.INSTANCE.findBookmarkByCoordinates(
+            lat, lon, bookmarkName, categoryName
+        );
+
+        if (nearestBookmark != null)
         {
-          BookmarkInfo nearestBookmark = BookmarkManager.INSTANCE.findBookmarkByCoordinates(
-              lat, lon, bookmarkName, categoryName
-          );
-
-          if (nearestBookmark != null)
-          {
-
-            BookmarkManager.INSTANCE.showBookmarkOnMap(nearestBookmark.getBookmarkId());
-            return;
-          }
-        } catch (Exception e)
-        {
-
+          BookmarkManager.INSTANCE.showBookmarkOnMap(nearestBookmark.getBookmarkId());
+          return;
         }
-
         Framework.nativeZoomToPoint(lat, lon, 16, true);
       }
     }

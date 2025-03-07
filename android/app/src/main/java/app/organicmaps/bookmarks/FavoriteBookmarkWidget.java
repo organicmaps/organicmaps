@@ -13,7 +13,6 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.Icon;
 
 public class FavoriteBookmarkWidget extends AppWidgetProvider
 {
@@ -55,7 +54,6 @@ public class FavoriteBookmarkWidget extends AppWidgetProvider
       bookmarkInfo = BookmarkManager.INSTANCE.findBookmarkByCoordinates(lat, lon, bookmarkName, categoryName);
     }
 
-    // Always set the bookmark name, using stored name as fallback
     String displayName = bookmarkInfo != null ? bookmarkInfo.getName() :
         (bookmarkName != null && !bookmarkName.isEmpty() ? bookmarkName :
             context.getString(R.string.select_bookmark));
@@ -64,7 +62,6 @@ public class FavoriteBookmarkWidget extends AppWidgetProvider
 
     if (bookmarkInfo != null)
     {
-      int color = iconColor != 0 ? iconColor : bookmarkInfo.getIcon().getColor();
 
       int iconResId = BookmarkManager.INSTANCE.getBookmarkIcon(bookmarkInfo.getBookmarkId());
       if (iconResId == 0)
@@ -119,19 +116,19 @@ public class FavoriteBookmarkWidget extends AppWidgetProvider
   {
     SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
 
-
     prefs.putFloat(PREF_PREFIX_KEY + appWidgetId + SUFFIX_LAT, (float) bookmarkInfo.getLat());
     prefs.putFloat(PREF_PREFIX_KEY + appWidgetId + SUFFIX_LON, (float) bookmarkInfo.getLon());
     prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUFFIX_NAME, bookmarkInfo.getName());
-
-    prefs.putString(PREF_PREFIX_KEY + appWidgetId + "_category_name", category.getName());
+    prefs.putString(PREF_PREFIX_KEY + appWidgetId + SUFFIX_CATEGORY_NAME, category.getName());
+    prefs.putLong(PREF_PREFIX_KEY + appWidgetId + "_bookmark_id", bookmarkInfo.getBookmarkId());
+    prefs.putLong(PREF_PREFIX_KEY + appWidgetId + "_category_id", category.getId());
 
     prefs.putString(PREF_PREFIX_KEY + appWidgetId + "_name_hash",
         String.valueOf(bookmarkInfo.getName().hashCode()));
     prefs.putString(PREF_PREFIX_KEY + appWidgetId + "_lat_lon_hash",
         String.valueOf((bookmarkInfo.getLat() + "," + bookmarkInfo.getLon()).hashCode()));
 
-    boolean success = prefs.commit();
+    prefs.apply();
   }
 
   @Override
