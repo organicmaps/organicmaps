@@ -84,7 +84,7 @@ public enum ThemeSwitcher
   }
 
   /**
-   * resolve custom themes (auto, navauto) to basic ones (light or dark)
+   * resolve custom themes (auto, navauto) to basic ones (light, dark, follow-system)
    * @return theme handle-able by android theme system.
    */
   private String resolveBasicTheme(@NonNull String theme)
@@ -99,13 +99,6 @@ public enum ThemeSwitcher
       else
         return mContext.getResources().getString(R.string.theme_default);
     }
-    else if (ThemeUtils.isSystemTheme(mContext, theme))
-    {
-      int uiMode = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-      return uiMode == Configuration.UI_MODE_NIGHT_YES
-              ? mContext.getResources().getString(R.string.theme_night)
-              : mContext.getResources().getString(R.string.theme_default);
-    }
     else
       // Passthrough for normal themes
       return theme;
@@ -113,11 +106,21 @@ public enum ThemeSwitcher
 
   /**
    * Resolve the map (drape) style from a resolved theme string.
-   * @param theme MUST be theme_light/dark
+   * @param theme MUST be theme_light/dark/follow-system
    * @return drape/core compatible map style
    */
   private int resolveMapStyle(@NonNull String theme)
   {
+    // Resolve systemtheme for map style as android handles
+    // the UI so it's not really a custom theme.
+    if (ThemeUtils.isSystemTheme(mContext, theme))
+    {
+      int uiMode = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+      theme = uiMode == Configuration.UI_MODE_NIGHT_YES
+              ? mContext.getResources().getString(R.string.theme_night)
+              : mContext.getResources().getString(R.string.theme_default);
+    }
+
     if (ThemeUtils.isNightTheme(mContext, theme))
     {
       if (RoutingController.get().isVehicleNavigation())
