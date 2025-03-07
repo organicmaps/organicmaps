@@ -1320,6 +1320,8 @@ tourism|attraction
 *cuisine|peruvian
 *cuisine|fine_dining
 *cuisine|tea
+*cuisine|jewish
+*cuisine|israeli
 *natural|geyser
 *cuisine|bubble_tea
 *natural|hot_spring
