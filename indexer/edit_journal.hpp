@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <string>
+#include <variant>
 #include <vector>
 
 namespace osm
