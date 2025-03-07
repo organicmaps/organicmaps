@@ -1320,8 +1320,6 @@ tourism|attraction
 *cuisine|peruvian
 *cuisine|fine_dining
 *cuisine|tea
-*cuisine|jewish
-*cuisine|israeli
 *natural|geyser
 *cuisine|bubble_tea
 *natural|hot_spring
@@ -1622,3 +1620,5 @@ amenity|recycling|container
 *railway|station|subway|shenzhen
 *railway|subway_entrance|shenzhen
 *shop|hearing_aids
+*cuisine|jewish
+*cuisine|israeli
