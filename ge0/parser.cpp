@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <indexer/scales.hpp>
 
 namespace ge0
 {
@@ -50,6 +51,89 @@ bool Ge0Parser::Parse(std::string const & url, Result & result)
 
 bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & result)
 {
+  std::string_view remaining(url.data() + from, url.size() - from);
+  size_t posSep = remaining.find_first_of("?#");
+  if (posSep != std::string_view::npos)
+    remaining = remaining.substr(0, posSep);
+  if (remaining.empty())
+    return false;
+  if (remaining.find(',') != std::string_view::npos)
+  {
+    std::string_view coords;
+    std::string_view name;
+    size_t slashPos = remaining.find('/');
+    if (slashPos == std::string_view::npos)
+    {
+      coords = remaining;
+    }
+    else
+    {
+      coords = remaining.substr(0, slashPos);
+      name = remaining.substr(slashPos + 1);
+      while (!name.empty() && name.front() == '/')
+        name.remove_prefix(1);
+      while (!name.empty() && name.back() == '/')
+        name.remove_suffix(1);
+    }
+    double lat, lon, zoom;
+    int pos = 0;
+    int count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
+    if (count == 2 && pos == (int)coords.size())
+    {
+      zoom = scales::GetUpperComfortScale();
+    }
+    else
+    {
+      int commaCount = std::count(coords.begin(), coords.end(), ',');
+      if (commaCount == 1)
+      {
+        pos = 0;
+        count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
+        if (count != 2 || pos != (int)coords.size())
+          return false;
+        zoom = scales::GetUpperComfortScale();
+      }
+      else if (commaCount == 2)
+      {
+        pos = 0;
+        count = sscanf(coords.data(), " %lf , %lf , %lf %n", &lat, &lon, &zoom, &pos);
+        if (count == 3 && pos == (int)coords.size())
+        {
+          // Parsed zoom successfully.
+        }
+        else
+        {
+          pos = 0;
+          count = sscanf(coords.data(), " %lf , %lf %n", &lat, &lon, &pos);
+          if (count == 2)
+            zoom = scales::GetUpperComfortScale();
+          else
+            return false;
+        }
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+    if (lat < -kLatAbsLimit || lat > kLatAbsLimit || lon < -kLonAbsLimit || lon > kLonAbsLimit)
+      return false;
+    if (!std::isfinite(zoom))
+      zoom = scales::GetUpperStyleScale();
+    if (zoom < 1.0)
+      zoom = 1.0;
+    if (zoom > scales::GetUpperStyleScale())
+      zoom = scales::GetUpperStyleScale();
+    result.m_lat = lat;
+    result.m_lon = lon;
+    result.m_zoomLevel = zoom;
+    
+    if (!name.empty())
+      result.m_name = DecodeName(std::string(name));
+    return true;
+  }
+
   size_t const kEncodedZoomAndCoordinatesLength = 10;
   if (url.size() < from + kEncodedZoomAndCoordinatesLength)
     return false;
