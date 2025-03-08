@@ -170,12 +170,18 @@ NSString *const kSettingsSegue = @"Map2Settings";
   [self updatePlacePageContainerConstraints];
 }
 
+- (void)setupSearchContainer {
+  self.searchContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
+  [self.view addSubview:self.searchContainer];
+  [self.view bringSubviewToFront:self.searchContainer];
+}
+
 - (void)updatePlacePageContainerConstraints {
   const BOOL isLimitedWidth = IPAD || self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
   [self.placePageWidthConstraint setConstant:kPlacePageCompactWidth];
 
-  if (IPAD && self.searchViewContainer != nil) {
-    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchViewContainer.trailingAnchor constant:kPlacePageLeadingOffset];
+  if (IPAD && self.searchView != nil) {
+    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchView.trailingAnchor constant:kPlacePageLeadingOffset];
     leadingToSearchConstraint.priority = UILayoutPriorityDefaultHigh;
     leadingToSearchConstraint.active = isLimitedWidth;
   }
@@ -259,9 +265,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
     return;
   }
 
-  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE)
-    [self.searchManager setMapIsDragging];
-
   NSArray *allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)
     return;
@@ -272,6 +275,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
   df::TouchEvent e;
   UITouch *touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
+
+  // **Check if the tap is inside searchView**
+  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE && !CGRectContainsPoint(self.searchView.frame, pt))
+    [self.searchManager setMapIsDragging];
 
   e.SetTouchType(type);
 
@@ -372,6 +379,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setupPlacePageContainer];
+  [self setupSearchContainer];
 
   if (@available(iOS 14.0, *))
     [self setupTrackPadGestureRecognizers];
@@ -726,11 +734,11 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (SearchOnMapManager *)searchManager {
   if (!_searchManager)
-    _searchManager = [[SearchOnMapManager alloc] initWithNavigationController:self.navigationController];
+    _searchManager = [[SearchOnMapManager alloc] init];
   return _searchManager;
 }
 
-- (UIView * _Nullable)searchViewContainer {
+- (UIView * _Nullable)searchView {
   return self.searchManager.viewController.view;
 }
 

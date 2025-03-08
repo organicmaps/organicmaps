@@ -48,10 +48,11 @@ extension ModalScreenPresentationStep {
     .compact
   }
 
-  func frame(for viewController: UIViewController, in containerView: UIView) -> CGRect {
+  func frame() -> CGRect {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
-    let containerSize = containerView.bounds.size
-    let safeAreaInsets = containerView.safeAreaInsets
+    let containerSize = UIScreen.main.bounds.size
+    let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
+    let traitCollection = UIScreen.main.traitCollection
     var frame = CGRect(origin: .zero, size: containerSize)
 
     if isIPad {
@@ -65,7 +66,7 @@ extension ModalScreenPresentationStep {
       return frame
     }
 
-    let isPortraitOrientation = viewController.traitCollection.verticalSizeClass == .regular
+    let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
     if isPortraitOrientation {
       switch self {
       case .fullScreen:

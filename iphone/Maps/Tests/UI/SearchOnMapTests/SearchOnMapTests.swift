@@ -12,8 +12,7 @@ final class SearchOnMapTests: XCTestCase {
   override func setUp() {
     super.setUp()
     searchManager = SearchManagerMock.self
-    presenter = SearchOnMapPresenter(transitionManager: SearchOnMapModalTransitionManager(),
-                                     isRouting: false,
+    presenter = SearchOnMapPresenter(isRouting: false,
                                      didChangeState: { [weak self] in self?.currentState = $0 })
     interactor = SearchOnMapInteractor(presenter: presenter, searchManager: searchManager)
     view = SearchOnMapViewMock()
@@ -217,10 +216,13 @@ final class SearchOnMapTests: XCTestCase {
 // MARK: - Mocks
 
 private class SearchOnMapViewMock: SearchOnMapView {
+  
   var viewModel: SearchOnMap.ViewModel = .initial
   var scrollViewDelegate: (any SearchOnMapScrollViewDelegate)?
   func render(_ viewModel: SearchOnMap.ViewModel) {
     self.viewModel = viewModel
+  }
+  func close() {
   }
 }
 

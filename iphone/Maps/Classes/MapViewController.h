@@ -52,5 +52,6 @@
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
+@property(nonatomic) UIView * _Nonnull searchContainer;
 
 @end

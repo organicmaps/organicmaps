@@ -19,16 +19,14 @@ protocol SearchOnMapManagerObserver: AnyObject {
 
 @objcMembers
 final class SearchOnMapManager: NSObject {
-  private let navigationController: UINavigationController
-  private weak var interactor: SearchOnMapInteractor?
+  private var interactor: SearchOnMapInteractor? { viewController?.interactor }
   private let observers = ListenerContainer<SearchOnMapManagerObserver>()
 
-  // MARK: - Public properties
-  weak var viewController: UIViewController?
+  weak var viewController: SearchOnMapViewController?
   var isSearching: Bool { viewController != nil }
 
-  init(navigationController: UINavigationController = MapViewController.shared()!.navigationController!) {
-    self.navigationController = navigationController
+  override init() {
+    super.init()
   }
 
   // MARK: - Public methods
@@ -38,10 +36,9 @@ final class SearchOnMapManager: NSObject {
       return
     }
     FrameworkHelper.deactivateMapSelection()
-    let viewController = buildViewController(isRouting: isRouting)
+    let viewController = SearchOnMapViewControllerBuilder.build(isRouting: isRouting,
+                                                                didChangeState: notifyObservers)
     self.viewController = viewController
-    self.interactor = viewController.interactor
-    navigationController.present(viewController, animated: true)
   }
 
   func hide() {
@@ -77,20 +74,23 @@ final class SearchOnMapManager: NSObject {
     observers.removeListener(observer)
   }
 
-  // MARK: - Private methods
-  private func buildViewController(isRouting: Bool) -> SearchOnMapViewController {
-    let transitioningManager = SearchOnMapModalTransitionManager()
-    let presenter = SearchOnMapPresenter(transitionManager: transitioningManager,
-                                         isRouting: isRouting,
-                                         didChangeState: { [weak self] state in
-      guard let self else { return }
-      self.observers.forEach { observer in observer.searchManager(didChangeState: state) }
-    })
+  private func notifyObservers(_ state: SearchOnMapState) {
+    observers.forEach { observer in observer.searchManager(didChangeState: state) }
+  }
+}
+
+private struct SearchOnMapViewControllerBuilder {
+  static func build(isRouting: Bool, didChangeState: @escaping ((SearchOnMapState) -> Void)) -> SearchOnMapViewController {
+    let mapViewController = MapViewController.shared()!
+    let presentationController = SearchOnMapPresentationController(parentViewController: mapViewController,
+                                                            containerView: mapViewController.searchContainer)
+    let viewController = SearchOnMapViewController(presentationController: presentationController)
+    let presenter = SearchOnMapPresenter(isRouting: isRouting,
+                                         didChangeState: didChangeState)
     let interactor = SearchOnMapInteractor(presenter: presenter)
-    let viewController = SearchOnMapViewController(interactor: interactor)
     presenter.view = viewController
-    viewController.modalPresentationStyle = .custom
-    viewController.transitioningDelegate = transitioningManager
+    viewController.interactor = interactor
+    presentationController.show()
     return viewController
   }
 }

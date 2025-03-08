@@ -19,6 +19,7 @@ final class SearchOnMapHeaderView: UIView {
   private let grabberView = UIView()
   private let searchBar = UISearchBar()
   private let cancelButton = UIButton()
+  private let cancelContainer = UIView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -59,8 +60,8 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupCancelButton() {
-    cancelButton.tintColor = .whitePrimaryText()
-    cancelButton.setStyle(.clearBackground)
+    cancelContainer.setStyle(.primaryBackground)
+    cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
     cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
   }
@@ -68,10 +69,12 @@ final class SearchOnMapHeaderView: UIView {
   private func layoutView() {
     addSubview(grabberView)
     addSubview(searchBar)
-    addSubview(cancelButton)
+    addSubview(cancelContainer)
+    cancelContainer.addSubview(cancelButton)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     searchBar.translatesAutoresizingMaskIntoConstraints = false
+    cancelContainer.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
@@ -82,10 +85,16 @@ final class SearchOnMapHeaderView: UIView {
 
       searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor),
       searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-      searchBar.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -Constants.cancelButtonInsets.left),
+      searchBar.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor),
 
-      cancelButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-      cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.cancelButtonInsets.right),
+      cancelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+      cancelContainer.topAnchor.constraint(equalTo: searchBar.topAnchor),
+      cancelContainer.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+
+      cancelButton.topAnchor.constraint(equalTo: cancelContainer.topAnchor),
+      cancelButton.leadingAnchor.constraint(equalTo: cancelContainer.leadingAnchor, constant: Constants.cancelButtonInsets.left),
+      cancelButton.trailingAnchor.constraint(equalTo: cancelContainer.trailingAnchor, constant: -Constants.cancelButtonInsets.right),
+      cancelButton.bottomAnchor.constraint(equalTo: cancelContainer.bottomAnchor),
 
       bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
     ])
