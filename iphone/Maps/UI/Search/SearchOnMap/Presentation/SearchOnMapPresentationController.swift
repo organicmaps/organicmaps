@@ -2,14 +2,10 @@ protocol ModallyPresentedViewController {
   func translationYDidUpdate(_ translationY: CGFloat)
 }
 
-protocol SearchOnMapModalPresentationView: AnyObject {
-  func setPresentationStep(_ step: ModalScreenPresentationStep)
-  func close()
-}
-
-final class SearchOnMapModalPresentationController: UIPresentationController {
+final class SearchOnMapPresentationController: NSObject {
 
   private enum StepChangeAnimation {
+    case none
     case slide
     case slideAndBounce
   }
@@ -26,83 +22,84 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
     static let panGestureThreshold: CGFloat = 5
   }
 
-  private var initialTranslationY: CGFloat = 0
-  private weak var interactor: SearchOnMapInteractor? {
-    (presentedViewController as? SearchOnMapViewController)?.interactor
-  }
-  // TODO: replace with set of steps passed from the outside
+  private var initialTranslationY: CGFloat = .zero
+  private weak var interactor: SearchOnMapInteractor? { presentedViewController?.interactor }
+  // TODO: (KK) replace with set of steps passed from the outside
   private var presentationStep: ModalScreenPresentationStep = .fullScreen
-  private var internalScrollViewContentOffset: CGFloat = 0
+  private var internalScrollViewContentOffset: CGFloat = .zero
   private var maxAvailableFrameOfPresentedView: CGRect = .zero
 
-  // MARK: - Init
-  override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-    super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+  private weak var presentedViewController: SearchOnMapViewController?
+  private weak var parentViewController: UIViewController?
+  private weak var containerView: UIView?
+
+  init(parentViewController: UIViewController,
+       containerView: UIView) {
+    self.parentViewController = parentViewController
+    self.containerView = containerView
+  }
+
+  func setViewController(_ viewController: SearchOnMapViewController) {
+    self.presentedViewController = viewController
+    guard let containerView, let parentViewController else { return }
+    containerView.addSubview(viewController.view)
+    parentViewController.addChild(viewController)
+    viewController.view.frame = frameOfPresentedViewInContainerView
+    viewController.didMove(toParent: parentViewController)
 
     iPhoneSpecific {
       let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
       panGestureRecognizer.delegate = self
-      presentedViewController.view.addGestureRecognizer(panGestureRecognizer)
-      if let presentedViewController = presentedViewController as? SearchOnMapView {
-        presentedViewController.scrollViewDelegate = self
-      }
+      viewController.view.addGestureRecognizer(panGestureRecognizer)
+      viewController.scrollViewDelegate = self
+    }
+    animateTo(.hidden, animation: .none)
+  }
+
+  func show() {
+    interactor?.handle(.openSearch)
+  }
+
+  func close() {
+    guard let presentedViewController else { return }
+    presentedViewController.willMove(toParent: nil)
+    animateTo(.hidden) {
+      presentedViewController.view.removeFromSuperview()
+      presentedViewController.removeFromParent()
     }
   }
 
-  // MARK: - Lifecycle
-  override func containerViewWillLayoutSubviews() {
-    super.containerViewWillLayoutSubviews()
-    presentedView?.frame = frameOfPresentedViewInContainerView
-  }
-
-  override func presentationTransitionWillBegin() {
-    guard let containerView else { return }
-    containerView.backgroundColor = .clear
-    let passThroughView = MapPassthroughView(passingView: containerView)
-    containerView.addSubview(passThroughView)
-  }
-
-  override func presentationTransitionDidEnd(_ completed: Bool) {
-    translationYDidUpdate(presentedView?.frame.origin.y ?? 0)
-  }
-
-  override func dismissalTransitionDidEnd(_ completed: Bool) {
-    super.dismissalTransitionDidEnd(completed)
-    if completed {
-      presentedView?.removeFromSuperview()
-    }
-  }
-
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    updateMaxAvailableFrameOfPresentedView()
+  func setPresentationStep(_ step: ModalScreenPresentationStep) {
+    guard presentationStep != step else { return }
+    animateTo(step)
   }
 
   // MARK: - Layout
-  override var frameOfPresentedViewInContainerView: CGRect {
-    guard let containerView else { return .zero }
-    let frame = presentationStep.frame(for: presentedViewController, in: containerView)
+  func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    presentedViewController?.view.frame = frameOfPresentedViewInContainerView
+    presentedViewController?.view.layoutIfNeeded()
+  }
+
+  private var frameOfPresentedViewInContainerView: CGRect {
     updateMaxAvailableFrameOfPresentedView()
+    let frame = presentationStep.frame()
     return frame
   }
 
   private func updateMaxAvailableFrameOfPresentedView() {
-    guard let containerView else { return }
-    maxAvailableFrameOfPresentedView = ModalScreenPresentationStep.fullScreen.frame(for: presentedViewController, in: containerView)
+    maxAvailableFrameOfPresentedView = ModalScreenPresentationStep.fullScreen.frame()
   }
 
   private func updateSideButtonsAvailableArea(_ newY: CGFloat) {
-    iPhoneSpecific {
-      guard presentedViewController.traitCollection.verticalSizeClass != .compact else { return }
-      var sideButtonsAvailableArea = MWMSideButtons.getAvailableArea()
-      sideButtonsAvailableArea.size.height = newY - sideButtonsAvailableArea.origin.y
-      MWMSideButtons.updateAvailableArea(sideButtonsAvailableArea)
-    }
+    guard presentedViewController?.traitCollection.verticalSizeClass != .compact else { return }
+    var sideButtonsAvailableArea = MWMSideButtons.getAvailableArea()
+    sideButtonsAvailableArea.size.height = newY - sideButtonsAvailableArea.origin.y
+    MWMSideButtons.updateAvailableArea(sideButtonsAvailableArea)
   }
 
   // MARK: - Pan gesture handling
   @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
-    guard let presentedView, maxAvailableFrameOfPresentedView != .zero else { return }
+    guard let presentedViewController, let presentedView = presentedViewController.view else { return }
     interactor?.handle(.didStartDraggingSearch)
 
     let translation = gesture.translation(in: presentedView)
@@ -114,7 +111,6 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
     case .changed:
       let newY = max(max(initialTranslationY + translation.y, 0), maxAvailableFrameOfPresentedView.origin.y)
       presentedView.frame.origin.y = newY
-      updateSideButtonsAvailableArea(newY)
       translationYDidUpdate(newY)
     case .ended:
       let nextStep: ModalScreenPresentationStep
@@ -142,15 +138,19 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
     }
   }
 
-  private func animateTo(_ presentationStep: ModalScreenPresentationStep, animation: StepChangeAnimation = .slide) {
-    guard let presentedView, let containerView else { return }
+  private func animateTo(_ presentationStep: ModalScreenPresentationStep, animation: StepChangeAnimation = .slide, completion: (() -> Void)? = nil) {
+    guard let presentedViewController, let presentedView = presentedViewController.view else { return }
     self.presentationStep = presentationStep
     interactor?.handle(.didUpdatePresentationStep(presentationStep))
 
-    let updatedFrame = presentationStep.frame(for: presentedViewController, in: containerView)
+    let updatedFrame = presentationStep.frame()
     let targetYTranslation = updatedFrame.origin.y
 
     switch animation {
+    case .none:
+      presentedView.frame = updatedFrame
+      translationYDidUpdate(targetYTranslation)
+      completion?()
     case .slide:
       UIView.animate(withDuration: Constants.animationDuration,
                      delay: 0,
@@ -158,8 +158,9 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
                      animations: { [weak self] in
         presentedView.frame = updatedFrame
         self?.translationYDidUpdate(targetYTranslation)
-        self?.updateSideButtonsAvailableArea(targetYTranslation)
-      })
+      }) { _ in
+        completion?()
+      }
     case .slideAndBounce:
       UIView.animate(withDuration: Constants.animationDuration,
                      delay: 0,
@@ -169,37 +170,25 @@ final class SearchOnMapModalPresentationController: UIPresentationController {
                      animations: { [weak self] in
         presentedView.frame = updatedFrame
         self?.translationYDidUpdate(targetYTranslation)
-        self?.updateSideButtonsAvailableArea(targetYTranslation)
-      })
+      }) { _ in
+        completion?()
+      }
     }
   }
 }
 
-// MARK: - SearchOnMapModalPresentationView
-extension SearchOnMapModalPresentationController: SearchOnMapModalPresentationView {
-  func setPresentationStep(_ step: ModalScreenPresentationStep) {
-    guard presentationStep != step else { return }
-    animateTo(step)
-  }
-
-  func close() {
-    guard let containerView else { return }
-    updateSideButtonsAvailableArea(containerView.frame.height)
-    presentedViewController.dismiss(animated: true)
-  }
-}
-
 // MARK: - ModallyPresentedViewController
-extension SearchOnMapModalPresentationController: ModallyPresentedViewController {
+extension SearchOnMapPresentationController: ModallyPresentedViewController {
   func translationYDidUpdate(_ translationY: CGFloat) {
     iPhoneSpecific {
-      (presentedViewController as? SearchOnMapViewController)?.translationYDidUpdate(translationY)
+      presentedViewController?.translationYDidUpdate(translationY)
+      updateSideButtonsAvailableArea(translationY)
     }
   }
 }
 
 // MARK: - UIGestureRecognizerDelegate
-extension SearchOnMapModalPresentationController: UIGestureRecognizerDelegate {
+extension SearchOnMapPresentationController: UIGestureRecognizerDelegate {
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     true
   }
@@ -211,9 +200,9 @@ extension SearchOnMapModalPresentationController: UIGestureRecognizerDelegate {
 }
 
 // MARK: - SearchOnMapScrollViewDelegate
-extension SearchOnMapModalPresentationController: SearchOnMapScrollViewDelegate {
+extension SearchOnMapPresentationController: SearchOnMapScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    guard let presentedView else { return }
+    guard let presentedViewController, let presentedView = presentedViewController.view else { return }
     let hasReachedTheTop = Int(presentedView.frame.origin.y) > Int(maxAvailableFrameOfPresentedView.origin.y)
     let hasZeroContentOffset = internalScrollViewContentOffset == 0
     if hasReachedTheTop && hasZeroContentOffset {

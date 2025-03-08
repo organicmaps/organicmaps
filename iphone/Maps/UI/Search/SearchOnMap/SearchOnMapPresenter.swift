@@ -3,7 +3,6 @@ final class SearchOnMapPresenter {
   typealias ViewModel = SearchOnMap.ViewModel
 
   weak var view: SearchOnMapView?
-  weak var presentationView: SearchOnMapModalPresentationView? { transitionManager.presentationController }
 
   private var searchState: SearchOnMapState = .searching {
     didSet {
@@ -12,13 +11,11 @@ final class SearchOnMapPresenter {
     }
   }
 
-  private let transitionManager: SearchOnMapModalTransitionManager
   private var viewModel: ViewModel = .initial
   private var isRouting: Bool
   private var didChangeState: ((SearchOnMapState) -> Void)?
 
-  init(transitionManager: SearchOnMapModalTransitionManager, isRouting: Bool, didChangeState: ((SearchOnMapState) -> Void)?) {
-    self.transitionManager = transitionManager
+  init(isRouting: Bool, didChangeState: ((SearchOnMapState) -> Void)?) {
     self.isRouting = isRouting
     self.didChangeState = didChangeState
     didChangeState?(searchState)
@@ -28,8 +25,8 @@ final class SearchOnMapPresenter {
     guard response != .none else { return }
 
     if response == .close {
+      view?.close()
       searchState = .closed
-      presentationView?.close()
       return
     }
 
@@ -43,7 +40,6 @@ final class SearchOnMapPresenter {
       viewModel = newViewModel
       view?.render(newViewModel)
       searchState = newViewModel.presentationStep.searchState
-      presentationView?.setPresentationStep(newViewModel.presentationStep)
     }
   }
 
@@ -97,6 +93,9 @@ final class SearchOnMapPresenter {
       viewModel.isTyping = false
       viewModel.presentationStep = .compact
     case .updatePresentationStep(let step):
+      if step == .hidden {
+        viewModel.isTyping = false
+      }
       viewModel.presentationStep = step
     case .close, .none:
       break
