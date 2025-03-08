@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">পিছনে</string>
+    <string name="download_maps">ডাউনলোডকৃত মানচিত্র</string>
+    <string name="delete">মুছো</string>
+    <string name="cancel">বাতিল</string>
+    <string name="miles">মাইল</string>
+    <string name="later">পরে</string>
+    <string name="core_my_position">আমার অবস্থান</string>
+    <string name="search">অনুসন্ধান</string>
+    <string name="download_has_failed">ডাউনলোড ব্যর্থ। আবার চেষ্টা করতে টিপ দাও।</string>
+    <string name="mb">এমবি</string>
+    <string name="search_map">মানচিত্র অনুসন্ধান</string>
+    <string name="gb">জিবি</string>
+    <string name="kilometres">কিলোমিটার</string>
+    <string name="downloading">ডাউনলোডরত…</string>
+</resources>
