@@ -97,7 +97,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
     if (mRoutePoints.get(position).mIsMyPosition)
     {
       // My position point.
-      title = mContext.getString(R.string.core_my_position);
+      title = mContext.getString(R.string.core_my_location);
 
       if (mRoutePoints.get(position).mPointType != RoutePointInfo.ROUTE_MARK_START)
         subtitle = mRoutePoints.get(position).mTitle;
