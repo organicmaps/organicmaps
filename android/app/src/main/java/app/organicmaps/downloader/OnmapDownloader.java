@@ -53,8 +53,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (!item.isLeafNode)
           continue;
 
-        if (mError.getVisibility() == View.VISIBLE)
-          mError.setVisibility(View.GONE);
+        mError.setVisibility(View.GONE);
 
         if (item.newStatus == CountryItem.STATUS_FAILED)
           MapManager.showError(mActivity, item, null);
@@ -176,12 +175,14 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
               }
             }
 
-            if (!ConnectionState.INSTANCE.isConnected() &&
-                failed)
+            if (failed)
             {
-              if (!(mError.getVisibility() == View.VISIBLE))
-                mError.setVisibility(View.VISIBLE);
-              mError.setText("Downloading failed, please check your internet connection");
+              mError.setVisibility(View.VISIBLE);
+
+              if (!ConnectionState.INSTANCE.isConnected())
+                mError.setText(mActivity.getString(R.string.common_check_internet_connection_dialog));
+              else
+                mError.setText(mActivity.getString(R.string.download_has_failed));
             }
             mButton.setText(failed ? R.string.downloader_retry
                                    : R.string.download);
@@ -220,8 +221,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mCurrentCountry == null)
         return;
 
-      if (mError.getVisibility() == View.VISIBLE)
-        mError.setVisibility(View.GONE);
+      mError.setVisibility(View.GONE);
 
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
