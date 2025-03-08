@@ -127,7 +127,7 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     EditBookmarkFragment.editBookmark(currentBookmark.getCategoryId(),
                                       currentBookmark.getBookmarkId(),
                                       activity,
-                                      activity.getSupportFragmentManager(),
+                                      getChildFragmentManager(),
                                       PlacePageBookmarkFragment.this);
   }
 
