@@ -18,8 +18,8 @@
     <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">ไมล์</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">ตำแหน่งของฉัน</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">ตำแหน่งของฉัน</string>
     <!-- Update maps later button text -->
     <string name="later">ภายหลัง</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -392,7 +392,6 @@
     <string name="search_history_title">ประวัติการค้นหา</string>
     <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
     <string name="clear_search">ล้างการค้นหาประวัติ</string>
-    <string name="p2p_your_location">ตำแหน่งที่ตั้งของคุณ</string>
     <string name="p2p_start">เริ่มต้น</string>
     <string name="p2p_from_here">จาก</string>
     <string name="p2p_to_here">เส้นทางถึง</string>

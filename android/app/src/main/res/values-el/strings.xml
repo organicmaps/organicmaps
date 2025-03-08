@@ -17,8 +17,8 @@
     <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Μίλια</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Η θέση μου</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Η θέση μου</string>
     <!-- Update maps later button text -->
     <string name="later">Αργότερα</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -412,7 +412,6 @@
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Βικιπέδια</string>
-    <string name="p2p_your_location">Η τοποθεσία σας</string>
     <string name="p2p_start">Έναρξη</string>
     <string name="p2p_from_here">Διαδρομή από</string>
     <string name="p2p_to_here">Διαδρομή προς</string>

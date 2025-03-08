@@ -19,8 +19,8 @@
     <string name="gb">Go</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miles</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Ma position</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Ma position</string>
     <!-- Update maps later button text -->
     <string name="later">Plus tard</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -418,7 +418,6 @@
     <string name="clear_search">Effacer l\'historique de recherche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipédia</string>
-    <string name="p2p_your_location">Votre emplacement</string>
     <string name="p2p_start">Démarrer</string>
     <string name="p2p_from_here">Depuis</string>
     <string name="p2p_to_here">Itinéraire vers</string>

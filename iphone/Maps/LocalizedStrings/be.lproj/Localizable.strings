@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Мілі";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Маё месцазнаходжанне";
+/* A text for current gps location point/arrow */
+"core_my_location" = "Маё месцазнаходжанне";
 
 /* Update maps later button text */
 "later" = "Потым";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Ваша месцазнаходжанне";
 "p2p_start" = "Пачаць";
 "p2p_from_here" = "Адсюль";
 "p2p_to_here" = "Дасюль";

@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Миље";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Моја позиција";
+/* A text for current gps location point/arrow */
+"core_my_location" = "Моја позиција";
 
 /* Update maps later button text */
 "later" = "Касније";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Викимедијина остава";
-"p2p_your_location" = "Ваша локација";
 "p2p_start" = "Крени";
 "p2p_from_here" = "Рута од";
 "p2p_to_here" = "Рута до";

@@ -52,7 +52,7 @@
     <string name="elevation_profile_difficulty">Dificultá</string>
     <string name="delete">Desaniciar</string>
     <string name="kilometres">Quilómetros</string>
-    <string name="core_my_position">La mio posición</string>
+    <string name="core_my_location">La mio posición</string>
     <string name="search">Guetar</string>
     <string name="search_map">Guetar nel mapa</string>
     <string name="zoom_to_country">Amosar nel mapa</string>

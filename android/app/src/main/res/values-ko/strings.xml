@@ -16,8 +16,8 @@
     <string name="kilometres">킬로미터</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">마일</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">나의 위치</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">나의 위치</string>
     <!-- Update maps later button text -->
     <string name="later">나중에</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -385,7 +385,6 @@
     <string name="search_history_title">검색 기록</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="clear_search">이력 검색 지우기</string>
-    <string name="p2p_your_location">위치</string>
     <string name="p2p_start">시작</string>
     <string name="p2p_from_here">출발지</string>
     <string name="p2p_to_here">목적지</string>

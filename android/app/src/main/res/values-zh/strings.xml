@@ -19,8 +19,8 @@
     <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">英里</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">我的位置</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">我的位置</string>
     <!-- Update maps later button text -->
     <string name="later">以后再说</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -424,7 +424,6 @@
     <string name="read_in_wikipedia">维基百科</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">维基共享资源</string>
-    <string name="p2p_your_location">您的位置</string>
     <string name="p2p_start">开始</string>
     <string name="p2p_from_here">从这出发</string>
     <string name="p2p_to_here">到这去</string>

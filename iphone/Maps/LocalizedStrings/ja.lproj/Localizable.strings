@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "マイル";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "現在地";
+/* A text for current gps location point/arrow */
+"core_my_location" = "現在地";
 
 /* Update maps later button text */
 "later" = "後で";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "ウィキメディア・コモンズ";
-"p2p_your_location" = "現在位置";
 "p2p_start" = "開始";
 "p2p_from_here" = "出発地";
 "p2p_to_here" = "目的地";

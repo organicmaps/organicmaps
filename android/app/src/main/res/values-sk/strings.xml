@@ -16,8 +16,8 @@
     <string name="kilometres">Kilometre</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Míle</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Moja poloha</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Moja poloha</string>
     <!-- Update maps later button text -->
     <string name="later">Neskôr</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -413,7 +413,6 @@
     <string name="clear_search">Vymazať históriu vyhľadávania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipédia</string>
-    <string name="p2p_your_location">Vaša poloha</string>
     <string name="p2p_start">Štart</string>
     <string name="p2p_from_here">Cesta z</string>
     <string name="p2p_to_here">Cesta do</string>

@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mile";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Min position";
+/* A text for current gps location point/arrow */
+"core_my_location" = "Min position";
 
 /* Update maps later button text */
 "later" = "Senare";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Din plats";
 "p2p_start" = "Start";
 "p2p_from_here" = "Rutt från";
 "p2p_to_here" = "Rutt till";

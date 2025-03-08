@@ -16,8 +16,8 @@
     <string name="kilometres">Kilometri</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mile</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Poziția mea</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Poziția mea</string>
     <!-- Update maps later button text -->
     <string name="later">Mai târziu</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -399,7 +399,6 @@
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
-    <string name="p2p_your_location">Poziția ta</string>
     <string name="p2p_start">Pornește</string>
     <string name="p2p_from_here">De la</string>
     <string name="p2p_to_here">La</string>

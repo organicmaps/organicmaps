@@ -26,7 +26,7 @@
   if (self)
   {
     _point = lastLocation.mercator;
-    _title = L(@"p2p_your_location");
+    _title = L(@"core_my_location");
     _subtitle = @"";
     _isMyPosition = YES;
     _type = type;

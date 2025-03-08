@@ -252,7 +252,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     nativeAddLocalization("core_entrance", getString(R.string.core_entrance));
     nativeAddLocalization("core_exit", getString(R.string.core_exit));
     nativeAddLocalization("core_my_places", getString(R.string.core_my_places));
-    nativeAddLocalization("core_my_position", getString(R.string.core_my_position));
+    nativeAddLocalization("core_my_location", getString(R.string.core_my_location));
     nativeAddLocalization("core_placepage_unknown_place", getString(R.string.core_placepage_unknown_place));
     nativeAddLocalization("postal_code", getString(R.string.postal_code));
     nativeAddLocalization("wifi", getString(R.string.category_wifi));
