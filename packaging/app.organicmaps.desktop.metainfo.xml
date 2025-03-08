@@ -115,6 +115,15 @@
   </screenshots>
 
   <releases>
+   <release version="2025.03.02-7" date="2025-03-02">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of February 27</li>
+           <li>Improved routing for bicycles</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.02.17-3" date="2025-02-17">
      <description>
        <p>Highlights:</p>
