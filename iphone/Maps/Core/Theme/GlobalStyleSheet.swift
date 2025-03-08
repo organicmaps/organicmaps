@@ -23,7 +23,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case trackRecordingWidgetButton = "TrackRecordingWidgetButton"
   case blackOpaqueBackground = "BlackOpaqueBackground"
   case blueBackground = "BlueBackground"
-  case toastBackground = "ToastBackground"
   case fadeBackground = "FadeBackground"
   case errorBackground = "ErrorBackground"
   case blackStatusBarBackground = "BlackStatusBarBackground"
@@ -59,6 +58,8 @@ enum GlobalStyleSheet: String, CaseIterable {
   case white = "MWMWhite"
   case datePickerView = "DatePickerView"
   case valueStepperView = "ValueStepperView"
+  case toastBackground
+  case toastLabel
 }
 
 extension GlobalStyleSheet: IStyleSheet {
@@ -193,10 +194,6 @@ extension GlobalStyleSheet: IStyleSheet {
     case .blueBackground:
       return .add { s in
         s.backgroundColor = colors.linkBlue
-      }
-    case .toastBackground:
-      return .add { s in
-        s.backgroundColor = colors.toastBackground
       }
     case .fadeBackground:
       return .add { s in
@@ -428,6 +425,17 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.regular16
         s.fontColor = colors.blackPrimaryText
         s.coloring = MWMButtonColoring.blue
+      }
+    case .toastBackground:
+      return .add { s in
+        s.cornerRadius = 12
+        s.clip = true
+      }
+    case .toastLabel:
+      return .add { s in
+        s.font = fonts.regular16
+        s.fontColor = colors.whitePrimaryText
+        s.textAlignment = .center
       }
     }
   }

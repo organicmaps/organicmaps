@@ -256,7 +256,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
 - (void)showNotesQueuedToast
 {
-  [[MWMToast toastWithText:L(@"editor_edits_sent_message")] show];
+  [Toast showWithText:L(@"editor_edits_sent_message")];
 }
 
 #pragma mark - Headers
