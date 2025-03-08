@@ -1156,4 +1156,11 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sportshal</string>
     <string name="type.aerialway.chair_lift">Stolelift</string>
+    <string name="type.building.warehouse">Varehus</string>
+    <string name="type.highway.cycleway">Cykelsti</string>
+    <string name="type.highway.cycleway.permissive">Cykelsti</string>
+    <string name="type.area_highway.cycleway">Cykelsti</string>
+    <string name="type.highway.bridleway">Ridesti</string>
+    <string name="type.highway.elevator">Elevator</string>
+    <string name="type.highway.bridleway.permissive">Ridesti</string>
 </resources>

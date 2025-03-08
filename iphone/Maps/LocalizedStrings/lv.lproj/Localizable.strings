@@ -1055,10 +1055,10 @@
 "start_track_recording" = "Ierakstīt ceļu";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Stop Track Recording";
+"stop_track_recording" = "Apstādināt ierakstīšanu";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Stop Without Saving";
+"stop_without_saving" = "Pārtraukt ierakstīšanu";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "continue_recording" = "Continue Recording";

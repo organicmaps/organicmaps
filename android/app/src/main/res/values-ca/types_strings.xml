@@ -289,7 +289,7 @@
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicacions</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
-    <string name="type.man_made.petroleum_well">Poço de petroli o gas</string>
+    <string name="type.man_made.petroleum_well">Pou petrolífer o de gas</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Flama de gas</string>
     <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
@@ -500,4 +500,25 @@
     <string name="type.place.island">Illa</string>
     <string name="type.place.islet">Illot</string>
     <string name="type.public_transport">Transport públic</string>
+    <string name="type.natural.volcano">Volcà</string>
+    <string name="type.place.city.capital.10">Ciutat</string>
+    <string name="type.place.country">País</string>
+    <string name="type.place.city.capital.11">Ciutat</string>
+    <string name="type.place.county">Comtat</string>
+    <string name="type.place.ocean">Oceà</string>
+    <string name="type.place.region">Regió</string>
+    <string name="type.place.sea">Mar</string>
+    <string name="type.place.square">Plaça</string>
+    <string name="type.highway.steps">Escales</string>
+    <string name="type.man_made.water_well">Pou d’aigua</string>
+    <string name="type.man_made.water_well.drinking_water_no">Pou d’aigua</string>
+    <string name="type.cuisine.asian">Asiàtica</string>
+    <string name="type.cuisine.argentinian">Argentina</string>
+    <string name="type.cuisine.austrian">Austríaca</string>
+    <string name="type.cuisine.breakfast">Esmorzar</string>
+    <string name="type.cuisine.tea">Te</string>
+    <string name="type.cuisine.spanish">Espanyola</string>
+    <string name="type.cuisine.mexican">Mexicana</string>
+    <string name="type.cuisine.brazilian">Brasilera</string>
+    <string name="type.building.garage">Garatge</string>
 </resources>

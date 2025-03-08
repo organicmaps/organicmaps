@@ -202,10 +202,10 @@
 "type.barrier.entrance" = "Прохід";
 "type.barrier.fence" = "Огорожа";
 "type.barrier.gate" = "Ворота";
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Жива огорожа";
 "type.barrier.kissing_gate" = "Ворота";
 "type.barrier.lift_gate" = "Шлагбаум";
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Підпірна стіна";
 "type.barrier.stile" = "Перелаз";
 "type.barrier.turnstile" = "Турнікет.";
 "type.barrier.swing_gate" = "Шлагбаум";
@@ -353,7 +353,7 @@
 "type.cuisine.vegan" = "Веганська кухня";
 "type.cuisine.vegetarian" = "Вегетаріанська кухня";
 "type.cuisine.vietnamese" = "В'єтнамська кухня";
-"type.emergency" = "Emergency";
+"type.emergency" = "Швидка";
 "type.emergency.assembly_point" = "Аварійний збірний пункт";
 "type.emergency.defibrillator" = "Дефібрилятор";
 "type.emergency.fire_hydrant" = "Пожежний гідрант";

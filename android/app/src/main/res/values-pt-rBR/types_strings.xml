@@ -108,7 +108,6 @@
     <string name="type.amenity.prison">Prisão</string>
     <string name="type.amenity.pub">Bar ou boteco</string>
     <string name="type.amenity.public_bookcase">Biblioteca livre</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro de reciclagem</string>
     <string name="type.amenity.recycling">Contêiner de reciclagem</string>
@@ -321,7 +320,6 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Amostragem</string>
     <string name="type.healthcare.speech_therapist">Terapia da fala</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Rodovia</string>
     <string name="type.highway.bridleway">Caminho para cavaleiros</string>
@@ -485,7 +483,6 @@
     <string name="type.area_highway.track">Pista para desportos não motorizados</string>
     <string name="type.area_highway.trunk">Via expressa</string>
     <string name="type.area_highway.unclassified">Estrada sem classificação</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Aeronaves Históricas</string>
     <string name="type.historic.anchor">Âncora Histórica</string>
@@ -1111,4 +1108,6 @@
     <string name="type.emergency.emergency_ward_entrance">Entrada da ala de emergência</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Salão de esportes</string>
+    <string name="type.power.pole">Poste de eletricidade</string>
+    <string name="type.man_made.utility_pole">Poste</string>
 </resources>

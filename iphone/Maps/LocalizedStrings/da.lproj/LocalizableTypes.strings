@@ -239,7 +239,7 @@
 "type.building_part" = "Bygning";
 "type.building.garage" = "Garage";
 "type.building.train_station" = "Stationsbygning";
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Varehus";
 "type.cemetery.grave" = "Grav";
 "type.craft" = "Håndværk";
 "type.craft.beekeeper" = "Biavler";
@@ -384,11 +384,11 @@
 "type.healthcare.sample_collection" = "Prøvetagning";
 "type.healthcare.speech_therapist" = "Tale terapi";
 "type.highway" = "Highway";
-"type.highway.bridleway" = "Bridle Path";
+"type.highway.bridleway" = "Ridesti";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Bro";
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Ridesti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
@@ -401,11 +401,11 @@
 "type.highway.busway.tunnel" = "Tunnel";
 "type.highway.bus_stop" = "Busstoppested";
 "type.highway.construction" = "Vej under opbygning";
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Cykelsti";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Bro";
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Cykelsti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunnel";
@@ -581,7 +581,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Tunnel";
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "Cykelsti";
 "type.area_highway.footway" = "Sti";
 "type.area_highway.living_street" = "Gade";
 "type.area_highway.motorway" = "Gade";

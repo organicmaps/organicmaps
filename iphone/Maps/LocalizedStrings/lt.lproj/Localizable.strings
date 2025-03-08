@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Mėlynai pilkas";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Keliaudami maršrutu įsidėmėkite:";
 "dialog_routing_disclaimer_priority" = "— Kelių kokybė, eismo taisyklės ir kelio ženklai turi aukštesnį prioritetą už navigacijos užuominas;";
 "dialog_routing_disclaimer_precision" = "— Žemėlapis gali būti klaidingas ir patariamas maršrutas ne visada bus optimalus būdas pasiekti tikslą;";
@@ -442,10 +438,6 @@
 "dialog_routing_try_again" = "Bandykite iš naujo";
 "dialog_routing_download_and_build_cross_route" = "Norėtumėte atsisiųsti žemėlapį, kad sukurtumėte labiau optimalų maršrutą, apimantį daugiau nei vieną žemėlapį?";
 "dialog_routing_download_cross_route" = "Atsisiųsti papildomų žemėlapių, kad sukurtumėte geresnį maršrutą, pereinantį šio žemėlapio ribas.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Rodyti";
@@ -871,10 +863,6 @@
 "moreyear_ago_sorttype" = "Daugiau nei prieš metus";
 "near_me_sorttype" = "Arti manęs";
 "others_sorttype" = "Kita";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Maistas";
 "tourist_places" = "Įžymybės";
 "museums" = "Muziejai";

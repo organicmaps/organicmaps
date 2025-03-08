@@ -89,7 +89,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Guardar mapas en</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Seleccione el lugar donde deben descargarse los mapas</string>
+    <string name="maps_storage_summary">Seleccione el lugar donde deben descargarse los mapas.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapas descargados</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -164,7 +164,7 @@
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Marcadores de Organic Maps compartidos con usted</string>
-    <string name="share_bookmarks_email_body">Hola! \nAdjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n¡Disfrute viajando con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">¡Hola! \n\nAdjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n\n¡Disfrute viajando con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
     <!-- Kmz file successful loading -->
@@ -312,7 +312,7 @@
     <!-- Preference title -->
     <string name="google_play_services">Servicios de localización de Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determina rápidamente tu ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
+    <string name="pref_use_google_play">Determina rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Enlaces de hoteles de Kayak.com</string>
     <!-- Preference description -->
@@ -364,7 +364,7 @@
     <string name="dialog_routing_disclaimer_priority">— Las condiciones del camino, las reglas de tránsito y los señalamientos siempre tienen prioridad sobre las sugerencias de navegación;</string>
     <string name="dialog_routing_disclaimer_precision">— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Las rutas sugeridas deben entenderse solo como recomendaciones;</string>
-    <string name="dialog_routing_disclaimer_borders">— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;</string>
+    <string name="dialog_routing_disclaimer_borders">— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados.</string>
     <string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y a salvo durante el viaje!</string>
     <string name="dialog_routing_check_gps">Verificar la señal del GPS</string>
     <string name="dialog_routing_error_location_not_found">No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.</string>
@@ -402,7 +402,7 @@
     <string name="search_not_found_query">Descargue la región en la que está buscando o pruebe a añadir el nombre de una ciudad/pueblo cercano.</string>
     <string name="search_history_title">Historial de búsquedas</string>
     <string name="search_history_text">Ver búsquedas recientes.</string>
-    <string name="clear_search">Eliminar el historial de búsqueda</string>
+    <string name="clear_search">Vaciar historial de búsquedas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_your_location">Su ubicación</string>
@@ -532,7 +532,7 @@
     <string name="editor_category_unsuitable_text">Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.</string>
     <string name="downloader_no_downloaded_maps_title">No ha descargado ningún mapa</string>
     <string name="downloader_no_downloaded_maps_message">Descargue mapas para encontrar la ubicación y navegar sin conexión.</string>
-    <string name="current_location_unknown_error_title">La ubicación actual es desconocida.</string>
+    <string name="current_location_unknown_error_title">Se desconoce la ubicación actual.</string>
     <!-- abbreviation for meters -->
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
@@ -565,9 +565,9 @@
     <string name="editor_remove_place_button">Eliminar</string>
     <string name="editor_place_doesnt_exist">El lugar no existe</string>
     <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-    <string name="delete_place_empty_comment_error">Indique por favor la razón para eliminar el lugar</string>
+    <string name="delete_place_empty_comment_error">Indique la razón para eliminar el lugar</string>
     <!-- Phone number error message -->
-    <string name="error_enter_correct_phone">Introduzca un número de teléfono correcto</string>
+    <string name="error_enter_correct_phone">Introduzca un número de teléfono válido</string>
     <string name="error_enter_correct_web">Introduzca una dirección web válida</string>
     <string name="error_enter_correct_email">Introduzca un correo válido</string>
     <string name="error_enter_correct_facebook_page">Introduzca una dirección web, una cuenta o un nombre de página de Facebook válidos</string>
@@ -579,7 +579,7 @@
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">¿Quiere enviarlo a todos los usuarios?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
-    <string name="editor_share_to_all_dialog_message_1">Asegúrate de que no has introducido ningún dato personal.</string>
+    <string name="editor_share_to_all_dialog_message_1">Cerciórese de que no ha introducido ningún dato privado o personal.</string>
     <string name="editor_share_to_all_dialog_message_2">Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.</string>
     <string name="navigation_stop_button">Detener</string>
     <!-- Shown as toast when starting the recent track recording -->
@@ -606,7 +606,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinión general</string>
     <string name="prefs_languages_information">Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz.\nAquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
+    <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbra los Ajustes de su dispositivo → Idioma y entrada de texto → Voz → Opciones texto a voz.\nAquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
     <string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <string name="learn_more">Leer más</string>
@@ -633,6 +633,7 @@
     <string name="bookmark_lists_show_all">Mostrar todo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
+        <item quantity="many">%d marcadores</item>
         <item quantity="other">%d marcadores</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crear nueva lista</string>
@@ -651,6 +652,7 @@
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Se encontró %d archivo. Lo verá después de la conversión.</item>
+        <item quantity="many">Se han encontrado %d archivos. Los verá después de la conversión.</item>
         <item quantity="other">Se han encontrado %d archivos. Los verá después de la conversión.</item>
     </plurals>
     <string name="restore">Restaurar</string>

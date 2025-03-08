@@ -115,7 +115,6 @@
     <string name="measurement_units">Μονάδες μέτρησης</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Μέρη για φαγητό</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Νερό</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Για RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Σημειώσεις</string>
@@ -368,7 +366,6 @@
     <string name="gray">Γκρι</string>
     <!-- blue gray color -->
     <string name="blue_gray">Γκρίζο μπλε</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Όταν ακολουθείτε την διαδρομή, να θυμάστε:</string>
     <string name="dialog_routing_disclaimer_priority">— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,</string>
@@ -398,7 +395,6 @@
     <string name="not_now">Όχι τώρα</string>
     <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
     <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.</string>
     <string name="search_select_map">Επιλογή χάρτη</string>
@@ -749,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Φαγητό</string>
     <string name="tourist_places">Αξιοθέατα</string>
@@ -891,4 +886,21 @@
     <string name="uri_open_location_failed">Δεν υπάρχει εγκατεστημένη εφαρμογή που να μπορεί να ανοίξει την τοποθεσία</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Αυτόματη πλοήγηση</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="facebook">Facebook</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">Όροφος: %s</string>
+    <string name="mb">MB</string>
+    <string name="mi">μι</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="openstreetmap">OpenStreetMap</string>
 </resources>

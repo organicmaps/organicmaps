@@ -410,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blue Gray";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
@@ -442,10 +438,6 @@
 "dialog_routing_try_again" = "Please try again";
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Show";
@@ -871,10 +863,6 @@
 "moreyear_ago_sorttype" = "More than a year ago";
 "near_me_sorttype" = "Near me";
 "others_sorttype" = "Others";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Food";
 "tourist_places" = "Sights";
 "museums" = "Museums";

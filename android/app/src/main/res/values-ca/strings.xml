@@ -403,12 +403,12 @@
     <string name="hide">Amaga</string>
     <string name="categories">Categories</string>
     <string name="history">Historial</string>
-    <string name="search_not_found">Ups! No s\'ha trobat cap resultat.</string>
+    <string name="search_not_found">No s’ha trobat cap resultat.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Baixeu la regió on esteu cercant o proveu d\'afegir un nom de ciutat o poble proper.</string>
     <string name="search_history_title">Historial de cerca</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
-    <string name="clear_search">Buida l\'historial de cerques.</string>
+    <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Viquipèdia</string>
     <string name="p2p_your_location">La vostra ubicació</string>
@@ -587,7 +587,7 @@
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
     <string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
-    <string name="navigation_stop_button">Atura\'t</string>
+    <string name="navigation_stop_button">Atura</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">Enregistrament de la pista</string>
     <!-- For the first routing -->
@@ -656,7 +656,7 @@
     <string name="bookmarks_error_message_list_name_already_taken">Trieu-ne un altre</string>
     <string name="please_wait">Espereu…</string>
     <string name="phone_number">Número de telèfon</string>
-    <string name="profile">Perfil d\'OpenStreetMap</string>
+    <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">S\'ha trobat %d fitxer. Podeu veure\'l després de la conversió.</item>
         <item quantity="other">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
@@ -693,7 +693,7 @@
     <string name="pref_tts_speedcams_always">Sempre avisa</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">No n\'avisis mai</string>
-    <string name="power_managment_title">Mode d\'estalvi d\'energia</string>
+    <string name="power_managment_title">Mode d’estalvi d’energia</string>
     <string name="power_managment_description">Si està seleccionat el mode automàtic, l\'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria</string>
     <string name="power_managment_setting_never">Mai</string>
     <string name="power_managment_setting_auto">Automàtic</string>

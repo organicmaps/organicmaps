@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— Las condiciones del camino, las reglas de tránsito y los señalamientos siempre tienen prioridad sobre las sugerencias de navegación;";
 "dialog_routing_disclaimer_precision" = "— El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;";
 "dialog_routing_disclaimer_recommendations" = "— Las rutas sugeridas deben entenderse solo como recomendaciones;";
-"dialog_routing_disclaimer_borders" = "— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;";
+"dialog_routing_disclaimer_borders" = "— Actúe con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados.";
 "dialog_routing_disclaimer_beware" = "¡Manténgase alerta y a salvo durante el viaje!";
 "dialog_routing_check_gps" = "Verificar la señal del GPS";
 "dialog_routing_error_location_not_found" = "No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.";
@@ -461,7 +461,7 @@
 "search_not_found_query" = "Descargue la región en la que está buscando o pruebe a añadir el nombre de una ciudad/pueblo cercano.";
 "search_history_title" = "Historial de búsquedas";
 "search_history_text" = "Ver búsquedas recientes.";
-"clear_search" = "Eliminar el historial de búsqueda";
+"clear_search" = "Vaciar historial de búsquedas";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
@@ -603,7 +603,7 @@
 "editor_category_unsuitable_text" = "Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nuestra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obtener instrucciones detalladas paso a paso.";
 "downloader_no_downloaded_maps_title" = "No ha descargado ningún mapa";
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
-"current_location_unknown_error_title" = "La ubicación actual es desconocida.";
+"current_location_unknown_error_title" = "Se desconoce la ubicación actual.";
 "current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
 "location_services_disabled_header" = "La identificación de la ubicación está desactivada";
 "location_services_disabled_message" = "Active el acceso a la geolocalización en los ajustes del dispositivo";
@@ -658,10 +658,10 @@
 "editor_remove_place_message" = "¿Eliminar el lugar añadido?";
 "editor_remove_place_button" = "Eliminar";
 "editor_place_doesnt_exist" = "El lugar no existe";
-"text_more_button" = "…más";
+"text_more_button" = "… más";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Introduzca un número de teléfono correcto";
+"error_enter_correct_phone" = "Introduzca un número de teléfono válido";
 "error_enter_correct_web" = "Introduzca una dirección web válida";
 "error_enter_correct_email" = "Introduzca un correo válido";
 "refresh" = "Actualizar";
@@ -671,7 +671,7 @@
 "editor_share_to_all_dialog_title" = "¿Quiere enviarlo a todos los usuarios?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Asegúrate de que no has introducido ningún dato personal.";
+"editor_share_to_all_dialog_message_1" = "Cerciórese de que no ha introducido ningún dato privado o personal.";
 "editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.";
 "navigation_stop_button" = "Detener";
 

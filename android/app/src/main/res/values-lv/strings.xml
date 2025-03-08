@@ -864,4 +864,6 @@
     <string name="core_placepage_unknown_place">Punkts kartē</string>
     <string name="nav_auto">Automātisks navigācijas laikā</string>
     <string name="start_track_recording">Ierakstīt ceļu</string>
+    <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
+    <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
 </resources>

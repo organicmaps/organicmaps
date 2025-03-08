@@ -304,7 +304,7 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Aktiver venligst placeringstjenester</string>
     <string name="save">Gem</string>
-    <string name="create">skabe</string>
+    <string name="create">opret</string>
     <!-- red color -->
     <string name="red">Rød</string>
     <!-- yellow color -->

@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">В\'язниця</string>
     <string name="type.amenity.pub">Паб</string>
     <string name="type.amenity.public_bookcase">Книгообмін</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Прийом вторсировини</string>
     <string name="type.amenity.recycling">Контейнер для вторсировини</string>
@@ -369,7 +368,6 @@
     <string name="type.healthcare.psychotherapist">Психотерапія</string>
     <string name="type.healthcare.sample_collection">Збір аналізів</string>
     <string name="type.healthcare.speech_therapist">Логопедія</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Дорога</string>
     <string name="type.highway.bridleway">Кінна доріжка</string>
@@ -535,7 +533,6 @@
     <string name="type.area_highway.track">Ґрунтівка</string>
     <string name="type.area_highway.trunk">Траса</string>
     <string name="type.area_highway.unclassified">Невелика дорога</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Історичний об\'єкт</string>
     <string name="type.historic.aircraft">Історичний літак</string>
@@ -1363,4 +1360,16 @@
     <string name="type.amenity.dojo">Додзьо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортивний зал</string>
+    <string name="type.emergency">Швидка</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.barrier.retaining_wall">Підпірна стіна</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.barrier.hedge">Жива огорожа</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.highway.world_level">highway-world_level</string>
 </resources>

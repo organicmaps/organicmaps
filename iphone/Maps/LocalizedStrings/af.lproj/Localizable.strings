@@ -154,10 +154,6 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Karavaanfasiliteite";
-
-
-/********** Other translations **********/
-
 "share_bookmarks_email_body" = "Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in Organic Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://omaps.app/get?kmz\n\nGeniet dit om met Organic Maps te reis!";
 
 /* message title of loading file */
@@ -414,10 +410,6 @@
 
 /* blue gray color */
 "blue_gray" = "Blougrys";
-
-
-/********** Routing dialogs strings **********/
-
 "dialog_routing_disclaimer_title" = "Wanneer u die roete volg, hou asb. die volgende in gedagte:";
 "dialog_routing_disclaimer_priority" = "– Padtoestande, verkeersreëls en padtekens neem kry voorkeur bo die navigasiewenke;";
 "dialog_routing_disclaimer_precision" = "– Die kaart kan onakkuraat wees en die voorgestelde roete is dalk nie die mees optimale manier om die bestemming te bereik nie;";
@@ -446,10 +438,6 @@
 "dialog_routing_try_again" = "Probeer asb. weer";
 "dialog_routing_download_and_build_cross_route" = "Wil u die kaart aflaai en ’n meer optimale roete bereken wat oor meer as een kaart loop?";
 "dialog_routing_download_cross_route" = "Laai bykomende kaarte af om ’n beter roete te bereken wat die grense van hierdie kaart oorskry.";
-
-
-/********** Strings for downloading map from search **********/
-
 
 /* «Show» context menu */
 "show" = "Toon";
@@ -875,10 +863,6 @@
 "moreyear_ago_sorttype" = "Meer as ’n jaar gelede";
 "near_me_sorttype" = "Naby my";
 "others_sorttype" = "Ander";
-
-
-/********** Bookmark types used for sorting **********/
-
 "food_places" = "Kos";
 "tourist_places" = "Besienswaardighede";
 "museums" = "Museums";

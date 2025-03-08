@@ -237,7 +237,7 @@
 "type.building.address" = "Adreça";
 "type.building.has_parts" = "Building";
 "type.building_part" = "Building";
-"type.building.garage" = "Garage";
+"type.building.garage" = "Garatge";
 "type.building.train_station" = "Edifici de l'Estació";
 "type.building.warehouse" = "Warehouse";
 "type.cemetery.grave" = "Grave";
@@ -270,16 +270,16 @@
 "type.cuisine.african" = "African";
 "type.cuisine.american" = "American";
 "type.cuisine.arab" = "Arab";
-"type.cuisine.argentinian" = "Argentinian";
-"type.cuisine.asian" = "Asian";
-"type.cuisine.austrian" = "Austrian";
+"type.cuisine.argentinian" = "Argentina";
+"type.cuisine.asian" = "Asiàtica";
+"type.cuisine.austrian" = "Austríaca";
 "type.cuisine.bagel" = "Bagel";
 "type.cuisine.balkan" = "Balkan";
 "type.cuisine.barbecue" = "Barbecue";
 "type.cuisine.bavarian" = "Bavarian";
 "type.cuisine.beef_bowl" = "Beef Bowl";
-"type.cuisine.brazilian" = "Brazilian";
-"type.cuisine.breakfast" = "Breakfast";
+"type.cuisine.brazilian" = "Brasilera";
+"type.cuisine.breakfast" = "Esmorzar";
 "type.cuisine.bubble_tea" = "Bubble Tea";
 "type.cuisine.burger" = "Burger";
 "type.cuisine.buschenschank" = "Buschenschank";
@@ -324,7 +324,7 @@
 "type.cuisine.malagasy" = "Malagasy";
 "type.cuisine.malaysian" = "Malaysian";
 "type.cuisine.mediterranean" = "Mediterranean";
-"type.cuisine.mexican" = "Mexican";
+"type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Moroccan";
 "type.cuisine.noodles" = "Noodles";
 "type.cuisine.oriental" = "East Asian";
@@ -343,11 +343,11 @@
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
 "type.cuisine.seafood" = "Seafood";
 "type.cuisine.soba" = "Soba";
-"type.cuisine.spanish" = "Spanish";
+"type.cuisine.spanish" = "Espanyola";
 "type.cuisine.steak_house" = "Steak House";
 "type.cuisine.sushi" = "Sushi";
 "type.cuisine.tapas" = "Tapas";
-"type.cuisine.tea" = "Tea";
+"type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Thai";
 "type.cuisine.turkish" = "Turkish";
 "type.cuisine.vegan" = "Vegan";
@@ -527,7 +527,7 @@
 "type.highway.service.tunnel" = "Tunnel";
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Càmera de trànsit";
-"type.highway.steps" = "Stairs";
+"type.highway.steps" = "Escales";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Bridge";
@@ -761,7 +761,7 @@
 "type.man_made.tower.communication" = "Torre de comunicacions";
 
 /* A deep hole drilled into the earth to extract oil or gas. */
-"type.man_made.petroleum_well" = "Poço de petroli o gas";
+"type.man_made.petroleum_well" = "Pou petrolífer o de gas";
 
 /* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Flama de gas";
@@ -769,8 +769,8 @@
 "type.man_made.water_tap" = "Water Tap";
 "type.man_made.water_tap.drinking_water_no" = "Water Tap";
 "type.man_made.water_tower" = "Water Tower";
-"type.man_made.water_well" = "Water Well";
-"type.man_made.water_well.drinking_water_no" = "Water Well";
+"type.man_made.water_well" = "Pou d’aigua";
+"type.man_made.water_well.drinking_water_no" = "Pou d’aigua";
 "type.man_made.windmill" = "Molí de vent";
 "type.man_made.works" = "Industrial Works";
 "type.mapswithme" = "mapswithme";
@@ -822,7 +822,7 @@
 "type.natural.strait" = "Strait";
 "type.natural.tree_row" = "Tree Row";
 "type.natural.vineyard" = "Vineyard";
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Volcà";
 "type.natural.water" = "Water";
 "type.natural.wetland" = "Wetland";
 "type.natural.wetland.bog" = "Bog";
@@ -840,8 +840,8 @@
 "type.organic.yes" = "Organic";
 "type.place.city" = "Ciutat";
 "type.place.city.capital" = "Capital";
-"type.place.city.capital.10" = "City";
-"type.place.city.capital.11" = "City";
+"type.place.city.capital.10" = "Ciutat";
+"type.place.city.capital.11" = "Ciutat";
 "type.place.city.capital.2" = "Capital";
 "type.place.city.capital.3" = "City";
 "type.place.city.capital.4" = "City";
@@ -851,8 +851,8 @@
 "type.place.city.capital.8" = "City";
 "type.place.city.capital.9" = "City";
 "type.place.continent" = "Continent";
-"type.place.country" = "Country";
-"type.place.county" = "County";
+"type.place.country" = "País";
+"type.place.county" = "Comtat";
 "type.place.farm" = "Farm";
 "type.place.hamlet" = "Hamlet";
 "type.place.island" = "Illa";
@@ -865,10 +865,10 @@
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
 "type.place.neighbourhood" = "Barri";
-"type.place.ocean" = "Ocean";
-"type.place.region" = "Region";
-"type.place.sea" = "Sea";
-"type.place.square" = "Square";
+"type.place.ocean" = "Oceà";
+"type.place.region" = "Regió";
+"type.place.sea" = "Mar";
+"type.place.square" = "Plaça";
 "type.place.state" = "State";
 "type.place.state.USA" = "State";
 
