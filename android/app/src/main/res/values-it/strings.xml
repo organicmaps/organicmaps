@@ -25,15 +25,15 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Cerca sulla mappa</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.</string>
+    <string name="location_is_disabled_long_text">Tutti i servizi di localizzazione per questo dispositivo o questa app sono al momento disattivati. Si prega di abilitarli nelle impostazioni.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Precisione limitata</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Per garantire una navigazione accurata, attivi la funzione Posizione precisa nelle impostazioni.</string>
+    <string name="precise_location_is_disabled_long_text">Per garantire una navigazione accurata, attiva la funzione Posizione precisa nelle impostazioni.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostra sulla mappa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
-    <string name="country_status_download_failed">Il download non è riuscito</string>
+    <string name="country_status_download_failed">Download fallito</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Riprova</string>
     <string name="about_menu_title">Informazioni su Organic Maps</string>
@@ -42,7 +42,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_1">• Nessun annuncio, nessun tracciamento, nessuna raccolta di dati</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">• Non consuma la batteria, funziona anche offline</string>
+    <string name="about_proposition_2">• Consuma poca batteria, funziona offline</string>
     <!-- Text in About screen -->
     <string name="about_proposition_3">• Veloce, minimalista, sviluppato dalla comunità</string>
     <!-- Text in About screen -->
@@ -50,17 +50,16 @@
     <!-- The button that opens system location settings -->
     <string name="location_settings">Impostazioni della posizione</string>
     <string name="close">Chiudi</string>
-    <string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
+    <string name="unsupported_phone">L\'app necessita di una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
     <string name="download">Scarica</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">Si prega di scollegare il cavo USB o inserire la scheda di memoria per utilizzare Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
+    <string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda SD/ memoria USB per utilizzare l\'app</string>
     <string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.
 \nLa dimensione del download è di %s.</string>
     <string name="download_resources_continue">Vai alla mappa</string>
-    <string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora
-\nprocedere con la mappa.</string>
+    <string name="downloading_country_can_proceed">Sto scaricando %s. Ora puoi \nprocedere con la mappa.</string>
     <string name="download_country_ask">Vuoi scaricare %s?</string>
     <string name="update_country_ask">Vuoi aggiornare %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -68,7 +67,7 @@
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Continua</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
-    <string name="download_country_failed">Il download di %s non è riuscito</string>
+    <string name="download_country_failed">Il download di %s è fallito</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Aggiungi nuovo elenco</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
@@ -102,7 +101,6 @@
     <string name="measurement_units">Unità di misura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Scegli tra miglia e chilometri</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Dove mangiare</string>
@@ -150,7 +148,6 @@
     <string name="category_water">Acqua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Per camper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Informazioni</string>
@@ -353,10 +350,9 @@
     <string name="gray">Grigio</string>
     <!-- blue gray color -->
     <string name="blue_gray">Grigiazzurro</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quando segui il percorso, ricorda che:</string>
-    <string name="dialog_routing_disclaimer_priority">— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sulle indicazioni del navigatore;</string>
+    <string name="dialog_routing_disclaimer_priority">— Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre la precedenza sulle indicazioni del navigatore;</string>
     <string name="dialog_routing_disclaimer_precision">— La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;</string>
     <string name="dialog_routing_disclaimer_recommendations">— I percorsi suggeriti devono essere considerati solo come consigli;</string>
     <string name="dialog_routing_disclaimer_borders">— Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate;</string>
@@ -383,7 +379,6 @@
     <string name="not_now">Non ora</string>
     <string name="dialog_routing_download_and_build_cross_route">Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?</string>
     <string name="dialog_routing_download_cross_route">Scarica altre mappe per creare un percorso migliore che attraversi i confini di questa mappa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.</string>
     <string name="search_select_map">Seleziona mappa</string>
@@ -604,7 +599,7 @@
 \nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.
 \nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
     <string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
-    <string name="transliteration_title">Trascrizione in latino</string>
+    <string name="transliteration_title">Traslittera in alfabeto latino</string>
     <string name="learn_more">Scopri di più</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Uscita</string>
@@ -619,7 +614,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
-    <string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci su support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simula archivio danneggiato</string>
     <string name="core_entrance">Ingresso</string>
     <string name="error_enter_correct_name">Inserisci un nome corretto</string>
@@ -737,7 +732,6 @@
     <string name="moreyear_ago_sorttype">Più di un anno fa</string>
     <string name="near_me_sorttype">Vicino a me</string>
     <string name="others_sorttype">Altro</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Cibo</string>
     <string name="tourist_places">Luoghi d\'interesse</string>
@@ -828,7 +822,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Questa applicazione ha bisogno del tuo permesso</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto ha bisogno di un permesso di localizzazione per funzionare efficacemente</string>
+    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto ha bisogno di accedere alla posizione per funzionare efficacemente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concessione dei permessi</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -852,7 +846,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Visualizza menu</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Apri in un\'altra applicazione</string>
+    <string name="open_in_app">Apri in un\'altra app</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Self service</string>
     <string name="select_option">Seleziona l\'opzione</string>
@@ -879,4 +873,32 @@
     <string name="uri_open_location_failed">Non c\'è un\'app installata che possa aprire la posizione</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigazione</string>
+    <string name="disk_error_title">Errore di memoria</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="ft">piedi</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="maps_storage_external">Memoria esterna condivisa</string>
+    <string name="maps_storage_free_size">%1$s liberi su %2$s</string>
+    <string name="disk_error">Impossibile creare la cartella e spostare i file nella memoria interna del dispositivo o sulla scheda SD</string>
+    <string name="menu">Menu</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="level_value_generic">Piano: %s</string>
+    <string name="maps_storage_internal">Memoria interna privata</string>
+    <string name="maps_storage_shared">Memoria interna condivisa</string>
+    <string name="maps_storage_removable">Scheda SD</string>
+    <string name="move_maps_error">Errore durante lo spostamento dei file delle mappe</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="github">GitHub</string>
+    <string name="hour">ore</string>
+    <string name="vk">VK</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
 </resources>
