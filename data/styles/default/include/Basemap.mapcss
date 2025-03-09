@@ -92,6 +92,7 @@ line|z10-[boundary=administrative][admin_level=4]
 area|z10-[landuse=forest],
 area|z10-[leisure=park],
 area|z12-[leisure=garden],
+area|z12-[landuse=plant_nursery],
 area|z12-[landuse=grass],
 area|z12-[natural=grassland],
 area|z12-[leisure=golf_course],
@@ -164,6 +165,11 @@ area|z16-[leisure=garden][garden:type=residential],
 {fill-color: @green1;}
 area|z17-[leisure=garden][garden:type=residential],
 {fill-color: @green2;}
+
+area|z12-13[landuse=plant_nursery],
+{fill-color: @green5;}
+area|z14-[landuse=plant_nursery],
+{fill-color: @forest;}
 
 area|z12-13[landuse=grass],
 area|z12-13[natural=grassland],

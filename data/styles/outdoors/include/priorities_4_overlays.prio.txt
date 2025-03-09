@@ -816,6 +816,7 @@ highway-living_street-bridge                        # pathtext z14- (also has li
 highway-living_street-tunnel                        # pathtext z14- (also has line z12-, line(casing) z16-)
 leisure-bowling_alley                               # icon z17- (also has caption(optional) z17-)
 leisure-garden                                      # icon z16- (also has caption(optional) z16-, area z12-)
+landuse-plant_nursery
 leisure-swimming_pool                               # icon z17- (also has caption(optional) z17-, area z13-)
 tourism-zoo-petting                                 # icon z15- (also has caption(optional) z15-)
 === 2450

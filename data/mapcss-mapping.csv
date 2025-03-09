@@ -810,7 +810,7 @@ deprecated|deprecated;690;x
 deprecated:boundary|administrative|country:04.2024;[boundary=administrative][border_type=country];x;name;int_name;691;
 man_made|cross;692;
 natural|orchard;693;landuse|orchard
-deprecated|deprecated;694;x
+landuse|plant_nursery;694;
 deprecated|deprecated;695;x
 deprecated|deprecated;696;x
 deprecated|deprecated;697;x
