@@ -640,6 +640,7 @@
     <string name="type.landuse.salt_pond">Salt Pond</string>
     <string name="type.landuse.village_green">Land</string>
     <string name="type.landuse.vineyard">Vineyard</string>
+    <string name="type.landuse.plant_nursery">Plant Nursery</string>
     <string name="type.leisure">Leisure</string>
     <string name="type.leisure.common">Public Land</string>
     <string name="type.leisure.dog_park">Dog Park</string>
