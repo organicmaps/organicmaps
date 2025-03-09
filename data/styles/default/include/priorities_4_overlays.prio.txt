@@ -712,8 +712,8 @@ highway-path-horse                                  # pathtext z15- (also has li
 highway-path-tunnel                                 # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2820
 
+highway-ladder                                      # icon z17- (also has caption(optional) z17-)
 highway-steps                                       # pathtext z16- (also has line z15-)
-highway-ladder
 highway-steps-bridge                                # pathtext z16- (also has line z15-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-steps-tunnel                                # pathtext z16- (also has line z15-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2810
@@ -1708,6 +1708,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # natural-rock                                      # caption(optional) z17- (also has icon z17-)
 # === -7150
+
+# highway-ladder                                    # caption(optional) z17- (also has icon z17-)
+# === -7190
 
 # amenity-townhall                                  # caption(optional) z16- (also has icon z16-)
 # leisure-resort                                    # caption(optional) z16- (also has icon z16-)
