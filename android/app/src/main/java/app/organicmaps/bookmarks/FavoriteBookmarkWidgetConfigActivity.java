@@ -19,6 +19,8 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.content.DataSource;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.util.Config;
+import app.organicmaps.util.ThemeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +28,6 @@ import java.util.List;
 
 public class FavoriteBookmarkWidgetConfigActivity extends AppCompatActivity
 {
-
   private static final String TAG = "BookmarkWidgetConfig";
 
   private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -42,6 +43,8 @@ public class FavoriteBookmarkWidgetConfigActivity extends AppCompatActivity
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
+    applyTheme();
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_widget_config);
 
@@ -90,6 +93,12 @@ public class FavoriteBookmarkWidgetConfigActivity extends AppCompatActivity
       Log.e(TAG, "Failed to initialize app", e);
       finish();
     }
+  }
+
+  private void applyTheme()
+  {
+    String currentTheme = Config.getCurrentUiTheme(this);
+    setTheme(ThemeUtils.getCardBgThemeResourceId(this, currentTheme));
   }
 
   private void loadCategories()

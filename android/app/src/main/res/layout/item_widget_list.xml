@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_primary">
+    android:background="?android:attr/windowBackground">
 
     <TextView
         android:id="@+id/name"
@@ -15,6 +15,7 @@
         android:layout_marginTop="@dimen/margin_base"
         android:ellipsize="middle"
         android:singleLine="true"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_marginStart="16dp"
         android:textAppearance="?fontBody1"
         tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
@@ -35,6 +36,7 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:singleLine="true"
+            android:textColor="?android:attr/textColorPrimary"
             android:textAppearance="@style/MwmTextAppearance.Body3"
             tools:text="42000000" />
 

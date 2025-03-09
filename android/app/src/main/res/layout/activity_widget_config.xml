@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_window"
+        android:background="?android:attr/windowBackground"
         android:minWidth="@dimen/bookmark_purchase_img_width"
         android:orientation="vertical">
 
@@ -60,6 +60,7 @@
             android:lineSpacingExtra="@dimen/text_size_banner"
             android:text="@string/select_list"
             android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="@dimen/text_size_toolbar"
             android:textStyle="normal"
             tools:text="Select list" />
