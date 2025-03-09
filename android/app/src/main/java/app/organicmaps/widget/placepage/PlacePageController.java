@@ -22,6 +22,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -30,6 +33,7 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.intent.Factory;
+import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.ThemeUtils;
@@ -37,7 +41,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,6 +185,12 @@ public class PlacePageController extends Fragment implements
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
+    MapButtonsController mapButtonsController = (MapButtonsController)
+        requireActivity().getSupportFragmentManager().findFragmentById(R.id.map_buttons);
+    if (mapButtonsController != null)
+    {
+      mapButtonsController.renderZoomButtons();
+    }
   }
 
   @Nullable

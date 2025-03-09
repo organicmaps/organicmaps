@@ -21,6 +21,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.badge.ExperimentalBadgeUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -37,10 +43,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.badge.BadgeUtils;
-import com.google.android.material.badge.ExperimentalBadgeUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -365,6 +367,20 @@ public class MapButtonsController extends Fragment
       return 0;
   }
 
+  public void renderZoomButtons()
+  {
+    View zoomContainer = mButtonsMap.get(MapButtons.zoom);
+    if (zoomContainer != null)
+    {
+      if (zoomContainer.getVisibility() != View.VISIBLE)
+      {
+        zoomContainer.setVisibility(View.INVISIBLE);
+        zoomContainer.requestLayout();
+        zoomContainer.invalidate();
+        zoomContainer.setVisibility(View.VISIBLE);
+      }
+    }
+  }
   public void setButtonsHidden(boolean buttonHidden)
   {
     UiUtils.showIf(!buttonHidden, mFrame);
