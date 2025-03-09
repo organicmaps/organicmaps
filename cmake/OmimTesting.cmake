@@ -10,12 +10,12 @@ endif()
 # TestServer fixture configuration
 add_test(
   NAME OmimStartTestServer
-  COMMAND start_server.py
+  COMMAND Python3::Interpreter start_server.py
   WORKING_DIRECTORY ${OMIM_ROOT}/tools/python/test_server
 )
 add_test(
   NAME OmimStopTestServer
-  COMMAND stop_server.py
+  COMMAND Python3::Interpreter stop_server.py
   WORKING_DIRECTORY ${OMIM_ROOT}/tools/python/test_server
 )
 set_tests_properties(OmimStartTestServer PROPERTIES FIXTURES_SETUP TestServer)
