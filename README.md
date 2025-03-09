@@ -141,9 +141,11 @@ Please consider [donating](https://organicmaps.app/donate) if you want to see th
 
 Licensed under the Apache License, Version 2.0. See
 [LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE),
-[NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
-and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html)
+[NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE),
+[data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) and [.reuse/dep5](https://github.com/organicmaps/organicmaps/blob/master/.reuse/dep5),
 for more information.
+
+[![REUSE status](https://api.reuse.software/badge/github.com/organicmaps/organicmaps)](https://api.reuse.software/info/github.com/organicmaps/organicmaps)
 
 ## Governance
 

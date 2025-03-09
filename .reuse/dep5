@@ -1,0 +1,106 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://github.com/organicmaps/organicmaps/
+Upstream-Name: Organic Maps
+
+Files: *
+Copyright: See CONTRIBUTORS file
+License: Apache-2.0
+
+Files: 3party/bsdiff-courgette/bsdiff/*
+Copyright: 2003-2004, Colin Percival
+           2016, The Chromium Authors
+License: BSD-Protection
+Comment: https://github.com/l1x/courgette
+
+Files: 3party/bsdiff-courgette/divsufsort/*
+Copyright: 2003-2008, Yuta Mori
+           2016, Samuel Huang <huangs@chromium.org>
+License: MIT
+
+Files: 3party/liboauthcpp/*
+Copyright: 2004-2008, René Nyffenegger
+           2011, Stanford University
+           2011, swatkat <swatkat.thinkdigit@gmail.com>
+License: MIT
+Comment: https://github.com/sirikata/liboauthcpp/ and https://github.com/swatkat/twitcurl
+
+Files: 3party/libtess2/*
+Copyright: Silicon Graphics, Inc
+License: SGI-B-2.0
+
+Files: 3party/libtess2/Contrib/*
+Copyright: 2002-2004, Maxim Shemanarev (McSeem)
+           2009, Mikko Mononen <memon@inside.org>
+License: Zlib
+
+Files: 3party/minizip/src/MiniZip64_info.txt
+       3party/minizip/src/unzip.h
+       3party/minizip/src/zip.h
+Copyright: 2007-2008, Even Rouault
+           1998-2010, Gilles Vollant
+           2009-2010, Mathias Svensson
+License: Zlib
+
+Files: 3party/opening_hours/opening_hours.cpp
+       3party/opening_hours/opening_hours.hpp
+       3party/opening_hours/opening_hours_tests/opening_hours_tests.cpp
+       platform/http_client.hpp
+       platform/http_client_apple.mm
+       platform/http_client_curl.cpp
+Copyright: 2014-2021, Alexander Borsuk <me@alex.bio>
+           2015, Mail.Ru Group
+           2014-2021, from Minsk, Belarus
+License: MIT
+
+Files: 3party/open-location-code/*
+Copyright: 2015-2024, Doug Rinckes and others
+           2015-2024, Google (Alphabet Inc)
+License: Apache-2.0
+Comment: No license headers found, using license from:
+ 3party/open-location-code/LICENSE
+ See https://github.com/google/open-location-code
+
+Files: 3party/skarupke/__bytell_hash_map.hpp
+       3party/skarupke/__flat_hash_map.hpp
+Copyright: 2017, Malte Skarupke
+License: BSL-1.0
+
+Files: 3party/stb_image/stb_image.h
+       3party/stb_image/stb_image_write.h
+Copyright: 2010-2017, Sean Barrett and others
+License: MIT
+
+Files: 3party/succinct/*
+Copyright: 2011, Giuseppe Ottaviano <giuott@gmail.com>
+License: Apache-2.0
+
+Files: 3party/vulkan_wrapper/vulkan_wrapper.*
+Copyright: 2018 The Android Open Source Project
+License: Apache-2.0
+
+Files: data/borders/*
+       data/osm_test_data/*
+Copyright: OpenStreetMap contributors
+License: ODbL-1.0
+
+Files: tools/python/stylesheet/webcolors/*
+Copyright: 2008-2009, James Bennett
+License: BSD-3-Clause
+
+Files: tools/python/transit/bezier_curves.py
+Copyright: 2015, Emilia Petrisor
+License: BSD-2-Clause
+
+Files: debian/patches/010-embed-just_gtfs.patch
+Copyright: 2020-2021, Olga Khlopkova <mesozoic.drones@gmail.com>
+           2021-2021, Tatiana Ian <tatiana.kondakova@gmail.com>
+           2021-2021, Victor <victormartin96@outlook.com>
+           2020, ldo2 <ldo2.msiu@gmail.com>
+           2020, Vlad Vesa <vlad.vesa89@gmail.com>
+           2020, Vladimir Byko-Ianko <bykoianko@gmail.com>
+           2020, mesozoic-drones <mesozoic.drones@gmail.com>
+License: MIT
+
+Files: debian/patches/0021-Add-libkomwm.py.patch
+Copyright: Organic Maps authors
+License: Apache-2.0
