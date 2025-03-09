@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Jūdzes";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Mana vieta";
+/* A text for current gps location point/arrow */
+"core_my_location" = "Mana vieta";
 
 /* Update maps later button text */
 "later" = "Vēlāk";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Vikikrātuve";
-"p2p_your_location" = "Jūsu atrašanās vieta";
 "p2p_start" = "Sākt";
 "p2p_from_here" = "Maršruts no";
 "p2p_to_here" = "Kurp";

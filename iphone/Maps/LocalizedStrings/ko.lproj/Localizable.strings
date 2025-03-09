@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "마일";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "나의 위치";
+/* A text for current gps location point/arrow */
+"core_my_location" = "나의 위치";
 
 /* Update maps later button text */
 "later" = "나중에";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "위치";
 "p2p_start" = "시작";
 "p2p_from_here" = "출발지";
 "p2p_to_here" = "목적지";

@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miilid";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Minu asukoht";
+/* A text for current gps location point/arrow */
+"core_my_location" = "Minu asukoht";
 
 /* Update maps later button text */
 "later" = "Hiljem";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Sinu asukoht";
 "p2p_start" = "Alusta";
 "p2p_from_here" = "Teekond lähtekohast";
 "p2p_to_here" = "Teekond sihtkohta";

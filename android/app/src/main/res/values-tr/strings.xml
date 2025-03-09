@@ -18,8 +18,8 @@
     <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mil</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Konumum</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Konumum</string>
     <!-- Update maps later button text -->
     <string name="later">Daha sonra</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -415,7 +415,6 @@
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipedi</string>
-    <string name="p2p_your_location">Konumunuz</string>
     <string name="p2p_start">Başla</string>
     <string name="p2p_from_here">Başlangıç</string>
     <string name="p2p_to_here">Varış yeri</string>

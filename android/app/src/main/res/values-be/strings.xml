@@ -19,8 +19,8 @@
     <string name="gb">ГБ</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Мілі</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Маё месцазнаходжанне</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Маё месцазнаходжанне</string>
     <!-- Update maps later button text -->
     <string name="later">Потым</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -410,7 +410,6 @@
     <string name="clear_search">Ачысціць гісторыю пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Вікіпедыя</string>
-    <string name="p2p_your_location">Ваша месцазнаходжанне</string>
     <string name="p2p_start">Пачаць</string>
     <string name="p2p_from_here">Адсюль</string>
     <string name="p2p_to_here">Дасюль</string>

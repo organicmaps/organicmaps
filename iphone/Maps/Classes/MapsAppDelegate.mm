@@ -52,7 +52,7 @@ void InitLocalizedStrings() {
   f.AddString("core_entrance", L(@"core_entrance").UTF8String);
   f.AddString("core_exit", L(@"core_exit").UTF8String);
   f.AddString("core_my_places", L(@"core_my_places").UTF8String);
-  f.AddString("core_my_position", L(@"core_my_position").UTF8String);
+  f.AddString("core_my_location", L(@"core_my_location").UTF8String);
   f.AddString("core_placepage_unknown_place", L(@"core_placepage_unknown_place").UTF8String);
   f.AddString("postal_code", L(@"postal_code").UTF8String);
 }

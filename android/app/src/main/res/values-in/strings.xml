@@ -18,8 +18,8 @@
     <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mil</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Posisi Saya</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Posisi Saya</string>
     <!-- Update maps later button text -->
     <string name="later">Nanti</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -391,7 +391,6 @@
     <string name="search_history_title">Riwayat Pencarian</string>
     <string name="search_history_text">Akses kueri pencarian terbaru dengan cepat.</string>
     <string name="clear_search">Bersihkan riwayat pencarian</string>
-    <string name="p2p_your_location">Lokasi Anda</string>
     <string name="p2p_start">Mulai</string>
     <string name="p2p_from_here">Dari</string>
     <string name="p2p_to_here">Rute ke</string>

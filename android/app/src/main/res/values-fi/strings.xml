@@ -19,8 +19,8 @@
     <string name="gb">Gt</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mailit</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Sijaintini</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Sijaintini</string>
     <!-- Update maps later button text -->
     <string name="later">Myöhemmin</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -412,7 +412,6 @@
     <string name="clear_search">Poista hakuhistoria</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
-    <string name="p2p_your_location">Sijaintisi</string>
     <string name="p2p_start">Aloita</string>
     <string name="p2p_from_here">Lähtöpaikka</string>
     <string name="p2p_to_here">Reitin loppupiste</string>

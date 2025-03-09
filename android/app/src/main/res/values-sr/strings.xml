@@ -16,8 +16,8 @@
     <string name="kilometres">Колиметри</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Миље</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Моја позиција</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Моја позиција</string>
     <!-- Update maps later button text -->
     <string name="later">Касније</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -404,7 +404,6 @@
     <string name="read_in_wikipedia">Википедија</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Викимедијина остава</string>
-    <string name="p2p_your_location">Ваша локација</string>
     <string name="p2p_start">Крени</string>
     <string name="p2p_from_here">Рута од</string>
     <string name="p2p_to_here">Рута до</string>

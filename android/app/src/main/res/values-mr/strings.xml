@@ -16,8 +16,8 @@
     <string name="kilometres">किलोमीटर</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">मैल</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">माझे स्थान</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">माझे स्थान</string>
     <!-- Update maps later button text -->
     <string name="later">नंतर</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -385,7 +385,6 @@
     <string name="clear_search">शोध इतिहास पुसून टाका</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">विकिपीडिया</string>
-    <string name="p2p_your_location">तुमचे स्थान</string>
     <string name="p2p_start">सुरू करा</string>
     <string name="p2p_from_here">पासून मार्ग</string>
     <string name="p2p_to_here">पर्यंतचा मार्ग</string>

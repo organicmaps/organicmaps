@@ -19,8 +19,8 @@
     <string name="gb">गीगाबाइट</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">मील</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">मेरा स्थान</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">मेरा स्थान</string>
     <!-- Update maps later button text -->
     <string name="later">बाद में</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->

@@ -16,8 +16,8 @@
     <string name="kilometres">Kilometer</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miles</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Min position</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Min position</string>
     <!-- Update maps later button text -->
     <string name="later">Senere</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -381,7 +381,6 @@
     <string name="search_history_title">Søgehistorik</string>
     <string name="search_history_text">Se dine seneste søgninger.</string>
     <string name="clear_search">Ryd søgehistorik</string>
-    <string name="p2p_your_location">Din placering</string>
     <string name="p2p_start">Start</string>
     <string name="p2p_from_here">Rute fra</string>
     <string name="p2p_to_here">Rute til</string>

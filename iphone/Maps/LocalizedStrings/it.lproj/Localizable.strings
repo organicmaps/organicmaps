@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Miglia";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "La mia posizione";
+/* A text for current gps location point/arrow */
+"core_my_location" = "La mia posizione";
 
 /* Update maps later button text */
 "later" = "Più tardi";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "La tua posizione";
 "p2p_start" = "Inizia";
 "p2p_from_here" = "Parti da";
 "p2p_to_here" = "Vai a";

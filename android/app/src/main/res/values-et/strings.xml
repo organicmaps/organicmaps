@@ -16,8 +16,8 @@
     <string name="kilometres">Kilomeetrid</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miilid</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Minu asukoht</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Minu asukoht</string>
     <!-- Update maps later button text -->
     <string name="later">Hiljem</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -395,7 +395,6 @@
     <string name="clear_search">Kustuta otsinguajalugu</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Vikipeedia</string>
-    <string name="p2p_your_location">Sinu asukoht</string>
     <string name="p2p_start">Alusta</string>
     <string name="p2p_from_here">Teekond lähtekohast</string>
     <string name="p2p_to_here">Teekond sihtkohta</string>
