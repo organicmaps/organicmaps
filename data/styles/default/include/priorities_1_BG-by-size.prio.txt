@@ -118,6 +118,7 @@ natural-scree                                       # area z11-
 natural-shingle                                     # area z12-
 === 80
 
+landuse-plant_nursery                               # area z12- (also has icon z16-, caption(optional) z16-)
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)
 leisure-garden-residential                          # area z12-
 leisure-park                                        # area z10- (also has icon z14-, caption(optional) z14-)
