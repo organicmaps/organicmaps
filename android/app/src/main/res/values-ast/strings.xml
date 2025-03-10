@@ -80,4 +80,21 @@
     <string name="editor_edit_place_name_hint">Nome del llugar</string>
     <string name="current_location_unknown_error_title">Desconózse l’allugamientu actual.</string>
     <string name="elevation_profile_ascent">Ascensu</string>
+    <string name="traffic_update_app">Anueva Organic Maps</string>
+    <string name="placepage_add_stop">Amestar parada</string>
+    <string name="placepage_remove_stop">Desaniciar parada</string>
+    <string name="privacy">Privacidá</string>
+    <string name="layers_title">Estilos y capes del mapa</string>
+    <string name="subway_data_unavailable">El mapa del metro nun ta disponible</string>
+    <string name="button_layer_subway">Metro</string>
+    <string name="delete_list">Desaniciar llista</string>
+    <string name="public_access">Accesu públicu</string>
+    <string name="bookmarks_empty_list_title">Esta llista ta balera</string>
+    <string name="place_description_title">Descripción del llugar</string>
+    <string name="power_managment_title">Mou d’aforru d’enerxía</string>
+    <string name="power_managment_setting_never">Enxamás</string>
+    <string name="bookmarks_new_list_hint">Llista nueva</string>
+    <string name="power_managment_setting_manual_max">Siempres</string>
+    <string name="category_desc_more">… más</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Escueyi otru nome</string>
 </resources>

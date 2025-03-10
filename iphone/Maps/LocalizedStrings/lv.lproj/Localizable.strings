@@ -166,7 +166,7 @@
 "load_kmz_failed" = "Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.";
 
 /* resource for context menu */
-"edit" = "Rediģēt";
+"edit" = "Labot";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Jūsu atrašanās vieta vēl nav noteikta";
@@ -313,7 +313,7 @@
 "long_tap_toast" = "Vēlreiz piespiediet un paturiet uz kartes, lai redzētu saskarni";
 
 /* Update all button text */
-"downloader_update_all_button" = "Atjaunināt visu";
+"downloader_update_all_button" = "Atjaunināt visus";
 
 /* Downloaded maps list header */
 "downloader_downloaded_subtitle" = "Lejupielādētās";
@@ -327,7 +327,7 @@
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Kartes";
-"downloader_download_all_button" = "Lejupielādēt visu";
+"downloader_download_all_button" = "Lejupielādēt visus";
 "downloader_downloading" = "Lejupielādē:";
 "downloader_search_results" = "Atrasts";
 
@@ -425,7 +425,7 @@
 "dialog_routing_download_and_update_all" = "Lejupielādēt un atjaunināt visas kartes, kas varētu būt plānotajā maršrutā.";
 "dialog_routing_unable_locate_route" = "Neizdevās noteikt maršrutu";
 "dialog_routing_change_start_or_end" = "Precizējiet savu sākuma punktu vai galamērķi.";
-"dialog_routing_change_start" = "Precizēt sākuma punktu";
+"dialog_routing_change_start" = "Precizēt sākumpunktu";
 "dialog_routing_start_not_determined" = "Maršruts nav izveidots. Neizdodas noteikt sākuma punktu.";
 "dialog_routing_select_closer_start" = "Atlasiet sākuma punktu tuvāk pie ceļa.";
 "dialog_routing_change_end" = "Precizēt galamērķi";
@@ -515,7 +515,7 @@
 "password_8_chars_min" = "Parole (vismaz 8 simboli)";
 "invalid_username_or_password" = "Nederīgs lietotājvārds vai parole.";
 "login" = "Ierakstīties";
-"login_osm" = "Ierakstīties „OpenStreetMap“";
+"login_osm" = "Ierakstīties OpenStreetMap";
 "forgot_password" = "Vai aizmirsāt paroli?";
 "osm_account" = "OSM konts";
 "logout" = "Izrakstīties";
@@ -540,7 +540,7 @@
 "select_cuisine" = "Atlasiet virtuvi";
 
 /* login text field */
-"email_or_username" = "E-pasta adrese vai lietotājvārds";
+"email_or_username" = "E-pasts vai lietotājvārds";
 "phone" = "Tālrunis";
 "level" = "Stāvs";
 "please_note" = "Ievērojiet";
@@ -595,7 +595,7 @@
 "editor_detailed_description_hint" = "Sīkāks komentārs";
 "editor_detailed_description" = "Jūsu izmaiņu priekšlikumu nosūtīsim „OpenStreetMap“ kopienai. Lūdzu, sniedziet jebkādu papildu informāciju, ko nevarat norādīt „Organic Maps“ lietotnē.";
 "editor_more_about_osm" = "Vairāk par „OpenStreetMap“";
-"editor_operator" = "Operators";
+"editor_operator" = "Saimniekotājs";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operators: %@";
@@ -736,8 +736,8 @@
 "bookmark_lists" = "Saraksti";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "Slēpt visu";
-"bookmark_lists_show_all" = "Rādīt visu";
+"bookmark_lists_hide_all" = "Slēpt visus";
+"bookmark_lists_show_all" = "Rādīt visus";
 "bookmarks_create_new_group" = "Izveidot jaunu sarakstu";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
@@ -820,10 +820,10 @@
 "no" = "Nē";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Ir";
+"yes_available" = "Pieejams";
 
 /* E.g. "WiFi:No" */
-"no_available" = "Nav";
+"no_available" = "Nav pieejams";
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Ietilpība: %@";

@@ -36,3 +36,13 @@
 "editor_edit_place_name_hint" = "Nome del llugar";
 "text_more_button" = "… más";
 "current_location_unknown_error_title" = "Desconózse l’allugamientu actual.";
+"placepage_remove_stop" = "Desaniciar parada";
+"layers_title" = "Estilos y capes del mapa";
+"button_layer_subway" = "Metro";
+"subway_data_unavailable" = "El mapa del metro nun ta disponible";
+"delete_list" = "Desaniciar llista";
+"place_description_title" = "Descripción del llugar";
+"power_managment_title" = "Mou d’aforru d’enerxía";
+"power_managment_setting_never" = "Enxamás";
+"power_managment_setting_manual_max" = "Siempres";
+"placepage_add_stop" = "Amestar parada";

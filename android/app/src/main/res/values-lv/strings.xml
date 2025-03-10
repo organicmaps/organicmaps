@@ -185,7 +185,7 @@
 \n
 \n%2$s</string>
     <!-- resource for context menu -->
-    <string name="edit">Rediģēt</string>
+    <string name="edit">Labot</string>
     <!-- Warning message when doing search around current position -->
     <string name="unknown_current_position">Jūsu atrašanās vieta vēl nav noteikta</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
@@ -222,14 +222,14 @@
     <string name="length">Garums</string>
     <string name="share_my_location">Kopīgot manu atrašanās vietu</string>
     <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Pamata iestatījumi</string>
+    <string name="prefs_group_general">Vispārējie iestatījumi</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Informācija</string>
     <string name="prefs_group_route">Navigācija</string>
     <string name="pref_zoom_title">Tālummaiņas pogas</string>
     <string name="pref_zoom_summary">Rādīt kartē</string>
     <!-- Settings «Map» category: «Night style» title -->
-    <string name="pref_map_style_title">Nakts režīms</string>
+    <string name="pref_map_style_title">Tumšais motīvs</string>
     <!-- Generic «Off» string -->
     <string name="off">Izslēgts</string>
     <!-- Generic «On» string -->
@@ -290,9 +290,9 @@
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="long_tap_toast">Vēlreiz piespiediet un paturiet uz kartes, lai redzētu saskarni</string>
     <!-- Update all button text -->
-    <string name="downloader_update_all_button">Atjaunināt visu</string>
+    <string name="downloader_update_all_button">Atjaunināt visus</string>
     <!-- Cancel all button text -->
-    <string name="downloader_cancel_all">Atcelt visu</string>
+    <string name="downloader_cancel_all">Atcelt visus</string>
     <!-- Downloaded maps list header -->
     <string name="downloader_downloaded_subtitle">Lejupielādētās</string>
     <!-- Country queued for download -->
@@ -300,7 +300,7 @@
     <string name="downloader_near_me_subtitle">Man tuvumā</string>
     <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
     <string name="downloader_status_maps">Kartes</string>
-    <string name="downloader_download_all_button">Lejupielādēt visu</string>
+    <string name="downloader_download_all_button">Lejupielādēt visus</string>
     <string name="downloader_downloading">Lejupielādē:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Lai dzēstu karti, apturiet navigāciju.</string>
@@ -379,7 +379,7 @@
     <string name="dialog_routing_unable_locate_route">Neizdevās noteikt maršrutu</string>
     <string name="dialog_routing_cant_build_route">Neizdevās izveidot maršrutu.</string>
     <string name="dialog_routing_change_start_or_end">Precizējiet savu sākuma punktu vai galamērķi.</string>
-    <string name="dialog_routing_change_start">Precizēt sākuma punktu</string>
+    <string name="dialog_routing_change_start">Precizēt sākumpunktu</string>
     <string name="dialog_routing_start_not_determined">Maršruts nav izveidots. Neizdodas noteikt sākuma punktu.</string>
     <string name="dialog_routing_select_closer_start">Atlasiet sākuma punktu tuvāk pie ceļa.</string>
     <string name="dialog_routing_change_end">Precizēt galamērķi</string>
@@ -459,7 +459,7 @@
     <string name="login">Ierakstīties</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Neierakstījāties</string>
-    <string name="login_osm">Ierakstīties „OpenStreetMap“</string>
+    <string name="login_osm">Ierakstīties OpenStreetMap</string>
     <string name="password">Parole</string>
     <string name="forgot_password">Vai aizmirsāt paroli?</string>
     <string name="logout">Izrakstīties</string>
@@ -481,7 +481,7 @@
     <string name="cuisine">Virtuve</string>
     <string name="select_cuisine">Atlasiet virtuvi</string>
     <!-- login text field -->
-    <string name="email_or_username">E-pasta adrese vai lietotājvārds</string>
+    <string name="email_or_username">E-pasts vai lietotājvārds</string>
     <string name="editor_add_phone">Pievienot tālruni</string>
     <string name="level">Stāvs</string>
     <!-- Building level -->
@@ -524,7 +524,7 @@
     <string name="editor_more_about_osm">Vairāk par „OpenStreetMap“</string>
     <string name="editor_osm_history">Tava kartes izmaiņu vēsture</string>
     <string name="editor_osm_notes">Tavas kartes datu piezīmes</string>
-    <string name="editor_operator">Operators</string>
+    <string name="editor_operator">Saimniekotājs</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operators: %s</string>
     <string name="editor_category_unsuitable_title">Vai neatrodat atbilstošu kategoriju?</string>
@@ -610,7 +610,7 @@
 \nTe varat pārvaldīt runas sintēzes iestatījumus (piemēram, lejupielādēt valodas paku lietošanai nesaistē, kā arī varat nomainīt dzini teksta pārvēršanai runā.</string>
     <string name="prefs_languages_information_off_link">Vairāk informācijas atradīsiet šajā pamācībā</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>
-    <string name="learn_more">Uzziniet vairāk</string>
+    <string name="learn_more">Uzzināt vairāk</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Izeja</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
@@ -630,8 +630,8 @@
     <string name="error_enter_correct_name">Ierakstiet pareizu nosaukumu</string>
     <string name="bookmark_lists">Saraksti</string>
     <!-- Do not display all bookmark lists on the map -->
-    <string name="bookmark_lists_hide_all">Slēpt visu</string>
-    <string name="bookmark_lists_show_all">Rādīt visu</string>
+    <string name="bookmark_lists_hide_all">Slēpt visus</string>
+    <string name="bookmark_lists_show_all">Rādīt visus</string>
     <plurals name="bookmarks_places">
         <item quantity="zero">%d grāmatzīmju</item>
         <item quantity="one">%d grāmatzīme</item>
@@ -716,9 +716,9 @@
     <!-- A generic "No" button in dialogs -->
     <string name="no">Nē</string>
     <!-- E.g. "WiFi:Yes" -->
-    <string name="yes_available">Ir</string>
+    <string name="yes_available">Pieejams</string>
     <!-- E.g. "WiFi:No" -->
-    <string name="no_available">Nav</string>
+    <string name="no_available">Nav pieejams</string>
     <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
     <string name="capacity">Ietilpība: %s</string>
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -762,7 +762,7 @@
     <string name="medicine">Medicīna</string>
     <string name="search_in_the_list">Meklēt sarakstā</string>
     <string name="religious_places">Reliģiskas vietas</string>
-    <string name="select_list">Atlasīt sarakstu</string>
+    <string name="select_list">Izvēlēties sarakstu</string>
     <string name="transit_not_found">Metro navigācija šajā reģionā nav pieejama</string>
     <string name="dialog_pedestrian_route_is_long_header">Metro maršruts nav atrasts</string>
     <string name="dialog_pedestrian_route_is_long_message">Izvēlieties sākuma un beigu punktu tuvāk metro stacijai</string>
@@ -775,7 +775,7 @@
     <string name="elevation_profile_max_elevation">Augstākais punkts</string>
     <string name="elevation_profile_difficulty">Sarežģītība</string>
     <string name="elevation_profile_distance">Attālums:</string>
-    <string name="elevation_profile_time">Laiks:</string>
+    <string name="elevation_profile_time">Ceļā:</string>
     <string name="isolines_toast_zooms_1_10">Pietuviniet, lai izpētītu izolīnijas</string>
     <string name="downloader_loading_ios">Lejupielādē</string>
     <string name="download_map_title">Lejupielādēt pasaules pārskata karti</string>
@@ -866,4 +866,7 @@
     <string name="start_track_recording">Ierakstīt ceļu</string>
     <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
     <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
 </resources>

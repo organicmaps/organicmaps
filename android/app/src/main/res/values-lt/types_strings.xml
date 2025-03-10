@@ -5,7 +5,6 @@
     <string name="type.amenity.motorcycle_rental">Motociklų nuoma</string>
     <string name="type.amenity.conference_centre">Konferencijų centras</string>
     <string name="type.amenity.exhibition_centre">Parodų centras</string>
-
     <!-- SECTION: Types: Recycling -->
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
     <string name="type.amenity.shelter.basic_hut">Bivako Namelis</string>
@@ -22,7 +21,6 @@
     <string name="type.emergency.mountain_rescue">Kalnų gelbėjimo stotis</string>
     <string name="type.entrance.exit">Išeiti</string>
     <string name="type.fee.no">Nemokama</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.footway.sidewalk">Šaligatvis</string>
     <string name="type.highway.footway.crossing">Pėsčiųjų perėja</string>
@@ -35,7 +33,6 @@
     <string name="type.highway.footway.bicycle">Kelias</string>
     <string name="type.highway.path.horse">Kelias</string>
     <string name="type.area_highway.path">Kelias</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Istorinis lėktuvas</string>
     <string name="type.historic.anchor">Istorinis inkaras</string>
@@ -94,4 +91,8 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sporto salė</string>
+    <string name="type.addr_interpolation">Adresas / blokas</string>
+    <string name="type.addr_interpolation.even">Adresas / blokas</string>
+    <string name="type.aerialway">Keltuvas</string>
+    <string name="type.addr_interpolation.odd">Adresas / blokas</string>
 </resources>
