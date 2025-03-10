@@ -108,6 +108,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.StackedButtonsDialog;
 import app.organicmaps.widget.menu.MainMenu;
+import app.organicmaps.widget.modalsearch.ModalSearchViewModel;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -188,6 +189,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private FloatingSearchToolbarController mSearchController;
+  private ModalSearchViewModel mSearchViewModel;
 
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
@@ -428,7 +430,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      SearchActivity.start(this, query);
+      mSearchViewModel.setModalSearchActive(true);
     }
   }
 
@@ -464,9 +466,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final Bundle args = new Bundle();
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
+    closeSearchToolbar(false, true);
     if (mIsTabletLayout)
     {
-      closeSearchToolbar(false, true);
       replaceFragment(DownloaderFragment.class, args, null);
     }
     else
@@ -533,6 +535,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // We don't need to manually handle removing the observers it follows the activity lifecycle
     mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
     mMapButtonsViewModel.getLayoutMode().observe(this, this::initNavigationButtons);
+    mSearchViewModel = new ViewModelProvider(MwmActivity.this).get(ModalSearchViewModel.class);
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
@@ -692,7 +695,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         showSearchToolbar();
       }
     }
-    else
+    else if (mIsTabletLayout)
     {
       closeSearchToolbar(true, true);
     }
@@ -906,7 +909,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private boolean closeSearchToolbar(boolean clearText, boolean stopSearch)
   {
-    if (UiUtils.isVisible(mSearchController.getToolbar()) || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+    if (!mIsTabletLayout && stopSearch && Boolean.TRUE.equals(mSearchViewModel.getModalSearchActive().getValue()))
+    {
+      mSearchViewModel.setModalSearchActive(false);
+      return true;
+    }
+    else if (
+      UiUtils.isVisible(mSearchController.getToolbar())
+      || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
+      || Boolean.TRUE.equals(mSearchViewModel.getModalSearchActive().getValue())
+    )
     {
       if (stopSearch)
       {
@@ -970,7 +982,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu = new MainMenu(menuFrame, (visible) -> {
       this.updateBottomWidgetsOffset();
       if (visible)
+      {
         mPlacePageViewModel.setPlacePageDistanceToTop(menuFrame.getTop());
+        mSearchViewModel.setModalSearchDistanceToTop(menuFrame.getTop());
+      }
     });
 
     if (mIsTabletLayout)
@@ -1271,6 +1286,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // This will open the place page
     mPlacePageViewModel.setMapObject((MapObject) data);
+    mSearchViewModel.setModalSearchSuspended(true);
   }
 
   // Called from JNI.
@@ -1279,6 +1295,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onPlacePageDeactivated()
   {
     closePlacePage();
+    mSearchViewModel.setModalSearchSuspended(false);
   }
 
   // Called from JNI.
