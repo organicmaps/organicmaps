@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Prigione</string>
     <string name="type.amenity.pub">Taverna</string>
     <string name="type.amenity.public_bookcase">Biblioteca di strada</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro di riciclaggio</string>
     <string name="type.amenity.recycling">Contenitore per materiali riciclabili</string>
@@ -370,7 +369,6 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Campionamento</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Via</string>
     <string name="type.highway.bridleway">sentiero per cavalli</string>
@@ -534,7 +532,6 @@
     <string name="type.area_highway.track">Via</string>
     <string name="type.area_highway.trunk">Strada</string>
     <string name="type.area_highway.unclassified">Via</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Oggetto storico</string>
     <string name="type.historic.aircraft">Aerei storici</string>
@@ -949,20 +946,20 @@
     <string name="type.railway.station.subway.yerevan">Stazione della metrò</string>
     <string name="type.railway.station.subway.yokohama">Stazione della metrò</string>
     <string name="type.railway.subway">Binari della metrò</string>
-    <string name="type.railway.subway_entrance">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.adana">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.algiers">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.almaty">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.amsterdam">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.ankara">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.athens">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.baku">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.bangkok">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.barcelona">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.beijing">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.bengalore">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.berlin">Stazione metropolitana</string>
-    <string name="type.railway.subway_entrance.bilbao">Stazione metropolitana</string>
+    <string name="type.railway.subway_entrance">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.adana">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.algiers">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.almaty">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.amsterdam">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.ankara">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.athens">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.baku">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.bangkok">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.barcelona">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.beijing">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.bengalore">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.berlin">Entrata metropolitana</string>
+    <string name="type.railway.subway_entrance.bilbao">Entrata metropolitana</string>
     <string name="type.railway.subway_entrance.brasilia">Stazione metropolitana</string>
     <string name="type.railway.subway_entrance.brescia">Stazione metropolitana</string>
     <string name="type.railway.subway_entrance.brussels">Stazione metropolitana</string>
@@ -1319,4 +1316,41 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Palazzetto dello sport</string>
+    <string name="type.landuse">Uso del suolo</string>
+    <string name="type.landuse.brownfield">Zona industriale</string>
+    <string name="type.landuse.village_green">Terra</string>
+    <string name="type.leisure.common">Suolo Pubblico</string>
+    <string name="type.power.station">Centralina Elettrica</string>
+    <string name="type.power.pole">Palo della luce</string>
+    <string name="type.railway.funicular.bridge">Ponte funicolare</string>
+    <string name="type.railway.monorail.bridge">Ponte monorotaia</string>
+    <string name="type.railway.monorail.tunnel">Tunnel monorotaia</string>
+    <string name="type.railway.platform">Piattaforma binario</string>
+    <string name="type.man_made.utility_pole">Palo</string>
+    <string name="type.power.line.underground">Linea elettrica sotterranea</string>
+    <string name="type.public_transport.platform">Marciapiede</string>
+    <string name="type.railway.abandoned.tunnel">Tunnel ferroviario abbandonato</string>
+    <string name="type.railway.light_rail.tunnel">Tunnel metropolitana</string>
+    <string name="type.landuse.field">Campo</string>
+    <string name="type.internet_access">Internet</string>
+    <string name="type.landuse.greenfield">Zona selvaggia</string>
+    <string name="type.railway.light_rail.bridge">Ponte metropolitana</string>
+    <string name="type.man_made.pipeline.overground">Condotto non interrato</string>
+    <string name="type.railway.abandoned.bridge">Ponte ferroviario abbandonato</string>
+    <string name="type.landuse.greenhouse_horticulture">Serra</string>
+    <string name="type.man_made.cairn">Tumulo</string>
+    <string name="type.railway.funicular.tunnel">Galleria funicolare</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.internet_access.wlan">Internet</string>
+    <string name="type.leisure.recreation_ground">Area divertimento</string>
+    <string name="type.railway.subway.bridge">Ponte della metropolitana</string>
+    <string name="type.railway.subway.tunnel">Tunnel della metropolitana</string>
+    <string name="type.waterway.weir">Briglia</string>
+    <string name="type.waterway">Via d\'acqua</string>
+    <string name="type.highway.services">Area di servizio</string>
+    <string name="type.attraction.big_wheel">Ruota panoramica</string>
+    <string name="type.shop.caravan">Vendita camper</string>
+    <string name="type.attraction.bumper_car">Autoscontro</string>
 </resources>
