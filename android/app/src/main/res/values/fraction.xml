@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- ModalSearch Bottom Sheet-->
+  <fraction name="modal_search_half_expanded_ratio">50%</fraction>
+</resources>

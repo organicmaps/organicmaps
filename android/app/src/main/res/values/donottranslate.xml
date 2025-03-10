@@ -65,6 +65,7 @@
   <string name="auto_enum_value" translatable="false">AUTO</string>
 
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+  <string name="search_sheet_behavior" translatable="false">app.organicmaps.widget.modalsearch.SearchBottomSheetBehavior</string>
 
   <string name="car_notification_channel_name" translatable="false">Car</string>
 </resources>
