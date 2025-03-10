@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/modal_search"
+    style="?attr/bottomSheetStyle"
+    android:maxWidth="@dimen/max_search_sheet_width"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    android:fillViewport="true"
+    app:layout_behavior="@string/search_sheet_behavior">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+      android:id="@+id/drag_indicator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_modal_search_header">
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="4dp"
+      android:layout_marginBottom="@dimen/margin_quarter_plus"
+      android:layout_marginTop="@dimen/margin_quarter"
+      app:srcCompat="@drawable/bottom_sheet_handle"
+      app:tint="?colorControlHighlight" />
+    </FrameLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/modal_search_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:tag="SearchFragment" />
+  </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
