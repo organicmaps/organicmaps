@@ -19,6 +19,10 @@
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor">?colorPrimary</item>
+    <item name="android:windowTranslucentNavigation">false</item>
+    <item name="android:enforceNavigationBarContrast" tools:targetApi="Q">false</item>
+    <item name="android:enforceStatusBarContrast" tools:targetApi="Q">false</item>
+
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>

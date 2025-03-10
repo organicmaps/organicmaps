@@ -20,6 +20,8 @@
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor">?colorPrimary</item>
     <item name="android:windowTranslucentNavigation">false</item>
+    <item name="android:enforceNavigationBarContrast" tools:targetApi="Q">false</item>
+    <item name="android:enforceStatusBarContrast" tools:targetApi="Q">false</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
