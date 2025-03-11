@@ -32,7 +32,8 @@ public class CarSensorsManager
   private final CarSensors mCarSensors;
 
   private boolean mIsCarCompassUsed = true;
-  private boolean mIsCarLocationUsed = true;
+  // TODO: Car location is disabled until proper support for 2+ LocationProviders is added to the core.
+  private boolean mIsCarLocationUsed = false;
 
   public CarSensorsManager(@NonNull final CarContext context)
   {
