@@ -29,7 +29,6 @@
 #include <string>
 #include <vector>
 
-
 namespace storage
 {
 class CountryInfoGetter;
@@ -435,6 +434,8 @@ public:
   kml::TrackId SaveTrackRecording(std::string trackName);
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
+
+  kml::TrackId SaveRoute(std::vector<m2::PointD> points);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
