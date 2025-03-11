@@ -31,6 +31,8 @@
 
 #include "base/assert.hpp"
 
+//#include "storage/storage.hpp"
+
 #include "private.h"
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -107,6 +109,12 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
 
+  [FileManagerHelper copyProjectFileToDocumentsWithFileName:@"Tajikistan"
+                                                  fileExtension:@"mwm"
+                                                  toSubdirectory:@"240429"];
+
+  GetFramework().LoadMapsSync();
+  
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
   InitLocalizedStrings();

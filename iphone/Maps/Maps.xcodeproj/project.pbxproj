@@ -614,6 +614,9 @@
 		CED0E04E2C91A702008C61CA /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0E04D2C91A702008C61CA /* UserEntity.swift */; };
 		E11202462D744BFA001B3B24 /* TourismDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E11202442D744BFA001B3B24 /* TourismDB.xcdatamodeld */; };
 		E112024A2D7454F3001B3B24 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11202492D7454EF001B3B24 /* CoreDataManager.swift */; };
+		E153EE3D2D80B3830065233D /* FileManagerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E153EE3A2D80B3780065233D /* FileManagerUtils.swift */; };
+		E153EE3F2D80C5AC0065233D /* FileManagerBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = E153EE3E2D80C59E0065233D /* FileManagerBridge.mm */; };
+		E1E3F8482D7ACCB7002E7BDD /* Tajikistan.mwm in Resources */ = {isa = PBXBuildFile; fileRef = E1E3F8472D7ACCB7002E7BDD /* Tajikistan.mwm */; };
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
@@ -1666,6 +1669,10 @@
 		CED0E04D2C91A702008C61CA /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		E11202452D744BFA001B3B24 /* TourismDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TourismDB.xcdatamodel; sourceTree = "<group>"; };
 		E11202492D7454EF001B3B24 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		E153EE3A2D80B3780065233D /* FileManagerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerUtils.swift; sourceTree = "<group>"; };
+		E153EE3E2D80C59E0065233D /* FileManagerBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FileManagerBridge.mm; sourceTree = "<group>"; };
+		E153EE402D80C5BE0065233D /* FileManagerBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileManagerBridge.h; sourceTree = "<group>"; };
+		E1E3F8472D7ACCB7002E7BDD /* Tajikistan.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tajikistan.mwm; sourceTree = "<group>"; };
 		ED097E762BB80C320006ED01 /* OMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -3098,6 +3105,7 @@
 		5260D3C72C64F52C00C673B4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E1E3F8472D7ACCB7002E7BDD /* Tajikistan.mwm */,
 				52D588B62C5CE10200AB96B3 /* Fonts */,
 				527D5E742C60A1F800736A85 /* Images.xcassets */,
 			);
@@ -3265,6 +3273,9 @@
 		527D5E792C60E04900736A85 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E153EE402D80C5BE0065233D /* FileManagerBridge.h */,
+				E153EE3E2D80C59E0065233D /* FileManagerBridge.mm */,
+				E153EE3A2D80B3780065233D /* FileManagerUtils.swift */,
 				527D5E7A2C60E05D00736A85 /* LanguageUtils.swift */,
 				CE6450272C99572F0075A59B /* ImageStoreUtils.swift */,
 			);
@@ -4916,6 +4927,7 @@
 				ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */,
 				F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
+				E1E3F8482D7ACCB7002E7BDD /* Tajikistan.mwm in Resources */,
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */,
 				52D588C92C5CEAF900AB96B3 /* Gilroy-Medium.ttf in Resources */,
@@ -5077,6 +5089,7 @@
 				F6E2FDF81E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
 				340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
+				E153EE3D2D80B3830065233D /* FileManagerUtils.swift in Sources */,
 				4757D6212535BB6E0062364F /* BookmarksListInterfaces.swift in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				99C964292428C0F700E41723 /* PlacePageHeaderPresenter.swift in Sources */,
@@ -5448,6 +5461,7 @@
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.m in Sources */,
 				EDFDFB4C2B722C9C0013A44C /* InfoTableViewCell.swift in Sources */,
+				E153EE3F2D80C5AC0065233D /* FileManagerBridge.mm in Sources */,
 				5260D3DE2C66237700C673B4 /* AuthService.swift in Sources */,
 				47CA68F8250F8AB700671019 /* BookmarksListSectionHeader.swift in Sources */,
 				CED0E0172C8ACF0D008C61CA /* RoundedCornerShape.swift in Sources */,
