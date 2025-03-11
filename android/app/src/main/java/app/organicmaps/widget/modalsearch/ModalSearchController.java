@@ -33,10 +33,12 @@ import app.organicmaps.util.InputUtils;
 public class ModalSearchController extends Fragment
 {
   private static final String SEARCH_FRAGMENT_TAG = SearchFragment.class.getSimpleName();
+  private static final int FALLBACK_COLLAPSED_HEIGHT = 200;
   private SearchBottomSheetBehavior<NestedScrollView> mSearchBehavior;
   private NestedScrollView mModalSearch;
   private ViewGroup mCoordinator;
   private int mViewportMinHeight;
+  private int mCollapsedHeight = FALLBACK_COLLAPSED_HEIGHT;
   private ModalSearchViewModel mViewModel;
   private final Observer<Boolean> mModalSearchSuspendedObserver = suspended -> {
     if (Boolean.FALSE.equals(mViewModel.getModalSearchActive().getValue()))
@@ -235,12 +237,13 @@ public class ModalSearchController extends Fragment
   {
     try
     {
-      return mDragIndicator.getMeasuredHeight() +
+      int calculatedHeight = mDragIndicator.getMeasuredHeight() +
           mModalSearch.findViewById(R.id.app_bar).getMeasuredHeight();    // TODO(savsch) get feedback on whether to change this height
-    } catch (NullPointerException npe)
-    {
-      return 0;
-    }
+      if (calculatedHeight > 0)
+        mCollapsedHeight = calculatedHeight;
+    } catch (NullPointerException ignored)
+    {}
+    return mCollapsedHeight;
   }
 
   private void removeModalSearchFragments()

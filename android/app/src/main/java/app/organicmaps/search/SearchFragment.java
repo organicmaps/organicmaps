@@ -65,8 +65,11 @@ public class SearchFragment extends BaseMwmFragment
   public static final String ARG_LOCALE = "locale";
   public static final String ARG_SEARCH_ON_MAP = "search_on_map";
 
+  private static final String STATE_KEY_RESULTS = "state_results";
+
   private ModalSearchViewModel mViewModel;
   private long mLastQueryTimestamp;
+  private boolean wereResultsRestored = false;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
@@ -123,7 +126,11 @@ public class SearchFragment extends BaseMwmFragment
       }
 
       mViewModel.setIsQueryEmpty(false);
-      runSearch();
+
+      if (wereResultsRestored)
+        wereResultsRestored = false;
+      else
+        runSearch();
     }
 
     @Override
@@ -254,7 +261,7 @@ public class SearchFragment extends BaseMwmFragment
                                               | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     toolbar.setLayoutParams(lp);
 
-    UiUtils.showIf(hasQuery, mResultsFrame);
+    UiUtils.showIf(wereResultsRestored || hasQuery, mResultsFrame);
     UiUtils.showIf(!mIsModal && hasQuery, mShowOnMapFab);
     if (hasQuery)
       hideDownloadSuggest();
@@ -268,7 +275,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean show = !mSearchRunning
                          && mSearchAdapter.getItemCount() == 0
-                         && mToolbarController.hasQuery();
+                         && (wereResultsRestored || mToolbarController.hasQuery());
 
     UiUtils.showIf(show, mResultsPlaceholder);
   }
@@ -325,6 +332,16 @@ public class SearchFragment extends BaseMwmFragment
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
+    if (savedInstanceState != null)
+    {
+      SearchResult[] savedSearchResults = (SearchResult[]) savedInstanceState.getParcelableArray(STATE_KEY_RESULTS);
+      if (savedSearchResults != null)
+      {
+        wereResultsRestored = true;
+        mSearchAdapter.refreshData(savedSearchResults);
+      }
+    }
+
     updateFrames();
     updateResultsPlaceholder();
     ViewCompat.setOnApplyWindowInsetsListener(
@@ -380,6 +397,14 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onStop();
     mToolbarController.detach();
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    if (!mSearchRunning)
+      outState.putParcelableArray(STATE_KEY_RESULTS, mSearchAdapter.getResults());
   }
 
   @Override
