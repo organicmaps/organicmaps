@@ -83,6 +83,7 @@ class WelcomeViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+    isInternetAvailable()
   }
   
   // MARK: - Setup
@@ -161,4 +162,16 @@ class WelcomeViewController: UIViewController {
   @objc private func signUpClicked() {
     performSegue(withIdentifier: "Welcome2SignUp", sender: nil)
   }
+  
+  private func isInternetAvailable() {
+      let monitor = NWPathMonitor()
+      let queue = DispatchQueue.global(qos: .background)
+
+      monitor.pathUpdateHandler = { path in
+          monitor.cancel() // Stop monitoring after checking
+      }
+
+      monitor.start(queue: queue)
+  }
+  
 }
