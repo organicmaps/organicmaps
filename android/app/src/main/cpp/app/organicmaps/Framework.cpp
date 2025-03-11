@@ -1143,6 +1143,12 @@ Java_app_organicmaps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong t
   frm()->ShowTrack(static_cast<kml::TrackId>(track));
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeSaveRoute(JNIEnv *, jclass)
+{
+  frm()->SaveRoute();
+}
+
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
 {

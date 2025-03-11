@@ -1170,6 +1170,51 @@ dp::Color BookmarkManager::GenerateTrackRecordingColor() const
   return kml::ColorFromPredefinedColor(kml::GetRandomPredefinedColor());
 }
 
+std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, std::string const & to)
+{
+  if (!from.empty() && !to.empty())
+    return from + " - " + to;
+  if (!from.empty())
+    return from;
+  if (!to.empty())
+    return to;
+  return GenerateTrackRecordingName();
+}
+
+kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points, std::string const & from, std::string const & to)
+{
+  kml::MultiGeometry geometry;
+  geometry.m_lines.emplace_back();
+  geometry.m_timestamps.emplace_back();
+  auto & line = geometry.m_lines.back();
+
+  for (auto const & pt : points)
+    line.emplace_back(pt);
+
+  kml::TrackData trackData;
+  trackData.m_geometry = std::move(geometry);
+
+  auto trackName = GenerateSavedRouteName(from, to);
+  kml::SetDefaultStr(trackData.m_name, trackName);
+
+  kml::ColorData colorData;
+  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
+  kml::TrackLayer layer;
+  layer.m_color = colorData;
+  std::vector<kml::TrackLayer> m_layers;
+  m_layers.emplace_back(layer);
+  trackData.m_layers = std::move(m_layers);
+
+  trackData.m_timestamp = kml::TimestampClock::now();
+
+  auto editSession = GetEditSession();
+  auto const track = editSession.CreateTrack(std::move(trackData));
+  auto const groupId = LastEditedBMCategory();
+  auto const trackId = track->GetId();
+  AttachTrack(trackId, groupId);
+  return trackId;
+}
+
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
                                                 AddressesCollection & newAddresses)
 {

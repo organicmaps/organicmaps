@@ -86,7 +86,7 @@ public class RoutingPlanController extends ToolbarController
   RoutingPlanController(View root, Activity activity,
                         ActivityResultLauncher<Intent> startDrivingOptionsForResult,
                         @NonNull RoutingPlanInplaceController.RoutingPlanListener routingPlanListener,
-                        @Nullable RoutingBottomMenuListener listener)
+                        @NonNull RoutingBottomMenuListener listener)
   {
     super(root, activity);
     mFrame = root;
