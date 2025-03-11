@@ -350,4 +350,6 @@ public class Framework
   public static native void nativeDidCloseProductsPopup(String reason);
 
   public static native void nativeDidSelectProduct(String title, String link);
+
+  public static native void nativeSaveRoute();
 }

@@ -4,7 +4,7 @@ namespace qt
 {
 void RoutingTurnsVisualizer::Visualize(RoutingManager & routingManager, df::DrapeApi & drape)
 {
-  auto const & polyline = routingManager.GetRoutePolylineForTests().GetPolyline();
+  auto const & polyline = routingManager.GetRoutePolyline().GetPolyline();
   auto const & turns = routingManager.GetTurnsOnRouteForTests();
 
   for (auto const & turn : turns)

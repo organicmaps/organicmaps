@@ -142,6 +142,7 @@ public:
   // This method was added because we do not want to break the behaviour that is familiar to our
   // users.
   bool DisableFollowMode();
+  void SaveRoute();
 
   void SetRouteBuildingListener(RouteBuildingCallback const & buildingCallback)
   {
@@ -204,7 +205,7 @@ public:
     return m_routingSession.GetTurnNotificationsLocale();
   }
   // @return polyline of the route.
-  routing::FollowedPolyline const & GetRoutePolylineForTests() const
+  routing::FollowedPolyline const & GetRoutePolyline() const
   {
     return m_routingSession.GetRouteForTests()->GetFollowedPolyline();
   }
