@@ -4,6 +4,7 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
+#include  <regex>
 
 namespace url
 {
@@ -30,6 +31,10 @@ bool Url::Parse(std::string const & url)
   if (start == string::npos || start == 0)
     return false;
   m_scheme = url.substr(0, start);
+  
+  //validate scheme
+  if(m_scheme != "http" && m_scheme != "https")
+    return false;
 
   // Skip slashes.
   start = url.find_first_not_of('/', start + 1);
@@ -46,6 +51,12 @@ bool Url::Parse(std::string const & url)
   else
     m_host = url.substr(start, end - start);
 
+  //validate host
+  std::regex hostRegex("^([a-zA-Z0-9.-]+)(:[0-9]+)?$");
+  if (!std::regex_match(m_host, hostRegex)) 
+  {
+      return false; 
+  }
   // Get path.
   if (url[end] == '/')
   {
@@ -62,6 +73,12 @@ bool Url::Parse(std::string const & url)
     }
     else
       m_path = url.substr(start, end - start);
+  }
+
+  //validate path
+  if (m_path.empty())
+  {
+    return false; 
   }
 
   // Parse query/fragment for keys and values.
@@ -86,6 +103,12 @@ bool Url::Parse(std::string const & url)
       else
       {
         key = UrlDecode(url.substr(start, end - start));
+      }
+
+      // Validate key and value.
+      if (key.empty() || value.empty()) 
+      {
+        return false; // Invalid key or value
       }
 
       m_params.emplace_back(key, value);

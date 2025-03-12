@@ -105,6 +105,20 @@ UNIT_TEST(Url_Invalid)
   TEST(!Url("").IsValid(), ());
   TEST(!Url(":/").IsValid(), ());
   TEST(!Url("//").IsValid(), ());
+
+  TEST(!Url("http://").IsValid(), ());
+
+  // Ensure URLs with invalid hosts (e.g., special characters) are invalid.
+  TEST(!Url("https://@&€:1;asf").IsValid(), ());
+
+  //Ensure URLs with invalid schemes (e.g., ftp) are invalid.
+  TEST(!Url("ftp://example.com").IsValid(), ());
+
+  //Ensure URLs with invalid host formats (e.g., starting with a hyphen) are invalid.
+  TEST(!Url("http://-example.com").IsValid(), ());
+
+  // Ensure URLs with invalid host formats (e.g., double dots) are invalid.
+  TEST(!Url("http://example..com").IsValid(), ());
 }
 
 UNIT_TEST(Url_Valid)
