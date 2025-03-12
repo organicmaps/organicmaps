@@ -1,0 +1,187 @@
+name: Build and Test CMake
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+  pull_request:
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/build-cmake.yaml'  # Run check on self change
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - iphone/**
+      - data/strings/**
+      - docs/**
+      - packaging/**
+      - pyhelpers/**
+      - tools/**
+      - '!tools/python/test_server/**'
+      - xcode/**
+
+# Cancels previous jobs if the same branch or PR was updated again.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        cmake-build-type: [ Debug, RelWithDebInfo ]
+        environment:
+          - os: ubuntu-24.04
+            cc: clang-18
+            cxx: clang++-18
+            disable-unity-build: ON
+            run-coverage: OFF
+
+          - os: ubuntu-24.04
+            cc: clang-18
+            cxx: clang++-18
+            disable-unity-build: OFF
+            run-coverage: OFF
+
+          - os: ubuntu-24.04
+            cc: clang-18
+            cxx: clang++-18
+            disable-unity-build: OFF
+            run-coverage: ON
+
+          - os: ubuntu-24.04
+            cc: gcc-14
+            cxx: g++-14
+            disable-unity-build: OFF
+            run-coverage: OFF
+
+          - os: macos-15
+            cc: clang
+            cxx: clang++
+            disable-unity-build: OFF
+            run-coverage: OFF
+        exclude:
+          - environment: { run-coverage: ON }
+            cmake-build-type: RelWithDebInfo
+
+    name: "${{ matrix.environment.os }} ${{ matrix.environment.cc }} ${{ matrix.cmake-build-type }} UnityDisable: ${{ matrix.environment.disable-unity-build }} Coverage: ${{ matrix.environment.run-coverage }}"
+
+    runs-on: ${{ matrix.environment.os }}
+
+    env:
+      BUILD_DIR: build
+
+    steps:
+      # TODO: Is this step needed?
+      - name: Free disk space by removing .NET, Android and Haskell
+        if: ${{ runner.os == 'Linux' }}
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Parallel submodules checkout (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Parallel submodules checkout (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Install build tools and dependencies (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              ninja-build \
+              libgl1-mesa-dev \
+              libglvnd-dev \
+              libharfbuzz-dev \
+              qt6-base-dev \
+              libqt6svg6-dev \
+              qt6-positioning-dev \
+              libqt6positioning6-plugins \
+              libqt6positioning6
+
+      - name: Install build tools and dependencies (macOS)
+        if: ${{ runner.os == 'macOS' }}
+        run: HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1 brew install ninja qt@6
+
+      - name: Install coverage check dependencies (Linux)
+        if: ${{ runner.os == 'Linux' && matrix.environment.run-coverage == 'ON' }}
+        run: sudo apt install -y llvm gcovr
+
+      - name: Configure repository
+        run: ./configure.sh
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.disable-unity-build }}-${{ matrix.environment.run-coverage }}-${{ matrix.cmake-build-type }}
+
+      - name: Configure cmake
+        env:
+          CC: ${{ matrix.environment.cc }}
+          CXX: ${{ matrix.environment.cxx }}
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: |
+          cmake . -B ${{ env.BUILD_DIR }} -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
+            -DCMAKE_C_FLAGS=-g1 \
+            -DCMAKE_CXX_FLAGS=-g1 \
+            -DUNITY_DISABLE=${{ matrix.environment.disable-unity-build }} \
+            -DCOVERAGE_REPORT=${{ matrix.environment.run-coverage }}
+
+      - name: Compile
+        working-directory: ${{ env.BUILD_DIR }}
+        run: ninja
+
+      - name: Prepare testing environment (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          sudo locale-gen en_US
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen es_ES
+          sudo locale-gen es_ES.UTF-8
+          sudo locale-gen fr_FR
+          sudo locale-gen fr_FR.UTF-8
+          sudo locale-gen ru_RU
+          sudo locale-gen ru_RU.UTF-8
+          sudo update-locale
+
+      - name: Run tests
+        working-directory: ${{ env.BUILD_DIR }}
+        env:
+          QT_QPA_PLATFORM: "offscreen"
+          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+          # shaders_tests - https://github.com/organicmaps/organicmaps/issues/223
+          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
+          CTEST_EXCLUDE_REGEX: "generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
+        run: ctest -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+
+      - name: Run coverage report generation
+        if: ${{ matrix.environment.run-coverage == 'ON' }}
+        working-directory: ${{ env.BUILD_DIR }}
+        run: |
+          cmake --build . --target omim_coverage
+          cat coverage_report/summary.txt
+
+      - name: Archive the coverage report
+        if: ${{ matrix.environment.run-coverage == 'ON' }}
+        working-directory: ${{ env.BUILD_DIR }}/coverage_report
+        run: zip -r coverage_report.zip html/
+
+      - name: Upload artifact
+        if: ${{ matrix.environment.run-coverage == 'ON' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: build/coverage_report/coverage_report.zip
