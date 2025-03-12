@@ -61,7 +61,7 @@ using Observers = NSHashTable<Observer>;
 - (void)searchEverywhere {
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
-  
+
   search::EverywhereSearchParams params{
     m_query, m_locale, {} /* default timeout */, m_isCategory,
     // m_onResults
@@ -156,6 +156,7 @@ using Observers = NSHashTable<Observer>;
 
 + (void)showResultAtIndex:(NSUInteger)index {
   auto const & result = [MWMSearch manager]->m_everywhereResults[index];
+  GetFramework().StopLocationFollow();
   GetFramework().SelectSearchResult(result, true);
 }
 
@@ -168,8 +169,13 @@ using Observers = NSHashTable<Observer>;
 
 + (void)showEverywhereSearchResultsOnMap {
   MWMSearch * manager = [MWMSearch manager];
-  if (![MWMRouter isRoutingActive])
-    GetFramework().ShowSearchResults(manager->m_everywhereResults);
+  if (![MWMRouter isRoutingActive]) {
+    auto const & results = manager->m_everywhereResults;
+    if (results.GetCount() == 1)
+      [self showResultAtIndex:0];
+    else
+      GetFramework().ShowSearchResults(manager->m_everywhereResults);
+  }
 }
 
 + (void)showViewportSearchResultsOnMap {
