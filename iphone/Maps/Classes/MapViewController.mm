@@ -148,24 +148,30 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)setupPlacePageContainer {
   self.placePageContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
+  self.placePageContainer.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.placePageContainer];
   [self.view bringSubviewToFront:self.placePageContainer];
 
-  self.placePageContainer.translatesAutoresizingMaskIntoConstraints = NO;
   self.placePageLeadingConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:kPlacePageLeadingOffset];
-  self.placePageLeadingConstraint.active = YES;
+  if (IPAD)
+    self.placePageLeadingConstraint.priority = UILayoutPriorityDefaultLow;
 
-  self.placePageWidthConstraint = [self.placePageContainer.widthAnchor constraintEqualToConstant:0];
+  self.placePageWidthConstraint = [self.placePageContainer.widthAnchor constraintEqualToConstant:kPlacePageCompactWidth];
   self.placePageTrailingConstraint = [self.placePageContainer.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor];
 
-  [self.placePageContainer.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
-  if (IPAD) {
-    self.placePageLeadingConstraint.priority = UILayoutPriorityDefaultLow;
-    [self.placePageContainer.bottomAnchor constraintLessThanOrEqualToAnchor:self.view.bottomAnchor].active = YES;
-  }
-  else {
-    [self.placePageContainer.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
-  }
+  NSLayoutConstraint * topConstraint = [self.placePageContainer.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor];
+
+  NSLayoutConstraint * bottomConstraint;
+  if (IPAD)
+    bottomConstraint = [self.placePageContainer.bottomAnchor constraintLessThanOrEqualToAnchor:self.view.bottomAnchor];
+  else
+    bottomConstraint = [self.placePageContainer.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+
+  [NSLayoutConstraint activateConstraints:@[
+    self.placePageLeadingConstraint,
+    topConstraint,
+    bottomConstraint,
+  ]];
 
   [self updatePlacePageContainerConstraints];
 }
@@ -178,7 +184,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)updatePlacePageContainerConstraints {
   const BOOL isLimitedWidth = IPAD || self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
-  [self.placePageWidthConstraint setConstant:kPlacePageCompactWidth];
 
   if (IPAD && self.searchView != nil) {
     NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchView.trailingAnchor constant:kPlacePageLeadingOffset];
