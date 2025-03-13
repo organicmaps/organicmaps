@@ -109,11 +109,7 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
 
-  [FileManagerHelper copyProjectFileToDocumentsWithFileName:@"Tajikistan"
-                                                  fileExtension:@"mwm"
-                                                  toSubdirectory:@"240429"];
-
-  GetFramework().LoadMapsSync();
+  [self setTajikistanMap];
   
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
@@ -265,6 +261,20 @@ using namespace osm_auth_ios;
                                        ms::LatLon(41.196740, 66.949922),
                                        ms::LatLon(36.483415, 75.400353));
   if (!isInBounds) [MapViewController setViewportToDushanbe];
+}
+
+- (void) setTajikistanMap {
+  BOOL fileExists = [FileManagerHelper fileExistsInDocumentsWithSubdirectory:@"240429"
+                                                                   fileName:@"Tajikistan"
+                                                             fileExtension:@"mwm"];
+  
+  if (!fileExists) {
+    [FileManagerHelper copyProjectFileToDocumentsWithFileName:@"Tajikistan"
+                                                    fileExtension:@"mwm"
+                                                    toSubdirectory:@"240429"];
+
+    GetFramework().LoadMapsSync();
+  }
 }
 
 BOOL isLocationInBounds1(ms::LatLon location, ms::LatLon topLeft, ms::LatLon bottomRight) {

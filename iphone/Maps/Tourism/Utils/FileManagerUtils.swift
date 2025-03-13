@@ -38,5 +38,20 @@ import Foundation
           }
       }
   }
+  
+  @objc static func fileExistsInDocuments(subdirectory: String, fileName: String, fileExtension: String) -> Bool {
+      let fileManager = FileManager.default
+      
+      guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+          print("Could not access Documents directory.")
+          return false
+      }
+      
+      let subdirectoryURL = documentsDirectory.appendingPathComponent(subdirectory)
+      let fileURL = subdirectoryURL.appendingPathComponent("\(fileName).\(fileExtension)")
+      
+      return fileManager.fileExists(atPath: fileURL.path)
+  }
+  
 }
 
