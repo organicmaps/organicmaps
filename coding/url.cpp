@@ -48,11 +48,8 @@ bool Url::Parse(std::string const & url)
  }
   m_scheme = url.substr(0, start);
 
-
  // Skip slashes.
  start = url.find_first_not_of('/', start + 1);
-
-
  if (start == std::string::npos)
  {
    return false; // This correctly rejects "scheme://" with nothing after it
@@ -61,66 +58,39 @@ bool Url::Parse(std::string const & url)
 
  // Check if there's a host or just a path.
  size_t end = url.find_first_of("/?#", start);
- if (end == start)  // No host, just a path.
- {
-   return false;
- }
- if (end == std::string::npos)
+ if (end == start)  // prevent cases like: "scheme:///"
+  return false;
+ else if (end == std::string::npos)
  {
    m_host = url.substr(start);
-   if (m_host.empty())  // Ensure the host is not empty
-   {   
-    return false;
-   }
-   m_path = "/";  // Default path
+    if (m_host.empty())
+      return false;
    return true;
  }
-
-
+ else 
+{ 
  m_host = url.substr(start, end - start);
+ if (m_host.empty())  // Ensure the host is not empty
+   return false;
+}
 
-
- if (m_host.empty())
- {
-   return false;// Ensure the host is not empty
- }
-  
  // Get path.
  if (url[end] == '/')
  {
-   // Check if there's anything after the first slash
-   if (end + 1 == url.size() || url[end + 1] == '?' || url[end + 1] == '#')
+   // Skip slashes.
+   start = url.find_first_not_of('/', end);
+   if (start == std::string::npos)
+     return true;
+
+   end = url.find_first_of("?#", start);
+   if (end == string::npos)
    {
-     // Path is  "/"
-     m_path = "/";
+     m_path = url.substr(start);
+     return true;
    }
    else
-   {
-     // Skip slashes.
-     start = url.find_first_not_of('/', end);
-     if (start == std::string::npos)
-     {
-       m_path = "/";  // Just "/" when all slashes
-       return true;
-     }
-
-
-     end = url.find_first_of("?#", start);
-     if (end == string::npos)
-     {
-       m_path = "/" + url.substr(start);  // Add leading slash
-       return true;
-     }
-     else
-       m_path = "/" + url.substr(start, end - start);  // Add leading slash
-   }
+     m_path = url.substr(start, end - start);
  }
- else
- {
-   // If no path was found, ensure it defaults to "/"
-   m_path = "/";
- } 
-
 
  // Parse query/fragment for keys and values.
  for (start = end + 1; start < url.size();)
@@ -129,12 +99,10 @@ bool Url::Parse(std::string const & url)
    if (end == string::npos)
      end = url.size();
 
-
    // Skip empty keys.
    if (end != start)
    {
      size_t const eq = url.find('=', start);
-
 
      string key;
      string value;
@@ -148,14 +116,11 @@ bool Url::Parse(std::string const & url)
        key = UrlDecode(url.substr(start, end - start));
      }
 
-
      m_params.emplace_back(key, value);
    }
 
-
    start = end + 1;
  }
-
 
  return true;
 }
