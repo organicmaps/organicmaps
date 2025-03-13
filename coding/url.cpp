@@ -4,7 +4,6 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include  <regex>
 
 namespace url
 {
@@ -26,98 +25,139 @@ Url Url::FromString(std::string const & url)
 
 bool Url::Parse(std::string const & url)
 {
-  // Get url scheme.
-  size_t start = url.find(':');
-  if (start == string::npos || start == 0)
-    return false;
+ // Get url scheme.
+ size_t start = url.find(':');
+ if (start == string::npos || !isalpha(url[0]))
+ {
+   return false;
+ }
+
+
+ if (start + 1 == url.size()) 
+ {
+   return false;
+ }
+
+
+ //validate scheme
+ for (size_t i = 1; i < start; ++i)
+ {
+   char c = url[i];
+   if (!(isalnum(c) || c == '+' || c == '.' || c == '-'))
+     return false;
+ }
   m_scheme = url.substr(0, start);
-  
-  //validate scheme
-  if(m_scheme != "http" && m_scheme != "https")
+
+
+ // Skip slashes.
+ start = url.find_first_not_of('/', start + 1);
+
+
+ if (start == std::string::npos)
+ {
+   return false; // This correctly rejects "scheme://" with nothing after it
+ }
+
+
+ // Check if there's a host or just a path.
+ size_t end = url.find_first_of("/?#", start);
+ if (end == start)  // No host, just a path.
+ {
+   return false;
+ }
+ if (end == std::string::npos)
+ {
+   m_host = url.substr(start);
+   if (m_host.empty())  // Ensure the host is not empty
+   {   
     return false;
+   }
+   m_path = "/";  // Default path
+   return true;
+ }
 
-  // Skip slashes.
-  start = url.find_first_not_of('/', start + 1);
-  if (start == std::string::npos)
-    return true;
 
-  // Get host.
-  size_t end = url.find_first_of("/?#", start);
-  if (end == string::npos)
-  {
-    m_host = url.substr(start);
-    return true;
-  }
-  else
-    m_host = url.substr(start, end - start);
+ m_host = url.substr(start, end - start);
 
-  //validate host
-  std::regex hostRegex("^([a-zA-Z0-9.-]+)(:[0-9]+)?$");
-  if (!std::regex_match(m_host, hostRegex)) 
-  {
-      return false; 
-  }
-  // Get path.
-  if (url[end] == '/')
-  {
-    // Skip slashes.
-    start = url.find_first_not_of('/', end);
-    if (start == std::string::npos)
-      return true;
 
-    end = url.find_first_of("?#", start);
-    if (end == string::npos)
-    {
-      m_path = url.substr(start);
-      return true;
-    }
-    else
-      m_path = url.substr(start, end - start);
-  }
+ if (m_host.empty())
+ {
+   return false;// Ensure the host is not empty
+ }
+  
+ // Get path.
+ if (url[end] == '/')
+ {
+   // Check if there's anything after the first slash
+   if (end + 1 == url.size() || url[end + 1] == '?' || url[end + 1] == '#')
+   {
+     // Path is  "/"
+     m_path = "/";
+   }
+   else
+   {
+     // Skip slashes.
+     start = url.find_first_not_of('/', end);
+     if (start == std::string::npos)
+     {
+       m_path = "/";  // Just "/" when all slashes
+       return true;
+     }
 
-  //validate path
-  if (m_path.empty())
-  {
-    return false; 
-  }
 
-  // Parse query/fragment for keys and values.
-  for (start = end + 1; start < url.size();)
-  {
-    end = url.find_first_of("&#", start);
-    if (end == string::npos)
-      end = url.size();
+     end = url.find_first_of("?#", start);
+     if (end == string::npos)
+     {
+       m_path = "/" + url.substr(start);  // Add leading slash
+       return true;
+     }
+     else
+       m_path = "/" + url.substr(start, end - start);  // Add leading slash
+   }
+ }
+ else
+ {
+   // If no path was found, ensure it defaults to "/"
+   m_path = "/";
+ } 
 
-    // Skip empty keys.
-    if (end != start)
-    {
-      size_t const eq = url.find('=', start);
 
-      string key;
-      string value;
-      if (eq != string::npos && eq < end)
-      {
-        key = UrlDecode(url.substr(start, eq - start));
-        value = UrlDecode(url.substr(eq + 1, end - eq - 1));
-      }
-      else
-      {
-        key = UrlDecode(url.substr(start, end - start));
-      }
+ // Parse query/fragment for keys and values.
+ for (start = end + 1; start < url.size();)
+ {
+   end = url.find_first_of("&#", start);
+   if (end == string::npos)
+     end = url.size();
 
-      // Validate key and value.
-      if (key.empty() || value.empty()) 
-      {
-        return false; // Invalid key or value
-      }
 
-      m_params.emplace_back(key, value);
-    }
+   // Skip empty keys.
+   if (end != start)
+   {
+     size_t const eq = url.find('=', start);
 
-    start = end + 1;
-  }
 
-  return true;
+     string key;
+     string value;
+     if (eq != string::npos && eq < end)
+     {
+       key = UrlDecode(url.substr(start, eq - start));
+       value = UrlDecode(url.substr(eq + 1, end - eq - 1));
+     }
+     else
+     {
+       key = UrlDecode(url.substr(start, end - start));
+     }
+
+
+     m_params.emplace_back(key, value);
+   }
+
+
+   start = end + 1;
+ }
+
+
+ return true;
 }
 
 string Join(string const & lhs, string const & rhs)

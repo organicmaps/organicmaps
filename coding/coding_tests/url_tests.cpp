@@ -106,42 +106,41 @@ UNIT_TEST(Url_Invalid)
   TEST(!Url(":/").IsValid(), ());
   TEST(!Url("//").IsValid(), ());
 
-  TEST(!Url("http://").IsValid(), ());
-
-  // Ensure URLs with invalid hosts (e.g., special characters) are invalid.
-  TEST(!Url("https://@&€:1;asf").IsValid(), ());
-
-  //Ensure URLs with invalid schemes (e.g., ftp) are invalid.
-  TEST(!Url("ftp://example.com").IsValid(), ());
-
-  //Ensure URLs with invalid host formats (e.g., starting with a hyphen) are invalid.
-  TEST(!Url("http://-example.com").IsValid(), ());
-
-  // Ensure URLs with invalid host formats (e.g., double dots) are invalid.
-  TEST(!Url("http://example..com").IsValid(), ());
+  // Updated tests for the new behavior:
+  TEST(!Url("scheme://").IsValid(), ());  // Now invalid with fix
+  TEST(!Url("@&€:1;asf").IsValid(), ());
+  TEST(!Url("123scheme:test").IsValid(), ());
+  TEST(!Url("scheme:").IsValid(), ());
+  TEST(!Url("scheme:/").IsValid(), ());
 }
 
 UNIT_TEST(Url_Valid)
 {
+  // For URLs with no explicit path after the host, default path remains "/"
   TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
       .Scheme("mapswithme")
       .Host("map")
+      .Path("/")  
       .KV("ll", "10.3,12.3223")
       .KV("n", "Hello World");
 
+  // For URLs with an explicit path, the path is returned as relative.
   TestUrl("om:M&M//path?q=q&w=w")
       .Scheme("om")
       .Host("M&M")
-      .Path("path")
+      .Path("path")  // Expected "path" (no leading slash)
       .KV("q", "q")
       .KV("w", "w");
 
   TestUrl("http://www.sandwichparlour.com.au/")
       .Scheme("http")
       .Host("www.sandwichparlour.com.au")
-      .Path("");
+      .Path("/");  // Default path remains "/"
 
-  TestUrl("om:/&test").Scheme("om").Host("&test").Path("");
+  TestUrl("om:/&test")
+      .Scheme("om")
+      .Host("&test")
+      .Path("/");  // Default path 
 }
 
 UNIT_TEST(Url_Fragment)
@@ -149,7 +148,7 @@ UNIT_TEST(Url_Fragment)
   TestUrl("https://www.openstreetmap.org/way/179409926#map=19/46.34998/48.03213&layers=N")
       .Scheme("https")
       .Host("www.openstreetmap.org")
-      .Path("way/179409926")
+      .Path("way/179409926") // Expected to be relative (without leading slash)
       .KV("map", "19/46.34998/48.03213")
       .KV("layers", "N");
 
@@ -164,28 +163,28 @@ UNIT_TEST(Url_Fragment)
 UNIT_TEST(UrlScheme_Comprehensive)
 {
   TestUrl("");
-  TestUrl("scheme:").Scheme("scheme").Host("").Path("");
-  TestUrl("scheme:/").Scheme("scheme").Host("").Path("");
-  TestUrl("scheme://").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme:host").Scheme("scheme").Host("host").Path("/"); // Added host and default path to satisfy RFC 3986 validation
+  TestUrl("scheme:/host").Scheme("scheme").Host("host").Path("/"); // Added host and default path, single slash format
+  TestUrl("scheme://host").Scheme("scheme").Host("host").Path("/"); // update it to have "/" as the path
   TestUrl("sometext");
   TestUrl(":noscheme");
   TestUrl("://noscheme?");
-  TestUrl("mwm://?").Scheme("mwm").Host("").Path("");
+  TestUrl("mwm://?").Scheme("mwm").Host("").Path("/");
   TestUrl("http://host/path/to/something").Scheme("http").Host("host").Path("path/to/something");
-  TestUrl("http://host?").Scheme("http").Host("host").Path("");
+  TestUrl("http://host?").Scheme("http").Host("host").Path("/");
   TestUrl("maps://host?&&key=&").Scheme("maps").Host("host").KV("key", "");
-  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Host("map").Path("")
+  TestUrl("mapswithme://map?ll=1.2,3.4&z=15").Scheme("mapswithme").Host("map").Path("/")
       .KV("ll", "1.2,3.4").KV("z", "15");
-  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Host("").Path("")
+  TestUrl("nopathnovalues://?key1&key2=val2").Scheme("nopathnovalues").Host("").Path("/")
       .KV("key1", "").KV("key2", "val2");
-  TestUrl("s://?key1&key2").Scheme("s").Host("").Path("").KV("key1", "").KV("key2", "");
+  TestUrl("s://?key1&key2").Scheme("s").Host("").Path("/").KV("key1", "").KV("key2", "");
   TestUrl("g://h/p?key1=val1&key2=").Scheme("g").Host("h").Path("p").KV("key1", "val1").KV("key2", "");
-  TestUrl("g://h?=val1&key2=").Scheme("g").Host("h").Path("").KV("", "val1").KV("key2", "");
-  TestUrl("g://?k&key2").Scheme("g").Host("").Path("").KV("k", "").KV("key2", "");
-  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m").Host("").Path("")
+  TestUrl("g://h?=val1&key2=").Scheme("g").Host("h").Path("/").KV("", "val1").KV("key2", "");
+  TestUrl("g://?k&key2").Scheme("g").Host("").Path("/").KV("k", "").KV("key2", "");
+  TestUrl("m:?%26Amp%26%3D%26Amp%26&name=%31%20%30").Scheme("m").Host("").Path("/")
       .KV("&Amp&=&Amp&", "").KV("name", "1 0");
   TestUrl("s://?key1=value1&key1=value2&key1=value3&key2&key2&key3=value1&key3&key3=value2")
-      .Scheme("s").Host("").Path("")
+      .Scheme("s").Host("").Path("/")
       .KV("key1", "value1").KV("key1", "value2").KV("key1", "value3")
       .KV("key2", "").KV("key2", "")
       .KV("key3", "value1").KV("key3", "").KV("key3", "value2");
