@@ -1,15 +1,15 @@
 
 /* Used in home screen quick actions. */
-"search" = "Search";
+"search" = "Fittex";
 
 /* Used in home screen quick actions. */
-"bookmarks_and_tracks" = "Bookmarks and Tracks";
+"bookmarks_and_tracks" = "Werrejja u Korsiji";
 
 /* Used in home screen quick actions. */
-"route" = "Route";
+"route" = "Rotta";
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+"NSLocationAlwaysUsageDescription" = "Id-detezzjoni tal-post fl-isfond hija meħtieġa biex wieħed igawdi bis-sħiħ il-funzjonalitajiet tal-applikazzjoni. Jintuża għan-navigazzjoni u l-issejvjar tal-korsija tiegħek ivvjaġġat riċentement.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";
+"NSLocationWhenInUseUsageDescription" = "Id-determinazzjoni tal-post tiegħek hija meħtieġa għan-navigazzjoni u biex tissejvja l-korsija tiegħek li vvjaġġajt dan l-aħħar.";

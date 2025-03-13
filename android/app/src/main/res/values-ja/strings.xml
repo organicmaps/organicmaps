@@ -9,7 +9,7 @@
     <string name="delete">削除</string>
     <string name="download_maps">マップをダウンロード</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。</string>
+    <string name="download_has_failed">ダウンロードが失敗しました。もう一度試すには画面をタップしてください。</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">ダウンロード中…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -33,14 +33,14 @@
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">地図に表示</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
-    <string name="country_status_download_failed">のダウンロードに失敗しました</string>
+    <string name="country_status_download_failed">ダウンロードに失敗しました</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">再実行</string>
     <string name="about_menu_title">Organic Mapsについて</string>
     <!-- Text in About screen -->
     <string name="about_headline">すべての人のために無料で、愛を込めて作られています</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">•広告、追跡なし、データ収集なし</string>
+    <string name="about_proposition_1">• 広告、追跡なし、データ収集なし</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• バッテリーの消耗がなく、オフラインで動作する</string>
     <!-- Text in About screen -->
@@ -113,7 +113,6 @@
     <string name="measurement_units">距離の単位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">食事場所</string>
@@ -161,7 +160,6 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV用</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">メモ</string>
@@ -368,10 +366,9 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">青灰色</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">案内ルートに従う際は、以下の点にご留意ください：</string>
-    <string name="dialog_routing_disclaimer_priority">— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;</string>
+    <string name="dialog_routing_disclaimer_priority">— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください;</string>
     <string name="dialog_routing_disclaimer_precision">— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;</string>
     <string name="dialog_routing_disclaimer_recommendations">— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;</string>
     <string name="dialog_routing_disclaimer_borders">— 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;</string>
@@ -398,7 +395,6 @@
     <string name="not_now">後で</string>
     <string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
     <string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は不要です。</string>
     <string name="search_select_map">地図を選択</string>
@@ -540,7 +536,7 @@
     <string name="editor_osm_notes">地図データのメモ</string>
     <string name="editor_operator">オペレーター</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">オペレーター: %s</string>
+    <string name="operator">運営者: %s</string>
     <string name="editor_category_unsuitable_title">適切なカテゴリーが見つからない？</string>
     <string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
     <string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
@@ -619,7 +615,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般的なフィードバック</string>
     <string name="prefs_languages_information">音声案内にはシステムの TTS を使用します。多くの Android 端末が Google の TTS を使用しており、Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) からダウンロードや更新を行うことができます。</string>
-    <string name="prefs_languages_information_off">いくつかの言語では、アプリストア(Google PlayやGalaxy Storeなど)からその他の音声合成または追加の言語パックをインストールする必要があります。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
+    <string name="prefs_languages_information_off">いくつかの言語では、アプリストア(Google Play、Galaxy Store 、App Gallery、FDroid)から音声合成または追加の言語パックをインストールする必要があります。\nお使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。\nここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択できます。</string>
     <string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
     <string name="transliteration_title">ラテン文字への翻字</string>
     <string name="learn_more">詳細情報</string>
@@ -636,7 +632,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
     <string name="dialog_error_storage_title">ストレージアクセスの問題</string>
-    <string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support\@organicmaps.app までご連絡ください。</string>
+    <string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。SD カードを確認するか、support@organicmaps.app までご連絡ください。</string>
     <string name="setting_emulate_bad_storage">壊れたストレージをシミュレートする</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">正しい名前を入力してください</string>
@@ -753,7 +749,6 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食べ物</string>
     <string name="tourist_places">観光地</string>
@@ -844,7 +839,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">このアプリはあなたの許可を必要とする</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android AutoのOrganic Mapsを有効に機能させるには、位置情報の許可が必要である。</string>
+    <string name="aa_request_permission_activity_text">Android AutoのOrganic Mapsを有効に機能させるには、位置情報の許可が必要です</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">許可を与える</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

@@ -169,7 +169,7 @@
 "edit" = "Editar";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Aún no se determina su ubicación";
+"unknown_current_position" = "Aún no se ha determinado su ubicación";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "¡Mira mi marcador en el mapa de Organic Maps!";
@@ -515,7 +515,7 @@
 "password_8_chars_min" = "Contraseña (mínimo 8 caracteres)";
 "invalid_username_or_password" = "Usuario o contraseña incorrectos.";
 "login" = "Acceder";
-"login_osm" = "Iniciar sesión en OpenStreetMap";
+"login_osm" = "Acceder a OpenStreetMap";
 "forgot_password" = "¿Ha olvidado su contraseña?";
 "osm_account" = "Cuenta OSM";
 "logout" = "Cerrar sesión";
@@ -845,7 +845,7 @@
 "ok" = "Aceptar";
 "speedcams_alert_title_carplay_1" = "Cám.velocidad";
 "speedcams_alert_title_carplay_2" = "Alerta velocidad";
-"download_map_carplay" = "Descargue los mapas en la aplicación Organic Maps en su dispositivo";
+"download_map_carplay" = "Descargue los mapas en la aplicación del dispositivo";
 "carplay_roundabout_exit" = "%@ salida";
 
 /* max. 10 symbols, both iOS and Android */
@@ -880,8 +880,8 @@
 "search_in_the_list" = "Buscar en la lista";
 "religious_places" = "Lugares sagrados";
 "transit_not_found" = "Navegación en Metro aún no disponible en esta región";
-"dialog_pedestrian_route_is_long_header" = "Ruta de metro no encontrada";
-"dialog_pedestrian_route_is_long_message" = "Elija por favor el punto de inicio o fin de ruta más cercano a una estación de metro";
+"dialog_pedestrian_route_is_long_header" = "No se encontró ninguna ruta de metro";
+"dialog_pedestrian_route_is_long_message" = "Elija un punto de inicio o fin de ruta más cercano a una estación de metro";
 "button_layer_isolines" = "Alturas";
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
 "isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";

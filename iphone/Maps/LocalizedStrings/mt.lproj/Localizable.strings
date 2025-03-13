@@ -69,10 +69,10 @@
 "bookmark_sets" = "Listi tal-Bookmark";
 
 /* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Werrejja";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Bookmarks u Korsi";
+"bookmarks_and_tracks" = "Werrejja u Korsiji";
 
 /* Default bookmark list name */
 "core_my_places" = "Il-Postijiet Tiegħi";
@@ -96,7 +96,7 @@
 "category_transport" = "Trasport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Gas";
+"category_fuel" = "Gass";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Parkeġġ";
@@ -105,7 +105,7 @@
 "category_shopping" = "Xiri";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Second Hand";
+"category_secondhand" = "Użati";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Lukanda";
@@ -181,28 +181,28 @@
 "email" = "E-mejl";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copied to clipboard: %@";
+"copied_to_clipboard" = "Ikkupjat fil-klibbord: %@";
 
 /* place preview title */
-"info" = "Info";
+"info" = "Informazzjoni";
 
 /* Used for bookmark editing */
-"done" = "Done";
+"done" = "Lest";
 
 /* Prints version number in About dialog */
-"version" = "Organic Maps version: %@";
+"version" = "Verżjoni ta' Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Tracks";
+"tracks_title" = "Korsa";
 
 /* Length of track in cell that describes route */
-"length" = "Length";
-"share_my_location" = "Share My Location";
-"prefs_group_route" = "Navigation";
-"pref_zoom_title" = "Zoom buttons";
+"length" = "Tul";
+"share_my_location" = "Ixxerja l-post tiegħi";
+"prefs_group_route" = "Navigazzjoni";
+"pref_zoom_title" = "Buttuni taż-żum";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_appearance_title" = "Appearance";
+"pref_appearance_title" = "Dehra";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Light";
@@ -211,49 +211,49 @@
 "pref_appearance_dark" = "Dark";
 
 /* Generic «Off» string */
-"off" = "Off";
+"off" = "Itfi";
 
 /* Generic «On» string */
-"on" = "On";
+"on" = "Ixgħel";
 
 /* Generic «Auto» string */
 "auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspective view";
+"pref_map_3d_title" = "Dehra tal-perspettiva";
 
 /* Settings «Map» category: «3D buildings» title */
-"pref_map_3d_buildings_title" = "3D buildings";
+"pref_map_3d_buildings_title" = "Bini 3D";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "3D buildings are disabled in power saving mode";
+"pref_map_3d_buildings_disabled_summary" = "Il-binjiet 3D huma mitfigħin fil-mod tal-iffrankar tal-enerġija";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice Instructions";
+"pref_tts_enable_title" = "Istruzzjonijiet tal-vuċi";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Announce Street Names";
+"pref_tts_street_names_title" = "Ħabbar l-ismijiet tat-toroq";
 
 /* Settings «Route» category: «Tts announce street names» description */
-"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+"pref_tts_street_names_description" = "Meta jkun attivat, l-isem tat-triq jew tal-ħruġ biex iddur fuqu se jiġi mitkellem b’ leħen għoli.";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Voice Language";
+"pref_tts_language_title" = "Lingwa tal-vuċi";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test Voice Directions (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Ittestja id-Direzzjonijiet tal-vuċi (TTS, Test għad-diskors)";
 
 /* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Other";
-"pref_map_auto_zoom" = "Auto zoom";
-"placepage_distance" = "Distance";
-"search_show_on_map" = "View on map";
+"pref_tts_other_section_title" = "Oħrajn";
+"pref_map_auto_zoom" = "Iżżumja awtomatikament";
+"placepage_distance" = "Distanza";
+"search_show_on_map" = "Uri fuq il-mappa";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Websajt";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "News";
+"news" = "Aħbarijiet";
 
 /* Text in menu */
 "facebook" = "Facebook";
@@ -268,133 +268,133 @@
 "vk" = "VK";
 
 /* Text in menu */
-"rate_the_app" = "Rate the app";
+"rate_the_app" = "Għati rata lill-app";
 
 /* Text in menu */
-"help" = "Help";
+"help" = "Għajnuna";
 
 /* Button in the main Help dialog */
-"faq" = "Frequently Asked Questions";
+"faq" = "Mistoqsijiet Frekwenti";
 
 /* Button in the main menu */
-"donate" = "Donate";
+"donate" = "Donazzjoni";
 
 /* Tex label above the Donate button */
-"donate_description" = "Donate to build the best maps together!";
-"already_donated" = "Already donated";
-"remind_me_later" = "Remind later";
-"support_organic_maps" = "Support Organic Maps";
+"donate_description" = "Agħti donazzjoni biex tibni l-aħjar mapep flimkien!";
+"already_donated" = "Ġa mogħtija id-donazzjoni";
+"remind_me_later" = "Fakkar aktar tard";
+"support_organic_maps" = "Appoġġja lill-Organic Maps";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Drittijiet tal-awtur";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "Report a bug";
+"report_a_bug" = "Irrapporta problemi bl-app";
 
 /* Button in the About screen */
-"report_incorrect_map_bug" = "Report or fix incorrect map data";
+"report_incorrect_map_bug" = "Irrapporta jew sewwi informazzjoni żbaljata tal-mappa";
 
 /* Button in the About screen */
-"volunteer" = "Volunteer";
+"volunteer" = "Voluntier";
 
 /* "Social media" section header in the About screen */
-"follow_us" = "Follow and contact us:";
+"follow_us" = "Segwi u kkuntattjana:";
 
 /* Alert text */
-"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
+"email_error_body" = "Il-klijent tal-posta elettronika ma ġiex ikkonfigurat. Jekk jogħġbok ikkonfiguraha jew ikkuntattjana fuq %@";
 
 /* Alert title */
-"email_error_title" = "Error sending email";
+"email_error_title" = "Żball meta bgħatt e-mejl";
 
 /* Settings item title */
-"pref_calibration_title" = "Compass calibration";
+"pref_calibration_title" = "Kalibrazzjoni tal-boxxla";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Long-tap on the map again to see the interface";
+"long_tap_toast" = "Taptap fit-tul fuq il-mappa għal darb’ oħra biex tara l-interface";
 
 /* Update all button text */
-"downloader_update_all_button" = "Update All";
+"downloader_update_all_button" = "Aġġorna kollox";
 
 /* Downloaded maps list header */
-"downloader_downloaded_subtitle" = "Downloaded";
+"downloader_downloaded_subtitle" = "Imniżżla";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Disponibbli";
 
 /* Country queued for download */
-"downloader_queued" = "Queued";
-"downloader_near_me_subtitle" = "Near me";
+"downloader_queued" = "Fil-kju";
+"downloader_near_me_subtitle" = "Ħdejja";
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
-"downloader_status_maps" = "Maps";
-"downloader_download_all_button" = "Download All";
-"downloader_downloading" = "Downloading:";
-"downloader_search_results" = "Found";
+"downloader_status_maps" = "Mappep";
+"downloader_download_all_button" = "Niżżel kollox";
+"downloader_downloading" = "Tniżżil:";
+"downloader_search_results" = "Misjuba";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Aġġorna";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Falla";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map, please stop navigation.";
+"downloader_delete_map_while_routing_dialog" = "Biex tħassar il-mappa, waqqaf in-navigazzjoni.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Routes can only be created that are fully contained within a map of a single region.";
+"routing_failed_cross_mwm_building" = "Jistgħu jinħolqu rotot biss li jinsabu kompletament f’ mappa ta’ reġjun wieħed.";
 
 /* Context menu item for downloader. */
-"downloader_download_map" = "Download map";
+"downloader_download_map" = "Niżżel il-mappa";
 
 /* Item status in downloader. */
-"downloader_retry" = "Retry";
+"downloader_retry" = "Erġa ’pprova";
 
 /* Item in context menu. */
-"downloader_delete_map" = "Delete Map";
+"downloader_delete_map" = "Ħassar il-Mappa";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Download all of the maps along your route";
+"routing_download_maps_along" = "Niżżel il-mapep kollha tul ir-rotta tiegħek";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "In order to create a route, we need to download and update all the maps from your location to your destination.";
+"routing_requires_all_map" = "Niżżel il-mapep kollha tul ir-rotta tiegħek.";
 
 /* bookmark button text */
 "bookmark" = "bookmark";
-"save" = "Save";
-"create" = "create";
+"save" = "Issejvja";
+"create" = "Oħloq";
 
 /* red color */
-"red" = "Red";
+"red" = "Aħmar";
 
 /* yellow color */
-"yellow" = "Yellow";
+"yellow" = "Isfar";
 
 /* blue color */
-"blue" = "Blue";
+"blue" = "Blu";
 
 /* green color */
-"green" = "Green";
+"green" = "Aħdar";
 
 /* purple color */
-"purple" = "Purple";
+"purple" = "Vjola";
 
 /* orange color */
-"orange" = "Orange";
+"orange" = "Oranġjo";
 
 /* brown color */
-"brown" = "Brown";
+"brown" = "Kannella";
 
 /* pink color */
-"pink" = "Pink";
+"pink" = "Roża";
 
 /* deep purple color */
-"deep_purple" = "Deep Purple";
+"deep_purple" = "Vjola Fond";
 
 /* light blue color */
-"light_blue" = "Light Blue";
+"light_blue" = "Blu Ċar";
 
 /* cyan color */
-"cyan" = "Cyan";
+"cyan" = "Blu jagħti fl-aħdar";
 
 /* teal color */
 "teal" = "Teal";
@@ -403,207 +403,207 @@
 "lime" = "Lime";
 
 /* deep orange color */
-"deep_orange" = "Deep Orange";
+"deep_orange" = "Oranġjo Fond";
 
 /* gray color */
-"gray" = "Gray";
+"gray" = "Griż";
 
 /* blue gray color */
-"blue_gray" = "Blue Gray";
-"dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over navigation hints;";
-"dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
-"dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
-"dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
-"dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
-"dialog_routing_check_gps" = "Check GPS signal";
-"dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
-"dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
-"dialog_routing_location_turn_on" = "Enable location services";
-"dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
-"dialog_routing_download_files" = "Download required files";
-"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
-"dialog_routing_unable_locate_route" = "Unable to locate route";
-"dialog_routing_change_start_or_end" = "Please adjust your starting point or destination.";
-"dialog_routing_change_start" = "Adjust starting point";
-"dialog_routing_start_not_determined" = "Route was not created. Unable to locate starting point.";
-"dialog_routing_select_closer_start" = "Please select a starting point closer to a road.";
-"dialog_routing_change_end" = "Adjust destination";
-"dialog_routing_end_not_determined" = "Route was not created. Unable to locate the destination.";
-"dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
-"dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
-"dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
-"dialog_routing_system_error" = "System error";
-"dialog_routing_application_error" = "Unable to create route due to an application error.";
-"dialog_routing_try_again" = "Please try again";
-"dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
-"dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
+"blue_gray" = "Blu Griż";
+"dialog_routing_disclaimer_title" = "Meta ssegwi r-rotta, jekk jogħġbok żomm f’ moħħok:";
+"dialog_routing_disclaimer_priority" = "— Il-kundizzjonijiet tat-toroq, il-liġijiet tat-traffiku, u s-sinjali tat-toroq dejjem jieħdu preċedenza fuq il-ħjiel tan-navigazzjoni;";
+"dialog_routing_disclaimer_precision" = "— Il-mappa tista ’ma tkunx preċiża, u r-rotta ssuġġerita mhux dejjem tista’ tkun l-aħjar mod biex tasal fid-destinazzjoni;";
+"dialog_routing_disclaimer_recommendations" = "— Ir-rotot issuġġeriti għandhom jinftiehmu biss bħala rakkomandazzjonijiet;";
+"dialog_routing_disclaimer_borders" = "— Oqgħod attent bir-rotot fiż-żoni tal-fruntiera: ir-rotot maħluqa mill-app tagħna xi kultant jistgħu jaqsmu l-fruntieri tal-pajjiż f ’postijiet mhux awtorizzati.";
+"dialog_routing_disclaimer_beware" = "Jekk jogħġbok ibqa ’attent u sikur fit-toroq!";
+"dialog_routing_check_gps" = "Iċċekkja s-sinjal tal-GPS";
+"dialog_routing_error_location_not_found" = "Ma jistax joħloq rotta. Il-koordinati attwali tal-GPS ma setgħux jiġu identifikati.";
+"dialog_routing_location_turn_wifi" = "Jekk jogħġbok iċċekkja s-sinjal tal-GPS tiegħek. L-attivazzjoni tal-Wi-Fi ttejjeb il-preċiżjoni tal-post tiegħek.";
+"dialog_routing_location_turn_on" = "Attiva s-servizzi tal-post";
+"dialog_routing_location_unknown_turn_on" = "Ma jistax isib il-koordinati GPS attwali. Attiva s-servizzi tal-post biex tikkalkula r-rotta.";
+"dialog_routing_download_files" = "Niżżel il-fajls meħtieġa";
+"dialog_routing_download_and_update_all" = "Niżżel jew aġġorna l-mapep kollha tul il-mogħdija projettata biex tikkalkula rotta.";
+"dialog_routing_unable_locate_route" = "Ir-rotta ma' tistax tinsab";
+"dialog_routing_change_start_or_end" = "Irranġa l-punt tal-bidu jew id-destinazzjoni tiegħek.";
+"dialog_routing_change_start" = "Irranġa l-punt tat-tluq";
+"dialog_routing_start_not_determined" = "Ir-rotta ma' nħolqitx. Il-punt tal-bidu ma' jistax jinsab.";
+"dialog_routing_select_closer_start" = "Jekk jogħġbok agħżel punt tat-tluq eqreb lejn triq.";
+"dialog_routing_change_end" = "Irranġa d-destinazzjoni";
+"dialog_routing_end_not_determined" = "Ir-rotta ma nħolqitx. Id-destinazzjoni ma' tistax tinsab.";
+"dialog_routing_select_closer_end" = "Agħżel punt ta’ destinazzjoni li jinsab eqreb ta’ triq.";
+"dialog_routing_change_intermediate" = "Il-punt intermedju ma' jistax jinsab.";
+"dialog_routing_intermediate_not_determined" = "Jekk jogħġbok irranġa l-punt intermedju tiegħek.";
+"dialog_routing_system_error" = "Żball fis-sistema";
+"dialog_routing_application_error" = "Ir-rotta ma' tistax tinħoloq minħabba żball fl-applikazzjoni.";
+"dialog_routing_try_again" = "Jekk jogħġbok erġa ’pprova";
+"dialog_routing_download_and_build_cross_route" = "Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?";
+"dialog_routing_download_cross_route" = "Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.";
 
 /* «Show» context menu */
-"show" = "Show";
+"show" = "Uri";
 
 /* «Hide» context menu */
-"hide" = "Hide";
+"hide" = "Aħbi";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "L-Ippjanar tar-rotta ma rnexxiex";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %@";
+"routing_arrive" = "Wasla fil-%@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
-"categories" = "Categories";
-"history" = "History";
-"search_not_found" = "Oops, no results found.";
+"dialog_routing_download_and_update_maps" = "Niżżel u aġġorna l-mappa kollha tul il-mogħdija proġettata biex tikkalkula r-rotta.";
+"categories" = "Kategoriji";
+"history" = "Kronoloġija";
+"search_not_found" = "Oops, ma nstab l-ebda riżultat.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Download the region where you are searching or try adding a nearby town/village name.";
-"search_history_title" = "Search History";
-"search_history_text" = "View your recent searches.";
-"clear_search" = "Clear Search History";
+"search_not_found_query" = "Niżżel ir-reġjun fejn qed tfittex jew ipprova żid isem ta’ belt/raħal fil-qrib.";
+"search_history_title" = "Kronoloġija tat-tiftix";
+"search_history_text" = "Ara t-tfittxijiet riċenti tiegħek.";
+"clear_search" = "Neħħi l-kronoloġija tat-tiftix";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Your Location";
-"p2p_start" = "Start";
-"p2p_from_here" = "Route from";
-"p2p_to_here" = "Route to";
-"p2p_only_from_current" = "Navigation is only available from your current location.";
-"p2p_reroute_from_current" = "Do you want to plan a route from your current location?";
-"editor_time_add" = "Add Schedule";
-"editor_time_delete" = "Delete Schedule";
+"p2p_your_location" = "Il-Lokazzjoni Tiegħek";
+"p2p_start" = "Ibda";
+"p2p_from_here" = "Rotta minn";
+"p2p_to_here" = "Rotta lejn";
+"p2p_only_from_current" = "In-navigazzjoni hija disponibbli biss mill-post attwali tiegħek.";
+"p2p_reroute_from_current" = "Tixtieq tippjana rotta mill-post attwali tiegħek?";
+"editor_time_add" = "Żid Skeda";
+"editor_time_delete" = "Ħassar l-Iskeda";
 
 /* Text for allday switch. */
-"editor_time_allday" = "All Day (24 hours)";
-"editor_time_open" = "Open";
-"editor_time_close" = "Closed";
-"editor_time_add_closed" = "Add Non-Business Hours";
-"editor_time_title" = "Business Hours";
-"editor_time_advanced" = "Advanced Mode";
-"editor_time_simple" = "Simple Mode";
-"editor_hours_closed" = "Non-Business Hours";
-"editor_example_values" = "Example Values";
-"editor_add_select_location" = "Select Location";
-"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
-"share_with_friends" = "Share with friends";
-"editor_report_problem_send_button" = "Send";
-"autodownload" = "Auto-download maps";
+"editor_time_allday" = "Il-Ġurnata Kollha (24 siegħa)";
+"editor_time_open" = "Miftuħ";
+"editor_time_close" = "Magħluq";
+"editor_time_add_closed" = "Żid Ħinijiet Mhux tan-Negozju";
+"editor_time_title" = "Sigħat tan-Negozju";
+"editor_time_advanced" = "Mod Avvanzat";
+"editor_time_simple" = "Mod Sempliċi";
+"editor_hours_closed" = "Ħinijiet Mhux tan-Negozju";
+"editor_example_values" = "Valuri tal-Eżempju";
+"editor_add_select_location" = "Agħżel il-Post";
+"editor_done_dialog_1" = "Biddilt il-mappa tad-dinja! Iżżommhiex għalik innifsek; għid lil sħabek u editjawha flimkien.";
+"share_with_friends" = "Ixxerja mal-ħbieb";
+"editor_report_problem_send_button" = "Ibgħat";
+"autodownload" = "Mapep Jitniżżlu Awtomatikament";
 
 /* Place Page opening hours text */
-"closed_now" = "Closed now";
+"closed_now" = "Magħluq issa";
 
 /* Place Page opening hours text */
-"daily" = "Daily";
+"daily" = "Kuljum";
 "twentyfour_seven" = "24/7";
-"day_off_today" = "Closed today";
-"day_off" = "Closed";
-"today" = "Today";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"opens_in" = "Opens in %@";
-"closes_at" = "Closes at %@";
+"day_off_today" = "Magħluq illum";
+"day_off" = "Magħluq";
+"today" = "Illum";
+"opens_tomorrow_at" = "Jiftaħ għada fil-%@";
+"opens_dayoftheweek_at" = "Jiftaħ %1$@ fl-%2$@";
+"opens_at" = "Jiftaħ f ' %@";
+"opens_in" = "Jiftaħ f ’ %@";
+"closes_at" = "Jagħlaq f ’ %@";
 "closes_in" = "Closes in %@";
-"closed" = "Closed";
+"closed" = "Magħluq";
 "add_opening_hours" = "Add opening hours";
-"no_osm_account" = "Don't have an OpenStreetMap account?";
-"register_at_openstreetmap" = "Register at OpenStreetMap";
+"no_osm_account" = "M’ għandekx kont ta’ OpenStreetMap?";
+"register_at_openstreetmap" = "Irreġistra f’ OpenStreetMap";
 "password_8_chars_min" = "Password (8 characters minimum)";
 "invalid_username_or_password" = "Invalid username or password.";
-"login" = "Login";
-"login_osm" = "Login to OpenStreetMap";
-"forgot_password" = "Forgot your password?";
+"login" = "Illoggja";
+"login_osm" = "Illoggja f’ OpenStreetMap";
+"forgot_password" = "Insejt il-password tiegħek?";
 "osm_account" = "OSM Account";
-"logout" = "Log Out";
+"logout" = "Oħroġ";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Last upload";
 "thank_you" = "Thank You";
-"edit_place" = "Edit Place";
+"edit_place" = "Editja l-Post";
 "place_name" = "Place Name";
-"add_language" = "Add a language";
+"add_language" = "Żid lingwa";
 
 /* Editable House Number text field (in address block). */
-"house_number" = "Building number";
-"details" = "Details";
+"house_number" = "Numru tal-bini";
+"details" = "Dettalji";
 
 /* Text field to enter non-existing street name, below list of known streets around */
-"add_street" = "Add a street";
-"choose_language" = "Choose a language";
-"choose_street" = "Choose a street";
-"postal_code" = "Postal Code";
-"cuisine" = "Cuisine";
-"select_cuisine" = "Select cuisine";
+"add_street" = "Żid triq";
+"choose_language" = "Agħżel lingwa";
+"choose_street" = "Agħżel triq";
+"postal_code" = "Kodiċi Postali";
+"cuisine" = "Kċina";
+"select_cuisine" = "Agħżel il-kċina";
 
 /* login text field */
-"email_or_username" = "Email or username";
+"email_or_username" = "E-mejl jew isem l-utent";
 "phone" = "Phone";
-"level" = "Floor";
+"level" = "Livell";
 "please_note" = "Please note";
-"downloader_delete_map_dialog" = "All of your map edits will be deleted with the map.";
-"downloader_update_maps" = "Update Maps";
-"downloader_search_field_hint" = "Find map";
+"downloader_delete_map_dialog" = "L-editti kollha tal-mappa tiegħek se jitħassru mal-mappa.";
+"downloader_update_maps" = "Aġġorna l-Mapep";
+"downloader_search_field_hint" = "Sib mappa";
 "migration_download_error_dialog" = "Download error";
-"common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
-"downloader_no_space_title" = "Not enough space";
-"downloader_no_space_message" = "Please delete any unnecessary data";
-"editor_profile_changes" = "Verified Changes";
-"editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
+"common_check_internet_connection_dialog" = "Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.";
+"downloader_no_space_title" = "Mhux biżżejjed spazju";
+"downloader_no_space_message" = "Ħassar kwalunkwe dejta mhux neċessarja";
+"editor_profile_changes" = "Bidliet Ivverifikati";
+"editor_focus_map_on_location" = "Mexxi l-mappa biex tqiegħed is-salib fil-post tal-post jew tan-negozju.";
 "editor_add_select_category" = "Select category";
 "editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "All Categories";
-"editor_edit_place_title" = "Editing";
-"editor_add_place_title" = "Adding";
-"editor_edit_place_name_hint" = "Name of the place";
+"editor_edit_place_title" = "Editjar";
+"editor_add_place_title" = "Żiddiet";
+"editor_edit_place_name_hint" = "Isem tal-post";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
-"editor_default_language_hint" = "As it is written in the local language";
-"editor_edit_place_category_title" = "Category";
+"editor_default_language_hint" = "Kif inhi miktuba bil-lingwa lokali";
+"editor_edit_place_category_title" = "Kategorija";
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
 "dialog_incorrect_feature_position" = "Change location";
-"message_invalid_feature_position" = "No object can be located here";
+"message_invalid_feature_position" = "Ebda oġġett ma jista' jinstab hawn";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "Community-created OpenStreetMap data as of %@. Learn more about how to edit and update the map at OpenStreetMap.org";
-"login_to_make_edits_visible" = "Create an OpenStreetMap account or log in to publish your map edits to the world.";
+"login_to_make_edits_visible" = "Oħloq kont OpenStreetMap jew idħol biex tippubblika l-editjar tal-mapep tiegħek fid-dinja.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
 "editor_sharing_title" = "I improved the Organic Maps maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
-"downloader_of" = "%1$d of %2$d";
-"download_over_mobile_header" = "Download over a cellular network connection?";
-"download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
-"error_enter_correct_house_number" = "Enter a valid building number";
-"editor_storey_number" = "Number of floors (maximum of %d)";
+"downloader_of" = "%1$d ta' %2$d";
+"download_over_mobile_header" = "Niżżel fuq konnessjoni tan-netwerk ċellulari?";
+"download_over_mobile_message" = "Dan jista’ jkun konsiderevolment għali b’ xi pjanijiet tal-mowbajl jew jekk qed tuża' r-roaming.";
+"error_enter_correct_house_number" = "Daħħal numru tal-bini validu";
+"editor_storey_number" = "Numru ta’ sulari (massimu ta’ %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
-"error_enter_correct_storey_number" = "The number of floors must non exceed %d";
-"editor_zip_code" = "ZIP Code";
-"error_enter_correct_zip_code" = "Enter a valid ZIP code";
+"error_enter_correct_storey_number" = "In-numru ta’ sulari m’ għandux jaqbeż il-%d";
+"editor_zip_code" = "Kodiċi ZIP";
+"error_enter_correct_zip_code" = "Daħħal kodiċi ZIP validu";
 
 /* Place Page title for long tap */
-"core_placepage_unknown_place" = "Map Point";
+"core_placepage_unknown_place" = "Il-Punt tal-Mappa";
 
 /* Title for OSM note section in the editor */
-"editor_other_info" = "Note to OpenStreetMap volunteers (optional)";
+"editor_other_info" = "Nota lill-voluntiera ta’ OpenStreetMap (fakultattiva)";
 "editor_detailed_description_hint" = "Detailed comment";
 "editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
-"editor_more_about_osm" = "More about OpenStreetMap";
-"editor_operator" = "Operator";
+"editor_more_about_osm" = "Aktar dwar OpenStreetMap";
+"editor_operator" = "Operatur";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operator: %@";
-"editor_category_unsuitable_title" = "Can't find a suitable category?";
-"editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
-"downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
-"downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
-"current_location_unknown_error_title" = "Current location is unknown.";
+"editor_category_unsuitable_title" = "Ma tistax isib kategorija adattata?";
+"editor_category_unsuitable_text" = "Organic Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Iċċekkja l-<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gwida</a> tagħna għal struzzjonijiet dettaljati.";
+"downloader_no_downloaded_maps_title" = "Ma niżżilt l-ebda mapep";
+"downloader_no_downloaded_maps_message" = "Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.";
+"current_location_unknown_error_title" = "Il-post attwali mhux magħruf.";
 "current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
 "location_services_disabled_header" = "Location services are disabled";
 "location_services_disabled_message" = "Enable access to geolocation in the device settings";
@@ -635,45 +635,45 @@
 "hour" = "h";
 "minute" = "min";
 "day" = "d";
-"placepage_more_button" = "More";
+"placepage_more_button" = "Aktar";
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Photos, reviews, booking";
+"more_on_kayak" = "Ritratti, reċensjonijiet, ibbukkjar";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+"dialog_kayak_disclaimer" = "Ir-referral bonus li wieħed jirċievi għal kull booking permezz ta’ din il-link imur għall-iżvilupp ta’ Organic Maps.";
 
 /* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Details on Kayak";
+"dialog_kayak_button" = "Dettalji dwar Kayak";
 "placepage_call_button" = "Call";
-"placepage_edit_bookmark_button" = "Edit Bookmark";
+"placepage_edit_bookmark_button" = "Editja l-Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";
-"placepage_personal_notes_hint" = "Personal notes (text or html)";
+"placepage_personal_notes_hint" = "Noti personali (kitba jew html)";
 "placepage_delete_bookmark_button" = "Delete Bookmark";
 "editor_edits_sent_message" = "Your note will be sent to OpenStreetMap";
-"editor_comment_hint" = "Comment…";
-"editor_reset_edits_message" = "Discard all local changes?";
-"editor_reset_edits_button" = "Discard";
-"editor_remove_place_message" = "Delete added place?";
-"editor_remove_place_button" = "Delete";
-"editor_place_doesnt_exist" = "Place does not exist";
+"editor_comment_hint" = "Kumment…";
+"editor_reset_edits_message" = "Armi l-bidliet lokali kollha?";
+"editor_reset_edits_button" = "Armi";
+"editor_remove_place_message" = "Ħassar il-post miżjud?";
+"editor_remove_place_button" = "Ħassar";
+"editor_place_doesnt_exist" = "Il-post ma' jeżistix";
 "text_more_button" = "…more";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Enter a valid phone number";
-"error_enter_correct_web" = "Enter a valid web address";
-"error_enter_correct_email" = "Enter a valid email";
+"error_enter_correct_phone" = "Daħħal numru tat-telefown validu";
+"error_enter_correct_web" = "Daħħal indirizz validu tal-web";
+"error_enter_correct_email" = "Daħħal l' e-mejl";
 "refresh" = "Update";
-"placepage_add_place_button" = "Add Place to OpenStreetMap";
+"placepage_add_place_button" = "Żid post f’ OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
-"editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
+"editor_share_to_all_dialog_title" = "Tixtieq tibgħatha lill-utenti kollha?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Make sure you did not enter any private or personal data.";
-"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and contact you if they have any questions.";
-"navigation_stop_button" = "Stop";
+"editor_share_to_all_dialog_message_1" = "Kun ċert li ma daħħalt l-ebda informazzjoni privata jew personali.";
+"editor_share_to_all_dialog_message_2" = "L-edituri ta’ OpenStreetMap ser jiċċekkjaw il-bidliet u jikkuntattjawk jekk ikollhom xi mistoqsijiet.";
+"navigation_stop_button" = "Waqqaf";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
@@ -685,45 +685,45 @@
 "general_settings" = "General settings";
 
 /* For the first routing */
-"accept" = "Accept";
+"accept" = "Aċċetta";
 
 /* For the first routing */
-"decline" = "Decline";
-"mobile_data_dialog" = "Use mobile internet to show detailed information?";
-"mobile_data_option_always" = "Use Always";
-"mobile_data_option_today" = "Only Today";
-"mobile_data_option_not_today" = "Do Not Use Today";
-"mobile_data" = "Mobile Internet";
+"decline" = "Irrifjuta";
+"mobile_data_dialog" = "Uża l-internet mobbli biex turi informazzjoni dettaljata?";
+"mobile_data_option_always" = "Uża Dejjem";
+"mobile_data_option_today" = "Illum Biss";
+"mobile_data_option_not_today" = "Tużax Illum";
+"mobile_data" = "Internet Mobbli";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobile internet is required for map update notifications and uploading edits.";
-"mobile_data_option_never" = "Never Use";
-"mobile_data_option_ask" = "Always Ask";
-"traffic_update_maps_text" = "To display traffic data, maps must be updated.";
-"big_font" = "Increase size for map labels";
+"mobile_data_description" = "L-internet mobbli huwa meħtieġ għan-notifiki tal-aġġornament tal-mapep u għat-tlugħ tal-editjar.";
+"mobile_data_option_never" = "Tuża Qatt";
+"mobile_data_option_ask" = "Staqsi Dejjem";
+"traffic_update_maps_text" = "Biex tintwera d-dejta dwar it-traffiku, il-mapep iridu jiġu aġġornati.";
+"big_font" = "Żid id-daqs għat-tikketti tal-mapep";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "To display traffic data, the application must be updated.";
 
 /* "traffic" as in "road congestion" */
-"traffic_data_unavailable" = "Traffic data is not available";
-"enable_logging" = "Enable logging";
+"traffic_data_unavailable" = "L-Informazzjoni dwar it-traffiku mhijiex disponibbli";
+"enable_logging" = "Attiva l-illoggjar";
 "log_file_size" = "Log file size: %@";
-"transliteration_title" = "Transliterate into Latin alphabet";
+"transliteration_title" = "Jittraduċi ruħu fl-alfabett Latin";
 
 /* Subway exits for public transport marks on the map */
-"core_exit" = "Exit";
+"core_exit" = "Oħroġ";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "Use search or tap on the map to add a route starting point";
+"routing_add_start_point" = "Uża t-tiftix jew għafas fuq il-mappa biex iżżid punt tal-bidu tar-rotta";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "Use search or tap on the map to add a destination point";
-"planning_route_manage_route" = "Manage Route";
-"button_plan" = "Plan";
-"placepage_remove_stop" = "Remove Stop";
+"routing_add_finish_point" = "Uża t-tiftixa jew għafas fuq il-mappa biex iżżid punt tad-destinazzjoni";
+"planning_route_manage_route" = "Immaniġġja r-Rotta";
+"button_plan" = "Pjan";
+"placepage_remove_stop" = "Neħħi l-Waqfa";
 "planning_route_remove_title" = "Drag here to remove";
-"placepage_add_stop" = "Add Stop";
+"placepage_add_stop" = "Żid Waqfa";
 "start_from_my_position" = "Start from";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
@@ -731,81 +731,81 @@
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "here";
-"core_entrance" = "Entrance";
-"error_enter_correct_name" = "Please enter a correct name";
-"bookmark_lists" = "Lists";
+"core_entrance" = "Daħla";
+"error_enter_correct_name" = "Daħħal isem korrett";
+"bookmark_lists" = "Listi";
 
 /* Do not display all bookmark lists on the map */
-"bookmark_lists_hide_all" = "Hide all";
-"bookmark_lists_show_all" = "Show all";
-"bookmarks_create_new_group" = "Create a new list";
+"bookmark_lists_hide_all" = "Aħbi kollox";
+"bookmark_lists_show_all" = "Uri kollox";
+"bookmarks_create_new_group" = "Oħloq lista ġdida";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Import Bookmarks and Tracks";
+"bookmarks_import" = "Importa l-Bookmarks u l-Korsiji";
 "downloader_hide_screen" = "Hide Screen";
 "downloader_percent" = "%@ (%@ of %@)";
 "downloader_process" = "Downloading %@…";
 "downloader_applying" = "Applying %@…";
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
-"bookmarks_error_title_share_empty" = "Sharing error";
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_message_share_general" = "Ma jistax jixxerja minħabba żball fl-applikazzjoni";
+"bookmarks_error_title_share_empty" = "Żball fl-ixxerjar";
+"bookmarks_error_message_share_empty" = "Ma tistax tixxerja lista vojta";
+"bookmarks_error_message_empty_list_name" = "Daħħal l-isem tal-lista";
+"bookmarks_error_title_list_name_already_taken" = "Dan l-isem diġa meħud";
 "bookmarks_error_title_list_name_too_long" = "This name is too long";
-"profile" = "OpenStreetMap profile";
+"profile" = "Profil ta’ OpenStreetMap";
 "bookmarks_detect_title" = "New files detected";
 "button_convert" = "Convert";
 "bookmarks_convert_error_title" = "Error";
 "bookmarks_convert_error_message" = "Some files were not converted.";
-"restore" = "Restore";
-"privacy_policy" = "Privacy policy";
-"terms_of_use" = "Terms of use";
+"restore" = "Irrestawra";
+"privacy_policy" = "Politika dwar il-privatezza";
+"terms_of_use" = "Termini tal-użu";
 "button_layer_subway" = "Subway";
-"layers_title" = "Map Styles and Layers";
-"subway_data_unavailable" = "Subway map is unavailable";
+"layers_title" = "Stili u Saffi tal-Mapep";
+"subway_data_unavailable" = "Il-mappa tas-subway mhix disponibbli";
 "title_error_downloading_bookmarks" = "An error occurred";
 "popular_place" = "Popular";
-"export_file" = "Export KMZ";
-"export_file_gpx" = "Export GPX";
-"delete_list" = "Delete list";
+"export_file" = "Esporta KMZ";
+"export_file_gpx" = "Esporta GPX";
+"delete_list" = "Ħassar il-lista";
 "hide_from_map" = "Hide from map";
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
 "download_button" = "Download";
-"speedcams_alert_title" = "Speed cameras";
-"place_description_title" = "Place Description";
+"speedcams_alert_title" = "Kameras tal-veloċita";
+"place_description_title" = "Deskrizzjoni tal-Post";
 
 /* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
-"pref_tts_speedcams_auto" = "Warn if speeding";
+"pref_tts_speedcams_auto" = "Wissi jekk għaddej b' veloċita qawwija";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
-"pref_tts_speedcams_always" = "Always warn";
+"pref_tts_speedcams_always" = "Dejjem wissi";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "Never warn";
-"power_managment_title" = "Power saving mode";
-"power_managment_description" = "Try to reduce power usage at the expense of some functionality.";
-"power_managment_setting_never" = "Never";
-"power_managment_setting_auto" = "When battery is low";
-"power_managment_setting_manual_max" = "Always";
-"enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
-"driving_options_title" = "Routing options";
+"pref_tts_speedcams_never" = "Qatt twissi";
+"power_managment_title" = "Mod ta’ ffrankar tal-enerġija";
+"power_managment_description" = "Ipprova naqqas l-użu tal-enerġija għad-detriment ta’ xi funzjonalitajiet.";
+"power_managment_setting_never" = "Qatt";
+"power_managment_setting_auto" = "Meta l-batterija tkun baxxa";
+"power_managment_setting_manual_max" = "Dejjem";
+"enable_logging_warning_message" = "Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.";
+"driving_options_title" = "Għażliet tar-rotta";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_tolls" = "Avoid tolls";
+"avoid_tolls" = "Evita ħlasijiet għall-użu tat-triq";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_unpaved" = "Avoid unpaved roads";
+"avoid_unpaved" = "Evita toroq mhux pavimentati";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
-"avoid_ferry" = "Avoid ferries";
-"avoid_motorways" = "Avoid freeways";
-"unable_to_calc_alert_title" = "Unable to calculate route";
-"unable_to_calc_alert_subtitle" = "A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.";
-"define_to_avoid_btn" = "Define roads to avoid";
-"change_driving_options_btn" = "Routing options enabled";
-"toll_road" = "Toll road";
-"unpaved_road" = "Unpaved road";
-"ferry_crossing" = "Ferry crossing";
+"avoid_ferry" = "Evita l-laneċ";
+"avoid_motorways" = "Evita l-passaġġi ħielsa";
+"unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
+"unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";
+"define_to_avoid_btn" = "Iddefinixxi t-toroq li tixtieq tevita";
+"change_driving_options_btn" = "Għażliet tar-rotta attivati";
+"toll_road" = "Triq għall-pedaġġ";
+"unpaved_road" = "Triq mhux pavimentata";
+"ferry_crossing" = "Qsim bil-lanċa";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
 "follow_my_position" = "Re-center";
@@ -814,23 +814,23 @@
 "redirect_route_alert" = "Do you want to rebuild the route?";
 
 /* A generic "Yes" button in dialogs */
-"yes" = "Yes";
+"yes" = "Iva";
 
 /* A generic "No" button in dialogs */
-"no" = "No";
+"no" = "Le";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "Yes";
+"yes_available" = "Iva";
 
 /* E.g. "WiFi:No" */
-"no_available" = "No";
+"no_available" = "Le";
 
 /* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
 "capacity" = "Capacity: %@";
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Network: %@";
-"trip_finished" = "You have arrived!";
+"trip_finished" = "Wasalt!";
 "keyboard_availability_alert" = "Keyboard is not available while driving";
 "dialog_routing_change_start_carplay" = "Unable to build a route from your current location";
 "dialog_routing_change_end_carplay" = "Unable to find a route to your destination. Please choose another end point";
@@ -849,7 +849,7 @@
 "carplay_roundabout_exit" = "%@ exit";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "Sort…";
+"sort" = "Issortja…";
 
 /* iOS */
 "sort_default" = "Sort by default";
@@ -857,45 +857,45 @@
 "sort_distance" = "Sort by distance";
 "sort_date" = "Sort by date";
 "sort_name" = "Sort by name";
-"week_ago_sorttype" = "A week ago";
-"month_ago_sorttype" = "A month ago";
-"moremonth_ago_sorttype" = "More than a month ago";
-"moreyear_ago_sorttype" = "More than a year ago";
-"near_me_sorttype" = "Near me";
-"others_sorttype" = "Others";
-"food_places" = "Food";
-"tourist_places" = "Sights";
-"museums" = "Museums";
+"week_ago_sorttype" = "Ġimgħa ilu";
+"month_ago_sorttype" = "Xahar ilu";
+"moremonth_ago_sorttype" = "Aktar minn xahar ilu";
+"moreyear_ago_sorttype" = "Aktar minn sena ilu";
+"near_me_sorttype" = "Ħdejja";
+"others_sorttype" = "Oħrajn";
+"food_places" = "Ikel";
+"tourist_places" = "Siti";
+"museums" = "Mużewijiet";
 "parks" = "Parks";
-"swim_places" = "Swim";
-"mountains" = "Mountains";
-"animals" = "Animals";
-"hotels" = "Hotels";
-"buildings" = "Buildings";
-"money" = "Money";
-"shops" = "Shops";
-"parkings" = "Parking";
-"fuel_places" = "Gas Stations";
-"medicine" = "Medicine";
-"search_in_the_list" = "Search in the list";
-"religious_places" = "Religious places";
-"transit_not_found" = "Subway navigation in this region is not available yet";
-"dialog_pedestrian_route_is_long_header" = "No subway route found";
-"dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
-"button_layer_isolines" = "Contour Lines";
-"isolines_activation_error_dialog" = "Activating contour lines requires downloading map data for this area";
-"isolines_location_error_dialog" = "Contour lines are not yet available in this area";
+"swim_places" = "Għawm";
+"mountains" = "Muntanji";
+"animals" = "Annimali";
+"hotels" = "Lukandi";
+"buildings" = "Bini";
+"money" = "Flus";
+"shops" = "Ħwienet";
+"parkings" = "Parkeġġi";
+"fuel_places" = "Stazzjonijiet tal-Gass";
+"medicine" = "Mediċina";
+"search_in_the_list" = "Fittex fil-lista";
+"religious_places" = "Postijiet reliġjużi";
+"transit_not_found" = "In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli";
+"dialog_pedestrian_route_is_long_header" = "Ma nstabet l-ebda rotta tas-subway";
+"dialog_pedestrian_route_is_long_message" = "Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway";
+"button_layer_isolines" = "Linji tal-Contour";
+"isolines_activation_error_dialog" = "L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona";
+"isolines_location_error_dialog" = "Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona";
 "elevation_profile_diff_level" = "Difficulty level";
 "elevation_profile_diff_level_easy" = "Easy";
 "elevation_profile_diff_level_moderate" = "Moderate";
 "elevation_profile_diff_level_hard" = "Hard";
-"elevation_profile_ascent" = "Ascent";
-"elevation_profile_descent" = "Descent";
-"elevation_profile_min_elevation" = "Min. elevation";
-"elevation_profile_max_elevation" = "Max. elevation";
-"isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
+"elevation_profile_ascent" = "Tlugħ";
+"elevation_profile_descent" = "Inżul";
+"elevation_profile_min_elevation" = "Elevazzjoni minima";
+"elevation_profile_max_elevation" = "Elevazzjoni massima";
+"isolines_toast_zooms_1_10" = "Iżżumja ’l ġewwa biex tesplora l-isolines";
 "downloader_updating_ios" = "Updating";
-"downloader_loading_ios" = "Downloading";
+"downloader_loading_ios" = "Tniżżil";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Update downloaded maps";
@@ -937,52 +937,52 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* App Tip #00 */
-"app_tip_00" = "Thank you for using our community-built maps!";
+"app_tip_00" = "Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!";
 
 /* App tip #01 */
-"app_tip_01" = "With your donations and support, we can create the best maps in the World!";
+"app_tip_01" = "Bid-donazzjonijiet u l-appoġġ tiegħek, nistgħu noħolqu l-aqwa mapep fid-dinja!";
 
 /* App tip #02 */
-"app_tip_02" = "Do you like our app? Please donate to support the development! Don't like it yet? Please let us know why, and we will fix it!";
+"app_tip_02" = "Togħġbok l-app tagħna? Jekk jogħġbok agħti donazzjoni biex tappoġġja l-iżvilupp! Għadha ma togħġbokx? Jekk jogħġbok għidilna għaliex, u nirranġawha!";
 
 /* App tip #03 */
-"app_tip_03" = "If you know a software developer, you can ask him or her to implement a feature that you need.";
+"app_tip_03" = "Jekk taf żviluppatur tas-softwer, tista’ titolbu jimplimenta il-karatteristika li għandek bżonn.";
 
 /* App tip #04 */
-"app_tip_04" = "Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.";
+"app_tip_04" = "Għafas kullimkien fuq il-mappa biex tagħżel xi ħaġa. Tgħafisa twila tista' tintuża biex taħbi u turi l-interface.";
 
 /* App tip #05 */
-"app_tip_05" = "Did you know that your current location on the map can be selected?";
+"app_tip_05" = "Kont taf li l-post attwali tiegħek fuq il-mappa jista’ jintgħażel?";
 
 /* App tip #06 */
-"app_tip_06" = "You can help to translate our app into your language.";
+"app_tip_06" = "Tista’ tgħin sabiex tittraduċi l-applikazzjoni tagħna fil-lingwa tiegħek.";
 
 /* App tip #07 */
-"app_tip_07" = "Our app is developed by a few enthusiasts and the community.";
+"app_tip_07" = "L-app tagħna hija żviluppata minn ftit dilettanti u l-komunita’.";
 
 /* App tip #08 */
-"app_tip_08" = "You can easily fix and improve the map data.";
+"app_tip_08" = "Tista’ faċilment tirranġa u ttejjeb l-informazzjoni tal-mappa.";
 
 /* App tip #09 */
-"app_tip_09" = "Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.";
+"app_tip_09" = "L-għan ewlieni tagħna huwa li nibnu mapep veloċi, iffukati fuq il-privatezza, u faċli biex jintużaw li se jinħabbu.";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "You are now using Organic Maps on the phone screen";
+"car_used_on_the_phone_screen" = "Issa qed tuża Organic Maps fuq l-iskrin tat-telefown";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "You are now using Organic Maps on the car screen";
+"car_used_on_the_car_screen" = "Issa qed tuża Organic Maps fuq l-iskrin tal-karozza";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continue on the phone";
+"car_continue_on_the_phone" = "Kompli fuq il-mowbajl";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "To the car screen";
+"car_continue_in_the_car" = "Lejn l-iskrin tal-karozza";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Outdoors";
+"button_layer_outdoor" = "Barra";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Export all Bookmarks and Tracks";
+"bookmarks_export" = "Esporta l-bookmarks u l-korsiji kollha";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Change Color";
@@ -992,7 +992,7 @@
 "drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
-"website_menu" = "Menu Link";
+"website_menu" = "Link tal-menu";
 
 /* Message for the bug report alert. */
 "bugreport_alert_message" = "Would you like to send a bug report to the developers?\nWe rely on our users as Organic Maps doesn't collect any error information automatically. Thank you in advance for supporting Organic Maps!";
@@ -1028,13 +1028,13 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Error: iCloud is not available";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Open in Another App";
+"open_in_app" = "Iftaħ f’ Applikazzjoni Oħra";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Self-service";
 
 /* To indicate if restaurant or other place has outdoor seating */
-"outdoor_seating" = "Outdoor seating";
+"outdoor_seating" = "Sedili barra";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "Recently Deleted Lists";
@@ -1052,20 +1052,20 @@
 "recover_all" = "Recover All";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Record Track";
+"start_track_recording" = "Rekord Track";
 
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Stop Track Recording";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Stop Without Saving";
+"stop_without_saving" = "Waqqaf Mingħajr ma' Tissejvja";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Continue Recording";
+"continue_recording" = "Kompli Rrekordja";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Save into Bookmarks and Tracks?";
+"track_recording_alert_title" = "Issejvja fil-Bookmarks u l-Korsiji?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
-"edit_track" = "Edit Track";
+"track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
+"edit_track" = "Editja l-Korsija";

@@ -406,7 +406,7 @@
     <string name="wikimedia_commons">Викимедијина остава</string>
     <string name="p2p_your_location">Ваша локација</string>
     <string name="p2p_start">Крени</string>
-    <string name="p2p_from_here">Рута од</string>
+    <string name="p2p_from_here">Старт</string>
     <string name="p2p_to_here">Рута до</string>
     <string name="p2p_only_from_current">Навигација је могућа само од ваше тренутне локације.</string>
     <string name="p2p_reroute_from_current">Да ли желите да направите руту од ваше тренутне локације?</string>

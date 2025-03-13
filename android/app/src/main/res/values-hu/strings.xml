@@ -9,7 +9,7 @@
     <string name="delete">Törlés</string>
     <string name="download_maps">Térképek letöltése</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Letöltés sikertelen. Kérjük próbálja újra!</string>
+    <string name="download_has_failed">Letöltés sikertelen. Koppints az újbóli próbálkozáshoz.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Letöltés…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -44,7 +44,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Nem merül le az akkumulátor, offline működik</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Gyors, minimalista, közösség által fejlesztett</string>
+    <string name="about_proposition_3">• Gyors, minimalista, a közösség által fejlesztett</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
     <!-- The button that opens system location settings -->
@@ -114,7 +114,6 @@
     <string name="measurement_units">Mértékegységek</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Válasszon kilométer és mérföld között</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Hol lehet enni valamit</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Víz</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">RV számára</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Jegyzetek</string>
@@ -358,10 +356,9 @@
     <string name="gray">Szürke</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kékes Szürke</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:</string>
-    <string name="dialog_routing_disclaimer_priority">— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;</string>
+    <string name="dialog_routing_disclaimer_priority">— Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;</string>
     <string name="dialog_routing_disclaimer_precision">— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;</string>
     <string name="dialog_routing_disclaimer_recommendations">— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;</string>
     <string name="dialog_routing_disclaimer_borders">— A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek;</string>
@@ -388,7 +385,6 @@
     <string name="not_now">Most nem</string>
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
     <string name="dialog_routing_download_cross_route">Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.</string>
     <string name="search_select_map">Jelöld ki a térképet</string>
@@ -445,7 +441,7 @@
     <string name="day_off">Zárva</string>
     <string name="today">Ma</string>
     <string name="closed">Zárva</string>
-    <string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
+    <string name="edit_opening_hours">Nyitva tartás szerkesztése</string>
     <string name="no_osm_account">Nem rendelkezik még OpenStreetMap-felhasználói fiókkal?</string>
     <string name="register_at_openstreetmap">Regisztráció</string>
     <string name="login">Bejelentkezés</string>
@@ -578,7 +574,7 @@
     <string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
     <string name="mobile_data_option_always">Mindig használja</string>
     <string name="mobile_data_option_today">Csak ma</string>
-    <string name="mobile_data_option_not_today">Ma nem használhatja</string>
+    <string name="mobile_data_option_not_today">Ma ne használd</string>
     <string name="mobile_data">Mobil Internet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.</string>
@@ -593,7 +589,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Általános visszajelzés</string>
     <string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
+    <string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítened az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). \nNyisd meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. \nItt kezelheted a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
     <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
     <string name="learn_more">Tudjon meg többet</string>
@@ -610,7 +606,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
-    <string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@organicmaps.app címen</string>
+    <string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen</string>
     <string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
     <string name="core_entrance">Bejárat</string>
     <string name="error_enter_correct_name">Kérjük adja meg a helyes nevet</string>
@@ -728,7 +724,6 @@
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
     <string name="near_me_sorttype">Hozzám közel</string>
     <string name="others_sorttype">Más</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Étel</string>
     <string name="tourist_places">Látnivalók</string>
@@ -748,7 +743,7 @@
     <string name="religious_places">Vallási helyek</string>
     <string name="select_list">Lista kiválasztása</string>
     <string name="transit_not_found">Metró navigáció ebben a régióban még nem érhető el</string>
-    <string name="dialog_pedestrian_route_is_long_header">Metró útvonal nem található</string>
+    <string name="dialog_pedestrian_route_is_long_header">Metró-útvonal nem található</string>
     <string name="dialog_pedestrian_route_is_long_message">Válasszon indulási vagy végpontot közelebb a metróállomáshoz</string>
     <string name="button_layer_isolines">Domborzat</string>
     <string name="isolines_activation_error_dialog">A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét</string>
@@ -812,7 +807,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ennek az alkalmazásnak szüksége van az Ön engedélyére</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Az Android Auto szerves térképeinek a hatékony működéshez helymeghatározási engedélyre van szükségük</string>
+    <string name="aa_request_permission_activity_text">Az Organic Maps in Android Auto eredményes működéshez helymeghatározási engedélyre van szüksége</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Engedélyek megadása</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -836,7 +831,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menü megtekintése</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Megnyitás egy másik alkalmazásban</string>
+    <string name="open_in_app">Megnyitás másik alkalmazásban</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Önkiszolgáló</string>
     <string name="select_option">Válassza ki a lehetőséget</string>
@@ -863,4 +858,42 @@
     <string name="uri_open_location_failed">Nincs telepített alkalmazás, amely meg tudja nyitni a helyet</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automatikus navigáció</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagram">Instagram</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="empty_street_name_error">Adj meg egy utcanevet</string>
+    <string name="vk">VK</string>
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="prefs_group_general">Általános beállítások</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="menu">Menü</string>
+    <string name="github">GitHub</string>
+    <string name="facebook">Facebook</string>
+    <string name="closes_in">Bezár %s múlva</string>
+    <string name="opens_in">Kinyit %s múlva</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="current_location_unknown_error_title">A jelenlegi helyzet ismeretlen.</string>
+    <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD kártyán</string>
+    <string name="disk_error_title">Tárolóhiba</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="level_value_generic">%s. szint</string>
+    <string name="delete_place_empty_comment_error">Kérjük, add meg, miért törölted a helyet</string>
+    <string name="error_enter_correct_line_page">Adj meg egy érvényes LINE ID-t vagy webcímet</string>
+    <string name="connection_failure">Kapcsolódási hiba</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="error_enter_correct_vk_page">Adj meg egy érvényes VK felhasználónevet vagy webcímet</string>
+    <string name="editor_add_phone">Telefonszám hozzáadása</string>
+    <string name="download_map_title">Áttekintő világtérkép letöltése</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="share_bookmarks_email_body">Szia!\n\nCsatoltam a könyvjelzőimet; kérlek, nyisd meg őket az Organic Maps-ben. Ha még nincs telepítve, akkor itt tudod letölteni: https://omaps.app/get?kmz\n\nJó utazást az Organic Maps-szel!</string>
+    <string name="disconnect_usb_cable_title">USB kábel leválasztása</string>
+    <string name="error_enter_correct_facebook_page">Adj meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
+    <string name="error_enter_correct_twitter_page">Adj meg egy érvényes Twitter felhasználónevet vagy webcímet</string>
+    <string name="error_enter_correct_instagram_page">Adj meg egy érvényes Instagram felhasználónevet vagy webcímet</string>
 </resources>

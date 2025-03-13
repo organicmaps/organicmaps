@@ -521,4 +521,5 @@
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.brazilian">Brasilera</string>
     <string name="type.building.garage">Garatge</string>
+    <string name="type.cuisine.american">Estatunidenca</string>
 </resources>

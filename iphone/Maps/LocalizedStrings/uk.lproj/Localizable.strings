@@ -190,7 +190,7 @@
 "done" = "Готово";
 
 /* Prints version number in About dialog */
-"version" = "Версія Organic Maps: %@.";
+"version" = "Версія Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Маршрути";
@@ -301,7 +301,7 @@
 "follow_us" = "Підписуйтесь та зв'язуйтесь з нами:";
 
 /* Alert text */
-"email_error_body" = "Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.";
+"email_error_body" = "Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@";
 
 /* Alert title */
 "email_error_title" = "Помилка при відправленні листа";
@@ -708,7 +708,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Дані про трафік недоступні";
 "enable_logging" = "Включити логіювання";
-"log_file_size" = "Розмір файлу журналу: %@.";
+"log_file_size" = "Розмір файлу журналу: %@";
 "transliteration_title" = "Транслітерувати латиницею";
 
 /* Subway exits for public transport marks on the map */
@@ -764,7 +764,7 @@
 "layers_title" = "Стилі та шари мапи";
 "subway_data_unavailable" = "Мапа метрополітену недоступна";
 "title_error_downloading_bookmarks" = "Виникла помилка";
-"popular_place" = "Popular";
+"popular_place" = "Популярні";
 "export_file" = "Експорт KMZ";
 "export_file_gpx" = "Експорт GPX";
 "delete_list" = "Видалити список";

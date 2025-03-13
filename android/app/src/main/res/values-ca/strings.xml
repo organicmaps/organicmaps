@@ -672,8 +672,8 @@
     <string name="terms_of_use">Considicions del servei</string>
     <string name="button_layer_traffic">Trànsit</string>
     <string name="button_layer_subway">Metro</string>
-    <string name="layers_title">Estils i capes de mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro no és disponible</string>
+    <string name="layers_title">Estils i capes del mapa</string>
+    <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
     <string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
     <string name="category_desc_more">…més</string>
@@ -698,9 +698,9 @@
     <string name="power_managment_setting_never">Mai</string>
     <string name="power_managment_setting_auto">Automàtic</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
-    <string name="enable_logging_warning_message">L\'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l\'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.</string>
+    <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
     <string name="access_rules_author_only">Edició en línia</string>
-    <string name="driving_options_title">Opcions de la ruta</string>
+    <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita peatges</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -711,7 +711,7 @@
     <string name="unable_to_calc_alert_title">No s\'ha pogut calcular la ruta</string>
     <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
     <string name="define_to_avoid_btn">Definiu les vies a evitar</string>
-    <string name="change_driving_options_btn">Paràmetres de ruta activats</string>
+    <string name="change_driving_options_btn">Paràmetres d’encaminament activats</string>
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>
@@ -903,4 +903,5 @@
     <string name="instagram">Instagram</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
 </resources>

@@ -40,13 +40,13 @@
 "country_status_download_without_size" = "地図をダウンロード";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "のダウンロードに失敗しました";
+"country_status_download_failed" = "ダウンロードに失敗しました";
 
 /* Text in About screen */
 "about_headline" = "すべての人のために無料で、愛を込めて作られています";
 
 /* Text in About screen */
-"about_proposition_1" = "•広告、追跡なし、データ収集なし";
+"about_proposition_1" = "• 広告、追跡なし、データ収集なし";
 
 /* Text in About screen */
 "about_proposition_2" = "• バッテリーの消耗がなく、オフラインで動作する";
@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "青灰色";
 "dialog_routing_disclaimer_title" = "案内ルートに従う際は、以下の点にご留意ください：";
-"dialog_routing_disclaimer_priority" = "— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください。;";
+"dialog_routing_disclaimer_priority" = "— 道路の状況や道路交通法、道路標識をナビゲーションよりも常に優先してください;";
 "dialog_routing_disclaimer_precision" = "— マップは必ずしも正確であるとは限らず、また案内ルートが常に目的地までの最適なルートであるとは限りません。;";
 "dialog_routing_disclaimer_recommendations" = "— 表示されるルートはあくまでも推奨ルートとしてご利用ください。;";
 "dialog_routing_disclaimer_borders" = "— 国境付近のルートにご注意ください。アプリの作成したルートは時々入国の許可されていない国への国境を超える場合があります;";
@@ -598,7 +598,7 @@
 "editor_operator" = "オペレーター";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "オペレーター: %@";
+"operator" = "運営者: %@";
 "editor_category_unsuitable_title" = "適切なカテゴリーが見つからない？";
 "editor_category_unsuitable_text" = "つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>のステップバイステップの詳細な手順をチェックする。";
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
@@ -1004,7 +1004,7 @@
 "enable_icloud_synchronization_message" = "iCloud同期は開発中の実験的機能である。すべてのブックマークとトラックのバックアップをとっておくこと。";
 
 /* Title for the "iCloud Is Disabled" alert. */
-"icloud_disabled_title" = "iCloudが無効になっている";
+"icloud_disabled_title" = "iCloudが無効になっています";
 
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";

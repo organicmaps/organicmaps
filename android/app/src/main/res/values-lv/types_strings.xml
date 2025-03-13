@@ -3,13 +3,11 @@
     <!-- SECTION: Types -->
     <string name="type.amenity.motorcycle_rental">Motociklu noma</string>
     <string name="type.amenity.charging_station.bicycle">Velosipēdu uzlāde</string>
-
     <!-- SECTION: Types: Recycling -->
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Glābējs</string>
     <!-- A mountain rescue base for search and rescue activities. -->
     <string name="type.emergency.mountain_rescue">Kalnu glābšanas stacija</string>
-
     <!-- SECTION: Types: Historic -->
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Krusts</string>
@@ -31,4 +29,27 @@
     <string name="type.attraction.maze">Labirints</string>
     <string name="type.attraction.roller_coaster">Amerikāņu kalniņi</string>
     <string name="type.attraction.water_slide">Ūdens slīdkalniņš</string>
+    <string name="type.amenity.pub">Krogs</string>
+    <string name="type.place.sea">Jūra</string>
+    <string name="type.amenity.bar">Bārs</string>
+    <string name="type.amenity.bicycle_parking">Velostāvvieta</string>
+    <string name="type.amenity.bicycle_rental">Velosipēdu īre</string>
+    <string name="type.amenity.biergarten">Alus dārzs</string>
+    <string name="type.amenity.bureau_de_change">Valūtas maiņa</string>
+    <string name="type.amenity.bus_station">Autobusu stacija</string>
+    <string name="type.amenity.cafe">Kafejnīca</string>
+    <string name="type.amenity.car_rental">Auto īre</string>
+    <string name="type.amenity.car_wash">Automazgātuve</string>
+    <string name="type.amenity.casino">Kazino</string>
+    <string name="type.amenity.charging_station">Uzlādes stacija</string>
+    <string name="type.amenity.charging_station.motorcar">Auto uzlādes stacija</string>
+    <string name="type.amenity.cinema">Kinoteātris</string>
+    <string name="type.amenity.clinic">Poliklīnika</string>
+    <string name="type.amenity.college">Koledža</string>
+    <string name="type.amenity.community_centre">Kultūras nams</string>
+    <string name="type.amenity.compressed_air">Saspiests gaiss</string>
+    <string name="type.amenity.bank">Banka</string>
+    <string name="type.amenity.atm">Bankomāts</string>
+    <string name="type.amenity.bench">Soliņš</string>
+    <string name="type.amenity.brothel">Bordelis</string>
 </resources>
