@@ -332,6 +332,9 @@
           tools:ignore="UnusedAttribute"/>
 
         <include
+            android:id="@+id/block_fediverse"
+            layout="@layout/item_editor_input"/>
+        <include
           android:id="@+id/block_facebook"
           layout="@layout/item_editor_input"/>
         <include
@@ -346,6 +349,9 @@
         <include
           android:id="@+id/block_line"
           layout="@layout/item_editor_input"/>
+        <include
+            android:id="@+id/block_bluesky"
+            layout="@layout/item_editor_input"/>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
 
