@@ -70,12 +70,12 @@ final class SearchOnMapInteractor: NSObject {
     searchManager.saveQuery(searchText.text,
                             forInputLocale: searchText.locale)
     showResultsOnMap = true
+    searchManager.showEverywhereSearchResultsOnMap()
     return .showOnTheMap
   }
 
   private func processTypedText(_ searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
     isUpdatesDisabled = false
-    showResultsOnMap = true
     searchManager.searchQuery(searchText.text,
                               forInputLocale: searchText.locale,
                               withCategory: false)
