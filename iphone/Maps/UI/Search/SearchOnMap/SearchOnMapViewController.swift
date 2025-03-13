@@ -48,6 +48,10 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   // MARK: - Lifecycle
+  override func loadView() {
+    view = SearchOnMapAreaView()
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
@@ -357,3 +361,12 @@ extension SearchOnMapViewController: SearchTabViewControllerDelegate {
   }
 }
 
+private class SearchOnMapAreaView: UIView {
+  override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    alternative(iPhone: .bottom, iPad: [])
+  }
+
+  override var trafficButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
+    alternative(iPhone: .bottom, iPad: [])
+  }
+}
