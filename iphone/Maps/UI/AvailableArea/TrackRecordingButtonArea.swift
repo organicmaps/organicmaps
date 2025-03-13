@@ -10,7 +10,7 @@ final class TrackRecordingButtonArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    TrackRecordingViewController.updateAvailableArea(areaFrame)
+    TrackRecordingButtonViewController.updateAvailableArea(areaFrame)
   }
 }
 
