@@ -254,12 +254,12 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
           break;
         }
         case MWMBookmarksShareStatusEmptyCategory:
-          [[MWMToast toastWithText:L(@"bookmarks_error_title_share_empty")] show];
+          [Toast showWithText:L(@"bookmarks_error_title_share_empty")];
           isEnabled(NO);
           break;
         case MWMBookmarksShareStatusArchiveError:
         case MWMBookmarksShareStatusFileError:
-          [[MWMToast toastWithText:L(@"dialog_routing_system_error")] show];
+          [Toast showWithText:L(@"dialog_routing_system_error")];
           isEnabled(NO);
           break;
       }
