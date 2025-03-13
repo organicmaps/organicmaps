@@ -101,7 +101,10 @@ class AvailableArea: UIView {
   }
 
   func addConstraints(otherView: UIView, directions: MWMAvailableAreaAffectDirections) {
-    precondition(!directions.isEmpty)
+    guard !directions.isEmpty else {
+      LOG(.warning, "Attempt to add empty affecting directions from \(otherView) to \(self)")
+      return
+    }
     let add = { (sa: NSLayoutConstraint.Attribute, oa: NSLayoutConstraint.Attribute, rel: NSLayoutConstraint.Relation) in
       let c = NSLayoutConstraint(item: self, attribute: sa, relatedBy: rel, toItem: otherView, attribute: oa, multiplier: 1, constant: 0)
       c.priority = UILayoutPriority.defaultHigh

@@ -7,6 +7,11 @@
 @class MWMMapDownloadDialog;
 @class BookmarksCoordinator;
 @class SearchOnMapManager;
+@class SideButtonsArea;
+@class WidgetsArea;
+@class TrafficButtonArea;
+@class PlacePageArea;
+
 @protocol MWMLocationModeListener;
 
 @interface MapViewController : MWMViewController
@@ -53,5 +58,10 @@
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
 @property(nonatomic) UIView * _Nonnull searchContainer;
+
+@property (weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
+@property (weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
+@property (weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
+@property (weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
 
 @end

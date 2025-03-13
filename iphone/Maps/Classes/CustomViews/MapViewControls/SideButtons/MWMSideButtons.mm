@@ -58,8 +58,6 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 
 + (void)updateAvailableArea:(CGRect)frame { [[self buttons].sideView updateAvailableArea:frame]; }
 
-+ (CGRect)getAvailableArea { return [self buttons].sideView.getAvailableArea; }
-
 - (void)zoomIn
 {
   GetFramework().Scale(Framework::SCALE_MAG, true);

@@ -32,11 +32,14 @@ final class SearchOnMapPresentationController: NSObject {
   private weak var presentedViewController: SearchOnMapViewController?
   private weak var parentViewController: UIViewController?
   private weak var containerView: UIView?
+  private let affectedAreas: [Weak<AvailableArea>]
 
   init(parentViewController: UIViewController,
-       containerView: UIView) {
+       containerView: UIView,
+       affectedAreas: Set<AvailableArea> = []) {
     self.parentViewController = parentViewController
     self.containerView = containerView
+    self.affectedAreas = affectedAreas.map { Weak(value: $0) }
   }
 
   func setViewController(_ viewController: SearchOnMapViewController) {
@@ -46,6 +49,8 @@ final class SearchOnMapPresentationController: NSObject {
     parentViewController.addChild(viewController)
     viewController.view.frame = frameOfPresentedViewInContainerView
     viewController.didMove(toParent: parentViewController)
+
+    affectedAreas.forEach { $0.value?.addAffectingView(viewController.view) }
 
     iPhoneSpecific {
       let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
@@ -88,13 +93,6 @@ final class SearchOnMapPresentationController: NSObject {
 
   private func updateMaxAvailableFrameOfPresentedView() {
     maxAvailableFrameOfPresentedView = ModalScreenPresentationStep.fullScreen.frame()
-  }
-
-  private func updateSideButtonsAvailableArea(_ newY: CGFloat) {
-    guard presentedViewController?.traitCollection.verticalSizeClass != .compact else { return }
-    var sideButtonsAvailableArea = MWMSideButtons.getAvailableArea()
-    sideButtonsAvailableArea.size.height = newY - sideButtonsAvailableArea.origin.y
-    MWMSideButtons.updateAvailableArea(sideButtonsAvailableArea)
   }
 
   // MARK: - Pan gesture handling
@@ -182,7 +180,6 @@ extension SearchOnMapPresentationController: ModallyPresentedViewController {
   func translationYDidUpdate(_ translationY: CGFloat) {
     iPhoneSpecific {
       presentedViewController?.translationYDidUpdate(translationY)
-      updateSideButtonsAvailableArea(translationY)
     }
   }
 }

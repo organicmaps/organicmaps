@@ -195,6 +195,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   if (CGRectEqualToRect(controller.availableArea, frame))
     return;
   controller.availableArea = frame;
+  BOOL isHidden = frame.origin.y + frame.size.height < controller.view.origin.y + controller.view.height + kTopOffset;
+  [MapViewController.sharedController.controlsManager setTrafficButtonHidden:isHidden];
   [controller refreshLayout];
 }
 

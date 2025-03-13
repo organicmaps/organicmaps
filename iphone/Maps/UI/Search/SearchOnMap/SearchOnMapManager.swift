@@ -83,7 +83,11 @@ private struct SearchOnMapViewControllerBuilder {
   static func build(isRouting: Bool, didChangeState: @escaping ((SearchOnMapState) -> Void)) -> SearchOnMapViewController {
     let mapViewController = MapViewController.shared()!
     let presentationController = SearchOnMapPresentationController(parentViewController: mapViewController,
-                                                            containerView: mapViewController.searchContainer)
+                                                                   containerView: mapViewController.searchContainer,
+                                                                   affectedAreas: [
+                                                                     mapViewController.sideButtonsArea,
+                                                                     mapViewController.trafficButtonArea,
+                                                                   ])
     let viewController = SearchOnMapViewController(presentationController: presentationController)
     let presenter = SearchOnMapPresenter(isRouting: isRouting,
                                          didChangeState: didChangeState)
