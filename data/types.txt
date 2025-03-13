@@ -1620,3 +1620,5 @@ amenity|recycling|container
 *railway|station|subway|shenzhen
 *railway|subway_entrance|shenzhen
 *shop|hearing_aids
+*railway|station|subway|qingdao
+*railway|subway_entrance|qingdao
