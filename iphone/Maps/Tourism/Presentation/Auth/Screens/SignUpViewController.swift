@@ -277,6 +277,7 @@ class SignUpViewController: UIViewController {
   
   private func navigateToMain() {
     signUpButton.isLoading = false
-    performSegue(withIdentifier: "SignUp2TourismMain", sender: nil)
+    self.dismiss(animated: true)
+    UserPreferences.shared.setShouldGoToTourismMain(value: true)
   }
 }
