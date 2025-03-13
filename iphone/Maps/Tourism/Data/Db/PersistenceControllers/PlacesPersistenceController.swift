@@ -167,7 +167,10 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   func observeTopSights() {
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", PlaceCategory.sights.id)
-    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
+    fetchRequest.sortDescriptors = [
+      NSSortDescriptor(key: "rating", ascending: false),
+      NSSortDescriptor(key: "name", ascending: true)
+    ]
     fetchRequest.fetchLimit = 15
     
     topSightsFetchedResultsController = NSFetchedResultsController(
@@ -189,7 +192,10 @@ class PlacesPersistenceController: NSObject, NSFetchedResultsControllerDelegate 
   func observeTopRestaurants() {
     let fetchRequest: NSFetchRequest<PlaceEntity> = PlaceEntity.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "categoryId == %lld", PlaceCategory.restaurants.id)
-    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
+    fetchRequest.sortDescriptors = [
+      NSSortDescriptor(key: "rating", ascending: false),
+      NSSortDescriptor(key: "name", ascending: true)
+    ]
     fetchRequest.fetchLimit = 15
     
     topRestaurantsFetchedResultsController = NSFetchedResultsController(

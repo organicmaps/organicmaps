@@ -24,8 +24,9 @@ func toString(_ cls: AnyClass) -> String {
 }
 
 func statusBarHeight() -> CGFloat {
-  let statusBarSize = UIApplication.shared.statusBarFrame.size
-  return min(statusBarSize.height, statusBarSize.width)
+  return UIApplication.shared.connectedScenes
+          .compactMap { $0 as? UIWindowScene }
+          .first?.statusBarManager?.statusBarFrame.height ?? 0
 }
 
 private let enableLoggingInRelease = true

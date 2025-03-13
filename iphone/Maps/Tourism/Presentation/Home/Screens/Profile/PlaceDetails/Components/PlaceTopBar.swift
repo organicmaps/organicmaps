@@ -65,7 +65,7 @@ struct PlaceTopBar: View {
         }
       }
     }
-    .frame(maxWidth: .infinity, maxHeight: height)
+    .frame(width: UIScreen.main.bounds.width, height: height)
   }
 }
 
