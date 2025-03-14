@@ -4,6 +4,7 @@ class Style: ExpressibleByDictionaryLiteral {
     case borderColor
     case borderWidth
     case cornerRadius
+    case maskedCorners
     case shadowColor
     case shadowOpacity
     case shadowOffset
@@ -118,6 +119,11 @@ extension Style {
   var cornerRadius: CGFloat? {
     get { return self[.cornerRadius] as? CGFloat }
     set { params[.cornerRadius] = newValue }
+  }
+
+  var maskedCorners: CACornerMask? {
+    get { return self[.maskedCorners] as? CACornerMask }
+    set { params[.maskedCorners] = newValue }
   }
 
   var shadowColor: UIColor? {

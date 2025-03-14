@@ -59,6 +59,8 @@ enum GlobalStyleSheet: String, CaseIterable {
   case white = "MWMWhite"
   case datePickerView = "DatePickerView"
   case valueStepperView = "ValueStepperView"
+  case modalSheetBackground
+  case modalSheetContent
 }
 
 extension GlobalStyleSheet: IStyleSheet {
@@ -428,6 +430,22 @@ extension GlobalStyleSheet: IStyleSheet {
         s.font = fonts.regular16
         s.fontColor = colors.blackPrimaryText
         s.coloring = MWMButtonColoring.blue
+      }
+    case .modalSheetBackground:
+      return .add { s in
+        s.backgroundColor = colors.white
+        s.shadowColor = UIColor.black
+        s.shadowOffset = CGSize(width: 0, height: 1)
+        s.shadowOpacity = 0.4
+        s.shadowRadius = 6
+        s.cornerRadius = 12
+        s.clip = false
+        s.maskedCorners = isIPad ? [] : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+      }
+    case .modalSheetContent:
+      return .addFrom(Self.modalSheetBackground) { s in
+        s.backgroundColor = colors.clear
+        s.clip = true
       }
     }
   }

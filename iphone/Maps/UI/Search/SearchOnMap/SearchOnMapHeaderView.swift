@@ -33,8 +33,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupView() {
-    setStyle(.searchHeader)
-    layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    setStyle(.primaryBackground)
 
     setupGrabberView()
     setupSearchBar()
