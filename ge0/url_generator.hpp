@@ -19,6 +19,19 @@ inline static int const kMaxCoordBits = kMaxPointBytes * 3;
 // om://ZCoordba64/Name
 std::string GenerateShortShowMapUrl(double lat, double lon, double zoomLevel, std::string const & name);
 
+// Generates a coordinate URL.
+//
+// URL format:
+//
+//                   +--------------------------------  lat
+//                   |            +-------------------- lon
+//                   |            |             +---- zoom
+//                   |            |             | +-- url-encoded name
+//                   |            |             | |
+//                   |            |             | |
+// https://omaps.app/54.683486138,25.289361259,14/<url-encoded name>
+std::string GenerateCoordUrl(double lat, double lon, double zoom, std::string const & name);
+
 // Generates a geo: uri.
 //
 // - https://datatracker.ietf.org/doc/html/rfc5870
