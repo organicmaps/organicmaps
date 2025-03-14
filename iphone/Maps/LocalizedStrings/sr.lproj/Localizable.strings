@@ -470,7 +470,7 @@
 "wikimedia_commons" = "Викимедијина остава";
 "p2p_your_location" = "Ваша локација";
 "p2p_start" = "Крени";
-"p2p_from_here" = "Рута од";
+"p2p_from_here" = "Старт";
 "p2p_to_here" = "Рута до";
 "p2p_only_from_current" = "Навигација је могућа само од ваше тренутне локације.";
 "p2p_reroute_from_current" = "Да ли желите да направите руту од ваше тренутне локације?";

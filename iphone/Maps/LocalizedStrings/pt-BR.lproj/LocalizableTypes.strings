@@ -280,7 +280,7 @@
 "type.cuisine.beef_bowl" = "Tigela com carne bovina";
 "type.cuisine.brazilian" = "Cozinha brasileira";
 "type.cuisine.breakfast" = "Café da manhã";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Chá de bolhas";
 "type.cuisine.burger" = "Hambúrguer";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Bolo";
@@ -342,7 +342,7 @@
 "type.cuisine.sausage" = "Linguiças";
 "type.cuisine.savory_pancakes" = "Panquecas salgadas";
 "type.cuisine.seafood" = "Frutos do mar";
-"type.cuisine.soba" = "Soba";
+"type.cuisine.soba" = "Sobá";
 "type.cuisine.spanish" = "Cozinha espanhola";
 "type.cuisine.steak_house" = "Churrascaria";
 "type.cuisine.sushi" = "Sushi";
@@ -736,18 +736,18 @@
 "type.leisure.track" = "Pista para esportes não motorizados";
 "type.leisure.track.area" = "Pista para esportes não motorizados";
 "type.leisure.water_park" = "Parque aquático";
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Resort de praia";
 "type.man_made" = "Construção humana";
 "type.man_made.breakwater" = "Molhe";
 "type.man_made.cairn" = "Moledro ou mariola";
 "type.man_made.chimney" = "Chaminé de fábrica";
 "type.man_made.cutline" = "Aceiro";
-"type.man_made.survey_point" = "Survey Point";
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.survey_point" = "Marco geodésico";
+"type.man_made.flagpole" = "Mastro de bandeira";
 "type.man_made.lighthouse" = "Farol";
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Mastro";
 "type.man_made.pier" = "Píer";
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "Tubulação";
 "type.man_made.pipeline.overground" = "Pipeline aéreo";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Tanque de armazenagem";
@@ -969,7 +969,7 @@
 "type.railway.station.light_rail" = "Estação de trem";
 "type.railway.station.light_rail.berlin" = "Estação de trem";
 "type.railway.station.light_rail.london" = "Estação de trem";
-"type.railway.station.light_rail.porto" = "Estação de trem";
+"type.railway.station.light_rail.porto" = "Estação de metrô";
 "type.railway.station.monorail" = "Estação de trem";
 "type.railway.station.subway" = "Estação de metrô";
 "type.railway.station.subway.adana" = "Estação de metrô";
@@ -1224,7 +1224,7 @@
 "type.shop.car_parts" = "Peças de carro";
 "type.shop.car_repair" = "Oficina de automóveis";
 "type.shop.car_repair.tyres" = "Borracheiro";
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Concessionária de trailers";
 "type.shop.carpet" = "Loja de tapetes";
 "type.shop.chemist" = "Drogaria";
 "type.shop.chocolate" = "Loja de chocolates";
@@ -1309,7 +1309,7 @@
 "type.shop.baby_goods" = "Loja infantil";
 "type.shop.bag" = "Loja de bolsas";
 "type.shop.bed" = "Loja de camas";
-"type.shop.boutique" = "Boutique";
+"type.shop.boutique" = "Loja de alta costura";
 "type.shop.charity" = "Loja de caridade";
 "type.shop.cheese" = "Loja de queijos";
 "type.shop.craft" = "Artes e ofícios";
@@ -1358,7 +1358,7 @@
 "type.sport.volleyball" = "Voleibol";
 "type.sport.10pin" = "Boliche";
 "type.sport.9pin" = "Boliche";
-"type.sport.padel" = "Padel";
+"type.sport.padel" = "Pádel";
 "type.sport.futsal" = "Futsal";
 "type.sport.ice_hockey" = "Hóquei no gelo";
 "type.sport.field_hockey" = "Hóquei em campo";

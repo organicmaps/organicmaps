@@ -203,7 +203,7 @@
     <string name="type.barrier.kissing_gate">Ворота</string>
     <string name="type.barrier.lift_gate">Шлагбаум</string>
     <string name="type.barrier.stile">Перелаз</string>
-    <string name="type.barrier.turnstile">Турнікет.</string>
+    <string name="type.barrier.turnstile">Турнікет</string>
     <string name="type.barrier.swing_gate">Шлагбаум</string>
     <string name="type.barrier.toll_booth">Пункт оплати</string>
     <string name="type.barrier.wall">Стіна</string>
@@ -1372,4 +1372,27 @@
     <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
     <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
     <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.leisure.hackerspace">Хакерський простір</string>
+    <string name="type.man_made.pipeline.overground">Наземний трубопровід</string>
+    <string name="type.military">Військові об\'єкти</string>
+    <string name="type.power.pole">Стовп ЛЕП</string>
+    <string name="type.man_made.utility_pole">Стовп передачі</string>
+    <string name="type.public_transport.platform">Платформа</string>
+    <string name="type.attraction.bumper_car">Доджем</string>
+    <string name="type.attraction.big_wheel">Колесо огляду</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
 </resources>

@@ -515,7 +515,7 @@
 "password_8_chars_min" = "Contrasenya (mínim 8 caràcters)";
 "invalid_username_or_password" = "Nom d'usuari o contrasenya no vàlids.";
 "login" = "Inicia sessió";
-"login_osm" = "Login to OpenStreetMap";
+"login_osm" = "Inicia sessió a l’OpenStreetMap";
 "forgot_password" = "Heu oblidat la contrasenya?";
 "osm_account" = "Compte OSM";
 "logout" = "Tanca la sessió";
@@ -761,8 +761,8 @@
 "privacy_policy" = "Normes de confidencialitat";
 "terms_of_use" = "Considicions del servei";
 "button_layer_subway" = "Metro";
-"layers_title" = "Estils i capes de mapa";
-"subway_data_unavailable" = "El mapa del metro no és disponible";
+"layers_title" = "Estils i capes del mapa";
+"subway_data_unavailable" = "El mapa del metro no està disponible";
 "title_error_downloading_bookmarks" = "S’ha produït un error";
 "popular_place" = "Popular";
 "export_file" = "Exporta KMZ";
@@ -787,8 +787,8 @@
 "power_managment_setting_never" = "Mai";
 "power_managment_setting_auto" = "Automàtic";
 "power_managment_setting_manual_max" = "Sempre";
-"enable_logging_warning_message" = "L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.";
-"driving_options_title" = "Opcions de la ruta";
+"enable_logging_warning_message" = "Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.";
+"driving_options_title" = "Opcions d’encaminament";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita peatges";
@@ -802,7 +802,7 @@
 "unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
 "define_to_avoid_btn" = "Definiu les vies a evitar";
-"change_driving_options_btn" = "Paràmetres de ruta activats";
+"change_driving_options_btn" = "Paràmetres d’encaminament activats";
 "toll_road" = "Via de peatge";
 "unpaved_road" = "Via sense pavimentar";
 "ferry_crossing" = "Ferris";
@@ -845,7 +845,7 @@
 "ok" = "D'acord";
 "speedcams_alert_title_carplay_1" = "Radars";
 "speedcams_alert_title_carplay_2" = "Avisos de radars";
-"download_map_carplay" = "Baixeu els mapes en l'aplicació Organic Maps del vostre aparell";
+"download_map_carplay" = "Baixeu els mapes en l’aplicació de l’aparell mòbil";
 "carplay_roundabout_exit" = "%@ sortida";
 
 /* max. 10 symbols, both iOS and Android */

@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Nem merül le az akkumulátor, offline működik";
 
 /* Text in About screen */
-"about_proposition_3" = "• Gyors, minimalista, közösség által fejlesztett";
+"about_proposition_3" = "• Gyors, minimalista, a közösség által fejlesztett";
 "close" = "Bezár";
 "download" = "Letöltés";
 
@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "Kékes Szürke";
 "dialog_routing_disclaimer_title" = "Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:";
-"dialog_routing_disclaimer_priority" = "— Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;";
+"dialog_routing_disclaimer_priority" = "— Az útviszonyok, a közlekedési szabályok és a jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatással szemben;";
 "dialog_routing_disclaimer_precision" = "— A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;";
 "dialog_routing_disclaimer_recommendations" = "— A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;";
 "dialog_routing_disclaimer_borders" = "— A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek;";
@@ -603,7 +603,7 @@
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb. Kérjük, hogy az ilyen kategóriákat közvetlenül a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
-"current_location_unknown_error_title" = "Current location is unknown.";
+"current_location_unknown_error_title" = "A jelenlegi helyzet ismeretlen.";
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 "location_services_disabled_header" = "Helyzetmeghatározás kikapcsolva";
 "location_services_disabled_message" = "Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban";
@@ -692,7 +692,7 @@
 "mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 "mobile_data_option_always" = "Mindig használja";
 "mobile_data_option_today" = "Csak ma";
-"mobile_data_option_not_today" = "Ma nem használhatja";
+"mobile_data_option_not_today" = "Ma ne használd";
 "mobile_data" = "Mobil Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -880,7 +880,7 @@
 "search_in_the_list" = "Keresés a listában";
 "religious_places" = "Vallási helyek";
 "transit_not_found" = "Metró navigáció ebben a régióban még nem érhető el";
-"dialog_pedestrian_route_is_long_header" = "Metró útvonal nem található";
+"dialog_pedestrian_route_is_long_header" = "Metró-útvonal nem található";
 "dialog_pedestrian_route_is_long_message" = "Válasszon indulási vagy végpontot közelebb a metróállomáshoz";
 "button_layer_isolines" = "Domborzat";
 "isolines_activation_error_dialog" = "A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét";
@@ -1028,7 +1028,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Hiba: Az iCloud nem elérhető";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Megnyitás egy másik alkalmazásban";
+"open_in_app" = "Megnyitás másik alkalmazásban";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Önkiszolgáló";

@@ -27,7 +27,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%d ファイルが見つかりました。変換後にそれを見ることができます。</string>
+			<string>ファイルが%d個見つかりました。変換後にそれを見ることができます。</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
