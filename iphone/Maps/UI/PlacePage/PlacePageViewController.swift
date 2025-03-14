@@ -153,7 +153,6 @@ final class PlacePageScrollView: UIScrollView {
 
   private func setupView() {
     let bgView = UIView()
-    bgView.setStyle(.ppBackgroundView)
     stackView.insertSubview(bgView, at: 0)
     bgView.alignToSuperview()
 
@@ -163,7 +162,7 @@ final class PlacePageScrollView: UIScrollView {
     stackView.backgroundColor = .clear
 
     let cornersToMask: CACornerMask = alternativeSizeClass(iPhone: [], iPad: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
-    actionBarContainerView.layer.setCorner(radius: 16, corners: cornersToMask)
+    actionBarContainerView.layer.setCornerRadius(.modalSheet, maskedCorners: cornersToMask)
     actionBarContainerView.layer.masksToBounds = true
 
     // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
