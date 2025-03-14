@@ -116,8 +116,8 @@ extension Style {
     set { params[.borderWidth] = newValue }
   }
 
-  var cornerRadius: CGFloat? {
-    get { return self[.cornerRadius] as? CGFloat }
+  var cornerRadius: CornerRadius? {
+    get { return self[.cornerRadius] as? CornerRadius }
     set { params[.cornerRadius] = newValue }
   }
 

@@ -46,7 +46,7 @@ class UIViewRenderer {
       control.layer.borderWidth = borderWidth
     }
     if let cornerRadius = style.cornerRadius {
-      control.layer.cornerRadius = cornerRadius
+      control.layer.cornerRadius = cornerRadius.value
     }
     if let maskedCorners = style.maskedCorners {
       control.layer.maskedCorners = maskedCorners

@@ -1,6 +1,5 @@
 final class TransportRuler: TransportTransitCell {
   enum Config {
-    static let backgroundCornerRadius: CGFloat = 4
     static var backgroundColor: UIColor { return UIColor.blackOpaque() }
     static var imageColor: UIColor { return UIColor.blackSecondaryText() }
     static var labelTextColor: UIColor { return .black }
@@ -10,7 +9,7 @@ final class TransportRuler: TransportTransitCell {
 
   @IBOutlet private weak var background: UIView! {
     didSet {
-      background.layer.setCorner(radius: Config.backgroundCornerRadius)
+      background.layer.setCornerRadius(.buttonSmall)
       background.backgroundColor = Config.backgroundColor
     }
   }

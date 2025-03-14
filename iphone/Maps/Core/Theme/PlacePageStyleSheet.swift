@@ -30,7 +30,7 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppTitlePopularView:
       return .add { s in
         s.backgroundColor = colors.linkBlueHighlighted
-        s.cornerRadius = 10
+        s.cornerRadius = .custom(10)
       }
     case .ppActionBarTitle:
       return .add { s in
@@ -45,7 +45,7 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppElevationProfileDescriptionCell:
       return .add { s in
         s.backgroundColor = colors.blackOpaque
-        s.cornerRadius = 6
+        s.cornerRadius = .buttonDefault
       }
     case .ppElevationProfileExtendedDifficulty:
       return .add { s in
@@ -110,7 +110,7 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppHeaderView:
       return .add { s in
         s.backgroundColor = colors.white
-        s.cornerRadius = 10
+        s.cornerRadius = .modalSheet
         s.clip = true
       }
     case .ppNavigationShadowView:
@@ -123,19 +123,15 @@ extension PlacePageStyleSheet: IStyleSheet {
         s.clip = false
       }
     case .ppBackgroundView:
-      return .add { s in
+      return .addFrom(GlobalStyleSheet.modalSheetBackground) { s in
         s.backgroundColor = colors.pressBackground
-        s.cornerRadius = 10
-        s.shadowColor = UIColor.black
-        s.shadowOffset = CGSize(width: 0, height: 1)
-        s.shadowOpacity = 0.6
-        s.shadowRadius = 2
+        s.maskedCorners = isIPad ? CACornerMask.all : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         s.clip = false
       }
     case .ppView:
       return .add { s in
         s.backgroundColor = colors.clear
-        s.cornerRadius = 10
+        s.cornerRadius = .modalSheet
         s.clip = true
       }
     case .ppHeaderCircleIcon:

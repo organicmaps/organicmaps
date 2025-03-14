@@ -22,7 +22,7 @@ final class ProductButton: UIButton {
     titleLabel?.allowsDefaultTighteningForTruncation = true
     titleLabel?.adjustsFontSizeToFitWidth = true
     titleLabel?.minimumScaleFactor = 0.5
-    layer.setCorner(radius: 5.0)
+    layer.setCornerRadius(.buttonDefaultSmall)
     layer.masksToBounds = true
     addTarget(self, action: #selector(buttonDidTap), for: .touchUpInside)
   }

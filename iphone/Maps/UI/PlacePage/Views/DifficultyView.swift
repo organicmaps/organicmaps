@@ -43,7 +43,7 @@ class DifficultyView: UIView {
     for _ in 0..<difficultyLevelCount {
       let view = UIView()
       stackView.addArrangedSubview(view)
-      view.layer.setCorner(radius: bulletSize.height / 2)
+      view.layer.setCornerRadius(.custom(bulletSize.height / 2))
       views.append(view)
     }
   }
