@@ -49,6 +49,7 @@ final class SearchOnMapPresentationController: NSObject {
     parentViewController.addChild(viewController)
     viewController.view.frame = frameOfPresentedViewInContainerView
     viewController.didMove(toParent: parentViewController)
+    viewController.view.setStyleAndApply(.modalSheetBackground)
 
     affectedAreas.forEach { $0.value?.addAffectingView(viewController.view) }
 

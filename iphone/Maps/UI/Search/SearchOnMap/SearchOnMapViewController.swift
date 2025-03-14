@@ -26,8 +26,9 @@ final class SearchOnMapViewController: UIViewController {
   private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - UI Elements
+  let contentView = UIView()
   private let headerView = SearchOnMapHeaderView()
-  private let containerView = UIView()
+  private let searchResultsView = UIView()
   private let resultsTableView = UITableView()
   private let historyAndCategoryTabViewController = SearchTabViewController()
   private var searchingActivityView = PlaceholderView(hasActivityIndicator: true)
@@ -71,7 +72,7 @@ final class SearchOnMapViewController: UIViewController {
 
   // MARK: - Private methods
   private func setupViews() {
-    view.setStyle(.clearBackground)
+    contentView.setStyle(.modalSheetContent)
     setupTapGestureRecognizer()
     setupHeaderView()
     setupContainerView()
@@ -91,7 +92,7 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func setupContainerView() {
-    containerView.setStyle(.background)
+    searchResultsView.setStyle(.background)
   }
 
   private func setupResultsTableView() {
@@ -110,20 +111,28 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func layoutViews() {
-    view.addSubview(headerView)
-    view.addSubview(containerView)
+    view.addSubview(contentView)
+    contentView.addSubview(headerView)
+    contentView.addSubview(searchResultsView)
+
+    contentView.translatesAutoresizingMaskIntoConstraints = false
     headerView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.translatesAutoresizingMaskIntoConstraints = false
+    searchResultsView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      headerView.topAnchor.constraint(equalTo: view.topAnchor),
-      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      contentView.topAnchor.constraint(equalTo: view.topAnchor),
+      contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-      containerView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-      containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+      searchResultsView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+      searchResultsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      searchResultsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      searchResultsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
     ])
 
     layoutResultsView()
@@ -133,48 +142,48 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func layoutResultsView() {
-    containerView.addSubview(resultsTableView)
+    searchResultsView.addSubview(resultsTableView)
     resultsTableView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      resultsTableView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      resultsTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      resultsTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      resultsTableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      resultsTableView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      resultsTableView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      resultsTableView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      resultsTableView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutHistoryAndCategoryTabView() {
-    containerView.addSubview(historyAndCategoryTabViewController.view)
+    searchResultsView.addSubview(historyAndCategoryTabViewController.view)
     historyAndCategoryTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      historyAndCategoryTabViewController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
-      historyAndCategoryTabViewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      historyAndCategoryTabViewController.view.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      historyAndCategoryTabViewController.view.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutSearchNoResultsView() {
     searchNoResultsView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.addSubview(searchNoResultsView)
+    searchResultsView.addSubview(searchNoResultsView)
     NSLayoutConstraint.activate([
-      searchNoResultsView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      searchNoResultsView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      searchNoResultsView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      searchNoResultsView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      searchNoResultsView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      searchNoResultsView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      searchNoResultsView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      searchNoResultsView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutSearchingView() {
-    containerView.insertSubview(searchingActivityView, at: 0)
+    searchResultsView.insertSubview(searchingActivityView, at: 0)
     searchingActivityView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      searchingActivityView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      searchingActivityView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      searchingActivityView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      searchingActivityView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      searchingActivityView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      searchingActivityView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      searchingActivityView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      searchingActivityView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
@@ -223,7 +232,7 @@ final class SearchOnMapViewController: UIViewController {
                                  historyAndCategoryTabViewController.view,
                                  searchNoResultsView,
                                  searchingActivityView].filter { $0 != view }
-    UIView.transition(with: containerView,
+    UIView.transition(with: searchResultsView,
                       duration: kDefaultAnimationDuration / 2,
                       options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
       viewsToHide.forEach { viewToHide in
