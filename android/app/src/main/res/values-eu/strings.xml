@@ -16,8 +16,8 @@
     <string name="kilometres">Kilometro</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miliak</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Nire kokapena</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Nire kokapena</string>
     <!-- Update maps later button text -->
     <string name="later">Geroago</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -412,7 +412,6 @@
     <string name="search_history_title">Bilaketa historia</string>
     <string name="search_history_text">Ikusi azken bilaketak.</string>
     <string name="clear_search">Garbitu bilaketa historia</string>
-    <string name="p2p_your_location">Zure kokapena</string>
     <string name="p2p_start">Hasi</string>
     <string name="p2p_from_here">Hemendik</string>
     <string name="p2p_to_here">Bidea hona</string>

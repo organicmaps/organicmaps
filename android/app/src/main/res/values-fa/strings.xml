@@ -19,8 +19,8 @@
     <string name="gb">گیگابایت</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">مایل</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">مکان من</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">مکان من</string>
     <!-- Update maps later button text -->
     <string name="later">بعداً</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -381,7 +381,6 @@
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">ویکی پدیا</string>
-    <string name="p2p_your_location">موقعیت شما</string>
     <string name="p2p_start">شروع</string>
     <string name="p2p_from_here">مسیر از</string>
     <string name="p2p_to_here">مسیر به</string>

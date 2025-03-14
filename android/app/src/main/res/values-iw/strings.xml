@@ -16,8 +16,8 @@
     <string name="kilometres">ק\"מ</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">מייל</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">המיקום שלי</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">המיקום שלי</string>
     <!-- Update maps later button text -->
     <string name="later">מאוחר יותר</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -409,7 +409,6 @@
     <string name="clear_search">נקה היסטוריית חיפוש</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">ויקיפדיה</string>
-    <string name="p2p_your_location">המיקום שלך</string>
     <string name="p2p_start">צא לדרך</string>
     <string name="p2p_from_here">מסלול מכאן</string>
     <string name="p2p_to_here">מסלול לכאן</string>

@@ -19,8 +19,8 @@
     <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mylios</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Mano vieta</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Mano vieta</string>
     <!-- Update maps later button text -->
     <string name="later">Vėliau</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -402,7 +402,6 @@
     <string name="read_in_wikipedia">Vikipedija</string>
     <!-- Place Page link to Wikimedia Commons. -->
     <string name="wikimedia_commons">Vikiteka</string>
-    <string name="p2p_your_location">Jūsų vieta</string>
     <string name="p2p_start">Pradėti</string>
     <string name="p2p_from_here">Maršrutas iš</string>
     <string name="p2p_to_here">Maršrutas į</string>

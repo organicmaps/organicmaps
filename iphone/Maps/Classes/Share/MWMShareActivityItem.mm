@@ -58,7 +58,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   auto const title = ^NSString *(PlacePageData *data)
   {
     if (!data || data.isMyPosition)
-      return L(@"core_my_position");
+      return L(@"core_my_location");
     else if (data.previewData.title.length > 0)
       return data.previewData.title;
     else if (data.previewData.subtitle.length)
@@ -107,7 +107,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   LPLinkMetadata * metadata = [[LPLinkMetadata alloc] init];
   metadata.originalURL = [NSURL URLWithString:[self url:NO]];
-  metadata.title = self.isMyPosition ? L(@"core_my_position") : self.data.previewData.title;
+  metadata.title = self.isMyPosition ? L(@"core_my_location") : self.data.previewData.title;
   metadata.iconProvider = [[NSItemProvider alloc] initWithObject:[UIImage imageNamed:@"imgLogo"]];
   return metadata;
 }

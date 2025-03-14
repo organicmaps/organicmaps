@@ -21,8 +21,8 @@
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "मील";
 
-/* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "मेरा स्थान";
+/* A text for current gps location point/arrow */
+"core_my_location" = "मेरा स्थान";
 
 /* Update maps later button text */
 "later" = "बाद में";
@@ -468,7 +468,6 @@
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
-"p2p_your_location" = "Your Location";
 "p2p_start" = "जाएँ";
 "p2p_from_here" = "यहाँ से";
 "p2p_to_here" = "यहाँ तक";

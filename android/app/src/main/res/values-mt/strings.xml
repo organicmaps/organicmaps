@@ -16,8 +16,8 @@
     <string name="kilometres">Kilometri</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mili</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">Il-Pożizzjoni Kurrenti</string>
     <!-- Update maps later button text -->
     <string name="later">Aktar tard</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->

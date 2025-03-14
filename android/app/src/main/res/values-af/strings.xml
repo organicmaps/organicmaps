@@ -19,8 +19,8 @@
     <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Myle</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">My posisie</string>
+    <!-- A text for current gps location point/arrow -->
+    <string name="core_my_location">My posisie</string>
     <!-- Update maps later button text -->
     <string name="later">Later</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -400,7 +400,6 @@
     <string name="search_history_title">Soekgeskiedenis</string>
     <string name="search_history_text">Bekyk al u onlangse soektogte.</string>
     <string name="clear_search">Wis soekgeskiedenis</string>
-    <string name="p2p_your_location">U ligging</string>
     <string name="p2p_start">Begin</string>
     <string name="p2p_from_here">Roete vanaf</string>
     <string name="p2p_to_here">Roete na</string>
