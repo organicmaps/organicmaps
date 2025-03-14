@@ -59,6 +59,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case white = "MWMWhite"
   case datePickerView = "DatePickerView"
   case valueStepperView = "ValueStepperView"
+  case grabber
   case modalSheetBackground
   case modalSheetContent
 }
@@ -178,7 +179,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.backgroundColor = colors.tabBarButtonBackground
         s.tintColor = colors.blackSecondaryText
         s.coloring = MWMButtonColoring.black
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.shadowColor = UIColor(0,0,0,alpha20)
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
@@ -186,7 +187,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .trackRecordingWidgetButton:
       return .addFrom(Self.bottomTabBarButton) { s in
-        s.cornerRadius = 23
+        s.cornerRadius = .custom(23)
       }
     case .blackOpaqueBackground:
       return .add { s in
@@ -234,7 +235,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .dialogView:
       return .add { s in
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.shadowRadius = 2
         s.shadowColor = UIColor(0,0,0,alpha26)
         s.shadowOpacity = 1
@@ -244,7 +245,7 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .alertView:
       return .add { s in
-        s.cornerRadius = 12
+        s.cornerRadius = .modalSheet
         s.shadowRadius = 6
         s.shadowColor = UIColor(0,0,0,alpha20)
         s.shadowOpacity = 1
@@ -275,7 +276,7 @@ extension GlobalStyleSheet: IStyleSheet {
     case .flatNormalButton:
       return .add { s in
         s.font = fonts.medium14
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.clip = true
         s.fontColor = colors.whitePrimaryText
         s.backgroundColor = colors.linkBlue
@@ -290,7 +291,7 @@ extension GlobalStyleSheet: IStyleSheet {
     case .flatNormalTransButton:
       return .add { s in
         s.font = fonts.medium14
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.clip = true
         s.fontColor = colors.linkBlue
         s.backgroundColor = colors.clear
@@ -332,7 +333,7 @@ extension GlobalStyleSheet: IStyleSheet {
     case .flatRedButton:
       return .add { s in
         s.font = fonts.medium14
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.fontColor = colors.whitePrimaryText
         s.backgroundColor = colors.buttonRed
         s.fontColorHighlighted = colors.buttonRedHighlighted
@@ -348,7 +349,7 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.font = fonts.regular14
         s.fontColor = colors.linkBlue
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.borderColor = colors.linkBlue
         s.borderWidth = 1
         s.fontColorHighlighted = colors.linkBlueHighlighted
@@ -360,7 +361,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.fontColor = colors.linkBlue
         s.fontColorHighlighted = colors.white
         s.borderColor = colors.linkBlue
-        s.cornerRadius = 8
+        s.cornerRadius = .buttonDefault
         s.borderWidth = 1
         s.backgroundColor = colors.clear
         s.backgroundColorHighlighted = colors.linkBlue
@@ -431,14 +432,18 @@ extension GlobalStyleSheet: IStyleSheet {
         s.fontColor = colors.blackPrimaryText
         s.coloring = MWMButtonColoring.blue
       }
+    case .grabber:
+      return .addFrom(Self.pressBackground) { s in
+        s.cornerRadius = .grabber
+      }
     case .modalSheetBackground:
       return .add { s in
         s.backgroundColor = colors.white
         s.shadowColor = UIColor.black
         s.shadowOffset = CGSize(width: 0, height: 1)
-        s.shadowOpacity = 0.4
+        s.shadowOpacity = 0.3
         s.shadowRadius = 6
-        s.cornerRadius = 12
+        s.cornerRadius = .modalSheet
         s.clip = false
         s.maskedCorners = isIPad ? [] : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
       }

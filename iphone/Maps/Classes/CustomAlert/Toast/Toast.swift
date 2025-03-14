@@ -22,7 +22,7 @@ final class Toast: NSObject {
   }
   
   private init(_ text: String) {
-    blurView.layer.setCorner(radius: 8)
+    blurView.layer.setCornerRadius(.buttonDefault)
     blurView.clipsToBounds = true
     blurView.alpha = 0
 

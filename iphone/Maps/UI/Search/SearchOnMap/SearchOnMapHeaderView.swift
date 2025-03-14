@@ -41,8 +41,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupGrabberView() {
-    grabberView.setStyle(.background)
-    grabberView.layer.setCorner(radius: Constants.grabberHeight / 2)
+    grabberView.setStyle(.grabber)
     iPadSpecific { [weak self] in
       self?.grabberView.isHidden = true
     }
