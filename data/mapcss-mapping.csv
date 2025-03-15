@@ -594,7 +594,7 @@ emergency|lifeguard;475;
 emergency|mountain_rescue;476;
 aerialway|platter;477;
 man_made|flare;478;
-deprecated|deprecated;479;x
+highway|ladder;479;
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
 boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
 boundary|protected_area|2;[boundary=protected_area][protect_class=2];;name;int_name;482;
