@@ -306,7 +306,15 @@ public class MapButtonsController extends Fragment
     {
       final View button = entry.getValue();
       if (button.getParent() == parent)
-        showButton(getViewTopOffset(translation, button) >= 0, entry.getKey());
+      {
+        boolean show = getViewTopOffset(translation, button) >= 0;
+        // Allow offset tolerance for zoom buttons 
+        if (entry.getKey() == MapButtons.zoomIn || entry.getKey() == MapButtons.zoomOut|| entry.getKey() == MapButtons.zoom)
+        {
+          show = getViewTopOffset(translation, button) >= -140;
+        }
+        showButton(show, entry.getKey());
+      }
     }
   }
 
