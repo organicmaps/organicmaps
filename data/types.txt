@@ -691,7 +691,7 @@ mapswithme
 mapswithme
 *man_made|cross
 landuse|orchard
-mapswithme
+*landuse|plant_nursery
 mapswithme
 mapswithme
 mapswithme
