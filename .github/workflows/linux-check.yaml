@@ -48,6 +48,9 @@ jobs:
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
+     - name: Set up environment and mock files
+        run: ./setup-mock-files.sh
+        
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
