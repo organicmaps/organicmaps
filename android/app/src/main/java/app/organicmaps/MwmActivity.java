@@ -597,10 +597,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
-      if (mCurrentWindowInsets == null)
-      {
-        updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
-      }
+      updateCompassOffset(trackRecorderOffset + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top, windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).right);
       refreshLightStatusBar();
       updateBottomWidgetsOffset(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left);
       mCurrentWindowInsets = windowInsets;
