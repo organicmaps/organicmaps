@@ -24,7 +24,7 @@ struct LoadImageView: View {
           .resizable()
           .indicator(.activity)
           .scaledToFill()
-          .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: 150) // Constrain the width and height
+          .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity)
           .clipped()
           .transition(.fade(duration: 0.2))
         if(isError) {
