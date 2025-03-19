@@ -48,8 +48,9 @@ jobs:
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
-     - name: Set up environment and mock files
+      - name: Set up environment and mock files
         run: ./setup-mock-files.sh
+
         
       - name: Parallel submodules checkout
         shell: bash
@@ -98,7 +99,7 @@ jobs:
 
   linux-matrix:
     name: Linux builds and tests
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
