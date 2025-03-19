@@ -54,8 +54,8 @@ final class SearchTabViewController: TabViewController {
 }
 
 extension SearchTabViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
-    viewControllers.forEach { ($0 as? ModallyPresentedViewController)?.translationYDidUpdate(translationY) }
+  func presentationFrameDidChange(_ frame: CGRect) {
+    viewControllers.forEach { ($0 as? ModallyPresentedViewController)?.presentationFrameDidChange(frame) }
   }
 }
 

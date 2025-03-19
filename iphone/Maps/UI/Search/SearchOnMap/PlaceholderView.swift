@@ -115,8 +115,8 @@ final class PlaceholderView: UIView {
 
 // MARK: - ModallyPresentedViewController
 extension PlaceholderView: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
-    self.containerModalYTranslation = translationY
+  func presentationFrameDidChange(_ frame: CGRect) {
+    self.containerModalYTranslation = frame.origin.y
     reloadConstraints()
   }
 }
