@@ -52,8 +52,8 @@ final class SearchCategoriesViewController: MWMTableViewController {
 }
 
 extension SearchCategoriesViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
+  func presentationFrameDidChange(_ frame: CGRect) {
     guard isViewLoaded else { return }
-    tableView.contentInset.bottom = translationY + view.safeAreaInsets.bottom
+    tableView.contentInset.bottom = frame.origin.y + view.safeAreaInsets.bottom
   }
 }

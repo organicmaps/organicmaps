@@ -1,11 +1,11 @@
-enum ModalScreenPresentationStep {
+enum ModalPresentationStep: Int, CaseIterable {
   case fullScreen
   case halfScreen
   case compact
   case hidden
 }
 
-extension ModalScreenPresentationStep {
+extension ModalPresentationStep {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let compactHeightOffset: CGFloat = 120
@@ -14,7 +14,7 @@ extension ModalScreenPresentationStep {
     static let landscapeTopInset: CGFloat = 10
   }
 
-  var upper: ModalScreenPresentationStep {
+  var upper: ModalPresentationStep {
     switch self {
     case .fullScreen:
       return .fullScreen
@@ -27,7 +27,7 @@ extension ModalScreenPresentationStep {
     }
   }
 
-  var lower: ModalScreenPresentationStep {
+  var lower: ModalPresentationStep {
     switch self {
     case .fullScreen:
       return .halfScreen
@@ -40,19 +40,22 @@ extension ModalScreenPresentationStep {
     }
   }
 
-  var first: ModalScreenPresentationStep {
+  var first: ModalPresentationStep {
     .fullScreen
   }
 
-  var last: ModalScreenPresentationStep {
+  var last: ModalPresentationStep {
     .compact
   }
 
-  func frame() -> CGRect {
+  func frame(for presentedView: UIView, in containerViewController: UIViewController) -> CGRect {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
-    let containerSize = UIScreen.main.bounds.size
-    let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
-    let traitCollection = UIScreen.main.traitCollection
+    var containerSize = containerViewController.view.bounds.size
+    if containerSize == .zero {
+      containerSize = UIScreen.main.bounds.size
+    }
+    let safeAreaInsets = containerViewController.view.safeAreaInsets
+    let traitCollection = containerViewController.traitCollection
     var frame = CGRect(origin: .zero, size: containerSize)
 
     if isIPad {

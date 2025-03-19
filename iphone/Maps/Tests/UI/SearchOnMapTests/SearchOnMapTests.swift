@@ -130,8 +130,13 @@ final class SearchOnMapTests: XCTestCase {
     searchManager.results = results
 
     interactor.handle(.didSelectResult(results[0], withSearchText: searchText))
-    XCTAssertEqual(currentState, .hidden)
-    XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    if isIPad {
+      XCTAssertEqual(currentState, .searching)
+      XCTAssertEqual(view.viewModel.presentationStep, .fullScreen)
+    } else {
+      XCTAssertEqual(currentState, .hidden)
+      XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    }
   }
 
   func test_GivenSearchIsActive_WhenSelectPlaceOnMap_ThenHideSearch() {
@@ -158,8 +163,13 @@ final class SearchOnMapTests: XCTestCase {
     searchManager.results = results
 
     interactor.handle(.didSelectResult(results[0], withSearchText: searchText))
-    XCTAssertEqual(currentState, .hidden)
-    XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    if isIPad {
+      XCTAssertEqual(currentState, .searching)
+      XCTAssertEqual(view.viewModel.presentationStep, .fullScreen)
+    } else {
+      XCTAssertEqual(currentState, .hidden)
+      XCTAssertEqual(view.viewModel.presentationStep, .hidden)
+    }
 
     interactor.handle(.didDeselectPlaceOnMap)
     XCTAssertEqual(currentState, .searching)
@@ -216,13 +226,14 @@ final class SearchOnMapTests: XCTestCase {
 // MARK: - Mocks
 
 private class SearchOnMapViewMock: SearchOnMapView {
-  
   var viewModel: SearchOnMap.ViewModel = .initial
   var scrollViewDelegate: (any SearchOnMapScrollViewDelegate)?
   func render(_ viewModel: SearchOnMap.ViewModel) {
     self.viewModel = viewModel
   }
   func close() {
+  }
+  func show() {
   }
 }
 

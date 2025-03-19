@@ -104,7 +104,7 @@ final class SearchOnMapPresenter {
   }
 }
 
-private extension ModalScreenPresentationStep {
+private extension ModalPresentationStep {
   var searchState: SearchOnMapState {
     switch self {
     case .fullScreen, .halfScreen, .compact:

@@ -177,16 +177,19 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)setupSearchContainer {
+  if (self.searchContainer != nil)
+    return;
   self.searchContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
   [self.view addSubview:self.searchContainer];
   [self.view bringSubviewToFront:self.searchContainer];
+  self.searchContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)updatePlacePageContainerConstraints {
   const BOOL isLimitedWidth = IPAD || self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
 
-  if (IPAD && self.searchView != nil) {
-    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchView.trailingAnchor constant:kPlacePageLeadingOffset];
+  if (IPAD && self.searchViewAvailableArea != nil) {
+    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchViewAvailableArea.trailingAnchor constant:kPlacePageLeadingOffset];
     leadingToSearchConstraint.priority = UILayoutPriorityDefaultHigh;
     leadingToSearchConstraint.active = isLimitedWidth;
   }
@@ -281,8 +284,8 @@ NSString *const kSettingsSegue = @"Map2Settings";
   UITouch *touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
 
-  // **Check if the tap is inside searchView**
-  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE && !CGRectContainsPoint(self.searchView.frame, pt))
+  // Check if the tap is inside searchView)
+  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE && !CGRectContainsPoint(self.searchViewAvailableArea.frame, pt))
     [self.searchManager setMapIsDragging];
 
   e.SetTouchType(type);
@@ -743,8 +746,8 @@ NSString *const kSettingsSegue = @"Map2Settings";
   return _searchManager;
 }
 
-- (UIView * _Nullable)searchView {
-  return self.searchManager.viewController.view;
+- (UIView * _Nullable)searchViewAvailableArea {
+  return self.searchManager.viewController.availableAreaView;
 }
 
 - (BOOL)hasNavigationBar {

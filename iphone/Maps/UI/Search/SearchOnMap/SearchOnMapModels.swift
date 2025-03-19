@@ -1,6 +1,6 @@
 enum SearchOnMap {
   struct ViewModel: Equatable {
-    enum ContentState: Equatable {
+    enum Content: Equatable {
       case historyAndCategory
       case results(SearchResults)
       case noResults
@@ -10,8 +10,8 @@ enum SearchOnMap {
     var isTyping: Bool
     var skipSuggestions: Bool
     var searchingText: String?
-    var contentState: ContentState
-    var presentationStep: ModalScreenPresentationStep
+    var contentState: Content
+    var presentationStep: ModalPresentationStep
   }
 
   struct SearchResults: Equatable {
@@ -54,7 +54,7 @@ enum SearchOnMap {
     case clearButtonDidTap
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
-    case didUpdatePresentationStep(ModalScreenPresentationStep)
+    case didUpdatePresentationStep(ModalPresentationStep)
   }
 
   enum Response: Equatable {
@@ -67,7 +67,7 @@ enum SearchOnMap {
     case clearSearch
     case setSearchScreenHidden(Bool)
     case setSearchScreenCompact
-    case updatePresentationStep(ModalScreenPresentationStep)
+    case updatePresentationStep(ModalPresentationStep)
     case close
     case none
   }

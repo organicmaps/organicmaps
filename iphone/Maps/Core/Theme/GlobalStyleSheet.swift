@@ -433,7 +433,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.coloring = MWMButtonColoring.blue
       }
     case .grabber:
-      return .addFrom(Self.pressBackground) { s in
+      return .addFrom(Self.background) { s in
         s.cornerRadius = .grabber
       }
     case .modalSheetBackground:
