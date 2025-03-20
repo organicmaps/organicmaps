@@ -22,6 +22,8 @@ final class SearchOnMapViewController: UIViewController {
   fileprivate enum Constants {
     static let estimatedRowHeight: CGFloat = 80
     static let panGestureThreshold: CGFloat = 5
+    static let dimAlpha: CGFloat = 0.3
+    static let dimViewThreshold: CGFloat = 50
   }
 
   var interactor: SearchOnMapInteractor?
@@ -35,6 +37,7 @@ final class SearchOnMapViewController: UIViewController {
   private var searchingActivityView = PlaceholderView(hasActivityIndicator: true)
   private var searchNoResultsView = PlaceholderView(title: L("search_not_found"),
                                                     subtitle: L("search_not_found_query"))
+  private var dimView: UIView?
 
   private var internalScrollViewContentOffset: CGFloat = .zero
   private let presentationStepsController = ModalPresentationStepsController()
@@ -105,11 +108,21 @@ final class SearchOnMapViewController: UIViewController {
   private func setupViews() {
     availableAreaView.setStyleAndApply(.modalSheetBackground)
     contentView.setStyleAndApply(.modalSheetContent)
+
     setupGestureRecognizers()
+    setupDimView()
     setupHeaderView()
     setupSearchResultsView()
     setupResultsTableView()
     setupHistoryAndCategoryTabView()
+  }
+
+  private func setupDimView() {
+    iPhoneSpecific {
+      dimView = UIView()
+      dimView?.backgroundColor = .black
+      dimView?.frame = view.bounds
+    }
   }
 
   private func setupGestureRecognizers() {
@@ -148,6 +161,10 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func layoutViews() {
+    if let dimView {
+      view.addSubview(dimView)
+      dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
     view.addSubview(availableAreaView)
     availableAreaView.addSubview(contentView)
     contentView.addSubview(headerView)
@@ -262,6 +279,20 @@ final class SearchOnMapViewController: UIViewController {
     }
   }
 
+  private func updateDimView(for frame: CGRect) {
+    guard let dimView else { return }
+    let currentTop = frame.origin.y
+    let maxTop = presentationStepsController.maxAvailableFrame.origin.y
+    let alpha = (1 - (currentTop - maxTop) / Constants.dimViewThreshold) * Constants.dimAlpha
+    let isCloseToTop = currentTop - maxTop < Constants.dimViewThreshold
+    let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+    let shouldDim = isCloseToTop && isPortrait
+    UIView.animate(withDuration: kDefaultAnimationDuration / 2) {
+      dimView.alpha = shouldDim ? alpha : 0
+      dimView.isHidden = !shouldDim
+    }
+  }
+
   // MARK: - Handle Content Updates
   private func setContent(_ content: Content) {
     switch content {
@@ -337,6 +368,7 @@ extension SearchOnMapViewController: SearchOnMapView {
 
   func close() {
     headerView.setIsSearching(false)
+    updateDimView(for: presentationStepsController.hiddenFrame)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
