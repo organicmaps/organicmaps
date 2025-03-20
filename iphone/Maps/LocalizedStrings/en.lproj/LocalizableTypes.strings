@@ -209,6 +209,7 @@
 "type.natural.water.wastewater" = "Wastewater";
 "type.barrier.entrance" = "Entrance";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Gate";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "Kissing Gate";

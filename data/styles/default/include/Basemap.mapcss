@@ -582,6 +582,13 @@ line|z18-[barrier=fence],
 line|z18-[barrier=wall],
 {width: 1.5; opacity: 0.8;}
 
+line|z16-[barrier=guard_rail],
+{color: @fence; width: 1; opacity: 0.3;}
+line|z17[barrier=guard_rail],
+{width: 1.3; opacity: 0.4;}
+line|z18-[barrier=guard_rail],
+{width: 1.5; opacity: 0.6;}
+
 
 line|z16-[barrier=hedge],
 {color: @hedge; width: 1.6; opacity: 0.4;}
