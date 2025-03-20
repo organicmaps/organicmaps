@@ -83,8 +83,8 @@ jobs:
       - name: CMake
         shell: bash
         env:
-          CC: clang-18
-          CXX: clang++-18
+          CC: /usr/bin/clang-18
+          CXX: /usr/bin/clang++-18
           CMAKE_C_COMPILER_LAUNCHER: ccache
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
@@ -150,15 +150,14 @@ jobs:
       - name: CMake
         shell: bash
         env:
-          CC: ${{ matrix.compiler.CC }}
-          CXX: ${{ matrix.compiler.CXX }}
-          CMAKE_C_COMPILER_LAUNCHER: ccache
-          CMAKE_CXX_COMPILER_LAUNCHER: ccache
-        # -g1 should slightly reduce build time.
+           CC: /usr/bin/${{ matrix.compiler.CC }}
+           CXX: /usr/bin/${{ matrix.compiler.CXX }}
+           CMAKE_C_COMPILER_LAUNCHER: ccache
+           CMAKE_CXX_COMPILER_LAUNCHER: ccache
         run: |
-          echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
-            -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
+             echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
+             cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
+              -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash
