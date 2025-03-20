@@ -316,9 +316,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Update kaart</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play-locatieservices</string>
+    <string name="network_location_provider">Google Play-locatieservices</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bepaal snel je locatie bij benadering via Bluetooth, WiFi of een mobiel netwerk</string>
+    <string name="pref_use_nlp">Bepaal snel je locatie bij benadering via Bluetooth, WiFi of een mobiel netwerk</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotellinks</string>
     <!-- Preference description -->

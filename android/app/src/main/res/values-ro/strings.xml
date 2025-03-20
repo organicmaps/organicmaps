@@ -302,9 +302,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualizează harta</string>
     <!-- Preference title -->
-    <string name="google_play_services">Servicii de localizare Google Play</string>
+    <string name="network_location_provider">Servicii de localizare Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determinați rapid locația dvs. aproximativă prin Bluetooth, WiFi sau rețea mobilă</string>
+    <string name="pref_use_nlp">Determinați rapid locația dvs. aproximativă prin Bluetooth, WiFi sau rețea mobilă</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Linkuri către hoteluri</string>
     <!-- Preference description -->

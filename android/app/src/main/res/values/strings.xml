@@ -341,9 +341,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Update Map</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Location Services</string>
+    <string name="network_location_provider">Network Location Provider</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Quickly determine your approximate location using Bluetooth, WiFi, or mobile network</string>
+    <string name="pref_use_nlp">Quickly determine your approximate location using Bluetooth, WiFi, or mobile network</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotel Links</string>
     <!-- Preference description -->

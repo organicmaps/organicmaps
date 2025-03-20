@@ -306,9 +306,9 @@
     <string name="downloader_download_all_button">सभी डाउनलोड</string>
     <string name="downloader_downloading">डाउनलोड हो रहा है:</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play स्थान सेवाएँ</string>
+    <string name="network_location_provider">Google Play स्थान सेवाएँ</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">ब्लूटूथ, वाईफाई या मोबाइल नेटवर्क का उपयोग करके तुरंत अपना अनुमानित स्थान निर्धारित करें</string>
+    <string name="pref_use_nlp">ब्लूटूथ, वाईफाई या मोबाइल नेटवर्क का उपयोग करके तुरंत अपना अनुमानित स्थान निर्धारित करें</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com हटल लक</string>
     <!-- Preference description -->

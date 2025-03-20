@@ -22,9 +22,9 @@
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Verifique el volumen o la configuración de texto a voz del sistema si no escucha la voz ahora.</string>
     <!-- Preference title -->
-    <string name="google_play_services">Servicios de ubicación de Google Play</string>
+    <string name="network_location_provider">Servicios de ubicación de Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determine rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
+    <string name="pref_use_nlp">Determine rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
     <!-- red color -->
     <string name="red">Rojo</string>
     <!-- yellow color -->

@@ -318,9 +318,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Haritayı Güncelle</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Konum Hizmetleri</string>
+    <string name="network_location_provider">Google Play Konum Hizmetleri</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bluetooth, WiFi veya mobil ağ üzerinden yaklaşık konumunuzu hızlıca belirleyin</string>
+    <string name="pref_use_nlp">Bluetooth, WiFi veya mobil ağ üzerinden yaklaşık konumunuzu hızlıca belirleyin</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Otel Bağlantıları</string>
     <!-- Preference description -->

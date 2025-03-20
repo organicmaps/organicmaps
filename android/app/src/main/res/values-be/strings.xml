@@ -315,9 +315,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Абнавіць мапу</string>
     <!-- Preference title -->
-    <string name="google_play_services">Службы месцазнаходжання Google Play</string>
+    <string name="network_location_provider">Службы месцазнаходжання Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Хуткае вызначэнне прыблізнага месцазнаходжання з дапамогай Bluetooth, WiFi або мабільнай сеткі</string>
+    <string name="pref_use_nlp">Хуткае вызначэнне прыблізнага месцазнаходжання з дапамогай Bluetooth, WiFi або мабільнай сеткі</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Спасылкі на гасцініцы Kayak.com</string>
     <!-- Preference description -->

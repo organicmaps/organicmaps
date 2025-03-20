@@ -296,9 +296,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Perbarui Peta</string>
     <!-- Preference title -->
-    <string name="google_play_services">Layanan Lokasi Google Play</string>
+    <string name="network_location_provider">Layanan Lokasi Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Dengan cepat menentukan perkiraan lokasi Anda melalui Bluetooth, WiFi, atau jaringan seluler</string>
+    <string name="pref_use_nlp">Dengan cepat menentukan perkiraan lokasi Anda melalui Bluetooth, WiFi, atau jaringan seluler</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Tautan Hotel Kayak.com</string>
     <!-- Preference description -->

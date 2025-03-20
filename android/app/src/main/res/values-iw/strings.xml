@@ -318,9 +318,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">עדכן מפה</string>
     <!-- Preference title -->
-    <string name="google_play_services">שירותי מיקום של Google Play</string>
+    <string name="network_location_provider">שירותי מיקום של Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית</string>
+    <string name="pref_use_nlp">קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">קישורים למלון Kayak.com</string>
     <!-- Preference description -->

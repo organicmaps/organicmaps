@@ -284,9 +284,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">بروزرسانی نقشه</string>
     <!-- Preference title -->
-    <string name="google_play_services">خدمات مکان Google Play</string>
+    <string name="network_location_provider">خدمات مکان Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">به سرعت مکان تقریبی خود را با استفاده از بلوتوث، WiFi یا شبکه تلفن همراه تعیین کنید</string>
+    <string name="pref_use_nlp">به سرعت مکان تقریبی خود را با استفاده از بلوتوث، WiFi یا شبکه تلفن همراه تعیین کنید</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">لینک های هتل Kayak.com</string>
     <!-- Preference description -->

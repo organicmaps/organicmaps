@@ -288,9 +288,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">नकाशा अद्ययावत करा</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play स्थान सेवा</string>
+    <string name="network_location_provider">Google Play स्थान सेवा</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">ब्लूटूथ, वायफाय किंवा मोबाइल नेटवर्क वापरून तुमचे अंदाजे स्थान द्रुतपणे निर्धारित करा</string>
+    <string name="pref_use_nlp">ब्लूटूथ, वायफाय किंवा मोबाइल नेटवर्क वापरून तुमचे अंदाजे स्थान द्रुतपणे निर्धारित करा</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com हटल लकस</string>
     <!-- Preference description -->

@@ -300,9 +300,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Обнояване на карта</string>
     <!-- Preference title -->
-    <string name="google_play_services">Услуги за местоположение в Google Play</string>
+    <string name="network_location_provider">Услуги за местоположение в Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Бързо определяне на приблизителното ви местоположение чрез Bluetooth, WiFi или мобилна мрежа</string>
+    <string name="pref_use_nlp">Бързо определяне на приблизителното ви местоположение чрез Bluetooth, WiFi или мобилна мрежа</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Връзки с хотели</string>
     <!-- Preference description -->

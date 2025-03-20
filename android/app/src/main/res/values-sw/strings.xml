@@ -82,9 +82,9 @@
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
     <string name="long_tap_toast">Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura</string>
     <!-- Preference title -->
-    <string name="google_play_services">Huduma za Mahali za Google Play</string>
+    <string name="network_location_provider">Huduma za Mahali za Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
+    <string name="pref_use_nlp">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Viungo vya Hoteli ya Kayak.com</string>
     <!-- Preference description -->

@@ -316,9 +316,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualitza el mapa</string>
     <!-- Preference title -->
-    <string name="google_play_services">Serveis d\'ubicació de Google Play</string>
+    <string name="network_location_provider">Serveis d\'ubicació de Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil</string>
+    <string name="pref_use_nlp">Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Enllaços d\'hotels del Kayak.com</string>
     <!-- Preference description -->

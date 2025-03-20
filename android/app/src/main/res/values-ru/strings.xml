@@ -319,9 +319,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Обновить карту</string>
     <!-- Preference title -->
-    <string name="google_play_services">Службы определения местоположения в Google Play</string>
+    <string name="network_location_provider">Службы определения местоположения в Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
+    <string name="pref_use_nlp">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Ссылки в гостиницах на Kayak.com</string>
     <!-- Preference description -->
