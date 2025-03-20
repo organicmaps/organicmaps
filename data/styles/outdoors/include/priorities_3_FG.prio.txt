@@ -60,6 +60,7 @@ waterway-weir                                       # line z14- (also has pathte
 
 barrier-city_wall                                   # line z14- (also has pathtext z16-)
 barrier-fence                                       # line z15-
+barrier-guard_rail
 barrier-hedge                                       # line z16-
 barrier-wall                                        # line z15-
 railway-funicular                                   # line z12-

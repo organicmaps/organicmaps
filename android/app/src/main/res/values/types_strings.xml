@@ -199,6 +199,7 @@
     <string name="type.natural.water.wastewater">Wastewater</string>
     <string name="type.barrier.entrance">Entrance</string>
     <string name="type.barrier.fence">Fence</string>
+    <string name="type.barrier.guard_rail">Guard Rail</string>
     <string name="type.barrier.gate">Gate</string>
     <string name="type.barrier.hedge">Hedge</string>
     <string name="type.barrier.kissing_gate">Kissing Gate</string>

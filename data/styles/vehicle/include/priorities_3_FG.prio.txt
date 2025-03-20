@@ -26,6 +26,7 @@ waterway-weir                                       # line z15-
 
 barrier-city_wall                                   # line z15-
 barrier-fence                                       # line z17-
+barrier-guard_rail
 barrier-hedge                                       # line z18-
 barrier-wall                                        # line z17-
 railway-monorail                                    # line z14-
