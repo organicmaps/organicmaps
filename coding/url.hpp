@@ -18,7 +18,7 @@ public:
   explicit Url(std::string const & url);
   static Url FromString(std::string const & url);
 
-  bool IsValid() const { return !m_scheme.empty(); }
+  bool IsValid() const { return !m_scheme.empty() && !m_host.empty(); }
 
   std::string const & GetScheme() const { return m_scheme; }
   std::string const & GetHost() const { return m_host; }
