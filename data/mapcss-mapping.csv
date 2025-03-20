@@ -672,7 +672,7 @@ deprecated|deprecated;552;x
 deprecated|deprecated;553;x
 deprecated|deprecated;554;x
 deprecated:highway|footway|demanding_alpine_hiking:04.2024;[highway=footway][sac_scale=demanding_alpine_hiking];x;name;int_name;555;highway|path|expert
-deprecated|deprecated;556;x
+barrier|guard_rail;556;
 deprecated|deprecated;557;x
 deprecated|deprecated;558;x
 deprecated|deprecated;559;x
