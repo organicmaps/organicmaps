@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/qt/res/logo.png" height="100"/>
+  <img src="qt/res/logo.png" height="100"/>
 </div>
 <h1 align="center"">Organic Maps</h1>
 
