@@ -4921,6 +4921,9 @@ sk:2Záhrada
 sw:Bustani
 fa:باغ تفریحی
 
+leisure-firepit
+en:5Firepit
+
 amenity-bench
 en:Bench
 ru:Скамейка|лавка
