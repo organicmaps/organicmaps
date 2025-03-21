@@ -63,6 +63,10 @@ extension SearchTabViewController: SearchOnMapScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     delegate?.scrollViewDidScroll(scrollView)
   }
+
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+  }
 }
 
 extension SearchTabViewController: SearchCategoriesViewControllerDelegate {

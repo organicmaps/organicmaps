@@ -7,6 +7,7 @@ protocol SearchOnMapView: AnyObject {
 @objc
 protocol SearchOnMapScrollViewDelegate: AnyObject {
   func scrollViewDidScroll(_ scrollView: UIScrollView)
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
 }
 
 @objc
@@ -463,8 +464,11 @@ extension SearchOnMapViewController: UIGestureRecognizerDelegate {
   }
 
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    // threshold is used to soften transition from the internal scroll zero content offset
-    internalScrollViewContentOffset < Constants.panGestureThreshold
+    if gestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer {
+      // threshold is used to soften transition from the internal scroll zero content offset
+      return internalScrollViewContentOffset < Constants.panGestureThreshold
+    }
+    return false
   }
 }
 
@@ -479,5 +483,12 @@ extension SearchOnMapViewController: SearchOnMapScrollViewDelegate {
       return
     }
     internalScrollViewContentOffset = scrollView.contentOffset.y
+  }
+
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    // lock internal scroll view when the user fast scrolls screen to the top
+    if internalScrollViewContentOffset == 0 {
+      targetContentOffset.pointee = .zero
+    }
   }
 }
