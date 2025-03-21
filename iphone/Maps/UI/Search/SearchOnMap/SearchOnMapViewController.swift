@@ -448,6 +448,10 @@ extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
   func cancelButtonDidTap() {
     interactor?.handle(.closeSearch)
   }
+
+  func grabberDidTap() {
+    interactor?.handle(.didUpdatePresentationStep(.fullScreen))
+  }
 }
 
 // MARK: - SearchTabViewControllerDelegate

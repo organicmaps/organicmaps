@@ -1,5 +1,6 @@
 protocol SearchOnMapHeaderViewDelegate: UISearchBarDelegate {
   func cancelButtonDidTap()
+  func grabberDidTap()
 }
 
 final class SearchOnMapHeaderView: UIView {
@@ -19,6 +20,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private let grabberView = UIView()
+  private let grabberTapHandlerView = UIView()
   private let searchBar = UISearchBar()
   private let cancelButton = UIButton()
   private let cancelContainer = UIView()
@@ -38,6 +40,7 @@ final class SearchOnMapHeaderView: UIView {
     setStyle(.primaryBackground)
 
     setupGrabberView()
+    setupGrabberTapHandlerView()
     setupSearchBar()
     setupCancelButton()
   }
@@ -46,6 +49,14 @@ final class SearchOnMapHeaderView: UIView {
     grabberView.setStyle(.grabber)
     iPadSpecific { [weak self] in
       self?.grabberView.isHidden = true
+    }
+  }
+
+  private func setupGrabberTapHandlerView() {
+    grabberTapHandlerView.backgroundColor = .clear
+    iPhoneSpecific {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(grabberDidTap))
+      grabberTapHandlerView.addGestureRecognizer(tapGesture)
     }
   }
 
@@ -63,16 +74,19 @@ final class SearchOnMapHeaderView: UIView {
     cancelContainer.setStyle(.primaryBackground)
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
-    cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+    cancelButton.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
   }
 
   private func layoutView() {
     addSubview(grabberView)
+    addSubview(grabberTapHandlerView)
     addSubview(searchBar)
     addSubview(cancelContainer)
     cancelContainer.addSubview(cancelButton)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
+    grabberTapHandlerView.translatesAutoresizingMaskIntoConstraints = false
+    grabberTapHandlerView.setContentHuggingPriority(.defaultLow, for: .vertical)
     searchBar.translatesAutoresizingMaskIntoConstraints = false
     cancelContainer.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +96,11 @@ final class SearchOnMapHeaderView: UIView {
       grabberView.centerXAnchor.constraint(equalTo: centerXAnchor),
       grabberView.widthAnchor.constraint(equalToConstant: Constants.grabberWidth),
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
+
+      grabberTapHandlerView.topAnchor.constraint(equalTo: grabberView.bottomAnchor),
+      grabberTapHandlerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      grabberTapHandlerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      grabberTapHandlerView.bottomAnchor.constraint(equalTo: searchBar.topAnchor),
 
       searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.searchBarInsets.top),
       searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.searchBarInsets.left),
@@ -100,7 +119,11 @@ final class SearchOnMapHeaderView: UIView {
     ])
   }
 
-  @objc private func cancelButtonTapped() {
+  @objc private func grabberDidTap() {
+    delegate?.grabberDidTap()
+  }
+
+  @objc private func cancelButtonDidTap() {
     delegate?.cancelButtonDidTap()
   }
 
