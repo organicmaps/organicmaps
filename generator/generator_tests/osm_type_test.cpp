@@ -2206,6 +2206,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"amenity", "charging_station"},
     {"amenity", "childcare"},
     {"amenity", "cinema"},
+    {"amenity", "studio"},
     {"amenity", "clinic"},
     {"amenity", "college"},
     {"amenity", "community_centre"},
