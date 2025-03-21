@@ -32,7 +32,7 @@ void Smoke()
 
   vector<double> expected;
   for (size_t i = 0; i < kCapacity; ++i)
-    expected.emplace_back(kTotal - 1 - i);
+    expected.emplace_back(static_cast<double>(kTotal - 1 - i));
 
   vector<double> actual;
   actual.reserve(kCapacity);
