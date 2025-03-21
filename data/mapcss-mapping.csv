@@ -661,7 +661,7 @@ addr:interpolation;[addr:interpolation];;addr:housenumber;name;541;
 deprecated:amenity|speed_trap:10.2021;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
-deprecated|deprecated;545;x
+amenity|studio;545;
 deprecated|deprecated;546;x
 deprecated|deprecated;547;x
 deprecated|deprecated;548;x

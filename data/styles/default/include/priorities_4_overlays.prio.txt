@@ -997,6 +997,7 @@ man_made-cross                                      # icon z16- (also has captio
 tourism-artwork                                     # icon z15- (also has caption(optional) z15-)
 tourism-artwork-architecture                        # icon z15- (also has caption(optional) z15-)
 tourism-artwork-painting                            # icon z15- (also has caption(optional) z15-)
+amenity-studio
 === 1550
 
 amenity-shelter                                     # icon z17- (also has caption(optional) z17-)
@@ -1942,6 +1943,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-artwork                                   # caption(optional) z15- (also has icon z15-)
 # tourism-artwork-architecture                      # caption(optional) z15- (also has icon z15-)
 # tourism-artwork-painting                          # caption(optional) z15- (also has icon z15-)
+# amenity-studio
 # === -8450
 
 # amenity-shelter                                   # caption(optional) z17- (also has icon z17-)
