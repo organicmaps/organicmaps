@@ -45,6 +45,10 @@ final class SearchCategoriesViewController: MWMTableViewController {
     delegate?.scrollViewDidScroll(scrollView)
   }
 
+  override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+  }
+
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
     return categories[index]
