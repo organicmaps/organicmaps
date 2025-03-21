@@ -1109,6 +1109,7 @@ public_transport-platform                           # caption z17- (also has are
 waterway-lock_gate                                  # icon z16-
 === 700
 
+amenity-love_hotel
 amenity-brothel                                     # icon z18- (also has caption(optional) z18-)
 amenity-casino                                      # icon z17- (also has caption(optional) z17-)
 amenity-fire_station                                # icon z18- (also has caption(optional) z18-)
@@ -2040,6 +2041,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-works                                    # caption(optional) z17- (also has icon z16-)
 # === -9300
 
+# amenity-love_hotel
 # amenity-brothel                                   # caption(optional) z18- (also has icon z18-)
 # amenity-casino                                    # caption(optional) z17- (also has icon z17-)
 # amenity-fire_station                              # caption(optional) z18- (also has icon z18-)

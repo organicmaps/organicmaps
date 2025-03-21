@@ -33,6 +33,7 @@
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Brothel";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Currency Exchange";
 "type.amenity.bus_station" = "Bus Station";
 "type.amenity.cafe" = "Cafe";
