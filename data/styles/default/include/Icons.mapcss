@@ -1978,6 +1978,7 @@ node|z16-[shop=gift],
 area|z16-[shop=gift],
 node|z16-[shop=music],
 area|z16-[shop=music],
+node|z16-[amenity=studio],
 node|z16-[shop=video],
 area|z16-[shop=video],
 node|z16-[shop=musical_instrument],
@@ -2209,6 +2210,8 @@ area|z16[shop=gift]
 node|z16[shop=music],
 area|z16[shop=music],
 {icon-image: music-m.svg;}
+node|z16[amenity=studio],
+{icon-image: studio-m.svg;}
 node|z16[shop=video],
 area|z16[shop=video]
 {icon-image: media-m.svg;}
@@ -2421,6 +2424,8 @@ area|z17-[shop=gift]
 node|z17-[shop=music],
 area|z17-[shop=music],
 {icon-image: music-m.svg;icon-min-distance: 24;}
+node|z17-[amenity=studio],
+{icon-image: studio-m.svg;icon-min-distance: 24;}
 node|z17-[shop=video],
 area|z17-[shop=video]
 {icon-image: media-m.svg;icon-min-distance: 24;}
