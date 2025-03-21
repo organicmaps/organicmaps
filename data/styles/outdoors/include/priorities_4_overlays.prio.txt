@@ -1057,6 +1057,7 @@ landuse-recreation_ground                           # caption z15- (also has are
 leisure-recreation_ground                           # caption z17-
 leisure-sports_centre                               # icon z17- (also has caption(optional) z17-, area z15-)
 leisure-sports_hall                                 # icon z17- (also has caption(optional) z17-)
+leisure-dance
 === 1250
 
 amenity-compressed_air                              # icon z18- (also has caption(optional) z19-)
@@ -2002,6 +2003,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-dojo                                      # caption(optional) z18- (also has icon z17-)
 # leisure-sports_centre                             # caption(optional) z17- (also has icon z17-, area z15-)
 # leisure-sports_hall                               # caption(optional) z17- (also has icon z17-)
+# leisure-dance
 # === -8750
 
 # amenity-compressed_air                            # caption(optional) z19- (also has icon z18-)

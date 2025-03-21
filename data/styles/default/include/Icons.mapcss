@@ -1280,6 +1280,8 @@ node|z17-[leisure=fitness_station]
 node|z17-[leisure=sports_centre]
 node|z17-[leisure=sports_hall]
 {icon-image: pitch-m.svg;icon-min-distance: 10;}
+node|z17-[leisure=dance]
+{icon-image: dance-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_centre]
 {icon-image: fitness_centre-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
