@@ -1085,6 +1085,7 @@ node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],
 area|z18-[amenity=stripclub],
+node|z18-[amenity=love_hotel],
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
@@ -1479,6 +1480,7 @@ node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub]
 {icon-image: nightclub-m.svg;font-size: 11;}
 
+node|z18-[amenity=love_hotel],
 node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],

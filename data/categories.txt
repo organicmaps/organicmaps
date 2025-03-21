@@ -5353,6 +5353,9 @@ sk:Nevestinec|verejný dom
 sw:Danguro
 fa:فاحشه خانه|جنده خانه
 
+amenity-love_hotel|@category_hotel
+en:4Love Hotel|3Sex Hotel|4Adult Hotel
+
 @gambling
 en:Gambling
 ar:القمار

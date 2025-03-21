@@ -679,7 +679,7 @@ deprecated|deprecated;559;x
 deprecated|deprecated;560;x
 deprecated|deprecated;561;x
 deprecated|deprecated;562;x
-deprecated|deprecated;563;x
+amenity|love_hotel;563;
 natural|lake;564;natural|water|lake
 power|plant;565;
 power|plant|solar;[power=plant][plant:source=solar];;name;int_name;566;

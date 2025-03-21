@@ -32,6 +32,7 @@
     <string name="type.amenity.bicycle_repair_station">Bicycle Repair Station</string>
     <string name="type.amenity.biergarten">Biergarten</string>
     <string name="type.amenity.brothel">Brothel</string>
+    <string name="type.amenity.love_hotel">Love Hotel</string>
     <string name="type.amenity.bureau_de_change">Currency Exchange</string>
     <string name="type.amenity.bus_station">Bus Station</string>
     <string name="type.amenity.cafe">Cafe</string>
