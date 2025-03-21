@@ -658,6 +658,7 @@
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Nature Reserve</string>
     <string name="type.leisure.outdoor_seating">Outdoor Seating</string>
+    <string name="type.leisure.firepit">Firepit</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Private Park</string>
     <string name="type.leisure.park.permissive">Park</string>

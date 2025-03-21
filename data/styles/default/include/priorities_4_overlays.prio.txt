@@ -1170,6 +1170,7 @@ office                                              # icon z18- (also has captio
 shop                                                # icon z18- (also has caption(optional) z18-)
 === 470
 
+leisure-firepit
 amenity-bbq                                         # icon z18- (also has caption(optional) z18-)
 amenity-public_bookcase                             # icon z18- (also has caption(optional) z18-)
 cemetery-grave                                      # icon z17- (also has caption(optional) z17-)
@@ -2096,6 +2097,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # shop                                              # caption(optional) z18- (also has icon z18-)
 # === -9530
 
+# leisure-firepit
 # amenity-bbq                                       # caption(optional) z18- (also has icon z18-)
 # amenity-public_bookcase                           # caption(optional) z18- (also has icon z18-)
 # cemetery-grave                                    # caption(optional) z17- (also has icon z17-)
