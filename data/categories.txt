@@ -4879,6 +4879,9 @@ fi:Koirapuisto
 he:גינת כלבים
 ja:ドッグラン
 
+leisure-dance|amenity-dancing_school|@category_entertainment
+en:4Dance|Dancing school
+
 leisure-garden
 en:3Garden
 ru:Сад
