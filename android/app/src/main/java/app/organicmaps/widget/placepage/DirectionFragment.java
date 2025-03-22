@@ -20,9 +20,10 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
+import app.organicmaps.util.StringUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.util.UiUtils;
 
 public class DirectionFragment extends BaseMwmDialogFragment
                             implements LocationListener, SensorListener
@@ -33,6 +34,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   private TextView mTvTitle;
   private TextView mTvSubtitle;
   private TextView mTvDistance;
+  private TextView mTvAzimuth;
 
   private MapObject mMapObject;
 
@@ -71,6 +73,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
     mTvTitle = root.findViewById(R.id.tv__title);
     mTvSubtitle = root.findViewById(R.id.tv__subtitle);
     mTvDistance = root.findViewById(R.id.tv__straight_distance);
+    mTvAzimuth = root.findViewById(R.id.tv__azimuth);
 
     UiUtils.waitLayout(mTvTitle, () -> {
       final int height = mTvTitle.getHeight();
@@ -144,6 +147,12 @@ public class DirectionFragment extends BaseMwmDialogFragment
         last.getLatitude(), last.getLongitude(), north);
 
     if (da.getAzimuth() >= 0)
+    {
       mAvDirection.setAzimuth(da.getAzimuth());
+      final DistanceAndAzimut daAbs = Framework.nativeGetDistanceAndAzimuthFromLatLon(
+          mMapObject.getLat(), mMapObject.getLon(),
+          last.getLatitude(), last.getLongitude(), 0.0);
+      mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(daAbs.getAzimuth())));
+    }
   }
 }
