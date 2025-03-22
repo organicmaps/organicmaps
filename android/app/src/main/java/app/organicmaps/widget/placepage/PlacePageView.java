@@ -92,6 +92,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvSubtitle;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
+  private TextView mTvAzimuth;
   private TextView mTvAddress;
   // Details.
   private TextView mTvLatlon;
@@ -224,9 +225,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     View directionFrame = mPreview.findViewById(R.id.direction_frame);
     mTvDistance = mPreview.findViewById(R.id.tv__straight_distance);
+    mTvAzimuth = mPreview.findViewById(R.id.tv__azimuth);
     mAvDirection = mPreview.findViewById(R.id.av__direction);
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
+    UiUtils.hide(mTvAzimuth);
     directionFrame.setOnClickListener(this);
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
@@ -519,6 +522,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     UiUtils.hide(mTvDistance);
     UiUtils.hide(mAvDirection);
+    UiUtils.hide(mTvAzimuth);
 
     if (l == null)
       return;
@@ -539,6 +543,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private void refreshDistanceToObject(Location l)
   {
     UiUtils.showIf(l != null, mTvDistance);
+    UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
       return;
 
@@ -547,6 +552,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     DistanceAndAzimut distanceAndAzimuth =
         Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
+    mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(distanceAndAzimuth.getAzimuth())));
   }
 
   private void refreshLatLon()

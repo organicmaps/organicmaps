@@ -51,4 +51,15 @@
     android:layout_marginTop="@dimen/margin_direction_big"
     android:textSize="@dimen/text_direction_dist"
     tools:text="9000 km"/>
+  <TextView
+    android:id="@+id/tv__azimuth"
+    style="@style/MwmWidget.TextView.Direction"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/tv__straight_distance"
+    android:layout_centerHorizontal="true"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="@dimen/margin_direction_small"
+    android:textSize="@dimen/text_direction_subtitle"
+    tools:text="123.4°"/>
 </RelativeLayout>
