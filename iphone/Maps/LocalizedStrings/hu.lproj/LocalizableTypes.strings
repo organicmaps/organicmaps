@@ -1,12 +1,10 @@
 "type.addr_interpolation" = "Cím/blokk";
 "type.addr_interpolation.even" = "Cím/blokk";
 "type.addr_interpolation.odd" = "Cím/blokk";
-"type.aerialway" = "Aerialway";
-"type.aerialway.cable_car" = "Cable Car";
-"type.aerialway.chair_lift" = "Chair Lift";
-"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway" = "Kötélpályás felvonó";
+"type.aerialway.cable_car" = "Kabinos felvonó";
+"type.aerialway.chair_lift" = "Székfelvonó";
 "type.aerialway.gondola" = "Gondola";
-"type.aerialway.mixed_lift" = "Mixed Lift";
 "type.aerialway.station" = "Felvonóállomás";
 "type.aeroway" = "Légi közlekedési infrastruktúra";
 "type.aeroway.aerodrome" = "Kis repülőtér";
@@ -158,7 +156,7 @@
 "type.amenity.shelter.basic_hut" = "Bivakkunyhó";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Háromoldalú fészer";
+"type.amenity.shelter.lean_to" = "Ferdehátú menedék";
 "type.amenity.public_bath" = "Közfürdő";
 "type.amenity.shower" = "Zuhanyzó";
 "type.amenity.stripclub" = "Sztriptízbár";
@@ -189,33 +187,33 @@
 "type.amenity.waste_transfer_station" = "Hulladékátrakodó állomás";
 "type.amenity.water_point" = "Vízvételi pont";
 "type.amenity.water_point.drinking_water_no" = "Vízvételi pont (ivóvíz nélkül)";
-"type.barrier" = "Barrier";
+"type.barrier" = "Akadály";
 "type.barrier.block" = "Blokk";
 "type.barrier.bollard" = "Oszlop";
 "type.barrier.border_control" = "Határállomás";
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Lánc";
 "type.barrier.city_wall" = "Városfal";
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Kerékpárkorlát";
 "type.waterway.ditch" = "Árok";
 "type.natural.water.moat" = "Várárok";
 "type.natural.water.wastewater" = "Szennyvíz";
 "type.barrier.entrance" = "Bejárat";
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Kerítés";
 "type.barrier.gate" = "Kapu";
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Sövény";
 "type.barrier.kissing_gate" = "Kapu";
 "type.barrier.lift_gate" = "Sorompó";
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Támfal";
 "type.barrier.stile" = "Átjáró";
 "type.barrier.turnstile" = "Forgókorlát";
 "type.barrier.swing_gate" = "Sorompó";
 "type.barrier.toll_booth" = "Díjfizető kapu";
-"type.barrier.wall" = "Wall";
-"type.boundary" = "Boundary";
-"type.boundary.administrative" = "Administrative Boundary";
+"type.barrier.wall" = "Fal";
+"type.boundary" = "Határ";
+"type.boundary.administrative" = "Közigazgatási határ";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Országhatár";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.3" = "Regional Boundary";
@@ -239,7 +237,7 @@
 "type.building_part" = "Épület";
 "type.building.garage" = "Garázs";
 "type.building.train_station" = "Állomásépület";
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Raktár";
 "type.cemetery.grave" = "Sír";
 "type.craft" = "Kézművesség";
 "type.craft.beekeeper" = "Méhész";
@@ -280,7 +278,7 @@
 "type.cuisine.beef_bowl" = "Gyúdon";
 "type.cuisine.brazilian" = "Brazil konyha";
 "type.cuisine.breakfast" = "Reggeli";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Buborékos tea";
 "type.cuisine.burger" = "Hamburger";
 "type.cuisine.buschenschank" = "Borozó";
 "type.cuisine.cake" = "Torta";
@@ -353,7 +351,7 @@
 "type.cuisine.vegan" = "Vegán konyha";
 "type.cuisine.vegetarian" = "Vegetáriánus konyha";
 "type.cuisine.vietnamese" = "Vietnami konyha";
-"type.emergency" = "Emergency";
+"type.emergency" = "Vészhelyzet";
 "type.emergency.assembly_point" = "Sürgősségi gyülekezési pont";
 "type.emergency.defibrillator" = "Defibrillátor";
 "type.emergency.fire_hydrant" = "Tűzcsap";
@@ -383,12 +381,12 @@
 "type.healthcare.psychotherapist" = "Pszichoterápia";
 "type.healthcare.sample_collection" = "Mintavétel";
 "type.healthcare.speech_therapist" = "Logopédia";
-"type.highway" = "Highway";
-"type.highway.bridleway" = "Bridle Path";
+"type.highway" = "Autópálya";
+"type.highway.bridleway" = "Lovaglóút";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Híd";
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Lovaglóút";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Alagút";
@@ -401,15 +399,15 @@
 "type.highway.busway.tunnel" = "Alagút";
 "type.highway.bus_stop" = "Buszmegálló";
 "type.highway.construction" = "Útépítés";
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.cycleway" = "Kerékpárút";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Híd";
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Kerékpárút";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Alagút";
-"type.highway.elevator" = "Elevator";
+"type.highway.elevator" = "Felvonó";
 "type.highway.footway" = "Ösvény";
 "type.highway.footway.sidewalk" = "Járda";
 "type.highway.footway.crossing" = "Gyalogátkelőhely";
@@ -525,7 +523,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Alagút";
-"type.highway.services" = "Service Area";
+"type.highway.services" = "Szolgáltatási terület";
 "type.highway.speed_camera" = "Traffipax";
 "type.highway.steps" = "Lépcső";
 
@@ -581,7 +579,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Alagút";
-"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.cycleway" = "Kerékpárút";
 "type.area_highway.footway" = "Ösvény";
 "type.area_highway.living_street" = "Utca";
 "type.area_highway.motorway" = "Autópálya";
@@ -651,21 +649,21 @@
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
 "type.hwtag.nocar" = "hwtag-nocar";
 "type.hwtag.nofoot" = "hwtag-nofoot";
-"type.hwtag.oneway" = "hwtag-oneway";
-"type.hwtag.private" = "hwtag-private";
-"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.oneway" = "egyirányú";
+"type.hwtag.private" = "magán";
+"type.hwtag.toll" = "útdíjjas";
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
 "type.hwtag.yescar" = "hwtag-yescar";
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
-"type.junction" = "Junction";
-"type.junction.circular" = "Roundabout";
-"type.junction.roundabout" = "Roundabout";
-"type.landuse" = "Landuse";
-"type.landuse.allotments" = "Allotments";
+"type.junction" = "Kereszteződés";
+"type.junction.circular" = "Körforgalom";
+"type.junction.roundabout" = "Körforgalom";
+"type.landuse" = "Területfelhasználás";
+"type.landuse.allotments" = "Kiskertek";
 "type.landuse.basin" = "Vízgyűjtő";
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Barnamező";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Temető";
@@ -673,37 +671,37 @@
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Temető";
 "type.landuse.churchyard" = "Templomkert";
-"type.landuse.commercial" = "Commercial Area";
-"type.landuse.construction" = "Construction Area";
-"type.landuse.education" = "Educational Facility";
+"type.landuse.commercial" = "Kereskedelmi terület";
+"type.landuse.construction" = "Építési terület";
+"type.landuse.education" = "Oktatási intézmény";
 "type.landuse.farmland" = "Termőföld";
-"type.landuse.farmyard" = "Farmyard";
-"type.landuse.field" = "Field";
+"type.landuse.farmyard" = "Tanyaudvar";
+"type.landuse.field" = "Mező";
 "type.landuse.flowerbed" = "Virágágyás";
 "type.landuse.forest" = "Erdő";
 "type.landuse.forest.coniferous" = "Tűlevelű erdő";
 "type.landuse.forest.deciduous" = "Lombhullató erdő";
 "type.landuse.forest.mixed" = "Erdő";
-"type.landuse.garages" = "Garages";
+"type.landuse.garages" = "Garázsok";
 "type.landuse.grass" = "Gyep";
-"type.landuse.greenfield" = "Greenfield";
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
-"type.landuse.industrial" = "Industrial Area";
+"type.landuse.greenfield" = "Zöldmező";
+"type.landuse.greenhouse_horticulture" = "Üvegház";
+"type.landuse.industrial" = "Ipari terület";
 "type.landuse.landfill" = "Hulladéklerakó";
-"type.landuse.meadow" = "Meadow";
-"type.landuse.military" = "Military Area";
-"type.landuse.orchard" = "Orchard";
-"type.landuse.quarry" = "Quarry";
+"type.landuse.meadow" = "Rét";
+"type.landuse.military" = "Katonai terület";
+"type.landuse.orchard" = "Gyümölcsös";
+"type.landuse.quarry" = "Kőfejtő";
 "type.landuse.railway" = "Vasúti terület";
-"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.recreation_ground" = "Szabadidőpark";
 "type.landuse.reservoir" = "Tározó";
-"type.landuse.residential" = "Residential Area";
-"type.landuse.retail" = "Retail Area";
-"type.landuse.salt_pond" = "Salt Pond";
-"type.landuse.village_green" = "Land";
-"type.landuse.vineyard" = "Vineyard";
-"type.leisure" = "Leisure";
-"type.leisure.common" = "Public Land";
+"type.landuse.residential" = "Lakóövezet";
+"type.landuse.retail" = "Kiskereskedelmi terület";
+"type.landuse.salt_pond" = "Sólepárló";
+"type.landuse.village_green" = "Földterület";
+"type.landuse.vineyard" = "Szőlős";
+"type.leisure" = "Szabadidő";
+"type.leisure.common" = "Közterület";
 "type.leisure.dog_park" = "Kutyás terület";
 "type.leisure.fitness_centre" = "Fitnesz-terem";
 "type.leisure.fitness_station" = "Fitneszállomás";
@@ -713,7 +711,7 @@
 "type.leisure.golf_course" = "Golfpálya";
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Hackerspace";
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Jégpálya";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Védett terület";
 "type.leisure.outdoor_seating" = "Kiülős helyek";
@@ -724,19 +722,19 @@
 "type.leisure.picnic_table" = "Piknikasztal";
 "type.leisure.pitch" = "Sportpálya";
 "type.leisure.playground" = "Játszótér";
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Szabadidőpark";
 "type.leisure.sauna" = "Szauna";
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Sólya";
 "type.leisure.sports_centre" = "Sportközpont";
 "type.sport.climbing" = "Hegymászó központ";
 "type.sport.yoga" = "Jógastúdió";
 "type.leisure.stadium" = "Stadion";
 "type.leisure.swimming_pool" = "Úszómedence";
 "type.leisure.swimming_pool.private" = "Úszómedence";
-"type.leisure.track" = "Track";
-"type.leisure.track.area" = "Track";
+"type.leisure.track" = "Földút";
+"type.leisure.track.area" = "Földút";
 "type.leisure.water_park" = "Aquapark";
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Strandfürdő";
 "type.man_made" = "Építmény";
 "type.man_made.breakwater" = "Hullámtörő";
 "type.man_made.cairn" = "Cairn";
@@ -775,9 +773,9 @@
 "type.man_made.works" = "Gyár, üzem";
 "type.mapswithme" = "mapswithme";
 "type.mapswithme.grid" = "mapswithme-grid";
-"type.military" = "Military";
+"type.military" = "Katonaság";
 "type.military.bunker" = "Bunker";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Hegyi hágó";
 "type.natural" = "Természet";
 
 /* A rocky land cover. */
@@ -827,7 +825,7 @@
 "type.natural.wetland" = "Vizes terület";
 "type.natural.wetland.bog" = "Láp";
 "type.natural.wetland.marsh" = "Mocsár";
-"type.noexit" = "Dead End";
+"type.noexit" = "Zsákutca";
 "type.office" = "Iroda";
 "type.office.company" = "Vállalati iroda";
 "type.office.estate_agent" = "Ingatlanügynök";
@@ -836,8 +834,8 @@
 "type.office.lawyer" = "Ügyvédi iroda";
 "type.office.ngo" = "Civil szervezet irodája";
 "type.office.telecommunication" = "Távközlési cég";
-"type.organic.only" = "Organic";
-"type.organic.yes" = "Organic";
+"type.organic.only" = "Szerves";
+"type.organic.yes" = "Szerves";
 "type.place.city" = "Város";
 "type.place.city.capital" = "Főváros";
 "type.place.city.capital.10" = "Város";
@@ -876,15 +874,15 @@
 "type.place.suburb" = "Kertváros";
 "type.place.town" = "Város";
 "type.place.village" = "Falu";
-"type.power" = "Power";
-"type.power.generator" = "Power Generator";
+"type.power" = "Áram";
+"type.power.generator" = "Áramfejlesztő";
 "type.power.generator.solar" = "Napelemes generátor";
 "type.power.generator.wind" = "Szélgenerátor";
 "type.power.generator.gas" = "Gázturbinás erőmű";
 "type.power.generator.hydro" = "Vízerőmű";
-"type.power.line" = "Power Line";
-"type.power.line.underground" = "Underground Power Line";
-"type.power.minor_line" = "Minor Power Line";
+"type.power.line" = "Távvezeték";
+"type.power.line.underground" = "Földalatti távvezeték";
+"type.power.minor_line" = "Kisfeszültségű távvezeték";
 "type.power.plant" = "Erőmű";
 "type.power.plant.coal" = "Szénerőmű";
 "type.power.plant.gas" = "Gázturbinás erőmű";
@@ -898,7 +896,7 @@
 "type.power.tower" = "Villanyoszlop";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Villanyoszlop";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
 "type.man_made.utility_pole" = "Közműoszlop";
@@ -907,18 +905,18 @@
 "type.psurface.paved_good" = "psurface-paved_good";
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-"type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
-"type.railway" = "Railway";
-"type.railway.abandoned" = "Abandoned Railway";
-"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
-"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
-"type.railway.construction" = "Railway Construction";
-"type.railway.crossing" = "Railway Crossing";
-"type.railway.disused" = "Disused Railway";
+"type.public_transport" = "Tömegközlekedés";
+"type.public_transport.platform" = "Peron";
+"type.railway" = "Vasút";
+"type.railway.abandoned" = "Elhagyott vasútvonal";
+"type.railway.abandoned.bridge" = "Elhagyott vasúti híd";
+"type.railway.abandoned.tunnel" = "Elhagyott vasúti alagút";
+"type.railway.construction" = "Vasútépítés";
+"type.railway.crossing" = "Vasúti átjáró";
+"type.railway.disused" = "Használaton kívüli vasútvonal";
 "type.railway.funicular" = "Sikló";
-"type.railway.funicular.bridge" = "Funicular Bridge";
-"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.funicular.bridge" = "Siklóhíd";
+"type.railway.funicular.tunnel" = "Siklóalagút";
 "type.railway.halt" = "Vasútállomás";
 "type.railway.level_crossing" = "Vasúti átjáró";
 "type.railway.light_rail" = "Light Rail";
