@@ -111,8 +111,11 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import experiment.DebugServerLmao;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -520,6 +523,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
+
+    try {
+      new experiment.DebugServerLmao(this);
+    }catch (IOException ioe) {
+      android.util.Log.e("pocstuff", "error setting up debug server", ioe);
+    }
 
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 

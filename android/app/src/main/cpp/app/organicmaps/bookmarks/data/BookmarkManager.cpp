@@ -409,6 +409,12 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeLoadBookmarksFile(JNIE
   frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeReloadBookmark(JNIEnv * env, jclass, jstring filePath)
+{
+  frm()->GetBookmarkManager().ReloadBookmark(ToNativeString(env, filePath));
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsAsyncBookmarksLoadingInProgress(JNIEnv *, jclass)
 {

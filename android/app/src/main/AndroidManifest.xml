@@ -81,7 +81,8 @@
       android:supportsRtl="true"
       android:networkSecurityConfig="@xml/network_security_config"
       android:manageSpaceActivity="${applicationId}.ManageSpaceActivity"
-      tools:targetApi="33">
+      tools:targetApi="33"
+      android:usesCleartextTraffic="true">
 
     <!-- Allows for config and orientation change without killing/restarting main activity -->
     <activity

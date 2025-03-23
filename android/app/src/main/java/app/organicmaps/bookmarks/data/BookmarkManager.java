@@ -153,6 +153,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksChanged()
   {
+    android.util.Log.e("pocstuff", "onBookmarksChanged called");
     updateCache();
   }
 
@@ -162,6 +163,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingStarted()
   {
+    android.util.Log.e("pocstuff", "onBookmarksLoadingStarted called"); // called on first start, and upon loading bookmarks from files
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingStarted();
   }
@@ -172,6 +174,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingFinished()
   {
+    android.util.Log.e("pocstuff", "onBookmarksLoadingFinished called"); // called after the previous method (but not immediately after it; it is immediately preceded by omBookmarksChanged)
     updateCache();
     mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
@@ -184,6 +187,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
   {
+    android.util.Log.e("pocstuff", "onBookmarksSortingCompleted called");
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCompleted(sortedBlocks, timestamp);
   }
@@ -194,6 +198,7 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksSortingCancelled(long timestamp)
   {
+    android.util.Log.e("pocstuff", "onBookmarksSortingCancelled called");
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCancelled(timestamp);
   }
@@ -205,6 +210,7 @@ public enum BookmarkManager
   public void onBookmarksFileLoaded(boolean success, @NonNull String fileName,
                                     boolean isTemporaryFile)
   {
+    android.util.Log.e("pocstuff", "onBookmarksFileLoaded called");
     // Android could create temporary file with bookmarks in some cases (KML/KMZ file is a blob
     // in the intent, so we have to create a temporary file on the disk). Here we can delete it.
     if (isTemporaryFile)
@@ -231,6 +237,7 @@ public enum BookmarkManager
   @MainThread
   public void onPreparedFileForSharing(BookmarkSharingResult result)
   {
+    android.util.Log.e("pocstuff", "onPreparedFileForSharing called"); // called when "exporting all bookmarks and tracks"
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
   }
@@ -241,6 +248,7 @@ public enum BookmarkManager
   @MainThread
   public void onElevationCurrentPositionChanged()
   {
+    android.util.Log.e("pocstuff", "onElevationCurrentPositionChanged called");
     if (mOnElevationCurrentPositionChangedListener != null)
       mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
   }
@@ -261,6 +269,7 @@ public enum BookmarkManager
   @MainThread
   public void onElevationActivePointChanged()
   {
+    android.util.Log.e("pocstuff", "onElevationActivePointChanged called");
     if (mOnElevationActivePointChangedListener != null)
       mOnElevationActivePointChangedListener.onElevationActivePointChanged();
   }
@@ -794,6 +803,8 @@ public enum BookmarkManager
   private native int nativeGetLastEditedColor();
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
+
+  public static native void nativeReloadBookmark(@NonNull String filePath);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
