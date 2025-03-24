@@ -2,9 +2,11 @@ package app.organicmaps.sound;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.text.TextUtils;
@@ -45,8 +47,12 @@ public enum TtsPlayer
   private static final float SPEECH_RATE = 1.0f;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
 
+  public static Runnable sOnReloadCallback = null;
+  
+  private ContentObserver mTtsEngineObserver;
   private TextToSpeech mTts;
   private boolean mInitializing;
+  private boolean mReloadTriggered = false;
   private AudioFocusManager mAudioFocusManager;
 
   private final Bundle mParams = new Bundle();
@@ -185,7 +191,32 @@ public enum TtsPlayer
       mAudioFocusManager = new AudioFocusManager(context);
       mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
+      if (mReloadTriggered && sOnReloadCallback != null)
+      {
+        sOnReloadCallback.run();
+        mReloadTriggered = false;
+      }
     }));
+
+    if (mTtsEngineObserver == null) {
+      mTtsEngineObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+        @Override
+        public void onChange(boolean selfChange) {
+          Logger.d(TAG, "System TTS engine changed – reloading TTS engine");
+          mReloadTriggered = true;
+          if (mTts != null) {
+            mTts.shutdown();
+            mTts = null;
+          }
+          initialize(mContext);
+        }
+      };
+      mContext.getContentResolver().registerContentObserver(
+          Settings.Secure.getUriFor("tts_default_synth"),
+          false,
+          mTtsEngineObserver
+      );
+    }
   }
 
   private static boolean isReady()
