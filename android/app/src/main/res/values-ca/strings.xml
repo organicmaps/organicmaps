@@ -6,7 +6,7 @@
     <!-- Button text (should be short) -->
     <string name="cancel">Cancel·la</string>
     <!-- Button which deletes downloaded country -->
-    <string name="delete">Esborra</string>
+    <string name="delete">Suprimeix</string>
     <string name="download_maps">Baixa mapes</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">La baixada ha fallat. Toqueu per a tornar-ho a intentar.</string>
@@ -56,8 +56,7 @@
     <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
-    <string name="download_resources">Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.
-\nUsarà %s d’emmagatzematge.</string>
+    <string name="download_resources">Abans d’usar l’aplicació, cal que baixeu el mapa del món general al vostre aparell. \nUsarà %s d’emmagatzematge.</string>
     <string name="download_resources_continue">Ves al mapa</string>
     <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu
 \nanar al mapa.</string>
@@ -76,7 +75,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadors</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Marcadors i traces</string>
+    <string name="bookmarks_and_tracks">Marcadors i recorreguts</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Els meus llocs</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -217,7 +216,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Esteu segur que voleu tancar la sessió del vostre compte d\'OpenStreetMap?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Traces</string>
+    <string name="tracks_title">Recorreguts</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Longitud</string>
     <string name="share_my_location">Comparteix la meva ubicació</string>
@@ -304,7 +303,7 @@
     <string name="downloader_download_all_button">Baixa-ho tot</string>
     <string name="downloader_downloading">Baixant:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Per a esborrar el mapa, abans atureu la navegació.</string>
+    <string name="downloader_delete_map_while_routing_dialog">Per a suprimir el mapa, atureu la navegació.</string>
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Només es poden crear rutes que pertanyin totalment al mapa d\'una sola regió.</string>
     <!-- Context menu item for downloader. -->
@@ -312,7 +311,7 @@
     <!-- Item status in downloader. -->
     <string name="downloader_retry">Torna-hi</string>
     <!-- Item in context menu. -->
-    <string name="downloader_delete_map">Esborra el mapa</string>
+    <string name="downloader_delete_map">Suprimeix el mapa</string>
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualitza el mapa</string>
     <!-- Preference title -->
@@ -424,7 +423,7 @@
     <!-- Tab title in the Edit Opening Hours time picker -->
     <string name="editor_time_to">A</string>
     <string name="editor_time_add">Afegeix un horari</string>
-    <string name="editor_time_delete">Esborra l\'horari</string>
+    <string name="editor_time_delete">Suprimeix l’horari</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tot el dia (24 hores)</string>
     <string name="editor_time_open">Obert</string>
@@ -455,7 +454,7 @@
     <string name="closes_in">Tanca en %s</string>
     <string name="closed">Tancat</string>
     <string name="edit_opening_hours">Edita l\'horari d\'obertura</string>
-    <string name="no_osm_account">No teniu commpte d\'OpenStreetMap?</string>
+    <string name="no_osm_account">No teniu compte de l’OpenStreetMap?</string>
     <string name="register_at_openstreetmap">Registre a OpenStreetMap</string>
     <string name="login">Inicia sessió</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
@@ -567,8 +566,8 @@
     <string name="editor_comment_hint">Comentari…</string>
     <string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>
     <string name="editor_reset_edits_button">Descarta</string>
-    <string name="editor_remove_place_message">Voleu esborrar el lloc afegit?</string>
-    <string name="editor_remove_place_button">Esborra</string>
+    <string name="editor_remove_place_message">Voleu suprimir el lloc afegit?</string>
+    <string name="editor_remove_place_button">Suprimeix</string>
     <string name="editor_place_doesnt_exist">El lloc no existeix</string>
     <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
     <string name="delete_place_empty_comment_error">Indiqueu per què esborreu el lloc</string>
@@ -589,9 +588,9 @@
     <string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
     <string name="navigation_stop_button">Atura</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Enregistrament de la pista</string>
+    <string name="track_recording">S’està enregistrant el recorregut</string>
     <!-- For the first routing -->
-    <string name="accept">D\'acord</string>
+    <string name="accept">Accepta</string>
     <!-- For the first routing -->
     <string name="decline">Ho rebutjo</string>
     <string name="mobile_data_dialog">Voleu usar Internet mòbil per a mostrar informació detallada?</string>
@@ -607,7 +606,7 @@
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
     <string name="traffic_update_app">Actualitzeu l\'Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles.</string>
+    <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles</string>
     <string name="enable_logging">Activa el registre</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinió general</string>
@@ -645,7 +644,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Crea una llista</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importa marcadors i les traces</string>
+    <string name="bookmarks_import">Importa marcadors i recorreguts</string>
     <string name="bookmarks_error_message_share_general">No s\'ha pogut compartir a causa d\'un error de l\'aplicació</string>
     <string name="bookmarks_error_title_share_empty">Error al compartir</string>
     <string name="bookmarks_error_message_share_empty">No es pot compartir una llista buida</string>
@@ -679,7 +678,7 @@
     <string name="category_desc_more">…més</string>
     <string name="export_file">Exporta KMZ</string>
     <string name="export_file_gpx">Exporta GPX</string>
-    <string name="delete_list">Esborra la llista</string>
+    <string name="delete_list">Suprimeix la llista</string>
     <string name="public_access">Accés públic</string>
     <string name="limited_access">Accés limitat</string>
     <string name="not_shared">Privat</string>
@@ -728,7 +727,7 @@
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="network">Xarxa: %s</string>
     <string name="trip_finished">Heu arribat!</string>
-    <string name="ok">D\'acord</string>
+    <string name="ok">D’acord</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordena…</string>
     <!-- Android, title, max 20-22 symbols -->
@@ -762,13 +761,13 @@
     <string name="money">Diners</string>
     <string name="shops">Botigues</string>
     <string name="parkings">Aparcaments</string>
-    <string name="fuel_places">Gasolineres</string>
+    <string name="fuel_places">Benzineres</string>
     <string name="medicine">Medicina</string>
     <string name="search_in_the_list">Cerca en la llista</string>
     <string name="religious_places">Llocs de culte</string>
     <string name="select_list">Trieu una llista</string>
     <string name="transit_not_found">La navegació en metro en aquesta regió encara no és disponible</string>
-    <string name="dialog_pedestrian_route_is_long_header">No s\'ha trobat cap ruta en metro</string>
+    <string name="dialog_pedestrian_route_is_long_header">No s’ha trobat cap ruta en metro</string>
     <string name="dialog_pedestrian_route_is_long_message">Trieu un altre punt, inicial o final, més proper a una estació de metro</string>
     <string name="button_layer_isolines">Corbes de nivell</string>
     <string name="isolines_activation_error_dialog">Per a activar i usar la capa topgràfica, actualitzeu o baixeu el mapa de l\'àrea</string>
@@ -850,7 +849,7 @@
     <string name="browser_not_available">El navegador web no està disponible</string>
     <string name="volume">Volum</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Exporta totes les adreces d\'interès i pistes</string>
+    <string name="bookmarks_export">Exporta tots els marcadors i recorreguts</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Paràmetres de la síntesi de veu del sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -874,17 +873,17 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Gravar ruta</string>
+    <string name="start_track_recording">Enregistra el recorregut</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Aturar la gravació de la ruta</string>
+    <string name="stop_track_recording">Atura l’enregistrament del recorregut</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Atura sense desar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar enregistrant</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Vols desar la gravació a Marcadors i Traces?</string>
+    <string name="track_recording_alert_title">Voleu desar l’enregistrament a Marcadors i recorreguts?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">El recorregut està buit, no hi ha res a desar</string>
+    <string name="track_recording_toast_nothing_to_save">El recorregut està buit; no hi ha res a desar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestor de fitxers i torneu-ho a provar</string>
     <string name="choose_color">Tria el color</string>

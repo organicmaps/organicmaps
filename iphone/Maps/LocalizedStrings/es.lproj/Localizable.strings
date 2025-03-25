@@ -585,7 +585,7 @@
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "El número de plantas no debe superar %d";
 "editor_zip_code" = "Código postal";
-"error_enter_correct_zip_code" = "Introduzca el código postal correcto";
+"error_enter_correct_zip_code" = "Introduzca un código postal válido";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Punto del mapa";
@@ -605,7 +605,7 @@
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
 "current_location_unknown_error_title" = "Se desconoce la ubicación actual.";
 "current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
-"location_services_disabled_header" = "La identificación de la ubicación está desactivada";
+"location_services_disabled_header" = "Los servicios de ubicación están desactivados";
 "location_services_disabled_message" = "Active el acceso a la geolocalización en los ajustes del dispositivo";
 "location_services_disabled_1" = "1. Abra Ajustes";
 "location_services_disabled_2" = "2. Pulse Localización";
@@ -1043,7 +1043,7 @@
 "clear" = "Limpiar";
 
 /* Title for the "Delete All" button on the Recently Deleted Lists screen. */
-"delete_all" = "Borrar todo";
+"delete_all" = "Eliminar todo";
 
 /* Title for the "Recover" button on the Recently Deleted Lists screen. */
 "recover" = "Recuperar";

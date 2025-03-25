@@ -319,7 +319,7 @@
     <string name="type.cuisine.mediterranean">Mediterránea</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquí</string>
-    <string name="type.cuisine.noodles">Tallarines</string>
+    <string name="type.cuisine.noodles">Fideos</string>
     <string name="type.cuisine.oriental">Oriental</string>
     <string name="type.cuisine.pancake">Tortitas</string>
     <string name="type.cuisine.pasta">Pastas</string>
@@ -385,7 +385,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Túnel</string>
     <string name="type.highway.bus_stop">Parada de autobús</string>
-    <string name="type.highway.construction">Carretera en construcción</string>
+    <string name="type.highway.construction">Vía en construcción</string>
     <string name="type.highway.cycleway">Ciclovía</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Puente</string>
@@ -571,7 +571,7 @@
     <string name="type.historic.mine">Mina histórica</string>
     <string name="type.historic.monument">Monumento</string>
     <string name="type.historic.pillory">Picota</string>
-    <string name="type.historic.ruins">Ruinas</string>
+    <string name="type.historic.ruins">Ruinas históricas</string>
     <string name="type.historic.ship">Barco</string>
     <string name="type.historic.tank">Tanque histórico</string>
     <string name="type.historic.tomb">Tumba</string>
@@ -659,13 +659,13 @@
     <string name="type.leisure.track.area">Pista deportiva</string>
     <string name="type.leisure.water_park">Parque acuático</string>
     <string name="type.leisure.beach_resort">Resort de playa</string>
-    <string name="type.man_made">Construcción</string>
+    <string name="type.man_made">Artificial</string>
     <string name="type.man_made.breakwater">Rompeolas</string>
     <string name="type.man_made.cairn">Mojón</string>
     <string name="type.man_made.chimney">Chimenea de fábrica</string>
     <string name="type.man_made.cutline">Línea de corte forestal</string>
     <string name="type.man_made.survey_point">Punto geodésico</string>
-    <string name="type.man_made.flagpole">Mástil de bandera</string>
+    <string name="type.man_made.flagpole">Asta de bandera</string>
     <string name="type.man_made.lighthouse">Faro</string>
     <string name="type.man_made.mast">Mástil</string>
     <string name="type.man_made.pier">Muelle</string>
@@ -814,7 +814,7 @@
     <string name="type.railway.disused">Vía férrea en desuso</string>
     <string name="type.railway.funicular">Funicular</string>
     <string name="type.railway.halt">Punto de parada</string>
-    <string name="type.railway.level_crossing">Cruce de ferrocarril</string>
+    <string name="type.railway.level_crossing">Cruce a nivel</string>
     <string name="type.railway.light_rail">Tren ligero</string>
     <string name="type.railway.monorail">Tren de monorraíl</string>
     <string name="type.railway.narrow_gauge">Vía férrea estrecha</string>

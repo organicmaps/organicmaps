@@ -550,7 +550,7 @@
 "migration_download_error_dialog" = "Errore download";
 "common_check_internet_connection_dialog" = "Verifica che il tuo dispositivo sia connesso a internet.";
 "downloader_no_space_title" = "Spazio insufficiente";
-"downloader_no_space_message" = "Per favore, cancella i dati non necessari";
+"downloader_no_space_message" = "Cancella i dati non necessari";
 "editor_profile_changes" = "Modifiche approvate";
 "editor_focus_map_on_location" = "Trascina la mappa per posizionare la croce sulla posizione del luogo o dell'attività commerciale.";
 "editor_add_select_category" = "Seleziona categoria";
@@ -600,7 +600,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Gestore: %@";
 "editor_category_unsuitable_title" = "Non riesci a trovare una categoria adatta?";
-"editor_category_unsuitable_text" = "Organic Maps consente di aggiungere solo categorie semplici di punti, quindi non città, strade, laghi, profili di edifici, ecc. Aggiungi tali categorie direttamente su <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulta la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guida</a> per istruzioni dettagliate passo dopo passo.";
+"editor_category_unsuitable_text" = "Organic Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulta la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guida</a> per istruzioni dettagliate.";
 "downloader_no_downloaded_maps_title" = "Non hai scaricato mappe";
 "downloader_no_downloaded_maps_message" = "Scarica mappe per trovare luoghi e navigare offline.";
 "current_location_unknown_error_title" = "Posizione attuale sconosciuta.";
@@ -715,7 +715,7 @@
 "core_exit" = "Uscita";
 
 /* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
-"routing_add_start_point" = "Usa la ricerca o tocca la mappa per aggiungere un punto di partenza per il percorso";
+"routing_add_start_point" = "Utilizza l'opzione \"Cerca\" oppure tocca un qualsiasi punto sulla mappa per aggiungere un punto di partenza per il tuo percorso.";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
 "routing_add_finish_point" = "Cerca un luogo o tocca la mappa per aggiungere una destinazione";
@@ -732,7 +732,7 @@
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "qui";
 "core_entrance" = "Ingresso";
-"error_enter_correct_name" = "Inserisci un nome corretto";
+"error_enter_correct_name" = "Inserire un nome corretto";
 "bookmark_lists" = "Elenchi";
 
 /* Do not display all bookmark lists on the map */
@@ -976,7 +976,7 @@
 "car_continue_on_the_phone" = "Continua sul telefono";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "Allo schermo dell'auto";
+"car_continue_in_the_car" = "Passa al display dell'auto";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Escursioni";

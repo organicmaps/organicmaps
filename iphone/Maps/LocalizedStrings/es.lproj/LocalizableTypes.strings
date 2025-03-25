@@ -326,7 +326,7 @@
 "type.cuisine.mediterranean" = "Mediterránea";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquí";
-"type.cuisine.noodles" = "Tallarines";
+"type.cuisine.noodles" = "Fideos";
 "type.cuisine.oriental" = "Oriental";
 "type.cuisine.pancake" = "Tortitas";
 "type.cuisine.pasta" = "Pastas";
@@ -400,7 +400,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Túnel";
 "type.highway.bus_stop" = "Parada de autobús";
-"type.highway.construction" = "Carretera en construcción";
+"type.highway.construction" = "Vía en construcción";
 "type.highway.cycleway" = "Ciclovía";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -632,7 +632,7 @@
 "type.historic.mine" = "Mina histórica";
 "type.historic.monument" = "Monumento";
 "type.historic.pillory" = "Picota";
-"type.historic.ruins" = "Ruinas";
+"type.historic.ruins" = "Ruinas históricas";
 "type.historic.ship" = "Barco";
 "type.historic.tank" = "Tanque histórico";
 "type.historic.tomb" = "Tumba";
@@ -737,13 +737,13 @@
 "type.leisure.track.area" = "Pista deportiva";
 "type.leisure.water_park" = "Parque acuático";
 "type.leisure.beach_resort" = "Resort de playa";
-"type.man_made" = "Construcción";
+"type.man_made" = "Artificial";
 "type.man_made.breakwater" = "Rompeolas";
 "type.man_made.cairn" = "Mojón";
 "type.man_made.chimney" = "Chimenea de fábrica";
 "type.man_made.cutline" = "Línea de corte forestal";
 "type.man_made.survey_point" = "Punto geodésico";
-"type.man_made.flagpole" = "Mástil de bandera";
+"type.man_made.flagpole" = "Asta de bandera";
 "type.man_made.lighthouse" = "Faro";
 "type.man_made.mast" = "Mástil";
 "type.man_made.pier" = "Muelle";
@@ -920,7 +920,7 @@
 "type.railway.funicular.bridge" = "Puente de funicular";
 "type.railway.funicular.tunnel" = "Túnel de funicular";
 "type.railway.halt" = "Punto de parada";
-"type.railway.level_crossing" = "Cruce de ferrocarril";
+"type.railway.level_crossing" = "Cruce a nivel";
 "type.railway.light_rail" = "Tren ligero";
 "type.railway.light_rail.bridge" = "Puente de tren ligero";
 "type.railway.light_rail.tunnel" = "Túnel de tren ligero";

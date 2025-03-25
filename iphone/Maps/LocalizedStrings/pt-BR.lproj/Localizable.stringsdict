@@ -48,10 +48,6 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d trilha</string>
-			<key>many</key>
-			<string>%d trilhas</string>
 			<key>other</key>
 			<string>%d trilhas</string>
 		</dict>

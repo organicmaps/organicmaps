@@ -513,7 +513,7 @@
     <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
     <string name="error_enter_correct_storey_number">El número de plantas no debe superar %d</string>
     <string name="editor_zip_code">Código postal</string>
-    <string name="error_enter_correct_zip_code">Introduzca el código postal correcto</string>
+    <string name="error_enter_correct_zip_code">Introduzca un código postal válido</string>
     <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Punto del mapa</string>
     <!-- Title for OSM note section in the editor -->
@@ -836,7 +836,7 @@
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps necesita acceder a la ubicación. Cuando sea seguro, compruebe la notificación en el teléfono.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Esta aplicación necesita tu permiso</string>
+    <string name="aa_request_permission_notification">Esta aplicación necesita su permiso</string>
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita permiso de ubicación para funcionar eficazmente</string>
     <!-- Grant Permissions button. -->

@@ -68,7 +68,7 @@
     <!-- Show popup notification on top of the map when country download has failed. -->
     <string name="download_country_failed">Nem sikerült letölteni a következőt: %s</string>
     <!-- "Add new bookmark list" dialog title -->
-    <string name="add_new_set">Új csoport hozzáadása</string>
+    <string name="add_new_set">Új lista hozzáadása</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
     <string name="bookmark_set_name">Könyvjelzőlista neve</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
@@ -317,7 +317,7 @@
     <!-- red color -->
     <string name="red">Piros</string>
     <!-- yellow color -->
-    <string name="yellow">Citromsárga</string>
+    <string name="yellow">Sárga</string>
     <!-- blue color -->
     <string name="blue">Kék</string>
     <!-- green color -->
@@ -360,10 +360,10 @@
     <string name="dialog_routing_location_unknown_turn_on">A jelenlegi GPS-koordináták nem találhatók. Engedélyezze a helymeghatározási szolgáltatásokat az útvonal kiszámításához.</string>
     <string name="dialog_routing_unable_locate_route">Nem sikerült meghatározni az útvonalat</string>
     <string name="dialog_routing_cant_build_route">Nem lehet létrehozni az útvonalat.</string>
-    <string name="dialog_routing_change_start_or_end">Pontosítsa indulási helyét, vagy célállomását.</string>
-    <string name="dialog_routing_change_start">Pontosítsa indulási helyét</string>
-    <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni az indulási helyet.</string>
-    <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső indulási helyet.</string>
+    <string name="dialog_routing_change_start_or_end">Pontosítsa a kiindulópontot vagy a célállomást.</string>
+    <string name="dialog_routing_change_start">Pontosítsa a kiindulópontot</string>
+    <string name="dialog_routing_start_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a kiindulópontot.</string>
+    <string name="dialog_routing_select_closer_start">Válasszon egy, az úthoz közelebb eső kiindulópontot.</string>
     <string name="dialog_routing_change_end">Pontosítsa célállomását</string>
     <string name="dialog_routing_end_not_determined">Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.</string>
     <string name="dialog_routing_select_closer_end">Válasszon egy, az úthoz közelebb eső célállomást.</string>
@@ -376,7 +376,7 @@
     <string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet, és egynél több térképen átívelő, optimálisabb útvonalat létrehozni?</string>
     <string name="dialog_routing_download_cross_route">Töltsön le további térképeket, hogy egy jobb útvonalat hozzon létre, amely keresztezi ennek a térképnek a határait.</string>
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, töltse le a térképet és többé nem lesz szüksége internetkapcsolatra.</string>
+    <string name="search_without_internet_advertisement">Az útvonalak kereséséhez és létrehozásához, töltse le a térképet és többé nem lesz szüksége internetkapcsolatra.</string>
     <string name="search_select_map">Térkép kiválasztása</string>
     <!-- «Show» context menu -->
     <string name="show">Megjelenítés</string>
@@ -395,24 +395,24 @@
     <string name="p2p_from_here">Kiindulópont</string>
     <string name="p2p_to_here">Célpont</string>
     <string name="p2p_only_from_current">A navigáció csak a jelenlegi tartózkodási helyétől érhető el.</string>
-    <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyéről?</string>
+    <string name="p2p_reroute_from_current">Szeretne útvonalat tervezni a jelenlegi tartózkodási helyétől?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Következő</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_from">Ettől</string>
+    <string name="editor_time_from">Ettől:</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_to">Eddig</string>
+    <string name="editor_time_to">Eddig:</string>
     <string name="editor_time_add">Ütemterv hozzáadása</string>
     <string name="editor_time_delete">Ütemterv törlése</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Egész nap (24 óra)</string>
     <string name="editor_time_open">Nyitva</string>
     <string name="editor_time_close">Zárva</string>
-    <string name="editor_time_add_closed">Zárvatartás hozzáadása</string>
-    <string name="editor_time_title">Nyitvatartás</string>
+    <string name="editor_time_add_closed">Zárva tartás hozzáadása</string>
+    <string name="editor_time_title">Nyitva tartás</string>
     <string name="editor_time_advanced">Speciális mód</string>
     <string name="editor_time_simple">Egyszerű mód</string>
-    <string name="editor_hours_closed">Zárvatartási órák</string>
+    <string name="editor_hours_closed">Zárva tartás</string>
     <string name="editor_example_values">Példaértékek</string>
     <string name="editor_correct_mistake">Hiba javítása</string>
     <string name="editor_add_select_location">Hely kiválasztása</string>
@@ -467,17 +467,17 @@
     <string name="downloader_no_space_title">Nincs elegendő tárhely</string>
     <string name="downloader_no_space_message">Törölje a felesleges adatokat</string>
     <string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
-    <string name="editor_profile_changes">Jóváhagyott változtatások</string>
+    <string name="editor_profile_changes">Jóváhagyott módosítások</string>
     <string name="editor_focus_map_on_location">Húzza a térképet, hogy a keresztet a hely vagy üzlet helyére helyezze.</string>
     <string name="editor_edit_place_title">Szerkesztés</string>
     <string name="editor_add_place_title">Hozzáadás</string>
     <string name="editor_edit_place_name_hint">Hely neve</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
-    <string name="editor_default_language_hint">Ahogyan az, a helyi nyelven írva van</string>
+    <string name="editor_default_language_hint">Ahogyan a helyi nyelven írva van</string>
     <string name="editor_edit_place_category_title">Kategória</string>
     <string name="detailed_problem_description">A probléma részletes leírása</string>
-    <string name="editor_report_problem_other_title">Különböző probléma</string>
-    <string name="placepage_add_business_button">Szervezet hozzáadása</string>
+    <string name="editor_report_problem_other_title">Más jellegű probléma</string>
+    <string name="placepage_add_business_button">Vállalkozás hozzáadása</string>
     <string name="message_invalid_feature_position">Itt nem található objektum</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Közösségi OpenStreetMap adatok innen: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
@@ -485,9 +485,9 @@
     <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
     <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
-    <string name="downloader_of">%1$d/%2$d</string>
-    <string name="download_over_mobile_header">Letöltés mobilhálózati kapcsolat segítségével?</string>
-    <string name="download_over_mobile_message">Ez jelentősen drága lehet némely előfizetés vagy roaming keretein belül.</string>
+    <string name="downloader_of">%1$d / %2$d</string>
+    <string name="download_over_mobile_header">Biztosan letölti mobilhálózati kapcsolaton keresztül?</string>
+    <string name="download_over_mobile_message">Ez egyes díjcsomagok vagy roaming esetén jelentős költségekkel járhat.</string>
     <string name="error_enter_correct_house_number">Adjon meg egy érvényes házszámot</string>
     <string name="editor_storey_number">Emeletek száma (legfeljebb: %d)</string>
     <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
@@ -511,18 +511,18 @@
     <string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
     <string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
-    <string name="downloader_no_downloaded_maps_message">Térképek letöltése az offline kereséshez és navigáláshoz.</string>
+    <string name="downloader_no_downloaded_maps_message">Térkép letöltése offline kereséshez és navigáláshoz.</string>
     <!-- abbreviation for meters -->
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
     <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/ó</string>
+    <string name="kilometers_per_hour">km/h</string>
     <!-- abbreviation for mile(s) -->
     <string name="mi">mf</string>
     <!-- A unit of measure -->
     <string name="ft">láb</string>
-    <string name="miles_per_hour">mf/ó</string>
+    <string name="miles_per_hour">mf/h</string>
     <string name="hour">ó</string>
     <string name="minute">p</string>
     <string name="day">nap</string>
@@ -585,13 +585,13 @@
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Kijárat</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Használja a keresést, vagy koppintson a térképre az útvonal kezdőpontjának hozzáadásához</string>
+    <string name="routing_add_start_point">Használja a keresést vagy koppintson a térképre az útvonal kiindulópontjának hozzáadásához</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Használja a keresést, vagy koppintson a térképre egy célpont hozzáadásához</string>
     <string name="planning_route_manage_route">Útvonal kezelése</string>
     <string name="button_plan">Tervezés</string>
     <string name="placepage_remove_stop">Megálló eltávolítása</string>
-    <string name="placepage_add_stop">Megálló hozzáadása</string>
+    <string name="placepage_add_stop">Köztes célpont hozzáadása</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tárhelyhozzáférési probléma</string>
@@ -675,7 +675,7 @@
     <string name="unable_to_calc_alert_title">Nem lehet kiszámítani az útvonalat</string>
     <string name="unable_to_calc_alert_subtitle">Nem sikerült útvonalat találni. Ennek oka lehet az útvonaltervezési beállítások vagy a hiányos OpenStreetMap-adatok. Módosítsa az útvonaltervezési beállításokat, és próbálja meg újra.</string>
     <string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-    <string name="change_driving_options_btn">Útvonaltervezési lehetőségek bekapcsolva</string>
+    <string name="change_driving_options_btn">Útvonaltervezési lehetőségek engedélyezve</string>
     <string name="toll_road">Díjköteles utak</string>
     <string name="unpaved_road">Burkolatlan utak</string>
     <string name="ferry_crossing">Kompátkelők</string>
@@ -711,7 +711,7 @@
     <string name="month_ago_sorttype">Egy hónapja</string>
     <string name="moremonth_ago_sorttype">Több mint egy hónapja</string>
     <string name="moreyear_ago_sorttype">Több mint egy éve</string>
-    <string name="near_me_sorttype">Közelben</string>
+    <string name="near_me_sorttype">A közelben</string>
     <string name="others_sorttype">Egyebek</string>
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Étel</string>
@@ -733,7 +733,7 @@
     <string name="select_list">Lista kiválasztása</string>
     <string name="transit_not_found">Metrónavigáció ebben a régióban még nem érhető el</string>
     <string name="dialog_pedestrian_route_is_long_header">Nem található metróútvonal</string>
-    <string name="dialog_pedestrian_route_is_long_message">Válasszon egy, a metróállomáshoz közelebb eső indulási helyet vagy célállomást</string>
+    <string name="dialog_pedestrian_route_is_long_message">Válasszon egy, a metróállomáshoz közelebb eső kiindulópontot vagy célállomást</string>
     <string name="button_layer_isolines">Szintvonalak</string>
     <string name="isolines_activation_error_dialog">A szintvonalak aktiválásához a terület térképadatainak letöltése szükséges</string>
     <string name="isolines_location_error_dialog">A szintvonalak még nem állnak rendelkezésre ezen a területen</string>

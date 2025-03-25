@@ -471,7 +471,7 @@
     <string name="downloader_search_field_hint">Trova la mappa</string>
     <string name="common_check_internet_connection_dialog">Verifica che il tuo dispositivo sia connesso a internet.</string>
     <string name="downloader_no_space_title">Spazio insufficiente</string>
-    <string name="downloader_no_space_message">Per favore, cancella i dati non necessari</string>
+    <string name="downloader_no_space_message">Cancella i dati non necessari</string>
     <string name="editor_login_error_dialog">Errore durante l\'accesso.</string>
     <string name="editor_profile_changes">Modifiche approvate</string>
     <string name="editor_focus_map_on_location">Trascina la mappa per posizionare la croce sulla posizione del luogo o dell\'attività commerciale.</string>
@@ -515,7 +515,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Gestore: %s</string>
     <string name="editor_category_unsuitable_title">Non riesci a trovare una categoria adatta?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps consente di aggiungere solo categorie semplici di punti, quindi non città, strade, laghi, profili di edifici, ecc. Aggiungi tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate passo dopo passo.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.</string>
     <string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>
     <string name="downloader_no_downloaded_maps_message">Scarica mappe per trovare luoghi e navigare offline.</string>
     <string name="current_location_unknown_error_title">Posizione attuale sconosciuta.</string>
@@ -598,7 +598,7 @@
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Uscita</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Usa la ricerca o tocca la mappa per aggiungere un punto di partenza per il percorso</string>
+    <string name="routing_add_start_point">Utilizza l\'opzione \"Cerca\" oppure tocca un qualsiasi punto sulla mappa per aggiungere un punto di partenza per il tuo percorso.</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
     <string name="routing_add_finish_point">Cerca un luogo o tocca la mappa per aggiungere una destinazione</string>
     <string name="planning_route_manage_route">Gestisci percorso</string>
@@ -611,7 +611,7 @@
     <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simula memoria danneggiata</string>
     <string name="core_entrance">Ingresso</string>
-    <string name="error_enter_correct_name">Inserisci un nome corretto</string>
+    <string name="error_enter_correct_name">Inserire un nome corretto</string>
     <string name="bookmark_lists">Elenchi</string>
     <!-- Do not display all bookmark lists on the map -->
     <string name="bookmark_lists_hide_all">Nascondi tutto</string>
@@ -771,7 +771,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Mostra sulla schermata di blocco</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Se abilitato, non è necessario sbloccare il dispositivo per usare l\'app mentre questa è in esecuzione.</string>
+    <string name="enable_show_on_lock_screen_description">Se abilitato, l\'app continuera a funzionare nella schermata di blocco, anche con dispositivo bloccato.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Lingua della mappa</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -811,7 +811,7 @@
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
     <string name="car_continue_on_the_phone">Continua sul telefono</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-    <string name="car_continue_in_the_car">Allo schermo dell\'auto</string>
+    <string name="car_continue_in_the_car">Passa al display dell\'auto</string>
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps ha bisogno di accedere alla posizione. Quando puoi farlo in sicurezza, controlla la notifica sul tuo telefono.</string>
     <!-- Notification title for permission request from AA. -->
@@ -848,7 +848,7 @@
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Posti a sedere all\'aperto</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">Per una navigazione più accurata, ti consigliamo di disabilitare la modalità di risparmio energetico nelle impostazioni del telefono sulla batteria.</string>
+    <string name="power_save_dialog_summary">Per una navigazione più accurata, disabilita la modalità risparmio energetico nelle impostazioni del telefono.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Registra traccia</string>
     <!-- Prompt for stopping a track recording. -->
