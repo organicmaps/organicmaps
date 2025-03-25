@@ -1,4 +1,4 @@
-protocol SearchCategoriesViewControllerDelegate: SearchOnMapScrollViewDelegate {
+protocol SearchCategoriesViewControllerDelegate: UIScrollViewDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String)
 }
@@ -42,11 +42,11 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
 
   override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    delegate?.scrollViewDidScroll(scrollView)
+    delegate?.scrollViewDidScroll?(scrollView)
   }
 
   override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
   }
 
   func category(at indexPath: IndexPath) -> String {

@@ -92,5 +92,9 @@
 {
   return [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
 }
++ (UIFont *)semibold17
+{
+  return [UIFont systemFontOfSize:17 weight:UIFontWeightSemibold];
+}
 
 @end
