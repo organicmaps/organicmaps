@@ -735,6 +735,7 @@
 "placepage_remove_stop" = "Remove Stop";
 "planning_route_remove_title" = "Drag here to remove";
 "placepage_add_stop" = "Add Stop";
+"placepage_replace_stop" = "Replace Stop";
 "start_from_my_position" = "Start from";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */

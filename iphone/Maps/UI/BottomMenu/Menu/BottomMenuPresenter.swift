@@ -42,7 +42,7 @@ class BottomMenuPresenter: NSObject {
     self.mapsStorage = mapsStorage
     self.countryId = mapsStorage.countryForViewportCenter()
     self.shouldUpdateMapToContribute =
-      !(MWMNavigationDashboardManager.shared().state == .hidden &&
+      !(MWMNavigationDashboardManager.shared().state == .closed &&
       FrameworkHelper.canEditMapAtViewportCenter() &&
       self.countryId != nil)
     super.init()
