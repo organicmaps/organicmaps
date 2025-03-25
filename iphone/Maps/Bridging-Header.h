@@ -42,6 +42,7 @@
 #import "MWMNavigationController.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMNavigationDashboardView.h"
 #import "MWMNetworkPolicy+UI.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMNoteCell.h"
@@ -79,3 +80,5 @@
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearch.h"
 #import "SearchResult.h"
+#import "SearchOnMapState.h"
+#import "RoutePreviewView.h"
