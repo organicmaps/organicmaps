@@ -148,6 +148,41 @@
   return pt;
 }
 
+- (BOOL)isEqual:(id)object
+{
+  if (self == object)
+    return YES;
+
+  if (![object isKindOfClass:[MWMRoutePoint class]])
+    return NO;
+
+  MWMRoutePoint * other = (MWMRoutePoint *)object;
+
+  BOOL titlesEqual = (!self.title && !other.title) || [self.title isEqualToString:other.title];
+  BOOL subtitlesEqual = (!self.subtitle && !other.subtitle) || [self.subtitle isEqualToString:other.subtitle];
+  BOOL latLonEqual =
+      (!self.latLonString && !other.latLonString) || [self.latLonString isEqualToString:other.latLonString];
+  BOOL typeEqual = self.type == other.type;
+  BOOL indexEqual = self.intermediateIndex == other.intermediateIndex;
+  BOOL latitudeEqual = fabs(self.latitude - other.latitude) < DBL_EPSILON;
+  BOOL longitudeEqual = fabs(self.longitude - other.longitude) < DBL_EPSILON;
+  BOOL isMyPositionEqual = self.isMyPosition == other.isMyPosition;
+
+  return titlesEqual && subtitlesEqual && latLonEqual && typeEqual && indexEqual && latitudeEqual && longitudeEqual &&
+         isMyPositionEqual;
+}
+
+- (NSUInteger)hash
+{
+  NSUInteger hash = self.title.hash ^ self.subtitle.hash ^ self.latLonString.hash;
+  hash ^= self.type;
+  hash ^= self.intermediateIndex;
+  hash ^= [[NSNumber numberWithDouble:self.latitude] hash];
+  hash ^= [[NSNumber numberWithDouble:self.longitude] hash];
+  hash ^= (NSUInteger)self.isMyPosition;
+  return hash;
+}
+
 - (NSString *)debugDescription
 {
   NSString * type = nil;

@@ -10,6 +10,7 @@
 
 @interface MWMPlacePageManager ()
 
+- (void)recoverPlacePage;
 - (void)updateAvailableArea:(CGRect)frame;
 - (void)editPlace;
 - (void)addBusiness;
@@ -53,6 +54,11 @@
 @end
 
 @implementation MWMPlacePageManagerHelper
+
++ (void)recoverPlacePage
+{
+  [[MWMMapViewControlsManager manager].placePageManager recoverPlacePage];
+}
 
 + (void)updateAvailableArea:(CGRect)frame
 {
