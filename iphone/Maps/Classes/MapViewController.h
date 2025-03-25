@@ -11,6 +11,7 @@
 @class WidgetsArea;
 @class TrafficButtonArea;
 @class PlacePageArea;
+@class NavigationInfoArea;
 
 @protocol MWMLocationModeListener;
 
@@ -39,7 +40,9 @@
 - (void)openDrivingOptions;
 - (void)showTrackRecordingPlacePage;
 
-- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
+- (void)setPlacePageTopBound:(CGFloat)bound;
+- (void)setRoutePreviewTopBound:(CGFloat)bound;
+- (void)setSearchTopBound:(CGFloat)bound;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 
@@ -57,11 +60,13 @@
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
+@property(nonatomic) UIView * _Nonnull placePageContainer;
 @property(nonatomic) UIView * _Nonnull searchContainer;
 
 @property(weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
 @property(weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
 @property(weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
 @property(weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
+@property(weak, nonatomic) IBOutlet NavigationInfoArea * navigationInfoArea;
 
 @end
