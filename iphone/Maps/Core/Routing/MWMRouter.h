@@ -43,7 +43,9 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 + (void)addPoint:(MWMRoutePoint *)point;
 + (void)removePoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
++ (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point;
 + (void)removePointAndRebuild:(MWMRoutePoint *)point;
++ (void)replacePointAndRebuild:(MWMRoutePoint *)point withPoint:(MWMRoutePoint *)newPoint;
 + (void)removePoints;
 
 + (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
