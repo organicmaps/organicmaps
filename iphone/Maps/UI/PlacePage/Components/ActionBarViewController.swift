@@ -13,6 +13,8 @@ final class ActionBarViewController: UIViewController {
   var placePageData: PlacePageData!
   var isRoutePlanning = false
   var canAddStop = false
+  var canReplaceStop = false
+  var canRouteToAndFrom = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
@@ -66,14 +68,14 @@ final class ActionBarViewController: UIViewController {
     var buttons: [ActionBarButtonType] = []
     switch placePageData.objectType {
     case .POI, .bookmark, .track:
-      if isRoutePlanning {
+      if isRoutePlanning && canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
       let hasAnyPhones = !(placePageData.infoData?.phones ?? []).isEmpty
       if hasAnyPhones, AppInfo.shared().canMakeCalls {
         buttons.append(.call)
       }
-      if !isRoutePlanning {
+      if !isRoutePlanning && canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
     case .trackRecording:
@@ -94,7 +96,7 @@ final class ActionBarViewController: UIViewController {
     switch placePageData.objectType {
     case .POI, .bookmark:
       if canAddStop {
-        buttons.append(.routeAddStop)
+        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
       }
       buttons.append(.bookmark)
     case .track:
@@ -118,7 +120,9 @@ final class ActionBarViewController: UIViewController {
   private func configButton3() {
     switch placePageData.objectType {
     case .POI, .bookmark, .track:
-      visibleButtons.append(.routeTo)
+      if canRouteToAndFrom {
+        visibleButtons.append(.routeTo)
+      }
     case .trackRecording:
       break
     @unknown default:

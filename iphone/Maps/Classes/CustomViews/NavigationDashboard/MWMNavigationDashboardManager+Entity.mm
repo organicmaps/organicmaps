@@ -145,7 +145,7 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
 - (NSAttributedString *)estimate
 {
   NSDictionary * primaryAttributes =
-      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont medium17]};
+      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont semibold17]};
   NSDictionary * secondaryAttributes =
       @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
 
@@ -174,8 +174,11 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
     [result appendAttributedString:attrStringWithImage];
   }
 
-  auto target = [NSString stringWithFormat:@"%@ %@", self.targetDistance, self.targetUnits];
-  [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
+  if (self.targetDistance && self.targetUnits)
+  {
+    auto target = [NSString stringWithFormat:@"%@ %@", self.targetDistance, self.targetUnits];
+    [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
+  }
 
   return result;
 }

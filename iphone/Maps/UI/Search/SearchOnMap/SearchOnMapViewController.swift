@@ -18,6 +18,7 @@ protocol ModallyPresentedViewController: AnyObject {
 final class SearchOnMapViewController: UIViewController {
   typealias ViewModel = SearchOnMap.ViewModel
   typealias Content = SearchOnMap.ViewModel.Content
+  typealias StepsController = ModalPresentationStepsController<SearchOnMapModalPresentationStep>
 
   fileprivate enum Constants {
     static let estimatedRowHeight: CGFloat = 80
@@ -40,33 +41,30 @@ final class SearchOnMapViewController: UIViewController {
   private var dimView: UIView?
 
   private var internalScrollViewContentOffset: CGFloat = .zero
-  private let presentationStepsController = ModalPresentationStepsController()
+  private var presentationStepsController: StepsController!
   private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - Init
   init() {
     super.init(nibName: nil, bundle: nil)
-    configureModalPresentation()
+    self.configureModalPresentation()
   }
 
   private func configureModalPresentation() {
     guard let mapViewController = MapViewController.shared() else {
       fatalError("MapViewController is not available")
     }
-    presentationStepsController.set(presentedView: availableAreaView, containerViewController: self)
-    presentationStepsController.didUpdateHandler = presentationUpdateHandler
-
+    let stepsController = StepsController(presentedView: availableAreaView,
+                                          containerViewController: self,
+                                          stepStrategy: SearchOnMapModalPresentationStepStrategy(),
+                                          currentStep: .hidden,
+                                          didUpdateHandler: presentationUpdateHandler)
+    presentationStepsController = stepsController
     mapViewController.searchContainer.addSubview(view)
     mapViewController.addChild(self)
     view.frame = mapViewController.searchContainer.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     didMove(toParent: mapViewController)
-
-    let affectedAreaViews = [
-      mapViewController.sideButtonsArea,
-      mapViewController.trafficButtonArea,
-    ]
-    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
   }
 
   @available(*, unavailable)
@@ -245,8 +243,7 @@ final class SearchOnMapViewController: UIViewController {
 
   // MARK: - Handle Presentation Steps
   private func updateFrameOfPresentedViewInContainerView() {
-    presentationStepsController.updateMaxAvailableFrame()
-    availableAreaView.frame = presentationStepsController.currentFrame
+    presentationStepsController.updateFrame()
     view.layoutIfNeeded()
   }
 
@@ -264,13 +261,14 @@ final class SearchOnMapViewController: UIViewController {
     presentationStepsController.handlePan(gesture)
   }
 
-  private var presentationUpdateHandler: (ModalPresentationStepsController.StepUpdate) -> Void {
+  private var presentationUpdateHandler: (ModalPresentationStepsController<SearchOnMapModalPresentationStep>.StepUpdate) -> Void {
     { [weak self] update in
       guard let self else { return }
       switch update {
       case .didClose:
         self.interactor?.handle(.closeSearch)
       case .didUpdateFrame(let frame):
+        self.interactor?.handle(.updatePresentationFrame(frame))
         self.presentationFrameDidChange(frame)
         self.updateDimView(for: frame)
       case .didUpdateStep(let step):
@@ -450,7 +448,7 @@ extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
   }
 
   func grabberDidTap() {
-    interactor?.handle(.didUpdatePresentationStep(.fullScreen))
+    interactor?.handle(.didUpdatePresentationStep(.expanded))
   }
 }
 

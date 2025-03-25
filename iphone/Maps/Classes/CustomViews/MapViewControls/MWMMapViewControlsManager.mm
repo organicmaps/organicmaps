@@ -72,7 +72,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  BOOL const isNavigationUnderStatusBar = self.navigationManager.state != MWMNavigationDashboardStateHidden &&
+  BOOL const isNavigationUnderStatusBar = self.navigationManager.state != MWMNavigationDashboardStateClosed &&
                                           self.navigationManager.state != MWMNavigationDashboardStateNavigation;
   BOOL const isMenuViewUnderStatusBar = self.menuState == MWMBottomMenuStateActive;
   BOOL const isDirectionViewUnderStatusBar = !self.isDirectionViewHidden;
@@ -261,7 +261,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (MWMNavigationDashboardManager *)navigationManager
 {
   if (!_navigationManager)
-    _navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentView:self.ownerController.controlsView];
+    _navigationManager = [[MWMNavigationDashboardManager alloc] initWithParentViewController:self.ownerController];
   return _navigationManager;
 }
 
