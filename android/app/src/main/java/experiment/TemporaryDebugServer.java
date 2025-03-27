@@ -4,8 +4,8 @@ import static org.nanohttpd.protocols.http.response.Response.newFixedLengthRespo
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,67 +17,62 @@ import org.nanohttpd.protocols.http.response.Response;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 
 import java.io.IOException;
-import java.util.Map;
 
-public class DebugServerLmao extends NanoHTTPD
+public class TemporaryDebugServer extends NanoHTTPD
 {
-  public DebugServerLmao(Activity act) throws IOException
+  public TemporaryDebugServer(Activity act) throws IOException
   {
     super(8989);
     start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
     System.out.println("\nRunning! Point your browsers to http://localhost:8080/ \n");
-    act.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
-      @Override
-      public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+    {
+      act.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks()
       {
+        @Override
+        public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivityStarted(@NonNull Activity activity)
-      {
+        @Override
+        public void onActivityStarted(@NonNull Activity activity)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivityResumed(@NonNull Activity activity)
-      {
+        @Override
+        public void onActivityResumed(@NonNull Activity activity)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivityPaused(@NonNull Activity activity)
-      {
+        @Override
+        public void onActivityPaused(@NonNull Activity activity)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivityStopped(@NonNull Activity activity)
-      {
+        @Override
+        public void onActivityStopped(@NonNull Activity activity)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
-      {
+        @Override
+        public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState)
+        {
 
-      }
+        }
 
-      @Override
-      public void onActivityDestroyed(@NonNull Activity activity)
-      {
-        DebugServerLmao.this.stop();
-      }
-    });
+        @Override
+        public void onActivityDestroyed(@NonNull Activity activity)
+        {
+          TemporaryDebugServer.this.stop();
+        }
+      });
+    }
   }
-
-//  public static void main(String[] args) {
-//    try {
-//      new DebugServerLmao();
-//    } catch (IOException ioe) {
-//      System.err.println("Couldn't start server:\n" + ioe);
-//    }
-//  }
 
   @Override
   public Response serve(IHTTPSession session)

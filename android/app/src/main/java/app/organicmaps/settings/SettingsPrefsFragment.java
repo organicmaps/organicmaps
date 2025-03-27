@@ -25,6 +25,7 @@ import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
 import app.organicmaps.routing.RoutingOptions;
+import app.organicmaps.sync.nc.NextcloudPreferences;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
@@ -102,6 +103,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       pref.setSummary(R.string.not_signed_in);
   }
 
+  private void updateNextcloudSettingsPrefSummary()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_nextcloud_sync));
+    if (NextcloudPreferences.isAuthenticated(requireContext()))
+    {
+      pref.setSummary(NextcloudPreferences.getSyncEnabled(requireContext()) ? "Sync enabled" : "Sync disabled");
+    }
+    else
+      pref.setSummary("Not logged in");
+  }
+
   @Override
   public void onResume()
   {
@@ -111,6 +123,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     updateVoiceInstructionsPrefsSummary();
     updateRoutingSettingsPrefsSummary();
     updateMapLanguageCodeSummary();
+    updateNextcloudSettingsPrefSummary();
   }
 
   @Override
@@ -122,6 +135,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       if (key.equals(getString(R.string.pref_osm_profile)))
       {
         startActivity(new Intent(requireActivity(), ProfileActivity.class));
+      }
+      else if (key.equals(getString(R.string.pref_nextcloud_sync)))
+      {
+        getSettingsActivity().stackFragment(NcSyncSettingsFragment.class, "Configure Nextcloud Sync", null);
       }
       else if (key.equals(getString(R.string.pref_tts_screen)))
       {

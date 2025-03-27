@@ -11,9 +11,20 @@
     app:singleLineTitle="false"
     android:order="1"/>
   <androidx.preference.PreferenceCategory
+    android:key="ExperimentalSync"
+    android:title="(EXPERIMENTAL) Sync"
+    android:order="2">
+    <Preference
+        android:key="@string/pref_nextcloud_sync"
+        android:title="Nextcloud Sync"
+        tools:summary="Not Configured"
+        app:singleLineTitle="false"
+        android:order="1"/>
+  </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_settings_general"
     android:title="@string/prefs_group_general"
-    android:order="2">
+    android:order="3">
     <ListPreference
       android:key="@string/pref_munits"
       android:title="@string/measurement_units"
@@ -111,7 +122,7 @@
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_navigation"
     android:title="@string/prefs_group_route"
-    android:order="3">
+    android:order="4">
     <ListPreference
       android:key="@string/pref_map_style"
       android:title="@string/pref_map_style_title"
@@ -150,7 +161,7 @@
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_privacy"
     android:title="@string/privacy"
-    android:order="6">
+    android:order="7">
     <SwitchPreferenceCompat
       android:key="@string/pref_play_services"
       android:title="@string/google_play_services"
@@ -175,7 +186,7 @@
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"
     android:title="@string/prefs_group_information"
-    android:order="7">
+    android:order="8">
     <Preference
       android:key="@string/pref_help"
       android:title="@string/help"

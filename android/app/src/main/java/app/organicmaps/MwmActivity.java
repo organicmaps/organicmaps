@@ -111,7 +111,7 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-import experiment.DebugServerLmao;
+import experiment.TemporaryDebugServer;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -525,7 +525,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
 
     try {
-      new experiment.DebugServerLmao(this);
+      new TemporaryDebugServer(this);
     }catch (IOException ioe) {
       android.util.Log.e("pocstuff", "error setting up debug server", ioe);
     }
