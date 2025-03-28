@@ -20,7 +20,6 @@ import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
@@ -114,7 +113,7 @@ public class Factory
             if (!request.mIsSearchOnMap)
               Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
           }
-          SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
+          target.handleSearchLink(request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
         }
         case RequestType.CROSSHAIR:
