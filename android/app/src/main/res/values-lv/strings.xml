@@ -315,9 +315,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Atjaunināt karti</string>
     <!-- Preference title -->
-    <string name="google_play_services">„Google Play“ vietas noteikšanas pakalpojumi</string>
+    <string name="network_location_provider">„Google Play“ vietas noteikšanas pakalpojumi</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Ātri nosakiet atrašanās vietu, izmantojot „Bluetooth“, „WiFi“ vai mobilo tīklu</string>
+    <string name="pref_use_nlp">Ātri nosakiet atrašanās vietu, izmantojot „Bluetooth“, „WiFi“ vai mobilo tīklu</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Viesnīcu saites</string>
     <!-- Preference description -->

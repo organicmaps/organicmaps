@@ -314,9 +314,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Karte aktualisieren</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Standortdienste</string>
+    <string name="network_location_provider">Google Play Standortdienste</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Ermitteln Sie schnell Ihren ungefähren Standort über Bluetooth, WLAN oder das Mobilfunknetz</string>
+    <string name="pref_use_nlp">Ermitteln Sie schnell Ihren ungefähren Standort über Bluetooth, WLAN oder das Mobilfunknetz</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotel-Links</string>
     <!-- Preference description -->

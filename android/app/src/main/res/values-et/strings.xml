@@ -300,9 +300,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Uuenda kaarti</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play asukohateenused</string>
+    <string name="network_location_provider">Google Play asukohateenused</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Määra kiiresti oma ligikaudne asukoht Bluetoothi, WiFi või mobiilivõrgu kaudu</string>
+    <string name="pref_use_nlp">Määra kiiresti oma ligikaudne asukoht Bluetoothi, WiFi või mobiilivõrgu kaudu</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com hotellilingid</string>
     <!-- Preference description -->

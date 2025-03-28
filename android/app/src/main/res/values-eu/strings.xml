@@ -317,9 +317,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Eguneratu mapa</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Kokapen Zerbitzuak</string>
+    <string name="network_location_provider">Google Play Kokapen Zerbitzuak</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Zehaztu azkar zure gutxi gorabeherako kokapena Bluetooth, WiFi edo sare mugikorra erabiliz</string>
+    <string name="pref_use_nlp">Zehaztu azkar zure gutxi gorabeherako kokapena Bluetooth, WiFi edo sare mugikorra erabiliz</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com hotelen estekak</string>
     <!-- Preference description -->

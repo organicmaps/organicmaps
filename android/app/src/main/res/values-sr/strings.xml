@@ -307,9 +307,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Ажурирај мапу</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play прецизност локације</string>
+    <string name="network_location_provider">Google Play прецизност локације</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Брзо одређивање ваше локације коришћењем Bluetooth-а, WiFi-а, или мобилне мреже</string>
+    <string name="pref_use_nlp">Брзо одређивање ваше локације коришћењем Bluetooth-а, WiFi-а, или мобилне мреже</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Претрага хотела на Kayak.com</string>
     <!-- Preference description -->

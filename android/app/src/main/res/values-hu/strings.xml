@@ -309,9 +309,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Térkép frissítése</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play helymeghatározási szolgáltatások</string>
+    <string name="network_location_provider">Google Play helymeghatározási szolgáltatások</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
+    <string name="pref_use_nlp">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotel Linkek</string>
     <!-- Preference description -->

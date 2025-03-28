@@ -315,9 +315,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Päivitä kartta</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Sijaintipalvelut</string>
+    <string name="network_location_provider">Google Play Sijaintipalvelut</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Määritä nopeasti likimääräinen sijaintisi Bluetoothin, WiFin tai matkapuhelinverkon kautta</string>
+    <string name="pref_use_nlp">Määritä nopeasti likimääräinen sijaintisi Bluetoothin, WiFin tai matkapuhelinverkon kautta</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotel Linkit</string>
     <!-- Preference description -->

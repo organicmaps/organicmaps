@@ -325,9 +325,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">更新地图</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play 定位服务</string>
+    <string name="network_location_provider">Google Play 定位服务</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">通过蓝牙、WiFi 或移动网络快速确定您的大致位置</string>
+    <string name="pref_use_nlp">通过蓝牙、WiFi 或移动网络快速确定您的大致位置</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com 酒店链接</string>
     <!-- Preference description -->

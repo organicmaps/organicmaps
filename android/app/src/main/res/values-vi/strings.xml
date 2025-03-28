@@ -295,9 +295,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Cập nhật Bản đồ</string>
     <!-- Preference title -->
-    <string name="google_play_services">Dịch vụ vị trí của Google Play</string>
+    <string name="network_location_provider">Dịch vụ vị trí của Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Nhanh chóng xác định vị trí gần đúng của bạn bằng Bluetooth, WiFi hoặc mạng di động</string>
+    <string name="pref_use_nlp">Nhanh chóng xác định vị trí gần đúng của bạn bằng Bluetooth, WiFi hoặc mạng di động</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Liên kết khách sạn Kayak.com</string>
     <!-- Preference description -->

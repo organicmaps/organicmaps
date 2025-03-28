@@ -317,9 +317,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Ενημέρωση χάρτη</string>
     <!-- Preference title -->
-    <string name="google_play_services">Υπηρεσίες τοποθεσίας Google Play</string>
+    <string name="network_location_provider">Υπηρεσίες τοποθεσίας Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας</string>
+    <string name="pref_use_nlp">Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Σύνδεσμοι ξενοδοχείων</string>
     <!-- Preference description -->

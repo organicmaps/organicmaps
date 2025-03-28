@@ -310,9 +310,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualizar mapa</string>
     <!-- Preference title -->
-    <string name="google_play_services">Servicios de localización de Google Play</string>
+    <string name="network_location_provider">Servicios de localización de Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determina rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
+    <string name="pref_use_nlp">Determina rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Enlaces de hoteles de Kayak.com</string>
     <!-- Preference description -->

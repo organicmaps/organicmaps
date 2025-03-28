@@ -289,7 +289,7 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Atualizar mapa</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Determine rapidamente sua localização aproximada via Bluetooth, WiFi ou rede móvel</string>
+    <string name="pref_use_nlp">Determine rapidamente sua localização aproximada via Bluetooth, WiFi ou rede móvel</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Links de hotéis do Kayak.com</string>
     <!-- Preference description -->

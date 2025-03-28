@@ -316,9 +316,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Aktualizovať mapu</string>
     <!-- Preference title -->
-    <string name="google_play_services">Lokalizačné služby Google Play</string>
+    <string name="network_location_provider">Lokalizačné služby Google Play</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Rýchle určenie približnej polohy cez Bluetooth, WiFi alebo mobilnú sieť</string>
+    <string name="pref_use_nlp">Rýchle určenie približnej polohy cez Bluetooth, WiFi alebo mobilnú sieť</string>
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Hotel Odkazy</string>
     <!-- Preference description -->

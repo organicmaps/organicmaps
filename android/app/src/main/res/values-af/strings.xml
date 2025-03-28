@@ -307,9 +307,9 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Werk kaart by</string>
     <!-- Preference title -->
-    <string name="google_play_services">Google Play Liggingdienste</string>
+    <string name="network_location_provider">Google Play Liggingdienste</string>
     <!-- Preference text -->
-    <string name="pref_use_google_play">Bepaal vinnig jou benaderde ligging met behulp van Bluetooth, WiFi of mobiele netwerk</string>
+    <string name="pref_use_nlp">Bepaal vinnig jou benaderde ligging met behulp van Bluetooth, WiFi of mobiele netwerk</string>
     <!-- Preference description -->
     <string name="pref_display_kayak_text">Foto\'s, resensies, besprekingskakels word vertoon vir hotelle wat \'n lys op Kayak.com het. Die verwysingsbonus wat vir elke bespreking deur hierdie skakels ontvang word, gaan vir die ontwikkeling van Organic Maps.</string>
     <!-- Text for routing error dialog -->
