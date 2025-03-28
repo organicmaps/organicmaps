@@ -1,5 +1,6 @@
 enum SearchStyleSheet: String, CaseIterable {
   case searchHeader
+  case searchCancelButton
   case searchInstallButton = "SearchInstallButton"
   case searchBanner = "SearchBanner"
   case searchClosedBackground = "SearchClosedBackground"
@@ -102,6 +103,13 @@ extension SearchStyleSheet: IStyleSheet {
     case .searchCellAvailable:
       return .addFrom(GlobalStyleSheet.tableCell) { s in
         s.backgroundColor = colors.transparentGreen
+      }
+    case .searchCancelButton:
+      return .add { s in
+        s.fontColor = colors.whitePrimaryText
+        s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
+        s.font = fonts.regular17
+        s.backgroundColor = .clear
       }
     }
   }
