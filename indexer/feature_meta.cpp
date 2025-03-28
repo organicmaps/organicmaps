@@ -95,6 +95,10 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_CONTACT_VK;
   else if (k == "contact:line")
     outType = Metadata::FMD_CONTACT_LINE;
+  else if (k == "contact:mastodon")
+    outType = Metadata::FMD_CONTACT_FEDIVERSE;
+  else if (k == "contact:bluesky")
+    outType = Metadata::FMD_CONTACT_BLUESKY;
   else if (k == "internet_access" || k == "wifi")
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
@@ -264,6 +268,8 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CONTACT_TWITTER: return "contact:twitter";
   case Metadata::FMD_CONTACT_VK: return "contact:vk";
   case Metadata::FMD_CONTACT_LINE: return "contact:line";
+  case Metadata::FMD_CONTACT_FEDIVERSE: return "contact:mastodon";
+  case Metadata::FMD_CONTACT_BLUESKY: return "contact:bluesky";
   case Metadata::FMD_DESTINATION: return "destination";
   case Metadata::FMD_DESTINATION_REF: return "destination:ref";
   case Metadata::FMD_JUNCTION_REF: return "junction:ref";
