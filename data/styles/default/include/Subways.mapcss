@@ -601,6 +601,11 @@ node|z13-[railway=station][transport=subway][city=pyongyang] {icon-image: subway
 node|z15-[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-m.svg;}
 node|z16-[railway=subway_entrance][city=pyongyang] {icon-image: subway-pyongyang-s.svg;}
 
+/* Qingdao Subway Station */
+node|z13-[railway=station][transport=subway][city=qingdao] {icon-image: subway-qingdao-s.svg;}
+node|z15-[railway=station][transport=subway][city=qingdao] {icon-image: subway-qingdao-m.svg;}
+node|z16-[railway=subway_entrance][city=qingdao] {icon-image: subway-qingdao-s.svg;}
+
 /* Rennes Subway Station */
 node|z13-[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-s.svg;}
 node|z15-[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-m.svg;}

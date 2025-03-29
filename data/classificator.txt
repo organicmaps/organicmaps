@@ -1051,6 +1051,7 @@ world  +
                 paris  -
                 philadelphia  -
                 pyongyang  -
+                qingdao  -
                 rennes  -
                 rio  -
                 roma  -
@@ -1172,6 +1173,7 @@ world  +
             paris  -
             philadelphia  -
             pyongyang  -
+            qingdao  -
             rennes  -
             rio  -
             roma  -
