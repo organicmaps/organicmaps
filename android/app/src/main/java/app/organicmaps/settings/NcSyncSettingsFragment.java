@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
@@ -39,13 +40,6 @@ import java.util.Objects;
 
 public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
 {
-  private static final String PREF_SERVER_URL = "nextcloud_server_url";
-  private static final String PREF_CONNECT = "nextcloud_connect";
-  private static final String PREF_LOGOUT = "nextcloud_logout";
-  private static final String PREF_SYNC_OPTIONS = "category_nextcloud_sync_options";
-  private static final String PREF_SYNC_ENABLED = "nextcloud_sync_enabled";
-  private static final String PREF_PROGRESS = "nextcloud_progress";
-
   private static final int CONNECT_TIMEOUT_MS = 5_000;
   private static final long NC_LOGIN_URL_EXPIRATION_MS = 60 * 20_000;
   private static final long NC_AUTH_POLL_DELAY_MS = 5000;
@@ -61,6 +55,10 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
   private InitialV2LoginParams mLoginParams;
   private long lastAuthRequestTime = Long.MIN_VALUE;
 
+  @NonNull
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  private NextcloudPreferences prefs;
+
   @Override
   protected int getXmlResources()
   {
@@ -72,12 +70,13 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
   {
     super.onCreatePreferences(savedInstanceState, rootKey);
 
-    mServerUrlPreference = findPreference(PREF_SERVER_URL);
-    mConnectPreference = findPreference(PREF_CONNECT);
-    mLogoutPreference = findPreference(PREF_LOGOUT);
-    mSyncOptionsCategory = findPreference(PREF_SYNC_OPTIONS);
-    mSyncEnabledPreference = findPreference(PREF_SYNC_ENABLED);
-    mProgressPreference = findPreference(PREF_PROGRESS);
+    prefs = new NextcloudPreferences(requireContext());
+    mServerUrlPreference = findPreference(getString(R.string.pref_nextcloud_server_url));
+    mConnectPreference = findPreference(getString(R.string.pref_nextcloud_connect));
+    mLogoutPreference = findPreference(getString(R.string.pref_nextcloud_logout));
+    mSyncOptionsCategory = findPreference(getString(R.string.pref_category_nextcloud_sync_options));
+    mSyncEnabledPreference = findPreference(getString(R.string.pref_nextcloud_sync_enabled));
+    mProgressPreference = findPreference(getString(R.string.pref_nextcloud_progress));
     setConnectionInProgress(false);
 
     setupAuthStatusPolling();
@@ -138,7 +137,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
           String appPassword = Objects.requireNonNull(responseJson.getString("appPassword"));
 
           new Handler(Looper.getMainLooper()).post(() -> {
-            NextcloudPreferences.setAuthCredentials(requireContext(), server, loginName, appPassword);
+            prefs.setAuthCredentials(server, loginName, appPassword);
             Toast.makeText(requireContext(), "Logged in successfully as " + loginName, Toast.LENGTH_SHORT).show();
             updateUI();
           });
@@ -175,7 +174,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     if (mConnectPreference != null)
     {
       mConnectPreference.setOnPreferenceClickListener(preference -> {
-        if (NextcloudPreferences.isAuthenticated(requireContext()))
+        if (prefs.isAuthenticated())
         {
           showLogoutWarningDialog();
         }
@@ -190,7 +189,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     if (mLogoutPreference != null)
     {
       mLogoutPreference.setOnPreferenceClickListener(preference -> {
-        NextcloudPreferences.clearAuthCredentials(requireContext());
+        prefs.clearAuthCredentials();
         updateUI();
         // TODO also tell the server to destroy the token by calling DELETE on /ocs/v2.php/core/apppassword
         return true;
@@ -201,7 +200,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     {
       mSyncEnabledPreference.setOnPreferenceChangeListener((preference, newValue) -> {
         boolean enabled = (Boolean) newValue;
-        NextcloudPreferences.setSyncEnabled(requireContext(), enabled);
+        prefs.setSyncEnabled(enabled);
         return true;
       });
     }
@@ -214,8 +213,8 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
       return;
 
     String configuredUrl = mServerUrlPreference != null ? mServerUrlPreference.getText() : "";
-    String authenticatedUrl = NextcloudPreferences.getAuthenticatedServerUrl(context);
-    boolean isAuthenticated = NextcloudPreferences.isAuthenticated(context);
+    String authenticatedUrl = prefs.getAuthenticatedServerUrl();
+    boolean isAuthenticated = prefs.isAuthenticated();
 
     if (mConnectPreference != null)
     {
@@ -238,7 +237,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
       mLogoutPreference.setVisible(isAuthenticated);
       if (isAuthenticated)
       {
-        mLogoutPreference.setTitle("Logged in as " + NextcloudPreferences.getLoginName(requireContext()));
+        mLogoutPreference.setTitle("Logged in as " + prefs.getLoginName());
         mLogoutPreference.setSummary("Tap to log out of " + authenticatedUrl);
       }
     }

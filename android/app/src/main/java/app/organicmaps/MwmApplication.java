@@ -37,6 +37,7 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.settings.StoragePathManager;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.sync.nc.NextcloudSyncer;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.SharedPropertiesUtils;
@@ -240,6 +241,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
     IsolinesManager.from(this).initialize();
+    NextcloudSyncer.INSTANCE.initialize(this);
     ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
 
     Logger.i(TAG, "Framework initialized");
@@ -337,6 +339,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     nativeOnTransit(true);
 
     mLocationHelper.resumeLocationInForeground();
+
+    NextcloudSyncer.INSTANCE.resumeSync();
   }
 
   private void onBackground()
@@ -360,5 +364,7 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Stopping location in the background");
       mLocationHelper.stop();
     }
+
+    NextcloudSyncer.INSTANCE.pauseSync();
   }
 }

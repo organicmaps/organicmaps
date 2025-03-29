@@ -106,9 +106,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void updateNextcloudSettingsPrefSummary()
   {
     final Preference pref = getPreference(getString(R.string.pref_nextcloud_sync));
-    if (NextcloudPreferences.isAuthenticated(requireContext()))
+    NextcloudPreferences ncprefs = new NextcloudPreferences(requireContext());
+    if (ncprefs.isAuthenticated())
     {
-      pref.setSummary(NextcloudPreferences.getSyncEnabled(requireContext()) ? "Sync enabled" : "Sync disabled");
+      pref.setSummary(ncprefs.getSyncEnabled() ? "Sync enabled" : "Sync disabled");
     }
     else
       pref.setSummary("Not logged in");

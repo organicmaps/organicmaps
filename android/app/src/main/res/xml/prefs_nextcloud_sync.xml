@@ -4,23 +4,23 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <PreferenceCategory
-    android:key="category_nextcloud_auth"
+    android:key="@string/pref_nc_auth_category"
     android:order="1"
     android:title="Authentication">
 
   <app.organicmaps.widget.BetterEditTextPreference
-    android:key="nextcloud_server_url"
+    android:key="@string/pref_nextcloud_server_url"
     android:order="1"
     android:selectAllOnFocus="true"
     android:title="Set Server URL" />
 
   <Preference
-    android:key="nextcloud_connect"
+    android:key="@string/pref_nextcloud_connect"
     android:order="3"
     android:title="New Login" />
 
   <Preference
-    android:key="nextcloud_progress"
+    android:key="@string/pref_nextcloud_progress"
     android:layout="@layout/horizontal_progressbar"
     android:order="4"
     android:selectable="false"
@@ -28,20 +28,20 @@
     tools:visibility="visible" />
 
   <Preference
-    android:key="nextcloud_logout"
+    android:key="@string/pref_nextcloud_logout"
     android:order="5"
     android:title="Log Out" />
 
   </PreferenceCategory>
 
   <PreferenceCategory
-    android:key="category_nextcloud_sync_options"
+    android:key="@string/pref_category_nextcloud_sync_options"
     android:order="2"
     android:title="Sync Options">
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
-    android:key="nextcloud_sync_enabled"
+    android:key="@string/pref_nextcloud_sync_enabled"
     android:order="1"
     android:summary="Synchronize with Nextcloud"
     android:title="Enable Sync" />
