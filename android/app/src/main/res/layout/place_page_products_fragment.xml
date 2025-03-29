@@ -82,6 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_base"
         android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/products_prompt" />
 
     <TextView
