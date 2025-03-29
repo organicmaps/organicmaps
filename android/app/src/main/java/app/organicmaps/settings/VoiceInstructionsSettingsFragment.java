@@ -176,6 +176,11 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       return true;
     });
 
+    TtsPlayer.sOnReloadCallback = () -> {
+      Toast.makeText(requireContext(), "TTS engine reloaded", Toast.LENGTH_SHORT).show();
+      updateTts();
+    };
+
     initVolume();
     initTtsLangInfoLink();
     initSpeedCamerasPrefs();
