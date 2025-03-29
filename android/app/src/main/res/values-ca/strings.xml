@@ -186,7 +186,7 @@
     <!-- resource for context menu -->
     <string name="edit">Edita</string>
     <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">Encara no s\'ha pogut determinar la vostra geolocalització</string>
+    <string name="unknown_current_position">Encara no s’ha determinat la vostra ubicació</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">La configuració de l\'emmagatzematge del mapes està desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
@@ -528,7 +528,7 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
-    <string name="editor_osm_history">El teu historial d\'edició</string>
+    <string name="editor_osm_history">El vostre historial d’edicions</string>
     <string name="editor_osm_notes">Notes de les vostres dades del mapa</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -604,7 +604,7 @@
     <string name="mobile_data_option_ask">Demana-ho sempre</string>
     <string name="traffic_update_maps_text">Per a mostrar les dades de trànsit, els maps han d\'estar actualitzats.</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
-    <string name="traffic_update_app">Actualitzeu l\'Organic Maps</string>
+    <string name="traffic_update_app">Actualitzeu l’Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles</string>
     <string name="enable_logging">Activa el registre</string>
@@ -832,7 +832,7 @@
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Us heu connectat a Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Continua al telèfon</string>
+    <string name="car_continue_on_the_phone">Passa al telèfon</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">A la pantalla del cotxe</string>
     <!-- Ask user to grant location permissions -->
@@ -903,4 +903,7 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="matrix">[Matrix]</string>
 </resources>

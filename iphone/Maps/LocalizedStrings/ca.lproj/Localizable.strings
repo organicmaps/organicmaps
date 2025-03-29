@@ -169,7 +169,7 @@
 "edit" = "Edita";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Encara no s'ha pogut determinar la vostra geolocalització";
+"unknown_current_position" = "Encara no s’ha determinat la vostra ubicació";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Ep, mireu el meu marcador a l'Organic Maps!";
@@ -973,7 +973,7 @@
 "car_used_on_the_car_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del cotxe";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continua al telèfon";
+"car_continue_on_the_phone" = "Passa al telèfon";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "A la pantalla del cotxe";

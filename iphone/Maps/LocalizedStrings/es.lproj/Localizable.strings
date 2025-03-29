@@ -973,7 +973,7 @@
 "car_used_on_the_car_screen" = "Ahora usa Organic Maps en la pantalla del coche";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continuar en el teléfono";
+"car_continue_on_the_phone" = "Pasar al teléfono";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "A la pantalla del coche";

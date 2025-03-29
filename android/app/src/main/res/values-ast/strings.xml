@@ -144,4 +144,8 @@
     <string name="stop_without_saving">Parar ensin guardar</string>
     <string name="continue_recording">Siguir grabando</string>
     <string name="stop_track_recording">Parar grabación del trayeutu</string>
+    <string name="downloader_no_space_message">Desanicia los datos imprecisos</string>
+    <string name="editor_osm_history">El to historial d’ediciones</string>
+    <string name="m">m</string>
+    <string name="download_resources_continue">Dir al mapa</string>
 </resources>

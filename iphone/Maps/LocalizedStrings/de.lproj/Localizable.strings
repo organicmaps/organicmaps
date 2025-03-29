@@ -1058,7 +1058,7 @@
 "stop_track_recording" = "Aufnahme des Tracks stoppen";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Anhalten ohne zu speichern";
+"stop_without_saving" = "Ohne Speichern beenden";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "continue_recording" = "Aufnahme fortsetzen";

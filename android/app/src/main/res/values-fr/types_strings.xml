@@ -1307,4 +1307,7 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Salle de sport</string>
+    <string name="type.aeroway.terminal">Terminal</string>
+    <string name="type.power.pole">Pylône électrique</string>
+    <string name="type.man_made.utility_pole">Pylônes (Télécommunication, lampadaire)</string>
 </resources>

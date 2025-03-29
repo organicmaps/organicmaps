@@ -380,7 +380,7 @@
 "type.healthcare.blood_donation" = "Centro de donación de sangre";
 "type.healthcare.optometrist" = "Optometría";
 "type.healthcare.podiatrist" = "Podología";
-"type.healthcare.psychotherapist" = "Psicoterapia";
+"type.healthcare.psychotherapist" = "Psicoterapeuta";
 "type.healthcare.sample_collection" = "Muestreo";
 "type.healthcare.speech_therapist" = "Logopedia";
 "type.highway" = "Carretera";
@@ -795,7 +795,7 @@
 "type.natural.cape" = "Cabo";
 "type.natural.cave_entrance" = "Cueva";
 "type.natural.cliff" = "Acantilado";
-"type.natural.earth_bank" = "Acantilado";
+"type.natural.earth_bank" = "Talud de tierra";
 "type.man_made.embankment" = "Terraplén";
 "type.natural.coastline" = "Costa";
 "type.natural.desert" = "Desierto";
@@ -805,7 +805,7 @@
 "type.natural.heath" = "Brezal";
 "type.natural.hot_spring" = "Aguas termales";
 "type.natural.water.lake" = "Lago";
-"type.natural.water.lock" = "Cámara de bloqueo";
+"type.natural.water.lock" = "Esclusa";
 "type.natural.water.pond" = "Estanque";
 "type.natural.water.reservoir" = "Embalse";
 "type.natural.water.basin" = "Cuenca";

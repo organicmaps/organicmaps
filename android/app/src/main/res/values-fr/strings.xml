@@ -117,7 +117,6 @@
     <string name="measurement_units">Unités de mesure</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Choisir entre miles et kilomètres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Un endroit pour manger</string>
@@ -165,7 +164,6 @@
     <string name="category_water">Eau</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Aménagements pour camping-car</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -370,10 +368,9 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris-bleu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Lorsque vous suivez l\'itinéraire, gardez à l\'esprit les points suivants :</string>
-    <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation ;</string>
+    <string name="dialog_routing_disclaimer_priority">— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l\'appareil de navigation ;</string>
     <string name="dialog_routing_disclaimer_precision">— La carte peut être imprécise et l\'itinéraire proposé n\'est pas forcément le plus direct pour arriver à destination ;</string>
     <string name="dialog_routing_disclaimer_recommendations">— L\'itinéraire proposé doit être considéré comme une simple recommandation ;</string>
     <string name="dialog_routing_disclaimer_borders">— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l\'application peuvent parfois franchir des frontières étatiques dans des zones interdites ;</string>
@@ -400,7 +397,6 @@
     <string name="not_now">Pas maintenant</string>
     <string name="dialog_routing_download_and_build_cross_route">Voulez-vous télécharger la carte et créer un itinéraire plus direct s\'étendant sur plus d\'une carte ?</string>
     <string name="dialog_routing_download_cross_route">Téléchargez des cartes pour créer un itinéraire plus direct sortant des limites de cette carte.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n\'aurez plus besoin d\'une connexion Internet.</string>
     <string name="search_select_map">Sélectionner la carte</string>
@@ -543,7 +539,7 @@
     <string name="editor_osm_notes">Vos notes sur les données cartographiques</string>
     <string name="editor_operator">Opérateur</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Opérateur : %s</string>
+    <string name="operator">Opérateur : %s</string>
     <string name="editor_category_unsuitable_title">Tu ne trouves pas de catégorie appropriée ?</string>
     <string name="editor_category_unsuitable_text">Organic Maps ne permet d\'ajouter que des catégories de points simples, c\'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d\'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.</string>
     <string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
@@ -621,9 +617,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Feedback général</string>
     <string name="prefs_languages_information">Nous utilisons le système TTS pour les instructions vocales. De nombreux appareils Android utilisent Google TTS, vous pouvez le télécharger ou le mettre à jour depuis Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Galaxy Store, App Gallery, FDroid). Ouvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. Ici, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.</string>
+    <string name="prefs_languages_information_off">Pour certaines langues, il vous faudra installer un autre logiciel de synthèse vocale ou un pack de langue supplémentaire depuis l’app store (Google Play, Galaxy Store, App Gallery, FDroid). \nOuvrez les paramètres de votre appareil → Langue et saisie → Reconnaissance vocale → Saisie vocale. \nIci, vous pouvez gérer les paramètres pour la synthèse vocale (par exemple, télécharger un pack de langue pour une utilisation en mode hors ligne) et sélectionner un autre moteur de saisie vocale.</string>
     <string name="prefs_languages_information_off_link">Pour plus d’informations, veuillez consulter ce guide.</string>
-    <string name="transliteration_title">Translittération en latin</string>
+    <string name="transliteration_title">Translittératisé en alphabet latin</string>
     <string name="learn_more">En savoir plus</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Sortie</string>
@@ -638,7 +634,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
     <string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
-    <string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
     <string name="core_entrance">Entrée</string>
     <string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
@@ -756,7 +752,6 @@
     <string name="moreyear_ago_sorttype">Il y a plus d\'un an</string>
     <string name="near_me_sorttype">Près de moi</string>
     <string name="others_sorttype">Autres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Aliments</string>
     <string name="tourist_places">Choses à voir</string>
@@ -849,7 +844,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Cette application a besoin de ta permission</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps dans Android Auto a besoin d\'une autorisation de localisation pour fonctionner efficacement</string>
+    <string name="aa_request_permission_activity_text">Organic Maps dans Android Auto a besoin des permissions de localisation pour fonctionner efficacement</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Accorder l\'accès</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -900,4 +895,20 @@
     <string name="uri_open_location_failed">Aucune application installée ne permet d\'ouvrir l\'emplacement</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto dans la navigation</string>
+    <string name="telegram">Telegram</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="vk">VK</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="tts_info_link">https://organicmaps.app/fr/faq/voice/synth%C3%A8se-vocale-tts-sur-android/</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="navigation_stop_button">Stop</string>
 </resources>

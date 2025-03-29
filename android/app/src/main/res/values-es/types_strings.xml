@@ -368,7 +368,7 @@
     <string name="type.healthcare.blood_donation">Centro de donación de sangre</string>
     <string name="type.healthcare.optometrist">Optometría</string>
     <string name="type.healthcare.podiatrist">Podología</string>
-    <string name="type.healthcare.psychotherapist">Psicoterapia</string>
+    <string name="type.healthcare.psychotherapist">Psicoterapeuta</string>
     <string name="type.healthcare.sample_collection">Muestreo</string>
     <string name="type.healthcare.speech_therapist">Logopedia</string>
     <!-- SECTION: Types: Roads -->
@@ -708,7 +708,7 @@
     <string name="type.natural.cape">Cabo</string>
     <string name="type.natural.cave_entrance">Cueva</string>
     <string name="type.natural.cliff">Acantilado</string>
-    <string name="type.natural.earth_bank">Acantilado</string>
+    <string name="type.natural.earth_bank">Talud de tierra</string>
     <string name="type.man_made.embankment">Terraplén</string>
     <string name="type.natural.coastline">Costa</string>
     <string name="type.natural.desert">Desierto</string>
@@ -718,7 +718,7 @@
     <string name="type.natural.heath">Brezal</string>
     <string name="type.natural.hot_spring">Aguas termales</string>
     <string name="type.natural.water.lake">Lago</string>
-    <string name="type.natural.water.lock">Cámara de bloqueo</string>
+    <string name="type.natural.water.lock">Esclusa</string>
     <string name="type.natural.water.pond">Estanque</string>
     <string name="type.natural.water.reservoir">Embalse</string>
     <string name="type.natural.water.basin">Cuenca</string>

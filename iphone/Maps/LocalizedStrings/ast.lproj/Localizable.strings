@@ -82,3 +82,5 @@
 "kilometers_per_hour" = "km/h";
 "stop_without_saving" = "Parar ensin guardar";
 "location_services_disabled_header" = "Los servicios d’ubicación tán desactivaos";
+"downloader_no_space_message" = "Desanicia los datos imprecisos";
+"m" = "m";

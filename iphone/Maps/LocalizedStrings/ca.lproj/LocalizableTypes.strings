@@ -172,7 +172,7 @@
 "type.amenity.vending_machine" = "Màquina expenedora";
 "type.amenity.vending_machine.cigarettes" = "Dispensador de cigarrets";
 "type.amenity.vending_machine.coffee" = "Dispensador de cafè";
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Dispensador de preservatius";
 "type.amenity.vending_machine.drinks" = "Dispensador de begudes";
 "type.amenity.vending_machine.food" = "Dispensador d’aliments";
 "type.amenity.vending_machine.newspapers" = "Dispensador de periòdics";
@@ -215,7 +215,7 @@
 "type.boundary.administrative" = "Frontera administrativa";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Frontera nacional";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.3" = "Frontera regional";
@@ -274,7 +274,7 @@
 "type.cuisine.asian" = "Asiàtica";
 "type.cuisine.austrian" = "Austríaca";
 "type.cuisine.bagel" = "Bagel";
-"type.cuisine.balkan" = "Balkan";
+"type.cuisine.balkan" = "Balcànica";
 "type.cuisine.barbecue" = "Barbecue";
 "type.cuisine.bavarian" = "Bavarian";
 "type.cuisine.beef_bowl" = "Beef Bowl";
@@ -295,37 +295,37 @@
 "type.cuisine.diner" = "Diner";
 "type.cuisine.donut" = "Donut";
 "type.cuisine.ethiopian" = "Ethiopian";
-"type.cuisine.filipino" = "Filipino";
+"type.cuisine.filipino" = "Filipina";
 "type.cuisine.fine_dining" = "Fine Dining";
 "type.cuisine.fish" = "Fish";
 "type.cuisine.fish_and_chips" = "Fish and Chips";
-"type.cuisine.french" = "French";
+"type.cuisine.french" = "Francesa";
 "type.cuisine.friture" = "Friture";
-"type.cuisine.georgian" = "Georgian";
-"type.cuisine.german" = "German";
-"type.cuisine.greek" = "Greek";
-"type.cuisine.grill" = "Grill";
+"type.cuisine.georgian" = "Georgiana";
+"type.cuisine.german" = "Alemanya";
+"type.cuisine.greek" = "Grega";
+"type.cuisine.grill" = "Graellada";
 "type.cuisine.heuriger" = "Heuriger";
 "type.cuisine.hotdog" = "Hotdog";
-"type.cuisine.hungarian" = "Hungarian";
-"type.cuisine.ice_cream" = "Ice Cream";
-"type.cuisine.indian" = "Indian";
+"type.cuisine.hungarian" = "Hongaresa";
+"type.cuisine.ice_cream" = "Gelat";
+"type.cuisine.indian" = "Índia";
 "type.cuisine.indonesian" = "Indonesian";
 "type.cuisine.international" = "Internacional";
 "type.cuisine.irish" = "Irish";
 "type.cuisine.italian" = "Italian";
 "type.cuisine.italian_pizza" = "Italian, Pizza";
-"type.cuisine.japanese" = "Japanese";
+"type.cuisine.japanese" = "Japonesa";
 "type.cuisine.kebab" = "Kebab";
-"type.cuisine.korean" = "Korean";
-"type.cuisine.lao" = "Lao";
-"type.cuisine.lebanese" = "Lebanese";
+"type.cuisine.korean" = "Coreana";
+"type.cuisine.lao" = "Laosiana";
+"type.cuisine.lebanese" = "Libanesa";
 "type.cuisine.local" = "Local";
 "type.cuisine.malagasy" = "Malagasy";
 "type.cuisine.malaysian" = "Malaysian";
 "type.cuisine.mediterranean" = "Mediterranean";
 "type.cuisine.mexican" = "Mexicana";
-"type.cuisine.moroccan" = "Moroccan";
+"type.cuisine.moroccan" = "Marroquina";
 "type.cuisine.noodles" = "Fideus xinesos";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
@@ -333,11 +333,11 @@
 "type.cuisine.persian" = "Persian";
 "type.cuisine.peruvian" = "Peruvian";
 "type.cuisine.pizza" = "Pizza";
-"type.cuisine.polish" = "Polish";
-"type.cuisine.portuguese" = "Portuguese";
+"type.cuisine.polish" = "Polonesa";
+"type.cuisine.portuguese" = "Portuguesa";
 "type.cuisine.ramen" = "Ramen";
 "type.cuisine.regional" = "Regional";
-"type.cuisine.russian" = "Russian";
+"type.cuisine.russian" = "Rusa";
 "type.cuisine.sandwich" = "Sandwich";
 "type.cuisine.sausage" = "Sausage";
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
@@ -349,7 +349,7 @@
 "type.cuisine.tapas" = "Tapas";
 "type.cuisine.tea" = "Te";
 "type.cuisine.thai" = "Thai";
-"type.cuisine.turkish" = "Turkish";
+"type.cuisine.turkish" = "Turca";
 "type.cuisine.vegan" = "Vegan";
 "type.cuisine.vegetarian" = "Vegetarian";
 "type.cuisine.vietnamese" = "Vietnamese";
@@ -377,10 +377,10 @@
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
 "type.healthcare.alternative" = "Alternative Medicine";
 "type.healthcare.audiologist" = "Audiologist";
-"type.healthcare.blood_donation" = "Blood Donation Center";
+"type.healthcare.blood_donation" = "Centre de donació de sang";
 "type.healthcare.optometrist" = "Optometrist";
-"type.healthcare.podiatrist" = "Podiatrist";
-"type.healthcare.psychotherapist" = "Psychotherapist";
+"type.healthcare.podiatrist" = "Podòleg";
+"type.healthcare.psychotherapist" = "Psicoterapeuta";
 "type.healthcare.sample_collection" = "Sample Collection Centre";
 "type.healthcare.speech_therapist" = "Logopedics";
 "type.highway" = "Highway";
@@ -459,14 +459,14 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
-"type.highway.pedestrian" = "Pedestrian Street";
-"type.highway.pedestrian.area" = "Pedestrian Street";
+"type.highway.pedestrian" = "Carrer de vianants";
+"type.highway.pedestrian.area" = "Àrea de vianants";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Pedestrian Bridge";
+"type.highway.pedestrian.bridge" = "Pont de vianants";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Pedestrian Tunnel";
+"type.highway.pedestrian.tunnel" = "Túnel de vianants";
 "type.highway.primary" = "Carretera primària";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -678,11 +678,11 @@
 "type.landuse.education" = "Educational Facility";
 "type.landuse.farmland" = "Farmland";
 "type.landuse.farmyard" = "Farmyard";
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Camp";
 "type.landuse.flowerbed" = "Llit de flors";
 "type.landuse.forest" = "Bosc";
-"type.landuse.forest.coniferous" = "Coniferous Forest";
-"type.landuse.forest.deciduous" = "Deciduous Forest";
+"type.landuse.forest.coniferous" = "Bosc de coníferes";
+"type.landuse.forest.deciduous" = "Bosc de caducifòlies";
 "type.landuse.forest.mixed" = "Mixed-Leaf Forest";
 "type.landuse.garages" = "Garatges";
 "type.landuse.grass" = "Grass";
@@ -690,13 +690,13 @@
 "type.landuse.greenhouse_horticulture" = "Hivernacle";
 "type.landuse.industrial" = "Àrea industrial";
 "type.landuse.landfill" = "Abocador";
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Prat de dall";
 "type.landuse.military" = "Military Area";
-"type.landuse.orchard" = "Orchard";
+"type.landuse.orchard" = "Verger";
 "type.landuse.quarry" = "Pedrera";
 "type.landuse.railway" = "Railway Premises";
 "type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Reservoir";
+"type.landuse.reservoir" = "Embassament";
 "type.landuse.residential" = "Residential Area";
 "type.landuse.retail" = "Retail Area";
 "type.landuse.salt_pond" = "Salt Pond";
@@ -772,11 +772,11 @@
 "type.man_made.water_well" = "Pou d’aigua";
 "type.man_made.water_well.drinking_water_no" = "Pou d’aigua";
 "type.man_made.windmill" = "Molí de vent";
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Fàbrica";
 "type.mapswithme" = "mapswithme";
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
-"type.military.bunker" = "Bunker";
+"type.military.bunker" = "Búnquer";
 "type.mountain_pass" = "Mountain Pass";
 "type.natural" = "Nature";
 
@@ -794,40 +794,40 @@
 "type.natural.beach.gravel" = "Gravel Beach";
 "type.natural.cape" = "Cape";
 "type.natural.cave_entrance" = "Cave Entrance";
-"type.natural.cliff" = "Cliff";
-"type.natural.earth_bank" = "Earth Bank";
+"type.natural.cliff" = "Penya-segat";
+"type.natural.earth_bank" = "Talús de terra";
 "type.man_made.embankment" = "Terraplè";
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Costa";
 "type.natural.desert" = "Desert";
 "type.natural.geyser" = "Guèiser";
 "type.natural.glacier" = "Glacier";
-"type.natural.grassland" = "Grassland";
-"type.natural.heath" = "Heath";
+"type.natural.grassland" = "Herbassar";
+"type.natural.heath" = "Landa";
 "type.natural.hot_spring" = "Font termal";
 "type.natural.water.lake" = "Lake";
-"type.natural.water.lock" = "Lock Chamber";
-"type.natural.water.pond" = "Pond";
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.lock" = "Resclosa";
+"type.natural.water.pond" = "Estany";
+"type.natural.water.reservoir" = "Embassament";
 "type.natural.water.basin" = "Basin";
 "type.natural.water.river" = "Riu";
-"type.natural.land" = "Land";
-"type.natural.meadow" = "Meadow";
-"type.natural.orchard" = "Orchard";
+"type.natural.land" = "Terreny";
+"type.natural.meadow" = "Prat de dall";
+"type.natural.orchard" = "Verger";
 "type.natural.peak" = "Peak";
 "type.natural.saddle" = "Mountain Saddle";
 "type.natural.rock" = "Rock";
 "type.natural.scrub" = "Scrub";
 "type.natural.spring" = "Natural Spring";
 "type.natural.spring.drinking_water_no" = "Natural Spring";
-"type.natural.strait" = "Strait";
-"type.natural.tree_row" = "Tree Row";
-"type.natural.vineyard" = "Vineyard";
+"type.natural.strait" = "Estret";
+"type.natural.tree_row" = "Fila d’arbres";
+"type.natural.vineyard" = "Vinyar";
 "type.natural.volcano" = "Volcà";
 "type.natural.water" = "Aigua";
-"type.natural.wetland" = "Wetland";
-"type.natural.wetland.bog" = "Bog";
-"type.natural.wetland.marsh" = "Marsh";
-"type.noexit" = "Dead End";
+"type.natural.wetland" = "Zona humida";
+"type.natural.wetland.bog" = "Torbera";
+"type.natural.wetland.marsh" = "Aiguamoll";
+"type.noexit" = "Atzucac";
 "type.office" = "Office";
 "type.office.company" = "Company Office";
 "type.office.estate_agent" = "Estate Agent";
@@ -892,7 +892,7 @@
 "type.power.plant.solar" = "Central d'energia solar";
 "type.power.plant.wind" = "Central eòlica";
 "type.power.station" = "Power Station";
-"type.power.substation" = "Substation";
+"type.power.substation" = "Subestació";
 
 /* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Power Tower";
@@ -1333,18 +1333,18 @@
 "type.sport.archery" = "Archery";
 "type.sport.athletics" = "Atletisme";
 "type.sport.australian_football" = "Australian Football";
-"type.sport.baseball" = "Baseball";
-"type.sport.basketball" = "Basketball";
-"type.sport.beachvolleyball" = "Beach Volleyball";
+"type.sport.baseball" = "Beisbol";
+"type.sport.basketball" = "Basquetbol";
+"type.sport.beachvolleyball" = "Voleibol de platja";
 "type.sport.bowls" = "Bowls";
 "type.sport.chess" = "Escacs";
 "type.sport.cricket" = "Cricket";
 "type.sport.curling" = "Curling";
 "type.sport.equestrian" = "Esports eqüestres";
 "type.sport.golf" = "Golf";
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Gimnàstica";
 "type.sport.handball" = "Handball";
-"type.sport.multi" = "Various Sports";
+"type.sport.multi" = "Diversos esports";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Scuba Diving Site";
@@ -1474,7 +1474,7 @@
 "type.self_service.no" = "Sense autoservei";
 
 /* https://wiki.openstreetmap.org/wiki/Key:social_facility */
-"type.amenity.social_facility" = "Equipament Social";
+"type.amenity.social_facility" = "Servei social";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
 "type.emergency.emergency_ward_entrance" = "Entrada d'urgències";

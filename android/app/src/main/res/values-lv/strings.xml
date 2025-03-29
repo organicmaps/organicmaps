@@ -525,7 +525,7 @@
     <string name="operator">Operators: %s</string>
     <string name="editor_category_unsuitable_title">Vai neatrodat atbilstošu kategoriju?</string>
     <string name="editor_category_unsuitable_text">„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
-    <string name="downloader_no_downloaded_maps_title">Ierīcē nav lejupielādētas kartes</string>
+    <string name="downloader_no_downloaded_maps_title">Ierīcē nav lejupielādētu karšu</string>
     <string name="downloader_no_downloaded_maps_message">Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.</string>
     <string name="current_location_unknown_error_title">Pašreizējā vieta nav zināma.</string>
     <!-- abbreviation for meters -->
