@@ -415,6 +415,15 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeReloadBookmark(JNIEnv 
   frm()->GetBookmarkManager().ReloadBookmark(ToNativeString(env, filePath));
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteBmCategoryPermanently(JNIEnv * env, jclass, jstring filePath)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  auto const groupId = bm.GetCategoryByFileName(ToNativeString(env, filePath));
+  if (groupId)
+    bm.GetEditSession().DeleteBmCategory(groupId, true);
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsAsyncBookmarksLoadingInProgress(JNIEnv *, jclass)
 {

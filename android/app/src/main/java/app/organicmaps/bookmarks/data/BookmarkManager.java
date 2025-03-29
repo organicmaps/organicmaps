@@ -806,6 +806,8 @@ public enum BookmarkManager
 
   public static native void nativeReloadBookmark(@NonNull String filePath);
 
+  public static native void nativeDeleteBmCategoryPermanently(@NonNull String filePath);
+
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
   private static native boolean nativeIsUsedCategoryName(@NonNull String name);

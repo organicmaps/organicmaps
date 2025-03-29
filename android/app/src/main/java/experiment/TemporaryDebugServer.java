@@ -100,6 +100,17 @@ public class TemporaryDebugServer extends NanoHTTPD
 
       return newFixedLengthResponse("done!!");
     }
+    else if (session.getUri().startsWith("/callNativeDeleteBmCategoryPermanently"))
+    {
+      String fp = session.getParms().get("filePath");
+      if (fp == null)
+        fp = "null";
+      String filePath = fp;
+      android.util.Log.e("debugserver", "filePath: " + filePath);
+      new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> BookmarkManager.nativeDeleteBmCategoryPermanently(filePath));
+
+      return newFixedLengthResponse("done!!");
+    }
     else
     {
       return newFixedLengthResponse("unrecognized command :/");

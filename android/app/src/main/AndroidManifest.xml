@@ -67,6 +67,7 @@
       android:xlargeScreens="true"/>
 
   <!-- "android:resizeableActivity" allows free-form and split-screen modes -->
+  <!--  "android:usesCleartextTraffic" is only for the experimental nextcloud sync proof-of-concept -->
   <application
       android:name=".MwmApplication"
       android:allowBackup="true"
