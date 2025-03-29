@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
@@ -13,6 +14,8 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
@@ -25,6 +28,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 public class StoragePathManager
 {
@@ -242,6 +247,17 @@ public class StoragePathManager
   }
 
   /**
+   * Checks if READ_EXTERNAL_STORAGE permission is granted on Android 6
+   * @return true if permission is granted or not needed
+   */
+  public boolean isReadExternalStoragePermissionGranted() {
+    if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.M)
+      return ContextCompat.checkSelfPermission(mContext, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+    return true; // Permission not needed for other API levels
+  }
+
+  /**
    * Updates the list of available storages.
    */
   public void scanAvailableStorages() throws AssertionError
@@ -263,6 +279,12 @@ public class StoragePathManager
 
     File internalDir = mContext.getFilesDir();
     addStorageOption(internalDir, true, configPath);
+
+    if (isReadExternalStoragePermissionGranted()) {
+      File obbDir = mContext.getObbDir();
+      if (obbDir != null)
+        addStorageOption(obbDir, true, configPath);
+    }
 
     Logger.i(TAG, "End scanning storages");
 
