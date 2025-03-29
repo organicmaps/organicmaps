@@ -52,6 +52,7 @@ public:
 
   using BookmarksChangedCallback = std::function<void()>;
   using CategoriesChangedCallback = std::function<void()>;
+  using BookmarkFileChangedCallback = std::function<void(std::string)>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 
@@ -183,6 +184,7 @@ public:
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
   void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
+  void SetBookmarkFileChangedCallback(BookmarkFileChangedCallback && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
   bool AreSymbolSizesAcquired(OnSymbolSizesAcquiredCallback && callback);
@@ -740,6 +742,7 @@ private:
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
   CategoriesChangedCallback m_categoriesChangedCallback;
+  BookmarkFileChangedCallback m_bookmarkFileChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();

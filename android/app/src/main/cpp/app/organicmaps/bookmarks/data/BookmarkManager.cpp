@@ -34,6 +34,7 @@ jmethodID g_onElevationActivePointChangedMethod;
 jmethodID g_onElevationCurrentPositionChangedMethod;
 jclass g_bookmarkCategoryClass;
 jmethodID g_bookmarkCategoryConstructor;
+jmethodID g_onBookmarkFileChangedMethod;
 
 jclass g_sortedBlockClass;
 jmethodID g_sortedBlockConstructor;
@@ -69,6 +70,8 @@ void PrepareClassRefs(JNIEnv * env)
   g_onPreparedFileForSharingMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                      "(Lapp/organicmaps/bookmarks/data/BookmarkSharingResult;)V");
+  g_onBookmarkFileChangedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarkFileChanged", "(Ljava/lang/String;)V");
 
   g_longClass = jni::GetGlobalClassRef(env,"java/lang/Long");
   g_longConstructor = jni::GetConstructorID(env, g_longClass, "(J)V");
@@ -156,6 +159,15 @@ void OnAsyncLoadingFinished(JNIEnv * env)
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFinishedMethod);
+  jni::HandleJavaException(env);
+}
+
+void OnBookmarkFileChanged(JNIEnv * env, std::string const & filePath)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarkFileChangedMethod, jni::ToJavaString(env, filePath));
   jni::HandleJavaException(env);
 }
 
@@ -322,6 +334,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv *
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
+  frm()->GetBookmarkManager().SetBookmarkFileChangedCallback(std::bind(&OnBookmarkFileChanged, env, _1));
 
   frm()->LoadBookmarks();
 }
@@ -341,6 +354,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
 {
   auto const categoryId = static_cast<kml::MarkGroupId>(catId);
   // `permanently` should be set to false when the Recently Deleted Lists feature be implemented
+  //                                           When that happens, the corresponding sync callback should also be updated.
   return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId, true /* permanently */));
 }
 
@@ -422,6 +436,14 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeDeleteBmCategoryPerman
   auto const groupId = bm.GetCategoryByFileName(ToNativeString(env, filePath));
   if (groupId)
     bm.GetEditSession().DeleteBmCategory(groupId, true);
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetCategoryFilePath(JNIEnv * env, jobject, jlong catId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  auto const filePath = bm.GetCategoryFileName(static_cast<kml::MarkGroupId>(catId));
+  return jni::ToJavaString(env, filePath);
 }
 
 JNIEXPORT jboolean JNICALL

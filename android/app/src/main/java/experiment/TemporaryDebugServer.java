@@ -77,19 +77,7 @@ public class TemporaryDebugServer extends NanoHTTPD
   @Override
   public Response serve(IHTTPSession session)
   {
-    if (session.getUri().startsWith("/callOnBookmarksChanged"))
-    {
-      new android.os.Handler(android.os.Looper.getMainLooper()).post(BookmarkManager.INSTANCE::onBookmarksChanged);
-
-      return newFixedLengthResponse("done!!");
-    }
-    else if (session.getUri().startsWith("/callNativeLoadBookmarks"))
-    {
-      new android.os.Handler(android.os.Looper.getMainLooper()).post(BookmarkManager::loadBookmarks);
-
-      return newFixedLengthResponse("done!!");
-    }
-    else if (session.getUri().startsWith("/callNativeReloadBookmark"))
+    if (session.getUri().startsWith("/callNativeReloadBookmark"))
     {
       String fp = session.getParms().get("filePath");
       if (fp == null)

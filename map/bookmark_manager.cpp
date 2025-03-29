@@ -1867,6 +1867,11 @@ void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callback
   m_asyncLoadingCallbacks = std::move(callbacks);
 }
 
+void BookmarkManager::SetBookmarkFileChangedCallback(BookmarkFileChangedCallback && callback)
+{
+  m_bookmarkFileChangedCallback = std::move(callback);
+}
+
 bool BookmarkManager::AreSymbolSizesAcquired(
     BookmarkManager::OnSymbolSizesAcquiredCallback && callback)
 {
@@ -2409,6 +2414,15 @@ void BookmarkManager::NotifyBookmarksChanged()
 {
   if (m_bookmarksChangedCallback != nullptr)
     m_bookmarksChangedCallback();
+
+  if (m_loadBookmarksFinished && m_bookmarkFileChangedCallback != nullptr)
+  {
+    for (auto const gId : m_changesTracker.GetUpdatedGroupIds())
+    {
+      if (IsBookmarkCategory(gId))
+        m_bookmarkFileChangedCallback(GetCategoryFileName(gId));
+    }
+  }
 }
 
 void BookmarkManager::NotifyCategoriesChanged()

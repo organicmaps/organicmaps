@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.Framework;
 import app.organicmaps.bookmarks.DataChangedListener;
+import app.organicmaps.sync.nc.NextcloudSyncer;
 import app.organicmaps.util.KeyValue;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -153,8 +154,16 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksChanged()
   {
-    android.util.Log.e("pocstuff", "onBookmarksChanged called");
     updateCache();
+  }
+
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onBookmarkFileChanged(@NonNull String filePath)
+  {
+    NextcloudSyncer.INSTANCE.onLocalChange(filePath);
   }
 
   // Called from JNI.
@@ -163,7 +172,6 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingStarted()
   {
-    android.util.Log.e("pocstuff", "onBookmarksLoadingStarted called"); // called on first start, and upon loading bookmarks from files
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksLoadingStarted();
   }
@@ -174,7 +182,6 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksLoadingFinished()
   {
-    android.util.Log.e("pocstuff", "onBookmarksLoadingFinished called"); // called after the previous method (but not immediately after it; it is immediately preceded by omBookmarksChanged)
     updateCache();
     mCurrentDataProvider = new CacheBookmarkCategoriesDataProvider();
     for (BookmarksLoadingListener listener : mListeners)
@@ -187,7 +194,6 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
   {
-    android.util.Log.e("pocstuff", "onBookmarksSortingCompleted called");
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCompleted(sortedBlocks, timestamp);
   }
@@ -198,7 +204,6 @@ public enum BookmarkManager
   @MainThread
   public void onBookmarksSortingCancelled(long timestamp)
   {
-    android.util.Log.e("pocstuff", "onBookmarksSortingCancelled called");
     for (BookmarksSortingListener listener : mSortingListeners)
       listener.onBookmarksSortingCancelled(timestamp);
   }
@@ -210,7 +215,6 @@ public enum BookmarkManager
   public void onBookmarksFileLoaded(boolean success, @NonNull String fileName,
                                     boolean isTemporaryFile)
   {
-    android.util.Log.e("pocstuff", "onBookmarksFileLoaded called");
     // Android could create temporary file with bookmarks in some cases (KML/KMZ file is a blob
     // in the intent, so we have to create a temporary file on the disk). Here we can delete it.
     if (isTemporaryFile)
@@ -237,7 +241,6 @@ public enum BookmarkManager
   @MainThread
   public void onPreparedFileForSharing(BookmarkSharingResult result)
   {
-    android.util.Log.e("pocstuff", "onPreparedFileForSharing called"); // called when "exporting all bookmarks and tracks"
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
   }
@@ -248,7 +251,6 @@ public enum BookmarkManager
   @MainThread
   public void onElevationCurrentPositionChanged()
   {
-    android.util.Log.e("pocstuff", "onElevationCurrentPositionChanged called");
     if (mOnElevationCurrentPositionChangedListener != null)
       mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
   }
@@ -269,7 +271,6 @@ public enum BookmarkManager
   @MainThread
   public void onElevationActivePointChanged()
   {
-    android.util.Log.e("pocstuff", "onElevationActivePointChanged called");
     if (mOnElevationActivePointChangedListener != null)
       mOnElevationActivePointChangedListener.onElevationActivePointChanged();
   }
@@ -324,7 +325,11 @@ public enum BookmarkManager
 
   public static void loadBookmarks() { nativeLoadBookmarks(); }
 
-  public void deleteCategory(long catId) { nativeDeleteCategory(catId); }
+  public void deleteCategory(long catId) {
+    String deletionPath = nativeGetCategoryFilePath(catId);
+    nativeDeleteCategory(catId);
+    NextcloudSyncer.INSTANCE.onLocalChange(deletionPath);
+  }
 
   public void deleteTrack(long trackId)
   {
@@ -807,6 +812,8 @@ public enum BookmarkManager
   public static native void nativeReloadBookmark(@NonNull String filePath);
 
   public static native void nativeDeleteBmCategoryPermanently(@NonNull String filePath);
+
+  public static native String nativeGetCategoryFilePath(long catId);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 

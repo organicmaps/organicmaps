@@ -41,7 +41,7 @@ buildscript {
 repositories {
   google()
   mavenCentral()
-  maven { url 'https://www.jitpack.io' } // MPAndroidChart
+  maven { url 'https://www.jitpack.io' } // MPAndroidChart, sardine-android
 }
 
 apply plugin: 'com.android.application'
@@ -413,6 +413,9 @@ dependencies {
   implementation 'com.google.guava:guava:33.3.0-android'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
+
+  // dependencies added in sync proof-of-concept
+  implementation 'com.github.thegrizzlylabs:sardine-android:0.9'
 
   // Test Dependencies
   androidTestImplementation 'androidx.test.ext:junit:1.2.1'
