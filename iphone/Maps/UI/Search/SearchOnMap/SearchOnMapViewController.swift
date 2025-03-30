@@ -2,6 +2,7 @@ protocol SearchOnMapView: AnyObject {
   var scrollViewDelegate: SearchOnMapScrollViewDelegate? { get set }
 
   func render(_ viewModel: SearchOnMap.ViewModel)
+  func close()
 }
 
 @objc
@@ -15,16 +16,13 @@ final class SearchOnMapViewController: UIViewController {
   typealias SearchText = SearchOnMap.SearchText
 
   fileprivate enum Constants {
-    static let categoriesHeight: CGFloat = 100
-    static let filtersHeight: CGFloat = 50
-    static let keyboardAnimationDuration: CGFloat = 0.3
-    static let cancelButtonInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 8)
     static let estimatedRowHeight: CGFloat = 80
   }
 
-  let interactor: SearchOnMapInteractor
+  var interactor: SearchOnMapInteractor?
+  var modalPresentationController: SearchOnMapPresentationController?
   weak var scrollViewDelegate: SearchOnMapScrollViewDelegate?
-
+  
   private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - UI Elements
@@ -32,21 +30,16 @@ final class SearchOnMapViewController: UIViewController {
   private let containerView = UIView()
   private let resultsTableView = UITableView()
   private let historyAndCategoryTabViewController = SearchTabViewController()
-  // TODO: implement filters
-  private let filtersCollectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    return UICollectionView(frame: .zero, collectionViewLayout: layout)
-  }()
   private var searchingActivityView = PlaceholderView(hasActivityIndicator: true)
   private var containerModalYTranslation: CGFloat = 0
   private var searchNoResultsView = PlaceholderView(title: L("search_not_found"),
                                                     subtitle: L("search_not_found_query"))
 
   // MARK: - Init
-  init(interactor: SearchOnMapInteractor) {
-    self.interactor = interactor
+  init(presentationController: SearchOnMapPresentationController?) {
+    self.modalPresentationController = presentationController
     super.init(nibName: nil, bundle: nil)
+    modalPresentationController?.setViewController(self)
   }
 
   @available(*, unavailable)
@@ -54,21 +47,22 @@ final class SearchOnMapViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  deinit {
-    NotificationCenter.default.removeObserver(self)
-  }
-
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
     layoutViews()
-    interactor.handle(.openSearch)
+    modalPresentationController?.show()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     headerView.setIsSearching(false)
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    modalPresentationController?.traitCollectionDidChange(traitCollection)
   }
 
   // MARK: - Private methods
@@ -80,7 +74,6 @@ final class SearchOnMapViewController: UIViewController {
     setupResultsTableView()
     setupHistoryAndCategoryTabView()
     setupResultsTableView()
-    setupFiltersCollectionView()
   }
 
   private func setupTapGestureRecognizer() {
@@ -110,12 +103,6 @@ final class SearchOnMapViewController: UIViewController {
 
   private func setupHistoryAndCategoryTabView() {
     historyAndCategoryTabViewController.delegate = self
-  }
-
-  // TODO: (KK) Implement filters collection viewe
-  private func setupFiltersCollectionView() {
-    filtersCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "FilterCell")
-    filtersCollectionView.dataSource = self
   }
 
   private func layoutViews() {
@@ -261,6 +248,16 @@ extension SearchOnMapViewController: SearchOnMapView {
     if let searchingText = viewModel.searchingText {
       replaceSearchText(with: searchingText)
     }
+    modalPresentationController?.setPresentationStep(viewModel.presentationStep)
+  }
+
+  func close() {
+    headerView.setIsSearching(false)
+    guard let modalPresentationController else {
+      dismiss(animated: true)
+      return
+    }
+    modalPresentationController.close()
   }
 }
 
@@ -303,12 +300,12 @@ extension SearchOnMapViewController: UITableViewDataSource {
 extension SearchOnMapViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = searchResults[indexPath.row]
-    interactor.handle(.didSelectResult(result, withSearchText: headerView.searchText))
+    interactor?.handle(.didSelectResult(result, withSearchText: headerView.searchText))
     tableView.deselectRow(at: indexPath, animated: true)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    interactor.handle(.didStartDraggingSearch)
+    interactor?.handle(.didStartDraggingSearch)
   }
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -332,31 +329,31 @@ extension SearchOnMapViewController: UICollectionViewDataSource {
 // MARK: - SearchOnMapHeaderViewDelegate
 extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    interactor.handle(.didStartTyping)
+    interactor?.handle(.didStartTyping)
   }
 
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     guard !searchText.isEmpty else {
-      interactor.handle(.clearButtonDidTap)
+      interactor?.handle(.clearButtonDidTap)
       return
     }
-    interactor.handle(.didType(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
+    interactor?.handle(.didType(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-    interactor.handle(.searchButtonDidTap(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
+    interactor?.handle(.searchButtonDidTap(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
   }
 
   func cancelButtonDidTap() {
-    interactor.handle(.closeSearch)
+    interactor?.handle(.closeSearch)
   }
 }
 
 // MARK: - SearchTabViewControllerDelegate
 extension SearchOnMapViewController: SearchTabViewControllerDelegate {
   func searchTabController(_ viewController: SearchTabViewController, didSearch text: String, withCategory: Bool) {
-    interactor.handle(.didSelectText(SearchText(text, locale: nil), isCategory: withCategory))
+    interactor?.handle(.didSelectText(SearchText(text, locale: nil), isCategory: withCategory))
   }
 }
 
