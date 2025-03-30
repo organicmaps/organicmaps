@@ -71,7 +71,7 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                      "(Lapp/organicmaps/bookmarks/data/BookmarkSharingResult;)V");
   g_onBookmarkFileChangedMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarkFileChanged", "(Ljava/lang/String;)V");
+    jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarkFileChanged", "(Ljava/lang/String;Z)V");
 
   g_longClass = jni::GetGlobalClassRef(env,"java/lang/Long");
   g_longConstructor = jni::GetConstructorID(env, g_longClass, "(J)V");
@@ -162,12 +162,13 @@ void OnAsyncLoadingFinished(JNIEnv * env)
   jni::HandleJavaException(env);
 }
 
-void OnBookmarkFileChanged(JNIEnv * env, std::string const & filePath)
+void OnBookmarkFileChanged(JNIEnv * env, std::string const & filePath, bool initialLoadingFinished)
 {
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarkFileChangedMethod, jni::ToJavaString(env, filePath));
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarkFileChangedMethod, jni::ToJavaString(env, filePath),
+                      initialLoadingFinished ? JNI_TRUE : JNI_FALSE);
   jni::HandleJavaException(env);
 }
 
@@ -334,7 +335,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv *
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
-  frm()->GetBookmarkManager().SetBookmarkFileChangedCallback(std::bind(&OnBookmarkFileChanged, env, _1));
+  frm()->GetBookmarkManager().SetBookmarkFileChangedCallback(std::bind(&OnBookmarkFileChanged, env, _1, _2));
 
   frm()->LoadBookmarks();
 }

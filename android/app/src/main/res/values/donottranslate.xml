@@ -42,6 +42,7 @@
   <string name="pref_show_on_lock_screen" translatable="false">ShowOnLockScreen</string>
   <string name="pref_map_locale" translatable="false">MapLanguage</string>
   <string name="pref_nc_sync_filename" translatable="false">NextcloudSyncPrefs</string>
+  <string name="pref_nc_etags_filename" translatable="false">NextcloudEtagPrefs</string>
   <string name="pref_nextcloud_sync" translatable="false">NextcloudSync</string>
   <string name="pref_nc_auth_category" translatable="false">category_nextcloud_auth</string>
   <string name="pref_nextcloud_sync_enabled" translatable="false">nextcloud_sync_enabled</string>

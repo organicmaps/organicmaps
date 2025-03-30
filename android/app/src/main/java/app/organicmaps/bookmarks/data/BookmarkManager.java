@@ -161,9 +161,10 @@ public enum BookmarkManager
   @Keep
   @SuppressWarnings("unused")
   @MainThread
-  public void onBookmarkFileChanged(@NonNull String filePath)
+  public void onBookmarkFileChanged(@NonNull String filePath, boolean initialLoadingFinished)
   {
-    NextcloudSyncer.INSTANCE.onLocalChange(filePath);
+    if (!filePath.isEmpty())
+      NextcloudSyncer.INSTANCE.notifyFileChanged(filePath, initialLoadingFinished);
   }
 
   // Called from JNI.
@@ -328,7 +329,8 @@ public enum BookmarkManager
   public void deleteCategory(long catId) {
     String deletionPath = nativeGetCategoryFilePath(catId);
     nativeDeleteCategory(catId);
-    NextcloudSyncer.INSTANCE.onLocalChange(deletionPath);
+    if (!deletionPath.isEmpty())
+      NextcloudSyncer.INSTANCE.notifyFileDeleted(deletionPath);
   }
 
   public void deleteTrack(long trackId)

@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -241,7 +242,9 @@ public class MwmApplication extends Application implements Application.ActivityL
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
     IsolinesManager.from(this).initialize();
-    NextcloudSyncer.INSTANCE.initialize(this);
+    NextcloudSyncer.INSTANCE.initialize(this, ()-> {
+      Toast.makeText(this, "Nextcloud Auth Expired. Please login again", Toast.LENGTH_LONG).show();
+    });
     ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
 
     Logger.i(TAG, "Framework initialized");

@@ -2415,12 +2415,12 @@ void BookmarkManager::NotifyBookmarksChanged()
   if (m_bookmarksChangedCallback != nullptr)
     m_bookmarksChangedCallback();
 
-  if (m_loadBookmarksFinished && m_bookmarkFileChangedCallback != nullptr)
+  if (m_bookmarkFileChangedCallback != nullptr)
   {
     for (auto const gId : m_changesTracker.GetUpdatedGroupIds())
     {
       if (IsBookmarkCategory(gId))
-        m_bookmarkFileChangedCallback(GetCategoryFileName(gId));
+        m_bookmarkFileChangedCallback(GetCategoryFileName(gId), m_loadBookmarksFinished);
     }
   }
 }

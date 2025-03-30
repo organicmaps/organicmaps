@@ -2,6 +2,9 @@ package experiment;
 
 import android.annotation.SuppressLint;
 
+import app.organicmaps.util.log.Logger;
+import okhttp3.OkHttpClient;
+
 import javax.net.ssl.*;
 
 import java.io.*;
@@ -22,7 +25,7 @@ public class InsecureHttpsHelper
   {
     public X509Certificate[] getAcceptedIssuers()
     {
-      return null;
+      return new X509Certificate[]{};
     }
 
     public void checkClientTrusted(X509Certificate[] certs, String authType)
@@ -68,5 +71,22 @@ public class InsecureHttpsHelper
     {
       return (HttpURLConnection) url.openConnection();
     }
+  }
+
+  /**
+   * @return an insecure OkHttpClient that bypasses certificate validation
+   */
+  public static OkHttpClient createInsecureOkHttpClient()
+  {
+    OkHttpClient.Builder newBuilder = new OkHttpClient.Builder();
+    try
+    {
+      newBuilder.sslSocketFactory(createInsecureSSLContext().getSocketFactory(), (X509TrustManager) INSECURE_TRUST_MANAGERS[0]);
+      newBuilder.hostnameVerifier((hostname, session) -> true);
+    } catch (NoSuchAlgorithmException|KeyManagementException e)
+    {
+      Logger.e(InsecureHttpsHelper.class.getSimpleName(), "Unable to create an insecure OkHttp client. Falling back to default client", e);
+    }
+    return newBuilder.build();
   }
 }

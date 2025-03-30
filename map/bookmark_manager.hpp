@@ -52,7 +52,7 @@ public:
 
   using BookmarksChangedCallback = std::function<void()>;
   using CategoriesChangedCallback = std::function<void()>;
-  using BookmarkFileChangedCallback = std::function<void(std::string)>;
+  using BookmarkFileChangedCallback = std::function<void(std::string const &, bool)>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 

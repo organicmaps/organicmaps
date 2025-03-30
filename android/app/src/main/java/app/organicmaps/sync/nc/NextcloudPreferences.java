@@ -3,12 +3,11 @@ package app.organicmaps.sync.nc;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.R;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public final class NextcloudPreferences
@@ -18,15 +17,16 @@ public final class NextcloudPreferences
   private static final String PREF_APP_PASSWORD = "app_password";
   private static final String PREF_SYNC_ENABLED = "sync_enabled";
 
-//  private static final String PREF_SYNC_INITIALIZED = "sync_initialized";  // this is set to false by default and also every time the user logs out
+  //  private static final String PREF_SYNC_INITIALIZED = "sync_initialized";  // this is set to false by default and also every time the user logs out
   private static final String PREF_CHANGED_FILES = "changed_files";
-  // ETag preference keys follow the format ":${/file/path}" (e.g. ":/data/user/0/app.organicmaps.debug/files/bookmarks/My List.kml"
 
   private final SharedPreferences prefs;
+  private final SharedPreferences fileETagPrefs;
 
   public NextcloudPreferences(Context context)
   {
-    prefs = context.getSharedPreferences(context.getString(R.string.pref_nc_sync_filename),Context.MODE_PRIVATE);
+    prefs = context.getSharedPreferences(context.getString(R.string.pref_nc_sync_filename), Context.MODE_PRIVATE);
+    fileETagPrefs = context.getSharedPreferences(context.getString(R.string.pref_nc_etags_filename), Context.MODE_PRIVATE);
   }
 
   public boolean isAuthenticated()
@@ -35,9 +35,7 @@ public final class NextcloudPreferences
     String loginName = prefs.getString(PREF_LOGIN_NAME, null);
     String appPassword = prefs.getString(PREF_APP_PASSWORD, null);
 
-    return serverUrl != null && !serverUrl.isEmpty()
-        && loginName != null && !loginName.isEmpty()
-        && appPassword != null && !appPassword.isEmpty();
+    return serverUrl != null && !serverUrl.isEmpty() && loginName != null && !loginName.isEmpty() && appPassword != null && !appPassword.isEmpty();
   }
 
   public void setAuthCredentials(String serverUrl, String loginName, String appPassword)
@@ -49,8 +47,12 @@ public final class NextcloudPreferences
     editor.apply();
   }
 
+  /**
+   * The only function that should be called to perform logout.
+   */
   public void clearAuthCredentials()
   {
+    setSyncEnabled(false);
     SharedPreferences.Editor editor = prefs.edit();
     editor.remove(PREF_AUTHENTICATED_SERVER_URL);
     editor.remove(PREF_LOGIN_NAME);
@@ -59,16 +61,16 @@ public final class NextcloudPreferences
     NextcloudSyncer.INSTANCE.onLogout();
   }
 
-//  public boolean getSyncInitialized()
-//  {
-//    return prefs.getBoolean(PREF_SYNC_INITIALIZED, false);
-//  }
-//
-//  public void setSyncInitialized(boolean isInitialized)
-//  {
-//    SharedPreferences.Editor editor = prefs.edit();
-//    editor.putBoolean(PREF_SYNC_INITIALIZED, isInitialized);
-//  }
+  //  public boolean getSyncInitialized()
+  //  {
+  //    return prefs.getBoolean(PREF_SYNC_INITIALIZED, false);
+  //  }
+  //
+  //  public void setSyncInitialized(boolean isInitialized)
+  //  {
+  //    SharedPreferences.Editor editor = prefs.edit();
+  //    editor.putBoolean(PREF_SYNC_INITIALIZED, isInitialized);
+  //  }
 
   public String getAuthenticatedServerUrl()
   {
@@ -85,6 +87,11 @@ public final class NextcloudPreferences
     return prefs.getString(PREF_APP_PASSWORD, null);
   }
 
+  public boolean getSyncEnabled()
+  {
+    return prefs.getBoolean(PREF_SYNC_ENABLED, false);
+  }
+
   public void setSyncEnabled(boolean enabled)
   {
     SharedPreferences.Editor editor = prefs.edit();
@@ -94,11 +101,6 @@ public final class NextcloudPreferences
       NextcloudSyncer.INSTANCE.resumeSync();
     else
       NextcloudSyncer.INSTANCE.pauseSync();
-  }
-
-  public boolean getSyncEnabled()
-  {
-    return prefs.getBoolean(PREF_SYNC_ENABLED, false);
   }
 
   @Nullable
@@ -112,5 +114,35 @@ public final class NextcloudPreferences
     SharedPreferences.Editor editor = prefs.edit();
     editor.putStringSet(PREF_CHANGED_FILES, changedFilepaths);
     editor.apply();
+  }
+
+  public void clearFileETags()
+  {
+    fileETagPrefs.edit().clear().apply();
+  }
+
+  /**
+   * Shortens the file path into a pref key (this implementation can't be (easily?) changed once (if ever) released into production)
+   */
+  private String getPrefKeyFromFilePath(String filepath)
+  {
+    String[] splitPath = filepath.split("/");
+    return splitPath[splitPath.length - 1];
+  }
+
+  public void setFileETag(String filepath, @NonNull String eTag)
+  {
+    fileETagPrefs.edit().putString(getPrefKeyFromFilePath(filepath), eTag).apply();
+  }
+
+  public void removeFileETag(String filepath)
+  {
+    fileETagPrefs.edit().remove(getPrefKeyFromFilePath(filepath)).apply();
+  }
+
+  @Nullable
+  public String getFileETag(String filepath)
+  {
+    return fileETagPrefs.getString(getPrefKeyFromFilePath(filepath), null);
   }
 }
