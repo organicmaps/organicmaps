@@ -25,10 +25,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
 
 public enum NextcloudSyncer
 {
@@ -37,13 +37,15 @@ public enum NextcloudSyncer
   private static final String TAG = NextcloudSyncer.class.getSimpleName();
   private static final long SYNC_DELAY_MS = 10_000; // TODO implement exponential backoff maybe?
 
-  final PollHelper mPollHelper;
+  private final PollHelper mPollHelper;
+  private final Handler mHandler;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private NextcloudPreferences ncprefs;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private CopyOnWriteArraySet<String> changedFilesSet; // thread-safe, persistent
+  private HashSet<String> externallyChangedFiles = new HashSet<>();
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private String deviceName;
@@ -61,7 +63,8 @@ public enum NextcloudSyncer
   {
     HandlerThread handlerThread = new HandlerThread("NcSyncerThread");
     handlerThread.start();
-    mPollHelper = new PollHelper(SYNC_DELAY_MS, new Handler(handlerThread.getLooper()), this::performSync);
+    mHandler = new Handler(handlerThread.getLooper());
+    mPollHelper = new PollHelper(SYNC_DELAY_MS, mHandler, this::performSync);
   }
 
   private void saveChangedFiles()
@@ -115,6 +118,8 @@ public enum NextcloudSyncer
     boolean syncRemoteFilesNeeded = false;
     if (!changedFilesSet.isEmpty())
     {     // there are local changes, so begin the upload process
+      if (!mDavClient.attainLock())
+        return false;
       ArrayList<String> pendingLocalFiles = new ArrayList<>(changedFilesSet);
       for (String localFile : pendingLocalFiles)
       {
@@ -126,6 +131,7 @@ public enum NextcloudSyncer
         } catch (Exception e)
         {
           Logger.e(TAG, "Error syncing local file to the server. Halting sync", e);
+          mDavClient.releaseLock();
           return false;
         }
       }
@@ -141,14 +147,29 @@ public enum NextcloudSyncer
     {
       try
       {
+        if (!mDavClient.attainLock())
+          return false;
         syncRemoteFiles();
       } catch (Exception e)
       {
         Logger.e(TAG, "Error syncing remote files with the client. Halting sync", e);
+        mDavClient.releaseLock();
         return false;
       }
     }
+    mDavClient.releaseLock();
     return true;
+  }
+
+  public void notifyFileDeletedExternally(String filePath)
+  {
+    allLocalFilePaths.remove(filePath);
+  }
+
+  public void notifyFileAddedExternally(String filePath)
+  {
+    externallyChangedFiles.add(filePath);
+    allLocalFilePaths.add(filePath);
   }
 
   /**
@@ -180,13 +201,11 @@ public enum NextcloudSyncer
     if (localFileExists && !remoteFileExists)
     {
       if (ncprefs.getFileETag(filePath) != null)
-      {         // conflict: client expected remote file to be present (last-known), but it isn't. Adding a suffix to the local file name, and uploading it.
-        final File newFile = LocalFileUtils.safeAddSuffixToFilename(localFile, null);
-        final String newRemoteUrl = mDavClient.getRemoteUrl(newFile);
-        mDavClient.uploadFileToRemoteURL(newFile, newRemoteUrl);
-        ncprefs.removeFileETag(filePath);
-        final String resultETag = mDavClient.getFileETag(newRemoteUrl);
-        ncprefs.setFileETag(newRemoteUrl, Objects.requireNonNull(resultETag));
+      {         // conflict: the file has changed locally, and was deleted remotely. To avoid losing bookmarks added locally, upload the entire list
+                                                                                                                           // reverting remote deletion
+        mDavClient.uploadFileToRemoteURL(localFile, remoteUrl);
+        final String newETag = mDavClient.getFileETag(remoteUrl);
+        ncprefs.setFileETag(filePath, newETag);
       }
       else
       {         // no conflict, just upload the file as usual.
@@ -217,10 +236,11 @@ public enum NextcloudSyncer
       final String expectedETag = ncprefs.getFileETag(filePath);
       if (expectedETag == null)
       {       // The same filename exists on the server, but it wasn't previously known to have existed. Among other cases, this is the case of
-        //   initial synchronization, so it'd be wise to add the device name to the local file
+              //   initial synchronization, so it'd be wise to add the device name to the local file
         final File newFile = LocalFileUtils.safeAddSuffixToFilename(localFile, "_" + deviceName);
+        ncprefs.removeFileETag(filePath);
         final String newRemoteUrl = mDavClient.getRemoteUrl(newFile);
-        mDavClient.uploadFileToRemoteURL(newFile, newRemoteUrl);
+        mDavClient.uploadFileToRemoteURL(newFile, newRemoteUrl);     // TODO handle the case when the suffixed path already exists
         final String resultETag = mDavClient.getFileETag(newRemoteUrl);
         ncprefs.setFileETag(newFile.getAbsolutePath(), Objects.requireNonNull(resultETag));
       }
@@ -233,6 +253,7 @@ public enum NextcloudSyncer
       else
       {       // conflict: the server and the local copies are in dissonance, but both are valid. So rename the local file.
         final File newFile = LocalFileUtils.safeAddSuffixToFilename(localFile, null);
+        ncprefs.removeFileETag(filePath);
         final String newRemoteUrl = mDavClient.getRemoteUrl(newFile);
         mDavClient.uploadFileToRemoteURL(newFile, newRemoteUrl);
         ncprefs.removeFileETag(filePath);  // so that the file can be downloaded in part 2 (i.e. the downloading part) of the sync
@@ -247,8 +268,12 @@ public enum NextcloudSyncer
    */
   private void syncRemoteFiles() throws Exception
   {
-    for (DavClient.FileMetadata metadata : mDavClient.listAllFiles())
+    Set<String> remotelyDeletedFilenames = allLocalFilePaths.stream()
+                                                        .map(fullPath -> fullPath.substring(fullPath.lastIndexOf("/")+1))
+                                                        .collect(Collectors.toSet());
+    for (DavClient.FileMetadata metadata : mDavClient.listAllKmlFiles())
     {
+      remotelyDeletedFilenames.remove(metadata.name());
       String filepath = new File(bookmarksDir, metadata.name()).getAbsolutePath();
       if (!metadata.eTag().equals(ncprefs.getFileETag(filepath)))
       {  // the file needs to be updated
@@ -267,6 +292,18 @@ public enum NextcloudSyncer
         ncprefs.setFileETag(filepath, metadata.eTag());
         LocalFileUtils.reloadBookmarksList(filepath);
       }
+    }
+    for (String deletedFilename : remotelyDeletedFilenames)
+    {
+      // The file exists on the client, but was deleted from the server.
+      // Hence, the file should be deleted, except in cases when new bookmarks were added to the list after the file was deleted from the server
+      // TODO to detect the case mentioned above, implement
+      //            1. EITHER versions (https://docs.nextcloud.com/server/latest/developer_manual/client_apis/WebDAV/versions.html)
+      //               that might require storing the FILEID property for each file on the client (like ETag is stored currently).
+      //            2. OR (won't prefer) use nextcloud comments or simply a tracking file for storing the ETags of files that get deleted from the server.
+      final String deletedFilePath = new File(bookmarksDir, deletedFilename).getAbsolutePath();
+      LocalFileUtils.deleteFileSafe(deletedFilePath);
+      ncprefs.removeFileETag(deletedFilePath);
     }
     setLastKnownBaseDirETag(mDavClient.getBaseDirETag());
   }
@@ -323,17 +360,26 @@ public enum NextcloudSyncer
 
   public void notifyFileDeleted(String filePath)
   {
-    allLocalFilePaths.remove(filePath);
-    onLocalChange(filePath);
+    mHandler.post(()->{
+      allLocalFilePaths.remove(filePath);
+      onLocalChange(filePath);
+    });
   }
 
   public void notifyFileChanged(String filePath, boolean isInitiallyLoaded)
   {
-    if (bookmarksDir == null)
-      bookmarksDir = new File(filePath).getParentFile();
-    allLocalFilePaths.add(filePath);
-    if (isInitiallyLoaded)
-      onLocalChange(filePath);
+    mHandler.post(()->{
+      if (bookmarksDir == null)
+        bookmarksDir = new File(filePath).getParentFile();
+      if (externallyChangedFiles.contains(filePath))
+      {
+        externallyChangedFiles.remove(filePath);
+        return;
+      }
+      allLocalFilePaths.add(filePath);
+      if (isInitiallyLoaded)
+        onLocalChange(filePath);
+    });
   }
 
   private void onLocalChange(String filePath)
@@ -342,22 +388,26 @@ public enum NextcloudSyncer
       return;
     if (!changedFilesSet.contains(filePath))
     {
-      // TODO consider moving this to a background thread as it currently runs on the main thread
       changedFilesSet.add(filePath);
       saveChangedFiles();
     }
   }
 
-  // should be called only after the framework has been initialized
+  /**
+   * resumeSync should be called only after the framework has been initialized.
+   * Returns immediately if sync isn't enabled.
+   */
   public void resumeSync()
   {
     if (!ncprefs.getSyncEnabled())
       return;
-    if (mDavClient == null)
-    {
-      mDavClient = new DavClient(ncprefs.getLoginName(), ncprefs.getAppPassword(), ncprefs.getAuthenticatedServerUrl());
-    }
-    mPollHelper.start();
+    mHandler.post(()->{
+      if (mDavClient == null)
+      {
+        mDavClient = new DavClient(ncprefs.getLoginName(), ncprefs.getAppPassword(), ncprefs.getAuthenticatedServerUrl());
+      }
+      mPollHelper.start();
+    });
   }
 
   public void pauseSync()

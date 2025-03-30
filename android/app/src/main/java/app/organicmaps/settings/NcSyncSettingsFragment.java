@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.SwitchPreferenceCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,10 +48,9 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
   private Preference mConnectPreference;
   private Preference mLogoutPreference;
   private PreferenceCategory mSyncOptionsCategory;
-  private SwitchPreferenceCompat mSyncEnabledPreference;
   private Preference mProgressPreference;
 
-  private InitialV2LoginParams mLoginParams;
+  private volatile InitialV2LoginParams mLoginParams;
   private long lastAuthRequestTime = Long.MIN_VALUE;
 
   @NonNull
@@ -65,6 +63,8 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     return R.xml.prefs_nextcloud_sync;
   }
 
+
+
   @Override
   public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
   {
@@ -75,7 +75,6 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     mConnectPreference = findPreference(getString(R.string.pref_nextcloud_connect));
     mLogoutPreference = findPreference(getString(R.string.pref_nextcloud_logout));
     mSyncOptionsCategory = findPreference(getString(R.string.pref_category_nextcloud_sync_options));
-    mSyncEnabledPreference = findPreference(getString(R.string.pref_nextcloud_sync_enabled));
     mProgressPreference = findPreference(getString(R.string.pref_nextcloud_progress));
     setConnectionInProgress(false);
 
@@ -141,6 +140,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
             Toast.makeText(requireContext(), "Logged in successfully as " + loginName, Toast.LENGTH_SHORT).show();
             updateUI();
           });
+          mLoginParams = null;
         }
       } catch (Exception e)
       {
@@ -176,7 +176,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
       mConnectPreference.setOnPreferenceClickListener(preference -> {
         if (prefs.isAuthenticated())
         {
-          showLogoutWarningDialog();
+          new AlertDialog.Builder(requireContext()).setTitle("Warning").setMessage("Doing this will log you out of your currently configured server.").setPositiveButton("Continue", (dialog, which) -> attemptToConnect()).setNegativeButton("Cancel", null).show();
         }
         else
         {
@@ -189,21 +189,17 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     if (mLogoutPreference != null)
     {
       mLogoutPreference.setOnPreferenceClickListener(preference -> {
-        prefs.clearAuthCredentials();
-        updateUI();
-        // TODO also tell the server to destroy the token by calling DELETE on /ocs/v2.php/core/apppassword
+        new AlertDialog.Builder(requireContext()).setTitle("Logout Now?").setMessage("Are you sure you want to disable Nextcloud sync and log out?").setPositiveButton("Yes", (dialog, which) -> logOut()).setNegativeButton("Cancel", null).show();
         return true;
       });
     }
+  }
 
-    if (mSyncEnabledPreference != null)
-    {
-      mSyncEnabledPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-        boolean enabled = (Boolean) newValue;
-        prefs.setSyncEnabled(enabled);
-        return true;
-      });
-    }
+  private void logOut()
+  {
+    prefs.clearAuthCredentials();
+    updateUI();
+    // TODO also tell the server to destroy the token by calling DELETE on /ocs/v2.php/core/apppassword
   }
 
   private void updateUI()
@@ -237,7 +233,7 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
       mLogoutPreference.setVisible(isAuthenticated);
       if (isAuthenticated)
       {
-        mLogoutPreference.setTitle("Logged in as " + prefs.getLoginName());
+        mLogoutPreference.setTitle("Log Out (" + prefs.getLoginName() + ")");
         mLogoutPreference.setSummary("Tap to log out of " + authenticatedUrl);
       }
     }
@@ -246,12 +242,6 @@ public class NcSyncSettingsFragment extends BaseXmlSettingsFragment
     {
       mSyncOptionsCategory.setVisible(isAuthenticated);
     }
-  }
-
-  @MainThread
-  private void showLogoutWarningDialog()
-  {
-    new AlertDialog.Builder(requireContext()).setTitle("Warning").setMessage("Doing this will log you out of your currently configured server.").setPositiveButton("Continue", (dialog, which) -> attemptToConnect()).setNegativeButton("Cancel", null).show();
   }
 
   @MainThread

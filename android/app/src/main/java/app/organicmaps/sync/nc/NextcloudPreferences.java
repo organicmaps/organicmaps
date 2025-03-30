@@ -12,13 +12,11 @@ import java.util.Set;
 
 public final class NextcloudPreferences
 {
-  private static final String PREF_AUTHENTICATED_SERVER_URL = "authenticated_server_url";
-  private static final String PREF_LOGIN_NAME = "login_name";
-  private static final String PREF_APP_PASSWORD = "app_password";
-  private static final String PREF_SYNC_ENABLED = "sync_enabled";
-
-  //  private static final String PREF_SYNC_INITIALIZED = "sync_initialized";  // this is set to false by default and also every time the user logs out
-  private static final String PREF_CHANGED_FILES = "changed_files";
+  public static final String PREF_SYNC_ENABLED = "sync_enabled";
+  private final String PREF_AUTHENTICATED_SERVER_URL = "authenticated_server_url";
+  private final String PREF_LOGIN_NAME = "login_name";
+  private final String PREF_APP_PASSWORD = "app_password";
+  private final String PREF_CHANGED_FILES = "changed_files";
 
   private final SharedPreferences prefs;
   private final SharedPreferences fileETagPrefs;
@@ -60,17 +58,6 @@ public final class NextcloudPreferences
     editor.apply();
     NextcloudSyncer.INSTANCE.onLogout();
   }
-
-  //  public boolean getSyncInitialized()
-  //  {
-  //    return prefs.getBoolean(PREF_SYNC_INITIALIZED, false);
-  //  }
-  //
-  //  public void setSyncInitialized(boolean isInitialized)
-  //  {
-  //    SharedPreferences.Editor editor = prefs.edit();
-  //    editor.putBoolean(PREF_SYNC_INITIALIZED, isInitialized);
-  //  }
 
   public String getAuthenticatedServerUrl()
   {

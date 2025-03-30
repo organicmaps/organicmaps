@@ -17,6 +17,7 @@ public class LocalFileUtils
 {
   public static void deleteFileSafe(String filePath)
   {
+    NextcloudSyncer.INSTANCE.notifyFileDeletedExternally(filePath);
     new Handler(Looper.getMainLooper()).post(() -> {
       BookmarkManager.nativeDeleteBmCategoryPermanently(filePath);
     });
@@ -24,6 +25,7 @@ public class LocalFileUtils
 
   public static void reloadBookmarksList(String filePath)
   {
+    NextcloudSyncer.INSTANCE.notifyFileAddedExternally(filePath);
     new Handler(Looper.getMainLooper()).post(() -> {
       BookmarkManager.nativeReloadBookmark(filePath);
     });
@@ -45,7 +47,7 @@ public class LocalFileUtils
 //      deleteFileSafe(file.getAbsolutePath());
 //    reloadBookmarksList(file.getAbsolutePath());
 //  }
-  public static void safeMoveFile(File file, File newFile) throws IOException
+  public static void safeMoveFile(final File file, final File newFile) throws IOException
   {
     if (!file.renameTo(newFile))
       throw new IOException("Attempt to move file failed.");

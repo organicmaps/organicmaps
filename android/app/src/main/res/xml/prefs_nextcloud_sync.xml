@@ -12,7 +12,7 @@
     android:key="@string/pref_nextcloud_server_url"
     android:order="1"
     android:selectAllOnFocus="true"
-    android:title="Set Server URL" />
+    android:title="Nextcloud Server URL" />
 
   <Preference
     android:key="@string/pref_nextcloud_connect"
@@ -39,7 +39,7 @@
     android:order="2"
     android:title="Sync Options">
 
-  <SwitchPreferenceCompat
+  <app.organicmaps.sync.nc.SyncEnabledSwitchPreference
     android:defaultValue="false"
     android:key="@string/pref_nextcloud_sync_enabled"
     android:order="1"
