@@ -9,7 +9,7 @@
 "route" = "Útvonal";
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "A jelenlegi helymeghatározásra a háttérben azért van szükség, hogy teljesen ki lehessen használni az alkalmazás funkcióit. A navigációs opcióknál és a nemrég megtett út regisztrálásánál használatos.";
+"NSLocationAlwaysUsageDescription" = "A helymeghatározás a háttérben szükséges ahhoz, hogy teljes mértékben élvezhesse az alkalmazás funkcióit. A navigációhoz és a nemrég megtett útvonal mentéséhez használatos.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "A jelenlegi helyzet meghatározása az út követésének és a nemrég érintett útvonal mentésének opciói között használatos.";
+"NSLocationWhenInUseUsageDescription" = "A navigációhoz és a legutóbb megtett útvonal mentéséhez szükséges a helymeghatározás.";

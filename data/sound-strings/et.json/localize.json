@@ -43,5 +43,9 @@
 "leave_the_roundabout": "Lahku ringteelt.",
 "make_a_slight_left_turn": "Püsi vasakul.",
 "take_the_5_exit_street_verb": "NULL",
-"make_a_sharp_left_turn": "Pööra järsult vasakule."
+"make_a_sharp_left_turn": "Pööra järsult vasakule.",
+"exit": "Välju.",
+"you_have_reached_the_destination": "Oled kohale jõudnud.",
+"then": "Seejärel",
+"dist_direction_onto_street": "%1$s %2$s  %3$s %4$s"
 }

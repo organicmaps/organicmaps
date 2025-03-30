@@ -268,7 +268,7 @@
 "type.craft.winery" = "Chai";
 "type.craft.tailor" = "Tailleur";
 "type.cuisine.african" = "Cuisine africaine";
-"type.cuisine.american" = "Cuisine américaine";
+"type.cuisine.american" = "Cuisine états-unienne";
 "type.cuisine.arab" = "Cuisine arabe";
 "type.cuisine.argentinian" = "Cuisine argentine";
 "type.cuisine.asian" = "Cuisine asiatique";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Pylône électrique";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Pylône électrique";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Pylônes (Télécommunication, lampadaire)";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

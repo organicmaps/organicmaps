@@ -122,7 +122,6 @@
     <string name="type.amenity.prison">Prison</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Microbibliothèque</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centre de recyclage</string>
     <string name="type.amenity.recycling">Conteneur de recyclage</string>
@@ -250,7 +249,7 @@
     <string name="type.craft.winery">Chai</string>
     <string name="type.craft.tailor">Tailleur</string>
     <string name="type.cuisine.african">Cuisine africaine</string>
-    <string name="type.cuisine.american">Cuisine américaine</string>
+    <string name="type.cuisine.american">Cuisine états-unienne</string>
     <string name="type.cuisine.arab">Cuisine arabe</string>
     <string name="type.cuisine.argentinian">Cuisine argentine</string>
     <string name="type.cuisine.asian">Cuisine asiatique</string>
@@ -358,7 +357,6 @@
     <string name="type.healthcare.psychotherapist">Psychothérapie</string>
     <string name="type.healthcare.sample_collection">Prélèvements biologiques</string>
     <string name="type.healthcare.speech_therapist">Logopédie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.bridleway">Chemin équestre</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -523,7 +521,6 @@
     <string name="type.area_highway.track">Piste</string>
     <string name="type.area_highway.trunk">Voie rapide</string>
     <string name="type.area_highway.unclassified">Rue</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objet historique</string>
     <string name="type.historic.aircraft">Avion historique</string>
@@ -1310,4 +1307,7 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Salle de sport</string>
+    <string name="type.aeroway.terminal">Terminal</string>
+    <string name="type.power.pole">Pylône électrique</string>
+    <string name="type.man_made.utility_pole">Pylônes (Télécommunication, lampadaire)</string>
 </resources>

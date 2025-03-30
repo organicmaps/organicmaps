@@ -9,7 +9,7 @@
     <string name="delete">Удалить</string>
     <string name="download_maps">Загрузить карты</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку</string>
+    <string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Загружается…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->

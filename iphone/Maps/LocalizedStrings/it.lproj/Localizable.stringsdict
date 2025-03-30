@@ -46,6 +46,10 @@
 			<string>d</string>
 			<key>zero</key>
 			<string>%d tracce</string>
+			<key>one</key>
+			<string>%d traccia</string>
+			<key>many</key>
+			<string>%d tracce</string>
 			<key>other</key>
 			<string>%d tracce</string>
 		</dict>
