@@ -84,6 +84,7 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `cmake/` - CMake helper files.
 - `coding/` - I/O classes and data processing.
 - `descriptions/` -
+- `dev_sandbox/` - developer tool for debugging rendering.
 - `drape_frontend/` - scene and resource manager for the Drape library.
 - `drape/` - the new graphics library core.
 - `editor/` - built-in OSM data editor.

@@ -222,7 +222,7 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Информације</string>
     <string name="prefs_group_route">Навигација</string>
-    <string name="pref_zoom_title">Дугмад за увећавање/умањивање</string>
+    <string name="pref_zoom_title">Дугме за зумирање</string>
     <string name="pref_zoom_summary">Прикажи на мапи</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Ноћни режим</string>
@@ -406,8 +406,8 @@
     <string name="wikimedia_commons">Викимедијина остава</string>
     <string name="p2p_your_location">Ваша локација</string>
     <string name="p2p_start">Крени</string>
-    <string name="p2p_from_here">Рута од</string>
-    <string name="p2p_to_here">Рута до</string>
+    <string name="p2p_from_here">Старт</string>
+    <string name="p2p_to_here">Одредиште</string>
     <string name="p2p_only_from_current">Навигација је могућа само од ваше тренутне локације.</string>
     <string name="p2p_reroute_from_current">Да ли желите да направите руту од ваше тренутне локације?</string>
     <!-- Edit open hours/set time and minutes dialog -->
@@ -612,7 +612,7 @@
     <string name="planning_route_manage_route">Измени руту</string>
     <string name="button_plan">План</string>
     <string name="placepage_remove_stop">Уклони стајање</string>
-    <string name="placepage_add_stop">Додај стајање</string>
+    <string name="placepage_add_stop">Међуодредиште</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>

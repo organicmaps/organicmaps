@@ -6,7 +6,7 @@
 "cancel_download" = "Cancel·la la baixada";
 
 /* Button which deletes downloaded country */
-"delete" = "Esborra";
+"delete" = "Suprimeix";
 "download_maps" = "Baixa mapes";
 
 /* Settings/Downloader - info for country which started downloading */
@@ -72,7 +72,7 @@
 "bookmarks" = "Marcadors";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Marcadors i traces";
+"bookmarks_and_tracks" = "Marcadors i recorreguts";
 
 /* Default bookmark list name */
 "core_my_places" = "Els meus llocs";
@@ -169,7 +169,7 @@
 "edit" = "Edita";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Encara no s'ha pogut determinar la vostra geolocalització";
+"unknown_current_position" = "Encara no s’ha determinat la vostra ubicació";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Ep, mireu el meu marcador a l'Organic Maps!";
@@ -181,7 +181,7 @@
 "email" = "Correu-e";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "S'ha copiat al porta-retalls: %@";
+"copied_to_clipboard" = "S’ha copiat al porta-retalls: %@";
 
 /* place preview title */
 "info" = "Informació";
@@ -190,10 +190,10 @@
 "done" = "Fet";
 
 /* Prints version number in About dialog */
-"version" = "Versió d'Organic Maps: %@";
+"version" = "Versió de l’Organic Maps: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Traces";
+"tracks_title" = "Recorreguts";
 
 /* Length of track in cell that describes route */
 "length" = "Longitud";
@@ -338,7 +338,7 @@
 "downloader_status_failed" = "Fallit";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Per a esborrar el mapa, abans atureu la navegació.";
+"downloader_delete_map_while_routing_dialog" = "Per a suprimir el mapa, atureu la navegació.";
 
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Només es poden crear rutes que pertanyin totalment al mapa d'una sola regió.";
@@ -350,7 +350,7 @@
 "downloader_retry" = "Torna-hi";
 
 /* Item in context menu. */
-"downloader_delete_map" = "Esborra el mapa";
+"downloader_delete_map" = "Suprimeix el mapa";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Baixeu tots els mapes de la ruta";
@@ -475,7 +475,7 @@
 "p2p_only_from_current" = "La navegació només és disponible des de la ubicació actual.";
 "p2p_reroute_from_current" = "Voleu que planifiquem una ruta des de la vostra ubicació actual?";
 "editor_time_add" = "Afegeix un horari";
-"editor_time_delete" = "Esborra l'horari";
+"editor_time_delete" = "Suprimeix l’horari";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Tot el dia (24 hores)";
@@ -510,12 +510,12 @@
 "closes_in" = "Tanca en %@";
 "closed" = "Tancat";
 "add_opening_hours" = "Afegeix horari d'obertura";
-"no_osm_account" = "No teniu commpte d'OpenStreetMap?";
+"no_osm_account" = "No teniu compte de l’OpenStreetMap?";
 "register_at_openstreetmap" = "Registre a OpenStreetMap";
 "password_8_chars_min" = "Contrasenya (mínim 8 caràcters)";
 "invalid_username_or_password" = "Nom d'usuari o contrasenya no vàlids.";
 "login" = "Inicia sessió";
-"login_osm" = "Login to OpenStreetMap";
+"login_osm" = "Inicia sessió a l’OpenStreetMap";
 "forgot_password" = "Heu oblidat la contrasenya?";
 "osm_account" = "Compte OSM";
 "logout" = "Tanca la sessió";
@@ -650,13 +650,13 @@
 "placepage_edit_bookmark_button" = "Edita el marcador";
 "placepage_bookmark_name_hint" = "Nom del marcador";
 "placepage_personal_notes_hint" = "Notes personals (text o html)";
-"placepage_delete_bookmark_button" = "Esborra el marcador";
+"placepage_delete_bookmark_button" = "Suprimeix el marcador";
 "editor_edits_sent_message" = "La vostra nota s'enviarà a OpenStreetMap";
 "editor_comment_hint" = "Comentari…";
 "editor_reset_edits_message" = "Voleu descartar tots els canvis locals?";
 "editor_reset_edits_button" = "Descarta";
-"editor_remove_place_message" = "Voleu esborrar el lloc afegit?";
-"editor_remove_place_button" = "Esborra";
+"editor_remove_place_message" = "Voleu suprimir el lloc afegit?";
+"editor_remove_place_button" = "Suprimeix";
 "editor_place_doesnt_exist" = "El lloc no existeix";
 "text_more_button" = "…més";
 
@@ -676,16 +676,16 @@
 "navigation_stop_button" = "Atura";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Voleu desactivar l'enregistrament de la ruta recent?";
+"recent_track_background_dialog_title" = "Voleu desactivar l'enregistrament del recorregut recent?";
 "off_recent_track_background_button" = "Desactiva";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Verifica";
-"recent_track_background_dialog_message" = "Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.";
+"recent_track_background_dialog_message" = "L’Organic Maps usa la vostra ubicació en segon pla per a enregistrar el recorregut que heu fet recentment.";
 "general_settings" = "Paràmetres generals";
 
 /* For the first routing */
-"accept" = "D'acord";
+"accept" = "Accepta";
 
 /* For the first routing */
 "decline" = "Ho rebutjo";
@@ -706,7 +706,7 @@
 "traffic_update_app_message" = "Per a mostrar les dades de trànsit, cal que l'aplicació estigui actualitzada.";
 
 /* "traffic" as in "road congestion" */
-"traffic_data_unavailable" = "No hi ha dades de trànsit disponibles.";
+"traffic_data_unavailable" = "No hi ha dades de trànsit disponibles";
 "enable_logging" = "Activa el registre";
 "log_file_size" = "Mida del fitxer de registre: %@";
 "transliteration_title" = "Transliteració a l’alfabet llatí";
@@ -741,7 +741,7 @@
 "bookmarks_create_new_group" = "Crea una llista";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Importa marcadors i les traces";
+"bookmarks_import" = "Importa marcadors i recorreguts";
 "downloader_hide_screen" = "Amaga la pantalla";
 "downloader_percent" = "%@ (%@/%@)";
 "downloader_process" = "S’està baixant %@…";
@@ -761,13 +761,13 @@
 "privacy_policy" = "Normes de confidencialitat";
 "terms_of_use" = "Considicions del servei";
 "button_layer_subway" = "Metro";
-"layers_title" = "Estils i capes de mapa";
-"subway_data_unavailable" = "El mapa del metro no és disponible";
+"layers_title" = "Estils i capes del mapa";
+"subway_data_unavailable" = "El mapa del metro no està disponible";
 "title_error_downloading_bookmarks" = "S’ha produït un error";
 "popular_place" = "Popular";
 "export_file" = "Exporta KMZ";
 "export_file_gpx" = "Exporta GPX";
-"delete_list" = "Esborra la llista";
+"delete_list" = "Suprimeix la llista";
 "hide_from_map" = "Amaga-ho en el mapa";
 "tags_loading_error_subtitle" = "S'ha produït un error en carregar les etiquetes, torneu-ho a intentar";
 "download_button" = "Baixa";
@@ -787,8 +787,8 @@
 "power_managment_setting_never" = "Mai";
 "power_managment_setting_auto" = "Automàtic";
 "power_managment_setting_manual_max" = "Sempre";
-"enable_logging_warning_message" = "L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.";
-"driving_options_title" = "Opcions de la ruta";
+"enable_logging_warning_message" = "Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.";
+"driving_options_title" = "Opcions d’encaminament";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita peatges";
@@ -802,7 +802,7 @@
 "unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
 "define_to_avoid_btn" = "Definiu les vies a evitar";
-"change_driving_options_btn" = "Paràmetres de ruta activats";
+"change_driving_options_btn" = "Paràmetres d’encaminament activats";
 "toll_road" = "Via de peatge";
 "unpaved_road" = "Via sense pavimentar";
 "ferry_crossing" = "Ferris";
@@ -842,10 +842,10 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta es convertira a una d'automòbil";
 "not_all_shown_bookmarks_carplay" = "No es mostren totes les adreces d'interès";
 "switch_to_phone_bookmarks_carplay" = "Canvia al telèfon per veure totes les adreces d'interès";
-"ok" = "D'acord";
+"ok" = "D’acord";
 "speedcams_alert_title_carplay_1" = "Radars";
 "speedcams_alert_title_carplay_2" = "Avisos de radars";
-"download_map_carplay" = "Baixeu els mapes en l'aplicació Organic Maps del vostre aparell";
+"download_map_carplay" = "Baixeu els mapes en l’aplicació de l’aparell mòbil";
 "carplay_roundabout_exit" = "%@ sortida";
 
 /* max. 10 symbols, both iOS and Android */
@@ -875,12 +875,12 @@
 "money" = "Diners";
 "shops" = "Botigues";
 "parkings" = "Aparcaments";
-"fuel_places" = "Gasolineres";
+"fuel_places" = "Benzineres";
 "medicine" = "Medicina";
 "search_in_the_list" = "Cerca en la llista";
 "religious_places" = "Llocs de culte";
 "transit_not_found" = "La navegació en metro en aquesta regió encara no és disponible";
-"dialog_pedestrian_route_is_long_header" = "No s'ha trobat cap ruta en metro";
+"dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
 "isolines_activation_error_dialog" = "Per a activar i usar la capa topgràfica, actualitzeu o baixeu el mapa de l'àrea";
@@ -894,7 +894,7 @@
 "elevation_profile_min_elevation" = "Elevació mín.";
 "elevation_profile_max_elevation" = "Elevació màx.";
 "isolines_toast_zooms_1_10" = "Aproplieu el mapa per a explorar les isolínies";
-"downloader_updating_ios" = "S'està actualitzant";
+"downloader_updating_ios" = "S’està actualitzant";
 "downloader_loading_ios" = "Està baixant";
 
 /* Autoupdate dialog on start */
@@ -910,19 +910,19 @@
 "whats_new_auto_update_button_later" = "Actualitza manualment després";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Esborra la traça";
+"placepage_delete_track_button" = "Suprimeix el recorregut";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Esteu segur que voleu suprimir aquesta pista?";
+"placepage_delete_track_confirmation_alert_message" = "Segur que voleu suprimir aquest recorregut?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Nom de la traça";
+"placepage_track_name_hint" = "Nom del recorregut";
 
 /* move track or bookmark from the list button text */
 "move" = "Mou";
 
 /* edit track screen title */
-"track_title" = "Traça";
+"track_title" = "Recorregut";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";
@@ -973,7 +973,7 @@
 "car_used_on_the_car_screen" = "Ara esteu utilitzant els Organic Maps a la pantalla del cotxe";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continua al telèfon";
+"car_continue_on_the_phone" = "Passa al telèfon";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "A la pantalla del cotxe";
@@ -982,7 +982,7 @@
 "button_layer_outdoor" = "Senderisme";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Exporta totes les adreces d'interès i pistes";
+"bookmarks_export" = "Exporta tots els marcadors i recorreguts";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Canvia de color";
@@ -1001,7 +1001,7 @@
 "enable_icloud_synchronization_title" = "Activa la sincronització amb l’iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "La sincronització de l’iCloud és una funcionalitat experimental en desenvolupament. Assegureu-vos que heu fet una còpia de seguretat de tots els vostres marcadors i pistes.";
+"enable_icloud_synchronization_message" = "La sincronització de l’iCloud és una funcionalitat experimental en desenvolupament. Assegureu-vos que heu fet una còpia de seguretat de tots els vostres marcadors i recorreguts.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "L’iCloud està desactivat";
@@ -1043,7 +1043,7 @@
 "clear" = "Netejar";
 
 /* Title for the "Delete All" button on the Recently Deleted Lists screen. */
-"delete_all" = "Eliminar tots";
+"delete_all" = "Suprimeix-ho tot";
 
 /* Title for the "Recover" button on the Recently Deleted Lists screen. */
 "recover" = "Recuperar";
@@ -1052,10 +1052,10 @@
 "recover_all" = "Recuperar-ho tot";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Gravar ruta";
+"start_track_recording" = "Enregistra el recorregut";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Aturar la gravació de la ruta";
+"stop_track_recording" = "Atura l’enregistrament del recorregut";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "Atura sense desar";
@@ -1064,8 +1064,8 @@
 "continue_recording" = "Continuar enregistrant";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Vols desar la gravació a Marcadors i Traces?";
+"track_recording_alert_title" = "Voleu desar l’enregistrament a Marcadors i recorreguts?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "El recorregut està buit, no hi ha res a desar";
+"track_recording_toast_nothing_to_save" = "El recorregut està buit; no hi ha res a desar";
 "edit_track" = "Edita el recorregut";

@@ -525,7 +525,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunnel";
-"type.highway.services" = "Service Area";
+"type.highway.services" = "Area di servizio";
 "type.highway.speed_camera" = "Autovelox";
 "type.highway.steps" = "Scale";
 
@@ -662,10 +662,10 @@
 "type.junction" = "Incrocio";
 "type.junction.circular" = "Rotonda";
 "type.junction.roundabout" = "Rotonda";
-"type.landuse" = "Landuse";
+"type.landuse" = "Uso del suolo";
 "type.landuse.allotments" = "Orti comunitari";
 "type.landuse.basin" = "Bacino d'acqua";
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Zona industriale";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Cimitero";
@@ -678,7 +678,7 @@
 "type.landuse.education" = "Strutture didattiche";
 "type.landuse.farmland" = "Terreno agricolo";
 "type.landuse.farmyard" = "Fattoria";
-"type.landuse.field" = "Field";
+"type.landuse.field" = "Campo";
 "type.landuse.flowerbed" = "Aiuola";
 "type.landuse.forest" = "Foresta";
 "type.landuse.forest.coniferous" = "Foresta di conifere";
@@ -686,8 +686,8 @@
 "type.landuse.forest.mixed" = "Foresta mista";
 "type.landuse.garages" = "Garage";
 "type.landuse.grass" = "Prato erboso";
-"type.landuse.greenfield" = "Greenfield";
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.greenfield" = "Zona selvaggia";
+"type.landuse.greenhouse_horticulture" = "Serra";
 "type.landuse.industrial" = "Zona industriale";
 "type.landuse.landfill" = "Luogo di scarico";
 "type.landuse.meadow" = "Radura";
@@ -700,10 +700,10 @@
 "type.landuse.residential" = "Area residentiale";
 "type.landuse.retail" = "Area commerciale";
 "type.landuse.salt_pond" = "Salina";
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Terra";
 "type.landuse.vineyard" = "Vigne";
 "type.leisure" = "Tempo libero";
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "Suolo Pubblico";
 "type.leisure.dog_park" = "Area sgambamento cani";
 "type.leisure.fitness_centre" = "Centro benessere";
 "type.leisure.fitness_station" = "Centro fitness";
@@ -724,7 +724,7 @@
 "type.leisure.picnic_table" = "Tavolo da picnic";
 "type.leisure.pitch" = "Campo sportivo";
 "type.leisure.playground" = "Campo giochi";
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Area divertimento";
 "type.leisure.sauna" = "Sauna";
 "type.leisure.slipway" = "Scivolo per navi";
 "type.leisure.sports_centre" = "Centro sportivo";
@@ -739,7 +739,7 @@
 "type.leisure.beach_resort" = "Resort balneare";
 "type.man_made" = "Stabilimento balneare";
 "type.man_made.breakwater" = "Frangiflutti";
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Tumulo";
 "type.man_made.chimney" = "Ciminiera industriale";
 "type.man_made.cutline" = "Cutline";
 "type.man_made.survey_point" = "Punto geodetico";
@@ -748,7 +748,7 @@
 "type.man_made.mast" = "Pilone";
 "type.man_made.pier" = "Molo";
 "type.man_made.pipeline" = "Condotto";
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "Condotto non interrato";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Cisterna";
 "type.man_made.surveillance" = "Videocamera di sorveglianza";
@@ -883,7 +883,7 @@
 "type.power.generator.gas" = "Centrale elettrica a turbina a gas";
 "type.power.generator.hydro" = "Centrale idroelettrica";
 "type.power.line" = "Cavo elettrico";
-"type.power.line.underground" = "Underground Power Line";
+"type.power.line.underground" = "Linea elettrica sotterranea";
 "type.power.minor_line" = "Cavo elettrico";
 "type.power.plant" = "Centrale elettrica";
 "type.power.plant.coal" = "Centrale elettrica a carbone";
@@ -891,47 +891,46 @@
 "type.power.plant.hydro" = "Centrale idroelettrica";
 "type.power.plant.solar" = "Centrale solare";
 "type.power.plant.wind" = "Centrale eolica";
-"type.power.station" = "Power Station";
+"type.power.station" = "Centralina Elettrica";
 "type.power.substation" = "Sottostazione elettrica";
 
 /* A tower or pylon carrying high voltage electricity cables. */
 "type.power.tower" = "Pilone elettrico";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Palo della luce";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Palo";
 "type.psurface" = "Superficie";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Trasporto pubblico";
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "Marciapiede";
 "type.railway" = "Ferrovia";
 "type.railway.abandoned" = "Ferrovia abbandonata";
-"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
-"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.abandoned.bridge" = "Ponte ferroviario abbandonato";
+"type.railway.abandoned.tunnel" = "Tunnel ferroviario abbandonato";
 "type.railway.construction" = "Binari in costruzione";
 "type.railway.crossing" = "Passaggio ferroviario";
 "type.railway.disused" = "Ferrovia in disuso";
 "type.railway.funicular" = "Funicolare";
-"type.railway.funicular.bridge" = "Funicular Bridge";
-"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.funicular.bridge" = "Ponte funicolare";
+"type.railway.funicular.tunnel" = "Galleria funicolare";
 "type.railway.halt" = "Stazione ferroviaria";
 "type.railway.level_crossing" = "Passaggio a livello";
 "type.railway.light_rail" = "Metropolitana";
-"type.railway.light_rail.bridge" = "Light Rail Bridge";
-"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.light_rail.bridge" = "Ponte metropolitana";
+"type.railway.light_rail.tunnel" = "Tunnel metropolitana";
 "type.railway.monorail" = "Monorotaia";
-"type.railway.monorail.bridge" = "Monorail Bridge";
-"type.railway.monorail.tunnel" = "Monorail Tunnel";
+"type.railway.monorail.bridge" = "Ponte monorotaia";
+"type.railway.monorail.tunnel" = "Tunnel monorotaia";
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
-"type.railway.platform" = "Railway Platform";
-"type.railway.preserved" = "Preserved Rail";
+"type.railway.platform" = "Piattaforma binario";
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 "type.railway.rail" = "Binari";
@@ -1086,22 +1085,22 @@
 "type.railway.station.subway.yerevan" = "Stazione della metrò";
 "type.railway.station.subway.yokohama" = "Stazione della metrò";
 "type.railway.subway" = "Binari della metrò";
-"type.railway.subway.bridge" = "Subway Line Bridge";
-"type.railway.subway.tunnel" = "Subway Line Tunnel";
-"type.railway.subway_entrance" = "Stazione metropolitana";
-"type.railway.subway_entrance.adana" = "Stazione metropolitana";
-"type.railway.subway_entrance.algiers" = "Stazione metropolitana";
-"type.railway.subway_entrance.almaty" = "Stazione metropolitana";
-"type.railway.subway_entrance.amsterdam" = "Stazione metropolitana";
-"type.railway.subway_entrance.ankara" = "Stazione metropolitana";
-"type.railway.subway_entrance.athens" = "Stazione metropolitana";
-"type.railway.subway_entrance.baku" = "Stazione metropolitana";
-"type.railway.subway_entrance.bangkok" = "Stazione metropolitana";
-"type.railway.subway_entrance.barcelona" = "Stazione metropolitana";
-"type.railway.subway_entrance.beijing" = "Stazione metropolitana";
-"type.railway.subway_entrance.bengalore" = "Stazione metropolitana";
-"type.railway.subway_entrance.berlin" = "Stazione metropolitana";
-"type.railway.subway_entrance.bilbao" = "Stazione metropolitana";
+"type.railway.subway.bridge" = "Ponte della metropolitana";
+"type.railway.subway.tunnel" = "Tunnel della metropolitana";
+"type.railway.subway_entrance" = "Entrata metropolitana";
+"type.railway.subway_entrance.adana" = "Entrata metropolitana";
+"type.railway.subway_entrance.algiers" = "Entrata metropolitana";
+"type.railway.subway_entrance.almaty" = "Entrata metropolitana";
+"type.railway.subway_entrance.amsterdam" = "Entrata metropolitana";
+"type.railway.subway_entrance.ankara" = "Entrata metropolitana";
+"type.railway.subway_entrance.athens" = "Entrata metropolitana";
+"type.railway.subway_entrance.baku" = "Entrata metropolitana";
+"type.railway.subway_entrance.bangkok" = "Entrata metropolitana";
+"type.railway.subway_entrance.barcelona" = "Entrata metropolitana";
+"type.railway.subway_entrance.beijing" = "Entrata metropolitana";
+"type.railway.subway_entrance.bengalore" = "Entrata metropolitana";
+"type.railway.subway_entrance.berlin" = "Entrata metropolitana";
+"type.railway.subway_entrance.bilbao" = "Entrata metropolitana";
 "type.railway.subway_entrance.brasilia" = "Stazione metropolitana";
 "type.railway.subway_entrance.brescia" = "Stazione metropolitana";
 "type.railway.subway_entrance.brussels" = "Stazione metropolitana";
@@ -1224,7 +1223,7 @@
 "type.shop.car_parts" = "Ricambi auto";
 "type.shop.car_repair" = "Riparazione auto";
 "type.shop.car_repair.tyres" = "Gommista";
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Vendita camper";
 "type.shop.carpet" = "Tappeti";
 "type.shop.chemist" = "Negozio di detersivi";
 "type.shop.chocolate" = "Choccolateria";
@@ -1378,8 +1377,8 @@
 "type.tourism.attraction" = "Attrattiva";
 "type.attraction.amusement_ride" = "Giostra di divertimento";
 "type.attraction.animal" = "Recinto per animali";
-"type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.bumper_car" = "Autoscontro";
+"type.attraction.big_wheel" = "Ruota panoramica";
 "type.attraction.carousel" = "Carosello";
 "type.attraction.historic" = "Attrazione storica";
 "type.attraction.maze" = "Labirinto";
@@ -1415,7 +1414,7 @@
 "type.traffic_calming" = "Rallentatore della velocità";
 "type.traffic_calming.bump" = "Dosso";
 "type.traffic_calming.hump" = "Dosso";
-"type.waterway" = "Waterway";
+"type.waterway" = "Via d'acqua";
 "type.waterway.canal" = "Canale";
 "type.waterway.canal.tunnel" = "Canale";
 "type.waterway.fish_pass" = "Passaggio per pesci";
@@ -1435,7 +1434,7 @@
 "type.waterway.stream.intermittent" = "Torrente";
 "type.waterway.stream.tunnel" = "Torrente";
 "type.waterway.waterfall" = "Cascata";
-"type.waterway.weir" = "Weir";
+"type.waterway.weir" = "Briglia";
 "type.wheelchair" = "Sedia a rotelle";
 "type.wheelchair.limited" = "Accessibile in parte";
 "type.wheelchair.no" = "Non accessibile ai disabili";

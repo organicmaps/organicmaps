@@ -1,7 +1,7 @@
-"type.addr_interpolation" = "Address/Block";
-"type.addr_interpolation.even" = "Address/Block";
-"type.addr_interpolation.odd" = "Address/Block";
-"type.aerialway" = "Aerialway";
+"type.addr_interpolation" = "Adresas / blokas";
+"type.addr_interpolation.even" = "Adresas / blokas";
+"type.addr_interpolation.odd" = "Adresas / blokas";
+"type.aerialway" = "Keltuvas";
 "type.aerialway.cable_car" = "Cable Car";
 "type.aerialway.chair_lift" = "Chair Lift";
 "type.aerialway.drag_lift" = "Drag Lift";

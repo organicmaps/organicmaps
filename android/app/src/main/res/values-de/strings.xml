@@ -875,7 +875,7 @@
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Aufnahme des Tracks stoppen</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Anhalten ohne zu speichern</string>
+    <string name="stop_without_saving">Ohne Speichern beenden</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Aufnahme fortsetzen</string>
     <!-- Title for the alert when saving a track recording. -->

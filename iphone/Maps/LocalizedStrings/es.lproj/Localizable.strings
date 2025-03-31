@@ -169,7 +169,7 @@
 "edit" = "Editar";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Aún no se determina su ubicación";
+"unknown_current_position" = "Aún no se ha determinado su ubicación";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "¡Mira mi marcador en el mapa de Organic Maps!";
@@ -515,7 +515,7 @@
 "password_8_chars_min" = "Contraseña (mínimo 8 caracteres)";
 "invalid_username_or_password" = "Usuario o contraseña incorrectos.";
 "login" = "Acceder";
-"login_osm" = "Iniciar sesión en OpenStreetMap";
+"login_osm" = "Acceder a OpenStreetMap";
 "forgot_password" = "¿Ha olvidado su contraseña?";
 "osm_account" = "Cuenta OSM";
 "logout" = "Cerrar sesión";
@@ -585,7 +585,7 @@
 /* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
 "error_enter_correct_storey_number" = "El número de plantas no debe superar %d";
 "editor_zip_code" = "Código postal";
-"error_enter_correct_zip_code" = "Introduzca el código postal correcto";
+"error_enter_correct_zip_code" = "Introduzca un código postal válido";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Punto del mapa";
@@ -605,7 +605,7 @@
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
 "current_location_unknown_error_title" = "Se desconoce la ubicación actual.";
 "current_location_unknown_error_message" = "Se ha producido un error al buscar su ubicación. Compruebe que su dispositivo funciona correctamente e inténtelo más tarde.";
-"location_services_disabled_header" = "La identificación de la ubicación está desactivada";
+"location_services_disabled_header" = "Los servicios de ubicación están desactivados";
 "location_services_disabled_message" = "Active el acceso a la geolocalización en los ajustes del dispositivo";
 "location_services_disabled_1" = "1. Abra Ajustes";
 "location_services_disabled_2" = "2. Pulse Localización";
@@ -845,7 +845,7 @@
 "ok" = "Aceptar";
 "speedcams_alert_title_carplay_1" = "Cám.velocidad";
 "speedcams_alert_title_carplay_2" = "Alerta velocidad";
-"download_map_carplay" = "Descargue los mapas en la aplicación Organic Maps en su dispositivo";
+"download_map_carplay" = "Descargue los mapas en la aplicación del dispositivo";
 "carplay_roundabout_exit" = "%@ salida";
 
 /* max. 10 symbols, both iOS and Android */
@@ -880,8 +880,8 @@
 "search_in_the_list" = "Buscar en la lista";
 "religious_places" = "Lugares sagrados";
 "transit_not_found" = "Navegación en Metro aún no disponible en esta región";
-"dialog_pedestrian_route_is_long_header" = "Ruta de metro no encontrada";
-"dialog_pedestrian_route_is_long_message" = "Elija por favor el punto de inicio o fin de ruta más cercano a una estación de metro";
+"dialog_pedestrian_route_is_long_header" = "No se encontró ninguna ruta de metro";
+"dialog_pedestrian_route_is_long_message" = "Elija un punto de inicio o fin de ruta más cercano a una estación de metro";
 "button_layer_isolines" = "Alturas";
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
 "isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";
@@ -973,7 +973,7 @@
 "car_used_on_the_car_screen" = "Ahora usa Organic Maps en la pantalla del coche";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
-"car_continue_on_the_phone" = "Continuar en el teléfono";
+"car_continue_on_the_phone" = "Pasar al teléfono";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
 "car_continue_in_the_car" = "A la pantalla del coche";
@@ -1043,7 +1043,7 @@
 "clear" = "Limpiar";
 
 /* Title for the "Delete All" button on the Recently Deleted Lists screen. */
-"delete_all" = "Borrar todo";
+"delete_all" = "Eliminar todo";
 
 /* Title for the "Recover" button on the Recently Deleted Lists screen. */
 "recover" = "Recuperar";

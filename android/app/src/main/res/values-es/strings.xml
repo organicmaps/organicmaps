@@ -181,13 +181,13 @@
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">Aún no se determina su ubicación</string>
+    <string name="unknown_current_position">Aún no se ha determinado su ubicación</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">Lo sentimos, la configuración del almacenamiento de mapas está desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">La descarga del mapa está en curso.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">¡Mira mi ubicación actual en Organic Maps!. %1$s o %2$s ¿No tienes mapas offline? Descarga aquí: https://omaps.app/get</string>
+    <string name="my_position_share_sms">¡Mire mi ubicación actual en Organic Maps! %1$s o %2$s ¿No tiene mapas offline? Descárguelos aquí: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">¡Mira mi marcador en el mapa de Organic Maps!</string>
     <!-- Subject for emailed position -->
@@ -454,7 +454,7 @@
     <string name="login">Acceder</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">No se ha iniciado sesión</string>
-    <string name="login_osm">Iniciar sesión en OpenStreetMap</string>
+    <string name="login_osm">Acceder a OpenStreetMap</string>
     <string name="password">Contraseña</string>
     <string name="forgot_password">¿Ha olvidado su contraseña?</string>
     <string name="logout">Cerrar sesión</string>
@@ -513,7 +513,7 @@
     <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
     <string name="error_enter_correct_storey_number">El número de plantas no debe superar %d</string>
     <string name="editor_zip_code">Código postal</string>
-    <string name="error_enter_correct_zip_code">Introduzca el código postal correcto</string>
+    <string name="error_enter_correct_zip_code">Introduzca un código postal válido</string>
     <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Punto del mapa</string>
     <!-- Title for OSM note section in the editor -->
@@ -523,7 +523,7 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.</string>
     <string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
-    <string name="editor_osm_history">Mi historial de edición</string>
+    <string name="editor_osm_history">Su historial de ediciones</string>
     <string name="editor_osm_notes">Mis notas de datos cartográficos</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -599,7 +599,7 @@
     <string name="mobile_data_option_ask">Preguntar siempre</string>
     <string name="traffic_update_maps_text">Para mostrar los datos de tráfico, deben actualizarse los mapas.</string>
     <string name="big_font">Aumentar tamaño del texto en el mapa</string>
-    <string name="traffic_update_app">Por favor, actualice Organic Maps</string>
+    <string name="traffic_update_app">Actualice Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Los datos de tráfico no están disponibles</string>
     <string name="enable_logging">Activar registros</string>
@@ -609,7 +609,7 @@
     <string name="prefs_languages_information_off">Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play, Galaxy Store, App Gallery, FDroid).\nAbra los Ajustes de su dispositivo → Idioma y entrada de texto → Voz → Opciones texto a voz.\nAquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.</string>
     <string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
-    <string name="learn_more">Leer más</string>
+    <string name="learn_more">Conocer más</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Salida</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
@@ -763,8 +763,8 @@
     <string name="religious_places">Lugares sagrados</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="transit_not_found">Navegación en Metro aún no disponible en esta región</string>
-    <string name="dialog_pedestrian_route_is_long_header">Ruta de metro no encontrada</string>
-    <string name="dialog_pedestrian_route_is_long_message">Elija por favor el punto de inicio o fin de ruta más cercano a una estación de metro</string>
+    <string name="dialog_pedestrian_route_is_long_header">No se encontró ninguna ruta de metro</string>
+    <string name="dialog_pedestrian_route_is_long_message">Elija un punto de inicio o fin de ruta más cercano a una estación de metro</string>
     <string name="button_layer_isolines">Alturas</string>
     <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
     <string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
@@ -830,13 +830,13 @@
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Se ha conectado a Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Continuar en el teléfono</string>
+    <string name="car_continue_on_the_phone">Pasar al teléfono</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">A la pantalla del coche</string>
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Organic Maps necesita acceder a la ubicación. Cuando sea seguro, compruebe la notificación en el teléfono.</string>
     <!-- Notification title for permission request from AA. -->
-    <string name="aa_request_permission_notification">Esta aplicación necesita tu permiso</string>
+    <string name="aa_request_permission_notification">Esta aplicación necesita su permiso</string>
     <!-- The text in the activity for location permission request. -->
     <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita permiso de ubicación para funcionar eficazmente</string>
     <!-- Grant Permissions button. -->

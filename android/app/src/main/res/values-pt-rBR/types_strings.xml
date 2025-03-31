@@ -289,7 +289,7 @@
     <string name="type.cuisine.sausage">Linguiças</string>
     <string name="type.cuisine.savory_pancakes">Panquecas salgadas</string>
     <string name="type.cuisine.seafood">Frutos do mar</string>
-    <string name="type.cuisine.soba">Soba</string>
+    <string name="type.cuisine.soba">Sobá</string>
     <string name="type.cuisine.spanish">Cozinha espanhola</string>
     <string name="type.cuisine.steak_house">Churrascaria</string>
     <string name="type.cuisine.sushi">Sushi</string>
@@ -578,7 +578,7 @@
     <string name="type.man_made.cutline">Aceiro</string>
     <string name="type.man_made.lighthouse">Farol</string>
     <string name="type.man_made.pier">Píer</string>
-    <string name="type.man_made.pipeline">Pipeline</string>
+    <string name="type.man_made.pipeline">Tubulação</string>
     <string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Tanque de armazenagem</string>
@@ -673,7 +673,7 @@
     <string name="type.railway.station.light_rail">Estação de trem</string>
     <string name="type.railway.station.light_rail.berlin">Estação de trem</string>
     <string name="type.railway.station.light_rail.london">Estação de trem</string>
-    <string name="type.railway.station.light_rail.porto">Estação de trem</string>
+    <string name="type.railway.station.light_rail.porto">Estação de metrô</string>
     <string name="type.railway.station.monorail">Estação de trem</string>
     <string name="type.railway.station.subway">Estação de metrô</string>
     <string name="type.railway.station.subway.adana">Estação de metrô</string>
@@ -1008,7 +1008,7 @@
     <string name="type.shop.baby_goods">Loja infantil</string>
     <string name="type.shop.bag">Loja de bolsas</string>
     <string name="type.shop.bed">Loja de camas</string>
-    <string name="type.shop.boutique">Boutique</string>
+    <string name="type.shop.boutique">Loja de alta costura</string>
     <string name="type.shop.charity">Loja de caridade</string>
     <string name="type.shop.cheese">Loja de queijos</string>
     <string name="type.shop.craft">Artes e ofícios</string>
@@ -1110,4 +1110,30 @@
     <string name="type.leisure.sports_hall">Salão de esportes</string>
     <string name="type.power.pole">Poste de eletricidade</string>
     <string name="type.man_made.utility_pole">Poste</string>
+    <string name="type.historic.memorial">Memorial</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.leisure.beach_resort">Resort de praia</string>
+    <string name="type.man_made.flagpole">Mastro de bandeira</string>
+    <string name="type.railway.funicular">Funicular</string>
+    <string name="type.railway.station.funicular">Funicular</string>
+    <string name="type.sport.padel">Pádel</string>
+    <string name="type.tourism.information.visitor_centre">Centro de visitantes</string>
+    <string name="type.waterway.canal">Canal</string>
+    <string name="type.cuisine.bubble_tea">Chá de bolhas</string>
+    <string name="type.historic.castle.kremlin">Kremlin</string>
+    <string name="type.man_made.survey_point">Marco geodésico</string>
+    <string name="type.sport.badminton">Badminton</string>
+    <string name="type.sport.futsal">Futsal</string>
+    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.leisure.resort">Resort</string>
+    <string name="type.man_made.mast">Mastro</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.shop.caravan">Concessionária de trailers</string>
+    <string name="type.sport.curling">Curling</string>
 </resources>
