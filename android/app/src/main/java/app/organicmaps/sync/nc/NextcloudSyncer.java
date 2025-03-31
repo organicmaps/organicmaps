@@ -45,7 +45,7 @@ public enum NextcloudSyncer
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private CopyOnWriteArraySet<String> changedFilesSet; // thread-safe, persistent
-  private HashSet<String> externallyChangedFiles = new HashSet<>();
+  private final HashSet<String> externallyChangedFiles = new HashSet<>();
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private String deviceName;
@@ -54,12 +54,12 @@ public enum NextcloudSyncer
   private AuthExpiryDetectedCallback mAuthExpiryDetectedCallback;
 
   private File bookmarksDir;
-  private Set<String> allLocalFilePaths = new HashSet<>();
+  private final Set<String> allLocalFilePaths = new HashSet<>();
 
   @Nullable
   private DavClient mDavClient;
 
-  private NextcloudSyncer()
+  NextcloudSyncer()
   {
     HandlerThread handlerThread = new HandlerThread("NcSyncerThread");
     handlerThread.start();
@@ -297,10 +297,8 @@ public enum NextcloudSyncer
     {
       // The file exists on the client, but was deleted from the server.
       // Hence, the file should be deleted, except in cases when new bookmarks were added to the list after the file was deleted from the server
-      // TODO to detect the case mentioned above, implement
-      //            1. EITHER versions (https://docs.nextcloud.com/server/latest/developer_manual/client_apis/WebDAV/versions.html)
-      //               that might require storing the FILEID property for each file on the client (like ETag is stored currently).
-      //            2. OR (won't prefer) use nextcloud comments or simply a tracking file for storing the ETags of files that get deleted from the server.
+      // TODO: To detect the case mentioned above, make sure that the file did not originally belong to the @changedFilesSet. A more robust
+      //   approach would be to perhaps use the webdav versions API which would require storing FILEID.
       final String deletedFilePath = new File(bookmarksDir, deletedFilename).getAbsolutePath();
       LocalFileUtils.deleteFileSafe(deletedFilePath);
       ncprefs.removeFileETag(deletedFilePath);

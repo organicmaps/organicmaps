@@ -8,8 +8,6 @@ import androidx.annotation.Nullable;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 // TODO when working on the actual project (if selected) refactor out such classes into interfaces for testing
@@ -18,35 +16,19 @@ public class LocalFileUtils
   public static void deleteFileSafe(String filePath)
   {
     NextcloudSyncer.INSTANCE.notifyFileDeletedExternally(filePath);
-    new Handler(Looper.getMainLooper()).post(() -> {
-      BookmarkManager.nativeDeleteBmCategoryPermanently(filePath);
-    });
+    new Handler(Looper.getMainLooper()).post(() ->
+      BookmarkManager.nativeDeleteBmCategoryPermanently(filePath)
+    );
   }
 
   public static void reloadBookmarksList(String filePath)
   {
     NextcloudSyncer.INSTANCE.notifyFileAddedExternally(filePath);
-    new Handler(Looper.getMainLooper()).post(() -> {
-      BookmarkManager.nativeReloadBookmark(filePath);
-    });
+    new Handler(Looper.getMainLooper()).post(() ->
+      BookmarkManager.nativeReloadBookmark(filePath)
+    );
   }
 
-//  public static void duplicateFile(File file, File newFile, boolean retainOriginal) throws IOException
-//  {
-//    try (FileInputStream fis = new FileInputStream(file))
-//    {
-//      try (FileOutputStream fos = new FileOutputStream(newFile))
-//      {
-//        byte[] buf = new byte[4 * 1024];
-//        int len;
-//        while ((len = fis.read(buf)) > 0)
-//          fos.write(buf, 0, len);
-//      }
-//    }
-//    if (!retainOriginal)
-//      deleteFileSafe(file.getAbsolutePath());
-//    reloadBookmarksList(file.getAbsolutePath());
-//  }
   public static void safeMoveFile(final File file, final File newFile) throws IOException
   {
     if (!file.renameTo(newFile))
