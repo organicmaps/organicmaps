@@ -83,6 +83,8 @@ NSString *const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) CGPoint pointerLocation API_AVAILABLE(ios(14.0));
 @property(nonatomic) CGFloat currentScale;
 @property(nonatomic) CGFloat currentRotation;
+@property(nonatomic) CGFloat placePageTopBound;
+@property(nonatomic) CGFloat routePreviewTopBound;
 
 @property(nonatomic, readwrite) MWMMapDownloadDialog *downloadDialog;
 
@@ -225,16 +227,18 @@ NSString *const kSettingsSegue = @"Map2Settings";
   [self hidePlacePage];
 
   BOOL const isSearching = self.searchManager.isSearching;
-  BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
+  BOOL const isNavigationDashboardHidden = self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden;
   if (isSearching)
     [self.searchManager setPlaceOnMapSelected:!isNavigationDashboardHidden];
+  else if (isNavigationDashboardHidden)
+    [self.navigationDashboardManager onSelectPlacePage:NO];
   // Always show the controls during the navigation or planning mode.
   if (!isNavigationDashboardHidden)
     self.controlsManager.hidden = NO;
 }
 
 - (void)onSwitchFullScreen {
-  BOOL const isNavigationDashboardHidden = MWMNavigationDashboardManager.sharedManager.state == MWMNavigationDashboardStateHidden;
+  BOOL const isNavigationDashboardHidden = self. navigationDashboardManager.state == MWMNavigationDashboardStateClosed;
   if (!self.searchManager.isSearching && isNavigationDashboardHidden) {
     if (!self.controlsManager.hidden)
       [self dismissPlacePage];
@@ -243,9 +247,9 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)onMapObjectSelected {
-  if (!PlacePageData.hasData) {
+  if (!PlacePageData.hasData)
     return;
-  }
+  [self.navigationDashboardManager onSelectPlacePage:YES];
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
   [self showOrUpdatePlacePage:data];
 }
@@ -373,7 +377,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
+  if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -418,7 +422,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
         MWMMyPositionModeNotFollowNoPosition : MWMMyPositionModePendingPosition];
   }
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
+  if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   // Added in https://github.com/organicmaps/organicmaps/pull/7333
@@ -510,7 +514,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
+  if (self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetRenderingDisabled(false);
 }
@@ -746,6 +750,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
   return _searchManager;
 }
 
+- (MWMNavigationDashboardManager *)navigationDashboardManager {
+  return MWMNavigationDashboardManager.sharedManager;
+}
+
 - (UIView * _Nullable)searchViewAvailableArea {
   return self.searchManager.viewController.availableAreaView;
 }
@@ -761,6 +769,17 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
+  self.placePageTopBound = bound;
+  [self updateAvailableAreaBoundWithDuration:duration];
+}
+
+- (void)setRoutePreviewTopBound:(CGFloat)bound duration:(double)duration {
+  self.routePreviewTopBound = bound;
+  [self updateAvailableAreaBoundWithDuration:duration];
+}
+
+- (void)updateAvailableAreaBoundWithDuration:(double)duration {
+  CGFloat bound = MAX(self.routePreviewTopBound, self.placePageTopBound);
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
   [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
@@ -781,7 +800,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
   if (!_bookmarksCoordinator)
     _bookmarksCoordinator = [[BookmarksCoordinator alloc] initWithNavigationController:self.navigationController
                                                                        controlsManager:self.controlsManager
-                                                                     navigationManager:[MWMNavigationDashboardManager sharedManager]];
+                                                                     navigationManager:self.navigationDashboardManager];
   return _bookmarksCoordinator;
 }
 

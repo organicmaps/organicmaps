@@ -40,6 +40,7 @@
 - (void)openDrivingOptions;
 
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
+- (void)setRoutePreviewTopBound:(CGFloat)bound duration:(double)duration;
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
 

@@ -1,0 +1,135 @@
+final class RouteStopCollectionViewCell: UICollectionViewCell {
+
+  enum PlaceholderState {
+    case start
+    case finish
+  }
+
+  private enum Constants {
+    static let logoSize: CGFloat = 28
+    static let contentBackgroundPadding: CGFloat = 2
+    static let logoSizeRatio: CGFloat = 1.0
+    static let reorderButtonSize: CGFloat = 24
+    static let closeButtonSize: CGFloat = 20
+    static let horizontalSpacing: CGFloat = 12
+    static let titleToSubtitleSpacing: CGFloat = 2
+    static let titleToReorderSpacing: CGFloat = 12
+  }
+
+  private let logoImageView = UIImageView()
+  private let contentBackgroundView = UIView()
+  private let titleLabel = UILabel()
+  private let subtitleLabel = UILabel()
+  private let textStackView = UIStackView()
+  private let reorderButton = UIButton(type: .system)
+  private let closeButton = UIButton(type: .system)
+
+  private var didTapClose: (() -> Void)?
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupView()
+    layout()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    logoImageView.layer.cornerRadius = logoImageView.bounds.width / 2
+  }
+
+  private func setupView() {
+    logoImageView.contentMode = .scaleAspectFill
+    logoImageView.clipsToBounds = true
+
+    contentBackgroundView.setStyle(.pressBackground)
+    contentBackgroundView.layer.setCornerRadius(.buttonDefault)
+
+    subtitleLabel.setFontStyleAndApply(.regular12, color: .blackSecondary)
+
+    textStackView.axis = .vertical
+    textStackView.spacing = Constants.titleToSubtitleSpacing
+    textStackView.alignment = .leading
+
+    reorderButton.setImage(UIImage(resource: .icMoveList), for: .normal)
+    reorderButton.setStyle(.gray)
+
+    closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
+    closeButton.setStyle(.gray)
+    closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+  }
+
+  private func layout() {
+    contentView.addSubview(logoImageView)
+    contentView.addSubview(contentBackgroundView)
+    contentBackgroundView.addSubview(textStackView)
+    textStackView.addArrangedSubview(titleLabel)
+    textStackView.addArrangedSubview(subtitleLabel)
+    contentBackgroundView.addSubview(reorderButton)
+    contentBackgroundView.addSubview(closeButton)
+
+    logoImageView.translatesAutoresizingMaskIntoConstraints = false
+    contentBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+    textStackView.translatesAutoresizingMaskIntoConstraints = false
+    reorderButton.translatesAutoresizingMaskIntoConstraints = false
+    closeButton.translatesAutoresizingMaskIntoConstraints = false
+
+    NSLayoutConstraint.activate([
+      logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      logoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+      logoImageView.widthAnchor.constraint(equalToConstant: Constants.logoSize),
+      logoImageView.heightAnchor.constraint(equalToConstant: Constants.logoSize),
+
+      contentBackgroundView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
+      contentBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.contentBackgroundPadding),
+      contentBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.contentBackgroundPadding),
+      contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.contentBackgroundPadding),
+
+      reorderButton.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: Constants.horizontalSpacing),
+      reorderButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
+      reorderButton.widthAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
+      reorderButton.heightAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
+
+      textStackView.leadingAnchor.constraint(equalTo: reorderButton.trailingAnchor, constant: Constants.titleToReorderSpacing),
+      textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
+      textStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButton.leadingAnchor, constant: -Constants.horizontalSpacing),
+
+      closeButton.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -Constants.horizontalSpacing),
+      closeButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
+      closeButton.widthAnchor.constraint(equalToConstant: Constants.closeButtonSize),
+      closeButton.heightAnchor.constraint(equalToConstant: Constants.closeButtonSize)
+    ])
+  }
+
+  func configure(with routePoint: MWMRoutePoint, onCloseHandler: @escaping (() -> Void)) {
+    titleLabel.text = routePoint.title
+    subtitleLabel.text = routePoint.subtitle
+    logoImageView.image = UIImage(resource: .badge) // TODO: implement images
+    didTapClose = onCloseHandler
+    closeButton.isHidden = false
+    titleLabel.setFontStyleAndApply(.semibold14, color: .blackPrimary)
+  }
+
+  func configurePlaceholder(for state: PlaceholderState) {
+    switch state {
+    case .start:
+      titleLabel.text = "From"
+      logoImageView.image = UIImage(resource: .icRouteManagerStart)
+    case .finish:
+      titleLabel.text = "To"
+      logoImageView.image = UIImage(resource: .finishPoint)
+    }
+    titleLabel.setFontStyleAndApply(.semibold14, color: .blackSecondary)
+    closeButton.isHidden = true
+    subtitleLabel.text = ""
+  }
+
+  @objc
+  private func didTapCloseButton() {
+    didTapClose?()
+  }
+}
