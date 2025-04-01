@@ -18,8 +18,8 @@
 @property(copy, nonatomic) NSString * errorMessage;
 @property(copy, nonatomic) MWMNavigationDashboardEntity * entity;
 
-@property(nonatomic, nonnull, readonly) id<NavigationDashboardView> navigationDashboardView;
-@property(weak, nonatomic) UIView * ownerView;
+@property(weak, nonatomic) id<NavigationDashboardView> navigationDashboardView;
+@property(weak, nonatomic) MapViewController * parentViewController;
 
 @end
 
@@ -29,14 +29,22 @@
   return [MWMMapViewControlsManager manager].navigationManager;
 }
 
-- (instancetype)initWithParentView:(UIView *)view {
+- (instancetype)initWithParentViewController:(MapViewController *)viewController {
   self = [super init];
   if (self) {
-    _ownerView = view;
-    _navigationDashboardView = [[MWMNavigationDashboardView alloc] initWithOwnerView:view];
-    _navigationDashboardView.delegate = self;
+    _parentViewController = viewController;
   }
   return self;
+}
+
+- (id<NavigationDashboardView>)navigationDashboardView {
+  auto navigationDashboardView = _navigationDashboardView;
+  if (navigationDashboardView)
+    return navigationDashboardView;
+  RoutePreviewViewController * routePreviewViewController = [RoutePreviewBuilder buildWithDelegate:self];
+  [routePreviewViewController addTo:self.parentViewController];
+  _navigationDashboardView = routePreviewViewController.interactor;
+  return navigationDashboardView;
 }
 
 - (SearchOnMapManager *)searchManager {
@@ -44,12 +52,22 @@
 }
 
 - (void)setRouteBuilderProgress:(CGFloat)progress {
+  if (self.state == MWMNavigationDashboardStateClosed)
+    return;
   [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter type] progress:progress / 100.];
 }
 
 #pragma mark - On route updates
 
+- (void)onSelectPlacePage:(BOOL)selected {
+  if (self.state == MWMNavigationDashboardStateClosed)
+    return;
+  self.state = selected ? MWMNavigationDashboardStateHidden : MWMNavigationDashboardStateReady;
+}
+
 - (void)onNavigationInfoUpdated {
+  if (self.state == MWMNavigationDashboardStateClosed)
+    return;
   auto entity = self.entity;
   if (!entity.isValid)
     return;
@@ -83,6 +101,8 @@
 }
 
 - (void)onRoutePointsUpdated {
+  if (self.state == MWMNavigationDashboardStateClosed)
+    return;
   if (self.state == MWMNavigationDashboardStateHidden)
     self.state = MWMNavigationDashboardStatePrepare;
   [self.navigationDashboardView onRoutePointsUpdated];
@@ -91,11 +111,15 @@
 #pragma mark - Properties
 
 - (void)setState:(MWMNavigationDashboardState)state {
-  if (state == MWMNavigationDashboardStateHidden)
+  if (state == MWMNavigationDashboardStateClosed)
     [self.searchManager removeObserver:self];
   else
     [self.searchManager addObserver:self];
+  _state = state;
   switch (state) {
+    case MWMNavigationDashboardStateClosed:
+      [self stateClosed];
+      break;
     case MWMNavigationDashboardStateHidden:
       [self stateHidden];
       break;
@@ -115,11 +139,10 @@
       [self stateNavigation];
       break;
   }
-  _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
   // Restore bottom buttons only if they were not already hidden by tapping anywhere on an empty map.
   if (!MWMMapViewControlsManager.manager.hidden)
-    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateHidden;
+    BottomTabBarViewController.controller.isHidden = state != MWMNavigationDashboardStateClosed;
 }
 
 - (MWMNavigationDashboardEntity *)entity {
@@ -130,8 +153,14 @@
 
 #pragma mark - State changes
 
+- (void)stateClosed {
+  if (self.state == MWMNavigationDashboardStateClosed)
+    return;
+  [self.navigationDashboardView stateClosed];
+}
+
 - (void)stateHidden {
-  [self.navigationDashboardView setHidden];
+  [self.navigationDashboardView setHidden:YES];
 }
 
 - (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus {
@@ -188,7 +217,7 @@
   self.state = MWMNavigationDashboardStateNavigation;
 }
 - (void)onRouteStop {
-  self.state = MWMNavigationDashboardStateHidden;
+  self.state = MWMNavigationDashboardStateClosed;
 }
 
 - (void)stateNavigation {
@@ -230,6 +259,8 @@
 #pragma mark - Available area
 
 + (void)updateNavigationInfoAvailableArea:(CGRect)frame {
+  if ([self sharedManager].state == MWMNavigationDashboardStateClosed)
+    return;
   [[self sharedManager].navigationDashboardView updateNavigationInfoAvailableArea:frame];
 }
 

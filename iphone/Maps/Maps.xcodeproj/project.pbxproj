@@ -480,6 +480,16 @@
 		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
 		ED4F4F292D9558C2006AD910 /* RoutePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */; };
+		ED4F4F392D9AF887006AD910 /* RouteStopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */; };
+		ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */; };
+		ED4F4F3F2D9C1793006AD910 /* AddItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */; };
+		ED4F4F4D2D9E6CA0006AD910 /* RoutePreviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */; };
+		ED4F4F4F2D9E7B8E006AD910 /* RoutePreviewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */; };
+		ED4F4F512D9E8854006AD910 /* RoutePreviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */; };
+		ED4F4F532D9E888E006AD910 /* RoutePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */; };
+		ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */; };
+		ED4F4F752DA7A65F006AD910 /* RoutePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */; };
+		ED4F4F792DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
 		ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */; };
 		ED5E02522D92E33300A5CC7B /* MWMNavigationDashboardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02512D92E33300A5CC7B /* MWMNavigationDashboardView.mm */; };
@@ -1455,6 +1465,16 @@
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewViewController.swift; sourceTree = "<group>"; };
 		ED4F4F372D9AC4B5006AD910 /* SearchOnMapState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchOnMapState.h; sourceTree = "<group>"; };
+		ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStopCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewInteractor.swift; sourceTree = "<group>"; };
+		ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewBuilder.swift; sourceTree = "<group>"; };
+		ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewPresenter.swift; sourceTree = "<group>"; };
+		ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewModel.swift; sourceTree = "<group>"; };
+		ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
+		ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewViewModel.swift; sourceTree = "<group>"; };
+		ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewRoutePoints.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
 		ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
 		ED5E024F2D92AC9300A5CC7B /* RoutePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutePreviewView.h; sourceTree = "<group>"; };
@@ -2528,7 +2548,17 @@
 		34AB65D11FC5AA320078E451 /* RoutePreview */ = {
 			isa = PBXGroup;
 			children = (
+				ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */,
+				ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */,
+				ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */,
+				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
+				ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */,
 				ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */,
+				ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */,
+				ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */,
+				ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */,
+				ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */,
+				ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */,
 				34AB65EA1FC5AA320078E451 /* MWMiPadRoutePreview.h */,
 				34AB65E91FC5AA320078E451 /* MWMiPadRoutePreview.m */,
 				34AB65D61FC5AA320078E451 /* MWMiPadRoutePreview.xib */,
@@ -4479,6 +4509,7 @@
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */,
+				ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */,
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
 				99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
@@ -4574,6 +4605,7 @@
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				EDFDFB482B7139670013A44C /* SocialMedia.swift in Sources */,
+				ED4F4F392D9AF887006AD910 /* RouteStopCollectionViewCell.swift in Sources */,
 				993DF0B523F6B2EF00AC231A /* PlacePageTrackLayout.swift in Sources */,
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
@@ -4688,6 +4720,7 @@
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.m in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */,
+				ED4F4F512D9E8854006AD910 /* RoutePreviewPresenter.swift in Sources */,
 				9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */,
 				47CA68D62500448D00671019 /* BookmarksListInteractor.swift in Sources */,
 				4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */,
@@ -4703,6 +4736,7 @@
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */,
+				ED4F4F4F2D9E7B8E006AD910 /* RoutePreviewBuilder.swift in Sources */,
 				4735008A23A83CF700661A95 /* DownloadedMapsDataSource.swift in Sources */,
 				CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */,
 				3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */,
@@ -4730,11 +4764,13 @@
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
+				ED4F4F792DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift in Sources */,
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,
 				99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
+				ED4F4F4D2D9E6CA0006AD910 /* RoutePreviewInteractor.swift in Sources */,
 				47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */,
 				ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
@@ -4769,6 +4805,7 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
+				ED4F4F752DA7A65F006AD910 /* RoutePreviewViewModel.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,
@@ -4814,6 +4851,7 @@
 				47CA68F8250F8AB700671019 /* BookmarksListSectionHeader.swift in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				47CF2E6323BA0DD500D11C30 /* CopyLabel.swift in Sources */,
+				ED4F4F532D9E888E006AD910 /* RoutePreviewModel.swift in Sources */,
 				47CA68D12500435E00671019 /* BookmarksListViewController.swift in Sources */,
 				34AB66321FC5AA330078E451 /* RouteManagerHeaderView.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
@@ -4863,6 +4901,7 @@
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+StyleStyle.swift in Sources */,
+				ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
 				039371B62C5B68CD00708377 /* UIFont+monospaced.swift in Sources */,
 				447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */,
@@ -4927,6 +4966,7 @@
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,
+				ED4F4F3F2D9C1793006AD910 /* AddItemCollectionViewCell.swift in Sources */,
 				34AB66531FC5AA330078E451 /* MWMiPadRoutePreview.m in Sources */,
 				3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.m in Sources */,
 				F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
@@ -5229,6 +5269,30 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
+				"OTHER_LDFLAGS[sdk=macosx*]" = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					OpenGL,
+					"-framework",
+					QtCore,
+					"-framework",
+					QtGui,
+					"-framework",
+					QtNetwork,
+					"-framework",
+					QtOpenGL,
+					"-framework",
+					QtWidgets,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CFNetwork,
+					"-Xlinker",
+					"-interposable",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
 				PROVISIONING_PROFILE_SPECIFIER = "";
