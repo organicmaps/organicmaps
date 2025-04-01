@@ -295,7 +295,8 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .flatNormalButtonBig:
       return .addFrom(Self.flatNormalButton) { s in
-        s.font = fonts.regular17
+        s.font = fonts.semibold16
+        s.cornerRadius = .buttonDefaultBig
       }
     case .flatNormalTransButton:
       return .add { s in

@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateNavigationInfoAvailableArea:(CGRect)frame;
 - (void)setRouteBuilderProgress:(MWMRouterType)router progress:(CGFloat)progress;
 
-- (void)setHidden;
+- (void)setHidden:(BOOL)hidden;
+- (void)stateClosed;
 - (void)statePrepare;
 - (void)statePlanning;
 - (void)stateError:(NSString *_Nonnull)errorMessage;

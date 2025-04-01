@@ -53,7 +53,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
     vc.canAddStop = MWMRouter.canAddIntermediatePoint()
-    vc.isRoutePlanning = MWMNavigationDashboardManager.shared().state != .hidden
+    vc.isRoutePlanning = MWMNavigationDashboardManager.shared().state != .closed
     vc.delegate = interactor
     return vc
   }()

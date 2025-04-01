@@ -69,6 +69,7 @@
 #import "MapsAppDelegate.h"
 #import "SwizzleStyle.h"
 #import "UIButton+RuntimeAttributes.h"
+#import "UIButton+Orientation.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+WebImage.h"

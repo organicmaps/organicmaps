@@ -29,7 +29,10 @@ using namespace storage;
   return GetFramework().HasPlacePageInfo();
 }
 
-- (void)closePlacePage { GetFramework().DeactivateMapSelection(); }
+- (void)closePlacePage {
+  [MapViewController.sharedController.searchManager close];
+  GetFramework().DeactivateMapSelection();
+}
 
 - (void)routeFrom:(PlacePageData *)data {
   MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];

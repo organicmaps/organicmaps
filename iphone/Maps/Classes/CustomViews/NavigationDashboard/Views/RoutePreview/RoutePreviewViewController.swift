@@ -1,325 +1,496 @@
-@available(iOS 14.0, *)
 @objcMembers
 final class RoutePreviewViewController: UIViewController {
 
-  // MARK: - RoutePreviewView Properties
-  var drivingOptionsState: MWMDrivingOptionsState = .none
-  weak var delegate: MWMRoutePreviewDelegate?
+  private enum Constants {
+    static let grabberHeight: CGFloat = 5
+    static let grabberWidth: CGFloat = 36
+    static let grabberTopInset: CGFloat = 5
+
+    static let backButtonInsets = UIEdgeInsets(top: 4, left: 16, bottom: 0, right: 16)
+    static let backButtonSize: CGSize = CGSize(width: 24, height: 40)
+
+    static let settingsButtonSize: CGFloat = 32
+    static let settingsButtonInsetRight: CGFloat = -16
+    static let settingsButtonSpacing: CGFloat = 8
+
+    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -16)
+    static let transportOptionsCollectionHeight: CGFloat = 44
+    static let transportOptionsItemSize = CGSize(width: 40, height: 40)
+
+    static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
+    static let routePointsVerticalSpacing: CGFloat = 8
+    static let routePointCellHeight: CGFloat = 52
+    static let addRoutePointCellHeight: CGFloat = 30
+
+    static let etaLabelHeight: CGFloat = 30
+    static let etaLabelTopSpacing: CGFloat = 8
+    static let etaLabelLeadingPadding: CGFloat = 16
+  }
 
   // MARK: - UI Components
-  private let mapView = UIView()
-  private let transportOptionsStack = UIStackView()
-  private let distanceLabel = UILabel()
-  private let durationLabel = UILabel()
+  private let grabberView = UIView()
+  private let backButton = UIButton(type: .system)
+  private var transportOptionsCollectionView: UICollectionView!
+  private let etaLabel = UILabel()
   private let settingsButton = UIButton(type: .system)
-  private let startButton = UIButton(type: .system)
-  private var collectionView: UICollectionView!
+  private var routePointsCollectionView: UICollectionView!
+  private let startButton = StartRouteButton()
+  private let availableAreaView = SearchOnMapAreaView()
 
-  // Data Source and Snapshots
-  private var dataSource: UICollectionViewDiffableDataSource<Int, Place>!
-  private var places: [Place] = []
+  var interactor: RoutePreview.Interactor?
+  private var viewModel: RoutePreview.ViewModel = .initial
+  private let presentationStepsController = ModalPresentationStepsController()
+
+  // MARK: - Init
+  init() {
+    super.init(nibName: nil, bundle: nil)
+    configureModalPresentation()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: - Lifecycle
+  override func loadView() {
+    view = TouchTransparentView()
+  }
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
-    setupCollectionView()
     layout()
-    configureDataSource()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    view.layoutIfNeeded()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateFrameOfPresentedViewInContainerView()
+    transportOptionsCollectionView.reloadData()
+  }
+
+  override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+      updateFrameOfPresentedViewInContainerView()
+    }
+  }
+
+  func add(to parentViewController: MapViewController) {
+    parentViewController.addChild(self)
+    parentViewController.view.addSubview(view)
+    view.frame = parentViewController.view.bounds
+    view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    view.setNeedsLayout()
+    view.layoutIfNeeded()
+    didMove(toParent: parentViewController)
   }
 
   // MARK: - Setup Views
   private func setupView() {
-    view.backgroundColor = .white
-    setupMapView()
-    setupTransportOptionsStack()
-    setupInfoLabels()
+    view.backgroundColor = .clear
+    availableAreaView.setStyle(.modalSheetBackground)
+    setupGrabberView()
+    setupBackButton()
+    setupSettingsButton()
+    setupEtaLabel()
     setupStartButton()
+    setupTransportOptionsCollection()
+    setupRoutePointsCollectionView()
+    configureModalPresentation()
+    setupGestureRecognizers()
   }
 
-  private func setupMapView() {
-    mapView.backgroundColor = .systemGray5
-    view.addSubview(mapView)
+  private func configureModalPresentation() {
+    guard let mapViewController = MapViewController.shared() else {
+      fatalError("MapViewController is not available")
+    }
+    presentationStepsController.set(presentedView: availableAreaView, containerViewController: self)
+    presentationStepsController.didUpdateHandler = presentationUpdateHandler
+
+    // TODO: affect side buttons area
+//    let affectedAreaViews = [
+//      mapViewController.sideButtonsArea,
+//      mapViewController.trafficButtonArea,
+//    ]
+//    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
   }
 
-  private func setupTransportOptionsStack() {
-    let carButton = createTransportButton(imageName: "car.fill")
-    let walkingButton = createTransportButton(imageName: "figure.walk")
-    let busButton = createTransportButton(imageName: "bus")
-    let bikeButton = createTransportButton(imageName: "bicycle")
-    let customButton = createTransportButton(imageName: "slider.horizontal.3")
-
-    transportOptionsStack.axis = .horizontal
-    transportOptionsStack.distribution = .fillEqually
-    transportOptionsStack.spacing = 8
-    transportOptionsStack.addArrangedSubview(carButton)
-    transportOptionsStack.addArrangedSubview(walkingButton)
-    transportOptionsStack.addArrangedSubview(busButton)
-    transportOptionsStack.addArrangedSubview(bikeButton)
-    transportOptionsStack.addArrangedSubview(customButton)
-
-    view.addSubview(transportOptionsStack)
+  private var presentationUpdateHandler: (ModalPresentationStepsController.StepUpdate) -> Void {
+    { [weak self] update in
+      guard let self else { return }
+      switch update {
+      case .didClose:
+        self.interactor?.process(.close)
+      case .didUpdateFrame(let frame):
+        self.interactor?.process(.updatePresentationFrame(frame))
+      case .didUpdateStep(let step):
+//        self.interactor?.process(.didUpdatePresentationStep(step))
+        break
+      }
+    }
   }
 
-  private func setupInfoLabels() {
-    distanceLabel.text = "32.4 KM"
-    distanceLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+  private func setupGestureRecognizers() {
+    iPhoneSpecific {
+      let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+      availableAreaView.addGestureRecognizer(panGestureRecognizer)
+    }
+  }
 
-    durationLabel.text = "1hr 21min"
-    durationLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+  @objc
+  private func handlePan(_ gesture: UIPanGestureRecognizer) {
+    presentationStepsController.handlePan(gesture)
+  }
 
-    view.addSubview(distanceLabel)
-    view.addSubview(durationLabel)
+  private func setupGrabberView() {
+    // TODO: remove when the grabber will be the same on all the modal screens
+    grabberView.layer.setCornerRadius(.grabber)
+    grabberView.backgroundColor = .blackDividers()
+    iPadSpecific { [weak self] in
+      self?.grabberView.isHidden = true
+    }
+  }
+
+  private func setupBackButton() {
+    backButton.setImage(UIImage(resource: .icNavBarBack), for: .normal)
+    backButton.matchInterfaceOrientation()
+    backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+    backButton.setStyle(.black)
+  }
+
+  private func setupSettingsButton() {
+    settingsButton.setStyle(.blue)
+    settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
+  }
+
+  private func setupTransportOptionsCollection() {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    transportOptionsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    transportOptionsCollectionView.backgroundColor = .clear
+    transportOptionsCollectionView.dataSource = self
+    transportOptionsCollectionView.delegate = self
+    transportOptionsCollectionView.showsHorizontalScrollIndicator = false
+    transportOptionsCollectionView.showsVerticalScrollIndicator = false
+    transportOptionsCollectionView.isScrollEnabled = false
+    transportOptionsCollectionView.allowsMultipleSelection = false
+    transportOptionsCollectionView.register(cell: TransportOptionCollectionViewCell.self)
+  }
+
+  private func setupEtaLabel() {
+    etaLabel.setFontStyleAndApply(.bold14)
   }
 
   private func setupStartButton() {
-    startButton.setTitle("Start", for: .normal)
-    startButton.backgroundColor = .systemBlue
-    startButton.setTitleColor(.white, for: .normal)
-    startButton.layer.cornerRadius = 10
-    startButton.addTarget(self, action: #selector(didTapStartButton), for: .touchUpInside)
-    view.addSubview(startButton)
+    startButton.setOnTapAction { [weak self] in
+      self?.interactor?.process(.startNavigation)
+    }
   }
 
-  // MARK: - Setup Collection View
-  private func setupCollectionView() {
-    let layout = createCompositionalLayout()
-    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .white
-    collectionView.dragInteractionEnabled = true
-    collectionView.alwaysBounceVertical = false
-    collectionView.isScrollEnabled = false
-    collectionView.delegate = self
-//    collectionView.dataSource = self
-    collectionView.register(PlaceCell.self, forCellWithReuseIdentifier: PlaceCell.reuseIdentifier)
-    view.addSubview(collectionView)
+  private func setupRoutePointsCollectionView() {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .vertical
+    routePointsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    routePointsCollectionView.backgroundColor = .clear
+    routePointsCollectionView.dragInteractionEnabled = true
+    routePointsCollectionView.alwaysBounceVertical = false
+    routePointsCollectionView.isScrollEnabled = false
+    routePointsCollectionView.dragDelegate = self
+    routePointsCollectionView.dropDelegate = self
+    routePointsCollectionView.dataSource = self
+    routePointsCollectionView.delegate = self
+    routePointsCollectionView.register(cell: RouteStopCollectionViewCell.self)
+    routePointsCollectionView.register(cell: AddItemCollectionViewCell.self)
   }
 
   // MARK: - Layout Constraints
   private func layout() {
-    mapView.translatesAutoresizingMaskIntoConstraints = false
-    transportOptionsStack.translatesAutoresizingMaskIntoConstraints = false
-    distanceLabel.translatesAutoresizingMaskIntoConstraints = false
-    durationLabel.translatesAutoresizingMaskIntoConstraints = false
-    collectionView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(availableAreaView)
+    availableAreaView.addSubview(grabberView)
+    availableAreaView.addSubview(backButton)
+    availableAreaView.addSubview(transportOptionsCollectionView)
+    availableAreaView.addSubview(etaLabel)
+    availableAreaView.addSubview(settingsButton)
+    availableAreaView.addSubview(routePointsCollectionView)
+    view.addSubview(startButton)
+
+    grabberView.translatesAutoresizingMaskIntoConstraints = false
+    backButton.translatesAutoresizingMaskIntoConstraints = false
+    transportOptionsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+    etaLabel.translatesAutoresizingMaskIntoConstraints = false
+    settingsButton.translatesAutoresizingMaskIntoConstraints = false
+    routePointsCollectionView.translatesAutoresizingMaskIntoConstraints = false
     startButton.translatesAutoresizingMaskIntoConstraints = false
 
+    etaLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
     NSLayoutConstraint.activate([
-      mapView.topAnchor.constraint(equalTo: view.topAnchor),
-      mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      mapView.heightAnchor.constraint(equalToConstant: 200),
+      grabberView.centerXAnchor.constraint(equalTo: availableAreaView.centerXAnchor),
+      grabberView.widthAnchor.constraint(equalToConstant: Constants.grabberWidth),
+      grabberView.topAnchor.constraint(equalTo: availableAreaView.topAnchor, constant: Constants.grabberTopInset),
+      grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
+      
+      backButton.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.backButtonInsets.left),
+      backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize.width),
+      backButton.heightAnchor.constraint(equalToConstant: Constants.backButtonSize.height),
+      backButton.centerYAnchor.constraint(equalTo: transportOptionsCollectionView.centerYAnchor),
 
-      transportOptionsStack.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 8),
-      transportOptionsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      transportOptionsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+      transportOptionsCollectionView.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.left),
+      transportOptionsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.right),
+      transportOptionsCollectionView.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.transportOptionsCollectionInsets.top),
+      transportOptionsCollectionView.heightAnchor.constraint(equalToConstant: Constants.transportOptionsCollectionHeight),
 
-      distanceLabel.topAnchor.constraint(equalTo: transportOptionsStack.bottomAnchor, constant: 8),
-      distanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      etaLabel.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.etaLabelLeadingPadding),
+      etaLabel.heightAnchor.constraint(equalToConstant: Constants.etaLabelHeight),
+      etaLabel.topAnchor.constraint(equalTo: transportOptionsCollectionView.bottomAnchor, constant: Constants.etaLabelTopSpacing),
 
-      durationLabel.centerYAnchor.constraint(equalTo: distanceLabel.centerYAnchor),
-      durationLabel.leadingAnchor.constraint(equalTo: distanceLabel.trailingAnchor, constant: 8),
+      settingsButton.leadingAnchor.constraint(equalTo: etaLabel.trailingAnchor, constant: Constants.settingsButtonSpacing),
+      settingsButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.settingsButtonInsetRight),
+      settingsButton.centerYAnchor.constraint(equalTo: etaLabel.centerYAnchor),
+      settingsButton.heightAnchor.constraint(equalToConstant: Constants.settingsButtonSize),
+      settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
 
-      collectionView.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 8),
-      collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      collectionView.heightAnchor.constraint(equalToConstant: 200),
+      routePointsCollectionView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routePointsInsets.left),
+      routePointsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routePointsInsets.right),
+      routePointsCollectionView.topAnchor.constraint(equalTo: etaLabel.bottomAnchor, constant: Constants.routePointsInsets.top),
+      routePointsCollectionView.bottomAnchor.constraint(equalTo: availableAreaView.bottomAnchor, constant: Constants.routePointsInsets.bottom),
 
-      startButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
-      startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      startButton.heightAnchor.constraint(equalToConstant: 50)
+      startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
+      startButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor),
+      startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
+    presentationStepsController.setInitialState()
   }
 
-  // MARK: - Collection View Layout
-  private func createCompositionalLayout() -> UICollectionViewLayout {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-    let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [item])
-
-    let section = NSCollectionLayoutSection(group: group)
-    section.interGroupSpacing = 8
-    section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
-
-    return UICollectionViewCompositionalLayout(section: section)
-  }
-
-  // MARK: - Data Source Configuration
-  private func configureDataSource() {
-    dataSource = UICollectionViewDiffableDataSource<Int, Place>(collectionView: collectionView) {
-      (collectionView, indexPath, place) -> UICollectionViewCell? in
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceCell.reuseIdentifier, for: indexPath) as? PlaceCell else {
-        return nil
-      }
-      cell.configure(with: place)
-      return cell
-    }
-
-    dataSource.reorderingHandlers.canReorderItem = { _ in return true }
-    dataSource.reorderingHandlers.didReorder = { [weak self] transaction in
-      guard let self = self else { return }
-      self.places = transaction.finalSnapshot.itemIdentifiers
-      self.updateSnapshot()
-    }
-    updateSnapshot()
-  }
-
-  private func updateSnapshot() {
-    var snapshot = NSDiffableDataSourceSnapshot<Int, Place>()
-    snapshot.appendSections([0])
-    snapshot.appendItems(places)
-    dataSource.apply(snapshot, animatingDifferences: true)
+  private func updateFrameOfPresentedViewInContainerView() {
+    presentationStepsController.updateMaxAvailableFrame()
+    availableAreaView.frame = presentationStepsController.currentFrame
+    view.layoutIfNeeded()
   }
 
   // MARK: - Button Actions
-  @objc private func didTapStartButton() {
-    delegate?.routingStartButtonDidTap()
+  @objc
+  private func didTapStartButton() {
+    interactor?.process(.startNavigation)
   }
 
-  private func createTransportButton(imageName: String) -> UIButton {
-    let button = UIButton(type: .system)
-    button.setImage(UIImage(systemName: imageName), for: .normal)
-    button.tintColor = .black
-    return button
-  }
-
-  // MARK: - RoutePreviewView Protocol Methods
-  func add(to superview: UIView) {
-    superview.addSubview(self.view)
-    self.view.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      self.view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-      self.view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-      self.view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-      self.view.heightAnchor.constraint(equalToConstant: 500)
-    ])
-  }
-//
-//  func remove() {
-//    view.removeFromSuperview()
-//  }
-//
-//  func statePrepare() {
-//    // Prepare state for preview
-//  }
-//
-//  func select(_ routerType: MWMRouterType) {
-//    // Select router logic
-//  }
-//
-//  func router(_ routerType: MWMRouterType, setState state: MWMCircularProgressState) {
-//    // Set state for router
-//  }
-//
-//  func router(_ routerType: MWMRouterType, setProgress progress: CGFloat) {
-//    // Set progress
-//  }
-}
-
-// MARK: - Collection View Delegate for Drag/Drop
-@available(iOS 14.0, *)
-extension RoutePreviewViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-    let movedItem = places.remove(at: sourceIndexPath.item)
-    places.insert(movedItem, at: destinationIndexPath.item)
-    updateSnapshot()
+  @objc
+  private func didTapBackButton() {
+    interactor?.process(.close)
   }
 }
 
-// MARK: - PlaceCell Implementation
-class PlaceCell: UICollectionViewCell {
-  static let reuseIdentifier = "PlaceCell"
-  private let titleLabel = UILabel()
-
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setupCell()
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+extension RoutePreviewViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      return viewModel.transportOptions.count
+    case routePointsCollectionView:
+      return viewModel.routePoints.count + 1
+    default:
+      fatalError("Unknown collection view")
+    }
   }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      let cell = collectionView.dequeueReusableCell(cell: TransportOptionCollectionViewCell.self, indexPath: indexPath)
+      let routerType = viewModel.transportOptions[indexPath.item]
+      cell.configure(with: routerType)
+      if viewModel.routerType == routerType {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+      }
+      return cell
+
+    case routePointsCollectionView:
+      switch indexPath.item {
+      case viewModel.routePoints.count:
+        let cell = collectionView.dequeueReusableCell(cell: AddItemCollectionViewCell.self, indexPath: indexPath)
+        cell.didTapAction = { [weak self] in
+          self?.interactor?.process(.addRoutePoint)
+        }
+        return cell
+      default:
+        let cell = collectionView.dequeueReusableCell(cell: RouteStopCollectionViewCell.self, indexPath: indexPath)
+        let routePoints = viewModel.routePoints
+        cell.configure(with: routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
+          if let point = routePoints[indexPath.item] {
+            self?.interactor?.process(.deleteRoutePoint(point))
+          }
+        }))
+        return cell
+      }
+    default:
+      fatalError("Unknown collection view")
+    }
   }
 
-  private func setupCell() {
-    titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-    titleLabel.textAlignment = .left
-    contentView.addSubview(titleLabel)
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      let routerType = viewModel.transportOptions[indexPath.item]
+      interactor?.process(.selectRouterType(routerType))
 
-    NSLayoutConstraint.activate([
-      titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-      titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
-    ])
-  }
+    case routePointsCollectionView:
+      switch indexPath.item {
+      case viewModel.routePoints.count:
+        break // Add point cell
+      default:
+        // TODO: point may by unavailable
+        let point = viewModel.routePoints[indexPath.item]
+        interactor?.process(.selectRoutePoint(point, at: indexPath.item))
+        break
+      }
 
-  func configure(with place: Place) {
-    titleLabel.text = place.name
+    default:
+      fatalError("Unknown collection view")
+    }
   }
 }
 
-// MARK: - Place Model
-struct Place: Hashable {
-  let id = UUID()
-  let name: String
+// MARK: - UICollectionViewDelegateFlowLayout
+extension RoutePreviewViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      return Constants.transportOptionsItemSize
+
+    case routePointsCollectionView:
+      let isAddPointCell = indexPath.item == viewModel.routePoints.count
+      let height = isAddPointCell ? Constants.addRoutePointCellHeight : Constants.routePointCellHeight
+      return CGSize(width: collectionView.bounds.width,
+                    height: height)
+
+    default:
+      fatalError("Unknown collection view")
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      // fit to the width
+      let cellsCount = CGFloat(viewModel.transportOptions.count)
+      let size = (collectionView.width - Constants.transportOptionsItemSize.width * cellsCount) / (cellsCount - 1)
+      return size
+
+    case routePointsCollectionView:
+      return Constants.routePointsVerticalSpacing
+
+    default:
+      fatalError("Unknown collection view")
+    }
+  }
 }
 
-@available(iOS 14.0, *)
-extension RoutePreviewViewController: NavigationDashboardView {
-  func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {
-    print(#function)
+// MARK: - UICollectionViewDragDelegate, UICollectionViewDropDelegate
+extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+  func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+    guard indexPath.item < viewModel.routePoints.count else { return [] }
+    let item = viewModel.routePoints[indexPath.item]
+    let title = viewModel.routePoints.title(for: indexPath.item)
+    let itemProvider = NSItemProvider(object: title as NSString)
+    let dragItem = UIDragItem(itemProvider: itemProvider)
+    dragItem.localObject = item
+    return [dragItem]
   }
 
-  func setDrivingOptionState(_ state: MWMDrivingOptionsState) {
-    print(#function)
+  func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+    guard let destinationIndexPath = coordinator.destinationIndexPath,
+          destinationIndexPath.item < viewModel.routePoints.count else { return }
+
+    for item in coordinator.items {
+      if let sourceIndexPath = item.sourceIndexPath, let _ = item.dragItem.localObject as? MWMRoutePoint {
+        guard sourceIndexPath != destinationIndexPath else { return }
+        interactor?.process(.moveRoutePoint(from: sourceIndexPath.item, to: destinationIndexPath.item))
+        coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+        routePointsCollectionView.reloadItems(at: [sourceIndexPath, destinationIndexPath])
+      }
+    }
   }
 
-  func searchManager(withDidChange state: SearchOnMapState) {
-    print(#function)
+  func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+    true
   }
 
-  func updateNavigationInfoAvailableArea(_ frame: CGRect) {
+  func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+    guard let destinationIndexPath = destinationIndexPath,
+          destinationIndexPath.item < viewModel.routePoints.count else {
+      return UICollectionViewDropProposal(operation: .forbidden)
+    }
+    return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+  }
+}
+
+// MARK: - Public Methods
+
+extension RoutePreviewViewController {
+  func render(_ newViewModel: RoutePreview.ViewModel) {
     print(#function)
+    guard !newViewModel.shouldClose else {
+      startButton.setHidden(true)
+      close()
+      return
+    }
+
+    let shouldReloadTransportOptions = viewModel.routerType != newViewModel.routerType
+    let shouldReloadRoutePoints = viewModel.routePoints != newViewModel.routePoints
+    viewModel = newViewModel
+    if shouldReloadRoutePoints {
+      routePointsCollectionView.reloadData()
+    }
+    if shouldReloadTransportOptions {
+      transportOptionsCollectionView.reloadData()
+    }
+    startButton.setHidden(newViewModel.startButtonIsHidden)
+    startButton.setEnabled(newViewModel.startButtonIsEnabled,
+                           isLoading: newViewModel.showActivityIndicator)
+    etaLabel.attributedText = viewModel.estimates
+    presentationStepsController.setStep(newViewModel.presentationStep)
   }
 
-  func setRouteBuilderProgress(_ router: MWMRouterType, progress: CGFloat) {
-    print(#function)
+  private func reloadRoutePoints(from oldPoints: RoutePreview.RoutePoints, to newPoints: RoutePreview.RoutePoints) {
+    if newPoints.count < oldPoints.count {
+      let indexToRemove = oldPoints.points.firstIndex { point in
+        !newPoints.points.map(\.title).contains(point.title)
+      }
+      if let indexToRemove {
+        routePointsCollectionView.deleteItems(at: [IndexPath(item: indexToRemove, section: 0)])
+      }
+    } else {
+      routePointsCollectionView.reloadData()
+    }
   }
 
-  func statePrepare() {
-    print(#function)
+  func close() {
+    willMove(toParent: nil)
+    presentationStepsController.close { [weak self] in
+      self?.view.removeFromSuperview()
+      self?.removeFromParent()
+    }
   }
+}
 
-  func statePlanning() {
-    print(#function)
-  }
-
-  func stateReady() {
-    print(#function)
-  }
-
-  func onRouteStart() {
-    print(#function)
-  }
-
-  func onRouteStop() {
-    print(#function)
-  }
-
-  func onRoutePointsUpdated() {
-    print(#function)
-  }
-
-  func stateNavigation() {
-    print(#function)
-  }
-
-  func stateError(_ errorMessage: String) {
-    print(#function)
-  }
-
-  func setHidden() {
-    print(#function)
+private extension RoutePreview.RoutePoints {
+  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RouteStopCollectionViewCell.ViewModel {
+    let point = self[index]
+    return RouteStopCollectionViewCell.ViewModel(
+      title: title(for: index),
+      subtitle: subtitle(for: index),
+      image: image(for: index),
+      imageStyle: imageStyle(for: index),
+      isPlaceholder: point == nil,
+      onCloseHandler: onCloseHandler)
   }
 }
