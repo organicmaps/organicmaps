@@ -65,8 +65,8 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     !OpenInApplication.availableApps.isEmpty
   }
 
-  func didPressCall() {
-    MWMPlacePageManagerHelper.call(placePageData.infoData?.phone)
+  func didPressCall(to phone: PlacePagePhone) {
+    MWMPlacePageManagerHelper.call(phone)
   }
 
   func didPressWebsite() {

@@ -74,7 +74,7 @@ class InfoItemViewController: UIViewController {
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
   var shouldShowOpenInApp: Bool { get }
 
-  func didPressCall()
+  func didPressCall(to phone: PlacePagePhone)
   func didPressWebsite()
   func didPressWebsiteMenu()
   func didPressKayak()
@@ -168,7 +168,7 @@ class PlacePageInfoViewController: UIViewController {
                                  icon: UIImage(named: "ic_placepage_phone_number"),
                                  style: cellStyle,
                                  tapHandler: { [weak self] in
-        self?.delegate?.didPressCall()
+        self?.delegate?.didPressCall(to: phone)
       },
                                  longPressHandler: { [weak self] in
         self?.delegate?.didCopy(phone.phone)
