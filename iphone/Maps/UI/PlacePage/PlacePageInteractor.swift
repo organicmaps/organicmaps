@@ -204,7 +204,15 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         MWMPlacePageManagerHelper.addBookmark(placePageData)
       }
     case .call:
-      MWMPlacePageManagerHelper.call(placePageData.infoData?.phone)
+      // since `.call` is a case in an obj-c enum, it can't have associated data, so there is no easy way to
+      // pass the exact phone, and we have to ask the user here which one to use, if there are multiple ones
+      let phones = placePageData.infoData?.phones ?? []
+      let hasOnePhoneNumber = phones.count == 1
+      if hasOnePhoneNumber {
+        MWMPlacePageManagerHelper.call(phones[0])
+      } else if (phones.count > 1) {
+        showPhoneNumberPicker(phones, handler: MWMPlacePageManagerHelper.call)
+      }
     case .download:
       guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
         fatalError("Download button can't be displayed if mapNodeAttributes is empty")
@@ -265,6 +273,20 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       alert.popoverPresentationController?.sourceView = viewController.view
       alert.popoverPresentationController?.sourceRect = viewController.view.frame
     }
+    viewController.present(alert, animated: true)
+  }
+
+  private func showPhoneNumberPicker(_ phones: [PlacePagePhone], handler: @escaping (PlacePagePhone) -> Void) {
+    guard let viewController else { return }
+
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    phones.forEach({phone in
+      alert.addAction(UIAlertAction(title: phone.phone, style: .default, handler: { _ in
+        handler(phone)
+      }))
+    })
+    alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+
     viewController.present(alert, animated: true)
   }
 }

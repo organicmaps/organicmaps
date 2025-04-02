@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly, nullable) NSString *openingHoursString;
 @property(nonatomic, readonly, nullable) OpeningHours *openingHours;
-@property(nonatomic, readonly, nullable) PlacePagePhone *phone;
+@property(nonatomic, readonly) NSArray<PlacePagePhone *> *phones;
 @property(nonatomic, readonly, nullable) NSString *website;
 @property(nonatomic, readonly, nullable) NSString *kayak;
 @property(nonatomic, readonly, nullable) NSString *wikipedia;

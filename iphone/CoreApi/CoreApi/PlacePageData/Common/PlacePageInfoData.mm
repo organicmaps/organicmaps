@@ -48,14 +48,18 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
           break;
         case MetadataID::FMD_PHONE_NUMBER:
         {
-          NSString *phone = ToNSString(value);
-          NSString *filteredDigits = [[phone componentsSeparatedByCharactersInSet:
-                                       [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                                      componentsJoinedByString:@""];
-          NSString *resultNumber = [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
-          NSURL *phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+          NSArray<NSString *> *phones = [ToNSString(value) componentsSeparatedByString:@";"];
+          NSMutableArray<PlacePagePhone *> *placePhones = [NSMutableArray new];
+          [phones enumerateObjectsUsingBlock:^(NSString * _Nonnull phone, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *filteredDigits = [[phone componentsSeparatedByCharactersInSet:
+                                         [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                                        componentsJoinedByString:@""];
+            NSString *resultNumber = [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
+            NSURL *phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
 
-          _phone = [PlacePagePhone placePagePhoneWithPhone:phone andURL:phoneUrl];
+            [placePhones addObject:[PlacePagePhone placePagePhoneWithPhone:phone andURL:phoneUrl]];
+          }];
+          _phones = [placePhones copy];
           break;
         }
         case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
