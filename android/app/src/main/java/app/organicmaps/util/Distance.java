@@ -1,6 +1,8 @@
 package app.organicmaps.util;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -11,7 +13,7 @@ import app.organicmaps.R;
 // Used by JNI.
 @Keep
 @SuppressWarnings("unused")
-public final class Distance
+public final class Distance implements Parcelable
 {
   public static final Distance EMPTY = new Distance(0.0, "", (byte) 0);
 
@@ -50,6 +52,13 @@ public final class Distance
     mUnits = Units.values()[unitsIndex];
   }
 
+  protected Distance(Parcel in)
+  {
+    mDistance = in.readDouble();
+    mDistanceStr = in.readString();
+    mUnits = Units.values()[in.readByte()];
+  }
+
   public boolean isValid()
   {
     return mDistance >= 0.0;
@@ -70,6 +79,21 @@ public final class Distance
     return mDistanceStr + NON_BREAKING_SPACE + getUnitsStr(context);
   }
 
+  public static final Creator<Distance> CREATOR = new Creator<Distance>()
+  {
+    @Override
+    public Distance createFromParcel(Parcel in)
+    {
+      return new Distance(in);
+    }
+
+    @Override
+    public Distance[] newArray(int size)
+    {
+      return new Distance[size];
+    }
+  };
+
   @NonNull
   @Override
   public String toString()
@@ -78,5 +102,19 @@ public final class Distance
       return "";
 
     return mDistanceStr + NON_BREAKING_SPACE + mUnits.toString();
+  }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeDouble(mDistance);
+    dest.writeString(mDistanceStr);
+    dest.writeByte((byte) mUnits.ordinal());
   }
 }
