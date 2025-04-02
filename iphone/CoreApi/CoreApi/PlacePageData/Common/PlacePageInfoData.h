@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @class OpeningHours;
+@class PlacePagePhone;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,8 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly, nullable) NSString *openingHoursString;
 @property(nonatomic, readonly, nullable) OpeningHours *openingHours;
-@property(nonatomic, readonly, nullable) NSString *phone;
-@property(nonatomic, readonly, nullable) NSURL *phoneUrl;
+@property(nonatomic, readonly, nullable) PlacePagePhone *phone;
 @property(nonatomic, readonly, nullable) NSString *website;
 @property(nonatomic, readonly, nullable) NSString *kayak;
 @property(nonatomic, readonly, nullable) NSString *wikipedia;

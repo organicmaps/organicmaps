@@ -195,8 +195,9 @@ using namespace storage;
 }
 
 - (void)call:(PlacePageData *)data {
-  if (data.infoData.phoneUrl && [UIApplication.sharedApplication canOpenURL:data.infoData.phoneUrl]) {
-    [UIApplication.sharedApplication openURL:data.infoData.phoneUrl options:@{} completionHandler:nil];
+  NSURL * _Nullable phoneURL = data.infoData.phone.url;
+  if (phoneURL && [UIApplication.sharedApplication canOpenURL:phoneURL]) {
+    [UIApplication.sharedApplication openURL:phoneURL options:@{} completionHandler:nil];
   }
 }
 

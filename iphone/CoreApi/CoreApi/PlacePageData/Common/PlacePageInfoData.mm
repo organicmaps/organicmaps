@@ -1,6 +1,7 @@
 #import "PlacePageInfoData+Core.h"
 
 #import "OpeningHours.h"
+#import "PlacePagePhone.h"
 
 #import <CoreApi/StringUtils.h>
 
@@ -47,12 +48,14 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
           break;
         case MetadataID::FMD_PHONE_NUMBER:
         {
-          _phone = ToNSString(value);
-          NSString *filteredDigits = [[_phone componentsSeparatedByCharactersInSet:
+          NSString *phone = ToNSString(value);
+          NSString *filteredDigits = [[phone componentsSeparatedByCharactersInSet:
                                        [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                                       componentsJoinedByString:@""];
-          NSString *resultNumber = [_phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
-          _phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+          NSString *resultNumber = [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
+          NSURL *phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+
+          _phone = [PlacePagePhone placePagePhoneWithPhone:phone andURL:phoneUrl];
           break;
         }
         case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;

@@ -161,17 +161,17 @@ class PlacePageInfoViewController: UIViewController {
 
     if let phone = placePageInfoData.phone {
       var cellStyle: Style = .regular
-      if let phoneUrl = placePageInfoData.phoneUrl, UIApplication.shared.canOpenURL(phoneUrl) {
+      if let phoneUrl = phone.url, UIApplication.shared.canOpenURL(phoneUrl) {
         cellStyle = .link
       }
-      phoneView = createInfoItem(phone,
+      phoneView = createInfoItem(phone.phone,
                                  icon: UIImage(named: "ic_placepage_phone_number"),
                                  style: cellStyle,
                                  tapHandler: { [weak self] in
         self?.delegate?.didPressCall()
       },
                                  longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(phone)
+        self?.delegate?.didCopy(phone.phone)
       })
     }
 

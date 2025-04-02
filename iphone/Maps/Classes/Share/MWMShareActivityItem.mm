@@ -4,6 +4,7 @@
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageInfoData.h>
+#import <CoreApi/PlacePagePhone.h>
 #import <LinkPresentation/LPLinkMetadata.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
@@ -139,7 +140,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   std::vector<NSString *> strings{self.data.previewData.title,
                                  self.data.previewData.subtitle,
                                  self.data.previewData.secondarySubtitle,
-                                 self.data.infoData.phone,
+                                 self.data.infoData.phone.phone,
                                  url,
                                  ge0Url};
 
