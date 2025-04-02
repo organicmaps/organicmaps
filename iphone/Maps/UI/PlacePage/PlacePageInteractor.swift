@@ -66,7 +66,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   }
 
   func didPressCall() {
-    MWMPlacePageManagerHelper.call(placePageData)
+    MWMPlacePageManagerHelper.call(placePageData.infoData?.phone)
   }
 
   func didPressWebsite() {
@@ -204,7 +204,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         MWMPlacePageManagerHelper.addBookmark(placePageData)
       }
     case .call:
-      MWMPlacePageManagerHelper.call(placePageData)
+      MWMPlacePageManagerHelper.call(placePageData.infoData?.phone)
     case .download:
       guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
         fatalError("Download button can't be displayed if mapNodeAttributes is empty")

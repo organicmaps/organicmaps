@@ -194,8 +194,8 @@ using namespace storage;
   f.GetBookmarkManager().GetEditSession().DeleteTrack(data.trackData.trackId);
 }
 
-- (void)call:(PlacePageData *)data {
-  NSURL * _Nullable phoneURL = data.infoData.phone.url;
+- (void)call:(PlacePagePhone *)phone {
+  NSURL * _Nullable phoneURL = phone.url;
   if (phoneURL && [UIApplication.sharedApplication canOpenURL:phoneURL]) {
     [UIApplication.sharedApplication openURL:phoneURL options:@{} completionHandler:nil];
   }

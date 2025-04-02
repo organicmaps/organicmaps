@@ -1,4 +1,5 @@
 @class PlacePageData;
+@class PlacePagePhone;
 @class ElevationProfileData;
 
 @interface MWMPlacePageManagerHelper : NSObject
@@ -18,7 +19,7 @@
 + (void)openTwitter:(PlacePageData *)data;
 + (void)openVk:(PlacePageData *)data;
 + (void)openLine:(PlacePageData *)data;
-+ (void)call:(PlacePageData *)data;
++ (void)call:(PlacePagePhone *)phone;
 + (void)showAllFacilities:(PlacePageData *)data;
 + (void)showPlaceDescription:(NSString *)htmlString;
 + (void)openMoreUrl:(PlacePageData *)data;
