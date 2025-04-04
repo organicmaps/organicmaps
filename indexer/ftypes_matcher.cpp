@@ -466,7 +466,6 @@ TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
       {"highway", "rest_area"},
       {"highway", "services"},
       {"highway", "speed_camera"},
-      {"man_made", "communications_tower"},
       {"man_made", "cross"},
       {"man_made", "lighthouse"},
       {"man_made", "water_tap"},
