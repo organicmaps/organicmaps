@@ -912,4 +912,23 @@
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
     <string name="type.cuisine.turkish">Turca</string>
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
+    <string name="type.historic.city_gate">Porta de la ciutat</string>
+    <string name="type.cuisine.irish">Irlandesa</string>
+    <string name="type.cuisine.italian">Italiana</string>
+    <string name="type.cuisine.italian_pizza">Italiana, pizza</string>
+    <string name="type.cuisine.indonesian">Indonèsia</string>
+    <string name="type.cuisine.malagasy">Malgaixa</string>
+    <string name="type.cuisine.malaysian">Malàisia</string>
+    <string name="type.cuisine.persian">Persa</string>
+    <string name="type.cuisine.mediterranean">Mediterrània</string>
+    <string name="type.cuisine.peruvian">Peruana</string>
+    <string name="type.leisure.dog_park">Parc caní</string>
+    <string name="type.barrier.toll_booth">Cabina de peatge</string>
+    <string name="type.building.has_parts">Edifici</string>
+    <string name="type.building_part">Edifici</string>
+    <string name="type.craft.electronics_repair">Reparació d\'aparells electrònics</string>
+    <string name="type.craft.gardener">Jardiner</string>
+    <string name="type.craft.electrician">Electricista</string>
+    <string name="type.cuisine.chinese">Xinesa</string>
+    <string name="type.office.ngo">Organització no-governamental</string>
 </resources>

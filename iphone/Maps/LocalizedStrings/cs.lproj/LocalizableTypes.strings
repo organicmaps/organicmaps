@@ -179,7 +179,7 @@
 "type.amenity.vending_machine.parking_tickets" = "Parkovací automat";
 "type.amenity.vending_machine.public_transport_tickets" = "Automat na jízdenky";
 "type.amenity.vending_machine.sweets" = "Automat na sladkosti";
-"type.amenity.vending_machine.excrement_bags" = "Automat na sáčky na exkrementy";
+"type.amenity.vending_machine.excrement_bags" = "Sáčky na výkaly";
 "type.amenity.parcel_locker" = "Schránka na balíky";
 "type.amenity.vehicle_inspection" = "Kontrola vozidla";
 "type.amenity.vending_machine.fuel" = "Palivové čerpadlo";
@@ -1211,7 +1211,7 @@
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Obchod";
 "type.shop.alcohol" = "Obchod s alkoholem";
-"type.shop.bakery" = "Pekárna";
+"type.shop.bakery" = "Pekařství";
 "type.shop.bathroom_furnishing" = "Vybavení koupelny";
 "type.shop.beauty" = "Kosmetický salon";
 "type.shop.beverages" = "Nápoje";

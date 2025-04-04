@@ -4,8 +4,6 @@
 <dict>
 	<key>bookmarks_places</key>
 	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -16,10 +14,28 @@
 			<string>%d marcadores</string>
 			<key>one</key>
 			<string>%d marcador</string>
-			<key>many</key>
-			<string>%d marcadores</string>
 			<key>other</key>
 			<string>%d marcadores</string>
+		</dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+	</dict>
+	<key>tracks</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d traxectos</string>
+			<key>one</key>
+			<string>%d traxecto</string>
+			<key>other</key>
+			<string>%d traxectos</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -33,33 +49,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>Se han encontrado %d archivos. Los verá después de la conversión.</string>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
 			<key>one</key>
-			<string>Se encontró %d archivo. Lo verá después de la conversión.</string>
-			<key>many</key>
-			<string>Se han encontrado %d archivos. Los verá después de la conversión.</string>
+			<string>Atopouse %d arquivo. Verao despois da conversión.</string>
 			<key>other</key>
-			<string>Se han encontrado %d archivos. Los verá después de la conversión.</string>
-		</dict>
-	</dict>
-	<key>tracks</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>zero</key>
-			<string>%d trayectos</string>
-			<key>one</key>
-			<string>%d trayectos</string>
-			<key>many</key>
-			<string>%d trayectos</string>
-			<key>other</key>
-			<string>%d trayectos</string>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
 		</dict>
 	</dict>
 </dict>

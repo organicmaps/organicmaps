@@ -111,7 +111,7 @@
 "category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Turisme";
+"category_tourism" = "Atraccions turístiques";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Entreteniment";
@@ -153,7 +153,7 @@
 "category_water" = "Aigua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Caravanes";
+"category_rv" = "Instal·lacions per a autocaravanes";
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
 
 /* message title of loading file */
@@ -692,7 +692,7 @@
 "mobile_data_dialog" = "Voleu usar Internet mòbil per a mostrar informació detallada?";
 "mobile_data_option_always" = "Usa’l sempre";
 "mobile_data_option_today" = "Només avui";
-"mobile_data_option_not_today" = "Avui no";
+"mobile_data_option_not_today" = "No Utilitzeu Avui";
 "mobile_data" = "Internet mòbil";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -781,9 +781,9 @@
 "pref_tts_speedcams_always" = "Sempre avisa";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "No n'avisis mai";
+"pref_tts_speedcams_never" = "No n’avisis mai";
 "power_managment_title" = "Mode d’estalvi d’energia";
-"power_managment_description" = "Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria";
+"power_managment_description" = "Es provarà de reduir l’ús d’energia a costa d’algunes funcionalitats.";
 "power_managment_setting_never" = "Mai";
 "power_managment_setting_auto" = "Automàtic";
 "power_managment_setting_manual_max" = "Sempre";
@@ -799,7 +799,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evita ferris";
 "avoid_motorways" = "Evita autopistes";
-"unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
+"unable_to_calc_alert_title" = "No s’ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
 "define_to_avoid_btn" = "Definiu les vies a evitar";
 "change_driving_options_btn" = "Paràmetres d’encaminament activats";
@@ -859,8 +859,8 @@
 "sort_name" = "Ordena per nom";
 "week_ago_sorttype" = "Fa una setmana";
 "month_ago_sorttype" = "Fa un mes";
-"moremonth_ago_sorttype" = "Fa més d'un mes";
-"moreyear_ago_sorttype" = "Fa més d'un any";
+"moremonth_ago_sorttype" = "Fa més d’un mes";
+"moreyear_ago_sorttype" = "Fa més d’un any";
 "near_me_sorttype" = "Prop meu";
 "others_sorttype" = "Altres";
 "food_places" = "Menjar";
@@ -883,7 +883,7 @@
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
-"isolines_activation_error_dialog" = "Per a activar i usar la capa topgràfica, actualitzeu o baixeu el mapa de l'àrea";
+"isolines_activation_error_dialog" = "Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea";
 "isolines_location_error_dialog" = "La capa topogràfica encara no és disponible en aquesta àrea";
 "elevation_profile_diff_level" = "Nivell de dificultat";
 "elevation_profile_diff_level_easy" = "Fàcil";
@@ -989,7 +989,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-"drive_through" = "Servei al cotxe";
+"drive_through" = "Servei des del cotxe";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Enllaç del menú";

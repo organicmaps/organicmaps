@@ -555,7 +555,7 @@
     <string name="type.historic.castle.palace">Palacio</string>
     <string name="type.historic.castle.shiro">Castillo japonés</string>
     <string name="type.historic.castle.stately">Castillo</string>
-    <string name="type.historic.city_gate">Puerta de la ciudad</string>
+    <string name="type.historic.city_gate">Portón de la ciudad</string>
     <string name="type.historic.citywalls">Muralla</string>
     <string name="type.historic.fort">Fuerte</string>
     <string name="type.historic.gallows">Horca</string>
@@ -747,7 +747,7 @@
     <string name="type.office.government">Oficina gubernamental</string>
     <string name="type.office.insurance">Oficina de seguros</string>
     <string name="type.office.lawyer">Despacho de abogados</string>
-    <string name="type.office.ngo">Sede de ONG</string>
+    <string name="type.office.ngo">Organización no gubernamental</string>
     <string name="type.office.telecommunication">Operadora de telefonía</string>
     <string name="type.organic.only">Orgánico</string>
     <string name="type.organic.yes">Orgánico</string>
@@ -769,7 +769,7 @@
     <string name="type.place.farm">Granja</string>
     <string name="type.place.hamlet">Aldea</string>
     <string name="type.place.island">Isla</string>
-    <string name="type.place.islet">Isla</string>
+    <string name="type.place.islet">Islote</string>
     <string name="type.place.isolated_dwelling">Vivienda aislada</string>
     <string name="type.place.locality">Localidad</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->

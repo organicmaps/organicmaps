@@ -616,7 +616,7 @@
 "type.historic.castle.palace" = "Palacio";
 "type.historic.castle.shiro" = "Castillo japonés";
 "type.historic.castle.stately" = "Castillo";
-"type.historic.city_gate" = "Puerta de la ciudad";
+"type.historic.city_gate" = "Portón de la ciudad";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Fuerte";
 "type.historic.gallows" = "Horca";
@@ -834,7 +834,7 @@
 "type.office.government" = "Oficina gubernamental";
 "type.office.insurance" = "Oficina de seguros";
 "type.office.lawyer" = "Despacho de abogados";
-"type.office.ngo" = "Sede de ONG";
+"type.office.ngo" = "Organización no gubernamental";
 "type.office.telecommunication" = "Operadora de telefonía";
 "type.organic.only" = "Orgánico";
 "type.organic.yes" = "Orgánico";
@@ -856,7 +856,7 @@
 "type.place.farm" = "Granja";
 "type.place.hamlet" = "Aldea";
 "type.place.island" = "Isla";
-"type.place.islet" = "Isla";
+"type.place.islet" = "Islote";
 "type.place.isolated_dwelling" = "Vivienda aislada";
 "type.place.locality" = "Localidad";
 

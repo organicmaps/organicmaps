@@ -209,7 +209,7 @@
 "type.barrier.stile" = "Stile";
 "type.barrier.turnstile" = "Torniquet";
 "type.barrier.swing_gate" = "Swing Gate";
-"type.barrier.toll_booth" = "Toll Booth";
+"type.barrier.toll_booth" = "Cabina de peatge";
 "type.barrier.wall" = "Mur";
 "type.boundary" = "Frontera";
 "type.boundary.administrative" = "Frontera administrativa";
@@ -235,8 +235,8 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adreça";
-"type.building.has_parts" = "Building";
-"type.building_part" = "Building";
+"type.building.has_parts" = "Edifici";
+"type.building_part" = "Edifici";
 "type.building.garage" = "Garatge";
 "type.building.train_station" = "Edifici de l'Estació";
 "type.building.warehouse" = "Magatzem";
@@ -248,9 +248,9 @@
 "type.craft.caterer" = "Càtering";
 "type.craft.carpenter" = "Carpenter";
 "type.craft.confectionery" = "Confectioner";
-"type.craft.electrician" = "Electrician";
-"type.craft.electronics_repair" = "Electronics Repair";
-"type.craft.gardener" = "Gardener";
+"type.craft.electrician" = "Electricista";
+"type.craft.electronics_repair" = "Reparació d'aparells electrònics";
+"type.craft.gardener" = "Jardiner";
 "type.craft.grinding_mill" = "Molí de mòlta";
 "type.craft.handicraft" = "Handicraft";
 
@@ -286,7 +286,7 @@
 "type.cuisine.cake" = "Cake";
 "type.cuisine.caribbean" = "Caribbean";
 "type.cuisine.chicken" = "Chicken";
-"type.cuisine.chinese" = "Chinese";
+"type.cuisine.chinese" = "Xinesa";
 "type.cuisine.coffee_shop" = "Cafè";
 "type.cuisine.crepe" = "Crepe";
 "type.cuisine.croatian" = "Croatian";
@@ -310,28 +310,28 @@
 "type.cuisine.hungarian" = "Hongaresa";
 "type.cuisine.ice_cream" = "Gelat";
 "type.cuisine.indian" = "Índia";
-"type.cuisine.indonesian" = "Indonesian";
+"type.cuisine.indonesian" = "Indonèsia";
 "type.cuisine.international" = "Internacional";
-"type.cuisine.irish" = "Irish";
-"type.cuisine.italian" = "Italian";
-"type.cuisine.italian_pizza" = "Italian, Pizza";
+"type.cuisine.irish" = "Irlandesa";
+"type.cuisine.italian" = "Italiana";
+"type.cuisine.italian_pizza" = "Italiana, pizza";
 "type.cuisine.japanese" = "Japonesa";
 "type.cuisine.kebab" = "Kebab";
 "type.cuisine.korean" = "Coreana";
 "type.cuisine.lao" = "Laosiana";
 "type.cuisine.lebanese" = "Libanesa";
 "type.cuisine.local" = "Local";
-"type.cuisine.malagasy" = "Malagasy";
-"type.cuisine.malaysian" = "Malaysian";
-"type.cuisine.mediterranean" = "Mediterranean";
+"type.cuisine.malagasy" = "Malgaixa";
+"type.cuisine.malaysian" = "Malàisia";
+"type.cuisine.mediterranean" = "Mediterrània";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquina";
 "type.cuisine.noodles" = "Fideus xinesos";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
-"type.cuisine.persian" = "Persian";
-"type.cuisine.peruvian" = "Peruvian";
+"type.cuisine.persian" = "Persa";
+"type.cuisine.peruvian" = "Peruana";
 "type.cuisine.pizza" = "Pizza";
 "type.cuisine.polish" = "Polonesa";
 "type.cuisine.portuguese" = "Portuguesa";
@@ -616,7 +616,7 @@
 "type.historic.castle.palace" = "Palau";
 "type.historic.castle.shiro" = "Castell japonès";
 "type.historic.castle.stately" = "Castell";
-"type.historic.city_gate" = "City Gate";
+"type.historic.city_gate" = "Porta de la ciutat";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Forca";
@@ -704,7 +704,7 @@
 "type.landuse.vineyard" = "Vinyar";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
-"type.leisure.dog_park" = "Dog Park";
+"type.leisure.dog_park" = "Parc caní";
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.leisure.fitness_station" = "Fitness Station";
 "type.leisure.dance" = "Dance Hall";
@@ -834,7 +834,7 @@
 "type.office.government" = "Government Office";
 "type.office.insurance" = "Insurance Office";
 "type.office.lawyer" = "Lawyer";
-"type.office.ngo" = "Non-Governmental Organization";
+"type.office.ngo" = "Organització no-governamental";
 "type.office.telecommunication" = "Telecom Company";
 "type.organic.only" = "Organic";
 "type.organic.yes" = "Organic";
