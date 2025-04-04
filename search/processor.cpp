@@ -226,7 +226,7 @@ void Processor::SetInputLocale(string const & locale)
     return;
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
-  LOG(LDEBUG, ("New input locale:", locale, "locale code:", code));
+  LOG(LDEBUG, ("New input locale:", locale, "; locale code:", int(code)));
   m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_INPUT, feature::GetSimilar(code));
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
