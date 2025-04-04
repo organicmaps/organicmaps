@@ -12086,14 +12086,14 @@ pl:Krawiec
 pt-BR:Alfaiate|costureiro|conserto de roupas
 pt:Alfaiate
 ro:Croitor
-ru:4Ателье|портной|4ремонт одежды|швейная мастерская|5пошив одежды
+ru:4Ателье|Портной|4Ремонт одежды|4Швейная мастерская|5Пошив одежды|Кройка|Шитьё
 sk:Krajčírstvo
 sr:Кројач|Krojač
 sv:Skräddare
 sw:Mshonaji nguo
 th:ช่างตัดเสื้อ
 tr:Terzi
-uk:4Ательє|4Ремонт одягу|швейна майстерня
+uk:4Ательє|4Ремонт одягу|4Швейна майстерня
 vi:Thợ may
 zh-Hans:裁缝
 zh-Hant:裁縫師
@@ -16962,6 +16962,7 @@ lv:Auduma veikals|tekstilu veikals
 nl:Stoffenwinkel
 pt:Loja de tecidos
 pt-BR:Loja de aviamentos
+ru:Текстиль|Ткани
 sr:Текстил|Метража|Tekstil|Metraža
 tr:Kumaş mağazası|Tekstil mağazası
 es:Mercería
@@ -17624,7 +17625,7 @@ zh-Hant:香水
 shop-sewing|@shop
 en:3Sewing Supplies|4Haberdashery
 ar:معدات الخياطة
-be:Швейныя прыналежнасці
+be:4Швейныя прыналежнасці
 bg:Шивашки консумативи
 ca:Material de costura|Mercería
 cs:Šicí potřeby
@@ -17651,14 +17652,14 @@ pl:Przybory do szycia
 pt:Materiais de costura
 pt-BR:Materiais de costura
 ro:Rechizite de cusut
-ru:Швейные принадлежности
+ru:4Швейные принадлежности|Кройка|Шитьё
 sk:Šijacie potreby
 sr:Пазамантерија|Pozamanterija
 sv:Sytillbehör
 sw:Vifaa vya kushona
 th:อุปกรณ์เย็บผ้า
 tr:Dikiş malzemeleri
-uk:Швейні приладдя
+uk:4Швейні приладдя
 vi:Nguồn cung cấp may
 zh-Hans:缝纫用品
 zh-Hant:縫紉用品
