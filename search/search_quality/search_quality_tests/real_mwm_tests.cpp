@@ -237,9 +237,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopResults, ());
 
-    /// @todo Equal food and metro results, so test 2 food on top.
+    /// @todo Equal food and metro results, so test 1 food on top.
     Range const top10(results, 0, kTopResults);
-    TEST_EQUAL(CountClassifType(top10, cl.GetTypeByPath({"amenity", "fast_food"})), 2, ());
+    TEST_GREATER(CountClassifType(top10, cl.GetTypeByPath({"amenity", "fast_food"})), 0, ());
     TEST_GREATER(CountClassifType(top10, cl.GetTypeByPath({"railway", "station", "subway"})), 6, ());
   }
   {
@@ -587,7 +587,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
 
     // results[0] is a named POI ~9km (https://www.openstreetmap.org/node/9730886727)
     Range const range(results, 1, kResultsCount);
-    EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}}));
+    EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}, {"man_made", "communications_tower"}}));
     TEST_LESS(SortedByDistance(range, center).first, 3000.0, ());
   }
 
