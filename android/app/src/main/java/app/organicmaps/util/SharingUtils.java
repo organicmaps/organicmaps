@@ -120,11 +120,11 @@ public class SharingUtils
     final String subject = context.getString(R.string.share);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
+    final String geoUrl = Framework.nativeGetGeoUri(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
     final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
         .nativeGetDrawScale(), "");
-    final String text = context.getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+    final String text = geoUrl + "\n" + httpUrl;
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
@@ -140,12 +140,11 @@ public class SharingUtils
                            context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(object.getLat(), object.getLon(),
+    final String geoUrl = Framework.nativeGetGeoUri(object.getLat(), object.getLon(),
                                                     object.getScale(), object.getName());
     final String httpUrl = Framework.getHttpGe0Url(object.getLat(), object.getLon(),
                                                    object.getScale(), object.getName());
-    final String address = TextUtils.isEmpty(object.getAddress()) ? object.getName() : object.getAddress();
-    final String text = context.getString(R.string.my_position_share_email, address, geoUrl, httpUrl);
+    final String text = geoUrl + "\n" + httpUrl;
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
