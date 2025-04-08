@@ -284,12 +284,6 @@ final class RoutePreviewViewController: UIViewController {
     routePointsCollectionHeightConstraint.constant = height
   }
 
-  private func movePoint(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, item: MWMRoutePoint) {
-    guard sourceIndexPath.item != destinationIndexPath.item else { return }
-    routePointsCollectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
-    updateRoutePointsCollectionConstraints()
-  }
-
   // MARK: - Button Actions
   @objc private func didTapStartButton() {
     interactor?.process(.startNavigation)
@@ -451,12 +445,14 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
   }
 
   func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-    guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+    guard let destinationIndexPath = coordinator.destinationIndexPath,
+          destinationIndexPath.item < viewModel.points.count else { return }
 
     for item in coordinator.items {
       if let sourceIndexPath = item.sourceIndexPath, let draggedItem = item.dragItem.localObject as? MWMRoutePoint {
+        guard sourceIndexPath != destinationIndexPath else { return }
         interactor?.process(.moveRoutePoint(from: sourceIndexPath.item, to: destinationIndexPath.item))
-        movePoint(from: sourceIndexPath, to: destinationIndexPath, item: draggedItem)
+        routePointsCollectionView.moveItem(at: sourceIndexPath, to: destinationIndexPath)
         coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
       }
     }
@@ -467,7 +463,12 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
   }
 
   func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-    UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    guard let destinationIndexPath = destinationIndexPath,
+          destinationIndexPath.item < viewModel.points.count else {
+      return UICollectionViewDropProposal(operation: .forbidden)
+    }
+
+    return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
   }
 }
 
