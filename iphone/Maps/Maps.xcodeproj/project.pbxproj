@@ -487,6 +487,7 @@
 		ED4F4F4F2D9E7B8E006AD910 /* RoutePreviewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */; };
 		ED4F4F512D9E8854006AD910 /* RoutePreviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */; };
 		ED4F4F532D9E888E006AD910 /* RoutePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */; };
+		ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
 		ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */; };
 		ED5E02522D92E33300A5CC7B /* MWMNavigationDashboardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02512D92E33300A5CC7B /* MWMNavigationDashboardView.mm */; };
@@ -1466,6 +1467,7 @@
 		ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewBuilder.swift; sourceTree = "<group>"; };
 		ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewPresenter.swift; sourceTree = "<group>"; };
 		ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewModel.swift; sourceTree = "<group>"; };
+		ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
 		ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
 		ED5E024F2D92AC9300A5CC7B /* RoutePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutePreviewView.h; sourceTree = "<group>"; };
@@ -2538,6 +2540,7 @@
 				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
 				ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */,
 				ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */,
+				ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */,
 				ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */,
 				ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */,
 				ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */,
@@ -4473,6 +4476,7 @@
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */,
+				ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */,
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
 				99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
@@ -5227,6 +5231,30 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
+				"OTHER_LDFLAGS[sdk=macosx*]" = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					IOKit,
+					"-framework",
+					OpenGL,
+					"-framework",
+					QtCore,
+					"-framework",
+					QtGui,
+					"-framework",
+					QtNetwork,
+					"-framework",
+					QtOpenGL,
+					"-framework",
+					QtWidgets,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CFNetwork,
+					"-Xlinker",
+					"-interposable",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
 				PROVISIONING_PROFILE_SPECIFIER = "";

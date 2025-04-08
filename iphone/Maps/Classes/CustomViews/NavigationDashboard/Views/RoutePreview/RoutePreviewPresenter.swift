@@ -25,14 +25,25 @@ extension RoutePreview {
       case .close:
         viewModel.shouldClose = true
       case .setHidden(let hidden):
-        viewModel.presentationStep = hidden ? .hidden : .fullScreen
+        viewModel.presentationStep = hidden ? .hidden : .halfScreen
       case .updatePresentationStep(let step):
         viewModel.presentationStep = step
       case .showNavigationDashboard:
         viewModel.presentationStep = .hidden
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
-        print("progress", progress)
-        // TODO: Handle progress update
+        viewModel.progress = progress
+        viewModel.routerType = routerType
+      case .updateNavigationInfo(let entity):
+        viewModel.entity = entity
+        // TODO: build elevation info
+        if let estimates = viewModel.entity.estimate().mutableCopy() as? NSMutableAttributedString {
+//          if let elevation = self.elevation {
+//            result.append(MWMNavigationDashboardEntity.estimateDot())
+//            result.append(elevation)
+//          }
+          viewModel.estimates = estimates
+          print("estimates", estimates)
+        }
       case let .show(points, routerType):
         viewModel.points = points
         viewModel.routerType = routerType

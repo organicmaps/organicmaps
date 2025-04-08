@@ -19,7 +19,11 @@ extension RoutePreview {
     private func resolve(_ event: Request) -> Response {
       print(String(describing: event))
       switch event {
-      case .startRouteBuilding:
+      case .prepareRoute:
+        return .none
+      case .startRoutePlanning:
+        return .show(points: router.points(), routerType: router.type())
+      case .routeIsReady:
         return .show(points: router.points(), routerType: router.type())
       case .selectRouterType(let routerType):
         router.setType(routerType)
@@ -33,20 +37,26 @@ extension RoutePreview {
         return .show(points: router.points(), routerType: router.type())
       case .startNavigation:
         return .showNavigationDashboard
-      case .close:
-        router.stopRouting()
-        return .close
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
       case .updateDrivingOptionState(let state):
         // TODO: implement
         return .none
+      case .updateNavigationInfo(let entity):
+        return .updateNavigationInfo(entity)
       case .moveRoutePoint(from: let from, to: let to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
+      case .updatePresentationFrame(let frame):
+        let bottomBound = frame.height - frame.origin.y
+        MapViewController.shared()?.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
+        return .none
       case .setHidden(let hidden):
         return .setHidden(hidden)
+      case .close:
+        router.stopRouting()
+        return .close
       }
     }
   }
@@ -55,23 +65,18 @@ extension RoutePreview {
 // MARK: - NavigationDashboardView
 extension RoutePreview.Interactor: NavigationDashboardView {
   func setHidden(_ hidden: Bool) {
-    print(#function)
     process(.setHidden(true))
   }
   
   func stateClosed() {
-    print(#function)
     process(.close)
   }
   
   func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {
-    print(#function)
-    // TODO: navigation or ruler
-
+    process(.updateNavigationInfo(entity))
   }
 
   func setDrivingOptionState(_ state: MWMDrivingOptionsState) {
-    print(#function)
     process(.updateDrivingOptionState(state))
   }
 
@@ -85,38 +90,35 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func setRouteBuilderProgress(_ router: MWMRouterType, progress: CGFloat) {
-    print(#function)
     process(.updateRouteBuildingProgress(progress, routerType: router))
   }
 
   func statePrepare() {
-    print(#function)
+    process(.prepareRoute)
   }
 
   func statePlanning() {
-    print(#function)
-    process(.startRouteBuilding)
+    process(.startRoutePlanning)
   }
 
   func stateReady() {
-    print(#function)
+    process(.routeIsReady)
   }
 
   func onRouteStart() {
-    print(#function)
+    process(.startNavigation)
   }
 
   func onRouteStop() {
-    print(#function)
+    process(.close)
   }
 
   func onRoutePointsUpdated() {
-    print(#function)
-    process(.startRouteBuilding)
+    process(.startRoutePlanning)
   }
 
   func stateNavigation() {
-    print(#function)
+    process(.startNavigation) // ?? or onRouteStop
   }
 
   func stateError(_ errorMessage: String) {

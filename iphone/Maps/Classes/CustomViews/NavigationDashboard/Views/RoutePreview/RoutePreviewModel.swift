@@ -4,14 +4,20 @@ enum RoutePreview {
     var points: [MWMRoutePoint] = []
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
+    var estimates: NSAttributedString = NSAttributedString()
     var state: MWMNavigationDashboardState
     var presentationStep: ModalPresentationStep
     var shouldClose: Bool = false
     var isStartRoutingAllowed: Bool = true
+    var progress: CGFloat = 0
+    var shouldShowStartButton: Bool { routerType != .ruler }
+    var showActivityIndicator: Bool { progress < 1 }
   }
 
   enum Request {
-    case startRouteBuilding
+    case prepareRoute
+    case startRoutePlanning
+    case routeIsReady
     case selectRouterType(MWMRouterType)
     case addRoutePoint
     case deleteRoutePoint(MWMRoutePoint)
@@ -19,6 +25,9 @@ enum RoutePreview {
     case startNavigation
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateDrivingOptionState(MWMDrivingOptionsState)
+    case updateNavigationInfo(MWMNavigationDashboardEntity)
+    case updatePresentationFrame(CGRect)
+//    case updatePresentationStep(ModalPresentationStep)
     case setHidden(Bool)
     case close
   }
@@ -27,6 +36,7 @@ enum RoutePreview {
     case none
     case show(points: [MWMRoutePoint], routerType: MWMRouterType)
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
+    case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updatePresentationStep(ModalPresentationStep)
     case showNavigationDashboard
     case setHidden(Bool)

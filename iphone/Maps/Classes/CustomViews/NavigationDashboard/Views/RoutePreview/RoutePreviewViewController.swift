@@ -7,7 +7,7 @@ final class RoutePreviewViewController: UIViewController {
     static let grabberTopInset: CGFloat = 5
 
     static let backButtonInsets = UIEdgeInsets(top: 4, left: 16, bottom: 0, right: 16)
-    static let backButtonSize: CGFloat = 40
+    static let backButtonSize: CGSize = CGSize(width: 24, height: 40)
 
     static let settingsButtonSize: CGFloat = 32
     static let settingsButtonInsetRight: CGFloat = -16
@@ -24,7 +24,7 @@ final class RoutePreviewViewController: UIViewController {
     static let addRoutePointCellHeight: CGFloat = 30
     static let minRoutePointsCellsCount = 2
 
-    static let etaLabelHeight: CGFloat = 20
+    static let etaLabelHeight: CGFloat = 30
     static let etaLabelTopSpacing: CGFloat = 8
     static let etaLabelLeadingPadding: CGFloat = 16
 
@@ -40,7 +40,7 @@ final class RoutePreviewViewController: UIViewController {
   private let settingsButton = UIButton(type: .system)
   private var routePointsCollectionView: UICollectionView!
   private var routePointsCollectionHeightConstraint: NSLayoutConstraint!
-  private let startButton = UIButton(type: .system)
+  private let startButton = StartRouteButton()
   private let availableAreaView = SearchOnMapAreaView()
 
   var interactor: RoutePreview.Interactor?
@@ -79,6 +79,7 @@ final class RoutePreviewViewController: UIViewController {
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     updateFrameOfPresentedViewInContainerView()
+    transportOptionsCollectionView.reloadData()
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
@@ -129,18 +130,12 @@ final class RoutePreviewViewController: UIViewController {
       guard let self else { return }
       switch update {
       case .didClose:
-        break
-//        self.interactor?.handle(.closeSearch)
+        self.interactor?.process(.close)
       case .didUpdateFrame(let frame):
-        let bottomBound = frame.height - frame.origin.y
-//        print("Bottom bound: \(bottomBound)")
-        MapViewController.shared()?.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
-        break
-//        self.presentationFrameDidChange(frame)
-//        self.updateDimView(for: frame)
+        self.interactor?.process(.updatePresentationFrame(frame))
       case .didUpdateStep(let step):
+//        self.interactor?.process(.didUpdatePresentationStep(step))
         break
-//        self.interactor?.handle(.didUpdatePresentationStep(step))
       }
     }
   }
@@ -148,17 +143,14 @@ final class RoutePreviewViewController: UIViewController {
   private func setupGestureRecognizers() {
     iPhoneSpecific {
       let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-//      panGestureRecognizer.delegate = self
       availableAreaView.addGestureRecognizer(panGestureRecognizer)
     }
   }
 
   @objc
   private func handlePan(_ gesture: UIPanGestureRecognizer) {
-//    interactor?.handle(.didStartDraggingSearch)
     presentationStepsController.handlePan(gesture)
   }
-
 
   private func setupGrabberView() {
     grabberView.setStyle(.grabber)
@@ -179,7 +171,6 @@ final class RoutePreviewViewController: UIViewController {
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
-    settingsButton.imageEdgeInsets = .zero
   }
 
   private func setupTransportOptionsCollection() {
@@ -190,6 +181,7 @@ final class RoutePreviewViewController: UIViewController {
     transportOptionsCollectionView.dataSource = self
     transportOptionsCollectionView.delegate = self
     transportOptionsCollectionView.showsHorizontalScrollIndicator = false
+    transportOptionsCollectionView.showsVerticalScrollIndicator = false
     transportOptionsCollectionView.isScrollEnabled = false
     transportOptionsCollectionView.allowsMultipleSelection = false
     transportOptionsCollectionView.register(cell: TransportOptionCollectionViewCell.self)
@@ -197,13 +189,11 @@ final class RoutePreviewViewController: UIViewController {
 
   private func setupEtaLabel() {
     // TODO: apply style
-    etaLabel.text = "32.4 KM"
+//    etaLabel.text = ""
     etaLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
   }
 
   private func setupStartButton() {
-    startButton.setStyle(.flatNormalButtonBig)
-    startButton.setTitle(L("Start"), for: .normal)
     startButton.addTarget(self, action: #selector(didTapStartButton), for: .touchUpInside)
   }
 
@@ -256,9 +246,9 @@ final class RoutePreviewViewController: UIViewController {
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
       
       backButton.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.backButtonInsets.left),
-      backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize),
+      backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize.width),
       backButton.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.backButtonInsets.top),
-      backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor),
+      backButton.heightAnchor.constraint(equalToConstant: Constants.backButtonSize.height),
 
       transportOptionsCollectionView.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.left),
       transportOptionsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.right),
@@ -315,6 +305,7 @@ final class RoutePreviewViewController: UIViewController {
     parentViewController.view.addSubview(view)
     didMove(toParent: parentViewController)
     view.frame = parentViewController.view.bounds
+    view.autoresizingMask = [.flexibleHeight, .flexibleHeight]
   }
 }
 
@@ -368,10 +359,9 @@ extension RoutePreviewViewController: UICollectionViewDataSource, UICollectionVi
           let point = viewModel.points[0]
           if (point.type == .start && indexPath.item == 0) ||
              (point.type == .finish && indexPath.item == 1) {
-            cell.configure(with: point, onCloseHandler: { [weak self] in
-              guard let self else { return }
-              self.interactor?.process(.deleteRoutePoint(point))
-//              self.removePoint(at: indexPath.item)
+            cell.configure(with: point,
+                           onCloseHandler: { [weak self] in
+              self?.interactor?.process(.deleteRoutePoint(point))
             })
           } else {
             cell.configurePlaceholder(for: indexPath.item == 0 ? .start : .finish)
@@ -379,9 +369,7 @@ extension RoutePreviewViewController: UICollectionViewDataSource, UICollectionVi
         default:
           let point = viewModel.points[indexPath.item]
           cell.configure(with: point, onCloseHandler: { [weak self] in
-            guard let self else { return }
-            self.interactor?.process(.deleteRoutePoint(point))
-//            self.removePoint(at: indexPath.item)
+            self?.interactor?.process(.deleteRoutePoint(point))
           })
         }
         return cell
@@ -425,7 +413,24 @@ extension RoutePreviewViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {
     case transportOptionsCollectionView:
-      return Constants.transportOptionsItemSpacing
+      // fit to the width
+      let cellsCount = CGFloat(viewModel.transportOptions.count)
+      let size = (collectionView.width - Constants.transportOptionsItemSize.width * cellsCount) / (cellsCount - 1)
+      return size
+    case routePointsCollectionView:
+      return Constants.routePointsVerticalSpacing
+    default:
+      fatalError("Unknown collection view")
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    switch collectionView {
+    case transportOptionsCollectionView:
+      // fit to the width
+      let cellsCount = CGFloat(viewModel.transportOptions.count)
+      let size = (collectionView.width - Constants.transportOptionsItemSize.width * cellsCount) / (cellsCount - 1)
+      return size
     case routePointsCollectionView:
       return Constants.routePointsVerticalSpacing
     default:
@@ -487,7 +492,9 @@ extension RoutePreviewViewController {
       routePointsCollectionView.reloadData()
     }
     updateRoutePointsCollectionConstraints()
-    startButton.isEnabled = newViewModel.isStartRoutingAllowed
+    startButton.setLoading(newViewModel.showActivityIndicator)
+    startButton.isHidden = !newViewModel.shouldShowStartButton
+    etaLabel.attributedText = viewModel.estimates
     presentationStepsController.setStep(newViewModel.presentationStep)
   }
 
@@ -499,3 +506,5 @@ extension RoutePreviewViewController {
     }
   }
 }
+
+
