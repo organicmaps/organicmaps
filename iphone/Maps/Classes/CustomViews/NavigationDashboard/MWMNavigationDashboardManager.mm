@@ -19,7 +19,7 @@
 @property(copy, nonatomic) MWMNavigationDashboardEntity * entity;
 
 @property(weak, nonatomic) id<NavigationDashboardView> navigationDashboardView;
-@property(weak, nonatomic) UIViewController * parentViewController;
+@property(weak, nonatomic) MapViewController * parentViewController;
 
 @end
 
@@ -29,7 +29,7 @@
   return [MWMMapViewControlsManager manager].navigationManager;
 }
 
-- (instancetype)initWithParentViewController:(UIViewController *)viewController {
+- (instancetype)initWithParentViewController:(MapViewController *)viewController {
   self = [super init];
   if (self) {
     _parentViewController = viewController;

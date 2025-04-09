@@ -3,11 +3,15 @@ extension RoutePreview {
 
     private let presenter: Presenter
     private let router: MWMRouter.Type
+    private let searchManager: SearchOnMapManager
     weak var delegate: MWMRoutePreviewDelegate?
 
-    init(presenter: Presenter, router: MWMRouter.Type = MWMRouter.self) {
+    init(presenter: Presenter,
+         router: MWMRouter.Type = MWMRouter.self,
+         searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager) {
       self.presenter = presenter
       self.router = router
+      self.searchManager = searchManager
       super.init()
     }
 
@@ -29,22 +33,34 @@ extension RoutePreview {
         router.setType(routerType)
         router.rebuild(withBestRouter: false)
         return .none
+      case let .selectRoutePoint(point, index):
+        print(point?.title, point?.type, index)
+        searchManager.startSearching(isRouting: false)
+        if let textToSearch = point?.title {
+//          searchManager.searchText(textToSearch, isCategory: false)
+        }
+        // TODO: show search with the point
+        return .setHidden(true)
       case .addRoutePoint:
         // TODO: show search or add point
         return .none
       case .deleteRoutePoint(let point):
         router.removePoint(point)
-        return .show(points: router.points(), routerType: router.type())
+        let points = router.points()!
+        if points.count < 2 {
+          router.stopRouting()
+        }
+        return .show(points: points, routerType: router.type())
       case .startNavigation:
         return .showNavigationDashboard
-      case .updateRouteBuildingProgress(let progress, routerType: let routerType):
+      case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
       case .updateDrivingOptionState(let state):
         // TODO: implement
         return .none
       case .updateNavigationInfo(let entity):
         return .updateNavigationInfo(entity)
-      case .moveRoutePoint(from: let from, to: let to):
+      case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
@@ -81,7 +97,24 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func searchManager(withDidChange state: SearchOnMapState) {
-    print(#function)
+//    switch (state) {
+//      case SearchOnMapStateClosed:
+//        [self.navigationInfoView setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
+//        break;
+//      case SearchOnMapStateHidden:
+//      case SearchOnMapStateSearching:
+//        [self.navigationInfoView setMapSearch];
+//    }
+    switch state {
+    case .closed:
+      process(.setHidden(false))
+    case .hidden:
+      break
+    case .searching:
+      process(.setHidden(true))
+    @unknown default:
+      fatalError("Unknown search state: \(state)")
+    }
   }
 
   func updateNavigationInfoAvailableArea(_ frame: CGRect) {

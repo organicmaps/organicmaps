@@ -13,13 +13,12 @@ final class RoutePreviewViewController: UIViewController {
     static let settingsButtonInsetRight: CGFloat = -16
     static let settingsButtonSpacing: CGFloat = 8
 
-    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: -16)
+    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -16)
     static let transportOptionsCollectionHeight: CGFloat = 44
-    static let transportOptionsItemSize = CGSize(width: 44, height: 44)
-    static let transportOptionsItemSpacing: CGFloat = 16
+    static let transportOptionsItemSize = CGSize(width: 40, height: 40)
 
-    static let routePointsInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
-    static let routePointsVerticalSpacing: CGFloat = 12
+    static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
+    static let routePointsVerticalSpacing: CGFloat = 8
     static let routePointCellHeight: CGFloat = 52
     static let addRoutePointCellHeight: CGFloat = 30
     static let minRoutePointsCellsCount = 2
@@ -28,7 +27,7 @@ final class RoutePreviewViewController: UIViewController {
     static let etaLabelTopSpacing: CGFloat = 8
     static let etaLabelLeadingPadding: CGFloat = 16
 
-    static let startButtonBottomPadding: CGFloat = -16
+    static let startButtonInsets = UIEdgeInsets(top: 0, left: 16, bottom: -16, right: -16)
     static let startButtonHeight: CGFloat = 44
   }
 
@@ -153,8 +152,8 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   private func setupGrabberView() {
-    grabberView.setStyle(.grabber)
     // TODO: remove when the grabber will be the same on all the modal screens
+    grabberView.layer.setCornerRadius(.grabber)
     grabberView.backgroundColor = .blackDividers()
     iPadSpecific { [weak self] in
       self?.grabberView.isHidden = true
@@ -247,12 +246,12 @@ final class RoutePreviewViewController: UIViewController {
       
       backButton.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.backButtonInsets.left),
       backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize.width),
-      backButton.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.backButtonInsets.top),
       backButton.heightAnchor.constraint(equalToConstant: Constants.backButtonSize.height),
+      backButton.centerYAnchor.constraint(equalTo: transportOptionsCollectionView.centerYAnchor),
 
       transportOptionsCollectionView.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.left),
       transportOptionsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.right),
-      transportOptionsCollectionView.centerYAnchor.constraint(equalTo: backButton.centerYAnchor),
+      transportOptionsCollectionView.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.transportOptionsCollectionInsets.top),
       transportOptionsCollectionView.heightAnchor.constraint(equalToConstant: Constants.transportOptionsCollectionHeight),
 
       etaLabel.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.etaLabelLeadingPadding),
@@ -271,8 +270,8 @@ final class RoutePreviewViewController: UIViewController {
       routePointsCollectionView.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: Constants.routePointsInsets.bottom),
       routePointsCollectionHeightConstraint,
 
-      startButton.leadingAnchor.constraint(equalTo: routePointsCollectionView.leadingAnchor),
-      startButton.trailingAnchor.constraint(equalTo: routePointsCollectionView.trailingAnchor),
+      startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.startButtonInsets.left),
+      startButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.startButtonInsets.right),
       startButton.heightAnchor.constraint(equalToConstant: Constants.startButtonHeight),
     ])
     updateRoutePointsCollectionConstraints()
@@ -294,9 +293,9 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   // MARK: - RoutePreviewView Protocol Methods
-  func add(to parentViewController: UIViewController) {
+  func add(to parentViewController: MapViewController) {
     parentViewController.addChild(self)
-    parentViewController.view.addSubview(view)
+    parentViewController.controlsView.addSubview(view)
     didMove(toParent: parentViewController)
     view.frame = parentViewController.view.bounds
     view.autoresizingMask = [.flexibleHeight, .flexibleHeight]
@@ -336,36 +335,63 @@ extension RoutePreviewViewController: UICollectionViewDataSource, UICollectionVi
       if shouldShowAddPoint {
         let cell = collectionView.dequeueReusableCell(cell: AddItemCollectionViewCell.self, indexPath: indexPath)
         cell.didTapAction = { [weak self] in
-          guard let self else { return }
-          // TODO: show point selection view
-//          self.routePoints.append(Place(name: "New Place \(routePoints.count)", image: UIImage(resource: .icBad)))
-//          self.routePointsCollectionView.insertItems(at: [IndexPath(item: self.routePoints.count - 1, section: 0)])
-//          self.updateRoutePointsCollectionConstraints()
+          self?.interactor?.process(.addRoutePoint)
         }
         return cell
       } else {
         let cell = collectionView.dequeueReusableCell(cell: RouteStopCollectionViewCell.self, indexPath: indexPath)
 
-        switch viewModel.points.count {
-        case 0:
-          cell.configurePlaceholder(for: indexPath.item == 0 ? .start : .finish)
-        case 1:
-          let point = viewModel.points[0]
-          if (point.type == .start && indexPath.item == 0) ||
-             (point.type == .finish && indexPath.item == 1) {
+        switch viewModel.points[indexPath.item] {
+        case (let point, .start):
+          if let point {
             cell.configure(with: point,
                            onCloseHandler: { [weak self] in
               self?.interactor?.process(.deleteRoutePoint(point))
             })
           } else {
-            cell.configurePlaceholder(for: indexPath.item == 0 ? .start : .finish)
+            cell.configurePlaceholder(for: .start)
           }
-        default:
-          let point = viewModel.points[indexPath.item]
-          cell.configure(with: point, onCloseHandler: { [weak self] in
-            self?.interactor?.process(.deleteRoutePoint(point))
-          })
+        case (let point, .finish):
+          if let point {
+            cell.configure(with: point,
+                           onCloseHandler: { [weak self] in
+              self?.interactor?.process(.deleteRoutePoint(point))
+            })
+          } else {
+            cell.configurePlaceholder(for: .finish)
+          }
+        case (let point, .intermediate):
+          if let point {
+            cell.configure(with: point,
+                           onCloseHandler: { [weak self] in
+              self?.interactor?.process(.deleteRoutePoint(point))
+            })
+          } else {
+            fatalError("Intermediate point should not be nil")
+          }
         }
+
+//
+//        switch viewModel.points.count {
+//        case 0:
+//          cell.configurePlaceholder(for: indexPath.item == 0 ? .start : .finish)
+//        case 1:
+//          let point = viewModel.points[0]
+//          if (point.type == .start && indexPath.item == 0) ||
+//             (point.type == .finish && indexPath.item == 1) {
+//            cell.configure(with: point,
+//                           onCloseHandler: { [weak self] in
+//              self?.interactor?.process(.deleteRoutePoint(point))
+//            })
+//          } else {
+//            cell.configurePlaceholder(for: indexPath.item == 0 ? .start : .finish)
+//          }
+//        default:
+//          let point = viewModel.points[indexPath.item]
+//          cell.configure(with: point, onCloseHandler: { [weak self] in
+//            self?.interactor?.process(.deleteRoutePoint(point))
+//          })
+//        }
         return cell
       }
     default:
@@ -379,7 +405,15 @@ extension RoutePreviewViewController: UICollectionViewDataSource, UICollectionVi
       let routerType = viewModel.transportOptions[indexPath.item]
       interactor?.process(.selectRouterType(routerType))
     case routePointsCollectionView:
-      break
+      switch indexPath.item {
+      case viewModel.points.count:
+        break // Add point cell
+      default:
+        // TODO: point may by unavailable
+        let point = viewModel.points[indexPath.item].point
+        interactor?.process(.selectRoutePoint(point, at: indexPath.item))
+        break
+      }
     default:
       fatalError("Unknown collection view")
     }
@@ -404,20 +438,6 @@ extension RoutePreviewViewController: UICollectionViewDelegateFlowLayout {
     }
   }
 
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    switch collectionView {
-    case transportOptionsCollectionView:
-      // fit to the width
-      let cellsCount = CGFloat(viewModel.transportOptions.count)
-      let size = (collectionView.width - Constants.transportOptionsItemSize.width * cellsCount) / (cellsCount - 1)
-      return size
-    case routePointsCollectionView:
-      return Constants.routePointsVerticalSpacing
-    default:
-      fatalError("Unknown collection view")
-    }
-  }
-
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     switch collectionView {
     case transportOptionsCollectionView:
@@ -437,8 +457,9 @@ extension RoutePreviewViewController: UICollectionViewDelegateFlowLayout {
 extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
   func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
     guard indexPath.item < viewModel.points.count else { return [] }
-    let item = viewModel.points[indexPath.item]
-    let itemProvider = NSItemProvider(object: item.title as NSString)
+    let item = viewModel.points[indexPath.item].point
+    let title = viewModel.points.title(for: indexPath.item)
+    let itemProvider = NSItemProvider(object: title as NSString)
     let dragItem = UIDragItem(itemProvider: itemProvider)
     dragItem.localObject = item
     return [dragItem]
@@ -467,7 +488,6 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
           destinationIndexPath.item < viewModel.points.count else {
       return UICollectionViewDropProposal(operation: .forbidden)
     }
-
     return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
   }
 }
@@ -480,23 +500,29 @@ extension RoutePreviewViewController {
       return
     }
 
-    var indexToRemove: Int?
-    if newViewModel.points.count >= Constants.minRoutePointsCellsCount && newViewModel.points.count < viewModel.points.count {
-      indexToRemove = viewModel.points.firstIndex { point in
-        !newViewModel.points.map(\.title).contains(point.title)
-      }
-    }
+    let oldPoints = viewModel.points
     viewModel = newViewModel
-    if let indexToRemove {
-      routePointsCollectionView.deleteItems(at: [IndexPath(item: indexToRemove, section: 0)])
-    } else {
-      routePointsCollectionView.reloadData()
-    }
-    updateRoutePointsCollectionConstraints()
-    startButton.setLoading(newViewModel.showActivityIndicator)
-    startButton.isHidden = !newViewModel.shouldShowStartButton
+    reloadRoutePoints(from: oldPoints, to: newViewModel.points)
+    startButton.set(hidden: newViewModel.startButtonIsHidden,
+                    enabled: newViewModel.startButtonIsEnabled,
+                    loading: newViewModel.showActivityIndicator)
     etaLabel.attributedText = viewModel.estimates
     presentationStepsController.setStep(newViewModel.presentationStep)
+  }
+
+  private func reloadRoutePoints(from oldPoints: RoutePreview.RoutePoints, to newPoints: RoutePreview.RoutePoints) {
+//    var indexToRemove: Int?
+//    if newPoints.count < oldPoints.count {
+//      indexToRemove = oldPoints.intermediate.firstIndex { point in
+//        !newPoints.intermediate.map(\.title).contains(point.title)
+//      }
+//    }
+//    if let indexToRemove {
+//      routePointsCollectionView.deleteItems(at: [IndexPath(item: indexToRemove, section: 0)])
+//    } else {
+      routePointsCollectionView.reloadData()
+//    }
+    updateRoutePointsCollectionConstraints()
   }
 
   func close() {
@@ -507,5 +533,3 @@ extension RoutePreviewViewController {
     }
   }
 }
-
-

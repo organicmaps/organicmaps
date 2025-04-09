@@ -7,8 +7,9 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
 
   private enum Constants {
     static let logoSize: CGFloat = 28
-    static let contentBackgroundPadding: CGFloat = 2
+    static let contentBackgroundInsets = UIEdgeInsets(top: 2, left: 12, bottom: 2, right: 16)
     static let logoSizeRatio: CGFloat = 1.0
+    static let logoImageLeadingInset: CGFloat = 16
     static let reorderButtonSize: CGFloat = 24
     static let closeButtonSize: CGFloat = 20
     static let horizontalSpacing: CGFloat = 12
@@ -79,15 +80,15 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
     closeButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.logoImageLeadingInset),
       logoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
       logoImageView.widthAnchor.constraint(equalToConstant: Constants.logoSize),
       logoImageView.heightAnchor.constraint(equalToConstant: Constants.logoSize),
 
-      contentBackgroundView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
-      contentBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.contentBackgroundPadding),
-      contentBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.contentBackgroundPadding),
-      contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.contentBackgroundPadding),
+      contentBackgroundView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.contentBackgroundInsets.left),
+      contentBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.contentBackgroundInsets.top),
+      contentBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.contentBackgroundInsets.right),
+      contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.contentBackgroundInsets.bottom),
 
       reorderButton.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: Constants.horizontalSpacing),
       reorderButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
@@ -117,6 +118,7 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
   func configurePlaceholder(for state: PlaceholderState) {
     switch state {
     case .start:
+      // TODO: Localize
       titleLabel.text = "From"
       logoImageView.image = UIImage(resource: .icRouteManagerStart)
     case .finish:

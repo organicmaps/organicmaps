@@ -42,14 +42,12 @@ extension RoutePreview {
 //            result.append(elevation)
 //          }
           viewModel.estimates = estimates
-          print("estimates", estimates)
         }
       case let .show(points, routerType):
-        viewModel.points = points
+        viewModel.points = RoutePreview.RoutePoints(points: points)
         viewModel.routerType = routerType
         viewModel.presentationStep = .halfScreen
       }
-      viewModel.isStartRoutingAllowed = viewModel.points.count > 1
       return viewModel
     }
   }

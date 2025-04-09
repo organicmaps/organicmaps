@@ -1,5 +1,9 @@
 final class AddItemCollectionViewCell: UICollectionViewCell {
 
+  private enum Constants {
+    static let trailingInsets = CGFloat(16)
+  }
+
   private let plusButton = CircleImageButton()
   var didTapAction: (() -> Void)?
 
@@ -23,7 +27,7 @@ final class AddItemCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(plusButton)
     plusButton.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      plusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      plusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.trailingInsets),
       plusButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
       plusButton.heightAnchor.constraint(equalTo: contentView.heightAnchor),
       plusButton.widthAnchor.constraint(equalTo: contentView.heightAnchor)

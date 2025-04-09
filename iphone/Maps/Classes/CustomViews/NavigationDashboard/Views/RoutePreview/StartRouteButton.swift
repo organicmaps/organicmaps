@@ -30,15 +30,15 @@ final class StartRouteButton: UIButton {
     ])
   }
 
-  func setLoading(_ loading: Bool) {
+  func set(hidden: Bool, enabled: Bool, loading: Bool) {
     if loading {
       setTitle(nil, for: .normal)
-      isEnabled = false
       activityIndicator.startAnimating()
     } else {
       setTitle(title, for: .normal)
-      isEnabled = true
       activityIndicator.stopAnimating()
     }
+    isEnabled = enabled
+    isHidden = hidden
   }
 }
