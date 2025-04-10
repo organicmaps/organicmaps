@@ -229,7 +229,9 @@ NSString *const kSettingsSegue = @"Map2Settings";
   [self hidePlacePage];
 
   BOOL const isSearching = self.searchManager.isSearching;
-  BOOL const isNavigationDashboardHidden = self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden;
+  BOOL const isNavigationDashboardHidden =
+    self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden ||
+    self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed;
   if (isSearching)
     [self.searchManager setPlaceOnMapSelected:!isNavigationDashboardHidden];
   else if (isNavigationDashboardHidden)
