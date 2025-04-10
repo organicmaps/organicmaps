@@ -4,7 +4,7 @@ final class AddItemCollectionViewCell: UICollectionViewCell {
     static let trailingInsets = CGFloat(16)
   }
 
-  private let plusButton = CircleImageButton()
+  private let plusButton = UIButton()
   var didTapAction: (() -> Void)?
 
   override init(frame: CGRect) {
@@ -19,7 +19,8 @@ final class AddItemCollectionViewCell: UICollectionViewCell {
   }
 
   private func setupView() {
-    plusButton.setImage(UIImage(resource: .icAddLight))
+    plusButton.setImage(UIImage(resource: .icAdd), for: .normal)
+    plusButton.setImage(UIImage(resource: .icAddHighlighted), for: .highlighted)
     plusButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
   }
 

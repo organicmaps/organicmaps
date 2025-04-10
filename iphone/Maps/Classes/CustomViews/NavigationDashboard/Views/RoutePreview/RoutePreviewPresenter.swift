@@ -44,7 +44,8 @@ extension RoutePreview {
           viewModel.estimates = estimates
         }
       case let .show(points, routerType):
-        viewModel.points = RoutePreview.RoutePoints(points: points)
+        print("update route points")
+        viewModel.routePoints = RoutePreview.RoutePoints(points: points)
         viewModel.routerType = routerType
         viewModel.presentationStep = .halfScreen
       }

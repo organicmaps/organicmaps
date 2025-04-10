@@ -1,8 +1,12 @@
 final class RouteStopCollectionViewCell: UICollectionViewCell {
 
-  enum PlaceholderState {
-    case start
-    case finish
+  struct ViewModel {
+    let title: String
+    let subtitle: String?
+    let image: UIImage
+    let imageStyle: GlobalStyleSheet
+    let isPlaceholder: Bool
+    let onCloseHandler: (() -> Void)?
   }
 
   private enum Constants {
@@ -11,7 +15,7 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
     static let logoSizeRatio: CGFloat = 1.0
     static let logoImageLeadingInset: CGFloat = 16
     static let reorderButtonSize: CGFloat = 24
-    static let closeButtonSize: CGFloat = 20
+    static let closeButtonSize: CGFloat = 24
     static let horizontalSpacing: CGFloat = 12
     static let titleToSubtitleSpacing: CGFloat = 2
     static let titleToReorderSpacing: CGFloat = 12
@@ -36,11 +40,6 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
   @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    logoImageView.layer.cornerRadius = logoImageView.bounds.width / 2
   }
 
   private func setupView() {
@@ -106,28 +105,14 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
     ])
   }
 
-  func configure(with routePoint: MWMRoutePoint, onCloseHandler: @escaping (() -> Void)) {
-    titleLabel.text = routePoint.title
-    subtitleLabel.text = routePoint.subtitle
-    logoImageView.image = UIImage(resource: .badge) // TODO: implement images
-    didTapClose = onCloseHandler
-    closeButton.isHidden = false
-    titleLabel.setFontStyleAndApply(.semibold14, color: .blackPrimary)
-  }
-
-  func configurePlaceholder(for state: PlaceholderState) {
-    switch state {
-    case .start:
-      // TODO: Localize
-      titleLabel.text = "From"
-      logoImageView.image = UIImage(resource: .icRouteManagerStart)
-    case .finish:
-      titleLabel.text = "To"
-      logoImageView.image = UIImage(resource: .finishPoint)
-    }
-    titleLabel.setFontStyleAndApply(.semibold14, color: .blackSecondary)
-    closeButton.isHidden = true
-    subtitleLabel.text = ""
+  func configure(with viewModel: ViewModel) {
+    titleLabel.text = viewModel.title
+    subtitleLabel.text = viewModel.subtitle
+    logoImageView.image = viewModel.image
+    logoImageView.setStyleAndApply(viewModel.imageStyle)
+    didTapClose = viewModel.onCloseHandler
+    titleLabel.setFontStyleAndApply(.semibold14, color:  viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
+    closeButton.isHidden = viewModel.isPlaceholder
   }
 
   @objc

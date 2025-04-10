@@ -488,6 +488,8 @@
 		ED4F4F512D9E8854006AD910 /* RoutePreviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */; };
 		ED4F4F532D9E888E006AD910 /* RoutePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */; };
 		ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */; };
+		ED4F4F752DA7A65F006AD910 /* RoutePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */; };
+		ED4F4F792DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
 		ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */; };
 		ED5E02522D92E33300A5CC7B /* MWMNavigationDashboardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02512D92E33300A5CC7B /* MWMNavigationDashboardView.mm */; };
@@ -1468,6 +1470,8 @@
 		ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewPresenter.swift; sourceTree = "<group>"; };
 		ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewModel.swift; sourceTree = "<group>"; };
 		ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
+		ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewViewModel.swift; sourceTree = "<group>"; };
+		ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewRoutePoints.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
 		ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
 		ED5E024F2D92AC9300A5CC7B /* RoutePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutePreviewView.h; sourceTree = "<group>"; };
@@ -2537,6 +2541,8 @@
 			isa = PBXGroup;
 			children = (
 				ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */,
+				ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */,
+				ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */,
 				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
 				ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */,
 				ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */,
@@ -4729,6 +4735,7 @@
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
+				ED4F4F792DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift in Sources */,
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,
 				99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
@@ -4769,6 +4776,7 @@
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
 				CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */,
 				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
+				ED4F4F752DA7A65F006AD910 /* RoutePreviewViewModel.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,

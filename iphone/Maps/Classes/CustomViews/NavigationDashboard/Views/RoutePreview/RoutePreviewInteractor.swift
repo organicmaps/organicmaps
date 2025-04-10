@@ -62,7 +62,9 @@ extension RoutePreview {
         return .updateNavigationInfo(entity)
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
-        router.rebuild(withBestRouter: false)
+        DispatchQueue.main.async {
+          self.router.rebuild(withBestRouter: false)
+        }
         return .show(points: router.points(), routerType: router.type())
       case .updatePresentationFrame(let frame):
         let bottomBound = frame.height - frame.origin.y
@@ -118,7 +120,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func updateNavigationInfoAvailableArea(_ frame: CGRect) {
-    print(#function)
+//    print(#function)
     // TODO: navigation
   }
 

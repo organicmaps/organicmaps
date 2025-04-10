@@ -179,8 +179,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)setupSearchContainer {
-  if (self.searchContainer != nil)
+  if (self.searchContainer != nil) {
+    [self.view bringSubviewToFront:self.searchContainer];
     return;
+  }
   self.searchContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
   [self.view addSubview:self.searchContainer];
   [self.view bringSubviewToFront:self.searchContainer];
