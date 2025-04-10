@@ -84,6 +84,9 @@ extension RoutePreview {
       case .setHidden(let hidden):
         return .setHidden(hidden)
 
+      case .goBack:
+        router.stopRouting()
+        return .goBack
       case .close:
         router.stopRouting()
         return .close

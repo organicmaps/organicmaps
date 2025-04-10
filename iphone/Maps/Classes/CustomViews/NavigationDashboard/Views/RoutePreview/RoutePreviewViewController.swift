@@ -165,6 +165,11 @@ final class RoutePreviewViewController: UIViewController {
     backButton.setStyle(.black)
   }
 
+  @objc
+  private func didTapBackButton() {
+    interactor?.process(.goBack)
+  }
+
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
@@ -275,17 +280,6 @@ final class RoutePreviewViewController: UIViewController {
     presentationStepsController.updateMaxAvailableFrame()
     availableAreaView.frame = presentationStepsController.currentFrame
     view.layoutIfNeeded()
-  }
-
-  // MARK: - Button Actions
-  @objc
-  private func didTapStartButton() {
-    interactor?.process(.startNavigation)
-  }
-
-  @objc
-  private func didTapBackButton() {
-    interactor?.process(.close)
   }
 }
 
@@ -439,7 +433,6 @@ extension RoutePreviewViewController {
   func render(_ newViewModel: RoutePreview.ViewModel) {
     print(#function)
     guard !newViewModel.shouldClose else {
-      startButton.setHidden(true)
       close()
       return
     }
@@ -474,6 +467,7 @@ extension RoutePreviewViewController {
   }
 
   func close() {
+    startButton.setHidden(true)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
