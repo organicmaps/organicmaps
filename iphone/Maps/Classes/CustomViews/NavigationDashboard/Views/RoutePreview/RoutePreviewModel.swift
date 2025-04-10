@@ -15,6 +15,7 @@ enum RoutePreview {
     case updatePresentationFrame(CGRect)
 //    case updatePresentationStep(ModalPresentationStep)
     case setHidden(Bool)
+    case goBack
     case close
   }
 
@@ -26,6 +27,7 @@ enum RoutePreview {
     case updatePresentationStep(ModalPresentationStep)
     case showNavigationDashboard
     case setHidden(Bool)
+    case goBack
     case close
   }
 }

@@ -2,9 +2,12 @@ extension RoutePreview {
   final class Presenter: NSObject {
     private weak var view: RoutePreviewViewController?
     private var viewModel: ViewModel = .initial
+    private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
-    init(view: RoutePreviewViewController) {
+    init(view: RoutePreviewViewController,
+         placePageManagerHelper: MWMPlacePageManagerHelper.Type = MWMPlacePageManagerHelper.self) {
       self.view = view
+      self.placePageManagerHelper = placePageManagerHelper
       super.init()
     }
 
@@ -22,6 +25,9 @@ extension RoutePreview {
       switch action {
       case .none:
         break
+      case .goBack:
+        viewModel.shouldClose = true
+        placePageManagerHelper.recoverPlacePage()
       case .close:
         viewModel.shouldClose = true
       case .setHidden(let hidden):
