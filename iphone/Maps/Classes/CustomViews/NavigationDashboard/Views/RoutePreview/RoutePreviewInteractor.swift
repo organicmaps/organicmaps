@@ -25,53 +25,66 @@ extension RoutePreview {
       switch event {
       case .prepareRoute:
         return .none
+
       case .startRoutePlanning:
         return .show(points: router.points(), routerType: router.type())
+
       case .routeIsReady:
         return .show(points: router.points(), routerType: router.type())
+
       case .selectRouterType(let routerType):
         router.setType(routerType)
         router.rebuild(withBestRouter: false)
         return .none
+
       case let .selectRoutePoint(point, index):
-        print(point?.title, point?.type, index)
         searchManager.startSearching(isRouting: false)
         if let textToSearch = point?.title {
 //          searchManager.searchText(textToSearch, isCategory: false)
         }
         // TODO: show search with the point
         return .setHidden(true)
+
       case .addRoutePoint:
         // TODO: show search or add point
         return .none
+
       case .deleteRoutePoint(let point):
         router.removePoint(point)
         let points = router.points()!
         if points.count < 2 {
           router.stopRouting()
+        } else {
+          router.rebuild(withBestRouter: false)
         }
         return .show(points: points, routerType: router.type())
+
       case .startNavigation:
         return .showNavigationDashboard
+
       case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
+
       case .updateDrivingOptionState(let state):
         // TODO: implement
         return .none
+
       case .updateNavigationInfo(let entity):
         return .updateNavigationInfo(entity)
+
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
-        DispatchQueue.main.async {
-          self.router.rebuild(withBestRouter: false)
-        }
+        router.rebuild(withBestRouter: false)
         return .show(points: router.points(), routerType: router.type())
+
       case .updatePresentationFrame(let frame):
         let bottomBound = frame.height - frame.origin.y
         MapViewController.shared()?.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
         return .none
+
       case .setHidden(let hidden):
         return .setHidden(hidden)
+
       case .close:
         router.stopRouting()
         return .close

@@ -435,17 +435,22 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
 
 extension RoutePreviewViewController {
   func render(_ newViewModel: RoutePreview.ViewModel) {
-//    dump(newViewModel)
+    print(#function)
     guard !newViewModel.shouldClose else {
       startButton.setHidden(true)
       close()
       return
     }
 
-    let oldPoints = viewModel.routePoints
+    let shouldReloadTransportOptions = viewModel.routerType != newViewModel.routerType
+    let shouldReloadRoutePoints = viewModel.routePoints != newViewModel.routePoints
     viewModel = newViewModel
-    transportOptionsCollectionView.reloadData()
-    reloadRoutePoints(from: oldPoints, to: newViewModel.routePoints)
+    if shouldReloadRoutePoints {
+      routePointsCollectionView.reloadData()
+    }
+    if shouldReloadTransportOptions {
+      transportOptionsCollectionView.reloadData()
+    }
     startButton.setHidden(newViewModel.startButtonIsHidden)
     startButton.setEnabled(newViewModel.startButtonIsEnabled,
                            isLoading: newViewModel.showActivityIndicator)

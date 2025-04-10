@@ -38,6 +38,7 @@ extension RoutePreview.RoutePoints {
   func title(for index: Int) -> String {
     switch index {
     case 0:
+      // TODO: localize
       return start?.title ?? L("from")
     case count - 1:
       return finish?.title ?? L("to")
@@ -53,19 +54,9 @@ extension RoutePreview.RoutePoints {
   func image(for index: Int) -> UIImage {
     switch index {
     case 0:
-      let image = UIImage(resource: .icRouteManagerMyPosition)
-      if #available(iOS 13.0, *) {
-        return image.withTintColor(.linkBlue())
-      } else {
-        return image
-      }
+      return UIImage(resource: .icRouteManagerMyPosition)
     case count - 1:
-      let image = UIImage(resource: .finishPoint)
-      if #available(iOS 13.0, *) {
-        return image.withRenderingMode(.alwaysOriginal).withTintColor(.blackPrimaryText())
-      } else {
-        return image
-      }
+      return UIImage(resource: .finishPoint)
     default:
       let imageName = "route-point-\(index)"
       return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)

@@ -115,6 +115,11 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
     closeButton.isHidden = viewModel.isPlaceholder
   }
 
+  func updateImage(with image: UIImage, style: GlobalStyleSheet) {
+    logoImageView.image = image
+    logoImageView.setStyleAndApply(style)
+  }
+
   @objc
   private func didTapCloseButton() {
     didTapClose?()
