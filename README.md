@@ -100,7 +100,7 @@ for more information.
 
 ## Governance
 
-See [docs/GOVERNANCE.md](docs/GOVERNANCE.md).
+Check the [Governance repository](https://codeberg.org/comaps/governance).
 
 <a name="contributing">
 
