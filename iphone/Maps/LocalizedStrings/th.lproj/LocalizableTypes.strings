@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "ที่อยู่/บล็อค";
+"type.addr_interpolation.even" = "ที่อยู่/บล็อค";
+"type.addr_interpolation.odd" = "ที่อยู่/บล็อค";
+"type.aerialway" = "Aerialway";
+"type.aerialway.cable_car" = "Cable Car";
+"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.gondola" = "Gondola";
+"type.aerialway.mixed_lift" = "Mixed Lift";
+"type.aerialway.station" = "สถานีกระเช้าลอยฟ้า";
+"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway.aerodrome" = "สนามบิน";
+"type.aeroway.aerodrome.international" = "สนามบิน";
+"type.aeroway.apron" = "Apron";
+"type.aeroway.gate" = "Gate";
+"type.aeroway.helipad" = "ที่จอดเฮลิคอปเตอร์";
+"type.aeroway.runway" = "Runway";
+"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "สถานที่หรือสิ่งก่อสร้างที่เป็นประโยชน์";
+"type.amenity.arts_centre" = "ศูนย์งานศิลปะ";
+"type.amenity.atm" = "เอทีเอ็ม";
+"type.amenity.bank" = "ธนาคาร";
+"type.amenity.bar" = "บาร์";
+"type.amenity.bbq" = "เตาย่างบาร์บีคิว";
+"type.amenity.bench" = "ม้านั่ง";
+"type.amenity.bicycle_parking" = "ที่จอดจักรยาน";
+"type.amenity.bicycle_rental" = "จักรยานให้เช่า";
+"type.amenity.bicycle_repair_station" = "สถานีซ่อมจักรยาน";
+"type.amenity.biergarten" = "ลานเบียร์";
+"type.amenity.brothel" = "ซ่อง";
+"type.amenity.bureau_de_change" = "แลกเปลี่ยนเงินตรา";
+"type.amenity.bus_station" = "สถานีขนส่ง";
+"type.amenity.cafe" = "คาเฟ่";
+"type.amenity.car_rental" = "รถยนต์";
+"type.amenity.motorcycle_rental" = "รถมอเตอรไซค";
+"type.amenity.car_sharing" = "การใช้รถร่วมกัน";
+"type.amenity.car_wash" = "ล้างรถ";
+"type.amenity.casino" = "คาสิโน";
+"type.amenity.gambling" = "การพนัน";
+"type.leisure.adult_gaming_centre" = "ศูนย์เกมสำหรับผู้ใหญ่";
+"type.leisure.amusement_arcade" = "อาเขต";
+"type.amenity.charging_station" = "สถานีชาร์จ";
+"type.amenity.charging_station.bicycle" = "สถานีชาร์จจักรยาน";
+"type.amenity.charging_station.motorcar" = "สถานีชาร์จรถยนต์";
+"type.amenity.childcare" = "สถานรับเลี้ยงเด็ก";
+"type.amenity.cinema" = "โรงภาพยนตร์";
+"type.leisure.bowling_alley" = "ลานโบว์ลิ่ง";
+"type.amenity.clinic" = "คลินิก";
+"type.amenity.college" = "วิทยาลัย";
+"type.amenity.community_centre" = "ศูนย์ชุมชน";
+"type.amenity.compressed_air" = "อากาศอัด";
+"type.amenity.conference_centre" = "ศูนย์ประชุม";
+"type.amenity.courthouse" = "ศาล";
+"type.amenity.dentist" = "ทันตแพทย์";
+"type.amenity.doctors" = "ห้องแพทย์";
+"type.amenity.drinking_water" = "น้ำดื่ม";
+"type.drinking_water.yes" = "น้ำดื่ม";
+"type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
+"type.amenity.exhibition_centre" = "ศูนย์นิทรรศการ";
+"type.amenity.money_transfer" = "การโอนเงิน";
+"type.amenity.music_school" = "โรงเรียนดนตรี";
+"type.amenity.language_school" = "โรงเรียนภาษา";
+"type.office.diplomatic" = "สถานทูต";
+"type.amenity.fast_food" = "อาหารจานด่วน";
+"type.amenity.ferry_terminal" = "เฟอร์รี่";
+"type.amenity.fire_station" = "สถานีดับเพลิง";
+"type.amenity.food_court" = "Food Court";
+"type.amenity.fountain" = "น้ำพุ";
+"type.amenity.fuel" = "ปั๊มน้ำมัน";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "สุสาน";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "สุสาน";
+"type.amenity.hospital" = "คลินิก";
+"type.amenity.hunting_stand" = "จุดล่าสัตว์";
+"type.amenity.ice_cream" = "แผงขายไอศกรีม";
+"type.amenity.internet_cafe" = "อินเทอร์เน็ตคาเฟ่";
+"type.amenity.kindergarten" = "โรงเรียนอนุบาล";
+"type.amenity.library" = "ห้องสมุด";
+"type.amenity.loading_dock" = "แทนวางสนคา";
+"type.amenity.marketplace" = "ตลาดสินค้า";
+"type.amenity.motorcycle_parking" = "ที่จอดรถมอเตอร์ไซค์";
+"type.amenity.nightclub" = "ไนต์คลับ";
+"type.amenity.nursing_home" = "บ้านพักคนชรา";
+"type.amenity.parking" = "ที่จอดรถ";
+"type.amenity.parking.fee" = "ที่จอดรถ";
+"type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
+"type.amenity.parking.multi.storey.fee" = "ที่จอดรถหลายชั้น";
+"type.amenity.parking.no.access" = "ที่จอดรถส่วนตัว";
+"type.amenity.parking.permissive" = "ที่จอดรถส่วนตัว";
+"type.amenity.parking.private" = "ที่จอดรถส่วนตัว";
+"type.amenity.parking.park_and_ride" = "ที่จอดรถ";
+"type.amenity.parking.underground" = "ที่จอดรถใต้ดิน";
+"type.amenity.parking.underground.fee" = "ที่จอดรถใต้ดิน";
+"type.amenity.parking.underground.private" = "ที่จอดรถใต้ดินส่วนตัว";
+"type.amenity.parking.street_side" = "ที่จอดรถริมถนน";
+"type.amenity.parking.street_side.fee" = "ที่จอดรถริมถนน";
+"type.amenity.parking.street_side.private" = "ที่จอดรถริมถนนส่วนตัว";
+"type.amenity.parking.lane" = "ที่จอดรถเลน";
+"type.amenity.parking.lane.fee" = "ที่จอดรถเลน";
+"type.amenity.parking.lane.private" = "ที่จอดรถเลนส่วนตัว";
+"type.amenity.parking_entrance" = "ทางเข้าที่จอดรถ";
+"type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถส่วนตัว";
+"type.amenity.parking_entrance.permissive" = "ทางเข้าที่จอดรถ";
+"type.amenity.parking_space" = "พื้นที่จอดรถ";
+"type.amenity.parking_space.permissive" = "พื้นที่จอดรถ";
+"type.amenity.parking_space.private" = "พื้นที่จอดรถ";
+"type.amenity.parking_space.underground" = "พื้นที่จอดรถ";
+"type.amenity.parking_space.disabled" = "ที่จอดรถสำหรับผู้พิการ";
+"type.amenity.payment_terminal" = "จุดชำระเงิน";
+"type.amenity.pharmacy" = "ร้านขายยา";
+"type.amenity.place_of_worship" = "สถานที่ประกอบพิธีกรรม";
+"type.amenity.place_of_worship.buddhist" = "วัด";
+"type.amenity.place_of_worship.christian" = "โบสถ์";
+"type.amenity.place_of_worship.christian.mormon" = "โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "ห้องราชอาณาจักรของพยานเยโฮวา";
+"type.amenity.place_of_worship.hindu" = "วัด";
+"type.amenity.place_of_worship.jewish" = "มัสยิดยิว";
+"type.amenity.place_of_worship.muslim" = "มัสยิด";
+"type.amenity.place_of_worship.shinto" = "ศาลเจ้า";
+"type.amenity.place_of_worship.taoist" = "วัด";
+"type.amenity.police" = "ตำรวจ";
+"type.amenity.post_box" = "ตู้จดหมาย";
+"type.amenity.post_office" = "ที่ทำการไปรษณีย์";
+"type.amenity.prison" = "คุก";
+"type.amenity.pub" = "ผับ";
+"type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
+"type.amenity.recycling.centre" = "ศูนย์รีไซเคิล";
+"type.amenity.recycling" = "บรรจุภัณฑ์รีไซเคิล";
+"type.amenity.recycling.container" = "บรรจุภัณฑ์รีไซเคิล";
+"type.recycling.batteries" = "แบตเตอรี่";
+"type.recycling.clothes" = "เสื้อผ้าเก่า";
+"type.recycling.glass_bottles" = "ขวดแก้ว";
+"type.recycling.paper" = "ขยะกระดาษ";
+"type.recycling.plastic" = "ขยะพลาสติก";
+"type.recycling.plastic_bottles" = "ขวดพลาสติก";
+"type.recycling.scrap_metal" = "โลหะมีคม";
+"type.recycling.small_appliances" = "ขยะอิเล็กทรอนิกส์";
+"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cans" = "Cans";
+"type.recycling.shoes" = "Shoes";
+"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.cartons" = "Cartons";
+"type.amenity.restaurant" = "ร้านอาหาร";
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.school" = "โรงเรียน";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "ที่อยู่อาศัย";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "ที่อยู่อาศัย";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "กระท่อมพักแรม";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.public_bath" = "ห้องอาบน้ำสาธารณะ";
+"type.amenity.shower" = "ฝักบัวอาบน้ำ";
+"type.amenity.stripclub" = "สตริปคลับ";
+"type.amenity.taxi" = "แท็กซี่";
+"type.amenity.telephone" = "โทรศัพท์";
+"type.amenity.theatre" = "โรงละคร";
+"type.amenity.toilets" = "ห้องน้ำ";
+"type.toilets.yes" = "ห้องน้ำ";
+"type.amenity.townhall" = "ศาลากลางจังหวัด";
+"type.amenity.university" = "มหาวิทยาลัย";
+"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine.cigarettes" = "เครื่องขายบุหรี่";
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.drinks" = "เครื่องขายเครื่องดื่มอัตโนมัติ";
+"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.parking_tickets" = "เครื่องชำระค่าที่จอดรถอัตโนมัติ";
+"type.amenity.vending_machine.public_transport_tickets" = "เครื่องขายของหรือตั๋วขนส่งมวลชนอัตโนมัติ";
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.vehicle_inspection" = "การตรวจสอบยานพาหนะ";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.veterinary" = "สัตวแพทย์";
+"type.amenity.waste_basket" = "ถังขยะ";
+"type.amenity.waste_disposal" = "ขยะ";
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.water_point" = "จุดเติมน้ำ";
+"type.amenity.water_point.drinking_water_no" = "จุดเติมน้ำ";
+"type.barrier" = "Barrier";
+"type.barrier.block" = "บล็อก";
+"type.barrier.bollard" = "เสา";
+"type.barrier.border_control" = "ด่านตรวจคนเข้าเมือง";
+"type.barrier.chain" = "Chain";
+"type.barrier.city_wall" = "กำแพงเมือง";
+"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.waterway.ditch" = "คูระบายน้ำ";
+"type.natural.water.moat" = "คูเมือง";
+"type.natural.water.wastewater" = "น้ำเสีย";
+"type.barrier.entrance" = "ทางเข้า";
+"type.barrier.fence" = "Fence";
+"type.barrier.gate" = "ประตู";
+"type.barrier.hedge" = "Hedge";
+"type.barrier.kissing_gate" = "ประตู";
+"type.barrier.lift_gate" = "ไม้กั้น";
+"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.stile" = "บันไดข้าม";
+"type.barrier.turnstile" = "ประตูหมุน";
+"type.barrier.swing_gate" = "ไม้กั้น";
+"type.barrier.toll_booth" = "ด่านเก็บเงิน";
+"type.barrier.wall" = "Wall";
+"type.boundary" = "Boundary";
+"type.boundary.administrative" = "Administrative Boundary";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "National Border";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.national_park" = "อุทยานแห่งชาติ";
+"type.boundary.aboriginal_lands" = "ดินแดนพื้นเมือง";
+"type.boundary.protected_area" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.1" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.2" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.3" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.4" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.5" = "พื้นที่คุ้มครอง";
+"type.boundary.protected_area.6" = "พื้นที่คุ้มครอง";
+"type.building" = "อาคาร";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "ที่อยู่";
+"type.building.has_parts" = "อาคาร";
+"type.building_part" = "อาคาร";
+"type.building.garage" = "อาคารจอดรถ";
+"type.building.train_station" = "อาคารสถานี";
+"type.building.warehouse" = "Warehouse";
+"type.cemetery.grave" = "หลุมฝังศพ";
+"type.craft" = "งานฝีมือ";
+"type.craft.beekeeper" = "คนเลี้ยงผึ้ง";
+"type.craft.blacksmith" = "ช่างตีเหล็ก";
+"type.craft.brewery" = "โรงเบียร์";
+"type.craft.caterer" = "พนักงานจัดเลี้ยง";
+"type.craft.carpenter" = "ช่างไม้";
+"type.craft.confectionery" = "ลูกกวาด";
+"type.craft.electrician" = "ช่างไฟฟ้า";
+"type.craft.electronics_repair" = "ซ่อมเครื่องใช้ไฟฟ้า";
+"type.craft.gardener" = "คนจัดสวน";
+"type.craft.grinding_mill" = "โรงบด";
+"type.craft.handicraft" = "หัตถกรรม";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "ระบบปรับอากาศ";
+"type.craft.key_cutter" = "ตัดกุญแจ";
+"type.craft.locksmith" = "ช่างกุญแจ";
+"type.craft.metal_construction" = "ช่างเหล็ก";
+"type.craft.painter" = "ช่างทาสี";
+"type.craft.photographer" = "ช่างภาพ";
+"type.shop.camera" = "ร้านกล้อง";
+"type.craft.plumber" = "ช่างประปา";
+"type.craft.sawmill" = "ซูเมล";
+"type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
+"type.craft.winery" = "โรงกลั่นเหล้าองุ่น";
+"type.craft.tailor" = "ช่างตัดเสื้อ";
+"type.cuisine.african" = "อาหารแอฟริกัน";
+"type.cuisine.american" = "อาหารอเมริกัน";
+"type.cuisine.arab" = "อาหารอาหรับ";
+"type.cuisine.argentinian" = "อาหารอาเจนติน่า";
+"type.cuisine.asian" = "อาหารเอเชีย";
+"type.cuisine.austrian" = "อาหารออสเตรีย";
+"type.cuisine.bagel" = "เบเกิล";
+"type.cuisine.balkan" = "อาหารบอลข่าน";
+"type.cuisine.barbecue" = "บาร์บีคิว";
+"type.cuisine.bavarian" = "อาหารบาวาเรีย";
+"type.cuisine.beef_bowl" = "ชามเนื้อวัว";
+"type.cuisine.brazilian" = "อาหารบราซิล";
+"type.cuisine.breakfast" = "อาหารเช้า";
+"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.burger" = "เบอร์เกอร์";
+"type.cuisine.buschenschank" = "โรงเหล้า";
+"type.cuisine.cake" = "เค้ก";
+"type.cuisine.caribbean" = "อาหารแคริบเบียน";
+"type.cuisine.chicken" = "ไก่";
+"type.cuisine.chinese" = "อาหารจีน";
+"type.cuisine.coffee_shop" = "กาแฟ";
+"type.cuisine.crepe" = "เครป";
+"type.cuisine.croatian" = "อาหารโครเอเชีย";
+"type.cuisine.curry" = "กะหรี่";
+"type.cuisine.deli" = "อาหารพิเศษ";
+"type.cuisine.diner" = "ร้านอาหาร";
+"type.cuisine.donut" = "โดนัท";
+"type.cuisine.ethiopian" = "อาหารเอธิโอเปีย";
+"type.cuisine.filipino" = "อาหารฟิลิปปินส์";
+"type.cuisine.fine_dining" = "อาหารหรูหรา";
+"type.cuisine.fish" = "ปลา";
+"type.cuisine.fish_and_chips" = "ปลาและมันฝรั่งทอด";
+"type.cuisine.french" = "อาหารฝรั่งเศส";
+"type.cuisine.friture" = "ปลาเล็กปลาน้อย";
+"type.cuisine.georgian" = "อาหารจอร์เจีย";
+"type.cuisine.german" = "อาหารเยอรมัน";
+"type.cuisine.greek" = "อาหารกรีก";
+"type.cuisine.grill" = "ย่าง";
+"type.cuisine.heuriger" = "โรงเหล้า";
+"type.cuisine.hotdog" = "ฮอทดอก";
+"type.cuisine.hungarian" = "อาหารฮังการี";
+"type.cuisine.ice_cream" = "ไอศกรีม";
+"type.cuisine.indian" = "อาหารอินเดีย";
+"type.cuisine.indonesian" = "อาหารอินโดนีเซีย";
+"type.cuisine.international" = "อาหารนานาชาติ";
+"type.cuisine.irish" = "อาหารไอริช";
+"type.cuisine.italian" = "อาหารอิตาเลียน";
+"type.cuisine.italian_pizza" = "อาหารอิตาเลียน; พิซซ่า";
+"type.cuisine.japanese" = "อาหารญี่ปุ่น";
+"type.cuisine.kebab" = "เคบับ";
+"type.cuisine.korean" = "อาหารเกาหลี";
+"type.cuisine.lao" = "อาหารลาว";
+"type.cuisine.lebanese" = "อาหารเลบานอน";
+"type.cuisine.local" = "อาหารท้องถิ่น";
+"type.cuisine.malagasy" = "มาดากัสการ์";
+"type.cuisine.malaysian" = "อาหารมาเลเซีย";
+"type.cuisine.mediterranean" = "อาหารเมดิเตอร์เรเนียน";
+"type.cuisine.mexican" = "อาหารเม็กซิกัน";
+"type.cuisine.moroccan" = "อาหารโมร็อกโก";
+"type.cuisine.noodles" = "บะหมี่";
+"type.cuisine.oriental" = "อาหารโอเรียนทอล";
+"type.cuisine.pancake" = "แพนเค้ก";
+"type.cuisine.pasta" = "พาสต้า";
+"type.cuisine.persian" = "อาหารเปอร์เซีย";
+"type.cuisine.peruvian" = "อาหารเปรู";
+"type.cuisine.pizza" = "พิซซ่า";
+"type.cuisine.polish" = "อาหารโปแลนด์";
+"type.cuisine.portuguese" = "อาหารโปรตุเกส";
+"type.cuisine.ramen" = "ราเม็ง";
+"type.cuisine.regional" = "อาหารพื้นเมือง";
+"type.cuisine.russian" = "อาหารรัสเซีย";
+"type.cuisine.sandwich" = "แซนด์วิช";
+"type.cuisine.sausage" = "ไส้กรอก";
+"type.cuisine.savory_pancakes" = "แพนเค้กแบบเค็ม";
+"type.cuisine.seafood" = "อาหารทะเล";
+"type.cuisine.soba" = "โซบะ";
+"type.cuisine.spanish" = "อาหารสเปน";
+"type.cuisine.steak_house" = "ร้านสเต๊ก";
+"type.cuisine.sushi" = "ซูชิ";
+"type.cuisine.tapas" = "ทาปาส";
+"type.cuisine.tea" = "ชา";
+"type.cuisine.thai" = "อาหารไทย";
+"type.cuisine.turkish" = "ตุรกีอาหารตุรกี";
+"type.cuisine.vegan" = "อาหารมังสวิรัติ";
+"type.cuisine.vegetarian" = "อาหารมังสวิรัติ";
+"type.cuisine.vietnamese" = "อาหารเวียดนาม";
+"type.emergency" = "Emergency";
+"type.emergency.assembly_point" = "จุดรวมพลฉุกเฉิน";
+"type.emergency.defibrillator" = "เครื่องกระตุ้นหัวใจ";
+"type.emergency.fire_hydrant" = "หัวจ่ายน้ำดับเพลิง";
+"type.emergency.phone" = "โทรศัพท์ฉุกเฉิน";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "ไลฟ์การ์ด";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "สถานีช่วยเหลือในภูเขา";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "ทางเข้า";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "ทางเข้าหลัก";
+"type.entrance.exit" = "ทางออก";
+"type.fee.yes" = "$";
+"type.fee.no" = "ฟรี";
+"type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
+"type.healthcare.physiotherapist" = "นักกายภาพบำบัด";
+"type.healthcare.alternative" = "การแพทย์ทางเลือก";
+"type.healthcare.audiologist" = "โสตวิทยา";
+"type.healthcare.blood_donation" = "ศูนย์รับบริจาคโลหิต";
+"type.healthcare.optometrist" = "ทัศนมาตรศาสตร์";
+"type.healthcare.podiatrist" = "แก้โรคเท้า";
+"type.healthcare.psychotherapist" = "จิตบำบัด";
+"type.healthcare.sample_collection" = "การสุ่มตัวอย่าง";
+"type.healthcare.speech_therapist" = "การบำบัดด้วยการพูด";
+"type.highway" = "Highway";
+"type.highway.bridleway" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "สะพาน";
+"type.highway.bridleway.permissive" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "อุโมงค์";
+"type.highway.busway" = "ถนนทางเดินรถโดยเฉพาะ";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "อุโมงค์";
+"type.highway.bus_stop" = "ป้ายรถเมล์";
+"type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
+"type.highway.cycleway" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "สะพาน";
+"type.highway.cycleway.permissive" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "อุโมงค์";
+"type.highway.elevator" = "Elevator";
+"type.highway.footway" = "เส้นทาง";
+"type.highway.footway.sidewalk" = "ทางเท้า";
+"type.highway.footway.crossing" = "ทางม้าลาย";
+"type.highway.footway.area" = "เส้นทาง";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "อุโมงค์";
+"type.highway.ford" = "ที่ตื้นของทางน้ำ";
+"type.highway.living_street" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "อุโมงค์";
+"type.highway.motorway" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "อุโมงค์";
+"type.highway.motorway_junction" = "ทางออก";
+"type.highway.motorway_link" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "อุโมงค์";
+"type.highway.path" = "เส้นทาง";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "เส้นทางที่ยากลำบากหรือมองเห็นได้ไม่ดี";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "เส้นทางที่ยากมากหรือแยกไม่ออก";
+"type.highway.path.bicycle" = "เส้นทาง";
+"type.highway.footway.bicycle" = "เส้นทาง";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "สะพาน";
+"type.highway.path.horse" = "เส้นทาง";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "อุโมงค์";
+"type.highway.pedestrian" = "ถนน";
+"type.highway.pedestrian.area" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "อุโมงค์";
+"type.highway.primary" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "อุโมงค์";
+"type.highway.primary_link" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "อุโมงค์";
+"type.highway.raceway" = "สนามแข่ง";
+"type.highway.residential" = "ถนน";
+"type.highway.residential.area" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "อุโมงค์";
+"type.highway.rest_area" = "บริเวณพักผ่อน";
+"type.highway.road" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "สะพาน";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "อุโมงค์";
+"type.highway.secondary" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "อุโมงค์";
+"type.highway.secondary_link" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "อุโมงค์";
+"type.highway.service" = "ถนน";
+"type.highway.service.area" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "สะพาน";
+"type.highway.service.driveway" = "ถนน";
+"type.highway.service.parking_aisle" = "ถนน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "อุโมงค์";
+"type.highway.services" = "Service Area";
+"type.highway.speed_camera" = "กล้องตรวจจับความเร็ว";
+"type.highway.steps" = "เส้นทาง";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "อุโมงค์";
+"type.highway.tertiary" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "อุโมงค์";
+"type.highway.tertiary_link" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "อุโมงค์";
+"type.highway.track" = "ถนน";
+"type.highway.track.area" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "สะพาน";
+"type.highway.track.grade1" = "ถนน";
+"type.highway.track.no.access" = "ถนน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "อุโมงค์";
+"type.highway.traffic_signals" = "สัญญาณไฟจราจร";
+"type.highway.trunk" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "อุโมงค์";
+"type.highway.trunk_link" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "อุโมงค์";
+"type.highway.unclassified" = "ถนน";
+"type.highway.unclassified.area" = "ถนน";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "อุโมงค์";
+"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.footway" = "เส้นทาง";
+"type.area_highway.living_street" = "ถนน";
+"type.area_highway.motorway" = "ถนน";
+"type.area_highway.path" = "เส้นทาง";
+"type.area_highway.pedestrian" = "ถนน";
+"type.area_highway.primary" = "ถนน";
+"type.area_highway.residential" = "ถนน";
+"type.area_highway.secondary" = "ถนน";
+"type.area_highway.service" = "ถนน";
+"type.area_highway.tertiary" = "ถนน";
+"type.area_highway.steps" = "เส้นทาง";
+"type.area_highway.track" = "ถนน";
+"type.area_highway.trunk" = "ถนน";
+"type.area_highway.unclassified" = "ถนน";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "วัตถุประวัติศาสตร์";
+"type.historic.aircraft" = "เครื่องบินประวัติศาสตร์";
+"type.historic.anchor" = "ผู้ประกาศข่าวประวัติศาสตร์";
+"type.historic.archaeological_site" = "โบราณสถาน";
+"type.historic.battlefield" = "สนามรบ";
+"type.historic.boundary_stone" = "ขอบหิน";
+"type.historic.cannon" = "ปืนใหญ่";
+"type.historic.castle" = "ปราสาท";
+"type.historic.castle.castrum" = "ป้อมโรมัน";
+"type.historic.castle.defensive" = "ปราสาท";
+"type.historic.castle.fortified_church" = "โบสถ์เสริมความแข็งแกร่ง";
+"type.historic.castle.fortress" = "ป้อม";
+"type.historic.castle.hillfort" = "ป้อมเนิน";
+"type.historic.castle.kremlin" = "เครมลิน";
+"type.historic.castle.manor" = "คฤหาสน์";
+"type.historic.castle.palace" = "วัง";
+"type.historic.castle.shiro" = "ปราสาทญี่ปุ่น";
+"type.historic.castle.stately" = "ปราสาท";
+"type.historic.city_gate" = "ประตูเมือง";
+"type.historic.citywalls" = "กำแพงเมือง";
+"type.historic.fort" = "ป้อม";
+"type.historic.gallows" = "Gallows";
+"type.historic.locomotive" = "หัวรถจักรประวัติศาสตร์";
+"type.historic.memorial" = "ที่ระลึก";
+"type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
+"type.historic.memorial.plaque" = "ที่ระลึก";
+"type.historic.memorial.sculpture" = "ที่ระลึก";
+"type.historic.memorial.statue" = "ที่ระลึก";
+"type.historic.memorial.stolperstein" = "อุปสรรค์";
+"type.historic.stone" = "หินประวัติศาสตร์";
+"type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+"type.historic.mine" = "เหมืองประวัติศาสตร์";
+"type.historic.monument" = "อนุสาวรีย์";
+"type.historic.pillory" = "ประจาน";
+"type.historic.ruins" = "ซากปรักหักพัง";
+"type.historic.ship" = "สถานที่ท่องเที่ยว";
+"type.historic.tank" = "รถถังประวัติศาสตร์";
+"type.historic.tomb" = "สถานที่ท่องเที่ยว";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "ไม้กางเขน";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "ทางข้าม";
+"type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
+"type.historic.wreck" = "ซากเรืออัปปาง";
+"type.hwtag" = "hwtag";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "อินเทอร์เน็ต";
+"type.internet_access.wlan" = "อินเทอร์เน็ต";
+"type.junction" = "Junction";
+"type.junction.circular" = "Roundabout";
+"type.junction.roundabout" = "Roundabout";
+"type.landuse" = "Landuse";
+"type.landuse.allotments" = "Allotments";
+"type.landuse.basin" = "อ่างน้ำ";
+"type.landuse.brownfield" = "Brownfield";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "สุสาน";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "สุสาน";
+"type.landuse.churchyard" = "บริเวณโบสถ์";
+"type.landuse.commercial" = "Commercial Area";
+"type.landuse.construction" = "Construction Area";
+"type.landuse.education" = "Educational Facility";
+"type.landuse.farmland" = "พื้นที่ทำการเกษตร";
+"type.landuse.farmyard" = "Farmyard";
+"type.landuse.field" = "Field";
+"type.landuse.flowerbed" = "แปลงดอกไม้";
+"type.landuse.forest" = "ป่า";
+"type.landuse.forest.coniferous" = "ป่า";
+"type.landuse.forest.deciduous" = "ป่า";
+"type.landuse.forest.mixed" = "ป่า";
+"type.landuse.garages" = "Garages";
+"type.landuse.grass" = "สนามหญ้า";
+"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.industrial" = "Industrial Area";
+"type.landuse.landfill" = "พื้นที่ฝังกลบ";
+"type.landuse.meadow" = "Meadow";
+"type.landuse.military" = "Military Area";
+"type.landuse.orchard" = "Orchard";
+"type.landuse.quarry" = "Quarry";
+"type.landuse.railway" = "ที่ก่อสร้างทางรถไฟ";
+"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.reservoir" = "น้ำ";
+"type.landuse.residential" = "Residential Area";
+"type.landuse.retail" = "Retail Area";
+"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.village_green" = "Land";
+"type.landuse.vineyard" = "Vineyard";
+"type.leisure" = "Leisure";
+"type.leisure.common" = "Public Land";
+"type.leisure.dog_park" = "สถานที่พาสุนัขเดินเล่น";
+"type.leisure.fitness_centre" = "ฟิตเนสเซ็นเตอร์";
+"type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
+"type.leisure.dance" = "แดนซ์ฮอลล์";
+"type.leisure.garden" = "สวน";
+"type.leisure.garden.residential" = "สวน";
+"type.leisure.golf_course" = "สนามกอล์ฟ";
+"type.leisure.miniature_golf" = "มินิกอล์ฟ";
+"type.leisure.hackerspace" = "แฮกเกอร์สเปซ";
+"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
+"type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
+"type.leisure.park" = "สวนสาธารณะ";
+"type.leisure.park.no.access" = "สวนสาธารณะ";
+"type.leisure.park.permissive" = "สวนสาธารณะ";
+"type.leisure.park.private" = "สวนสาธารณะ";
+"type.leisure.picnic_table" = "โตีะปิกนิก";
+"type.leisure.pitch" = "พื้นสนามกีฬา";
+"type.leisure.playground" = "สนามเด็กเล่น";
+"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.sauna" = "เซาน่า";
+"type.leisure.slipway" = "Slipway";
+"type.leisure.sports_centre" = "กีฬา";
+"type.sport.climbing" = "ศูนย์ปีนเขา";
+"type.sport.yoga" = "โยคะสตูดิโอ";
+"type.leisure.stadium" = "สนามกีฬา";
+"type.leisure.swimming_pool" = "สระว่ายน้ำ";
+"type.leisure.swimming_pool.private" = "สระว่ายน้ำ";
+"type.leisure.track" = "Track";
+"type.leisure.track.area" = "Track";
+"type.leisure.water_park" = "สวนน้ำ";
+"type.leisure.beach_resort" = "Beach Resort";
+"type.man_made" = "Man Made";
+"type.man_made.breakwater" = "Breakwater";
+"type.man_made.cairn" = "Cairn";
+"type.man_made.chimney" = "ปล่องควันโรงงาน";
+"type.man_made.cutline" = "Cutline";
+"type.man_made.survey_point" = "Survey Point";
+"type.man_made.flagpole" = "Flagpole";
+"type.man_made.lighthouse" = "ประภาคาร";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Pier";
+"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.surveillance" = "กล้องวงจรปิด";
+"type.man_made.tower" = "หอคอย";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "หอสื่อสาร";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "หอสื่อสาร";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "บ่อเจาะน้ำมันหรือก๊าซ";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "เปลวไฟก๊าซ";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.water_tap" = "ก๊อกน้ำ";
+"type.man_made.water_tap.drinking_water_no" = "ก๊อกน้ำ";
+"type.man_made.water_tower" = "อ่างเก็บน้ำ";
+"type.man_made.water_well" = "บ่อน้ำ";
+"type.man_made.water_well.drinking_water_no" = "บ่อน้ำ";
+"type.man_made.windmill" = "กังหันลม";
+"type.man_made.works" = "Industrial Works";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Military";
+"type.military.bunker" = "บังเกอร์";
+"type.mountain_pass" = "Mountain Pass";
+"type.natural" = "ธรรมชาติ";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "เปลือยร็อค";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "ก้อนกรวด";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "หินกรวด";
+"type.natural.bay" = "อ่าว";
+"type.natural.beach" = "ชายหาด";
+"type.natural.beach.sand" = "หาดทราย";
+"type.natural.beach.gravel" = "หาดกรวด";
+"type.natural.cape" = "พื้นที่ยื่นเข้าไปในน้ำ";
+"type.natural.cave_entrance" = "ถ้ำ";
+"type.natural.cliff" = "หน้าผา";
+"type.natural.earth_bank" = "หน้าผา";
+"type.man_made.embankment" = "เขื่อน";
+"type.natural.coastline" = "ชายฝั่ง";
+"type.natural.desert" = "Desert";
+"type.natural.geyser" = "นำ้พุร้อน";
+"type.natural.glacier" = "ธารน้ำแข็ง";
+"type.natural.grassland" = "ทุ่งหญ้า";
+"type.natural.heath" = "เฮลธ์";
+"type.natural.hot_spring" = "บ่อน้ำร้อน";
+"type.natural.water.lake" = "ทะเลสาบ";
+"type.natural.water.lock" = "ห้องล็อค";
+"type.natural.water.pond" = "บ่อ";
+"type.natural.water.reservoir" = "อ่างเก็บน้ำ";
+"type.natural.water.basin" = "อ่างน้ำ";
+"type.natural.water.river" = "แม่น้ำ";
+"type.natural.land" = "พื้นดิน";
+"type.natural.meadow" = "ทุ่งหญ้า";
+"type.natural.orchard" = "สวนผลไม้";
+"type.natural.peak" = "จุดสูงสุด";
+"type.natural.saddle" = "อานภูเขา";
+"type.natural.rock" = "หิน";
+"type.natural.scrub" = "ป่าละเมาะ";
+"type.natural.spring" = "ฤดูใบไม้ผลิ";
+"type.natural.spring.drinking_water_no" = "ฤดูใบไม้ผลิ";
+"type.natural.strait" = "ช่องแคบ";
+"type.natural.tree_row" = "แถวต้นไม้";
+"type.natural.vineyard" = "ไร่องุ่น";
+"type.natural.volcano" = "ภูเขาไฟ";
+"type.natural.water" = "แหล่งน้ำ";
+"type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
+"type.natural.wetland.bog" = "พรุ";
+"type.natural.wetland.marsh" = "ที่ลุ่มชื้นแฉะ";
+"type.noexit" = "Dead End";
+"type.office" = "สำนักงาน";
+"type.office.company" = "สำนักงานบริษัท";
+"type.office.estate_agent" = "นายหน้าอสังหาริมทรัพย์";
+"type.office.government" = "หน่วยงานราชการ";
+"type.office.insurance" = "สำนักงานประกันภัย";
+"type.office.lawyer" = "สำนักงานทนายความ";
+"type.office.ngo" = "สำนักงานองค์กรพัฒนาเอกชน";
+"type.office.telecommunication" = "ผู้ให้บริการโทรศัพท์มือถือ";
+"type.organic.only" = "Organic";
+"type.organic.yes" = "Organic";
+"type.place.city" = "เมือง";
+"type.place.city.capital" = "เมือง";
+"type.place.city.capital.10" = "เมือง";
+"type.place.city.capital.11" = "เมือง";
+"type.place.city.capital.2" = "เมือง";
+"type.place.city.capital.3" = "เมือง";
+"type.place.city.capital.4" = "เมือง";
+"type.place.city.capital.5" = "เมือง";
+"type.place.city.capital.6" = "เมือง";
+"type.place.city.capital.7" = "เมือง";
+"type.place.city.capital.8" = "เมือง";
+"type.place.city.capital.9" = "เมือง";
+"type.place.continent" = "ทวีป";
+"type.place.country" = "ประเทศ";
+"type.place.county" = "เขต";
+"type.place.farm" = "ฟาร์ม";
+"type.place.hamlet" = "หมู่บ้านเล็ก ๆ";
+"type.place.island" = "เกาะ";
+"type.place.islet" = "เกาะ";
+"type.place.isolated_dwelling" = "ที่อยู่อาศัยโดดเดี่ยว";
+"type.place.locality" = "ท้องถิ่น";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "ละแวกบ้าน";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "ละแวกบ้าน";
+"type.place.ocean" = "มหาสมุทร";
+"type.place.region" = "ภูมิภาค";
+"type.place.sea" = "เห็น";
+"type.place.square" = "ช่องว่าง";
+"type.place.state" = "รัฐ";
+"type.place.state.USA" = "รัฐ";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "ชานเมือง";
+"type.place.town" = "เมือง";
+"type.place.village" = "หมู่บ้าน";
+"type.power" = "Power";
+"type.power.generator" = "Power Generator";
+"type.power.generator.solar" = "เครื่องกำเนิดพลังงานแสงอาทิตย์";
+"type.power.generator.wind" = "เครื่องกำเนิดลม";
+"type.power.generator.gas" = "โรงไฟฟ้ากังหันก๊าซ";
+"type.power.generator.hydro" = "โรงไฟฟ้าพลังน้ำ";
+"type.power.line" = "Power Line";
+"type.power.line.underground" = "Underground Power Line";
+"type.power.minor_line" = "Minor Power Line";
+"type.power.plant" = "โรงไฟฟ้า";
+"type.power.plant.coal" = "โรงไฟฟ้าถ่านหิน";
+"type.power.plant.gas" = "โรงไฟฟ้ากังหันก๊าซ";
+"type.power.plant.hydro" = "โรงไฟฟ้าพลังน้ำ";
+"type.power.plant.solar" = "โรงไฟฟ้าพลังงานแสงอาทิตย์";
+"type.power.plant.wind" = "โรงไฟฟ้าพลังงานลม";
+"type.power.station" = "Power Station";
+"type.power.substation" = "สถานีไฟฟ้า";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "เสาไฟฟ้า";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Public Transport";
+"type.public_transport.platform" = "Platform";
+"type.railway" = "Railway";
+"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.construction" = "Railway Construction";
+"type.railway.crossing" = "Railway Crossing";
+"type.railway.disused" = "Disused Railway";
+"type.railway.funicular" = "รถกระเช้าไฟฟ้า";
+"type.railway.funicular.bridge" = "Funicular Bridge";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.halt" = "สถานีรถไฟ";
+"type.railway.level_crossing" = "ทางรถไฟตัดผ่านถนน";
+"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.monorail" = "รางรถไฟรางเดี่ยว";
+"type.railway.monorail.bridge" = "Monorail Bridge";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
+"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.platform" = "Railway Platform";
+"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.rail" = "รถไฟ";
+"type.railway.rail.highspeed" = "รถไฟความเร็วสูง";
+"type.railway.rail.tourism" = "รถไฟท่องเที่ยว";
+"type.railway.rail.main" = "รถไฟ";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "รถไฟสายรอง";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "ยูทิลิตี้รถไฟ";
+"type.railway.rail.spur" = "เดือยรถไฟ";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "รางรถไฟเสริม";
+"type.railway.rail.bridge" = "สะพานรถไฟ";
+"type.railway.rail.highspeed.bridge" = "สะพานรถไฟ";
+"type.railway.rail.tourism.bridge" = "สะพานรถไฟ";
+"type.railway.rail.main.bridge" = "สะพานรถไฟ";
+"type.railway.rail.branch.bridge" = "สะพานรถไฟ";
+"type.railway.rail.utility.bridge" = "สะพานรถไฟ";
+"type.railway.rail.spur.bridge" = "สะพานรถไฟ";
+"type.railway.rail.service.bridge" = "สะพานรถไฟ";
+"type.railway.rail.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.highspeed.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.tourism.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.main.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.branch.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.utility.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.spur.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.rail.service.tunnel" = "อุโมงค์รถไฟ";
+"type.railway.station" = "สถานีรถไฟ";
+"type.railway.station.funicular" = "รถกระเช้าไฟฟ้า";
+"type.railway.station.light_rail" = "สถานีรถไฟ";
+"type.railway.station.light_rail.berlin" = "สถานีรถไฟ";
+"type.railway.station.light_rail.london" = "สถานีรถไฟ";
+"type.railway.station.light_rail.porto" = "สถานีรถไฟ";
+"type.railway.station.monorail" = "สถานีรถไฟ";
+"type.railway.station.subway" = "รถไฟ";
+"type.railway.station.subway.adana" = "รถไฟ";
+"type.railway.station.subway.algiers" = "รถไฟ";
+"type.railway.station.subway.almaty" = "รถไฟ";
+"type.railway.station.subway.amsterdam" = "รถไฟ";
+"type.railway.station.subway.ankara" = "รถไฟ";
+"type.railway.station.subway.athens" = "รถไฟ";
+"type.railway.station.subway.baku" = "รถไฟ";
+"type.railway.station.subway.bangkok" = "รถไฟ";
+"type.railway.station.subway.barcelona" = "รถไฟ";
+"type.railway.station.subway.beijing" = "รถไฟ";
+"type.railway.station.subway.bengalore" = "รถไฟ";
+"type.railway.station.subway.berlin" = "รถไฟ";
+"type.railway.station.subway.bilbao" = "รถไฟ";
+"type.railway.station.subway.brasilia" = "รถไฟ";
+"type.railway.station.subway.brescia" = "รถไฟ";
+"type.railway.station.subway.brussels" = "รถไฟ";
+"type.railway.station.subway.bucharest" = "รถไฟ";
+"type.railway.station.subway.budapest" = "รถไฟ";
+"type.railway.station.subway.buenos_aires" = "รถไฟ";
+"type.railway.station.subway.bursa" = "รถไฟ";
+"type.railway.station.subway.cairo" = "รถไฟ";
+"type.railway.station.subway.caracas" = "รถไฟ";
+"type.railway.station.subway.catania" = "รถไฟ";
+"type.railway.station.subway.changchun" = "รถไฟ";
+"type.railway.station.subway.chengdu" = "รถไฟ";
+"type.railway.station.subway.chicago" = "รถไฟ";
+"type.railway.station.subway.chongqing" = "รถไฟ";
+"type.railway.station.subway.dalian" = "รถไฟ";
+"type.railway.station.subway.delhi" = "รถไฟ";
+"type.railway.station.subway.dnepro" = "รถไฟ";
+"type.railway.station.subway.dubai" = "รถไฟ";
+"type.railway.station.subway.ekb" = "รถไฟ";
+"type.railway.station.subway.fukuoka" = "รถไฟ";
+"type.railway.station.subway.glasgow" = "รถไฟ";
+"type.railway.station.subway.guangzhou" = "รถไฟ";
+"type.railway.station.subway.hamburg" = "รถไฟ";
+"type.railway.station.subway.helsinki" = "รถไฟ";
+"type.railway.station.subway.hiroshima" = "รถไฟ";
+"type.railway.station.subway.hongkong" = "รถไฟ";
+"type.railway.station.subway.isfahan" = "รถไฟ";
+"type.railway.station.subway.istanbul" = "รถไฟ";
+"type.railway.station.subway.izmir" = "รถไฟ";
+"type.railway.station.subway.kazan" = "รถไฟ";
+"type.railway.station.subway.kharkiv" = "รถไฟ";
+"type.railway.station.subway.kiev" = "รถไฟ";
+"type.railway.station.subway.kobe" = "รถไฟ";
+"type.railway.station.subway.kolkata" = "รถไฟ";
+"type.railway.station.subway.kunming" = "รถไฟ";
+"type.railway.station.subway.kyoto" = "รถไฟ";
+"type.railway.station.subway.la" = "รถไฟ";
+"type.railway.station.subway.lausanne" = "รถไฟ";
+"type.railway.station.subway.lille" = "รถไฟ";
+"type.railway.station.subway.lima" = "รถไฟ";
+"type.railway.station.subway.lisboa" = "รถไฟ";
+"type.railway.station.subway.london" = "รถไฟ";
+"type.railway.station.subway.lyon" = "รถไฟ";
+"type.railway.station.subway.madrid" = "รถไฟ";
+"type.railway.station.subway.malaga" = "รถไฟ";
+"type.railway.station.subway.manila" = "รถไฟ";
+"type.railway.station.subway.maracaibo" = "รถไฟ";
+"type.railway.station.subway.mashhad" = "รถไฟ";
+"type.railway.station.subway.mecca" = "รถไฟ";
+"type.railway.station.subway.medellin" = "รถไฟ";
+"type.railway.station.subway.mexico" = "รถไฟ";
+"type.railway.station.subway.milan" = "รถไฟ";
+"type.railway.station.subway.minsk" = "รถไฟ";
+"type.railway.station.subway.montreal" = "รถไฟ";
+"type.railway.station.subway.moscow" = "รถไฟ";
+"type.railway.station.subway.munchen" = "รถไฟ";
+"type.railway.station.subway.nagoya" = "รถไฟ";
+"type.railway.station.subway.newyork" = "รถไฟ";
+"type.railway.station.subway.nnov" = "รถไฟ";
+"type.railway.station.subway.novosibirsk" = "รถไฟ";
+"type.railway.station.subway.osaka" = "รถไฟ";
+"type.railway.station.subway.oslo" = "รถไฟ";
+"type.railway.station.subway.palma" = "รถไฟ";
+"type.railway.station.subway.panama" = "รถไฟ";
+"type.railway.station.subway.paris" = "รถไฟ";
+"type.railway.station.subway.philadelphia" = "รถไฟ";
+"type.railway.station.subway.pyongyang" = "รถไฟ";
+"type.railway.station.subway.rennes" = "รถไฟ";
+"type.railway.station.subway.rio" = "รถไฟ";
+"type.railway.station.subway.roma" = "รถไฟ";
+"type.railway.station.subway.rotterdam" = "รถไฟ";
+"type.railway.station.subway.samara" = "รถไฟ";
+"type.railway.station.subway.santiago" = "รถไฟ";
+"type.railway.station.subway.santo_domingo" = "รถไฟ";
+"type.railway.station.subway.saopaulo" = "รถไฟ";
+"type.railway.station.subway.sapporo" = "รถไฟ";
+"type.railway.station.subway.sendai" = "รถไฟ";
+"type.railway.station.subway.sf" = "รถไฟ";
+"type.railway.station.subway.shanghai" = "รถไฟ";
+"type.railway.station.subway.shenzhen" = "รถไฟ";
+"type.railway.station.subway.shiraz" = "รถไฟ";
+"type.railway.station.subway.singapore" = "รถไฟ";
+"type.railway.station.subway.sofia" = "รถไฟ";
+"type.railway.station.subway.spb" = "รถไฟ";
+"type.railway.station.subway.stockholm" = "รถไฟ";
+"type.railway.station.subway.tabriz" = "รถไฟ";
+"type.railway.station.subway.taipei" = "รถไฟ";
+"type.railway.station.subway.taoyuan" = "รถไฟ";
+"type.railway.station.subway.tashkent" = "รถไฟ";
+"type.railway.station.subway.tbilisi" = "รถไฟ";
+"type.railway.station.subway.tehran" = "รถไฟ";
+"type.railway.station.subway.tianjin" = "รถไฟ";
+"type.railway.station.subway.tokyo" = "รถไฟ";
+"type.railway.station.subway.valencia" = "รถไฟ";
+"type.railway.station.subway.vienna" = "รถไฟ";
+"type.railway.station.subway.warszawa" = "รถไฟ";
+"type.railway.station.subway.washington" = "รถไฟ";
+"type.railway.station.subway.wuhan" = "รถไฟ";
+"type.railway.station.subway.yerevan" = "รถไฟ";
+"type.railway.station.subway.yokohama" = "รถไฟ";
+"type.railway.subway" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.adana" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.algiers" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.almaty" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.amsterdam" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.ankara" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.athens" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.baku" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.bangkok" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.barcelona" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.beijing" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.bengalore" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.berlin" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.bilbao" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.brasilia" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.brescia" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.brussels" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.bucharest" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.budapest" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.buenos_aires" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.bursa" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.cairo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.caracas" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.catania" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.changchun" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.chengdu" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.chicago" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.chongqing" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.dalian" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.delhi" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.dnepro" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.dubai" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.ekb" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.fukuoka" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.glasgow" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.guangzhou" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.hamburg" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.helsinki" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.hiroshima" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.hongkong" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.isfahan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.istanbul" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.izmir" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kazan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kharkiv" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kiev" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kobe" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kolkata" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kunming" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.kyoto" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.la" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.lausanne" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.lille" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.lima" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.lisboa" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.london" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.lyon" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.madrid" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.malaga" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.manila" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.maracaibo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.mashhad" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.mecca" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.medellin" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.mexico" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.milan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.minsk" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.montreal" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.moscow" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.munchen" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.nagoya" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.newyork" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.nnov" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.novosibirsk" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.osaka" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.oslo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.palma" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.panama" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.paris" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.philadelphia" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.pyongyang" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.rennes" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.rio" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.roma" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.rotterdam" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.samara" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.santiago" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.santo_domingo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.saopaulo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.sapporo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.sendai" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.sf" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.shanghai" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.shenzhen" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.shiraz" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.singapore" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.sofia" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.spb" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.stockholm" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tabriz" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.taipei" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.taoyuan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tashkent" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tbilisi" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tehran" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tianjin" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.tokyo" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.valencia" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.vienna" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.warszawa" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.washington" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.wuhan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.yerevan" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.subway_entrance.yokohama" = "ทางเข้ารถไฟใต้ดิน";
+"type.railway.tram" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram_stop" = "ป้ายรถราง";
+"type.route" = "Route";
+"type.route.ferry" = "Ferry";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "ร้านค้า";
+"type.shop.alcohol" = "ร้านขายเหล้า";
+"type.shop.bakery" = "เบเกอรี่";
+"type.shop.bathroom_furnishing" = "ตกแต่งห้องน้ำ";
+"type.shop.beauty" = "ร้านเสริมสวย";
+"type.shop.beverages" = "เครื่องดื่ม";
+"type.shop.bicycle" = "จักรยาน";
+"type.shop.bookmaker" = "ร้านรับแทงพนัน";
+"type.shop.books" = "ร้านหนังสือ";
+"type.shop.butcher" = "ร้านขายเนื้อ";
+"type.shop.cannabis" = "ร้านขายกัญชา";
+"type.shop.car" = "ร้านค้ารถยนต์";
+"type.shop.car_parts" = "อะไหล่รถยนต์";
+"type.shop.car_repair" = "ร้านซ่อมรถยนต์";
+"type.shop.car_repair.tyres" = "ร้านปะยาง";
+"type.shop.caravan" = "RV Dealership";
+"type.shop.carpet" = "พรม";
+"type.shop.chemist" = "ร้านเคมีภัณฑ์";
+"type.shop.chocolate" = "ร้านช็อกโกแลต";
+"type.shop.clothes" = "ร้านขายเสื้อผ้า";
+"type.shop.coffee" = "ร้านขายกาแฟ";
+"type.shop.computer" = "ร้านขายคอมพิวเตอร์";
+"type.shop.confectionery" = "ร้านขายขนมหวาน";
+"type.shop.convenience" = "ร้านสะดวกซื้อ";
+"type.shop.copyshop" = "ร้านถ่ายเอกสาร";
+"type.shop.cosmetics" = "เครื่องสำอาง";
+"type.shop.curtain" = "ผ้าม่าน";
+"type.shop.deli" = "ร้านขายอาหารสำเร็จรูป";
+"type.shop.department_store" = "ห้างสรรพสินค้า";
+"type.shop.doityourself" = "ร้านขายฮาร์ดแวร์";
+"type.shop.dry_cleaning" = "ซักแห้ง";
+"type.shop.electronics" = "ร้านขายอุปกรณ์อิเล็กทรอนิกส์";
+"type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
+"type.shop.fabric" = "ร้านผ้า";
+"type.shop.farm" = "ฟาร์มฟู้ดช็อป";
+"type.shop.fashion_accessories" = "เครื่องประดับแฟชั่น";
+"type.shop.florist" = "ร้านดอกไม้";
+"type.shop.funeral_directors" = "สัปเหร่อ";
+"type.shop.furniture" = "ร้านเฟอร์นิเจอร์";
+"type.shop.garden_centre" = "สถานรับเลี้ยงเด็ก";
+"type.shop.gas" = "ร้านแก๊ส";
+"type.shop.gift" = "ร้านของขวัญ";
+"type.shop.greengrocer" = "ร้านขายผัด";
+"type.shop.grocery" = "ร้านขายของชำ";
+"type.shop.hairdresser" = "ช่างทำผม";
+"type.shop.hardware" = "ร้านฮาร์ดแวร์";
+"type.shop.health_food" = "ร้านอาหารเพื่อสุขภาพ";
+"type.shop.hearing_aids" = "ร้านเครื่องช่วยฟัง";
+"type.shop.herbalist" = "ร้านสมุนไพร";
+"type.shop.hifi" = "เครื่องเสียงไฮไฟ";
+"type.shop.houseware" = "ร้านของใช้ในบ้าน";
+"type.shop.jewelry" = "ร้านขายเครื่องประดับ";
+"type.shop.kiosk" = "ร้าน";
+"type.shop.kitchen" = "ร้านครัว";
+"type.shop.laundry" = "ร้านซักรีด";
+"type.shop.mall" = "เดอะมอลล์";
+"type.shop.massage" = "สถานอาบอบนวด";
+"type.shop.mobile_phone" = "ร้านขายโทรศัพท์มือถือ";
+"type.shop.money_lender" = "ผู้ให้ยืมเงิน";
+"type.shop.motorcycle" = "ร้านรถมอเตอร์ไซค์";
+"type.shop.motorcycle_repair" = "ซ่อมรถจักรยานยนต์";
+"type.shop.music" = "ร้านเพลง";
+"type.shop.musical_instrument" = "ร้านขายเครื่องดนตรี";
+"type.shop.newsagent" = "แผงขายหนังสือพิมพ์";
+"type.shop.optician" = "ร้านแว่น";
+"type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
+"type.shop.outpost" = "จุดรับของ";
+"type.shop.pasta" = "ร้านพาสต้า";
+"type.shop.pastry" = "ขนมอบ";
+"type.shop.pawnbroker" = "ผู้รับจำนำ";
+"type.shop.pet" = "เพ็ทชอป";
+"type.shop.pet_grooming" = "กรูมมิ่งสัตว์เลี้ยง";
+"type.shop.photo" = "ร้านถ่ายภาพ";
+"type.shop.rental" = "ร้านเช่า";
+"type.shop.rental.bicycle" = "ร้านเช่าจักรยาน";
+"type.shop.seafood" = "ร้านขายปลา";
+"type.shop.second_hand" = "ร้านขายของมือสอง";
+"type.shop.shoes" = "ร้านขายรองเท้า";
+"type.shop.sports" = "สินค้ากีฬา";
+"type.shop.stationery" = "ร้านขายเครื่องเขียน";
+"type.shop.supermarket" = "ซูเปอร์มาร์เก็ต";
+"type.shop.tattoo" = "ร้านสัก";
+"type.shop.tea" = "ร้านน้ำชา";
+"type.shop.ticket" = "จุดจำหน่ายตั๋ว";
+"type.shop.toys" = "ร้านขายของเล่น";
+"type.shop.travel_agency" = "สำนักงานการท่องเที่ยว";
+"type.shop.tyres" = "ร้านยาง";
+"type.shop.variety_store" = "ร้านค้าปลีกอิสระ";
+"type.shop.video" = "ร้านขายดีวีดี";
+"type.shop.video_games" = "ร้านขายวิดีโอเกม";
+"type.shop.wine" = "ร้านขายไวน์";
+"type.shop.agrarian" = "ร้านเกษตร";
+"type.shop.antiques" = "ของเก่า";
+"type.shop.appliance" = "ร้านเครื่องใช้ไฟฟ้า";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "ร้านศิลปะ";
+"type.shop.baby_goods" = "ร้านขายของสำหรับเด็ก";
+"type.shop.bag" = "ร้านกระเป๋า";
+"type.shop.bed" = "ร้านขายเตียง";
+"type.shop.boutique" = "บูติก";
+"type.shop.charity" = "ร้านการกุศล";
+"type.shop.cheese" = "ร้านชีส";
+"type.shop.craft" = "ศิลปะและงานฝีมือ";
+"type.shop.dairy" = "ผลิตภัณฑ์นม";
+"type.shop.electrical" = "ร้านขายเครื่องใช้ไฟฟ้า";
+"type.shop.fishing" = "ร้านตกปลา";
+"type.shop.interior_decoration" = "ตกแต่งภายใน";
+"type.shop.lottery" = "สลากกินแบ่ง";
+"type.shop.medical_supply" = "เวชภัณฑ์";
+"type.shop.nutrition_supplements" = "อาหารเสริม";
+"type.shop.paint" = "สี";
+"type.shop.perfumery" = "น้ำหอม";
+"type.shop.sewing" = "อุปกรณ์เย็บผ้า";
+"type.shop.storage_rental" = "ค่าเช่าห้องเก็บของ";
+"type.shop.tobacco" = "ยาสูบ";
+"type.shop.trade" = "อุปกรณ์การค้า";
+"type.shop.watches" = "นาฬิกา";
+"type.shop.wholesale" = "ร้านขายส่ง";
+"type.sport" = "กีฬา";
+"type.sport.american_football" = "อเมริกันฟุตบอล";
+"type.sport.archery" = "ยิงธนู";
+"type.sport.athletics" = "กรีฑา";
+"type.sport.australian_football" = "Australian Football";
+"type.sport.baseball" = "เบสบอล";
+"type.sport.basketball" = "บาสเก็ตบอล";
+"type.sport.beachvolleyball" = "วอลเลย์บอลชายหาด";
+"type.sport.bowls" = "Bowls";
+"type.sport.chess" = "หมากรุกสากล";
+"type.sport.cricket" = "Cricket";
+"type.sport.curling" = "เคอร์ลิง";
+"type.sport.equestrian" = "กีฬาแข่งม้า";
+"type.sport.golf" = "กอล์ฟ";
+"type.sport.gymnastics" = "ยิมนาสติก";
+"type.sport.handball" = "แฮนด์บอล";
+"type.sport.multi" = "กีฬาต่างๆ";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "ดำน้ำลึก";
+"type.sport.shooting" = "ยิงปืน";
+"type.sport.skateboard" = "สเกตบอร์ด";
+"type.sport.skiing" = "เล่นสกี";
+"type.sport.soccer" = "ฟุตบอล";
+"type.sport.swimming" = "การว่ายน้ำ";
+"type.sport.table_tennis" = "เทเบิลเทนนิส";
+"type.sport.tennis" = "คอร์ทเทนนิส";
+"type.sport.volleyball" = "วอลเลย์บอล";
+"type.sport.10pin" = "โบว์ลิ่ง";
+"type.sport.9pin" = "โบว์ลิ่ง";
+"type.sport.padel" = "พาเดล";
+"type.sport.futsal" = "ฟุตซอล";
+"type.sport.ice_hockey" = "ฮอคกี้น้ำแข็ง";
+"type.sport.field_hockey" = "กีฬาฮอกกี้";
+"type.sport.badminton" = "แบดมินตัน";
+"type.sport.pelota" = "Basque pelota";
+"type.tourism" = "Tourism";
+"type.tourism.aquarium" = "พิพิธภัณฑ์สัตว์น้ำ";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "บ้านพักบนภูเขา";
+"type.tourism.apartment" = "ฮอลิเดย์ อพาร์ตเมนต์";
+"type.tourism.artwork" = "งานศิลปะ";
+"type.tourism.artwork.architecture" = "งานศิลปะ";
+"type.tourism.artwork.painting" = "งานศิลปะ";
+"type.tourism.artwork.sculpture" = "งานศิลปะ";
+"type.tourism.artwork.statue" = "งานศิลปะ";
+"type.tourism.attraction" = "การท่องเที่ยว";
+"type.attraction.amusement_ride" = "ขี่สนุก";
+"type.attraction.animal" = "สิ่งที่แนบมากับสัตว์";
+"type.attraction.bumper_car" = "Bumper Car";
+"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.carousel" = "ม้าหมุน";
+"type.attraction.historic" = "แหล่งท่องเที่ยวทางประวัติศาสตร์";
+"type.attraction.maze" = "เขาวงกต";
+"type.attraction.roller_coaster" = "รถไฟเหาะ";
+"type.attraction.water_slide" = "สไลเดอร์น้ำ";
+"type.tourism.attraction.specified" = "การท่องเที่ยว";
+"type.tourism.camp_site" = "การตั้งแคมป์";
+"type.tourism.caravan_site" = "ขบวนนักเดินทาง";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "กระท่อมวันหยุด";
+"type.tourism.gallery" = "สถานที่ท่องเที่ยว";
+"type.tourism.guest_house" = "เกสท์เฮ้าส์";
+"type.tourism.hostel" = "หอพัก";
+"type.tourism.hotel" = "โรงแรม";
+"type.tourism.information" = "ข้อมูลการท่องเที่ยว";
+"type.tourism.information.board" = "บอร์ดประชาสัมพันธ์";
+"type.tourism.information.guidepost" = "ไกด์โพส";
+"type.tourism.information.map" = "แผนที่ท่องเที่ยว";
+"type.tourism.information.office" = "ศูนย์บริการนักท่องเที่ยว";
+"type.tourism.information.visitor_centre" = "ศูนย์นักท่องเที่ยว";
+"type.tourism.motel" = "โมเทล";
+"type.tourism.museum" = "พิพิธภัณฑ์";
+"type.tourism.picnic_site" = "เว็บไซต์ปิกนิก";
+"type.leisure.resort" = "รีสอร์ต";
+"type.tourism.theme_park" = "สถานที่ท่องเที่ยว";
+"type.tourism.viewpoint" = "จุดชมวิว";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "กระท่อมกลางป่า";
+"type.tourism.zoo" = "สวนสัตว์";
+"type.tourism.zoo.petting" = "สวนสัตว์ลูบคลำ";
+"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.hump" = "Traffic Hump";
+"type.waterway" = "Waterway";
+"type.waterway.canal" = "คลอง";
+"type.waterway.canal.tunnel" = "คลอง";
+"type.waterway.fish_pass" = "บันไดปลา";
+"type.waterway.dam" = "Dam";
+"type.barrier.ditch" = "Ditch";
+"type.natural.water.ditch" = "คูระบายน้ำ";
+"type.waterway.ditch.tunnel" = "ท่อระบายน้ำ";
+"type.waterway.dock" = "Waterway Dock";
+"type.waterway.drain" = "Drain";
+"type.natural.water.drain" = "Drain";
+"type.waterway.drain.tunnel" = "ท่อระบายน้ำ";
+"type.waterway.lock_gate" = "ประตูระบายน้ำ";
+"type.waterway.river" = "แม่น้ำ";
+"type.waterway.river.tunnel" = "แม่น้ำ";
+"type.waterway.stream" = "แม่น้ำ";
+"type.waterway.stream.ephemeral" = "แม่น้ำ";
+"type.waterway.stream.intermittent" = "แม่น้ำ";
+"type.waterway.stream.tunnel" = "แม่น้ำ";
+"type.waterway.waterfall" = "น้ำตก";
+"type.waterway.weir" = "Weir";
+"type.wheelchair" = "Wheelchair";
+"type.wheelchair.limited" = "พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
+"type.wheelchair.no" = "พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
+"type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
+"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.t.bar" = "T-bar Lift";
+"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.snow_park" = "สโนว์พาร์ค";
+"type.piste_type.hike" = "เส้นทางเดินป่าหิมะ";
+"type.piste_type.connection" = "การเชื่อมต่อทางสกี";
+"type.piste_type.skitour" = "เส้นทางสกีทัวร์";
+"type.amenity.events_venue" = "สถานที่จัดงาน";
+"type.shop.auction" = "ประมูล";
+"type.shop.collector" = "ของสะสม";
+"type.self_service.yes" = "มีบริการด้วยตนเอง";
+"type.self_service.only" = "บริการตนเองเท่านั้น";
+"type.self_service.partially" = "การบริการตนเองบางส่วน";
+"type.self_service.no" = "ไม่มีบริการตนเอง";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "สิ่งอำนวยความสะดวกทางสังคม";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "ทางเข้าแผนกฉุกเฉิน";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "โดโจ";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "ห้องกีฬา";

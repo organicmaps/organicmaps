@@ -1,0 +1,458 @@
+/* Keep here changes of the base map style file only. */
+@import("../../default/include/Icons.mapcss");
+
+
+/* 2. NATURAL */
+
+node|z11-[natural=cave_entrance],
+area|z11-[natural=cave_entrance],
+node|z11-[waterway=waterfall],
+area|z11-[waterway=waterfall],
+node|z11-[natural=peak][name],
+node|z15-[natural=saddle],
+node|z12-[mountain_pass],
+node|z13-[man_made=communications_tower],
+node|z14-[natural=spring],
+area|z14-[natural=spring],
+node|z14-[amenity=water_point],
+area|z14-[amenity=water_point],
+node|z14-[amenity=drinking_water],
+area|z14-[amenity=drinking_water],
+node|z14-[man_made=water_tap],
+area|z14-[man_made=water_tap],
+node|z14-[man_made=water_well],
+area|z14-[man_made=water_well],
+node|z15-[tourism=information],
+node|z14-[tourism=information][information=office],
+node|z14-[tourism=information][information=visitor_centre],
+node|z14-[man_made=flagpole],
+node|z14-[man_made=mast],
+node|z14-[man_made=silo],
+node|z14-[man_made=storage_tank],
+node|z14-[man_made=water_tower],
+node|z14-[man_made=tower],
+node|z15-[amenity=hunting_stand],
+node|z15-[man_made=survey_point],
+node|z15-[natural=hot_spring],
+area|z15-[natural=hot_spring],
+node|z12-[natural=geyser],
+area|z12-[natural=geyser],
+node|z14-[natural=beach],
+area|z14-[natural=beach],
+area|z13-[natural=bare_rock][name],
+{text: name;text-color: @poi_label;text-position: center;text-offset: 1;font-size: 10;}
+node|z11-[natural=peak][!name],
+area|z13-[natural=bare_rock][!name],
+{text: none;}
+
+node|z11-17[boundary=national_park],
+area|z11-17[boundary=national_park],
+node|z11-17[boundary=protected_area],
+area|z11-17[boundary=protected_area],
+node|z11-17[leisure=nature_reserve],
+area|z11-17[leisure=nature_reserve],
+area|z13-[landuse=forest][name],
+{text: name;text-offset: 1;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;font-size: 10;}
+
+node|z10-12[natural=cave_entrance],
+area|z10-12[natural=cave_entrance],
+{icon-image: cave-s.svg; icon-min-distance: 20;}
+node|z13-[natural=cave_entrance],
+area|z13-[natural=cave_entrance],
+{icon-image: cave-m.svg; font-size: 11;}
+node|z16-[natural=cave_entrance],
+area|z16-[natural=cave_entrance],
+{font-size: 12;}
+
+node|z10-12[boundary=national_park],
+area|z10-12[boundary=national_park],
+node|z10-12[boundary=protected_area],
+area|z10-12[boundary=protected_area],
+node|z10-12[leisure=nature_reserve],
+area|z10-12[leisure=nature_reserve],
+area|z12[landuse=forest][name],
+{icon-image: nparkf-outline-s.svg;}
+node|z13-17[boundary=national_park],
+area|z13-17[boundary=national_park],
+node|z13-17[boundary=protected_area],
+area|z13-17[boundary=protected_area],
+node|z13-17[leisure=nature_reserve],
+area|z13-17[leisure=nature_reserve],
+area|z13-[landuse=forest][name],
+{icon-image: nparkf-outline-m.svg;font-size: 11;text-halo-opacity: 0.9;}
+node|z17[boundary=national_park],
+area|z17[boundary=national_park],
+node|z17[boundary=protected_area],
+area|z17[boundary=protected_area],
+node|z17[leisure=nature_reserve],
+area|z17[leisure=nature_reserve],
+area|z17-[landuse=forest][name],
+{font-size: 12;}
+
+area|z12-[landuse=forest][!name],
+{}
+
+node|z10-12[waterway=waterfall],
+area|z10-12[waterway=waterfall],
+{icon-image: waterfall-s.svg; icon-min-distance: 15;}
+node|z13-[waterway=waterfall],
+area|z13-[waterway=waterfall],
+{icon-image: waterfall-m.svg; font-size: 11;}
+node|z16-[waterway=waterfall],
+area|z16-[waterway=waterfall],
+{font-size: 12;}
+
+node|z10-12[natural=volcano],
+area|z10-12[natural=volcano],
+{icon-image: volcano-s.svg;}
+node|z13-[natural=volcano],
+area|z13-[natural=volcano],
+{icon-image: volcano-m.svg; font-size: 11;}
+node|z16-[natural=volcano],
+area|z16-[natural=volcano],
+{font-size: 12;}
+
+node|z10-12[natural=peak][name],
+{icon-image: peakt-s.svg;icon-min-distance: 10;}
+node|z13-[natural=peak][name],
+{icon-image: peakt-m.svg;font-size: 11;}
+node|z16-[natural=peak][name],
+{font-size: 12;}
+node|z13-15[natural=peak][!name],
+{icon-image: peakt-s.svg;}
+node|z16-[natural=peak][!name],
+{icon-image: peakt-m.svg;}
+
+node|z14-[natural=rock],
+{icon-image: peakt-s.svg; font-size: 11;}
+node|z16-[natural=rock],
+{font-size: 12;}
+
+node|z11-12[mountain_pass],
+{icon-image: mountain-pass-s.svg;}
+node|z13-[mountain_pass],
+node|z13-[natural=saddle],
+{icon-image: mountain-pass-m.svg; font-size: 11;}
+node|z16-[natural=saddle],
+node|z16-[mountain_pass],
+{font-size: 12;}
+
+node|z10-12[natural=geyser],
+area|z10-12[natural=geyser],
+{icon-image: geyser-s.svg; icon-min-distance: 24;}
+node|z13-[natural=geyser],
+area|z13-[natural=geyser],
+{icon-image: geyser-m.svg; font-size: 11;}
+node|z16-[natural=geyser],
+area|z16-[natural=geyser],
+{font-size: 12;}
+
+node|z12-14[amenity=water_point],
+area|z12-14[amenity=water_point],
+node|z12-14[amenity=drinking_water],
+area|z12-14[amenity=drinking_water],
+node|z12-14[man_made=water_tap],
+area|z12-14[man_made=water_tap],
+node|z12-14[man_made=water_well],
+area|z12-14[man_made=water_well],
+node|z12-14[natural=spring],
+area|z12-14[natural=spring],
+node|z12-14[natural=hot_spring],
+area|z12-14[natural=hot_spring],
+{icon-image: drinking-water-s.svg;}
+
+node|z15-[amenity=water_point],
+area|z15-[amenity=water_point],
+node|z15-[amenity=drinking_water],
+area|z15-[amenity=drinking_water],
+node|z15-[man_made=water_tap],
+area|z15-[man_made=water_tap],
+node|z15-[man_made=water_well],
+area|z15-[man_made=water_well],
+node|z15-[natural=spring],
+area|z15-[natural=spring],
+node|z15-[natural=hot_spring],
+area|z15-[natural=hot_spring],
+{icon-image: drinking-water-m.svg; font-size: 11;}
+
+node|z12-[natural=spring][drinking_water=not],
+{icon-image: drinking-water-no-s.svg;}
+node|z15-[natural=spring][drinking_water=not],
+{icon-image: drinking-water-no-m.svg; font-size: 11;}
+
+node|z12-[man_made=water_tap][drinking_water=not],
+node|z12-[man_made=water_well][drinking_water=not],
+node|z12-[amenity=water_point][drinking_water=not],
+{icon-image: none;}
+node|z14-[man_made=water_tap][drinking_water=not],
+node|z14-[man_made=water_well][drinking_water=not],
+node|z14-[amenity=water_point][drinking_water=not],
+{icon-image: drinking-water-no-s.svg;}
+node|z15-[man_made=water_tap][drinking_water=not],
+node|z15-[man_made=water_well][drinking_water=not],
+node|z15-[amenity=water_point][drinking_water=not],
+{icon-image: drinking-water-no-m.svg;}
+
+/* 4.TOURISM */
+
+/* 4.2 Apartament */
+
+node|z11-[tourism=alpine_hut],
+area|z11-[tourism=alpine_hut],
+node|z13-[tourism=wilderness_hut],
+area|z13-[tourism=wilderness_hut],
+node|z12-[emergency=mountain_rescue],
+node|z13-[tourism=viewpoint],
+node|z14-[tourism=chalet],
+area|z14-[tourism=chalet],
+node|z13-[tourism=camp_site],
+area|z13-[tourism=camp_site],
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
+node|z16-[leisure=picnic_table],
+area|z16-[leisure=picnic_table],
+node|z16-[amenity=bbq],
+area|z16-[amenity=bbq],
+node|z13-[amenity=shelter],
+area|z13-[amenity=shelter],
+node|z13-[amenity=shelter][shelter_type=basic_hut],
+node|z13-[amenity=shelter][shelter_type=lean_to],
+node|z13-[tourism=caravan_site],
+area|z13-[tourism=caravan_site],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z11-[tourism=alpine_hut],
+area|z11-[tourism=alpine_hut],
+node|z12-[tourism=wilderness_hut],
+area|z12-[tourism=wilderness_hut],
+{icon-image: alpine_hut-s.svg; icon-min-distance: 24;}
+node|z13-[tourism=alpine_hut],
+area|z13-[tourism=alpine_hut],
+node|z13-[tourism=wilderness_hut],
+area|z13-[tourism=wilderness_hut],
+node|z14-[tourism=chalet],
+area|z14-[tourism=chalet],
+{font-size: 11;}
+node|z14-[tourism=alpine_hut],
+area|z14-[tourism=alpine_hut],
+node|z14-[tourism=wilderness_hut],
+area|z14-[tourism=wilderness_hut],
+node|z14-[tourism=chalet],
+area|z14-[tourism=chalet],
+{icon-image: alpine_hut-m.svg;}
+node|z16-[tourism=alpine_hut],
+area|z16-[tourism=alpine_hut],
+node|z16-[tourism=wilderness_hut],
+area|z16-[tourism=wilderness_hut],
+node|z16-[tourism=chalet],
+area|z16-[tourism=chalet],
+{font-size: 12; icon-min-distance: 0;}
+
+node|z13-[tourism=camp_site],
+area|z13-[tourism=camp_site],
+{icon-image: campsite-s.svg; icon-min-distance: 12; font-size: 11;}
+node|z14-[tourism=camp_site],
+area|z14-[tourism=camp_site],
+{icon-image: campsite-m.svg;}
+node|z16-[tourism=camp_site],
+area|z16-[tourism=camp_site],
+{font-size: 12; icon-min-distance: 0;}
+
+node|z14-[tourism=picnic_site],
+area|z14-[tourism=picnic_site],
+{icon-image: picnic-m.svg;icon-min-distance: 10;font-size: 11;}
+node|z16-[tourism=picnic_site],
+area|z16-[tourism=picnic_site],
+{font-size: 12; icon-min-distance: 0;}
+
+node|z15-[leisure=picnic_table],
+area|z15-[leisure=picnic_table],
+{icon-image: picnic_table-m.svg;}
+node|z16-[leisure=picnic_table],
+area|z16-[leisure=picnic_table],
+{font-size: 11;}
+
+node|z16-[amenity=bbq],
+area|z16-[amenity=bbq],
+{icon-image: bbq-m.svg; font-size: 11;}
+
+node|z12-[amenity=shelter],
+node|z12-[amenity=shelter][shelter_type=lean_to],
+{icon-image: shelter-s.svg; icon-min-distance: 10; font-size: 11;}
+node|z12-[amenity=shelter][shelter_type=basic_hut],
+{icon-image: alpine_hut-s.svg; icon-min-distance: 10; font-size: 11;}
+node|z14-[amenity=shelter],
+area|z14-[amenity=shelter],
+node|z14-[amenity=shelter][shelter_type=lean_to],
+{icon-image: shelter-m.svg;}
+node|z14-[amenity=shelter][shelter_type=basic_hut],
+{icon-image: alpine_hut-m.svg;}
+node|z16-[amenity=shelter],
+area|z16-[amenity=shelter],
+node|z16-[amenity=shelter][shelter_type=lean_to],
+node|z16-[amenity=shelter][shelter_type=basic_hut],
+{font-size: 12; icon-min-distance: 0;}
+node|z12-13[amenity=shelter][shelter_type=public_transport],
+{icon-image: none; text: none;}
+node|z14-[amenity=shelter][shelter_type=public_transport],
+{icon-image: shelter-public_transport-m.svg;}
+
+node|z13-[tourism=caravan_site],
+area|z13-[tourism=caravan_site],
+{icon-image: caravan_site-s.svg; font-size: 11; icon-min-distance: 12;}
+node|z14-[tourism=caravan_site],
+area|z14-[tourism=caravan_site],
+{icon-image: caravan_site-m.svg;}
+node|z16-[tourism=caravan_site],
+area|z16-[tourism=caravan_site],
+{font-size: 12; icon-min-distance: 0;}
+
+node|z11-12[tourism=viewpoint],
+{icon-image: viewpoint-s.svg;}
+node|z13-[tourism=viewpoint],
+{icon-image: viewpoint-m.svg; font-size: 11;}
+node|z16-[tourism=viewpoint],
+{font-size: 12;}
+
+node|z13-15[tourism=information],
+{font-size: 11;}
+node|z16-[tourism=information],
+{font-size: 12;}
+node|z15-[tourism=information],
+{icon-image: information-m.svg;}
+node|z13-[tourism=information][information=office],
+node|z13-[tourism=information][information=visitor_centre],
+{icon-image: information-office-m.svg;}
+node|z15-[tourism=information][information=board],
+{icon-image: board.svg;}
+node|z15-[tourism=information][information=guidepost],
+{icon-image: guidepost.svg;}
+node|z15-[tourism=information][information=map],
+{icon-image: map.svg;}
+
+node|z14-[man_made=survey_point],
+{icon-image: survey_point-m.svg; font-size: 11;}
+node|z16-[man_made=survey_point],
+{font-size: 12;}
+
+/* 5.5 Others */
+
+area|z14-[highway=rest_area],
+{icon-image: picnic-m.svg;}
+
+node|z15-[amenity=toilets],
+area|z15-[amenity=toilets],
+{icon-image: toilets-m.svg; font-size: 11;}
+
+node|z11-12[man_made=lighthouse],
+area|z11-12[man_made=lighthouse],
+{icon-image: lighthouse-s.svg; icon-min-distance: 10;}
+node|z13-[man_made=lighthouse],
+area|z13-[man_made=lighthouse],
+{icon-image: lighthouse-m.svg; font-size: 11;}
+node|z16-[man_made=lighthouse],
+area|z16-[man_made=lighthouse],
+{font-size: 12;}
+
+node|z12-[barrier=border_control],
+{icon-image: bcontrol-s.svg;}
+node|z14-[barrier=border_control],
+{icon-image: bcontrol-m.svg;}
+
+node|z14-[highway=ford],
+{icon-image: ford-m.svg;}
+
+node|z13[power=tower],
+{icon-image: mast-m.svg;}
+node|z14-[power=tower],
+{icon-image: power-tower-m.svg;}
+node|z15-[power=pole],
+node|z15-[man_made=utility_pole],
+{icon-image: mast-m.svg;}
+
+node|z13-[power=generator][generator:source=wind],
+area|z13-[power=generator][generator:source=wind],
+{icon-image: dot-m.svg;}
+node|z16-[power=generator][generator:source=wind],
+area|z16-[power=generator][generator:source=wind],
+{icon-image: wind_turbine-m.svg;text: name;text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z13-[power=plant][plant:source=wind],
+area|z13-[power=plant][plant:source=wind],
+{icon-image: power_plant_wind-m.svg;}
+
+node|z12-[man_made=flagpole],
+node|z13-[man_made=mast],
+{icon-image: dot-m.svg;}
+node|z14-[man_made=flagpole],
+node|z14-[man_made=mast],
+{icon-image: mast-m.svg;}
+
+/* TODO: needs a better icon */
+node|z12-[man_made=communications_tower],
+{icon-image: mast-m.svg;}
+node|z13-[man_made=communications_tower],
+{font-size: 11;}
+node|z14-[man_made=communications_tower],
+{icon-image: power-tower-m.svg;}
+node|z16-[man_made=communications_tower],
+{font-size: 12;}
+
+node|z14-[man_made=tower],
+node|z14-[man_made=tower][tower:type=communication],
+node|z13-[man_made=flare],
+{icon-image: mast-m.svg; font-size: 11;}
+
+node|z13-[man_made=tower],
+{icon-image: mast-m.svg; font-size: 11;}
+node|z14-[man_made=tower],
+{icon-image: storage-tank.svg;}
+node|z16-[man_made=tower],
+{font-size: 12;}
+
+node|z14-[amenity=hunting_stand],
+{icon-image: hunting-tower-m.svg; font-size: 11;}
+node|z16-[amenity=hunting_stand],
+{font-size: 12;}
+
+/* TODO: needs a better icon */
+node|z14-[man_made=petroleum_well],
+{icon-image: mast-m.svg; font-size: 11;}
+node|z16-[man_made=petroleum_well],
+{font-size: 12;}
+
+node|z17-[man_made=cairn],
+{icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
+
+node|z13-[man_made=silo],
+node|z13-[man_made=storage_tank],
+node|z13-[man_made=water_tower],
+{icon-image: mast-m.svg;}
+node|z14-[man_made=silo],
+node|z14-[man_made=storage_tank],
+node|z14-[man_made=water_tower],
+{icon-image: storage-tank.svg; font-size: 11;}
+node|z16-[man_made=silo],
+node|z16-[man_made=storage_tank],
+node|z16-[man_made=water_tower],
+{font-size: 12;}
+
+node|z14-[man_made=cross],
+{icon-image: cross-m.svg; font-size: 11;}
+node|z16-[man_made=cross],
+{font-size: 12;}
+
+node|z14-[emergency=lifeguard],
+{icon-image: lifeguard-m.svg; font-size: 11;}
+node|z16-[emergency=lifeguard],
+{font-size: 12;}
+
+/* TODO: a better icon? */
+node|z12-[emergency=mountain_rescue],
+{icon-image: hospital-s.svg;}
+node|z13-[emergency=mountain_rescue],
+{font-size: 11;}
+node|z14-[emergency=mountain_rescue],
+{icon-image: hospital-m.svg;}
+node|z16-[emergency=mountain_rescue],
+{font-size: 12;}

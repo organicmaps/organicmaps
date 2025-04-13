@@ -1,0 +1,1071 @@
+
+/* Button text (should be short) */
+"cancel" = "Atcelt";
+
+/* Button which interrupts country download */
+"cancel_download" = "Atsaukt lejupielādi";
+
+/* Button which deletes downloaded country */
+"delete" = "Dzēst";
+"download_maps" = "Lejupielādēt kartes";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Lejupielādē…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Kilometri";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Atstājiet atsauksmi";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Jūdzes";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Mana atrašanās vieta";
+
+/* Update maps later button text */
+"later" = "Vēlāk";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Meklēt";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Jā";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Rādīt kartē";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Lejupielādēt karti";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Lejupielāde neizdevās";
+
+/* Text in About screen */
+"about_headline" = "Bezmaksas, pieejama visiem un veidota ar mīlestību";
+
+/* Text in About screen */
+"about_proposition_1" = "• Nesatur reklāmas, izsekošanu un nevāc datus";
+
+/* Text in About screen */
+"about_proposition_2" = "• Neizlādē bateriju, darbojas bez interneta pieslēguma";
+
+/* Text in About screen */
+"about_proposition_3" = "• Ātra, minimālistiska un kopienas izstrādāta";
+"close" = "Aizvērt";
+"download" = "Lejupielādēt";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Turpināt";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Pievienot jaunu sarakstu";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Grāmatzīmju saraksta nosaukums";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Grāmatzīmju saraksti";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Grāmatzīmes";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Grāmatzīmes un ceļi";
+
+/* Default bookmark list name */
+"core_my_places" = "Manas vietas";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Adrese";
+
+/* Settings button in system menu */
+"settings" = "Iestatījumi";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Mērvienības";
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Kur paēst";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Pārtikas preces";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transports";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Degvielas uzpildes stacija";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Autostāvvieta";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Iepirkšanās";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Lietotas preces";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Viesnīca";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Apskates objekti";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Izklaide";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Bankomāts";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Naktsdzīve";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Atpūta ģimenei";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Banka";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Aptieka";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Slimnīca";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Tualete";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Pasts";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Policija";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Pārstrāde";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Ūdens";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Dzīvojamo auto labierīcības";
+"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!";
+
+/* message title of loading file */
+"load_kmz_title" = "Ielādē grāmatzīmes";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "Grāmatzīmes ir ielādētas! Tās varat atrast kartē un grāmatzīmju pārvaldīšanas ekrānā.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "Grāmatzīmes ielādēt neizdevās. Iespējams, datne ir bojāta.";
+
+/* resource for context menu */
+"edit" = "Labot";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Jūsu atrašanās vieta vēl nav noteikta";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Hei, apskatiet manu grāmatzīmi Organic Maps kartē!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "E-pasts";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Nokopēts starpliktuvē: %@";
+
+/* place preview title */
+"info" = "Informācija";
+
+/* Used for bookmark editing */
+"done" = "Pabeigts";
+
+/* Prints version number in About dialog */
+"version" = "„Organic Maps“ versija: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "Ceļi";
+
+/* Length of track in cell that describes route */
+"length" = "Garums";
+"share_my_location" = "Kopīgot manu atrašanās vietu";
+"prefs_group_route" = "Navigācija";
+"pref_zoom_title" = "Tālummaiņas pogas";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Izskats";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Gaišs";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tumšs";
+
+/* Generic «Off» string */
+"off" = "Izslēgts";
+
+/* Generic «On» string */
+"on" = "Ieslēgts";
+
+/* Generic «Auto» string */
+"auto" = "Automātisks";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspektīvas skats";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D ēkas";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Energotaupības režīmā 3D ēkas ir izslēgtas";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Balss instrukcijas";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Izrunāt ielu nosaukumus";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kad ieslēgts, ielas vai ceļa nobrauktuves nosaukumu skaļi izrunās.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Balss valoda";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Pārbaudīt balss norādes (TTS, teksta pārvēršana runā)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Cita";
+"pref_map_auto_zoom" = "Automātisks mērogs";
+"placepage_distance" = "Attālums";
+"search_show_on_map" = "Rādīt kartē";
+
+/* Text in menu */
+"website" = "Tīmekļa vietne";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Jaunumi";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Novērtējiet lietotni";
+
+/* Text in menu */
+"help" = "Palīdzība";
+
+/* Button in the main Help dialog */
+"faq" = "Biežāk uzdotie jautājumi";
+
+/* Button in the main menu */
+"donate" = "Ziedot";
+
+/* Tex label above the Donate button */
+"donate_description" = "Ziedojiet, lai kopā varam veidot vislabākās kartes!";
+"already_donated" = "Jau esmu ziedojis/usi";
+"remind_me_later" = "Atgādināt vēlāk";
+"support_organic_maps" = "Atbalstīt Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "Autortiesības";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Ziņot par kļūdu";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Ziņojiet vai labojiet kļūdainus kartes datus";
+
+/* Button in the About screen */
+"volunteer" = "Brīvprātīgi palīdzēt";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Sekojiet un sazinieties ar mums:";
+
+/* Alert text */
+"email_error_body" = "E-pasta klients nav sagatavots darbam. Konfigurējiet to vai sazinieties ar mums: %@";
+
+/* Alert title */
+"email_error_title" = "Kļūda, nosūtot vēstuli";
+
+/* Settings item title */
+"pref_calibration_title" = "Kompasa kalibrēšana";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Vēlreiz piespiediet un paturiet uz kartes, lai redzētu saskarni";
+
+/* Update all button text */
+"downloader_update_all_button" = "Atjaunināt visus";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Lejupielādētās";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Pieejamas";
+
+/* Country queued for download */
+"downloader_queued" = "Rindota";
+"downloader_near_me_subtitle" = "Man tuvumā";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "Kartes";
+"downloader_download_all_button" = "Lejupielādēt visus";
+"downloader_downloading" = "Lejupielādē:";
+"downloader_search_results" = "Atrasts";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Atjaunināt";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Neizdevās";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Lai dzēstu karti, apturiet navigāciju.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Maršrutus var izveidot, ja atrodas vienas reģiona kartes robežās.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Lejupielādēt karti";
+
+/* Item status in downloader. */
+"downloader_retry" = "Mēģināt vēlreiz";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Dzēst karti";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Lejupielādēt visas maršruta kartes";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Lai izveidotu maršrutu, lejupielādējiet un atjauniniet visas kartes no jūsu atrašanās vietas līdz galamērķim.";
+
+/* bookmark button text */
+"bookmark" = "grāmatzīme";
+"save" = "Saglabāt";
+"create" = "izveidot";
+
+/* red color */
+"red" = "Sarkana";
+
+/* yellow color */
+"yellow" = "Dzeltena";
+
+/* blue color */
+"blue" = "Zila";
+
+/* green color */
+"green" = "Zaļa";
+
+/* purple color */
+"purple" = "Violeta";
+
+/* orange color */
+"orange" = "Oranža";
+
+/* brown color */
+"brown" = "Brūna";
+
+/* pink color */
+"pink" = "Rozā";
+
+/* deep purple color */
+"deep_purple" = "Tumši violeta";
+
+/* light blue color */
+"light_blue" = "Gaiši zila";
+
+/* cyan color */
+"cyan" = "Ciāna";
+
+/* teal color */
+"teal" = "Tumši ciāna";
+
+/* lime color */
+"lime" = "Dzeltenzaļa";
+
+/* deep orange color */
+"deep_orange" = "Tumši oranža";
+
+/* gray color */
+"gray" = "Pelēka";
+
+/* blue gray color */
+"blue_gray" = "Zilpelēka";
+"dialog_routing_disclaimer_title" = "Sekojot maršrutam, ievērojiet:";
+"dialog_routing_disclaimer_priority" = "— Apstākļiem uz ceļa, ceļu satiksmes noteikumiem un ceļazīmēm vienmēr ir priekšroka pār navigācijas ieteikumiem;";
+"dialog_routing_disclaimer_precision" = "— Karte var būt kļūdaina, kā arī ieteiktais maršruts ne vienmēr būs optimālākais galamērķa sasniegšanai;";
+"dialog_routing_disclaimer_recommendations" = "— Jāsaprot, ka ieteiktie maršruti ir tikai ieteikumi;";
+"dialog_routing_disclaimer_borders" = "— Esiet uzmanīgi ar maršrutiem pie valsts robežām: mūsu lietotnes ģenerētie maršruti reizēm var šķērsot valsts robežas neatļautās vietās.";
+"dialog_routing_disclaimer_beware" = "Uz ceļa esiet modri un uzmanīgi!";
+"dialog_routing_check_gps" = "Pārbaudīt GPS signālu";
+"dialog_routing_error_location_not_found" = "Neizdevās izveidot maršrutu. Neizdevās noteikt pašreizējās GPS koordinātes.";
+"dialog_routing_location_turn_wifi" = "Pārbaudiet GPS signālu. „Wi-Fi“ ieslēgšana uzlabos atrašanās vietas precizitāti.";
+"dialog_routing_location_turn_on" = "Ieslēgt vietas noteikšanas servisus";
+"dialog_routing_location_unknown_turn_on" = "Neizdodas noteikt pašreizējās GPS koordinātes. Ieslēdziet atrašanās vietas servisus, lai aprēķināt maršrutu.";
+"dialog_routing_download_files" = "Lejupielādēt nepieciešamās datnes";
+"dialog_routing_download_and_update_all" = "Lejupielādēt un atjaunināt visas kartes, kas varētu būt plānotajā maršrutā.";
+"dialog_routing_unable_locate_route" = "Neizdevās noteikt maršrutu";
+"dialog_routing_change_start_or_end" = "Precizējiet savu sākuma punktu vai galamērķi.";
+"dialog_routing_change_start" = "Precizēt sākumpunktu";
+"dialog_routing_start_not_determined" = "Maršruts nav izveidots. Neizdodas noteikt sākuma punktu.";
+"dialog_routing_select_closer_start" = "Atlasiet sākuma punktu tuvāk pie ceļa.";
+"dialog_routing_change_end" = "Precizēt galamērķi";
+"dialog_routing_end_not_determined" = "Maršruts nav izveidots. Neizdodas noteikt galamērķi.";
+"dialog_routing_select_closer_end" = "Atlasiet galamērķa punktu pēc iespējas tuvāk ceļam.";
+"dialog_routing_change_intermediate" = "Neizdevās noteikt starppunktu.";
+"dialog_routing_intermediate_not_determined" = "Labojiet starppunktu.";
+"dialog_routing_system_error" = "Sistēmas kļūda";
+"dialog_routing_application_error" = "Kļūdas dēļ neizdevās izveidot maršrutu.";
+"dialog_routing_try_again" = "Mēģiniet vēlreiz";
+"dialog_routing_download_and_build_cross_route" = "Vai vēlaties lejupielādēt karti un izveidot piemērotāku maršrutu, kas ietver vairāk par vienu karti?";
+"dialog_routing_download_cross_route" = "Lejupielādējiet papildu kartes, lai izveidotu labāku maršrutu, kas šķērso šīs kartes robežu.";
+
+/* «Show» context menu */
+"show" = "Rādīt";
+
+/* «Hide» context menu */
+"hide" = "Slēpt";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Maršruta plānošana neizdevās";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Ierašanās: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Lejupielādēt un atjaunināt visas kartes gar iespējamo maršrutu, lai to aprēķinātu.";
+"categories" = "Kategorijas";
+"history" = "Vēsture";
+"search_not_found" = "Nekas nav atrasts.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Lejupielādējiet reģionu, kurā meklēt, vai mēģiniet pievienot tuvumā esošas apdzīvotas vietas nosaukumu.";
+"search_history_title" = "Meklēšanas vēsture";
+"search_history_text" = "Apskatiet meklēšanas vēsturi.";
+"clear_search" = "Notīrīt vēsturi";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Vikipēdija";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Vikikrātuve";
+"p2p_your_location" = "Jūsu atrašanās vieta";
+"p2p_start" = "Sākt";
+"p2p_from_here" = "Doties iz";
+"p2p_to_here" = "Doties turp";
+"p2p_only_from_current" = "Navigācija ir pieejama tikai no jūsu pašreizējās atrašanās vietas.";
+"p2p_reroute_from_current" = "Vai vēlaties plānot maršrutu no savas pašreizējās atrašanās vietas?";
+"editor_time_add" = "Pievienot grafiku";
+"editor_time_delete" = "Dzēst grafiku";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Visu dienu (24 stundas)";
+"editor_time_open" = "Atvērts";
+"editor_time_close" = "Slēgts";
+"editor_time_add_closed" = "Pievienot  laiku, kad nestrādā";
+"editor_time_title" = "Darba laiks";
+"editor_time_advanced" = "Paplašinātais režīms";
+"editor_time_simple" = "Parastais režīms";
+"editor_hours_closed" = "Laiks, kad slēgts";
+"editor_example_values" = "Piemēra vērtības";
+"editor_add_select_location" = "Izvēlieties atrašanās vietu";
+"editor_done_dialog_1" = "Jūs nomainījāt pasaules karti! Neturiet izmaiņas pie sevis, bet pastāstiet par tām saviem draugiem un rediģējiet kopā!";
+"share_with_friends" = "Kopīgot ar draugiem";
+"editor_report_problem_send_button" = "Sūtīt";
+"autodownload" = "Automātiska karšu lejupielāde";
+
+/* Place Page opening hours text */
+"closed_now" = "Šobrīd slēgts";
+
+/* Place Page opening hours text */
+"daily" = "Ik dienu";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "Šodien slēgts";
+"day_off" = "Slēgts";
+"today" = "Šodien";
+"opens_tomorrow_at" = "Atveras rīt %@";
+"opens_dayoftheweek_at" = "Atveras %1$@ plkst. %2$@";
+"opens_at" = "Atveras plkst. %@";
+"opens_in" = "Atveras pēc %@";
+"closes_at" = "Slēgts no plkst. %@";
+"closes_in" = "Slēgts pēc %@";
+"closed" = "Slēgts";
+"add_opening_hours" = "Pievienot darba laiku";
+"no_osm_account" = "Vai jums nav „OpenStreetMap“ konta?";
+"register_at_openstreetmap" = "Reģistrējieties „OpenStreetMap“";
+"password_8_chars_min" = "Parole (vismaz 8 simboli)";
+"invalid_username_or_password" = "Nederīgs lietotājvārds vai parole.";
+"login" = "Ierakstīties";
+"login_osm" = "Ierakstīties OpenStreetMap";
+"forgot_password" = "Vai aizmirsāt paroli?";
+"osm_account" = "OSM konts";
+"logout" = "Izrakstīties";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Pēdējo reizi augšupielādēja";
+"thank_you" = "Paldies";
+"edit_place" = "Rediģēt vietu";
+"place_name" = "Vietas nosaukums";
+"add_language" = "Pievienot valodu";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Ēkas numurs";
+"details" = "Vairāk";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Pievienot ielu";
+"choose_language" = "Izvēlieties valodu";
+"choose_street" = "Izvēlieties ielu";
+"postal_code" = "Pasta indekss";
+"cuisine" = "Virtuve";
+"select_cuisine" = "Atlasiet virtuvi";
+
+/* login text field */
+"email_or_username" = "E-pasts vai lietotājvārds";
+"phone" = "Tālrunis";
+"level" = "Stāvs";
+"please_note" = "Ievērojiet";
+"downloader_delete_map_dialog" = "Kopā ar karti dzēsīsies visas jūsu veiktās kartes izmaiņas.";
+"downloader_update_maps" = "Atjaunināt kartes";
+"downloader_search_field_hint" = "Atrast karti";
+"migration_download_error_dialog" = "Lejupielādes kļūda";
+"common_check_internet_connection_dialog" = "Pārliecinieties, ka ierīce ir savienota ar internetu.";
+"downloader_no_space_title" = "Trūkst vietas";
+"downloader_no_space_message" = "Dzēsiet liekos datus";
+"editor_profile_changes" = "Apstiprinātas izmaiņas";
+"editor_focus_map_on_location" = "Velciet karti, lai novietotu krustiņu objekta vai iestādes atrašanās vietā.";
+"editor_add_select_category" = "Atlasiet kategoriju";
+"editor_add_select_category_popular_subtitle" = "Populāras";
+"editor_add_select_category_all_subtitle" = "Visas kategorijas";
+"editor_edit_place_title" = "Rediģēšana";
+"editor_add_place_title" = "Pievienošana";
+"editor_edit_place_name_hint" = "Vietas nosaukums";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Pieraksts vietējā valodā";
+"editor_edit_place_category_title" = "Kategorija";
+"whatsnew_editor_message_1" = "Pievienojiet kartei jaunas vietas un rediģējiet jau esošās uzreiz lietotnē.";
+"dialog_incorrect_feature_position" = "Mainīt atrašanās vietu";
+"message_invalid_feature_position" = "Šeit objekti nevar atrasties";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Kopienas veidotie „OpenStreetMap“ dati, %@. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.";
+"login_to_make_edits_visible" = "Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Lejupielādei nepieciešams vairāk vietas. Izdzēsiet liekos datus.";
+"editor_sharing_title" = "Es uzlaboju „Organic Maps“ kartes";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d no %2$d";
+"download_over_mobile_header" = "Vai lejupielādēt arī mobilajā tīklā?";
+"download_over_mobile_message" = "Ja lietojat ierobežotus datus vai viesabonēšanu, tas var izmaksāt dārgi.";
+"error_enter_correct_house_number" = "Ierakstiet derīgu ēkas numuru";
+"editor_storey_number" = "Stāvu skaits (maks. %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Stāvu skaits nedrīkst pārsniegt %d";
+"editor_zip_code" = "Pasta indekss";
+"error_enter_correct_zip_code" = "Ierakstiet pasta indeksu";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Punkts kartē";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)";
+"editor_detailed_description_hint" = "Sīkāks komentārs";
+"editor_detailed_description" = "Jūsu izmaiņu priekšlikumu nosūtīsim „OpenStreetMap“ kopienai. Lūdzu, sniedziet jebkādu papildu informāciju, ko nevarat norādīt „Organic Maps“ lietotnē.";
+"editor_more_about_osm" = "Vairāk par „OpenStreetMap“";
+"editor_operator" = "Saimniekotājs";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Operators: %@";
+"editor_category_unsuitable_title" = "Vai neatrodat atbilstošu kategoriju?";
+"editor_category_unsuitable_text" = "„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
+"downloader_no_downloaded_maps_title" = "Ierīcē nav lejupielādētu karšu";
+"downloader_no_downloaded_maps_message" = "Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.";
+"current_location_unknown_error_title" = "Pašreizējā vieta nav zināma.";
+"current_location_unknown_error_message" = "Nosakot jūsu atrašanās vietu, radās kļūda. Pārleicinieties, ka ierīce darbojas korekti un mēģiniet vēlreiz.";
+"location_services_disabled_header" = "Vietas noteikšanas servisi ir izslēgti";
+"location_services_disabled_message" = "Ierīces iestatījumos ieslēdziet pieeju ģeolokācijai.";
+"location_services_disabled_1" = "1. Atveriet iestatījumus";
+"location_services_disabled_2" = "2. Pieskarieties „Vietai\"";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Atlasiet „Izmantojot lietotni“";
+"location_services_disabled_on_device_2" = "2. Atlasiet „Privātums“";
+"location_services_disabled_on_device_3" = "3. Atlasiet atrašanās vietas pakalpojumus";
+"location_services_disabled_on_device_4" = "4. Ieslēdziet atrašanāš vietas noteikšanas pakalpojumus";
+"location_services_disabled_on_device_additional_message" = "Vai turpiniet izmantot „Organic Maps“ bez vietas";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "km/h";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "ft";
+"miles_per_hour" = "mph";
+"hour" = "st.";
+"minute" = "min.";
+"day" = "d";
+"placepage_more_button" = "Vairāk";
+"book_button" = "Rezervēt";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, atsauksmes, rezervācija";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Informācija par „Kayak“";
+"placepage_call_button" = "Zvanīt";
+"placepage_edit_bookmark_button" = "Rediģēt grāmatzīmi";
+"placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
+"placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
+"placepage_delete_bookmark_button" = "Dzēst grāmatzīmi";
+"editor_edits_sent_message" = "Jūsu piezīmi nosūtīsim uz „OpenStreetMap“";
+"editor_comment_hint" = "Komentārs…";
+"editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";
+"editor_reset_edits_button" = "Noraidīt";
+"editor_remove_place_message" = "Vai dzēst pievienoto vietu?";
+"editor_remove_place_button" = "Dzēst";
+"editor_place_doesnt_exist" = "Vieta nepastāv";
+"text_more_button" = "…vairāk";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Ierakstiet derīgu tālruņa numuru";
+"error_enter_correct_web" = "Ierakstiet derīgu tīmekļa vietnes adresi";
+"error_enter_correct_email" = "Ierakstiet e-pasta adresi";
+"refresh" = "Atjaunināt";
+"placepage_add_place_button" = "Pievienot vietu „OpenStreetMap“";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Vai vēlaties to nosūtīt visiem lietotājiem?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Pārliecinieties, ka neievadījāt nekādus privātus vai personīgus datus.";
+"editor_share_to_all_dialog_message_2" = "„OpenStreetMap“ redaktori pārskatīs veiktās izmaiņas un jautājumu gadījumā ar jums sazināsies.";
+"navigation_stop_button" = "Apturēt";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Vai izslēgt pēdējā noietā vai nobrauktā maršuta ierakstīšanu?";
+"off_recent_track_background_button" = "Izslēgt";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Paskaties";
+"recent_track_background_dialog_message" = "„Organic Maps“ fonā izmantos ierīces atrašanās vietas datus, lai reģistrētu pēdējo noieto vai nobraukto maršrutu.";
+"general_settings" = "Pamata iestatījumi";
+
+/* For the first routing */
+"accept" = "Pieņemt";
+
+/* For the first routing */
+"decline" = "Noraidīt";
+"mobile_data_dialog" = "Izmantot mobilos datus, lai parādītu plašāku informāciju?";
+"mobile_data_option_always" = "Izmantot vienmēr";
+"mobile_data_option_today" = "Tikai šodien";
+"mobile_data_option_not_today" = "Šodien neizmantot";
+"mobile_data" = "Mobilie dati";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Kartes atjauninājumu paziņojumiem un rediģējumu augšupielādēšanai ir nepieciešami mobilie dati.";
+"mobile_data_option_never" = "Nekad neizmantot";
+"mobile_data_option_ask" = "Jautāt vienmēr";
+"traffic_update_maps_text" = "Lai parādītu satiksmes datus, kartes ir jāatjaunina.";
+"big_font" = "Palielināt fonta lielumu kartē";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Lai parādītu satiksmes datus, lietotne ir jāatjaunina.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Satiksmes dati nav pieejami";
+"enable_logging" = "Ieslēgt žurnalēšanu";
+"log_file_size" = "Žurnāla datnes lielums: %@";
+"transliteration_title" = "Transliterācija uz latīņu alfabētu";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Izeja";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu galamērķi";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Lietojiet meklēšanu vai pieskarieties kartei, lai pievienotu sākuma punktu";
+"planning_route_manage_route" = "Pārvaldīt maršrutu";
+"button_plan" = "Plānot";
+"placepage_remove_stop" = "Noņemt starppunktu";
+"planning_route_remove_title" = "Velciet te, lai noņemtu";
+"placepage_add_stop" = "Pievienot starppunktu";
+"start_from_my_position" = "Sākt no";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "te";
+"core_entrance" = "Ieeja";
+"error_enter_correct_name" = "Ierakstiet pareizu nosaukumu";
+"bookmark_lists" = "Saraksti";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Slēpt visus";
+"bookmark_lists_show_all" = "Rādīt visus";
+"bookmarks_create_new_group" = "Izveidot jaunu sarakstu";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importēt grāmatzīmes un ceļus";
+"downloader_hide_screen" = "Slēpt ekrānu";
+"downloader_percent" = "%@ (%@ no %@)";
+"downloader_process" = "Lejupielādē %@…";
+"downloader_applying" = "Pielieto %@…";
+"bookmarks_error_message_share_general" = "Programmas kļūdas dēļ kopīgošana neizdevās";
+"bookmarks_error_title_share_empty" = "Kopīgošanas kļūda";
+"bookmarks_error_message_share_empty" = "Nav iespējams kopīgot tukšu sarakstu";
+"bookmarks_error_message_empty_list_name" = "Ierakstiet saraksta nosaukumu";
+"bookmarks_error_title_list_name_already_taken" = "Šāds nosaukums jau ir aizņemts";
+"bookmarks_error_title_list_name_too_long" = "Nosaukums ir par garu";
+"profile" = "„OpenStreetMap“ profils";
+"bookmarks_detect_title" = "Atrastas jaunas datnes";
+"button_convert" = "Konvertēt";
+"bookmarks_convert_error_title" = "Kļūda";
+"bookmarks_convert_error_message" = "Atsevišķas datnes nav konvertētas.";
+"restore" = "Atjaunot";
+"privacy_policy" = "Privātuma politika";
+"terms_of_use" = "Lietošanas noteikumi";
+"button_layer_subway" = "Metro";
+"layers_title" = "Kartes stili un slāņi";
+"subway_data_unavailable" = "Metro karte nav pieejama";
+"title_error_downloading_bookmarks" = "Notika kļūda";
+"popular_place" = "Populāras";
+"export_file" = "Eksportēt KMZ";
+"export_file_gpx" = "GPX eksportēšana";
+"delete_list" = "Dzēst sarakstu";
+"hide_from_map" = "Slēpt kartē";
+"tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
+"download_button" = "Lejupielādēt";
+"speedcams_alert_title" = "Fotoradari";
+"place_description_title" = "Vietas apraksts";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Brīdināt par ātruma pārsniegšanu";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Brīdināt vienmēr";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nekad nebrīdināt";
+"power_managment_title" = "Energotaupības režīms";
+"power_managment_description" = "Mēģināt samazināt enerģijas patēriņu, izslēdzot atsevišķas funkcijas.";
+"power_managment_setting_never" = "Nekad";
+"power_managment_setting_auto" = "Kad ir zems uzlādes līmenis";
+"power_managment_setting_manual_max" = "Vienmēr";
+"enable_logging_warning_message" = "Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.";
+"driving_options_title" = "Maršruta opcijas";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Izvairīties no maksas ceļiem";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Izvairīties no zemes ceļiem";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Izvairīties no prāmjiem";
+"avoid_motorways" = "Izvairīties no automaģistrālēm";
+"unable_to_calc_alert_title" = "Neizdevās aprēķināt maršrutu";
+"unable_to_calc_alert_subtitle" = "Maršrutu neatrada. Iespējams, maršruta iestatījumi ir pārāk ierobežojoši vai trūkst „OpenStreetMap“ datu. Mēģiniet mainīt iestatījumus un atkārtot.";
+"define_to_avoid_btn" = "Noteikt nevēlamos ceļus";
+"change_driving_options_btn" = "Maršruta izvēles ir ieslēgtas";
+"toll_road" = "Maksas ceļš";
+"unpaved_road" = "Neasfaltēts ceļš";
+"ferry_crossing" = "Prāmja pārceltuve";
+"trip_start" = "Uz priekšu";
+"pick_destination" = "Galamērķis";
+"follow_my_position" = "Centrēt";
+"search_results" = "Meklēšanas rezultāti";
+"then_turn" = "Pēc tam";
+"redirect_route_alert" = "Vai vēlaties maršrutu izveidot no jauna?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Jā";
+
+/* A generic "No" button in dialogs */
+"no" = "Nē";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Pieejams";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nav pieejams";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Ietilpība: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Tīkls: %@";
+"trip_finished" = "Ieradāties galamērķī!";
+"keyboard_availability_alert" = "Braukšanas laikā tastatūra nav pieejama";
+"dialog_routing_change_start_carplay" = "No pašreizējās vietas maršrutu izveidot nevar";
+"dialog_routing_change_end_carplay" = "Neizdodas atrast maršrutu līdz galamērķim. Izvēlieties citu galamērķa punktu";
+"dialog_routing_check_gps_carplay" = "Nav GPS signāla. Aizejiet līdz atklātai vietai";
+"dialog_routing_unable_locate_route_carplay" = "Neizdevās izveidot maršrutu. Norādiet citus maršruta punktus";
+"dialog_routing_download_files_carplay" = "Lejupielādējiet trūkstošās kartes, lai izveidotu maršrutu";
+"dialog_routing_system_error_carplay" = "Notika kļūda. Palaidiet programmu no jauna";
+"dialog_routing_rebuild_from_current_location_carplay" = "Maršrutu izveidos no jūsu pašreizējās vietas";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Maršrutu konvertēs par piemērotu automobilim";
+"not_all_shown_bookmarks_carplay" = "Nav parādītas visas grāmatzīmes";
+"switch_to_phone_bookmarks_carplay" = "Lai redzētu visas grāmatzīmes, pārslēdzieties uz tālruni";
+"ok" = "Labi";
+"speedcams_alert_title_carplay_1" = "Fotoradari";
+"speedcams_alert_title_carplay_2" = "Ātruma brīdinājumi";
+"download_map_carplay" = "Lejupielādējiet lietotnes kartes savā mobilajā ierīcē";
+"carplay_roundabout_exit" = "%@ izeja";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Kārtot…";
+
+/* iOS */
+"sort_default" = "Kārtot pēc noklusējuma";
+"sort_type" = "Kārtot pēc tipa";
+"sort_distance" = "Kārtot pēc attāluma";
+"sort_date" = "Kārtot pēc datuma";
+"sort_name" = "Kārtot pēc nosaukuma";
+"week_ago_sorttype" = "Pirms nedēļas";
+"month_ago_sorttype" = "Pirms mēneša";
+"moremonth_ago_sorttype" = "Vairāk nekā pirms mēneša";
+"moreyear_ago_sorttype" = "Vairāk nekā pirms gada";
+"near_me_sorttype" = "Man tuvumā";
+"others_sorttype" = "Cits";
+"food_places" = "Ēdiens";
+"tourist_places" = "Apskates objekti";
+"museums" = "Muzeji";
+"parks" = "Parki";
+"swim_places" = "Peldvietas";
+"mountains" = "Kalni";
+"animals" = "Dzīvnieki";
+"hotels" = "Viesnīcas";
+"buildings" = "Ēkas";
+"money" = "Nauda";
+"shops" = "Veikali";
+"parkings" = "Autostāvvietas";
+"fuel_places" = "Degvielas uzpildes stacija";
+"medicine" = "Medicīna";
+"search_in_the_list" = "Meklēt sarakstā";
+"religious_places" = "Reliģiskas vietas";
+"transit_not_found" = "Metro navigācija šajā reģionā nav pieejama";
+"dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
+"dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
+"button_layer_isolines" = "Reljefa līnijas";
+"isolines_activation_error_dialog" = "Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti";
+"isolines_location_error_dialog" = "Topogrāfiskais slānis šim reģionam nav pieejams";
+"elevation_profile_diff_level" = "Sarežģītības līmenis";
+"elevation_profile_diff_level_easy" = "Viegls";
+"elevation_profile_diff_level_moderate" = "Normāls";
+"elevation_profile_diff_level_hard" = "Sarežģīts";
+"elevation_profile_ascent" = "Kāpums";
+"elevation_profile_descent" = "Kritums";
+"elevation_profile_min_elevation" = "Zemākais punkts";
+"elevation_profile_max_elevation" = "Augstākais punkts";
+"isolines_toast_zooms_1_10" = "Pietuviniet, lai izpētītu izolīnijas";
+"downloader_updating_ios" = "Atjaunina";
+"downloader_loading_ios" = "Lejupielādē";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Atjaunināt lejupielādētās kartes";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Karšu atjaunināšana nodrošina, ka karšu informācija ir svaiga";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Atjaunināt (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Atjaunināšu vēlāk";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Dzēst ceļu";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Tiešām vēlies dzēst šo ceļu?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Ceļa nosaukums";
+
+/* move track or bookmark from the list button text */
+"move" = "Pārvietot";
+
+/* edit track screen title */
+"track_title" = "Ceļš";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Paldies, ka izmantojat mūsu kopienas veidotās kartes!";
+
+/* App tip #01 */
+"app_tip_01" = "Ar jūsu ziedojumiem un atbalstu varam izveidot pasaulē labākās kartes!";
+
+/* App tip #02 */
+"app_tip_02" = "Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!";
+
+/* App tip #03 */
+"app_tip_03" = "Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.";
+
+/* App tip #04 */
+"app_tip_04" = "Tap anywhere on the map to select anything. A long tap is used to hide and show the interface.";
+
+/* App tip #05 */
+"app_tip_05" = "Vai zinājāt, ka ir iespējams atlasīt jūsu pašreizējo atrašanās vietu kartē?";
+
+/* App tip #06 */
+"app_tip_06" = "Varat palīdzēt tulkot lietotni savā valodā.";
+
+/* App tip #07 */
+"app_tip_07" = "Šo lietotni veido daži entuziasti un mūsu kopiena.";
+
+/* App tip #08 */
+"app_tip_08" = "Kartes datus varat viegli labot un papildināt.";
+
+/* App tip #09 */
+"app_tip_09" = "Mūsu mērķis ir izveidot viegli lietojamas kartes, kas respektē jūsu privātumu un kuras jums patiks.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Tagad „Organic Maps“ izmantojat tālruņa ekrānā";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Tagad „Organic Maps“ izmantojat automobiļa ekrānā";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Turpināt tālrunī";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Uz auto ekrānu";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Aktīvā atpūta";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Eksportēt visas grāmatzīmes un ceļus";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Mainīt krāsu";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Karte";
+"drive_through" = "Caurbrauktuve caur";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Saite uz ēdienkarti";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Vai vēlaties izstrādātājiem nosūtīt ziņojumu par kļūdu?\nMēs paļaujamies uz šiem ziņojumiem, jo „Organic Maps“ automātiski nevāc nekādus datus par kļūdām. Jau iepriekš pateicamies par „Organic Maps“ atbalstīšanu!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Ieslēgta „iCloud“ sinhronizācija";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "„iCloud“ sinhronizācija šobrīd ir eksperimentāla iespēja, ko joprojām veidojam. Pirms tās izmantošanas izveidojiet grāmatzīmju un ceļu dublējumkopijas.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "„iCloud“ ir izslēgts";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Ja vēlaties izmantot šo funkciju, ierīces iestatījumos ieslēdziet „iCloud“.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Ieslēgt";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Dublējumkopija";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "„iCloud“ sinhronizācijas kļūda";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Kļūda: sinhronizācija neizdevās savienojuma kļūdas dēļ";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Kļūda: sinhronizācija neizdevās pārsniegtas „iCloud“ kvotas dēļ";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Kļūda: „iCloud“ nav pieejams";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Atvērt citā lietotnē";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Pašapkalpošanās";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Ārtelpu sēdvietas";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Nesen dzēstie saraksti";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Notīrīt";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Dzēst visu";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Atjaunot";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Atjaunot visu";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Ierakstīt ceļu";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Apstādināt ierakstīšanu";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Pārtraukt ierakstīšanu";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Turpināt ierakstīt";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Saglabāt ceļu grāmatzīmju sadaļā?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Ceļš ir tukšs – nav ko saglabāt";
+"edit_track" = "Labot ceļu";

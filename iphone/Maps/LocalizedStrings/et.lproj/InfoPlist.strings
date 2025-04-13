@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Otsi";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Järjehoidjad ja rajad";
+
+/* Used in home screen quick actions. */
+"route" = "Marsruut";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Rakenduse funktsionaalsuse täielikuks nautimiseks on vaja asukoha tuvastamist taustal. Seda kasutatakse navigeerimiseks ja hiljuti reisitud tee salvestamiseks.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Teie asukoha määramine on vajalik navigeerimiseks ja hiljuti reisitud raja salvestamiseks.";

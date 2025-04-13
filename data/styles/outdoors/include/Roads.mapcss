@@ -1,0 +1,553 @@
+/* Keep here changes of the base map style file only. */
+@import("../../default/include/Roads.mapcss");
+
+
+/* Make all roads more contrast */
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{opacity: 0.7;}
+line|z7-[highway=trunk],
+line|z7-[highway=motorway],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link],
+line|z8-[highway=primary],
+line|z11-[highway=primary_link],
+line|z10-[highway=secondary],
+line|z13-[highway=secondary_link],
+line|z12-[highway=residential],
+line|z11-[highway=tertiary],
+line|z14-[highway=tertiary_link],
+line|z11-[highway=unclassified],
+line|z12-[highway=road],
+line|z12-[highway=living_street],
+{opacity: 1;}
+
+/* Display earlier, as its an important obstacle / landmark*/
+line|z11-[highway=construction],
+{color: @construction; opacity: 1;}
+line|z11-12[highway=construction],
+{width: 1.2; dashes: 3.6,1.8; opacity: 0.8;}
+/* see base style for other zooms */
+
+/* Make service roads more pronounced - they lead to trailheads quite often. */
+line|z13-[highway=service],
+{color: @residential; opacity: 1;}
+line|z13[highway=service],
+{width: 0.8;}
+line|z14[highway=service],
+{width: 1.2;}
+line|z15[highway=service],
+{width: 1.8;}
+line|z16[highway=service],
+{width: 2.5;}
+line|z17[highway=service],
+{width: 3.3;}
+line|z18-[highway=service],
+{width: 4.2;}
+
+/* Reset back to the main style. */
+line|z13-14[highway=service][service=busway],
+line|z13-14[highway=service][service=parking_aisle],
+line|z13-15[highway=service][service=driveway],
+{width: 0;}
+line|z15[highway=service][service=busway],
+line|z15[highway=service][service=parking_aisle],
+{width: 1.2;}
+line|z16[highway=service][service=busway],
+line|z16[highway=service][service=driveway],
+line|z16[highway=service][service=parking_aisle],
+{width: 1.6;}
+line|z17[highway=service][service=busway],
+line|z17[highway=service][service=driveway],
+line|z17[highway=service][service=parking_aisle],
+{width: 2;}
+line|z18[highway=service][service=busway],
+line|z18[highway=service][service=driveway],
+line|z18[highway=service][service=parking_aisle],
+{width: 3;}
+line|z19-[highway=service][service=busway],
+line|z19-[highway=service][service=driveway],
+line|z19-[highway=service][service=parking_aisle],
+{width: 4;}
+
+line|z11-[highway=construction],
+line|z11-[highway=proposed]
+{color: @construction; opacity: 1;}
+
+line|z11-12[highway=construction],
+line|z11-12[highway=proposed]
+{width: 1.2; dashes: 3.6,1.8;}
+/* see base style for other zooms */
+
+
+/* High visibility of various trails is very important */
+
+line|z11-[highway=track],
+{color: @track; opacity: 1;}
+
+/* Its not unusual for trails to be tagged as footways, e.g. in UK */
+line|z11-[highway=footway],
+line|z12-[highway=steps],
+{color: @footway; opacity: 1;}
+
+line|z11-[highway=path],
+{color: @path; opacity: 1;}
+
+line|z11-[highway=path][_path_grade=expert],
+{color: @path_expert; opacity: 1;}
+
+line|z12-[piste:type=hike],
+{color: @piste; opacity: 0.7;}
+
+line|z11-[highway=bridleway],
+{color: @path; opacity: 1;}
+
+line|z11-[highway=cycleway],
+line|z12-[highway=path][bicycle=designated]::cycleline,
+{color: @cycleway; opacity: 1;}
+line|z13-[highway=footway][bicycle=designated]::cycleline,
+{color: @cycleway; opacity: 0.8;}
+
+line|z11[highway=track],
+{width: 1.1; dashes: 6,2.5; opacity: 0.6;}
+line|z12[highway=track],
+{width: 1.3; dashes: 6,2.5; opacity: 0.7;}
+line|z13[highway=track],
+{width: 1.6; dashes: 7,3;}
+line|z14[highway=track],
+{width: 2; dashes: 7,3;}
+line|z15[highway=track],
+{width: 2.5; dashes: 9,3.5;}
+line|z16[highway=track],
+{width: 3.2; dashes: 9,3.5;}
+line|z17[highway=track],
+{width: 4; dashes: 12,4;}
+line|z18-[highway=track],
+{width: 5; dashes: 12,4;}
+
+line|z11[highway=footway],
+{width: 1; dashes: 3.5,2;}
+line|z11[highway=path],
+{width: 1; dashes: 3.5,2; opacity: 0.6;}
+line|z12[highway=footway],
+/* Make steps on z12-14 look same as footways, z15- follows main style */
+line|z12[highway=steps],
+{width: 1.1; dashes: 3.5,2;}
+line|z12[highway=path],
+line|z12[piste:type=hike],
+{width: 1.1; dashes: 3.5,2; opacity: 0.7;}
+line|z13[highway=path],
+line|z13[piste:type=hike],
+line|z13[highway=footway],
+line|z13[highway=steps],
+{width: 1.3; dashes: 4,2.5;}
+line|z14[highway=path],
+line|z14[piste:type=hike],
+line|z14[highway=footway],
+line|z14[highway=steps],
+{width: 1.6; dashes: 4,2.5;}
+line|z15[highway=path],
+line|z15[piste:type=hike],
+line|z15[highway=footway],
+{width: 2; dashes: 6,3.5;}
+line|z16[highway=path],
+line|z16[piste:type=hike],
+line|z16[highway=footway],
+{width: 2.6; dashes: 6,3.5;}
+line|z17[highway=path],
+line|z17[piste:type=hike],
+line|z17[highway=footway],
+{width: 3.3; dashes: 8,4.5;}
+line|z18-[highway=path],
+line|z18-[piste:type=hike],
+line|z18-[highway=footway],
+{width: 4; dashes: 8,4.5;}
+
+line|z13-[highway=path][bicycle=designated],
+line|z13-[highway=footway][bicycle=designated],
+{opacity: 0.8;}
+
+line|z12[highway=path][bicycle=designated],
+line|z12[highway=footway][bicycle=designated],
+{width: 1.1; dashes: 3.5,2.5; opacity: 0.7;}
+line|z13[highway=path][bicycle=designated],
+line|z13[highway=footway][bicycle=designated],
+{width: 1.3; dashes: 4,3;}
+line|z14[highway=path][bicycle=designated],
+line|z14[highway=footway][bicycle=designated],
+{width: 1.6; dashes: 4,3;}
+line|z15[highway=path][bicycle=designated],
+line|z15[highway=footway][bicycle=designated],
+{width: 2; dashes: 6,4.5;}
+line|z16[highway=path][bicycle=designated],
+line|z16[highway=footway][bicycle=designated],
+{width: 2.6; dashes: 6,4.5;}
+line|z17[highway=path][bicycle=designated],
+line|z17[highway=footway][bicycle=designated],
+{width: 3.3; dashes: 8,6;}
+line|z18-[highway=path][bicycle=designated],
+line|z18-[highway=footway][bicycle=designated],
+{width: 4; dashes: 8,6; opacity: 1;}
+
+line|z11[highway=path][_path_grade=difficult],
+line|z11[highway=path][_path_grade=expert],
+{width: 1; dashes: 1,2; opacity: 0.7;}
+line|z12[highway=path][_path_grade=difficult],
+line|z12[highway=path][_path_grade=expert],
+{width: 1.1; dashes: 1,2; opacity: 0.8;}
+
+line|z13[highway=path][_path_grade=difficult],
+{width: 1.3; dashes: 1.5,2.5;}
+line|z14[highway=path][_path_grade=difficult],
+{width: 1.6; dashes: 1.5,2.5;}
+line|z15[highway=path][_path_grade=difficult],
+{width: 2; dashes: 2.5,4;}
+line|z16[highway=path][_path_grade=difficult],
+{width: 2.6; dashes: 2.5,4;}
+line|z17[highway=path][_path_grade=difficult],
+{width: 3.3; dashes: 3.6,5;}
+line|z18-[highway=path][_path_grade=difficult],
+{width: 4; dashes: 3.6,5;}
+
+line|z13[highway=path][_path_grade=expert],
+{width: 1.3; dashes: 1.4,5;}
+line|z14[highway=path][_path_grade=expert],
+{width: 1.6; dashes: 1.4,5;}
+line|z15[highway=path][_path_grade=expert],
+{width: 2; dashes: 2.3,9;}
+line|z16[highway=path][_path_grade=expert],
+{width: 2.6; dashes: 2.3,9;}
+line|z17[highway=path][_path_grade=expert],
+{width: 3.3; dashes: 3.5,11;}
+line|z18-[highway=path][_path_grade=expert],
+{width: 4; dashes: 3.5,11;}
+
+/* Don't display sidewalks and pedestrian crossings till z16. */
+line|z11-15[highway=footway][footway=sidewalk],
+line|z11-15[highway=footway][footway=crossing],
+{width: 0;}
+
+line|z11[highway=bridleway],
+{width: 1; dashes: 6,1; opacity: 0.6;}
+line|z12[highway=bridleway],
+{width: 1.1; dashes: 6,1; opacity: 0.7;}
+line|z13[highway=bridleway],
+{width: 1.3; dashes: 7,1.2;}
+line|z14[highway=bridleway],
+{width: 1.6; dashes: 7,1.2;}
+line|z15[highway=bridleway],
+{width: 2; dashes: 9,1.7;}
+line|z16[highway=bridleway],
+{width: 2.6; dashes: 9,1.7;}
+line|z17[highway=bridleway],
+{width: 3.3; dashes: 12,2.2;}
+line|z18-[highway=bridleway],
+{width: 4; dashes: 12,2.2;}
+
+line|z11[highway=cycleway],
+{width: 0.9; opacity: 0.7;}
+line|z12[highway=cycleway],
+line|z12[highway=path][bicycle=designated]::cycleline,
+{width: 1; opacity: 0.7;}
+line|z13[highway=cycleway],
+line|z13[highway=footway][bicycle=designated]::cycleline,
+line|z13[highway=path][bicycle=designated]::cycleline,
+{width: 1.1; opacity: 0.8;}
+line|z14[highway=cycleway],
+line|z14[highway=footway][bicycle=designated]::cycleline,
+line|z14[highway=path][bicycle=designated]::cycleline,
+{width: 1.3;}
+line|z15[highway=cycleway],
+line|z15[highway=footway][bicycle=designated]::cycleline,
+line|z15[highway=path][bicycle=designated]::cycleline,
+{width: 1.5;}
+line|z16[highway=cycleway],
+line|z16[highway=footway][bicycle=designated]::cycleline,
+line|z16[highway=path][bicycle=designated]::cycleline,
+{width: 1.7;}
+line|z17[highway=cycleway],
+line|z17[highway=footway][bicycle=designated]::cycleline,
+line|z17[highway=path][bicycle=designated]::cycleline,
+{width: 2;}
+line|z18-[highway=cycleway],
+line|z18-[highway=footway][bicycle=designated]::cycleline,
+line|z18-[highway=path][bicycle=designated]::cycleline,
+{width: 2.4;}
+
+
+/* Ski pistes */
+
+line|z12-[piste:type=nordic],
+line|z12-[piste:type=skitour],
+line|z15-[piste:type=connection],
+{color: @piste; opacity: 0.8;}
+
+line|z12[piste:type=nordic],
+line|z12-[piste:type=skitour],
+{width: 0.8; opacity: 0.6;}
+line|z13[piste:type=nordic],
+line|z13[piste:type=skitour],
+{width: 1; opacity: 0.7;}
+line|z14[piste:type=nordic],
+line|z14[piste:type=skitour],
+{width: 1.2;}
+line|z15[piste:type=nordic],
+line|z15[piste:type=skitour],
+line|z15[piste:type=connection],
+{width: 1.4;}
+line|z16[piste:type=nordic],
+line|z16[piste:type=skitour],
+line|z16[piste:type=connection],
+{width: 1.6;}
+line|z17[piste:type=nordic],
+line|z17[piste:type=skitour],
+line|z17[piste:type=connection],
+{width: 1.9;}
+line|z18-[piste:type=nordic],
+line|z18-[piste:type=skitour],
+line|z18-[piste:type=connection],
+{width: 2.3;}
+
+
+line|z12-[piste:type=downhill],
+line|z12-[piste:type=sled],
+{color: @piste; opacity: 0.3;}
+
+line|z12-[piste:type=downhill][piste:difficulty=novice]
+{color: @piste_novice; opacity: 0.5;}
+line|z12-[piste:type=downhill][piste:difficulty=easy]
+{color: @piste_easy;}
+line|z12-[piste:type=downhill][piste:difficulty=intermediate]
+{color: @piste_intermediate;}
+line|z12-[piste:type=downhill][piste:difficulty=advanced]
+{color: @piste_advanced;}
+line|z12-[piste:type=downhill][piste:difficulty=expert],
+{color: @piste_expert;}
+line|z12-[piste:type=downhill][piste:difficulty=freeride],
+{color: @piste_freeride;}
+
+line|z12[piste:type=sled],
+line|z12[piste:type=downhill],
+{width: 1; opacity: 0.4;}
+line|z13-14[piste:type=sled],
+line|z13-14[piste:type=downhill],
+{width: 1.4;}
+line|z15-16[piste:type=sled],
+line|z15-16[piste:type=downhill],
+{width: 2.2;}
+line|z17-[piste:type=sled],
+line|z17-[piste:type=downhill],
+{width: 3.2;}
+
+area|z12-[piste:type=downhill][area],
+area|z12-[piste:type=sled][area],
+{width: 0;}
+
+
+/* Rail lines are important landmarks / obstacles */
+
+line|z10-[railway=rail],
+{color: @railway; opacity: 1;}
+line|z15-[railway=rail],
+{color: @railway_dark;}
+line|z15-[railway=rail]::dash,
+{color: @railway_dash; opacity:1;}
+
+line|z10-[railway=rail][highspeed?],
+line|z10-[railway=rail][usage=main],
+line|z10-[railway=rail][usage=branch],
+{color: @railway; opacity: 1;}
+line|z10-[railway=rail][usage=tourism],
+{color: @railway_tourism; opacity: 1;}
+
+line|z15-[railway=rail][highspeed?],
+line|z15-[railway=rail][usage=main],
+line|z15-[railway=rail][usage=branch],
+{color: @railway_dark;}
+line|z15-[railway=rail][highspeed?]::dash,
+line|z15-[railway=rail][usage=main]::dash,
+line|z15-[railway=rail][usage=tourism]::dash,
+line|z15-[railway=rail][usage=branch]::dash,
+{color: @railway_dash; opacity: 1;}
+
+line|z12-[railway=rail][usage=utility],
+line|z14-[railway=rail][service=spur],
+line|z15-[railway=rail][service=service],
+{color: @railway_light; opacity: 1;}
+line|z16-[railway=rail][usage=utility],
+line|z16-[railway=rail][service=spur],
+line|z16-[railway=rail][service=service],
+{color: @railway;}
+line|z16-[railway=rail][usage=utility]::dash,
+line|z16-[railway=rail][service=spur]::dash,
+line|z16-[railway=rail][service=service]::dash,
+{color: @industrial; opacity: 1;}
+
+line|z10[railway=rail],
+{width: 1;}
+line|z11[railway=rail],
+{width: 1.2;}
+line|z12[railway=rail],
+{width: 1.4;}
+line|z13[railway=rail],
+{width: 1.7;}
+line|z14[railway=rail],
+{width: 2;}
+line|z15[railway=rail],
+{width: 2.6;}
+line|z16[railway=rail],
+{width: 3.5;}
+line|z17-[railway=rail],
+{width: 5;}
+
+line|z15[railway=rail]::dash,
+{width: 1.2; dashes: 4.5,4.5;}
+line|z16[railway=rail]::dash,
+{width: 1.8; dashes: 5.2,5.2;}
+line|z17[railway=rail]::dash,
+{width: 2.8; dashes: 6.3,6.3;}
+line|z18-[railway=rail]::dash,
+{width: 2.8; dashes: 8.1,8.1;}
+
+/* Reset styling inherited from railway=rail. */
+line|z10-11[railway=rail][usage=utility],
+line|z10-13[railway=rail][service=spur],
+line|z10-14[railway=rail][service=service],
+{width: 0;}
+line|z14-15[railway=rail][usage=utility]::dash,
+line|z14-15[railway=rail][service=spur]::dash,
+line|z14-15[railway=rail][service=service]::dash,
+{width: 0;}
+
+
+line|z10[railway=rail][usage=main],
+line|z10[railway=rail][usage=tourism],
+line|z10[railway=rail][usage=branch],
+line|z12[railway=rail][usage=utility],
+{width: 1;}
+line|z10[railway=rail][highspeed?],
+line|z11[railway=rail][usage=main],
+line|z11[railway=rail][usage=tourism],
+line|z11[railway=rail][usage=branch],
+line|z13[railway=rail][usage=utility],
+{width: 1.2;}
+line|z11[railway=rail][highspeed?],
+line|z12[railway=rail][usage=main],
+line|z12[railway=rail][usage=tourism],
+line|z12[railway=rail][usage=branch],
+line|z14[railway=rail][usage=utility],
+line|z14[railway=rail][service=spur],
+{width: 1.4;}
+line|z12[railway=rail][highspeed?],
+line|z13[railway=rail][usage=main],
+line|z13[railway=rail][usage=tourism],
+line|z13[railway=rail][usage=branch],
+line|z15[railway=rail][usage=utility],
+line|z15[railway=rail][service=spur],
+line|z15[railway=rail][service=service],
+{width: 1.7;}
+line|z13[railway=rail][highspeed?],
+{width: 2;}
+line|z14[railway=rail][highspeed?],
+{width: 2.3;}
+line|z14[railway=rail][usage=main],
+line|z14[railway=rail][usage=tourism],
+line|z14[railway=rail][usage=branch],
+{width: 2;}
+line|z15[railway=rail][highspeed?],
+line|z15[railway=rail][usage=main],
+line|z15[railway=rail][usage=tourism],
+line|z15[railway=rail][usage=branch],
+{width: 2.6;}
+line|z16[railway=rail][highspeed?],
+line|z16[railway=rail][usage=main],
+line|z16[railway=rail][usage=tourism],
+line|z16[railway=rail][usage=branch],
+line|z16[railway=rail][usage=utility],
+line|z16[railway=rail][service=spur],
+line|z16[railway=rail][service=service],
+{width: 3.5;}
+line|z17[railway=rail][highspeed?],
+line|z17[railway=rail][usage=main],
+line|z17[railway=rail][usage=tourism],
+line|z17[railway=rail][usage=branch],
+line|z17[railway=rail][usage=utility],
+line|z17[railway=rail][service=spur],
+line|z17[railway=rail][service=service],
+{width: 5;}
+
+
+line|z15[railway=rail][highspeed?]::dash,
+{width: 1.2; dashes: 10,10;}
+line|z16[railway=rail][highspeed?]::dash,
+{width: 1.8; dashes: 13,13;}
+line|z17-[railway=rail][highspeed?]::dash,
+{width: 2.8; dashes: 16,16;}
+
+line|z15[railway=rail][usage=main]::dash,
+line|z15[railway=rail][usage=tourism]::dash,
+line|z15[railway=rail][usage=branch]::dash,
+{width: 1.2; dashes: 4.5,4.5;}
+line|z16[railway=rail][usage=main]::dash,
+line|z16[railway=rail][usage=tourism]::dash,
+line|z16[railway=rail][usage=branch]::dash,
+line|z16[railway=rail][usage=utility]::dash,
+line|z16[railway=rail][service=spur]::dash,
+line|z16[railway=rail][service=service]::dash,
+{width: 1.8; dashes: 5.2,5.2;}
+line|z17[railway=rail][usage=main]::dash,
+line|z17[railway=rail][usage=tourism]::dash,
+line|z17[railway=rail][usage=branch]::dash,
+line|z17[railway=rail][usage=utility]::dash,
+line|z17[railway=rail][service=spur]::dash,
+line|z17[railway=rail][service=service]::dash,
+{width: 2.8; dashes: 6.3,6.3;}
+line|z18-[railway=rail][usage=main]::dash,
+line|z18-[railway=rail][usage=tourism]::dash,
+line|z18-[railway=rail][usage=branch]::dash,
+line|z18-[railway=rail][usage=utility]::dash,
+line|z18-[railway=rail][service=spur]::dash,
+line|z18-[railway=rail][service=service]::dash,
+{width: 2.8; dashes: 8.1,8.1;}
+
+
+line|z13-[railway=construction],
+line|z13-[railway=preserved],
+line|z13-[railway=disused],
+line|z13-[railway=abandoned],
+{color: @railway; opacity:1;}
+
+line|z13-[railway=preserved],
+line|z13-[railway=abandoned]
+{width: 1.6; dashes: 6.3,6.3;}
+line|z16-[railway=preserved],
+line|z16-[railway=abandoned]
+{width: 2.2; dashes: 8,8;}
+
+line|z13-[railway=construction],
+line|z13-[railway=disused]
+{width: 1; dashes: 1.8,5.5;}
+line|z16-[railway=construction],
+line|z16-[railway=disused]
+{width: 1.7; dashes: 2.5,7;}
+
+
+/* Power lines are good for orienteering */
+line|z13-[power=line],
+{color: @powerline; width: 0.8; opacity: 0.5;}
+line|z14-[power=line],
+{width: 1; opacity: 0.6;}
+line|z15-[power=line],
+{width: 1.3; opacity: 0.7;}
+
+line|z13-[power=line]::dash,
+{color: @powerline; width: 3.4; opacity: 0.5; dashes: 1,50;}
+line|z14-[power=line]::dash,
+{width: 4; opacity: 0.6;}
+line|z15-[power=line]::dash,
+{width: 4.5; opacity: 0.7; dashes: 1,80;}
+
+line|z15-[power=minor_line],
+{color: @powerline; width: 1; opacity: 0.6;}
+line|z15-[power=minor_line]::dash,
+{color: @powerline; width: 4; opacity: 0.6; dashes: 1,80;}

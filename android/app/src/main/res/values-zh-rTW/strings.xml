@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">返回</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">取消</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">刪除</string>
+    <string name="download_maps">下載地圖</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">下載失敗，點擊後再試一次</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">下載中…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">公里</string>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">英哩</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">我的位置</string>
+    <!-- Update maps later button text -->
+    <string name="later">以後再說</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">搜尋</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">搜尋地圖</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">您目前已禁用此裝置或應用程式的所有位置權限，請在設定中啟用。</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">精度有限</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">為了確保准確的導航啟用設置中的精確位置。</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">在地圖上顯示</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">下載失敗</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">再試一次</string>
+    <string name="about_menu_title">關於 Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">對每個人都免費，用愛製成</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• 沒有廣告，不會跟蹤您，更不會收集您的數據</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• 無需耗費太多電量，可離線工作</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• 快速且簡約，由社區開發</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">由愛好者和志願者開發的開源應用程式。</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">位置設定</string>
+    <string name="close">關閉</string>
+    <string name="unsupported_phone">該應用程式需要硬體加速的 OpenGL。很遺憾，您的裝置不受支援。</string>
+    <string name="download">下載</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps。</string>
+    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。
+\n它將使用 %s 的儲存空間。</string>
+    <string name="download_resources_continue">前往地圖</string>
+    <string name="downloading_country_can_proceed">正在下載%s。您現在可以
+\n繼續查看地圖。</string>
+    <string name="download_country_ask">下載%s的地圖嗎？</string>
+    <string name="update_country_ask">更新%s的地圖嗎？</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">暫停</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">繼續</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s的地圖下載失敗</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">新增新的書籤列表</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">書籤列表名稱</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">書籤</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">書籤和軌跡</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">我的地點</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">名稱</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">地址</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">清單</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">設定</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">將地圖儲存至</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">選擇下載地圖的資料夾。</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">已下載的地圖</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">內部私人儲存</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">內部共享儲存</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD 卡</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">外部共享儲存</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">剩餘 %1$s / 總計 %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">移動地圖？</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">移動地圖檔案時出錯</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">這可能需要幾分鐘的時間
+\n請稍候…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">測量單位</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">選擇公里或英哩</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">在哪裡吃</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">食品</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">交通</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">加油站</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">停車場</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">購物</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">二手商店</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">旅館</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">旅遊景點</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">娛樂</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">自動提款機</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">夜生活</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">親子休閒</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">銀行</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">藥局</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">醫院</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">廁所</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">郵局</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">警察局</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">無線網路</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">回收</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">水</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">露營車設施</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">註釋</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">已與您分享 Organic Maps 書籤</string>
+    <string name="share_bookmarks_email_body">您好！
+\n
+\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz
+\n
+\n祝您使用 Organic Maps 旅行愉快！</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">正在載入書籤…</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">書籤載入失敗，檔案可能已損壞或不完整。</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">應用程式無法識別該文件類型：
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">無法打開檔案 %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">編輯</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">您的位置尚未確定</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">很抱歉，地圖儲存設定目前已停用。</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">地圖下載進行中。</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前的位置吧！請打開 %1$s 或 %2$s 鏈接，還沒安裝離線地圖？在此下載: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 上標記的圖釘吧！</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我目前的位置！</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">嗨，
+\n
+\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。
+\n
+\n謝謝。</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">分享</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">電子郵件</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">已複製到剪貼簿：%s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">完成</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap 數據：%s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">您確定要登出您的 OpenStreetMap 帳戶嗎？</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">軌跡</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">長度</string>
+    <string name="share_my_location">分享我的位置</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">一般設定</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">資訊</string>
+    <string name="prefs_group_route">導航</string>
+    <string name="pref_zoom_title">縮放按鈕</string>
+    <string name="pref_zoom_summary">在螢幕上顯示</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">夜間模式</string>
+    <!-- Generic «Off» string -->
+    <string name="off">關閉</string>
+    <!-- Generic «On» string -->
+    <string name="on">開啟</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">自動</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">透視圖</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D 建築</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D 建築在省電模式下將會關閉</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">語音提示</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">播報街道名稱</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">啟用後，將大聲播報即將進入的街道或出口的名稱。</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">語音語言</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">測試語音指令（TTS，文字轉語音系統）</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">如果您現在聽不到聲音，請檢查音量或系統文字轉語音系統的設定。</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">無法使用</string>
+    <string name="pref_map_auto_zoom">自動縮放</string>
+    <string name="placepage_distance">距離</string>
+    <string name="search_show_on_map">在地圖上查看</string>
+    <!-- Menu button -->
+    <string name="menu">菜單</string>
+    <!-- Text in menu -->
+    <string name="website">網站</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">新聞</string>
+    <!-- Text in menu -->
+    <string name="facebook">Facebook</string>
+    <!-- Text in menu -->
+    <string name="twitter">X (推特)</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">回饋</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">為我們評分</string>
+    <!-- Text in menu -->
+    <string name="help">幫助</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">問題和解答</string>
+    <!-- Button in the main menu -->
+    <string name="donate">捐助我們</string>
+    <string name="already_donated">已捐贈</string>
+    <string name="remind_me_later">稍後提醒</string>
+    <string name="support_organic_maps">支持 Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">支持本項目</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">版權</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">報告問題</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">以 8 字形移動手機來改善箭頭方向，以校準羅盤。</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">以 8 字形移動手機以校準指北針，並在地圖上固定箭頭方向。</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">再次長按地圖即可查看介面</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">更新全部</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">取消全部</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">已下載</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">已加入到下載清單</string>
+    <string name="downloader_near_me_subtitle">在我附近</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">地圖</string>
+    <string name="downloader_download_all_button">下載全部</string>
+    <string name="downloader_downloading">正在下載：</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">要刪除地圖，請停止導航。</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">路線只能完全處在同一地圖裡時才能被規劃。</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">下載地圖</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">重新下載</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">刪除地圖</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">更新地圖</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Google Play 定位服務</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">使用藍牙、WiFi 或行動數據快速確定您的大致位置</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com 飯店鏈接</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">顯示在 Kayak.com 上列出的飯店的照片、評論和預訂連結。透過這些連結進行的每次預訂收到的推薦獎金將用於 Organic Maps 的開發。</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">下載路線上的所有地圖</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">規劃路線需要下載並更新好所有從您的位置到目的地的地圖。</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">空間不足</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">請啟用定位服務</string>
+    <string name="save">儲存</string>
+    <string name="create">建立</string>
+    <!-- red color -->
+    <string name="red">紅色</string>
+    <!-- yellow color -->
+    <string name="yellow">黃色</string>
+    <!-- blue color -->
+    <string name="blue">藍色</string>
+    <!-- green color -->
+    <string name="green">綠色</string>
+    <!-- purple color -->
+    <string name="purple">紫色</string>
+    <!-- orange color -->
+    <string name="orange">橙色</string>
+    <!-- brown color -->
+    <string name="brown">棕色</string>
+    <!-- pink color -->
+    <string name="pink">粉色</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">暗紫色</string>
+    <!-- light blue color -->
+    <string name="light_blue">天藍色</string>
+    <!-- cyan color -->
+    <string name="cyan">藍綠色</string>
+    <!-- teal color -->
+    <string name="teal">碧綠色</string>
+    <!-- lime color -->
+    <string name="lime">青檸</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">深橙色</string>
+    <!-- gray color -->
+    <string name="gray">灰色</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">藍灰色</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>
+    <string name="dialog_routing_disclaimer_priority">— 路況、交通法規和路標始終優先於導航建議；</string>
+    <string name="dialog_routing_disclaimer_precision">— 地圖可能不準確，建議的路線可能並非總是前往目的地的最佳路線；</string>
+    <string name="dialog_routing_disclaimer_recommendations">— 建議的路線僅作為推薦路線供您參考；</string>
+    <string name="dialog_routing_disclaimer_borders">— 小心對待國界區的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界；</string>
+    <string name="dialog_routing_disclaimer_beware">上路時請當心，祝您一路平安！</string>
+    <string name="dialog_routing_check_gps">檢查 GPS 訊號</string>
+    <string name="dialog_routing_error_location_not_found">無法規劃路線。無法識別目前 GPS 座標。</string>
+    <string name="dialog_routing_location_turn_wifi">請檢查您的 GPS 訊號。啟用無線網路將改善定位精度。</string>
+    <string name="dialog_routing_location_turn_on">啟用定位服務</string>
+    <string name="dialog_routing_location_unknown_turn_on">無法定位目前 GPS 座標。請啟用定位服務以規劃路線。</string>
+    <string name="dialog_routing_unable_locate_route">無法定位路線</string>
+    <string name="dialog_routing_cant_build_route">無法規劃路線。</string>
+    <string name="dialog_routing_change_start_or_end">請調整您的起點或目的地。</string>
+    <string name="dialog_routing_change_start">調整出發點</string>
+    <string name="dialog_routing_start_not_determined">路線未規劃。無法定位起點。</string>
+    <string name="dialog_routing_select_closer_start">請選擇更接近道路的起點。</string>
+    <string name="dialog_routing_change_end">調整目的地</string>
+    <string name="dialog_routing_end_not_determined">路線未規劃。無法定位目的地。</string>
+    <string name="dialog_routing_select_closer_end">請選擇更接近道路的目的地位置。</string>
+    <string name="dialog_routing_change_intermediate">無法定位途經點。</string>
+    <string name="dialog_routing_intermediate_not_determined">請調整您的途經點。</string>
+    <string name="dialog_routing_system_error">系統錯誤</string>
+    <string name="dialog_routing_application_error">由於應用程式出錯，因此無法規劃路線。</string>
+    <string name="dialog_routing_try_again">請再試一次</string>
+    <string name="not_now">以後再說</string>
+    <string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，以規劃跨越邊界的更佳路線？</string>
+    <string name="dialog_routing_download_cross_route">下載地圖，以規劃一條跨越邊界的更佳路線。</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">要開始搜索和規劃路線，請下載地圖，然後您就不再需要網絡連接了。</string>
+    <string name="search_select_map">選擇地圖</string>
+    <!-- «Show» context menu -->
+    <string name="show">顯示</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">隱藏</string>
+    <string name="categories">類別</string>
+    <string name="history">歷史</string>
+    <string name="search_not_found">很抱歉，沒有搜尋到任何地點。</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。</string>
+    <string name="search_history_title">搜尋歷史紀錄</string>
+    <string name="search_history_text">查看您最近的搜尋記錄。</string>
+    <string name="clear_search">清除搜尋記錄</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">維基百科</string>
+    <!-- Place Page link to Wikimedia Commons. -->
+    <string name="wikimedia_commons">維基共享資源</string>
+    <string name="p2p_your_location">您的位置</string>
+    <string name="p2p_start">開始</string>
+    <string name="p2p_from_here">從這裡出發</string>
+    <string name="p2p_to_here">到這裡去</string>
+    <string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
+    <string name="p2p_reroute_from_current">您是否想要規劃目前位置的路線？</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">下一頁</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">從</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">到</string>
+    <string name="editor_time_add">新增排程</string>
+    <string name="editor_time_delete">刪除排程</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">全天 (24 小時)</string>
+    <string name="editor_time_open">營業中</string>
+    <string name="editor_time_close">已歇業</string>
+    <string name="editor_time_add_closed">新增休息時間</string>
+    <string name="editor_time_title">營業時間</string>
+    <string name="editor_time_advanced">高級模式</string>
+    <string name="editor_time_simple">簡易模式</string>
+    <string name="editor_hours_closed">休息時間</string>
+    <string name="editor_example_values">範例值</string>
+    <string name="editor_correct_mistake">修正錯誤</string>
+    <string name="editor_add_select_location">選擇位置</string>
+    <string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreetMap 社群能夠修復此錯誤。</string>
+    <string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上親自修復此錯誤</string>
+    <string name="editor_report_problem_send_button">傳送</string>
+    <string name="editor_report_problem_title">問題</string>
+    <string name="editor_report_problem_no_place_title">該地點不存在</string>
+    <string name="editor_report_problem_under_construction_title">因維護而關閉</string>
+    <string name="editor_report_problem_duplicate_place_title">重複的地點</string>
+    <string name="autodownload">自動下載</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">每天</string>
+    <string name="twentyfour_seven">24/7 全天候營業</string>
+    <string name="day_off_today">今天不營業</string>
+    <string name="day_off">不營業</string>
+    <string name="today">今天</string>
+    <string name="opens_in">將於 %s 後開業</string>
+    <string name="closes_in">將於 %s 後歇業</string>
+    <string name="closed">已停止營業</string>
+    <string name="edit_opening_hours">編輯營業時間</string>
+    <string name="no_osm_account">沒有 OpenStreetMap 帳號嗎？</string>
+    <string name="register_at_openstreetmap">註冊</string>
+    <string name="login">登入</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">未登入</string>
+    <string name="login_osm">登錄 OpenStreetMap</string>
+    <string name="password">密碼</string>
+    <string name="forgot_password">忘記密碼</string>
+    <string name="logout">登出</string>
+    <string name="edit_place">編輯地點</string>
+    <string name="add_language">新增語言</string>
+    <string name="street">街道</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">門牌號碼</string>
+    <string name="details">詳細資訊</string>
+    <string name="social_media">社群媒體</string>
+    <string name="building">大樓</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">新增街道</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">請輸入街道名稱</string>
+    <string name="choose_language">選擇語言</string>
+    <string name="choose_street">選擇街道</string>
+    <string name="postal_code">郵遞區號</string>
+    <string name="cuisine">料理</string>
+    <string name="select_cuisine">選擇料理</string>
+    <!-- login text field -->
+    <string name="email_or_username">電子郵件或使用者名稱</string>
+    <string name="editor_add_phone">新增電話號碼</string>
+    <string name="level">樓層</string>
+    <!-- Building level -->
+    <string name="level_value_generic">樓層：%s</string>
+    <string name="downloader_delete_map_dialog">所有對地圖的修改都將與地圖一起被刪除。</string>
+    <string name="downloader_update_maps">更新地圖</string>
+    <string name="downloader_mwm_migration_dialog">為了規劃路線，您需要更新全部地圖並重新規劃路線。</string>
+    <string name="downloader_search_field_hint">搜尋地圖</string>
+    <string name="common_check_internet_connection_dialog">請檢查您的設定並確保您的裝置已連接至網路。</string>
+    <string name="downloader_no_space_title">沒有足夠的空間</string>
+    <string name="downloader_no_space_message">請刪除不必要的資料</string>
+    <string name="editor_login_error_dialog">無法登入。</string>
+    <string name="editor_profile_changes">已驗證的變更</string>
+    <string name="editor_focus_map_on_location">拖曳地圖以將十字放置在地點或企業的位置。</string>
+    <string name="editor_edit_place_title">編輯中</string>
+    <string name="editor_add_place_title">新增中</string>
+    <string name="editor_edit_place_name_hint">該地點的名稱</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">當地語言寫道</string>
+    <string name="editor_edit_place_category_title">類別</string>
+    <string name="detailed_problem_description">問題的詳細描述</string>
+    <string name="editor_report_problem_other_title">不同的問題</string>
+    <string name="placepage_add_business_button">將地點添加到</string>
+    <string name="message_invalid_feature_position">地點無法放置在這裡</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊。</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是有機地圖中地圖數據的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。</string>
+    <string name="login_to_make_edits_visible">建立 OpenStreetMap 帳戶或登入以向全世界發布您的地圖編輯。</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d / %2$d</string>
+    <string name="download_over_mobile_header">用行動數據連線下載嗎？</string>
+    <string name="download_over_mobile_message">如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。</string>
+    <string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
+    <string name="editor_storey_number">樓層數量（最多 %d 層）</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">最多可編輯 %d 層的建築</string>
+    <string name="editor_zip_code">郵遞區號</string>
+    <string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">地圖點</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">OpenStreetMap 志工注意事項（可選）</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">描述地圖中的錯誤或無法使用有機地圖編輯的內容</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">您的編輯內容將上傳至公用 <a href="https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap">OpenStreetMap</a> 資料庫。請不要添加個人或版權資訊。</string>
+    <string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
+    <string name="editor_osm_history">您的編輯歷史記錄</string>
+    <string name="editor_osm_notes">您的地圖資料註釋</string>
+    <string name="editor_operator">操作員</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">操作員: %s</string>
+    <string name="editor_category_unsuitable_title">找不到合適的類別？</string>
+    <string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
+    <string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
+    <string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
+    <string name="current_location_unknown_error_title">目前位置未知。</string>
+    <!-- abbreviation for meters -->
+    <string name="m">公尺</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">公里</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">公里每小時</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">英哩</string>
+    <!-- A unit of measure -->
+    <string name="ft">英尺</string>
+    <string name="miles_per_hour">英哩每小時</string>
+    <string name="hour">小時</string>
+    <string name="minute">分鐘</string>
+    <string name="day">天</string>
+    <string name="placepage_more_button">更多</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">照片、評論、預訂</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">每次通過此鏈接預定所獲得的推薦獎金將用於 Organic Maps 的開發。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">禁用 Kayak</string>
+    <string name="placepage_edit_bookmark_button">編輯書籤</string>
+    <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>
+    <string name="editor_comment_hint">備註…</string>
+    <string name="editor_reset_edits_message">重設所有本機變更？</string>
+    <string name="editor_reset_edits_button">重設</string>
+    <string name="editor_remove_place_message">移除已新增的地點？</string>
+    <string name="editor_remove_place_button">移除</string>
+    <string name="editor_place_doesnt_exist">該地點不存在</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">請註明刪除該地點的原因</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">輸入正確的電話號碼</string>
+    <string name="error_enter_correct_web">請輸入有效的網址</string>
+    <string name="error_enter_correct_email">請輸入有效的電子郵件</string>
+    <string name="error_enter_correct_facebook_page">請輸入有效的 Facebook 網頁地址、帳號或頁面名稱</string>
+    <string name="error_enter_correct_instagram_page">請輸入有效的 Instagram 用戶名或網頁地址</string>
+    <string name="error_enter_correct_twitter_page">請輸入有效的 Twitter 用戶名或網頁地址</string>
+    <string name="error_enter_correct_vk_page">請輸入有效的 VK 用戶名或網頁地址</string>
+    <string name="error_enter_correct_line_page">請輸入有效的 LINE ID 或網頁地址</string>
+    <string name="placepage_add_place_button">將地點新增至 OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">您想要發送給所有使用者嗎？</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
+    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
+    <string name="navigation_stop_button">停止</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">記錄軌跡</string>
+    <!-- For the first routing -->
+    <string name="accept">接受</string>
+    <!-- For the first routing -->
+    <string name="decline">拒絕</string>
+    <string name="mobile_data_dialog">使用手機網路顯示更多詳細資訊嗎？</string>
+    <string name="mobile_data_option_always">一律使用</string>
+    <string name="mobile_data_option_today">僅限今天</string>
+    <string name="mobile_data_option_not_today">今天不使用</string>
+    <string name="mobile_data">手機網路</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">要顯示地點的詳細資訊（例如照片、價格和評價），需要使用手機網絡。</string>
+    <string name="mobile_data_option_never">絕不使用</string>
+    <string name="mobile_data_option_ask">一律詢問</string>
+    <string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
+    <string name="big_font">增加地圖上的字體大小</string>
+    <string name="traffic_update_app">請更新 Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">交通資訊不可用</string>
+    <string name="enable_logging">啟用日誌記錄</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">一般反應</string>
+    <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
+    <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。
+\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。
+\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
+    <string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
+    <string name="transliteration_title">拉丁字母音譯</string>
+    <string name="learn_more">瞭解更多資訊</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">退出</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">請搜尋地點或點擊地圖以新增路線起點</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">請搜尋地點或點擊地圖以新增目的地</string>
+    <string name="planning_route_manage_route">管理路線</string>
+    <string name="button_plan">計畫</string>
+    <string name="placepage_remove_stop">刪除停止</string>
+    <string name="placepage_add_stop">新增中途點</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
+    <string name="dialog_error_storage_title">儲存空間存儲問題</string>
+    <string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support\@organicmaps.app 聯絡我們。</string>
+    <string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
+    <string name="core_entrance">入口</string>
+    <string name="error_enter_correct_name">請輸入正確的名稱</string>
+    <string name="bookmark_lists">列表</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">全部隱藏</string>
+    <string name="bookmark_lists_show_all">全部顯示</string>
+    <plurals name="bookmarks_places">
+        <item quantity="other">%d 個書籤</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">創建新的列表</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">導入書籤和軌跡</string>
+    <string name="bookmarks_error_message_share_general">由於應用程式出錯，導致無法分享</string>
+    <string name="bookmarks_error_title_share_empty">無法分享</string>
+    <string name="bookmarks_error_message_share_empty">無法分享空列表</string>
+    <string name="bookmarks_error_title_empty_list_name">名字不能為空白</string>
+    <string name="bookmarks_error_message_empty_list_name">請輸入列表名稱</string>
+    <string name="bookmarks_new_list_hint">新的列表</string>
+    <string name="bookmarks_error_title_list_name_already_taken">這個名稱已經被使用了</string>
+    <string name="bookmarks_error_message_list_name_already_taken">請選擇其他名稱</string>
+    <string name="please_wait">請稍候…</string>
+    <string name="phone_number">電話號碼</string>
+    <string name="profile">OpenStreetMap 資料</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">找到 %d 個文件，轉換後您可以看到它。</item>
+        <item quantity="other">找到 %d 個文件，轉換後您可以看到它們。</item>
+    </plurals>
+    <string name="restore">恢復</string>
+    <plurals name="tracks">
+        <item quantity="other">%d 個軌跡</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">隱私</string>
+    <string name="privacy_policy">隱私政策</string>
+    <string name="terms_of_use">使用條款</string>
+    <string name="button_layer_traffic">路況</string>
+    <string name="button_layer_subway">捷運</string>
+    <string name="layers_title">地圖樣式和圖層</string>
+    <string name="subway_data_unavailable">捷運圖層不可用</string>
+    <string name="bookmarks_empty_list_title">該列表為空</string>
+    <string name="bookmarks_empty_list_message">要增加新書籤，請點擊對象卡片中的星型圖標</string>
+    <string name="category_desc_more">…更多</string>
+    <string name="export_file">導出為 KMZ</string>
+    <string name="export_file_gpx">導出為 GPX</string>
+    <string name="delete_list">刪除列表</string>
+    <string name="public_access">允許大眾進入</string>
+    <string name="limited_access">不允許進入的私人空間</string>
+    <string name="not_shared">私人</string>
+    <string name="speedcams_alert_title">測速照相</string>
+    <string name="place_description_title">地點說明</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">載入地圖</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">超速行駛時發出警告</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">始終提醒測速照相機</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">永遠不會對測速照相機發出警告</string>
+    <string name="power_managment_title">省電模式</string>
+    <string name="power_managment_description">如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能</string>
+    <string name="power_managment_setting_never">從不</string>
+    <string name="power_managment_setting_auto">當電量低時</string>
+    <string name="power_managment_setting_manual_max">最大程度省電</string>
+    <string name="enable_logging_warning_message">暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。</string>
+    <string name="access_rules_author_only">線上編輯</string>
+    <string name="driving_options_title">繞行設定</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">避開收費公路</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">避開無鋪面道路</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">避開渡輪</string>
+    <string name="avoid_motorways">避開高速公路</string>
+    <string name="unable_to_calc_alert_title">無法規劃路線</string>
+    <string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試</string>
+    <string name="define_to_avoid_btn">選擇要避開的道路</string>
+    <string name="change_driving_options_btn">繞行設定已開啟</string>
+    <string name="toll_road">收費公路</string>
+    <string name="unpaved_road">未鋪面道路</string>
+    <string name="ferry_crossing">渡輪</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">是</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">否</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">是</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">否</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">容量：%s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">網路： %s</string>
+    <string name="trip_finished">您已到達目的地！</string>
+    <string name="ok">好的</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">排序…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">分類排序</string>
+    <!-- Android -->
+    <string name="by_default">使用默認值</string>
+    <!-- Android -->
+    <string name="by_type">按類型</string>
+    <!-- Android -->
+    <string name="by_distance">按距離</string>
+    <!-- Android -->
+    <string name="by_date">按時間</string>
+    <!-- Android -->
+    <string name="by_name">按名字</string>
+    <string name="week_ago_sorttype">一週前</string>
+    <string name="month_ago_sorttype">一個月前</string>
+    <string name="moremonth_ago_sorttype">一個多月前</string>
+    <string name="moreyear_ago_sorttype">一年多以前</string>
+    <string name="near_me_sorttype">在我附近</string>
+    <string name="others_sorttype">其他</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">食物</string>
+    <string name="tourist_places">旅遊景點</string>
+    <string name="museums">博物館</string>
+    <string name="parks">公園</string>
+    <string name="swim_places">游泳</string>
+    <string name="mountains">山峰</string>
+    <string name="animals">動物</string>
+    <string name="hotels">旅館</string>
+    <string name="buildings">建築物</string>
+    <string name="money">貨幣</string>
+    <string name="shops">商店</string>
+    <string name="parkings">停車場</string>
+    <string name="fuel_places">加油站</string>
+    <string name="medicine">醫療</string>
+    <string name="search_in_the_list">在列表中搜尋</string>
+    <string name="religious_places">宗教場所</string>
+    <string name="select_list">選擇列表</string>
+    <string name="transit_not_found">本區域的捷運導航目前不可用</string>
+    <string name="dialog_pedestrian_route_is_long_header">未找到捷運路線圖</string>
+    <string name="dialog_pedestrian_route_is_long_message">選擇捷運站附近的起點和終點</string>
+    <string name="button_layer_isolines">等高線</string>
+    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
+    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
+    <string name="elevation_profile_ascent">上坡</string>
+    <string name="elevation_profile_descent">下坡</string>
+    <string name="elevation_profile_min_elevation">最低高度</string>
+    <string name="elevation_profile_max_elevation">最高高度</string>
+    <string name="elevation_profile_difficulty">難度</string>
+    <string name="elevation_profile_distance">距離：</string>
+    <string name="elevation_profile_time">時間：</string>
+    <string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
+    <string name="downloader_loading_ios">正在下載</string>
+    <string name="download_map_title">下載世界地圖</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">無法在內部儲存或 SD 卡上建立資料夾和移動檔案</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">磁碟錯誤</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">磁碟錯誤</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">斷開 USB 線路</string>
+    <string name="enable_keep_screen_on">保持螢幕開啟</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">啟用後，顯示地圖時畫面將始終開啟。</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">在鎖定螢幕上顯示</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">啟用後，即使裝置已鎖定，應用程式仍會在鎖定螢幕上運作。</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">地圖語言</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">地圖數據來自 OpenStreetMap</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">感謝您使用我們社區構建的地圖！</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">有了您的捐贈和支持，我們可以創造世界上最好的地圖！</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">您喜歡我們的應用程式嗎？請捐款以支持發展！還不喜歡嗎？請告訴我們，我們會修復您提到的問題！</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">如果您認識軟體開發人員，您可以要求他實現您需要的功能。</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">點擊地圖上的任何位置即可選擇任何內容。長按可隱藏和顯示介面。</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">您知道您可以在地圖上選擇您目前的位置嗎？</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">您可以幫助將我們的應用程序翻譯成您的語言。</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">我們的應用程序是由一些愛好者和社區開發的。</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">您可以輕鬆修復和改進地圖數據。</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用 Organic Maps</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用 Organic Maps</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">您已連接到 Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">在手機上繼續</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">轉到汽車螢幕</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">有機地圖需要位置存取權限。當安全時，請查看手機上的通知。</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">此應用程式需要您的許可</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Android Auto 中的有機地圖需要位置權限才能有效運作</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">授予權限</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">徒步旅行</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">網路瀏覽器不可用</string>
+    <string name="volume">音量</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">匯出所有書籤和軌跡</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">文字轉語音系統設定</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">未找到語音合成設定，您確定您的裝置支援該設定嗎？</string>
+    <string name="drive_through">得來速通道</string>
+    <string name="clear_the_search">清除搜尋</string>
+    <string name="zoom_in">放大</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">縮小</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">選單連結</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">查看選單</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">在另一個應用程式中打開</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">自助服務</string>
+    <string name="select_option">選擇選項</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">戶外座位</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">錄製軌跡</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">停止軌跡記錄</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">停止而不保存</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">繼續錄製</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">儲存到書籤和軌跡？</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">軌跡為空 - 沒有可保存的內容</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試</string>
+    <string name="choose_color">選擇顏色</string>
+    <string name="edit_track">編輯軌跡</string>
+    <string name="uri_open_location_failed">沒有安裝可以打開該位置的應用程式</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">自動導航</string>
+</resources>

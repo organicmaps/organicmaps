@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Tlh-TS-tkk" customClass="MWMMobileInternetAlert" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tx8-cY-Dyg" userLabel="ContainerView">
+                    <rect key="frame" x="47.5" y="219.5" width="280" height="228.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REz-A0-Vg9" userLabel="Title">
+                            <rect key="frame" x="20" y="20" width="240" height="21.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="QEO-gJ-c3y"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="RsI-at-W6p"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGq-0K-ugB" userLabel="Message">
+                            <rect key="frame" x="20" y="53.5" width="240" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="F3h-lQ-gSS"/>
+                                <constraint firstAttribute="width" constant="240" id="XgA-ox-stk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_dialog"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vG-Ty-4hj" userLabel="button1">
+                            <rect key="frame" x="0.0" y="94.5" width="280" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="RyA-xn-gAo"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Использовать всегда">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_always"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="alwaysTap" destination="Tlh-TS-tkk" eventType="touchUpInside" id="fuJ-lY-I2V"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-hE-z56" userLabel="button2">
+                            <rect key="frame" x="0.0" y="139.5" width="280" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Спрашивать">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_today"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="askTap" destination="Tlh-TS-tkk" eventType="touchUpInside" id="brA-aR-BSr"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xff-AT-bjO" userLabel="button3">
+                            <rect key="frame" x="0.0" y="184.5" width="280" height="44"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="Никогда не использовать">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="mobile_data_option_not_today"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="neverTap" destination="Tlh-TS-tkk" eventType="touchUpInside" id="wMh-1n-svo"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZe-Gu-rIx" userLabel="hDivider1">
+                            <rect key="frame" x="0.0" y="93.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="J0l-nh-ng5"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-h2-LSK" userLabel="hDivider2">
+                            <rect key="frame" x="0.0" y="138.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ7-CE-a8J" userLabel="hDivider3">
+                            <rect key="frame" x="0.0" y="183.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="d5L-hE-z56" firstAttribute="leading" secondItem="0vG-Ty-4hj" secondAttribute="leading" id="0nb-Mk-riG"/>
+                        <constraint firstAttribute="centerX" secondItem="REz-A0-Vg9" secondAttribute="centerX" id="1H6-10-IWz"/>
+                        <constraint firstItem="VZe-Gu-rIx" firstAttribute="top" secondItem="fGq-0K-ugB" secondAttribute="bottom" constant="20" id="7Sc-TP-Opl"/>
+                        <constraint firstItem="0vG-Ty-4hj" firstAttribute="top" secondItem="VZe-Gu-rIx" secondAttribute="bottom" id="8lH-Op-m0b"/>
+                        <constraint firstItem="d5L-hE-z56" firstAttribute="trailing" secondItem="0vG-Ty-4hj" secondAttribute="trailing" id="9RH-ob-nxK"/>
+                        <constraint firstAttribute="width" secondItem="VZe-Gu-rIx" secondAttribute="width" id="CF8-wO-Qmv"/>
+                        <constraint firstItem="ZZ7-CE-a8J" firstAttribute="top" secondItem="d5L-hE-z56" secondAttribute="bottom" priority="500" id="Ccg-Zb-Jdz"/>
+                        <constraint firstItem="Xff-AT-bjO" firstAttribute="leading" secondItem="0vG-Ty-4hj" secondAttribute="leading" id="FF7-dF-mRZ"/>
+                        <constraint firstItem="REz-A0-Vg9" firstAttribute="top" secondItem="Tx8-cY-Dyg" secondAttribute="top" constant="20" id="FgB-En-Kgp"/>
+                        <constraint firstItem="0vG-Ty-4hj" firstAttribute="trailing" secondItem="VZe-Gu-rIx" secondAttribute="trailing" id="INy-WF-7W6"/>
+                        <constraint firstAttribute="centerX" secondItem="VZe-Gu-rIx" secondAttribute="centerX" id="KrD-nj-Oh6"/>
+                        <constraint firstItem="Xff-AT-bjO" firstAttribute="top" secondItem="ZZ7-CE-a8J" secondAttribute="bottom" id="NXi-bS-mbk"/>
+                        <constraint firstItem="0vG-Ty-4hj" firstAttribute="leading" secondItem="VZe-Gu-rIx" secondAttribute="leading" id="O7A-Ma-3gA"/>
+                        <constraint firstItem="pNk-h2-LSK" firstAttribute="top" secondItem="0vG-Ty-4hj" secondAttribute="bottom" id="OS9-H6-KDF"/>
+                        <constraint firstItem="pNk-h2-LSK" firstAttribute="height" secondItem="VZe-Gu-rIx" secondAttribute="height" id="Z3c-z0-QUD"/>
+                        <constraint firstItem="ZZ7-CE-a8J" firstAttribute="leading" secondItem="VZe-Gu-rIx" secondAttribute="leading" id="apm-L8-gZW"/>
+                        <constraint firstItem="ZZ7-CE-a8J" firstAttribute="trailing" secondItem="VZe-Gu-rIx" secondAttribute="trailing" id="bXV-jy-LQ5"/>
+                        <constraint firstItem="d5L-hE-z56" firstAttribute="height" secondItem="0vG-Ty-4hj" secondAttribute="height" id="d0s-RF-Hth"/>
+                        <constraint firstItem="pNk-h2-LSK" firstAttribute="trailing" secondItem="VZe-Gu-rIx" secondAttribute="trailing" id="dKB-th-WyI"/>
+                        <constraint firstAttribute="centerX" secondItem="fGq-0K-ugB" secondAttribute="centerX" id="hum-18-a8G"/>
+                        <constraint firstItem="Xff-AT-bjO" firstAttribute="trailing" secondItem="0vG-Ty-4hj" secondAttribute="trailing" id="ibO-5L-PH1"/>
+                        <constraint firstAttribute="bottom" secondItem="Xff-AT-bjO" secondAttribute="bottom" id="kZ3-1x-e5J"/>
+                        <constraint firstItem="pNk-h2-LSK" firstAttribute="leading" secondItem="VZe-Gu-rIx" secondAttribute="leading" id="kv8-5K-4MW"/>
+                        <constraint firstItem="Xff-AT-bjO" firstAttribute="height" secondItem="0vG-Ty-4hj" secondAttribute="height" id="net-N9-aSB"/>
+                        <constraint firstAttribute="width" constant="280" id="oBl-6m-Exe"/>
+                        <constraint firstItem="d5L-hE-z56" firstAttribute="top" secondItem="pNk-h2-LSK" secondAttribute="bottom" id="psC-4J-kSw"/>
+                        <constraint firstItem="ZZ7-CE-a8J" firstAttribute="height" secondItem="VZe-Gu-rIx" secondAttribute="height" id="wqS-Qh-ept"/>
+                        <constraint firstItem="fGq-0K-ugB" firstAttribute="top" secondItem="REz-A0-Vg9" secondAttribute="bottom" constant="12" id="xjY-UE-eIh"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="Tx8-cY-Dyg" secondAttribute="centerY" id="Zpv-vh-Jxs"/>
+                <constraint firstAttribute="centerX" secondItem="Tx8-cY-Dyg" secondAttribute="centerX" id="oWX-V9-KBj"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="y7G-G6-vSl"/>
+            <point key="canvasLocation" x="304.5" y="171.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+    </resources>
+</document>

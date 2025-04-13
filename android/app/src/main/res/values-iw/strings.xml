@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">חזור</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">בטל</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">מחק</string>
+    <string name="download_maps">הורד מפות</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">.הורדת הקובץ נכשלה. לחץ לניסיון נוסף</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">מוריד…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">ק\"מ</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">מייל</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">המיקום שלי</string>
+    <!-- Update maps later button text -->
+    <string name="later">מאוחר יותר</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">חיפוש</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">חפש במפה</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. יש להפעילם דרך \"הגדרות\" (Settings).</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">דיוק מוגבל</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">כדי להבטיח ניווט מדויק לאפשר מיקום מדויק בהגדרות.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">הצג במפה</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">ההורדה נכשלה</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">נסה שוב</string>
+    <string name="about_menu_title">אודות Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">חינם לכולם, מיוצרים באהבה</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• ללא מודעות, ללא מעקב, ללא איסוף נתונים</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• אין ריקון סוללה, עובד במצב לא מקוון</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• מהיר, מינימליסטי, שפותח על ידי הקהילה</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">אפליקציית קוד פתוח שנוצרה על ידי חובבים ומתנדבים.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">הגדרות מיקום</string>
+    <string name="close">סגור</string>
+    <string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
+    <string name="download">הורדה</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-Organic Maps.</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון בכרטיס הזיכרון או בכונן USB כדי להשתמש בישום</string>
+    <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.
+\nמפה זו דורשת נפח אחסון של %s.</string>
+    <string name="download_resources_continue">עבור למפה</string>
+    <string name="downloading_country_can_proceed">מוריד %s. תוכל עתה
+\nלהמשיך למפה.</string>
+    <string name="download_country_ask">להוריד %s?</string>
+    <string name="update_country_ask">לעדכן %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">הפסק</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">המשך</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">הורדה של %s נכשלה</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">הוסף רשימה חדשה</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">שם רשימת הסימניות</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">סימניות</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">סימניות ומסלולים</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">המקומות שלי</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">שם</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">כתובת</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">רשימה</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">הגדרות</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">שמור מפות אל</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">בחר מיקום במחשבך לשמירת המפות שתוריד.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">מפות שהורדו</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">אחסון פנימי פרטי</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">אחסון פנימי משותף</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">כרטיס זיכרון</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">אחסון חיצוני משותף</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s פנוי מתוך %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">להעביר המפות?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">שגיאה בהעברת הקבצים</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">פעולה זו יכולה להמשך מספר דקות.
+\nהמתן בבקשה…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">יחידות מדידה</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">בחר בין מיילים לקילומטרים</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">איפה לאכול</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">מצרכים</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">תחבורה</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">דלק</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">חניה</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">קניות</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">יד שניה</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">בית מלון</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">נקודות עיניין</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">בידור</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">כספומט</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">חיי לילה</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">שעשועים</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">בנק</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">בית מרקחת</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">בית חולים</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">שירותים</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">דואר</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">משטרה</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">מיחזור</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">מים</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">עבור קרוואנים</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">הערות</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">סימניות של Organic Maps שותפו איתך</string>
+    <string name="share_bookmarks_email_body">שלום!
+\n
+\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz
+\n
+\nתהנו לנווט עם Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">טוען סימניות</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">ערוך</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">מיקומך לא אותר עדיין</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">מצטערים, הגדרות שמירת מפה אינן זמינות כרגע.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">הורדת מפת המדינה מתבצעת כעת.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">קבלו את המיקום שלי ב-Organic Maps!
+\n%1$s או %2$s
+\nאין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">היי, בדוק את הסיכה שלי במפה של Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">היי,
+\n
+\nאני כאן: %1$s. הקש על הלינק %2$s או על %3$s כדי לראות את המקום על המפה.
+\n
+\nתודה.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">שיתוף</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">דוא\"ל</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">הועתק: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">בוצע</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">נתוני OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">האם אתה בטוח שברצונך להתנתק מחשבון OpenStreetMap שלך?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">מסלולים</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">אורך</string>
+    <string name="share_my_location">שיתוף מיקום שלי</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">הגדרות כלליות</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">מידע</string>
+    <string name="prefs_group_route">ניווט</string>
+    <string name="pref_zoom_title">כפתורי זום</string>
+    <string name="pref_zoom_summary">הצג על המסך</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">מצב לילה</string>
+    <!-- Generic «Off» string -->
+    <string name="off">כבוי</string>
+    <!-- Generic «On» string -->
+    <string name="on">מופעל</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">אוטומטי</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">פרספקטיבה</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">מבנים בתלת-מימד</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">הנחיות קוליות</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">הכריזו על שמות רחובות</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">שפת קול</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">בדיקת הנחיות קוליות (TTS, טקסט לדיבור)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">אם אינך שומע את הקול כעת, בדוק את עוצמת הקול או את הגדרות הטקסט לדיבור של המערכת.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">לא זמין</string>
+    <string name="pref_map_auto_zoom">זום אוטומטי</string>
+    <string name="placepage_distance">מרחק</string>
+    <string name="search_show_on_map">הראה במפה</string>
+    <!-- Menu button -->
+    <string name="menu">תפריט</string>
+    <!-- Text in menu -->
+    <string name="website">אתר</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">חדשות</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">משוב</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">דרגו את האפליקציה</string>
+    <!-- Text in menu -->
+    <string name="help">עזרה</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">שאלות ותשובות</string>
+    <!-- Button in the main menu -->
+    <string name="donate">לתרום</string>
+    <string name="already_donated">כבר נתרם</string>
+    <string name="remind_me_later">הזכר מאוחר יותר</string>
+    <string name="support_organic_maps">לתמוך ב-Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">תמכו בפרויקט</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">זכויות יוצרים</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">דווח על באג</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">שפר את כיוון החץ על ידי הזזת הטלפון בתנועה של שמונה כדי לכייל את המצפן.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">הזז את הטלפון בתנועה של דמות שמונה כדי לכייל את המצפן ולתקן את כיוון החץ במפה.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">לחץ לחיצה ארוכה במפה כדי להציג את הממשק</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">עדכן הכל</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">בטל הכול</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">מפות שהורדת</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">נוסף/ו לתור</string>
+    <string name="downloader_near_me_subtitle">קרוב אלי</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">מפות</string>
+    <string name="downloader_download_all_button">הורד הכל</string>
+    <string name="downloader_downloading">מוריד:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">למחיקת המפה, יש לעצור את הניווט.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">הורידו את המפה</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">נסה שוב</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">מחק מפה</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">עדכן מפה</string>
+    <!-- Preference title -->
+    <string name="google_play_services">שירותי מיקום של Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">קישורים למלון Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">תמונות, חוות דעת, קישורי הזמנה מוצגים עבור מלונות שיש להם רישום באתר Kayak.com. בונוס ההפניה המתקבל עבור כל הזמנה דרך קישורים אלה מיועד לפיתוח של Organic Maps.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">הורד את כל המפות במסלול שלך</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">אין מספיק מקום</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">יש להפעיל שירותי מיקום</string>
+    <string name="save">שמור</string>
+    <string name="create">יצירה</string>
+    <!-- red color -->
+    <string name="red">אדום</string>
+    <!-- yellow color -->
+    <string name="yellow">צהוב</string>
+    <!-- blue color -->
+    <string name="blue">כחול</string>
+    <!-- green color -->
+    <string name="green">ירוק</string>
+    <!-- purple color -->
+    <string name="purple">סגול</string>
+    <!-- orange color -->
+    <string name="orange">כתום</string>
+    <!-- brown color -->
+    <string name="brown">חום</string>
+    <!-- pink color -->
+    <string name="pink">ורוד</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">סגול עמוק</string>
+    <!-- light blue color -->
+    <string name="light_blue">כחול בהיר</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">כתום עמוק</string>
+    <!-- gray color -->
+    <string name="gray">אפור</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">כחול אפרפר</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:</string>
+    <string name="dialog_routing_disclaimer_priority">— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;</string>
+    <string name="dialog_routing_disclaimer_precision">— ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— יש לראות במסלולים המוצעים המלצה בלבד;</string>
+    <string name="dialog_routing_disclaimer_borders">— יש להיות זהירים בשימוש במסלולים סביב גבולות: המסלולים המוצעים באפליקציה עשויים לחצות גבולות מדינה במקומות אסורים.</string>
+    <string name="dialog_routing_disclaimer_beware">שמור על ערנות ועל הבטיחות בכביש!</string>
+    <string name="dialog_routing_check_gps">בדוק אות GPS</string>
+    <string name="dialog_routing_error_location_not_found">לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.</string>
+    <string name="dialog_routing_location_turn_wifi">בדוק את אות ה-GPS שלך. הפעלת Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.</string>
+    <string name="dialog_routing_location_turn_on">הפעל שירותי מיקום</string>
+    <string name="dialog_routing_location_unknown_turn_on">לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.</string>
+    <string name="dialog_routing_unable_locate_route">לא ניתן לאתר מסלול</string>
+    <string name="dialog_routing_cant_build_route">לא ניתן ליצור מסלול.</string>
+    <string name="dialog_routing_change_start_or_end">כוונן את נקודת ההתחלה או היעד שלך.</string>
+    <string name="dialog_routing_change_start">כוונן נקודת התחלה</string>
+    <string name="dialog_routing_start_not_determined">לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.</string>
+    <string name="dialog_routing_select_closer_start">בחר נקודת התחלה הקרובה יותר לכביש כלשהו.</string>
+    <string name="dialog_routing_change_end">כוונן יעד</string>
+    <string name="dialog_routing_end_not_determined">לא נוצר מסלול. לא ניתן לאתר את היעד.</string>
+    <string name="dialog_routing_select_closer_end">בחר נקודת יעד הקרובה יותר לכביש כלשהו.</string>
+    <string name="dialog_routing_change_intermediate">לא ניתן לאתר את נקודת הביניים.</string>
+    <string name="dialog_routing_intermediate_not_determined">כוונן את נקודת הביניים.</string>
+    <string name="dialog_routing_system_error">שגיאת מערכת</string>
+    <string name="dialog_routing_application_error">לא ניתן ליצור מסלול עקב שגיאת אפליקציה.</string>
+    <string name="dialog_routing_try_again">נסה שוב</string>
+    <string name="not_now">לא עכשיו</string>
+    <string name="dialog_routing_download_and_build_cross_route">האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?</string>
+    <string name="dialog_routing_download_cross_route">הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.</string>
+    <string name="search_select_map">בחר מפה</string>
+    <!-- «Show» context menu -->
+    <string name="show">הצג</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">הסתר</string>
+    <string name="categories">קטגוריות</string>
+    <string name="history">היסטוריה</string>
+    <string name="search_not_found">אופס, לא נמצאו תוצאות.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.</string>
+    <string name="search_history_title">חיפושים קודמים</string>
+    <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
+    <string name="clear_search">נקה היסטוריית חיפוש</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">ויקיפדיה</string>
+    <string name="p2p_your_location">המיקום שלך</string>
+    <string name="p2p_start">צא לדרך</string>
+    <string name="p2p_from_here">מסלול מכאן</string>
+    <string name="p2p_to_here">מסלול לכאן</string>
+    <string name="p2p_only_from_current">ניווט זמין רק מהמיקום הנוכחי שלך.</string>
+    <string name="p2p_reroute_from_current">ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">הבא</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">משעה</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">עד</string>
+    <string name="editor_time_add">הוסף לוח זמנים</string>
+    <string name="editor_time_delete">מחק לוח זמנים</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">כל היום (24 שעות)</string>
+    <string name="editor_time_open">פתוח</string>
+    <string name="editor_time_close">סגור</string>
+    <string name="editor_time_add_closed">הוסף שעות סגירה</string>
+    <string name="editor_time_title">שעות פתיחה</string>
+    <string name="editor_time_advanced">מצב מתקדם</string>
+    <string name="editor_time_simple">מצב פשוט</string>
+    <string name="editor_hours_closed">שעות סגירה</string>
+    <string name="editor_example_values">ערכים לדוגמה</string>
+    <string name="editor_correct_mistake">תקן טעות</string>
+    <string name="editor_add_select_location">בחר מיקום</string>
+    <string name="editor_report_problem_desription_1">בבקשה תארו את הבעיה בפירוט כדי שקהילת OpenStreetMap תוכל לתקן אותה.</string>
+    <string name="editor_report_problem_desription_2">או תקנו אותה בעצמכם: https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">שלח</string>
+    <string name="editor_report_problem_title">בעיה</string>
+    <string name="editor_report_problem_no_place_title">המקום הזה לא קיים</string>
+    <string name="editor_report_problem_under_construction_title">סגור בשל עבודות תחזוקה</string>
+    <string name="editor_report_problem_duplicate_place_title">מקום כפול</string>
+    <string name="autodownload">הורדה אוטומטית של מפות</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">יומי</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">סגור היום</string>
+    <string name="day_off">סגור</string>
+    <string name="today">היום</string>
+    <string name="opens_in">נפתח עוד %s</string>
+    <string name="closes_in">נסגר עוד %s</string>
+    <string name="closed">סגור</string>
+    <string name="edit_opening_hours">עריכת שעות פעילות</string>
+    <string name="no_osm_account">אין לך חשבון OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">הירשם ב-OpenStreetMap</string>
+    <string name="login">כניסה</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">לא מחובר</string>
+    <string name="login_osm">היכנס ל-OpenStreetMap</string>
+    <string name="password">סיסמה</string>
+    <string name="forgot_password">שכחת סיסמה?</string>
+    <string name="logout">התנתק</string>
+    <string name="edit_place">ערוך מקום</string>
+    <string name="add_language">הוסף שפה</string>
+    <string name="street">רחוב</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">מספר בית</string>
+    <string name="details">פרטים</string>
+    <string name="social_media">מדיה חברתית</string>
+    <string name="building">בִּניָן</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">הוסף רחוב</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">יש להזין שם רחוב</string>
+    <string name="choose_language">בחר שפה</string>
+    <string name="choose_street">בחר רחוב</string>
+    <string name="postal_code">מיקוד</string>
+    <string name="cuisine">סגנון בישול</string>
+    <string name="select_cuisine">בחר סיגנון בישול</string>
+    <!-- login text field -->
+    <string name="email_or_username">דוא\"ל או שם משתמש</string>
+    <string name="editor_add_phone">הוסף טלפון</string>
+    <string name="level">קומה</string>
+    <string name="downloader_delete_map_dialog">כל העריכות שלך במפה יימחקו יחד עם המפה.</string>
+    <string name="downloader_update_maps">עדכן מפות</string>
+    <string name="downloader_mwm_migration_dialog">ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.</string>
+    <string name="downloader_search_field_hint">חפש מפה</string>
+    <string name="common_check_internet_connection_dialog">נא לוודא כי המכשיר מחובר לאינטרנט.</string>
+    <string name="downloader_no_space_title">אין מספיק מקום</string>
+    <string name="downloader_no_space_message">נא לפנות שטח אחסון</string>
+    <string name="editor_login_error_dialog">שגיאת התחברות.</string>
+    <string name="editor_profile_changes">שינויים מאומתים</string>
+    <string name="editor_focus_map_on_location">גרור את המפה כדי למקם את הצלב במיקום של המקום או העסק.</string>
+    <string name="editor_edit_place_title">עריכת מקום</string>
+    <string name="editor_add_place_title">הוספת מקום</string>
+    <string name="editor_edit_place_name_hint">שם המקום</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">כפי שנכתב בשפה המקומית</string>
+    <string name="editor_edit_place_category_title">קטגוריה</string>
+    <string name="detailed_problem_description">תאור מפורט של הבעיה</string>
+    <string name="editor_report_problem_other_title">בעיה אחרת</string>
+    <string name="placepage_add_business_button">הוסף בית עסק</string>
+    <string name="message_invalid_feature_position">לא ניתן למקם כאן פריט</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-Organic Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
+\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!</string>
+    <string name="login_to_make_edits_visible">צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d מתוך %2$d</string>
+    <string name="download_over_mobile_header">להוריד באמצעות חיבור אינטרנט סלולרי?</string>
+    <string name="download_over_mobile_message">זה עשוי להיות יקר עם חבילות גלישה מסוימות או בנדידה.</string>
+    <string name="error_enter_correct_house_number">הזן מספר בית תקין</string>
+    <string name="editor_storey_number">מספר קומות (מקסימום: %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">מספר הקומות לא יכול להיות גבוה מ-%d</string>
+    <string name="editor_zip_code">מיקוד</string>
+    <string name="error_enter_correct_zip_code">יש להזין מיקוד תקין</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">נקודת מפה</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">הערה למתנדבי OpenStreetMap (אופציונלי)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.</string>
+    <string name="editor_more_about_osm">עוד על OpenStreetMap</string>
+    <string name="editor_osm_history">היסטוריית העריכה שלך</string>
+    <string name="editor_osm_notes">הערות נתוני המפה שלך</string>
+    <string name="editor_operator">מַפעִיל</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">מַפעִיל: %s</string>
+    <string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
+    <string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
+    <string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
+    <string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
+    <string name="current_location_unknown_error_title">המיקום הנוכחי לא ידוע.</string>
+    <!-- abbreviation for meters -->
+    <string name="m">מ׳</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">ק״מ</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">קמ״ש</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">מייל</string>
+    <!-- A unit of measure -->
+    <string name="ft">רגל</string>
+    <string name="miles_per_hour">מייל לשעה</string>
+    <string name="hour">ש׳</string>
+    <string name="minute">ד׳</string>
+    <string name="day">י</string>
+    <string name="placepage_more_button">עוד</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">תמונות, ביקורות, הזמנה</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מסייע בפיתוח של Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">פרטים על Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">השבת את Kayak</string>
+    <string name="placepage_edit_bookmark_button">ערוך סימניה</string>
+    <string name="placepage_personal_notes_hint">הערות אישיות (טקסט או HTML)</string>
+    <string name="editor_comment_hint">תגובה…</string>
+    <string name="editor_reset_edits_message">למחוק את כל השינויים המקומיים?</string>
+    <string name="editor_reset_edits_button">מחק</string>
+    <string name="editor_remove_place_message">למחוק את המקום שהוסף?</string>
+    <string name="editor_remove_place_button">מחק</string>
+    <string name="editor_place_doesnt_exist">המקום לא קיים</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">נא להסביר את הסיבה למחיקת המקום</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">הזן מספר טלפון תקין</string>
+    <string name="error_enter_correct_web">הזן כתובת אינטרנט תקינה</string>
+    <string name="error_enter_correct_email">הזן דוא\"ל תקין</string>
+    <string name="error_enter_correct_facebook_page">הזן כתובת פייסבוק תקינה, משתמש, או שם עמוד</string>
+    <string name="error_enter_correct_instagram_page">הזן כתובת אינטרנט או שם משתמש Instagram תקינים</string>
+    <string name="error_enter_correct_twitter_page">הזן כתובת אינטרנט או שם משתמש Twitter תקינים</string>
+    <string name="error_enter_correct_vk_page">הזן כתובת אינטרנט או שם משתמש VK תקינים</string>
+    <string name="error_enter_correct_line_page">הזן מזהה LINE או כתובת אינטרנט תקינים</string>
+    <string name="placepage_add_place_button">הוסף מקום ל-OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">לשלוח לכל המשתמשים?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">יש לוודא שלא הזנת מידע אישי או פרטי.</string>
+    <string name="editor_share_to_all_dialog_message_2">עורכי OpenStreetMap יבדקו את השינויים ויצרו איתך קשר אם יש להם שאלות כלשהן.</string>
+    <string name="navigation_stop_button">עצור</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">הקלטת המסלול</string>
+    <!-- For the first routing -->
+    <string name="accept">קבל</string>
+    <!-- For the first routing -->
+    <string name="decline">דחה</string>
+    <string name="mobile_data_dialog">השתמש באינטרנט סלולרי כדי להראות מידע מפורט?</string>
+    <string name="mobile_data_option_always">השתמש תמיד</string>
+    <string name="mobile_data_option_today">רק היום</string>
+    <string name="mobile_data_option_not_today">אל תשתמש היום</string>
+    <string name="mobile_data">אינטרנט סלולרי</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">אינטרנט סלולרי נחוץ בשביל הודעות על עדכון מפות ובשביל העלאת עריכות.</string>
+    <string name="mobile_data_option_never">אף פעם אל תשתמש</string>
+    <string name="mobile_data_option_ask">שאל תמיד</string>
+    <string name="traffic_update_maps_text">כדי להציג מידע על עומס תנועה, יש לעדכן את המפות.</string>
+    <string name="big_font">הגדל תגיות במפה</string>
+    <string name="traffic_update_app">נא לעדכן את Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">מידע על עומס תנועה לא זמין.</string>
+    <string name="enable_logging">הפעל logging</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">משוב כללי</string>
+    <string name="prefs_languages_information">אנחנו משתמשים מערכת TTS של המערכת כדי לספק הנחיות קוליות. הרבה מכשירי Android מוגדרים להשתמש ב-Google TTS, שניתן להוריד ולעדכן מחנות Play (כאן: https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off_link">למידע נוסף ניתן לקרוא את המדריך הזה.</string>
+    <string name="transliteration_title">תעתיק לאותיות לטיניות</string>
+    <string name="learn_more">למידע נוסף</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">יציאה</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">יש להוסיף נקודת התחלה למסלול באמצעות חיפוש או בלחיצה על המפה</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">יש לבחור נקודת יעד באמצעות חיפוש או בלחיצה על המפה</string>
+    <string name="planning_route_manage_route">ניהול מסלול</string>
+    <string name="button_plan">תכנון</string>
+    <string name="placepage_remove_stop">הסר עצירה</string>
+    <string name="placepage_add_stop">הוסף עצירה</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
+    <string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
+    <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
+    <string name="core_entrance">כניסה</string>
+    <string name="error_enter_correct_name">נא להזין שם תקין</string>
+    <string name="bookmark_lists">רשימות</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">הסתר הכל</string>
+    <string name="bookmark_lists_show_all">הצג הכל</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">סימניה %d</item>
+        <item quantity="other">%d סימניות</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">צור רשימה חדשה</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">ייבוא סימניות ומסלולים</string>
+    <string name="bookmarks_error_message_share_general">לא ניתן לשתף עקב שגיאת אפליקציה</string>
+    <string name="bookmarks_error_title_share_empty">שגיאת שיתוף</string>
+    <string name="bookmarks_error_message_share_empty">אי אפשר לשתף רשימה ריקה</string>
+    <string name="bookmarks_error_title_empty_list_name">השם לא יכול להיות ריק</string>
+    <string name="bookmarks_error_message_empty_list_name">נא להזין את שם הרשימה</string>
+    <string name="bookmarks_new_list_hint">רשימה חדשה</string>
+    <string name="bookmarks_error_title_list_name_already_taken">השם הזה כבר תפוס</string>
+    <string name="bookmarks_error_message_list_name_already_taken">נא לבחור שם אחר</string>
+    <string name="please_wait">נא להמתין…</string>
+    <string name="phone_number">מספר טלפון</string>
+    <string name="profile">פרופיל OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">נמצא %d קובץ. תוכלו לראות אותו לאחר ההמרה.</item>
+        <item quantity="other">נמצאו %d קבצים. תוכלו לראות אותם לאחר ההמרה.</item>
+    </plurals>
+    <string name="restore">שחזור</string>
+    <plurals name="tracks">
+        <item quantity="one">מסלול %d</item>
+        <item quantity="other">%d מסלולים</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">פרטיות</string>
+    <string name="privacy_policy">מדיניות פרטיות</string>
+    <string name="terms_of_use">תנאי שימוש</string>
+    <string name="button_layer_traffic">תעבורה</string>
+    <string name="button_layer_subway">רכבת תחתית</string>
+    <string name="layers_title">סגנונות ושכבות מפה</string>
+    <string name="subway_data_unavailable">מפת רכבת תחתית לא זמינה</string>
+    <string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
+    <string name="bookmarks_empty_list_message">כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</string>
+    <string name="category_desc_more">…עוד</string>
+    <string name="export_file">ייצא KMZ</string>
+    <string name="export_file_gpx">ייצוא GPX</string>
+    <string name="delete_list">מחק רשימה</string>
+    <string name="public_access">גישה ציבורית</string>
+    <string name="limited_access">גישה מוגבלת</string>
+    <string name="not_shared">פרטי</string>
+    <string name="speedcams_alert_title">מצלמות מהירות</string>
+    <string name="place_description_title">תיאור מיקום</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">מוריד המפות</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">הזהר כשהמהירות מופרזת</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">הזהר תמיד</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">אל תזהיר אף פעם</string>
+    <string name="power_managment_title">מצב חיסכון בסוללה</string>
+    <string name="power_managment_description">נסה להפחית שימוש בסוללה על חשבון פונקציות מסוימות</string>
+    <string name="power_managment_setting_never">אף פעם</string>
+    <string name="power_managment_setting_auto">כשהסוללה חלשה</string>
+    <string name="power_managment_setting_manual_max">תמיד</string>
+    <string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</string>
+    <string name="access_rules_author_only">עריכה אונליין</string>
+    <string name="driving_options_title">אפשרויות מסלול</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">הימנע מכבישי אגרה</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">הימנע מדרכי עפר</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">הימנע ממעבורות</string>
+    <string name="avoid_motorways">הימנע מכבישים מהירים</string>
+    <string name="unable_to_calc_alert_title">לא ניתן לחשב מסלול</string>
+    <string name="unable_to_calc_alert_subtitle">לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.</string>
+    <string name="define_to_avoid_btn">הגדר כבישים להימנע מהם</string>
+    <string name="change_driving_options_btn">אפשרויות מסלול מופעלות</string>
+    <string name="toll_road">כביש אגרה</string>
+    <string name="unpaved_road">דרך לא סלולה</string>
+    <string name="ferry_crossing">מעבורת</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">כן</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">לא</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">כן</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">לא</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">קיבולת: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">רשת: %s</string>
+    <string name="trip_finished">הגעת!</string>
+    <string name="ok">אוקיי</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">מיון…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">מיון סימניות</string>
+    <!-- Android -->
+    <string name="by_default">לפי ברירת מחדל</string>
+    <!-- Android -->
+    <string name="by_type">לפי סוג</string>
+    <!-- Android -->
+    <string name="by_distance">לפי מרחק</string>
+    <!-- Android -->
+    <string name="by_date">לפי תאריך</string>
+    <!-- Android -->
+    <string name="by_name">לפי שם</string>
+    <string name="week_ago_sorttype">לפני שבוע</string>
+    <string name="month_ago_sorttype">לפני חודש</string>
+    <string name="moremonth_ago_sorttype">לפני יותר מחודש</string>
+    <string name="moreyear_ago_sorttype">לפני יותר משנה</string>
+    <string name="near_me_sorttype">קרוב אלי</string>
+    <string name="others_sorttype">אחרים</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">אוכל</string>
+    <string name="tourist_places">תיירות</string>
+    <string name="museums">מוזיאונים</string>
+    <string name="parks">פארקים</string>
+    <string name="swim_places">שחייה</string>
+    <string name="mountains">הרים</string>
+    <string name="animals">חיות</string>
+    <string name="hotels">בתי מלון</string>
+    <string name="buildings">מבנים</string>
+    <string name="money">כסף</string>
+    <string name="shops">חנויות</string>
+    <string name="parkings">חניות</string>
+    <string name="fuel_places">תחנות דלק</string>
+    <string name="medicine">רפואה</string>
+    <string name="search_in_the_list">חפש ברשימה</string>
+    <string name="religious_places">מקומות דת</string>
+    <string name="select_list">בחר רשימה</string>
+    <string name="transit_not_found">ניווט ברכבת תחתית עוד לא זמין באזור זה</string>
+    <string name="dialog_pedestrian_route_is_long_header">מסלול רכבת תחתית לא נמצא</string>
+    <string name="dialog_pedestrian_route_is_long_message">נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית</string>
+    <string name="button_layer_isolines">קווי מתאר</string>
+    <string name="isolines_activation_error_dialog">כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה</string>
+    <string name="isolines_location_error_dialog">קווי מתאר עוד לא זמינים לאזור זה</string>
+    <string name="elevation_profile_ascent">עלייה</string>
+    <string name="elevation_profile_descent">ירידה</string>
+    <string name="elevation_profile_min_elevation">מינ\' גובה</string>
+    <string name="elevation_profile_max_elevation">מקס\' גובה</string>
+    <string name="elevation_profile_difficulty">קושי</string>
+    <string name="elevation_profile_distance">מרחק:</string>
+    <string name="elevation_profile_time">זמן:</string>
+    <string name="isolines_toast_zooms_1_10">התקרב כדי לחקור קווי מתאר</string>
+    <string name="downloader_loading_ios">מוריד</string>
+    <string name="download_map_title">הורד את מפת העולם</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">לא ניתן ליצור תיקייה ולהעביר קבצים בזיכרון הפנימי או בכרטיס הזיכרון</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">שגיאת כונן</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">כשל חיבור</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">נתק כבל USB</string>
+    <string name="enable_keep_screen_on">השאר מסך דלוק</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">הצג במסך הנעילה</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">כאשר מופעל, האפליקציה תעבוד במסך הנעילה אפילו כשהמכשיר נעול.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">שפת המפה</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">נתוני מפה מ-OpenStreetMap</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">תודה על השימוש במפות שנבנו בקהילה שלנו!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">עם התרומות והתמיכה שלך, נוכל ליצור את המפות הטובות בעולם!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">האם אתה אוהב את האפליקציה שלנו? אנא תרמו כדי לתמוך בפיתוח! לא אוהב את זה עדיין? אנא הודע לנו, ואנחנו נתקן את זה!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">אם אתה מכיר מפתח תוכנה, אתה יכול לבקש ממנו ליישם תכונה שאתה צריך.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">הקש בכל מקום במפה כדי לבחור משהו. הקש ארוכות כדי להסתיר ולהציג בחזרה את הממשק.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">האם אתה יודע שאתה יכול לבחור את המיקום הנוכחי שלך על המפה?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">אתה יכול לעזור לתרגם את האפליקציה שלנו לשפה שלך.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">האפליקציה שלנו פותחה על ידי כמה חובבים והקהילה.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">אתה יכול בקלות לתקן ולשפר את נתוני המפה.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">אתה מחובר ל-Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">המשך בטלפון</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">למסך המכונית</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">מפות אורגניות זקוקות לגישה למיקום. כשזה בטוח, בדוק את ההתראה בטלפון שלך.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">אפליקציה זו זקוקה לאישור שלך</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">מפות אורגניות ב-Android Auto זקוקות להרשאת מיקום כדי לעבוד ביעילות</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">הענק הרשאות</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">טיול רגלי</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">דפדפן אינטרנט אינו זמין</string>
+    <string name="volume">כרך</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">ייצא את כל הסימניות והרצועות</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+    <string name="drive_through">דרייב ת\'רו</string>
+    <string name="clear_the_search">נקה את החיפוש</string>
+    <string name="zoom_in">לְהִתְמַקֵד</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">להקטין את התצוגה</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">קישור לתפריט</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">תפריט תצוגה</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">פתח באפליקציה אחרת</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">שירות עצמי</string>
+    <string name="select_option">בחר אפשרות</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">ישיבה בחוץ</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">לניווט המדויק ביותר, אנו ממליצים להשבית את מצב חיסכון בחשמל בהגדרות הסוללה של הטלפון.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">הקלט מסלול</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">הפסק הקלטת מסלול</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">הפסק בלי לשמור</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">המשך להקליט</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">לשמור בסימניות ומסלולים?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">המסלול ריק - אין מה לשמור</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">לא ניתן להציג תיבת דו-שיח לבחירת תיקיות מכיוון שלא מותקנת אפליקציה מתאימה במכשיר שלך. אנא התקן אפליקציית מנהל קבצים ונסה שוב</string>
+    <string name="choose_color">בחר צבע</string>
+    <string name="edit_track">עריכת מסלול</string>
+    <string name="uri_open_location_failed">לא מותקנת אפליקציה שיכולה לפתוח את המיקום</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">אוטומטי בניווט</string>
+</resources>

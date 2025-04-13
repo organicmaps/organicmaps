@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">بازگشت</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">لغو</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">حذف</string>
+    <string name="download_maps">دانلود نقشه‌ها</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">دانلود ناموفق بود. برای تلاش مجدد لمس کنید</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">درحال دانلود</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">کیلومتر</string>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">مگابایت</string>
+    <string name="gb">گیگابایت</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">مایل</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">مکان من</string>
+    <!-- Update maps later button text -->
+    <string name="later">بعداً</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">جست‌وجو</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">جست‌وجوی نقشه</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">دقت محدود</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">برای اطمینان از دقیق ناوبری ، موقعیت مکانی دقیق را در تنظیمات فعال کنید.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">بر روی نقشه نمایش بده</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">تلاش مجدد</string>
+    <string name="about_menu_title">Organic Maps درباره‌ی</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">رایگان برای همه ، ساخته شده با عشق</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• بدون تبلیغات ، ردیابی ، جمع آوری داده ها</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• بدون تخلیه باتری، آفلاین کار می کند</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• سریع، مینیمالیستی، توسعه یافته توسط انجمن</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">تنظیمات مکان</string>
+    <string name="close">بستن</string>
+    <string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به</string>
+    <string name="download">دانلود</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">لطفا مقداری از فضای ذخیره‌سازی را آزاد نمایید</string>
+    <string name="download_resources">قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.
+\nمقدار %s از حافظه شما اشغال می شود.</string>
+    <string name="download_resources_continue">برو به نقشه</string>
+    <string name="downloading_country_can_proceed">درحال دانلود %s. شما اکنون می توانید
+\nبه نقشه بروید.</string>
+    <string name="download_country_ask">دانلود %s?</string>
+    <string name="update_country_ask">آپدیت %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">مکث</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">ادامه</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s دانلود با شکست مواجه شد</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">اضافه کردن مجموعه جدید</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">نشانه‌ها</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">نشانه‌ها و مسیر</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">مکان من</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">نام</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">آدرس</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">لیست</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">تنظیمات</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">ذخیره نقشه‌ها در</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">نقشه‌ها</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">آیا نقشه‌ها جابه‌جا شود؟</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">ممکن است چند دقیقه طول بکشد.
+\nلطفا صبر کنید…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">واحد اندازه‌گیری</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">بین مایل و کیلومتر انتخاب کنید</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">کجا غذا بخوریم</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">عطاری</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">حمل و نقل</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">سوخت</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">پارکینگ</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">خرید کردن</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">دست دوم</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">هتل</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">منظره</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">سرگرمی</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">خود‌پرداز</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">تفریحات شبانه</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">تعطیلات خانوادگی</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">بانک</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">داروخانه</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">بیمارستان</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">توالت</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">صندوق پست</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">پلیس</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">وای فای</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">بازیافت</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">آب</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">RV برای</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">یادداشت‌ها</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">در حال بارگیری نشانه‌ها</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">نشانه‌ها با موفقیت بارگذاری شد!شما می توانید آنها را در نقشه یا بخش مدیریت نشانه‌ها بیابید</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">بارگذاری نشانه‌ها با شکست مواجه شد.ممکن است فایل آسیب دیده یا معیوب باشد</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">فایل باز نشد %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">ویرایش</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">مکان شما هنوز مشخص نشده است</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">متاسفانه,تنظیمات ذخیره سازی نقشه در حال حاظر غیر فعال است</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">دانلود نقشه اکنون در حال انجام است</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">اشتراک گذاری</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">ایمیل</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">کپی در کلیپ‌برد: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">انجام شد</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap: %s داده‌های</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">آیا مطمئن هستید که می خواهید از حساب OpenStreetMap خود خارج شوید؟</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">مسیر</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">طول</string>
+    <string name="share_my_location">به اشتراک گذاری موقعیت مکانی من</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">تنظیمات عمومی</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">اطلاعات</string>
+    <string name="prefs_group_route">مسیریابی</string>
+    <string name="pref_zoom_title">دکمه‌های بزرگنمایی</string>
+    <string name="pref_zoom_summary">نمایش بر روی نقشه</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">حالت شب</string>
+    <!-- Generic «Off» string -->
+    <string name="off">خاموش</string>
+    <!-- Generic «On» string -->
+    <string name="on">روشن</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">خودکار</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">نمای چشم انداز</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">ساختمان‌های سه بعدی</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">دستور العمل صوتی</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">نام خیابان ها را اعلام کنید</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">زبان صوت</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">تست مسیرهای صوتی (TTS، تبدیل متن به گفتار)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">اگر اکنون صدا را نمی شنوید، میزان صدا یا تنظیمات تبدیل متن به گفتار سیستم را بررسی کنید.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">موجود نیست</string>
+    <string name="pref_map_auto_zoom">بزرگنمایی خودکار</string>
+    <string name="placepage_distance">مسافت</string>
+    <string name="search_show_on_map">مشاهده بر روی نقشه</string>
+    <!-- Text in menu -->
+    <string name="website">وب سایت</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">اخبار</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">بازخورد</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">امتیاز به این اپلیکیشن</string>
+    <!-- Text in menu -->
+    <string name="help">کمک</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">پرسش‌های زیاد پرسیده شده</string>
+    <!-- Button in the main menu -->
+    <string name="donate">حمایت مالی</string>
+    <string name="already_donated">قبلاً اهدا شده</string>
+    <string name="remind_me_later">بعداً یادآوری کن</string>
+    <string name="support_organic_maps">پشتیبانی از Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">حق نشر و کپی رایت</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">گزارش خطا</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">برای کالیبره کردن قطب نما، جهت پیکان را با حرکت دادن تلفن در یک حرکت شکل هشت بهبود دهید.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">تلفن را به شکل هشت حرکت دهید تا قطب نما را کالیبره کنید و جهت پیکان را روی نقشه ثابت کنید.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">دوباره روی نقشه ضربه طولانی بزنید تا رابط کاربری را ببینید</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">آپدیت همه</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">لغو همه</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">دانلود شده</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">صف</string>
+    <string name="downloader_near_me_subtitle">نزدیک من</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">نقشه‌ها</string>
+    <string name="downloader_download_all_button">دانلود همه</string>
+    <string name="downloader_downloading">درحال دانلود:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">برای حذف نقشه لطفا مسیر‌یابی را متوقف کنید</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">تنها مسیر‌هایی می توانند ایجاد شوند که به طور کامل در یک نقشه از یک منطقه واحد قرار داشته باشند.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">دانلود نقشه</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">تلاش مجدد</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">حذف نقشه</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">بروزرسانی نقشه</string>
+    <!-- Preference title -->
+    <string name="google_play_services">خدمات مکان Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">به سرعت مکان تقریبی خود را با استفاده از بلوتوث، WiFi یا شبکه تلفن همراه تعیین کنید</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">لینک های هتل Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">عکسu200cها، نظرات، لینکu200cهای رزرو برای هتلu200cهایی که فهرستی در Kayak.com دارند نمایش داده میu200cشوند. پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوندها به سمت توسعه Organic Maps می رود.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">دانلود تمامی نقشه‌ها در طول مسیر‌تان</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">به منظور ایجاد مسیر ما نیاز داریم تا تمامی نقشه‌های شما از مبدا تا مقصد را بروزرسانی کنیم.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">فضای کافی موجود نیست</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">لطفا موقعیت مکانی(GPS)خود را فعال کنید.</string>
+    <string name="save">ذخیره</string>
+    <string name="create">ایجاد</string>
+    <!-- red color -->
+    <string name="red">قرمز</string>
+    <!-- yellow color -->
+    <string name="yellow">زرد</string>
+    <!-- blue color -->
+    <string name="blue">آبی</string>
+    <!-- green color -->
+    <string name="green">سبز</string>
+    <!-- purple color -->
+    <string name="purple">بنفش</string>
+    <!-- orange color -->
+    <string name="orange">نارنجی</string>
+    <!-- brown color -->
+    <string name="brown">قهوای</string>
+    <!-- pink color -->
+    <string name="pink">صورتی</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">ارغوانی سیر</string>
+    <!-- light blue color -->
+    <string name="light_blue">آبی کمرنگ</string>
+    <!-- cyan color -->
+    <string name="cyan">فیروزه‌ای</string>
+    <!-- teal color -->
+    <string name="teal">آبی سیر</string>
+    <!-- lime color -->
+    <string name="lime">زرد لیمویی</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">نارنجی سیر</string>
+    <!-- gray color -->
+    <string name="gray">خاکستری</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">خاکستری کبود</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">زمانی که مسیری را دنبال می کنید لطفا به یاد داشته باشید:</string>
+    <string name="dialog_routing_disclaimer_priority">—شرایط جاده قوانین راهنمایی و رانندگی و علائم جاده همیشه بر نکات مسیریابی اولویت دارند;</string>
+    <string name="dialog_routing_disclaimer_precision">—نقشه ممکن است اشتباه باشد و مسیر پیشنهادی همیشه بهترین مسیر برای رسید به مقصد شما نباشد;</string>
+    <string name="dialog_routing_disclaimer_recommendations">—مسیر پیشنهادی باید فقط به عنوان یک توصیه دانست</string>
+    <string name="dialog_routing_disclaimer_borders">—در مسیرهایی که از مناطق مرزی میگذرد احتیاط کنید:مسیر‌هایی که بوسیله اپلیکیشن ما ایجاد می شود گاهی اوقات ممکن است مرز‌های کشور‌ها را رد کند که این در بعضی مناطق غیر مجاز است.</string>
+    <string name="dialog_routing_disclaimer_beware">لطفا هوشیار و ایمن در جاده بمانید!</string>
+    <string name="dialog_routing_check_gps">سیگنال GPS را چک کنید</string>
+    <string name="dialog_routing_error_location_not_found">ناتوان از ایجاد مسیر.موقعیت مکانی شما شناسایی نشد</string>
+    <string name="dialog_routing_location_turn_wifi">لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت‌یابی فعال کنید.</string>
+    <string name="dialog_routing_location_turn_on">فعال کردن سرویس موقعیت مکانی (GPS)</string>
+    <string name="dialog_routing_location_unknown_turn_on">ناتوان از مشخص کردن موقعیت مکانی شما.لطفا سرویس موقعیت مکانی خود را فعال کنید.</string>
+    <string name="dialog_routing_unable_locate_route">ناتوان در تعیین مسیر</string>
+    <string name="dialog_routing_cant_build_route">ناتوان در ایجاد مسیر</string>
+    <string name="dialog_routing_change_start_or_end">لطفا مبدا یا مقصد خود را تنظیم کنید.</string>
+    <string name="dialog_routing_change_start">مبدا خود را تنظیم کنید</string>
+    <string name="dialog_routing_start_not_determined">مسیر ایجاد نشد.ناتوان در تعیین نقطه شروع</string>
+    <string name="dialog_routing_select_closer_start">لطفا نقطه شروع را نزدیک‌تر به جاده انتخاب کنید.</string>
+    <string name="dialog_routing_change_end">تنظیم مقصد</string>
+    <string name="dialog_routing_end_not_determined">مسیر ایجاد نشد.ناتوان در تعیین مقصد.</string>
+    <string name="dialog_routing_select_closer_end">لطفا مقصد تعیین شده را نزدیک‌تر به جاده انتخاب نمایید.</string>
+    <string name="dialog_routing_change_intermediate">ناتوان در تعیین نقطه میانی.</string>
+    <string name="dialog_routing_intermediate_not_determined">لطفا نقطه میانی را تنظیم کنید.</string>
+    <string name="dialog_routing_system_error">خطای سیستم</string>
+    <string name="dialog_routing_application_error">ناتوان در ایجاد مسیر به علت خطای برنامه.</string>
+    <string name="dialog_routing_try_again">لطفا دوباره تلاش کنید</string>
+    <string name="not_now">اکنون خیر</string>
+    <string name="dialog_routing_download_and_build_cross_route">ایا مایل به دانلود نقشه و ایجاد مسیر‌های بهینه بیشتری که نقشه‌های بیشتری را پوشش میدهد هستید؟</string>
+    <string name="dialog_routing_download_cross_route">دانلود نقشه‌های اضافی برای ایجاد مسیری بهتر که حاشیه‌های این نقشه را رد می کند.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.</string>
+    <string name="search_select_map">انتخاب نقشه</string>
+    <!-- «Show» context menu -->
+    <string name="show">نمایش</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">مخفی کردن</string>
+    <string name="categories">دسته‌بندی‌ها</string>
+    <string name="history">تاریخچه</string>
+    <string name="search_not_found">متاسفانه چیزی پیدا نشد</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.</string>
+    <string name="search_history_title">سوابق جستجو</string>
+    <string name="search_history_text">مشاهده جستجو‌های اخیر</string>
+    <string name="clear_search">پاک کردن سابقه جستجوها</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">ویکی پدیا</string>
+    <string name="p2p_your_location">موقعیت شما</string>
+    <string name="p2p_start">شروع</string>
+    <string name="p2p_from_here">مسیر از</string>
+    <string name="p2p_to_here">مسیر به</string>
+    <string name="p2p_only_from_current">مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.</string>
+    <string name="p2p_reroute_from_current">آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">بعدی</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">از ساعت</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">الی</string>
+    <string name="editor_time_add">اضافه کردن برنامه ریزی</string>
+    <string name="editor_time_delete">حذف کردن برنامه ریزی</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">شبانه روزی (24 ساعته)</string>
+    <string name="editor_time_open">باز</string>
+    <string name="editor_time_close">بسته</string>
+    <string name="editor_time_add_closed">اضافه کردن ساعات غیر کاری</string>
+    <string name="editor_time_title">ساعات کاری</string>
+    <string name="editor_time_advanced">حالت پیشرفته</string>
+    <string name="editor_time_simple">حالت ساده</string>
+    <string name="editor_hours_closed">ساعات غیر کاری</string>
+    <string name="editor_example_values">مقادیر پیش فرض</string>
+    <string name="editor_correct_mistake">تصحیح خطا</string>
+    <string name="editor_add_select_location">مکان را انتخاب کنید</string>
+    <string name="editor_report_problem_desription_1">لطفا مشکلتان را با جزئیات توضیح دهید بطوری که انجمن OSM بتوانند آن را برطرف کنند.</string>
+    <string name="editor_report_problem_desription_2">یا خودتان آن را انجام دهید در وبسایت https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">ارسال</string>
+    <string name="editor_report_problem_title">مشکل</string>
+    <string name="editor_report_problem_no_place_title">مکان وجود ندارد</string>
+    <string name="editor_report_problem_under_construction_title">به علت تعمیرات بسته است</string>
+    <string name="editor_report_problem_duplicate_place_title">مکان تکراری</string>
+    <string name="autodownload">دانلود خودکار</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">روزانه</string>
+    <string name="twentyfour_seven">شبانه روزی</string>
+    <string name="day_off_today">امروز تعطیل است</string>
+    <string name="day_off">تعطیل است</string>
+    <string name="today">امروز</string>
+    <string name="closed">تعطیل</string>
+    <string name="edit_opening_hours">ویرایش ساعت کاری</string>
+    <string name="no_osm_account">آیا حساب OpenStreetMap ندارید؟</string>
+    <string name="register_at_openstreetmap">ثبت نام در OpenStreetMap</string>
+    <string name="login">ورود</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">وارد نشده‌اید</string>
+    <string name="login_osm">شوید OpenStreetMap وارد</string>
+    <string name="password">رمز عبور</string>
+    <string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
+    <string name="logout">خروج از حساب</string>
+    <string name="edit_place">ویرایش مکان</string>
+    <string name="add_language">افزودن یک زبان</string>
+    <string name="street">خیابان</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">شماره ساختمان</string>
+    <string name="details">جزئیات</string>
+    <string name="social_media">رسانه های اجتماعی</string>
+    <string name="building">ساختمان</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">اضافه کردن خیابان</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">نام خیابان را وارد کنید</string>
+    <string name="choose_language">انتخاب یک زبان</string>
+    <string name="choose_street">انتخاب یک خیابان</string>
+    <string name="postal_code">کد پستی</string>
+    <string name="cuisine">غذا‌خوری</string>
+    <string name="select_cuisine">انتخاب غذاخوری</string>
+    <!-- login text field -->
+    <string name="email_or_username">ایمیل یا نام کاربری</string>
+    <string name="level">طبقه</string>
+    <string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>
+    <string name="downloader_update_maps">بروزرسانی نقشه‌ها</string>
+    <string name="downloader_mwm_migration_dialog">برای ایجاد مسیر شما نیازمند بروزرسانی تمامی نقشه‌ها هستید سپس می توانید دوباره مسیرتان را برنامه ریزی کنید</string>
+    <string name="downloader_search_field_hint">یافتن نقشه</string>
+    <string name="common_check_internet_connection_dialog">لطفا تنظیمات خود را بازبینی کنید و مطمئن شوید که ابزار شما به اینترنت متصل است.</string>
+    <string name="downloader_no_space_title">فظای کافی موجود نیست</string>
+    <string name="downloader_no_space_message">لطفا داده‌های غیر ضروری را از دستگاه خود حذف کنید</string>
+    <string name="editor_login_error_dialog">خطای ورود</string>
+    <string name="editor_profile_changes">تغییرات تایید شد</string>
+    <string name="editor_focus_map_on_location">نقشه را بکشید تا صلیب را در محل مکان یا کسب و کار قرار دهید.</string>
+    <string name="editor_edit_place_title">درحال ویرایش</string>
+    <string name="editor_add_place_title">درحال افزودن</string>
+    <string name="editor_edit_place_name_hint">نام مکان</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">همانطور که به زبان محلی نوشته شده است</string>
+    <string name="editor_edit_place_category_title">دسته بندی</string>
+    <string name="detailed_problem_description">توضیح مفصل در مورد مشکل</string>
+    <string name="editor_report_problem_other_title">مشکلی دیگر</string>
+    <string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
+    <string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">داده های OpenStreetMap ایجاد شده توسط انجمن از %s. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) یک پروژه اجتماعی برای ساخت یک نقشه رایگان و باز است. این منبع اصلی داده های نقشه در نقشه های ارگانیک است و مشابه ویکی پدیا کار می کند. میu200cتوانید مکانu200cها را اضافه یا ویرایش کنید تا در دسترس میلیونu200cها کاربر در سراسر جهان قرار گیرند.
+\nبه انجمن بپیوندید و به ایجاد نقشه بهتر برای همه کمک کنید!</string>
+    <string name="login_to_make_edits_visible">یک حساب OpenStreetMap ایجاد کنید یا وارد شوید تا ویرایش های نقشه خود را در جهان منتشر کنید.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d از %2$d</string>
+    <string name="download_over_mobile_header">دانلود بر روی یک شبکه دیتای موبایل؟</string>
+    <string name="download_over_mobile_message">این کار می تواند برای شما در بعضی طرح‌ها و یا حالت رومینگ هزینه اضافی در بر داشته باشد.</string>
+    <string name="error_enter_correct_house_number">وارد کردن شماره ساختمان معتبر</string>
+    <string name="editor_storey_number">تعداد طبقات ( حداکثر %d )</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">تعداد طبقات نباید بیش از %d باشد</string>
+    <string name="editor_zip_code">کدپستی</string>
+    <string name="error_enter_correct_zip_code">یک کد‌ پستی معتبر وارد کنید</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">نقطه نقشه</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">توجه به داوطلبان OpenStreetMap (اختیاری)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">خطاهای موجود در نقشه یا مواردی که با استفاده از نقشه های ارگانیک قابل ویرایش نیستند را شرح دهید</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">ویرایش های شما در پایگاه داده عمومی <a href="https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap">OpenStreetMap</a> آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
+    <string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
+    <string name="editor_osm_history">سابقه ویرایش شما</string>
+    <string name="editor_osm_notes">یادداشت های داده های نقشه شما</string>
+    <string name="editor_operator">اپراتور</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">اپراتور: %s</string>
+    <string name="editor_category_unsuitable_title">آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟</string>
+    <string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
+    <string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>
+    <string name="downloader_no_downloaded_maps_message">برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.</string>
+    <string name="current_location_unknown_error_title">مکان فعلیتان ناشناس است.</string>
+    <!-- abbreviation for meters -->
+    <string name="m">متر</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">کیلومتر</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">مایل</string>
+    <!-- A unit of measure -->
+    <string name="ft">فوت</string>
+    <string name="miles_per_hour">مایل بر ساعت (mph)</string>
+    <string name="hour">ساعت</string>
+    <string name="minute">دقیقه</string>
+    <string name="day">روز</string>
+    <string name="placepage_more_button">بیشتر</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">عکس ها، نظرات، رزرو</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">جزئیات در Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Kayak را غیرفعال کنید</string>
+    <string name="placepage_edit_bookmark_button">ویرایش نشانه‌ها</string>
+    <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>
+    <string name="editor_comment_hint">اظهار نظر</string>
+    <string name="editor_reset_edits_message">آیا تغییرات محلی را نادیده می گیرید؟</string>
+    <string name="editor_reset_edits_button">نادیده گرفتن</string>
+    <string name="editor_remove_place_message">آیا مکان ثبت شده حذف شود؟</string>
+    <string name="editor_remove_place_button">حذف</string>
+    <string name="editor_place_doesnt_exist">مکان وجود ندارد</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">شماره تلفن معتبری وارد نمایید</string>
+    <string name="error_enter_correct_web">ادرس وب معتبری وارد نمایید</string>
+    <string name="error_enter_correct_email">ایمیل معتبری وارد نمایید</string>
+    <string name="placepage_add_place_button">مکان را به OpenStreetMap اضافه کنید</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.</string>
+    <string name="editor_share_to_all_dialog_message_2">ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.</string>
+    <string name="navigation_stop_button">توقف</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">ضبط مسیر</string>
+    <!-- For the first routing -->
+    <string name="accept">موافقم</string>
+    <!-- For the first routing -->
+    <string name="decline">کاهش</string>
+    <string name="mobile_data_dialog">از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟</string>
+    <string name="mobile_data_option_always">همیشه استفاده کن</string>
+    <string name="mobile_data_option_today">فقط امروز</string>
+    <string name="mobile_data_option_not_today">امروز نه</string>
+    <string name="mobile_data">دیتای موبایل</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">برای نمایش جزئیات مکان مانند تصاویر قیمت‌ها و بازخورد‌ها به اینترنت همراه نیاز است</string>
+    <string name="mobile_data_option_never">هرگز</string>
+    <string name="mobile_data_option_ask">همیشه بپرس</string>
+    <string name="traffic_update_maps_text">برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.</string>
+    <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
+    <string name="traffic_update_app">لطفا Organic Maps را بروزرسانی کنید</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
+    <string name="enable_logging">ورود به سیستم را فعال کنید</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>
+    <string name="prefs_languages_information">ما از TTS سیستم برای دستورالعمل‌های صوتی استفاده می کنیم. بسیاری از دستگاه‌های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">برای بعضی از زبان‌ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Galaxy Store) نصب کنید. 
+\n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته‌های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
+    <string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
+    <string name="transliteration_title">ترجمه به لاتین</string>
+    <string name="learn_more">بیشتر بدانید</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">خروج</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">برای افزودن نقطه شروع مسیر، از جستجو استفاده کنید یا روی نقشه ضربه بزنید</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">برای افزودن نقطه مقصد، از جستجو استفاده کنید یا روی نقشه ضربه بزنید</string>
+    <string name="planning_route_manage_route">مدیریت مسیر</string>
+    <string name="button_plan">برنامه</string>
+    <string name="placepage_remove_stop">توقف را حذف کنید</string>
+    <string name="placepage_add_stop">اضافه کردن توقف</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
+    <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
+    <string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
+    <string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
+    <string name="core_entrance">ورودی</string>
+    <string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
+    <string name="bookmark_lists">لیست‌ها</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">پنهان کردن همه</string>
+    <string name="bookmark_lists_show_all">نمایش همه</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d نشانه</item>
+        <item quantity="other">%d نشانه‌ها</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">ایجاد لیست جدید</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">وارد کردن نشانکu200cها و آهنگu200cها</string>
+    <string name="bookmarks_error_message_share_general">با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد</string>
+    <string name="bookmarks_error_title_share_empty">خطای اشتراک</string>
+    <string name="bookmarks_error_message_share_empty">یک لیست خالی را نمی توان به اشتراک گذاشت</string>
+    <string name="bookmarks_error_title_empty_list_name">نام نمی‌تواند خالی باشد</string>
+    <string name="bookmarks_error_message_empty_list_name">لطفا نام لیست را وارد کنید</string>
+    <string name="bookmarks_new_list_hint">لیست جدید</string>
+    <string name="bookmarks_error_title_list_name_already_taken">این اسم قبلا انتخاب شده است</string>
+    <string name="bookmarks_error_message_list_name_already_taken">لطفا نام دیگری را انتخاب کنید</string>
+    <string name="please_wait">لطفا صبر کنید…</string>
+    <string name="phone_number">شماره تلفن</string>
+    <string name="profile">OpenStreetMap نمایه</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d فایل پیدا شد. بعد از تبدیل آن را خواهید دید.</item>
+        <item quantity="other">%d فایل پیدا شد. بعد از تبدیل آنها را خواهید دید.</item>
+    </plurals>
+    <string name="restore">بازیابی</string>
+    <plurals name="tracks">
+        <item quantity="one">%d رد</item>
+        <item quantity="other">%d رد</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">حریم شخصی</string>
+    <string name="privacy_policy">سیاست حریم خصوصی</string>
+    <string name="terms_of_use">شرایط استفاده</string>
+    <string name="button_layer_traffic">ترافیک</string>
+    <string name="button_layer_subway">مترو</string>
+    <string name="layers_title">سبک ها و لایه های نقشه</string>
+    <string name="subway_data_unavailable">نقشه مترو موجود نیست</string>
+    <string name="bookmarks_empty_list_title">این لیست خالی است</string>
+    <string name="bookmarks_empty_list_message">برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید</string>
+    <string name="category_desc_more">بیشتر…</string>
+    <string name="export_file">صادرات KMZ</string>
+    <string name="export_file_gpx">صادرات GPX</string>
+    <string name="delete_list">حذف لیست</string>
+    <string name="public_access">دسترسی عمومی</string>
+    <string name="limited_access">دسترسی محدود</string>
+    <string name="not_shared">خصوصی</string>
+    <string name="speedcams_alert_title">دوربین‌های سرعت</string>
+    <string name="place_description_title">توضیحات محل</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">دانلود کننده نقشه</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">هشدار در مورد سرعت غیر مجاز</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">همیشه هشدار دهد</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">هرگز هشدار ندهد</string>
+    <string name="power_managment_title">حالت ذخیره انرژی</string>
+    <string name="power_managment_description">هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند</string>
+    <string name="power_managment_setting_never">هرگز</string>
+    <string name="power_managment_setting_auto">خودکار</string>
+    <string name="power_managment_setting_manual_max">حداکثر ذخیره انرژی</string>
+    <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
+    <string name="access_rules_author_only">ویرایش آنلاین</string>
+    <string name="driving_options_title">گزینه‌های رانندگی</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">اجتناب از جاده‌های آسفالت نشده</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
+    <string name="avoid_motorways">از بزرگراه دوری کنید</string>
+    <string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
+    <string name="unable_to_calc_alert_subtitle">متأسفانه، احتمالاً به دلیل گزینه‌های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید</string>
+    <string name="define_to_avoid_btn">جاده‌های لغو شده را تعریف نمایید</string>
+    <string name="change_driving_options_btn">گزینه‌های مسیریابی فعال شد</string>
+    <string name="toll_road">جاده دارای عوارض</string>
+    <string name="unpaved_road">جاده آسفالت نشده</string>
+    <string name="ferry_crossing">گذرگاه جاده‌ای</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">بله</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">خیر</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">بلی</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">خیر</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">ظرفیت: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">شبکه: %s</string>
+    <string name="trip_finished">شما به مقصد رسیدید!</string>
+    <string name="ok">موافقت کردن</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">مرتب سازی…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">مرتب سازی نشانه‌ها</string>
+    <!-- Android -->
+    <string name="by_default">به صورت پیش فرض</string>
+    <!-- Android -->
+    <string name="by_type">بر اساس تاریخ</string>
+    <!-- Android -->
+    <string name="by_distance">بر اساس فاصله</string>
+    <!-- Android -->
+    <string name="by_date">بر اساس تاریخ</string>
+    <!-- Android -->
+    <string name="by_name">بر اساس اسم</string>
+    <string name="week_ago_sorttype">یک هفته قبل</string>
+    <string name="month_ago_sorttype">یک ماه قبل</string>
+    <string name="moremonth_ago_sorttype">بیش از یک ماه قبل</string>
+    <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
+    <string name="near_me_sorttype">نزدیک من</string>
+    <string name="others_sorttype">دیگران</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">غذا</string>
+    <string name="tourist_places">مناظر</string>
+    <string name="museums">موزه‌ها</string>
+    <string name="parks">پارکها</string>
+    <string name="swim_places">شنا</string>
+    <string name="mountains">کوهها</string>
+    <string name="animals">حیوانات</string>
+    <string name="hotels">هتلها</string>
+    <string name="buildings">ساختمانها</string>
+    <string name="money">پول</string>
+    <string name="shops">مراکز خرید</string>
+    <string name="parkings">پارکینگها</string>
+    <string name="fuel_places">پمپ بنزین</string>
+    <string name="medicine">پزشکی</string>
+    <string name="search_in_the_list">جستجو در لیست</string>
+    <string name="religious_places">اماکن مقدس</string>
+    <string name="select_list">انتخاب فهرست</string>
+    <string name="transit_not_found">راهنمای مترو در این منطقه هنوز دردسترس نیست</string>
+    <string name="dialog_pedestrian_route_is_long_header">مسیر مترو یافت نشد</string>
+    <string name="dialog_pedestrian_route_is_long_message">لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید</string>
+    <string name="button_layer_isolines">ایزومپ</string>
+    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
+    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="elevation_profile_ascent">بالا رفتن</string>
+    <string name="elevation_profile_descent">پایین آمدن</string>
+    <string name="elevation_profile_min_elevation">کم ارتفاع</string>
+    <string name="elevation_profile_max_elevation">بیش ارتفاع</string>
+    <string name="elevation_profile_difficulty">دشواری</string>
+    <string name="elevation_profile_distance">مسافت</string>
+    <string name="elevation_profile_time">زمان:</string>
+    <string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
+    <string name="downloader_loading_ios">در حال دانلود</string>
+    <string name="enable_keep_screen_on">صفحه نمایش را روشن بگذارید</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">وقتی فعال باشد، هنگام نمایش نقشه، صفحه همیشه روشن خواهد بود.</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">OpenStreetMap داده‌های نقشه از</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsIR</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">از شما برای استفاده از نقشه های ساخته شده توسط جامعه سپاسگزاریم!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">با کمک های مالی و حمایت شما، ما می توانیم بهترین نقشه های جهان را ایجاد کنیم!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">آیا برنامه ما را دوست دارید؟ لطفا برای حمایت از توسعه کمک مالی کنید! هنوز آن را دوست ندارید؟ لطفا به ما اطلاع دهید، و ما آن را تعمیر خواهیم کرد!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">اگر یک توسعه‌دهنده نرم‌افزار را می‌شناسید، می‌توانید از او بخواهید ویژگی مورد نیاز خود را پیاده‌سازی کند.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">برای انتخاب هر چیزی روی هر نقطه از نقشه ضربه بزنید. برای مخفی کردن و نشان دادن رابط، ضربه طولانی بزنید.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">آیا می دانید که می توانید مکان فعلی خود را روی نقشه انتخاب کنید؟</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">شما می توانید به ترجمه برنامه ما به زبان خود کمک کنید.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">برنامه ما توسط تعدادی از علاقه مندان و جامعه توسعه یافته است.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">شما به راحتی می توانید داده های نقشه را اصلاح و بهبود دهید.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">هدف اصلی ما ساختن نقشه هایی سریع، متمرکز بر حریم خصوصی و با کاربری آسان است که شما عاشق آن خواهید شد.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">شما به Android Auto متصل هستید</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">با تلفن ادامه دهید</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">به صفحه ماشین</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps به دسترسی به مکان نیاز دارد. وقتی ایمن است، اعلان گوشی خود را بررسی کنید.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">این برنامه به اجازه شما نیاز دارد</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">نقشهu200cهای ارگانیک در Android Auto برای کارکرد مؤثر به مجوز مکان نیاز دارد</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">اعطای مجوزها</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">پیاده روی</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">مرورگر وب در دسترس نیست</string>
+    <string name="volume">میزان صدا</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">صادر کردن همه نشان‌ها و مسیرها</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">تنظیمات سنتز گفتار سیستم</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">تنظیمات Speech Synthesis پیدا نشد، آیا مطمئن هستید که دستگاه شما از آن پشتیبانی می کند؟</string>
+    <string name="drive_through">رانندگی از طریق</string>
+    <string name="clear_the_search">جستجو را پاک کنید</string>
+    <string name="zoom_in">بزرگنمایی</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">کوچک نمایی</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">لینک منو</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">مشاهده منو</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">در یک برنامه دیگر باز کنید</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">سلف سرویس</string>
+    <string name="select_option">گزینه را انتخاب کنید</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">نشستن در فضای باز</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">برای دقیقu200cترین ناوبری، توصیه میu200cکنیم حالت صرفهu200cجویی در مصرف انرژی را در تنظیمات باتری گوشی غیرفعال کنید.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">ضبط مسیر</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">توقف ضبط مسیر</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">توقف بدون ذخیره</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">ادامه ضبط</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">ذخیره‌سازی در نشانه‌ها و مسیر؟</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">امکان نمایش گفتگوی انتخاب پوشه وجود ندارد زیرا برنامه مناسبی روی دستگاه شما نصب نشده است. لطفاً یک برنامه مدیریت فایل نصب کنید و دوباره امتحان کنید</string>
+    <string name="choose_color">انتخاب رنگ</string>
+    <string name="edit_track">ویرایش مسیر</string>
+    <string name="uri_open_location_failed">هیچ برنامه ای نصب نشده است که بتواند مکان را باز کند</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">خودکار در ناوبری</string>
+</resources>

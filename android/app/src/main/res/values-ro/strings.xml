@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Înapoi</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Anulare</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Șterge</string>
+    <string name="download_maps">Descarcă hărți</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Descărcarea a eșuat. Atinge pentru a încerca din nou.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Se descarcă…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometri</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Mile</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Poziția mea</string>
+    <!-- Update maps later button text -->
+    <string name="later">Mai târziu</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Caută</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Caută pe hartă</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">În prezent, toate serviciile de localizare pentru acest dispozitiv sau aplicație sunt dezactivate. Le poți activa din setări.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Acuratețe limitată</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Pentru a asigura o navigare precisă, activați Localizare precisă în setări.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Arată pe hartă</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Descărcarea a eșuat</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Mai încearcă</string>
+    <string name="about_menu_title">Despre Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Gratuit pentru toată lumea, făcut cu dragoste</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Fără reclame, fără urmărire, fără colectare de date</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Nu consumă baterie, funcționează offline</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Rapid, minimalist, dezvoltat de comunitate</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Setări de locație</string>
+    <string name="close">Închide</string>
+    <string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
+    <string name="download">Descarcă</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
+    <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.
+\nSe vor descărca %s.</string>
+    <string name="download_resources_continue">Mergi la hartă</string>
+    <string name="downloading_country_can_proceed">Se descarcă %s. Acum poți
+\ntrece la hartă.</string>
+    <string name="download_country_ask">Descarci %s?</string>
+    <string name="update_country_ask">Actualizezi %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pauză</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Continuă</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">Descărcarea %s a eșuat</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Adaugă o listă nouă</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Denumirea listei</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Locuri preferate</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Locuri preferate și trasee</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Locurile mele</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Denumire</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Adresă</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Listă</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Setări</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Salvează hărțile în</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Hărți</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Muți hărțile?</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Poate dura câteva minute.
+\nAșteaptă…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Unități de măsură</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Alege între mile și kilometri</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Unde să mănânci</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Alimentare</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Transport</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Benzinărie</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parcare</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Shopping</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">La mâna a doua</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotel</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Obiective turistice</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Divertisment</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Bancomat</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Viață nocturnă</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Divertisment cu copiii</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Bancă</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Farmacie</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Spital</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Toaletă</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Poștă</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Poliția</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">Wi-Fi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Reciclare</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Apă</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Pentru rulote</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Detalii</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din Organic Maps</string>
+    <string name="share_bookmarks_email_body">Bună!
+\n
+\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Se încarcă locurile preferate</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Încărcarea locurilor preferate a eșuat. Fișierul poate fi defect.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Modifică</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Poziția ta nu a fost stabilită încă</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Opțiunile pentru stocarea hărților sunt dezactivate în acest moment.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Harta este în curs de descărcare.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Poți vedea poziția mea pe harta Organic Maps! %1$s sau %2$s Nu ai descărcat aplicația? O poți descărca de aici: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Poți vedea locul meu preferat pe harta Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Bună,
+\n
+\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.
+\n
+\nMulțumesc.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Trimite</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">E-mail</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Copiat în notițe: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Gata</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Date OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Sigur doriți să vă deconectați din contul OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Trasee</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Lungime</string>
+    <string name="share_my_location">Trimite poziția mea</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Opțiuni generale</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Informații</string>
+    <string name="prefs_group_route">Navigare</string>
+    <string name="pref_zoom_title">Butoane zoom</string>
+    <string name="pref_zoom_summary">Arată pe hartă</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Mod nocturn</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Oprit</string>
+    <!-- Generic «On» string -->
+    <string name="on">Pornit</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automat</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Vedere în perspectivă</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">Clădiri 3D</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">Clădirile 3D sunt oprite în modul de economisire a energiei</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Instrucțiuni vocale</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Anunțați numele străzilor</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Limba ghidului vocal</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Testarea indicațiilor vocale (TTS, Text-To-Speech)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Dacă nu auziți vocea acum, verificați volumul sau setările sistemului text-to-speech.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Nu există</string>
+    <string name="pref_map_auto_zoom">Zoom automat</string>
+    <string name="placepage_distance">Distanță</string>
+    <string name="search_show_on_map">Vezi pe hartă</string>
+    <!-- Text in menu -->
+    <string name="website">Site web</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Știri</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Părere</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Evaluează aplicația</string>
+    <!-- Text in menu -->
+    <string name="help">Ajutor</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Întrebări frecvente</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Donează</string>
+    <string name="already_donated">Deja donat</string>
+    <string name="remind_me_later">Amintește mai târziu</string>
+    <string name="support_organic_maps">Susține Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Susține proiectul</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Drepturi de autor</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">Raportează o eroare</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Îmbunătățiți direcția săgeții prin mișcarea telefonului într-o mișcare în opt pentru a calibra busola.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Mișcați telefonul într-o mișcare în formă de opt pentru a calibra busola și a fixa direcția săgeții pe hartă.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Atingeți lung pe hartă din nou pentru a vedea interfața</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Actualizează tot</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Anulează tot</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Descărcate</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">În așteptare</string>
+    <string name="downloader_near_me_subtitle">Lângă mine</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Hărți</string>
+    <string name="downloader_download_all_button">Descarcă tot</string>
+    <string name="downloader_downloading">Se descarcă:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Pentru a șterge harta, oprește navigarea.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Pot fi create numai trasee cuprinse de harta unei singure regiuni.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Descarcă harta</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Mai încearcă</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Șterge harta</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Actualizează harta</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Servicii de localizare Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Determinați rapid locația dvs. aproximativă prin Bluetooth, WiFi sau rețea mobilă</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com Linkuri către hoteluri</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Fotografiile, recenziile, linkurile de rezervare sunt afișate pentru hotelurile care au o listă pe Kayak.com. Bonusul de recomandare primit pentru fiecare rezervare prin intermediul acestor linkuri este destinat dezvoltării Organic Maps.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Spațiu insuficient</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Activează serviciile de localizare</string>
+    <string name="save">Salvează</string>
+    <string name="create">creează</string>
+    <!-- red color -->
+    <string name="red">Roșu</string>
+    <!-- yellow color -->
+    <string name="yellow">Galben</string>
+    <!-- blue color -->
+    <string name="blue">Albastru</string>
+    <!-- green color -->
+    <string name="green">Verde</string>
+    <!-- purple color -->
+    <string name="purple">Violet</string>
+    <!-- orange color -->
+    <string name="orange">Portocaliu</string>
+    <!-- brown color -->
+    <string name="brown">Maro</string>
+    <!-- pink color -->
+    <string name="pink">Roz</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Violet închis</string>
+    <!-- light blue color -->
+    <string name="light_blue">Albastru deschis</string>
+    <!-- cyan color -->
+    <string name="cyan">Turcoaz</string>
+    <!-- teal color -->
+    <string name="teal">Smarald</string>
+    <!-- lime color -->
+    <string name="lime">Verde aprins</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Portocaliu închis</string>
+    <!-- gray color -->
+    <string name="gray">Gri</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Gri albăstriu</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Când parcurgi traseul, ai în vedere următoarele:</string>
+    <string name="dialog_routing_disclaimer_priority">— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;</string>
+    <string name="dialog_routing_disclaimer_precision">— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Traseele sugerate sunt doar niște recomandări;</string>
+    <string name="dialog_routing_disclaimer_borders">— Ai grijă în zonele de graniță: traseele create de aplicația noastră pot trece granița prin locuri nepermise;</string>
+    <string name="dialog_routing_disclaimer_beware">Fii vigilent și condu în siguranță!</string>
+    <string name="dialog_routing_check_gps">Verifică semnalul GPS</string>
+    <string name="dialog_routing_error_location_not_found">Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.</string>
+    <string name="dialog_routing_location_turn_wifi">Verifică semnalul GPS. Pentru a îmbunătăți precizia localizării, activează Wi-Fi.</string>
+    <string name="dialog_routing_location_turn_on">Activează serviciile de localizare</string>
+    <string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.</string>
+    <string name="dialog_routing_unable_locate_route">Localizarea traseului a eșuat</string>
+    <string name="dialog_routing_cant_build_route">Crearea traseului a eșuat.</string>
+    <string name="dialog_routing_change_start_or_end">Modifică punctul de pornire sau destinația.</string>
+    <string name="dialog_routing_change_start">Modifică punctul de pornire</string>
+    <string name="dialog_routing_start_not_determined">Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.</string>
+    <string name="dialog_routing_select_closer_start">Alege un punct de pornire mai aproape de un drum.</string>
+    <string name="dialog_routing_change_end">Schimbă destinația</string>
+    <string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinației a eșuat.</string>
+    <string name="dialog_routing_select_closer_end">Alege un punct de destinație mai aproape de un drum.</string>
+    <string name="dialog_routing_change_intermediate">Punctul intermediar nu poate fi localizat.</string>
+    <string name="dialog_routing_intermediate_not_determined">Schimbă punctul intermediar.</string>
+    <string name="dialog_routing_system_error">Eroare de sistem</string>
+    <string name="dialog_routing_application_error">Crearea traseului a eșuat din cauza unei erori a aplicației.</string>
+    <string name="dialog_routing_try_again">Încearcă din nou</string>
+    <string name="not_now">Nu acum</string>
+    <string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
+    <string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor trasee, descarcă harta. După aceasta nu vei mai avea nevoie de conexiune la internet.</string>
+    <string name="search_select_map">Alege harta</string>
+    <!-- «Show» context menu -->
+    <string name="show">Arată</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Ascunde</string>
+    <string name="categories">Categorii</string>
+    <string name="history">Cronologie</string>
+    <string name="search_not_found">Nu s-a găsit nimic.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Descărcați regiunea în care căutați sau încercați să adăugați numele unei localități din apropiere.</string>
+    <string name="search_history_title">Istoricul căutărilor</string>
+    <string name="search_history_text">Arată căutările recente.</string>
+    <string name="clear_search">Șterge istoricul căutărilor</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="p2p_your_location">Poziția ta</string>
+    <string name="p2p_start">Pornește</string>
+    <string name="p2p_from_here">De la</string>
+    <string name="p2p_to_here">La</string>
+    <string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.</string>
+    <string name="p2p_reroute_from_current">Vrei să planifici un traseu din poziția ta actuală?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Următorul</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">De la</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">La</string>
+    <string name="editor_time_add">Adaugă planificare</string>
+    <string name="editor_time_delete">Elimină planificarea</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Toată ziua (24 ore)</string>
+    <string name="editor_time_open">Deschis</string>
+    <string name="editor_time_close">Închis</string>
+    <string name="editor_time_add_closed">Adaugă ore de închidere</string>
+    <string name="editor_time_title">Ore de deschidere</string>
+    <string name="editor_time_advanced">Mod Avansat</string>
+    <string name="editor_time_simple">Mod simplu</string>
+    <string name="editor_hours_closed">Ore de închidere</string>
+    <string name="editor_example_values">Exemple</string>
+    <string name="editor_correct_mistake">Corectare greșeală</string>
+    <string name="editor_add_select_location">Selectați locația</string>
+    <string name="editor_report_problem_desription_1">Descrie problema în detaliu, astfel încât comunitatea OpenStreetMap să poată remedia eroarea.</string>
+    <string name="editor_report_problem_desription_2">Sau corecteaz-o tu pe https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Trimite</string>
+    <string name="editor_report_problem_title">Problemă</string>
+    <string name="editor_report_problem_no_place_title">Acest loc nu există</string>
+    <string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
+    <string name="editor_report_problem_duplicate_place_title">Loc duplicat</string>
+    <string name="autodownload">Descărcare automată</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Zilnic</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="day_off_today">Închis astăzi</string>
+    <string name="day_off">Închis</string>
+    <string name="today">Azi</string>
+    <string name="opens_in">Deschide în %s</string>
+    <string name="closes_in">Închide în %s</string>
+    <string name="closed">Închis</string>
+    <string name="edit_opening_hours">Modifică orele de funcționare</string>
+    <string name="no_osm_account">Nu ai un cont OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Înscrie-te</string>
+    <string name="login">Autentificare</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Neautentificat</string>
+    <string name="login_osm">Conectați-vă la OpenStreetMap</string>
+    <string name="password">Parola</string>
+    <string name="forgot_password">Ai uitat parola?</string>
+    <string name="logout">Deconectare</string>
+    <string name="edit_place">Modifică locul</string>
+    <string name="add_language">Adaugă o limbă</string>
+    <string name="street">Stradă</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Număr</string>
+    <string name="details">Detalii</string>
+    <string name="social_media">Social Media</string>
+    <string name="building">Clădire</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Adaugă o stradă</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Introdu numele străzii</string>
+    <string name="choose_language">Alege o limbă</string>
+    <string name="choose_street">Alege o stradă</string>
+    <string name="postal_code">Cod poștal</string>
+    <string name="cuisine">Bucătărie</string>
+    <string name="select_cuisine">Alege bucătăria</string>
+    <!-- login text field -->
+    <string name="email_or_username">E-mail sau nume de utilizator</string>
+    <string name="editor_add_phone">Adaugă un număr</string>
+    <string name="level">Etaj</string>
+    <string name="downloader_delete_map_dialog">Toate modificările aduse hărții vor fi șterse împreună cu harta.</string>
+    <string name="downloader_update_maps">Actualizează hărțile</string>
+    <string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizezi toate hărțile, iar apoi să planifici traseul încă o dată.</string>
+    <string name="downloader_search_field_hint">Caută harta</string>
+    <string name="common_check_internet_connection_dialog">Verifică dacă dispozitivul tău este conectat la internet.</string>
+    <string name="downloader_no_space_title">Spațiu insuficient</string>
+    <string name="downloader_no_space_message">Șterge datele care nu sunt necesare</string>
+    <string name="editor_login_error_dialog">Eroare de conectare.</string>
+    <string name="editor_profile_changes">Modificări confirmate</string>
+    <string name="editor_focus_map_on_location">Trageți harta pentru a plasa crucea acolo unde vreți să adăugați un loc sau o afacere.</string>
+    <string name="editor_edit_place_title">Modifică</string>
+    <string name="editor_add_place_title">Adaugă</string>
+    <string name="editor_edit_place_name_hint">Numele locului</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Așa cum este scris în limba locală</string>
+    <string name="editor_edit_place_category_title">Categorie</string>
+    <string name="detailed_problem_description">Descriere detaliată a problemei</string>
+    <string name="editor_report_problem_other_title">Altă problemă</string>
+    <string name="placepage_add_business_button">Adaugă o firmă</string>
+    <string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
+\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!</string>
+    <string name="login_to_make_edits_visible">Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d din %2$d</string>
+    <string name="download_over_mobile_header">Vrei să descarci prin rețeaua de telefonie mobilă?</string>
+    <string name="download_over_mobile_message">Aceasta poate fi destul de costisitoare în cazul unor abonamente sau în roaming.</string>
+    <string name="error_enter_correct_house_number">Introdu un număr corect</string>
+    <string name="editor_storey_number">Număr de etaje (maximum %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească %d</string>
+    <string name="editor_zip_code">Cod poștal</string>
+    <string name="error_enter_correct_zip_code">Introdu codul poștal corect</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punct Hartă</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Notă pentru voluntarii OpenStreetMap (opțional)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Edițiile dvs. sunt încărcate în baza de date publică <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Vă rugăm să nu adăugați informații personale sau protejate prin drepturi de autor.</string>
+    <string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
+    <string name="editor_osm_history">Istoricul dvs. de editare</string>
+    <string name="editor_osm_notes">Note privind datele hărții dvs.</string>
+    <string name="editor_operator">Operator</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">Operator: %s</string>
+    <string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
+    <string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
+    <string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
+    <string name="current_location_unknown_error_title">Poziția actuală este necunoscută.</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">h</string>
+    <string name="minute">min</string>
+    <string name="day">z</string>
+    <string name="placepage_more_button">Mai mult</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografii, comentarii, rezervări</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalii pe Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Dezactivați Kayak</string>
+    <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
+    <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>
+    <string name="editor_comment_hint">Comentariu…</string>
+    <string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>
+    <string name="editor_reset_edits_button">Șterge</string>
+    <string name="editor_remove_place_message">Elimini locul adăugat?</string>
+    <string name="editor_remove_place_button">Elimină</string>
+    <string name="editor_place_doesnt_exist">Locul nu există</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Indică motivul pentru care ai eliminat locul</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Introdu un număr de telefon corect</string>
+    <string name="error_enter_correct_web">Introdu o adresă web corectă</string>
+    <string name="error_enter_correct_email">Introdu un e-mail valabil</string>
+    <string name="error_enter_correct_facebook_page">Introdu o adresă web, un cont sau un nume de pagină Facebook valabil</string>
+    <string name="error_enter_correct_instagram_page">Introdu o adresă web sau un nume de cont Instagram valabil</string>
+    <string name="error_enter_correct_twitter_page">Introdu o adresă web sau un nume de utilizator Twitter valabil</string>
+    <string name="error_enter_correct_vk_page">Introdu o adresă web sau un nume de cont VK valabil</string>
+    <string name="error_enter_correct_line_page">Introdu o adresă web LINE valabilă sau un ID LINE</string>
+    <string name="placepage_add_place_button">Adaugă un loc pe OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
+    <string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
+    <string name="navigation_stop_button">Oprește</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Înregistrarea traseului</string>
+    <!-- For the first routing -->
+    <string name="accept">Acceptă</string>
+    <!-- For the first routing -->
+    <string name="decline">Refuză</string>
+    <string name="mobile_data_dialog">Folosești internetul mobil pentru a vedea informații detaliate?</string>
+    <string name="mobile_data_option_always">Folosește mereu</string>
+    <string name="mobile_data_option_today">Doar astăzi</string>
+    <string name="mobile_data_option_not_today">Nu folosi astăzi</string>
+    <string name="mobile_data">Internet mobil</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.</string>
+    <string name="mobile_data_option_never">Nu utiliza niciodată</string>
+    <string name="mobile_data_option_ask">Întreabă întotdeauna</string>
+    <string name="traffic_update_maps_text">Pentru a afișa datele privind traficul, hărțile trebuie actualizate.</string>
+    <string name="big_font">Mărește dimensiunea literelor pe hartă</string>
+    <string name="traffic_update_app">Actualizează Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
+    <string name="enable_logging">Activează jurnalizarea</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Părere generală</string>
+    <string name="prefs_languages_information">Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive Android folosesc Google TTS. Poți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).
+\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.
+\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.</string>
+    <string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
+    <string name="transliteration_title">Transcrie în alfabet latin</string>
+    <string name="learn_more">Mai multe</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Ieșire</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Utilizați funcția de căutare sau atingeți ușor pe hartă pentru a adăuga un punct de plecare</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Utilizați funcția de căutare sau atingeți ușor pe hartă pentru a adăuga un punct de destinație</string>
+    <string name="planning_route_manage_route">Gestionare traseu</string>
+    <string name="button_plan">Planifică</string>
+    <string name="placepage_remove_stop">Scoateți opritorul</string>
+    <string name="placepage_add_stop">Adaugă oprire</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
+    <string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
+    <string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>
+    <string name="core_entrance">Intrare</string>
+    <string name="error_enter_correct_name">Introdu un nume corect</string>
+    <string name="bookmark_lists">Liste</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Ascunde tot</string>
+    <string name="bookmark_lists_show_all">Arată tot</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d preferat</item>
+        <item quantity="other">%d preferate</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Creează o listă nouă</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Importați marcaje și piese</string>
+    <string name="bookmarks_error_message_share_general">Nu poate fi trimis din cauza unei erori a aplicației</string>
+    <string name="bookmarks_error_title_share_empty">Eroare de trimitere</string>
+    <string name="bookmarks_error_message_share_empty">Nu poate fi trimisă o listă goală</string>
+    <string name="bookmarks_error_title_empty_list_name">Numele listei nu poate fi gol</string>
+    <string name="bookmarks_error_message_empty_list_name">Introdu numele listei</string>
+    <string name="bookmarks_new_list_hint">Listă nouă</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Acest nume este deja folosit</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Alege un alt nume</string>
+    <string name="please_wait">Așteaptă…</string>
+    <string name="phone_number">Număr de telefon</string>
+    <string name="profile">Profil OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">A fost găsit %d fișier. Îl vei vedea după conversiune.</item>
+        <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
+    </plurals>
+    <string name="restore">Restabilește</string>
+    <plurals name="tracks">
+        <item quantity="one">%d traseu</item>
+        <item quantity="other">%d trasee</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Intimitate</string>
+    <string name="privacy_policy">Confidențialitate</string>
+    <string name="terms_of_use">Termeni de utilizare</string>
+    <string name="button_layer_traffic">Trafic</string>
+    <string name="button_layer_subway">Metrou</string>
+    <string name="layers_title">Stiluri și straturi de hartă</string>
+    <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
+    <string name="bookmarks_empty_list_title">Lista este goală</string>
+    <string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
+    <string name="category_desc_more">…mai mult</string>
+    <string name="export_file">Export KMZ</string>
+    <string name="export_file_gpx">Exportați GPX</string>
+    <string name="delete_list">Șterge lista</string>
+    <string name="public_access">Acces public</string>
+    <string name="limited_access">Acces privat</string>
+    <string name="not_shared">Personal</string>
+    <string name="speedcams_alert_title">Radare</string>
+    <string name="place_description_title">Descrierea locului</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Descărcarea hărților</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Avertizează la depășirea limitei de viteză</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Avertizează mereu</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Nu avertiza niciodată</string>
+    <string name="power_managment_title">Economisire a energiei</string>
+    <string name="power_managment_description">Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.</string>
+    <string name="power_managment_setting_never">Niciodată</string>
+    <string name="power_managment_setting_auto">Automat</string>
+    <string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
+    <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
+    <string name="access_rules_author_only">Modifică online</string>
+    <string name="driving_options_title">Opțiuni de ocolire</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Evitați drumurile cu taxă</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Evită drumurile neasfaltate</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Evită trecerile cu bac</string>
+    <string name="avoid_motorways">Evitați autostrăzile</string>
+    <string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
+    <string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
+    <string name="define_to_avoid_btn">Stabilește drumurile de evitat</string>
+    <string name="change_driving_options_btn">Opțiuni de ocolire activate</string>
+    <string name="toll_road">Drum cu plată</string>
+    <string name="unpaved_road">Drum neasfaltat</string>
+    <string name="ferry_crossing">Trecere cu bac</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Da</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Nu</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Da</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Nu</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">Capacitate: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">Rețea: %s</string>
+    <string name="trip_finished">Ai ajuns!</string>
+    <string name="ok">Bine</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Sortare…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Sortează preferatele</string>
+    <!-- Android -->
+    <string name="by_default">Prestabilit</string>
+    <!-- Android -->
+    <string name="by_type">După tip</string>
+    <!-- Android -->
+    <string name="by_distance">După distanță</string>
+    <!-- Android -->
+    <string name="by_date">După dată</string>
+    <!-- Android -->
+    <string name="by_name">După nume</string>
+    <string name="week_ago_sorttype">Acum o săptămână</string>
+    <string name="month_ago_sorttype">Acum o lună</string>
+    <string name="moremonth_ago_sorttype">Acum mai mult de o lună</string>
+    <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
+    <string name="near_me_sorttype">Lângă mine</string>
+    <string name="others_sorttype">Altele</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Mâncare</string>
+    <string name="tourist_places">Obiective turistice</string>
+    <string name="museums">Muzee</string>
+    <string name="parks">Parcuri</string>
+    <string name="swim_places">Înot</string>
+    <string name="mountains">Munți</string>
+    <string name="animals">Animale</string>
+    <string name="hotels">Hoteluri</string>
+    <string name="buildings">Clădiri</string>
+    <string name="money">Bani</string>
+    <string name="shops">Magazine</string>
+    <string name="parkings">Parcări</string>
+    <string name="fuel_places">Benzinării</string>
+    <string name="medicine">Farmacii</string>
+    <string name="search_in_the_list">Caută în listă</string>
+    <string name="religious_places">Locuri sfinte</string>
+    <string name="select_list">Alege lista</string>
+    <string name="transit_not_found">Navigarea pentru metrou nu este încă disponibilă în această regiune</string>
+    <string name="dialog_pedestrian_route_is_long_header">Traseul metroului nu a fost găsit</string>
+    <string name="dialog_pedestrian_route_is_long_message">Alege un punct de plecare sau de sosire mai aproape de o stație de metrou</string>
+    <string name="button_layer_isolines">Înălțimi</string>
+    <string name="isolines_activation_error_dialog">Pentru a activa și utiliza stratul topografic actualizează sau descarcă harta zonei</string>
+    <string name="isolines_location_error_dialog">Stratul topografic nu este încă disponibil în această zonă</string>
+    <string name="elevation_profile_ascent">Urcare</string>
+    <string name="elevation_profile_descent">Coborâre</string>
+    <string name="elevation_profile_min_elevation">Min. altitudine</string>
+    <string name="elevation_profile_max_elevation">Max. altitudine</string>
+    <string name="elevation_profile_difficulty">Dificultate</string>
+    <string name="elevation_profile_distance">Dist.:</string>
+    <string name="elevation_profile_time">Timp:</string>
+    <string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
+    <string name="downloader_loading_ios">Se descarcă</string>
+    <string name="download_map_title">Descarcă harta lumii</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Eroare de conectare</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Deconectează cablul USB</string>
+    <string name="enable_keep_screen_on">Păstrați ecranul pornit</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Atunci când este activat, ecranul va fi întotdeauna aprins la afișarea hărții.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Arată pe ecranul de blocare</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Limbă hartă</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Cu donațiile și sprijinul dumneavoastră, putem crea cele mai bune hărți din lume!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Atingeți oriunde pe hartă pentru a selecta orice. Atingeți lung pentru a ascunde și a reda interfața.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Știți că vă puteți selecta locația curentă pe hartă?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Puteți ajuta la traducerea aplicației noastre în limba dvs.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Aplicația noastră este dezvoltată de câțiva entuziaști și de comunitate.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Puteți remedia și îmbunătăți cu ușurință datele hărții.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Sunteți conectat la Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Continuați în telefon</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">La ecranul mașinii</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps are nevoie de acces la locație. Când este sigur, verificați notificarea de pe telefon.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Această aplicație are nevoie de permisiunea dvs.</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps din Android Auto are nevoie de o permisiune de localizare pentru a funcționa eficient</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Acordarea de permisiuni</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Drumeție</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Browserul web nu este disponibil</string>
+    <string name="volume">Volum</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Exportați toate marcajele și piesele</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Setări ale sistemului de sinteză vocală</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
+    <string name="drive_through">Servire în mașină</string>
+    <string name="clear_the_search">Ștergeți căutarea</string>
+    <string name="zoom_in">A mari</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">A micsora</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Legătura de meniu</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Vezi meniul</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Deschidere în altă aplicație</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">Autoservire</string>
+    <string name="select_option">Selectați opțiunea</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Scaune în aer liber</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Înregistrați traseul</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Opriți înregistrarea traseului</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Oprire fără salvare</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Continuați înregistrarea</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Salvați în Locuri preferate și trasee?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Traseul este gol - nu este nimic de salvat</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Nu se poate afișa dialogul de selectare a dosarelor deoarece pe dispozitivul dvs. nu este instalată nicio aplicație adecvată. Vă rugăm să instalați o aplicație de gestionare a fișierelor și să încercați din nou</string>
+    <string name="choose_color">Alegeți culoarea</string>
+    <string name="edit_track">Editează traseul</string>
+    <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Auto în navigație</string>
+</resources>

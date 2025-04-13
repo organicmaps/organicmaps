@@ -1,0 +1,1798 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Organic Maps: Frequently Asked Questions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <style>
+    /* All langs are invisible by default. */
+    [lang] {
+      display: none;
+    }
+
+    /* Dark mode support. */
+    :root {
+      color-scheme: light dark;
+      --primary-color: black;
+      --secondary-color: #555555;
+      --link-color: #1e96f0;
+      --background-color: white;
+      --separator-color: #0e0e0e;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      :root {
+        --primary-color: #b5b5b5;
+        --secondary-color: #858585;
+        --link-color: #2ea6ff;
+        --background-color: black;
+        --separator-color: #0a0a0a;
+      }
+    }
+
+    h3 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    dd {
+      margin-top: 0.5em;
+      margin-right: 0;
+      margin-left: 0;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: var(--secondary-color);
+      line-height: 1.4;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--separator-color);
+    }
+
+    .faq {
+      border-bottom: 1px solid var(--separator-color);
+    }
+
+    dl {
+      margin: 0 0 2em 0;
+    }
+
+    html {
+      color: var(--primary-color);
+      background-color: var(--background-color);
+    }
+
+    body {
+      margin-right: 16px;
+      margin-left: 16px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    html {
+      -webkit-text-size-adjust: none;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+  </style>
+
+  <script>
+    "use strict";
+    function getLanguage() {
+      var lang = navigator.language || navigator.userLanguage;
+      var found = location.href.indexOf("?");
+      if (found != -1) {
+        var urlParams = new URLSearchParams(location.href.substr(found));
+        var queryLang = urlParams.get("lang");
+        if (queryLang) lang = queryLang;
+      }
+      return lang;
+    }
+
+    // TODO: Update this list with new translations.
+    var translations = ['en', 'ru', 'de', 'es', 'fr', 'pl', 'pt', 'pt-BR', 'tr', 'uk', 'zh'];
+    // Show Russian for browsers with these language codes.
+    var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
+
+    // TODO: Properly handle be-EN, he-RU or similar cases.
+    function showLanguage() {
+      var lang = getLanguage();
+      var iso6391 = lang.substring(0, 2);
+      if (canReadRussian.indexOf(iso6391) >= 0)  // Array.includes is not supported in Android 5 and 6.
+        lang = 'ru';
+      else if (translations.indexOf(iso6391) >= 0) {
+        if (lang != 'pt-BR')
+          lang = iso6391;
+      } else
+        lang = 'en';
+
+      var elems = document.querySelectorAll('[lang="' + lang + '"]');
+      // Make them visible.
+      for (var i = 0; i < elems.length; ++i) elems[i].style.display = "block";
+    }
+  </script>
+</head>
+
+<body onload="showLanguage()">
+
+  <div class="faq">
+    <h2 lang="en">FAQ</h2>
+    <h2 lang="ru">Часто задаваемые вопросы (FAQ)</h2>
+    <h2 lang="de">FAQ</h2>
+    <h2 lang="es">FAQ</h2>
+    <h2 lang="fr">FAQ</h2>
+    <h2 lang="pt">Perguntas frequentes</h2>
+    <h2 lang="pt-BR">Perguntas frequentes</h2>
+    <h2 lang="pl">FAQ</h2>
+    <h2 lang="tr">SSS</h2>
+    <h2 lang="uk">Часті питання</h2>
+    <h2 lang="zh">常见问题</h2>
+
+    <ul>
+      <li class="link">
+        <a lang="en" href="#map-how-to-create-a-route">How to create a route and start navigation</a>
+        <a lang="ru" href="#map-how-to-create-a-route">Как проложить маршрут и включить навигацию</a>
+        <a lang="de" href="#map-how-to-create-a-route">Wie erstelle ich eine Route und starten die Navigation</a>
+        <a lang="es" href="#map-how-to-create-a-route">Cómo crear una ruta e iniciar la navegación</a>
+        <a lang="fr" href="#map-how-to-create-a-route">Comment créer un itinéraire et commencer la navigation</a>
+        <a lang="pl" href="#map-how-to-create-a-route">Jak utworzyć trasę i rozpocząć nawigację</a>
+        <a lang="pt" href="#map-how-to-create-a-route">Como criar um itinerário e iniciar a navegação</a>
+        <a lang="pt-BR" href="#map-how-to-create-a-route">Como criar uma rota e iniciar a navegação</a>
+        <a lang="tr" href="#map-how-to-create-a-route">Nasıl rota oluşturulur ve navigasyonu başlatma</a>
+        <a lang="uk" href="#map-how-to-create-a-route">Як побудувати маршрут і почати навігацію</a>
+        <a lang="zh" href="#map-how-to-create-a-route">如何创建路线并开始导航</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#editing-map-errors">Some places are missing on the map or have wrong names</a>
+        <a lang="ru" href="#editing-map-errors">На карте отсутствуют или неправильно называются объекты</a>
+        <a lang="de" href="#editing-map-errors">Auf der Karte fehlen Orte oder sie haben falsche Namen</a>
+        <a lang="es" href="#editing-map-errors">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto</a>
+        <a lang="fr" href="#editing-map-errors">Quelques lieux sont absents de la carte ou mal orthographiés</a>
+        <a lang="pl" href="#editing-map-errors">Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</a>
+        <a lang="pt" href="#editing-map-errors">Faltam alguns lugares no mapa ou têm nomes errados</a>
+        <a lang="pt-BR" href="#editing-map-errors">Alguns lugares estão faltando no mapa ou possuem nomes errados</a>
+        <a lang="tr" href="#editing-map-errors">Haritada bazı yerler eksik veya yanlış adlara sahip</a>
+        <a lang="uk" href="#editing-map-errors">Деякі місця відсутні на карті або мають неправильні назви</a>
+        <a lang="zh" href="#editing-map-errors">地图上有些地方缺失或名称有误</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#map-can-not-find-position">The app can&#x27;t find my position on the map</a>
+        <a lang="ru" href="#map-can-not-find-position">Приложение не может определить мое местоположение</a>
+        <a lang="de" href="#map-can-not-find-position">Mein Standort kann von der App nicht bestimmt werden</a>
+        <a lang="es" href="#map-can-not-find-position">La aplicación no puede establecer mi posición</a>
+        <a lang="fr" href="#map-can-not-find-position">L&#x27;application n&#x27;arrive pas à déterminer ma position</a>
+        <a lang="pl" href="#map-can-not-find-position">Aplikacja nie może określić mojej lokalizacji</a>
+        <a lang="pt" href="#map-can-not-find-position">A aplicação não consegue determinar a minha localização</a>
+        <a lang="pt-BR" href="#map-can-not-find-position">O aplicativo não pode determinar minha localização</a>
+        <a lang="tr" href="#map-can-not-find-position">Uygulama konumumu haritada bulamıyor</a>
+        <a lang="uk" href="#map-can-not-find-position">Додаток не може визначити моє місцезнаходження на карті</a>
+        <a lang="zh" href="#map-can-not-find-position">应用无法定位到我的位置</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#map-cant-download-maps">I can&#x27;t download (update) maps</a>
+        <a lang="ru" href="#map-cant-download-maps">Не получается загрузить (обновить) карты</a>
+        <a lang="de" href="#map-cant-download-maps">Ich kann keine Karten herunterladen (oder aktualisieren)</a>
+        <a lang="es" href="#map-cant-download-maps">No puedo descargar (actualizar) mapas</a>
+        <a lang="fr" href="#map-cant-download-maps">Je ne peux pas télécharger (mettre à jour) les cartes</a>
+        <a lang="pl" href="#map-cant-download-maps">Nie mogę pobrać (zaktualizować) map</a>
+        <a lang="pt" href="#map-cant-download-maps">Não consigo descarregar (atualizar) mapas</a>
+        <a lang="pt-BR" href="#map-cant-download-maps">Não consigo baixar (atualizar) mapas</a>
+        <a lang="tr" href="#map-cant-download-maps">Haritaları indiremiyorum&#x2F;güncelleyemiyorum</a>
+        <a lang="uk" href="#map-cant-download-maps">Я не можу завантажити (оновити) карти</a>
+        <a lang="zh" href="#map-cant-download-maps">我无法下载（或更新）地图</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#map-search-cannot-find-a-place">Search cannot find a place on the map</a>
+        <a lang="ru" href="#map-search-cannot-find-a-place">Поиск не находит то, что я ищу</a>
+        <a lang="de" href="#map-search-cannot-find-a-place">Die Suche findet einen Ort nicht auf der Karte</a>
+        <a lang="es" href="#map-search-cannot-find-a-place">La función de búsqueda no encuentra un lugar en el mapa</a>
+        <a lang="fr" href="#map-search-cannot-find-a-place">La recherche ne trouve pas le lieu sur la carte</a>
+        <a lang="pl" href="#map-search-cannot-find-a-place">Wyszukiwanie nie może znaleźć miejsca na mapie</a>
+        <a lang="pt" href="#map-search-cannot-find-a-place">A pesquisa não encontrou um lugar no mapa</a>
+        <a lang="pt-BR" href="#map-search-cannot-find-a-place">A pesquisa não pode encontrar um lugar no mapa</a>
+        <a lang="tr" href="#map-search-cannot-find-a-place">Arama, haritada bir yer bulamıyor</a>
+        <a lang="uk" href="#map-search-cannot-find-a-place">Пошук не може знайти місце на карті</a>
+        <a lang="zh" href="#map-search-cannot-find-a-place">搜索功能无法在地图上找到地点</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#app-crash">What can I do if the app has stopped&#x2F;crashed?</a>
+        <a lang="ru" href="#app-crash">Что делать, если приложение перестало работать (остановлено)?</a>
+        <a lang="de" href="#app-crash">Was kann ich tun, wenn die App sich aufhängt oder wenn sie abstürzt?</a>
+        <a lang="es" href="#app-crash">Qué hago si la aplicación se detiene o se bloquea?</a>
+        <a lang="fr" href="#app-crash">Pourquoi l&#x27;application s&#x27;arrête ou crash?</a>
+        <a lang="pl" href="#app-crash">Co mogę zrobić, jeśli aplikacja nie odpowiada&#x2F;uległa awarii?</a>
+        <a lang="pt" href="#app-crash">O que fazer se a aplicação parar de funcionar (bloquear)?</a>
+        <a lang="pt-BR" href="#app-crash">O que posso fazer se o aplicativo parar (travar)?</a>
+        <a lang="tr" href="#app-crash">Uygulama durdurulursa&#x2F;çökerse ne yapabilirim?</a>
+        <a lang="uk" href="#app-crash">Що робити, якщо додаток несподівано закрився або вийшов з ладу?</a>
+        <a lang="zh" href="#app-crash">如果应用停止运行（或崩溃），我该怎么办</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#voice-cant-hear-instructions">I can&#x27;t hear voice instructions</a>
+        <a lang="ru" href="#voice-cant-hear-instructions">Я не слышу голосовые подсказки</a>
+        <a lang="de" href="#voice-cant-hear-instructions">Ich höre keine Sprachanweisungen</a>
+        <a lang="es" href="#voice-cant-hear-instructions">No oigo las instrucciones de voz</a>
+        <a lang="fr" href="#voice-cant-hear-instructions">Je n&#x27;arrive pas à entendre les instructions vocales</a>
+        <a lang="pl" href="#voice-cant-hear-instructions">Nie słyszę instrukcji głosowych</a>
+        <a lang="pt" href="#voice-cant-hear-instructions">Não consigo ouvir as instruções de voz</a>
+        <a lang="pt-BR" href="#voice-cant-hear-instructions">Não consigo ouvir instruções de voz</a>
+        <a lang="tr" href="#voice-cant-hear-instructions">Sesli yönergeleri duyamıyorum</a>
+        <a lang="uk" href="#voice-cant-hear-instructions">Я не чую голосових підказок</a>
+        <a lang="zh" href="#voice-cant-hear-instructions">我无法听到语音指示</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#bookmarks-how-to-export">How to share (export) bookmarks and tracks?</a>
+        <a lang="ru" href="#bookmarks-how-to-export">Как экспортировать метки?</a>
+        <a lang="de" href="#bookmarks-how-to-export">Wie kann ich Lesezeichen und Tracks exportieren?</a>
+        <a lang="es" href="#bookmarks-how-to-export">Cómo puedo exportar los marcadores?</a>
+        <a lang="fr" href="#bookmarks-how-to-export">Comment partager (exporter) des signets?</a>
+        <a lang="pl" href="#bookmarks-how-to-export">Jak udostępniać (eksportować) zakładki?</a>
+        <a lang="pt" href="#bookmarks-how-to-export">Como partilhar (exportar) favoritos?</a>
+        <a lang="pt-BR" href="#bookmarks-how-to-export">Como compartilhar (exportar) favoritos?</a>
+        <a lang="tr" href="#bookmarks-how-to-export">Yer imleri nasıl paylaşılır&#x2F;dışa aktarılır?</a>
+        <a lang="uk" href="#bookmarks-how-to-export">Як поділитися (експортувати) мітками?</a>
+        <a lang="zh" href="#bookmarks-how-to-export">如何分享（或导出）书签</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#bookmarks-how-to-import">How to import bookmarks and tracks in KML, KMZ, KMB or GPX format?</a>
+        <a lang="ru" href="#bookmarks-how-to-import">Как импортировать метки?</a>
+        <a lang="de" href="#bookmarks-how-to-import">Wie kann ich Lesezeichen und Tracks importieren?</a>
+        <a lang="es" href="#bookmarks-how-to-import">Cómo puedo importar los marcadores?</a>
+        <a lang="fr" href="#bookmarks-how-to-import">Comment importer des signets?</a>
+        <a lang="pl" href="#bookmarks-how-to-import">Jak importować zakładki?</a>
+        <a lang="pt" href="#bookmarks-how-to-import">Como importar favoritos?</a>
+        <a lang="pt-BR" href="#bookmarks-how-to-import">Como importar favoritos?</a>
+        <a lang="tr" href="#bookmarks-how-to-import">Yer imleri nasıl içe aktarılır?</a>
+        <a lang="uk" href="#bookmarks-how-to-import">Як імпортувати мітки?</a>
+        <a lang="zh" href="#bookmarks-how-to-import">如何导入书签</a>
+      </li>
+      <li class="link">
+        <a lang="en" href="#bookmarks-android-track-recording">Why tracks are not recorded reliably in background on Android?</a>
+        <a lang="ru" href="#bookmarks-android-track-recording">Почему треки не записываются в фоновом режиме на Android?</a>
+        <a lang="de" href="#bookmarks-android-track-recording">Warum werden Tracks unter Android nicht zuverlässig im Hintergrund aufgezeichnet?</a>
+        <a lang="es" href="#bookmarks-android-track-recording">¿Por qué las pistas no se graban de forma fiable en segundo plano en Android?</a>
+        <a lang="fr" href="#bookmarks-android-track-recording">Pourquoi les pistes ne sont pas enregistrées de manière fiable en arrière-plan sur Android ?</a>
+        <a lang="pl" href="#bookmarks-android-track-recording">Dlaczego utwory nie są nagrywane niezawodnie w tle na Androidzie?</a>
+        <a lang="pt" href="#bookmarks-android-track-recording">Porque é que os trajetos não são gravados de forma fiável em segundo plano no Android?</a>
+        <a lang="pt-BR" href="#bookmarks-android-track-recording">Por que as trilhas não são gravadas de forma confiável em segundo plano no Android?</a>
+        <a lang="tr" href="#bookmarks-android-track-recording">Android&#x27;de parçalar neden arka planda güvenilir bir şekilde kaydedilmiyor?</a>
+        <a lang="uk" href="#bookmarks-android-track-recording">Чому треки (маршрути) не записуються у фоновому режимі на Android?</a>
+        <a lang="zh" href="#bookmarks-android-track-recording">为什么在 Android 上无法可靠地在后台录制音轨？</a>
+      </li>
+      
+    </ul>
+
+
+    <h4 lang="en">
+      For more information please visit our web-site <a href="https://organicmaps.app/">organicmaps.app</a>
+    </h4>
+    
+    <h4 lang="ru">
+      Больше информации на нашем сайте <a href="https://organicmaps.app/ru/">organicmaps.app</a>
+    </h4>
+    <h4 lang="de">
+      Für weitere Informationen besuchen Sie bitte unsere Website <a href="https://organicmaps.app/de/">organicmaps.app</a>
+    </h4>
+    <h4 lang="es">
+      Para más información, visite nuestro sitio web <a href="https://organicmaps.app/es/">organicmaps.app</a>
+    </h4>
+    <h4 lang="fr">
+      Pour plus d&#x27;informations, veuillez visiter notre site web <a href="https://organicmaps.app/fr/">organicmaps.app</a>
+    </h4>
+    <h4 lang="pl">
+      Aby uzyskać więcej informacji, odwiedź naszą stronę internetową <a href="https://organicmaps.app/pl/">organicmaps.app</a>
+    </h4>
+    <h4 lang="pt">
+      Para mais informações, visite o nosso sítio na web <a href="https://organicmaps.app/pt/">organicmaps.app</a>
+    </h4>
+    <h4 lang="pt-BR">
+      Para mais informações, visite o nosso sítio web <a href="https://organicmaps.app/pt-BR/">organicmaps.app</a>
+    </h4>
+    <h4 lang="tr">
+      Daha fazla bilgi için lütfen web sitemizi ziyaret edin <a href="https://organicmaps.app/tr/">organicmaps.app</a>
+    </h4>
+    <h4 lang="uk">
+      Для отримання додаткової інформації, будь ласка, відвідайте наш веб-сайт <a href="https://organicmaps.app/uk/">organicmaps.app</a>
+    </h4>
+    <h4 lang="zh">
+      要获取更多信息，请访问我们的网站 <a href="https://organicmaps.app/zh-Hans/">organicmaps.app</a>
+    </h4>
+  </div>
+
+  <dl id="map-how-to-create-a-route">
+    <dt>
+      <h3 lang="en">How to create a route and start navigation</h3>
+      
+      <h3 lang="ru">Как проложить маршрут и включить навигацию</h3>
+      <h3 lang="de">Wie erstelle ich eine Route und starten die Navigation</h3>
+      <h3 lang="es">Cómo crear una ruta e iniciar la navegación</h3>
+      <h3 lang="fr">Comment créer un itinéraire et commencer la navigation</h3>
+      <h3 lang="pl">Jak utworzyć trasę i rozpocząć nawigację</h3>
+      <h3 lang="pt">Como criar um itinerário e iniciar a navegação</h3>
+      <h3 lang="pt-BR">Como criar uma rota e iniciar a navegação</h3>
+      <h3 lang="tr">Nasıl rota oluşturulur ve navigasyonu başlatma</h3>
+      <h3 lang="uk">Як побудувати маршрут і почати навігацію</h3>
+      <h3 lang="zh">如何创建路线并开始导航</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Once your location is determined on the map, choose your destination.
+You can use one of the following ways:</p>
+<ul>
+<li>tap the search button</li>
+<li>tap the bookmarks button</li>
+<li>tap any place on the map</li>
+</ul>
+<p>Once you have chosen point of destination, press “Route to” button at the bottom. The route will be created and you will see distance and estimated travel time. You can change the route type by pressing the Car, Pedestrian, Subway, Bike or Ruler icon at the top of the screen. To start following the route tap “Start” button. Press the arrow sign in the lower right corner of the screen and tap Stop to finish the route.</p>
+<p>You can choose a different starting point (“Route From“ button) to preview a route, but navigation is only available from your current location.</p>
+<p>You can add up to 100 intermediate points to a route. To add an intermediate point, create a route between the start and destination, then tap a point on the map (or select it from bookmarks/using the search) and tap “Add stop”.</p>
+<p>You can change the settings of the car route and select road types that you would like to avoid (tolls, unpaved roads, motorways, ferries). Open the app settings → Routing options → Toggle On needed options. Avoid options are also displayed when the route is built if changing any of the options may change the route.</p>
+</dd>
+    <dd lang="ru">
+      <p>Убедитесь, что ваше местоположение определено и выберите пункт назначения. Вы можете:</p>
+<ul>
+<li>использовать поиск</li>
+<li>выбрать место из меток (нажмите на значок звездочки на панели меню)</li>
+<li>просто нажать (нажать и удерживать для пустой области) любое место на карте</li>
+</ul>
+<p>После того как вы выбрали пункт назначения, нажмите кнопку "Сюда" на странице места. Маршрут будет построен, и вы увидите расстояние и приблизительное время в пути. Тип маршрута можно изменить, нажав на иконку автомобиля, пешехода, метро, велосипеда или линейки вверху экрана. Для движения по маршруту, нажмите кнопку "Начать". Чтобы закончить движение по маршруту, нажмите на значок стрелки в правом нижнем углу экрана и нажмите "Стоп".</p>
+<p>Чтобы выбрать другую точку старта, нажмите кнопку "Отсюда" на странице места или "Добавьте стартовую точку" на панели меню. Обратите внимание: навигация доступна только из текущего местоположения.</p>
+<p>Для маршрута можно добавить до 100 промежуточных точек. Чтобы добавить промежуточную точку: постройте маршрут от начальной до конечной точки → затем нажмите на точку на карте и на кнопку “Заехать”.</p>
+<p>Вы можете исключить из авто маршрутов определенные типы дорог (платные дороги, грунтовые дороги, паромные переправы, магистрали). Для этого откройте настройки приложения → Настройки объезда → Включите нужные опции.</p>
+
+    </dd><dd lang="de">
+      <p>Nachdem Ihr Standort auf der Karte bestimmt ist, wählen Sie Ihr Ziel. Um das zu tun, können Sie:</p>
+<ul>
+<li>die Suche verwenden</li>
+<li>den Ort aus den Lesezeichen wählen (tippen Sie auf die "Lesezeichen"-Taste auf dem Hauptbildschirm)</li>
+<li>auf einem beliebigen Punkt auf der Karte tippen → "Nach" auswählen</li>
+</ul>
+<p>Wählen Sie anschließend "Nach" aus, um die Route zu erstellt. Sie sehen Distanz und ungefähre Fahrzeit. Oben können Sie die Art der Strecke ändern – Auto, Fußgänger, U-Bahn, Fahrrad oder Lineal. Um die Route zu beginnen, tippen Sie auf die "Start"-Taste. Drücken Sie die Pfeil-Zeichen in der rechten unteren Ecke des Bildschirms und tippen Sie auf "Anhalten" um die Strecke zu beenden.</p>
+<p>Sie können einen anderen Startpunkt (Schaltfläche Route von) auswählen, um eine Route in der Vorschau anzuzeigen. Die Navigation ist jedoch nur von Ihrem aktuellen Standort aus möglich.</p>
+<p>Sie können einer Route bis zu 100 Zwischenpunkte hinzufügen. So fügen Sie einen Zwischenpunkt hinzu: Erstellen Sie eine Route zwischen Start und Ziel → tippen Sie dann auf einen Punkt auf der Karte und anschließend auf "Zwischenstopp hinzufügen".</p>
+<p>Sie können die Einstellungen der Fahrzeugroute ändern und Straßentypen auswählen, die Sie vermeiden möchten (Mautstraßen, unbefestigte Straßen, Fährstellen, Autobahnen). Öffnen Sie die App-Einstellungen → Routenbeschränkungen → Erforderliche Optionen aktivieren/deaktivieren.</p>
+
+    </dd><dd lang="es">
+      <p>Confirma que se haya establecido tu posición en el mapa y elige el destino. Puedes usar una de las maneras siguientes:</p>
+<ul>
+<li>pulsa el botón de búsqueda</li>
+<li>pulsa el botón de marcadores</li>
+<li>pulsa (pulsa y mantén para las zonas abiertas) cualquier sitio en el mapa</li>
+</ul>
+<p>En cuanto has elegido el punto de destino, pulsa el botón "Ruta hasta" en el panel blanco del sitio. La ruta se creará y verás la distancia y tiempo estimado de llegada. Puedes cambiar el tipo de la ruta si pulsas los iconos "En coche", "A pie", "En el Metro", "En bicicleta" o "Regla" situados en la parte superior de la pantalla. Presiona el botón "Empezar" para empezar a moverte. Pulse el signo de la flecha en la esquina inferior derecha de la pantalla y toque "Detener" para finalizar la ruta.</p>
+<p>Puedes elegir un punto de partida diferente (el botón "Desde") para ver una ruta de antemano, pero la navegación solo está disponible cuando se crea una ruta desde tu ubicación actual.</p>
+<p>Puede agregar hasta 100 puntos intermedios a una ruta. Para agregar un punto intermedio: cree una ruta entre un inicio y un destino → luego toque un punto en el mapa y toque “Añadir parada”.</p>
+<p>Puede cambiar la configuración de la ruta del automóvil y seleccionar los tipos de carreteras que le gustaría evitar (peajes, carreteras sin pavimentar, autopistas, transbordadores). Abra la configuración de la aplicación → Configuración de desvío → Activar las opciones necesarias.</p>
+
+    </dd><dd lang="fr">
+      <p>Une fois votre position déterminée sur la carte, choisissez votre destination. Vous pouvez utiliser l'une des méthodes suivantes :</p>
+<ul>
+<li>appuyez sur le bouton de recherche</li>
+<li>appuyez sur le bouton des favoris</li>
+<li>appuyez sur (appuyez et maintenez pour les zones vides) n'importe quel endroit sur la carte</li>
+</ul>
+<p>Une fois que vous avez choisi le point de destination, appuyez sur le bouton "Route vers" de la page d'accueil. L'itinéraire sera créé et vous verrez la distance et le temps de trajet estimé. Vous pouvez changer le type de route en appuyant sur l'icône Voiture, Piéton, Métro, Vélo ou Règle en haut de l'écran. Pour commencer à suivre l'itinéraire touchez le bouton "Démarrer". Appuyez sur le signe fléché dans le coin inférieur droit de l'écran et appuyez sur Arrêtez-vous pour terminer l'itinéraire.</p>
+<p>Vous pouvez choisir un point de départ différent (Itinéraire à partir du bouton) pour prévisualiser un itinéraire, mais la navigation est seulement disponible à partir de votre emplacement actuel.</p>
+<p>Vous pouvez ajouter jusqu'à 100 points intermédiaires à un itinéraire. Pour ajouter un point intermédiaire: créez un itinéraire entre un départ et une destination → puis touchez un point sur la carte et touchez "Ajouter un arrêt".</p>
+<p>Vous pouvez modifier les paramètres de l'itinéraire de la voiture et sélectionner les types de routes que vous souhaitez éviter (routes à péage, routes non revêtues, passage d'un cours d'eau, artères). Ouvrez les paramètres de l'application → Réglages de détour → Activer/désactiver les options souhaitées.</p>
+
+    </dd><dd lang="pl">
+      <p>Po określeniu lokalizacji na mapie, wybierz miejsce docelowe. Możesz użyć jeden z następujących sposobów:</p>
+<ul>
+<li>naciśnij przycisk wyszukiwania</li>
+<li>naciśnij przycisk zakładek</li>
+<li>naciśnij (przytrzymaj w pustych obszarach) dowolne miejsce na mapie</li>
+</ul>
+<p>Po wybraniu punktu docelowego naciśnij przycisk „Trasa do” na stronie miejsca. Trasa będzie utworzona i zobaczysz odległość i szacowany czas podróży. Możesz zmienić typ trasy używając ikon Samochodu, Pieszego, Metro, Rower lub Władca w górnej części ekranu. Aby zacząć śledzić trasę naciśnij przycisk „Start”. Naciśnij znak strzałki w prawym dolnym rogu ekranu i dotknij Zatrzymaj, aby zakończyć trasę.</p>
+<p>Możesz wybrać inny punkt początkowy (przycisk Trasa od), aby wyświetlić podgląd trasy, ale nawigacja jest tylko dostępna od Twojej bieżącej lokalizacji.</p>
+<p>Do trasy można dodać maksymalnie 100 punkty pośrednie. Aby dodać punkt pośredni: utwórz trasę między początkiem a miejscem docelowym → następnie dotknij punkt na mapie i przyciśnij "Dodaj postój”.</p>
+<p>Możesz zmienić ustawienia trasy samochodowej i wybrać typy dróg, których chcesz unikać (drogi platne, drogi gruntowe, przeprawy promowe, autostrady). Otwórz ustawienia aplikacji → Ustawienia nawigacji → Włącz wymagane opcje.</p>
+
+    </dd><dd lang="pt">
+      <p>Depois da sua localização ter sido determinada no mapa, escolha o seu destino. Pode fazê-lo de duas formas:</p>
+<ul>
+<li>toque no botão de pesquisa</li>
+<li>toque no botão de favoritos</li>
+<li>toque (em áreas vazias toque e mantenha pressionado) em qualquer lugar no mapa</li>
+</ul>
+<p>Depois de escolher o ponto de destino, pressione o botão “Itinerário para” na parte inferior do ecrã. A rota será criada e verá a distância e o tempo estimado da viagem. Pode alterar o tipo de rota tocando no ícone Carro, Pedestre, Metropolitano, Bicicleta ou Régua na parte superior do ecrã. Para começar a seguir o percurso, toque no botão “Iniciar”. Toque no sinal de seta no canto inferior direito do ecrã e toque em “Parar” para terminar a rota.</p>
+<p>Pode escolher um ponto de partida diferente (botão “De”) para ver uma rota, mas a navegação só está disponível a partir da sua localização atual por GPS.</p>
+<p>Pode adicionar até 100 pontos intermédios à rota. Para adicionar um ponto intermédio: crie uma rota entre um ponto de partida e um destino → depois toque num ponto qualquer do mapa e toque no botão “Adicionar paragem”.</p>
+<p>Pode alterar as configurações da rota do carro e selecionar os tipos de estrada que quer evitar (estradas com portagem, estradas não pavimentadas, ferry, autoestradas). Abra as configurações da aplicação (ícone com 3 linhas no canto inferior direito) → Configurações de direção e ative ou desative as estradas a evitar.</p>
+
+    </dd><dd lang="pt-BR">
+      <p>Depois que sua localização for determinada no mapa, escolha seu destino. Você pode usar uma das seguintes maneiras:</p>
+<ul>
+<li>toque no botão de pesquisa</li>
+<li>toque no botão de favoritos</li>
+<li>toque (toque e segure para áreas vazias) em qualquer lugar no mapa</li>
+</ul>
+<p>Depois de escolher o ponto de destino, pressione o botão “Itinerário para” na parte inferior da tela. A rota será criada e você verá a distância e o tempo estimado de viagem. Você pode alterar o tipo de rota pressionando o ícone Carro, Pedestre, Metrô, Bicicleta ou Régua na parte superior da tela. Para começar a seguir o percurso, toque no botão “Iniciar”. Pressione o sinal de seta no canto inferior direito da tela e toque em “Parar” para finalizar a rota.</p>
+<p>Você pode escolher um ponto de partida diferente (botão “De”) para visualizar uma rota, mas a navegação só está disponível na sua localização atual.</p>
+<p>Você pode adicionar até 100 pontos intermediários a uma rota. Para adicionar um ponto intermediário: crie uma rota entre um ponto de partida e um destino → depois toque em um ponto no mapa e toque em “Adicionar parada”.</p>
+<p>Você pode alterar as configurações da rota do carro e selecionar os tipos de estrada que gostaria de evitar (estradas com portagem, estradas rurais, ferryboat, rodovias). Abra as configurações do aplicativo → Opções de direção → Ative as opções que deseja.</p>
+
+    </dd><dd lang="tr">
+      <p>Haritada konumunuz belirlendikten sonra hedefinizi seçin. Aşağıdaki yollardan birini kullanabilirsiniz:</p>
+<ul>
+<li>arama düğmesine dokunun</li>
+<li>yer imleri düğmesine dokunun</li>
+<li>haritada herhangi bir yere dokunun (boş alanlar için basılı tutun)</li>
+</ul>
+<p>Varış noktasını seçtikten sonra, yer bilgileri sayfasındaki “Varış Yeri” düğmesine basın. Rota oluşturulacak ve mesafeyi ve tahmini seyahat süresini göreceksiniz. Ekranın üst kısmındaki Araba, Yaya, Metro, Bisiklet veya Cetvel simgesine basarak rota türünü değiştirebilirsiniz. Rotayı başlatmak için “Başla” düğmesine dokunun. Rotayı bitirmek için ekranın sağ alt köşesindeki ok işaretine basın ve Durdur'a dokunun.</p>
+<p>Bir rotayı önizlemek için farklı bir başlangıç noktası (Başlangıç Yeri düğmesi) seçebilirsiniz, ancak navigasyon yalnızca mevcut konumunuzdan kullanılabilir.</p>
+<p>Bir rotaya en fazla 100 ara nokta ekleyebilirsiniz. Bir ara nokta eklemek için: başlangıç ve hedef arasında bir rota oluşturun → ardından haritada bir yere dokunun ve “Ara Nokta Ekle”ye dokunun.</p>
+<p>Araba rotasının ayarlarını değiştirebilir ve kaçınmak istediğiniz yol türlerini seçebilirsiniz (paralı yollar, asfaltsız yollar, otoyollar, feribotlar). Uygulama ayarlarını açın → Sürüş seçenekleri → gerekli seçenekleri açın.</p>
+
+    </dd><dd lang="uk">
+      <p>Після того, як ваше місцезнаходження визначено на карті, оберіть пункт призначення. Ви можете скористатися одним із наступних способів:</p>
+<ul>
+<li>торкніться кнопки пошуку</li>
+<li>торкніться кнопки закладок</li>
+<li>торкніться будь-якого місця на карті (торкніться і утримуйте для порожніх областей)</li>
+</ul>
+<p>Після того, як ви обрали пункт призначення, натисніть кнопку "Прокласти маршрут" на нижній панелі. Маршрут буде створено, і ви побачите відстань та приблизний час у дорозі. Ви можете змінити тип маршруту, натиснувши іконку Автомобіль, Пішохід, Метро, Велосипед або Лінійка у верхній частині екрана. Щоб почати рух за маршрутом, натисніть кнопку "Почати". Під час навігацію натисніть на значок у правому нижньому куті екрана і натисніть кнопку "Зупинити" щоб завершити маршрут.</p>
+<p>Такоже ви можете вибрати іншу початкову точку (кнопка "Маршрут від") для попереднього перегляду маршруту, але навігація доступна лише з вашого поточного місцезнаходження.</p>
+<p>До маршруту можна додати до 100 проміжних пунктів. Щоб додати проміжний пункт: створіть маршрут між пунктом відправлення та пунктом призначення → потім торкніться точки на мапі і натисніть "Додати зупинку".</p>
+<p>Ви можете змінити налаштування автомобільного маршруту і вибрати типи доріг які ви хотіли б уникати (платні дороги, ґрунтові дороги, автомагістралі, пороми). Відкрийте налаштування програми → Налаштування обʼїзду → увімкніть потрібні опції.</p>
+
+    </dd><dd lang="zh">
+      <p>一旦在地图上确定了您的位置，请选择您的目的地。您可以使用以下方法之一：</p>
+<ul>
+<li>点击搜索按钮</li>
+<li>点击书签按钮</li>
+<li>在地图上点击（对于空白区域，请点击并长按）</li>
+</ul>
+<p>选择了目的地后，点击底部的“到这去”按钮。
+路线将被创建，您将看到距离和预计行车时间。
+您可以通过点击屏幕顶部的汽车、步行、地铁、自行车或标尺图标来更改路线类型。
+要开始按照路线行驶，请点击“开始”按钮。
+点击屏幕右下角的箭头标志，然后点击“停止”以结束路线。</p>
+<p>您可以选择不同的起点（点击“从这出发”按钮）来预览路线，但导航仅从您当前的位置开始。</p>
+<p>您可以在一条路线上添加最多 100 个经停点。
+要添加一个经停点：创建起点和目的地之间的路线 → 然后在地图上点击一个点，然后点击“添加经停点”。</p>
+<p>您可以更改汽车路线的设置，并选择要避免的道路类型（收费、未铺设的道路、高速公路、渡轮）。
+打开应用程序设置 → 导航选项 → 切换需要的选项。</p>
+
+    </dd>
+  </dl><dl id="editing-map-errors">
+    <dt>
+      <h3 lang="en">Some places are missing on the map or have wrong names</h3>
+      
+      <h3 lang="ru">На карте отсутствуют или неправильно называются объекты</h3>
+      <h3 lang="de">Auf der Karte fehlen Orte oder sie haben falsche Namen</h3>
+      <h3 lang="es">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto</h3>
+      <h3 lang="fr">Quelques lieux sont absents de la carte ou mal orthographiés</h3>
+      <h3 lang="pl">Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</h3>
+      <h3 lang="pt">Faltam alguns lugares no mapa ou têm nomes errados</h3>
+      <h3 lang="pt-BR">Alguns lugares estão faltando no mapa ou possuem nomes errados</h3>
+      <h3 lang="tr">Haritada bazı yerler eksik veya yanlış adlara sahip</h3>
+      <h3 lang="uk">Деякі місця відсутні на карті або мають неправильні назви</h3>
+      <h3 lang="zh">地图上有些地方缺失或名称有误</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Our map data source is <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a> (OSM). This is a mapping project similar to Wikipedia, but for maps, where anybody can create and edit the map of the World.</p>
+<p>If you see incorrect information, or if you find that some objects are missing on the map, you can <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">leave a note</a> for OSM volunteers or <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">register</a> and edit the map.</p>
+<p>The more people contribute, the more detailed maps everyone gets. We believe that the most detailed map of the whole world, created by the open community, is just a matter of time.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>You can also add new places, edit existing POI and building info (addresses, opening hours, names) directly in Organic Maps. Once you log in with OSM account, your edits will be automatically uploaded to OSM. Please be careful when editing, as your edits will be visible to all other users.</p>
+</li>
+<li>
+<p>The OpenStreetMap database is updated every minute. We aim to update maps in the app 1-4 times per month. If you modified something in OSM, your edits will appear in future maps updates.</p>
+</li>
+</ul>
+</dd>
+    <dd lang="ru">
+      <p>В Organic Maps мы делаем само приложение и сложные алгоритмы. Наш источник данных – <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a> (OSM), это открытый проект, как Википедия, только для карт.</p>
+<p>Если вы заметили неточности или увидели, что отсутствуют какие-либо детали, вы можете <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">сообщить об этом</a> редакторам OSM или <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">зарегистрироваться</a> на сайте OpenStreetMap и отредактировать карту.</p>
+<p>Чем больше небезразличных людей, тем точнее будут карты для всех нас. Мы в команде считаем, что подробные карты всей нашей планеты – это всего лишь вопрос времени.</p>
+<p><strong>Примечания:</strong></p>
+<ul>
+<li>
+<p>Вы также можете добавлять новые и редактировать уже отмеченные места (название, адресная информация, часы работы) напрямую из Organic Maps. Как только вы авторизуетесь через профиль OSM, правки будут автоматически отправлены в OSM. Пожалуйста, будьте внимательны при редактировании: ваши правки будут доступны всем остальным пользователям.</p>
+</li>
+<li>
+<p>База данных OpenStreetMap обновляется каждую минуту. Наша цель — обновлять данные в приложении 1-4 раза в месяц. Если вы что-то меняли в OSM, ваши исправления появятся в одном из следующих обновлений.</p>
+</li>
+</ul>
+
+    </dd><dd lang="de">
+      <p>Unsere Kartendatenquelle ist <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a> (OSM). Das ist ein Kartierungsprojekt ähnlich wie Wikipedia, jedoch für Karten, in dem jeder die Weltkarten bearbeiten kann.</p>
+<p>Wenn Sie falsche Informationen sehen oder feststellen, dass einige Objekte auf der Karte fehlen, können Sie eine <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">Notiz für OSM-Freiwillige hinterlassen</a> oder sich bei OSM <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">registrieren</a> und die Karte bearbeiten.</p>
+<p>Je mehr Leute mithelfen, desto detailliertere Karten erhalten wir. Und wir glauben, dass es nur eine Frage der Zeit ist bis die, von der offenen Community erstellte, OSM Karte die detaillierteste der ganzen Welt ist.</p>
+<p><strong>Hinweise:</strong></p>
+<ul>
+<li>
+<p>Sie können auch direkt über Organic Maps neue Orte hinzufügen oder vorhandene POI und Gebäudeinformationen (Adressen, Öffnungszeiten, Namen) bearbeiten. Sobald Sie sich mit dem OSM-Konto anmelden, werden Ihre Änderungen automatisch auf OSM hochgeladen. Bitte seien Sie vorsichtig bei der Bearbeitung, da Ihre Änderungen für alle anderen Benutzer sichtbar sind.</p>
+</li>
+<li>
+<p>Die OpenStreetMap-Datenbank wird jede Minute aktualisiert. Unser Ziel ist es, die Karten in der App 1-4 Mal pro Monat zu aktualisieren. Wenn Sie etwas in OSM geändert haben, werden Ihre Änderungen in zukünftigen Karten-Updates angezeigt.</p>
+</li>
+</ul>
+
+    </dd><dd lang="es">
+      <p>Nuestra fuente de datos de mapas es <a rel="noopener" target="_blank" href="https://www.openstreetmap.org">OpenStreetMap</a> (OSM). Este es un proyecto de mapeo similar a Wikipedia, pero para mapas, donde cualquiera puede crear y editar mapas.</p>
+<p>Si ve información incorrecta, o si encuentra que faltan algunos objetos en el mapa, puede <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">dejar una nota</a> para los editores de OSM o <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">registrarse</a> y editar el mapa.</p>
+<p>Cuanta más gente contribuya, más mapas detallados obtendremos. Y creemos que el mapa más detallado de todo el mundo, creado por la comunidad abierta, es solo una cuestión de tiempo.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>También puede agregar nuevos lugares, editar los PDI existentes y la información de construcción (direcciones, horarios de apertura, nombres) directamente a través de Organic Maps. Una vez que inicie sesión con la cuenta OSM, sus ediciones se cargarán automáticamente a OSM. Tenga cuidado al editar, ya que sus ediciones serán visibles para todos los demás usuarios.</p>
+</li>
+<li>
+<p>La base de datos de OpenStreetMap se actualiza cada minuto. Nuestro objetivo es actualizar los mapas en la aplicación de 1 a 4 veces al mes. Si modificó algo en OSM, sus ediciones aparecerán en futuras actualizaciones de mapas.</p>
+</li>
+</ul>
+
+    </dd><dd lang="fr">
+      <p>Notre source de données cartographiques est <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a> (OSM). Il s'agit d'un projet cartographique similaire à Wikipedia, mais pour les cartes, où tout le monde peut créer et éditer des cartes.</p>
+<p>Si vous voyez des informations incorrectes ou si vous constatez que certains objets manquent sur la carte, vous pouvez <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">laisser une note</a> aux éditeurs OSM ou vous <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">inscrire</a> et modifier la carte.</p>
+<p>Plus les utilisateurs contribuent, plus nous obtenons des cartes détaillées. Et nous pensons que la carte la plus détaillée du monde entier, créée par la communauté ouverte, n'est qu'une question de temps.</p>
+<p><strong>Remarques:</strong></p>
+<ul>
+<li>
+<p>Vous pouvez également ajouter de nouveaux lieux, modifier des POI existants et des informations sur le bâtiment (adresses, heures d'ouverture, noms) directement via Organic Maps. Une fois que vous vous êtes connecté avec un compte OSM, vos modifications seront automatiquement téléchargées vers OSM. Restez prudent lors de l'édition, vos modifications seront visibles par tous les autres utilisateurs.</p>
+</li>
+<li>
+<p>La base de données OpenStreetMap est mise à jour toutes les minutes. Nous visons à mettre à jour les cartes dans l'application 1 à 4 fois par mois. Si vous avez modifié quelque chose dans OSM, vos modifications apparaîtront dans les futures mises à jour des cartes.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pl">
+      <p>Nasze źródło danych mapy to <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM). Jest to projekt mapowania podobny do Wikipedii, ale do map, gdzie każdy może tworzyć i edytować mapy.</p>
+<p>Jeśli znajdziesz nieprawidłowe informacje lub zauważysz, że na mapie brakuje niektórych obiektów, możesz <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">zostawić uwagę</a> edytorom OSM lub <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">zarejestrować się</a> i edytować mapę.</p>
+<p>Im więcej osób współtworzy OSM, tym bardziej szczegółowe mapy otrzymuje OM. Wierzymy, że najbardziej szczegółowa mapa całego świata, stworzona przez otwartą społeczność, to tylko kwestia czasu.</p>
+<p><strong>Uwagi:</strong></p>
+<ul>
+<li>
+<p>Możesz także dodawać nowe miejsca, edytować istniejące punkty i informacje o budynkach (adresy, godziny otwarcia, nazwy) bezpośrednio przez Organic Maps. Po zalogowaniu się przy użyciu konta OSM, Twoje zmiany zostaną automatycznie przesłane do OSM. Zachowaj ostrożność podczas edycji, ponieważ Twoje zmiany będą widoczne dla wszystkich innych użytkowników.</p>
+</li>
+<li>
+<p>Baza danych OpenStreetMap jest aktualizowana co minutę. Staramy się aktualizować mapy w aplikacji 1-4 razy w miesiącu. Jeśli coś zmodyfikowałeś w OSM, Twoje zmiany pojawią się w przyszłych aktualizacjach map.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt">
+      <p>A nossa fonte de dados do mapa é <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM). Trata-se de um projeto de mapeamento semelhante à Wikipédia, mas para mapas, onde qualquer pessoa pode criar e editar mapas.</p>
+<p>Se encontrar informações incorretas ou se achar que faltam alguns elementos no mapa, <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">deixe uma nota</a> para os editores do OSM ou <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">registe-se</a> e edite o mapa.</p>
+<p>Quanto mais pessoas contribuirem, mais detalhados são os mapas. Acreditamos que o mapa mais detalhado de todo o mundo, criado pela comunidade de forma aberta, é apenas uma questão de tempo.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>Também pode adicionar novos locais, editar o POI existente e adicionar informações (endereços, horário de funcionamento, nomes) diretamente no Organic Maps. Depois de se autenticar com a sua conta do OSM, as suas edições serão automaticamente enviadas para o OSM. Tenha cuidado ao editar, pois as suas edições ficarão visíveis para todos os outros utilizadores.</p>
+</li>
+<li>
+<p>A base de dados do OpenStreetMap é atualizada a cada minuto. O nosso objetivo é atualizar os mapas na aplicação de 1 a 4 vezes por mês. Se alterou alguma coisa no OSM, as suas edições aparecerão em futuras atualizações dos mapas.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt-BR">
+      <p>Nossa fonte de dados de mapa é <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM). Este é um projeto de mapeamento semelhante à Wikipédia, mas para mapas, onde qualquer pessoa pode criar e editar mapas.</p>
+<p>Se você vir informações incorretas, ou se achar que alguns objetos estão faltando no mapa, <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">deixe uma nota</a> para os editores do OSM ou <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">registre-se</a> e edite o mapa.</p>
+<p>Quanto mais pessoas contribuem, mais detalhados são os mapas. E acreditamos que o mapa mais detalhado de todo o mundo, criado pela comunidade aberta, é apenas uma questão de tempo.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>Você também pode adicionar novos locais, editar o POI existente e adicionar informações (endereços, horário de funcionamento, nomes) diretamente via Organic Maps. Depois de fazer o login com a conta do OSM, suas edições serão automaticamente enviadas para o OSM. Tenha cuidado ao editar, pois suas edições ficarão visíveis para todos os outros usuários.</p>
+</li>
+<li>
+<p>O banco de dados do OpenStreetMap é atualizado a cada minuto. Nosso objetivo é atualizar os mapas no aplicativo de 1 a 4 vezes por mês. Se você modificou algo no OSM, suas edições aparecerão em futuras atualizações de mapas.</p>
+</li>
+</ul>
+
+    </dd><dd lang="tr">
+      <p>Harita veri kaynağımız <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap'tir</a> (OSM). OpenStreetMap, herkesin harita oluşturabildiği ve düzenleyebildiği Vikipedi'ye benzer bir haritalama projesidir.</p>
+<p>Haritada yanlış bir bilgi görürseniz ya da eksik bir nesne fark ederseniz, OSM editörleri için <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">bir not bırakabilir</a> veya <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">kaydolup</a> haritayı düzenleyebilirsiniz.</p>
+<p>Ne kadar çok insan katkıda bulunursa, o kadar ayrıntılı haritalar elde ederiz. Açık topluluk tarafından oluşturulan tüm dünyanın en ayrıntılı haritasının sadece bir zaman meselesi olduğuna inanıyoruz.</p>
+<p><strong>Notlar:</strong></p>
+<ul>
+<li>
+<p>Ayrıca doğrudan Organic Maps ile yeni yerler ekleyebilir, mevcut POI (İÇN) ve yapı bilgilerini (adresler, çalışma saatleri, isimler) düzenleyebilirsiniz. Bir seferlik OSM hesabınızla giriş yaptığınızda düzenlemeleriniz otomatik olarak OSM'ye yüklenecektir. Düzenlemeleriniz diğer tüm kullanıcılar tarafından görülebileceği için lütfen düzenleme yaparken dikkatli olun.</p>
+</li>
+<li>
+<p>OpenStreetMap veritabanı her dakika güncellenir. Ayda 1-4 kez uygulamadaki haritayı güncellemeyi hedefliyoruz. Eğer OSM'de herhangi bir değişiklik yaptıysanız, düzenlemeleriniz gelecekteki harita güncellemelerinde görünecektir.</p>
+</li>
+</ul>
+
+    </dd><dd lang="uk">
+      <p>Джерелом наших картографічних даних є <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM). Це картографічний проект, подібний до Вікіпедії, але для мап, де будь-хто може створювати та редагувати мапи.</p>
+<p>Якщо ви побачили невірну інформацію або виявили, що деякі об'єкти відсутні на карті, ви можете <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">залишити повідомлення</a> для редакторів OSM або <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">реєструватися</a> і редагувати мапу.</p>
+<p>Чим більше людей долучається, тим детальніші стають карти. Ми віримо, що найдетальніша карта всього світу, створена відкритою спільнотою - це лише питання часу.</p>
+<p><strong>Примітки:</strong></p>
+<ul>
+<li>
+<p>Ви також можете додавати нові місця, редагувати існуючі POI та інформацію про будівлі (адреси, години роботи, назви) безпосередньо в Organic Maps. Після того, як ви ввійдете за допомогою облікового запису OSM, ваші правки будуть автоматично завантажені на OSM. Будь ласка, будьте обережні при редагуванні, оскільки ваші правки будуть видимі всім іншим користувачам.</p>
+</li>
+<li>
+<p>База даних OpenStreetMap змінюється щохвилини. Ми прагнемо оновлювати карти в додатку 1-4 рази на місяць. Якщо ви змінили щось в OSM, ваші правки з'являться в наступних оновленнях мап.</p>
+</li>
+</ul>
+
+    </dd><dd lang="zh">
+      <p>我们的地图数据源是 <a rel="noopener" target="_blank" href="https://welcome.openstreetmap.org/">OpenStreetMap</a>（简称 OSM）。这是一个类似维基百科的地图项目，任何人都可以创建和编辑地图。</p>
+<p>如果您发现不准确的信息，或者发现地图上缺少某些对象，您可以给 OSM 编辑者 <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/note/new">留言</a>，或者 <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/user/new">注册</a> 并编辑地图。</p>
+<p>参与的人越多，我们就能得到更详细的地图。我们相信，由开放社区创建的全球最详细地图只是时间的问题。</p>
+<p><strong>请注意：</strong></p>
+<ul>
+<li>
+<p>您还可以通过 Organic Maps 直接添加新地点，编辑现有兴趣点和建筑信息（地址、营业时间、名称）。 一旦使用 OSM 账户登录，您的编辑将自动上传到OSM。请在编辑时小心，因为您的编辑将对所有其他用户可见。</p>
+</li>
+<li>
+<p>OpenStreetMap 数据库每分钟更新一次。 我们的目标是每月 1 到 4 次更新应用中的地图。 如果您在 OSM中进行了修改，您的编辑将出现在未来的地图更新中。</p>
+</li>
+</ul>
+
+    </dd>
+  </dl><dl id="map-can-not-find-position">
+    <dt>
+      <h3 lang="en">The app can&#x27;t find my position on the map</h3>
+      
+      <h3 lang="ru">Приложение не может определить мое местоположение</h3>
+      <h3 lang="de">Mein Standort kann von der App nicht bestimmt werden</h3>
+      <h3 lang="es">La aplicación no puede establecer mi posición</h3>
+      <h3 lang="fr">L&#x27;application n&#x27;arrive pas à déterminer ma position</h3>
+      <h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
+      <h3 lang="pt">A aplicação não consegue determinar a minha localização</h3>
+      <h3 lang="pt-BR">O aplicativo não pode determinar minha localização</h3>
+      <h3 lang="tr">Uygulama konumumu haritada bulamıyor</h3>
+      <h3 lang="uk">Додаток не може визначити моє місцезнаходження на карті</h3>
+      <h3 lang="zh">应用无法定位到我的位置</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Please make sure your device has GPS, location services are enabled, and location permissions are given to Organic Maps.</p>
+<p><strong>Android</strong></p>
+<p>On your device open Settings → Location. It is better to switch on High accuracy mode, as it enables precise GPS location.</p>
+<p>If your Android device can not determine your location, enable (or disable, if enabled) “Google Play Services” option in the app settings.</p>
+<p>Note: you can see it only if you have Google Play services installed (enabled) on your Android device. Google play services are used to determine location more precisely, if you experience issues with location accuracy after you disabled the option, turn it on.</p>
+<p><strong>iOS</strong></p>
+<p>If you are an iPhone or iPad user, please check iOS settings → Privacy → Location services. Geolocation data sharing should be enabled for Organic Maps.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>To avoid unwanted data while roaming, you can turn off all mobile data, activate a flight mode or disable mobile data for Organic Maps in your device settings. Android and iOS devices can use GPS in the flight mode.</p>
+</li>
+<li>
+<p>Some mobile devices do not have built-in GPS receivers, such as the iPod Touch, WiFi-only iPad, Amazon Kindle Fire/Kindle Fire HD 7, and some Android tablets. On these devices, all apps will show your approximate location detected using a Wi-Fi network, as long as you are connected to the internet.</p>
+</li>
+<li>
+<p>Location detection with GPS satellites (when WiFi and Mobile Networks are disabled) may take some time. The longer the GPS has not been used, the more time it takes. The speed of location detection depends on the device, not the app. The GPS operation is influenced by the weather as well – it works best outdoors when the sky is clear. Problems may arise when trying to locate yourself indoors, on a narrow street, or when driving a car, with a lot of metal around or with a metal/magnet on the device's case.</p>
+</li>
+</ul>
+</dd>
+    <dd lang="ru">
+      <p>Пожалуйста, убедитесь, что ваше устройство поддерживает GPS и в настройках устройства включено определение местоположения.</p>
+<p><strong>Android</strong></p>
+<p>Откройте настройки устройства → Местоположение/Геоданные → Вкл. Рекомендуется выбрать режим “По всем источникам/Высокая точность”.</p>
+<p>Если настройки геолокации в порядке, убедитесь, что службы Google Play не заблокированы другими приложениями или антивирусами. Попробуйте поставить (или убрать, если стоит) галочку “Google Play Services”* в настройках приложения. На разных устройствах эта опция может давать положительный или отрицательный эффект.</p>
+<p>Примечание: опция отображается только если на устройстве установлены сервисы Google Play.</p>
+<p><strong>iOS</strong></p>
+<p>Если вы пользуетесь iPhone или iPad, проверьте, пожалуйста, настройки iOS → Конфиденциальность → Службы геолокации. Необходимо разрешить определение местоположения для Organic Maps.</p>
+<p><strong>Примечания:</strong></p>
+<ul>
+<li>
+<p>Определение местоположения по GPS (с выключенным Wi-FI и передачей мобильных данных) может занять продолжительное время (чем дольше не используется GPS, тем больше времени уходит на определение позиции), скорость определения местоположения будет зависеть от устройства, а не от приложения.</p>
+</li>
+<li>
+<p>Кроме того, работа GPS зависит от погодных условий: лучше всего система работает на открытом воздухе при ясной погоде. Проблемы могут возникнуть при определении местоположения в закрытом помещении, на узких улицах или при движении в автомобиле.</p>
+</li>
+<li>
+<p>GPS точно отсутствует в iPod Touch, iPad (модели только с Wi-Fi), Amazon Kindle Fire/Kindle Fire HD 7” и в некоторых Android-планшетах. Но даже в этом случае при наличии подключения к интернету вы увидите ваше положение на карте.</p>
+</li>
+</ul>
+
+    </dd><dd lang="de">
+      <p>Bitte stellen Sie sicher, dass Ihr Gerät über GPS verfügt und die Standorteinstellungen aktiviert sind.</p>
+<p><strong>Android</strong></p>
+<p>Öffnen Sie auf Ihrem Gerät Einstellungen → Standort. Es ist besser, den Modus Hohe Genauigkeit einzuschalten.</p>
+<p>Wenn Sie Schwierigkeiten haben, Ihren Standort mit GPS zu bestimmen, aktivieren Sie (oder deaktivieren Sie, wenn aktiviert) "Google Play-Dienste" in den App-Einstellungen.</p>
+<p>Hinweis: Die Einstellung können Sie nur sehen, wenn auf Ihrem Android-Gerät Google Play-Dienste installiert (und aktiviert) sind. Google Play-Dienste werden verwendet, um den Standort genauer zu bestimmen. Wenn Probleme mit der Ortsgenauigkeit auftreten, nachdem Sie die Option deaktiviert haben, aktivieren Sie sie.</p>
+<p><strong>iOS</strong></p>
+<p>Wenn Sie ein iPhone oder iPad Nutzer sind, überprüfen Sie bitte iOS-Einstellungen → Datenschutz → Standortdienste. Geolocation-Datenfreigabe sollte für Organic Maps aktiviert werden.</p>
+<p><strong>Anmerkungen:</strong></p>
+<ul>
+<li>
+<p>Um beim Roaming unerwünschte Daten zu vermeiden, können Sie in den Geräteeinstellungen alle mobilen Daten ausschalten, einen Flugmodus aktivieren oder mobile Daten für Organic Maps deaktivieren. Android- und iOS-Geräte können GPS im Flugmodus verwenden.</p>
+</li>
+<li>
+<p>Einige Mobilgeräte verfügen nicht über integrierte GPS-Empfänger. Dies betrifft z.B. iPod Touch, reine Wlan-iPads, Amazon Kindle Fire, Kindle Fire HD 7 und einige Android-Tablets. Auf diesen Geräten zeigt unsere Anwendung Ihren ungefähren Standort an, solange Sie mit dem Internet verbunden sind.</p>
+</li>
+<li>
+<p>Beachten Sie bitte, dass die Standortbestimmung mit GPS (mit WiFi und Mobilfunknetz aus) einige Zeit dauern kann. Je länger das GPS nicht benutzt wurde, desto mehr Zeit wird benötigt. Die Geschwindigkeit der Standortbestimmung hängt vom Gerät und nicht von der App ab. Die GPS-Bedienung wird auch vom Wetter beeinflusst - am besten funktioniert es draußen unter freiem Himmel. Probleme können auftreten wenn Sie versuchen sich in Gebäuden, in engen Straße oder beim Autofahren zu lokalisieren.</p>
+</li>
+</ul>
+
+    </dd><dd lang="es">
+      <p>Asegúrese de que su dispositivo tenga configurados el GPS y la ubicación.</p>
+<p><strong>Android</strong></p>
+<p>En su dispositivo, abra Configuración → Ubicación. Es mejor activar el modo de alta precisión.</p>
+<p>Si tiene dificultades para determinar su ubicación con GPS, habilite (deshabilite, si está habilitado) "Servicios de Google Play" en la configuración de la aplicación.</p>
+<p>Nota: puede verlo solo si tiene los servicios de Google Play instalados (habilitados) en su dispositivo Android. Los servicios de Google play se usan para determinar la ubicación de manera más precisa; si tiene problemas con la precisión de la ubicación después de deshabilitar la opción, actívela.</p>
+<p><strong>iOS</strong></p>
+<p>Si usted es un usuario de iPhone o iPad, verifique la configuración de iOS → Privacidad → Servicios de ubicación. El intercambio de datos de geolocalización debería estar habilitado para Organic Maps.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>Para evitar datos no deseados durante el roaming, puede desactivar los datos móviles, activar modo avión o deshabilitar datos móviles para Organic Maps en la configuración de su dispositivo. Los dispositivos Android e iOS pueden usar el GPS en el modo avión.</p>
+</li>
+<li>
+<p>Algunos dispositivos móviles no tienen receptores GPS incorporados, como el iPod Touch, el iPad solo WiFi, Amazon Kindle Fire / Kindle Fire HD 7 y algunas tabletas Android. En estos dispositivos, nuestra aplicación mostrará su ubicación aproximada, siempre que esté conectado a internet.</p>
+</li>
+<li>
+<p>Por último, recuerde que la determinación de la ubicación con GPS (con WiFi y Red móvil desactivada) puede llevar algo de tiempo. Cuanto más tiempo no se haya utilizado el GPS, más tiempo tomará. La velocidad de determinación de la ubicación depende del dispositivo, no de la aplicación. La operación del GPS también está influenciada por el clima: funciona mejor en exteriores cuando el cielo está despejado. Pueden surgir problemas al tratar de ubicarse en el interior, en una calle estrecha o cuando conduce un automóvil.</p>
+</li>
+</ul>
+
+    </dd><dd lang="fr">
+      <p>Veuillez vous assurer que votre appareil dispose de GPS et que les paramètres de localisation sont activés.</p>
+<p><strong>Android</strong></p>
+<p>Sur votre appareil, ouvrez Paramètres → Localisation. Il est préférable d'activer le mode Haute précision.</p>
+<p>Si vous avez des difficultés à déterminer votre position avec le GPS, activez (désactivez, si activé) "Google Play Services" dans les paramètres de l'application.</p>
+<p>Remarque : vous ne pouvez le voir que si les services Google Play sont installés (activés) sur votre ordinateur. Appareil Android Les services Google Play sont utilisés pour déterminer l'emplacement plus précisément, si vous vous rencontrez des problèmes de précision de localisation après avoir désactivé l'option, activez-la.</p>
+<p><strong>iOS</strong></p>
+<p>Si vous utilisez un iPhone ou un iPad, veuillez vérifier les paramètres iOS → Confidentialité → Services de localisation. Le partage de données de géolocalisation doit être activé pour Organic Maps.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>Pour éviter les données indésirables en itinérance, vous pouvez désactiver toutes les données mobiles, activer le mode Avion ou désactiver les données mobiles pour Organic Maps dans les paramètres de votre appareil. Les appareils Android et iOS peuvent utiliser le GPS en mode Avion.</p>
+</li>
+<li>
+<p>Certains appareils mobiles ne disposent pas de récepteurs GPS intégrés, tels que l'iPod Touch, l'iPad WiFi uniquement, Amazon Kindle Fire / Kindle Fire HD 7 et quelques tablettes Android. Sur ces appareils, notre application montrera votre position approximative, tant que vous êtes connecté à Internet.</p>
+</li>
+<li>
+<p>Enfin, rappelez-vous que l'emplacement déterminé avec le GPS (avec WiFi et Mobile Réseau éteint) peut prendre un certain temps. Moins le GPS a été utilisé, plus il prend de temps. La vitesse de détermination de l'emplacement dépend de l'appareil, pas de l'application. Le fonctionnement du GPS est influencé par la météo aussi - il fonctionne mieux à l'extérieur quand le ciel est clair. Des problèmes peuvent survenir si vous vous trouvez à l'intérieur, dans une rue étroite ou en conduisant une voiture.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pl">
+      <p>Upewnij się, że Twoje urządzenie ma GPS i ustawienia lokalizacji są włączone.</p>
+<p><strong>Android</strong></p>
+<p>Na twoim urządzeniu otwórz Ustawienia → Lokalizacja. Lepiej jest włączyć tryb wysokiej dokładności.</p>
+<p>Jeśli masz trudności z określeniem swojej lokalizacji za pomocą GPS, włącz (wyłącz, jeśli włączone) "Usługi Google Play" w ustawieniach aplikacji.</p>
+<p>Uwaga: możesz je zobaczyć tylko wtedy, gdy masz zainstalowane (i włączone) usługi Google Play na twoim urządzeniu z Androidem. Usługi Google Play są używane do dokładniejszego określenia lokalizacji, jeśli masz problemy z dokładnością lokalizacji po wyłączeniu opcji, włącz ją.</p>
+<p><strong>iOS</strong></p>
+<p>Jeśli jesteś użytkownikiem iPhone'a lub iPada, sprawdź ustawienia iOS → Prywatność → Usługi lokalizacji. Udostępnianie danych geolokalizacyjnych powinno być włączone dla Organic Maps.</p>
+<p><strong>Uwagi:</strong></p>
+<ul>
+<li>
+<p>Aby uniknąć niechcianych opłat podczas roamingu, możesz wyłączyć wszystkie dane mobilne, aktywować tryb samolotowy lub wyłączyć dane mobilne dla Organic Maps w ustawieniach urządzenia. Urządzenia z Androidem i iOS mogą korzystać z GPS w trybie lotu.</p>
+</li>
+<li>
+<p>Niektóre urządzenia mobilne nie mają wbudowanych odbiorników GPS, takich jak iPod Touch, iPad tylko z Wi-Fi, Amazon Kindle Fire / Kindle Fire HD 7 i niektóre tablety z Androidem. Na tych urządzeniach nasza aplikacja będzie pokazywać przybliżoną lokalizację, o ile jesteś podłączony do Internetu.</p>
+</li>
+<li>
+<p>Na koniec pamiętaj, że określanie lokalizacji z GPS (z WiFi i danymi mobilnymi wyłączonymi) może zająć trochę czasu. Im dłużej GPS nie jest używany, tym więcej czasu zajmuje. Szybkość określania lokalizacji zależy od urządzenia, a nie od aplikacji. Pogoda wpływa na funkcjonowanie GPS - najlepiej działa na zewnątrz, gdy niebo jest czyste. Mogą pojawić się problemy podczas próby zlokalizowania się w domu, na wąskiej ulicy lub podczas prowadzenia samochodu.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt">
+      <p>Por favor, verifique se o seu dispositivo tem GPS e as configurações de localização estão ativadas.</p>
+<p><strong>Android</strong></p>
+<p>No seu dispositivo, abra Configurações → Localização. É recomendável ligar o modo de alta precisão (GPS assistido ou A-GPS).</p>
+<p>Se tiver dificuldade em determinar a sua localização com o GPS, ative (ou desative, se já estiver ativado) o "Google Play Services" nas configurações da aplicação.</p>
+<p>Nota: só pode usar a localização com maior precisão ver se tiver o Google Play Services instalado (ativado) no seu dispositivo Android. Os serviços do Google são usados para determinar a localização com mais precisão. Se tiver problemas com a precisão da localização depois de desativar a opção, ative-a novamente.</p>
+<p><strong>iOS</strong></p>
+<p>Se tem um iPhone ou iPad, Por favor, verifique as configurações do iOS → Privacidade → Serviços de localização. A partilha de dados de geolocalização tem de ser ativada para o Organic Maps.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>Para evitar usar dados em roaming, pode desativar todos os dados móveis, ativar o modo de voo ou desativar os dados móveis do Organic Maps nas configurações do dispositivo. Os dispositivos Android e iOS podem usar o GPS no modo de voo.</p>
+</li>
+<li>
+<p>Alguns dispositivos móveis não têm receptores GPS integrados, como o iPod Touch, o iPad (apenas em Wi-Fi), o Kindle Fire Kindle HD 7 da Amazon e alguns tablets Android. Nesses dispositivos, a nossa aplicação mostrará a sua localização aproximada, desde que esteja ligado à Internet.</p>
+</li>
+<li>
+<p>Finalmente, por favor lembre-se que determinar a localização com o GPS (com a rede Wi-Fi e a rede móvel desligados) pode demorar algum tempo. Quanto mais tempo tiver decorrido desde a última vez que usou o GPS, mais tempo demora a fazer uma nova localização. A velocidade de localização depende do dispositivo e não da aplicação. A operação do GPS também depende das condições metereológicas – funciona melhor em exteriores e com o céu limpo. Os problemas surgem ao usar no interior de edifícios, numa rua estreita ladeada por prédios altos ou dentro de um veículo em movimento.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt-BR">
+      <p>Por favor, verifique se o seu dispositivo tem GPS e as configurações de localização estão ativadas.</p>
+<p><strong>Android</strong></p>
+<p>No seu dispositivo, abra Configurações → Localização. É melhor ligar o modo de alta precisão (GPS assistido, A-GPS).</p>
+<p>Se tiver dificuldade em determinar a sua localização com o GPS, ative (desative, se ativada) o "Google Play Services" nas configurações da aplicação.</p>
+<p>Nota: só pode ver se tiver o Google Play Services instalado (ativado) no seu dispositivo Android. Os serviços de reprodução do Google são usados para determinar a localização com mais precisão. Se você tiver problemas com a precisão da localização depois de desativar a opção, ative-a.</p>
+<p><strong>iOS</strong></p>
+<p>Se você é um usuário de iPhone ou iPad, Por favor, verifique as configurações do iOS → Privacidade → Serviços de localização. O compartilhamento de dados de geolocalização deve ser ativado para o Organic Maps.</p>
+<p><strong>Notas:</strong></p>
+<ul>
+<li>
+<p>Para evitar dados indesejados durante o roaming, você pode desativar todos os dados móveis, ativar um modo de voo ou desativar os dados móveis do Organic Maps nas configurações do dispositivo. Dispositivos Android e iOS podem usar GPS no modo de voo.</p>
+</li>
+<li>
+<p>Alguns dispositivos móveis não possuem receptores GPS integrados, como o iPod Touch, o iPad apenas com WiFi, o Kindle Fire Kindle HD 7 da Amazon e alguns tablets Android. Nesses dispositivos, nosso aplicativo mostrará sua localização aproximada, desde que você esteja conectado à Internet.</p>
+</li>
+<li>
+<p>Finalmente, por favor se lembre que determinar sua localização com GPS (com rede Wi-Fi e rede móvel desligados) pode demorar algum tempo. Quanto mais tempo tiver decorrido desde a última vez que usou o GPS, mais tempo demora fazer uma nova localização. A velocidade de localização depende do dispositivo e não do aplicativo. A operação GPS também depende das condições metereológicas – funciona melhor em exterior e com o céu limpo. Os problemas surgem usando no interior de edifícios, numa rua estreita ladeada por prédios altos ou dentro de um veículo em movimento.</p>
+</li>
+</ul>
+
+    </dd><dd lang="tr">
+      <p>Lütfen cihazınızın GPS'i olduğundan ve konum ayarlarının açık olduğundan emin olun.</p>
+<p><strong>Android</strong></p>
+<p>Cihazınızda Ayarlar → Konum'u açın. Yüksek doğruluk moduna geçmek daha iyi olacaktır.</p>
+<p>GPS ile konumunuzu belirlemekte zorluk çekiyorsanız, uygulama ayarlarından “Google Play Hizmetleri”ni etkinleştirin (etkinse kapatıp tekrar etkinleştirin).</p>
+<p>Not: bunu yalnızca Android cihazınızda Google Play hizmetleri yüklüyse (etkinse) görebilirsiniz. Google Play hizmetleri konumunuzu daha net olarak belirlemenizi sağlar. Eğer bu seçeneği kapattıktan sonra konum doğruluğu ile ilgili sorun yaşıyorsanız bu ayarı açın.</p>
+<p><strong>iOS</strong></p>
+<p>Bir iPhone veya iPad kullanıcısıysanız, lütfen iOS ayarları → Gizlilik → Konum hizmetlerini kontrol edin. Organic Maps için coğrafi konum veri paylaşımı etkinleştirilmelidir.</p>
+<p><strong>Notlar:</strong></p>
+<ul>
+<li>
+<p>Dolaşımdayken istenmeyen verileri önlemek için tüm mobil veriyi kapatabilir, uçak modunu açabilir veya cihaz ayarlarında Organic Maps için mobil veriyi devre dışı bırakabilirsiniz. Android ve iOS cihazlar uçak modunda GPS kullanabilir.</p>
+</li>
+<li>
+<p>iPod Touch, sadece Wi-Fi destekli iPad, Amazon Kindle Fire/Kindle Fire HD 7 ve bazı Android tabletler gibi bazı mobil cihazlar dahili GPS alıcılarına sahip değildir. Bu cihazlarda siz internete bağlanana kadar uygulamamız yaklaşık konumunuzu gösterecektir.</p>
+</li>
+<li>
+<p>Son olarak, lütfen GPS (WiFi ile ve Mobil Ağ kapalı) ile konumunuzu tespit etmenin biraz zaman alabileceğini unutmayın. GPS uzun süre kullanılmazsa bu daha fazla zaman alır. Konumunuzu tespit etme hızı uygulamaya değil, cihazınıza bağlıdır. GPS'in çalışması hava koşullarından da etkilenir – en iyi hava açıkken dışarıda çalışır. Sorunlar kendinizi kapalı alanda bulmaya çalışırken, dar bir sokakta veya araba sürerken meydana gelebilir.</p>
+</li>
+</ul>
+
+    </dd><dd lang="uk">
+      <p>Будь ласка, переконайтеся, що на вашому пристрої ввімкнено GPS та активовані налаштування місцезнаходження.</p>
+<p><strong>Android</strong></p>
+<p>На вашому пристрої відкрийте Налаштування → Місцезнаходження. Краще увімкнути режим високої точності.</p>
+<p>Якщо у вас виникають труднощі з визначенням вашого місцезнаходження за допомогою GPS, увімкніть (вимкніть, якщо увімкнено) "Сервіси Google Play" в налаштуваннях програми.</p>
+<p>Примітка: ви можете побачити його, лише якщо на вашому пристрої встановлені та увімкнені служби Google Play Android. Ці служби використовуються для більш точного визначення місцезнаходження. Якщо у вас виникли проблеми з точністю визначення місцезнаходження після вимкнення цієї опції, увімкніть її назад.</p>
+<p><strong>iOS</strong></p>
+<p>Якщо ви користувач iPhone або iPad, перевірте налаштування iOS → Конфіденційність → Служби визначення місцезнаходження. Обмін геолокаційними даними слід увімкнути для Organic Maps.</p>
+<p><strong>Примітки:</strong></p>
+<ul>
+<li>
+<p>Щоб уникнути небажаних даних у роумінгу, ви можете вимкнути всі мобільні дані, активувати режим польоту або вимкнути мобільні дані для Organic Maps у налаштуваннях вашого пристрою. Пристрої на Android та iOS можуть використовувати GPS в режимі польоту.</p>
+</li>
+<li>
+<p>Деякі мобільні пристрої не мають вбудованих GPS-приймачів, наприклад iPod Touch, iPad з підтримкою Wi-Fi, Amazon Kindle Fire/Kindle Fire HD 7 та деякі планшети Android. На цих пристроях наш додаток буде показуватиме ваше приблизне місцезнаходження за умови підключення до Інтернету.</p>
+</li>
+<li>
+<p>Насамкінець, будь ласка, пам'ятайте, що визначення місцезнаходження за допомогою GPS (з використанням WiFi але без мобільної мережи) може зайняти деякий час. Чим довше GPS не використовувався, тим більше часу це займе. Швидкість визначення місцезнаходження залежить від пристрою, а не від програми. На роботу GPS приймача також впливає погода - він працює найкраще на відкритому повітрі, коли небо чисте. Проблеми можуть виникнути при спробі визначити своє місцезнаходження в приміщенні, на вузькій вулиці або за кермом автомобіля.</p>
+</li>
+</ul>
+
+    </dd><dd lang="zh">
+      <p>请确保您的设备具有 GPS，并且位置设置已激活。</p>
+<p><strong>安卓</strong></p>
+<p>在您的设备上打开设置 → 位置。
+最好将其切换到高精度模式。</p>
+<p>如果使用 GPS 难以确定您的位置，请在应用设置中启用（如果已启用，则禁用）“Google Play 服务”。</p>
+<p>请注意：只有在您的安卓设备上安装了（启用了）Google Play 服务时，您才能看到它。
+Google Play 服务用于更精确地确定位置，如果在禁用该选项后您遇到位置准确性问题，请将其打开。</p>
+<p><strong>iOS</strong></p>
+<p>如果您是 iPhone 或 iPad 用户，请检查 iOS 设置 → 隐私 → 位置服务。
+Organic Maps 的地理位置数据共享应该是启用的。</p>
+<p><strong>请注意：</strong></p>
+<ul>
+<li>
+<p>为了避免漫游时产生不必要的数据费用，您可以在设备设置中关闭所有移动数据，激活飞行模式或为 Organic Maps 禁用移动数据。 安卓和 iOS 设备可以在飞行模式下使用 GPS。</p>
+</li>
+<li>
+<p>一些移动设备没有内置的 GPS 接收器，例如 iPod Touch、仅 WiFi 的 iPad、Amazon Kindle Fire / Kindle Fire HD 7 和一些安卓平板电脑。 在这些设备上，只要您连接到互联网，我们的应用程序将显示您的大致位置。</p>
+</li>
+<li>
+<p>最后，请记住使用 GPS（关闭 WiFi 和移动网络）来确定位置可能需要一些时间。 GPS 未被使用的时间越长，所需的时间就越长。 位置确定的速度取决于设备，而不是应用程序。 GPS 的运作也受天气影响 – 在天空晴朗时，室外效果最好。 在尝试在室内、狭窄的街道或驾车时确定位置时可能会出现问题。</p>
+</li>
+</ul>
+
+    </dd>
+  </dl><dl id="map-cant-download-maps">
+    <dt>
+      <h3 lang="en">I can&#x27;t download (update) maps</h3>
+      
+      <h3 lang="ru">Не получается загрузить (обновить) карты</h3>
+      <h3 lang="de">Ich kann keine Karten herunterladen (oder aktualisieren)</h3>
+      <h3 lang="es">No puedo descargar (actualizar) mapas</h3>
+      <h3 lang="fr">Je ne peux pas télécharger (mettre à jour) les cartes</h3>
+      <h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
+      <h3 lang="pt">Não consigo descarregar (atualizar) mapas</h3>
+      <h3 lang="pt-BR">Não consigo baixar (atualizar) mapas</h3>
+      <h3 lang="tr">Haritaları indiremiyorum&#x2F;güncelleyemiyorum</h3>
+      <h3 lang="uk">Я не можу завантажити (оновити) карти</h3>
+      <h3 lang="zh">我无法下载（或更新）地图</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Your download can fail due to a temporary network error or specific network provider/router settings (firewall blocking). Please try again later or use a different Wi-Fi access point. In addition, make sure that you have enough free space to download maps.</p>
+<p>Also, if you have very outdated maps and the app can't update them, deleting outdated maps and re-downloading them may help.</p>
+</dd>
+    <dd lang="ru">
+      <p>Причиной может быть временная проблема с сетью, либо специфические настройки интернет-провайдера или роутера. Пожалуйста, убедитесь, что на устройстве достаточно свободного места для загрузки и хранения карт, попробуйте еще раз через некоторое время, или подключитесь к другой точке Wi-Fi.</p>
+<p>Если у вас Android, пожалуйста, убедитесь, что приложению разрешен доступ к Интернет. Если у вас установлен файрвол/блокировщик подключений, так же разрешите доступ к Интернету системной программе Download Provider (Download Provider).</p>
+<p>Если карты сильно устарели и приложение не может их обновить, удалите старые карты и скачайте их заново.</p>
+
+    </dd><dd lang="de">
+      <p>Ihr Download kann aufgrund eines temporären Netzwerkfehlers oder bestimmter Netzwerkanbieter-/Routereinstellungen fehlschlagen. Bitte versuchen Sie es später noch einmal oder verwenden Sie einen anderen WLAN-Access Point. Bitte stellen Sie auch sicher, dass auf Ihrem Gerät genügend Speicherplatz frei ist.</p>
+<p>Wenn das Aktualisieren bei sehr alten Karten fehlschlägt kann es helfen die alte Karten zu löschen und anschließend erneut herunterzuladen.</p>
+
+    </dd><dd lang="es">
+      <p>El error de la descarga puede deberse a un fallo temporal de la red o a ajustes específicos del proveedor de la red o del rúter. Inténtalo de nuevo más tarde o utiliza otro punto de acceso mediante wifi.</p>
+<p>En Android, asegúrese de haber otorgado acceso a la red para Organic Maps y Download Manager.</p>
+<p>Además, si tiene mapas muy desactualizados y la aplicación no puede actualizarlos, puede ser útil eliminar los mapas desactualizados y volver a descargarlos.</p>
+
+    </dd><dd lang="fr">
+      <p>Votre téléchargement peut échouer suite à un problème de réseau temporaire ou de paramêtre de réseau spécifique du fournisseur/routeur. Merci de réessayer plus tard ou d'utiliser un point d'accès wifi différent. En complément, assurez vous d'avoir suffisamment d'espace disponible pour télécharger les cartes.</p>
+<p>Sur Android, assurez-vous d'avoir autorisé l'accès au réseau pour Organic Maps et Download Manager.</p>
+<p>De plus, si vous avez des cartes très obsolètes et que l'application ne peut pas les mettre à jour, il peut être utile de supprimer les cartes obsolètes et de les télécharger à nouveau.</p>
+
+    </dd><dd lang="pl">
+      <p>Pobieranie może się nie powieść z powodu tymczasowego błędu sieci lub określonej sieci ustawienia dostawcy / routera. Spróbuj ponownie później lub użyj innego punktu dostępu Wi-Fi. Ponadto upewnij się, że masz wystarczającą ilość wolnego miejsca do pobrania map.</p>
+<p>W systemie Android upewnij się, że przyznałeś dostęp do sieci dla organicznych map i Download Manager.</p>
+<p>Ponadto, jeśli masz bardzo nieaktualne mapy i aplikacja nie może ich zaktualizować, może pomóc usunięcie nieaktualnych map i ponowne ich pobranie.</p>
+
+    </dd><dd lang="pt">
+      <p>O descarregamento pode falhar devido a um erro de rede temporário ou a configurações específicas do fornecedor da rede / router. Por favor, tente novamente mais tarde ou use outro ponto de acesso Wi-Fi. Certifique-se também que tem espaço livre suficiente para fazer o descarregamento dos mapas.</p>
+<p>Em Android, certifique-se que forneceu o acesso à rede ao Organic Maps e à aplicação do sistema Gestor de Transferências (Download Manager).</p>
+<p>Além disso, se tiver mapas muito desatualizados e a aplicação não consegue atualizá-los, pode tentar eliminar os mapas desatualizados e tentar descarregá-los novamente.</p>
+
+    </dd><dd lang="pt-BR">
+      <p>Seu download pode falhar devido a um erro de rede temporário ou configurações específicas de provedor de rede / roteador. Por favor, tente novamente mais tarde ou use um ponto de acesso Wi-Fi diferente. Além disso, certifique-se de ter espaço livre suficiente para fazer o download dos mapas.</p>
+<p>No Android, certifique-se de ter concedido acesso à rede para Organic Maps e Download Manager.</p>
+<p>Além disso, se você tiver mapas muito desatualizados e o aplicativo não puder atualizá-los, pode ser útil excluir mapas desatualizados e baixá-los novamente.</p>
+
+    </dd><dd lang="tr">
+      <p>İndirme işleminiz geçici bir ağ hatası veya belirli ağ sağlayıcısı/yönlendirici ayarları nedeniyle başarısız olabilir. Lütfen daha sonra tekrar deneyin veya farklı bir WiFi erişim noktası kullanın. Ayrıca, haritaları indirmek için yeterli boş alana sahip olduğunuzdan emin olun.</p>
+<p>Android'de lütfen Organic Maps ve sistem İndirme Yöneticisi (İndirme Sağlayıcısı) için ağ erişimi verdiğinizden emin olun.</p>
+<p>Ayrıca, haritalarınız çok eskiyse ve uygulama bunları güncelleyemiyorsa, eski haritaları silip yeniden indirmek yardımcı olabilir.</p>
+
+    </dd><dd lang="uk">
+      <p>Завантаження може завершитися невдало через тимчасову помилку мережі або певні проблеми провайдера/маршрутизатора. Будь ласка, повторіть спробу пізніше або використовуйте іншу точку доступу Wi-Fi. Крім того, переконайтеся, що у вас є достатньо вільного місця для завантаження карт.</p>
+<p>На Android, будь ласка, переконайтеся, що ви надали доступ до мережі для Organic Maps і системний менеджер завантажень (провайдер завантажень).</p>
+<p>Крім того, якщо у вас дуже застарілі карти, і програма не може їх оновити, вам може допомогти видалення всіх карт і повторне їх завантаження.</p>
+
+    </dd><dd lang="zh">
+      <p>您的下载可能因为临时网络错误或特定网络提供商 / 路由器设置而失败。 请稍后重试或使用其它 Wi-Fi 网络。此外，请确保您有足够的存储空间来下载地图。</p>
+<p>在安卓设备上，请确保您已经为 Organic Maps 和系统下载管理器授予了网络访问权限。</p>
+<p>另外，如果您的地图非常过时且应用程序无法更新它们，删除过时的地图并重新下载可能会有帮助。</p>
+
+    </dd>
+  </dl><dl id="map-search-cannot-find-a-place">
+    <dt>
+      <h3 lang="en">Search cannot find a place on the map</h3>
+      
+      <h3 lang="ru">Поиск не находит то, что я ищу</h3>
+      <h3 lang="de">Die Suche findet einen Ort nicht auf der Karte</h3>
+      <h3 lang="es">La función de búsqueda no encuentra un lugar en el mapa</h3>
+      <h3 lang="fr">La recherche ne trouve pas le lieu sur la carte</h3>
+      <h3 lang="pl">Wyszukiwanie nie może znaleźć miejsca na mapie</h3>
+      <h3 lang="pt">A pesquisa não encontrou um lugar no mapa</h3>
+      <h3 lang="pt-BR">A pesquisa não pode encontrar um lugar no mapa</h3>
+      <h3 lang="tr">Arama, haritada bir yer bulamıyor</h3>
+      <h3 lang="uk">Пошук не може знайти місце на карті</h3>
+      <h3 lang="zh">搜索功能无法在地图上找到地点</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Remember that to search for a place in a specific area, you will need to download a relevant map and zoom in the map to that area, or your location should be near that area before you begin the search. For example, if you want to find a place in Vietnam and your location is somewhere else, you should download and open the map of Vietnam first, or explicitly mention the country (Vietnam) or desired city/town/village name in the search field.</p>
+<p>In addition, the place may not have been added to the map yet at <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. If you want to help and improve the map, check <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">this guide</a> and add missing map information yourself.</p>
+<p>If the place is displayed on the map in Organic Maps, but our search cannot find it, <a href="mailto:support@organicmaps.app">report us</a> coordinates of the place and an example of your search request.</p>
+</dd>
+    <dd lang="ru">
+      <p>Для поиска места в определенной области необходимо сначала загрузить карту, а затем приблизить ее (либо местоположение должно быть рядом с этой областью). Например, если вы хотите найти место во Вьетнаме, а ваше местоположение находится в другом месте, необходимо сначала загрузить и открыть карту Вьетнама.</p>
+<p>Также искомое место может отсутствовать на карте в <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, нашем источнике данных. Если вы хотите помочь и улучшить карту, ознакомьтесь с руководством по <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">ссылке</a>.</p>
+<p>Если место отображается на карте в Organic Maps, но поиск не может его найти, <a href="mailto:support@organicmaps.app">сообщите нам</a> координаты места и пример вашего поискового запроса.</p>
+
+    </dd><dd lang="de">
+      <p>Zur Suche nach einem Ort in einem bestimmten Gebiet müssen Sie die Kartenregion herunterladen. Zudem sollten Sie vor Beginn der Suche entweder in der Karte zu diesem Gebiet zoomen oder Ihr GPS Standorts sollte sich in der Nähe dieses Gebiets befinden. Wenn Sie beispielsweise einen Ort in Vietnam suchen möchten und sich an einem anderen Ort befinden, sollten Sie zuerst die Karte von Vietnam herunterladen und öffnen.</p>
+<p>Außerdem wurde der Ort möglicherweise noch nicht zur Karte auf <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, unserer Kartendatenquelle, hinzugefügt. Wenn Sie helfen und die Karte verbessern möchten, lesen Sie <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">diese Anleitung</a>.</p>
+<p>Wenn der Ort auf der Karte in Organic Maps angezeigt wird, unsere Suche ihn jedoch nicht finden kann, <a href="mailto:support@organicmaps.app">schicken Sie uns</a> die Koordinaten des Ortes und ein Beispiel für Ihre Suchanfrage.</p>
+
+    </dd><dd lang="es">
+      <p>Recuerde que para buscar un lugar en un área específica, deberá descargar un mapa relevante y acercar el mapa a esa área, o su ubicación debe estar cerca de esa área antes de comenzar la búsqueda. Por ejemplo, si desea encontrar un lugar en Vietnam y su ubicación está en otro lugar, primero debe descargar y abrir el mapa de Vietnam.</p>
+<p>Además, es posible que el lugar aún no se haya agregado al mapa en <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, nuestra fuente de datos de mapas. Si quieres ayudar y mejorar el mapa, consulta <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/ES:Contribuir_a_los_datos_del_mapa">esta guía</a>.</p>
+<p>Si el lugar se muestra en el mapa en Organic Maps, pero nuestra búsqueda no puede encontrarlo, <a href="mailto:support@organicmaps.app">infórmanos</a> de las coordenadas del lugar y un ejemplo de tu solicitud de búsqueda.</p>
+
+    </dd><dd lang="fr">
+      <p>N'oubliez pas que pour rechercher un lieu dans une zone spécifique, vous devrez télécharger une carte pertinente et zoomer sur la carte vers cette zone, ou votre emplacement doit être proche de cette zone avant de commencer la recherche. Par exemple, si vous voulez trouver un endroit au Vietnam et que votre emplacement est ailleurs, vous devez d'abord télécharger et ouvrir la carte du Vietnam.</p>
+<p>De plus, le lieu n'a peut-être pas encore été ajouté à la carte sur <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, notre source de données cartographiques. Si vous souhaitez aider et améliorer la carte, consultez <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/FR:Contribuer_aux_donn%C3%A9es_cartographiques">ce guide</a>.</p>
+<p>Si le lieu est affiché sur la carte dans Organic Maps, mais que notre recherche ne le trouve pas, <a href="mailto:support@organicmaps.app">indiquez-nous</a> les coordonnées du lieu et un exemple de votre demande de recherche.</p>
+
+    </dd><dd lang="pl">
+      <p>Pamiętaj, że aby wyszukać miejsce w określonym obszarze, musisz pobrać odpowiednią mapę i powiększyć mapę do tego obszaru lub Twoja lokalizacja powinna znajdować się w pobliżu tego obszaru przed rozpoczęciem wyszukiwania. Na przykład, jeśli chcesz znaleźć miejsce w Wietnamie, a Twoja lokalizacja znajduje się gdzie indziej, najpierw pobierz i otwórz mapę Wietnamu.</p>
+<p>Ponadto miejsce mogło nie zostać jeszcze dodane do mapy w <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, naszym źródle danych map. Jeśli chcesz pomóc i ulepszyć mapę, zajrzyj do <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Pl:Wk%C5%82ad_w_dane_mapowe">tego przewodnika</a>.</p>
+<p>Jeśli miejsce jest wyświetlane na mapie w Organic Maps, ale nasze wyszukiwanie nie może go znaleźć, <a href="mailto:support@organicmaps.app">zgłoś nam</a> współrzędne miejsca i przykład zapytania.</p>
+
+    </dd><dd lang="pt">
+      <p>Note que para pesquisar um lugar numa área específica, irá precisar de descarregar um mapa desse local e ampliar o mapa nessa área, ou a sua localização deve estar perto dessa área antes de iniciar a pesquisa. Por exemplo, se quer encontrar um lugar no Vietname e a sua localização atual é noutro país, tem de descarregar o mapa do Vietname e abrir o mapa desse país.</p>
+<p>Além disso, o local pode ainda não ter sido adicionado ao mapa em <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, a nossa fonte de dados de mapas. Se quiser ajudar a melhorar o mapa, consulte <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Pt:Contribuir_com_dados_do_mapa">este guia</a>.</p>
+<p>Se o local aparece no mapa no Organic Maps, mas a pesquisa não o encontra, <a href="mailto:support@organicmaps.app">informe-nos</a> as coordenadas do local e as palavras que usou na pesquisa.</p>
+
+    </dd><dd lang="pt-BR">
+      <p>Lembre-se de que para pesquisar um lugar em uma área específica, você precisará baixar um mapa desse local e ampliar o mapa para essa área, ou sua localização deve estar perto dessa área antes de iniciar a pesquisa. Por exemplo, se você deseja encontrar um lugar no Vietnã e sua localização é em outro lugar, você deve fazer o download e abrir o mapa do Vietnã primeiro.</p>
+<p>Além disso, o local pode não ter sido adicionado ao mapa ainda em <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, nossa fonte de dados de mapas. Se você quer ajudar e melhorar o mapa, consulte <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Pt:Contribuir_com_dados_do_mapa">este guia</a>.</p>
+<p>Se o local estiver exibido no mapa no Organic Maps, mas nossa pesquisa não o encontrar, <a href="mailto:support@organicmaps.app">informe-nos</a> as coordenadas do local e as palavras que usou em sua pesquisa.</p>
+
+    </dd><dd lang="tr">
+      <p>Belirli bir bölgedeki bir yeri aramak için, ilgili yerin haritasını indirmeniz ve o bölgeye haritayı yakınlaştırmanız veya aramaya başlamadan önce bulunduğunuz yerin o bölgeye yakın olması gerektiğini unutmayın. Örneğin, Vietnam'da bir yer bulmak istiyorsanız ve konumunuz başka bir yerdeyse, önce Vietnam haritasını indirip açmalısınız.</p>
+<p>Ayrıca, aradığınız yer henüz bizim harita veri kaynağımız olan <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>'da haritaya eklenmemiş olabilir. Yardım etmek ve haritayı geliştirmek istiyorsanız, <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">bu kılavuza</a> göz atın.</p>
+<p>Yer, Organic Maps'te haritada görüntüleniyorsa ama arama sistemimiz onu bulamıyorsa, yerin koordinatlarını ve aramanızın bir örneğini <a href="mailto:support@organicmaps.app">bize bildirin</a>.</p>
+
+    </dd><dd lang="uk">
+      <p>Пам'ятайте, що для пошуку місця в певному районі вам потрібно завантажити відповідну мапу і збільшити масштаб карти до цієї області. Або ж ваше місцезнаходження має бути поблизу цієї області, перш ніж ви почнете пошук. Наприклад, якщо ви хочете знайти місце у В'єтнамі, а ваше місцезнаходження десь в іншому місці, вам слід спочатку завантажити і відкрити мапу В'єтнаму.</p>
+<p>Крім того, місце може бути ще не додано на мапу в базі <a rel="noopener" target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, нашому джерелі картографічних даних. Якщо ви хочете допомогти і покращити мапу, перевірте <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">цей путівник</a>.</p>
+<p>Якщо місце відображається на мапі в Organic Maps, але наш пошук не може його знайти, <a href="mailto:support@organicmaps.app">повідомте нам</a> координати місця та приклад вашого пошукового запиту.</p>
+
+    </dd><dd lang="zh">
+      <p>请记住，要在特定区域搜索地方，您需要下载相关地图并将地图缩放到该区域，或者在开始搜索之前，您的位置应该接近该区域。 例如，如果您想在越南找到一个地方，而您的位置在其他地方，您应该先下载并打开越南的地图。</p>
+<p>此外，该地方可能尚未添加到我们的地图数据源 <a rel="noopener" target="_blank" href="https://www.openstreetmap.org">OpenStreetMap.org</a>上。 如果您想帮助改进地图，请查看 <a rel="noopener" target="_blank" href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">这份指南</a>。</p>
+<p>如果在 Organic Maps 上显示了该地方，但搜索功能却找不到它，请 <a href="mailto:support@organicmaps.app">向我们报告</a> 该地方的坐标以及您的搜索请求的示例。</p>
+
+    </dd>
+  </dl><dl id="app-crash">
+    <dt>
+      <h3 lang="en">What can I do if the app has stopped&#x2F;crashed?</h3>
+      
+      <h3 lang="ru">Что делать, если приложение перестало работать (остановлено)?</h3>
+      <h3 lang="de">Was kann ich tun, wenn die App sich aufhängt oder wenn sie abstürzt?</h3>
+      <h3 lang="es">Qué hago si la aplicación se detiene o se bloquea?</h3>
+      <h3 lang="fr">Pourquoi l&#x27;application s&#x27;arrête ou crash?</h3>
+      <h3 lang="pl">Co mogę zrobić, jeśli aplikacja nie odpowiada&#x2F;uległa awarii?</h3>
+      <h3 lang="pt">O que fazer se a aplicação parar de funcionar (bloquear)?</h3>
+      <h3 lang="pt-BR">O que posso fazer se o aplicativo parar (travar)?</h3>
+      <h3 lang="tr">Uygulama durdurulursa&#x2F;çökerse ne yapabilirim?</h3>
+      <h3 lang="uk">Що робити, якщо додаток несподівано закрився або вийшов з ладу?</h3>
+      <h3 lang="zh">如果应用停止运行（或崩溃），我该怎么办</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>On Android, if you store your maps on an SD card, the most likely cause is a faulty SD card. You can:</p>
+<ol>
+<li>Delete all downloaded maps and re-download them again to the SD card (may not work again).</li>
+<li>Delete all downloaded maps, select Internal device storage, and re-download maps.</li>
+<li>Format SD card and re-download maps.</li>
+<li>Buy a new SD card (recommended)</li>
+</ol>
+<p>If the app still crashes, please check <a rel="noopener" target="_blank" href="https://github.com/organicmaps/organicmaps/issues/">our GitHub</a> for similar issues, and <a href="mailto:support@organicmaps.app">contact us</a> and provide the following:</p>
+<ul>
+<li>A detailed description of the issue and steps to reproduce it</li>
+<li>Organic Maps version</li>
+<li>Device model and OS version (Android or iOS)</li>
+</ul>
+</dd>
+    <dd lang="ru">
+      <p>Это, скорее всего, баг в нашем коде, и мы будем рады исправить его в следующем обновлении.</p>
+<p>На Android чаще всего эта проблема связана с плохой SD-картой. Если вы храните загруженные карты стран на SD-карте, попробуйте отформатировать ее, а лучше замените на новую. Если вы переместили само приложение на SD карту, пожалуйста, верните его назад в память устройства.</p>
+<p>Если ошибка осталась, пожалуйста, <a href="mailto:support@organicmaps.app">сообщите нам</a> о проблеме и уточните следующую информацию:</p>
+<ul>
+<li>краткое описание проблемы</li>
+<li>версия Organic Maps</li>
+<li>модель устройства и версия ОС (Android или iOS).</li>
+</ul>
+
+    </dd><dd lang="de">
+      <p>Es ist wahrscheinlich unser Fehler und wir werden ihn gerne im nächsten Update beheben.</p>
+<p>Android: Wenn Sie Ihre Karten auf einer SD-Karte speichern, ist die wahrscheinlichste Ursache eine fehlerhafte SD-Karte. Sie können Ihre SD-Karte formatieren oder besser durch eine neue ersetzen. Wenn Sie die App selbst auf die SD-Karte verschoben haben, verschieben Sie sie bitte zurück in den internen (Geräte-) Speicher.</p>
+<p>Wenn das Problem weiterhin besteht, <a href="mailto:support@organicmaps.app">kontaktieren Sie uns bitte</a> und geben Sie uns:</p>
+<ul>
+<li>Eine kurze Beschreibung des Problems</li>
+<li>Die Organic Maps Version</li>
+<li>Ihr Gerätemodell und Betriebssystemversion (Android oder iOS).</li>
+</ul>
+
+    </dd><dd lang="es">
+      <p>Probablemente sea nuestro error y estaremos encantados de solucionarlo en la próxima actualización.</p>
+<p>Android: Si almacenas los mapas en una tarjeta SD, lo más probable es que el error se deba a un fallo de la tarjeta. Puedes formatear la tarjeta SD o, mejor aún, cambiarla por otra nueva. Si has movido la app a la tarjeta SD, muévela al almacenamiento interno (de tu dispositivo).</p>
+<p>Si el problema persiste <a href="mailto:support@organicmaps.app">ponte en contacto con nosotros</a> y especifica por favor:</p>
+<ul>
+<li>la descripción corta del problema</li>
+<li>la version de Organic Maps</li>
+<li>el modelo de dispositivo y la versión de OS (Android o iOS).</li>
+</ul>
+
+    </dd><dd lang="fr">
+      <p>C'est probablement notre bug, et nous serons heureux de le corriger dans la prochaine mise à jour.</p>
+<p>Android: Si vous stockez les cartes sur carte SD, vous pouvez la formater, c'est la cause la plus courante. Le formatage ou le remplacement résouds le plus souvent le problème.</p>
+<p>Si le problème subsiste, merci de nous <a href="mailto:support@organicmaps.app">contacter</a> et envoyer nous:</p>
+<ul>
+<li>un rapport d'erreur et une description du problème</li>
+<li>la version de Organic Maps</li>
+<li>Le modèle de l'appareil et la version du système d'exploitation (Android ou iOS).</li>
+</ul>
+
+    </dd><dd lang="pl">
+      <p>Bu muhtemelen bizim hatamız ve bir sonraki güncellemede bunu düzeltmekten mutluluk duyacağız.</p>
+<p>Android'de, haritalarınızı bir SD kartta saklarsanız, bunun en olası nedeni hatalı bir SD karttır. SD kartınızı biçimlendirebilir veya daha iyisi yenisiyle değiştirebilirsiniz. Uygulamayı SD karta taşıdıysanız, lütfen tekrar dahili (cihaz) depolama alanına taşıyın.</p>
+<p>Sorun devam ederse, lütfen <a href="mailto:support@organicmaps.app">bizimle iletişime geçin</a> ve şunları ekleyin:</p>
+<ul>
+<li>sorunun kısa açıklaması</li>
+<li>Organic Maps sürümü</li>
+<li>cihaz modeli ve İşletim Sistemi sürümü (Android veya iOS).</li>
+</ul>
+
+    </dd><dd lang="pt">
+      <p>É provavelmente um erro inesperado e ficaremos contentes em corrigi-lo na próxima atualização.</p>
+<p>Android: se armazena os mapas num cartão SD, a causa mais provável é ser um cartão SD defeituoso. Pode tentar formatar o cartão SD ou melhor ainda, substituí-lo por um novo. Se moveu a aplicação para o cartão SD, mova-o novamente no sentido inverso para o armazenamento interno (dispositivo).</p>
+<p>Se mesmo assim o problema persistir, por favor <a href="mailto:support@organicmaps.app">contacte-nos</a> e forneça as seguintes informações:</p>
+<ul>
+<li>descrição do problema e etapas para o recriar</li>
+<li>Versão do Organic Maps</li>
+<li>modelo do dispositivo e versão do sistema operativo (Android ou iOS).</li>
+</ul>
+
+    </dd><dd lang="pt-BR">
+      <p>É provavelmente o nosso bug e ficaremos felizes em corrigi-lo na próxima atualização.</p>
+<p>Android: se você armazenar seus mapas em um cartão SD, a causa mais provável é um cartão SD defeituoso. Você pode formatar seu cartão SD ou, melhor ainda, substituí-lo por um novo. Se você moveu o aplicativo para o cartão SD, mova-o de volta para o armazenamento interno (dispositivo).</p>
+<p>Se o problema persistir, entre em <a href="mailto:support@organicmaps.app">contato</a> conosco e forneça as seguintes informações:</p>
+<ul>
+<li>descrição do problema e etapas para recriá-lo</li>
+<li>Versão do Organic Maps</li>
+<li>modelo de dispositivo e versão do sistema operacional (Android ou iOS).</li>
+</ul>
+
+    </dd><dd lang="tr">
+      <p>Bu muhtemelen bizim hatamız ve bir sonraki güncellemede bunu düzeltmekten mutluluk duyacağız.</p>
+<p>Android'de, haritalarınızı bir SD kartta saklarsanız, bunun en olası nedeni hatalı bir SD karttır. SD kartınızı biçimlendirebilir veya daha iyisi yenisiyle değiştirebilirsiniz. Uygulamayı SD karta taşıdıysanız, lütfen tekrar dahili (cihaz) depolama alanına taşıyın.</p>
+<p>Sorun devam ederse, lütfen <a href="mailto:support@organicmaps.app">bizimle iletişime geçin</a> ve şunları ekleyin:</p>
+<ul>
+<li>sorunun kısa açıklaması</li>
+<li>Organic Maps sürümü</li>
+<li>cihaz modeli ve İşletim Sistemi sürümü (Android veya iOS).</li>
+</ul>
+
+    </dd><dd lang="uk">
+      <p>Ймовірно, це наша помилка, і ми будемо раді виправити її в наступному оновленні.</p>
+<p>Для Android пристроїв, якщо ви зберігаєте карти на SD-карті, найімовірнішою причиною є несправна SD-карта. Ви можете відформатувати SD-карту, а ще краще замінити її на нову. Якщо ви перемістили саму програму на SD-карту, будь ласка, поверніть його назад у внутрішню пам'ять пристрою.</p>
+<p>Якщо проблема не зникне, будь ласка <a href="mailto:support@organicmaps.app">зв'яжіться з нами</a> і повідомте:</p>
+<ul>
+<li>короткий опис проблеми</li>
+<li>версію Organic Maps</li>
+<li>модель пристрою та версія ОС (Android або iOS).</li>
+</ul>
+
+    </dd><dd lang="zh">
+      <p>这可能是 Organic Maps 的 bug，我们将很乐意在下一个更新中修复。</p>
+<p>在安卓设备上，如果您将地图存储在 SD 卡上，最有可能的原因是 SD 卡故障。 您可以格式化 SD 卡，或者更好的办法是用新的替换。 如果您将应用本身移动到 SD 卡上，请将其移回到内部（设备）存储。</p>
+<p>如果问题仍然存在，请 <a href="mailto:support@organicmaps.app">与我们联系</a> 并提供以下信息：</p>
+<ul>
+<li>问题的简要描述</li>
+<li>Organic Maps 的版本</li>
+<li>设备型号和操作系统版本（安卓或 iOS）。</li>
+</ul>
+
+    </dd>
+  </dl><dl id="voice-cant-hear-instructions">
+    <dt>
+      <h3 lang="en">I can&#x27;t hear voice instructions</h3>
+      
+      <h3 lang="ru">Я не слышу голосовые подсказки</h3>
+      <h3 lang="de">Ich höre keine Sprachanweisungen</h3>
+      <h3 lang="es">No oigo las instrucciones de voz</h3>
+      <h3 lang="fr">Je n&#x27;arrive pas à entendre les instructions vocales</h3>
+      <h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
+      <h3 lang="pt">Não consigo ouvir as instruções de voz</h3>
+      <h3 lang="pt-BR">Não consigo ouvir instruções de voz</h3>
+      <h3 lang="tr">Sesli yönergeleri duyamıyorum</h3>
+      <h3 lang="uk">Я не чую голосових підказок</h3>
+      <h3 lang="zh">我无法听到语音指示</h3>
+    </dt>
+
+    <dd lang="en">
+      <p><strong>Note:</strong> voice instruction are available for car and cycling routes. For now, you can hear voice instructions only while driving and when the screen is on.</p>
+<p>If you can't hear voice instructions:</p>
+<ul>
+<li>
+<p>Please make sure that your device's volume is not muted. You can change the volume level with your device's volume buttons. To do that, you may need to disable "Change with Buttons" option (if enabled) in the device settings → Sounds.</p>
+</li>
+<li>
+<p>Please report any Bluetooth issues with necessary details on our <a rel="noopener" target="_blank" href="https://github.com/organicmaps/organicmaps/issues">GitHub</a></p>
+</li>
+<li>
+<p>If you are an Android user and the option is disabled (or some of the supported languages are unavailable), please check <a href="https://organicmaps.app/faq/voice/text-to-speech-android-tts/">TTS settings</a>.</p>
+</li>
+</ul>
+<p>On Android voice instructions are available in 39 languages: English, Arabic, Basque, Belarusian, Catalan, Chinese (Simplified and Traditional), Croatian, Czech, Danish, Dutch, Finnish, French, German, Greek, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Marathi, Norwegian, Persian (Farsi), Polish, Portuguese, Portuguese (Brasil), Romanian, Russian, Serbian, Slovak, Spanish, Spanish (Mexico), Swahili, Swedish, Thai, Turkish, Ukrainian, Vietnamese.</p>
+<p>Google TTS supports all listed languages except of Arabic and Persian (Farsi). For these languages you may need to install third party TTS (for example, eSpeak TTS, Vocalizer TTS or SVOX Classic TTS) and a language pack from app store (Google Play Store, Galaxy Store, etc).</p>
+<p>On iOS voice instructions are available in 26 languages: English, Arabic, Chinese (Traditional and Simplified), Czech, Danish, Dutch, Finnish, French, German, Greek, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Swedish, Thai, Turkish.</p>
+</dd>
+    <dd lang="ru">
+      <p><strong>Обратите внимание:</strong> голосовые подсказки доступны для автомобильных и велосипедных маршрутов. Сейчас подсказки озвучиваются только во время движения и только при включенном экране.</p>
+<p>Если подсказки не слышно:</p>
+<ul>
+<li>
+<p>Убедитесь, что на устройстве включен звук. Изменить громкость можно с помощью кнопок громкости на устройстве. Чтобы это сделать, может потребоваться отключить опцию "Изменение кнопками" (если она включена) в настройках устройства → Звуки, тактильные сигналы.</p>
+</li>
+<li>
+<p>Если у вас включен Bluetooth, это не должно затронуть голосовые инструкции. В случае возникновения трудностей пришлите описание проблемы с подробностями через <a rel="noopener" target="_blank" href="https://github.com/organicmaps/organicmaps/issues">GitHub</a>.</p>
+</li>
+<li>
+<p>Если у вас Android-устройство и опция голосовых инструкций недоступна в настройках приложения или поддерживаемые языки не отображаются в списке, пожалуйста, проверьте <a href="https://organicmaps.app/ru/faq/voice/%D1%81%D0%B8%D0%BD%D1%82%D0%B5%D0%B7-%D1%80%D0%B5%D1%87%D0%B8-tts-%D0%BD%D0%B0-android/">настройки синтеза речи</a>.</p>
+</li>
+</ul>
+<p>Голосовые подсказки для Android доступны на 39 языках: Русский, Беларуский, Украинский, Английский, Арабский, Баскский, Венгерский, Вьетнамский, Греческий, Датский, Индонезийский, Испанский, Испанский (Мексика), Итальнский, Каталанский, Китайский (упрощенный и традиционный), Корейский, Маратхи, Немецкий, Нидерландский, Норвежский, Персидский, Польский, Португальский, Португальский (Бразилия), Румынский, Сербский, Словацкий, Суахили, Тайский, Турецкий, Финский, Французский, Хинди, Хорватский, Чешский, Шведский, Японский</p>
+
+    </dd><dd lang="de">
+      <p><strong>Hinweis:</strong> Sprachanweisungen sind für Auto- und Fahrradrouten verfügbar. Zur Zeit können Sie Sprachanweisungen nur während der Fahrt und nur bei eingeschaltetem Bildschirm hören.</p>
+<p>Wenn Sie keine Sprachanweisungen hören können:</p>
+<ul>
+<li>
+<p>Bitte stellen Sie sicher, dass die Lautstärke Ihres Geräts nicht stummgeschaltet ist. Sie können die Lautstärke mit den Lautstärketasten Ihres Geräts ändern. Dazu müssen Sie möglicherweise die Option "Mit Tasten ändern" (falls aktiviert) in den Geräteeinstellungen → Töne &amp; Haptik deaktivieren.</p>
+</li>
+<li>
+<p>Bitte melden Sie uns Bluetooth Probleme inklusive Problemdetails auf <a rel="noopener" target="_blank" href="https://github.com/organicmaps/organicmaps/issues">GitHub</a></p>
+</li>
+<li>
+<p>Wenn Sie Android verwenden und die Sprachanweisungs Option deaktiviert ist (oder einige der unterstützten Sprachen nicht verfügbar sind), überprüfen Sie die <a href="https://organicmaps.app/faq/voice/text-to-speech-android-tts/">System TTS Einstellungen</a>.</p>
+</li>
+</ul>
+<p>Auf Android sind Sprachanweisungen in 39 Sprachen verfügbar: Arabisch, Baskisch, Chinesisch (vereinfacht und traditionell), Dänisch, <strong>Deutsch</strong>, Englisch, Finnisch, Französisch, Griechisch, Hindi, Indonesisch, Italienisch, Japanisch, Katalanisch, Koreanisch, Kroatisch, Marathi, Niederländisch, Norwegisch, Persisch (Farsi), Polnisch, Portugiesisch, Portugiesisch (Brasilien), Rumänisch, Russisch, Schwedisch, Serbisch, Slowakisch, Spanisch, Spanisch (Mexiko), Swahili, Thailändisch, Tschechisch, Türkisch, Ukrainisch, Ungarisch, Vietnamesisch, Weißrussisch.</p>
+<p>Google TTS unterstützt alle aufgeführten Sprachen außer Arabisch und Persisch (Farsi). Für diese Sprachen müssen Sie TTS von Drittanbietern (z. B. eSpeak TTS, Vocalizer TTS oder SVOX Classic TTS) und ein Sprachpaket aus einem App Store (Google Play Store, Galaxy Store usw.) installieren.</p>
+<p>Unter iOS sind die Sprachanweisungen in 26 Sprachen verfügbar: Arabisch, Chinesisch (traditionell und vereinfacht), Dänisch, <strong>Deutsch</strong>, Englisch, Finnisch, Französisch, Griechisch, Hindi, Indonesisch, Italienisch, Japanisch, Koreanisch, Niederländisch, Polnisch, Portugiesisch, Rumänisch, Russisch, Schwedisch, Slowakisch, Spanisch, Thailändisch, Tschechisch, Türkisch, Ungarisch.</p>
+
+    </dd><dd lang="es">
+      <p><strong>Nota</strong> por favor que las instrucciones de voz están disponibles para rutas en coche y en bicicleta. Por ahora, puede escuchar las instrucciones de voz solo mientras conduce y cuando una pantalla está encendida.</p>
+<p>Si no puede escuchar las instrucciones de voz:</p>
+<ul>
+<li>
+<p>Comprueba que el volumen de tu dispositivo no está silenciado. Puedes cambiar el nivel de volumen con los botones de volumen del dispositivo. Para hacerlo, es posible que deba desactivar la opción "Cambiar con botones" (si está habilitada) en la configuración del dispositivo → Sonidos.</p>
+</li>
+<li>
+<p>Bluetooth no debe reflejar las instrucciones de voz si lo enciendes. Pero no hemos probado las instrucciones de voz con el audio de coche. Si hay problemas, apaga Bluetooth.</p>
+</li>
+<li>
+<p>Si eres usuario de Android y la opción está desactivada (o uno de idiomas soportados no están disponibles), revisa los ajustes de síntesis de voz.</p>
+</li>
+</ul>
+
+    </dd><dd lang="fr">
+      <p><strong>Remarque:</strong> les instructions vocales sont disponibles pour les trajets en voiture et à vélo. Pour l'instant, vous pouvez entendre les instructions vocales uniquement pendant la conduite et lorsque l'écran est allumé.</p>
+<p>Si vous ne pouvez pas entendre les instructions vocales :</p></p>
+<ul>
+<li>
+<p>Assurez-vous que le volume de votre appareil n'est pas coupé. Vous pouvez changer le niveau de volume avec les boutons de volume de votre appareil. Pour ce faire, vous devrez peut-être désactiver l'option "Utiliser avec les boutons" (si elle est activée) dans les paramètres du périphérique → Sons.</p>
+</li>
+<li>
+<p>Lorsque vous activez Bluetooth, il ne doit pas refléter les instructions vocales. Cependant, nous n'avons pas testé le guidage vocal avec le système audio de la voiture, il peut causer des problèmes. Dans ce cas, vous pouvez désactiver le Bluetooth.</p>
+</li>
+<li>
+<p>Si vous êtes un utilisateur Android et que l'option est désactivée (ou une partie des langues prises en charge est indisponible), veuillez vérifier le système Paramètres TTS.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pl">
+      <p><strong>Uwaga:</strong> instrukcje głosowe są dostępne dla tras samochodowych i rowerowych. Na razie, można słyszeć instrukcje głosowe tylko podczas jazdy i gdy ekran jest włączony.</p>
+<p>Jeśli nie słyszysz instrukcji głosowych:</p>
+<ul>
+<li>
+<p>Upewnij się, że głośność urządzenia nie jest wyciszona. Możesz zmienić poziom głośności za pomocą przycisków głośności urządzenia. Aby to zrobić, może być konieczne wyłączenie opcji "Zmień za pomocą przycisków” opcja (jeśli włączona) w ustawieniach urządzenia → Dźwięki.</p>
+</li>
+<li>
+<p>Po włączeniu Bluetooth nie powinien on odzwierciedlać instrukcji głosowych. Jednak nie testowaliśmy głosu wskazówki z car audio, mogą powodować problemy. W takim przypadku możesz wyłączyć Bluetooth.</p>
+</li>
+<li>
+<p>Jeśli jesteś użytkownikiem Androida i opcja jest wyłączona (lub niektóre z nich obsługiwane języki są niedostępny), sprawdź system TTS ustawienia.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt">
+      <p><strong>Nota:</strong> as instruções de voz estão disponíveis apenas em rotas de carro e de bicicleta. Neste momento pode ouvir as instruções de voz apenas ao conduzir um veículo e quando o ecrã estiver ligado.</p>
+<p>Se não consegue ouvir as instruções de voz:</p>
+<ul>
+<li>
+<p>Certifique-se que o volume do seu dispositivo não está no mínimo. Pode alterar o nível de volume com os botões de volume do seu dispositivo. Para isso, pode ter de desativar a opção "Regular volume com botões" (se estiver ativado) nas configurações do dispositivo → Sons.</p>
+</li>
+<li>
+<p>Quando tem o Bluetooth ativado, este não deve refletir as instruções de voz. No entanto, não testamos a orientação por voz com o áudio do carro, isso pode causar problemas. Neste caso, pode desativar o Bluetooth.</p>
+</li>
+<li>
+<p>Se usar o Android e a opção estiver desativada (ou se alguns idiomas suportados estiverem indisponíveis), verifique as configurações do sistema TTS do Android.</p>
+</li>
+</ul>
+
+    </dd><dd lang="pt-BR">
+      <p><strong>Nota:</strong> instruções de voz estão disponíveis para rotas de carro e de bicicleta. Por enquanto, você pode ouvir instruções de voz apenas enquanto estiver dirigindo e quando a tela estiver ligada.</p>
+<p>Se você não consegue ouvir instruções de voz:</p>
+<ul>
+<li>
+<p>Certifique-se de que o volume do seu dispositivo não esteja desativado. Você pode alterar o nível de volume com os botões de volume do seu dispositivo. Para fazer isso, você pode precisar desativar a opção "Regular com botões" (se habilitado) nas configurações do dispositivo → Sons.</p>
+</li>
+<li>
+<p>Quando você ativa o Bluetooth, ele não deve refletir as instruções de voz. No entanto, não testamos a orientação por voz com o áudio do carro, isso pode causar problemas. Neste caso, você pode desligar o Bluetooth.</p>
+</li>
+<li>
+<p>Se você for um usuário do Android e a opção estiver desativada (ou se alguns dos idiomas suportados estiverem indisponíveis), verifique as configurações do sistema TTS no Android.</p>
+</li>
+</ul>
+
+    </dd><dd lang="tr">
+      <p><strong>Not:</strong> Araba ve bisiklet yolları için sesli yönlendirme mevcuttur. Şimdilik sesli yönlendirmeyi yalnızca sürüş sırasında ve ekran açıkken duyabilirsiniz.</p>
+<p>Sesli yönlendirmeyi duyamıyorsanız:</p>
+<ul>
+<li>
+<p>Lütfen cihazınızın sesinin kapalı olmadığından emin olun. Cihazınızın ses düğmeleri ile ses seviyesini değiştirebilirsiniz. Bunu yapmak için, cihaz ayarları → Sesler'de "Düğmelerle Değiştir" seçeneğini (etkinleştirilmişse) devre dışı bırakmanız gerekebilir.</p>
+</li>
+<li>
+<p>Bluetooth'u açtığınızda, sesli yönlendirmeyi aktarmamalıdır. Ancak sesli yönlendirmeyi araç sesiyle test etmedik, bazı sorunlar olabilir. Bu durumda Bluetooth'u kapatabilirsiniz.</p>
+</li>
+<li>
+<p>Android kullanıcısıysanız ve sesli yönlendirme seçeneği devre dışıysa (veya desteklenen dillerden bazıları kullanılamıyorsa), lütfen sistem TTS ayarlarını kontrol edin.</p>
+</li>
+</ul>
+<p>Android'de sesli yönlendirme 27 dilde mevcuttur: Türkçe, Almanca, Arapça, Çekçe, Çince (Geleneksel ve Basitleştirilmiş), Danca, Endonezyaca, Farsça, Felemenkçe, Fince, Fransızca, Hintçe, İngilizce, İspanyolca, İtalyanca, Japonca, Korece, Lehçe, Macarca, Portekizce, Rumence, Rusça, Tayca, Ukraynaca, Vietnamca, Yunanca.</p>
+<p>Google TTS, Arapça ve Farsça dışında listelenen tüm dilleri destekler. Bu diller için üçüncü taraf TTS (örneğin, eSpeak TTS, Vocalizer TTS veya SVOX Classic TTS) ve uygulama mağazasından (Google Play Store, Galaxy Store, vb.) bir dil paketi yüklemeniz gerekebilir.</p>
+<p>iOS'te sesli yönlendirme 26 dilde mevcuttur: Türkçe, Almanca, Arapça, Çince (Geleneksel ve Basitleştirilmiş), Çekçe, Danca, Endonezyaca, Felemenkçe, Fince, Fransızca, Hintçe, İngilizce, İspanyolca, İsveççe, İtalyanca, Japonca, Korece, Lehçe, Macarca, Portekizce, Rumence, Rusça, Slovakça, Tayca, Yunanca.</p>
+
+    </dd><dd lang="uk">
+      <p><strong>Зауваження:</strong> голосові підказки доступні для автомобільних та велосипедних маршрутів. Наразі ви можете чути голосові підказки лише під час руху і коли екран увімкнено.</p>
+<p>Якщо ви не чуєте голосові підказки:</p>
+<ul>
+<li>
+<p>Переконайтеся, що на вашому пристрої не вимкнено звук. Ви можете змінити рівень гучності за допомогою кнопок гучності вашого пристрою. Щоб це зробити вам, можливо, доведеться вимкнути опцію "Змінювати кнопками" (якщо її увімкнено) у Налаштуваннях пристрою → Звуки.</p>
+</li>
+<li>
+<p>Коли ви вмикаєте Bluetooth, він не повинен вплинути на голосові інструкції. В разі виникнення труднощів надішліть детальний опис проблеми через <a rel="noopener" target="_blank" href="https://github.com/organicmaps/organicmaps/issues">GitHub</a>.</p>
+</li>
+<li>
+<p>Якщо ви користувач Android і ця опція вимкнена (або деякі з підтримуваних мов недоступні), перевірте <a href="https://organicmaps.app/faq/voice/text-to-speech-android-tts/">налаштування TTS</a>.</p>
+</li>
+</ul>
+<p>На Android голосові інструкції доступні 39 мовами: Українська, Английська, Арабська, Баскська, Беларуська, В'єтнамська, Грецька, Гінді, Данська, Каталонська, Китайська (спрощена та традиційна), Корейська, Маратхі, Норвезька, Нідерландська, Німецька, Перська, Польська, Португальська, Португальська (Бразилія), Російська, Румунська, Сербська, Словацька, Суахілі, Тайська, Турецька, Угорська, Французька, Фінська, Хорватська, Чеська, Шведська, Японська, Індонезійська, Іспанська, Іспанська (Мексика), Італійська.</p>
+<p>Google TTS підтримує всі перелічені мови, окрім арабської та перської (фарсі). Для цих мов вам може знадобитися встановити сторонній TTS (наприклад, eSpeak TTS, Vocalizer TTS або SVOX Classic TTS) і мовний пакет з магазину додатків (Google Play Store, Galaxy Store тощо).</p>
+<p>На iOS голосові інструкції доступні 26 мовами: Англійська, арабська, китайська (традиційна та спрощена), чеська, данська, голландська, чеська, датська, фінська, французька, німецька, грецька, хінді, угорська, індонезійська, італійська, німецька, хорватська, чеська, шведська, японська, японська, корейська, польська, португальська, румунська, російська, словацька, словацька, іспанська, шведська, тайська, українсьска, турецька.</p>
+
+    </dd><dd lang="zh">
+      <p><strong>请注意：</strong> 语音指示仅适用于汽车和骑行路线。目前，您只能在驾驶时且屏幕打开时听到语音指示。</p>
+<p>如果您无法听到语音指示：</p>
+<ul>
+<li>
+<p>请确保您设备的音量未被静音。 您可以使用设备音量按钮更改音量级别。 为此，您可能需要在设备设置 → 声音中禁用“随按钮更改”选项（如果已启用）。</p>
+</li>
+<li>
+<p>打开蓝牙时，不应该影响语音指示。 然而，我们没有在车载音频上测试语音引导，这可能会导致问题。 在这种情况下，您可以关闭蓝牙。</p>
+</li>
+<li>
+<p>如果您是安卓用户并且选项已禁用（或一些支持的语言不可用），请检查系统 TTS 设置。</p>
+</li>
+</ul>
+<p>在安卓设备上，语音指示支持 27 种语言：
+英语、阿拉伯语、中文（繁体和简体）、捷克语、丹麦语、荷兰语、芬兰语、法语、德语、
+希腊语、印地语、匈牙利语、印尼语、意大利语、日语、韩语、波斯语、波兰语、葡萄牙语、
+罗马尼亚语、俄语、西班牙语、泰语、土耳其语、乌克兰语、越南语。</p>
+<p>Google TTS 支持除阿拉伯语和波斯语（波斯语）之外的所有列出的语言。
+对于这些语言，您可能需要安装第三方 TTS（例如 eSpeak TTS、Vocalizer TTS 或 SVOX Classic TTS）和应用商店（Google Play 商店、Galaxy 商店等）中的语言包。</p>
+<p>在 iOS 设备上，语音指示支持 26 种语言：
+英语、阿拉伯语、中文（繁体和简体）、捷克语、丹麦语、荷兰语、芬兰语、法语、德语、
+希腊语、印地语、匈牙利语、印尼语、意大利语、日语、韩语、波兰语、葡萄牙语、
+罗马尼亚语、俄语、斯洛伐克语、西班牙语、瑞典语、泰语、土耳其语。</p>
+
+    </dd>
+  </dl><dl id="bookmarks-how-to-export">
+    <dt>
+      <h3 lang="en">How to share (export) bookmarks and tracks?</h3>
+      
+      <h3 lang="ru">Как экспортировать метки?</h3>
+      <h3 lang="de">Wie kann ich Lesezeichen und Tracks exportieren?</h3>
+      <h3 lang="es">Cómo puedo exportar los marcadores?</h3>
+      <h3 lang="fr">Comment partager (exporter) des signets?</h3>
+      <h3 lang="pl">Jak udostępniać (eksportować) zakładki?</h3>
+      <h3 lang="pt">Como partilhar (exportar) favoritos?</h3>
+      <h3 lang="pt-BR">Como compartilhar (exportar) favoritos?</h3>
+      <h3 lang="tr">Yer imleri nasıl paylaşılır&#x2F;dışa aktarılır?</h3>
+      <h3 lang="uk">Як поділитися (експортувати) мітками?</h3>
+      <h3 lang="zh">如何分享（或导出）书签</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Tap a bookmark on the map or in the list, and then tap the "Share" button on the place page.</p>
+<p>To share all bookmarks and tracks in a list from the Bookmarks and Tracks page, tap the icon with three dots to the right of the name of the list and select "Export KMZ" or "Export GPX".</p>
+</dd>
+    <dd lang="ru">
+      <p>Нажмите метку на карте и нажмите “Поделиться” в появившемся окне. Чтобы отправить все метки в группе сразу:</p>
+<ul>
+<li>
+<p>откройте меню меток, нажав на значок двойной звезды на главном экране;</p>
+</li>
+<li>
+<p>нажмите значок с тремя точками справа от названия списка с метками и нажмите "Экспортировать файл" в появившемся окне</p>
+</li>
+</ul>
+
+    </dd><dd lang="de">
+      <p>Wählen Sie ein Lesezeichen auf der Karte oder in der Liste aus und tippen Sie anschließend auf "Teilen".</p>
+<p>Um alle Lesezeichen und Tracks aus einer Liste gleichzeitig zu teilen, gehen Sie zur Lesezeichen und Tracks Seite (tippen Sie auf das Sternsymbol unterhalb der Kartenansicht). Tippen Sie anschließend auf das Symbol mit drei Punkten rechts neben dem Namen der Liste und wählen Sie "KMZ exportieren" oder "GPX exportieren" aus.</p>
+
+    </dd><dd lang="es">
+      <p>Elige el marcador en el mapa y pulsa “Compartir”. Para compartir todos los marcadores en una lista de una vez, toque el símbolo de la estrella doble en la pantalla principal, toque el icono con tres puntos delante del nombre de la lista con marcadores y toque "Exportar el archivo" en la ventana emergente.</p>
+
+    </dd><dd lang="fr">
+      <p>Choisissez un signet sur la carte, appuyez dessus, puis appuyez sur le bouton "Partager" dans la page d'accueil. Pour partager tous les signets dans une liste à la fois, appuyez sur le symbole étoile double sur l'écran principal, appuyez sur l'icône avec trois points devant le nom de la liste avec des signets et appuyez sur "Fichier d'exportation" dans la fenêtre pop-up.</p>
+
+    </dd><dd lang="pl">
+      <p>Wybierz zakładkę na mapie, stuknij ją, a następnie stuknij przycisk „Udostępnij” na stronie miejsca. Aby jednocześnie udostępnić wszystkie zakładki na liście, stuknij symbol podwójnej gwiazdy na ekranie głównym, stuknij ikona z trzema kropkami przed nazwą listy z zakładkami i dotknij Eksportuj plik w wyskakującym okienku okno.</p>
+
+    </dd><dd lang="pt">
+      <p>Escolha um favorito no mapa, toque nele e toque no botão "Partilhar" na parte inferior. Para partilhar todos os favoritos de uma lista de uma só vez, toque no símbolo de estrela no ecrã principal sem nada selecionado, depois toque no ícone com três pontos à frente do nome da lista com favoritos e toque em "Exportar o ficheiro" no menu que aparece.</p>
+
+    </dd><dd lang="pt-BR">
+      <p>Escolha um favorito no mapa, toque nele e toque no botão "Compartilhar" na parte inferior. Para compartilhar todos os favoritos em uma lista de uma só vez, toque no símbolo de estrela na tela principal sem nada selecionado, depois toque no ícone com três pontos à frente do nome da lista com favoritos e toque em "Exportar arquivo" no menu que aparece.</p>
+
+    </dd><dd lang="tr">
+      <p>Haritada bir yer imi seçin, ona dokunun ve ardından yer bilgileri sayfasındaki "Paylaş" düğmesine dokunun. Bir listedeki tüm yer imlerini bir kerede paylaşmak için, ana ekranda yıldız simgesine dokunun, yer imlerinin bulunduğu listenin adının önündeki üç noktaya dokunun ve açılır pencereden Dosyayı Dışa Aktar'a dokunun.</p>
+
+    </dd><dd lang="uk">
+      <p>Виберіть мітку на карті, торкніться її, а потім натисніть кнопку "Поділитися" в нижній панели. Щоб поділитися відразу всіма мітками зі списку, торкніться символу зірки на головному екрані, потім торкніться значка з трьома крапками після назви списку з мітками і натисніть "Експортувати файл" у спливаючому вікні.</p>
+
+    </dd><dd lang="zh">
+      <p>在地图上选择并点击一个书签，然后在地点页面中轻触“分享”按钮。
+要一次性分享列表中的所有书签，请在主屏幕轻触双星号符号，轻触书签列表名称前面的三个点图标，然后在弹出窗口中轻触“导出文件”。</p>
+
+    </dd>
+  </dl><dl id="bookmarks-how-to-import">
+    <dt>
+      <h3 lang="en">How to import bookmarks and tracks in KML, KMZ, KMB or GPX format?</h3>
+      
+      <h3 lang="ru">Как импортировать метки?</h3>
+      <h3 lang="de">Wie kann ich Lesezeichen und Tracks importieren?</h3>
+      <h3 lang="es">Cómo puedo importar los marcadores?</h3>
+      <h3 lang="fr">Comment importer des signets?</h3>
+      <h3 lang="pl">Jak importować zakładki?</h3>
+      <h3 lang="pt">Como importar favoritos?</h3>
+      <h3 lang="pt-BR">Como importar favoritos?</h3>
+      <h3 lang="tr">Yer imleri nasıl içe aktarılır?</h3>
+      <h3 lang="uk">Як імпортувати мітки?</h3>
+      <h3 lang="zh">如何导入书签</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>You can import bookmarks sent from Organic Maps or third party apps if they export bookmarks in KML, KMZ, KMB, GPX formats.</p>
+<p>To import a single file:</p>
+<ol>
+<li>
+<p>Locate shared KML, KMZ, KMB, GPX file with bookmarks sent by email, instant messenger or cloud storage, for example, iCloud or Google Drive.</p>
+</li>
+<li>
+<p>Tap once or tap and hold the KML, KMZ, KMB, GPX file with bookmarks and choose Open with Organic Maps (Android) or "Import with Organic Maps" (iOS) in the pop-up window.</p>
+</li>
+<li>
+<p>It will be open with Organic Maps and you'll see ‘Bookmarks loaded successfully!’. You can find them on the map or in Bookmarks Menu screen.</p>
+</li>
+</ol>
+<p>Importing bookmarks and tracks in batch is also possible:</p>
+<ol>
+<li>
+<p>Open Organic Maps and tap star button to open list of bookmarks and tracks. Push "Import Bookmarks and Tracks" button.</p>
+</li>
+<li>
+<p>Select a folder with KML, KMZ, KMB, GPX files. Organic Maps will scan it including subfolders and import all supported files with bookmarks and tracks. You can choose root folder to search over all storage.</p>
+</li>
+</ol>
+</dd>
+    <dd lang="ru">
+      <p>Вы можете импортировать метки, отправленные из Organic Maps или сторонних приложений в форматах KML, KMZ, KMB, GPX:</p>
+<ol>
+<li>
+<p>Вы можете импортировать метки из некоторых других приложений, включая Maps.Me. Откройте метки (кнопка со звёздочкой), нажмите "Импортировать метки и треки", и выберите диск или папку, где будут KML, KMZ, KMB или GPX файлы.</p>
+</li>
+<li>
+<p>Отправьте себе на почту файл с метками (в формате KML, KMZ, KMB, GPX). Вы также можете использовать приложения для обмена сообщениями или загрузить файл из облачного хранилища, например, iCloud или Google Диск.</p>
+</li>
+<li>
+<p>Нажмите файл и выберите "Скопировать в Organic Maps".</p>
+</li>
+<li>
+<p>Файл будет открыт в Organic Maps и вы увидете сообщение "Метки успешно загружены!". Вы можете найти их на карте и в меню меток.</p>
+</li>
+</ol>
+
+    </dd><dd lang="de">
+      <p>Sie können Lesezeichen und Tracks importieren, die mit Organic Maps oder anderen Apps im KML, KMZ, KMB, GPX-Format geteilt oder exportiert wurden.</p>
+<p>So importieren Sie eine einzelne Datei:</p>
+<ol>
+<li>
+<p>Suchen Sie eine freigegebene KML-, KMZ-, KMB- oder GPX-Datei mit Lesezeichen, die per E-Mail, Instant Messenger oder Cloud-Speicher, z. B. iCloud oder Google Drive, gesendet wurde.</p>
+</li>
+<li>
+<p>Tippen Sie einmal oder tippen und halten Sie die KML-, KMZ-, KMB- oder GPX-Datei mit Lesezeichen und wählen Sie im Pop-up-Fenster „Mit Organic Maps öffnen“ (Android) oder „Mit Organic Maps importieren“ (iOS).</p>
+</li>
+<li>
+<p>Die Datei wird mit Organic Maps geöffnet und Sie sehen die Meldung „Lesezeichen erfolgreich geladen!“. Sie finden die importieren Lesezeichen und Tracks auf der Karte oder im Lesezeichen-Menü.</p>
+</li>
+</ol>
+<p>Das Importieren von mehreren Lesezeichen und Tracks auf einmal ist ebenfalls möglich:</p>
+<ol>
+<li>
+<p>Öffnen Sie Organic Maps und tippen Sie auf das Sternsymbol, um die Lesezeichen und Tracks Übersicht zu öffnen. Drücken Sie die Schaltfläche „Lesezeichen und Tracks importieren“.</p>
+</li>
+<li>
+<p>Wählen Sie einen Ordner mit KML, KMZ, KMB, GPX Dateien. Organic Maps durchsucht diesen Ordner einschließlich der Unterordner und importiert alle unterstützten Dateien mit Lesezeichen und Tracks. Sie können das Stammverzeichnis wählen, um den gesamten Speicher zu durchsuchen.</p>
+</li>
+</ol>
+
+    </dd><dd lang="es">
+      <p>Puede importar marcadores enviados desde Organic Maps o aplicaciones de terceros si exportan marcadores en formato KML, KMZ, KMB, GPX:</p>
+<ol>
+<li>
+<p>Puede importar marcadores desde carpetas y aplicaciones (incluido Maps.Me). Presione un botón de estrella para abrir marcadores, presione "Importar marcadores y trazas" y seleccione la unidad o carpeta con archivos KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Envía a ti mismo los archivos KML, KMZ, KMB, GPX por correo electrónico. También puede usar mensajería instantánea o almacenamiento en la nube, como iCloud o Google Drive.</p>
+</li>
+<li>
+<p>Pulsa un archivo y elige “Copiar en Organic Maps” (iOS) o "Abrir con Organic Maps" (Android).</p>
+</li>
+<li>
+<p>El archivo se abrirá con Organic Maps y verás “¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.”</p>
+</li>
+</ol>
+
+    </dd><dd lang="fr">
+      <p>Vous pouvez importer des signets envoyés depuis Organic Maps ou des applications tierces exportés au format KML:</p>
+<ol>
+<li>
+<p>Vous pouvez importer des favoris à partir de dossiers et d'applications (y compris Maps.Me). Appuyez sur un bouton étoile pour ouvrir les favoris, appuyez sur "Importer des signets et des parcours" et sélectionnez le lecteur ou le dossier contenant les fichiers KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Ouvrez un fichier KML, KMZ, KMB, GPX partagé avec des signets envoyés par e-mail, messagerie instantanée ou cloud stockage, par exemple, iCloud ou Google Drive.</p>
+</li>
+<li>
+<p>Appuyez une fois ou appuyez et maintenez le fichier KML, KMZ, KMB, GPX avec des signets et choisissez Ouvrir avec Organic Maps (Android) ou "Importer avec Organic Maps" (iOS) dans la fenêtre contextuelle.</p>
+</li>
+<li>
+<p>Il sera ouvert avec Organic Maps et vous verrez 'Signets chargés avec succès!'. Vous les trouverez sur la carte ou dans l'écran du menu Signets.</p>
+</li>
+</ol>
+
+    </dd><dd lang="pl">
+      <p>Możesz importować zakładki wysyłane z aplikacji Organic Maps lub innych firm, jeśli eksportują zakładki w formacie KML:</p>
+<ol>
+<li>
+<p>Możesz importować zakładki z folderów i aplikacji (w tym Maps.Me). Naciśnij przycisk gwiazdki aby otworzyć zakładki, naciśnij „Importuj zakładki i trasy” i wybierz dysk lub folder z plikami KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Otwórz udostępniony plik KML, KMZ, KMB, GPX z zakładkami wysyłanymi przez e-mail, komunikator lub chmurę pamięć masowa, na przykład iCloud lub Dysk Google.</p>
+</li>
+<li>
+<p>Stuknij raz lub stuknij i przytrzymaj plik KML, KMZ, KMB, GPX z zakładkami i wybierz Otwórz za pomocą Organic Maps (Android) lub „Importuj z Organic Maps” (iOS) w wyskakującym oknie.</p>
+</li>
+<li>
+<p>Zostanie otwarty z Organic Maps, a zobaczysz „Zakładki załadowane pomyślnie!”. Możesz znajdź je na mapie lub na ekranie menu zakładek.</p>
+</li>
+</ol>
+
+    </dd><dd lang="pt">
+      <p>Pode importar favoritos enviados do Organic Maps ou de outras aplicações, se estas exportarem favoritos no formato KML:</p>
+<ol>
+<li>
+<p>Pode importar favoritos de pastas e aplicações (incluindo o Maps.Me). Toque no botão da estrela para abrir os favoritos, toque em "Importar favoritos e trilhas" e selecione a unidade ou pasta com o ficheiro KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Abra o ficheiro KML, KMZ, KMB, GPX partilhado com favoritos enviados por e-mail, mensagens instantâneas ou armazenamento na nuvem, por exemplo, iCloud ou Google Drive.</p>
+</li>
+<li>
+<p>Toque uma vez ou toque e mantenha premido no ficheiro KML, KMZ, KMB, GPX com favoritos e escolha "Abrir com Organic Maps" (Android) ou "Importar com Organic Maps" (iOS) no menu que aparece.</p>
+</li>
+<li>
+<p>Ele será aberto com o Organic Maps e verá a mensagem "Favoritos carregados com sucesso!". Pode encontrar esses favoritos no mapa ou no Menu de favoritos.</p>
+</li>
+</ol>
+
+    </dd><dd lang="pt-BR">
+      <p>Você pode importar favoritos enviados do Organic Maps ou aplicativos de terceiros, se eles exportarem favoritos no formato KML, KMZ, KMB, GPX:</p>
+<ol>
+<li>
+<p>Você pode importar favoritos de pastas e aplicativos (incluindo Maps.Me). Pressione um botão de estrela para abrir os favoritos, pressione "Importar favoritos e trilhas" e selecione a unidade ou pasta com arquivos KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Abra o arquivo KML, KMZ, KMB, GPX compartilhado com favoritos enviados por e-mail, mensagens instantâneas ou armazenamento na nuvem, por exemplo, iCloud ou Google Drive.</p>
+</li>
+<li>
+<p>Toque uma vez ou toque e segure o arquivo KML, KMZ, KMB, GPX com favoritos e escolha "Abrir com Organic Maps" (Android) ou "Importar com Organic Maps" (iOS) na janela pop-up.</p>
+</li>
+<li>
+<p>Ele será aberto com o Organic Maps e você verá "Favoritos carregados com sucesso!". Você pode encontrá-los no mapa ou na tela Menu de favoritos.</p>
+</li>
+</ol>
+
+    </dd><dd lang="tr">
+      <p>Organic Maps'ten veya yer imlerini KML, KMZ, KMB, GPX biçiminde dışa aktarıyorsa üçüncü taraf uygulamalardan gönderilen yer imlerini içe aktarabilirsiniz:</p>
+<ol>
+<li>
+<p>Klasörlerden ve uygulamalardan (Maps.Me dahil) yer imlerini içe aktarabilirsiniz. Yer imlerini açmak için yıldız düğmesine basın, "Yer i̇mlerini ve parçaları i̇çe aktarma"a basın ve KML, KMZ, KMB, GPX dosyalarının bulunduğu sürücü veya klasörü seçin.</p>
+</li>
+<li>
+<p>E-posta, anlık mesajlaşma ile gönderilen veya iCloud veya Google Drive gibi bulut depolama yoluyla paylaşılan KML, KMZ, KMB, GPX dosyasını açın.</p>
+</li>
+<li>
+<p>Yer imleri içeren KML, KMZ, KMB, GPX dosyasına bir kez dokunun veya basılı tutun ve açılır pencerede Organic Maps ile Aç (Android) veya "Organic Maps ile İçe Aktar" (iOS) öğesini seçin.</p>
+</li>
+<li>
+<p>Organic Maps açılacak ve 'Yer imleri başarıyla yüklendi!' ifadesini göreceksiniz. Bunları haritada veya Yer İmleri Menüsü ekranında bulabilirsiniz.</p>
+</li>
+</ol>
+
+    </dd><dd lang="uk">
+      <p>Ви можете імпортувати мітки, надіслані з Organic Maps або зі сторонніх додатків, які підтримують експорт у формати KML, KMZ, KMB або GPX:</p>
+<ol>
+<li>
+<p>Ви можете імпортувати мітки з папок і програм (включно з Maps.Me). Натисніть кнопку із зірочкою, щоб відкрити мітки, натисніть "Імпортувати мітки та маршрути" і виберіть диск або папку з файлами KML, KMZ, KMB, GPX.</p>
+</li>
+<li>
+<p>Відкрийте файл KML, KMZ, KMB, GPX із мітками, який ви отримали електронною поштою, в месенджері або через хмарним сховище, наприклад, iCloud або Google Drive.</p>
+</li>
+<li>
+<p>Натисніть один раз або натисніть і утримуйте файл KML, KMZ, KMB, GPX із мітками та виберіть "Відкрити за допомогою Organic Maps" (Android) або "Імпортувати за допомогою Organic Maps" (iOS) у спливаючому вікні.</p>
+</li>
+<li>
+<p>Її буде відкрито у програмі Organic Maps, і ви побачите повідомлення "Закладки завантажено успішно!". Ви можете побачити їх на мапі або в меню Мітки на головному екрані.</p>
+</li>
+</ol>
+
+    </dd><dd lang="zh">
+      <p>您可以导入从 Organic Maps 或第三方应用发送的以 KML、KMZ、KMB、GPX 格式导出的书签：</p>
+<ol>
+<li>
+<p>您可以从文件夹和应用程序（包括 Maps.Me）导入书签。 按下星形按钮打开书签，按下“导入书签和轨迹”，然后选择带有 KML、KMZ、KMB、GPX 文件的驱动器或文件夹。</p>
+</li>
+<li>
+<p>使用电子邮件、即时通讯或云存储（例如 iCloud 或 Google 云端硬盘）发送带有书签的 KML、KMZ、KMB、GPX 文件，然后打开。</p>
+</li>
+<li>
+<p>轻触一次或长按带有书签的 KML、KMZ、KMB、GPX 文件，并在弹出窗口中选择“使用 Organic Maps 打开”（安卓）或“在 Organic Maps 中导入”（iOS）。</p>
+</li>
+<li>
+<p>将会在 Organic Maps 中打开，您将看到书签成功加载的提示。您可以在地图上或在书签菜单屏幕中找到它们。</p>
+</li>
+</ol>
+
+    </dd>
+  </dl><dl id="bookmarks-android-track-recording">
+    <dt>
+      <h3 lang="en">Why tracks are not recorded reliably in background on Android?</h3>
+      
+      <h3 lang="ru">Почему треки не записываются в фоновом режиме на Android?</h3>
+      <h3 lang="de">Warum werden Tracks unter Android nicht zuverlässig im Hintergrund aufgezeichnet?</h3>
+      <h3 lang="es">¿Por qué las pistas no se graban de forma fiable en segundo plano en Android?</h3>
+      <h3 lang="fr">Pourquoi les pistes ne sont pas enregistrées de manière fiable en arrière-plan sur Android ?</h3>
+      <h3 lang="pl">Dlaczego utwory nie są nagrywane niezawodnie w tle na Androidzie?</h3>
+      <h3 lang="pt">Porque é que os trajetos não são gravados de forma fiável em segundo plano no Android?</h3>
+      <h3 lang="pt-BR">Por que as trilhas não são gravadas de forma confiável em segundo plano no Android?</h3>
+      <h3 lang="tr">Android&#x27;de parçalar neden arka planda güvenilir bir şekilde kaydedilmiyor?</h3>
+      <h3 lang="uk">Чому треки (маршрути) не записуються у фоновому режимі на Android?</h3>
+      <h3 lang="zh">为什么在 Android 上无法可靠地在后台录制音轨？</h3>
+    </dt>
+
+    <dd lang="en">
+      <p>Default battery optimization settings on Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC and other devices may stop or kill Organic Maps app in the background.</p>
+<p>This is especially true for modern Android versions:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>The exact steps on how to make Organic Maps (and other apps) work in the background are listed here: https://dontkillmyapp.com/</p>
+</dd>
+    <dd lang="ru">
+      <p>Настройки оптимизации батареи по умолчанию на устройствах Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC и других могут остановить или закрыть приложение Organic Maps в фоновом режиме.</p>
+<p>Это особенно актуально для современных версий Android:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>На этом сайте описано, как настроить работу в фоновом режиме для Organic Maps и других приложений: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="de">
+      <p>Die Standardeinstellungen zur Akkuoptimierung auf Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC und anderen Geräten können die Organic Maps-App im Hintergrund stoppen oder beenden.</p>
+<p>Dies gilt insbesondere für moderne Android-Versionen:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Die genauen Schritte, wie man Organic Maps (und andere Apps) im Hintergrund zum Laufen bringt, sind hier aufgeführt: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="es">
+      <p>La configuración predeterminada de optimización de la batería en Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC y otros dispositivos puede detener o cerrar la aplicación Organic Maps en segundo plano.</p>
+<p>Esto ocurre especialmente en las versiones modernas de Android:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Los pasos exactos sobre cómo hacer que Organic Maps (y otras aplicaciones) funcionen en segundo plano se enumeran aquí (en inglés): https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="fr">
+      <p>Les paramètres d'optimisation de la batterie par défaut sur Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC et d'autres appareils peuvent arrêter ou tuer l'application Organic Maps en arrière-plan.</p>
+<p>Cela est particulièrement vrai pour les versions modernes d'Android :</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Les étapes exactes pour faire fonctionner Organic Maps (et d'autres applications) en arrière-plan sont listées ici : https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="pl">
+      <p>Domyślne ustawienia optymalizacji baterii na urządzeniach Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC i innych mogą zatrzymać lub zabić aplikację Organic Maps w tle.</p>
+<p>Dotyczy to zwłaszcza nowoczesnych wersji Androida:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Dokładne kroki, jak sprawić, by Organic Maps (i inne aplikacje) działały w tle, są wymienione tutaj: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="pt">
+      <p>As definições predefinidas de otimização da bateria na Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC e outros dispositivos podem parar ou encerrar a aplicação Organic Maps em segundo plano.</p>
+<p>Isso acontece especialmente nas versões mais modernas do Android:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Os passos exatos sobre como fazer com que o Organic Maps (e outras aplicações) funcionem em segundo plano estão listados aqui: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="pt-BR">
+      <p>As configurações padrão de otimização da bateria na Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC e outros dispositivos podem interromper ou fechar o aplicativo Organic Maps em segundo plano.</p>
+<p>Isso acontece especialmente nas versões mais modernas do Android:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>O passo-a-passo sobre como fazer o Organic Maps (e outros aplicativos) funcionar em segundo plano pode ser encontrado aqui: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="tr">
+      <p>Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC ve diğer cihazlardaki varsayılan pil optimizasyon ayarları arka planda Organik Haritalar uygulamasını durdurabilir veya öldürebilir.</p>
+<p>Bu durum özellikle modern Android sürümleri için geçerlidir:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>Organik Haritalar'ın (ve diğer uygulamaların) arka planda nasıl çalışacağına ilişkin tam adımlar burada listelenmiştir: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="uk">
+      <p>Стандартні налаштування оптимізації роботи акумулятора на пристроях Samsung, Huawei, Google, Xiaomi, OnePlus, Meizu, Asus, Wiko, Lenovo, Oppo, Vivo, Realme, Sony, Motorola, HTC та інших пристроях можуть зупиняти або закривати додаток Organic Maps у фоновому режимі.</p>
+<p>Це особливо актуально для сучасних версій Android:</p>
+<ul>
+<li>Android 14</li>
+<li>Android 13</li>
+<li>Android 12</li>
+<li>Android 11</li>
+</ul>
+<p>На цьому сайті описано, як налаштувати роботу у фоновому режимі для Organic Maps та інших додатків: https://dontkillmyapp.com/</p>
+
+    </dd><dd lang="zh">
+      <p>三星、华为、谷歌、小米、OnePlus、美图、华硕、Wiko、联想、Oppo、Vivo、Realme、索尼、摩托罗拉、HTC 和其他设备上的默认电池优化设置可能会在后台停止或杀死有机地图应用程序。</p>
+<p>现代安卓版本尤其如此：</p>
+<ul>
+<li>安卓 14</li>
+<li>安卓 13</li>
+<li>安卓 12</li>
+<li>安卓 11</li>
+</ul>
+<p>如何让有机地图（和其他应用程序）在后台工作的具体步骤在此列出：https://dontkillmyapp.com/</p>
+
+    </dd>
+  </dl>
+
+  <a href="#" lang="en">Go to Top</a>
+  <a href="#" lang="ru">Наверх</a>
+  <a href="#" lang="de">Nach oben</a>
+  <a href="#" lang="es">Arriba</a>
+  <a href="#" lang="fr">En haut</a>
+  <a href="#" lang="pl">Idź na górę</a>
+  <a href="#" lang="pt">Ir para o início</a>
+  <a href="#" lang="pt-BR">Ir para o início</a>
+  <a href="#" lang="tr">Başa Git</a>
+  <a href="#" lang="uk">До початку</a>
+  <a href="#" lang="zh">回到顶部</a>
+  
+
+</body>
+
+</html>

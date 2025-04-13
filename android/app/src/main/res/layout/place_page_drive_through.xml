@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ll__place_drive_through"
+  style="@style/PlacePageItemFrame"
+  android:tag="drive_through"
+  tools:background="#4000FFFF"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_drive_through"
+    style="@style/PlacePageMetadataIcon"
+    app:srcCompat="@drawable/ic_drive_through_white" />
+
+  <TextView
+    android:id="@+id/tv__place_drive_through"
+    android:textAlignment="viewStart"
+    style="@style/PlacePageMetadataText"
+    tools:text="Drive-through" />
+</LinearLayout>

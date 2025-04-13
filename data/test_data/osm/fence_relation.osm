@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='60736035' timestamp='2015-06-22T12:32:26Z' uid='495567' user='zimba' visible='true' version='4' changeset='32137543' lat='48.2333067' lon='16.3475326' />
+  <node id='60736036' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='5' changeset='128402677' lat='48.2322759' lon='16.3469398' />
+  <node id='313066093' timestamp='2014-03-10T12:35:08Z' uid='93640' user='jjoksch' visible='true' version='4' changeset='21024169' lat='48.2318621' lon='16.3466655' />
+  <node id='319655404' timestamp='2013-10-18T22:25:13Z' uid='303158' user='stefanct' visible='true' version='11' changeset='18427010' lat='48.2321148' lon='16.3478275' />
+  <node id='319655405' timestamp='2013-10-18T22:25:13Z' uid='303158' user='stefanct' visible='true' version='8' changeset='18427010' lat='48.2317199' lon='16.3477406' />
+  <node id='319655406' timestamp='2013-10-18T22:25:13Z' uid='303158' user='stefanct' visible='true' version='8' changeset='18427010' lat='48.2317507' lon='16.3474255' />
+  <node id='319655407' timestamp='2013-10-18T22:25:13Z' uid='303158' user='stefanct' visible='true' version='8' changeset='18427010' lat='48.2321456' lon='16.3475124' />
+  <node id='1439089706' timestamp='2012-07-27T20:34:36Z' uid='51552' user='kfg' visible='true' version='2' changeset='12516382' lat='48.2312313' lon='16.34761' />
+  <node id='1439089709' timestamp='2012-07-27T20:34:36Z' uid='51552' user='kfg' visible='true' version='2' changeset='12516382' lat='48.2315922' lon='16.3477066' />
+  <node id='3135605514' timestamp='2015-06-22T12:32:26Z' uid='495567' user='zimba' visible='true' version='2' changeset='32137543' lat='48.2332141' lon='16.3481946' />
+  <node id='3135605515' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='2' changeset='128402677' lat='48.2322299' lon='16.3478712' />
+  <node id='3135605516' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='2' changeset='128402677' lat='48.2323124' lon='16.3469458' />
+  <node id='3135605518' timestamp='2014-10-17T17:49:01Z' uid='302363' user='fkv' visible='true' version='1' changeset='26152263' lat='48.2313235' lon='16.3465569' />
+  <node id='3135605519' timestamp='2014-10-17T17:49:01Z' uid='302363' user='fkv' visible='true' version='1' changeset='26152263' lat='48.2312092' lon='16.3476047' />
+  <node id='10151958298' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322642' lon='16.3469367' />
+  <node id='10151958299' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.232263' lon='16.3469391' />
+  <node id='10151958300' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322413' lon='16.3468889' />
+  <node id='10151958301' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322515' lon='16.3469396' />
+  <node id='10151958302' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.232341' lon='16.3469414' />
+  <node id='10151958303' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2323185' lon='16.3469516' />
+  <node id='10151958304' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.232318' lon='16.3469468' />
+  <node id='10151958305' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2321904' lon='16.3478474' />
+  <node id='10151958306' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2323014' lon='16.3470693'>
+    <tag k='barrier' v='gate' />
+  </node>
+  <node id='10151958307' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322634' lon='16.3470485' />
+  <node id='10151958308' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322676' lon='16.3470073' />
+  <node id='10151958309' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='1' changeset='128402677' lat='48.2322656' lon='16.347027'>
+    <tag k='barrier' v='gate' />
+  </node>
+  <way id='308267593' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='3' changeset='128402677'>
+    <nd ref='60736035' />
+    <nd ref='3135605514' />
+    <nd ref='3135605515' />
+    <nd ref='10151958306' />
+    <nd ref='3135605516' />
+    <nd ref='10151958304' />
+    <nd ref='10151958303' />
+    <nd ref='10151958302' />
+    <nd ref='60736035' />
+  </way>
+  <way id='308267594' timestamp='2022-11-02T17:02:09Z' uid='8772934' user='sgnak' visible='true' version='2' changeset='128402677'>
+    <nd ref='60736036' />
+    <nd ref='10151958298' />
+    <nd ref='10151958299' />
+    <nd ref='10151958301' />
+    <nd ref='10151958300' />
+    <nd ref='313066093' />
+    <nd ref='3135605518' />
+    <nd ref='3135605519' />
+    <nd ref='1439089706' />
+    <nd ref='1439089709' />
+    <nd ref='319655405' />
+    <nd ref='319655406' />
+    <nd ref='319655407' />
+    <nd ref='319655404' />
+    <nd ref='10151958305' />
+    <nd ref='10151958307' />
+    <nd ref='10151958309' />
+    <nd ref='10151958308' />
+    <nd ref='60736036' />
+  </way>
+  <relation id='4116663' timestamp='2022-09-15T18:37:48Z' uid='8772934' user='sgnak' visible='true' version='2' changeset='126235975'>
+    <member type='way' ref='308267593' role='outer' />
+    <member type='way' ref='308267594' role='outer' />
+    <tag k='barrier' v='fence' />
+    <tag k='leisure' v='sports_centre' />
+    <tag k='name' v='Jugendsportanlage der Stadt Wien' />
+    <tag k='old_name' v='Jugendspielplatz' />
+    <tag k='short_name' v='Jugendsportanlage' />
+    <tag k='type' v='multipolygon' />
+  </relation>
+</osm>

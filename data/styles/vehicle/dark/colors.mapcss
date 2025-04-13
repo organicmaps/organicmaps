@@ -1,0 +1,175 @@
+/* ~~~~ CONTENT OF COLORS-DARK ~~~~~
+
+1.BASEMAP
+2.BOUNDARY
+3.NATURAL
+	3.1 Main natural
+	3.2 Vegetation
+4.LANDUSE
+	4.1 Main landuse
+	4.2 Aerodrome
+  4.3 Barriers
+  4.4 Buildings
+5.ROADS
+  5.1 All roads
+	5.2 Bridges
+  5.3 Tunnels
+  5.4 Piste
+  5.5 Transport
+ 6.LABELS COLORS
+  6.1 Main labels
+  6.2 Natural labels
+  6.3 Place labels
+  6.4 Road labels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 1.BASEMAP */
+
+@background: #050505;
+
+/* 2.BOUNDARY */
+
+@border_country: #4C4C4C;
+@border_region: #5C5C5C;
+
+/* 3.NATURAL */
+/* 3.1 Main natural */
+
+@glacier: #111111;
+@water: #002222;
+@water_bad: #00261e;
+@river: #062026;
+@wetland: #001919;
+@beach: #28281A;
+@barerock: #302A2A;
+@desert: #191007;
+
+/*3.2 Vegetation*/
+
+@forest: #090F0A;
+@green0: #090F0A;
+@green1: #090F0A;
+@green2: #090F0A;
+@green3: #090F0A;
+@green4: #090F0A;
+@green5: #090F0A;
+@green6: #2F4000;
+
+/* 4.LANDUSE */
+/*4.1 Main landuse*/
+
+/*
+@university: #261F13;
+@hospital: #261916;
+*/
+@industrial: #0D0A0D;
+@sport: #070F0A;
+@military: #B71C1C;
+@prison: #7f7f7f;
+@parking: #191509;
+@parking_l: #1F190A;
+@farmland: #151500;
+@farmyard: #212106;
+
+/*4.2 Aerodrome*/
+
+@aerodrome0: #1B1821;
+@aerodrome1: #1B1821;
+@aerodrome2: #1B1821;
+@aerodrome3: #1B1821;
+@aerodrome4: #1B1821;
+@aerodrome5: #1B1821;
+
+/* 4.3 Barriers */
+@fence: #444444;
+@hedge: #143C14;
+@cliff: #7D4F23;
+
+/* 4.4 Buildings */
+
+@building0: #191919;
+@building1: #1D1D1D;
+@building_border0: #1C1C1C;
+
+/* 5.ROADS */
+/* 5.1 All roads */
+
+@trunk0: #4C2A19;
+@trunk1: #4C2A17;
+@primary0:  #5E351D;
+@primary1: #5E351D;
+@primary2: #5E351D;
+@secondary0: #3B3939;
+@residential: #363434;
+@unclassified: #333131;
+@pedestrian: #4D4744;
+@footway: #2B2827;
+@cycleway: #6E3D47;
+@construction: #332F2D;
+@track: #5F532D;
+@path: #944A12;
+@bridleway: #2B2827;
+
+/* 5.2 Bridges */
+
+@bridge_background: #121212;
+@bridge_casing: #0D0D0D;
+@casing_road:  #0D0D0D;
+
+/* 5.3 Tunnels */
+
+@trunk_tunnel: #381F14;
+@trunk_tunnel_casing: #000000;
+@primary_tunnel: #4C2A1B;
+@primary_tunnel_casing: #000000;
+@secondary_tunnel: #2B2827;
+@secondary_tunnel_casing:  #000000;
+@tertiary_tunnel: #2B2827;
+@tertiary_tunnel_casing:  #000000;
+@unclassified_tunnel: #2B2827;
+@unclassified_tunnel_casing: #000000;
+
+/* 5.5 Transport */
+
+@railway_light: #2C2630;
+@railway: #3A2F40;
+@railway_tourism: #3D3128;
+@railway_tunnel: #222222;
+@railway_dash: #050505;
+/* @aerialway: #4E4E3D; */
+@tram: #5C5C51;
+/* @ferry: #2A4541; */
+
+/* 6.LABELS COLORS */
+/* 6.1 Main labels */
+
+@label_dark: #888888;
+@label_medium: #8C8C8C;
+@label_light: #666666;
+@label_halo_medium: #111100;
+@label_halo_light: #060600;
+
+/* 6.2 Natural labels */
+
+@water_label: #004A59;
+@park_label: #2B4918;
+@halo_park_label: #111;
+
+/* 6.3 Place labels */
+
+@city_label: #999999;
+@country_label: #444444;
+@state_label: #444444;
+@district_label: #555555;
+@housenumber: #6C6C6C;
+@building_label: #737373;
+@poi_label: #666666;
+@subway_label: #555555;
+
+/* 6.4 Road labels */
+
+@shield_text: #303030;
+@shield_text_halo: #000000;
+@shield: #999999;
+@shield_outline: #303030;

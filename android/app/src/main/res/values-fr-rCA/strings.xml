@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="transliteration_title">Translittération vers l\'alphabet latin</string>
+</resources>

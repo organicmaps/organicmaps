@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/my_position"
+  style="@style/MwmWidget.MapButton"
+  android:contentDescription="@string/core_my_position" />

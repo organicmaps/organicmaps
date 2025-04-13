@@ -1,0 +1,1023 @@
+/* ~~~~ CONTENT OF ROADS ~~~~~
+
+1.Z-INDEX ROADS
+2.WORLD LEVEL ROAD 4-9 ZOOM
+3.TRUNK & MOTORWAY 6-22 ZOOM
+  3.1 Trunk & Motorway 6-22 ZOOM
+  3.2 Trunk & Motorway tunnel 12-22 ZOOM
+  3.3 Trunk & Motorway bridge 13-22 ZOOM
+4.PRIMARY 8-22 ZOOM
+  4.1 Primary 8-22 ZOOM
+  4.2 Primary tunnel 14-22 ZOOM
+  4.3 Primary bridge 14-22 ZOOM
+5.SECONDARY 10-22 ZOOM
+  5.1 Secondary 10-22 ZOOM
+  5.2 Secondary tunnel 16-22 ZOOM
+  5.3 Secondary bridge 14-22 ZOOM
+6.RESIDENTAL & TERTIARY 11-22 ZOOM
+  6.1 Residential & Tertiary 11-22 ZOOM
+  6.2 Residential & Tertiary tunnel 16-22 ZOOM
+  6.3 Residential & Tertiary bridge 14-22 ZOOM
+7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM
+  7.1 Road, Street, Unclassified 12-22 ZOOM
+  7.2 Road, Street, Unclassified tunnel 16-22 ZOOM
+  7.3 Road, Street, Unclassified bridge 14-22 ZOOM
+  7.4 Service 15-22 ZOOM
+8.OTHERS ROADS 13-22 ZOOM
+  8.1 Pedestrian & ford 13-22 ZOOM
+  8.2 Pedestrian & ford tunnel 16-22 ZOOM
+  8.3 Pedestrian & other brige 13-22 ZOOM
+  8.4 Cycleway 13-22 ZOOM
+  8.5 Construction & Proposed 13-22 ZOOM
+  8.6 Track & Path 16-22 ZOOM
+  8.7 Footway & Steps 18-22 ZOOM
+  8.9 Bridleway 14-22 ZOOM
+  8.11 Runway 12-22 ZOOM
+9.RAIL 11-22 ZOOM
+  9.1 RAIL 11-22 ZOOM
+  9.2 Rail tunnel 14-22 ZOOM
+  9.3 Rail bridge 14-22 ZOOM
+  9.4 Monorail 14-22 ZOOM
+  9.5 Tram line 13-22 ZOOM
+  9.6 Funicular 12-22 ZOOM
+10.PISTE 12-22 ZOOM
+ 10.1 Lift 12-22 ZOOM
+ 10.2 Aerialway 12-22 ZOOM
+ 10.3 Piste & Route 14-22 ZOOM
+11.FERRY
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+/* 2.WORLD LEVEL ROAD 4-9 ZOOM */
+
+line|z6-9[highway=world_towns_level],
+line|z4-9[highway=world_level],
+{color: @trunk1;opacity: 1;}
+
+line|z4[highway=world_level]
+{width: 0.85;}
+line|z5-6[highway=world_level],
+{width: 0.95;}
+line|z6[highway=world_towns_level],
+{width: 0.95;}
+line|z7[highway=world_towns_level],
+line|z7[highway=world_level]
+{width: 1;}
+line|z8[highway=world_towns_level],
+line|z8[highway=world_level]
+{width: 1.1;}
+line|z9[highway=world_towns_level],
+line|z9[highway=world_level]
+{width: 1.2;}
+
+/* 3.TRUNK & MOTORWAY 6-22 ZOOM */
+
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{color: @trunk0; opacity: 0.3;}
+line|z7-[highway=trunk],
+line|z7-[highway=motorway],
+{color: @trunk0; opacity: 0.7;}
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link]
+{color: @trunk1; opacity: 0.7; casing-color:@casing_road; casing-opacity: 0.7;}
+
+line|z13-[highway=motorway][bridge?]::bridgewhite,
+line|z13-[highway=trunk][bridge?]::bridgewhite,
+line|z14-[highway=motorway_link][bridge?]::bridgewhite,
+line|z14-[highway=trunk_link][bridge?]::bridgewhite,
+{casing-linecap: butt;casing-color:@bridge_background; casing-opacity: 0.8;}
+line|z13-[highway=motorway][bridge?]::bridgeblack,
+line|z13-[highway=trunk][bridge?]::bridgeblack,
+line|z14-[highway=motorway_link][bridge?]::bridgeblack,
+line|z14-[highway=trunk_link][bridge?]::bridgeblack,
+{casing-linecap: butt;casing-color:@bridge_casing; casing-opacity: 0.7;}
+
+/* 3.1 Trunk & Motorway 6-22 ZOOM */
+
+line|z6[highway=trunk],
+line|z6[highway=motorway],
+{width: 0.9;}
+line|z7[highway=trunk],
+line|z7[highway=motorway]
+{width: 1.05;}
+line|z8[highway=trunk],
+line|z8[highway=motorway]
+{width: 1.25;}
+line|z9[highway=trunk],
+line|z9[highway=motorway]
+{width: 1.4;}
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link],
+{color: @trunk0;}
+
+line|z10[highway=trunk],
+line|z10[highway=motorway]
+{width: 2.5;}
+line|z10[highway=motorway_link],
+line|z10[highway=trunk_link],
+{width: 1.3;}
+line|z11[highway=trunk],
+line|z11[highway=motorway]
+{width: 3.5;}
+line|z11[highway=motorway_link],
+line|z11[highway=trunk_link],
+{width: 2.0;}
+line|z12-[highway=trunk],
+line|z12-[highway=motorway]
+{width: 3.7; opacity: 1;}
+line|z12[highway=motorway_link],
+line|z12[highway=trunk_link],
+{width: 2.5;}
+line|z13[highway=trunk],
+line|z13[highway=motorway],
+{width: 4.6;}
+line|z13[highway=motorway_link],
+line|z13[highway=trunk_link]
+{width: 2.8;}
+line|z14[highway=trunk],
+line|z14[highway=motorway]
+{width: 4.9;casing-width: 0.75;}
+line|z14[highway=motorway_link],
+line|z14[highway=trunk_link]
+{width: 3.37;casing-width: 0.45;}
+line|z15[highway=trunk],
+line|z15[highway=motorway],
+{width: 6;casing-width: 0.85;}
+line|z15[highway=motorway_link],
+line|z15[highway=trunk_link]
+{width: 5;casing-width: 0.55; opacity: 1;}
+line|z16[highway=trunk],
+line|z16[highway=motorway],
+{width: 9;casing-width: 1.1;}
+line|z16[highway=motorway_link],
+line|z16[highway=trunk_link]
+{width: 7.2;casing-width: 0.8;}
+line|z17[highway=trunk],
+line|z17[highway=motorway],
+{width: 15;casing-width: 1.1;}
+line|z17[highway=motorway_link],
+line|z17[highway=trunk_link]
+{width: 12;casing-width: 1.0;}
+line|z18[highway=trunk],
+line|z18[highway=motorway],
+{width: 25;casing-width: 1.35;}
+line|z18[highway=motorway_link],
+line|z18[highway=trunk_link]
+{width: 18;casing-width: 1.15;}
+line|z19-[highway=trunk],
+line|z19-[highway=motorway],
+{width: 34;casing-width: 1.5;}
+line|z19-[highway=motorway_link],
+line|z19-[highway=trunk_link]
+{width: 24;casing-width: 1.25;}
+
+/* 3.2 Trunk & Motorway tunnel 12-22 ZOOM */
+
+line|z12-[highway=motorway][tunnel?],
+line|z12-[highway=trunk][tunnel?],
+line|z13-[highway=motorway_link][tunnel?],
+line|z13-[highway=trunk_link][tunnel?],
+{color: @trunk_tunnel; casing-linecap: butt; casing-color: @trunk_tunnel_casing; casing-opacity: 0.7;}
+
+line|z12[highway=motorway][tunnel?],
+line|z12[highway=trunk][tunnel?],
+{opacity: 1; casing-width: 0.5; casing-dashes: 2,2;}
+line|z13-14[highway=motorway][tunnel?],
+line|z13-14[highway=trunk][tunnel?],
+line|z13-14[highway=motorway_link][tunnel?],
+line|z13-14[highway=trunk_link][tunnel?],
+{opacity: 0.9; casing-width: 0.8; casing-dashes: 4,4;}
+line|z15-[highway=motorway][tunnel?],
+line|z15-[highway=trunk][tunnel?],
+line|z15-[highway=motorway_link][tunnel?],
+line|z15-[highway=trunk_link][tunnel?],
+{opacity: 0.8; casing-width: 1; casing-dashes: 5,5;}
+
+/* 3.3 Trunk & Motorway bridge 13-22 ZOOM */
+
+line|z13[highway=motorway][bridge?]::bridgewhite,
+line|z13[highway=trunk][bridge?]::bridgewhite
+{casing-width-add: 0.2;}
+line|z14-16[highway=motorway][bridge?]::bridgewhite,
+line|z14-16[highway=trunk][bridge?]::bridgewhite,
+line|z14-16[highway=motorway_link][bridge?]::bridgewhite,
+line|z14-16[highway=trunk_link][bridge?]::bridgewhite,
+{casing-width-add: 0;}
+line|z17[highway=motorway][bridge?]::bridgewhite,
+line|z17[highway=trunk][bridge?]::bridgewhite,
+line|z17[highway=motorway_link][bridge?]::bridgewhite,
+line|z17[highway=trunk_link][bridge?]::bridgewhite,
+{casing-width-add: 0.8;}
+line|z18-[highway=motorway][bridge?]::bridgewhite,
+line|z18-[highway=trunk][bridge?]::bridgewhite,
+line|z18-[highway=motorway_link][bridge?]::bridgewhite,
+line|z18-[highway=trunk_link][bridge?]::bridgewhite,
+{casing-width-add: 1;}
+
+line|z13-16[highway=motorway][bridge?]::bridgeblack,
+line|z13-16[highway=trunk][bridge?]::bridgeblack,
+line|z14-16[highway=motorway_link][bridge?]::bridgeblack,
+line|z14-16[highway=trunk_link][bridge?]::bridgeblack,
+{casing-width-add: 0.4;}
+line|z17[highway=motorway][bridge?]::bridgeblack,
+line|z17[highway=trunk][bridge?]::bridgeblack,
+line|z17[highway=motorway_link][bridge?]::bridgeblack,
+line|z17[highway=trunk_link][bridge?]::bridgeblack,
+{casing-width-add: 1.6;}
+line|z18-[highway=motorway][bridge?]::bridgeblack,
+line|z18-[highway=trunk][bridge?]::bridgeblack,
+line|z18-[highway=motorway_link][bridge?]::bridgeblack,
+line|z18-[highway=trunk_link][bridge?]::bridgeblack,
+{casing-width-add: 2;}
+
+/* 4.PRIMARY 8-22 ZOOM */
+
+line|z8-10[highway=primary],
+{color: @primary0; opacity: 0.7; casing-linecap: butt;}
+
+line|z11-14[highway=primary],
+line|z11-14[highway=primary_link]
+{color: @primary1;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
+line|z15-17[highway=primary],
+line|z15-17[highway=primary_link]
+{color: @primary1;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
+line|z18-[highway=primary],
+line|z18-[highway=primary_link]
+{color: @primary2;opacity: 0.7;casing-linecap: butt; casing-color:@casing_road; casing-opacity: 0.7;}
+
+line|z14-[highway=primary][bridge?]::bridgewhite,
+line|z14-[highway=primary_link][bridge?]::bridgewhite,
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z14-[highway=primary][bridge?]::bridgeblack,
+line|z14-[highway=primary_link][bridge?]::bridgeblack,
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.7;}
+
+/* 4.1 Primary 8-22 ZOOM */
+
+line|z8[highway=primary]
+{width: 0.9;}
+line|z9[highway=primary]
+{width: 1.2;}
+
+line|z10[highway=primary]
+{width: 1.5;}
+line|z11[highway=primary],
+line|z11[highway=primary_link],
+{width: 1.7;}
+line|z12[highway=primary],
+line|z12[highway=primary_link],
+{width: 2.4;}
+line|z13[highway=primary],
+line|z13[highway=primary_link],
+{width: 3;}
+line|z14[highway=primary],
+line|z14[highway=primary_link]
+{width: 3.5;casing-width: 0.35;}
+line|z15-[highway=primary],
+line|z15-[highway=primary_link]
+{width: 4.2;casing-width: 0.55; opacity: 1;}
+line|z16[highway=primary],
+line|z16[highway=primary_link]
+{width: 6.5;casing-width: 0.8;}
+line|z17[highway=primary],
+line|z17[highway=primary_link]
+{width: 13;casing-width: 0.9;}
+line|z18[highway=primary],
+line|z18[highway=primary_link]
+{width: 22;casing-width: 1.1;}
+line|z19-[highway=primary],
+line|z19-[highway=primary_link]
+{width: 27;casing-width: 1.3;}
+
+/* 4.2 Primary tunnel 14-22 ZOOM */
+
+line|z14-[highway=primary][tunnel?],
+line|z14-[highway=primary_link][tunnel?],
+{color: @primary_tunnel; casing-linecap: butt; casing-color: @primary_tunnel_casing; casing-opacity: 0.7;}
+
+line|z14[highway=primary][tunnel?],
+line|z14[highway=primary_link][tunnel?],
+{opacity: 0.9; casing-width: 0.8; casing-dashes: 4,4;}
+line|z15-[highway=primary][tunnel?],
+line|z15-[highway=primary_link][tunnel?],
+{opacity: 0.8; casing-width: 1; casing-dashes: 5,5;}
+
+/* 4.3 Primary bridge 14-22 ZOOM */
+
+line|z14-16[highway=primary][bridge?]::bridgewhite,
+line|z14-16[highway=primary_link][bridge?]::bridgewhite,
+{casing-width-add: 0;}
+line|z17[highway=primary][bridge?]::bridgewhite,
+line|z17[highway=primary_link][bridge?]::bridgewhite,
+{casing-width-add: 0.8;}
+line|z18-[highway=primary][bridge?]::bridgewhite,
+line|z18-[highway=primary_link][bridge?]::bridgewhite,
+{casing-width-add: 1;}
+
+line|z14-16[highway=primary][bridge?]::bridgeblack,
+line|z14-16[highway=primary_link][bridge?]::bridgeblack,
+{casing-width-add: 0.4;}
+line|z17[highway=primary][bridge?]::bridgeblack,
+line|z17[highway=primary_link][bridge?]::bridgeblack,
+{casing-width-add: 1.6;}
+line|z18-[highway=primary][bridge?]::bridgeblack,
+line|z18-[highway=primary_link][bridge?]::bridgeblack,
+{casing-width-add: 2;}
+
+/* 5.SECONDARY 10-22 ZOOM */
+
+line|z10-[highway=secondary],
+line|z13-[highway=secondary_link],
+{color: @secondary0;opacity: 0.8;casing-linecap: butt; casing-color:@casing_road;}
+
+line|z14-[highway=secondary][bridge?]::bridgewhite,
+line|z14-[highway=secondary_link][bridge?]::bridgewhite,
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z14-[highway=secondary][bridge?]::bridgeblack,
+line|z14-[highway=secondary_link][bridge?]::bridgeblack,
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.7;}
+
+/* 5.1 Secondary 10-22 ZOOM */
+
+line|z10[highway=secondary]
+{width: 1.55;}
+line|z11[highway=secondary]
+{width: 1.8;}
+line|z12[highway=secondary]
+{width: 2.5;}
+line|z13[highway=secondary],
+line|z13[highway=secondary_link],
+{width: 2.9;}
+line|z14[highway=secondary],
+line|z14[highway=secondary_link]
+{width: 3.2;casing-width: 0.35;}
+line|z15-[highway=secondary],
+line|z15-[highway=secondary_link]
+{width: 4.2;casing-width: 0.55; opacity: 1;}
+line|z16[highway=secondary],
+line|z16[highway=secondary_link]
+{width: 6;casing-width: 0.8;}
+line|z17[highway=secondary],
+line|z17[highway=secondary_link]
+{width: 9.6;casing-width: 0.9;}
+line|z18[highway=secondary],
+line|z18[highway=secondary_link]
+{width: 15;casing-width: 1.1;}
+line|z19-[highway=secondary],
+line|z19-[highway=secondary_link]
+{width: 22;casing-width: 1.3;}
+
+/* 5.2 Secondary tunnel 16-22 ZOOM */
+
+line|z16-[highway=secondary][tunnel?],
+line|z16-[highway=secondary_link][tunnel?],
+{opacity: 0.8; casing-width: 1; casing-dashes: 5,5; color: @secondary_tunnel; casing-linecap: butt; casing-color: @secondary_tunnel_casing; casing-opacity: 0.7;}
+
+/* 5.3 Secondary bridge 14-22 ZOOM */
+
+line|z14-16[highway=secondary][bridge?]::bridgewhite,
+line|z14-16[highway=secondary_link][bridge?]::bridgewhite,
+{casing-width-add: 0;}
+line|z17[highway=secondary][bridge?]::bridgewhite,
+line|z17[highway=secondary_link][bridge?]::bridgewhite,
+{casing-width-add: 0.8;}
+line|z18-[highway=secondary][bridge?]::bridgewhite,
+line|z18-[highway=secondary_link][bridge?]::bridgewhite,
+{casing-width-add: 1;}
+
+line|z14-16[highway=secondary][bridge?]::bridgeblack,
+line|z14-16[highway=secondary_link][bridge?]::bridgeblack,
+{casing-width-add: 0.4;}
+line|z17[highway=secondary][bridge?]::bridgeblack,
+line|z17[highway=secondary_link][bridge?]::bridgeblack,
+{casing-width-add: 1.6;}
+line|z18-[highway=secondary][bridge?]::bridgeblack,
+line|z18-[highway=secondary_link][bridge?]::bridgeblack
+{casing-width-add: 2;}
+
+/* 6.RESIDENTAL & TERTIARY 11-22 ZOOM */
+
+line|z12-[highway=residential],
+line|z11-[highway=tertiary],
+line|z14-[highway=tertiary_link],
+{color: @residential; opacity: 0.7;casing-linecap: butt; casing-color:@casing_road;}
+
+line|z14-[highway=tertiary][bridge?]::bridgewhite,
+line|z14-[highway=residential][bridge?]::bridgewhite,
+line|z14-[highway=tertiary_link][bridge?]::bridgewhite
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z14-[highway=tertiary][bridge?]::bridgeblack,
+line|z14-[highway=residential][bridge?]::bridgeblack,
+line|z14-[highway=tertiary_link][bridge?]::bridgeblack
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.7;}
+
+/* 6.1 Residential & Tertiary 11-22 ZOOM */
+
+line|z11[highway=tertiary]
+{width: 0.9;}
+line|z12[highway=tertiary]
+{width: 1.22;}
+line|z13[highway=tertiary]
+{width: 1.85;}
+line|z14[highway=tertiary],
+line|z14[highway=tertiary_link],
+{width: 3.2;}
+line|z15-[highway=tertiary],
+line|z15-[highway=tertiary_link]
+{width: 3.8;casing-width: 0.45; opacity: 1;}
+line|z16[highway=tertiary],
+line|z16[highway=tertiary_link]
+{width: 5.4;casing-width: 0.55;}
+line|z17[highway=tertiary],
+line|z17[highway=tertiary_link]
+{width: 8.4;casing-width: 0.75;}
+line|z18[highway=tertiary],
+line|z18[highway=tertiary_link]
+{width: 14;casing-width: 0.9;}
+line|z19-[highway=tertiary],
+line|z19-[highway=tertiary_link]
+{width: 20;casing-width: 1.1;}
+
+line|z12[highway=residential],
+{width: 0.8;}
+line|z13[highway=residential],
+{width: 1.6;}
+line|z14[highway=residential],
+{width: 2.2;}
+line|z15-[highway=residential],
+{width: 3.6;casing-width: 0.4; opacity: 1;}
+line|z16[highway=residential],
+{width: 5.1;casing-width: 0.5;}
+line|z17[highway=residential],
+{width: 8;casing-width: 0.7;}
+line|z18[highway=residential],
+{width: 12;casing-width: 0.8;}
+line|z19-[highway=residential],
+{width: 17;casing-width: 1;}
+
+/* 6.2 Residential & Tertiary tunnel 16-22 ZOOM */
+
+line|z16-[highway=tertiary][tunnel?],
+line|z16-[highway=tertiary_link][tunnel?],
+line|z16-[highway=residential][tunnel?],
+{opacity: 0.8; casing-width: 1; casing-dashes: 5,5; color: @tertiary_tunnel; casing-linecap: butt; casing-color: @tertiary_tunnel_casing; casing-opacity: 0.7;}
+
+/* 6.3 Residential & Tertiary bridge 14-22 ZOOM */
+
+line|z14-16[highway=tertiary][bridge?]::bridgewhite,
+line|z14-16[highway=tertiary_link][bridge?]::bridgewhite,
+line|z14-16[highway=residential][bridge?]::bridgewhite,
+{casing-width-add: 0;}
+line|z17[highway=tertiary][bridge?]::bridgewhite,
+line|z17[highway=tertiary_link][bridge?]::bridgewhite,
+line|z17[highway=residential][bridge?]::bridgewhite,
+{casing-width-add: 0.8;}
+line|z18-[highway=tertiary][bridge?]::bridgewhite,
+line|z18-[highway=tertiary_link][bridge?]::bridgewhite,
+line|z18-[highway=residential][bridge?]::bridgewhite,
+{casing-width-add: 1;}
+
+line|z14-16[highway=tertiary][bridge?]::bridgeblack,
+line|z14-16[highway=tertiary_link][bridge?]::bridgeblack,
+line|z14-16[highway=residential][bridge?]::bridgeblack,
+{casing-width-add: 0.4;}
+line|z17[highway=tertiary][bridge?]::bridgeblack,
+line|z17[highway=tertiary_link][bridge?]::bridgeblack,
+line|z17[highway=residential][bridge?]::bridgeblack,
+{casing-width-add: 1.6;}
+line|z18-[highway=tertiary][bridge?]::bridgeblack,
+line|z18-[highway=tertiary_link][bridge?]::bridgeblack,
+line|z18-[highway=residential][bridge?]::bridgeblack,
+{casing-width-add: 2;}
+
+/* 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM */
+
+line|z11-[highway=unclassified],
+line|z12-[highway=road],
+line|z12-[highway=living_street],
+line|z12-[aeroway=runway],
+line|z14-[aeroway=taxiway],
+line|z14-[highway=service],
+{color: @unclassified; opacity: 0.7;casing-linecap: butt;}
+
+line|z14-[highway=unclassified][bridge?]::bridgewhite,
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z14-[highway=unclassified][bridge?]::bridgeblack,
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.7;}
+
+/* 7.1 Road, Street, Unclassified 12-22 ZOOM */
+
+line|z11-12[highway=unclassified],
+line|z12[highway=road],
+line|z12[highway=living_street]
+{width: 0.8;}
+line|z13[highway=unclassified],
+line|z13[highway=road],
+line|z13[highway=living_street]
+{width: 1.6;}
+line|z14[highway=unclassified],
+line|z14[highway=road],
+line|z14[highway=living_street]
+{width: 2.2;}
+line|z15-[highway=unclassified],
+line|z15-[highway=road],
+line|z15-[highway=living_street]
+{width: 3.6; opacity: 1;}
+line|z16[highway=unclassified],
+line|z16[highway=road],
+line|z16[highway=living_street]
+{width: 5.1;}
+line|z17[highway=unclassified],
+line|z17[highway=road],
+line|z17[highway=living_street]
+{width: 8;}
+line|z18[highway=unclassified],
+line|z18[highway=road],
+line|z18[highway=living_street]
+{width: 12;}
+line|z19-[highway=unclassified],
+line|z19-[highway=road],
+line|z19-[highway=living_street]
+{width: 17;}
+
+/* 7.2 Road, Street, Unclassified tunnel 16-22 ZOOM */
+
+line|z16-[highway=unclassified][tunnel?],
+line|z16-[highway=living_street][tunnel?],
+{opacity: 0.8; casing-width: 1; casing-dashes: 5,5; color: @unclassified_tunnel; casing-linecap: butt; casing-color: @unclassified_tunnel_casing; casing-opacity: 0.7;}
+
+/* 7.3 Road, Street, Unclassified bridge 14-22 ZOOM */
+
+line|z14-16[highway=unclassified][bridge?]::bridgewhite,
+{casing-width-add: 0;}
+line|z17[highway=unclassified][bridge?]::bridgewhite,
+{casing-width-add: 0.8;}
+line|z18-[highway=unclassified][bridge?]::bridgewhite,
+{casing-width-add: 1;}
+
+line|z14-16[highway=unclassified][bridge?]::bridgeblack,
+{casing-width-add: 0.4;}
+line|z17[highway=unclassified][bridge?]::bridgeblack,
+{casing-width-add: 1.6;}
+line|z18-[highway=unclassified][bridge?]::bridgeblack,
+{casing-width-add: 2;}
+
+/* 7.4 Service 15-22 ZOOM */
+
+line|z14[highway=service]
+{width: 1;}
+line|z14[highway=service][service=driveway]
+{width: 0;}
+line|z15[highway=service]
+{width: 1.6;}
+line|z16[highway=service]
+{width: 3;}
+line|z17-[highway=service]
+{width: 5.6; opacity: 1;}
+line|z18[highway=service]
+{width: 6.4;}
+line|z19-[highway=service]
+{width: 7.2;}
+
+/* 8.OTHERS ROADS 13-22 ZOOM */
+
+line|z13-[highway=construction],
+{color: @construction; opacity: 0.7;}
+line|z18-[highway=pedestrian][bridge?]::bridgewhite,
+line|z18-[highway=footway][bridge?]::bridgewhite,
+line|z18-[highway=steps][bridge?]::bridgewhite,
+line|z16-[highway=road][bridge?]::bridgewhite,
+line|z16-[highway=service][bridge?]::bridgewhite
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z18-[highway=pedestrian][bridge?]::bridgeblack,
+line|z18-[highway=footway][bridge?]::bridgeblack,
+line|z18-[highway=steps][bridge?]::bridgeblack,
+line|z16-[highway=road][bridge?]::bridgeblack,
+line|z16-[highway=service][bridge?]::bridgeblack
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.7;}
+
+
+/* 8.1 Pedestrian 18-22 ZOOM */
+
+line|z18-[highway=pedestrian],
+{color: @pedestrian; opacity: 0.7; width: 2; dashes: 7,3;}
+line|z18-[highway=pedestrian][tunnel?],
+{width: 0;}
+
+/* 8.3 Pedestrian & other brige 13-22 ZOOM */
+
+/* 8.4 Cycleway 18-22 ZOOM */
+
+line|z18-[highway=cycleway],
+{color: @cycleway; opacity: 0.6; width: 1;}
+line|z18-[highway=cycleway][tunnel?],
+{width: 0;}
+
+/* 8.5 Construction & Proposed 13-22 ZOOM */
+
+line|z13[highway=construction],
+{width: 1.2;dashes: 3.6,1.8;}
+line|z14[highway=construction],
+{width: 1.4;dashes: 4.5,1.8;}
+line|z15[highway=construction],
+{width: 2;dashes: 7.2,2.7;}
+line|z16[highway=construction],
+{width: 2.6;dashes: 9,3.6;}
+line|z17[highway=construction],
+{width: 3;dashes: 10.8,4.5;}
+line|z18[highway=construction],
+{width: 4;dashes: 13.5,5.4;}
+line|z19-[highway=construction],
+{width: 6;dashes: 18,6.2;}
+
+/* 8.7 Footway & Steps 18-22 ZOOM */
+
+line|z18-[highway=footway],
+line|z18-[highway=steps],
+{color: @footway; opacity: 0.7; width: 1.5; dashes: 5,2;}
+
+/* Don't display sidewalks at z18. */
+line|z18[highway=footway][footway=sidewalk],
+{width: 0;}
+
+line|z18-[highway=footway][tunnel?],
+line|z18-[highway=steps][tunnel?],
+{width: 0;}
+
+/* 8.6 Track & Path 16-22 ZOOM */
+
+line|z16-[highway=track],
+{color: @track; opacity: 0.6; width: 1.1; dashes: 6,2.5;}
+line|z17[highway=track],
+{width: 1.4; dashes: 6,2.5;}
+line|z18[highway=track],
+{width: 1.9; dashes: 7,3;}
+line|z19-[highway=track],
+{width: 2.5; dashes: 7,3;}
+line|z16-[highway=track][tunnel?],
+{width: 0;}
+
+line|z17-[highway=path],
+{color: @path; opacity: 0.6; width: 0.9; dashes: 3.5,2;}
+line|z18[highway=path],
+{width: 1.1; dashes: 3.5,2;}
+line|z19-[highway=path],
+{width: 1.5; dashes: 4,2.5;}
+line|z17-[highway=path][tunnel?],
+{width: 0;}
+
+/* 8.9 Bridleway 18-22 ZOOM */
+
+line|z18-[highway=bridleway],
+{color: @bridleway; opacity: 0.6; width: 0.9; dashes: 3.6,1.8;}
+line|z18-[highway=bridleway][tunnel?],
+{width: 0;}
+
+/* 8.11 Runway 12-22 ZOOM */
+
+/* 9.RAIL 11-22 ZOOM */
+
+line|z11-[railway=rail],
+{color: @railway_light; opacity: 0.5;}
+line|z16-[railway=rail]::dash,
+{color: @railway_dash; opacity: 0.7;}
+
+
+line|z10-[railway=rail][highspeed?],
+line|z10-[railway=rail][usage=main],
+line|z11-[railway=rail][usage=branch],
+{color: @railway; opacity: 0.5;}
+line|z10-[railway=rail][usage=tourism],
+{color: @railway_tourism; opacity: 0.5;}
+
+line|z16-[railway=rail][highspeed?]::dash,
+line|z16-[railway=rail][usage=main]::dash,
+line|z16-[railway=rail][usage=tourism]::dash,
+line|z16-[railway=rail][usage=branch]::dash,
+{color: @railway_dash; opacity: 0.7;}
+
+line|z13-[railway=rail][usage=utility],
+line|z15-[railway=rail][service=spur],
+line|z16-[railway=rail][service=service],
+{color: @railway_light; opacity: 0.5;}
+line|z17-[railway=rail][usage=utility]::dash,
+line|z17-[railway=rail][service=spur]::dash,
+line|z17-[railway=rail][service=service]::dash,
+{color: @industrial; opacity: 0.7;}
+
+
+line|z12-[railway=funicular],
+line|z14-[railway=monorail],
+line|z15-[railway=narrow_gauge],
+line|z16-[railway=construction],
+line|z16-[railway=disused],
+line|z16-[railway=preserved],
+line|z16-[railway=abandoned],
+{color: @railway; opacity: 0.6;}
+
+line|z13-[railway=light_rail][!tunnel],
+line|z13-[railway=subway][!tunnel],
+{color: @railway_light; opacity: 0.5;}
+
+line|z16-[railway=tram]::centerline,
+{color: @tram; opacity: 0.6;}
+line|z16-[railway=tram]
+{color: @tram; opacity: 0.6; linecap: butt;}
+
+line|z16-[railway=subway][!tunnel]::dash,
+line|z16-[railway=light_rail][!tunnel]::dash,
+{color: @railway_dash; opacity: 0.7;}
+
+line|z14-[railway=rail][bridge?]::bridgewhite,
+line|z14-[railway=subway][bridge?]::bridgewhite,
+line|z14-[railway=light_rail][bridge?]::bridgewhite,
+line|z16-[railway=preserved][bridge?]::bridgewhite,
+line|z16-[railway=abandoned][bridge?]::bridgewhite,
+line|z16-[railway=tram][bridge?]::bridgewhite,
+{casing-linecap: butt;casing-color:@bridge_background; opacity: 0.8;}
+line|z16-[railway=rail][bridge?]::bridgeblack,
+line|z16-[railway=subway][bridge?]::bridgeblack,
+line|z16-[railway=light_rail][bridge?]::bridgeblack,
+line|z16-[railway=preserved][bridge?]::bridgeblack,
+line|z16-[railway=abandoned][bridge?]::bridgeblack,
+line|z16-[railway=tram][bridge?]::bridgeblack,
+{casing-linecap: butt;casing-color:@bridge_casing; opacity: 0.6;}
+
+/* 9.1 RAIL 11-22 ZOOM */
+
+line|z11-12[railway=rail],
+{width: 0.7;}
+line|z13[railway=rail],
+{width: 0.9;}
+line|z14[railway=rail],
+{width: 1.2;}
+line|z15[railway=rail],
+{width: 1.8;}
+line|z16[railway=rail],
+{width: 2.8;}
+line|z17-[railway=rail],
+{width: 3.2; opacity: 0.7;}
+line|z18[railway=rail],
+{width: 4.2;}
+line|z19-[railway=rail],
+{width: 5.8;}
+
+line|z16[railway=rail]::dash,
+{width: 1.5; dashes: 4.5,4.5;}
+line|z17[railway=rail]::dash,
+{width: 2.4; dashes: 6.3,6.3;}
+line|z18[railway=rail]::dash,
+{width: 3.3; dashes: 8.1,8.1;}
+line|z19-[railway=rail]::dash,
+{width: 5; dashes: 8.1,8.1;}
+
+/* Reset styling inherited from railway=rail. */
+line|z11-12[railway=rail][usage=utility],
+line|z11-14[railway=rail][service=spur],
+line|z11-15[railway=rail][service=service],
+{width: 0;}
+line|z16[railway=rail][usage=utility]::dash,
+line|z16[railway=rail][service=spur]::dash,
+line|z16[railway=rail][service=service]::dash,
+{width: 0;}
+
+
+line|z10-11[railway=rail][usage=main],
+line|z10-11[railway=rail][usage=tourism],
+line|z11[railway=rail][usage=branch],
+line|z13[railway=rail][usage=utility],
+{width: 1;}
+line|z12[railway=rail][usage=main],
+line|z12[railway=rail][usage=tourism],
+line|z12[railway=rail][usage=branch],
+line|z14[railway=rail][usage=utility],
+{width: 1.1;}
+line|z10[railway=rail][highspeed?],
+line|z13[railway=rail][usage=main],
+line|z13[railway=rail][usage=tourism],
+line|z13[railway=rail][usage=branch],
+line|z15[railway=rail][usage=utility],
+line|z15[railway=rail][service=spur],
+{width: 1.2;}
+line|z11[railway=rail][highspeed?],
+line|z14[railway=rail][usage=main],
+line|z14[railway=rail][usage=tourism],
+line|z14[railway=rail][usage=branch],
+line|z16[railway=rail][usage=utility],
+line|z16[railway=rail][service=spur],
+line|z16[railway=rail][service=service],
+{width: 1.3;}
+line|z12[railway=rail][highspeed?],
+line|z15[railway=rail][usage=main],
+line|z15[railway=rail][usage=tourism],
+line|z15[railway=rail][usage=branch],
+{width: 1.6;}
+line|z13[railway=rail][highspeed?],
+{width: 1.8;}
+line|z14[railway=rail][highspeed?],
+{width: 2;}
+line|z15[railway=rail][highspeed?],
+{width: 2.2;}
+line|z16-[railway=rail][highspeed?],
+line|z16-[railway=rail][usage=main],
+line|z16-[railway=rail][usage=tourism],
+line|z16-[railway=rail][usage=branch],
+{width: 2.8;}
+line|z17[railway=rail][highspeed?],
+line|z17[railway=rail][usage=main],
+line|z17[railway=rail][usage=tourism],
+line|z17[railway=rail][usage=branch],
+line|z17[railway=rail][usage=utility],
+line|z17[railway=rail][service=spur],
+line|z17[railway=rail][service=service],
+{width: 3.2; opacity: 0.7;}
+line|z18-[railway=rail][highspeed?],
+line|z18-[railway=rail][usage=main],
+line|z18-[railway=rail][usage=tourism],
+line|z18-[railway=rail][usage=branch],
+line|z18-[railway=rail][usage=utility],
+line|z18-[railway=rail][service=spur],
+line|z18-[railway=rail][service=service],
+{width: 4; opacity: 0.7;}
+
+
+line|z16[railway=rail][highspeed?]::dash,
+{width: 1.2; dashes: 10,10;}
+line|z17[railway=rail][highspeed?]::dash,
+{width: 1.6; dashes: 13,13;}
+line|z18-[railway=rail][highspeed?]::dash,
+{width: 2.1; dashes: 16,16;}
+
+line|z16[railway=rail][usage=main]::dash,
+line|z16[railway=rail][usage=tourism]::dash,
+line|z16[railway=rail][usage=branch]::dash,
+{width: 1.5; dashes: 4.5,4.5;}
+line|z17[railway=rail][usage=main]::dash,
+line|z17[railway=rail][usage=tourism]::dash,
+line|z17[railway=rail][usage=branch]::dash,
+line|z17[railway=rail][usage=utility]::dash,
+line|z17[railway=rail][service=spur]::dash,
+line|z17[railway=rail][service=service]::dash,
+{width: 2; dashes: 6.3,6.3;}
+line|z18-[railway=rail][usage=main]::dash,
+line|z18-[railway=rail][usage=tourism]::dash,
+line|z18-[railway=rail][usage=branch]::dash,
+line|z18-[railway=rail][usage=utility]::dash,
+line|z18-[railway=rail][service=spur]::dash,
+line|z18-[railway=rail][service=service]::dash,
+{width: 2.6; dashes: 8.1,8.1;}
+
+
+line|z13-[railway=subway][!tunnel],
+line|z13-[railway=light_rail][!tunnel],
+{width: 0.9;}
+line|z14[railway=subway][!tunnel],
+line|z14[railway=light_rail][!tunnel],
+{width: 1.15;}
+line|z15[railway=subway][!tunnel],
+line|z15[railway=light_rail][!tunnel],
+{width: 1.8;}
+line|z16[railway=subway][!tunnel],
+line|z16[railway=light_rail][!tunnel],
+{width: 2.8;}
+line|z17[railway=subway][!tunnel],
+line|z17[railway=light_rail][!tunnel],
+{width: 3.2;}
+line|z18-[railway=subway][!tunnel],
+line|z18-[railway=light_rail][!tunnel],
+{width: 4; opacity: 0.7;}
+
+line|z16[railway=subway][!tunnel]::dash,
+line|z16[railway=light_rail][!tunnel]::dash,
+{width: 1.5;dashes: 4.5,4.5;}
+line|z17[railway=subway][!tunnel]::dash,
+line|z17[railway=light_rail][!tunnel]::dash,
+{width: 2.4;dashes: 6.3,6.3;}
+line|z18[railway=subway][!tunnel]::dash,
+line|z18[railway=light_rail][!tunnel]::dash,
+{width: 3.3;dashes: 8.1,8.1;}
+line|z19-[railway=subway][!tunnel]::dash,
+line|z19-[railway=light_rail][!tunnel]::dash,
+{width: 5;dashes: 10.1,10.1;}
+
+
+line|z16-[railway=preserved],
+line|z16-[railway=abandoned]
+{width: 1.6;dashes: 6.3,6.3;}
+
+line|z16-[railway=construction],
+line|z16-[railway=disused]
+{width: 1;dashes: 1.8,5.4;}
+
+/* 9.2 Rail tunnel 14-22 ZOOM */
+
+line|z14-[railway=rail][tunnel?],
+{casing-width: 1;casing-linecap: butt;casing-color: @railway_tunnel;casing-dashes: 5,5; casing-opacity: 0.5; opacity: 0.5;}
+
+/* 9.3 Rail bridge 14-22 ZOOM */
+
+/* TODO
+  remove following rules
+  add casing-color and z-index definitions
+  to test these new bridge styles
+*/
+line|z14-[railway=tram][bridge?]::bridgewhite,
+line|z14-[railway=monorail][bridge?]::bridgewhite,
+line|z14-[railway=narrow_gauge][bridge?]::bridgewhite,
+line|z14-[railway=tram][bridge?]::bridgeblack,
+line|z14-[railway=monorail][bridge?]::bridgeblack,
+line|z14-[railway=narrow_gauge][bridge?]::bridgeblack,
+{casing-linecap: round;}
+
+line|z14-15[railway=rail][bridge?]::bridgewhite,
+line|z14-15[railway=subway][bridge?]::bridgewhite,
+line|z14-15[railway=light_rail][bridge?]::bridgewhite,
+{casing-width-add: 1.2;}
+line|z16[railway=rail][bridge?]::bridgewhite,
+line|z16[railway=subway][bridge?]::bridgewhite,
+line|z16[railway=light_rail][bridge?]::bridgewhite,
+line|z16[railway=preserved][bridge?]::bridgewhite,
+line|z16[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 1.6;}
+line|z17[railway=rail][bridge?]::bridgewhite,
+line|z17[railway=subway][bridge?]::bridgewhite,
+line|z17[railway=light_rail][bridge?]::bridgewhite,
+line|z17[railway=preserved][bridge?]::bridgewhite,
+line|z17[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 2.3;}
+line|z18-[railway=rail][bridge?]::bridgewhite,
+line|z18-[railway=subway][bridge?]::bridgewhite,
+line|z18-[railway=light_rail][bridge?]::bridgewhite,
+line|z18-[railway=preserved][bridge?]::bridgewhite,
+line|z18-[railway=abandoned][bridge?]::bridgewhite,
+{casing-width-add: 3.5;}
+
+line|z16[railway=rail][bridge?]::bridgeblack,
+line|z16[railway=subway][bridge?]::bridgeblack,
+line|z16[railway=light_rail][bridge?]::bridgeblack,
+line|z16[railway=preserved][bridge?]::bridgeblack,
+line|z16[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 2.2;}
+line|z17[railway=rail][bridge?]::bridgeblack,
+line|z17[railway=subway][bridge?]::bridgeblack,
+line|z17[railway=light_rail][bridge?]::bridgeblack,
+line|z17[railway=preserved][bridge?]::bridgeblack,
+line|z17[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 3;}
+line|z18-[railway=rail][bridge?]::bridgeblack,
+line|z18-[railway=subway][bridge?]::bridgeblack,
+line|z18-[railway=light_rail][bridge?]::bridgeblack,
+line|z18-[railway=preserved][bridge?]::bridgeblack,
+line|z18-[railway=abandoned][bridge?]::bridgeblack,
+{casing-width-add: 4.4;}
+
+/* 9.4 Monorail 14-22 ZOOM */
+
+line|z14[railway=monorail]
+{color: @railway_light; width: 1; opacity: 0.7;}
+line|z15-16[railway=monorail],
+line|z15-16[railway=narrow_gauge]
+{width: 1.2;}
+line|z17-[railway=monorail],
+line|z17-[railway=narrow_gauge]
+{width: 2;}
+
+/* 9.5 Tram line 13-22 ZOOM */
+
+line|z16-[railway=tram]::centerline
+{width: 0.85;}
+line|z17-[railway=tram]::centerline
+{width: 1.5;}
+line|z18-[railway=tram]::centerline
+{width: 1.8;}
+line|z19-[railway=tram]::centerline
+{width: 2;}
+
+line|z16-[railway=tram]
+{width: 1.5; dashes:0.8,12;}
+line|z17-[railway=tram]
+{width: 3; dashes:1.15,14;}
+line|z18-[railway=tram]
+{width: 4.1; dashes:1.25,16;}
+line|z19-[railway=tram]
+{width: 6.4; dashes:1.5,19;}
+
+/* 9.6 Funicular 12-22 ZOOM */
+
+/* 10.PISTE 12-22 ZOOM */
+
+/* 10.2 Aerialway 12-22 ZOOM */
+
+/* 10.3 Piste & Route 14-22 ZOOM */
+
+/* 11. FERRY */
+/*line|z10-[route=ferry],
+line|z10-[route=ferry_motorcar]
+{color: @ferry;width: 1;opacity: 1;dashes: 5.4,2.7;}*/

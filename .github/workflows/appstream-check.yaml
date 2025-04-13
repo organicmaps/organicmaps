@@ -1,0 +1,40 @@
+name: Validate appstream metadata xml
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - packaging/app.organicmaps.desktop.metainfo.xml
+      - .github/workflows/appstream-check.yaml  # Run check on self change
+
+jobs:
+  validate-appstream:
+    name: Validate appstream metadata xml
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            packaging/app.organicmaps.desktop.metainfo.xml
+
+      - name: Install appstream validator and flatpak Builder
+        shell: bash
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              flatpak
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y org.freedesktop.appstream-glib org.flatpak.Builder
+
+      - name: Validate appstream data
+        shell: bash
+        run: flatpak run org.freedesktop.appstream-glib validate --nonet packaging/app.organicmaps.desktop.metainfo.xml
+
+      - name: Lint appstream data with flatpak Builder
+        shell: bash
+        run: flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream packaging/app.organicmaps.desktop.metainfo.xml
+
+      - name: Run appstreamcli in pedantic mode
+        shell: bash
+        run: flatpak run --command=appstreamcli org.flatpak.Builder validate --pedantic packaging/app.organicmaps.desktop.metainfo.xml

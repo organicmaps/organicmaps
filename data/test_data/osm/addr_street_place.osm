@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='25632104' timestamp='2015-08-12T08:40:54Z' uid='476713' user='jirislaby' visible='true' version='4' changeset='33285852' lat='49.1776882' lon='16.6061608' />
+  <node id='59816970' timestamp='2023-07-07T21:45:18Z' uid='10284764' user='MIGORMCZ' visible='true' version='3' changeset='138245640' lat='49.1762143' lon='16.6061296' />
+  <node id='59816971' timestamp='2023-07-07T21:45:18Z' uid='10284764' user='MIGORMCZ' visible='true' version='2' changeset='138245640' lat='49.1750203' lon='16.6061134' />
+  <node id='309878927' timestamp='2020-10-03T23:20:01Z' uid='102554' user='Jezevec' visible='true' version='8' changeset='91916720' lat='49.1811274' lon='16.5965137'>
+    <tag k='name' v='Štýřice' />
+    <tag k='name:cs' v='Štýřice' />
+    <tag k='place' v='suburb' />
+    <tag k='ref:cobe' v='411604' />
+    <tag k='source' v='csu:uir-zsj' />
+    <tag k='source:position' v='localknowledge' />
+    <tag k='wikidata' v='Q10424523' />
+    <tag k='wikipedia' v='cs:Štýřice' />
+  </node>
+  <node id='1614139733' timestamp='2014-07-22T07:13:34Z' uid='1942179' user='CzechAddress' visible='true' version='2' changeset='24286933' lat='49.1764779' lon='16.606525'>
+    <tag k='addr:conscriptionnumber' v='888' />
+    <tag k='addr:housenumber' v='888/66b' />
+    <tag k='addr:place' v='Štýřice' />
+    <tag k='addr:postcode' v='63900' />
+    <tag k='addr:street' v='Pražákova' />
+    <tag k='addr:streetnumber' v='66b' />
+    <tag k='ref:ruian:addr' v='27535088' />
+  </node>
+  <node id='2883894250' timestamp='2023-07-07T21:45:18Z' uid='10284764' user='MIGORMCZ' visible='true' version='3' changeset='138245640' lat='49.1769708' lon='16.6061426' />
+  <node id='4213415639' timestamp='2016-05-29T08:03:17Z' uid='476713' user='jirislaby' visible='true' version='1' changeset='39637110' lat='49.1753087' lon='16.6061167' />
+  <node id='4213415643' timestamp='2016-05-29T08:03:17Z' uid='476713' user='jirislaby' visible='true' version='1' changeset='39637110' lat='49.1761517' lon='16.6061282' />
+  <node id='4213415650' timestamp='2016-05-29T08:03:17Z' uid='476713' user='jirislaby' visible='true' version='1' changeset='39637110' lat='49.1766498' lon='16.6061368' />
+  <way id='48024756' timestamp='2022-11-19T11:07:41Z' uid='13953005' user='JBS21' visible='true' version='9' changeset='129118441'>
+    <nd ref='25632104' />
+    <nd ref='2883894250' />
+    <nd ref='4213415650' />
+    <nd ref='59816970' />
+    <nd ref='4213415643' />
+    <nd ref='4213415639' />
+    <nd ref='59816971' />
+    <tag k='highway' v='residential' />
+    <tag k='lit' v='yes' />
+    <tag k='name' v='Pražákova' />
+    <tag k='smoothness' v='good' />
+    <tag k='source' v='uhul:ortofoto' />
+    <tag k='surface' v='asphalt' />
+  </way>
+</osm>

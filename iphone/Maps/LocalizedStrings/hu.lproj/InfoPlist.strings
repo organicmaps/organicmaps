@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Keresés";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
+
+/* Used in home screen quick actions. */
+"route" = "Útvonal";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "A helymeghatározás a háttérben szükséges ahhoz, hogy teljes mértékben élvezhesse az alkalmazás funkcióit. A navigációhoz és a nemrég megtett útvonal mentéséhez használatos.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "A navigációhoz és a legutóbb megtett útvonal mentéséhez szükséges a helymeghatározás.";

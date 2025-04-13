@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometres</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Choose between miles and kilometres</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Petrol</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- gray color -->
+    <string name="gray">Grey</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Blue Grey</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="postal_code">Postcode</string>
+    <string name="editor_zip_code">Postcode</string>
+    <string name="error_enter_correct_zip_code">Enter a valid postcode</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d bookmark</item>
+        <item quantity="other">%d bookmarks</item>
+    </plurals>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d file was found. You can see it after conversion.</item>
+        <item quantity="other">%d files were found. You can see them after conversion.</item>
+    </plurals>
+    <plurals name="tracks">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
+    <string name="button_layer_subway">Metro</string>
+    <string name="subway_data_unavailable">Metro map is unavailable</string>
+    <string name="avoid_motorways">Avoid motorways</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="fuel_places">Petrol Stations</string>
+    <string name="transit_not_found">Metro navigation in this region is not available yet</string>
+    <string name="dialog_pedestrian_route_is_long_header">No metro route found</string>
+    <string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a metro station</string>
+</resources>

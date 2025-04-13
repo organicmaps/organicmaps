@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_opening_hours_item"
+  style="@style/PlacePageOpeningHoursItem"
+  android:visibility="visible">
+
+  <TextView
+    android:id="@+id/tv__opening_hours_weekdays"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_alignParentStart="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="Mo-Fr"/>
+
+  <TextView
+    android:id="@+id/tv__opening_hours_time"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_toEndOf="@id/tv__opening_hours_weekdays"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textAlignment="viewEnd"
+    tools:text="08:00 - 19:00"/>
+
+  <TextView
+    android:id="@+id/tv__opening_hours_nonbusiness_time"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@id/tv__opening_hours_weekdays"
+    android:textAppearance="@style/MwmTextAppearance.Body4"
+    android:textAlignment="viewEnd"
+    android:visibility="gone"/>
+</RelativeLayout>

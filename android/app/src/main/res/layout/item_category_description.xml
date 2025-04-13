@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?cardBackground"
+    android:padding="@dimen/margin_base">
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body2.Primary"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintTop_toBottomOf="@id/title">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textAppearance="@style/MwmTextAppearance.Body3" />
+
+    <TextView
+        android:id="@+id/more_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:gravity="start|top"
+        android:text="@string/category_desc_more"
+        android:textColor="?attr/colorAccent"
+        android:layout_marginTop="2dp" />
+  </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

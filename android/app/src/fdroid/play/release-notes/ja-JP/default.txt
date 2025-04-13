@@ -1,0 +1,1 @@
+../../listings/ja-JP/release-notes.txt

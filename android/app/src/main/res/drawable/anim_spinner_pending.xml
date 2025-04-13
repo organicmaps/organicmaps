@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_spinner_pending_1_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_2_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_3_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_4_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_5_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_6_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_7_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_8_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_9_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_10_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_11_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_12_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_13_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_14_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_15_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_16_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_17_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+
+  <item android:drawable="@drawable/ic_spinner_pending_18_night"
+        android:duration="@integer/anim_spinner_pending_item"/>
+</animation-list>

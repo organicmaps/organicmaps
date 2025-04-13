@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "पत्ता/ब्लॉक";
+"type.addr_interpolation.even" = "पत्ता/ब्लॉक";
+"type.addr_interpolation.odd" = "पत्ता/ब्लॉक";
+"type.aerialway" = "हवाई मार्ग";
+"type.aerialway.cable_car" = "हवाई मार्ग";
+"type.aerialway.chair_lift" = "हवाई मार्ग";
+"type.aerialway.drag_lift" = "हवाई मार्ग";
+"type.aerialway.gondola" = "हवाई मार्ग";
+"type.aerialway.mixed_lift" = "हवाई मार्ग";
+"type.aerialway.station" = "हवाई स्थानक";
+"type.aeroway" = "हवाई आधार संरचना";
+"type.aeroway.aerodrome" = "विमानतळ";
+"type.aeroway.aerodrome.international" = "आंतरराष्ट्रीय विमानतळ";
+"type.aeroway.apron" = "Apron";
+"type.aeroway.gate" = "दार";
+"type.aeroway.helipad" = "हेलिपॅड";
+"type.aeroway.runway" = "धावपट्टी";
+"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.terminal" = "टर्मिनल";
+"type.amenity" = "सुविधा";
+"type.amenity.arts_centre" = "कला केंद्र";
+"type.amenity.atm" = "ATM";
+"type.amenity.bank" = "बँक";
+"type.amenity.bar" = "बार";
+"type.amenity.bbq" = "बार्बेक्यू ग्रिल";
+"type.amenity.bench" = "बाक";
+"type.amenity.bicycle_parking" = "सायकल वाहनतळ";
+"type.amenity.bicycle_rental" = "भाड्याची सायकल";
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+"type.amenity.biergarten" = "Biergarten";
+"type.amenity.brothel" = "वेश्यालय";
+"type.amenity.bureau_de_change" = "चलन विनिमय";
+"type.amenity.bus_station" = "बस स्थानक";
+"type.amenity.cafe" = "अमृततुल्य";
+"type.amenity.car_rental" = "भाड्याची गाडी";
+"type.amenity.motorcycle_rental" = "मटरसयकल भडयन";
+"type.amenity.car_sharing" = "कार शेअरिंग";
+"type.amenity.car_wash" = "कार धुणे";
+"type.amenity.casino" = "जुगारगृह";
+"type.amenity.gambling" = "जुगार";
+"type.leisure.adult_gaming_centre" = "प्रौढ गेमिंग केंद्र";
+"type.leisure.amusement_arcade" = "आर्केड";
+"type.amenity.charging_station" = "चार्जिंग केंद्र";
+"type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";
+"type.amenity.charging_station.motorcar" = "मोटार कार चार्जिंग स्टेशन";
+"type.amenity.childcare" = "बालवाडी";
+"type.amenity.cinema" = "चित्रपटगृह";
+"type.leisure.bowling_alley" = "गोलंदाजी गल्ली";
+"type.amenity.clinic" = "चिकित्सालय";
+"type.amenity.college" = "महाविद्यालय";
+"type.amenity.community_centre" = "समुदाय केंद्र";
+"type.amenity.compressed_air" = "संकुचित हवा";
+"type.amenity.conference_centre" = "परिषद केंद्र";
+"type.amenity.courthouse" = "न्यायालय";
+"type.amenity.dentist" = "दंतवैद्य";
+"type.amenity.doctors" = "डॉक्टर";
+"type.amenity.drinking_water" = "पिण्याचे पाणी";
+"type.drinking_water.yes" = "पिण्याचे पाणी";
+"type.amenity.driving_school" = "वाहनचालक शाळा";
+"type.amenity.exhibition_centre" = "प्रदर्शन केंद्र";
+"type.amenity.money_transfer" = "पैसे हस्तांतरण";
+"type.amenity.music_school" = "Music School";
+"type.amenity.language_school" = "Language School";
+"type.office.diplomatic" = "दूतावास";
+"type.amenity.fast_food" = "फास्ट फूड";
+"type.amenity.ferry_terminal" = "होडी";
+"type.amenity.fire_station" = "अग्निशमन केंद्र";
+"type.amenity.food_court" = "जेवायचे ठिकाण";
+"type.amenity.fountain" = "कारंजे";
+"type.amenity.fuel" = "पेट्रोल पंप";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "स्मशानभूमी";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "ख्रिश्चन स्मशानभूमी";
+"type.amenity.hospital" = "रुग्णालय";
+"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.ice_cream" = "आईसक्रीम";
+"type.amenity.internet_cafe" = "इंटरनेट कॅफे";
+"type.amenity.kindergarten" = "बालवाडी";
+"type.amenity.library" = "ग्रंथालय";
+"type.amenity.loading_dock" = "डक लड करत आह";
+"type.amenity.marketplace" = "बाजारपेठ";
+"type.amenity.motorcycle_parking" = "दुचाकी वाहनतळ";
+"type.amenity.nightclub" = "नाईट क्लब";
+"type.amenity.nursing_home" = "वृद्धाश्रम";
+"type.amenity.parking" = "वाहनतळ";
+"type.amenity.parking.fee" = "वाहनतळ";
+"type.amenity.parking.multi.storey" = "Multi Storey Parking";
+"type.amenity.parking.multi.storey.fee" = "Multi Storey Parking";
+"type.amenity.parking.no.access" = "Private Parking";
+"type.amenity.parking.permissive" = "Private Parking";
+"type.amenity.parking.private" = "Private Parking";
+"type.amenity.parking.park_and_ride" = "वाहनतळ";
+"type.amenity.parking.underground" = "Underground Parking";
+"type.amenity.parking.underground.fee" = "Underground Parking";
+"type.amenity.parking.underground.private" = "खाजगी भूमिगत पार्किंग";
+"type.amenity.parking.street_side" = "स्ट्रीट साइड पार्किंग";
+"type.amenity.parking.street_side.fee" = "स्ट्रीट साइड पार्किंग";
+"type.amenity.parking.street_side.private" = "खाजगी रस्त्यावरील बाजूचे पार्किंग";
+"type.amenity.parking.lane" = "लेन पार्किंग";
+"type.amenity.parking.lane.fee" = "लेन पार्किंग";
+"type.amenity.parking.lane.private" = "खाजगी लेन पार्किंग";
+"type.amenity.parking_entrance" = "Parking Entrance";
+"type.amenity.parking_entrance.private" = "खाजगी पार्किंग प्रवेशद्वार";
+"type.amenity.parking_entrance.permissive" = "Parking Entrance";
+"type.amenity.parking_space" = "पार्किंगची जागा";
+"type.amenity.parking_space.permissive" = "पार्किंगची जागा";
+"type.amenity.parking_space.private" = "पार्किंगची जागा";
+"type.amenity.parking_space.underground" = "पार्किंगची जागा";
+"type.amenity.parking_space.disabled" = "Disabled Parking Space";
+"type.amenity.payment_terminal" = "पेमेंट टर्मिनल";
+"type.amenity.pharmacy" = "औषधालय";
+"type.amenity.place_of_worship" = "धार्मिक ठिकाण";
+"type.amenity.place_of_worship.buddhist" = "मंदिर";
+"type.amenity.place_of_worship.christian" = "चर्च";
+"type.amenity.place_of_worship.christian.mormon" = "चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "यहोवा साक्षींचे राज्य सभा";
+"type.amenity.place_of_worship.hindu" = "मंदिर";
+"type.amenity.place_of_worship.jewish" = "सिनेगॉग";
+"type.amenity.place_of_worship.muslim" = "मशीद";
+"type.amenity.place_of_worship.shinto" = "देवस्थान";
+"type.amenity.place_of_worship.taoist" = "मंदिर";
+"type.amenity.police" = "पोलीस";
+"type.amenity.post_box" = "टपालपेटी";
+"type.amenity.post_office" = "टपालघर";
+"type.amenity.prison" = "तुरुंग";
+"type.amenity.pub" = "पब";
+"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.recycling.centre" = "भंगार केंद्र";
+"type.amenity.recycling" = "रीसायकलिंग कंटेनर";
+"type.amenity.recycling.container" = "रीसायकलिंग कंटेनर";
+"type.recycling.batteries" = "घरगुती बॅटरी";
+"type.recycling.clothes" = "कपडे";
+"type.recycling.glass_bottles" = "काचेच्या बाटल्या";
+"type.recycling.paper" = "कागद";
+"type.recycling.plastic" = "प्लास्टिक";
+"type.recycling.plastic_bottles" = "प्लास्टिकच्या बाटल्या";
+"type.recycling.scrap_metal" = "भंगार धातू";
+"type.recycling.small_appliances" = "इलेक्ट्रॉनिक कचरा";
+"type.recycling.cardboard" = "पुठ्ठा";
+"type.recycling.cans" = "कॅन";
+"type.recycling.shoes" = "पादत्राणे";
+"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.cartons" = "पेय कार्टन";
+"type.amenity.restaurant" = "उपहारगृह";
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.school" = "शाळा";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "निवारा";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "निवारा";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "बिव्होक झोपडी";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.public_bath" = "सार्वजनिक स्नान";
+"type.amenity.shower" = "अंघोळ";
+"type.amenity.stripclub" = "स्ट्रिपक्लब";
+"type.amenity.taxi" = "टॅक्सी";
+"type.amenity.telephone" = "फोन";
+"type.amenity.theatre" = "नाट्यगृह";
+"type.amenity.toilets" = "शौचालय";
+"type.toilets.yes" = "शौचालय";
+"type.amenity.townhall" = "नगर भवन";
+"type.amenity.university" = "विद्यापीठ";
+"type.amenity.vending_machine" = "विक्रीयंत्र";
+"type.amenity.vending_machine.cigarettes" = "सिगारेट विक्रीयंत्र";
+"type.amenity.vending_machine.coffee" = "कॉफी विक्रीयंत्र";
+"type.amenity.vending_machine.condoms" = "कंडोम विक्रीयंत्र";
+"type.amenity.vending_machine.drinks" = "पेय विक्रीयंत्र";
+"type.amenity.vending_machine.food" = "अन्न विक्रीयंत्र";
+"type.amenity.vending_machine.newspapers" = "वृत्तपत्र विक्रीयंत्र";
+"type.amenity.vending_machine.parking_tickets" = "पार्किंग तिकिटे";
+"type.amenity.vending_machine.public_transport_tickets" = "तिकीट यंत्र";
+"type.amenity.vending_machine.sweets" = "मिठाई विक्रीयंत्र";
+"type.amenity.vending_machine.excrement_bags" = "मलमूत्र पिशव्या विक्रीयंत्र";
+"type.amenity.parcel_locker" = "पार्सल लॉकर";
+"type.amenity.vehicle_inspection" = "वाहन तपासणी";
+"type.amenity.vending_machine.fuel" = "इंधन विक्रीयंत्र";
+"type.amenity.veterinary" = "पशुवैद्यकीय डॉक्टर";
+"type.amenity.waste_basket" = "कचरा पेटी";
+"type.amenity.waste_disposal" = "कचऱ्याची मोठी पेटी";
+"type.amenity.waste_transfer_station" = "कचरा हस्तांतरण केंद्र";
+"type.amenity.water_point" = "Water Tank Refill Point";
+"type.amenity.water_point.drinking_water_no" = "Water Tank Refill Point";
+"type.barrier" = "अडथळा";
+"type.barrier.block" = "अडथळा";
+"type.barrier.bollard" = "खांब";
+"type.barrier.border_control" = "सीमा नियंत्रण";
+"type.barrier.chain" = "साखळी";
+"type.barrier.city_wall" = "शहराची भिंत";
+"type.barrier.cycle_barrier" = "सायकल अडथळा";
+"type.waterway.ditch" = "ड्रेनेज खंदक";
+"type.natural.water.moat" = "Moat";
+"type.natural.water.wastewater" = "सांडपाणी";
+"type.barrier.entrance" = "प्रवेशद्वार";
+"type.barrier.fence" = "कुंपण";
+"type.barrier.gate" = "दार";
+"type.barrier.hedge" = "झुडुपांचे कुंपण";
+"type.barrier.kissing_gate" = "दार";
+"type.barrier.lift_gate" = "लिफ्ट दार";
+"type.barrier.retaining_wall" = "संधारक भिंत";
+"type.barrier.stile" = "Stile";
+"type.barrier.turnstile" = "टर्नस्टाइल";
+"type.barrier.swing_gate" = "झुलते दार";
+"type.barrier.toll_booth" = "टोल बूथ";
+"type.barrier.wall" = "भिंत";
+"type.boundary" = "सीमा";
+"type.boundary.administrative" = "प्रशासकीय सीमा";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "राष्ट्रीय सीमा";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "प्रादेशिक सीमा";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "प्रादेशिक सीमा";
+"type.boundary.national_park" = "राष्ट्रीय उद्यान";
+"type.boundary.aboriginal_lands" = "स्वदेशी जमिनी";
+"type.boundary.protected_area" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.1" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.2" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.3" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.4" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.5" = "संरक्षित क्षेत्र";
+"type.boundary.protected_area.6" = "संरक्षित क्षेत्र";
+"type.building" = "इमारत";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "पत्ता";
+"type.building.has_parts" = "इमारत";
+"type.building_part" = "इमारत";
+"type.building.garage" = "गराज";
+"type.building.train_station" = "स्टेशन बिल्डिंग";
+"type.building.warehouse" = "वखार";
+"type.cemetery.grave" = "Grave";
+"type.craft" = "हस्तकला";
+"type.craft.beekeeper" = "मधमाश्या पाळणारा";
+"type.craft.blacksmith" = "लोहार";
+"type.craft.brewery" = "दारूभट्टी";
+"type.craft.caterer" = "केटरर";
+"type.craft.carpenter" = "सुतार";
+"type.craft.confectionery" = "हलवाई";
+"type.craft.electrician" = "इलेक्ट्रिशियन";
+"type.craft.electronics_repair" = "इलेक्ट्रॉनिक्स दुरुस्ती";
+"type.craft.gardener" = "माळी";
+"type.craft.grinding_mill" = "ग्राइंडिंग मिल";
+"type.craft.handicraft" = "हस्तकला";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
+"type.craft.key_cutter" = "की कटिंग";
+"type.craft.locksmith" = "लॉकस्मिथ";
+"type.craft.metal_construction" = "धातू कामगार";
+"type.craft.painter" = "चित्रकार";
+"type.craft.photographer" = "छायाचित्रकार";
+"type.shop.camera" = "कॅमेरा शॉप";
+"type.craft.plumber" = "नळकामगार";
+"type.craft.sawmill" = "सुमेल";
+"type.craft.shoemaker" = "चांभार";
+"type.craft.winery" = "वाइनरी";
+"type.craft.tailor" = "शिंपी";
+"type.cuisine.african" = "African";
+"type.cuisine.american" = "American";
+"type.cuisine.arab" = "Arab";
+"type.cuisine.argentinian" = "Argentinian";
+"type.cuisine.asian" = "Asian";
+"type.cuisine.austrian" = "Austrian";
+"type.cuisine.bagel" = "Bagel";
+"type.cuisine.balkan" = "Balkan";
+"type.cuisine.barbecue" = "चुलीवरचे जेवण";
+"type.cuisine.bavarian" = "Bavarian";
+"type.cuisine.beef_bowl" = "Beef Bowl";
+"type.cuisine.brazilian" = "Brazilian";
+"type.cuisine.breakfast" = "नाश्ता";
+"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.burger" = "बर्गर";
+"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.cake" = "केक";
+"type.cuisine.caribbean" = "Caribbean";
+"type.cuisine.chicken" = "चिकन";
+"type.cuisine.chinese" = "चिनी";
+"type.cuisine.coffee_shop" = "कॉफी";
+"type.cuisine.crepe" = "Crepe";
+"type.cuisine.croatian" = "Croatian";
+"type.cuisine.curry" = "रस्सा";
+"type.cuisine.deli" = "Deli";
+"type.cuisine.diner" = "Diner";
+"type.cuisine.donut" = "Donut";
+"type.cuisine.ethiopian" = "Ethiopian";
+"type.cuisine.filipino" = "Filipino";
+"type.cuisine.fine_dining" = "Fine Dining";
+"type.cuisine.fish" = "मासे";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
+"type.cuisine.french" = "French";
+"type.cuisine.friture" = "Friture";
+"type.cuisine.georgian" = "Georgian";
+"type.cuisine.german" = "German";
+"type.cuisine.greek" = "Greek";
+"type.cuisine.grill" = "Grill";
+"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hungarian" = "Hungarian";
+"type.cuisine.ice_cream" = "आईसक्रीम";
+"type.cuisine.indian" = "भारतीय";
+"type.cuisine.indonesian" = "Indonesian";
+"type.cuisine.international" = "आंतरराष्ट्रीय";
+"type.cuisine.irish" = "Irish";
+"type.cuisine.italian" = "इटालियन";
+"type.cuisine.italian_pizza" = "इटालियन, पिझ्झा";
+"type.cuisine.japanese" = "जपानी";
+"type.cuisine.kebab" = "Kebab";
+"type.cuisine.korean" = "Korean";
+"type.cuisine.lao" = "Lao";
+"type.cuisine.lebanese" = "Lebanese";
+"type.cuisine.local" = "स्थानिक";
+"type.cuisine.malagasy" = "Malagasy";
+"type.cuisine.malaysian" = "Malaysian";
+"type.cuisine.mediterranean" = "Mediterranean";
+"type.cuisine.mexican" = "Mexican";
+"type.cuisine.moroccan" = "Moroccan";
+"type.cuisine.noodles" = "नूडल्स";
+"type.cuisine.oriental" = "East Asian";
+"type.cuisine.pancake" = "Pancake";
+"type.cuisine.pasta" = "पास्ता";
+"type.cuisine.persian" = "Persian";
+"type.cuisine.peruvian" = "Peruvian";
+"type.cuisine.pizza" = "पिझ्झा";
+"type.cuisine.polish" = "Polish";
+"type.cuisine.portuguese" = "Portuguese";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "प्रादेशिक";
+"type.cuisine.russian" = "Russian";
+"type.cuisine.sandwich" = "सँडविच";
+"type.cuisine.sausage" = "Sausage";
+"type.cuisine.savory_pancakes" = "Savory Pancakes";
+"type.cuisine.seafood" = "मासळी जेवण";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Spanish";
+"type.cuisine.steak_house" = "Steak House";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "चहा";
+"type.cuisine.thai" = "Thai";
+"type.cuisine.turkish" = "Turkish";
+"type.cuisine.vegan" = "Vegan";
+"type.cuisine.vegetarian" = "शाकाहारी";
+"type.cuisine.vietnamese" = "Vietnamese";
+"type.emergency" = "आणीबाणी";
+"type.emergency.assembly_point" = "आपत्कालीन विधानसभा पॉइंट";
+"type.emergency.defibrillator" = "कंपनरोधक";
+"type.emergency.fire_hydrant" = "अग्निशामक नळ";
+"type.emergency.phone" = "संकटकालीन फोन";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "जीवरक्षक";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "पर्वत बचाव स्थानक";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "प्रवेशद्वार";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "मुख्य प्रवेशद्वार";
+"type.entrance.exit" = "बाहेर पडा";
+"type.fee.yes" = "$";
+"type.fee.no" = "विनामूल्य";
+"type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
+"type.healthcare.physiotherapist" = "फिजिओथेरपिस्ट";
+"type.healthcare.alternative" = "पर्यायी औषध";
+"type.healthcare.audiologist" = "ऑडिओलॉजी";
+"type.healthcare.blood_donation" = "रक्तदान केंद्र";
+"type.healthcare.optometrist" = "ऑप्टोमेट्री";
+"type.healthcare.podiatrist" = "पोडियाट्री";
+"type.healthcare.psychotherapist" = "मानसोपचार";
+"type.healthcare.sample_collection" = "नमुना";
+"type.healthcare.speech_therapist" = "स्पीच थेरपी";
+"type.highway" = "महामार्ग";
+"type.highway.bridleway" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "पूल";
+"type.highway.bridleway.permissive" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "बोगदा";
+"type.highway.busway" = "समर्पित बस रस्ता";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "बोगदा";
+"type.highway.bus_stop" = "बस थांबा";
+"type.highway.construction" = "बांधकामाधीन रस्ता";
+"type.highway.cycleway" = "सायकल वाट";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "पूल";
+"type.highway.cycleway.permissive" = "सायकल वाट";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "बोगदा";
+"type.highway.elevator" = "उद्वाहक(लिफ्ट)";
+"type.highway.footway" = "पादचारी मार्ग";
+"type.highway.footway.sidewalk" = "फुटपाथ";
+"type.highway.footway.crossing" = "पादचारी ओलांडणे";
+"type.highway.footway.area" = "पादचारी झोन";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "पादचारी पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "पादचारी बोगदा";
+"type.highway.ford" = "Ford";
+"type.highway.living_street" = "वस्ती मार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "बोगदा";
+"type.highway.motorway" = "महामार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "महामार्ग पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "महामार्ग बोगदा";
+"type.highway.motorway_junction" = "रस्ता निर्गमन";
+"type.highway.motorway_link" = "महामार्ग उतार";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "बोगदा";
+"type.highway.path" = "पथ";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "अवघड किंवा खराब दृश्यमान पायवाट";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "अतिशय अवघड किंवा वेगळे न करता येणारी पायवाट";
+"type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
+"type.highway.footway.bicycle" = "सायकल आणि पाऊलवाट";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "पूल";
+"type.highway.path.horse" = "पथ";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "बोगदा";
+"type.highway.pedestrian" = "पादचारी मार्ग";
+"type.highway.pedestrian.area" = "पादचारी झोन";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "पादचारी पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "पादचारी बोगदा";
+"type.highway.primary" = "प्राथमिक मार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "बोगदा";
+"type.highway.primary_link" = "प्राथमिक मार्ग उतार";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "बोगदा";
+"type.highway.raceway" = "शर्यतीचा मार्ग";
+"type.highway.residential" = "रस्ता";
+"type.highway.residential.area" = "रस्ता";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "बोगदा";
+"type.highway.rest_area" = "विश्रांती क्षेत्र";
+"type.highway.road" = "रस्ता";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "पूल";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "बोगदा";
+"type.highway.secondary" = "दुय्यम मार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "बोगदा";
+"type.highway.secondary_link" = "दुय्यम मार्ग उतार";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "बोगदा";
+"type.highway.service" = "सेवा मार्ग";
+"type.highway.service.area" = "सेवा मार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "पूल";
+"type.highway.service.driveway" = "चालकमार्ग";
+"type.highway.service.parking_aisle" = "पार्किंग गल्ली";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "बोगदा";
+"type.highway.services" = "सेवा क्षेत्र";
+"type.highway.speed_camera" = "वेग कॅमेरा";
+"type.highway.steps" = "पायऱ्या";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "बोगदा";
+"type.highway.tertiary" = "तृतीयक मार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "बोगदा";
+"type.highway.tertiary_link" = "तृतीयक मार्ग उतार";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "बोगदा";
+"type.highway.track" = "ट्रॅक";
+"type.highway.track.area" = "ट्रॅक";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "पूल";
+"type.highway.track.grade1" = "ट्रॅक";
+"type.highway.track.no.access" = "ट्रॅक";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "बोगदा";
+"type.highway.traffic_signals" = "वाहतूक दिवे";
+"type.highway.trunk" = "राष्ट्रीय महामार्ग";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "बोगदा";
+"type.highway.trunk_link" = "राष्ट्रीय महामार्ग उतार";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "बोगदा";
+"type.highway.unclassified" = "किरकोळ रस्ता";
+"type.highway.unclassified.area" = "किरकोळ रस्ता";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "बोगदा";
+"type.area_highway.cycleway" = "सायकल वाट";
+"type.area_highway.footway" = "पादचारी मार्ग";
+"type.area_highway.living_street" = "वस्ती मार्ग";
+"type.area_highway.motorway" = "महामार्ग";
+"type.area_highway.path" = "पथ";
+"type.area_highway.pedestrian" = "पादचारी मार्ग";
+"type.area_highway.primary" = "प्राथमिक मार्ग";
+"type.area_highway.residential" = "रस्ता";
+"type.area_highway.secondary" = "दुय्यम मार्ग";
+"type.area_highway.service" = "सेवा मार्ग";
+"type.area_highway.tertiary" = "तृतीयक मार्ग";
+"type.area_highway.steps" = "पायऱ्या";
+"type.area_highway.track" = "ट्रॅक";
+"type.area_highway.trunk" = "राष्ट्रीय महामार्ग";
+"type.area_highway.unclassified" = "किरकोळ रस्ता";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "ऐतिहासिक";
+"type.historic.aircraft" = "ऐतिहासिक विमान";
+"type.historic.anchor" = "ऐतिहासिक अँकर";
+"type.historic.archaeological_site" = "पुरातत्व स्थळ";
+"type.historic.battlefield" = "रणांगण";
+"type.historic.boundary_stone" = "सीमेचा दगड";
+"type.historic.cannon" = "तोफ";
+"type.historic.castle" = "गढी";
+"type.historic.castle.castrum" = "रोमन किल्ला";
+"type.historic.castle.defensive" = "गढी";
+"type.historic.castle.fortified_church" = "तटबंदी असलेले चर्च";
+"type.historic.castle.fortress" = "किल्ला";
+"type.historic.castle.hillfort" = "हिलफोर्ट";
+"type.historic.castle.kremlin" = "क्रेमलिन";
+"type.historic.castle.manor" = "मनोर घर";
+"type.historic.castle.palace" = "राजवाडा";
+"type.historic.castle.shiro" = "जपानी किल्ला";
+"type.historic.castle.stately" = "किल्ला";
+"type.historic.city_gate" = "शहराचा दरवाजा";
+"type.historic.citywalls" = "शहराची भिंत";
+"type.historic.fort" = "दुर्ग";
+"type.historic.gallows" = "फाशी";
+"type.historic.locomotive" = "ऐतिहासिक लोकोमोटिव्ह";
+"type.historic.memorial" = "स्मारक";
+"type.historic.memorial.cross" = "मेमोरियल क्रॉस";
+"type.historic.memorial.plaque" = "फलक";
+"type.historic.memorial.sculpture" = "शिल्प";
+"type.historic.memorial.statue" = "पुतळा";
+"type.historic.memorial.stolperstein" = "अडथळा";
+"type.historic.stone" = "ऐतिहासिक दगड";
+"type.historic.memorial.war_memorial" = "युद्ध स्मारक";
+"type.historic.mine" = "ऐतिहासिक खाण";
+"type.historic.monument" = "स्मारक";
+"type.historic.pillory" = "पिलोरी";
+"type.historic.ruins" = "अवशेष";
+"type.historic.ship" = "जहाज";
+"type.historic.tank" = "ऐतिहासिक टाकी";
+"type.historic.tomb" = "थडगे";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "क्रॉस";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "ख्रिश्चन क्रॉस";
+"type.historic.wayside_shrine" = "देवस्थान";
+"type.historic.wreck" = "जहाजाचा नाश";
+"type.hwtag" = "hwtag";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "इंटरनेट";
+"type.internet_access.wlan" = "इंटरनेट";
+"type.junction" = "जंक्शन";
+"type.junction.circular" = "गोलमार्ग";
+"type.junction.roundabout" = "गोलमार्ग";
+"type.landuse" = "भूमी उपयोग";
+"type.landuse.allotments" = "वाटप";
+"type.landuse.basin" = "कुंड";
+"type.landuse.brownfield" = "Brownfield";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "स्मशानभूमी";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "ख्रिश्चन स्मशानभूमी";
+"type.landuse.churchyard" = "Churchyard";
+"type.landuse.commercial" = "व्यावसायिक क्षेत्र";
+"type.landuse.construction" = "बांधकाम";
+"type.landuse.education" = "शैक्षणिक सुविधा";
+"type.landuse.farmland" = "शेतजमीन";
+"type.landuse.farmyard" = "Farmyard";
+"type.landuse.field" = "क्षेत्र";
+"type.landuse.flowerbed" = "फ्लॉवरबेड";
+"type.landuse.forest" = "वन";
+"type.landuse.forest.coniferous" = "शंकुमंत जंगल";
+"type.landuse.forest.deciduous" = "पानझडी जंगल";
+"type.landuse.forest.mixed" = "मिश्र वन";
+"type.landuse.garages" = "गराज";
+"type.landuse.grass" = "हिरवळ";
+"type.landuse.greenfield" = "हरितक्षेत्र";
+"type.landuse.greenhouse_horticulture" = "हरितगृह";
+"type.landuse.industrial" = "औद्योगिक जमीन";
+"type.landuse.landfill" = "कचराक्षेत्र";
+"type.landuse.meadow" = "कुरण";
+"type.landuse.military" = "लष्करी क्षेत्र";
+"type.landuse.orchard" = "फळबागा";
+"type.landuse.quarry" = "खाण";
+"type.landuse.railway" = "रेल्वे परिसर";
+"type.landuse.recreation_ground" = "मनोरंजन मैदान";
+"type.landuse.reservoir" = "पाणी";
+"type.landuse.residential" = "निवासी जमीन";
+"type.landuse.retail" = "किरकोळ जमीन";
+"type.landuse.salt_pond" = "तलाव";
+"type.landuse.village_green" = "जमीन";
+"type.landuse.vineyard" = "द्राक्षमळा";
+"type.leisure" = "अवकाश";
+"type.leisure.common" = "सार्वजनिक जमीन";
+"type.leisure.dog_park" = "कुत्र्याचे क्षेत्र";
+"type.leisure.fitness_centre" = "व्यायामशाळा";
+"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.dance" = "Dance Hall";
+"type.leisure.garden" = "बाग";
+"type.leisure.garden.residential" = "बाग";
+"type.leisure.golf_course" = "गोल्फचे मैदान";
+"type.leisure.miniature_golf" = "मिनीगोल्फ";
+"type.leisure.hackerspace" = "हॅकरस्पेस";
+"type.leisure.ice_rink" = "हिम क्रीडा क्षेत्र";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "संरक्षित निसर्गक्षेत्र";
+"type.leisure.outdoor_seating" = "बाहेरची आसनव्यवस्था";
+"type.leisure.park" = "उद्यान";
+"type.leisure.park.no.access" = "उद्यान";
+"type.leisure.park.permissive" = "उद्यान";
+"type.leisure.park.private" = "उद्यान";
+"type.leisure.picnic_table" = "जेवायचे टेबल";
+"type.leisure.pitch" = "क्रीडांगण";
+"type.leisure.playground" = "खेळाचे मैदान";
+"type.leisure.recreation_ground" = "मनोरंजन मैदान";
+"type.leisure.sauna" = "Sauna";
+"type.leisure.slipway" = "Slipway";
+"type.leisure.sports_centre" = "क्रीडासंकुल";
+"type.sport.climbing" = "चढण केंद्र";
+"type.sport.yoga" = "योगासन केंद्र";
+"type.leisure.stadium" = "क्रीडागार(स्टेडियम)";
+"type.leisure.swimming_pool" = "जलतरण तलाव";
+"type.leisure.swimming_pool.private" = "जलतरण तलाव";
+"type.leisure.track" = "ट्रॅक";
+"type.leisure.track.area" = "ट्रॅक";
+"type.leisure.water_park" = "जल उद्यान";
+"type.leisure.beach_resort" = "समुद्री रिसॉर्ट";
+"type.man_made" = "मानवनिर्मित";
+"type.man_made.breakwater" = "Breakwater";
+"type.man_made.cairn" = "Cairn";
+"type.man_made.chimney" = "कारखाना चिमणी";
+"type.man_made.cutline" = "Cutline";
+"type.man_made.survey_point" = "सर्वेक्षण बिंदू";
+"type.man_made.flagpole" = "ध्वजस्तंभ";
+"type.man_made.lighthouse" = "दीपगृह";
+"type.man_made.mast" = "डोलकाठी";
+"type.man_made.pier" = "धक्का";
+"type.man_made.pipeline" = "नळमार्ग";
+"type.man_made.pipeline.overground" = "जमिनीवरील नळमार्ग";
+"type.man_made.silo" = "पेव(धान्यसाठा)";
+"type.man_made.storage_tank" = "साठवण टाकी";
+"type.man_made.surveillance" = "संनिरीक्षण कॅमेरा";
+"type.man_made.tower" = "मनोरा";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "कम्युनिकेशन टॉवर";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "कम्युनिकेशन टॉवर";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "तेल किंवा गॅस विहीर";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "गॅस फ्लेयर";
+"type.man_made.wastewater_plant" = "सांडपाणी संयंत्र(प्लांट)";
+"type.man_made.water_tap" = "पाण्याचा नळ";
+"type.man_made.water_tap.drinking_water_no" = "पाण्याचा नळ";
+"type.man_made.water_tower" = "पाण्याचा मनोरा(टाकी)";
+"type.man_made.water_well" = "पाण्याची विहीर";
+"type.man_made.water_well.drinking_water_no" = "पाण्याची विहीर";
+"type.man_made.windmill" = "पवनचक्की";
+"type.man_made.works" = "औद्योगिक कामे";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "लष्करी";
+"type.military.bunker" = "बंकर";
+"type.mountain_pass" = "डोंगरवाट";
+"type.natural" = "नैसर्गिक";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "खडक";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "खडे";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "स्क्री";
+"type.natural.bay" = "खाडी";
+"type.natural.beach" = "समुद्रकिनारा";
+"type.natural.beach.sand" = "वालुकामय समुद्रकिनारा";
+"type.natural.beach.gravel" = "रेव बीच";
+"type.natural.cape" = "केप";
+"type.natural.cave_entrance" = "गुहा";
+"type.natural.cliff" = "कडा";
+"type.natural.earth_bank" = "उंच कडा";
+"type.man_made.embankment" = "तटबंदी";
+"type.natural.coastline" = "किनारपट्टी";
+"type.natural.desert" = "Desert";
+"type.natural.geyser" = "गिझर";
+"type.natural.glacier" = "हिमनदी";
+"type.natural.grassland" = "गवताळ प्रदेश";
+"type.natural.heath" = "हिथ";
+"type.natural.hot_spring" = "गरम पाण्याचे झरे";
+"type.natural.water.lake" = "सरोवर";
+"type.natural.water.lock" = "लॉक";
+"type.natural.water.pond" = "तलाव";
+"type.natural.water.reservoir" = "जलाशय";
+"type.natural.water.basin" = "कुंड";
+"type.natural.water.river" = "नदी";
+"type.natural.land" = "जमीन";
+"type.natural.meadow" = "कुरण";
+"type.natural.orchard" = "फळबागा";
+"type.natural.peak" = "शिखर";
+"type.natural.saddle" = "माउंटन सॅडल";
+"type.natural.rock" = "खडक";
+"type.natural.scrub" = "खुरटी झाडे";
+"type.natural.spring" = "झरे";
+"type.natural.spring.drinking_water_no" = "झरे";
+"type.natural.strait" = "सामुद्रधुनी";
+"type.natural.tree_row" = "झाडाची रांग";
+"type.natural.vineyard" = "द्राक्षमळा";
+"type.natural.volcano" = "ज्वालामुखी";
+"type.natural.water" = "पाणवठा";
+"type.natural.wetland" = "ओलिताची जमीन";
+"type.natural.wetland.bog" = "ओलिताची जमीन";
+"type.natural.wetland.marsh" = "ओलिताची जमीन";
+"type.noexit" = "रस्ता बंद";
+"type.office" = "कार्यालय";
+"type.office.company" = "कंपनी कार्यालय";
+"type.office.estate_agent" = "इस्टेट एजंट";
+"type.office.government" = "सरकारी कार्यालय";
+"type.office.insurance" = "विमा कार्यालय";
+"type.office.lawyer" = "वकील";
+"type.office.ngo" = "अशासकीय संस्था";
+"type.office.telecommunication" = "दूरसंचार कंपनी";
+"type.organic.only" = "सेंद्रिय";
+"type.organic.yes" = "सेंद्रिय";
+"type.place.city" = "शहर";
+"type.place.city.capital" = "राजधानी";
+"type.place.city.capital.10" = "शहर";
+"type.place.city.capital.11" = "शहर";
+"type.place.city.capital.2" = "राजधानी";
+"type.place.city.capital.3" = "शहर";
+"type.place.city.capital.4" = "शहर";
+"type.place.city.capital.5" = "शहर";
+"type.place.city.capital.6" = "शहर";
+"type.place.city.capital.7" = "शहर";
+"type.place.city.capital.8" = "शहर";
+"type.place.city.capital.9" = "शहर";
+"type.place.continent" = "खंड";
+"type.place.country" = "देश";
+"type.place.county" = "परगणा";
+"type.place.farm" = "शेत";
+"type.place.hamlet" = "पाडा";
+"type.place.island" = "बेट";
+"type.place.islet" = "बेट";
+"type.place.isolated_dwelling" = "निवासस्थान";
+"type.place.locality" = "परिसर";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "शेजार";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "शेजारी";
+"type.place.ocean" = "महासागर";
+"type.place.region" = "प्रदेश";
+"type.place.sea" = "समुद्र";
+"type.place.square" = "चौरस";
+"type.place.state" = "राज्य";
+"type.place.state.USA" = "राज्य";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "उपनगर";
+"type.place.town" = "नगर";
+"type.place.village" = "गाव";
+"type.power" = "शक्ती";
+"type.power.generator" = "जनित्र(जनरेटर)";
+"type.power.generator.solar" = "सौर जनरेटर";
+"type.power.generator.wind" = "वारा जनरेटर";
+"type.power.generator.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+"type.power.generator.hydro" = "जलविद्युत प्रकल्प";
+"type.power.line" = "विद्युत तार";
+"type.power.line.underground" = "भूमिगत विद्युत तार";
+"type.power.minor_line" = "किरकोळ विद्युत तार";
+"type.power.plant" = "वीज प्रकल्प";
+"type.power.plant.coal" = "कोळसा ऊर्जा प्रकल्प";
+"type.power.plant.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+"type.power.plant.hydro" = "जलविद्युत प्रकल्प";
+"type.power.plant.solar" = "सौर ऊर्जा संयंत्र";
+"type.power.plant.wind" = "पवन ऊर्जा संयंत्र";
+"type.power.station" = "विद्युत घर";
+"type.power.substation" = "विद्युत सबस्टेशन";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "विद्युत मनोरा";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "सार्वजनिक वाहतूक";
+"type.public_transport.platform" = "फलाट";
+"type.railway" = "रेल्वे";
+"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.construction" = "रेल्वेचे बांधकाम";
+"type.railway.crossing" = "रेल्वे ओलांडणी";
+"type.railway.disused" = "Disused Railway";
+"type.railway.funicular" = "फ्युनिक्युलर";
+"type.railway.funicular.bridge" = "हवाई रज्जुमार्ग";
+"type.railway.funicular.tunnel" = "हवाई रज्जुमार्ग";
+"type.railway.halt" = "रेल्वे स्थानक";
+"type.railway.level_crossing" = "समतल पारक";
+"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.monorail" = "एकरूळी";
+"type.railway.monorail.bridge" = "एकरूळी";
+"type.railway.monorail.tunnel" = "एकरूळी";
+"type.railway.narrow_gauge" = "अरुंदमापी रेल्वे";
+"type.railway.narrow_gauge.bridge" = "अरुंदमापी रेल्वे";
+"type.railway.narrow_gauge.tunnel" = "अरुंदमापी रेल्वे";
+"type.railway.platform" = "रेल्वे फलाट";
+"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.rail" = "रेल्वे";
+"type.railway.rail.highspeed" = "हाय-स्पीड रेल्वे";
+"type.railway.rail.tourism" = "पर्यटन रेल्वे";
+"type.railway.rail.main" = "रेल्वे";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "दुय्यम रेल्वे";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "उपयुक्तता रेल्वे";
+"type.railway.rail.spur" = "रेल्वे स्पर";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "सहायक रेल्वे ट्रॅक";
+"type.railway.rail.bridge" = "रेल्वे";
+"type.railway.rail.highspeed.bridge" = "रेल्वे";
+"type.railway.rail.tourism.bridge" = "रेल्वे";
+"type.railway.rail.main.bridge" = "रेल्वे";
+"type.railway.rail.branch.bridge" = "रेल्वे";
+"type.railway.rail.utility.bridge" = "रेल्वे";
+"type.railway.rail.spur.bridge" = "रेल्वे";
+"type.railway.rail.service.bridge" = "रेल्वे";
+"type.railway.rail.tunnel" = "रेल्वे";
+"type.railway.rail.highspeed.tunnel" = "रेल्वे";
+"type.railway.rail.tourism.tunnel" = "रेल्वे";
+"type.railway.rail.main.tunnel" = "रेल्वे";
+"type.railway.rail.branch.tunnel" = "रेल्वे";
+"type.railway.rail.utility.tunnel" = "रेल्वे";
+"type.railway.rail.spur.tunnel" = "रेल्वे";
+"type.railway.rail.service.tunnel" = "रेल्वे";
+"type.railway.station" = "रेल्वे स्थानक";
+"type.railway.station.funicular" = "फ्युनिक्युलर";
+"type.railway.station.light_rail" = "रेल्वे स्थानक";
+"type.railway.station.light_rail.berlin" = "रेल्वे स्थानक";
+"type.railway.station.light_rail.london" = "रेल्वे स्थानक";
+"type.railway.station.light_rail.porto" = "रेल्वे स्थानक";
+"type.railway.station.monorail" = "रेल्वे स्थानक";
+"type.railway.station.subway" = "भुयारी मार्ग";
+"type.railway.station.subway.adana" = "भुयारी मार्ग";
+"type.railway.station.subway.algiers" = "भुयारी मार्ग";
+"type.railway.station.subway.almaty" = "भुयारी मार्ग";
+"type.railway.station.subway.amsterdam" = "भुयारी मार्ग";
+"type.railway.station.subway.ankara" = "भुयारी मार्ग";
+"type.railway.station.subway.athens" = "भुयारी मार्ग";
+"type.railway.station.subway.baku" = "भुयारी मार्ग";
+"type.railway.station.subway.bangkok" = "भुयारी मार्ग";
+"type.railway.station.subway.barcelona" = "भुयारी मार्ग";
+"type.railway.station.subway.beijing" = "भुयारी मार्ग";
+"type.railway.station.subway.bengalore" = "भुयारी मार्ग";
+"type.railway.station.subway.berlin" = "भुयारी मार्ग";
+"type.railway.station.subway.bilbao" = "भुयारी मार्ग";
+"type.railway.station.subway.brasilia" = "भुयारी मार्ग";
+"type.railway.station.subway.brescia" = "भुयारी मार्ग";
+"type.railway.station.subway.brussels" = "भुयारी मार्ग";
+"type.railway.station.subway.bucharest" = "भुयारी मार्ग";
+"type.railway.station.subway.budapest" = "भुयारी मार्ग";
+"type.railway.station.subway.buenos_aires" = "भुयारी मार्ग";
+"type.railway.station.subway.bursa" = "भुयारी मार्ग";
+"type.railway.station.subway.cairo" = "भुयारी मार्ग";
+"type.railway.station.subway.caracas" = "भुयारी मार्ग";
+"type.railway.station.subway.catania" = "भुयारी मार्ग";
+"type.railway.station.subway.changchun" = "भुयारी मार्ग";
+"type.railway.station.subway.chengdu" = "भुयारी मार्ग";
+"type.railway.station.subway.chicago" = "भुयारी मार्ग";
+"type.railway.station.subway.chongqing" = "भुयारी मार्ग";
+"type.railway.station.subway.dalian" = "भुयारी मार्ग";
+"type.railway.station.subway.delhi" = "भुयारी मार्ग";
+"type.railway.station.subway.dnepro" = "भुयारी मार्ग";
+"type.railway.station.subway.dubai" = "भुयारी मार्ग";
+"type.railway.station.subway.ekb" = "भुयारी मार्ग";
+"type.railway.station.subway.fukuoka" = "भुयारी मार्ग";
+"type.railway.station.subway.glasgow" = "भुयारी मार्ग";
+"type.railway.station.subway.guangzhou" = "भुयारी मार्ग";
+"type.railway.station.subway.hamburg" = "भुयारी मार्ग";
+"type.railway.station.subway.helsinki" = "भुयारी मार्ग";
+"type.railway.station.subway.hiroshima" = "भुयारी मार्ग";
+"type.railway.station.subway.hongkong" = "भुयारी मार्ग";
+"type.railway.station.subway.isfahan" = "भुयारी मार्ग";
+"type.railway.station.subway.istanbul" = "भुयारी मार्ग";
+"type.railway.station.subway.izmir" = "भुयारी मार्ग";
+"type.railway.station.subway.kazan" = "भुयारी मार्ग";
+"type.railway.station.subway.kharkiv" = "भुयारी मार्ग";
+"type.railway.station.subway.kiev" = "भुयारी मार्ग";
+"type.railway.station.subway.kobe" = "भुयारी मार्ग";
+"type.railway.station.subway.kolkata" = "भुयारी मार्ग";
+"type.railway.station.subway.kunming" = "भुयारी मार्ग";
+"type.railway.station.subway.kyoto" = "भुयारी मार्ग";
+"type.railway.station.subway.la" = "भुयारी मार्ग";
+"type.railway.station.subway.lausanne" = "भुयारी मार्ग";
+"type.railway.station.subway.lille" = "भुयारी मार्ग";
+"type.railway.station.subway.lima" = "भुयारी मार्ग";
+"type.railway.station.subway.lisboa" = "भुयारी मार्ग";
+"type.railway.station.subway.london" = "भुयारी मार्ग";
+"type.railway.station.subway.lyon" = "भुयारी मार्ग";
+"type.railway.station.subway.madrid" = "भुयारी मार्ग";
+"type.railway.station.subway.malaga" = "भुयारी मार्ग";
+"type.railway.station.subway.manila" = "भुयारी मार्ग";
+"type.railway.station.subway.maracaibo" = "भुयारी मार्ग";
+"type.railway.station.subway.mashhad" = "भुयारी मार्ग";
+"type.railway.station.subway.mecca" = "भुयारी मार्ग";
+"type.railway.station.subway.medellin" = "भुयारी मार्ग";
+"type.railway.station.subway.mexico" = "भुयारी मार्ग";
+"type.railway.station.subway.milan" = "भुयारी मार्ग";
+"type.railway.station.subway.minsk" = "भुयारी मार्ग";
+"type.railway.station.subway.montreal" = "भुयारी मार्ग";
+"type.railway.station.subway.moscow" = "भुयारी मार्ग";
+"type.railway.station.subway.munchen" = "भुयारी मार्ग";
+"type.railway.station.subway.nagoya" = "भुयारी मार्ग";
+"type.railway.station.subway.newyork" = "भुयारी मार्ग";
+"type.railway.station.subway.nnov" = "भुयारी मार्ग";
+"type.railway.station.subway.novosibirsk" = "भुयारी मार्ग";
+"type.railway.station.subway.osaka" = "भुयारी मार्ग";
+"type.railway.station.subway.oslo" = "भुयारी मार्ग";
+"type.railway.station.subway.palma" = "भुयारी मार्ग";
+"type.railway.station.subway.panama" = "भुयारी मार्ग";
+"type.railway.station.subway.paris" = "भुयारी मार्ग";
+"type.railway.station.subway.philadelphia" = "भुयारी मार्ग";
+"type.railway.station.subway.pyongyang" = "भुयारी मार्ग";
+"type.railway.station.subway.rennes" = "भुयारी मार्ग";
+"type.railway.station.subway.rio" = "भुयारी मार्ग";
+"type.railway.station.subway.roma" = "भुयारी मार्ग";
+"type.railway.station.subway.rotterdam" = "भुयारी मार्ग";
+"type.railway.station.subway.samara" = "भुयारी मार्ग";
+"type.railway.station.subway.santiago" = "भुयारी मार्ग";
+"type.railway.station.subway.santo_domingo" = "भुयारी मार्ग";
+"type.railway.station.subway.saopaulo" = "भुयारी मार्ग";
+"type.railway.station.subway.sapporo" = "भुयारी मार्ग";
+"type.railway.station.subway.sendai" = "भुयारी मार्ग";
+"type.railway.station.subway.sf" = "भुयारी मार्ग";
+"type.railway.station.subway.shanghai" = "भुयारी मार्ग";
+"type.railway.station.subway.shenzhen" = "भुयारी मार्ग";
+"type.railway.station.subway.shiraz" = "भुयारी मार्ग";
+"type.railway.station.subway.singapore" = "भुयारी मार्ग";
+"type.railway.station.subway.sofia" = "भुयारी मार्ग";
+"type.railway.station.subway.spb" = "भुयारी मार्ग";
+"type.railway.station.subway.stockholm" = "भुयारी मार्ग";
+"type.railway.station.subway.tabriz" = "भुयारी मार्ग";
+"type.railway.station.subway.taipei" = "भुयारी मार्ग";
+"type.railway.station.subway.taoyuan" = "भुयारी मार्ग";
+"type.railway.station.subway.tashkent" = "भुयारी मार्ग";
+"type.railway.station.subway.tbilisi" = "भुयारी मार्ग";
+"type.railway.station.subway.tehran" = "भुयारी मार्ग";
+"type.railway.station.subway.tianjin" = "भुयारी मार्ग";
+"type.railway.station.subway.tokyo" = "भुयारी मार्ग";
+"type.railway.station.subway.valencia" = "भुयारी मार्ग";
+"type.railway.station.subway.vienna" = "भुयारी मार्ग";
+"type.railway.station.subway.warszawa" = "भुयारी मार्ग";
+"type.railway.station.subway.washington" = "भुयारी मार्ग";
+"type.railway.station.subway.wuhan" = "भुयारी मार्ग";
+"type.railway.station.subway.yerevan" = "भुयारी मार्ग";
+"type.railway.station.subway.yokohama" = "भुयारी मार्ग";
+"type.railway.subway" = "भुयारी मार्गिका";
+"type.railway.subway.bridge" = "भुयारी मार्गिका";
+"type.railway.subway.tunnel" = "भुयारी मार्गिका";
+"type.railway.subway_entrance" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.adana" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.algiers" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.almaty" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.amsterdam" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.ankara" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.athens" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.baku" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.bangkok" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.barcelona" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.beijing" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.bengalore" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.berlin" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.bilbao" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.brasilia" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.brescia" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.brussels" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.bucharest" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.budapest" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.buenos_aires" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.bursa" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.cairo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.caracas" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.catania" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.changchun" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.chengdu" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.chicago" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.chongqing" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.dalian" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.delhi" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.dnepro" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.dubai" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.ekb" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.fukuoka" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.glasgow" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.guangzhou" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.hamburg" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.helsinki" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.hiroshima" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.hongkong" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.isfahan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.istanbul" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.izmir" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kazan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kharkiv" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kiev" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kobe" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kolkata" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kunming" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.kyoto" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.la" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.lausanne" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.lille" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.lima" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.lisboa" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.london" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.lyon" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.madrid" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.malaga" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.manila" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.maracaibo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.mashhad" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.mecca" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.medellin" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.mexico" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.milan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.minsk" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.montreal" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.moscow" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.munchen" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.nagoya" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.newyork" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.nnov" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.novosibirsk" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.osaka" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.oslo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.palma" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.panama" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.paris" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.philadelphia" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.pyongyang" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.rennes" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.rio" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.roma" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.rotterdam" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.samara" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.santiago" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.santo_domingo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.saopaulo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.sapporo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.sendai" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.sf" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.shanghai" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.shenzhen" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.shiraz" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.singapore" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.sofia" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.spb" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.stockholm" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tabriz" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.taipei" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.taoyuan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tashkent" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tbilisi" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tehran" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tianjin" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.tokyo" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.valencia" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.vienna" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.warszawa" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.washington" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.wuhan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.yerevan" = "भुयारी प्रवेशद्वार";
+"type.railway.subway_entrance.yokohama" = "भुयारी प्रवेशद्वार";
+"type.railway.tram" = "ट्राम मार्गिका";
+"type.railway.tram.bridge" = "ट्राम मार्गिका";
+"type.railway.tram.tunnel" = "ट्राम मार्गिका";
+"type.railway.tram_stop" = "ट्राम थांबा";
+"type.route" = "मार्ग";
+"type.route.ferry" = "होडी";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "दुकान";
+"type.shop.alcohol" = "दारूचे दुकान";
+"type.shop.bakery" = "बेकरी";
+"type.shop.bathroom_furnishing" = "स्नानगृह सामान";
+"type.shop.beauty" = "सौंदर्य प्रसाधनगृह";
+"type.shop.beverages" = "शीतपेय";
+"type.shop.bicycle" = "सायकलचे दुकान";
+"type.shop.bookmaker" = "Bookmaker";
+"type.shop.books" = "पुस्तकांचे दुकान";
+"type.shop.butcher" = "खाटीक";
+"type.shop.cannabis" = "गांजाचे दुकान";
+"type.shop.car" = "कार विक्रेता";
+"type.shop.car_parts" = "कारचे सुट्टे भाग";
+"type.shop.car_repair" = "कार दुरुस्तीचे दुकान";
+"type.shop.car_repair.tyres" = "टायर दुरुस्ती";
+"type.shop.caravan" = "RV Dealership";
+"type.shop.carpet" = "कार्पेट्स";
+"type.shop.chemist" = "औषधालय";
+"type.shop.chocolate" = "चॉकलेट शॉप";
+"type.shop.clothes" = "कपड्याचे दुकान";
+"type.shop.coffee" = "कॉफीचे दुकान";
+"type.shop.computer" = "संगणकाचे दुकान";
+"type.shop.confectionery" = "मिठाई";
+"type.shop.convenience" = "सुविधा दुकान";
+"type.shop.copyshop" = "Copyshop";
+"type.shop.cosmetics" = "सौंदर्य(कॉस्मेटिक)";
+"type.shop.curtain" = "पडदे";
+"type.shop.deli" = "Delicatessen";
+"type.shop.department_store" = "विभागीय भांडार";
+"type.shop.doityourself" = "हार्डवेअर दुकान";
+"type.shop.dry_cleaning" = "कोरडे धुलाईघर";
+"type.shop.electronics" = "इलेक्ट्रॉनिक्स";
+"type.shop.erotic" = "Erotic Shop";
+"type.shop.fabric" = "फॅब्रिकचे दुकान";
+"type.shop.farm" = "Farm Food Shop";
+"type.shop.fashion_accessories" = "फॅशन अॅक्सेसरीज";
+"type.shop.florist" = "फुलवाला";
+"type.shop.funeral_directors" = "अंत्यसंस्कार संचालक";
+"type.shop.furniture" = "फर्निचरचे दुकान";
+"type.shop.garden_centre" = "बागकामाचे दुकान";
+"type.shop.gas" = "गॅसचे दुकान";
+"type.shop.gift" = "भेटवस्तूंचे दुकान";
+"type.shop.greengrocer" = "भाजीवाला";
+"type.shop.grocery" = "Grocery Store";
+"type.shop.hairdresser" = "न्हावी";
+"type.shop.hardware" = "Hardware Store";
+"type.shop.health_food" = "Health Food Shop";
+"type.shop.hearing_aids" = "श्रवणयंत्र स्टोअर";
+"type.shop.herbalist" = "औषधी वनस्पतींचे दुकान";
+"type.shop.hifi" = "हायफाय ऑडिओ";
+"type.shop.houseware" = "Housewares Store";
+"type.shop.jewelry" = "दागिने";
+"type.shop.kiosk" = "टपरी";
+"type.shop.kitchen" = "Kitchen Store";
+"type.shop.laundry" = "धुलाईघर";
+"type.shop.mall" = "मॉल";
+"type.shop.massage" = "मालिश गृह";
+"type.shop.mobile_phone" = "मोबाईल";
+"type.shop.money_lender" = "सावकार";
+"type.shop.motorcycle" = "दुचाकी विक्रेता";
+"type.shop.motorcycle_repair" = "मोटरसायकल दुरुस्ती";
+"type.shop.music" = "संगीताच दुकान";
+"type.shop.musical_instrument" = "वाद्याचे दुकान";
+"type.shop.newsagent" = "वृत्तपत्र विक्री";
+"type.shop.optician" = "चष्मेविक्रेता";
+"type.shop.outdoor" = "भटकंतीचे साहित्य";
+"type.shop.outpost" = "पिकअप पॉइंट";
+"type.shop.pasta" = "पास्ता दुकान";
+"type.shop.pastry" = "बेकरी";
+"type.shop.pawnbroker" = "Pawnbroker";
+"type.shop.pet" = "पाळीव प्राण्यांचे दुकान";
+"type.shop.pet_grooming" = "पाळीव प्राणी ग्रूमिंग";
+"type.shop.photo" = "फोटोचे दुकान";
+"type.shop.rental" = "भाड्याचे दुकान";
+"type.shop.rental.bicycle" = "सायकल भाड्याचे दुकान";
+"type.shop.seafood" = "मासळी उपहारगृह";
+"type.shop.second_hand" = "Second Hand Shop";
+"type.shop.shoes" = "चपलाचे दूकान";
+"type.shop.sports" = "क्रीडा साहित्य";
+"type.shop.stationery" = "लेखनसामग्री दुकान";
+"type.shop.supermarket" = "महाबाजार";
+"type.shop.tattoo" = "गोंदणाचे(टॅटू) दुकान";
+"type.shop.tea" = "चहा दुकान";
+"type.shop.ticket" = "तिकीटघर";
+"type.shop.toys" = "खेळण्यांचे दुकान";
+"type.shop.travel_agency" = "प्रवास एजन्सी";
+"type.shop.tyres" = "टायरचे दुकान";
+"type.shop.variety_store" = "विविध वस्तु भांडार";
+"type.shop.video" = "व्हिडिओ दुकान";
+"type.shop.video_games" = "व्हिडिओ गेम्स दुकान";
+"type.shop.wine" = "वाईन विक्रेता";
+"type.shop.agrarian" = "शेतीचे दुकान";
+"type.shop.antiques" = "Antiques Shop";
+"type.shop.appliance" = "उपकरणांचे दुकान";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Artwork Shop";
+"type.shop.baby_goods" = "Baby Goods Shop";
+"type.shop.bag" = "Bag Shop";
+"type.shop.bed" = "पलंगाचे दुकान";
+"type.shop.boutique" = "Boutique";
+"type.shop.charity" = "Charity Shop";
+"type.shop.cheese" = "Cheese Shop";
+"type.shop.craft" = "Craft Supplies Store";
+"type.shop.dairy" = "Dairy Shop";
+"type.shop.electrical" = "Electrical Supplies Store";
+"type.shop.fishing" = "Fishing Store";
+"type.shop.interior_decoration" = "Interior Decorations Store";
+"type.shop.lottery" = "Lottery Tickets";
+"type.shop.medical_supply" = "Medical Supplies Store";
+"type.shop.nutrition_supplements" = "Nutrition Supplement Store";
+"type.shop.paint" = "Paint Shop";
+"type.shop.perfumery" = "Perfume Shop";
+"type.shop.sewing" = "Sewing Supplies Shop";
+"type.shop.storage_rental" = "Storage Rental";
+"type.shop.tobacco" = "Smoke Shop";
+"type.shop.trade" = "Trade Supplies";
+"type.shop.watches" = "Watch Store";
+"type.shop.wholesale" = "Wholesale Store";
+"type.sport" = "क्रीडा";
+"type.sport.american_football" = "अमेरिकन फुटबॉल";
+"type.sport.archery" = "धनुर्विद्या";
+"type.sport.athletics" = "मैदानी खेळ";
+"type.sport.australian_football" = "रग्बी";
+"type.sport.baseball" = "बेसबॉल";
+"type.sport.basketball" = "बास्केटबॉल";
+"type.sport.beachvolleyball" = "बीच व्हॉलीबॉल";
+"type.sport.bowls" = "लॉन बोलिंग";
+"type.sport.chess" = "बुद्धिबळ";
+"type.sport.cricket" = "क्रिकेट";
+"type.sport.curling" = "कर्लिंग";
+"type.sport.equestrian" = "घोडेस्वार खेळ";
+"type.sport.golf" = "गोल्फ";
+"type.sport.gymnastics" = "जिम्नॅस्टिक्स";
+"type.sport.handball" = "हँडबॉल";
+"type.sport.multi" = "विविध खेळ";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "स्कूबा डायव्हिंग";
+"type.sport.shooting" = "शूटिंग";
+"type.sport.skateboard" = "स्केट बोर्डिंग";
+"type.sport.skiing" = "स्कीइंग";
+"type.sport.soccer" = "सॉकर";
+"type.sport.swimming" = "जलतरण";
+"type.sport.table_tennis" = "टेबल टेनिस";
+"type.sport.tennis" = "टेनिस प्रांगण";
+"type.sport.volleyball" = "व्हॉलीबॉल";
+"type.sport.10pin" = "गोलंदाजी";
+"type.sport.9pin" = "गोलंदाजी";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futsal";
+"type.sport.ice_hockey" = "Ice Hockey";
+"type.sport.field_hockey" = "Field Hockey";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Basque Pelota";
+"type.tourism" = "पर्यटन";
+"type.tourism.aquarium" = "मत्स्यालय";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "माउंटन लॉज";
+"type.tourism.apartment" = "हॉलिडे अपार्टमेंट";
+"type.tourism.artwork" = "कलाकृती";
+"type.tourism.artwork.architecture" = "कलाकृती";
+"type.tourism.artwork.painting" = "कलाकृती";
+"type.tourism.artwork.sculpture" = "कलाकृती";
+"type.tourism.artwork.statue" = "कलाकृती";
+"type.tourism.attraction" = "आकर्षण";
+"type.attraction.amusement_ride" = "मनोरंजन राइड";
+"type.attraction.animal" = "प्राणी संलग्न";
+"type.attraction.bumper_car" = "Bumper Car";
+"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.carousel" = "कॅरोसेल";
+"type.attraction.historic" = "ऐतिहासिक आकर्षण";
+"type.attraction.maze" = "चक्रव्यूह";
+"type.attraction.roller_coaster" = "रोलर कोस्टर";
+"type.attraction.water_slide" = "वॉटर स्लाइड";
+"type.tourism.attraction.specified" = "आकर्षण";
+"type.tourism.camp_site" = "शिबिरवास(कॅम्पिंग)";
+"type.tourism.caravan_site" = "RV Park";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "हॉलिडे कॉटेज";
+"type.tourism.gallery" = "वीथि";
+"type.tourism.guest_house" = "अतिथीगृह";
+"type.tourism.hostel" = "छात्रालय";
+"type.tourism.hotel" = "मुक्कामगृह";
+"type.tourism.information" = "पर्यटन माहिती";
+"type.tourism.information.board" = "माहिती फलक";
+"type.tourism.information.guidepost" = "गाईडपोस्ट";
+"type.tourism.information.map" = "पर्यटन नकाशा";
+"type.tourism.information.office" = "पर्यटन कार्यालय";
+"type.tourism.information.visitor_centre" = "अभ्यागत केंद्र";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "संग्रहालय";
+"type.tourism.picnic_site" = "सहलीचे ठिकाण";
+"type.leisure.resort" = "रिसॉर्ट";
+"type.tourism.theme_park" = "थीम पार्क";
+"type.tourism.viewpoint" = "दृष्टिस्थान";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Wilderness Hut";
+"type.tourism.zoo" = "प्राणीसंग्रहालय";
+"type.tourism.zoo.petting" = "पेटिंग प्राणीसंग्रहालय";
+"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming.bump" = "वाहतूक गतिरोधक";
+"type.traffic_calming.hump" = "Traffic Hump";
+"type.waterway" = "जलमार्ग";
+"type.waterway.canal" = "कालवा";
+"type.waterway.canal.tunnel" = "कालवा";
+"type.waterway.fish_pass" = "मासे शिडी";
+"type.waterway.dam" = "धरण";
+"type.barrier.ditch" = "खंदक";
+"type.natural.water.ditch" = "ड्रेनेज खंदक";
+"type.waterway.ditch.tunnel" = "कल्व्हर्ट";
+"type.waterway.dock" = "जलमार्ग गोद";
+"type.waterway.drain" = "नाला";
+"type.natural.water.drain" = "नाला";
+"type.waterway.drain.tunnel" = "कल्व्हर्ट";
+"type.waterway.lock_gate" = "जलद्वार";
+"type.waterway.river" = "नदी";
+"type.waterway.river.tunnel" = "नदी";
+"type.waterway.stream" = "नदी";
+"type.waterway.stream.ephemeral" = "नदी";
+"type.waterway.stream.intermittent" = "नदी";
+"type.waterway.stream.tunnel" = "नदी";
+"type.waterway.waterfall" = "धबधबा";
+"type.waterway.weir" = "अल्प धरण";
+"type.wheelchair" = "चाकखुर्ची";
+"type.wheelchair.limited" = "चाकखुर्चीसाठी मर्यादित प्रवेश";
+"type.wheelchair.no" = "चाकखुर्चीसाठी प्रवेश नाही";
+"type.wheelchair.yes" = "चाकखुर्चीसाठी प्रवेश";
+"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.t.bar" = "T-bar Lift";
+"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.snow_park" = "स्नो पार्क";
+"type.piste_type.hike" = "स्नो हायकिंग ट्रेल";
+"type.piste_type.connection" = "Piste कनेक्शन";
+"type.piste_type.skitour" = "Skitour ट्रेल";
+"type.amenity.events_venue" = "कार्यक्रमाचे ठिकाण";
+"type.shop.auction" = "लिलाव";
+"type.shop.collector" = "संग्रहणीय वस्तू";
+"type.self_service.yes" = "स्वयं-सेवा उपलब्ध";
+"type.self_service.only" = "फक्त स्व-सेवा";
+"type.self_service.partially" = "आंशिक स्व-सेवा";
+"type.self_service.no" = "स्व-सेवा नाही";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "सामाजिक सुविधा";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "आपत्कालीन प्रभाग प्रवेशद्वार";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "डोजो";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "क्रीडा हॉल";

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:paddingStart="@dimen/margin_double"
+  android:paddingEnd="@dimen/margin_double"
+  android:layout_height="@dimen/height_block_base">
+  <TextView
+    android:id="@+id/text"
+    android:layout_gravity="end|center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical|end"
+    android:text="@string/add_new_set"
+    android:fontFamily="@string/robotoMedium"
+    android:textStyle="normal"
+    android:letterSpacing="0.04"
+    android:textAppearance="@style/MwmTextAppearance.Button"/>
+</FrameLayout>

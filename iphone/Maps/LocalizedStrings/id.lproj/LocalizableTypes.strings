@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "Alamat/Blokir";
+"type.addr_interpolation.even" = "Alamat/Blokir";
+"type.addr_interpolation.odd" = "Alamat/Blokir";
+"type.aerialway" = "Aerialway";
+"type.aerialway.cable_car" = "Cable Car";
+"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.gondola" = "Gondola";
+"type.aerialway.mixed_lift" = "Mixed Lift";
+"type.aerialway.station" = "Stasiun kereta gantung";
+"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway.aerodrome" = "Bandar udara";
+"type.aeroway.aerodrome.international" = "Bandar udara";
+"type.aeroway.apron" = "Apron";
+"type.aeroway.gate" = "Gate";
+"type.aeroway.helipad" = "Landasan helikopter";
+"type.aeroway.runway" = "Runway";
+"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Ruang berfasilitas";
+"type.amenity.arts_centre" = "Pusat kesenian";
+"type.amenity.atm" = "ATM";
+"type.amenity.bank" = "Bank";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Panggangan barbekyu";
+"type.amenity.bench" = "Bangku panjang";
+"type.amenity.bicycle_parking" = "Parkir Sepeda";
+"type.amenity.bicycle_rental" = "Penyewaan Sepeda";
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+"type.amenity.biergarten" = "Biergarten";
+"type.amenity.brothel" = "Hiburan";
+"type.amenity.bureau_de_change" = "Pertukaran valuta";
+"type.amenity.bus_station" = "Stasiun bus";
+"type.amenity.cafe" = "Kafe";
+"type.amenity.car_rental" = "Rental mobil";
+"type.amenity.motorcycle_rental" = "Penyewaan Sepeda Motor";
+"type.amenity.car_sharing" = "Berbagi mobil";
+"type.amenity.car_wash" = "Cuci Mobil";
+"type.amenity.casino" = "Hiburan";
+"type.amenity.gambling" = "Berjudi";
+"type.leisure.adult_gaming_centre" = "Pusat Permainan Dewasa";
+"type.leisure.amusement_arcade" = "Arkade";
+"type.amenity.charging_station" = "Pusat Pengisian Daya";
+"type.amenity.charging_station.bicycle" = "Stasiun Pengisian Sepeda";
+"type.amenity.charging_station.motorcar" = "Stasiun Pengisian Mobil";
+"type.amenity.childcare" = "Penitipan Anak";
+"type.amenity.cinema" = "Bioskop";
+"type.leisure.bowling_alley" = "Arena Bowling";
+"type.amenity.clinic" = "Klinik";
+"type.amenity.college" = "Kampus";
+"type.amenity.community_centre" = "Pusat komunitas";
+"type.amenity.compressed_air" = "Udara terkompresi";
+"type.amenity.conference_centre" = "Pusat konferensi";
+"type.amenity.courthouse" = "Gedung pengadilan";
+"type.amenity.dentist" = "Dokter gigi";
+"type.amenity.doctors" = "Praktik dokter";
+"type.amenity.drinking_water" = "Air minum";
+"type.drinking_water.yes" = "Air minum";
+"type.amenity.driving_school" = "Sekolah Mengemudi";
+"type.amenity.exhibition_centre" = "Pusat pameran";
+"type.amenity.money_transfer" = "Transfer uang";
+"type.amenity.music_school" = "Sekolah musik";
+"type.amenity.language_school" = "Sekolah bahasa";
+"type.office.diplomatic" = "Kedutaan";
+"type.amenity.fast_food" = "Cepat saji";
+"type.amenity.ferry_terminal" = "Terminal";
+"type.amenity.fire_station" = "Kantor pemadam kebakaran";
+"type.amenity.food_court" = "Food Court";
+"type.amenity.fountain" = "Air mancur";
+"type.amenity.fuel" = "Pompa bensin";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Pemakaman";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Pemakaman";
+"type.amenity.hospital" = "Rumahsakit";
+"type.amenity.hunting_stand" = "Lokasi berburu";
+"type.amenity.ice_cream" = "Kios Es Krim";
+"type.amenity.internet_cafe" = "Kafe Internet";
+"type.amenity.kindergarten" = "Taman kanak-kanak";
+"type.amenity.library" = "Perpustakaan";
+"type.amenity.loading_dock" = "Dok pemuatan";
+"type.amenity.marketplace" = "Pasar";
+"type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";
+"type.amenity.nightclub" = "Kelab malam";
+"type.amenity.nursing_home" = "Panti Jompo";
+"type.amenity.parking" = "Parkir";
+"type.amenity.parking.fee" = "Parkir";
+"type.amenity.parking.multi.storey" = "Parkir Bertingkat";
+"type.amenity.parking.multi.storey.fee" = "Parkir Bertingkat";
+"type.amenity.parking.no.access" = "Parkir pribadi";
+"type.amenity.parking.permissive" = "Parkir pribadi";
+"type.amenity.parking.private" = "Parkir pribadi";
+"type.amenity.parking.park_and_ride" = "Parkir";
+"type.amenity.parking.underground" = "Parkir bawah tanah";
+"type.amenity.parking.underground.fee" = "Parkir bawah tanah";
+"type.amenity.parking.underground.private" = "Parkir bawah tanah pribadi";
+"type.amenity.parking.street_side" = "Parkir di tepi jalan";
+"type.amenity.parking.street_side.fee" = "Parkir di tepi jalan";
+"type.amenity.parking.street_side.private" = "Parkir sisi jalan pribadi";
+"type.amenity.parking.lane" = "Parkir jalur";
+"type.amenity.parking.lane.fee" = "Parkir jalur";
+"type.amenity.parking.lane.private" = "Parkir jalur pribadi";
+"type.amenity.parking_entrance" = "Pintu masuk parkir";
+"type.amenity.parking_entrance.private" = "Pintu masuk parkir pribadi";
+"type.amenity.parking_entrance.permissive" = "Pintu masuk parkir";
+"type.amenity.parking_space" = "Tempat parkir";
+"type.amenity.parking_space.permissive" = "Tempat parkir";
+"type.amenity.parking_space.private" = "Tempat parkir";
+"type.amenity.parking_space.underground" = "Tempat parkir";
+"type.amenity.parking_space.disabled" = "Tempat parkir penyandang cacat";
+"type.amenity.payment_terminal" = "Terminal Pembayaran";
+"type.amenity.pharmacy" = "Apotek";
+"type.amenity.place_of_worship" = "Tempat ibadah";
+"type.amenity.place_of_worship.buddhist" = "Kuil";
+"type.amenity.place_of_worship.christian" = "Gereja";
+"type.amenity.place_of_worship.christian.mormon" = "Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Aula Kerajaan Saksi-Saksi Yehuwa";
+"type.amenity.place_of_worship.hindu" = "Kuil";
+"type.amenity.place_of_worship.jewish" = "Sinagoge";
+"type.amenity.place_of_worship.muslim" = "Masjid";
+"type.amenity.place_of_worship.shinto" = "Kuil";
+"type.amenity.place_of_worship.taoist" = "Kuil";
+"type.amenity.police" = "Polisi";
+"type.amenity.post_box" = "Kotak pos";
+"type.amenity.post_office" = "Kantor pos";
+"type.amenity.prison" = "Penjara";
+"type.amenity.pub" = "Pub";
+"type.amenity.public_bookcase" = "Rak Buku";
+"type.amenity.recycling.centre" = "TPA";
+"type.amenity.recycling" = "Wadah daur ulang";
+"type.amenity.recycling.container" = "Wadah daur ulang";
+"type.recycling.batteries" = "Baterai";
+"type.recycling.clothes" = "Pakaian lama";
+"type.recycling.glass_bottles" = "Botol kaca";
+"type.recycling.paper" = "Limbah kertas";
+"type.recycling.plastic" = "Limbah plastik";
+"type.recycling.plastic_bottles" = "Botol-botol plastik";
+"type.recycling.scrap_metal" = "Besi tua";
+"type.recycling.small_appliances" = "Limbah elektronik";
+"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cans" = "Cans";
+"type.recycling.shoes" = "Shoes";
+"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.cartons" = "Cartons";
+"type.amenity.restaurant" = "Restoran";
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.school" = "Sekolah";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Tempat penampungan";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Tempat penampungan";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Pondok Bivak";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.public_bath" = "Pemandian umum";
+"type.amenity.shower" = "Pancuran";
+"type.amenity.stripclub" = "Klub telanjang";
+"type.amenity.taxi" = "Taksi";
+"type.amenity.telephone" = "Telepon";
+"type.amenity.theatre" = "Teater";
+"type.amenity.toilets" = "Toilet";
+"type.toilets.yes" = "Toilet";
+"type.amenity.townhall" = "Balai kota";
+"type.amenity.university" = "Universitas";
+"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine.cigarettes" = "Mesin rokok";
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.drinks" = "Mesin penjual minuman";
+"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.parking_tickets" = "Mesin pembayaran tiket parkir";
+"type.amenity.vending_machine.public_transport_tickets" = "Mesin penjual otomatis tiket transportasi umum";
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.vehicle_inspection" = "Pemeriksaan kendaraan";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.veterinary" = "Dokter Hewan";
+"type.amenity.waste_basket" = "Kotak sampah";
+"type.amenity.waste_disposal" = "Sampah";
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.water_point" = "Titik Air";
+"type.amenity.water_point.drinking_water_no" = "Titik Air";
+"type.barrier" = "Barrier";
+"type.barrier.block" = "Blok";
+"type.barrier.bollard" = "Pilar";
+"type.barrier.border_control" = "Gerbang perbatasan";
+"type.barrier.chain" = "Chain";
+"type.barrier.city_wall" = "Tembok Kota";
+"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.waterway.ditch" = "Parit saluran air";
+"type.natural.water.moat" = "Parit";
+"type.natural.water.wastewater" = "Air limbah";
+"type.barrier.entrance" = "Pintu masuk";
+"type.barrier.fence" = "Fence";
+"type.barrier.gate" = "Gerbang";
+"type.barrier.hedge" = "Hedge";
+"type.barrier.kissing_gate" = "Gerbang";
+"type.barrier.lift_gate" = "Polisi tidur";
+"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.stile" = "Undakan";
+"type.barrier.turnstile" = "Pintu putar";
+"type.barrier.swing_gate" = "Polisi tidur";
+"type.barrier.toll_booth" = "Gerbang tol";
+"type.barrier.wall" = "Wall";
+"type.boundary" = "Boundary";
+"type.boundary.administrative" = "Administrative Boundary";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "National Border";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.national_park" = "Taman Nasional";
+"type.boundary.aboriginal_lands" = "Tanah adat";
+"type.boundary.protected_area" = "Kawasan Lindung";
+"type.boundary.protected_area.1" = "Kawasan Lindung";
+"type.boundary.protected_area.2" = "Kawasan Lindung";
+"type.boundary.protected_area.3" = "Kawasan Lindung";
+"type.boundary.protected_area.4" = "Kawasan Lindung";
+"type.boundary.protected_area.5" = "Kawasan Lindung";
+"type.boundary.protected_area.6" = "Kawasan Lindung";
+"type.building" = "Gedung";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Alamat";
+"type.building.has_parts" = "Gedung";
+"type.building_part" = "Gedung";
+"type.building.garage" = "Garasi";
+"type.building.train_station" = "Bangunan Stasiun";
+"type.building.warehouse" = "Warehouse";
+"type.cemetery.grave" = "Kuburan";
+"type.craft" = "Kerajinan";
+"type.craft.beekeeper" = "Peternak lebah";
+"type.craft.blacksmith" = "Pandai Besi";
+"type.craft.brewery" = "Toko minuman";
+"type.craft.caterer" = "Katering";
+"type.craft.carpenter" = "Tukang kayu";
+"type.craft.confectionery" = "Penganan";
+"type.craft.electrician" = "Tukang listrik";
+"type.craft.electronics_repair" = "Perbaikan Elektronik";
+"type.craft.gardener" = "Tukang kebun";
+"type.craft.grinding_mill" = "Pabrik penggilingan";
+"type.craft.handicraft" = "Kriya";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "HVAC";
+"type.craft.key_cutter" = "Pemotongan Kunci";
+"type.craft.locksmith" = "Tukang kunci";
+"type.craft.metal_construction" = "Tukang besi";
+"type.craft.painter" = "Tukang cat";
+"type.craft.photographer" = "Juru foto";
+"type.shop.camera" = "Toko Kamera";
+"type.craft.plumber" = "Tukang pipa";
+"type.craft.sawmill" = "Penggergajian kayu";
+"type.craft.shoemaker" = "Tukang sepatu";
+"type.craft.winery" = "Kilang Anggur";
+"type.craft.tailor" = "Tukang jahit";
+"type.cuisine.african" = "Masakan afrika";
+"type.cuisine.american" = "Masakan amerika";
+"type.cuisine.arab" = "Masakan arab";
+"type.cuisine.argentinian" = "Masakan argentina";
+"type.cuisine.asian" = "Masakan asia";
+"type.cuisine.austrian" = "Masakan austria";
+"type.cuisine.bagel" = "Roti bagel";
+"type.cuisine.balkan" = "Masakan balkan";
+"type.cuisine.barbecue" = "Barbekyu";
+"type.cuisine.bavarian" = "Masakan bavaria";
+"type.cuisine.beef_bowl" = "Nasi daging sapi";
+"type.cuisine.brazilian" = "Masakan brasil";
+"type.cuisine.breakfast" = "Sarapan";
+"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.burger" = "Burger";
+"type.cuisine.buschenschank" = "Taverna anggur";
+"type.cuisine.cake" = "Kue";
+"type.cuisine.caribbean" = "Masakan karibia";
+"type.cuisine.chicken" = "Ayam";
+"type.cuisine.chinese" = "Masakan tionghoa";
+"type.cuisine.coffee_shop" = "Kopi";
+"type.cuisine.crepe" = "Kue dadar";
+"type.cuisine.croatian" = "Masakan kroasia";
+"type.cuisine.curry" = "Kari";
+"type.cuisine.deli" = "Toko makanan jadi";
+"type.cuisine.diner" = "Makan malam";
+"type.cuisine.donut" = "Donat";
+"type.cuisine.ethiopian" = "Masakan etiopia";
+"type.cuisine.filipino" = "Masakan filipina";
+"type.cuisine.fine_dining" = "Adiboga";
+"type.cuisine.fish" = "Ikan";
+"type.cuisine.fish_and_chips" = "Ikan dan kentang goreng";
+"type.cuisine.french" = "Masakan prancis";
+"type.cuisine.friture" = "Gorengan";
+"type.cuisine.georgian" = "Masakan georgia";
+"type.cuisine.german" = "Masakan jerman";
+"type.cuisine.greek" = "Masakan yunani";
+"type.cuisine.grill" = "Panggangan";
+"type.cuisine.heuriger" = "Taverna anggur";
+"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hungarian" = "Masakan hongaria";
+"type.cuisine.ice_cream" = "Es_krim";
+"type.cuisine.indian" = "Masakan india";
+"type.cuisine.indonesian" = "Masakan indonesia";
+"type.cuisine.international" = "Masakan internasional";
+"type.cuisine.irish" = "Masakan irlandia";
+"type.cuisine.italian" = "Masakan italia";
+"type.cuisine.italian_pizza" = "Italia, pizza";
+"type.cuisine.japanese" = "Masakan jepang";
+"type.cuisine.kebab" = "Kebab";
+"type.cuisine.korean" = "Korea";
+"type.cuisine.lao" = "Masakan laos";
+"type.cuisine.lebanese" = "Masakan lebanon";
+"type.cuisine.local" = "Masakan lokal";
+"type.cuisine.malagasy" = "Masakan madagaskar";
+"type.cuisine.malaysian" = "Masakan malaysia";
+"type.cuisine.mediterranean" = "Masakan mediterania";
+"type.cuisine.mexican" = "Masakan meksiko";
+"type.cuisine.moroccan" = "Masakan maroko";
+"type.cuisine.noodles" = "Bakmi";
+"type.cuisine.oriental" = "Masakan oriental";
+"type.cuisine.pancake" = "Panekuk";
+"type.cuisine.pasta" = "Pasta";
+"type.cuisine.persian" = "Masakan persia";
+"type.cuisine.peruvian" = "Masakan peru";
+"type.cuisine.pizza" = "Pizza";
+"type.cuisine.polish" = "Masakan polandia";
+"type.cuisine.portuguese" = "Masakan portugis";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "Masakan regional";
+"type.cuisine.russian" = "Masakan rusia";
+"type.cuisine.sandwich" = "Roti isi";
+"type.cuisine.sausage" = "Sosis";
+"type.cuisine.savory_pancakes" = "Panekuk gurih";
+"type.cuisine.seafood" = "Hidangan laut";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Masakan spanyol";
+"type.cuisine.steak_house" = "Restoran_steik";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Kudapan spanyol";
+"type.cuisine.tea" = "Teh";
+"type.cuisine.thai" = "Masakan thailand";
+"type.cuisine.turkish" = "Masakan turki";
+"type.cuisine.vegan" = "Masakan vegan";
+"type.cuisine.vegetarian" = "Masakan vegetarian";
+"type.cuisine.vietnamese" = "Masakan vietnam";
+"type.emergency" = "Emergency";
+"type.emergency.assembly_point" = "Titik Berkumpul Darurat";
+"type.emergency.defibrillator" = "Defibrilator";
+"type.emergency.fire_hydrant" = "Keran Kebakaran";
+"type.emergency.phone" = "Telepon darurat";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Penjaga pantai";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Stasiun penyelamatan gunung";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Pintu masuk";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Pintu masuk utama";
+"type.entrance.exit" = "Keluar";
+"type.fee.yes" = "$";
+"type.fee.no" = "Gratis";
+"type.healthcare.laboratory" = "Laboratorium medis";
+"type.healthcare.physiotherapist" = "Fisioterapis";
+"type.healthcare.alternative" = "Pengobatan alternatif";
+"type.healthcare.audiologist" = "Audiologi";
+"type.healthcare.blood_donation" = "Pusat Donor Darah";
+"type.healthcare.optometrist" = "Optometri";
+"type.healthcare.podiatrist" = "Podiatri";
+"type.healthcare.psychotherapist" = "Psikoterapi";
+"type.healthcare.sample_collection" = "Pengambilan sampel";
+"type.healthcare.speech_therapist" = "Logopedik";
+"type.highway" = "Highway";
+"type.highway.bridleway" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Menjembatani";
+"type.highway.bridleway.permissive" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Terowongan";
+"type.highway.busway" = "Jalan khusus bus";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Terowongan";
+"type.highway.bus_stop" = "Halte bus";
+"type.highway.construction" = "Jalan sedang dibangun";
+"type.highway.cycleway" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Menjembatani";
+"type.highway.cycleway.permissive" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Terowongan";
+"type.highway.elevator" = "Elevator";
+"type.highway.footway" = "Jalur";
+"type.highway.footway.sidewalk" = "Trotoar";
+"type.highway.footway.crossing" = "Penyeberangan Pejalan Kaki";
+"type.highway.footway.area" = "Jalur";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Terowongan";
+"type.highway.ford" = "Menyeberang";
+"type.highway.living_street" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Terowongan";
+"type.highway.motorway" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Terowongan";
+"type.highway.motorway_junction" = "Keluar";
+"type.highway.motorway_link" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Terowongan";
+"type.highway.path" = "Jalur";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Jejak yang sulit atau kurang terlihר)";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Jejak yang sangat sulit atau tidak dapat dibedakם)";
+"type.highway.path.bicycle" = "Jalur";
+"type.highway.footway.bicycle" = "Jalur";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Menjembatani";
+"type.highway.path.horse" = "Jalur";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Terowongan";
+"type.highway.pedestrian" = "Jalan";
+"type.highway.pedestrian.area" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Terowongan";
+"type.highway.primary" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Terowongan";
+"type.highway.primary_link" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Terowongan";
+"type.highway.raceway" = "Lintasan balap";
+"type.highway.residential" = "Jalan";
+"type.highway.residential.area" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Terowongan";
+"type.highway.rest_area" = "Tempat istirahat";
+"type.highway.road" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Menjembatani";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Terowongan";
+"type.highway.secondary" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Terowongan";
+"type.highway.secondary_link" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Terowongan";
+"type.highway.service" = "Jalan";
+"type.highway.service.area" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Menjembatani";
+"type.highway.service.driveway" = "Jalan";
+"type.highway.service.parking_aisle" = "Jalan";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Terowongan";
+"type.highway.services" = "Service Area";
+"type.highway.speed_camera" = "Kamera Kecepatan";
+"type.highway.steps" = "Jalur";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Terowongan";
+"type.highway.tertiary" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Terowongan";
+"type.highway.tertiary_link" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Terowongan";
+"type.highway.track" = "Jalan";
+"type.highway.track.area" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Menjembatani";
+"type.highway.track.grade1" = "Jalan";
+"type.highway.track.no.access" = "Jalan";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Terowongan";
+"type.highway.traffic_signals" = "Lampu lalu lintas";
+"type.highway.trunk" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Terowongan";
+"type.highway.trunk_link" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Terowongan";
+"type.highway.unclassified" = "Jalan";
+"type.highway.unclassified.area" = "Jalan";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Terowongan";
+"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.footway" = "Jalur";
+"type.area_highway.living_street" = "Jalan";
+"type.area_highway.motorway" = "Jalan";
+"type.area_highway.path" = "Jalur";
+"type.area_highway.pedestrian" = "Jalan";
+"type.area_highway.primary" = "Jalan";
+"type.area_highway.residential" = "Jalan";
+"type.area_highway.secondary" = "Jalan";
+"type.area_highway.service" = "Jalan";
+"type.area_highway.tertiary" = "Jalan";
+"type.area_highway.steps" = "Jalur";
+"type.area_highway.track" = "Jalan";
+"type.area_highway.trunk" = "Jalan";
+"type.area_highway.unclassified" = "Jalan";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "Objek bersejarah";
+"type.historic.aircraft" = "Pesawat Bersejarah";
+"type.historic.anchor" = "Jangkar Bersejarah";
+"type.historic.archaeological_site" = "Situs arkeologi";
+"type.historic.battlefield" = "Medan Perang";
+"type.historic.boundary_stone" = "Batu pembatas";
+"type.historic.cannon" = "Meriam";
+"type.historic.castle" = "Kastel";
+"type.historic.castle.castrum" = "Benteng Romawi";
+"type.historic.castle.defensive" = "Kastel";
+"type.historic.castle.fortified_church" = "Gereja yang dibentengi";
+"type.historic.castle.fortress" = "Benteng";
+"type.historic.castle.hillfort" = "Benteng bukit";
+"type.historic.castle.kremlin" = "Kremlin";
+"type.historic.castle.manor" = "Rumah bangsawan";
+"type.historic.castle.palace" = "Istana";
+"type.historic.castle.shiro" = "Istana Jepang";
+"type.historic.castle.stately" = "Kastel";
+"type.historic.city_gate" = "Gerbang kota";
+"type.historic.citywalls" = "Tembok Kota";
+"type.historic.fort" = "Benteng";
+"type.historic.gallows" = "Tiang gantungan";
+"type.historic.locomotive" = "Lokomotif Bersejarah";
+"type.historic.memorial" = "Tugu peringatan";
+"type.historic.memorial.cross" = "Salib peringatan";
+"type.historic.memorial.plaque" = "Tugu peringatan";
+"type.historic.memorial.sculpture" = "Tugu peringatan";
+"type.historic.memorial.statue" = "Tugu peringatan";
+"type.historic.memorial.stolperstein" = "Stolperstein";
+"type.historic.stone" = "Batu Bersejarah";
+"type.historic.memorial.war_memorial" = "Tugu peringatan perang";
+"type.historic.mine" = "Tambang Bersejarah";
+"type.historic.monument" = "Monumen";
+"type.historic.pillory" = "Pilar";
+"type.historic.ruins" = "Reruntuhan";
+"type.historic.ship" = "Pemandangan";
+"type.historic.tank" = "Tangki Bersejarah";
+"type.historic.tomb" = "Pemandangan";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Salib";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Salib di pinggir jalan";
+"type.historic.wayside_shrine" = "Kuil di pinggir jalan";
+"type.historic.wreck" = "Kecelakaan kapal";
+"type.hwtag" = "hwtag";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Internet";
+"type.internet_access.wlan" = "Internet";
+"type.junction" = "Junction";
+"type.junction.circular" = "Roundabout";
+"type.junction.roundabout" = "Roundabout";
+"type.landuse" = "Landuse";
+"type.landuse.allotments" = "Allotments";
+"type.landuse.basin" = "Sebuah baskom air";
+"type.landuse.brownfield" = "Brownfield";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Pemakaman";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Pemakaman";
+"type.landuse.churchyard" = "Halaman gereja";
+"type.landuse.commercial" = "Commercial Area";
+"type.landuse.construction" = "Construction Area";
+"type.landuse.education" = "Educational Facility";
+"type.landuse.farmland" = "Lahan pertanian";
+"type.landuse.farmyard" = "Farmyard";
+"type.landuse.field" = "Field";
+"type.landuse.flowerbed" = "Hamparan bunga";
+"type.landuse.forest" = "Hutan";
+"type.landuse.forest.coniferous" = "Hutan";
+"type.landuse.forest.deciduous" = "Hutan";
+"type.landuse.forest.mixed" = "Hutan";
+"type.landuse.garages" = "Garages";
+"type.landuse.grass" = "Lapangan rumput";
+"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.industrial" = "Industrial Area";
+"type.landuse.landfill" = "TPA";
+"type.landuse.meadow" = "Meadow";
+"type.landuse.military" = "Military Area";
+"type.landuse.orchard" = "Orchard";
+"type.landuse.quarry" = "Quarry";
+"type.landuse.railway" = "Stasiun kereta api";
+"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.reservoir" = "Air";
+"type.landuse.residential" = "Residential Area";
+"type.landuse.retail" = "Retail Area";
+"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.village_green" = "Land";
+"type.landuse.vineyard" = "Vineyard";
+"type.leisure" = "Leisure";
+"type.leisure.common" = "Public Land";
+"type.leisure.dog_park" = "Area untuk anjing";
+"type.leisure.fitness_centre" = "Pusat kebugaran";
+"type.leisure.fitness_station" = "Stasiun Kebugaran";
+"type.leisure.dance" = "Lantai dansa";
+"type.leisure.garden" = "Situs arkeologi";
+"type.leisure.garden.residential" = "Situs arkeologi";
+"type.leisure.golf_course" = "Lapangan golf";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "Cagar Alam";
+"type.leisure.outdoor_seating" = "Tempat duduk di luar ruangan";
+"type.leisure.park" = "Taman";
+"type.leisure.park.no.access" = "Taman";
+"type.leisure.park.permissive" = "Taman";
+"type.leisure.park.private" = "Taman";
+"type.leisure.picnic_table" = "Meja piknik";
+"type.leisure.pitch" = "Lapangan olahraga";
+"type.leisure.playground" = "Taman bermain";
+"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.sauna" = "Sauna";
+"type.leisure.slipway" = "Slipway";
+"type.leisure.sports_centre" = "Olahraga";
+"type.sport.climbing" = "Pusat Peralatan Mendaki";
+"type.sport.yoga" = "Studio Yoga";
+"type.leisure.stadium" = "Stadion";
+"type.leisure.swimming_pool" = "Kolam renang";
+"type.leisure.swimming_pool.private" = "Kolam renang";
+"type.leisure.track" = "Track";
+"type.leisure.track.area" = "Track";
+"type.leisure.water_park" = "Taman air";
+"type.leisure.beach_resort" = "Beach Resort";
+"type.man_made" = "Man Made";
+"type.man_made.breakwater" = "Breakwater";
+"type.man_made.cairn" = "Cairn";
+"type.man_made.chimney" = "Cerobong asap pabrik";
+"type.man_made.cutline" = "Cutline";
+"type.man_made.survey_point" = "Survey Point";
+"type.man_made.flagpole" = "Flagpole";
+"type.man_made.lighthouse" = "Mercusuar";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Pier";
+"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.surveillance" = "Kamera Pengawas";
+"type.man_made.tower" = "Menara";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Menara Komunikasi";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Menara Komunikasi";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Sumur minyak atau gas";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Nyala gas";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.water_tap" = "Keran Air";
+"type.man_made.water_tap.drinking_water_no" = "Keran Air";
+"type.man_made.water_tower" = "Menara air";
+"type.man_made.water_well" = "Sumur air";
+"type.man_made.water_well.drinking_water_no" = "Sumur air";
+"type.man_made.windmill" = "Kincir angin";
+"type.man_made.works" = "Industrial Works";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Military";
+"type.military.bunker" = "Bunker";
+"type.mountain_pass" = "Mountain Pass";
+"type.natural" = "Alam";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Batuan telanjang";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kerikil";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree berbatu";
+"type.natural.bay" = "Teluk";
+"type.natural.beach" = "Pantai";
+"type.natural.beach.sand" = "Pantai berpasir";
+"type.natural.beach.gravel" = "Pantai Kerikil";
+"type.natural.cape" = "Tanjung";
+"type.natural.cave_entrance" = "Gua";
+"type.natural.cliff" = "Tebing";
+"type.natural.earth_bank" = "Jurang";
+"type.man_made.embankment" = "Tanggul";
+"type.natural.coastline" = "Pesisir";
+"type.natural.desert" = "Gurun";
+"type.natural.geyser" = "Geiser";
+"type.natural.glacier" = "Gletser";
+"type.natural.grassland" = "Padang rumput";
+"type.natural.heath" = "Lahan kosong";
+"type.natural.hot_spring" = "Mata air panas";
+"type.natural.water.lake" = "Danau";
+"type.natural.water.lock" = "Ruang Kunci";
+"type.natural.water.pond" = "Kolam";
+"type.natural.water.reservoir" = "Waduk";
+"type.natural.water.basin" = "Sebuah baskom air";
+"type.natural.water.river" = "Sungai";
+"type.natural.land" = "Daratan";
+"type.natural.meadow" = "Padang rumput";
+"type.natural.orchard" = "Kebun";
+"type.natural.peak" = "Puncak";
+"type.natural.saddle" = "Pelana Gunung";
+"type.natural.rock" = "Batu";
+"type.natural.scrub" = "Semak";
+"type.natural.spring" = "Mata air";
+"type.natural.spring.drinking_water_no" = "Mata air";
+"type.natural.strait" = "Selat";
+"type.natural.tree_row" = "Baris pohon";
+"type.natural.vineyard" = "Kebun anggur";
+"type.natural.volcano" = "Gunung berapi";
+"type.natural.water" = "Perairan";
+"type.natural.wetland" = "Area lahan basah";
+"type.natural.wetland.bog" = "Rawa gambut";
+"type.natural.wetland.marsh" = "Paya";
+"type.noexit" = "Dead End";
+"type.office" = "Kantor";
+"type.office.company" = "Kantor perusahaan";
+"type.office.estate_agent" = "Agen ril estat";
+"type.office.government" = "Kantor pemerintah";
+"type.office.insurance" = "Kantor Asuransi";
+"type.office.lawyer" = "Kantor pengacara";
+"type.office.ngo" = "Kantor LSM";
+"type.office.telecommunication" = "Operator seluler";
+"type.organic.only" = "Organic";
+"type.organic.yes" = "Organic";
+"type.place.city" = "Kota";
+"type.place.city.capital" = "Ibu kota";
+"type.place.city.capital.10" = "Kota";
+"type.place.city.capital.11" = "Kota";
+"type.place.city.capital.2" = "Ibu kota";
+"type.place.city.capital.3" = "Kota";
+"type.place.city.capital.4" = "Kota";
+"type.place.city.capital.5" = "Kota";
+"type.place.city.capital.6" = "Kota";
+"type.place.city.capital.7" = "Kota";
+"type.place.city.capital.8" = "Kota";
+"type.place.city.capital.9" = "Kota";
+"type.place.continent" = "Benua";
+"type.place.country" = "Benua";
+"type.place.county" = "Kabupaten";
+"type.place.farm" = "Ladang";
+"type.place.hamlet" = "Dusun";
+"type.place.island" = "Pulau";
+"type.place.islet" = "Pulau";
+"type.place.isolated_dwelling" = "Tempat Tinggal Terisolasi";
+"type.place.locality" = "Wilayah";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Lingkungan";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Lingkungan";
+"type.place.ocean" = "Samudra";
+"type.place.region" = "Wilayah";
+"type.place.sea" = "Laut";
+"type.place.square" = "Lapangan kota";
+"type.place.state" = "Negara bagian";
+"type.place.state.USA" = "Negara bagian";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Pinggiran kota";
+"type.place.town" = "Kota";
+"type.place.village" = "Desa";
+"type.power" = "Power";
+"type.power.generator" = "Power Generator";
+"type.power.generator.solar" = "Pembangkit surya";
+"type.power.generator.wind" = "Generator angin";
+"type.power.generator.gas" = "Pembangkit listrik turbin gas";
+"type.power.generator.hydro" = "Pembangkit listrik tenaga air";
+"type.power.line" = "Power Line";
+"type.power.line.underground" = "Underground Power Line";
+"type.power.minor_line" = "Minor Power Line";
+"type.power.plant" = "Pembangkit listrik";
+"type.power.plant.coal" = "Pembangkit listrik batubara";
+"type.power.plant.gas" = "Pembangkit listrik turbin gas";
+"type.power.plant.hydro" = "Pembangkit listrik tenaga air";
+"type.power.plant.solar" = "Pembangkit listrik tenaga surya";
+"type.power.plant.wind" = "Pembangkit listrik tenaga angin";
+"type.power.station" = "Power Station";
+"type.power.substation" = "Stasiun bawah tanah";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Menara listrik";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Public Transport";
+"type.public_transport.platform" = "Platform";
+"type.railway" = "Railway";
+"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.construction" = "Railway Construction";
+"type.railway.crossing" = "Railway Crossing";
+"type.railway.disused" = "Disused Railway";
+"type.railway.funicular" = "Kereta gantung";
+"type.railway.funicular.bridge" = "Funicular Bridge";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.halt" = "Rel kereta api";
+"type.railway.level_crossing" = "Perlintasan Kereta Api";
+"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.monorail" = "Monorel";
+"type.railway.monorail.bridge" = "Monorail Bridge";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
+"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.platform" = "Railway Platform";
+"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.rail" = "Kereta api";
+"type.railway.rail.highspeed" = "Kereta api berkecepatan tinggi";
+"type.railway.rail.tourism" = "Kereta api wisata";
+"type.railway.rail.main" = "Kereta api";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Kereta api sekunder";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Kereta api utilitas";
+"type.railway.rail.spur" = "Pacu kereta api";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Jalur rel bantu";
+"type.railway.rail.bridge" = "Jembatan kereta api";
+"type.railway.rail.highspeed.bridge" = "Jembatan kereta api";
+"type.railway.rail.tourism.bridge" = "Jembatan kereta api";
+"type.railway.rail.main.bridge" = "Jembatan kereta api";
+"type.railway.rail.branch.bridge" = "Jembatan kereta api";
+"type.railway.rail.utility.bridge" = "Jembatan kereta api";
+"type.railway.rail.spur.bridge" = "Jembatan kereta api";
+"type.railway.rail.service.bridge" = "Jembatan kereta api";
+"type.railway.rail.tunnel" = "Terowongan kereta api";
+"type.railway.rail.highspeed.tunnel" = "Terowongan kereta api";
+"type.railway.rail.tourism.tunnel" = "Terowongan kereta api";
+"type.railway.rail.main.tunnel" = "Terowongan kereta api";
+"type.railway.rail.branch.tunnel" = "Terowongan kereta api";
+"type.railway.rail.utility.tunnel" = "Terowongan kereta api";
+"type.railway.rail.spur.tunnel" = "Terowongan kereta api";
+"type.railway.rail.service.tunnel" = "Terowongan kereta api";
+"type.railway.station" = "Rel kereta api";
+"type.railway.station.funicular" = "Kereta gantung";
+"type.railway.station.light_rail" = "Rel kereta api";
+"type.railway.station.light_rail.berlin" = "Rel kereta api";
+"type.railway.station.light_rail.london" = "Rel kereta api";
+"type.railway.station.light_rail.porto" = "Rel kereta api";
+"type.railway.station.monorail" = "Rel kereta api";
+"type.railway.station.subway" = "Stasiun bawah tanah";
+"type.railway.station.subway.adana" = "Stasiun bawah tanah";
+"type.railway.station.subway.algiers" = "Stasiun bawah tanah";
+"type.railway.station.subway.almaty" = "Stasiun bawah tanah";
+"type.railway.station.subway.amsterdam" = "Stasiun bawah tanah";
+"type.railway.station.subway.ankara" = "Stasiun bawah tanah";
+"type.railway.station.subway.athens" = "Stasiun bawah tanah";
+"type.railway.station.subway.baku" = "Stasiun bawah tanah";
+"type.railway.station.subway.bangkok" = "Stasiun bawah tanah";
+"type.railway.station.subway.barcelona" = "Stasiun bawah tanah";
+"type.railway.station.subway.beijing" = "Stasiun bawah tanah";
+"type.railway.station.subway.bengalore" = "Stasiun bawah tanah";
+"type.railway.station.subway.berlin" = "Stasiun bawah tanah";
+"type.railway.station.subway.bilbao" = "Stasiun bawah tanah";
+"type.railway.station.subway.brasilia" = "Stasiun bawah tanah";
+"type.railway.station.subway.brescia" = "Stasiun bawah tanah";
+"type.railway.station.subway.brussels" = "Stasiun bawah tanah";
+"type.railway.station.subway.bucharest" = "Stasiun bawah tanah";
+"type.railway.station.subway.budapest" = "Stasiun bawah tanah";
+"type.railway.station.subway.buenos_aires" = "Stasiun bawah tanah";
+"type.railway.station.subway.bursa" = "Stasiun bawah tanah";
+"type.railway.station.subway.cairo" = "Stasiun bawah tanah";
+"type.railway.station.subway.caracas" = "Stasiun bawah tanah";
+"type.railway.station.subway.catania" = "Stasiun bawah tanah";
+"type.railway.station.subway.changchun" = "Stasiun bawah tanah";
+"type.railway.station.subway.chengdu" = "Stasiun bawah tanah";
+"type.railway.station.subway.chicago" = "Stasiun bawah tanah";
+"type.railway.station.subway.chongqing" = "Stasiun bawah tanah";
+"type.railway.station.subway.dalian" = "Stasiun bawah tanah";
+"type.railway.station.subway.delhi" = "Stasiun bawah tanah";
+"type.railway.station.subway.dnepro" = "Stasiun bawah tanah";
+"type.railway.station.subway.dubai" = "Stasiun bawah tanah";
+"type.railway.station.subway.ekb" = "Stasiun bawah tanah";
+"type.railway.station.subway.fukuoka" = "Stasiun bawah tanah";
+"type.railway.station.subway.glasgow" = "Stasiun bawah tanah";
+"type.railway.station.subway.guangzhou" = "Stasiun bawah tanah";
+"type.railway.station.subway.hamburg" = "Stasiun bawah tanah";
+"type.railway.station.subway.helsinki" = "Stasiun bawah tanah";
+"type.railway.station.subway.hiroshima" = "Stasiun bawah tanah";
+"type.railway.station.subway.hongkong" = "Stasiun bawah tanah";
+"type.railway.station.subway.isfahan" = "Stasiun bawah tanah";
+"type.railway.station.subway.istanbul" = "Stasiun bawah tanah";
+"type.railway.station.subway.izmir" = "Stasiun bawah tanah";
+"type.railway.station.subway.kazan" = "Stasiun bawah tanah";
+"type.railway.station.subway.kharkiv" = "Stasiun bawah tanah";
+"type.railway.station.subway.kiev" = "Stasiun bawah tanah";
+"type.railway.station.subway.kobe" = "Stasiun bawah tanah";
+"type.railway.station.subway.kolkata" = "Stasiun bawah tanah";
+"type.railway.station.subway.kunming" = "Stasiun bawah tanah";
+"type.railway.station.subway.kyoto" = "Stasiun bawah tanah";
+"type.railway.station.subway.la" = "Stasiun bawah tanah";
+"type.railway.station.subway.lausanne" = "Stasiun bawah tanah";
+"type.railway.station.subway.lille" = "Stasiun bawah tanah";
+"type.railway.station.subway.lima" = "Stasiun bawah tanah";
+"type.railway.station.subway.lisboa" = "Stasiun bawah tanah";
+"type.railway.station.subway.london" = "Stasiun bawah tanah";
+"type.railway.station.subway.lyon" = "Stasiun bawah tanah";
+"type.railway.station.subway.madrid" = "Stasiun bawah tanah";
+"type.railway.station.subway.malaga" = "Stasiun bawah tanah";
+"type.railway.station.subway.manila" = "Stasiun bawah tanah";
+"type.railway.station.subway.maracaibo" = "Stasiun bawah tanah";
+"type.railway.station.subway.mashhad" = "Stasiun bawah tanah";
+"type.railway.station.subway.mecca" = "Stasiun bawah tanah";
+"type.railway.station.subway.medellin" = "Stasiun bawah tanah";
+"type.railway.station.subway.mexico" = "Stasiun bawah tanah";
+"type.railway.station.subway.milan" = "Stasiun bawah tanah";
+"type.railway.station.subway.minsk" = "Stasiun bawah tanah";
+"type.railway.station.subway.montreal" = "Stasiun bawah tanah";
+"type.railway.station.subway.moscow" = "Stasiun bawah tanah";
+"type.railway.station.subway.munchen" = "Stasiun bawah tanah";
+"type.railway.station.subway.nagoya" = "Stasiun bawah tanah";
+"type.railway.station.subway.newyork" = "Stasiun bawah tanah";
+"type.railway.station.subway.nnov" = "Stasiun bawah tanah";
+"type.railway.station.subway.novosibirsk" = "Stasiun bawah tanah";
+"type.railway.station.subway.osaka" = "Stasiun bawah tanah";
+"type.railway.station.subway.oslo" = "Stasiun bawah tanah";
+"type.railway.station.subway.palma" = "Stasiun bawah tanah";
+"type.railway.station.subway.panama" = "Stasiun bawah tanah";
+"type.railway.station.subway.paris" = "Stasiun bawah tanah";
+"type.railway.station.subway.philadelphia" = "Stasiun bawah tanah";
+"type.railway.station.subway.pyongyang" = "Stasiun bawah tanah";
+"type.railway.station.subway.rennes" = "Stasiun bawah tanah";
+"type.railway.station.subway.rio" = "Stasiun bawah tanah";
+"type.railway.station.subway.roma" = "Stasiun bawah tanah";
+"type.railway.station.subway.rotterdam" = "Stasiun bawah tanah";
+"type.railway.station.subway.samara" = "Stasiun bawah tanah";
+"type.railway.station.subway.santiago" = "Stasiun bawah tanah";
+"type.railway.station.subway.santo_domingo" = "Stasiun bawah tanah";
+"type.railway.station.subway.saopaulo" = "Stasiun bawah tanah";
+"type.railway.station.subway.sapporo" = "Stasiun bawah tanah";
+"type.railway.station.subway.sendai" = "Stasiun bawah tanah";
+"type.railway.station.subway.sf" = "Stasiun bawah tanah";
+"type.railway.station.subway.shanghai" = "Stasiun bawah tanah";
+"type.railway.station.subway.shenzhen" = "Stasiun bawah tanah";
+"type.railway.station.subway.shiraz" = "Stasiun bawah tanah";
+"type.railway.station.subway.singapore" = "Stasiun bawah tanah";
+"type.railway.station.subway.sofia" = "Stasiun bawah tanah";
+"type.railway.station.subway.spb" = "Stasiun bawah tanah";
+"type.railway.station.subway.stockholm" = "Stasiun bawah tanah";
+"type.railway.station.subway.tabriz" = "Stasiun bawah tanah";
+"type.railway.station.subway.taipei" = "Stasiun bawah tanah";
+"type.railway.station.subway.taoyuan" = "Stasiun bawah tanah";
+"type.railway.station.subway.tashkent" = "Stasiun bawah tanah";
+"type.railway.station.subway.tbilisi" = "Stasiun bawah tanah";
+"type.railway.station.subway.tehran" = "Stasiun bawah tanah";
+"type.railway.station.subway.tianjin" = "Stasiun bawah tanah";
+"type.railway.station.subway.tokyo" = "Stasiun bawah tanah";
+"type.railway.station.subway.valencia" = "Stasiun bawah tanah";
+"type.railway.station.subway.vienna" = "Stasiun bawah tanah";
+"type.railway.station.subway.warszawa" = "Stasiun bawah tanah";
+"type.railway.station.subway.washington" = "Stasiun bawah tanah";
+"type.railway.station.subway.wuhan" = "Stasiun bawah tanah";
+"type.railway.station.subway.yerevan" = "Stasiun bawah tanah";
+"type.railway.station.subway.yokohama" = "Stasiun bawah tanah";
+"type.railway.subway" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway_entrance" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.adana" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.algiers" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.almaty" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.amsterdam" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.ankara" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.athens" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.baku" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.bangkok" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.barcelona" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.beijing" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.bengalore" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.berlin" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.bilbao" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.brasilia" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.brescia" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.brussels" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.bucharest" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.budapest" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.buenos_aires" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.bursa" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.cairo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.caracas" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.catania" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.changchun" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.chengdu" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.chicago" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.chongqing" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.dalian" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.delhi" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.dnepro" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.dubai" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.ekb" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.fukuoka" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.glasgow" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.guangzhou" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.hamburg" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.helsinki" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.hiroshima" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.hongkong" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.isfahan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.istanbul" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.izmir" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kazan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kharkiv" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kiev" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kobe" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kolkata" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kunming" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.kyoto" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.la" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.lausanne" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.lille" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.lima" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.lisboa" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.london" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.lyon" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.madrid" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.malaga" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.manila" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.maracaibo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.mashhad" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.mecca" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.medellin" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.mexico" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.milan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.minsk" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.montreal" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.moscow" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.munchen" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.nagoya" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.newyork" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.nnov" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.novosibirsk" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.osaka" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.oslo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.palma" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.panama" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.paris" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.philadelphia" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.pyongyang" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.rennes" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.rio" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.roma" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.rotterdam" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.samara" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.santiago" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.santo_domingo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.saopaulo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.sapporo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.sendai" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.sf" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.shanghai" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.shenzhen" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.shiraz" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.singapore" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.sofia" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.spb" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.stockholm" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tabriz" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.taipei" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.taoyuan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tashkent" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tbilisi" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tehran" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tianjin" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.tokyo" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.valencia" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.vienna" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.warszawa" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.washington" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.wuhan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.yerevan" = "Pintu masuk kereta bawah tanah";
+"type.railway.subway_entrance.yokohama" = "Pintu masuk kereta bawah tanah";
+"type.railway.tram" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram_stop" = "Perhentian trem";
+"type.route" = "Route";
+"type.route.ferry" = "Ferry";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Toko";
+"type.shop.alcohol" = "Toko alkohol";
+"type.shop.bakery" = "Toko roti";
+"type.shop.bathroom_furnishing" = "Perabot Kamar Mandi";
+"type.shop.beauty" = "Salon kecantikan";
+"type.shop.beverages" = "Minuman";
+"type.shop.bicycle" = "Toko sepeda";
+"type.shop.bookmaker" = "Bandar judi";
+"type.shop.books" = "Toko buku";
+"type.shop.butcher" = "Tukang daging";
+"type.shop.cannabis" = "Toko ganja";
+"type.shop.car" = "Toko mobil";
+"type.shop.car_parts" = "Bagian mobil";
+"type.shop.car_repair" = "Bengkel mobil";
+"type.shop.car_repair.tyres" = "Tambal ban";
+"type.shop.caravan" = "RV Dealership";
+"type.shop.carpet" = "Karpet";
+"type.shop.chemist" = "Toko Bahan Kimia";
+"type.shop.chocolate" = "Toko Cokelat";
+"type.shop.clothes" = "Toko baju";
+"type.shop.coffee" = "Toko kopi";
+"type.shop.computer" = "Toko komputer";
+"type.shop.confectionery" = "Penganan";
+"type.shop.convenience" = "Mini market";
+"type.shop.copyshop" = "Fotokopi";
+"type.shop.cosmetics" = "Kosmetik";
+"type.shop.curtain" = "Tirai";
+"type.shop.deli" = "Toko Kue";
+"type.shop.department_store" = "Toko serba ada";
+"type.shop.doityourself" = "Toko perangkat keras";
+"type.shop.dry_cleaning" = "Cuci Kering";
+"type.shop.electronics" = "Elektronik";
+"type.shop.erotic" = "Toko Erotik";
+"type.shop.fabric" = "Toko Kain";
+"type.shop.farm" = "Toko Makanan Pertanian";
+"type.shop.fashion_accessories" = "Aksesoris Fashion";
+"type.shop.florist" = "Tukang bunga";
+"type.shop.funeral_directors" = "Direktur Pemakaman";
+"type.shop.furniture" = "Toko mebel";
+"type.shop.garden_centre" = "Penitipan anak";
+"type.shop.gas" = "Toko gas";
+"type.shop.gift" = "Toko hadiah";
+"type.shop.greengrocer" = "Penjual sayuran";
+"type.shop.grocery" = "Kebutuhan sehari-hari";
+"type.shop.hairdresser" = "Penata rambut";
+"type.shop.hardware" = "Hardware Store";
+"type.shop.health_food" = "Toko Makanan Kesehatan";
+"type.shop.hearing_aids" = "Toko alat bantu dengar";
+"type.shop.herbalist" = "Toko jamu";
+"type.shop.hifi" = "Audio HI FI";
+"type.shop.houseware" = "Toko Peralatan Rumah Tangga";
+"type.shop.jewelry" = "Perhiasan";
+"type.shop.kiosk" = "Kios";
+"type.shop.kitchen" = "Toko Dapur";
+"type.shop.laundry" = "Londri";
+"type.shop.mall" = "Mall";
+"type.shop.massage" = "Tempat Pijat";
+"type.shop.mobile_phone" = "Toko telepon";
+"type.shop.money_lender" = "Pemberi Pinjaman Uang";
+"type.shop.motorcycle" = "Toko Sepeda Motor";
+"type.shop.motorcycle_repair" = "Bengkel Sepeda Motor";
+"type.shop.music" = "Toko musik";
+"type.shop.musical_instrument" = "Toko Alat Musik";
+"type.shop.newsagent" = "Kios Surat Kabar";
+"type.shop.optician" = "Toko kacamata";
+"type.shop.outdoor" = "Peralatan Outdoor";
+"type.shop.outpost" = "Titik penjemputan";
+"type.shop.pasta" = "Toko Pasta";
+"type.shop.pastry" = "Kue-kue";
+"type.shop.pawnbroker" = "Rumah Gadai";
+"type.shop.pet" = "Toko hewan";
+"type.shop.pet_grooming" = "Perawatan Hewan Peliharaan";
+"type.shop.photo" = "Studio Foto";
+"type.shop.rental" = "Toko Sewa";
+"type.shop.rental.bicycle" = "Toko Penyewaan Sepeda";
+"type.shop.seafood" = "Penjual Ikan";
+"type.shop.second_hand" = "Toko Barang bekas";
+"type.shop.shoes" = "Toko sepatu";
+"type.shop.sports" = "Barang olahraga";
+"type.shop.stationery" = "Toko Alat Tulis";
+"type.shop.supermarket" = "Supermarket";
+"type.shop.tattoo" = "Tempat Tato";
+"type.shop.tea" = "Toko teh";
+"type.shop.ticket" = "Tempat penjualan karcis";
+"type.shop.toys" = "Toko mainan";
+"type.shop.travel_agency" = "Agen Perjalanan Wisata";
+"type.shop.tyres" = "Toko Ban";
+"type.shop.variety_store" = "Toko Kelontong";
+"type.shop.video" = "Toko video";
+"type.shop.video_games" = "Toko permainan video";
+"type.shop.wine" = "Toko anggur";
+"type.shop.agrarian" = "Toko pertanian";
+"type.shop.antiques" = "Barang antik";
+"type.shop.appliance" = "Toko peralatan";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Toko Seni";
+"type.shop.baby_goods" = "Toko anak-anak";
+"type.shop.bag" = "Toko Tas";
+"type.shop.bed" = "Toko tempat tidur";
+"type.shop.boutique" = "Butik";
+"type.shop.charity" = "Toko Amal";
+"type.shop.cheese" = "Toko Keju";
+"type.shop.craft" = "Seni dan kerajinan";
+"type.shop.dairy" = "Produk susu";
+"type.shop.electrical" = "Toko elektronik";
+"type.shop.fishing" = "Toko Memancing";
+"type.shop.interior_decoration" = "Dekorasi Interior";
+"type.shop.lottery" = "Tiket Lotere";
+"type.shop.medical_supply" = "Suplai medis";
+"type.shop.nutrition_supplements" = "Suplemen Nutrisi";
+"type.shop.paint" = "Cat";
+"type.shop.perfumery" = "Wewangian";
+"type.shop.sewing" = "Perlengkapan Jahit";
+"type.shop.storage_rental" = "Sewa Penyimpanan";
+"type.shop.tobacco" = "Tembakau";
+"type.shop.trade" = "Perlengkapan Perdagangan";
+"type.shop.watches" = "Jam tangan";
+"type.shop.wholesale" = "Toko Grosir";
+"type.sport" = "Olahraga";
+"type.sport.american_football" = "Sepak Bola Amerika";
+"type.sport.archery" = "Panahan";
+"type.sport.athletics" = "Atletik";
+"type.sport.australian_football" = "Sepak bola Australia";
+"type.sport.baseball" = "Baseball";
+"type.sport.basketball" = "Bola basket";
+"type.sport.beachvolleyball" = "Voli pantai";
+"type.sport.bowls" = "Boling lapangan";
+"type.sport.chess" = "Catur";
+"type.sport.cricket" = "Kriket";
+"type.sport.curling" = "Curling";
+"type.sport.equestrian" = "Olahraga Berkuda";
+"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Olahraga senam";
+"type.sport.handball" = "Bola tangan";
+"type.sport.multi" = "Berbagai Olahraga";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Selam scuba";
+"type.sport.shooting" = "Penembakan";
+"type.sport.skateboard" = "Seluncur papan";
+"type.sport.skiing" = "Bermain ski";
+"type.sport.soccer" = "Sepak bola";
+"type.sport.swimming" = "Berenang";
+"type.sport.table_tennis" = "Tenis meja";
+"type.sport.tennis" = "Lapangan tenis";
+"type.sport.volleyball" = "Bola voli";
+"type.sport.10pin" = "Boling";
+"type.sport.9pin" = "Boling";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futsal";
+"type.sport.ice_hockey" = "Hoki es";
+"type.sport.field_hockey" = "Hoki Lapangan";
+"type.sport.badminton" = "Bulu tangkis";
+"type.sport.pelota" = "Basque pelota";
+"type.tourism" = "Tourism";
+"type.tourism.aquarium" = "Akuarium";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Penginapan gunung";
+"type.tourism.apartment" = "Apartemen Liburan";
+"type.tourism.artwork" = "Pariwisata";
+"type.tourism.artwork.architecture" = "Pariwisata";
+"type.tourism.artwork.painting" = "Pariwisata";
+"type.tourism.artwork.sculpture" = "Pariwisata";
+"type.tourism.artwork.statue" = "Pariwisata";
+"type.tourism.attraction" = "Atraksi";
+"type.attraction.amusement_ride" = "Wahana Hiburan";
+"type.attraction.animal" = "Kandang Hewan";
+"type.attraction.bumper_car" = "Bumper Car";
+"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.carousel" = "Korsel";
+"type.attraction.historic" = "Atraksi bersejarah";
+"type.attraction.maze" = "Labirin";
+"type.attraction.roller_coaster" = "Roller Coaster";
+"type.attraction.water_slide" = "Seluncuran Air";
+"type.tourism.attraction.specified" = "Atraksi";
+"type.tourism.camp_site" = "Perkemahan";
+"type.tourism.caravan_site" = "Lokasi perkemahan";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Pondok Liburan";
+"type.tourism.gallery" = "Pemandangan";
+"type.tourism.guest_house" = "Wisma tamu";
+"type.tourism.hostel" = "Hostel";
+"type.tourism.hotel" = "Hotel";
+"type.tourism.information" = "Informasi turis";
+"type.tourism.information.board" = "Papan informasi";
+"type.tourism.information.guidepost" = "Tongkat petunjuk jalan";
+"type.tourism.information.map" = "Peta wisata";
+"type.tourism.information.office" = "Kantor wisata";
+"type.tourism.information.visitor_centre" = "Pusat Pengunjung";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Museum";
+"type.tourism.picnic_site" = "Lokasi piknik";
+"type.leisure.resort" = "Sanggraloka";
+"type.tourism.theme_park" = "Pemandangan";
+"type.tourism.viewpoint" = "Titik pandang";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Pondok Alam Liar";
+"type.tourism.zoo" = "Kebun binatang";
+"type.tourism.zoo.petting" = "Kebun Binatang";
+"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.hump" = "Traffic Hump";
+"type.waterway" = "Waterway";
+"type.waterway.canal" = "Kanal";
+"type.waterway.canal.tunnel" = "Kanal";
+"type.waterway.fish_pass" = "Tangga ikan";
+"type.waterway.dam" = "Dam";
+"type.barrier.ditch" = "Ditch";
+"type.natural.water.ditch" = "Parit saluran air";
+"type.waterway.ditch.tunnel" = "Gorong-gorong";
+"type.waterway.dock" = "Waterway Dock";
+"type.waterway.drain" = "Drain";
+"type.natural.water.drain" = "Drain";
+"type.waterway.drain.tunnel" = "Gorong-gorong";
+"type.waterway.lock_gate" = "Gerbang pengunci";
+"type.waterway.river" = "Sungai";
+"type.waterway.river.tunnel" = "Sungai";
+"type.waterway.stream" = "Sungai";
+"type.waterway.stream.ephemeral" = "Sungai";
+"type.waterway.stream.intermittent" = "Sungai";
+"type.waterway.stream.tunnel" = "Sungai";
+"type.waterway.waterfall" = "Air terjun";
+"type.waterway.weir" = "Weir";
+"type.wheelchair" = "Wheelchair";
+"type.wheelchair.limited" = "Akses kursi roda terbatas";
+"type.wheelchair.no" = "Tidak ada akses kursi roda";
+"type.wheelchair.yes" = "Akses penuh kursi roda";
+"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.t.bar" = "T-bar Lift";
+"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.hike" = "Jalur Pendakian Salju";
+"type.piste_type.connection" = "Koneksi Piste";
+"type.piste_type.skitour" = "Jalur Skitour";
+"type.amenity.events_venue" = "Tempat acara";
+"type.shop.auction" = "Lelang";
+"type.shop.collector" = "Barang koleksi";
+"type.self_service.yes" = "Tersedia layanan mandiri";
+"type.self_service.only" = "Hanya layanan mandiri";
+"type.self_service.partially" = "Layanan mandiri sebagian";
+"type.self_service.no" = "Tidak ada layanan mandiri";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Fasilitas Sosial";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Pintu Masuk Bangsal Darurat";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Ruang olahraga";

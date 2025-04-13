@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__add_organisation"
+  style="@style/PlacePageItemFrame"
+  android:visibility="visible"
+  tools:visibility="visible">
+
+  <TextView
+    android:id="@+id/tv__editor"
+    style="@style/PlacePageMetadataText.Button"
+    android:gravity="center"
+    android:text="@string/placepage_add_business_button"/>
+
+</LinearLayout>

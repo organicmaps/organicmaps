@@ -1,0 +1,8 @@
+• Neue OpenStreetMap-Daten vom 27. Februar
+• Möglichkeit, Zwischenroutenpunkte manuell zu arrangieren
+• Einen einzelnen ausgewählten Track aus der Liste teilen
+• Verbesserte Routenführung für Fahrräder
+• Beim Herunterladen von Karten eine Systembenachrichtigung anzeigen und Hintergrunddownloads nicht unterbrechen
+• Ein blinkendes Trackaufzeichnungs-Widget hinzugefügt
+
+…weitere Details unter omaps.org/news

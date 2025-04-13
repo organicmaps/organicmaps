@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='65303244' timestamp='2010-01-12T07:48:34Z' uid='24452' user='Speight' visible='true' version='3' changeset='3601168' lat='37.8052904' lon='-122.4085312' />
+  <node id='65303246' timestamp='2010-01-12T07:48:22Z' uid='24452' user='Speight' visible='true' version='4' changeset='3601168' lat='37.8052035' lon='-122.4093144' />
+  <node id='65303248' timestamp='2010-01-12T07:49:32Z' uid='24452' user='Speight' visible='true' version='4' changeset='3601168' lat='37.8051739' lon='-122.4095397' />
+  <node id='65303250' timestamp='2016-02-22T05:57:32Z' uid='14293' user='KindredCoda' visible='true' version='5' changeset='37359447' lat='37.8051004' lon='-122.4101426' />
+  <node id='65303253' timestamp='2010-01-12T07:50:30Z' uid='24452' user='Speight' visible='true' version='3' changeset='3601168' lat='37.8050531' lon='-122.4105147' />
+  <node id='65303257' timestamp='2016-02-22T05:57:32Z' uid='14293' user='KindredCoda' visible='true' version='5' changeset='37359447' lat='37.8048939' lon='-122.4117828' />
+  <node id='65303259' timestamp='2016-02-22T07:10:11Z' uid='14293' user='KindredCoda' visible='true' version='4' changeset='37360192' lat='37.804684' lon='-122.4134294' />
+  <node id='65303261' timestamp='2012-01-08T16:15:10Z' uid='103253' user='gormur' visible='true' version='4' changeset='10333244' lat='37.8044788' lon='-122.4150699' />
+  <node id='65303268' timestamp='2016-02-22T11:47:28Z' uid='14293' user='KindredCoda' visible='true' version='8' changeset='37364947' lat='37.8042944' lon='-122.4167158' />
+  <node id='330657227' timestamp='2020-02-20T18:20:23Z' uid='119881' user='clay_c' visible='true' version='8' changeset='81286290' lat='37.8043451' lon='-122.416147'>
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='330657229' timestamp='2020-02-20T18:20:23Z' uid='119881' user='clay_c' visible='true' version='6' changeset='81286290' lat='37.8043654' lon='-122.4159839'>
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='612030762' timestamp='2010-01-12T07:48:56Z' uid='24452' user='Speight' visible='true' version='1' changeset='3601168' lat='37.8052894' lon='-122.4086345' />
+  <node id='612031151' timestamp='2023-06-08T15:50:24Z' uid='17310233' user='VLD274' visible='true' version='2' changeset='137102875' lat='37.8043029' lon='-122.4165966'>
+    <tag k='direction' v='forward' />
+    <tag k='highway' v='stop' />
+  </node>
+  <node id='1582797237' timestamp='2017-01-02T19:46:09Z' uid='135163' user='MikeN' visible='true' version='2' changeset='44853773' lat='37.8044805' lon='-122.4150561'>
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='1582797238' timestamp='2017-01-02T19:46:09Z' uid='135163' user='MikeN' visible='true' version='2' changeset='44853773' lat='37.8044764' lon='-122.415089'>
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='1582797239' timestamp='2024-05-08T14:15:48Z' uid='2610171' user='eneerhut' visible='true' version='3' changeset='151058752' lat='37.8044669' lon='-122.4151658'>
+    <tag k='crossing' v='marked' />
+    <tag k='crossing:markings' v='lines' />
+    <tag k='crossing:signals' v='no' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='1582797240' timestamp='2013-03-30T05:41:10Z' uid='1214881' user='ryandrake' visible='true' version='2' changeset='15547333' lat='37.8044898' lon='-122.4149821' />
+  <node id='2680974315' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8040807' lon='-122.4164038' />
+  <node id='2680974324' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8040879' lon='-122.4163425' />
+  <node id='2680974335' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041145' lon='-122.4162265' />
+  <node id='2680974343' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041238' lon='-122.4163353' />
+  <node id='2680974346' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041245' lon='-122.416142' />
+  <node id='2680974348' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041262' lon='-122.4163712' />
+  <node id='2680974351' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041283' lon='-122.4162975' />
+  <node id='2680974353' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041287' lon='-122.4163502' />
+  <node id='2680974359' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041309' lon='-122.4163506' />
+  <node id='2680974362' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041325' lon='-122.4163369' />
+  <node id='2680974364' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041369' lon='-122.4162991' />
+  <node id='2680974370' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041425' lon='-122.4164154' />
+  <node id='2680974386' timestamp='2014-02-19T18:11:26Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041448' lon='-122.4162322' />
+  <node id='2680974392' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041627' lon='-122.4163781' />
+  <node id='2680974397' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8041651' lon='-122.4163571' />
+  <node id='2680974415' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8042248' lon='-122.416431' />
+  <node id='2680974418' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.804232' lon='-122.4163697' />
+  <node id='2680974420' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8042328' lon='-122.4163698' />
+  <node id='2680974425' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8042468' lon='-122.4162514' />
+  <node id='2680974427' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8042496' lon='-122.416252' />
+  <node id='2680974429' timestamp='2014-02-19T18:11:27Z' uid='510836' user='Rub21' visible='true' version='1' changeset='20661132' lat='37.8042595' lon='-122.4161675' />
+  <node id='7231176116' timestamp='2020-02-20T18:20:20Z' uid='119881' user='clay_c' visible='true' version='1' changeset='81286290' lat='37.8043375' lon='-122.4162276'>
+    <tag k='crossing' v='traffic_signals' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='7231176118' timestamp='2020-02-20T18:20:20Z' uid='119881' user='clay_c' visible='true' version='1' changeset='81286290' lat='37.8043807' lon='-122.4158603'>
+    <tag k='crossing' v='traffic_signals' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='10187579586' timestamp='2022-11-16T05:09:43Z' uid='14152086' user='Mingwei' visible='true' version='1' changeset='128969269' lat='37.8049974' lon='-122.4109486'>
+    <tag k='crossing' v='marked' />
+    <tag k='crossing:island' v='no' />
+    <tag k='highway' v='crossing' />
+    <tag k='tactile_paving' v='no' />
+  </node>
+  <node id='10187579587' timestamp='2022-11-16T05:09:43Z' uid='14152086' user='Mingwei' visible='true' version='1' changeset='128969269' lat='37.8050895' lon='-122.4102243'>
+    <tag k='crossing' v='marked' />
+    <tag k='crossing:island' v='no' />
+    <tag k='highway' v='crossing' />
+    <tag k='tactile_paving' v='no' />
+  </node>
+  <node id='10187579588' timestamp='2022-11-16T05:09:43Z' uid='14152086' user='Mingwei' visible='true' version='1' changeset='128969269' lat='37.8049069' lon='-122.4116783'>
+    <tag k='crossing' v='marked' />
+    <tag k='crossing:island' v='no' />
+    <tag k='highway' v='crossing' />
+    <tag k='tactile_paving' v='no' />
+  </node>
+  <node id='10187579589' timestamp='2022-11-16T05:09:43Z' uid='14152086' user='Mingwei' visible='true' version='1' changeset='128969269' lat='37.8049603' lon='-122.4112535'>
+    <tag k='traffic_calming' v='hump' />
+  </node>
+  <node id='10187579590' timestamp='2022-11-16T05:09:43Z' uid='14152086' user='Mingwei' visible='true' version='1' changeset='128969269' lat='37.8050281' lon='-122.4107092'>
+    <tag k='traffic_calming' v='hump' />
+  </node>
+  <node id='10963825649' timestamp='2023-06-08T16:02:27Z' uid='17310233' user='VLD274' visible='true' version='1' changeset='137103277' lat='37.8048765' lon='-122.4119192'>
+    <tag k='direction' v='backward' />
+    <tag k='highway' v='stop' />
+  </node>
+  <node id='10963825651' timestamp='2023-06-08T16:02:27Z' uid='17310233' user='VLD274' visible='true' version='1' changeset='137103277' lat='37.8049107' lon='-122.4116483'>
+    <tag k='direction' v='forward' />
+    <tag k='highway' v='stop' />
+  </node>
+  <node id='10963832803' timestamp='2023-06-08T16:04:24Z' uid='17310233' user='VLD274' visible='true' version='1' changeset='137103346' lat='37.8050839' lon='-122.4102689'>
+    <tag k='direction' v='backward' />
+    <tag k='highway' v='stop' />
+  </node>
+  <node id='10963865105' timestamp='2023-06-08T16:04:24Z' uid='17310233' user='VLD274' visible='true' version='1' changeset='137103346' lat='37.8051163' lon='-122.4100118'>
+    <tag k='direction' v='forward' />
+    <tag k='highway' v='stop' />
+  </node>
+  <way id='262435070' timestamp='2020-07-09T04:50:38Z' uid='11362402' user='Yury_Yatsynovich_--_OSM_Imports' visible='true' version='4' changeset='87739618'>
+    <nd ref='2680974397' />
+    <nd ref='2680974418' />
+    <nd ref='2680974420' />
+    <nd ref='2680974425' />
+    <nd ref='2680974386' />
+    <nd ref='2680974364' />
+    <nd ref='2680974351' />
+    <nd ref='2680974343' />
+    <nd ref='2680974362' />
+    <nd ref='2680974359' />
+    <nd ref='2680974397' />
+    <tag k='addr:housenumber' v='655;657' />
+    <tag k='addr:street' v='Francisco Street' />
+    <tag k='building' v='yes' />
+    <tag k='height' v='11' />
+  </way>
+  <way id='262435093' timestamp='2020-07-09T03:46:29Z' uid='11362402' user='Yury_Yatsynovich_--_OSM_Imports' visible='true' version='4' changeset='87737216'>
+    <nd ref='2680974386' />
+    <nd ref='2680974425' />
+    <nd ref='2680974427' />
+    <nd ref='2680974429' />
+    <nd ref='2680974346' />
+    <nd ref='2680974335' />
+    <nd ref='2680974386' />
+    <tag k='addr:housenumber' v='653' />
+    <tag k='addr:street' v='Francisco Street' />
+    <tag k='building' v='yes' />
+    <tag k='height' v='10' />
+  </way>
+  <way id='262435102' timestamp='2020-07-09T03:46:29Z' uid='11362402' user='Yury_Yatsynovich_--_OSM_Imports' visible='true' version='4' changeset='87737216'>
+    <nd ref='2680974370' />
+    <nd ref='2680974415' />
+    <nd ref='2680974418' />
+    <nd ref='2680974397' />
+    <nd ref='2680974392' />
+    <nd ref='2680974348' />
+    <nd ref='2680974353' />
+    <nd ref='2680974324' />
+    <nd ref='2680974315' />
+    <nd ref='2680974370' />
+    <tag k='addr:housenumber' v='671;673;681;683' />
+    <tag k='addr:street' v='Francisco Street' />
+    <tag k='building' v='yes' />
+    <tag k='height' v='10' />
+  </way>
+  <way id='425516678' timestamp='2023-06-08T16:04:24Z' uid='17310233' user='VLD274' visible='true' version='12' changeset='137103346'>
+    <nd ref='65303244' />
+    <nd ref='612030762' />
+    <nd ref='65303246' />
+    <nd ref='65303248' />
+    <nd ref='10963865105' />
+    <nd ref='65303250' />
+    <nd ref='10187579587' />
+    <nd ref='10963832803' />
+    <nd ref='65303253' />
+    <nd ref='10187579590' />
+    <nd ref='10187579586' />
+    <nd ref='10187579589' />
+    <nd ref='10963825651' />
+    <nd ref='10187579588' />
+    <nd ref='65303257' />
+    <nd ref='10963825649' />
+    <nd ref='65303259' />
+    <nd ref='1582797240' />
+    <nd ref='1582797237' />
+    <nd ref='65303261' />
+    <nd ref='1582797238' />
+    <nd ref='1582797239' />
+    <nd ref='7231176118' />
+    <nd ref='330657229' />
+    <nd ref='330657227' />
+    <nd ref='7231176116' />
+    <nd ref='612031151' />
+    <nd ref='65303268' />
+    <tag k='highway' v='residential' />
+    <tag k='lane_markings' v='no' />
+    <tag k='name' v='Francisco Street' />
+    <tag k='parking:lane:both' v='parallel' />
+    <tag k='parking:lane:both:parallel' v='on_street' />
+    <tag k='tiger:cfcc' v='A41' />
+    <tag k='tiger:county' v='San Francisco, CA' />
+    <tag k='tiger:name_base' v='Francisco' />
+    <tag k='tiger:name_type' v='St' />
+  </way>
+</osm>

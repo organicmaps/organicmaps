@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='26318792' timestamp='2015-05-25T15:05:10Z' uid='1121506' user='rozoom' visible='true' version='12' changeset='31448012' lat='50.4614478' lon='30.5166048' />
+  <node id='26318793' timestamp='2023-01-28T10:21:55Z' uid='3023916' user='neviksasha' visible='true' version='9' changeset='131802123' lat='50.4624847' lon='30.5150341' />
+  <node id='26318816' timestamp='2015-05-25T15:05:10Z' uid='1121506' user='rozoom' visible='true' version='9' changeset='31448012' lat='50.4611411' lon='30.5169778' />
+  <node id='26318817' timestamp='2015-08-05T23:10:43Z' uid='368942' user='KKS' visible='true' version='10' changeset='33143383' lat='50.4601415' lon='30.5197514' />
+  <node id='305445942' timestamp='2020-05-06T09:54:54Z' uid='10493430' user='User7 - Lightcyphers' visible='true' version='12' changeset='84750782' lat='50.4598161' lon='30.5205167' />
+  <node id='305446023' timestamp='2011-05-14T12:52:38Z' uid='428572' user='roxton' visible='true' version='5' changeset='8140573' lat='50.4595645' lon='30.5211605' />
+  <node id='305446025' timestamp='2008-10-18T17:55:04Z' uid='33533' user='Vitaliy' visible='true' version='4' changeset='422598' lat='50.4593205' lon='30.5218471' />
+  <node id='305446028' timestamp='2008-10-18T17:55:04Z' uid='33533' user='Vitaliy' visible='true' version='6' changeset='422598' lat='50.459162' lon='30.5224394' />
+  <node id='305446030' timestamp='2013-09-25T03:25:36Z' uid='760215' user='pnorman redaction revert' visible='true' version='7' changeset='18019888' lat='50.4589248' lon='30.5229583' />
+  <node id='305446033' timestamp='2017-05-24T11:55:32Z' uid='904010' user='~Jhellico' visible='true' version='11' changeset='48945488' lat='50.458703' lon='30.5233718' />
+  <node id='581078099' timestamp='2015-10-08T21:09:12Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4597134' lon='30.521566' />
+  <node id='581078104' timestamp='2015-10-08T21:09:12Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4596589' lon='30.5214768' />
+  <node id='581078107' timestamp='2015-10-08T21:09:12Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4598853' lon='30.5216826' />
+  <node id='581078112' timestamp='2015-10-08T21:09:13Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4599465' lon='30.5217145' />
+  <node id='581078113' timestamp='2015-10-08T21:09:13Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4599062' lon='30.5216513' />
+  <node id='581286789' timestamp='2020-08-29T09:44:58Z' uid='10713467' user='NunoCaldiera' visible='true' version='6' changeset='90113364' lat='50.461317' lon='30.5171342' />
+  <node id='581286794' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='7' changeset='32172685' lat='50.4615262' lon='30.5159297' />
+  <node id='581286796' timestamp='2014-04-24T14:01:18Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='3' changeset='21908685' lat='50.4621621' lon='30.5158117' />
+  <node id='581286799' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='6' changeset='32172685' lat='50.4616734' lon='30.5156961' />
+  <node id='581286800' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='5' changeset='32172685' lat='50.4620129' lon='30.515423' />
+  <node id='581286801' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4616537' lon='30.5156655' />
+  <node id='581286802' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='5' changeset='32172685' lat='50.4619087' lon='30.5152609' />
+  <node id='581286820' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='3' changeset='21908685' lat='50.4617855' lon='30.5164118' />
+  <node id='581286821' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='6' changeset='32172685' lat='50.4617579' lon='30.5158276' />
+  <node id='581286822' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='6' changeset='32172685' lat='50.4616107' lon='30.5160611' />
+  <node id='581286823' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='3' changeset='21908685' lat='50.4618952' lon='30.5165856' />
+  <node id='581286824' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21908685' lat='50.4620459' lon='30.5163507' />
+  <node id='581286825' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21908685' lat='50.4619361' lon='30.516177' />
+  <node id='581286826' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='3' changeset='21908685' lat='50.4621553' lon='30.516155' />
+  <node id='581286827' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='5' changeset='21908685' lat='50.4623064' lon='30.5163837' />
+  <node id='581286828' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='6' changeset='21908685' lat='50.4621926' lon='30.5165691' />
+  <node id='581286846' timestamp='2014-04-24T14:01:19Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='3' changeset='21908685' lat='50.4622677' lon='30.5159716' />
+  <node id='581286873' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='131707161' lat='50.4611006' lon='30.5178446' />
+  <node id='581286874' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='131707161' lat='50.460955' lon='30.5179133' />
+  <node id='581286875' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='131707161' lat='50.4610159' lon='30.517761' />
+  <node id='581286880' timestamp='2020-08-29T09:44:58Z' uid='10713467' user='NunoCaldiera' visible='true' version='6' changeset='90113364' lat='50.4614022' lon='30.5172804' />
+  <node id='581286883' timestamp='2020-08-29T09:44:58Z' uid='10713467' user='NunoCaldiera' visible='true' version='5' changeset='90113364' lat='50.4613216' lon='30.5174108' />
+  <node id='581286884' timestamp='2020-08-29T09:44:58Z' uid='10713467' user='NunoCaldiera' visible='true' version='5' changeset='90113364' lat='50.4612315' lon='30.5172742' />
+  <node id='581286888' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='131707161' lat='50.4610396' lon='30.5179968' />
+  <node id='581286900' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='5' changeset='131707161' lat='50.4605215' lon='30.5195417' />
+  <node id='581286901' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='5' changeset='131707161' lat='50.4604562' lon='30.519731' />
+  <node id='581286902' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4603191' lon='30.5196143' />
+  <node id='581286904' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4603844' lon='30.519425' />
+  <node id='685809752' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4611603' lon='30.5163037' />
+  <node id='685809755' timestamp='2015-06-23T23:08:33Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4613047' lon='30.5165437' />
+  <node id='685809756' timestamp='2015-06-23T23:08:34Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4612317' lon='30.5166523' />
+  <node id='685809763' timestamp='2015-06-23T23:08:34Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4611238' lon='30.516473' />
+  <node id='685809768' timestamp='2015-06-23T23:08:34Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4609556' lon='30.5167228' />
+  <node id='685809769' timestamp='2015-06-23T23:08:34Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4609191' lon='30.516662' />
+  <node id='1278268624' timestamp='2017-06-22T17:38:14Z' uid='2436512' user='Sergioni145' visible='true' version='7' changeset='49752745' lat='50.4590307' lon='30.5220394' />
+  <node id='1278268625' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4585684' lon='30.5228906' />
+  <node id='1278268627' timestamp='2017-06-22T17:38:14Z' uid='2436512' user='Sergioni145' visible='true' version='7' changeset='49752745' lat='50.459125' lon='30.5222946' />
+  <node id='1278268628' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4586581' lon='30.5230086' />
+  <node id='1278268646' timestamp='2017-06-22T17:38:14Z' uid='2436512' user='Sergioni145' visible='true' version='6' changeset='49752745' lat='50.4590856' lon='30.5218689' />
+  <node id='1278268648' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4587328' lon='30.5225825' />
+  <node id='1278268650' timestamp='2017-06-22T17:38:14Z' uid='2436512' user='Sergioni145' visible='true' version='6' changeset='49752745' lat='50.4592349' lon='30.5219936' />
+  <node id='1278268651' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4588224' lon='30.5227004' />
+  <node id='1278275397' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4605051' lon='30.5184328' />
+  <node id='1278275398' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4605832' lon='30.5182344' />
+  <node id='1278275399' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21537913' lat='50.4606582' lon='30.5176667' />
+  <node id='1278275400' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='5' changeset='21537913' lat='50.4607759' lon='30.5174059' />
+  <node id='1278275402' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4602721' lon='30.5182063' />
+  <node id='1278275403' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='5' changeset='21537913' lat='50.4608685' lon='30.5171846' />
+  <node id='1278275405' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21537913' lat='50.4607219' lon='30.5175079' />
+  <node id='1278275406' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='5' changeset='21537913' lat='50.4608713' lon='30.5175044' />
+  <node id='1278275408' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21537913' lat='50.4607758' lon='30.5177831' />
+  <node id='1278275409' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='4' changeset='21537913' lat='50.4608395' lon='30.5176242' />
+  <node id='1278275410' timestamp='2014-04-06T18:25:41Z' uid='1271999' user='Mies vailla menneisyyttä' visible='true' version='5' changeset='21537913' lat='50.4609639' lon='30.5172831' />
+  <node id='1278275412' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4603502' lon='30.518008' />
+  <node id='1283133903' timestamp='2017-06-22T17:38:14Z' uid='2436512' user='Sergioni145' visible='true' version='6' changeset='49752745' lat='50.4590582' lon='30.5222167' />
+  <node id='1283134339' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='8' changeset='132547592' lat='50.4588568' lon='30.5223885' />
+  <node id='1283134340' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='8' changeset='132547592' lat='50.4589239' lon='30.5222725' />
+  <node id='1283134341' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='8' changeset='132547592' lat='50.4590125' lon='30.5223988' />
+  <node id='1283134342' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='8' changeset='132547592' lat='50.4589454' lon='30.5225148' />
+  <node id='1283136658' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4593686' lon='30.5215738' />
+  <node id='1283136661' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4592773' lon='30.5214894' />
+  <node id='1283136662' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4592253' lon='30.5215985' />
+  <node id='1283136664' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4592061' lon='30.5216531' />
+  <node id='1283136665' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4594649' lon='30.5213167' />
+  <node id='1283136670' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='132547592' lat='50.4593736' lon='30.5212323' />
+  <node id='1283136671' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4593276' lon='30.5216875' />
+  <node id='1283136672' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4590778' lon='30.5215415' />
+  <node id='1283136676' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='132511618' lat='50.4591377' lon='30.5213715' />
+  <node id='1283138383' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4598603' lon='30.5200887' />
+  <node id='1283138389' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4598313' lon='30.5201637' />
+  <node id='1283138399' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4600101' lon='30.519893' />
+  <node id='1283138403' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4598432' lon='30.5198297' />
+  <node id='1283138408' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4599145' lon='30.5201404' />
+  <node id='1283138410' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.459823' lon='30.51998' />
+  <node id='1283138415' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4598881' lon='30.5197134' />
+  <node id='1283138417' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.459967' lon='30.5198519' />
+  <node id='1283138419' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4597455' lon='30.520082' />
+  <node id='1283138421' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4598708' lon='30.519856' />
+  <node id='1283138425' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4599849' lon='30.5198056' />
+  <node id='1283138430' timestamp='2023-02-13T22:21:53Z' uid='3023916' user='neviksasha' visible='true' version='4' changeset='132511618' lat='50.4597951' lon='30.5199534' />
+  <node id='1284226631' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4612401' lon='30.5177399' />
+  <node id='1284226641' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4611144' lon='30.5175943' />
+  <node id='1284226654' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4611751' lon='30.5178784' />
+  <node id='1284226668' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='131707161' lat='50.4610494' lon='30.5177328' />
+  <node id='1284284907' timestamp='2020-05-06T08:57:20Z' uid='7753461' user='User1 - Lightcyphers' visible='true' version='4' changeset='84746660' lat='50.4604255' lon='30.5188989' />
+  <node id='1284552084' timestamp='2015-06-23T23:08:32Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4616105' lon='30.5160698' />
+  <node id='1284552088' timestamp='2015-06-23T23:08:32Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4615241' lon='30.5162068' />
+  <node id='1284552090' timestamp='2015-06-23T23:08:32Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.461435' lon='30.5160682' />
+  <node id='1284552093' timestamp='2015-06-23T23:08:32Z' uid='1676637' user='Kilkenni' visible='true' version='4' changeset='32172685' lat='50.4615213' lon='30.5159312' />
+  <node id='1833288351' timestamp='2019-11-10T18:17:17Z' uid='10338320' user='shurmen7' visible='true' version='3' changeset='76875925' lat='50.4620986' lon='30.5164259' />
+  <node id='2073029097' timestamp='2015-10-08T21:09:12Z' uid='251601' user='XAN_ua' visible='true' version='2' changeset='34519071' lat='50.4594615' lon='30.5214562' />
+  <node id='2776516262' timestamp='2014-04-08T01:59:04Z' uid='297765' user='DoberGroup' visible='true' version='1' changeset='21563323' lat='50.4587349' lon='30.5233124' />
+  <node id='2813093501' timestamp='2021-01-22T13:30:50Z' uid='3639544' user='ququruzka' visible='true' version='6' changeset='97978151' lat='50.4614785' lon='30.5161358'>
+    <tag k='artwork_type' v='mural' />
+    <tag k='name' v='&quot;Відродження&quot;' />
+    <tag k='name:en' v='Renaissance' />
+    <tag k='name:uk' v='&quot;Відродження&quot;' />
+    <tag k='tourism' v='artwork' />
+  </node>
+  <node id='3213880643' timestamp='2014-12-01T11:00:52Z' uid='1121506' user='rozoom' visible='true' version='1' changeset='27150406' lat='50.4588882' lon='30.5230265' />
+  <node id='3778784963' timestamp='2015-10-08T21:09:11Z' uid='251601' user='XAN_ua' visible='true' version='1' changeset='34519071' lat='50.4597027' lon='30.5213819' />
+  <node id='3778784964' timestamp='2015-10-08T21:09:11Z' uid='251601' user='XAN_ua' visible='true' version='1' changeset='34519071' lat='50.459875' lon='30.5218404' />
+  <node id='4205799618' timestamp='2016-05-24T21:20:55Z' uid='1239116' user='oximets' visible='true' version='1' changeset='39545066' lat='50.4607474' lon='30.5178726' />
+  <node id='4205799619' timestamp='2016-05-24T21:20:55Z' uid='1239116' user='oximets' visible='true' version='1' changeset='39545066' lat='50.4606591' lon='30.5180916' />
+  <node id='4205799620' timestamp='2016-05-24T21:20:55Z' uid='1239116' user='oximets' visible='true' version='1' changeset='39545066' lat='50.4605288' lon='30.517962' />
+  <node id='4205799621' timestamp='2016-05-24T21:20:55Z' uid='1239116' user='oximets' visible='true' version='1' changeset='39545066' lat='50.460617' lon='30.517743' />
+  <node id='4255675916' timestamp='2016-06-21T04:25:13Z' uid='297765' user='DoberGroup' visible='true' version='2' changeset='40171673' lat='50.4608008' lon='30.5178668' />
+  <node id='4255678522' timestamp='2016-06-21T04:25:13Z' uid='297765' user='DoberGroup' visible='true' version='2' changeset='40171673' lat='50.4608076' lon='30.5178492' />
+  <node id='4574269177' timestamp='2016-12-27T01:25:04Z' uid='368942' user='KKS' visible='true' version='1' changeset='44695302' lat='50.4614169' lon='30.5166424'>
+    <tag k='crossing' v='unmarked' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='4574269179' timestamp='2016-12-27T01:25:04Z' uid='368942' user='KKS' visible='true' version='1' changeset='44695302' lat='50.4614865' lon='30.5165478'>
+    <tag k='crossing' v='unmarked' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='4931245310' timestamp='2017-06-22T17:38:11Z' uid='2436512' user='Sergioni145' visible='true' version='1' changeset='49752745' lat='50.4590233' lon='30.5227429' />
+  <node id='8190358909' timestamp='2023-01-25T18:48:30Z' uid='3023916' user='neviksasha' visible='true' version='2' changeset='131707161' lat='50.4615653' lon='30.5164317'>
+    <tag k='highway' v='street_lamp' />
+  </node>
+  <node id='10658471677' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='1' changeset='132547592' lat='50.4592604' lon='30.5214783' />
+  <node id='10658471678' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='1' changeset='132547592' lat='50.4591649' lon='30.5213875' />
+  <node id='10658471683' timestamp='2023-02-14T17:34:49Z' uid='3023916' user='neviksasha' visible='true' version='1' changeset='132547592' lat='50.4594536' lon='30.5213063' />
+  <way id='27818254' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='31' changeset='133455445'>
+    <nd ref='26318793' />
+    <nd ref='8190358909' />
+    <nd ref='4574269179' />
+    <nd ref='26318792' />
+    <tag k='cycleway:both' v='no' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:de' v='Borytschiw-Tik-Straße' />
+    <tag k='name:en' v='Borychiv Tik Street' />
+    <tag k='name:fr' v='Rue Borytchiv Tik' />
+    <tag k='name:it' v='Via Boryčiv Tik' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+    <tag k='surface' v='sett' />
+  </way>
+  <way id='45571601' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='581078112' />
+    <nd ref='3778784964' />
+    <nd ref='581078099' />
+    <nd ref='581078104' />
+    <nd ref='3778784963' />
+    <nd ref='581078107' />
+    <nd ref='581078113' />
+    <nd ref='581078112' />
+    <tag k='addr:housenumber' v='10' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='4' />
+  </way>
+  <way id='45588176' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='5' changeset='133455445'>
+    <nd ref='581286900' />
+    <nd ref='581286901' />
+    <nd ref='581286902' />
+    <nd ref='581286904' />
+    <nd ref='581286900' />
+    <tag k='addr:housenumber' v='8-А' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+  </way>
+  <way id='45588180' timestamp='2023-03-12T20:37:50Z' uid='3023916' user='neviksasha' visible='true' version='6' changeset='133600453'>
+    <nd ref='581286873' />
+    <nd ref='581286888' />
+    <nd ref='581286874' />
+    <nd ref='581286875' />
+    <nd ref='581286873' />
+    <tag k='addr:housenumber' v='20/4-А' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='1' />
+  </way>
+  <way id='45588185' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='581286880' />
+    <nd ref='581286883' />
+    <nd ref='581286884' />
+    <nd ref='581286789' />
+    <nd ref='581286880' />
+    <tag k='addr:housenumber' v='24/3' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2.5' />
+  </way>
+  <way id='45588221' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='4' changeset='133337845'>
+    <nd ref='581286820' />
+    <nd ref='581286823' />
+    <nd ref='581286824' />
+    <nd ref='581286825' />
+    <nd ref='581286820' />
+    <tag k='addr:housenumber' v='28' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='4' />
+  </way>
+  <way id='45588223' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='581286796' />
+    <nd ref='581286846' />
+    <nd ref='581286826' />
+    <nd ref='581286827' />
+    <nd ref='581286828' />
+    <nd ref='1833288351' />
+    <nd ref='581286824' />
+    <nd ref='581286825' />
+    <nd ref='581286796' />
+    <tag k='addr:housenumber' v='30/32' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='7' />
+  </way>
+  <way id='45588239' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='6' changeset='133337845'>
+    <nd ref='581286799' />
+    <nd ref='581286794' />
+    <nd ref='581286822' />
+    <nd ref='581286821' />
+    <nd ref='581286799' />
+    <tag k='addr:housenumber' v='35' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='4' />
+  </way>
+  <way id='54439885' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='6' changeset='133337845'>
+    <nd ref='685809752' />
+    <nd ref='685809755' />
+    <nd ref='685809756' />
+    <nd ref='685809763' />
+    <nd ref='685809768' />
+    <nd ref='685809769' />
+    <nd ref='685809752' />
+    <tag k='addr:housenumber' v='31/5' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2' />
+  </way>
+  <way id='112474780' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='8' changeset='133455445'>
+    <nd ref='1278268650' />
+    <nd ref='1278268646' />
+    <nd ref='1278268624' />
+    <nd ref='1283133903' />
+    <nd ref='1278268627' />
+    <nd ref='1278268650' />
+    <tag k='addr:housenumber' v='7-Б' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2' />
+  </way>
+  <way id='112474783' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='7' changeset='133337845'>
+    <nd ref='1278268651' />
+    <nd ref='1278268628' />
+    <nd ref='1278268625' />
+    <nd ref='1278268648' />
+    <nd ref='1278268651' />
+    <tag k='addr:housenumber' v='3' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2' />
+  </way>
+  <way id='112475549' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='6' changeset='133337845'>
+    <nd ref='1278275409' />
+    <nd ref='1278275405' />
+    <nd ref='1278275399' />
+    <nd ref='1278275408' />
+    <nd ref='1278275409' />
+    <tag k='addr:housenumber' v='25' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='apartments' />
+    <tag k='building:levels' v='2' />
+  </way>
+  <way id='112475551' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='1278275410' />
+    <nd ref='1278275403' />
+    <nd ref='1278275400' />
+    <nd ref='1278275406' />
+    <nd ref='1278275410' />
+    <tag k='abandoned:building' v='yes' />
+    <tag k='addr:housenumber' v='27' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2' />
+    <tag k='note' v='Незадовільний стан. Балансоутримувач невідомий' />
+    <tag k='source:abandoned' v='rda' />
+  </way>
+  <way id='112475552' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='133455445'>
+    <nd ref='1278275398' />
+    <nd ref='1278275412' />
+    <nd ref='1278275402' />
+    <nd ref='1278275397' />
+    <nd ref='1278275398' />
+    <tag k='addr:housenumber' v='23-А' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='3' />
+  </way>
+  <way id='113035525' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='9' changeset='133337845'>
+    <nd ref='1283134341' />
+    <nd ref='1283134340' />
+    <nd ref='1283134339' />
+    <nd ref='1283134342' />
+    <nd ref='1283134341' />
+    <tag k='addr:housenumber' v='5' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='service' />
+    <tag k='building:levels' v='2' />
+    <tag k='frequency' v='50' />
+    <tag k='location' v='indoor' />
+    <tag k='name' v='ТП 7876' />
+    <tag k='name:uk' v='ТП 7876' />
+    <tag k='operator' v='Киевэнерго' />
+    <tag k='power' v='substation' />
+    <tag k='substation' v='minor_distribution' />
+    <tag k='voltage' v='10000' />
+  </way>
+  <way id='113036580' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='7' changeset='133337845'>
+    <nd ref='1283136672' />
+    <nd ref='1283136664' />
+    <nd ref='1283136662' />
+    <nd ref='1283136671' />
+    <nd ref='1283136658' />
+    <nd ref='1283136661' />
+    <nd ref='10658471677' />
+    <nd ref='10658471678' />
+    <nd ref='1283136676' />
+    <nd ref='1283136672' />
+    <tag k='addr:housenumber' v='7' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='2' />
+  </way>
+  <way id='113036581' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='6' changeset='133337845'>
+    <nd ref='1283136658' />
+    <nd ref='1283136661' />
+    <nd ref='1283136670' />
+    <nd ref='10658471683' />
+    <nd ref='1283136665' />
+    <nd ref='1283136658' />
+    <tag k='addr:housenumber' v='9' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='3' />
+  </way>
+  <way id='113037466' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='1283138425' />
+    <nd ref='1283138415' />
+    <nd ref='1283138403' />
+    <nd ref='1283138421' />
+    <nd ref='1283138410' />
+    <nd ref='1283138430' />
+    <nd ref='1283138419' />
+    <nd ref='1283138389' />
+    <nd ref='1283138383' />
+    <nd ref='1283138408' />
+    <nd ref='1283138399' />
+    <nd ref='1283138417' />
+    <nd ref='1283138425' />
+    <tag k='addr:housenumber' v='11' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='3' />
+  </way>
+  <way id='113174561' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='133455445'>
+    <nd ref='1284226631' />
+    <nd ref='1284226641' />
+    <nd ref='1284226668' />
+    <nd ref='1284226654' />
+    <nd ref='1284226631' />
+    <tag k='addr:housenumber' v='22-А' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='1' />
+  </way>
+  <way id='113219412' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='5' changeset='133337845'>
+    <nd ref='1284552084' />
+    <nd ref='1284552093' />
+    <nd ref='1284552090' />
+    <nd ref='2813093501' />
+    <nd ref='1284552088' />
+    <nd ref='1284552084' />
+    <tag k='addr:housenumber' v='33/6' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='5' />
+  </way>
+  <way id='113472748' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='7' changeset='133337845'>
+    <nd ref='581286821' />
+    <nd ref='581286799' />
+    <nd ref='581286801' />
+    <nd ref='581286802' />
+    <nd ref='581286800' />
+    <nd ref='581286821' />
+    <tag k='addr:housenumber' v='43' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='yes' />
+    <tag k='building:levels' v='6' />
+  </way>
+  <way id='387367576' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='16' changeset='133455445'>
+    <nd ref='305445942' />
+    <nd ref='305446023' />
+    <nd ref='2073029097' />
+    <nd ref='305446025' />
+    <nd ref='305446028' />
+    <nd ref='4931245310' />
+    <nd ref='305446030' />
+    <nd ref='3213880643' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:de' v='Borytschiw-Tik-Straße' />
+    <tag k='name:en' v='Borychiv Tik Street' />
+    <tag k='name:fr' v='Rue Borytchiv Tik' />
+    <tag k='name:it' v='Via Boryčiv Tik' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+    <tag k='oneway' v='yes' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='420622907' timestamp='2023-03-05T19:36:30Z' uid='12050345' user='Вілікс' visible='true' version='6' changeset='133337845'>
+    <nd ref='4205799618' />
+    <nd ref='4205799619' />
+    <nd ref='4205799620' />
+    <nd ref='4205799621' />
+    <nd ref='4205799618' />
+    <tag k='abandoned:building' v='yes' />
+    <tag k='addr:housenumber' v='23/3' />
+    <tag k='addr:street' v='вулиця Боричів Тік' />
+    <tag k='building' v='residential' />
+    <tag k='building:levels' v='1' />
+    <tag k='heritage' v='4' />
+    <tag k='historic' v='heritage' />
+    <tag k='note' v='Аварійно-небезпечний стан. Балансоутримувач невідомий' />
+    <tag k='protect_class' v='22' />
+    <tag k='roof:shape' v='hipped' />
+    <tag k='source:abandoned' v='rda' />
+    <tag k='wikidata' v='Q85989119' />
+    <tag k='wikipedia' v='uk:Будинок на Боричевому Току, 23/3' />
+  </way>
+  <way id='433449066' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='7' changeset='133455445'>
+    <nd ref='26318792' />
+    <nd ref='4574269177' />
+    <nd ref='26318816' />
+    <nd ref='4255678522' />
+    <nd ref='4255675916' />
+    <nd ref='1284284907' />
+    <nd ref='26318817' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:de' v='Borytschiw-Tik-Straße' />
+    <tag k='name:en' v='Borychiv Tik Street' />
+    <tag k='name:fr' v='Rue Borytchiv Tik' />
+    <tag k='name:it' v='Via Boryčiv Tik' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+    <tag k='surface' v='sett' />
+  </way>
+  <way id='483082536' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='5' changeset='133455445'>
+    <nd ref='3213880643' />
+    <nd ref='2776516262' />
+    <nd ref='305446033' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:en' v='Borychiv Tik Street' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+  </way>
+  <way id='800669595' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='5' changeset='133455445'>
+    <nd ref='26318817' />
+    <nd ref='305445942' />
+    <tag k='highway' v='residential' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:de' v='Borytschiw-Tik-Straße' />
+    <tag k='name:en' v='Borychiv Tik Street' />
+    <tag k='name:fr' v='Rue Borytchiv Tik' />
+    <tag k='name:it' v='Via Boryčiv Tik' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+  </way>
+  <relation id='356583' timestamp='2023-03-08T20:50:39Z' uid='3023916' user='neviksasha' visible='true' version='27' changeset='133455445'>
+    <member type='way' ref='27818254' role='street' />
+    <member type='way' ref='433449066' role='street' />
+    <member type='way' ref='800669595' role='street' />
+    <member type='way' ref='387367576' role='street' />
+    <member type='way' ref='483082536' role='street' />
+    <member type='way' ref='112474783' role='house' />
+    <member type='way' ref='113035525' role='house' />
+    <member type='way' ref='113036580' role='house' />
+    <member type='way' ref='112474780' role='house' />
+    <member type='way' ref='45588176' role='house' />
+    <member type='way' ref='113036581' role='house' />
+    <member type='way' ref='45571601' role='house' />
+    <member type='way' ref='113037466' role='house' />
+    <member type='way' ref='45588180' role='house' />
+    <member type='way' ref='113174561' role='house' />
+    <member type='way' ref='420622907' role='house' />
+    <member type='way' ref='112475552' role='house' />
+    <member type='way' ref='112475549' role='house' />
+    <member type='way' ref='112475551' role='house' />
+    <member type='way' ref='45588221' role='house' />
+    <member type='way' ref='45588223' role='house' />
+    <member type='way' ref='54439885' role='house' />
+    <member type='way' ref='113219412' role='house' />
+    <member type='way' ref='45588239' role='house' />
+    <member type='way' ref='113472748' role='house' />
+    <member type='way' ref='45588185' role='house' />
+    <tag k='name' v='вулиця Боричів Тік' />
+    <tag k='name:en' v='Borychiv Tik street' />
+    <tag k='name:ru' v='улица Боричев Ток' />
+    <tag k='name:uk' v='вулиця Боричів Тік' />
+    <tag k='type' v='associatedStreet' />
+    <tag k='wikidata' v='Q4471511' />
+    <tag k='wikipedia' v='uk:Вулиця Боричів Тік' />
+  </relation>
+</osm>

@@ -1,0 +1,1071 @@
+
+/* Button text (should be short) */
+"cancel" = "בטל";
+
+/* Button which interrupts country download */
+"cancel_download" = "בטל הורדה";
+
+/* Button which deletes downloaded country */
+"delete" = "מחק";
+"download_maps" = "הורד מפות";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "מוריד…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "ק\"מ";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "השאר ביקורת";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "מייל";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "המיקום שלי";
+
+/* Update maps later button text */
+"later" = "מאוחר יותר";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "חיפוש";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "כן";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "הצג במפה";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "הורד מפה";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "ההורדה נכשלה";
+
+/* Text in About screen */
+"about_headline" = "חינם לכולם, מיוצרים באהבה";
+
+/* Text in About screen */
+"about_proposition_1" = "• ללא מודעות, ללא מעקב, ללא איסוף נתונים";
+
+/* Text in About screen */
+"about_proposition_2" = "• אין ריקון סוללה, עובד במצב לא מקוון";
+
+/* Text in About screen */
+"about_proposition_3" = "• מהיר, מינימליסטי, שפותח על ידי הקהילה";
+"close" = "סגור";
+"download" = "הורדה";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "המשך";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "הוסף רשימה חדשה";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "שם רשימת הסימניות";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "רשימות סימניות";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "סימניות";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "סימניות ומסלולים";
+
+/* Default bookmark list name */
+"core_my_places" = "המקומות שלי";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "כתובת";
+
+/* Settings button in system menu */
+"settings" = "הגדרות";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "יחידות מדידה";
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "איפה לאכול";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "מצרכים";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "תחבורה";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "דלק";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "חניה";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "קניות";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "יד שניה";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "בית מלון";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "נקודות עיניין";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "בידור";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "כספומט";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "חיי לילה";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "שעשועים";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "בנק";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "בית מרקחת";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "בית חולים";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "שירותים";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "דואר";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "משטרה";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "מיחזור";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "מים";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "עבור קרוואנים";
+"share_bookmarks_email_body" = "שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!";
+
+/* message title of loading file */
+"load_kmz_title" = "טוען סימניות";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "טעינת הסימניות נכשלה. יתכן שהקובץ פגום.";
+
+/* resource for context menu */
+"edit" = "ערוך";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "מיקומך לא אותר עדיין";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "היי, בדוק את הסיכה שלי במפה של Organic Maps!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "דוא\"ל";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "הועתק: %@";
+
+/* place preview title */
+"info" = "מידע";
+
+/* Used for bookmark editing */
+"done" = "בוצע";
+
+/* Prints version number in About dialog */
+"version" = "גרסת מפות אורגניות: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "מסלולים";
+
+/* Length of track in cell that describes route */
+"length" = "אורך";
+"share_my_location" = "שיתוף מיקום שלי";
+"prefs_group_route" = "ניווט";
+"pref_zoom_title" = "כפתורי זום";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "מראה";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "בהיר";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "כהה";
+
+/* Generic «Off» string */
+"off" = "כבוי";
+
+/* Generic «On» string */
+"on" = "מופעל";
+
+/* Generic «Auto» string */
+"auto" = "אוטומטי";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "פרספקטיבה";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "מבנים בתלת-מימד";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "הגדרת מבנים בתלת מימד מבוטלת במצב חיסכון בחשמל";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "הנחיות קוליות";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "הכריזו על שמות רחובות";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "שפת קול";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "בדיקת הנחיות קוליות (TTS, טקסט לדיבור)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "אחר";
+"pref_map_auto_zoom" = "זום אוטומטי";
+"placepage_distance" = "מרחק";
+"search_show_on_map" = "הראה במפה";
+
+/* Text in menu */
+"website" = "אתר";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "חדשות";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "דרגו את האפליקציה";
+
+/* Text in menu */
+"help" = "עזרה";
+
+/* Button in the main Help dialog */
+"faq" = "שאלות ותשובות";
+
+/* Button in the main menu */
+"donate" = "לתרום";
+
+/* Tex label above the Donate button */
+"donate_description" = "תרמו כדי לבנות יחד את המפות הטובות ביותר!";
+"already_donated" = "כבר נתרם";
+"remind_me_later" = "הזכר מאוחר יותר";
+"support_organic_maps" = "לתמוך ב-Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "זכויות יוצרים";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "דווח על באג";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "דווח או תקן נתוני מפה שגויים";
+
+/* Button in the About screen */
+"volunteer" = "להתנדב";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "עקבו ופנו אלינו:";
+
+/* Alert text */
+"email_error_body" = "יישום הדוא\"ל לא הוגדר. אנא הגדירו אותו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@";
+
+/* Alert title */
+"email_error_title" = "שגיאה בשליחת דוא\"ל";
+
+/* Settings item title */
+"pref_calibration_title" = "כיול המצפן";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "לחץ לחיצה ארוכה במפה כדי להציג את הממשק";
+
+/* Update all button text */
+"downloader_update_all_button" = "עדכן הכל";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "מפות שהורדת";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "מפות זמינות";
+
+/* Country queued for download */
+"downloader_queued" = "נוסף/ו לתור";
+"downloader_near_me_subtitle" = "קרוב אלי";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "מפות";
+"downloader_download_all_button" = "הורד הכל";
+"downloader_downloading" = "מוריד:";
+"downloader_search_results" = "נמצא";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "לעדכן";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "נכשלה";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "למחיקת המפה, יש לעצור את הניווט.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "הורידו את המפה";
+
+/* Item status in downloader. */
+"downloader_retry" = "נסה שוב";
+
+/* Item in context menu. */
+"downloader_delete_map" = "מחק מפה";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "הורד את כל המפות במסלול שלך";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.";
+
+/* bookmark button text */
+"bookmark" = "סימניה";
+"save" = "שמור";
+"create" = "יצירה";
+
+/* red color */
+"red" = "אדום";
+
+/* yellow color */
+"yellow" = "צהוב";
+
+/* blue color */
+"blue" = "כחול";
+
+/* green color */
+"green" = "ירוק";
+
+/* purple color */
+"purple" = "סגול";
+
+/* orange color */
+"orange" = "כתום";
+
+/* brown color */
+"brown" = "חום";
+
+/* pink color */
+"pink" = "ורוד";
+
+/* deep purple color */
+"deep_purple" = "סגול עמוק";
+
+/* light blue color */
+"light_blue" = "כחול בהיר";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Teal";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "כתום עמוק";
+
+/* gray color */
+"gray" = "אפור";
+
+/* blue gray color */
+"blue_gray" = "כחול אפרפר";
+"dialog_routing_disclaimer_title" = "בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:";
+"dialog_routing_disclaimer_priority" = "— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;";
+"dialog_routing_disclaimer_precision" = "— ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;";
+"dialog_routing_disclaimer_recommendations" = "— יש לראות במסלולים המוצעים המלצה בלבד;";
+"dialog_routing_disclaimer_borders" = "— יש להיות זהירים בשימוש במסלולים סביב גבולות: המסלולים המוצעים באפליקציה עשויים לחצות גבולות מדינה במקומות אסורים.";
+"dialog_routing_disclaimer_beware" = "שמור על ערנות ועל הבטיחות בכביש!";
+"dialog_routing_check_gps" = "בדוק אות GPS";
+"dialog_routing_error_location_not_found" = "לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.";
+"dialog_routing_location_turn_wifi" = "בדוק את אות ה-GPS שלך. הפעלת Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.";
+"dialog_routing_location_turn_on" = "הפעל שירותי מיקום";
+"dialog_routing_location_unknown_turn_on" = "לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.";
+"dialog_routing_download_files" = "הורד את הקבצים הדרושים";
+"dialog_routing_download_and_update_all" = "הורד ועדכן את כל המפות לאורך הדרך על מנת לחשב מסלול.";
+"dialog_routing_unable_locate_route" = "לא ניתן לאתר מסלול";
+"dialog_routing_change_start_or_end" = "כוונן את נקודת ההתחלה או היעד שלך.";
+"dialog_routing_change_start" = "כוונן נקודת התחלה";
+"dialog_routing_start_not_determined" = "לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.";
+"dialog_routing_select_closer_start" = "בחר נקודת התחלה הקרובה יותר לכביש כלשהו.";
+"dialog_routing_change_end" = "כוונן יעד";
+"dialog_routing_end_not_determined" = "לא נוצר מסלול. לא ניתן לאתר את היעד.";
+"dialog_routing_select_closer_end" = "בחר נקודת יעד הקרובה יותר לכביש כלשהו.";
+"dialog_routing_change_intermediate" = "לא ניתן לאתר את נקודת הביניים.";
+"dialog_routing_intermediate_not_determined" = "כוונן את נקודת הביניים.";
+"dialog_routing_system_error" = "שגיאת מערכת";
+"dialog_routing_application_error" = "לא ניתן ליצור מסלול עקב שגיאת אפליקציה.";
+"dialog_routing_try_again" = "נסה שוב";
+"dialog_routing_download_and_build_cross_route" = "האם ברצונך להוריד את המפה וליצור מסלול מיטבי יותר, הכולל יותר מאשר מפה אחת?";
+"dialog_routing_download_cross_route" = "הורד מפות נוספות כדי ליצור מסלול יותר טוב שחוצה את גבולות המפה הזו.";
+
+/* «Show» context menu */
+"show" = "הצג";
+
+/* «Hide» context menu */
+"hide" = "הסתר";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "תכנון המסלול נכשל";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "שעת הגעה: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "הורד ועדכן את כל המפות בדרך כדי לחשב מסלול.";
+"categories" = "קטגוריות";
+"history" = "היסטוריה";
+"search_not_found" = "אופס, לא נמצאו תוצאות.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.";
+"search_history_title" = "חיפושים קודמים";
+"search_history_text" = "צפה בחיפושים האחרונים שלך.";
+"clear_search" = "נקה היסטוריית חיפוש";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "ויקיפדיה";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+"p2p_your_location" = "המיקום שלך";
+"p2p_start" = "צא לדרך";
+"p2p_from_here" = "מסלול מכאן";
+"p2p_to_here" = "מסלול לכאן";
+"p2p_only_from_current" = "ניווט זמין רק מהמיקום הנוכחי שלך.";
+"p2p_reroute_from_current" = "ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?";
+"editor_time_add" = "הוסף לוח זמנים";
+"editor_time_delete" = "מחק לוח זמנים";
+
+/* Text for allday switch. */
+"editor_time_allday" = "כל היום (24 שעות)";
+"editor_time_open" = "פתוח";
+"editor_time_close" = "סגור";
+"editor_time_add_closed" = "הוסף שעות סגירה";
+"editor_time_title" = "שעות פתיחה";
+"editor_time_advanced" = "מצב מתקדם";
+"editor_time_simple" = "מצב פשוט";
+"editor_hours_closed" = "שעות סגירה";
+"editor_example_values" = "ערכים לדוגמה";
+"editor_add_select_location" = "בחר מיקום";
+"editor_done_dialog_1" = "שינית את מפת העולם! זה לא חייב להיות סוד, אפשר לספר לחברים ולערוך אותה ביחד.";
+"share_with_friends" = "שתף עם חברים";
+"editor_report_problem_send_button" = "שלח";
+"autodownload" = "הורדה אוטומטית של מפות";
+
+/* Place Page opening hours text */
+"closed_now" = "סגור כעת";
+
+/* Place Page opening hours text */
+"daily" = "יומי";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "סגור היום";
+"day_off" = "סגור";
+"today" = "היום";
+"opens_tomorrow_at" = "נפתח מחר ב-%@";
+"opens_dayoftheweek_at" = "נפתח ביום %1$@ ב-%2$@";
+"opens_at" = "נפתח מחר ב-%@";
+"opens_in" = "נפתח עוד %@";
+"closes_at" = "נסגר ב-%@";
+"closes_in" = "נסגר עוד %@";
+"closed" = "סגור";
+"add_opening_hours" = "הוספת שעות פעילות";
+"no_osm_account" = "אין לך חשבון OpenStreetMap?";
+"register_at_openstreetmap" = "הירשם ב-OpenStreetMap";
+"password_8_chars_min" = "סיסמה (לפחות 8 תווים)";
+"invalid_username_or_password" = "שם משתמש או סיסמה לא תקינים.";
+"login" = "כניסה";
+"login_osm" = "היכנס ל-OpenStreetMap";
+"forgot_password" = "שכחת סיסמה?";
+"osm_account" = "חשבון OSM";
+"logout" = "התנתק";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "עדכון אחרון";
+"thank_you" = "תודה";
+"edit_place" = "ערוך מקום";
+"place_name" = "שם המקום";
+"add_language" = "הוסף שפה";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "מספר בית";
+"details" = "פרטים";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "הוסף רחוב";
+"choose_language" = "בחר שפה";
+"choose_street" = "בחר רחוב";
+"postal_code" = "מיקוד";
+"cuisine" = "סגנון בישול";
+"select_cuisine" = "בחר סיגנון בישול";
+
+/* login text field */
+"email_or_username" = "דוא\"ל או שם משתמש";
+"phone" = "טלפון";
+"level" = "קומה";
+"please_note" = "לתשומת לבך";
+"downloader_delete_map_dialog" = "כל העריכות שלך במפה יימחקו יחד עם המפה.";
+"downloader_update_maps" = "עדכן מפות";
+"downloader_search_field_hint" = "חפש מפה";
+"migration_download_error_dialog" = "שגיאת הורדה";
+"common_check_internet_connection_dialog" = "נא לוודא כי המכשיר מחובר לאינטרנט.";
+"downloader_no_space_title" = "אין מספיק מקום";
+"downloader_no_space_message" = "נא לפנות שטח אחסון";
+"editor_profile_changes" = "שינויים מאומתים";
+"editor_focus_map_on_location" = "גרור את המפה כדי למקם את הצלב במיקום של המקום או העסק.";
+"editor_add_select_category" = "בחר קטגוריה";
+"editor_add_select_category_popular_subtitle" = "פופולארי";
+"editor_add_select_category_all_subtitle" = "כל הקטגוריות";
+"editor_edit_place_title" = "עריכת מקום";
+"editor_add_place_title" = "הוספת מקום";
+"editor_edit_place_name_hint" = "שם המקום";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "כפי שנכתב בשפה המקומית";
+"editor_edit_place_category_title" = "קטגוריה";
+"whatsnew_editor_message_1" = "הוספת מקומות חדשים למפה, ועריכת מקומות קיימים ישירות מהאפליקציה.";
+"dialog_incorrect_feature_position" = "שנה מיקום";
+"message_invalid_feature_position" = "לא ניתן למקם כאן פריט";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%@. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org";
+"login_to_make_edits_visible" = "צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "כדי להוריד, צריך עוד מקום. נא למחוק מידע שאינו הכרחי.";
+"editor_sharing_title" = "אני משפר את המפות של Organic Maps";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d מתוך %2$d";
+"download_over_mobile_header" = "להוריד באמצעות חיבור אינטרנט סלולרי?";
+"download_over_mobile_message" = "זה עשוי להיות יקר עם חבילות גלישה מסוימות או בנדידה.";
+"error_enter_correct_house_number" = "הזן מספר בית תקין";
+"editor_storey_number" = "מספר קומות (מקסימום: %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "מספר הקומות לא יכול להיות גבוה מ-%d";
+"editor_zip_code" = "מיקוד";
+"error_enter_correct_zip_code" = "יש להזין מיקוד תקין";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "נקודת מפה";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "הערה למתנדבי OpenStreetMap (אופציונלי)";
+"editor_detailed_description_hint" = "הערה מפורטת";
+"editor_detailed_description" = "ההצעות שלך לשינוי המפה יישלחו לקהילת OpenStreetMap. יש לתאר פרטים נוספים שלא ניתן לערוך ב-Organic Maps.";
+"editor_more_about_osm" = "עוד על OpenStreetMap";
+"editor_operator" = "מַפעִיל";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "מַפעִיל: %@";
+"editor_category_unsuitable_title" = "לא מוצאים קטגוריה מתאימה?";
+"editor_category_unsuitable_text" = "באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. עיינו <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">במדריך</a> שלנו לקבלת הוראות מפורטות.";
+"downloader_no_downloaded_maps_title" = "לא הורדת אף מפה";
+"downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";
+"current_location_unknown_error_title" = "המיקום הנוכחי לא ידוע.";
+"current_location_unknown_error_message" = "אירעה שגיאה בעת איתור המיקום שלך. יש לוודא שהמכשיר שלך פועל כראוי ולנסות שנית מאוחר יותר.";
+"location_services_disabled_header" = "שירותי מיקום לא מופעלים";
+"location_services_disabled_message" = "אפשרו גישה למיקום בהגדרות המכשיר";
+"location_services_disabled_1" = "1. פתחו את \"הגדרות\" (Settings)";
+"location_services_disabled_2" = "2. געו ב\"מיקום\" (Location)";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. בחרו: אפשר בעת השימוש ביישום";
+"location_services_disabled_on_device_2" = "2. בחר פרטיות";
+"location_services_disabled_on_device_3" = "3. בחר שירותי מיקום";
+"location_services_disabled_on_device_4" = "4. הפעל את שירותי המיקום";
+"location_services_disabled_on_device_additional_message" = "או המשך להשתמש במפות אורגניות ללא מיקום";
+
+/* abbreviation for meters */
+"m" = "מ׳";
+
+/* abbreviation for kilometers */
+"km" = "ק״מ";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "קמ״ש";
+
+/* abbreviation for mile(s) */
+"mi" = "מייל";
+
+/* A unit of measure */
+"ft" = "רגל";
+"miles_per_hour" = "מייל לשעה";
+"hour" = "ש׳";
+"minute" = "ד׳";
+"day" = "י";
+"placepage_more_button" = "עוד";
+"book_button" = "הזמנה";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "תמונות, ביקורות, הזמנה";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מסייע בפיתוח של Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "פרטים על Kayak";
+"placepage_call_button" = "התקשר";
+"placepage_edit_bookmark_button" = "ערוך סימניה";
+"placepage_bookmark_name_hint" = "שם סימניה";
+"placepage_personal_notes_hint" = "הערות אישיות (טקסט או HTML)";
+"placepage_delete_bookmark_button" = "מחק סימניה";
+"editor_edits_sent_message" = "ההערה שלך תישלח אל OpenStreetMap";
+"editor_comment_hint" = "תגובה…";
+"editor_reset_edits_message" = "למחוק את כל השינויים המקומיים?";
+"editor_reset_edits_button" = "מחק";
+"editor_remove_place_message" = "למחוק את המקום שהוסף?";
+"editor_remove_place_button" = "מחק";
+"editor_place_doesnt_exist" = "המקום לא קיים";
+"text_more_button" = "…עוד";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "הזן מספר טלפון תקין";
+"error_enter_correct_web" = "הזן כתובת אינטרנט תקינה";
+"error_enter_correct_email" = "הזן דוא\"ל תקין";
+"refresh" = "עדכן";
+"placepage_add_place_button" = "הוסף מקום ל-OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "לשלוח לכל המשתמשים?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "יש לוודא שלא הזנת מידע אישי או פרטי.";
+"editor_share_to_all_dialog_message_2" = "עורכי OpenStreetMap יבדקו את השינויים ויצרו איתך קשר אם יש להם שאלות כלשהן.";
+"navigation_stop_button" = "עצור";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "להשבית הקלטה של המסלול האחרון שלך?";
+"off_recent_track_background_button" = "השבת";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Check out";
+"recent_track_background_dialog_message" = "האפליקצייה Organic Maps משתמשת במיקום שלך ברקע כדי להקליט את המסלול האחרון שלך.";
+"general_settings" = "הגדרות כלליות";
+
+/* For the first routing */
+"accept" = "קבל";
+
+/* For the first routing */
+"decline" = "דחה";
+"mobile_data_dialog" = "השתמש באינטרנט סלולרי כדי להראות מידע מפורט?";
+"mobile_data_option_always" = "השתמש תמיד";
+"mobile_data_option_today" = "רק היום";
+"mobile_data_option_not_today" = "אל תשתמש היום";
+"mobile_data" = "אינטרנט סלולרי";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "אינטרנט סלולרי נחוץ בשביל הודעות על עדכון מפות ובשביל העלאת עריכות.";
+"mobile_data_option_never" = "אף פעם אל תשתמש";
+"mobile_data_option_ask" = "שאל תמיד";
+"traffic_update_maps_text" = "כדי להציג מידע על עומס תנועה, יש לעדכן את המפות.";
+"big_font" = "הגדל תגיות במפה";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "כדי להציג מידע על עומס תנועה, יש לעדכן את האפליקצייה.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "מידע על עומס תנועה לא זמין.";
+"enable_logging" = "הפעל logging";
+"log_file_size" = "גודל קובץ יומן: %@";
+"transliteration_title" = "תעתיק לאותיות לטיניות";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "יציאה";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "יש להוסיף נקודת התחלה למסלול באמצעות חיפוש או בלחיצה על המפה";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "יש לבחור נקודת יעד באמצעות חיפוש או בלחיצה על המפה";
+"planning_route_manage_route" = "ניהול מסלול";
+"button_plan" = "תכנון";
+"placepage_remove_stop" = "הסר עצירה";
+"planning_route_remove_title" = "גרור לכאן כדי להסיר";
+"placepage_add_stop" = "הוסף עצירה";
+"start_from_my_position" = "Start from";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "כאן";
+"core_entrance" = "כניסה";
+"error_enter_correct_name" = "נא להזין שם תקין";
+"bookmark_lists" = "רשימות";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "הסתר הכל";
+"bookmark_lists_show_all" = "הצג הכל";
+"bookmarks_create_new_group" = "צור רשימה חדשה";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "ייבוא סימניות ומסלולים";
+"downloader_hide_screen" = "הסתר מסך";
+"downloader_percent" = "%@ (%@ מתוך %@)";
+"downloader_process" = "מוריד %@…";
+"downloader_applying" = "מחיל %@…";
+"bookmarks_error_message_share_general" = "לא ניתן לשתף עקב שגיאת אפליקציה";
+"bookmarks_error_title_share_empty" = "שגיאת שיתוף";
+"bookmarks_error_message_share_empty" = "אי אפשר לשתף רשימה ריקה";
+"bookmarks_error_message_empty_list_name" = "נא להזין את שם הרשימה";
+"bookmarks_error_title_list_name_already_taken" = "השם הזה כבר תפוס";
+"bookmarks_error_title_list_name_too_long" = "השם הזה ארוך מדי";
+"profile" = "פרופיל OpenStreetMap";
+"bookmarks_detect_title" = "זוהו קבצים חדשים";
+"button_convert" = "המרה";
+"bookmarks_convert_error_title" = "שגיאה";
+"bookmarks_convert_error_message" = "חלק מהקבצים לא הומרו";
+"restore" = "שחזור";
+"privacy_policy" = "מדיניות פרטיות";
+"terms_of_use" = "תנאי שימוש";
+"button_layer_subway" = "רכבת תחתית";
+"layers_title" = "סגנונות ושכבות מפה";
+"subway_data_unavailable" = "מפת רכבת תחתית לא זמינה";
+"title_error_downloading_bookmarks" = "אירעה שגיאה";
+"popular_place" = "פופולארי";
+"export_file" = "ייצא KMZ";
+"export_file_gpx" = "ייצוא GPX";
+"delete_list" = "מחק רשימה";
+"hide_from_map" = "הסתר מהמפה";
+"tags_loading_error_subtitle" = "אירעה שגיאה בטעינת התגיות, נא לנסות שנית";
+"download_button" = "הורדה";
+"speedcams_alert_title" = "מצלמות מהירות";
+"place_description_title" = "תיאור מיקום";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "הזהר כשהמהירות מופרזת";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "הזהר תמיד";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "אל תזהיר אף פעם";
+"power_managment_title" = "מצב חיסכון בסוללה";
+"power_managment_description" = "נסה להפחית שימוש בסוללה על חשבון פונקציות מסוימות";
+"power_managment_setting_never" = "אף פעם";
+"power_managment_setting_auto" = "כשהסוללה חלשה";
+"power_managment_setting_manual_max" = "תמיד";
+"enable_logging_warning_message" = "הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.";
+"driving_options_title" = "אפשרויות מסלול";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "הימנע מכבישי אגרה";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "הימנע מדרכי עפר";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "הימנע ממעבורות";
+"avoid_motorways" = "הימנע מכבישים מהירים";
+"unable_to_calc_alert_title" = "לא ניתן לחשב מסלול";
+"unable_to_calc_alert_subtitle" = "לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.";
+"define_to_avoid_btn" = "הגדר כבישים להימנע מהם";
+"change_driving_options_btn" = "אפשרויות מסלול מופעלות";
+"toll_road" = "כביש אגרה";
+"unpaved_road" = "דרך לא סלולה";
+"ferry_crossing" = "מעבורת";
+"trip_start" = "נצא לדרך";
+"pick_destination" = "יעד";
+"follow_my_position" = "מרכוז";
+"search_results" = "תוצאות חיפוש";
+"then_turn" = "אז";
+"redirect_route_alert" = "האם ברצונך לבנות את המסלול מחדש?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "כן";
+
+/* A generic "No" button in dialogs */
+"no" = "לא";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "כן";
+
+/* E.g. "WiFi:No" */
+"no_available" = "לא";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "קיבולת: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "רשת: %@";
+"trip_finished" = "הגעת!";
+"keyboard_availability_alert" = "המקלדת לא זמינה בזמן נהיגה";
+"dialog_routing_change_start_carplay" = "לא ניתן לבנות מסלול מהמיקום הנוכחי שלך";
+"dialog_routing_change_end_carplay" = "לא ניתן למצוא מסלול ליעד שלך. נא לבחור נקודת יעד אחרת.";
+"dialog_routing_check_gps_carplay" = "אין אות GPS. נא להגיע לאזור פתוח.";
+"dialog_routing_unable_locate_route_carplay" = "לא ניתן לבנות מסלול. נא לציין נקודות מסלול נוספות.";
+"dialog_routing_download_files_carplay" = "כדי ליצור מסלול, יש להוריד מפות חסרות למכשיר שלך";
+"dialog_routing_system_error_carplay" = "אירעה שגיאה. נא להפעיל מחדש את האפליקציה";
+"dialog_routing_rebuild_from_current_location_carplay" = "המסלול ייבנה מחדש מהמיקום הנוכחי שלך";
+"dialog_routing_rebuild_for_vehicle_carplay" = "המסלול יומר למסלול נסיעה";
+"not_all_shown_bookmarks_carplay" = "לא כל הסימניות מוצגות";
+"switch_to_phone_bookmarks_carplay" = "עבור לטלפון כדי לראות את כל הסימניות";
+"ok" = "אוקיי";
+"speedcams_alert_title_carplay_1" = "מצלמות מהירות";
+"speedcams_alert_title_carplay_2" = "אזהרות מהירות";
+"download_map_carplay" = "נא להוריד מפות באפליקצייה במכשיר הנייד שלך";
+"carplay_roundabout_exit" = "יציאה %@";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "מיון…";
+
+/* iOS */
+"sort_default" = "מיין כברירת מחדל";
+"sort_type" = "מיין לפי סוג";
+"sort_distance" = "מיין לפי מרחק";
+"sort_date" = "מיין לפי תאריך";
+"sort_name" = "מיין לפי שם";
+"week_ago_sorttype" = "לפני שבוע";
+"month_ago_sorttype" = "לפני חודש";
+"moremonth_ago_sorttype" = "לפני יותר מחודש";
+"moreyear_ago_sorttype" = "לפני יותר משנה";
+"near_me_sorttype" = "קרוב אלי";
+"others_sorttype" = "אחרים";
+"food_places" = "אוכל";
+"tourist_places" = "תיירות";
+"museums" = "מוזיאונים";
+"parks" = "פארקים";
+"swim_places" = "שחייה";
+"mountains" = "הרים";
+"animals" = "חיות";
+"hotels" = "בתי מלון";
+"buildings" = "מבנים";
+"money" = "כסף";
+"shops" = "חנויות";
+"parkings" = "חניות";
+"fuel_places" = "תחנות דלק";
+"medicine" = "רפואה";
+"search_in_the_list" = "חפש ברשימה";
+"religious_places" = "מקומות דת";
+"transit_not_found" = "ניווט ברכבת תחתית עוד לא זמין באזור זה";
+"dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
+"dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
+"button_layer_isolines" = "קווי מתאר";
+"isolines_activation_error_dialog" = "כדי להפעיל קווי מתאר יש להוריד את המפה לאזור זה";
+"isolines_location_error_dialog" = "קווי מתאר עוד לא זמינים לאזור זה";
+"elevation_profile_diff_level" = "רמת קושי";
+"elevation_profile_diff_level_easy" = "קל";
+"elevation_profile_diff_level_moderate" = "מתון";
+"elevation_profile_diff_level_hard" = "קשה";
+"elevation_profile_ascent" = "עלייה";
+"elevation_profile_descent" = "ירידה";
+"elevation_profile_min_elevation" = "מינ' גובה";
+"elevation_profile_max_elevation" = "מקס' גובה";
+"isolines_toast_zooms_1_10" = "התקרב כדי לחקור קווי מתאר";
+"downloader_updating_ios" = "מעדכן";
+"downloader_loading_ios" = "מוריד";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "עדכן את המפות שהורדת";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "עדכון המפות שומר על המידע על פריטים עדכני";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "עדכן (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "עדכן ידנית מאוחר יותר";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "מחק מסלול";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "האם אתה בטוח שברצונך למחוק את הרצועה הזו?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "שם המסלול";
+
+/* move track or bookmark from the list button text */
+"move" = "הזז";
+
+/* edit track screen title */
+"track_title" = "מסלול";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "תודה על השימוש במפות שנבנו בקהילה שלנו!";
+
+/* App tip #01 */
+"app_tip_01" = "עם התרומות והתמיכה שלך, נוכל ליצור את המפות הטובות בעולם!";
+
+/* App tip #02 */
+"app_tip_02" = "האם אתה אוהב את האפליקציה שלנו? אנא תרמו כדי לתמוך בפיתוח! לא אוהב את זה עדיין? אנא הודע לנו, ואנחנו נתקן את זה!";
+
+/* App tip #03 */
+"app_tip_03" = "אם אתה מכיר מפתח תוכנה, אתה יכול לבקש ממנו ליישם תכונה שאתה צריך.";
+
+/* App tip #04 */
+"app_tip_04" = "הקש בכל מקום במפה כדי לבחור משהו. הקש ארוכות כדי להסתיר ולהציג בחזרה את הממשק.";
+
+/* App tip #05 */
+"app_tip_05" = "האם אתה יודע שאתה יכול לבחור את המיקום הנוכחי שלך על המפה?";
+
+/* App tip #06 */
+"app_tip_06" = "אתה יכול לעזור לתרגם את האפליקציה שלנו לשפה שלך.";
+
+/* App tip #07 */
+"app_tip_07" = "האפליקציה שלנו פותחה על ידי כמה חובבים והקהילה.";
+
+/* App tip #08 */
+"app_tip_08" = "אתה יכול בקלות לתקן ולשפר את נתוני המפה.";
+
+/* App tip #09 */
+"app_tip_09" = "המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "אתה משתמש כעת ב-Organic Maps במסך הטלפון";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "אתה משתמש כעת ב-Organic Maps במסך המכונית";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "המשך בטלפון";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "למסך המכונית";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "טיול רגלי";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "ייצא את כל הסימניות והרצועות";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "שנה צבע";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "מפה";
+"drive_through" = "דרייב ת'רו";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "קישור לתפריט";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "האם תרצה לשלוח דוח באג למפתחים?\nאנו סומכים על המשתמשים שלנו מכיוון שמפות אורגניות לא אוספות כל מידע על שגיאות באופן אוטומטי. תודה מראש על התמיכה במפות אורגניות!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "הפעל סנכרון iCloud";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "סנכרון iCloud הוא תכונה ניסיונית בפיתוח. ודא שעשית גיבוי של כל הסימניות והרצועות שלך.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud מושבת";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "אנא הפעל את iCloud בהגדרות המכשיר שלך כדי להשתמש בתכונה זו.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "לְאַפשֵׁר";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "גיבוי";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "כשל בסינכרון iCloud";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "שגיאה: הסנכרון נכשל עקב שגיאת חיבור";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "שגיאה: הסנכרון נכשל עקב חריגה ממכסת iCloud";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "שגיאה: iCloud אינו זמין";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "פתח באפליקציה אחרת";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "שירות עצמי";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "ישיבה בחוץ";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "רשימות שנמחקו לאחרונה";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "נקה";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "מחק הכל";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "לשחזר";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "לשחזר הכל";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "הקלט מסלול";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "הפסק הקלטת מסלול";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "הפסק בלי לשמור";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "המשך להקליט";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "לשמור בסימניות ומסלולים?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "המסלול ריק - אין מה לשמור";
+"edit_track" = "עריכת מסלול";

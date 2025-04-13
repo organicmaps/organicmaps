@@ -1,0 +1,1211 @@
+# This file is automatically re-formatted and re-sorted in priorities descending order
+# when generate_drules.sh is run. All comments (automatic priorities of e.g. optional captions, drule types visibilities, etc.)
+# are generated automatically for information only. Custom formatting and comments are not preserved.
+#
+# Overlays (icons, captions, path texts and shields) are rendered on top of all the geometry (lines, areas).
+# Overlays don't overlap each other, instead the ones with higher priority displace the less important ones.
+# Optional captions (which have an icon) are usually displayed only if there are no other overlays in their way
+# (technically, max overlays priority value (10000) is subtracted from their priorities automatically).
+#
+# Priorities ranges' rendering order overview:
+# - overlays (icons, captions...)
+# - FG: foreground areas and lines
+# - BG-top: water (linear and areal)
+# - BG-by-size: landcover areas sorted by their size
+
+highway-speed_camera                                # icon z13-
+=== 4400
+
+highway-motorway::shield                            # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z14-)
+highway-motorway-bridge::shield                     # shield::shield z10- (also has pathtext z10-, line z6-, line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-)
+highway-motorway-tunnel::shield                     # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z12-)
+highway-trunk::shield                               # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z14-)
+highway-trunk-bridge::shield                        # shield::shield z10- (also has pathtext z10-, line z6-, line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-)
+highway-trunk-tunnel::shield                        # shield::shield z10- (also has pathtext z10-, line z6-, line(casing) z12-)
+=== 4360
+
+highway-motorway                                    # pathtext z10- (also has shield::shield z10-, line z6-, line(casing) z14-)
+highway-motorway-bridge                             # pathtext z10- (also has shield::shield z10-, line z6-, line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-)
+highway-motorway-tunnel                             # pathtext z10- (also has shield::shield z10-, line z6-, line(casing) z12-)
+highway-trunk                                       # pathtext z10- (also has shield::shield z10-, line z6-, line(casing) z14-)
+highway-trunk-bridge                                # pathtext z10- (also has shield::shield z10-, line z6-, line::bridgeblack z13-, line::bridgewhite z13-, line(casing) z14-)
+highway-trunk-tunnel                                # pathtext z10- (also has shield::shield z10-, line z6-, line(casing) z12-)
+=== 4350
+
+highway-primary                                     # pathtext z10- (also has shield::shield z10-, line z8-, line(casing) z14-)
+highway-primary-bridge                              # pathtext z10- (also has shield::shield z10-, line z8-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-primary-tunnel                              # pathtext z10- (also has shield::shield z10-, line z8-, line(casing) z14-)
+=== 4300
+
+highway-primary::shield                             # shield::shield z10- (also has pathtext z10-, line z8-, line(casing) z14-)
+highway-primary-bridge::shield                      # shield::shield z10- (also has pathtext z10-, line z8-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-primary-tunnel::shield                      # shield::shield z10- (also has pathtext z10-, line z8-, line(casing) z14-)
+=== 4290
+
+highway-motorway_link                               # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z14-)
+highway-motorway_link-bridge                        # pathtext z10- (also has shield::shield z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-motorway_link-tunnel                        # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z13-)
+highway-trunk_link                                  # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z14-)
+highway-trunk_link-bridge                           # pathtext z10- (also has shield::shield z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-trunk_link-tunnel                           # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z13-)
+=== 4250
+
+highway-motorway_link::shield                       # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z14-)
+highway-motorway_link-bridge::shield                # shield::shield z10- (also has pathtext z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-motorway_link-tunnel::shield                # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z13-)
+highway-trunk_link::shield                          # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z14-)
+highway-trunk_link-bridge::shield                   # shield::shield z10- (also has pathtext z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-trunk_link-tunnel::shield                   # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z13-)
+=== 4240
+
+highway-motorway_junction                           # caption z15-
+highway-primary_link                                # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
+highway-primary_link-bridge                         # pathtext z11- (also has shield::shield z11-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-primary_link-tunnel                         # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
+highway-services                                    # icon z12- (also has caption(optional) z13-)
+=== 4200
+
+highway-ford                                        # icon z14-
+highway-rest_area                                   # icon z14- (also has caption(optional) z14-)
+highway-secondary                                   # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
+highway-secondary-bridge                            # pathtext z10- (also has shield::shield z12-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
+=== 4150
+
+highway-tertiary                                    # pathtext z12- (also has shield::shield z13-, line z11-, line(casing) z15-)
+highway-tertiary-bridge                             # pathtext z12- (also has shield::shield z13-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary-tunnel                             # pathtext z12- (also has shield::shield z13-, line z11-, line(casing) z15-)
+=== 4100
+
+highway-secondary_link                              # pathtext z16- (also has line z13-, line(casing) z14-)
+highway-secondary_link-bridge                       # pathtext z16- (also has line z13-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-secondary_link-tunnel                       # pathtext z16- (also has line z13-, line(casing) z14-)
+=== 4050
+
+highway-unclassified                                # pathtext z14- (also has line z11-)
+highway-unclassified-area                           # pathtext z14- (also has line z11-)
+highway-unclassified-bridge                         # pathtext z14- (also has line z11-, line::bridgeblack z14-, line::bridgewhite z14-)
+highway-unclassified-tunnel                         # pathtext z14- (also has line z11-, line(casing) z16-)
+=== 4000
+
+highway-residential                                 # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
+highway-residential-area                            # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
+highway-residential-bridge                          # pathtext z12- (also has shield::shield z15-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-residential-tunnel                          # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
+=== 3950
+
+highway-primary_link::shield                        # shield::shield z11- (also has pathtext z11-, line z11-, line(casing) z14-)
+highway-primary_link-bridge::shield                 # shield::shield z11- (also has pathtext z11-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-primary_link-tunnel::shield                 # shield::shield z11- (also has pathtext z11-, line z11-, line(casing) z14-)
+=== 3940
+
+highway-secondary::shield                           # shield::shield z12- (also has pathtext z10-, line z10-, line(casing) z14-)
+highway-secondary-bridge::shield                    # shield::shield z12- (also has pathtext z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-secondary-tunnel::shield                    # shield::shield z12- (also has pathtext z10-, line z10-, line(casing) z14-)
+=== 3930
+
+highway-tertiary::shield                            # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z15-)
+highway-tertiary-bridge::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary-tunnel::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z15-)
+=== 3920
+
+highway-residential::shield                         # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
+highway-residential-area::shield                    # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
+highway-residential-bridge::shield                  # shield::shield z15- (also has pathtext z12-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-residential-tunnel::shield                  # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
+=== 3910
+
+highway-road                                        # pathtext z14- (also has line z12-)
+highway-road-bridge                                 # pathtext z14- (also has line z12-)
+highway-road-tunnel                                 # pathtext z14- (also has line z12-)
+=== 3900
+
+highway-tertiary_link                               # pathtext z18- (also has line z14-, line(casing) z15-)
+highway-tertiary_link-bridge                        # pathtext z18- (also has line z14-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary_link-tunnel                        # pathtext z18- (also has line z14-, line(casing) z15-)
+=== 3850
+
+place-continent                                     # caption z1-2
+=== 3800
+
+place-ocean                                         # caption z1-
+=== 3750
+
+place-country                                       # caption z3-
+=== 3700
+
+place-city-capital-2                                # icon z4- (also has caption(mandatory) z4-)
+# place-city-capital-2                              # caption(mandatory) z4- (also has icon z4-)
+=== 3650
+
+place-city-capital-3                                # caption z4-
+place-city-capital-4                                # caption z4-
+=== 3600
+
+place-sea                                           # caption z4-
+=== 3550
+
+place-city-capital                                  # caption z4-
+place-city-capital-10                               # caption z4-
+place-city-capital-11                               # caption z4-
+place-city-capital-5                                # caption z4-
+place-city-capital-6                                # caption z4-
+place-city-capital-7                                # caption z4-
+place-city-capital-8                                # caption z4-
+place-city-capital-9                                # caption z4-
+=== 3500
+
+place-city                                          # caption z4-
+=== 3450
+
+place-state-USA                                     # caption z5-10
+=== 3400
+
+place-state                                         # caption z6-10
+=== 3350
+
+aeroway-aerodrome-international                     # icon z7- (also has caption(optional) z10-, area z10-)
+=== 3300
+
+place-town                                          # caption z8-
+=== 3250
+
+amenity-charging_station-motorcar                   # icon z14- (also has caption(optional) z14-)
+amenity-fuel                                        # icon z12- (also has caption(optional) z12-)
+=== 3200
+
+amenity-charging_station                            # icon z16- (also has caption(optional) z16-)
+amenity-vending_machine-fuel                        # icon z17- (also has caption(optional) z17-)
+=== 3150
+
+railway-station-subway-moscow                       # icon z11-15 (also has caption(optional) z15)
+railway-station-subway-spb                          # icon z11-16 (also has caption(optional) z15-16)
+=== 3100
+
+aeroway-aerodrome                                   # icon z14- (also has caption(optional) z14-, area z10-)
+place-village                                       # caption z11-
+=== 3050
+
+railway-station                                     # icon z12- (also has caption(optional) z13-)
+=== 3000
+
+landuse-reservoir                                   # caption z10- (also has area z12-)
+natural-water-lake                                  # caption z10- (also has area z1-)
+natural-water-reservoir                             # caption z10- (also has area z1-)
+=== 2950
+
+railway-station-funicular                           # icon z12- (also has caption(optional) z13-)
+railway-station-light_rail                          # icon z13- (also has caption(optional) z15-)
+railway-station-light_rail-berlin                   # icon z13- (also has caption(optional) z15-)
+railway-station-light_rail-london                   # icon z13- (also has caption(optional) z15-)
+railway-station-light_rail-porto                    # icon z13- (also has caption(optional) z15-)
+railway-station-monorail                            # icon z13- (also has caption(optional) z14-)
+=== 2900
+
+barrier-toll_booth                                  # icon z12- (also has caption(optional) z14-)
+=== 2850
+
+junction                                            # caption z17-
+junction-circular                                   # caption z17-
+junction-roundabout                                 # caption z17-
+=== 2800
+
+barrier-lift_gate                                   # icon z16- (also has caption(optional) z16-)
+=== 2750
+
+railway-level_crossing                              # icon z17-
+=== 2700
+
+amenity-car_wash                                    # icon z17- (also has caption(optional) z17-)
+amenity-vehicle_inspection                          # icon z17-
+amenity-vending_machine-parking_tickets             # icon z17- (also has caption(optional) z17-)
+shop-car_parts                                      # icon z17-
+shop-car_repair                                     # icon z17-
+shop-car_repair-tyres                               # icon z15- (also has caption(optional) z15-)
+=== 2650
+
+amenity-compressed_air                              # icon z18-
+amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
+shop-caravan                                        # icon z17-
+=== 2600
+
+amenity-parking                                     # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-fee                                 # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-multi-storey                        # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-multi-storey-fee                    # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-park_and_ride                       # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-permissive                          # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-underground                         # icon z15- (also has caption(optional) z16-)
+amenity-parking-underground-fee                     # icon z15- (also has caption(optional) z16-)
+=== 2550
+
+amenity-motorcycle_parking                          # icon z17-
+amenity-parking_entrance                            # icon z16-
+amenity-parking_entrance-permissive                 # icon z16-
+=== 2530
+
+amenity-parking-lane                                # icon z17- (also has area z15-)
+amenity-parking-lane-fee                            # icon z15- (also has area z15-)
+amenity-parking-street_side                         # icon z17- (also has area z15-)
+amenity-parking-street_side-fee                     # icon z15- (also has area z15-)
+=== 2520
+
+boundary-national_park                              # icon z12- (also has caption(optional) z12-, area z10-)
+boundary-protected_area                             # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-1                           # icon z12- (also has caption(optional) z12-, area z10-)
+boundary-protected_area-2                           # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-3                           # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-4                           # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-5                           # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-6                           # icon z12- (also has caption(optional) z12-)
+leisure-nature_reserve                              # icon z12- (also has caption(optional) z12-, area z10-)
+=== 2500
+
+historic-castle                                     # icon z12- (also has caption(optional) z15-)
+historic-castle-castrum                             # icon z12- (also has caption(optional) z15-)
+historic-castle-defensive                           # icon z12- (also has caption(optional) z15-)
+historic-castle-fortified_church                    # icon z12- (also has caption(optional) z15-)
+historic-castle-fortress                            # icon z12- (also has caption(optional) z15-)
+historic-castle-hillfort                            # icon z12- (also has caption(optional) z15-)
+historic-castle-kremlin                             # icon z12- (also has caption(optional) z15-)
+historic-castle-manor                               # icon z12- (also has caption(optional) z15-)
+historic-castle-palace                              # icon z12- (also has caption(optional) z15-)
+historic-castle-shiro                               # icon z12- (also has caption(optional) z15-)
+historic-castle-stately                             # icon z12- (also has caption(optional) z15-)
+historic-fort                                       # icon z12- (also has caption(optional) z15-)
+=== 2450
+
+amenity-car_rental                                  # icon z18- (also has caption(optional) z18-)
+amenity-car_sharing                                 # icon z18- (also has caption(optional) z18-)
+amenity-motorcycle_rental                           # icon z18- (also has caption(optional) z18-)
+shop-car                                            # icon z17-
+=== 2400
+
+highway-living_street                               # pathtext z14- (also has line z12-)
+highway-living_street-bridge                        # pathtext z14- (also has line z12-)
+highway-living_street-tunnel                        # pathtext z14- (also has line z12-, line(casing) z16-)
+=== 2350
+
+highway-service                                     # pathtext z16- (also has line z14-)
+highway-service-area                                # pathtext z16- (also has line z14-)
+highway-service-bridge                              # pathtext z16- (also has line z14-)
+highway-service-tunnel                              # pathtext z16- (also has line z14-)
+=== 2300
+
+leisure-park                                        # icon z14- (also has caption(optional) z14-, area z10-)
+leisure-park-permissive                             # icon z14- (also has caption(optional) z14-, area z10-)
+=== 2250
+
+landuse-forest                                      # icon z12- (also has caption(optional) z12-, area z10-)
+landuse-forest-coniferous                           # icon z12- (also has caption(optional) z12-, area z10-)
+landuse-forest-deciduous                            # icon z12- (also has caption(optional) z12-, area z10-)
+landuse-forest-mixed                                # icon z12- (also has caption(optional) z12-, area z10-)
+=== 2200
+
+highway-service-driveway                            # pathtext z16- (also has line z15-)
+highway-service-parking_aisle                       # pathtext z16- (also has line z14-)
+=== 2150
+
+place-island                                        # caption z12-14
+=== 2100
+
+natural-water-river                                 # caption z10- (also has area z1-)
+=== 2050
+
+railway-station-subway                              # icon z13- (also has caption(optional) z15-)
+railway-station-subway-adana                        # icon z12- (also has caption(optional) z15-)
+railway-station-subway-algiers                      # icon z12- (also has caption(optional) z15-)
+railway-station-subway-almaty                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-amsterdam                    # icon z12- (also has caption(optional) z15-)
+railway-station-subway-ankara                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-athens                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-baku                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-bangkok                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-barcelona                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-beijing                      # icon z12- (also has caption(optional) z15-)
+railway-station-subway-bengalore                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-berlin                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-bilbao                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-boston                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-brasilia                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-brescia                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-brussels                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-bucharest                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-budapest                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-buenos_aires                 # icon z12- (also has caption(optional) z15-)
+railway-station-subway-bursa                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-cairo                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-caracas                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-catania                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-changchun                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-chengdu                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-chicago                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-chongqing                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-dalian                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-delhi                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-dnepro                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-dubai                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-ekb                          # icon z13- (also has caption(optional) z15-)
+railway-station-subway-fukuoka                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-glasgow                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-guangzhou                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-hamburg                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-helsinki                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-hiroshima                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-hongkong                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-isfahan                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-istanbul                     # icon z12- (also has caption(optional) z15-)
+railway-station-subway-izmir                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kazan                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kharkiv                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kiev                         # icon z12-16 (also has caption(optional) z15-16)
+railway-station-subway-kobe                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kolkata                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kunming                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-kyoto                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-la                           # icon z12- (also has caption(optional) z15-)
+railway-station-subway-lausanne                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-lille                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-lima                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-lisboa                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-london                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-lyon                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-madrid                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-malaga                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-manila                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-maracaibo                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-mashhad                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-mecca                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-medellin                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-mexico                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-milan                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-minsk                        # icon z12-16 (also has caption(optional) z15-16)
+railway-station-subway-montreal                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-munchen                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-nagoya                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-newyork                      # icon z12- (also has caption(optional) z15-)
+railway-station-subway-nnov                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-novosibirsk                  # icon z13- (also has caption(optional) z15-)
+railway-station-subway-osaka                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-oslo                         # icon z13- (also has caption(optional) z15-)
+railway-station-subway-palma                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-panama                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-paris                        # icon z12- (also has caption(optional) z15-)
+railway-station-subway-philadelphia                 # icon z13- (also has caption(optional) z15-)
+railway-station-subway-pyongyang                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-rennes                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-rio                          # icon z13- (also has caption(optional) z15-)
+railway-station-subway-roma                         # icon z12-16 (also has caption(optional) z15-16)
+railway-station-subway-rotterdam                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-samara                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-santiago                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-santo_domingo                # icon z13- (also has caption(optional) z15-)
+railway-station-subway-saopaulo                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-sapporo                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-sendai                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-sf                           # icon z12- (also has caption(optional) z15-)
+railway-station-subway-shanghai                     # icon z12- (also has caption(optional) z15-)
+railway-station-subway-shenzhen                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-shiraz                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-singapore                    # icon z13- (also has caption(optional) z15-)
+railway-station-subway-sofia                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-stockholm                    # icon z12- (also has caption(optional) z15-)
+railway-station-subway-tabriz                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-taipei                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-taoyuan                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-tashkent                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-tbilisi                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-tehran                       # icon z13- (also has caption(optional) z15-)
+railway-station-subway-tianjin                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-tokyo                        # icon z14- (also has caption(optional) z15-)
+railway-station-subway-valencia                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-vienna                       # icon z12- (also has caption(optional) z15-)
+railway-station-subway-warszawa                     # icon z13- (also has caption(optional) z15-)
+railway-station-subway-washington                   # icon z13- (also has caption(optional) z15-)
+railway-station-subway-wuhan                        # icon z13- (also has caption(optional) z15-)
+railway-station-subway-yerevan                      # icon z13- (also has caption(optional) z15-)
+railway-station-subway-yokohama                     # icon z13- (also has caption(optional) z15-)
+=== 2000
+
+barrier-border_control                              # icon z14- (also has caption(optional) z14-)
+historic-city_gate                                  # icon z13- (also has caption(optional) z15-)
+historic-monument                                   # icon z13- (also has caption(optional) z15-)
+man_made-communications_tower                       # icon z15- (also has caption(optional) z16-)
+=== 1950
+
+place-hamlet                                        # caption z13-
+=== 1900
+
+place-locality                                      # caption z13-
+=== 1850
+
+tourism-viewpoint                                   # icon z14- (also has caption(optional) z15-)
+=== 1800
+
+railway-halt                                        # icon z14- (also has caption(optional) z14-)
+=== 1750
+
+tourism-theme_park                                  # icon z14- (also has caption(optional) z15-)
+=== 1700
+
+shop-supermarket                                    # icon z14- (also has caption(optional) z14-)
+=== 1650
+
+waterway-river                                      # pathtext z11- (also has line z10-)
+=== 1550
+
+natural-water                                       # caption z10- (also has area z1-)
+natural-water-basin                                 # caption z10- (also has area z1-)
+natural-water-lock                                  # caption z10- (also has area z1-)
+natural-water-pond                                  # caption z10- (also has area z1-)
+shop-mall                                           # icon z14- (also has caption(optional) z14-)
+=== 1500
+
+natural-desert                                      # caption z14- (also has area z1-)
+=== 1450
+
+natural-bay                                         # caption z14-
+natural-cape                                        # caption z14-
+place-farm                                          # caption z14-
+place-isolated_dwelling                             # caption z14-
+place-square                                        # caption z16-
+=== 1400
+
+tourism-zoo                                         # icon z15- (also has caption(optional) z15-)
+tourism-zoo-petting                                 # icon z15- (also has caption(optional) z15-)
+=== 1350
+
+tourism-museum                                      # icon z15- (also has caption(optional) z15-)
+=== 1300
+
+tourism-gallery                                     # icon z15- (also has caption(optional) z15-)
+=== 1250
+
+historic-battlefield                                # icon z15- (also has caption(optional) z15-)
+historic-memorial                                   # icon z15- (also has caption(optional) z15-)
+historic-memorial-sculpture                         # icon z15- (also has caption(optional) z15-)
+historic-memorial-statue                            # icon z15- (also has caption(optional) z15-)
+historic-memorial-war_memorial                      # icon z15- (also has caption(optional) z15-)
+tourism-attraction                                  # icon z15- (also has caption(optional) z15-)
+=== 1200
+
+amenity-community_centre                            # icon z16- (also has caption(optional) z16-)
+tourism-artwork                                     # icon z18- (also has caption(optional) z18-)
+tourism-artwork-architecture                        # icon z18- (also has caption(optional) z18-)
+tourism-artwork-painting                            # icon z18- (also has caption(optional) z18-)
+tourism-artwork-sculpture                           # icon z18- (also has caption(optional) z18-)
+tourism-artwork-statue                              # icon z18- (also has caption(optional) z18-)
+=== 1150
+
+amenity-cafe                                        # icon z15- (also has caption(optional) z15-)
+amenity-theatre                                     # icon z15- (also has caption(optional) z15-)
+=== 1100
+
+amenity-university                                  # icon z15- (also has caption(optional) z15-)
+=== 1050
+
+amenity-hospital                                    # icon z15- (also has caption(optional) z15-)
+=== 1000
+
+aeroway-terminal                                    # caption z15- (also has area z14-)
+=== 950
+
+leisure-beach_resort                                # caption z15- (also has area z10-)
+natural-beach                                       # caption z15- (also has area z10-)
+natural-beach-gravel                                # caption z15- (also has area z10-)
+natural-beach-sand                                  # caption z15- (also has area z10-)
+=== 900
+
+amenity-charging_station-bicycle                    # icon z16- (also has caption(optional) z16-)
+=== 850
+
+historic-boundary_stone                             # icon z16- (also has caption(optional) z16-)
+historic-gallows                                    # icon z16- (also has caption(optional) z16-)
+historic-pillory                                    # icon z16- (also has caption(optional) z16-)
+historic-ship                                       # icon z16- (also has caption(optional) z16-)
+historic-tomb                                       # icon z16- (also has caption(optional) z16-)
+historic-wayside_cross                              # icon z16- (also has caption(optional) z16-)
+historic-wayside_shrine                             # icon z16- (also has caption(optional) z17-)
+=== 800
+
+amenity-pub                                         # icon z16- (also has caption(optional) z16-)
+amenity-restaurant                                  # icon z16- (also has caption(optional) z16-)
+=== 750
+
+railway-rail-tourism                                # pathtext z16- (also has line z10-, line::dash z16-)
+railway-rail-tourism-bridge                         # pathtext z16- (also has line z10-, line::bridgeblack z16-, line::bridgewhite z14-, line::dash z16-)
+railway-rail-tourism-tunnel                         # pathtext z16- (also has line z10-, line::dash z16-, line(casing) z14-)
+=== 700
+
+amenity-place_of_worship                            # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-buddhist                   # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-christian                  # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-christian-jehovahs_witness  # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-christian-mormon           # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-hindu                      # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-jewish                     # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-muslim                     # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-shinto                     # icon z16- (also has caption(optional) z17-)
+amenity-place_of_worship-taoist                     # icon z16- (also has caption(optional) z17-)
+=== 650
+
+waterway-lock_gate                                  # icon z16-
+=== 600
+
+amenity-conference_centre                           # icon z16-
+amenity-events_venue                                # icon z16-
+amenity-exhibition_centre                           # icon z16-
+amenity-water_point                                 # icon z16-
+amenity-water_point-drinking_water_no               # icon z18-
+building-train_station                              # caption z18- (also has area z15-)
+railway-subway_entrance                             # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-adana                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-algiers                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-almaty                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-amsterdam                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-ankara                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-athens                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-baku                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-bangkok                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-barcelona                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-beijing                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-bengalore                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-berlin                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-bilbao                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-boston                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-brasilia                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-brescia                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-brussels                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-bucharest                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-budapest                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-buenos_aires                # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-bursa                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-cairo                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-caracas                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-catania                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-changchun                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-chengdu                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-chicago                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-chongqing                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-dalian                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-delhi                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-dnepro                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-dubai                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-ekb                         # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-fukuoka                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-glasgow                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-guangzhou                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-hamburg                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-helsinki                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-hiroshima                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-hongkong                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-isfahan                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-istanbul                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-izmir                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kazan                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kharkiv                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kiev                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kobe                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kolkata                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kunming                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-kyoto                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-la                          # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-lausanne                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-lille                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-lima                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-lisboa                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-london                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-lyon                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-madrid                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-malaga                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-manila                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-maracaibo                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-mashhad                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-mecca                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-medellin                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-mexico                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-milan                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-minsk                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-montreal                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-moscow                      # icon z15- (also has caption(optional) z15-)
+railway-subway_entrance-munchen                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-nagoya                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-newyork                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-nnov                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-novosibirsk                 # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-osaka                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-oslo                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-palma                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-panama                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-paris                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-philadelphia                # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-pyongyang                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-rennes                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-rio                         # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-roma                        # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-rotterdam                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-samara                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-santiago                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-santo_domingo               # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-saopaulo                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-sapporo                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-sendai                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-sf                          # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-shanghai                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-shenzhen                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-shiraz                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-singapore                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-sofia                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-spb                         # icon z15- (also has caption(optional) z16-)
+railway-subway_entrance-stockholm                   # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tabriz                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-taipei                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-taoyuan                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tashkent                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tbilisi                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tehran                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tianjin                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-tokyo                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-valencia                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-vienna                      # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-warszawa                    # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-washington                  # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-wuhan                       # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-yerevan                     # icon z16- (also has caption(optional) z17-)
+railway-subway_entrance-yokohama                    # icon z16- (also has caption(optional) z17-)
+=== 550
+
+amenity-prison                                      # icon z16- (also has caption(optional) z16-, area z12-)
+landuse-military                                    # icon z16- (also has caption(optional) z17-, area z12-)
+landuse-military-danger_area                        # icon z16- (also has caption(optional) z17-, area z10-)
+=== 520
+
+amenity-parking-lane-private                        # icon z18- (also has caption(optional) z18-, area z15-)
+amenity-parking-no-access                           # icon z15- (also has caption(optional) z16-, area z15-)
+amenity-parking-private                             # icon z17- (also has caption(optional) z17-, area z15-)
+amenity-parking-street_side-private                 # icon z17- (also has caption(optional) z17-, area z15-)
+amenity-parking-underground-private                 # icon z17- (also has caption(optional) z17-)
+amenity-parking_entrance-private                    # icon z19-
+emergency-emergency_ward_entrance                   # icon z18- (also has caption(optional) z18-)
+=== 500
+
+natural-wetland                                     # caption z16- (also has area z11-)
+natural-wetland-bog                                 # caption z16- (also has area z11-)
+natural-wetland-marsh                               # caption z16- (also has area z11-)
+=== 450
+
+railway-tram_stop                                   # icon z17- (also has caption(optional) z17-)
+=== 400
+
+historic-memorial-cross                             # icon z17- (also has caption(optional) z17-)
+=== 350
+
+amenity-arts_centre                                 # icon z17- (also has caption(optional) z17-)
+historic-archaeological_site                        # icon z17- (also has caption(optional) z17-)
+historic-ruins                                      # icon z17- (also has caption(optional) z17-)
+=== 300
+
+amenity-fast_food                                   # icon z17- (also has caption(optional) z17-)
+shop-convenience                                    # icon z17- (also has caption(optional) z18-)
+=== 250
+
+amenity-bank                                        # icon z17- (also has caption(optional) z17-)
+amenity-parcel_locker                               # icon z17- (also has caption(optional) z17-)
+amenity-police                                      # icon z17-
+amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
+amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
+shop-motorcycle                                     # icon z17-
+=== 200
+
+highway-traffic_signals                             # icon z15-
+=== 175
+
+building-address                                    # caption z18-
+landuse-landfill                                    # caption z15- (also has area z15-)
+landuse-quarry                                      # caption z15- (also has area z15-)
+landuse-railway                                     # caption z15- (also has area z15-)
+=== 150
+
+leisure-park-no-access                              # icon z14- (also has caption(optional) z14-, area z10-)
+leisure-park-private                                # icon z14- (also has caption(optional) z14-, area z10-)
+=== 100
+
+building                                            # caption z18- (also has area z15-)
+building-has_parts                                  # caption z18- (also has area z15-)
+=== 50
+
+building-garage                                     # caption z18- (also has area z15-)
+=== 30
+
+entrance-main                                       # icon z18- (also has caption(optional) z18-)
+=== 20
+
+#
+# All automatic optional captions priorities are below 0.
+# They follow the order of their correspoding icons.
+#
+
+# highway-services                                  # caption(optional) z13- (also has icon z12-)
+# === -5800
+
+# highway-rest_area                                 # caption(optional) z14- (also has icon z14-)
+# === -5850
+
+# aeroway-aerodrome-international                   # caption(optional) z10- (also has icon z7-, area z10-)
+# === -6700
+
+# amenity-charging_station-motorcar                 # caption(optional) z14- (also has icon z14-)
+# amenity-fuel                                      # caption(optional) z12- (also has icon z12-)
+# === -6800
+
+# amenity-charging_station                          # caption(optional) z16- (also has icon z16-)
+# amenity-vending_machine-fuel                      # caption(optional) z17- (also has icon z17-)
+# === -6850
+
+# railway-station-subway-moscow                     # caption(optional) z15 (also has icon z11-15)
+# railway-station-subway-spb                        # caption(optional) z15-16 (also has icon z11-16)
+# === -6900
+
+# aeroway-aerodrome                                 # caption(optional) z14- (also has icon z14-, area z10-)
+# === -6950
+
+# railway-station                                   # caption(optional) z13- (also has icon z12-)
+# === -7000
+
+# railway-station-funicular                         # caption(optional) z13- (also has icon z12-)
+# railway-station-light_rail                        # caption(optional) z15- (also has icon z13-)
+# railway-station-light_rail-berlin                 # caption(optional) z15- (also has icon z13-)
+# railway-station-light_rail-london                 # caption(optional) z15- (also has icon z13-)
+# railway-station-light_rail-porto                  # caption(optional) z15- (also has icon z13-)
+# railway-station-monorail                          # caption(optional) z14- (also has icon z13-)
+# === -7100
+
+# barrier-toll_booth                                # caption(optional) z14- (also has icon z12-)
+# === -7150
+
+# barrier-lift_gate                                 # caption(optional) z16- (also has icon z16-)
+# === -7250
+
+# amenity-car_wash                                  # caption(optional) z17- (also has icon z17-)
+# amenity-vending_machine-parking_tickets           # caption(optional) z17- (also has icon z17-)
+# shop-car_repair-tyres                             # caption(optional) z15- (also has icon z15-)
+# === -7350
+
+# amenity-sanitary_dump_station                     # caption(optional) z15- (also has icon z15-)
+# === -7400
+
+# amenity-parking                                   # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-fee                               # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-multi-storey                      # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-multi-storey-fee                  # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-park_and_ride                     # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-permissive                        # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-underground                       # caption(optional) z16- (also has icon z15-)
+# amenity-parking-underground-fee                   # caption(optional) z16- (also has icon z15-)
+# === -7450
+
+# boundary-national_park                            # caption(optional) z12- (also has icon z12-, area z10-)
+# boundary-protected_area                           # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-1                         # caption(optional) z12- (also has icon z12-, area z10-)
+# boundary-protected_area-2                         # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-3                         # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-4                         # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-5                         # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-6                         # caption(optional) z12- (also has icon z12-)
+# leisure-nature_reserve                            # caption(optional) z12- (also has icon z12-, area z10-)
+# === -7500
+
+# historic-castle                                   # caption(optional) z15- (also has icon z12-)
+# historic-castle-castrum                           # caption(optional) z15- (also has icon z12-)
+# historic-castle-defensive                         # caption(optional) z15- (also has icon z12-)
+# historic-castle-fortified_church                  # caption(optional) z15- (also has icon z12-)
+# historic-castle-fortress                          # caption(optional) z15- (also has icon z12-)
+# historic-castle-hillfort                          # caption(optional) z15- (also has icon z12-)
+# historic-castle-kremlin                           # caption(optional) z15- (also has icon z12-)
+# historic-castle-manor                             # caption(optional) z15- (also has icon z12-)
+# historic-castle-palace                            # caption(optional) z15- (also has icon z12-)
+# historic-castle-shiro                             # caption(optional) z15- (also has icon z12-)
+# historic-castle-stately                           # caption(optional) z15- (also has icon z12-)
+# historic-fort                                     # caption(optional) z15- (also has icon z12-)
+# === -7550
+
+# amenity-car_rental                                # caption(optional) z18- (also has icon z18-)
+# amenity-car_sharing                               # caption(optional) z18- (also has icon z18-)
+# amenity-motorcycle_rental                         # caption(optional) z18- (also has icon z18-)
+# === -7600
+
+# leisure-park                                      # caption(optional) z14- (also has icon z14-, area z10-)
+# leisure-park-permissive                           # caption(optional) z14- (also has icon z14-, area z10-)
+# === -7750
+
+# landuse-forest                                    # caption(optional) z12- (also has icon z12-, area z10-)
+# landuse-forest-coniferous                         # caption(optional) z12- (also has icon z12-, area z10-)
+# landuse-forest-deciduous                          # caption(optional) z12- (also has icon z12-, area z10-)
+# landuse-forest-mixed                              # caption(optional) z12- (also has icon z12-, area z10-)
+# === -7800
+
+# railway-station-subway                            # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-adana                      # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-algiers                    # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-almaty                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-amsterdam                  # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-ankara                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-athens                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-baku                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-bangkok                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-barcelona                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-beijing                    # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-bengalore                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-berlin                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-bilbao                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-boston                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-brasilia                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-brescia                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-brussels                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-bucharest                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-budapest                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-buenos_aires               # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-bursa                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-cairo                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-caracas                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-catania                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-changchun                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-chengdu                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-chicago                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-chongqing                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-dalian                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-delhi                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-dnepro                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-dubai                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-ekb                        # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-fukuoka                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-glasgow                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-guangzhou                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-hamburg                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-helsinki                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-hiroshima                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-hongkong                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-isfahan                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-istanbul                   # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-izmir                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kazan                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kharkiv                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kiev                       # caption(optional) z15-16 (also has icon z12-16)
+# railway-station-subway-kobe                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kolkata                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kunming                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-kyoto                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-la                         # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-lausanne                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-lille                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-lima                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-lisboa                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-london                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-lyon                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-madrid                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-malaga                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-manila                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-maracaibo                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-mashhad                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-mecca                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-medellin                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-mexico                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-milan                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-minsk                      # caption(optional) z15-16 (also has icon z12-16)
+# railway-station-subway-montreal                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-munchen                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-nagoya                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-newyork                    # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-nnov                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-novosibirsk                # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-osaka                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-oslo                       # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-palma                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-panama                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-paris                      # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-philadelphia               # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-pyongyang                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-rennes                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-rio                        # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-roma                       # caption(optional) z15-16 (also has icon z12-16)
+# railway-station-subway-rotterdam                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-samara                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-santiago                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-santo_domingo              # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-saopaulo                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-sapporo                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-sendai                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-sf                         # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-shanghai                   # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-shenzhen                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-shiraz                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-singapore                  # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-sofia                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-stockholm                  # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-tabriz                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-taipei                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-taoyuan                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-tashkent                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-tbilisi                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-tehran                     # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-tianjin                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-tokyo                      # caption(optional) z15- (also has icon z14-)
+# railway-station-subway-valencia                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-vienna                     # caption(optional) z15- (also has icon z12-)
+# railway-station-subway-warszawa                   # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-washington                 # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-wuhan                      # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-yerevan                    # caption(optional) z15- (also has icon z13-)
+# railway-station-subway-yokohama                   # caption(optional) z15- (also has icon z13-)
+# === -8000
+
+# barrier-border_control                            # caption(optional) z14- (also has icon z14-)
+# historic-city_gate                                # caption(optional) z15- (also has icon z13-)
+# historic-monument                                 # caption(optional) z15- (also has icon z13-)
+# man_made-communications_tower                     # caption(optional) z16- (also has icon z15-)
+# === -8050
+
+# tourism-viewpoint                                 # caption(optional) z15- (also has icon z14-)
+# === -8200
+
+# railway-halt                                      # caption(optional) z14- (also has icon z14-)
+# === -8250
+
+# tourism-theme_park                                # caption(optional) z15- (also has icon z14-)
+# === -8300
+
+# shop-supermarket                                  # caption(optional) z14- (also has icon z14-)
+# === -8350
+
+# shop-mall                                         # caption(optional) z14- (also has icon z14-)
+# === -8500
+
+# tourism-zoo                                       # caption(optional) z15- (also has icon z15-)
+# tourism-zoo-petting                               # caption(optional) z15- (also has icon z15-)
+# === -8650
+
+# tourism-museum                                    # caption(optional) z15- (also has icon z15-)
+# === -8700
+
+# tourism-gallery                                   # caption(optional) z15- (also has icon z15-)
+# === -8750
+
+# historic-battlefield                              # caption(optional) z15- (also has icon z15-)
+# historic-memorial                                 # caption(optional) z15- (also has icon z15-)
+# historic-memorial-sculpture                       # caption(optional) z15- (also has icon z15-)
+# historic-memorial-statue                          # caption(optional) z15- (also has icon z15-)
+# historic-memorial-war_memorial                    # caption(optional) z15- (also has icon z15-)
+# tourism-attraction                                # caption(optional) z15- (also has icon z15-)
+# === -8800
+
+# amenity-community_centre                          # caption(optional) z16- (also has icon z16-)
+# tourism-artwork                                   # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-architecture                      # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-painting                          # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-sculpture                         # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-statue                            # caption(optional) z18- (also has icon z18-)
+# === -8850
+
+# amenity-cafe                                      # caption(optional) z15- (also has icon z15-)
+# amenity-theatre                                   # caption(optional) z15- (also has icon z15-)
+# === -8900
+
+# amenity-university                                # caption(optional) z15- (also has icon z15-)
+# === -8950
+
+# amenity-hospital                                  # caption(optional) z15- (also has icon z15-)
+# === -9000
+
+# amenity-charging_station-bicycle                  # caption(optional) z16- (also has icon z16-)
+# === -9150
+
+# historic-boundary_stone                           # caption(optional) z16- (also has icon z16-)
+# historic-gallows                                  # caption(optional) z16- (also has icon z16-)
+# historic-pillory                                  # caption(optional) z16- (also has icon z16-)
+# historic-ship                                     # caption(optional) z16- (also has icon z16-)
+# historic-tomb                                     # caption(optional) z16- (also has icon z16-)
+# historic-wayside_cross                            # caption(optional) z16- (also has icon z16-)
+# historic-wayside_shrine                           # caption(optional) z17- (also has icon z16-)
+# === -9200
+
+# amenity-pub                                       # caption(optional) z16- (also has icon z16-)
+# amenity-restaurant                                # caption(optional) z16- (also has icon z16-)
+# === -9250
+
+# amenity-place_of_worship                          # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-buddhist                 # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-christian                # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-christian-jehovahs_witness  # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-christian-mormon         # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-hindu                    # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-jewish                   # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-muslim                   # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-shinto                   # caption(optional) z17- (also has icon z16-)
+# amenity-place_of_worship-taoist                   # caption(optional) z17- (also has icon z16-)
+# === -9350
+
+# railway-subway_entrance                           # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-adana                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-algiers                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-almaty                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-amsterdam                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-ankara                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-athens                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-baku                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-bangkok                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-barcelona                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-beijing                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-bengalore                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-berlin                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-bilbao                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-boston                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-brasilia                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-brescia                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-brussels                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-bucharest                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-budapest                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-buenos_aires              # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-bursa                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-cairo                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-caracas                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-catania                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-changchun                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-chengdu                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-chicago                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-chongqing                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-dalian                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-delhi                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-dnepro                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-dubai                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-ekb                       # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-fukuoka                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-glasgow                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-guangzhou                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-hamburg                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-helsinki                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-hiroshima                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-hongkong                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-isfahan                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-istanbul                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-izmir                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kazan                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kharkiv                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kiev                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kobe                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kolkata                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kunming                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-kyoto                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-la                        # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-lausanne                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-lille                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-lima                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-lisboa                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-london                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-lyon                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-madrid                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-malaga                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-manila                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-maracaibo                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-mashhad                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-mecca                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-medellin                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-mexico                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-milan                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-minsk                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-montreal                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-moscow                    # caption(optional) z15- (also has icon z15-)
+# railway-subway_entrance-munchen                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-nagoya                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-newyork                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-nnov                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-novosibirsk               # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-osaka                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-oslo                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-palma                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-panama                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-paris                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-philadelphia              # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-pyongyang                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-rennes                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-rio                       # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-roma                      # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-rotterdam                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-samara                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-santiago                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-santo_domingo             # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-saopaulo                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-sapporo                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-sendai                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-sf                        # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-shanghai                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-shenzhen                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-shiraz                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-singapore                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-sofia                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-spb                       # caption(optional) z16- (also has icon z15-)
+# railway-subway_entrance-stockholm                 # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tabriz                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-taipei                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-taoyuan                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tashkent                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tbilisi                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tehran                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tianjin                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-tokyo                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-valencia                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-vienna                    # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-warszawa                  # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-washington                # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-wuhan                     # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-yerevan                   # caption(optional) z17- (also has icon z16-)
+# railway-subway_entrance-yokohama                  # caption(optional) z17- (also has icon z16-)
+# === -9450
+
+# amenity-prison                                    # caption(optional) z16- (also has icon z16-, area z12-)
+# landuse-military                                  # caption(optional) z17- (also has icon z16-, area z12-)
+# landuse-military-danger_area                      # caption(optional) z17- (also has icon z16-, area z10-)
+# === -9480
+
+# amenity-parking-lane-private                      # caption(optional) z18- (also has icon z18-, area z15-)
+# amenity-parking-no-access                         # caption(optional) z16- (also has icon z15-, area z15-)
+# amenity-parking-private                           # caption(optional) z17- (also has icon z17-, area z15-)
+# amenity-parking-street_side-private               # caption(optional) z17- (also has icon z17-, area z15-)
+# amenity-parking-underground-private               # caption(optional) z17- (also has icon z17-)
+# emergency-emergency_ward_entrance                 # caption(optional) z18- (also has icon z18-)
+# === -9500
+
+# railway-tram_stop                                 # caption(optional) z17- (also has icon z17-)
+# === -9600
+
+# historic-memorial-cross                           # caption(optional) z17- (also has icon z17-)
+# === -9650
+
+# amenity-arts_centre                               # caption(optional) z17- (also has icon z17-)
+# historic-archaeological_site                      # caption(optional) z17- (also has icon z17-)
+# historic-ruins                                    # caption(optional) z17- (also has icon z17-)
+# === -9700
+
+# amenity-fast_food                                 # caption(optional) z17- (also has icon z17-)
+# shop-convenience                                  # caption(optional) z18- (also has icon z17-)
+# === -9750
+
+# amenity-bank                                      # caption(optional) z17- (also has icon z17-)
+# amenity-parcel_locker                             # caption(optional) z17- (also has icon z17-)
+# amenity-post_office                               # caption(optional) z17- (also has icon z17-)
+# amenity-toilets                                   # caption(optional) z17- (also has icon z17-)
+# === -9800
+
+# leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
+# leisure-park-private                              # caption(optional) z14- (also has icon z14-, area z10-)
+# === -9900
+
+# entrance-main                                     # caption(optional) z18- (also has icon z18-)
+# === -9980
+
+amenity-loading_dock                                # icon z19- (also has caption(optional) z19-)
+# amenity-loading_dock                              # caption(optional) z19- (also has icon z19-)
+entrance                                            # icon z19- (also has caption(optional) z19-)
+# entrance                                          # caption(optional) z19- (also has icon z19-)
+entrance-exit                                       # icon z19- (also has caption(optional) z19-)
+# entrance-exit                                     # caption(optional) z19- (also has icon z19-)
+=== -10000

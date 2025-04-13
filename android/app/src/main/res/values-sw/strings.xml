@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Usahihi mdogo</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Ili kuhakikisha urambazaji sahihi huwezesha eneo sahihi katika mipangilio.</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Bure kwa kila mtu, iliyotengenezwa na upendo</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Hakuna betri kuisha, inafanya kazi nje ya mtandao</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Haraka, minimalist, iliyotengenezwa na jumuiya</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Mipangilio ya mahali</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Anwani</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Hifadhi ramani kwenye</string>
+
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Sehemu ya kula</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Migahawani</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Manunuzi</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Mtumba</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Shughuli za usiku</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Mapumziko ya familia</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Hospitali</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Maji</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Kwa RV</string>
+
+    <!-- SECTION: Other translations -->
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Imeshindwa kufungua faili %1$s
+\n
+\n%2$s</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Data ya OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Je, una uhakika unataka kuondoka kwenye akaunti yako ya OpenStreetMap?</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Auto</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">Majengo ya 3D yamezimwa katika hali ya kuokoa nishati</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Tangaza Majina ya Mitaa</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Tangaza Majina ya Mitaa</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Angalia mipangilio ya sauti au ya mfumo ya kubadilisha maandishi-hadi-hotuba ikiwa husikii sauti sasa.</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Habari</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Maswali na majibu</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Changia</string>
+    <string name="already_donated">Tayari kutoa</string>
+    <string name="remind_me_later">Kumbusha baadaye</string>
+    <string name="support_organic_maps">Kuunga mkono Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Saidia mradi</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Gusa kwa muda mrefu kwenye ramani tena ili kuona kiolesura</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Huduma za Mahali za Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Viungo vya Hoteli ya Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Picha, maoni, viungo vya kuweka nafasi vinaonyeshwa kwa hoteli ambazo zimeorodheshwa kwenye Kayak.com. Bonasi ya rufaa inayopokelewa kwa kila nafasi iliyowekwa kupitia viungo hivi huenda kwenye uundaji wa Organic Maps.</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Zambarau Iliyoiva</string>
+    <!-- light blue color -->
+    <string name="light_blue">Buluu Hafifu</string>
+    <!-- cyan color -->
+    <string name="cyan">Siani</string>
+    <!-- teal color -->
+    <string name="teal">Teal</string>
+    <!-- lime color -->
+    <string name="lime">Chokaa</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Chungwa Iliyokoza</string>
+    <!-- gray color -->
+    <string name="gray">Kijivu</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Kijivu Buluu</string>
+
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
+    <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
+    <string name="editor_add_select_location">Chagua Mahali</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Hujasajiliwa</string>
+    <string name="login_osm">Ingia kwa OpenStreetMap</string>
+    <string name="social_media">Mitandao ya Kijamii</string>
+    <string name="building">Jengo</string>
+    <string name="level">Ghorofa</string>
+    <string name="editor_focus_map_on_location">Buruta ramani ili kuweka msalaba katika eneo la mahali au biashara.</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ni mradi wa jumuiya wa kujenga ramani isiyolipishwa na iliyo wazi. Ndiyo chanzo kikuu cha data ya ramani katika Ramani za Kikaboni na inafanya kazi sawa na Wikipedia. Unaweza kuongeza au kubadilisha maeneo na yanapatikana kwa mamilioni ya watumiaji kote Ulimwenguni.
+\nJiunge na jumuiya na usaidie kutengeneza ramani bora kwa kila mtu!</string>
+    <string name="login_to_make_edits_visible">Fungua akaunti ya OpenStreetMap au ingia ili kuchapisha mabadiliko yako ya ramani kwa ulimwengu.</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Kumbuka kwa wanaojitolea wa OpenStreetMap (si lazima)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Eleza hitilafu kwenye ramani au kile ambacho hakiwezi kuhaririwa kwa kutumia Ramani za Kikaboni</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Mabadiliko yako yanapakiwa kwenye hifadhidata ya <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> ya umma. Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
+    <string name="editor_osm_history">Historia yako ya uhariri</string>
+    <string name="editor_osm_notes">Vidokezo vya data ya ramani yako</string>
+    <string name="editor_operator">Mwendeshaji</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">Mwendeshaji: %s</string>
+    <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
+    <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Picha, hakiki, uhifadhi</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Maelezo kuhusu Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Lemaza Kayak</string>
+    <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
+    <string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
+    <string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Kurekodi wimbo</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Maoni Jumla</string>
+    <string name="prefs_languages_information">Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play, Galaxy Store, App Gallery, FDroid).
+\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.
+\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.</string>
+    <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
+    <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
+    <string name="learn_more">Jua mengi zaidi</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Toka</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali pa kuanzia</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali unakoenda</string>
+    <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
+    <string name="button_plan">Panga</string>
+    <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
+    <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
+    <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
+    <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Onyeshana hifadhi mbaya</string>
+    <string name="core_entrance">Kiingilio</string>
+    <string name="error_enter_correct_name">Tafadhali, weka jina sahihi</string>
+    <string name="bookmark_lists">Orodha</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Ficha zote</string>
+    <string name="bookmark_lists_show_all">Onyesha zote</string>
+    <plurals name="bookmarks_places">
+        <item quantity="other">%d alamisho</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Unda orodha mpya</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Ingiza alamisho na nyimbo</string>
+    <string name="bookmarks_error_message_share_general">Haiwezekani kushiriki kutokana na hitilafu ya programu</string>
+    <string name="bookmarks_error_title_share_empty">Hitilafu ya kushiriki</string>
+    <string name="bookmarks_error_message_share_empty">Haiwezekani kushiriki orodha tupu</string>
+    <string name="bookmarks_error_title_empty_list_name">Jina halikuweza kuwa tupu</string>
+    <string name="bookmarks_error_message_empty_list_name">Tafadhali ingiza jina la orodha</string>
+    <string name="bookmarks_new_list_hint">Orodha mpya</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Jina hili tayari limechukuliwa</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Tafadhali chagua jina lingine</string>
+    <string name="please_wait">Tafadhali subiri…</string>
+    <string name="phone_number">Nambari ya simu</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>
+        <item quantity="other">Files %d zimepatikana. Utaziona baada ya uongofu.</item>
+    </plurals>
+    <string name="restore">Rejesha</string>
+    <plurals name="tracks">
+        <item quantity="one">Njia %d</item>
+        <item quantity="other">Njia %d</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Faragha</string>
+    <string name="privacy_policy">Sera ya faragha</string>
+    <string name="terms_of_use">Masharti ya matumizi</string>
+    <string name="button_layer_traffic">Trafiki</string>
+    <string name="button_layer_subway">Njia ya chini</string>
+    <string name="layers_title">Mitindo ya Ramani na Tabaka</string>
+    <string name="subway_data_unavailable">Ramani ya njia ya chini haipatikani</string>
+    <string name="bookmarks_empty_list_title">Orodha hii ni tupu</string>
+    <string name="bookmarks_empty_list_message">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
+    <string name="category_desc_more">…zaidi</string>
+    <string name="export_file">Hamisha KMZ</string>
+    <string name="export_file_gpx">Hamisha GPX</string>
+    <string name="delete_list">Futa Orodha</string>
+    <string name="public_access">Matumizi ya umma</string>
+    <string name="limited_access">Matumizi yenye ukomo</string>
+    <string name="not_shared">Faragha</string>
+    <string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
+    <string name="place_description_title">Maelezo ya Eneo</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Kipakua Ramani</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Onya kuhusu mwendo kasi</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Daima onya</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Kamwe usionye</string>
+    <string name="power_managment_title">Mtindo wa kuokoa nishati</string>
+    <string name="power_managment_description">Pindi mtindo wa kiotomatiki unapochaguliwa programu tumizi inaanza kuzima sifa za kumaliza betri kulingana na kiwango cha chaji cha sasa cha betri</string>
+    <string name="power_managment_setting_never">Kamwe</string>
+    <string name="power_managment_setting_auto">Kiotomatiki</string>
+    <string name="power_managment_setting_manual_max">Upeo wa kuhifadhi nishati</string>
+    <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
+    <string name="access_rules_author_only">Uhariri mtandaoni</string>
+    <string name="driving_options_title">Machaguo ya njia</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Epuka barabara za ushuru</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Epuka barabara za vumbi</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Epuka vivuko vya feri</string>
+    <string name="avoid_motorways">Epuka barabara</string>
+    <string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
+    <string name="unable_to_calc_alert_subtitle">Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena</string>
+    <string name="define_to_avoid_btn">Fafanua njia za kuziepuka</string>
+    <string name="change_driving_options_btn">Machaguo ya njia yamewezeshwa</string>
+    <string name="toll_road">Barabara ya kulipia</string>
+    <string name="unpaved_road">Barabara ya vumbi</string>
+    <string name="ferry_crossing">Kivuko cha feri</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Ndio</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Hapana</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Ndio</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Hapana</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">Uwezo: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">Mtandao: %s</string>
+    <string name="trip_finished">Umefika!</string>
+    <string name="ok">Sawa</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Ainisha…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ainisha alamisho</string>
+    <!-- Android -->
+    <string name="by_default">Kwa chaguo-msingi</string>
+    <!-- Android -->
+    <string name="by_type">Kwa aina</string>
+    <!-- Android -->
+    <string name="by_distance">Kwa umbali</string>
+    <!-- Android -->
+    <string name="by_date">Kwa tarehe</string>
+    <!-- Android -->
+    <string name="by_name">Kwa Jina</string>
+    <string name="week_ago_sorttype">Wiki moja iliyopita</string>
+    <string name="month_ago_sorttype">Mwezi mmoja uliopita</string>
+    <string name="moremonth_ago_sorttype">Zaidi ya mwezi mmoja uliopita</string>
+    <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
+    <string name="near_me_sorttype">Karibu yangu</string>
+    <string name="others_sorttype">Nyingine</string>
+
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Chakula</string>
+    <string name="tourist_places">Vivutio</string>
+    <string name="museums">Makumbusho</string>
+    <string name="parks">Hifadhi</string>
+    <string name="swim_places">Kuogelea</string>
+    <string name="mountains">Milima</string>
+    <string name="animals">Wanyama</string>
+    <string name="hotels">Hoteli</string>
+    <string name="buildings">Majengo</string>
+    <string name="money">Fedha</string>
+    <string name="shops">Maduka</string>
+    <string name="parkings">Maegesho</string>
+    <string name="fuel_places">Kituo cha gesi</string>
+    <string name="medicine">Dawa</string>
+    <string name="search_in_the_list">Tafuta kwenye orodha</string>
+    <string name="religious_places">Sehemu za ibada</string>
+    <string name="select_list">Chagua orodha</string>
+    <string name="transit_not_found">Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado</string>
+    <string name="dialog_pedestrian_route_is_long_header">Njia ya chini kwa chini haipatikani</string>
+    <string name="dialog_pedestrian_route_is_long_message">Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini</string>
+    <string name="button_layer_isolines">Topografia</string>
+    <string name="isolines_activation_error_dialog">Kuamilisha na kutumia tabaka la nchi tafadhali sasisha au pakua ramani ya eneo hilo</string>
+    <string name="isolines_location_error_dialog">Tabaka la sura ya nchi bado haipatikani katika eneo hili</string>
+    <string name="elevation_profile_ascent">Upandaji</string>
+    <string name="elevation_profile_descent">Ushukaji</string>
+    <string name="elevation_profile_min_elevation">Min. mwinuko</string>
+    <string name="elevation_profile_max_elevation">Max. mwinuko</string>
+    <string name="elevation_profile_difficulty">Ugumu</string>
+    <string name="elevation_profile_distance">Umbali:</string>
+    <string name="elevation_profile_time">Muda:</string>
+    <string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
+    <string name="downloader_loading_ios">Inapakua</string>
+    <string name="enable_keep_screen_on">Washa skrini</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Kwa michango na usaidizi wako, tunaweza kuunda ramani bora zaidi Duniani!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Gusa popote kwenye ramani ili kuchagua chochote. Gusa kwa muda mrefu ili kuficha na kuonyesha kiolesura.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Unaweza kusaidia kutafsiri programu yetu katika lugha yako.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Programu yetu imeundwa na washiriki wachache na jamii.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Unaweza kurekebisha na kuboresha data ya ramani kwa urahisi.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Lengo letu kuu ni kujenga ramani za haraka, zinazozingatia faragha, na rahisi kutumia ambazo utapenda.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Sasa unatumia ramani za kikaboni kwenye skrini ya simu</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Sasa unatumia ramani za kikaboni kwenye skrini ya gari</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Umeunganishwa kwenye Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Endelea kwenye simu</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Kwa skrini ya gari</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Programu hii inahitaji idhini yako</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Ruhusa za ruzuku</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Kutembea kwa miguu</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Kivinjari cha wavuti hakipatikani</string>
+    <string name="volume">Kiwango</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Hamisha Alamisho na Nyimbo zote</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Mipangilio ya usanisi wa hotuba ya mfumo</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?</string>
+    <string name="drive_through">Kuendesha-kupitia</string>
+    <string name="clear_the_search">Futa utafutaji</string>
+    <string name="zoom_in">Vuta karibu</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">Kuza nje</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Kiungo cha menyu</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Tazama Menyu</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Fungua Katika Programu Nyingine</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">Kujihudumia</string>
+    <string name="select_option">Chagua chaguo</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Viti vya nje</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Kwa urambazaji sahihi zaidi, tunapendekeza kuzima hali ya kuokoa nishati katika mipangilio ya betri ya simu.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Rekodi njia</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Acha kurekodi</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Acha bila kuhifadhi</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Endelea kurekodi</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Ungependa kuhifadhi katika alama na njia?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Njia ni tupu - hakuna cha kuhifadhi</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Haiwezi kuonyesha kidirisha cha kuchagua folda kwa sababu hakuna programu inayofaa iliyosakinishwa kwenye kifaa chako. Tafadhali sakinisha programu ya kidhibiti faili na ujaribu tena</string>
+    <string name="choose_color">Chagua Rangi</string>
+    <string name="edit_track">Hariri Njia</string>
+    <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Urambazaji otomatiki</string>
+</resources>

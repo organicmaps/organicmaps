@@ -1,0 +1,1071 @@
+
+/* Button text (should be short) */
+"cancel" = "Katkesta";
+
+/* Button which interrupts country download */
+"cancel_download" = "Tühista allalaadimine";
+
+/* Button which deletes downloaded country */
+"delete" = "Kustuta";
+"download_maps" = "Laadi kaarte";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Allalaadimisel…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Kilomeetrid";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Kirjuta arvustus";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Miilid";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Minu asukoht";
+
+/* Update maps later button text */
+"later" = "Hiljem";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Otsi";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Jah";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Näita kaardil";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Laadi kaart alla";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Allalaadimine ei õnnestunud";
+
+/* Text in About screen */
+"about_headline" = "Tasuta ja vaba kõigi jaoks, tehtud armastusega";
+
+/* Text in About screen */
+"about_proposition_1" = "• Pole reklaame, jälitamist ega andmekogumist";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ei tühjenda akut, töötab võrguühenduseta";
+
+/* Text in About screen */
+"about_proposition_3" = "• Kiire, minimalistlik, kogukonna poolt väljatöötatud";
+"close" = "Sulge";
+"download" = "Laadi alla";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Jätka";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Lisa uus loend";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Järjehoidjate loendi nimi";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Järjehoidjate loetelud";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Järjehoidjad";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Järjehoidjad ja rajad";
+
+/* Default bookmark list name */
+"core_my_places" = "Minu kohad";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Aadress";
+
+/* Settings button in system menu */
+"settings" = "Seadistused";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Mõõtühikud";
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Söögikohad";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Toidukaubad";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Tanklad";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkimine";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Poed";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Taaskasutuspoed";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotell";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Vaatamisväärsused";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Meelelahutus";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Pangaautomaat";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Ööelu";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Perepuhkus";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Pank";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Apteek";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Haigla";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Tualett";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Post";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Politsei";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Jäätmekäitlus";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Vesi";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "Haagiselamud";
+"share_bookmarks_email_body" = "Tere!\n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOS või Android seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist Organic Mapsiga!";
+
+/* message title of loading file */
+"load_kmz_title" = "Järjehoidjate laadimine";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "Järjehoidjad edukalt laaditud! Leiad need kaardil või järjehoidjate halduri vaates.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "Järjehoidjate laadimine ei õnnestunud. Fail võib olla vigane.";
+
+/* resource for context menu */
+"edit" = "Muuda";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Sinu asukoht ei ole veel tuvastatud";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Hei, vaata minu asukoha märget Organic Mapsi kaardil!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Hei, vaata minu praegust asukohta Organic Mapsi kaardil!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "E-post";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Kopeeritud lõikelauale: %@";
+
+/* place preview title */
+"info" = "Teave";
+
+/* Used for bookmark editing */
+"done" = "Valmis";
+
+/* Prints version number in About dialog */
+"version" = "Organic Mapsi versioon: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "Rajad";
+
+/* Length of track in cell that describes route */
+"length" = "Pikkus";
+"share_my_location" = "Jaga minu asukohta";
+"prefs_group_route" = "Tee juhatamine";
+"pref_zoom_title" = "Suuminupud";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Välimus";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Hele kujundus";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Tume kujundus";
+
+/* Generic «Off» string */
+"off" = "Väljas";
+
+/* Generic «On» string */
+"on" = "Sees";
+
+/* Generic «Auto» string */
+"auto" = "Automaatne";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspektiivi vaade";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D-vaated";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-vaated lülitatakse energiasäästurežiimis välja";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Hääljuhised";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Teata tänavanimesid";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kui see on lubatud, öeldakse valjusti tänava või ärapöörde nimi, kuhu peaksid keerama.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Hääljuhiste keel";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testi hääljuhised (TTS, Text-To-Speech)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Muu";
+"pref_map_auto_zoom" = "Automaatne suum";
+"placepage_distance" = "Kaugus";
+"search_show_on_map" = "Vaata kaardil";
+
+/* Text in menu */
+"website" = "Veebisait";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Uudised";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Hinda rakendust";
+
+/* Text in menu */
+"help" = "Abiteave";
+
+/* Button in the main Help dialog */
+"faq" = "Korduma kippuvad küsimused";
+
+/* Button in the main menu */
+"donate" = "Anneta";
+
+/* Tex label above the Donate button */
+"donate_description" = "Anneta, et luua koos parimaid kaarte!";
+"already_donated" = "Juba annetasin";
+"remind_me_later" = "Meenuta hiljem";
+"support_organic_maps" = "Toeta Organic Mapsi";
+
+/* Button in the main Help dialog */
+"copyright" = "Autoriõigused";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Teata veast";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Paranda vigaseid kaardiandmeid või teata neist";
+
+/* Button in the About screen */
+"volunteer" = "Vabatahtlik kaastöö";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jälgi ja võta meiega ühendust:";
+
+/* Alert text */
+"email_error_body" = "E-posti klienti ei ole seadistatud. Palun seadista see või kasuta mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@";
+
+/* Alert title */
+"email_error_title" = "Viga teate saatmisel";
+
+/* Settings item title */
+"pref_calibration_title" = "Kompassi kalibreerimine";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Kasutajaliidese nägemiseks vajuta kaarti pikalt";
+
+/* Update all button text */
+"downloader_update_all_button" = "Uuenda kõik";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Allalaaditud";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Saadaval";
+
+/* Country queued for download */
+"downloader_queued" = "Järjekorras";
+"downloader_near_me_subtitle" = "Minu lähedal";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "Kaardid";
+"downloader_download_all_button" = "Laadi kõik alla";
+"downloader_downloading" = "Allalaadimisel:";
+"downloader_search_results" = "Leidus";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Värskenda";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Ebaõnnestus";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Kaardi kustutamiseks palun lõpeta tee juhatamine.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Koostada saad ainult täielikult ühe regiooni kaardi piiridesse jäävaid teekondi.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Laadi kaart alla";
+
+/* Item status in downloader. */
+"downloader_retry" = "Proovi uuesti";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Kustuta kaart";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Laadi alla kõik kaardid oma teekonnal";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Teekonna koostamiseks on meil vaja alla laadida ja värskendada kõiki sinu lähte- ja sihtkoha vahele jäävaid kaarte.";
+
+/* bookmark button text */
+"bookmark" = "järjehoidja";
+"save" = "Salvesta";
+"create" = "loo";
+
+/* red color */
+"red" = "Punane";
+
+/* yellow color */
+"yellow" = "Kollane";
+
+/* blue color */
+"blue" = "Sinine";
+
+/* green color */
+"green" = "Roheline";
+
+/* purple color */
+"purple" = "Lilla";
+
+/* orange color */
+"orange" = "Oranž";
+
+/* brown color */
+"brown" = "Pruun";
+
+/* pink color */
+"pink" = "Roosa";
+
+/* deep purple color */
+"deep_purple" = "Tumelilla";
+
+/* light blue color */
+"light_blue" = "Helesinine";
+
+/* cyan color */
+"cyan" = "Rohekassinine";
+
+/* teal color */
+"teal" = "Sinakasroheline";
+
+/* lime color */
+"lime" = "Laimiroheline";
+
+/* deep orange color */
+"deep_orange" = "Tumeoranž";
+
+/* gray color */
+"gray" = "Hall";
+
+/* blue gray color */
+"blue_gray" = "Sinakashall";
+"dialog_routing_disclaimer_title" = "Teekonda järgides palun pea meeles:";
+"dialog_routing_disclaimer_priority" = "- Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti tee juhatamise ees;";
+"dialog_routing_disclaimer_precision" = "- Kaart võib olla ebatäpne ja soovitatud teekond ei pruugi alati olla optimaalne viis sihtkohta jõudmiseks;";
+"dialog_routing_disclaimer_recommendations" = "- Soovitatud teekondi tuleks võtta just sellistena;";
+"dialog_routing_disclaimer_borders" = "- Ole piiritsoonides teekondade kulgemisega ettevaatlik: meie rakenduse loodud teekonnad võivad mõnikord ületada riigipiire volitamata kohtades.";
+"dialog_routing_disclaimer_beware" = "Ole teel tähelepanelik ja liigu turvaliselt!";
+"dialog_routing_check_gps" = "Kontrolli GPSi signaali";
+"dialog_routing_error_location_not_found" = "Teekonda ei õnnestu koostada. GPSi koordinaate ei õnnestu tuvastada.";
+"dialog_routing_location_turn_wifi" = "Palun kontrolli GPSi signaali. WiFi lubamine parandab asukoha täpsust.";
+"dialog_routing_location_turn_on" = "Luba asukohateenused";
+"dialog_routing_location_unknown_turn_on" = "Ei suuda praeguseid GPS-koordinaate määrata. Teekonna koostamiseks luba asukohateenused.";
+"dialog_routing_download_files" = "Laadi alla vajalikud failid";
+"dialog_routing_download_and_update_all" = "Marsruudi arvutamiseks laadi alla ja värskenda kogu kavandatud teekonna kaart ja marsruuditeave.";
+"dialog_routing_unable_locate_route" = "Teekonda ei õnnestu leida";
+"dialog_routing_change_start_or_end" = "Palun kohenda oma algpunkti või sihtkohta.";
+"dialog_routing_change_start" = "Kohenda algpunkti";
+"dialog_routing_start_not_determined" = "Teekond jäi koostamata. Ei suuda tuvastada algpunkti.";
+"dialog_routing_select_closer_start" = "Palun vali algpunkt teele lähemal.";
+"dialog_routing_change_end" = "Kohenda sihtkohta";
+"dialog_routing_end_not_determined" = "Teekond jäi koostamata. Ei suuda tuvastada sihtkohta.";
+"dialog_routing_select_closer_end" = "Palun vali sihtkoht teele lähemal.";
+"dialog_routing_change_intermediate" = "Ei suuda määrata teekonna vahepunkti.";
+"dialog_routing_intermediate_not_determined" = "Palun kohanda vahepunkti.";
+"dialog_routing_system_error" = "Süsteemi viga";
+"dialog_routing_application_error" = "Teekonda ei saa koostada rakenduse vea tõttu.";
+"dialog_routing_try_again" = "Palun proovi uuesti";
+"dialog_routing_download_and_build_cross_route" = "Kas sooviksid kaardi alla laadida ja luua optimaalse rohkem kui ühte kaarti hõlmava teekonna?";
+"dialog_routing_download_cross_route" = "Laadi alla täiendavad kaardid, et luua parem, selle kaardi piire ületav teekond.";
+
+/* «Show» context menu */
+"show" = "Näita";
+
+/* «Hide» context menu */
+"hide" = "Peida";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Teekonna planeerimine ei õnnestunud";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Saabumine: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Marsruudi arvutamiseks laadi alla ja värskenda kõik kavandatud teekonnale jäävad kaardid.";
+"categories" = "Kategooriad";
+"history" = "Ajalugu";
+"search_not_found" = "Vabandust, tulemusi ei leidu.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Laadi alla otsitav piirkond või proovi lisada lähedalasuva linna/küla nimi.";
+"search_history_title" = "Otsinguajalugu";
+"search_history_text" = "Vaata hiljutisi otsinguid.";
+"clear_search" = "Kustuta otsinguajalugu";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Vikipeedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+"p2p_your_location" = "Sinu asukoht";
+"p2p_start" = "Alusta";
+"p2p_from_here" = "Teekond lähtekohast";
+"p2p_to_here" = "Teekond sihtkohta";
+"p2p_only_from_current" = "Tee juhatamine on saadaval ainult sinu praegusest asukohast.";
+"p2p_reroute_from_current" = "Kas soovid, et planeeriksime teekonna sinu praegusest asukohast?";
+"editor_time_add" = "Lisa ajakava";
+"editor_time_delete" = "Kustuta ajakava";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Kogu päev (24 tundi)";
+"editor_time_open" = "Avatud";
+"editor_time_close" = "Suletud";
+"editor_time_add_closed" = "Lisa suletud tunnid";
+"editor_time_title" = "Tööaeg";
+"editor_time_advanced" = "Täpsem režiim";
+"editor_time_simple" = "Lihtne režiim";
+"editor_hours_closed" = "Suletud tunnid";
+"editor_example_values" = "Näidisväärtused";
+"editor_add_select_location" = "Vali asukoht";
+"editor_done_dialog_1" = "Oled muutnud maailmakaarti. Ära hoia seda ainult enda teada! Räägi ka oma sõpradele ja muutke seda koos.";
+"share_with_friends" = "Jaga oma sõpradega";
+"editor_report_problem_send_button" = "Saada";
+"autodownload" = "Laadi kaardid automaaselt alla";
+
+/* Place Page opening hours text */
+"closed_now" = "Praegu suletud";
+
+/* Place Page opening hours text */
+"daily" = "Iga päev";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "Täna suletud";
+"day_off" = "Suletud";
+"today" = "Täna";
+"opens_tomorrow_at" = "Avatakse homme kell %@";
+"opens_dayoftheweek_at" = "Avatakse %1$@ kell %2$@";
+"opens_at" = "Avatakse kell %@";
+"opens_in" = "Avatakse %@ jooksul";
+"closes_at" = "Suletakse kell %@";
+"closes_in" = "Suletakse %@ jooksul";
+"closed" = "Suletud";
+"add_opening_hours" = "Lisa tööaeg";
+"no_osm_account" = "Sul puudub OpenStreetMapi konto?";
+"register_at_openstreetmap" = "Registreeru OpenStreetMapis";
+"password_8_chars_min" = "Salasõna (vähemalt 8 märki)";
+"invalid_username_or_password" = "Vigane kasutajanimi või salasõna.";
+"login" = "Logi sisse";
+"login_osm" = "Logi sisse OpenStreetMappi";
+"forgot_password" = "Unustasid oma salasõna?";
+"osm_account" = "OSMi kasutajakonto";
+"logout" = "Logi välja";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Viimane üleslaadimine";
+"thank_you" = "Aitäh";
+"edit_place" = "Muuda kohta";
+"place_name" = "Koha nimi";
+"add_language" = "Lisa keel";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Majanumber";
+"details" = "Üksikasjad";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Lisa tänav";
+"choose_language" = "Vali keel";
+"choose_street" = "Vali tänav";
+"postal_code" = "Postiindeks";
+"cuisine" = "Köök";
+"select_cuisine" = "Vali köök";
+
+/* login text field */
+"email_or_username" = "E-post või kasutajanimi";
+"phone" = "Telefon";
+"level" = "Korrus";
+"please_note" = "Palun arvesta";
+"downloader_delete_map_dialog" = "Kõik sinu kaardimuudatused kustutatakse koos kaardiga.";
+"downloader_update_maps" = "Uuenda kaarte";
+"downloader_search_field_hint" = "Leia kaart";
+"migration_download_error_dialog" = "Viga allalaadimisel";
+"common_check_internet_connection_dialog" = "Palun kontrolli oma nutiseadme internetiühendust.";
+"downloader_no_space_title" = "Ei ole piisavalt andmeruumi";
+"downloader_no_space_message" = "Palun kustuta ebavajalikud andmed";
+"editor_profile_changes" = "Kinnitatud muudatused";
+"editor_focus_map_on_location" = "Lohista kaarti, et asetada rist koha või ettevõtte asukoha juurde.";
+"editor_add_select_category" = "Vali kategooria";
+"editor_add_select_category_popular_subtitle" = "Populaarne";
+"editor_add_select_category_all_subtitle" = "Kõik kategooriad";
+"editor_edit_place_title" = "Muutmine";
+"editor_add_place_title" = "Lisamine";
+"editor_edit_place_name_hint" = "Koha nimi";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Nagu on kirjutatud kohalikus keeles";
+"editor_edit_place_category_title" = "Kategooria";
+"whatsnew_editor_message_1" = "Lisa kaardile uusi kohti ja muuda olemasolevaid otse rakenduses.";
+"dialog_incorrect_feature_position" = "Muuda asukohta";
+"message_invalid_feature_position" = "Ükski objekt ei saa siin asuda";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Kogukonna loodud OpenStreetMapi andmed seisuga %@. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist";
+"login_to_make_edits_visible" = "Loo OpenStreetMapi konto või logi sisse, et avaldada oma kaardimuudatused kogu maailmale.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Allalaadimiseks vajad rohkem andmeruumi. Palun kustuta ebavajalikke andmeid.";
+"editor_sharing_title" = "Parandasin Organic Maps kaarte";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d/%2$d";
+"download_over_mobile_header" = "Kas laadime alla mobiilivõrgu kaudu?";
+"download_over_mobile_message" = "See võib mõningate lepingute või rändluse korral olla märgatavalt kallim.";
+"error_enter_correct_house_number" = "Sisesta kehtiv majanumber";
+"editor_storey_number" = "Korruste arv (maks. %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Korruste arv ei või olla üle %d";
+"editor_zip_code" = "Postiindeks";
+"error_enter_correct_zip_code" = "Sisesta korrektne postiindeks";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Kaardipunkt";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Märkus OpenStreetMapi vabatahtlikele (valikuline)";
+"editor_detailed_description_hint" = "Üksikasjalik kommentaar";
+"editor_detailed_description" = "Sinu soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjelda kõiki täiendavaid üksikasju, mida ei saa Organic Mapsis muuta.";
+"editor_more_about_osm" = "Lisateave OpenStreetMapi kohta";
+"editor_operator" = "Käitaja";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Käitaja: %@";
+"editor_category_unsuitable_title" = "Ei leia sobivat kategooriat?";
+"editor_category_unsuitable_text" = "Organic Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saidis. Vaata meie <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.";
+"downloader_no_downloaded_maps_title" = "Sa ei ole kaarte alla laadinud";
+"downloader_no_downloaded_maps_message" = "Laadi alla kaardid asukoha otsimiseks ja võrguühenduseta tee juhatamiseks.";
+"current_location_unknown_error_title" = "Hetkeasukoht on teadmata.";
+"current_location_unknown_error_message" = "Sinu asukoha otsimisel ilmnes viga. Kontrolli, kas sinu nutiseade töötab korralikult ja proovi hiljem uuesti.";
+"location_services_disabled_header" = "Asukohateenused on keelatud";
+"location_services_disabled_message" = "Luba nutiseadme seadistustes juurdepääs geograafilisele asukohale";
+"location_services_disabled_1" = "1. Ava seadistused";
+"location_services_disabled_2" = "2. Klõpsi valikut „Asukoht“";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Vali „Rakenduse kasutamise ajal“";
+"location_services_disabled_on_device_2" = "2. Vali „Privaatsus“";
+"location_services_disabled_on_device_3" = "3. Vali „Asukohateenused“";
+"location_services_disabled_on_device_4" = "4. Lülita sisse asukohateenused";
+"location_services_disabled_on_device_additional_message" = "Või jätka Organic Mapsi kasutamist ilma asukohata";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "km/h";
+
+/* abbreviation for mile(s) */
+"mi" = "mi";
+
+/* A unit of measure */
+"ft" = "jalga";
+"miles_per_hour" = "mph";
+"hour" = "h";
+"minute" = "min";
+"day" = "p";
+"placepage_more_button" = "Veel";
+"book_button" = "Reserveeri";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotod, arvustused, broneerimine";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Iga selle lingi kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Üksikasjad Kayaki kohta";
+"placepage_call_button" = "Helista";
+"placepage_edit_bookmark_button" = "Muuda järjehoidjat";
+"placepage_bookmark_name_hint" = "Järjehoidja nimi";
+"placepage_personal_notes_hint" = "Isiklikud märkmed (tekst või html)";
+"placepage_delete_bookmark_button" = "Kustuta järjehoidja";
+"editor_edits_sent_message" = "Sinu märkus saadetakse OpenStreetMapile";
+"editor_comment_hint" = "Kommenteeri…";
+"editor_reset_edits_message" = "Kas loobud kõigist kohalikest muudatustest?";
+"editor_reset_edits_button" = "Loobu";
+"editor_remove_place_message" = "Kas kustutad lisatud koha?";
+"editor_remove_place_button" = "Kustuta";
+"editor_place_doesnt_exist" = "Kohta pole olemas";
+"text_more_button" = "…veel";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Sisesta kehtiv telefoninumber";
+"error_enter_correct_web" = "Sisesta kehtiv veebiaadress";
+"error_enter_correct_email" = "Sisesta kehtiv e-posti aadress";
+"refresh" = "Värskenda";
+"placepage_add_place_button" = "Lisa koht OpenStreetMappi";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Kas soovid saata selle kõigile kasutajatele?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Palun kontrolli, et sa ei sisestanud isiklikke andmeid.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMapi haldajad kontrollivad muudatused üle ja võtavad küsimuste korral sinuga ühendust.";
+"navigation_stop_button" = "Lõpeta";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Kas keelame hiljuti läbitud teekonna salvestamine?";
+"off_recent_track_background_button" = "Keela";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Vaata järele";
+"recent_track_background_dialog_message" = "Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.";
+"general_settings" = "Üldseadistused";
+
+/* For the first routing */
+"accept" = "Nõustu";
+
+/* For the first routing */
+"decline" = "Keeldu";
+"mobile_data_dialog" = "Kas kasutame mobiilset internetiühendust üksikasjaliku teabe kuvamiseks?";
+"mobile_data_option_always" = "Kasuta alati";
+"mobile_data_option_today" = "Ainult täna";
+"mobile_data_option_not_today" = "Ära kasuta täna";
+"mobile_data" = "Mobiilne internetiühendus";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Mobiilne internetiühendus on vajalik kaardi uuendamise teavituste jaoks ning muudatuste üleslaadimiseks.";
+"mobile_data_option_never" = "Ära kasuta kunagi";
+"mobile_data_option_ask" = "Küsi alati";
+"traffic_update_maps_text" = "Liiklusinfo kuvamiseks palun uuenda kaardid.";
+"big_font" = "Suurenda teksti suurust kaardil";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Liiklusinfo kuvamiseks pead rakendust uuendama.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Liiklusinfo ei ole saadaval";
+"enable_logging" = "Luba logimine";
+"log_file_size" = "Logifaili suurus: %@";
+"transliteration_title" = "Transliteratsioon ladina tähestikku";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Välju";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Teekonna alguspunkti lisamiseks kasuta otsingut või puuduta soovitud kohta kaardil";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Sihtkoha lisamiseks kasuta otsingut või puuduta soovitud kohta kaardil";
+"planning_route_manage_route" = "Halda teekonda";
+"button_plan" = "Kavanda";
+"placepage_remove_stop" = "Eemalda peatus";
+"planning_route_remove_title" = "Eemaldamiseks lohista siia";
+"placepage_add_stop" = "Lisa peatus";
+"start_from_my_position" = "Alusta kohast";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Oma kaardimuudatuste automaatseks üleslaadimiseks palun logi sisse OpenStreetMappi. Lisateave";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "kuskil siin";
+"core_entrance" = "Sissepääs";
+"error_enter_correct_name" = "Palun sisesta korrektne nimi";
+"bookmark_lists" = "Loendid";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Peida kõik";
+"bookmark_lists_show_all" = "Näita kõiki";
+"bookmarks_create_new_group" = "Loo uus loend";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Impordi järjehoidjaid ja radasid";
+"downloader_hide_screen" = "Peida vaade";
+"downloader_percent" = "%@ (%@ / %@)";
+"downloader_process" = "Allalaadimisel %@…";
+"downloader_applying" = "Võtame %@ kasutusele…";
+"bookmarks_error_message_share_general" = "Jagamine polnud võimalik rakenduse vea tõttu";
+"bookmarks_error_title_share_empty" = "Viga jagamisel";
+"bookmarks_error_message_share_empty" = "Tühja loendit ei saa jagada";
+"bookmarks_error_message_empty_list_name" = "Palun sisesta loendi nimi";
+"bookmarks_error_title_list_name_already_taken" = "See nimi on juba kasutusel";
+"bookmarks_error_title_list_name_too_long" = "See nimi on liiga pikk";
+"profile" = "OpenStreetMapi profiil";
+"bookmarks_detect_title" = "Leidsime uusi faile";
+"button_convert" = "Teisenda";
+"bookmarks_convert_error_title" = "Viga";
+"bookmarks_convert_error_message" = "Mõned failid jäid teisendamata.";
+"restore" = "Taasta";
+"privacy_policy" = "Privaatsuspoliitika";
+"terms_of_use" = "Kasutustingimused";
+"button_layer_subway" = "Metroo";
+"layers_title" = "Kaardi stiilid ja kihid";
+"subway_data_unavailable" = "Metrookaart ei ole saadaval";
+"title_error_downloading_bookmarks" = "Tekkis viga";
+"popular_place" = "Populaarne";
+"export_file" = "Ekspordi KMZ-failina";
+"export_file_gpx" = "Ekspordi GPX-failina";
+"delete_list" = "Kustuta loend";
+"hide_from_map" = "Peida kaardilt";
+"tags_loading_error_subtitle" = "Siltide laadimisel tekkis viga, palun proovi uuesti";
+"download_button" = "Laadi alla";
+"speedcams_alert_title" = "Kiiruskaamerad";
+"place_description_title" = "Koha kirjeldus";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Hoiata piirkiiruse ületamisel";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Hoiata alati";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ära kunagi hoiata";
+"power_managment_title" = "Energiasäästurežiim";
+"power_managment_description" = "Proovi funktsionaalsuse vähendamise arvel vähendada aku voolutarbimist.";
+"power_managment_setting_never" = "Mitte kunagi";
+"power_managment_setting_auto" = "Madala akutäituvuse korral";
+"power_managment_setting_manual_max" = "Alati";
+"enable_logging_warning_message" = "Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.";
+"driving_options_title" = "Tee juhatamise valikud";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Väldi tasulisi teid";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Väldi sillutamata teid";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Väldi praamiületusi";
+"avoid_motorways" = "Väldi kiirteed";
+"unable_to_calc_alert_title" = "Teekonna koostamine ei õnnestu";
+"unable_to_calc_alert_subtitle" = "Teekonda ei õnnestunud koostada. See võib olla põhjustatud sinu seatud tingimustest või OpenStreetMapi andmete puudumisest. Muuda algtingimusi ja proovi uuesti.";
+"define_to_avoid_btn" = "Määra välditavad teed";
+"change_driving_options_btn" = "Lubatud valikud teekonna koostamisel";
+"toll_road" = "Tasuline tee";
+"unpaved_road" = "Sillutamata tee";
+"ferry_crossing" = "Praamiületus";
+"trip_start" = "Läksime";
+"pick_destination" = "Sihtkoht";
+"follow_my_position" = "Säti keskele";
+"search_results" = "Otsingutulemused";
+"then_turn" = "Seejärel";
+"redirect_route_alert" = "Kas soovid teekonna uuesti luua?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Jah";
+
+/* A generic "No" button in dialogs */
+"no" = "Ei";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "olemas";
+
+/* E.g. "WiFi:No" */
+"no_available" = "puudub";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kohti: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Võrgustik: %@";
+"trip_finished" = "Oled kohal!";
+"keyboard_availability_alert" = "Klaviatuur ei ole sõidu ajal kasutatav";
+"dialog_routing_change_start_carplay" = "Sinu praegusest asukohast ei õnnestu teekonda koostada";
+"dialog_routing_change_end_carplay" = "Ei õnnestu luua teekonda sinu sihtkohta. Palun vali teine lõpp-punkt";
+"dialog_routing_check_gps_carplay" = "GPSi signaal puudub. Palun liigu avaramasse kohta";
+"dialog_routing_unable_locate_route_carplay" = "Teekonna loomine ei õnnestu. Palun määra muud teekonnapunktid";
+"dialog_routing_download_files_carplay" = "Teekonna loomiseks laadi puuduvad kaardid alla oma nutiseadmesse";
+"dialog_routing_system_error_carplay" = "Tekkis viga. Palun taaskäivita rakendus";
+"dialog_routing_rebuild_from_current_location_carplay" = "Teekond luuakse uuesti sinu hetkeasukohast";
+"dialog_routing_rebuild_for_vehicle_carplay" = "See teekond teisendatakse autoga läbitavaks";
+"not_all_shown_bookmarks_carplay" = "Kõiki järjehoidjaid ei kuvata";
+"switch_to_phone_bookmarks_carplay" = "Kõigi järjehoidjate nägemiseks suundu telefoni vaatesse";
+"ok" = "Sobib";
+"speedcams_alert_title_carplay_1" = "Kiiruskaamerad";
+"speedcams_alert_title_carplay_2" = "Kiiruse hoiatused";
+"download_map_carplay" = "Palun laadi alla kaardid oma nutiseadme Organic Maps rakenduses";
+"carplay_roundabout_exit" = "%@ ärapööre";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Järjesta…";
+
+/* iOS */
+"sort_default" = "Vaikimisi järjestus";
+"sort_type" = "Järjesta liigiti";
+"sort_distance" = "Järjesta kauguse alusel";
+"sort_date" = "Järjesta kuupäeva alusel";
+"sort_name" = "Järjesta nime alusel";
+"week_ago_sorttype" = "Nädal tagasi";
+"month_ago_sorttype" = "Kuu tagasi";
+"moremonth_ago_sorttype" = "Üle kuu tagasi";
+"moreyear_ago_sorttype" = "Üle aasta tagasi";
+"near_me_sorttype" = "Minu lähedal";
+"others_sorttype" = "Muud";
+"food_places" = "Toit";
+"tourist_places" = "Vaatamisväärsused";
+"museums" = "Muuseumid";
+"parks" = "Pargid";
+"swim_places" = "Ujumine";
+"mountains" = "Mäed";
+"animals" = "Loomad";
+"hotels" = "Hotellid";
+"buildings" = "Hooned";
+"money" = "Raha";
+"shops" = "Poed";
+"parkings" = "Parkimine";
+"fuel_places" = "Tanklad";
+"medicine" = "Tervishoid";
+"search_in_the_list" = "Otsi loendist";
+"religious_places" = "Religiooniga seotud kohad";
+"transit_not_found" = "Tee juhatamine metroos ei ole selles piirkonnas veel saadaval";
+"dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
+"dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";
+"button_layer_isolines" = "Kontuurjooned";
+"isolines_activation_error_dialog" = "Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart";
+"isolines_location_error_dialog" = "Topograafiline kiht ei ole selles piirkonnas veel saadaval";
+"elevation_profile_diff_level" = "Raskusaste";
+"elevation_profile_diff_level_easy" = "Lihtne";
+"elevation_profile_diff_level_moderate" = "Keskmine";
+"elevation_profile_diff_level_hard" = "Raske";
+"elevation_profile_ascent" = "Tõus";
+"elevation_profile_descent" = "Langus";
+"elevation_profile_min_elevation" = "Min. kõrgus";
+"elevation_profile_max_elevation" = "Maks. kõrgus";
+"isolines_toast_zooms_1_10" = "Samakõrgusjoonte sirvimiseks suurenda kaarti";
+"downloader_updating_ios" = "Uuendamine";
+"downloader_loading_ios" = "Allalaadimisel";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Värskenda oma allalaaditud kaarte";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Kaartide värskendamine hoiab objektide info ajakohasena";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Uuenda (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Uuenda hiljem käsitsi";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Kustuta rada";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Kas oled kindel, et soovite selle raja kustutada?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Raja nimi";
+
+/* move track or bookmark from the list button text */
+"move" = "Teisalda";
+
+/* edit track screen title */
+"track_title" = "Rada";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Aitäh, et kasutad meie kogukonna koostatud kaarte!";
+
+/* App tip #01 */
+"app_tip_01" = "Sinu annetuste ja toetusega saame luua maailma parimaid kaarte!";
+
+/* App tip #02 */
+"app_tip_02" = "Kas sulle meeldib meie rakendus? Palun anneta arendustöö toetamiseks! Ei meeldi veel? Palun anna põhjusest meile teada ja me parandame selle!";
+
+/* App tip #03 */
+"app_tip_03" = "Kui tead mõnda tarkvaraarendajat, võid paluda tal osaleda vajaliku funktsionaalsuse loomisel.";
+
+/* App tip #04 */
+"app_tip_04" = "Puuduta kaardil ükskõik kus, et valida midagi. Pika puudutusega saad peita ja kuvada kasutajaliidest.";
+
+/* App tip #05 */
+"app_tip_05" = "Kas tead, et saad kaardil valida oma praeguse asukoha?";
+
+/* App tip #06 */
+"app_tip_06" = "Saad aidata meie rakendust oma keelde tõlkida.";
+
+/* App tip #07 */
+"app_tip_07" = "Meie rakenduse on loonud mõned entusiastid ja kogukond.";
+
+/* App tip #08 */
+"app_tip_08" = "Saad hõlpsasti kaardiandmeid parandada ja täiustada.";
+
+/* App tip #09 */
+"app_tip_09" = "Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis sulle meeldivad.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Nüüd kasutad telefoni ekraanil Organic Mapsi";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Nüüd kasutad auto ekraanil Organic Mapsi";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Jätka telefonis";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Auto ekraanile";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Matkamine";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Ekspordi kõik järjehoidjad ja rajad";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Muuda värvi";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Kaart";
+"drive_through" = "Läbisõit";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Menüü link";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Kas soovid saata arendajatele veateate?\nMe toetume oma kasutajatele, kuna Organic Maps ei kogu automaatselt mingit veateavet. Täname sind juba ette Organic Mapsi toetamise eest!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Luba iCloudi sünkroniseerimine";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloudi sünkroniseerimine on eksperimentaalne funktsioon, mis on arendamisel. Igaks juhuks veendu, et oled teinud varukoopia kõigist oma järjehoidjatest ja radadest.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud on välja lülitatud";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Selle funktsionaalsuse kasutamiseks luba nutiseadme seadistustes iCloud.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Luba";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Varundus";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "iCloudi sünkroniseerimise viga";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Viga: Sünkroniseerimine ei õnnestunud võrguühenduse vea tõttu";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Viga: sünkroniseerimine ei õnnestunud iCloudi kvoodi ületamise tõttu";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Viga: iCloud ei ole saadaval";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Ava teises rakenduses";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Iseteenindus";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Istekohad õues";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Hiljuti kustutatud loendid";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Kustuta";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Kustuta kõik";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Taasta";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Taasta kõik";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Salvesta rada";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Peata raja salvestamine";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Lõpeta ilma salvestamata";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Jätka salvestamist";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Kas salvestame järjehoidjatesse ja radadesse?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
+"edit_track" = "Muuda rada";

@@ -1,0 +1,1484 @@
+"type.addr_interpolation" = "Adresse/blok";
+"type.addr_interpolation.even" = "Adresse/blok";
+"type.addr_interpolation.odd" = "Adresse/blok";
+"type.aerialway" = "Svævebane";
+"type.aerialway.cable_car" = "Kabinelift";
+"type.aerialway.chair_lift" = "Stolelift";
+"type.aerialway.drag_lift" = "Træklift";
+"type.aerialway.gondola" = "Gondol";
+"type.aerialway.mixed_lift" = "Blandet lift";
+"type.aerialway.station" = "Svævebanestation";
+"type.aeroway" = "Luftrumsinfrastruktur";
+"type.aeroway.aerodrome" = "Lufthavn";
+"type.aeroway.aerodrome.international" = "International lufthavn";
+"type.aeroway.apron" = "Forplads";
+"type.aeroway.gate" = "Gate";
+"type.aeroway.helipad" = "Helikopterlandingsplads";
+"type.aeroway.runway" = "Landingsbane";
+"type.aeroway.taxiway" = "Rullevej";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Facilitet";
+"type.amenity.arts_centre" = "Kunsthus";
+"type.amenity.atm" = "Hæveautomat";
+"type.amenity.bank" = "Bank";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Grill";
+"type.amenity.bench" = "Bænk";
+"type.amenity.bicycle_parking" = "Cykelparkering";
+"type.amenity.bicycle_rental" = "Cykeludlejning";
+"type.amenity.bicycle_repair_station" = "Cykelreparationsstation";
+"type.amenity.biergarten" = "Traktørsted";
+"type.amenity.brothel" = "Bordel";
+"type.amenity.bureau_de_change" = "Valutaveksling";
+"type.amenity.bus_station" = "Rutebilstation";
+"type.amenity.cafe" = "Café";
+"type.amenity.car_rental" = "Biludlejning";
+"type.amenity.motorcycle_rental" = "Motorcykeludlejning";
+"type.amenity.car_sharing" = "Delebiler";
+"type.amenity.car_wash" = "Bilvask";
+"type.amenity.casino" = "Spillehal";
+"type.amenity.gambling" = "Gambling";
+"type.leisure.adult_gaming_centre" = "Spillehal for voksne";
+"type.leisure.amusement_arcade" = "Arkadespil";
+"type.amenity.charging_station" = "Ladestander";
+"type.amenity.charging_station.bicycle" = "Cykelladestander";
+"type.amenity.charging_station.motorcar" = "Billadestander";
+"type.amenity.childcare" = "Vuggestue";
+"type.amenity.cinema" = "Biograf";
+"type.leisure.bowling_alley" = "Bowlinghal";
+"type.amenity.clinic" = "Klinik";
+"type.amenity.college" = "Universitet";
+"type.amenity.community_centre" = "Medborgerhus";
+"type.amenity.compressed_air" = "Trykluft";
+"type.amenity.conference_centre" = "Konferencecenter";
+"type.amenity.courthouse" = "Domhus";
+"type.amenity.dentist" = "Tandlæge";
+"type.amenity.doctors" = "Læge";
+"type.amenity.drinking_water" = "Drikkevand";
+"type.drinking_water.yes" = "Drikkevand";
+"type.amenity.driving_school" = "Køreskole";
+"type.amenity.exhibition_centre" = "Udstillingscenter";
+"type.amenity.money_transfer" = "Pengeoverførsel";
+"type.amenity.music_school" = "Musikskole";
+"type.amenity.language_school" = "Sprogskole";
+"type.office.diplomatic" = "Ambassade";
+"type.amenity.fast_food" = "Hurtigmad";
+"type.amenity.ferry_terminal" = "Færge";
+"type.amenity.fire_station" = "Brandstation";
+"type.amenity.food_court" = "Restaurantområde";
+"type.amenity.fountain" = "Springvand";
+"type.amenity.fuel" = "Tankstation";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Kirkegård";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Kristen kirkegård";
+"type.amenity.hospital" = "Hospital";
+"type.amenity.hunting_stand" = "Jagttårn";
+"type.amenity.ice_cream" = "Isbod";
+"type.amenity.internet_cafe" = "Internetcafe";
+"type.amenity.kindergarten" = "Børnehave";
+"type.amenity.library" = "Bibliotek";
+"type.amenity.loading_dock" = "Læsserampe";
+"type.amenity.marketplace" = "Markedsplads";
+"type.amenity.motorcycle_parking" = "Motorcykelparkering";
+"type.amenity.nightclub" = "Natklub";
+"type.amenity.nursing_home" = "Plejehjem";
+"type.amenity.parking" = "Parkering";
+"type.amenity.parking.fee" = "Parkering";
+"type.amenity.parking.multi.storey" = "Parkeringshus";
+"type.amenity.parking.multi.storey.fee" = "Parkeringshus";
+"type.amenity.parking.no.access" = "Privat parkering";
+"type.amenity.parking.permissive" = "Privat parkering";
+"type.amenity.parking.private" = "Privat parkering";
+"type.amenity.parking.park_and_ride" = "Parker og rejs parkering";
+"type.amenity.parking.underground" = "Parkeringskælder";
+"type.amenity.parking.underground.fee" = "Parkeringskælder";
+"type.amenity.parking.underground.private" = "Privat parkeringskælder";
+"type.amenity.parking.street_side" = "Parkeringslomme";
+"type.amenity.parking.street_side.fee" = "Parkeringslomme";
+"type.amenity.parking.street_side.private" = "Privat parkeringslomme";
+"type.amenity.parking.lane" = "Parkering i vejside";
+"type.amenity.parking.lane.fee" = "Parkering i vejside";
+"type.amenity.parking.lane.private" = "Privat parkering i vejside";
+"type.amenity.parking_entrance" = "Parkeringsindkørsel";
+"type.amenity.parking_entrance.private" = "Privat parkeringsindkørsel";
+"type.amenity.parking_entrance.permissive" = "Parkeringsindkørsel";
+"type.amenity.parking_space" = "Parkeringsplads";
+"type.amenity.parking_space.permissive" = "Parkeringsplads";
+"type.amenity.parking_space.private" = "Parkeringsplads";
+"type.amenity.parking_space.underground" = "Parkeringsplads";
+"type.amenity.parking_space.disabled" = "Handicapparkeringsplads";
+"type.amenity.payment_terminal" = "Betalingsautomat";
+"type.amenity.pharmacy" = "Apotek";
+"type.amenity.place_of_worship" = "Tilbedelsessted";
+"type.amenity.place_of_worship.buddhist" = "Buddhistisk tempel";
+"type.amenity.place_of_worship.christian" = "Kirke";
+"type.amenity.place_of_worship.christian.mormon" = "Jesu Kristi Kirke af Sidste Dages Hellige";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Jehovas Vidner Rigssal";
+"type.amenity.place_of_worship.hindu" = "Hinduistisk tempel";
+"type.amenity.place_of_worship.jewish" = "Synagoge";
+"type.amenity.place_of_worship.muslim" = "Moske";
+"type.amenity.place_of_worship.shinto" = "Shinto-tempel";
+"type.amenity.place_of_worship.taoist" = "Taoistisk tempel";
+"type.amenity.police" = "Politi";
+"type.amenity.post_box" = "Postkasse";
+"type.amenity.post_office" = "Posthus";
+"type.amenity.prison" = "Fængsel";
+"type.amenity.pub" = "Værtshus";
+"type.amenity.public_bookcase" = "Bogudveksling";
+"type.amenity.recycling.centre" = "Genbrugsplads";
+"type.amenity.recycling" = "Genbrugscontainer";
+"type.amenity.recycling.container" = "Genbrugscontainer";
+"type.recycling.batteries" = "Batterier";
+"type.recycling.clothes" = "Tekstil";
+"type.recycling.glass_bottles" = "Glasflasker";
+"type.recycling.paper" = "Papir";
+"type.recycling.plastic" = "Plastik";
+"type.recycling.plastic_bottles" = "Plastikflasker";
+"type.recycling.scrap_metal" = "Metal";
+"type.recycling.small_appliances" = "Elektronik";
+"type.recycling.cardboard" = "Pap";
+"type.recycling.cans" = "Dåser";
+"type.recycling.shoes" = "Sko";
+"type.recycling.green_waste" = "Kompost";
+"type.recycling.cartons" = "Kartoner";
+"type.amenity.restaurant" = "Restaurant";
+"type.amenity.sanitary_dump_station" = "Tømning af kemisk toilet";
+"type.amenity.school" = "Skole";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Ly";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Læskur";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Primitiv hytte";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Shelter";
+"type.amenity.public_bath" = "Offentligt bad";
+"type.amenity.shower" = "Brusebad";
+"type.amenity.stripclub" = "Stripklub";
+"type.amenity.taxi" = "Taxaholdeplads";
+"type.amenity.telephone" = "Telefon";
+"type.amenity.theatre" = "Teater";
+"type.amenity.toilets" = "Toilet";
+"type.toilets.yes" = "Toilet";
+"type.amenity.townhall" = "Rådhus";
+"type.amenity.university" = "Universitet";
+"type.amenity.vending_machine" = "Automat";
+"type.amenity.vending_machine.cigarettes" = "Cigaretautomat";
+"type.amenity.vending_machine.coffee" = "Kaffeautomat";
+"type.amenity.vending_machine.condoms" = "Kondomautomat";
+"type.amenity.vending_machine.drinks" = "Drikkeautomat";
+"type.amenity.vending_machine.food" = "Madautomat";
+"type.amenity.vending_machine.newspapers" = "Avisautomat";
+"type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
+"type.amenity.vending_machine.public_transport_tickets" = "Billetautomat";
+"type.amenity.vending_machine.sweets" = "Slikautomat";
+"type.amenity.vending_machine.excrement_bags" = "Afføringsposeautomat";
+"type.amenity.parcel_locker" = "Pakkeboks";
+"type.amenity.vehicle_inspection" = "Bilsyn";
+"type.amenity.vending_machine.fuel" = "Benzinautomat";
+"type.amenity.veterinary" = "Dyrlæge";
+"type.amenity.waste_basket" = "Affaldsspand";
+"type.amenity.waste_disposal" = "Affaldsbeholder";
+"type.amenity.waste_transfer_station" = "Affaldsplads";
+"type.amenity.water_point" = "Vandpost";
+"type.amenity.water_point.drinking_water_no" = "Vandstation";
+"type.barrier" = "Barriere";
+"type.barrier.block" = "Blokering";
+"type.barrier.bollard" = "Pullert";
+"type.barrier.border_control" = "Grænsekontrol";
+"type.barrier.chain" = "Kæde";
+"type.barrier.city_wall" = "Bymur";
+"type.barrier.cycle_barrier" = "Cykelbarriere";
+"type.waterway.ditch" = "Afvandingsgrøft";
+"type.natural.water.moat" = "Voldgrav";
+"type.natural.water.wastewater" = "Spildevand";
+"type.barrier.entrance" = "Gennemgang";
+"type.barrier.fence" = "Hegn";
+"type.barrier.gate" = "Port";
+"type.barrier.hedge" = "Hæk";
+"type.barrier.kissing_gate" = "Kreaturport";
+"type.barrier.lift_gate" = "Bom";
+"type.barrier.retaining_wall" = "Støttemur";
+"type.barrier.stile" = "Stente";
+"type.barrier.turnstile" = "Drejekors";
+"type.barrier.swing_gate" = "Svingbom";
+"type.barrier.toll_booth" = "Vejafgiftsstation";
+"type.barrier.wall" = "Mur";
+"type.boundary" = "Grænse";
+"type.boundary.administrative" = "Administrativ grænse";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Landegrænse";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regiongrænse";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regiongrænse";
+"type.boundary.national_park" = "Nationalpark";
+"type.boundary.aboriginal_lands" = "Urfolkslande";
+"type.boundary.protected_area" = "Fredet område";
+"type.boundary.protected_area.1" = "Fredet naturreservat";
+"type.boundary.protected_area.2" = "Fredet nationalpark";
+"type.boundary.protected_area.3" = "Fredet monument eller kendetegn";
+"type.boundary.protected_area.4" = "Fredet dyrehabitat";
+"type.boundary.protected_area.5" = "Beskyttet land eller hav";
+"type.boundary.protected_area.6" = "Beskyttet område med bæredygtig anvendelse";
+"type.building" = "Bygning";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresse";
+"type.building.has_parts" = "Bygning";
+"type.building_part" = "Bygning";
+"type.building.garage" = "Garage";
+"type.building.train_station" = "Stationsbygning";
+"type.building.warehouse" = "Varehus";
+"type.cemetery.grave" = "Grav";
+"type.craft" = "Håndværk";
+"type.craft.beekeeper" = "Biavler";
+"type.craft.blacksmith" = "Smed";
+"type.craft.brewery" = "Bryggeri";
+"type.craft.caterer" = "Cateringfirma";
+"type.craft.carpenter" = "Tømrer";
+"type.craft.confectionery" = "Konfekturehandler";
+"type.craft.electrician" = "Elektriker";
+"type.craft.electronics_repair" = "Elektronikreparation";
+"type.craft.gardener" = "Gartner";
+"type.craft.grinding_mill" = "Mølle";
+"type.craft.handicraft" = "Kunsthåndværk";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "VVS";
+"type.craft.key_cutter" = "Nøgleskæring";
+"type.craft.locksmith" = "Låsesmed";
+"type.craft.metal_construction" = "Metalarbejder";
+"type.craft.painter" = "Maler";
+"type.craft.photographer" = "Fotograf";
+"type.shop.camera" = "Kamerabutik";
+"type.craft.plumber" = "Blikkenslager";
+"type.craft.sawmill" = "Savværk";
+"type.craft.shoemaker" = "Skomager";
+"type.craft.winery" = "Vingård";
+"type.craft.tailor" = "Skrædder";
+"type.cuisine.african" = "Afrikansk";
+"type.cuisine.american" = "Amerikansk";
+"type.cuisine.arab" = "Arabisk";
+"type.cuisine.argentinian" = "Argentinsk";
+"type.cuisine.asian" = "Asiatisk";
+"type.cuisine.austrian" = "Østrigsk";
+"type.cuisine.bagel" = "Bagel";
+"type.cuisine.balkan" = "Balkansk";
+"type.cuisine.barbecue" = "Barbecue";
+"type.cuisine.bavarian" = "Bayersk";
+"type.cuisine.beef_bowl" = "Gyuudon";
+"type.cuisine.brazilian" = "Brasiliansk";
+"type.cuisine.breakfast" = "Morgenmad";
+"type.cuisine.bubble_tea" = "Boblete";
+"type.cuisine.burger" = "Burger";
+"type.cuisine.buschenschank" = "Steiersk vinkro";
+"type.cuisine.cake" = "Kage";
+"type.cuisine.caribbean" = "Caribisk";
+"type.cuisine.chicken" = "Kylling";
+"type.cuisine.chinese" = "Kinesisk";
+"type.cuisine.coffee_shop" = "Kaffe";
+"type.cuisine.crepe" = "Crepes";
+"type.cuisine.croatian" = "Kroatisk";
+"type.cuisine.curry" = "Karryretter";
+"type.cuisine.deli" = "Delikatesse";
+"type.cuisine.diner" = "Diner";
+"type.cuisine.donut" = "Donut";
+"type.cuisine.ethiopian" = "Etiopisk";
+"type.cuisine.filipino" = "Filippinsk";
+"type.cuisine.fine_dining" = "Gourmetmad";
+"type.cuisine.fish" = "Fisk";
+"type.cuisine.fish_and_chips" = "Fish and Chips";
+"type.cuisine.french" = "Fransk";
+"type.cuisine.friture" = "Friturestegt";
+"type.cuisine.georgian" = "Georgisk";
+"type.cuisine.german" = "Tysk";
+"type.cuisine.greek" = "Græsk";
+"type.cuisine.grill" = "Grill";
+"type.cuisine.heuriger" = "Øst-østrigsk vinkro";
+"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hungarian" = "Ungarsk";
+"type.cuisine.ice_cream" = "Is";
+"type.cuisine.indian" = "Indisk";
+"type.cuisine.indonesian" = "Indonesisk";
+"type.cuisine.international" = "International";
+"type.cuisine.irish" = "Irsk";
+"type.cuisine.italian" = "Italiensk";
+"type.cuisine.italian_pizza" = "Italiensk pizza";
+"type.cuisine.japanese" = "Japansk";
+"type.cuisine.kebab" = "Kebab";
+"type.cuisine.korean" = "Koreansk";
+"type.cuisine.lao" = "Laotisk";
+"type.cuisine.lebanese" = "Libanesisk";
+"type.cuisine.local" = "Lokalt køkken";
+"type.cuisine.malagasy" = "Madagaskisk";
+"type.cuisine.malaysian" = "Malaysisk";
+"type.cuisine.mediterranean" = "Middelhavskøkken";
+"type.cuisine.mexican" = "Mexicansk";
+"type.cuisine.moroccan" = "Marokkansk";
+"type.cuisine.noodles" = "Nudler";
+"type.cuisine.oriental" = "Orientalsk";
+"type.cuisine.pancake" = "Pandekage";
+"type.cuisine.pasta" = "Pasta";
+"type.cuisine.persian" = "Persisk";
+"type.cuisine.peruvian" = "Peruviansk";
+"type.cuisine.pizza" = "Pizza";
+"type.cuisine.polish" = "Polsk";
+"type.cuisine.portuguese" = "Portugisisk";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "Regionalt køkken";
+"type.cuisine.russian" = "Russisk";
+"type.cuisine.sandwich" = "Sandwich";
+"type.cuisine.sausage" = "Pølse";
+"type.cuisine.savory_pancakes" = "Madpandekage";
+"type.cuisine.seafood" = "Fisk og skaldyr";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Spansk";
+"type.cuisine.steak_house" = "Bøfhus";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Te";
+"type.cuisine.thai" = "Thailandsk";
+"type.cuisine.turkish" = "Tyrkisk";
+"type.cuisine.vegan" = "Vegansk";
+"type.cuisine.vegetarian" = "Vegetarisk";
+"type.cuisine.vietnamese" = "Vietnamesisk";
+"type.emergency" = "Nødsituation";
+"type.emergency.assembly_point" = "Nødsituationssamlingspunkt";
+"type.emergency.defibrillator" = "Hjertestarter";
+"type.emergency.fire_hydrant" = "Brandhane";
+"type.emergency.phone" = "Nødtelefon";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Livredder";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Bjergredningsstation";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Indgang";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Hovedindgang";
+"type.entrance.exit" = "Udgang";
+"type.fee.yes" = "€";
+"type.fee.no" = "Gratis";
+"type.healthcare.laboratory" = "Medicinsk laboratorium";
+"type.healthcare.physiotherapist" = "Fysioterapeut";
+"type.healthcare.alternative" = "Alternativ medicin";
+"type.healthcare.audiologist" = "Audiologi";
+"type.healthcare.blood_donation" = "Bloddonationscenter";
+"type.healthcare.optometrist" = "Optometrist";
+"type.healthcare.podiatrist" = "Fodterapi";
+"type.healthcare.psychotherapist" = "Psykoterapi";
+"type.healthcare.sample_collection" = "Prøvetagning";
+"type.healthcare.speech_therapist" = "Tale terapi";
+"type.highway" = "Hovedvej";
+"type.highway.bridleway" = "Ridesti";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Bro";
+"type.highway.bridleway.permissive" = "Ridesti";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
+"type.highway.busway" = "Dedikeret busvej";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+"type.highway.bus_stop" = "Busstoppested";
+"type.highway.construction" = "Vej under opbygning";
+"type.highway.cycleway" = "Cykelsti";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Bro";
+"type.highway.cycleway.permissive" = "Cykelsti";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunnel";
+"type.highway.elevator" = "Elevator";
+"type.highway.footway" = "Sti";
+"type.highway.footway.sidewalk" = "Fortov";
+"type.highway.footway.crossing" = "Fodgængerovergang";
+"type.highway.footway.area" = "Sti";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunnel";
+"type.highway.ford" = "Vadested";
+"type.highway.living_street" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunnel";
+"type.highway.motorway" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunnel";
+"type.highway.motorway_junction" = "Motorvejsafkørsel";
+"type.highway.motorway_link" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
+"type.highway.path" = "Sti";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Vanskelig eller dårligt synlig sti";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Meget svær eller umulig at skelne fra hinanden";
+"type.highway.path.bicycle" = "Sti";
+"type.highway.footway.bicycle" = "Sti";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Bro";
+"type.highway.path.horse" = "Sti";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
+"type.highway.pedestrian" = "Gade";
+"type.highway.pedestrian.area" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunnel";
+"type.highway.primary" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunnel";
+"type.highway.primary_link" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunnel";
+"type.highway.raceway" = "Væddeløbsbane";
+"type.highway.residential" = "Gade";
+"type.highway.residential.area" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunnel";
+"type.highway.rest_area" = "Holdeplads";
+"type.highway.road" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Bro";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
+"type.highway.secondary" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunnel";
+"type.highway.secondary_link" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunnel";
+"type.highway.service" = "Gade";
+"type.highway.service.area" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Bro";
+"type.highway.service.driveway" = "Gade";
+"type.highway.service.parking_aisle" = "Gade";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunnel";
+"type.highway.services" = "Rasteplads";
+"type.highway.speed_camera" = "Automatisk Trafikkontrol";
+"type.highway.steps" = "Sti";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
+"type.highway.tertiary" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunnel";
+"type.highway.tertiary_link" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunnel";
+"type.highway.track" = "Gade";
+"type.highway.track.area" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Bro";
+"type.highway.track.grade1" = "Gade";
+"type.highway.track.no.access" = "Gade";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
+"type.highway.traffic_signals" = "Trafiklys";
+"type.highway.trunk" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunnel";
+"type.highway.trunk_link" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
+"type.highway.unclassified" = "Gade";
+"type.highway.unclassified.area" = "Gade";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
+"type.area_highway.cycleway" = "Cykelsti";
+"type.area_highway.footway" = "Sti";
+"type.area_highway.living_street" = "Gade";
+"type.area_highway.motorway" = "Gade";
+"type.area_highway.path" = "Sti";
+"type.area_highway.pedestrian" = "Gade";
+"type.area_highway.primary" = "Gade";
+"type.area_highway.residential" = "Gade";
+"type.area_highway.secondary" = "Gade";
+"type.area_highway.service" = "Gade";
+"type.area_highway.tertiary" = "Gade";
+"type.area_highway.steps" = "Sti";
+"type.area_highway.track" = "Gade";
+"type.area_highway.trunk" = "Gade";
+"type.area_highway.unclassified" = "Gade";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "Historisk objekt";
+"type.historic.aircraft" = "Historiske fly";
+"type.historic.anchor" = "Historisk anker";
+"type.historic.archaeological_site" = "Arkæologisk sted";
+"type.historic.battlefield" = "Slagmark";
+"type.historic.boundary_stone" = "Grænsesten";
+"type.historic.cannon" = "Kanon";
+"type.historic.castle" = "Slot";
+"type.historic.castle.castrum" = "Romersk fort";
+"type.historic.castle.defensive" = "Slot";
+"type.historic.castle.fortified_church" = "Befæstet kirke";
+"type.historic.castle.fortress" = "Fæstningsværk";
+"type.historic.castle.hillfort" = "Voldsted";
+"type.historic.castle.kremlin" = "Kreml";
+"type.historic.castle.manor" = "Herregård";
+"type.historic.castle.palace" = "Palads";
+"type.historic.castle.shiro" = "Japansk slot";
+"type.historic.castle.stately" = "Slot";
+"type.historic.city_gate" = "Byport";
+"type.historic.citywalls" = "Bymur";
+"type.historic.fort" = "Fort";
+"type.historic.gallows" = "Galge";
+"type.historic.locomotive" = "Historisk lokomotiv";
+"type.historic.memorial" = "Mindesmærke";
+"type.historic.memorial.cross" = "Mindesmærkekors";
+"type.historic.memorial.plaque" = "Mindesmærke";
+"type.historic.memorial.sculpture" = "Mindesmærke";
+"type.historic.memorial.statue" = "Mindesmærke";
+"type.historic.memorial.stolperstein" = "Stolpersten";
+"type.historic.stone" = "Historisk sten";
+"type.historic.memorial.war_memorial" = "Krigsmindesmærke";
+"type.historic.mine" = "Historisk mine";
+"type.historic.monument" = "Monument";
+"type.historic.pillory" = "Kag";
+"type.historic.ruins" = "Ruiner";
+"type.historic.ship" = "Skib";
+"type.historic.tank" = "Historisk tank";
+"type.historic.tomb" = "Grav";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Kors";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Kors ved vejsiden";
+"type.historic.wayside_shrine" = "Skrin ved vejsiden";
+"type.historic.wreck" = "Forlis";
+"type.hwtag" = "hwtag";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Internet";
+"type.internet_access.wlan" = "Trådløst internet";
+"type.junction" = "Vejkryds";
+"type.junction.circular" = "Rundkørsel";
+"type.junction.roundabout" = "Rundkørsel";
+"type.landuse" = "Arealanvendelse";
+"type.landuse.allotments" = "Kolonihaveområde";
+"type.landuse.basin" = "Vandbassin";
+"type.landuse.brownfield" = "Forladt område";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Kirkegård";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Kirkegård";
+"type.landuse.churchyard" = "Kirkegård";
+"type.landuse.commercial" = "Erhvervsområde";
+"type.landuse.construction" = "Byggeplads";
+"type.landuse.education" = "Uddannelsesområde";
+"type.landuse.farmland" = "Landbrugsjord";
+"type.landuse.farmyard" = "Gårdsplads";
+"type.landuse.field" = "Mark";
+"type.landuse.flowerbed" = "Blomsterseng";
+"type.landuse.forest" = "Skov";
+"type.landuse.forest.coniferous" = "Skov";
+"type.landuse.forest.deciduous" = "Skov";
+"type.landuse.forest.mixed" = "Skov";
+"type.landuse.garages" = "Garager";
+"type.landuse.grass" = "Græsplæne";
+"type.landuse.greenfield" = "Ubebygget område";
+"type.landuse.greenhouse_horticulture" = "Drivhus";
+"type.landuse.industrial" = "Industriområde";
+"type.landuse.landfill" = "Affaldsdepot";
+"type.landuse.meadow" = "Eng";
+"type.landuse.military" = "Militærområde";
+"type.landuse.orchard" = "Frugtplantage";
+"type.landuse.quarry" = "Brud";
+"type.landuse.railway" = "Jernbaneanlæg";
+"type.landuse.recreation_ground" = "Fritidsområde";
+"type.landuse.reservoir" = "Vand";
+"type.landuse.residential" = "Boligområde";
+"type.landuse.retail" = "Detailhandelsområde";
+"type.landuse.salt_pond" = "Saltfordampningsdam";
+"type.landuse.village_green" = "Forte";
+"type.landuse.vineyard" = "Vinmark";
+"type.leisure" = "Fritid";
+"type.leisure.common" = "Fællesområde";
+"type.leisure.dog_park" = "Hundepark";
+"type.leisure.fitness_centre" = "Trænings- og motionscenter";
+"type.leisure.fitness_station" = "Fitness-station";
+"type.leisure.dance" = "Dansesal";
+"type.leisure.garden" = "Have";
+"type.leisure.garden.residential" = "Have";
+"type.leisure.golf_course" = "Golf";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.ice_rink" = "Skøjtebane";
+"type.leisure.marina" = "Lystbådehavn";
+"type.leisure.nature_reserve" = "Reservat";
+"type.leisure.outdoor_seating" = "Udendørs siddepladser";
+"type.leisure.park" = "Park";
+"type.leisure.park.no.access" = "Park";
+"type.leisure.park.permissive" = "Park";
+"type.leisure.park.private" = "Park";
+"type.leisure.picnic_table" = "Picnic bord";
+"type.leisure.pitch" = "Sportsplads";
+"type.leisure.playground" = "Legeplads";
+"type.leisure.recreation_ground" = "Fritidsområde";
+"type.leisure.sauna" = "Sauna";
+"type.leisure.slipway" = "Slæbested";
+"type.leisure.sports_centre" = "Idrætscenter";
+"type.sport.climbing" = "Klatrecenter";
+"type.sport.yoga" = "Yoga center";
+"type.leisure.stadium" = "Stadion";
+"type.leisure.swimming_pool" = "Svømmebassin";
+"type.leisure.swimming_pool.private" = "Svømmebassin";
+"type.leisure.track" = "Sportsbane";
+"type.leisure.track.area" = "Sportsbane";
+"type.leisure.water_park" = "Vandpark";
+"type.leisure.beach_resort" = "Strandferieområde";
+"type.man_made" = "Menneskeskabt";
+"type.man_made.breakwater" = "Mole";
+"type.man_made.cairn" = "Varde";
+"type.man_made.chimney" = "Fabriksskorsten";
+"type.man_made.cutline" = "Brandbælte";
+"type.man_made.survey_point" = "Landmålingspunkt";
+"type.man_made.flagpole" = "Flagstang";
+"type.man_made.lighthouse" = "Fyrtårn";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Bådebro";
+"type.man_made.pipeline" = "Rørledning";
+"type.man_made.pipeline.overground" = "Overjordisk rørledning";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Tank";
+"type.man_made.surveillance" = "Overvågningskamera";
+"type.man_made.tower" = "Tårn";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Kommunikationstårn";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Kommunikationstårn";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Olie- eller gasbrønd";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Gasflamme";
+"type.man_made.wastewater_plant" = "Spildevandsanlæg";
+"type.man_made.water_tap" = "Vandhane";
+"type.man_made.water_tap.drinking_water_no" = "Vandhane";
+"type.man_made.water_tower" = "Vandtårn";
+"type.man_made.water_well" = "Brønd";
+"type.man_made.water_well.drinking_water_no" = "Brønd";
+"type.man_made.windmill" = "Vindmølle";
+"type.man_made.works" = "Fabrik";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Militær";
+"type.military.bunker" = "Bunker";
+"type.mountain_pass" = "Bjergpas";
+"type.natural" = "Natur";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Blottet klippe";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Småsten";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Stenet skrænt";
+"type.natural.bay" = "Bugt";
+"type.natural.beach" = "Strand";
+"type.natural.beach.sand" = "Sandet strand";
+"type.natural.beach.gravel" = "Grus Strand";
+"type.natural.cape" = "Tange";
+"type.natural.cave_entrance" = "Hule";
+"type.natural.cliff" = "Klippe";
+"type.natural.earth_bank" = "Jordbanken";
+"type.man_made.embankment" = "Vold";
+"type.natural.coastline" = "Kyst";
+"type.natural.desert" = "Ørken";
+"type.natural.geyser" = "Gejser";
+"type.natural.glacier" = "Gletsjer";
+"type.natural.grassland" = "Græsslette";
+"type.natural.heath" = "Hede";
+"type.natural.hot_spring" = "Varm kilde";
+"type.natural.water.lake" = "Sø";
+"type.natural.water.lock" = "Låsekammer";
+"type.natural.water.pond" = "Dam";
+"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.basin" = "Vandbassin";
+"type.natural.water.river" = "Flod";
+"type.natural.land" = "Land";
+"type.natural.meadow" = "Eng";
+"type.natural.orchard" = "Frugthave";
+"type.natural.peak" = "Bjerg";
+"type.natural.saddle" = "Bjergsadel";
+"type.natural.rock" = "Bjergart";
+"type.natural.scrub" = "Kratbevokset område";
+"type.natural.spring" = "Kilde";
+"type.natural.spring.drinking_water_no" = "Kilde";
+"type.natural.strait" = "Stræde";
+"type.natural.tree_row" = "Trærækker";
+"type.natural.vineyard" = "Vingård";
+"type.natural.volcano" = "Vulkan";
+"type.natural.water" = "Vandmasse";
+"type.natural.wetland" = "Vådområde";
+"type.natural.wetland.bog" = "Mose";
+"type.natural.wetland.marsh" = "Marsk";
+"type.noexit" = "Blind vej";
+"type.office" = "Kontor";
+"type.office.company" = "Selskabskontor";
+"type.office.estate_agent" = "Ejendomsmægler";
+"type.office.government" = "Regeringskontor";
+"type.office.insurance" = "Forsikringskontor";
+"type.office.lawyer" = "Advokatkontor";
+"type.office.ngo" = "NGO-kontor";
+"type.office.telecommunication" = "Mobiloperatør";
+"type.organic.only" = "Økologisk";
+"type.organic.yes" = "Økologisk";
+"type.place.city" = "By";
+"type.place.city.capital" = "Kapital";
+"type.place.city.capital.10" = "By";
+"type.place.city.capital.11" = "By";
+"type.place.city.capital.2" = "Kapital";
+"type.place.city.capital.3" = "By";
+"type.place.city.capital.4" = "By";
+"type.place.city.capital.5" = "By";
+"type.place.city.capital.6" = "By";
+"type.place.city.capital.7" = "By";
+"type.place.city.capital.8" = "By";
+"type.place.city.capital.9" = "By";
+"type.place.continent" = "Kontinent";
+"type.place.country" = "Land";
+"type.place.county" = "Amt";
+"type.place.farm" = "Gård";
+"type.place.hamlet" = "Landsby";
+"type.place.island" = "Ø";
+"type.place.islet" = "Ø";
+"type.place.isolated_dwelling" = "Isoleret bolig";
+"type.place.locality" = "Lokalitet";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Kvarter";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Nabolag";
+"type.place.ocean" = "Verdenshave";
+"type.place.region" = "Region";
+"type.place.sea" = "Er";
+"type.place.square" = "Torv";
+"type.place.state" = "Stat";
+"type.place.state.USA" = "Stat";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Forstad";
+"type.place.town" = "By";
+"type.place.village" = "Landsby";
+"type.power" = "Power";
+"type.power.generator" = "Power Generator";
+"type.power.generator.solar" = "Solar generator";
+"type.power.generator.wind" = "Vindgenerator";
+"type.power.generator.gas" = "Gasturbine kraftværk";
+"type.power.generator.hydro" = "Vandkraftværk";
+"type.power.line" = "Power Line";
+"type.power.line.underground" = "Underground Power Line";
+"type.power.minor_line" = "Minor Power Line";
+"type.power.plant" = "Kraftværk";
+"type.power.plant.coal" = "Kulkraftværk";
+"type.power.plant.gas" = "Gasturbine kraftværk";
+"type.power.plant.hydro" = "Vandkraftværk";
+"type.power.plant.solar" = "Solcelleanlæg";
+"type.power.plant.wind" = "Vindkraftværk";
+"type.power.station" = "Power Station";
+"type.power.substation" = "Transformerstation";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "El-pol";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Offentlig transport";
+"type.public_transport.platform" = "Stoppested";
+"type.railway" = "Jernbane";
+"type.railway.abandoned" = "Forladt jernbane";
+"type.railway.abandoned.bridge" = "Forladt jernbanebro";
+"type.railway.abandoned.tunnel" = "Forladt jernbanetunnel";
+"type.railway.construction" = "Jernbanebyggeri";
+"type.railway.crossing" = "Jernbaneovergang";
+"type.railway.disused" = "Ubenyttet jernbane";
+"type.railway.funicular" = "Funicular";
+"type.railway.funicular.bridge" = "Kabelbanebro";
+"type.railway.funicular.tunnel" = "Kabelbanetunnel";
+"type.railway.halt" = "Togstation";
+"type.railway.level_crossing" = "Jernbaneoverskæring";
+"type.railway.light_rail" = "Letbane";
+"type.railway.light_rail.bridge" = "Letbanebro";
+"type.railway.light_rail.tunnel" = "Letbanetunnel";
+"type.railway.monorail" = "Enskinnebane";
+"type.railway.monorail.bridge" = "Enskinnebanebro";
+"type.railway.monorail.tunnel" = "Enskinnebanetunnel";
+"type.railway.narrow_gauge" = "Smalsporbane";
+"type.railway.narrow_gauge.bridge" = "Smalsporbanebro";
+"type.railway.narrow_gauge.tunnel" = "Smalsporbanetunnel";
+"type.railway.platform" = "Jernbaneperron";
+"type.railway.preserved" = "Veteranjernbane";
+"type.railway.preserved.bridge" = "Veteranjernbanebro";
+"type.railway.preserved.tunnel" = "Veteranjernbanetunnel";
+"type.railway.rail" = "Jernbane";
+"type.railway.rail.highspeed" = "Højhastighedsjernbane";
+"type.railway.rail.tourism" = "Turistisk jernbane";
+"type.railway.rail.main" = "Jernbane";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundær jernbane";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Jernbane til forsyningsselskaber";
+"type.railway.rail.spur" = "Jernbanespor";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Ekstra jernbanespor";
+"type.railway.rail.bridge" = "Jernbanebro";
+"type.railway.rail.highspeed.bridge" = "Jernbanebro";
+"type.railway.rail.tourism.bridge" = "Jernbanebro";
+"type.railway.rail.main.bridge" = "Jernbanebro";
+"type.railway.rail.branch.bridge" = "Jernbanebro";
+"type.railway.rail.utility.bridge" = "Jernbanebro";
+"type.railway.rail.spur.bridge" = "Jernbanebro";
+"type.railway.rail.service.bridge" = "Jernbanebro";
+"type.railway.rail.tunnel" = "Jernbanetunnel";
+"type.railway.rail.highspeed.tunnel" = "Jernbanetunnel";
+"type.railway.rail.tourism.tunnel" = "Jernbanetunnel";
+"type.railway.rail.main.tunnel" = "Jernbanetunnel";
+"type.railway.rail.branch.tunnel" = "Jernbanetunnel";
+"type.railway.rail.utility.tunnel" = "Jernbanetunnel";
+"type.railway.rail.spur.tunnel" = "Jernbanetunnel";
+"type.railway.rail.service.tunnel" = "Jernbanetunnel";
+"type.railway.station" = "Togstation";
+"type.railway.station.funicular" = "Kabelbane";
+"type.railway.station.light_rail" = "Togstation";
+"type.railway.station.light_rail.berlin" = "Togstation";
+"type.railway.station.light_rail.london" = "Togstation";
+"type.railway.station.light_rail.porto" = "Togstation";
+"type.railway.station.monorail" = "Togstation";
+"type.railway.station.subway" = "Metrostation";
+"type.railway.station.subway.adana" = "Metro";
+"type.railway.station.subway.algiers" = "Metro";
+"type.railway.station.subway.almaty" = "Metro";
+"type.railway.station.subway.amsterdam" = "Metro";
+"type.railway.station.subway.ankara" = "Metro";
+"type.railway.station.subway.athens" = "Metro";
+"type.railway.station.subway.baku" = "Metro";
+"type.railway.station.subway.bangkok" = "Metro";
+"type.railway.station.subway.barcelona" = "Metro";
+"type.railway.station.subway.beijing" = "Metro";
+"type.railway.station.subway.bengalore" = "Metro";
+"type.railway.station.subway.berlin" = "Metro";
+"type.railway.station.subway.bilbao" = "Metro";
+"type.railway.station.subway.brasilia" = "Metro";
+"type.railway.station.subway.brescia" = "Metro";
+"type.railway.station.subway.brussels" = "Metro";
+"type.railway.station.subway.bucharest" = "Metro";
+"type.railway.station.subway.budapest" = "Metro";
+"type.railway.station.subway.buenos_aires" = "Metro";
+"type.railway.station.subway.bursa" = "Metro";
+"type.railway.station.subway.cairo" = "Metro";
+"type.railway.station.subway.caracas" = "Metro";
+"type.railway.station.subway.catania" = "Metro";
+"type.railway.station.subway.changchun" = "Metro";
+"type.railway.station.subway.chengdu" = "Metro";
+"type.railway.station.subway.chicago" = "Metro";
+"type.railway.station.subway.chongqing" = "Metro";
+"type.railway.station.subway.dalian" = "Metro";
+"type.railway.station.subway.delhi" = "Metro";
+"type.railway.station.subway.dnepro" = "Metro";
+"type.railway.station.subway.dubai" = "Metro";
+"type.railway.station.subway.ekb" = "Metro";
+"type.railway.station.subway.fukuoka" = "Metro";
+"type.railway.station.subway.glasgow" = "Metro";
+"type.railway.station.subway.guangzhou" = "Metro";
+"type.railway.station.subway.hamburg" = "Metro";
+"type.railway.station.subway.helsinki" = "Metro";
+"type.railway.station.subway.hiroshima" = "Metro";
+"type.railway.station.subway.hongkong" = "Metro";
+"type.railway.station.subway.isfahan" = "Metro";
+"type.railway.station.subway.istanbul" = "Metro";
+"type.railway.station.subway.izmir" = "Metro";
+"type.railway.station.subway.kazan" = "Metro";
+"type.railway.station.subway.kharkiv" = "Metro";
+"type.railway.station.subway.kiev" = "Metro";
+"type.railway.station.subway.kobe" = "Metro";
+"type.railway.station.subway.kolkata" = "Metro";
+"type.railway.station.subway.kunming" = "Metro";
+"type.railway.station.subway.kyoto" = "Metro";
+"type.railway.station.subway.la" = "Metro";
+"type.railway.station.subway.lausanne" = "Metro";
+"type.railway.station.subway.lille" = "Metro";
+"type.railway.station.subway.lima" = "Metro";
+"type.railway.station.subway.lisboa" = "Metro";
+"type.railway.station.subway.london" = "Metro";
+"type.railway.station.subway.lyon" = "Metro";
+"type.railway.station.subway.madrid" = "Metro";
+"type.railway.station.subway.malaga" = "Metro";
+"type.railway.station.subway.manila" = "Metro";
+"type.railway.station.subway.maracaibo" = "Metro";
+"type.railway.station.subway.mashhad" = "Metro";
+"type.railway.station.subway.mecca" = "Metro";
+"type.railway.station.subway.medellin" = "Metro";
+"type.railway.station.subway.mexico" = "Metro";
+"type.railway.station.subway.milan" = "Metro";
+"type.railway.station.subway.minsk" = "Metro";
+"type.railway.station.subway.montreal" = "Metro";
+"type.railway.station.subway.moscow" = "Metro";
+"type.railway.station.subway.munchen" = "Metro";
+"type.railway.station.subway.nagoya" = "Metro";
+"type.railway.station.subway.newyork" = "Metro";
+"type.railway.station.subway.nnov" = "Metro";
+"type.railway.station.subway.novosibirsk" = "Metro";
+"type.railway.station.subway.osaka" = "Metro";
+"type.railway.station.subway.oslo" = "Metro";
+"type.railway.station.subway.palma" = "Metro";
+"type.railway.station.subway.panama" = "Metro";
+"type.railway.station.subway.paris" = "Metro";
+"type.railway.station.subway.philadelphia" = "Metro";
+"type.railway.station.subway.pyongyang" = "Metro";
+"type.railway.station.subway.rennes" = "Metro";
+"type.railway.station.subway.rio" = "Metro";
+"type.railway.station.subway.roma" = "Metro";
+"type.railway.station.subway.rotterdam" = "Metro";
+"type.railway.station.subway.samara" = "Metro";
+"type.railway.station.subway.santiago" = "Metro";
+"type.railway.station.subway.santo_domingo" = "Metro";
+"type.railway.station.subway.saopaulo" = "Metro";
+"type.railway.station.subway.sapporo" = "Metro";
+"type.railway.station.subway.sendai" = "Metro";
+"type.railway.station.subway.sf" = "Metro";
+"type.railway.station.subway.shanghai" = "Metro";
+"type.railway.station.subway.shenzhen" = "Metro";
+"type.railway.station.subway.shiraz" = "Metro";
+"type.railway.station.subway.singapore" = "Metro";
+"type.railway.station.subway.sofia" = "Metro";
+"type.railway.station.subway.spb" = "Metro";
+"type.railway.station.subway.stockholm" = "Metro";
+"type.railway.station.subway.tabriz" = "Metro";
+"type.railway.station.subway.taipei" = "Metro";
+"type.railway.station.subway.taoyuan" = "Metro";
+"type.railway.station.subway.tashkent" = "Metro";
+"type.railway.station.subway.tbilisi" = "Metro";
+"type.railway.station.subway.tehran" = "Metro";
+"type.railway.station.subway.tianjin" = "Metro";
+"type.railway.station.subway.tokyo" = "Metro";
+"type.railway.station.subway.valencia" = "Metro";
+"type.railway.station.subway.vienna" = "Metro";
+"type.railway.station.subway.warszawa" = "Metro";
+"type.railway.station.subway.washington" = "Metro";
+"type.railway.station.subway.wuhan" = "Metro";
+"type.railway.station.subway.yerevan" = "Metro";
+"type.railway.station.subway.yokohama" = "Metro";
+"type.railway.subway" = "Metrolinje";
+"type.railway.subway.bridge" = "Metrolinjebro";
+"type.railway.subway.tunnel" = "Metrolinjetunnel";
+"type.railway.subway_entrance" = "Metroindgang";
+"type.railway.subway_entrance.adana" = "Metroindgang";
+"type.railway.subway_entrance.algiers" = "Metroindgang";
+"type.railway.subway_entrance.almaty" = "Metroindgang";
+"type.railway.subway_entrance.amsterdam" = "Metroindgang";
+"type.railway.subway_entrance.ankara" = "Metroindgang";
+"type.railway.subway_entrance.athens" = "Metroindgang";
+"type.railway.subway_entrance.baku" = "Metroindgang";
+"type.railway.subway_entrance.bangkok" = "Metroindgang";
+"type.railway.subway_entrance.barcelona" = "Metroindgang";
+"type.railway.subway_entrance.beijing" = "Metroindgang";
+"type.railway.subway_entrance.bengalore" = "Metroindgang";
+"type.railway.subway_entrance.berlin" = "Metroindgang";
+"type.railway.subway_entrance.bilbao" = "Metroindgang";
+"type.railway.subway_entrance.brasilia" = "Metroindgang";
+"type.railway.subway_entrance.brescia" = "Metroindgang";
+"type.railway.subway_entrance.brussels" = "Metroindgang";
+"type.railway.subway_entrance.bucharest" = "Metroindgang";
+"type.railway.subway_entrance.budapest" = "Metroindgang";
+"type.railway.subway_entrance.buenos_aires" = "Metroindgang";
+"type.railway.subway_entrance.bursa" = "Metroindgang";
+"type.railway.subway_entrance.cairo" = "Metroindgang";
+"type.railway.subway_entrance.caracas" = "Metroindgang";
+"type.railway.subway_entrance.catania" = "Metroindgang";
+"type.railway.subway_entrance.changchun" = "Metroindgang";
+"type.railway.subway_entrance.chengdu" = "Metroindgang";
+"type.railway.subway_entrance.chicago" = "Metroindgang";
+"type.railway.subway_entrance.chongqing" = "Metroindgang";
+"type.railway.subway_entrance.dalian" = "Metroindgang";
+"type.railway.subway_entrance.delhi" = "Metroindgang";
+"type.railway.subway_entrance.dnepro" = "Metroindgang";
+"type.railway.subway_entrance.dubai" = "Metroindgang";
+"type.railway.subway_entrance.ekb" = "Metroindgang";
+"type.railway.subway_entrance.fukuoka" = "Metroindgang";
+"type.railway.subway_entrance.glasgow" = "Metroindgang";
+"type.railway.subway_entrance.guangzhou" = "Metroindgang";
+"type.railway.subway_entrance.hamburg" = "Metroindgang";
+"type.railway.subway_entrance.helsinki" = "Metroindgang";
+"type.railway.subway_entrance.hiroshima" = "Metroindgang";
+"type.railway.subway_entrance.hongkong" = "Metroindgang";
+"type.railway.subway_entrance.isfahan" = "Metroindgang";
+"type.railway.subway_entrance.istanbul" = "Metroindgang";
+"type.railway.subway_entrance.izmir" = "Metroindgang";
+"type.railway.subway_entrance.kazan" = "Metroindgang";
+"type.railway.subway_entrance.kharkiv" = "Metroindgang";
+"type.railway.subway_entrance.kiev" = "Metroindgang";
+"type.railway.subway_entrance.kobe" = "Metroindgang";
+"type.railway.subway_entrance.kolkata" = "Metroindgang";
+"type.railway.subway_entrance.kunming" = "Metroindgang";
+"type.railway.subway_entrance.kyoto" = "Metroindgang";
+"type.railway.subway_entrance.la" = "Metroindgang";
+"type.railway.subway_entrance.lausanne" = "Metroindgang";
+"type.railway.subway_entrance.lille" = "Metroindgang";
+"type.railway.subway_entrance.lima" = "Metroindgang";
+"type.railway.subway_entrance.lisboa" = "Metroindgang";
+"type.railway.subway_entrance.london" = "Metroindgang";
+"type.railway.subway_entrance.lyon" = "Metroindgang";
+"type.railway.subway_entrance.madrid" = "Metroindgang";
+"type.railway.subway_entrance.malaga" = "Metroindgang";
+"type.railway.subway_entrance.manila" = "Metroindgang";
+"type.railway.subway_entrance.maracaibo" = "Metroindgang";
+"type.railway.subway_entrance.mashhad" = "Metroindgang";
+"type.railway.subway_entrance.mecca" = "Metroindgang";
+"type.railway.subway_entrance.medellin" = "Metroindgang";
+"type.railway.subway_entrance.mexico" = "Metroindgang";
+"type.railway.subway_entrance.milan" = "Metroindgang";
+"type.railway.subway_entrance.minsk" = "Metroindgang";
+"type.railway.subway_entrance.montreal" = "Metroindgang";
+"type.railway.subway_entrance.moscow" = "Metroindgang";
+"type.railway.subway_entrance.munchen" = "Metroindgang";
+"type.railway.subway_entrance.nagoya" = "Metroindgang";
+"type.railway.subway_entrance.newyork" = "Metroindgang";
+"type.railway.subway_entrance.nnov" = "Metroindgang";
+"type.railway.subway_entrance.novosibirsk" = "Metroindgang";
+"type.railway.subway_entrance.osaka" = "Metroindgang";
+"type.railway.subway_entrance.oslo" = "Metroindgang";
+"type.railway.subway_entrance.palma" = "Metroindgang";
+"type.railway.subway_entrance.panama" = "Metroindgang";
+"type.railway.subway_entrance.paris" = "Metroindgang";
+"type.railway.subway_entrance.philadelphia" = "Metroindgang";
+"type.railway.subway_entrance.pyongyang" = "Metroindgang";
+"type.railway.subway_entrance.rennes" = "Metroindgang";
+"type.railway.subway_entrance.rio" = "Metroindgang";
+"type.railway.subway_entrance.roma" = "Metroindgang";
+"type.railway.subway_entrance.rotterdam" = "Metroindgang";
+"type.railway.subway_entrance.samara" = "Metroindgang";
+"type.railway.subway_entrance.santiago" = "Metroindgang";
+"type.railway.subway_entrance.santo_domingo" = "Metroindgang";
+"type.railway.subway_entrance.saopaulo" = "Metroindgang";
+"type.railway.subway_entrance.sapporo" = "Metroindgang";
+"type.railway.subway_entrance.sendai" = "Metroindgang";
+"type.railway.subway_entrance.sf" = "Metroindgang";
+"type.railway.subway_entrance.shanghai" = "Metroindgang";
+"type.railway.subway_entrance.shenzhen" = "Metroindgang";
+"type.railway.subway_entrance.shiraz" = "Metroindgang";
+"type.railway.subway_entrance.singapore" = "Metroindgang";
+"type.railway.subway_entrance.sofia" = "Metroindgang";
+"type.railway.subway_entrance.spb" = "Metroindgang";
+"type.railway.subway_entrance.stockholm" = "Metroindgang";
+"type.railway.subway_entrance.tabriz" = "Metroindgang";
+"type.railway.subway_entrance.taipei" = "Metroindgang";
+"type.railway.subway_entrance.taoyuan" = "Metroindgang";
+"type.railway.subway_entrance.tashkent" = "Metroindgang";
+"type.railway.subway_entrance.tbilisi" = "Metroindgang";
+"type.railway.subway_entrance.tehran" = "Metroindgang";
+"type.railway.subway_entrance.tianjin" = "Metroindgang";
+"type.railway.subway_entrance.tokyo" = "Metroindgang";
+"type.railway.subway_entrance.valencia" = "Metroindgang";
+"type.railway.subway_entrance.vienna" = "Metroindgang";
+"type.railway.subway_entrance.warszawa" = "Metroindgang";
+"type.railway.subway_entrance.washington" = "Metroindgang";
+"type.railway.subway_entrance.wuhan" = "Metroindgang";
+"type.railway.subway_entrance.yerevan" = "Metroindgang";
+"type.railway.subway_entrance.yokohama" = "Metroindgang";
+"type.railway.tram" = "Sporvej";
+"type.railway.tram.bridge" = "Sporvejsbro";
+"type.railway.tram.tunnel" = "Sporvejstunnel";
+"type.railway.tram_stop" = "Sporvognsstoppested";
+"type.route" = "Rute";
+"type.route.ferry" = "Færgerute";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Butik";
+"type.shop.alcohol" = "Alkohol";
+"type.shop.bakery" = "Bager";
+"type.shop.bathroom_furnishing" = "Badeværelsesindretning";
+"type.shop.beauty" = "Skønhedssalon";
+"type.shop.beverages" = "Drikkevarer";
+"type.shop.bicycle" = "Cykelforretning";
+"type.shop.bookmaker" = "Væddemålsagent";
+"type.shop.books" = "Boghandel";
+"type.shop.butcher" = "Slagter";
+"type.shop.cannabis" = "Cannabis butik";
+"type.shop.car" = "Bilforhandler";
+"type.shop.car_parts" = "Bildele";
+"type.shop.car_repair" = "Bilmekaniker";
+"type.shop.car_repair.tyres" = "Dækreparation";
+"type.shop.caravan" = "Autocamperforhandler";
+"type.shop.carpet" = "Tæpper";
+"type.shop.chemist" = "Materialist";
+"type.shop.chocolate" = "Chokolade butik";
+"type.shop.clothes" = "Tøjbutik";
+"type.shop.coffee" = "Butik med kaffe";
+"type.shop.computer" = "Computerforretning";
+"type.shop.confectionery" = "Slikbutik";
+"type.shop.convenience" = "Døgnbutik";
+"type.shop.copyshop" = "Kopieringsbutik";
+"type.shop.cosmetics" = "Kosmetik";
+"type.shop.curtain" = "Gardiner";
+"type.shop.deli" = "Delikatessebutik";
+"type.shop.department_store" = "Stormagasin";
+"type.shop.doityourself" = "Isenkræmmer";
+"type.shop.dry_cleaning" = "Renseri";
+"type.shop.electronics" = "Elektronikbutik";
+"type.shop.erotic" = "Erotisk butik";
+"type.shop.fabric" = "Stofbutik";
+"type.shop.farm" = "Farm Food Shop";
+"type.shop.fashion_accessories" = "Mode tilbehør";
+"type.shop.florist" = "Blomsterbutik";
+"type.shop.funeral_directors" = "Bedemand";
+"type.shop.furniture" = "Møbelbutik";
+"type.shop.garden_centre" = "Planteskole";
+"type.shop.gas" = "Gas butik";
+"type.shop.gift" = "Gavebutik";
+"type.shop.greengrocer" = "Grønthandler";
+"type.shop.grocery" = "Købmand";
+"type.shop.hairdresser" = "Frisør";
+"type.shop.hardware" = "Byggemarked";
+"type.shop.health_food" = "Helsekostbutik";
+"type.shop.hearing_aids" = "Høreapparatbutik";
+"type.shop.herbalist" = "Urtebutik";
+"type.shop.hifi" = "HiFi lyd";
+"type.shop.houseware" = "Husholdningsartikler butik";
+"type.shop.jewelry" = "Smykkebutik";
+"type.shop.kiosk" = "Kiosk";
+"type.shop.kitchen" = "Køkkenforretning";
+"type.shop.laundry" = "Vaskeri";
+"type.shop.mall" = "Indkøbscenter";
+"type.shop.massage" = "Massageklinik";
+"type.shop.mobile_phone" = "Mobiltelefonbutik";
+"type.shop.money_lender" = "Pengeudlåner";
+"type.shop.motorcycle" = "Motorcykelforhandler";
+"type.shop.motorcycle_repair" = "Motorcykel reparation";
+"type.shop.music" = "Pladebutik";
+"type.shop.musical_instrument" = "Butik med musikinstrumenter";
+"type.shop.newsagent" = "Avis-kiosk";
+"type.shop.optician" = "Optiker";
+"type.shop.outdoor" = "Fritidsudstyr";
+"type.shop.outpost" = "Afhentningssted";
+"type.shop.pasta" = "Pasta butik";
+"type.shop.pastry" = "Bagværk";
+"type.shop.pawnbroker" = "Pantelåner";
+"type.shop.pet" = "Dyrehandel";
+"type.shop.pet_grooming" = "Kæledyrspleje";
+"type.shop.photo" = "Fotobutik";
+"type.shop.rental" = "Udlejningsbutik";
+"type.shop.rental.bicycle" = "Cykeludlejningsbutik";
+"type.shop.seafood" = "Fiskehandler";
+"type.shop.second_hand" = "Genbrugsbutik";
+"type.shop.shoes" = "Skobutik";
+"type.shop.sports" = "Sportsudstyr";
+"type.shop.stationery" = "Kontorartikler";
+"type.shop.supermarket" = "Supermarked";
+"type.shop.tattoo" = "Tatovør";
+"type.shop.tea" = "Tebutik";
+"type.shop.ticket" = "Billetkontor";
+"type.shop.toys" = "Legetøjsbutik";
+"type.shop.travel_agency" = "Rejsebureau";
+"type.shop.tyres" = "Dækforretning";
+"type.shop.variety_store" = "Småtingsbutik";
+"type.shop.video" = "Videobutik";
+"type.shop.video_games" = "Computerspilbutik";
+"type.shop.wine" = "Vinhandel";
+"type.shop.agrarian" = "Landbrugsbutik";
+"type.shop.antiques" = "Antikviteter";
+"type.shop.appliance" = "Hvidevarer butik";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Kunstbutik";
+"type.shop.baby_goods" = "Børnebutik";
+"type.shop.bag" = "Tasker butik";
+"type.shop.bed" = "Senge butik";
+"type.shop.boutique" = "Boutique";
+"type.shop.charity" = "Velgørenhedsbutik";
+"type.shop.cheese" = "Ostebutik";
+"type.shop.craft" = "Kunst og kunsthåndværk";
+"type.shop.dairy" = "Mejeriprodukter";
+"type.shop.electrical" = "El-butik";
+"type.shop.fishing" = "Fiskeri butik";
+"type.shop.interior_decoration" = "Indvendige dekorationer";
+"type.shop.lottery" = "Lotterikuponer";
+"type.shop.medical_supply" = "Medicinske forsyninger";
+"type.shop.nutrition_supplements" = "Kosttilskud";
+"type.shop.paint" = "Maling";
+"type.shop.perfumery" = "Parfumeri";
+"type.shop.sewing" = "Syudstyr";
+"type.shop.storage_rental" = "Lagerudlejning";
+"type.shop.tobacco" = "Tobak";
+"type.shop.trade" = "Handler forsyninger";
+"type.shop.watches" = "Ure";
+"type.shop.wholesale" = "Engros butik";
+"type.sport" = "Sport";
+"type.sport.american_football" = "Amerikansk fodbold";
+"type.sport.archery" = "Bueskydning";
+"type.sport.athletics" = "Atletik";
+"type.sport.australian_football" = "Australsk fodbold";
+"type.sport.baseball" = "Baseball";
+"type.sport.basketball" = "Basketball";
+"type.sport.beachvolleyball" = "Beachvolley";
+"type.sport.bowls" = "Bowls";
+"type.sport.chess" = "Skak";
+"type.sport.cricket" = "Cricket";
+"type.sport.curling" = "Curling";
+"type.sport.equestrian" = "Ridesport";
+"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Gymnastik";
+"type.sport.handball" = "Håndbold";
+"type.sport.multi" = "Forskellige sportsgrene";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scuba dykning";
+"type.sport.shooting" = "Skydning";
+"type.sport.skateboard" = "Skateboarding";
+"type.sport.skiing" = "Stå på ski";
+"type.sport.soccer" = "Fodbold";
+"type.sport.swimming" = "Svømning";
+"type.sport.table_tennis" = "Bordtennis";
+"type.sport.tennis" = "Tennisbane";
+"type.sport.volleyball" = "Volleyball";
+"type.sport.10pin" = "Bowling";
+"type.sport.9pin" = "Bowling";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futsal";
+"type.sport.ice_hockey" = "Ishockey";
+"type.sport.field_hockey" = "Landhockey";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Baskisk pelota";
+"type.tourism" = "Turisme";
+"type.tourism.aquarium" = "Akvarium";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Bjerghytte";
+"type.tourism.apartment" = "Ferielejlighed";
+"type.tourism.artwork" = "Kunstværk";
+"type.tourism.artwork.architecture" = "Kunstværk";
+"type.tourism.artwork.painting" = "Kunstværk";
+"type.tourism.artwork.sculpture" = "Kunstværk";
+"type.tourism.artwork.statue" = "Kunstværk";
+"type.tourism.attraction" = "Attraktioner";
+"type.attraction.amusement_ride" = "Forlystelse";
+"type.attraction.animal" = "Indhegning til dyr";
+"type.attraction.bumper_car" = "Radiobil";
+"type.attraction.big_wheel" = "Pariserhjul";
+"type.attraction.carousel" = "Karrusel";
+"type.attraction.historic" = "Historisk attraktion";
+"type.attraction.maze" = "Labyrint";
+"type.attraction.roller_coaster" = "Rutsjebane";
+"type.attraction.water_slide" = "Vandrutschebane";
+"type.tourism.attraction.specified" = "Attraktioner";
+"type.tourism.camp_site" = "Campingplads";
+"type.tourism.caravan_site" = "Autocamperplads";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Feriehus";
+"type.tourism.gallery" = "Kunstgalleri";
+"type.tourism.guest_house" = "Gæstehus";
+"type.tourism.hostel" = "Vandrerhjem";
+"type.tourism.hotel" = "Hotel";
+"type.tourism.information" = "Turistinformation";
+"type.tourism.information.board" = "Informationstavle";
+"type.tourism.information.guidepost" = "Vejviser";
+"type.tourism.information.map" = "Turistkort";
+"type.tourism.information.office" = "Turistkontor";
+"type.tourism.information.visitor_centre" = "Besøgscenter";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Museum";
+"type.tourism.picnic_site" = "Picnic";
+"type.leisure.resort" = "Ferieområde";
+"type.tourism.theme_park" = "Forlystelsespark";
+"type.tourism.viewpoint" = "Udsigtspunkt";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Vildmarkshytte";
+"type.tourism.zoo" = "Zoologisk have";
+"type.tourism.zoo.petting" = "Petting Zoo";
+"type.traffic_calming" = "Trafiksanering";
+"type.traffic_calming.bump" = "Vejbump";
+"type.traffic_calming.hump" = "Vejbump";
+"type.waterway" = "Vandløb";
+"type.waterway.canal" = "Kanal";
+"type.waterway.canal.tunnel" = "Kanal";
+"type.waterway.fish_pass" = "Fiskestige";
+"type.waterway.dam" = "Dæmning";
+"type.barrier.ditch" = "Grøft";
+"type.natural.water.ditch" = "Afvandingsgrøft";
+"type.waterway.ditch.tunnel" = "Kulvert";
+"type.waterway.dock" = "Dok";
+"type.waterway.drain" = "Afløb";
+"type.natural.water.drain" = "Afløb";
+"type.waterway.drain.tunnel" = "Kulvert";
+"type.waterway.lock_gate" = "Låseport";
+"type.waterway.river" = "Flod";
+"type.waterway.river.tunnel" = "Flod";
+"type.waterway.stream" = "Flod";
+"type.waterway.stream.ephemeral" = "Flod";
+"type.waterway.stream.intermittent" = "Flod";
+"type.waterway.stream.tunnel" = "Flod";
+"type.waterway.waterfall" = "Vandfald";
+"type.waterway.weir" = "Stemmeværk";
+"type.wheelchair" = "Kørestol";
+"type.wheelchair.limited" = "Begrænset tilgængelighed for kørestol";
+"type.wheelchair.no" = "Ingen tilgængelighed for kørestol";
+"type.wheelchair.yes" = "Fuld tilgængelighed for kørestol";
+"type.aerialway.j.bar" = "Kroglift";
+"type.aerialway.magic_carpet" = "Magisk tæppe";
+"type.aerialway.platter" = "Tallerkenlift";
+"type.aerialway.rope_tow" = "Tovlift";
+"type.aerialway.t.bar" = "Ankerlift";
+"type.piste_type.downhill" = "Pist";
+"type.piste_type.downhill.area" = "Pist";
+"type.piste_type.downhill.advanced" = "Svær pist";
+"type.piste_type.downhill.advanced.area" = "Svær pist";
+"type.piste_type.downhill.easy" = "Let pist";
+"type.piste_type.downhill.easy.area" = "Let pist";
+"type.piste_type.downhill.expert" = "Meget svær pist";
+"type.piste_type.downhill.expert.area" = "Meget svær pist";
+"type.piste_type.downhill.freeride" = "Freeride pist";
+"type.piste_type.downhill.intermediate" = "Mellem pist";
+"type.piste_type.downhill.intermediate.area" = "Mellem pist";
+"type.piste_type.downhill.novice" = "Meget let pist";
+"type.piste_type.downhill.novice.area" = "Meget let pist";
+"type.piste_type.nordic" = "Langrendsløjpe";
+"type.piste_type.sled" = "Kælkebane";
+"type.piste_type.sled.area" = "Kælkebane";
+"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.hike" = "Vandresti i sne";
+"type.piste_type.connection" = "Pisteforbindelse";
+"type.piste_type.skitour" = "Skitour Trail";
+"type.amenity.events_venue" = "Sted for arrangementer";
+"type.shop.auction" = "Auktion";
+"type.shop.collector" = "Samlerobjekter";
+"type.self_service.yes" = "Selvbetjening tilgængelig";
+"type.self_service.only" = "Kun selvbetjening";
+"type.self_service.partially" = "Delvis selvbetjening";
+"type.self_service.no" = "Ingen selvbetjening";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Social facilitet";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Indgang til akutafdeling";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sportshal";

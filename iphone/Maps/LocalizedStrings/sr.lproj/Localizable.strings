@@ -1,0 +1,1071 @@
+
+/* Button text (should be short) */
+"cancel" = "Одустани";
+
+/* Button which interrupts country download */
+"cancel_download" = "Обустави преузимање";
+
+/* Button which deletes downloaded country */
+"delete" = "Обриши";
+"download_maps" = "Преузми мапе";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Преузимање…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Колиметри";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Оставите рецензију";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Миље";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Моја позиција";
+
+/* Update maps later button text */
+"later" = "Касније";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Претрага";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Да";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Прикажи на мапи";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Преузми мапу";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Преузимање није успело";
+
+/* Text in About screen */
+"about_headline" = "Слободна за све, направљена с љубављу";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без реклама, без праћења, без сакупљања података";
+
+/* Text in About screen */
+"about_proposition_2" = "• Без непотребне потрошње батерије, ради и без интернета";
+
+/* Text in About screen */
+"about_proposition_3" = "• Брза, минималистичка, направљена од стране заједнице";
+"close" = "Затвори";
+"download" = "Преузми";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Настави";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Направи нову листу";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Назив листе маркера";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Листе маркера";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Маркери";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Маркери и путање";
+
+/* Default bookmark list name */
+"core_my_places" = "Моја места";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Адреса";
+
+/* Settings button in system menu */
+"settings" = "Подешавања";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Јединице мере";
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Где јести";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Намирнице";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Транспорт";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Гориво";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Паркинг";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Куповина";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Половна одећа";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Хотел";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Туристичка атракција";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Забава";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Банкомат";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Ноћни живот";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Све за децу";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Банка";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Апотека";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Болница";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Тоалет";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Пошта";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Полиција";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Рециклажа";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Вода";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "За кампер возила";
+"share_bookmarks_email_body" = "Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz\n\nУживај у путовању са Organic Maps-ом!";
+
+/* message title of loading file */
+"load_kmz_title" = "Учитавање маркера";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "Маркери су успешно учитани! Можете их проначи на мапи помоћу Менаџера маркера.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.";
+
+/* resource for context menu */
+"edit" = "Измени";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Ваша локација још није одређена";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Хеј, види мој маркер у Organic Maps-у!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Хеј, види моју тренутну локацију на Organic Maps мапи!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "Email";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Копирано у клипборд: %@";
+
+/* place preview title */
+"info" = "Информације";
+
+/* Used for bookmark editing */
+"done" = "Готово";
+
+/* Prints version number in About dialog */
+"version" = "Organic Maps верзија: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "Путање";
+
+/* Length of track in cell that describes route */
+"length" = "Дужина";
+"share_my_location" = "Подели моју локацију";
+"prefs_group_route" = "Навигација";
+"pref_zoom_title" = "Дугме за зумирање";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Изглед";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Светло";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Тамно";
+
+/* Generic «Off» string */
+"off" = "Искључено";
+
+/* Generic «On» string */
+"on" = "Укључено";
+
+/* Generic «Auto» string */
+"auto" = "Аутоматски";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Приказ перспективе";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D зграде";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D зграде се не приказују у режиму чувања батерије";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Гласовне инструкције";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Најави име улице";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Када је укључено, име улице или излаз на који треба скренути ће бити изговорен.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Језик гласа";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Тестирај гласовне инструкције (Текст-у-говор)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Остало";
+"pref_map_auto_zoom" = "Аутоматско увећавање";
+"placepage_distance" = "Раздаљина";
+"search_show_on_map" = "Прикажи на мапи";
+
+/* Text in menu */
+"website" = "Веб-сајт";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Новости";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Оцена апликације";
+
+/* Text in menu */
+"help" = "Помоћ";
+
+/* Button in the main Help dialog */
+"faq" = "Често постављена питања";
+
+/* Button in the main menu */
+"donate" = "Донација";
+
+/* Tex label above the Donate button */
+"donate_description" = "Донирате да бисмо заједно направили најбоље мапе!";
+"already_donated" = "Већ је донирано";
+"remind_me_later" = "Подсећати касније";
+"support_organic_maps" = "Подршка Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "Copyright";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Пријавите проблем";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Пријавите или поправите нетачне податке на мапи";
+
+/* Button in the About screen */
+"volunteer" = "Волонтирајте";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Пратите и контактирајте нас:";
+
+/* Alert text */
+"email_error_body" = "Email клијент није подешен. Молимо вас да га подесите или нас контактирајте на %@";
+
+/* Alert title */
+"email_error_title" = "Грешка приликом слања email-а";
+
+/* Settings item title */
+"pref_calibration_title" = "Калибрација компаса";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Додирните дуго мапу да бисте поново видели интерфејс";
+
+/* Update all button text */
+"downloader_update_all_button" = "Ажурирај све";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Преузето";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Расположиве";
+
+/* Country queued for download */
+"downloader_queued" = "На чекању";
+"downloader_near_me_subtitle" = "Близу мене";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "Мапе";
+"downloader_download_all_button" = "Преузми све";
+"downloader_downloading" = "Преузимање:";
+"downloader_search_results" = "Пронађено";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Ажурирано";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Неуспешно";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Да бисте обрисали мапу, зауставите навигацију.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Могу се креирати само руте које се комплетно налазе у оквиру мапе једног региона.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Преузми мапу";
+
+/* Item status in downloader. */
+"downloader_retry" = "Покушај поново";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Обриши мапу";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Преузми све мапе које се налазе на рути";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Да би рута могла да се креира, потребно је да преузимање и ажурирање свих мапа између ваше локације и вашег одредишта.";
+
+/* bookmark button text */
+"bookmark" = "маркер";
+"save" = "Сачувај";
+"create" = "креирај";
+
+/* red color */
+"red" = "Црвена";
+
+/* yellow color */
+"yellow" = "Жута";
+
+/* blue color */
+"blue" = "Плава";
+
+/* green color */
+"green" = "Зелена";
+
+/* purple color */
+"purple" = "Љубичаста";
+
+/* orange color */
+"orange" = "Наранџаста";
+
+/* brown color */
+"brown" = "Браон";
+
+/* pink color */
+"pink" = "Розе";
+
+/* deep purple color */
+"deep_purple" = "Тамно љубичаста";
+
+/* light blue color */
+"light_blue" = "Светло плава";
+
+/* cyan color */
+"cyan" = "Цијан";
+
+/* teal color */
+"teal" = "Теал";
+
+/* lime color */
+"lime" = "Лимета";
+
+/* deep orange color */
+"deep_orange" = "Тамно наранџаста";
+
+/* gray color */
+"gray" = "Сива";
+
+/* blue gray color */
+"blue_gray" = "Плаво сива";
+"dialog_routing_disclaimer_title" = "Када пратите руту, обратите пажњу на:";
+"dialog_routing_disclaimer_priority" = "— Услови на путу, саобраћајни прописи и знакови имају приоритет у односу на навигацију;";
+"dialog_routing_disclaimer_precision" = "— Мапа може бити нетачна и предложена рута не мора увек бити најоптималнији начин да стигнете на одредиште;";
+"dialog_routing_disclaimer_recommendations" = "— Предложену руту треба да схватите само као предлог;";
+"dialog_routing_disclaimer_borders" = "— Будите пажљиви са рутама које пролазе и близини граница: руте које креира наша апликација могу понекад прелазити границе дражава на недозвољеним местима.";
+"dialog_routing_disclaimer_beware" = "Молимо Вас да будете опрезни и безбедни на путу!";
+"dialog_routing_check_gps" = "Провери GPS сигнал";
+"dialog_routing_error_location_not_found" = "Не могу да направим руту. Тренутне GPS координате не могу да се одреде.";
+"dialog_routing_location_turn_wifi" = "Молим Вас да проверите ваш GPS сигнал. Укључивање Wi-Fi-а ће поправити прецизност ваше локације.";
+"dialog_routing_location_turn_on" = "Укључи Локацијске сервисе";
+"dialog_routing_location_unknown_turn_on" = "Није могуће одредити тренутне GPS координате. Укључи локацијске сервисе ради проналажења руте.";
+"dialog_routing_download_files" = "Преузимање потребних фајлова";
+"dialog_routing_download_and_update_all" = "Преузимање или ажурирање свих мапа које се налазе на предвиђеној путањи ради израчунавања руте.";
+"dialog_routing_unable_locate_route" = "Не могу да пронађем руту";
+"dialog_routing_change_start_or_end" = "Молим Вас да подесите почетну или одредишну тачку.";
+"dialog_routing_change_start" = "Подеси почетну тачку";
+"dialog_routing_start_not_determined" = "Рута није креирана. Не могу да одредим почетну тачку.";
+"dialog_routing_select_closer_start" = "Молим вас да изаберете почетну тачку ближе путу.";
+"dialog_routing_change_end" = "Подеси одредишну тачку";
+"dialog_routing_end_not_determined" = "Рута није направљена. Не могу да пронађем одредиште.";
+"dialog_routing_select_closer_end" = "Молим Вас да изаберете одредишну тачну ближе путу.";
+"dialog_routing_change_intermediate" = "Не могу да пронађем успутну тачку.";
+"dialog_routing_intermediate_not_determined" = "Молим Вас да подесите успутну тачку.";
+"dialog_routing_system_error" = "Системска грешка";
+"dialog_routing_application_error" = "Не могу да направим руту због грешке у апликацији.";
+"dialog_routing_try_again" = "Молим Вас, покушајте поново";
+"dialog_routing_download_and_build_cross_route" = "Да ли желите да преузмете мапу и направите оптималнију руту која се простире на више од једне мапе?";
+"dialog_routing_download_cross_route" = "Преузми додатне мапе и направи бољу руту која се престире преко граница ове мапе.";
+
+/* «Show» context menu */
+"show" = "Прикажи";
+
+/* «Hide» context menu */
+"hide" = "Сакриј";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Планирање руте није успело";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Долазак у: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Преузимање и ажурирање свих мапа уз пројектовану путању ради израчунавања руте.";
+"categories" = "Категорије";
+"history" = "Историја";
+"search_not_found" = "Упс, нема резултата.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Преузмите регион где вршите претрагу, или пробајте да додате име оближњег насеља.";
+"search_history_title" = "Историја претраге";
+"search_history_text" = "Погледајте ваше недавне претраге.";
+"clear_search" = "Обриши историју претраге";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Википедија";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Викимедијина остава";
+"p2p_your_location" = "Ваша локација";
+"p2p_start" = "Крени";
+"p2p_from_here" = "Старт";
+"p2p_to_here" = "Одредиште";
+"p2p_only_from_current" = "Навигација је могућа само од ваше тренутне локације.";
+"p2p_reroute_from_current" = "Да ли желите да направите руту од ваше тренутне локације?";
+"editor_time_add" = "Додај време";
+"editor_time_delete" = "Обриши време";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Нон-стоп (24 сата)";
+"editor_time_open" = "Отворено";
+"editor_time_close" = "Затворено";
+"editor_time_add_closed" = "Додај нерадно време";
+"editor_time_title" = "Радно време";
+"editor_time_advanced" = "Напредни режим";
+"editor_time_simple" = "Једноставни режим";
+"editor_hours_closed" = "Нерадно време";
+"editor_example_values" = "Примери";
+"editor_add_select_location" = "Изаберите локацију";
+"editor_done_dialog_1" = "Направили сте промену на мапи света! Не чувајте је само за себе; реците својим пријатељима и наставите да је мењате заједно.";
+"share_with_friends" = "Подели са пријатељима";
+"editor_report_problem_send_button" = "Пошаљи";
+"autodownload" = "Аутоматско преузимање мапа";
+
+/* Place Page opening hours text */
+"closed_now" = "Затворено сада";
+
+/* Place Page opening hours text */
+"daily" = "Сваки дан";
+"twentyfour_seven" = "24/7";
+"day_off_today" = "Данас не ради";
+"day_off" = "Затворено";
+"today" = "Данас";
+"opens_tomorrow_at" = "Отвара се сутра у %@";
+"opens_dayoftheweek_at" = "Отвара се %1$@ у %2$@";
+"opens_at" = "Отвара се у %@";
+"opens_in" = "Отвара се за %@";
+"closes_at" = "Затвара се у %@";
+"closes_in" = "Затвара се за %@";
+"closed" = "Затворено";
+"add_opening_hours" = "Додај радно време";
+"no_osm_account" = "Немате OpenStreetMap налог?";
+"register_at_openstreetmap" = "Региструјте се на OpenStreetMap-у";
+"password_8_chars_min" = "Лозинка (минимум 8 знакова)";
+"invalid_username_or_password" = "Неисправно корисничко име или лозинка.";
+"login" = "Пријавите се";
+"login_osm" = "Пријава на OpenStreetMap";
+"forgot_password" = "Заборављена лозинка?";
+"osm_account" = "OSM налог";
+"logout" = "Одјави се";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Последње слање";
+"thank_you" = "Хвала";
+"edit_place" = "Измени место";
+"place_name" = "Назив места";
+"add_language" = "Додај језик";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Кућни број";
+"details" = "Детаљи";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Додај улицу";
+"choose_language" = "Изаберите језик";
+"choose_street" = "Изаберите улицу";
+"postal_code" = "Поштански број";
+"cuisine" = "Кухиња";
+"select_cuisine" = "Изаберите кухињу";
+
+/* login text field */
+"email_or_username" = "Email или корисничко име";
+"phone" = "Телефон";
+"level" = "Спрат";
+"please_note" = "Обратите пажњу";
+"downloader_delete_map_dialog" = "Све ваше промене на мапи ће бити обрисане заједно са мапом.";
+"downloader_update_maps" = "Ажурирај мапе";
+"downloader_search_field_hint" = "Пронађи мапу";
+"migration_download_error_dialog" = "Грешка приликом преузимања";
+"common_check_internet_connection_dialog" = "Молим Вас да проверите да ли је Ваш уређај повезан на интернет.";
+"downloader_no_space_title" = "Нема довољно простора";
+"downloader_no_space_message" = "Молим Вас да обришете непотребне податке";
+"editor_profile_changes" = "Верификоване промене";
+"editor_focus_map_on_location" = "Превуците мапу да поставите крст на локацију места или посла.";
+"editor_add_select_category" = "Изаберите категорију";
+"editor_add_select_category_popular_subtitle" = "Популарно";
+"editor_add_select_category_all_subtitle" = "Све категорије";
+"editor_edit_place_title" = "Измена";
+"editor_add_place_title" = "Додавање";
+"editor_edit_place_name_hint" = "Назив места";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Као што је написано на локалном језику";
+"editor_edit_place_category_title" = "Категорија";
+"whatsnew_editor_message_1" = "Додајте нова места на мапу, или промените постојећа директно из апликације.";
+"dialog_incorrect_feature_position" = "Промените локацију";
+"message_invalid_feature_position" = "Објекат не може бити на овом месту";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Подаци са OpenStreetMap-а које је креирала заједница до %@. Научите више о томе како да мењате и ажурирате мапу на OpenStreetMap.org";
+"login_to_make_edits_visible" = "Пријавите се на openstreetmap.org да бисте објавили ваше промене остатку света.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Да бисте завршили преузимање потребно је више слободног простора. Молим Вас да обришете непотребне податке.";
+"editor_sharing_title" = "Ја сам поправио/ла мапе у Organic Maps-у";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d од %2$d";
+"download_over_mobile_header" = "Преузимање преко мобилне мреже?";
+"download_over_mobile_message" = "Ово може бити значајно скупље у оквиру одређених пакета или у ромингу.";
+"error_enter_correct_house_number" = "Унесте исправан кућни број";
+"editor_storey_number" = "Број спратова (макс. %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Број спратова не сме да прелази %d";
+"editor_zip_code" = "Поштански број";
+"error_enter_correct_zip_code" = "Унесите исправан поштански број";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Тачка на мапи";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Напомена за OpenStreetMap волонтере (није обавезна)";
+"editor_detailed_description_hint" = "Детаљан коментар";
+"editor_detailed_description" = "Ваши предлози промена на мапи ће бити послати OpenStreetMap заједници. Молим Вас опишите евентуалне додатне детаље који не могу да се промене помоћу Organic Maps-а.";
+"editor_more_about_osm" = "Више о OpenStreetMap-у";
+"editor_operator" = "Оператор";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Оператор: %@";
+"editor_category_unsuitable_title" = "Не можете да пронађете одговарајућу категорију?";
+"editor_category_unsuitable_text" = "Organic Maps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Прочитајте наше <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">упутство</a> за детаљне инструкције, корак-по-корак.";
+"downloader_no_downloaded_maps_title" = "Нисте преузели ни једну мапу";
+"downloader_no_downloaded_maps_message" = "Преузмите мапе да бисте претраживали и користили навигацију без интернета.";
+"current_location_unknown_error_title" = "Тренутна локација није позната.";
+"current_location_unknown_error_message" = "Десила се грешка приликом утврђивања ваше локације. Проверите да ли је ваш уређај исправан и покушајте поново касније.";
+"location_services_disabled_header" = "Локацијски сервиси су искључени";
+"location_services_disabled_message" = "Омогућите приступ геолокацији у подешавањима вашег уређаја";
+"location_services_disabled_1" = "1. Отворите Подешавања";
+"location_services_disabled_2" = "2. Додирните опцију Локација";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Изаберите За време коришћенја апликације";
+"location_services_disabled_on_device_2" = "2. Изаберите Приватност";
+"location_services_disabled_on_device_3" = "3. Изаберите Локацијски сервиси";
+"location_services_disabled_on_device_4" = "4. Укључите Локацијске сервисе";
+"location_services_disabled_on_device_additional_message" = "Или наставите да користите Organic Maps без локације";
+
+/* abbreviation for meters */
+"m" = "м";
+
+/* abbreviation for kilometers */
+"km" = "км";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "км/ч";
+
+/* abbreviation for mile(s) */
+"mi" = "ми";
+
+/* A unit of measure */
+"ft" = "стопа";
+"miles_per_hour" = "ми/ч";
+"hour" = "ч";
+"minute" = "мин";
+"day" = "д";
+"placepage_more_button" = "Више";
+"book_button" = "Резервиши";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Фотографије, утисци, резервације";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Детаљи на Kayak-у";
+"placepage_call_button" = "Позови";
+"placepage_edit_bookmark_button" = "Измени маркер";
+"placepage_bookmark_name_hint" = "Назив маркера";
+"placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
+"placepage_delete_bookmark_button" = "Обриши маркер";
+"editor_edits_sent_message" = "Ваша напомена ће бити послана на OpenStreetMap";
+"editor_comment_hint" = "Коментар…";
+"editor_reset_edits_message" = "Брисање свих измена које нису послате?";
+"editor_reset_edits_button" = "Обриши";
+"editor_remove_place_message" = "Брисање додатог места?";
+"editor_remove_place_button" = "Обриши";
+"editor_place_doesnt_exist" = "Место не постоји";
+"text_more_button" = "…још";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Унесите исправан број телефона";
+"error_enter_correct_web" = "Унесите исправну веб адресу";
+"error_enter_correct_email" = "Унесите исправан email";
+"refresh" = "Ажурирај";
+"placepage_add_place_button" = "Додај место на OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Да ли желите да поделите са свим другим корисницима?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Проверите да нисте унели приватне или личне податке.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap мапери ће проверити промене и контактирати Вас уколико буду имали питања.";
+"navigation_stop_button" = "Стоп";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Искључити снимање ваше недавно пређене руте?";
+"off_recent_track_background_button" = "Искључи";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Погледај";
+"recent_track_background_dialog_message" = "Organic Maps користи у позадини вашу локацију да би сачувао вашу недавно пређену руту.";
+"general_settings" = "Општа подешавања";
+
+/* For the first routing */
+"accept" = "Прихвати";
+
+/* For the first routing */
+"decline" = "Одбиј";
+"mobile_data_dialog" = "Користи мобилни интернет ради приказа детљних информација?";
+"mobile_data_option_always" = "Увек користи";
+"mobile_data_option_today" = "Само данас";
+"mobile_data_option_not_today" = "Немој данас";
+"mobile_data" = "Мобилни интернет";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Мобилни интернет је потребан за обавештења о ажурирању мапе и за слање измена.";
+"mobile_data_option_never" = "Никад не користи";
+"mobile_data_option_ask" = "Увек ме питај";
+"traffic_update_maps_text" = "Да би се приказали подаци о саобраћају, мапа мора да се ажурира.";
+"big_font" = "Увећана слова на мапи";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Да бисте видели податке о саобраћају, морате да ажурирате апликацију.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Подаци о саобраћају нису доступни";
+"enable_logging" = "Снимање лог фајлова";
+"log_file_size" = "Величина лог фајла: %@";
+"transliteration_title" = "Транслитерација у латиницу";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Излаз";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Користите претрагу или кратко додирните мапу да бисте додали почетну тачку руте";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку";
+"planning_route_manage_route" = "Измени руту";
+"button_plan" = "План";
+"placepage_remove_stop" = "Уклони стајање";
+"planning_route_remove_title" = "Превуците овде за уклањање";
+"placepage_add_stop" = "Међуодредиште";
+"start_from_my_position" = "Крени од";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Молим вас да се улогујете на OpenStreetMap да бисте аутоматски послали све ваше промене на мапи. Сазнајте више";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "овде";
+"core_entrance" = "Улаз";
+"error_enter_correct_name" = "Молим Вас да унесете исправан назив";
+"bookmark_lists" = "Листе";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Сакриј све";
+"bookmark_lists_show_all" = "Прикажи све";
+"bookmarks_create_new_group" = "Креирај нову листу";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Увези маркере и путање";
+"downloader_hide_screen" = "Сакриј екран";
+"downloader_percent" = "%@ (%@ од %@)";
+"downloader_process" = "Преузимам %@…";
+"downloader_applying" = "Примењујем %@…";
+"bookmarks_error_message_share_general" = "Дељење није могуће због грешке у апликацији";
+"bookmarks_error_title_share_empty" = "Грешка приликом дељења";
+"bookmarks_error_message_share_empty" = "Не може се поделити празна листа";
+"bookmarks_error_message_empty_list_name" = "Молим Вас унесите име листе";
+"bookmarks_error_title_list_name_already_taken" = "Овај назив већ постоји";
+"bookmarks_error_title_list_name_too_long" = "Изабрано име је предугачко";
+"profile" = "OpenStreetMap профил";
+"bookmarks_detect_title" = "Пронађени су нови фајлови";
+"button_convert" = "Конвертуј";
+"bookmarks_convert_error_title" = "Грешка";
+"bookmarks_convert_error_message" = "Неки фајлови нису конвертовани.";
+"restore" = "Реконструиши";
+"privacy_policy" = "Политика приватности";
+"terms_of_use" = "Услови коришћења";
+"button_layer_subway" = "Метро";
+"layers_title" = "Стилови мапе и слојеви";
+"subway_data_unavailable" = "Мапа метроа не постоји";
+"title_error_downloading_bookmarks" = "Десила се грешка";
+"popular_place" = "Популарно";
+"export_file" = "Експортуј KMZ";
+"export_file_gpx" = "Експортуј GPX";
+"delete_list" = "Обриши листу";
+"hide_from_map" = "Сакриј на карти";
+"tags_loading_error_subtitle" = "Десила се грешка приликом учитавања тагова, покушајте поново";
+"download_button" = "Преузми";
+"speedcams_alert_title" = "Прекршајне камере";
+"place_description_title" = "Опис места";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Упозорење на прекорачење брзине";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Увек ме упозори";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Немој да ме упозораваш";
+"power_managment_title" = "Режим чувања батерије";
+"power_managment_description" = "Смањује потрошњу електричне енергије искључивањем одређених функционалности.";
+"power_managment_setting_never" = "Никад";
+"power_managment_setting_auto" = "Када је батерија при крају";
+"power_managment_setting_manual_max" = "Увек";
+"enable_logging_warning_message" = "Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.";
+"driving_options_title" = "Опције рутирања";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Избегавај путарине";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Избегавај неасфалтиране путеве";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Избегавај трајекте";
+"avoid_motorways" = "Избегавај аутопутеве";
+"unable_to_calc_alert_title" = "Није могуће израчунати руту";
+"unable_to_calc_alert_subtitle" = "Рута није пронађена. Узрок могу бити опције рутирања или непотпуни OpenStreetMap подаци. Молим Вас да промените ваше опције рутирања и покушате поново.";
+"define_to_avoid_btn" = "Изабери путеве за избегавање";
+"change_driving_options_btn" = "Опције рутирања су укључене";
+"toll_road" = "Путеви са путаринама";
+"unpaved_road" = "Неасфалтирани путеви";
+"ferry_crossing" = "Линије трајекта";
+"trip_start" = "Крећемо";
+"pick_destination" = "Одредиште";
+"follow_my_position" = "Центрирај";
+"search_results" = "Резултати претраге";
+"then_turn" = "Затим";
+"redirect_route_alert" = "Да ли желите да поново направим руту?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Да";
+
+/* A generic "No" button in dialogs */
+"no" = "Не";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Да";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Не";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Број места: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Мрежа: %@";
+"trip_finished" = "Стигли сте!";
+"keyboard_availability_alert" = "Тастатура је онемогућена у току вожње";
+"dialog_routing_change_start_carplay" = "Није могуће направити руту са ваше тренутне локације";
+"dialog_routing_change_end_carplay" = "Није могуће направити руту до изабраног одредишта. Изаберите друго одредиште.";
+"dialog_routing_check_gps_carplay" = "Нема ГПС сигнала. Померите се на отворен простор";
+"dialog_routing_unable_locate_route_carplay" = "Није могуће направити руту. Изаберите друге тачке на рути";
+"dialog_routing_download_files_carplay" = "Да бисте направили руту, преузмите недостајуће мапе на ваш уређај";
+"dialog_routing_system_error_carplay" = "Дошло је до грешке. Молим Вас рестартујте апликацију";
+"dialog_routing_rebuild_from_current_location_carplay" = "Рута ће бити поново направљена од ваше тренутне локације";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Рута ће бити прилагођена за кретање аутомобилом";
+"not_all_shown_bookmarks_carplay" = "Нису приказани сви маркери";
+"switch_to_phone_bookmarks_carplay" = "Пребаците се на телефон да бисте видели све маркере";
+"ok" = "ОК";
+"speedcams_alert_title_carplay_1" = "Прекршајне камере";
+"speedcams_alert_title_carplay_2" = "Упозорење прекорачења";
+"download_map_carplay" = "Молим Вас да преузмете мапе у апликацији на Вашем мобилном уређају";
+"carplay_roundabout_exit" = "%@ излаз";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Сортирање…";
+
+/* iOS */
+"sort_default" = "Подразумевано сортирање";
+"sort_type" = "Сортирање по типу";
+"sort_distance" = "Сортирање по удаљености";
+"sort_date" = "Сортирање по датуму";
+"sort_name" = "Сортирање по називу";
+"week_ago_sorttype" = "Пре недељу дана";
+"month_ago_sorttype" = "Пре месец дана";
+"moremonth_ago_sorttype" = "Пре више од месец дана";
+"moreyear_ago_sorttype" = "Пре више од годину дана";
+"near_me_sorttype" = "Близу мене";
+"others_sorttype" = "Остали";
+"food_places" = "Храна";
+"tourist_places" = "Атракције";
+"museums" = "Музеји";
+"parks" = "Паркови";
+"swim_places" = "Пливање";
+"mountains" = "Планине";
+"animals" = "Животиње";
+"hotels" = "Хотели";
+"buildings" = "Зграде";
+"money" = "Новац";
+"shops" = "Продавнице";
+"parkings" = "Паркинг";
+"fuel_places" = "Бензинске станице";
+"medicine" = "Медицина";
+"search_in_the_list" = "Претражи листу";
+"religious_places" = "Верска места";
+"transit_not_found" = "Навигација у метроу у овом региону још није доступна";
+"dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
+"dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";
+"button_layer_isolines" = "Изолиније";
+"isolines_activation_error_dialog" = "Приказивање изолинија захтева преузмање података са мапе за ову област";
+"isolines_location_error_dialog" = "Изолиније нису доступне за ову област";
+"elevation_profile_diff_level" = "Тежина";
+"elevation_profile_diff_level_easy" = "Лако";
+"elevation_profile_diff_level_moderate" = "Умерено";
+"elevation_profile_diff_level_hard" = "Тешко";
+"elevation_profile_ascent" = "Успон";
+"elevation_profile_descent" = "Спуст";
+"elevation_profile_min_elevation" = "Минимална висина";
+"elevation_profile_max_elevation" = "Максимална висина";
+"isolines_toast_zooms_1_10" = "Увећајте да бисте видели изолиније";
+"downloader_updating_ios" = "Ажурирање";
+"downloader_loading_ios" = "Преузимање";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Ажурирај преузете мапе";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Ажурирање мапа обезбеђује да су подаци о објектима ажурни";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Ажурирај (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Ручно ажурирај касније";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Обриши путању";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Да ли сте сигурни да желите да обришете ову путању?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Назив путање";
+
+/* move track or bookmark from the list button text */
+"move" = "Премести";
+
+/* edit track screen title */
+"track_title" = "Путања";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Хвала што користите мапе које је направила заједница!";
+
+/* App tip #01 */
+"app_tip_01" = "Са вашим донацијама и подршком, можемо да направимо најбоље мапе на свету!";
+
+/* App tip #02 */
+"app_tip_02" = "Да ли вам се допада наша апликација? Молим Вас да донирате да бисте подржали даљи развој! Још вам се не допада? Молимо Вас да нам јавите зашто, па ћемо да је поправимо!";
+
+/* App tip #03 */
+"app_tip_03" = "Ако знате неког програмера, можете да га замолите да имплементира функционалност која вам је потребна.";
+
+/* App tip #04 */
+"app_tip_04" = "Додирните било где на мапи да бисте изабрали било шта. Дуг додир се користи да се сакрије и прикаже интерфејс.";
+
+/* App tip #05 */
+"app_tip_05" = "Да ли сте знали да можете да изаберете вашу тренутну локацију на мапи?";
+
+/* App tip #06 */
+"app_tip_06" = "Можете да помогнете да се апликација преведе на ваш језик.";
+
+/* App tip #07 */
+"app_tip_07" = "Наша апликација је развијена од стране неколико ентузијаста и заједнице.";
+
+/* App tip #08 */
+"app_tip_08" = "Лако можете да поправите или унапредите податке на мапи.";
+
+/* App tip #09 */
+"app_tip_09" = "Наш главни циљ је да направимо брзу апликацију за мапе, једноставну за коришћење, оријентисану на приватност, коју ћете волети.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Ви сада користите Organic Maps на екрану телефона";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Ви сада користите Organic Maps на екрану аутомобила";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Настави на телефону";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Пребаци на екран аутомобила";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "На отвореном";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Експортуј све маркере и путање";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Промени боју";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Мапа";
+"drive_through" = "Пролаз за возила";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Линк менија";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Да ли желите да пошаљете пријаву бага програмерима?\nОслањамо се на кориснике пошто Organic Maps не прикупља податке о грешкама аутоматски. Хвала унапред што подржавате Organic Maps!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Омогући iCloud синхронизацију";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud синхронизација је експеримантална функционалност која је још увек у развоју. Проверите да ли сте направили резервну копију (бекап) свих ваших маркера и путања.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud је искључен";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Молим Вас да укључите iCloud у подешавањима вашег уређаја да бисте користили ову опцију.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Укључи";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Резервна копија";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "Неуспешна iCloud синхронизација";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Грешка: синхронизација није успела због грешке приликом повезивања";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Грешка: синхронизација није успела због прекорачења iCloud квоте";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Грешка: iCloud није доступан";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Отвори у другој апликацији";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Самопослуживање";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Башта";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Недавно обрисане листе";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Обриши";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Обриши све";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Поврати";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Поврати све";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Сними путању";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Заустави снимање путање";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Заустави без снимања";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Настави снимање";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Сачувати у маркерима и путањама?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Путања је празна, нема шта да се сачува";
+"edit_track" = "Измените путању";

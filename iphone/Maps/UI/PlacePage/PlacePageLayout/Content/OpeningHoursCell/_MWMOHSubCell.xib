@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="_MWMOHSubCell" id="QJs-zE-xfN" customClass="_MWMOHSubCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QJs-zE-xfN" id="n1O-q5-zmj">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Sun-Wed, Fri-Sat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIs-LL-j77" userLabel="Days">
+                        <rect key="frame" x="60" y="14" width="132.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Day (24 hours)" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjg-UU-FVu" userLabel="Schedule">
+                        <rect key="frame" x="221.5" y="14" width="137.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перерыв 12:00 – 13:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYw-fc-mKi">
+                        <rect key="frame" x="60" y="38.5" width="299" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="top" secondItem="vjg-UU-FVu" secondAttribute="bottom" constant="4" id="LaC-Fj-SGw"/>
+                    <constraint firstItem="YIs-LL-j77" firstAttribute="leading" secondItem="n1O-q5-zmj" secondAttribute="leading" constant="60" id="Pqu-1L-AJT"/>
+                    <constraint firstItem="vjg-UU-FVu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YIs-LL-j77" secondAttribute="trailing" constant="10" id="S0j-ZD-Yzm"/>
+                    <constraint firstAttribute="trailing" secondItem="vjg-UU-FVu" secondAttribute="trailing" constant="16" id="Y3R-u7-9vy"/>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="top" secondItem="YIs-LL-j77" secondAttribute="bottom" constant="4" id="c2Y-bD-pvv"/>
+                    <constraint firstAttribute="trailing" secondItem="iYw-fc-mKi" secondAttribute="trailing" constant="16" id="fDs-dk-Fok"/>
+                    <constraint firstItem="YIs-LL-j77" firstAttribute="top" secondItem="n1O-q5-zmj" secondAttribute="top" constant="14" id="hto-60-gvp"/>
+                    <constraint firstAttribute="bottom" secondItem="iYw-fc-mKi" secondAttribute="bottom" constant="15" id="j14-1H-U4E"/>
+                    <constraint firstItem="iYw-fc-mKi" firstAttribute="leading" secondItem="n1O-q5-zmj" secondAttribute="leading" constant="60" id="qgW-Wu-maW"/>
+                    <constraint firstItem="vjg-UU-FVu" firstAttribute="top" secondItem="n1O-q5-zmj" secondAttribute="top" constant="14" id="qzM-8s-sDR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="breaks" destination="iYw-fc-mKi" id="2ez-hw-xaw"/>
+                <outlet property="days" destination="YIs-LL-j77" id="dqM-WD-2NN"/>
+                <outlet property="schedule" destination="vjg-UU-FVu" id="Xdv-dH-NPZ"/>
+            </connections>
+            <point key="canvasLocation" x="-96.376811594202906" y="16.40625"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto">
+
+  <!-- Requiring "android.hardware.touchscreen" here breaks DeX mode -->
+  <uses-feature
+      android:glEsVersion="0x00020000"
+      android:required="true"/>
+  <uses-feature
+      android:name="android.hardware.wifi"
+      android:required="false"/>
+  <uses-feature
+      android:name="android.hardware.location"
+      android:required="false"/>
+  <uses-feature
+      android:name="android.hardware.location.network"
+      android:required="false"/>
+  <uses-feature
+      android:name="android.hardware.location.gps"
+      android:required="false"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <!--
+    https://developer.android.com/reference/androidx/core/app/JobIntentService:
+    When running on Android O, the JobScheduler will take care of wake locks
+    for you (holding a wake lock from the time you enqueue work until the job
+    has been dispatched and while it is running). When running on previous
+    versions of the platform, this wake lock handling is emulated in the
+    class here by directly calling the PowerManager; this means
+    the application must request the Manifest.permission.WAKE_LOCK permission.
+  //-->
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+  <!--
+    Android 13 (API level 33) and higher supports a runtime permission for sending non-exempt (including Foreground
+    Services (FGS)) notifications from an app.
+  //-->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.TTS_SERVICE"/>
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.OPEN_DOCUMENT_TREE"/>
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="https" />
+    </intent>
+  </queries>
+
+  <supports-screens
+      android:largeScreens="true"
+      android:xlargeScreens="true"/>
+
+  <!-- "android:resizeableActivity" allows free-form and split-screen modes -->
+  <application
+      android:name=".MwmApplication"
+      android:allowBackup="true"
+      android:backupInForeground="true"
+      android:fullBackupContent="@xml/backup_content"
+      android:dataExtractionRules="@xml/backup_content_v31"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:localeConfig="@xml/locales_config"
+      android:theme="@style/MwmTheme"
+      android:resizeableActivity="true"
+      android:supportsRtl="true"
+      android:networkSecurityConfig="@xml/network_security_config"
+      android:manageSpaceActivity="${applicationId}.ManageSpaceActivity"
+      tools:targetApi="33">
+
+    <!-- Allows for config and orientation change without killing/restarting main activity -->
+    <activity
+      android:name="app.organicmaps.SplashActivity"
+      android:configChanges="orientation|screenSize|smallestScreenSize|density|screenLayout|uiMode|keyboard|keyboardHidden|navigation"
+      android:screenOrientation="fullUser"
+      android:exported="true">
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="geo"/>
+        <data android:scheme="ge0"/>
+        <data android:scheme="om"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+        <data android:host="ge0.me"/>
+      </intent-filter>
+
+      <intent-filter android:autoVerify="@bool/autoVerify">
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+        <data android:host="omaps.app"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+
+        <!-- #map=$zoom/$lat/$lon -->
+        <data android:host="www.openstreetmap.org"/>
+        <data android:path="/"/>
+        <data android:path="/search"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+          android:scheme="mapsme"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="http"/>
+        <data android:scheme="https"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="application/vnd.google-earth.kml+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz"/>
+        <data android:mimeType="application/gpx"/>
+        <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="application/vnd.google-earth.kml+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz"/>
+        <data android:mimeType="application/gpx"/>
+        <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="*/*"/>
+        <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
+        <data android:pathPattern="/.*\\.kmz" />
+        <data android:pathPattern="/.*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\.kml" />
+        <data android:pathPattern="/.*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\.gpx" />
+        <data android:pathPattern="/.*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <!-- Old MAPS.ME binary format //-->
+        <data android:pathPattern="/.*\\.kmb" />
+        <data android:pathPattern="/.*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+      </intent-filter>
+
+      <!-- Duplicates the intent-filter above except it doesn't have mimeType, see
+           https://stackoverflow.com/questions/1733195/android-intent-filter-for-a-particular-file-extension/31028507#31028507 -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
+        <data android:pathPattern="/.*\\.kmz" />
+        <data android:pathPattern="/.*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMZ" />
+        <data android:pathPattern="/.*\\.kml" />
+        <data android:pathPattern="/.*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KML" />
+        <data android:pathPattern="/.*\\.gpx" />
+        <data android:pathPattern="/.*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.GPX" />
+        <!-- Old MAPS.ME binary format //-->
+        <data android:pathPattern="/.*\\.kmb" />
+        <data android:pathPattern="/.*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern="/.*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.KMB" />
+      </intent-filter>
+
+      <!-- Catches .gpx and .gpx.xml files opened from Google Files app -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="content" />
+        <data android:host="*" />
+        <data android:mimeType="application/octet-stream" />
+        <data android:mimeType="application/xml" />
+        <data android:mimeType="text/xml" />
+      </intent-filter>
+
+    </activity>
+
+    <activity
+        android:name="app.organicmaps.DownloadResourcesLegacyActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"/>
+
+    <activity-alias
+      android:name="app.organicmaps.DownloadResourcesActivity"
+      android:label="@string/app_name"
+      android:targetActivity="app.organicmaps.SplashActivity"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity
+        android:name="app.organicmaps.MwmActivity"
+        android:launchMode="singleTask"
+        android:configChanges="uiMode"
+        android:screenOrientation="fullUser"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
+    <activity-alias
+        android:name="${applicationId}.ManageSpaceActivity"
+        android:exported="true"
+        android:targetActivity=".SplashActivity" />
+
+    <activity
+        android:name="app.organicmaps.downloader.DownloaderActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/download_maps"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.search.SearchActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/search_map"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="stateVisible|adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.settings.SettingsActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/settings"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
+
+    <activity
+        android:name="app.organicmaps.help.HelpActivity"
+        android:label="@string/about_menu_title"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="app.organicmaps.help.HelpActivity" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/bookmarks_and_tracks"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.bookmarks.BookmarkListActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/bookmarks"
+        android:parentActivityName="app.organicmaps.bookmarks.BookmarkCategoriesActivity"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.editor.EditorActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/edit_place"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.editor.ProfileActivity"
+        android:parentActivityName="app.organicmaps.settings.SettingsActivity" />
+
+    <activity
+        android:name="app.organicmaps.editor.FeatureCategoryActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
+        android:name="app.organicmaps.editor.ReportActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
+
+    <activity
+        android:name="app.organicmaps.editor.OsmLoginActivity"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
+
+    <activity
+      android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
+      android:label="@string/edit"
+      android:windowSoftInputMode="stateVisible"/>
+    <activity
+      android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
+      android:label="@string/place_description_title"/>
+    <activity
+      android:name="app.organicmaps.settings.DrivingOptionsActivity"
+      android:label="@string/driving_options_title"/>
+    <activity
+        android:name="app.organicmaps.MapPlaceholderActivity"/>
+    <activity
+        android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
+    <service
+        android:name="app.organicmaps.car.CarAppService"
+        android:exported="true"
+        tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="androidx.car.app.CarAppService" />
+        <category android:name="androidx.car.app.category.NAVIGATION" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="androidx.car.app.action.NAVIGATE" />
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="geo" />
+      </intent-filter>
+    </service>
+
+    <service
+        android:name=".routing.NavigationService"
+        android:foregroundServiceType="location"
+        android:exported="false"
+        android:enabled="true"
+        android:stopWithTask="false"/>
+
+    <service android:name=".location.TrackRecordingService"
+      android:foregroundServiceType="location"
+      android:exported="false"
+      android:enabled="true"
+      android:stopWithTask="false"
+      />
+
+    <service
+        android:name=".downloader.DownloaderService"
+        android:foregroundServiceType="dataSync"
+        android:exported="false"
+        android:enabled="true"
+        android:stopWithTask="false"/>
+
+    <provider
+      android:name="androidx.core.content.FileProvider"
+      android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths">
+      </meta-data>
+    </provider>
+
+    <!-- Disable Google's checks for visited sites and loaded URLs in bookmarks description. -->
+    <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
+    <!-- Disable Google's anonymous stats collection -->
+    <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+
+    <!-- Version >= 3.0. Dex Dual Mode support for compatible Samsung devices.
+         See the documentation: https://developer.samsung.com/samsung-dex/modify-optimizing.html //-->
+    <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true" />
+
+    <meta-data
+        android:name="com.google.android.gms.car.application"
+        android:resource="@xml/automotive_app_desc"/>
+
+    <meta-data
+        android:name="androidx.car.app.minCarApiLevel"
+        android:value="5"/>
+
+  </application>
+</manifest>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2" version="1.1" creator="https://gpx.studio">
+<metadata>
+    <name>new</name>
+    <author>
+        <name>gpx.studio</name>
+        <link href="https://gpx.studio"></link>
+    </author>
+</metadata>
+<wpt lat="48.20984622935899" lon="16.376023292541507">
+    <ele>184.4</ele>
+    <name>Point 1</name>
+    <cmt>Point 1</cmt>
+    <sym>Library</sym>
+</wpt>
+<wpt lat="48.209503040543545" lon="16.381065845489506">
+    <ele>186.9</ele>
+    <name>Point 2
+</name>
+    <cmt>Point 2
+</cmt>
+    <sym>Letter A, Blue</sym>
+</wpt>
+<wpt lat="48.20522728707548" lon="16.385250091552738">
+    <ele>174.4</ele>
+    <name>Point 3
+</name>
+    <cmt>Point 3
+</cmt>
+    <sym>Contact, Clown</sym>
+</wpt>
+</gpx>

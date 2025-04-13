@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Configuración de ubicación</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Dirección</string>
+    <!-- SECTION: Search categories -->
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Reciclaje</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Agua</string>
+    <!-- SECTION: Other translations -->
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Fallo al abrir el archivo %1$s
+\n
+\n%2$s</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automático</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Pruebe las instrucciones de voz (TTS, Text-To-Speech)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Verifique el volumen o la configuración de texto a voz del sistema si no escucha la voz ahora.</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Servicios de ubicación de Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Determine rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil</string>
+    <!-- red color -->
+    <string name="red">Rojo</string>
+    <!-- yellow color -->
+    <string name="yellow">Amarillo</string>
+    <!-- blue color -->
+    <string name="blue">Azul</string>
+    <!-- green color -->
+    <string name="green">Verde</string>
+    <!-- purple color -->
+    <string name="purple">Morado</string>
+    <!-- orange color -->
+    <string name="orange">Naranja</string>
+    <!-- brown color -->
+    <string name="brown">Marrón</string>
+    <!-- pink color -->
+    <string name="pink">Rosa</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Morado oscuro</string>
+    <!-- light blue color -->
+    <string name="light_blue">Celeste</string>
+    <!-- cyan color -->
+    <string name="cyan">Cian</string>
+    <!-- teal color -->
+    <string name="teal">Verde azulado</string>
+    <!-- lime color -->
+    <string name="lime">Lima</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Naranja oscuro</string>
+    <!-- gray color -->
+    <string name="gray">Gris</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Gris azulado</string>
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, reseñas, reservas.</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles sobre Kayak</string>
+    <string name="placepage_add_place_button">Agregar lugar a OpenStreetMap</string>
+    <string name="transliteration_title">Transliteración al alfabeto latino</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
+    <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
+    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Emular el almacenamiento dañado</string>
+    <string name="core_entrance">Entrada</string>
+    <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
+    <string name="bookmark_lists">Listas</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Ocultar todo</string>
+    <string name="bookmark_lists_show_all">Mostrar todo</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d marcador</item>
+        <item quantity="other">%d marcadores</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Crear lista nueva</string>
+    <string name="bookmarks_error_message_share_general">No se puede compartir debido a un error de la aplicación</string>
+    <string name="bookmarks_error_title_share_empty">Error al compartir</string>
+    <string name="bookmarks_error_message_share_empty">No se puede compartir una lista vacía</string>
+    <string name="bookmarks_error_title_empty_list_name">El nombre no puede quedar vacío</string>
+    <string name="bookmarks_error_message_empty_list_name">Escriba el nombre</string>
+    <string name="bookmarks_new_list_hint">Lista nueva</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Este nombre ya está en uso</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Por favor elige otro nombre</string>
+    <string name="please_wait">Por favor, espere…</string>
+    <string name="phone_number">Número de teléfono</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">Se encontró %d archivo. Lo verás después de la conversión.</item>
+        <item quantity="other">Se han encontrado %d archivos. Los verás después de la conversión.</item>
+    </plurals>
+    <string name="restore">Restaurar</string>
+    <plurals name="tracks">
+        <item quantity="one">%d rastreo</item>
+        <item quantity="other">%d rastreos</item>
+    </plurals>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="terms_of_use">Términos de uso</string>
+    <string name="button_layer_traffic">Tráfico</string>
+    <string name="button_layer_subway">Metro</string>
+    <string name="layers_title">Estilos y capas de mapas</string>
+    <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
+    <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
+    <string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>
+    <string name="category_desc_more">…más</string>
+    <string name="delete_list">Eliminar lista</string>
+    <string name="public_access">Acceso público</string>
+    <string name="limited_access">Acceso limitado</string>
+    <string name="not_shared">Privado</string>
+    <string name="speedcams_alert_title">Cámaras de velocidad</string>
+    <string name="place_description_title">Descripción de lugares</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Descargar mapas</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Avisar al exceder velocidad límite</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Siempre dar aviso</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Nunca dar aviso</string>
+    <string name="power_managment_title">Modo de ahorro de energía</string>
+    <string name="power_managment_description">Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones de ahorro de energía, en función de la carga actual del teléfono</string>
+    <string name="power_managment_setting_never">Nunca</string>
+    <string name="power_managment_setting_auto">Automático</string>
+    <string name="power_managment_setting_manual_max">Máximo ahorro de energía</string>
+    <string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.</string>
+    <string name="access_rules_author_only">Se edita en línea</string>
+    <string name="driving_options_title">Ajustes de desvío</string>
+    <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
+    <string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
+    <string name="define_to_avoid_btn">Configurar rutas de desvío</string>
+    <string name="change_driving_options_btn">Ajustes de desvío habilitados</string>
+    <string name="toll_road">Carretera de peaje</string>
+    <string name="unpaved_road">Camino de tierra</string>
+    <string name="ferry_crossing">Cruce de ferri</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Sí</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">No</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Sí</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">No</string>
+    <string name="trip_finished">¡Ya llegó!</string>
+    <string name="ok">Ok</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Ordenar…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Ordenar marcadores</string>
+    <!-- Android -->
+    <string name="by_default">Por defecto</string>
+    <!-- Android -->
+    <string name="by_type">Por tipo</string>
+    <!-- Android -->
+    <string name="by_distance">Por distancia</string>
+    <!-- Android -->
+    <string name="by_date">Por fecha</string>
+    <!-- Android -->
+    <string name="by_name">Por nombre</string>
+    <string name="week_ago_sorttype">Hace una semana</string>
+    <string name="month_ago_sorttype">Hace un mes</string>
+    <string name="moremonth_ago_sorttype">Hace más de un mes</string>
+    <string name="moreyear_ago_sorttype">Hace más de un año</string>
+    <string name="near_me_sorttype">Cerca a mí</string>
+    <string name="others_sorttype">Otros</string>
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Comida</string>
+    <string name="tourist_places">Sitios de interés</string>
+    <string name="museums">Museos</string>
+    <string name="parks">Parques</string>
+    <string name="swim_places">Natación</string>
+    <string name="mountains">Montañas</string>
+    <string name="animals">Animales</string>
+    <string name="hotels">Hoteles</string>
+    <string name="buildings">Edificios</string>
+    <string name="money">Dinero</string>
+    <string name="shops">Comercio</string>
+    <string name="parkings">Aparcamientos</string>
+    <string name="fuel_places">Gasolinería</string>
+    <string name="medicine">Medicina</string>
+    <string name="search_in_the_list">Buscar en la lista</string>
+    <string name="religious_places">Sitios religiosos</string>
+    <string name="select_list">Seleccionar lista</string>
+    <string name="transit_not_found">Navegación por metro aún no disponible en esta región</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ruta de metro no encontrada</string>
+    <string name="dialog_pedestrian_route_is_long_message">Elija el punto de inicio o fin de ruta más cercano al metro</string>
+    <string name="button_layer_isolines">Alturas</string>
+    <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
+    <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
+    <string name="elevation_profile_ascent">Ascenso</string>
+    <string name="elevation_profile_descent">Descenso</string>
+    <string name="elevation_profile_min_elevation">Elevación mín.</string>
+    <string name="elevation_profile_max_elevation">Elevación máx.</string>
+    <string name="elevation_profile_difficulty">Dificultad</string>
+    <string name="elevation_profile_distance">Distancia:</string>
+    <string name="elevation_profile_time">Lapso:</string>
+    <string name="isolines_toast_zooms_1_10">Amplíe el mapa para ver las isolíneas</string>
+    <string name="downloader_loading_ios">Cargando</string>
+    <string name="enable_keep_screen_on">Mantener la pantalla encendida</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">A la pantalla del auto</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps necesita acceder a la ubicación. Cuando sea seguro, revise la notificación en el teléfono.</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de ubicación para funcionar de manera eficaz</string>
+    <string name="drive_through">Servicio al auto</string>
+    <string name="back">Atrás</string>
+    <string name="cancel">Cancelar</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='9887239813' timestamp='2023-01-02T12:30:46Z' uid='15008076' user='latvia-bot' visible='true' version='2' changeset='130785588' lat='56.1354835' lon='28.002841'>
+    <tag k='addr:city' v='Šķaune' />
+    <tag k='addr:country' v='LV' />
+    <tag k='addr:district' v='Krāslavas novads' />
+    <tag k='addr:housename' v='Atmatas 1' />
+    <tag k='addr:postcode' v='LV-5695' />
+    <tag k='addr:subdistrict' v='Šķaunes pagasts' />
+    <tag k='ref:LV:addr' v='106523637' />
+  </node>
+  <node id='9887239836' timestamp='2023-01-02T12:30:46Z' uid='15008076' user='latvia-bot' visible='true' version='2' changeset='130785588' lat='56.135877' lon='28.0030258'>
+    <tag k='addr:city' v='Šķaune' />
+    <tag k='addr:country' v='LV' />
+    <tag k='addr:district' v='Krāslavas novads' />
+    <tag k='addr:housename' v='Aronijas' />
+    <tag k='addr:postcode' v='LV-5695' />
+    <tag k='addr:subdistrict' v='Šķaunes pagasts' />
+    <tag k='ref:LV:addr' v='102729535' />
+  </node>
+  <node id='9887239856' timestamp='2023-01-02T12:30:46Z' uid='15008076' user='latvia-bot' visible='true' version='2' changeset='130785588' lat='56.1351598' lon='28.002732'>
+    <tag k='addr:city' v='Šķaune' />
+    <tag k='addr:country' v='LV' />
+    <tag k='addr:district' v='Krāslavas novads' />
+    <tag k='addr:housename' v='Atmatas' />
+    <tag k='addr:postcode' v='LV-5695' />
+    <tag k='addr:subdistrict' v='Šķaunes pagasts' />
+    <tag k='ref:LV:addr' v='102729367' />
+  </node>
+</osm>

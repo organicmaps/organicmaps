@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.Editor.MetadataBlock">
+  <ImageView
+    android:id="@+id/icon"
+    style="@style/MwmWidget.Editor.MetadataIcon"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/custom_input"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/ic_phone" />
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/custom_input"
+    style="@style/MwmWidget.Editor.CustomTextInput"
+    android:layout_width="0dp"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="14dp"
+    android:textColorHint="?android:textColorSecondary"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/icon"
+    app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/input"
+      style="@style/MwmWidget.Editor.FieldLayout.EditText"
+      tools:hint="Hint"
+      android:padding="@dimen/margin_half_double_plus"
+      tools:text="Input" />
+  </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

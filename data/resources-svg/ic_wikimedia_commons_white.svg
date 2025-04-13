@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1376" height="1376" viewBox="-416 -516 820 820">
+<title>Wikimedia Commons Logo</title>
+<defs>
+	<clipPath id="c"><circle r="298"/></clipPath>
+</defs>
+<circle r="100" fill="#fff"/>
+<g fill="#fff">
+	<g id="arrow" clip-path="url(#c)">
+		<path d="m-11 180v118h22v-118"/>
+		<path d="m-43 185l43-75 43 75"/>
+	</g>
+	<g id="arrows3">
+		<use xlink:href="#arrow" transform="rotate(45)"/>
+		<use xlink:href="#arrow" transform="rotate(90)"/>
+		<use xlink:href="#arrow" transform="rotate(135)"/>
+	</g>
+	<use xlink:href="#arrows3" transform="scale(-1 1)"/>
+	<path id="blue_path" transform="rotate(-45)" stroke="#fff" stroke-width="84" fill="none" d="M 0,-256 A 256 256 0 1 0 256,0 C 256,-100 155,-150 250,-275"/>
+	<path id="arrow_top" d="m-23-515s-36 135-80 185 116-62 170-5-90-180-90-180z"/>
+</g>
+</svg>

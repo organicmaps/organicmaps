@@ -1,0 +1,106 @@
+name: iOS Check
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+  pull_request:
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/ios-check.yaml'  # Run check on self change
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - data/strings/**
+      - docs/**
+      - generator/**
+      - iphone/metadata/**
+      - packaging/**
+      - platform/*_android*
+      - platform/*_linux*
+      - platform/*_mac*
+      - platform/*qt*
+      - platform/*_win*
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - tools/**
+      - track_generator/**
+
+jobs:
+  ios-check:
+    name: Build iOS
+    runs-on: macos-15
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
+      LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
+      LANGUAGE: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      TEST_RESULTS_BUNDLE_NAME: OMaps-Test-Results
+    strategy:
+      fail-fast: false
+      matrix:
+        buildType: [Debug, Release]
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Configure XCode cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
+
+      - name: Build and Run Tests (Debug)
+        if: matrix.buildType == 'Debug'
+        shell: bash
+        run: |
+          xcodebuild test \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max,OS=latest' \
+            -quiet \
+            -resultBundlePath ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload Test Results On Failure (Debug)
+        if: ${{ matrix.buildType == 'Debug' && failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.TEST_RESULTS_BUNDLE_NAME }}-${{ github.run_number }}.xcresult
+          path: ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult
+          if-no-files-found: error
+
+      - name: Build (Release)
+        if: matrix.buildType == 'Release'
+        shell: bash
+        run: |
+          xcodebuild build \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -quiet \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="KGk-i7-Jjw" customClass="MWMOpeningHoursTimeSpanTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="128" translatesAutoresizingMaskIntoConstraints="NO" id="CgC-lU-buo">
+                        <rect key="frame" x="16" y="12" width="131.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_time_open"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="128" translatesAutoresizingMaskIntoConstraints="NO" id="CuG-0G-4pB">
+                        <rect key="frame" x="16" y="32" width="131.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:linkBlueText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oux-nC-xpk" userLabel="VerticalSeparator">
+                        <rect key="frame" x="159.5" y="0.0" width="1" height="64"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="1m4-5Q-ym8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Close time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="127" translatesAutoresizingMaskIntoConstraints="NO" id="cGX-Q7-Ddh">
+                        <rect key="frame" x="176.5" y="12" width="127.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_time_close"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="127" translatesAutoresizingMaskIntoConstraints="NO" id="o59-Hp-LIf">
+                        <rect key="frame" x="176.5" y="32" width="127.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:linkBlueText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="qsf-WG-QJW">
+                        <rect key="frame" x="0.0" y="63.5" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Pfd-8E-gxy"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNP-mE-elz" userLabel="Expand Button">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <action selector="expandTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="La8-XF-Fnv"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="oux-nC-xpk" secondAttribute="bottom" id="5IL-Ia-kot"/>
+                    <constraint firstItem="oux-nC-xpk" firstAttribute="leading" secondItem="CgC-lU-buo" secondAttribute="trailing" constant="12" id="6mt-ZU-wDQ"/>
+                    <constraint firstItem="o59-Hp-LIf" firstAttribute="top" secondItem="cGX-Q7-Ddh" secondAttribute="bottom" constant="4" id="9lg-5H-iWb"/>
+                    <constraint firstItem="qsf-WG-QJW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="AD8-yB-pdV"/>
+                    <constraint firstAttribute="bottom" secondItem="jNP-mE-elz" secondAttribute="bottom" id="FLC-q7-gpV"/>
+                    <constraint firstAttribute="trailing" secondItem="jNP-mE-elz" secondAttribute="trailing" id="HAn-uc-gIX"/>
+                    <constraint firstItem="jNP-mE-elz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jaw-Pm-p8E"/>
+                    <constraint firstItem="CgC-lU-buo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Ji6-6i-Iuz"/>
+                    <constraint firstItem="CuG-0G-4pB" firstAttribute="top" secondItem="CgC-lU-buo" secondAttribute="bottom" constant="4" id="NbX-uq-7HO"/>
+                    <constraint firstItem="oux-nC-xpk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="OIR-lX-7FF"/>
+                    <constraint firstItem="oux-nC-xpk" firstAttribute="leading" secondItem="CuG-0G-4pB" secondAttribute="trailing" constant="12" id="T0l-Xe-jBq"/>
+                    <constraint firstAttribute="trailing" secondItem="cGX-Q7-Ddh" secondAttribute="trailing" constant="16" id="UPX-QC-I2L"/>
+                    <constraint firstItem="CuG-0G-4pB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VZc-gy-4dr"/>
+                    <constraint firstItem="jNP-mE-elz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Y32-SZ-Ap1"/>
+                    <constraint firstItem="o59-Hp-LIf" firstAttribute="leading" secondItem="oux-nC-xpk" secondAttribute="trailing" constant="16" id="cvy-Bd-TWo"/>
+                    <constraint firstAttribute="bottom" secondItem="qsf-WG-QJW" secondAttribute="bottom" constant="-0.5" id="fwf-rw-9k6"/>
+                    <constraint firstItem="cGX-Q7-Ddh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="jXv-Nx-MES"/>
+                    <constraint firstAttribute="trailing" secondItem="qsf-WG-QJW" secondAttribute="trailing" id="mle-r1-uUX"/>
+                    <constraint firstAttribute="trailing" secondItem="o59-Hp-LIf" secondAttribute="trailing" constant="16" id="oYK-KJ-Asi"/>
+                    <constraint firstItem="oux-nC-xpk" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qpb-DW-pu0"/>
+                    <constraint firstItem="CgC-lU-buo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="rji-cJ-629"/>
+                    <constraint firstItem="cGX-Q7-Ddh" firstAttribute="leading" secondItem="oux-nC-xpk" secondAttribute="trailing" constant="16" id="xCE-ly-lub"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="closeTimeLabel" destination="o59-Hp-LIf" id="U3D-MI-UR4"/>
+                <outlet property="openTimeLabel" destination="CuG-0G-4pB" id="aDq-t8-Eag"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+</document>

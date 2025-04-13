@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_traffic_download_1"
+        android:duration="@integer/anim_traffic_loading_item"/>
+
+  <item android:drawable="@drawable/ic_traffic_download_2"
+        android:duration="@integer/anim_traffic_loading_item"/>
+
+  <item android:drawable="@drawable/ic_traffic_download_3"
+        android:duration="@integer/anim_traffic_loading_item"/>
+</animation-list>

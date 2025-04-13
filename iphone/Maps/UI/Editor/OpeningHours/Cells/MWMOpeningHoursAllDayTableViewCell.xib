@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MWMOpeningHoursAllDayTableViewCell" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Day (24 hours)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="223" translatesAutoresizingMaskIntoConstraints="NO" id="0Ni-TD-6Ia">
+                        <rect key="frame" x="16" y="12" width="223" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_time_allday"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0BP-HJ-Tdq">
+                        <rect key="frame" x="255" y="7.5" width="51" height="29"/>
+                        <connections>
+                            <action selector="onSwitch" destination="KGk-i7-Jjw" eventType="valueChanged" id="qZA-HV-PB6"/>
+                        </connections>
+                    </switch>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-kB-c4p">
+                        <rect key="frame" x="0.0" y="43.5" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="JvF-ZU-maq"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMSeparator"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0BP-HJ-Tdq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerYWithinMargins" id="1kG-H0-QmS"/>
+                    <constraint firstItem="0Ni-TD-6Ia" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4y2-py-cgM"/>
+                    <constraint firstAttribute="trailing" secondItem="lbK-kB-c4p" secondAttribute="trailing" id="797-Uf-0Jb"/>
+                    <constraint firstItem="lbK-kB-c4p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Dv4-Kj-kii"/>
+                    <constraint firstAttribute="trailing" secondItem="0BP-HJ-Tdq" secondAttribute="trailing" constant="16" id="Ejw-wu-5pE"/>
+                    <constraint firstItem="lbK-kB-c4p" firstAttribute="top" secondItem="0BP-HJ-Tdq" secondAttribute="bottom" constant="7" id="KIL-OP-roj"/>
+                    <constraint firstItem="0BP-HJ-Tdq" firstAttribute="leading" secondItem="0Ni-TD-6Ia" secondAttribute="trailing" constant="16" id="cgf-7m-Kki"/>
+                    <constraint firstItem="0Ni-TD-6Ia" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="gZM-Zt-RId"/>
+                    <constraint firstAttribute="bottom" secondItem="lbK-kB-c4p" secondAttribute="bottom" constant="-0.5" id="jbG-hH-bln"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="label" destination="0Ni-TD-6Ia" id="zLO-3p-8E4"/>
+                <outlet property="switcher" destination="0BP-HJ-Tdq" id="mHZ-4O-ve2"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="155"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
+</document>

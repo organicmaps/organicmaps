@@ -1,0 +1,11 @@
+#include "platform/platform.hpp"
+
+std::string Platform::Version() const
+{
+  return "@OM_VERSION@";
+}
+
+int32_t Platform::IntVersion() const
+{
+  return @OM_INT_VERSION@;
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Explicitly keep all string resources as the R8 shrinker might discard some of them as unused,
+     see https://github.com/organicmaps/organicmaps/issues/7617 -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:keep="@string/*"/>

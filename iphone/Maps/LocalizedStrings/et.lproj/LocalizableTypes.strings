@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "Aadress/plokk";
+"type.addr_interpolation.even" = "Aadress/plokk";
+"type.addr_interpolation.odd" = "Aadress/plokk";
+"type.aerialway" = "Köistee";
+"type.aerialway.cable_car" = "Köistee suurte vagunitega";
+"type.aerialway.chair_lift" = "Istelift";
+"type.aerialway.drag_lift" = "Suusatõstuk";
+"type.aerialway.gondola" = "Köistee väikeste vagunitega";
+"type.aerialway.mixed_lift" = "Segatõstuk";
+"type.aerialway.station" = "Köistee jaam";
+"type.aeroway" = "Õhuruumi taristu";
+"type.aeroway.aerodrome" = "Lennujaam";
+"type.aeroway.aerodrome.international" = "Rahvusvaheline lennujaam";
+"type.aeroway.apron" = "Perroon";
+"type.aeroway.gate" = "Värav";
+"type.aeroway.helipad" = "Helikopteriväljak";
+"type.aeroway.runway" = "Lennurada";
+"type.aeroway.taxiway" = "Ruleerimistee";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Hüved ja teenused";
+"type.amenity.arts_centre" = "Kunstikeskus";
+"type.amenity.atm" = "Pangaautomaat";
+"type.amenity.bank" = "Pank";
+"type.amenity.bar" = "Baar";
+"type.amenity.bbq" = "Väligrill";
+"type.amenity.bench" = "Pink";
+"type.amenity.bicycle_parking" = "Jalgrattaparkla";
+"type.amenity.bicycle_rental" = "Jalgrattarent";
+"type.amenity.bicycle_repair_station" = "Jalgrattaparandusjaam";
+"type.amenity.biergarten" = "Saksa-tüüpi väliõhu õllebaar";
+"type.amenity.brothel" = "Bordell";
+"type.amenity.bureau_de_change" = "Valuutavahetus";
+"type.amenity.bus_station" = "Bussijaam";
+"type.amenity.cafe" = "Kohvik";
+"type.amenity.car_rental" = "Autorent";
+"type.amenity.motorcycle_rental" = "Mootorratta rent";
+"type.amenity.car_sharing" = "Autojagamisteenus";
+"type.amenity.car_wash" = "Autopesula";
+"type.amenity.casino" = "Kasiino";
+"type.amenity.gambling" = "Hasartmängud";
+"type.leisure.adult_gaming_centre" = "Hasartmängusaal";
+"type.leisure.amusement_arcade" = "Videomängusaal";
+"type.amenity.charging_station" = "Laadimisjaam";
+"type.amenity.charging_station.bicycle" = "Jalgratta laadimisjaam";
+"type.amenity.charging_station.motorcar" = "Autode laadimisjaam";
+"type.amenity.childcare" = "Lastehoid";
+"type.amenity.cinema" = "Kino";
+"type.leisure.bowling_alley" = "Bowlingusaal";
+"type.amenity.clinic" = "Kliinik";
+"type.amenity.college" = "Kolledž";
+"type.amenity.community_centre" = "Kogukonnakeskus";
+"type.amenity.compressed_air" = "Suruõhk";
+"type.amenity.conference_centre" = "Konverentsikeskus";
+"type.amenity.courthouse" = "Kohtumaja";
+"type.amenity.dentist" = "Hambaarst";
+"type.amenity.doctors" = "Arst";
+"type.amenity.drinking_water" = "Joogivesi";
+"type.drinking_water.yes" = "Joogivesi";
+"type.amenity.driving_school" = "Autokool";
+"type.amenity.exhibition_centre" = "Näituste keskus";
+"type.amenity.money_transfer" = "Rahaülekandeteenus";
+"type.amenity.music_school" = "Muusikakool";
+"type.amenity.language_school" = "Keeltekool";
+"type.office.diplomatic" = "Saatkond";
+"type.amenity.fast_food" = "Kiirtoidukoht";
+"type.amenity.ferry_terminal" = "Praam";
+"type.amenity.fire_station" = "Päästedepoo";
+"type.amenity.food_court" = "Toidutänav";
+"type.amenity.fountain" = "Purskkaev";
+"type.amenity.fuel" = "Tankla";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Surnuaed";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Kristlik surnuaed";
+"type.amenity.hospital" = "Haigla";
+"type.amenity.hunting_stand" = "Jahitorn";
+"type.amenity.ice_cream" = "Jäätis";
+"type.amenity.internet_cafe" = "Internetikohvik";
+"type.amenity.kindergarten" = "Lasteaed";
+"type.amenity.library" = "Raamatukogu";
+"type.amenity.loading_dock" = "Laoestakaad";
+"type.amenity.marketplace" = "Turg";
+"type.amenity.motorcycle_parking" = "Mootorrataste parkla";
+"type.amenity.nightclub" = "Ööklubi";
+"type.amenity.nursing_home" = "Hooldekodu";
+"type.amenity.parking" = "Parkla";
+"type.amenity.parking.fee" = "Parkla";
+"type.amenity.parking.multi.storey" = "Mitmekorruseline parkimismaja";
+"type.amenity.parking.multi.storey.fee" = "Mitmekorruseline parkimismaja";
+"type.amenity.parking.no.access" = "Privaatne parkla";
+"type.amenity.parking.permissive" = "Privaatne parkla";
+"type.amenity.parking.private" = "Privaatne parkla";
+"type.amenity.parking.park_and_ride" = "Pargi ja reisi teenuse parkla";
+"type.amenity.parking.underground" = "Maa-alune parkla";
+"type.amenity.parking.underground.fee" = "Maa-alune parkla";
+"type.amenity.parking.underground.private" = "Privaatne maa-alune parkla";
+"type.amenity.parking.street_side" = "Tänavaäärne parkimine";
+"type.amenity.parking.street_side.fee" = "Tänavaäärne parkimine";
+"type.amenity.parking.street_side.private" = "Privaatne tänavaäärne parkimine";
+"type.amenity.parking.lane" = "Teeäärne parkimisrada";
+"type.amenity.parking.lane.fee" = "Teeäärne parkimisrada";
+"type.amenity.parking.lane.private" = "Privaatne teeäärne parkimisrada";
+"type.amenity.parking_entrance" = "Parkla sissepääs";
+"type.amenity.parking_entrance.private" = "Privaatse parkla sissepääs";
+"type.amenity.parking_entrance.permissive" = "Parkla sissepääs";
+"type.amenity.parking_space" = "Parkimiskoht";
+"type.amenity.parking_space.permissive" = "Parkimiskoht";
+"type.amenity.parking_space.private" = "Parkimiskoht";
+"type.amenity.parking_space.underground" = "Parkimiskoht";
+"type.amenity.parking_space.disabled" = "Invaparkimiskoht";
+"type.amenity.payment_terminal" = "Makseterminal";
+"type.amenity.pharmacy" = "Apteek";
+"type.amenity.place_of_worship" = "Pühakoda";
+"type.amenity.place_of_worship.buddhist" = "Budistlik tempel";
+"type.amenity.place_of_worship.christian" = "Kirik";
+"type.amenity.place_of_worship.christian.mormon" = "Viimse Aja Pühade Jeesuse Kristuse Kirik";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Jehoova tunnistajate kuningriigi saal";
+"type.amenity.place_of_worship.hindu" = "Hindu tempel";
+"type.amenity.place_of_worship.jewish" = "Sünagoog";
+"type.amenity.place_of_worship.muslim" = "Mošee";
+"type.amenity.place_of_worship.shinto" = "Šinto tempel";
+"type.amenity.place_of_worship.taoist" = "Taoistlik tempel";
+"type.amenity.police" = "Politsei";
+"type.amenity.post_box" = "Postkast";
+"type.amenity.post_office" = "Postkontor";
+"type.amenity.prison" = "Vangla";
+"type.amenity.pub" = "Pubi";
+"type.amenity.public_bookcase" = "Avalik raamaturiiul";
+"type.amenity.recycling.centre" = "Jäätmejaam";
+"type.amenity.recycling" = "Taaskasutuskonteiner";
+"type.amenity.recycling.container" = "Taaskasutuskonteiner";
+"type.recycling.batteries" = "Patareid";
+"type.recycling.clothes" = "Rõivad";
+"type.recycling.glass_bottles" = "Klaaspudelid";
+"type.recycling.paper" = "Paber";
+"type.recycling.plastic" = "Plastik";
+"type.recycling.plastic_bottles" = "Plastpudelid";
+"type.recycling.scrap_metal" = "Vanametall";
+"type.recycling.small_appliances" = "Elektroonikajäätmed";
+"type.recycling.cardboard" = "Papp";
+"type.recycling.cans" = "Purgid";
+"type.recycling.shoes" = "Jalanõud";
+"type.recycling.green_waste" = "Komposteeritavad jäätmed";
+"type.recycling.cartons" = "Joogipakendid";
+"type.amenity.restaurant" = "Restoran";
+"type.amenity.sanitary_dump_station" = "Heitvee purgimiskoht";
+"type.amenity.school" = "Kool";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Varjualune";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Varjualune";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Onn";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Poolvarikatus";
+"type.amenity.public_bath" = "Avalik looduslik spaa";
+"type.amenity.shower" = "Dušš";
+"type.amenity.stripclub" = "Stripiklubi";
+"type.amenity.taxi" = "Taksopeatus";
+"type.amenity.telephone" = "Taksofon";
+"type.amenity.theatre" = "Teater";
+"type.amenity.toilets" = "Tualett";
+"type.toilets.yes" = "Tualett";
+"type.amenity.townhall" = "Raekoda/vallamaja";
+"type.amenity.university" = "Ülikool";
+"type.amenity.vending_machine" = "Müügiautomaat";
+"type.amenity.vending_machine.cigarettes" = "Sigarettide müügiautomaat";
+"type.amenity.vending_machine.coffee" = "Kohviautomaat";
+"type.amenity.vending_machine.condoms" = "Kondoomiautomaat";
+"type.amenity.vending_machine.drinks" = "Joogiautomaat";
+"type.amenity.vending_machine.food" = "Toiduautomaat";
+"type.amenity.vending_machine.newspapers" = "Ajalehtede automaat";
+"type.amenity.vending_machine.parking_tickets" = "Parkimispiletite automaat";
+"type.amenity.vending_machine.public_transport_tickets" = "Piletiautomaat";
+"type.amenity.vending_machine.sweets" = "Maiustuste automaat";
+"type.amenity.vending_machine.excrement_bags" = "Väljaheitekottide automaat";
+"type.amenity.parcel_locker" = "Pakiautomaat";
+"type.amenity.vehicle_inspection" = "Sõidukite tehnoülevaatus";
+"type.amenity.vending_machine.fuel" = "Tankur";
+"type.amenity.veterinary" = "Loomaarst";
+"type.amenity.waste_basket" = "Prügikast";
+"type.amenity.waste_disposal" = "Prügikonteiner";
+"type.amenity.waste_transfer_station" = "Jäätmetöötlusjaam";
+"type.amenity.water_point" = "Joogivee tankimispunkt";
+"type.amenity.water_point.drinking_water_no" = "Joogivee tankimispunkt";
+"type.barrier" = "Barjäär";
+"type.barrier.block" = "Kiviplokk";
+"type.barrier.bollard" = "Piirdetulp";
+"type.barrier.border_control" = "Piirikontroll";
+"type.barrier.chain" = "Kett";
+"type.barrier.city_wall" = "Linnamüür";
+"type.barrier.cycle_barrier" = "Jalgrattabarjäär";
+"type.waterway.ditch" = "Drenaažikraav";
+"type.natural.water.moat" = "Vallikraav";
+"type.natural.water.wastewater" = "Reovesi";
+"type.barrier.entrance" = "Sissepääs";
+"type.barrier.fence" = "Tara";
+"type.barrier.gate" = "Värav";
+"type.barrier.hedge" = "Hekk";
+"type.barrier.kissing_gate" = "Karjaaia lüüsiga jalgvärav";
+"type.barrier.lift_gate" = "Tõkkepuu";
+"type.barrier.retaining_wall" = "Tugimüür";
+"type.barrier.stile" = "Taratrepp";
+"type.barrier.turnstile" = "Pöördvärav";
+"type.barrier.swing_gate" = "Tiibvärav";
+"type.barrier.toll_booth" = "Teemaksuputka";
+"type.barrier.wall" = "Müür";
+"type.boundary" = "Piir";
+"type.boundary.administrative" = "Halduspiir";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Riigipiir";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Halduspiir L3";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Halduspiir L4";
+"type.boundary.national_park" = "Rahvuspark";
+"type.boundary.aboriginal_lands" = "Põlisrahvaste maad";
+"type.boundary.protected_area" = "Kaitseala";
+"type.boundary.protected_area.1" = "Kaitseala";
+"type.boundary.protected_area.2" = "Kaitseala";
+"type.boundary.protected_area.3" = "Kaitseala";
+"type.boundary.protected_area.4" = "Kaitseala";
+"type.boundary.protected_area.5" = "Kaitseala";
+"type.boundary.protected_area.6" = "Kaitseala";
+"type.building" = "Hoone";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Aadress";
+"type.building.has_parts" = "Hoone";
+"type.building_part" = "Hooneosa";
+"type.building.garage" = "Garaaž";
+"type.building.train_station" = "Jaamahoone";
+"type.building.warehouse" = "Ladu";
+"type.cemetery.grave" = "Haud";
+"type.craft" = "Käsitöömeister";
+"type.craft.beekeeper" = "Mesinik";
+"type.craft.blacksmith" = "Sepp";
+"type.craft.brewery" = "Väikepruulikoda";
+"type.craft.caterer" = "Toitlustaja";
+"type.craft.carpenter" = "Puusepp";
+"type.craft.confectionery" = "Kondiiter";
+"type.craft.electrician" = "Elektrik";
+"type.craft.electronics_repair" = "Elektroonika remont";
+"type.craft.gardener" = "Aednik";
+"type.craft.grinding_mill" = "Veski";
+"type.craft.handicraft" = "Käsitöö";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Kliima- ja kütteseadmete meister";
+"type.craft.key_cutter" = "Võtmemeister";
+"type.craft.locksmith" = "Lukksepp";
+"type.craft.metal_construction" = "Mettallimeister";
+"type.craft.painter" = "Maaler";
+"type.craft.photographer" = "Fotograaf";
+"type.shop.camera" = "Kaamerapood";
+"type.craft.plumber" = "Santehnik";
+"type.craft.sawmill" = "Saeveski";
+"type.craft.shoemaker" = "Kingsepp";
+"type.craft.winery" = "Veinikelder";
+"type.craft.tailor" = "Rätsep";
+"type.cuisine.african" = "Aafrika";
+"type.cuisine.american" = "Ameerika";
+"type.cuisine.arab" = "Araabia";
+"type.cuisine.argentinian" = "Argentina";
+"type.cuisine.asian" = "Aasia";
+"type.cuisine.austrian" = "Austria";
+"type.cuisine.bagel" = "Rõngassaiake";
+"type.cuisine.balkan" = "Balkani";
+"type.cuisine.barbecue" = "Grill";
+"type.cuisine.bavarian" = "Baieri";
+"type.cuisine.beef_bowl" = "Veise-riisiroad";
+"type.cuisine.brazilian" = "Brasiilia";
+"type.cuisine.breakfast" = "Hommikusöök";
+"type.cuisine.bubble_tea" = "Mullitee";
+"type.cuisine.burger" = "Hamburger";
+"type.cuisine.buschenschank" = "Austria veinikõrts (buschenschank)";
+"type.cuisine.cake" = "Koogid";
+"type.cuisine.caribbean" = "Kariibi";
+"type.cuisine.chicken" = "Kanaliha road";
+"type.cuisine.chinese" = "Hiina";
+"type.cuisine.coffee_shop" = "Kohvi";
+"type.cuisine.crepe" = "Kreperii";
+"type.cuisine.croatian" = "Horvaadi";
+"type.cuisine.curry" = "Karri";
+"type.cuisine.deli" = "Delikatesstoitude pood";
+"type.cuisine.diner" = "Söögikoht";
+"type.cuisine.donut" = "Sõõrik";
+"type.cuisine.ethiopian" = "Etioopia";
+"type.cuisine.filipino" = "Filipiinide";
+"type.cuisine.fine_dining" = "Peen restoran";
+"type.cuisine.fish" = "Kalaroad";
+"type.cuisine.fish_and_chips" = "Friteeritud kala ja kartulid";
+"type.cuisine.french" = "Prantsuse";
+"type.cuisine.friture" = "Friteeritud toidud";
+"type.cuisine.georgian" = "Gruusia";
+"type.cuisine.german" = "Saksa";
+"type.cuisine.greek" = "Kreeka";
+"type.cuisine.grill" = "Grill";
+"type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
+"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hungarian" = "Ungari";
+"type.cuisine.ice_cream" = "Jäätis";
+"type.cuisine.indian" = "India";
+"type.cuisine.indonesian" = "Indoneesia";
+"type.cuisine.international" = "Rahvusvaheline";
+"type.cuisine.irish" = "Iiri";
+"type.cuisine.italian" = "Itaalia";
+"type.cuisine.italian_pizza" = "Itaalia, pizza";
+"type.cuisine.japanese" = "Jaapani";
+"type.cuisine.kebab" = "Kebab";
+"type.cuisine.korean" = "Korea";
+"type.cuisine.lao" = "Lao";
+"type.cuisine.lebanese" = "Liibanoni";
+"type.cuisine.local" = "Kohalik";
+"type.cuisine.malagasy" = "Madagaskari";
+"type.cuisine.malaysian" = "Malai";
+"type.cuisine.mediterranean" = "Vahemere";
+"type.cuisine.mexican" = "Mehhiko";
+"type.cuisine.moroccan" = "Maroko";
+"type.cuisine.noodles" = "Nuudliroad";
+"type.cuisine.oriental" = "Kaug-Ida";
+"type.cuisine.pancake" = "Pannkoogid";
+"type.cuisine.pasta" = "Pasta";
+"type.cuisine.persian" = "Pärsia";
+"type.cuisine.peruvian" = "Peruu köök";
+"type.cuisine.pizza" = "Pitsa";
+"type.cuisine.polish" = "Poola";
+"type.cuisine.portuguese" = "Portugali";
+"type.cuisine.ramen" = "Jaapani ramen-nuudlid";
+"type.cuisine.regional" = "Piirkondlik";
+"type.cuisine.russian" = "Vene";
+"type.cuisine.sandwich" = "Võileivad";
+"type.cuisine.sausage" = "Vorstid";
+"type.cuisine.savory_pancakes" = "Soolased pannkoogid";
+"type.cuisine.seafood" = "Mereannid";
+"type.cuisine.soba" = "Jaapani soba-nuudlid";
+"type.cuisine.spanish" = "Hispaania";
+"type.cuisine.steak_house" = "Liharestoran";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Tee";
+"type.cuisine.thai" = "Tai";
+"type.cuisine.turkish" = "Türgi";
+"type.cuisine.vegan" = "Täistaimetoidukoht";
+"type.cuisine.vegetarian" = "Taimetoit";
+"type.cuisine.vietnamese" = "Vietnami";
+"type.emergency" = "Pääste- ja abiteenused";
+"type.emergency.assembly_point" = "Kogunemiskoht hädaolukorras";
+"type.emergency.defibrillator" = "Defibrillaator";
+"type.emergency.fire_hydrant" = "Tuletõrjehüdrant";
+"type.emergency.phone" = "Hädaabi telefon";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Päästja";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Mäepäästejaam";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Sissepääs";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Peasissepääs";
+"type.entrance.exit" = "Väljupääs";
+"type.fee.yes" = "$ / €";
+"type.fee.no" = "Tasuta";
+"type.healthcare.laboratory" = "Meditsiinilabor";
+"type.healthcare.physiotherapist" = "Füsioterapeut";
+"type.healthcare.alternative" = "Alternatiivmeditsiin";
+"type.healthcare.audiologist" = "Audioloog";
+"type.healthcare.blood_donation" = "Verekeskus";
+"type.healthcare.optometrist" = "Optometrist";
+"type.healthcare.podiatrist" = "Jalaarst";
+"type.healthcare.psychotherapist" = "Psühhoteraapia";
+"type.healthcare.sample_collection" = "Proovide kogumispunkt";
+"type.healthcare.speech_therapist" = "Logopeed";
+"type.highway" = "Tee";
+"type.highway.bridleway" = "Ratsutamisrada";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Sild";
+"type.highway.bridleway.permissive" = "Ratsutamisrada";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunnel";
+"type.highway.busway" = "Roobastega bussirada";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+"type.highway.bus_stop" = "Bussipeatus";
+"type.highway.construction" = "Ehitusjärgus tee";
+"type.highway.cycleway" = "Jalgrattatee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Jalgrattasild";
+"type.highway.cycleway.permissive" = "Piiratud jalgrattatee";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Jalgrattatunnel";
+"type.highway.elevator" = "Lift";
+"type.highway.footway" = "Jalgrada";
+"type.highway.footway.sidewalk" = "Kõnnitee";
+"type.highway.footway.crossing" = "Jalakäijate ülekäigurada";
+"type.highway.footway.area" = "Jalakäijate ala";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Jalakäijate sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Jalakäijate tunnel";
+"type.highway.ford" = "Koolmekoht";
+"type.highway.living_street" = "Õueala tee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Elamupiirkonna tänava tunnel";
+"type.highway.motorway" = "Kiirtee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Kiirtee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Kiirtee tunnel";
+"type.highway.motorway_junction" = "Mahasõit kiirteelt";
+"type.highway.motorway_link" = "Kiirtee kaldtee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunnel";
+"type.highway.path" = "Rada";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Raske või halvasti nähtav rada";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Väga raske või eristamatu rada";
+"type.highway.path.bicycle" = "Jalgratta- ja jalgtee";
+"type.highway.footway.bicycle" = "Jalgratta- ja jalgtee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Sild";
+"type.highway.path.horse" = "Ratsutamisrada";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunnel";
+"type.highway.pedestrian" = "Jalakäijate tänav";
+"type.highway.pedestrian.area" = "Jalakäijate ala";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Jalakäijate sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Jalakäijate tunnel";
+"type.highway.primary" = "Põhimaantee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Põhimaantee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Põhimaantee tunnel";
+"type.highway.primary_link" = "Põhimaantee kaldtee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Põhimaantee ühendustee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Põhimaantee ühendustee tunnel";
+"type.highway.raceway" = "Võistlusrada";
+"type.highway.residential" = "Elamupiirkonna tänav";
+"type.highway.residential.area" = "Elamupiirkonna tänav";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Elamupirkonna tänava tunnel";
+"type.highway.rest_area" = "Teeäärne puhkekoht";
+"type.highway.road" = "Maantee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Sild";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunnel";
+"type.highway.secondary" = "Tugimaantee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Tugimaantee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tugimaantee tunnel";
+"type.highway.secondary_link" = "Tugimaantee ühendustee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Tugimaantee ühendustee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tugimaantee ühendustee tunnel";
+"type.highway.service" = "Juurdepääsutee";
+"type.highway.service.area" = "Juurdepääsutee ala";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Juurdepääsutee sild";
+"type.highway.service.driveway" = "Sissesõidutee";
+"type.highway.service.parking_aisle" = "Parkla vahetee";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Juurdepääsutee tunnel";
+"type.highway.services" = "Maantee teenindusala";
+"type.highway.speed_camera" = "Kiiruskaamera";
+"type.highway.steps" = "Trepp";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunnel";
+"type.highway.tertiary" = "Kohalik maantee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Kohaliku maantee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Kohaliku maantee tunnel";
+"type.highway.tertiary_link" = "Kohaliku maantee ühendustee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Kohaliku maantee ühendustee sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Kohaliku maantee ühendustee tunnel";
+"type.highway.track" = "Rada";
+"type.highway.track.area" = "Rada";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Sild";
+"type.highway.track.grade1" = "Rada";
+"type.highway.track.no.access" = "Rada";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunnel";
+"type.highway.traffic_signals" = "Valgusfoor";
+"type.highway.trunk" = "E-tähistusega põhimaantee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "E-tähistusega põhimaantee tunnel";
+"type.highway.trunk_link" = "E-tähistusega põhimaantee ühendustee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunnel";
+"type.highway.unclassified" = "Vähetähtis tee";
+"type.highway.unclassified.area" = "Vähetähtis tee";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Sild";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunnel";
+"type.area_highway.cycleway" = "Jalgrattatee";
+"type.area_highway.footway" = "Jalgtee";
+"type.area_highway.living_street" = "Õueala tee";
+"type.area_highway.motorway" = "Kiirtee";
+"type.area_highway.path" = "Rada";
+"type.area_highway.pedestrian" = "Jalakäijate tänav";
+"type.area_highway.primary" = "Põhimaantee";
+"type.area_highway.residential" = "Elamupiikonna tänav";
+"type.area_highway.secondary" = "Tugimaantee";
+"type.area_highway.service" = "Juurdepääsutee";
+"type.area_highway.tertiary" = "Kohalik maantee";
+"type.area_highway.steps" = "Trepp";
+"type.area_highway.track" = "Rada";
+"type.area_highway.trunk" = "E-tähistusega põhimaantee";
+"type.area_highway.unclassified" = "Vähetähtis tee";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "Ajalooline objekt";
+"type.historic.aircraft" = "Ajalooline lennuk";
+"type.historic.anchor" = "Ajalooline ankur";
+"type.historic.archaeological_site" = "Arheoloogiline koht";
+"type.historic.battlefield" = "Lahinguväli";
+"type.historic.boundary_stone" = "Piirikivi";
+"type.historic.cannon" = "Kahur";
+"type.historic.castle" = "Loss";
+"type.historic.castle.castrum" = "Rooma kindlus";
+"type.historic.castle.defensive" = "Kindlus";
+"type.historic.castle.fortified_church" = "Kindluskirik";
+"type.historic.castle.fortress" = "Kindlus";
+"type.historic.castle.hillfort" = "Maalinn";
+"type.historic.castle.kremlin" = "Kreml";
+"type.historic.castle.manor" = "Mõisahoone";
+"type.historic.castle.palace" = "Palee";
+"type.historic.castle.shiro" = "Jaapani kindlusloss";
+"type.historic.castle.stately" = "Suur härrastemaja";
+"type.historic.city_gate" = "Linnavärav";
+"type.historic.citywalls" = "Linnamüür";
+"type.historic.fort" = "Kindlus";
+"type.historic.gallows" = "Võllas";
+"type.historic.locomotive" = "Ajalooline vedur";
+"type.historic.memorial" = "Mälestusmärk";
+"type.historic.memorial.cross" = "Mälestusrist";
+"type.historic.memorial.plaque" = "Mälestustahvel";
+"type.historic.memorial.sculpture" = "Skulptuur";
+"type.historic.memorial.statue" = "Ausammas";
+"type.historic.memorial.stolperstein" = "Natsismiohvrite mälestuskivi sillutises";
+"type.historic.stone" = "Mälestuskivi";
+"type.historic.memorial.war_memorial" = "Sõjamemoriaal";
+"type.historic.mine" = "Ajalooline kaevandus";
+"type.historic.monument" = "Monument";
+"type.historic.pillory" = "Ajalooline häbipost";
+"type.historic.ruins" = "Varemed";
+"type.historic.ship" = "Ajalooline laev";
+"type.historic.tank" = "Ajalooline tank";
+"type.historic.tomb" = "Hauakamber";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Rist";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Teeäärne rist";
+"type.historic.wayside_shrine" = "Teeäärne altar";
+"type.historic.wreck" = "Laevavrakk";
+"type.hwtag" = "hwtag";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Internet";
+"type.internet_access.wlan" = "Wifi";
+"type.junction" = "Ristmik";
+"type.junction.circular" = "Ringtee";
+"type.junction.roundabout" = "Ringtee";
+"type.landuse" = "Maakasutus";
+"type.landuse.allotments" = "Aianduskrundid";
+"type.landuse.basin" = "Kogumisbassein";
+"type.landuse.brownfield" = "Pruunala";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Surnuaed";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Kristlik surnuaed";
+"type.landuse.churchyard" = "Kirikuaed";
+"type.landuse.commercial" = "Ärimaa";
+"type.landuse.construction" = "Ehitusala";
+"type.landuse.education" = "Haridusasutuse maaala";
+"type.landuse.farmland" = "Põllumaa";
+"type.landuse.farmyard" = "Taluõu";
+"type.landuse.field" = "Põld";
+"type.landuse.flowerbed" = "Lillepeenar";
+"type.landuse.forest" = "Majandusmets";
+"type.landuse.forest.coniferous" = "Okaspuumets";
+"type.landuse.forest.deciduous" = "Heitlehine mets";
+"type.landuse.forest.mixed" = "Segamets";
+"type.landuse.garages" = "Garaažide maaala";
+"type.landuse.grass" = "Muru";
+"type.landuse.greenfield" = "Ehituseks planeeritud roheala";
+"type.landuse.greenhouse_horticulture" = "Kasvuhoonete ala";
+"type.landuse.industrial" = "Tööstuspiirkond";
+"type.landuse.landfill" = "Prügila";
+"type.landuse.meadow" = "Heinamaa";
+"type.landuse.military" = "Militaarala";
+"type.landuse.orchard" = "Viljapuuaed";
+"type.landuse.quarry" = "Karjäär";
+"type.landuse.railway" = "Raudteekoridor";
+"type.landuse.recreation_ground" = "Puhkeala";
+"type.landuse.reservoir" = "Veehoidla";
+"type.landuse.residential" = "Elamuala";
+"type.landuse.retail" = "Jaekaubandusala";
+"type.landuse.salt_pond" = "Soolatiik";
+"type.landuse.village_green" = "Külaplats";
+"type.landuse.vineyard" = "Viinamarjaistandus";
+"type.leisure" = "Jõudeaja tegevused";
+"type.leisure.common" = "Ühismaakasutusala";
+"type.leisure.dog_park" = "Koertepark";
+"type.leisure.fitness_centre" = "Jõusaal";
+"type.leisure.fitness_station" = "Jõulinnak";
+"type.leisure.dance" = "Tantsusaal";
+"type.leisure.garden" = "Aed";
+"type.leisure.garden.residential" = "Elamu aed";
+"type.leisure.golf_course" = "Golfirada";
+"type.leisure.miniature_golf" = "Minigolfirada";
+"type.leisure.hackerspace" = "Häkkerite ühisruum";
+"type.leisure.ice_rink" = "Uisustaadion";
+"type.leisure.marina" = "Väikesadam";
+"type.leisure.nature_reserve" = "Looduskaitseala";
+"type.leisure.outdoor_seating" = "Istekohad õues";
+"type.leisure.park" = "Park";
+"type.leisure.park.no.access" = "Erapark";
+"type.leisure.park.permissive" = "Park";
+"type.leisure.park.private" = "Erapark";
+"type.leisure.picnic_table" = "Piknikulaud";
+"type.leisure.pitch" = "Spordiväljak";
+"type.leisure.playground" = "Mänguväljak";
+"type.leisure.recreation_ground" = "Puhkeala";
+"type.leisure.sauna" = "Saun";
+"type.leisure.slipway" = "Slipp";
+"type.leisure.sports_centre" = "Spordikeskus";
+"type.sport.climbing" = "Ronimiskeskus";
+"type.sport.yoga" = "Joogastuudio";
+"type.leisure.stadium" = "Staadion";
+"type.leisure.swimming_pool" = "Ujumisbassein";
+"type.leisure.swimming_pool.private" = "Privaatne ujumisbassein";
+"type.leisure.track" = "Jooksurada";
+"type.leisure.track.area" = "Jooksurada";
+"type.leisure.water_park" = "Veepark";
+"type.leisure.beach_resort" = "Rannakuurort";
+"type.man_made" = "Inimtekkeline objekt";
+"type.man_made.breakwater" = "Lainemurdja";
+"type.man_made.cairn" = "Kivikangur";
+"type.man_made.chimney" = "Korsten";
+"type.man_made.cutline" = "Metsasiht";
+"type.man_made.survey_point" = "Geodeetiline märk";
+"type.man_made.flagpole" = "Lipumast";
+"type.man_made.lighthouse" = "Majakas";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Kai";
+"type.man_made.pipeline" = "Torujuhe";
+"type.man_made.pipeline.overground" = "Maapealne torujuhe";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Mahuti";
+"type.man_made.surveillance" = "Valvekaamera";
+"type.man_made.tower" = "Torn";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Sidetorn";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Sidemast";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Nafta- või gaasi puurauk";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Tööstuslik tõrvikpõleti";
+"type.man_made.wastewater_plant" = "Reoveepuhasti";
+"type.man_made.water_tap" = "Avalik veekraan";
+"type.man_made.water_tap.drinking_water_no" = "Pole joogivesi";
+"type.man_made.water_tower" = "Veetorn";
+"type.man_made.water_well" = "Veekaev";
+"type.man_made.water_well.drinking_water_no" = "Pole joogivesi";
+"type.man_made.windmill" = "Tuuleveski";
+"type.man_made.works" = "Tehas";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Militaarobjekt";
+"type.military.bunker" = "Punker";
+"type.mountain_pass" = "Mäekuru";
+"type.natural" = "Loodus";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Paljand";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kiviklibu";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Rusukalle";
+"type.natural.bay" = "Laht";
+"type.natural.beach" = "Rand";
+"type.natural.beach.sand" = "Liivarand";
+"type.natural.beach.gravel" = "Kruusarand";
+"type.natural.cape" = "Neem";
+"type.natural.cave_entrance" = "Koopa sissepääs";
+"type.natural.cliff" = "Kalju";
+"type.natural.earth_bank" = "Nõlv";
+"type.man_made.embankment" = "Muldkeha";
+"type.natural.coastline" = "Rannajoon";
+"type.natural.desert" = "Kõrb";
+"type.natural.geyser" = "Geiser";
+"type.natural.glacier" = "Liustik";
+"type.natural.grassland" = "Rohumaa";
+"type.natural.heath" = "Nõmm";
+"type.natural.hot_spring" = "Kuumaveeallikas";
+"type.natural.water.lake" = "Järv";
+"type.natural.water.lock" = "Lüüs";
+"type.natural.water.pond" = "Tiik";
+"type.natural.water.reservoir" = "Veehoidla";
+"type.natural.water.basin" = "Kogumisbassein";
+"type.natural.water.river" = "Jõgi";
+"type.natural.land" = "Maa";
+"type.natural.meadow" = "Heinamaa";
+"type.natural.orchard" = "Viljapuuaed";
+"type.natural.peak" = "Mäetipp";
+"type.natural.saddle" = "Mäesadul";
+"type.natural.rock" = "Kaljurahn";
+"type.natural.scrub" = "Võsa";
+"type.natural.spring" = "Looduslik allikas";
+"type.natural.spring.drinking_water_no" = "Vesi pole joodav";
+"type.natural.strait" = "Väin";
+"type.natural.tree_row" = "Puude rida";
+"type.natural.vineyard" = "Viinamarjaistandus";
+"type.natural.volcano" = "Vulkaan";
+"type.natural.water" = "Veekogu";
+"type.natural.wetland" = "Märgala";
+"type.natural.wetland.bog" = "Raba";
+"type.natural.wetland.marsh" = "Soo";
+"type.noexit" = "Tupiktee";
+"type.office" = "Kontor";
+"type.office.company" = "Ettevõtte kontor";
+"type.office.estate_agent" = "Kinnisvarabüroo";
+"type.office.government" = "Valitsusasutus";
+"type.office.insurance" = "Kindlustusbüroo";
+"type.office.lawyer" = "Advokaat";
+"type.office.ngo" = "Valitsusväline organisatsioon";
+"type.office.telecommunication" = "Sideettevõte";
+"type.organic.only" = "Mahetoode";
+"type.organic.yes" = "Mahetoode";
+"type.place.city" = "Linn";
+"type.place.city.capital" = "Pealinn";
+"type.place.city.capital.10" = "Linn";
+"type.place.city.capital.11" = "Linn";
+"type.place.city.capital.2" = "Pealinn";
+"type.place.city.capital.3" = "Linn";
+"type.place.city.capital.4" = "Linn";
+"type.place.city.capital.5" = "Linn";
+"type.place.city.capital.6" = "Linn";
+"type.place.city.capital.7" = "Linn";
+"type.place.city.capital.8" = "Linn";
+"type.place.city.capital.9" = "Linn";
+"type.place.continent" = "Kontinent";
+"type.place.country" = "Riik";
+"type.place.county" = "Maakond";
+"type.place.farm" = "Talu";
+"type.place.hamlet" = "Külake";
+"type.place.island" = "Saar";
+"type.place.islet" = "Laid";
+"type.place.isolated_dwelling" = "Üksik eluhoone";
+"type.place.locality" = "Paikkond";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Kvartal";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Naabruskond";
+"type.place.ocean" = "Ookean";
+"type.place.region" = "Piirkond";
+"type.place.sea" = "Meri";
+"type.place.square" = "Väljak";
+"type.place.state" = "Provints";
+"type.place.state.USA" = "Osariik";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Linnaosa";
+"type.place.town" = "Linn";
+"type.place.village" = "Küla";
+"type.power" = "Energia";
+"type.power.generator" = "Elektrigeneraator";
+"type.power.generator.solar" = "Päikesepaneel";
+"type.power.generator.wind" = "Tuulegeneraator";
+"type.power.generator.gas" = "Gaasiturbiini elektrijaam";
+"type.power.generator.hydro" = "Hüdroelektrijaam";
+"type.power.line" = "Elektriliin";
+"type.power.line.underground" = "Maa-alune elektriliin";
+"type.power.minor_line" = "Madal-/Keskpinge elektriliin";
+"type.power.plant" = "Elektrijaam";
+"type.power.plant.coal" = "Söeelektrijaam";
+"type.power.plant.gas" = "Gaasiturbiini elektrijaam";
+"type.power.plant.hydro" = "Hüdroelektrijaam";
+"type.power.plant.solar" = "Päikeseelektrijaam";
+"type.power.plant.wind" = "Tuuleelektrijaam";
+"type.power.station" = "Elektrijaam";
+"type.power.substation" = "Alajaam";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Kõrgepingemast";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Elektripost";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Valgustus- või sidepost";
+"type.psurface" = "Pind";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Ühistransport";
+"type.public_transport.platform" = "Ooteplatvorm";
+"type.railway" = "Raudtee";
+"type.railway.abandoned" = "Mahajäetud raudtee";
+"type.railway.abandoned.bridge" = "Mahajäetud sild";
+"type.railway.abandoned.tunnel" = "Mahajäetud raudteetunnel";
+"type.railway.construction" = "Ehitusel raudtee";
+"type.railway.crossing" = "Raudtee ülesõit";
+"type.railway.disused" = "Kasutamata raudtee";
+"type.railway.funicular" = "Köisraudtee";
+"type.railway.funicular.bridge" = "Köisraudtee sild";
+"type.railway.funicular.tunnel" = "Köisraudtee tunnel";
+"type.railway.halt" = "Rongipeatus (nõudepeatus / teivasjaam)";
+"type.railway.level_crossing" = "Raudteeületuskoht";
+"type.railway.light_rail" = "Kergraudtee";
+"type.railway.light_rail.bridge" = "Kergraudtee sild";
+"type.railway.light_rail.tunnel" = "Kergraudtee tunnel";
+"type.railway.monorail" = "Monorelsstee";
+"type.railway.monorail.bridge" = "Monorelsstee sild";
+"type.railway.monorail.tunnel" = "Monorelsstee tunnel";
+"type.railway.narrow_gauge" = "Kitsarööpmeline raudtee";
+"type.railway.narrow_gauge.bridge" = "Kitsarööpmelise raudtee sild";
+"type.railway.narrow_gauge.tunnel" = "Kitsarööpmelise raudtee tunnel";
+"type.railway.platform" = "Raudteeplatvorm";
+"type.railway.preserved" = "Muuseumiraudtee";
+"type.railway.preserved.bridge" = "Muuseumiraudtee sild";
+"type.railway.preserved.tunnel" = "Muuseumiraudtee tunnel";
+"type.railway.rail" = "Raudtee";
+"type.railway.rail.highspeed" = "Kiirraudtee";
+"type.railway.rail.tourism" = "Turismiraudtee";
+"type.railway.rail.main" = "Raudtee";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Raudtee kõrvaltee";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Teenindus raudtee";
+"type.railway.rail.spur" = "Haruraudtee";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Kõrvalraudtee";
+"type.railway.rail.bridge" = "Raudteesild";
+"type.railway.rail.highspeed.bridge" = "Kiirraudtee sild";
+"type.railway.rail.tourism.bridge" = "Turismiraudtee sild";
+"type.railway.rail.main.bridge" = "Magistraalraudtee sild";
+"type.railway.rail.branch.bridge" = "Haruraudtee sild";
+"type.railway.rail.utility.bridge" = "Teenindusraudtee sild";
+"type.railway.rail.spur.bridge" = "Haruraudtee sild";
+"type.railway.rail.service.bridge" = "Teenindusraudtee sild";
+"type.railway.rail.tunnel" = "Raudteetunnel";
+"type.railway.rail.highspeed.tunnel" = "Kiirraudtee tunnel";
+"type.railway.rail.tourism.tunnel" = "Turismiraudtee tunnel";
+"type.railway.rail.main.tunnel" = "Magistraalraudtee tunnel";
+"type.railway.rail.branch.tunnel" = "Haruraudtee tunnel";
+"type.railway.rail.utility.tunnel" = "Teenindusraudtee tunnel";
+"type.railway.rail.spur.tunnel" = "Haruraudtee tunnel";
+"type.railway.rail.service.tunnel" = "Teenindusraudtee tunnel";
+"type.railway.station" = "Raudteejaam";
+"type.railway.station.funicular" = "Köisraudtee";
+"type.railway.station.light_rail" = "Kergraudtee jaam";
+"type.railway.station.light_rail.berlin" = "Raudteejaam (S-Bahn)";
+"type.railway.station.light_rail.london" = "Raudteejaam (DLR)";
+"type.railway.station.light_rail.porto" = "Kergraudtee jaam";
+"type.railway.station.monorail" = "Monorelstee jaam";
+"type.railway.station.subway" = "Metroojaam";
+"type.railway.station.subway.adana" = "Metroojaam";
+"type.railway.station.subway.algiers" = "Metroojaam";
+"type.railway.station.subway.almaty" = "Metroojaam";
+"type.railway.station.subway.amsterdam" = "Metroojaam";
+"type.railway.station.subway.ankara" = "Metroojaam";
+"type.railway.station.subway.athens" = "Metroojaam";
+"type.railway.station.subway.baku" = "Metroojaam";
+"type.railway.station.subway.bangkok" = "Metroojaam";
+"type.railway.station.subway.barcelona" = "Metroojaam";
+"type.railway.station.subway.beijing" = "Metroojaam";
+"type.railway.station.subway.bengalore" = "Metroojaam";
+"type.railway.station.subway.berlin" = "Metroojaam";
+"type.railway.station.subway.bilbao" = "Metroojaam";
+"type.railway.station.subway.brasilia" = "Metroojaam";
+"type.railway.station.subway.brescia" = "Metroojaam";
+"type.railway.station.subway.brussels" = "Metroojaam";
+"type.railway.station.subway.bucharest" = "Metroojaam";
+"type.railway.station.subway.budapest" = "Metroojaam";
+"type.railway.station.subway.buenos_aires" = "Metroojaam";
+"type.railway.station.subway.bursa" = "Metroojaam";
+"type.railway.station.subway.cairo" = "Metroojaam";
+"type.railway.station.subway.caracas" = "Metroojaam";
+"type.railway.station.subway.catania" = "Metroojaam";
+"type.railway.station.subway.changchun" = "Metroojaam";
+"type.railway.station.subway.chengdu" = "Metroojaam";
+"type.railway.station.subway.chicago" = "Metroojaam";
+"type.railway.station.subway.chongqing" = "Metroojaam";
+"type.railway.station.subway.dalian" = "Metroojaam";
+"type.railway.station.subway.delhi" = "Metroojaam";
+"type.railway.station.subway.dnepro" = "Metroojaam";
+"type.railway.station.subway.dubai" = "Metroojaam";
+"type.railway.station.subway.ekb" = "Metroojaam";
+"type.railway.station.subway.fukuoka" = "Metroojaam";
+"type.railway.station.subway.glasgow" = "Metroojaam";
+"type.railway.station.subway.guangzhou" = "Metroojaam";
+"type.railway.station.subway.hamburg" = "Metroojaam";
+"type.railway.station.subway.helsinki" = "Metroojaam";
+"type.railway.station.subway.hiroshima" = "Metroojaam";
+"type.railway.station.subway.hongkong" = "Metroojaam";
+"type.railway.station.subway.isfahan" = "Metroojaam";
+"type.railway.station.subway.istanbul" = "Metroojaam";
+"type.railway.station.subway.izmir" = "Metroojaam";
+"type.railway.station.subway.kazan" = "Metroojaam";
+"type.railway.station.subway.kharkiv" = "Metroojaam";
+"type.railway.station.subway.kiev" = "Metroojaam";
+"type.railway.station.subway.kobe" = "Metroojaam";
+"type.railway.station.subway.kolkata" = "Metroojaam";
+"type.railway.station.subway.kunming" = "Metroojaam";
+"type.railway.station.subway.kyoto" = "Metroojaam";
+"type.railway.station.subway.la" = "Metroojaam";
+"type.railway.station.subway.lausanne" = "Metroojaam";
+"type.railway.station.subway.lille" = "Metroojaam";
+"type.railway.station.subway.lima" = "Metroojaam";
+"type.railway.station.subway.lisboa" = "Metroojaam";
+"type.railway.station.subway.london" = "Metroojaam";
+"type.railway.station.subway.lyon" = "Metroojaam";
+"type.railway.station.subway.madrid" = "Metroojaam";
+"type.railway.station.subway.malaga" = "Metroojaam";
+"type.railway.station.subway.manila" = "Metroojaam";
+"type.railway.station.subway.maracaibo" = "Metroojaam";
+"type.railway.station.subway.mashhad" = "Metroojaam";
+"type.railway.station.subway.mecca" = "Metroojaam";
+"type.railway.station.subway.medellin" = "Metroojaam";
+"type.railway.station.subway.mexico" = "Metroojaam";
+"type.railway.station.subway.milan" = "Metroojaam";
+"type.railway.station.subway.minsk" = "Metroojaam";
+"type.railway.station.subway.montreal" = "Metroojaam";
+"type.railway.station.subway.moscow" = "Metroojaam";
+"type.railway.station.subway.munchen" = "Metroojaam";
+"type.railway.station.subway.nagoya" = "Metroojaam";
+"type.railway.station.subway.newyork" = "Metroojaam";
+"type.railway.station.subway.nnov" = "Metroojaam";
+"type.railway.station.subway.novosibirsk" = "Metroojaam";
+"type.railway.station.subway.osaka" = "Metroojaam";
+"type.railway.station.subway.oslo" = "Metroojaam";
+"type.railway.station.subway.palma" = "Metroojaam";
+"type.railway.station.subway.panama" = "Metroojaam";
+"type.railway.station.subway.paris" = "Metroojaam";
+"type.railway.station.subway.philadelphia" = "Metroojaam";
+"type.railway.station.subway.pyongyang" = "Metroojaam";
+"type.railway.station.subway.rennes" = "Metroojaam";
+"type.railway.station.subway.rio" = "Metroojaam";
+"type.railway.station.subway.roma" = "Metroojaam";
+"type.railway.station.subway.rotterdam" = "Metroojaam";
+"type.railway.station.subway.samara" = "Metroojaam";
+"type.railway.station.subway.santiago" = "Metroojaam";
+"type.railway.station.subway.santo_domingo" = "Metroojaam";
+"type.railway.station.subway.saopaulo" = "Metroojaam";
+"type.railway.station.subway.sapporo" = "Metroojaam";
+"type.railway.station.subway.sendai" = "Metroojaam";
+"type.railway.station.subway.sf" = "Metroojaam";
+"type.railway.station.subway.shanghai" = "Metroojaam";
+"type.railway.station.subway.shenzhen" = "Metroojaam";
+"type.railway.station.subway.shiraz" = "Metroojaam";
+"type.railway.station.subway.singapore" = "Metroojaam";
+"type.railway.station.subway.sofia" = "Metroojaam";
+"type.railway.station.subway.spb" = "Metroojaam";
+"type.railway.station.subway.stockholm" = "Metroojaam";
+"type.railway.station.subway.tabriz" = "Metroojaam";
+"type.railway.station.subway.taipei" = "Metroojaam";
+"type.railway.station.subway.taoyuan" = "Metroojaam";
+"type.railway.station.subway.tashkent" = "Metroojaam";
+"type.railway.station.subway.tbilisi" = "Metroojaam";
+"type.railway.station.subway.tehran" = "Metroojaam";
+"type.railway.station.subway.tianjin" = "Metroojaam";
+"type.railway.station.subway.tokyo" = "Metroojaam";
+"type.railway.station.subway.valencia" = "Metroojaam";
+"type.railway.station.subway.vienna" = "Metroojaam";
+"type.railway.station.subway.warszawa" = "Metroojaam";
+"type.railway.station.subway.washington" = "Metroojaam";
+"type.railway.station.subway.wuhan" = "Metroojaam";
+"type.railway.station.subway.yerevan" = "Metroojaam";
+"type.railway.station.subway.yokohama" = "Metroojaam";
+"type.railway.subway" = "Metrooliin";
+"type.railway.subway.bridge" = "Metrooliini sild";
+"type.railway.subway.tunnel" = "Metrooliini tunnel";
+"type.railway.subway_entrance" = "Metroo sissepääs";
+"type.railway.subway_entrance.adana" = "Metroo sissepääs";
+"type.railway.subway_entrance.algiers" = "Metroo sissepääs";
+"type.railway.subway_entrance.almaty" = "Metroo sissepääs";
+"type.railway.subway_entrance.amsterdam" = "Metroo sissepääs";
+"type.railway.subway_entrance.ankara" = "Metroo sissepääs";
+"type.railway.subway_entrance.athens" = "Metroo sissepääs";
+"type.railway.subway_entrance.baku" = "Metroo sissepääs";
+"type.railway.subway_entrance.bangkok" = "Metroo sissepääs";
+"type.railway.subway_entrance.barcelona" = "Metroo sissepääs";
+"type.railway.subway_entrance.beijing" = "Metroo sissepääs";
+"type.railway.subway_entrance.bengalore" = "Metroo sissepääs";
+"type.railway.subway_entrance.berlin" = "Metroo sissepääs";
+"type.railway.subway_entrance.bilbao" = "Metroo sissepääs";
+"type.railway.subway_entrance.brasilia" = "Metroo sissepääs";
+"type.railway.subway_entrance.brescia" = "Metroo sissepääs";
+"type.railway.subway_entrance.brussels" = "Metroo sissepääs";
+"type.railway.subway_entrance.bucharest" = "Metroo sissepääs";
+"type.railway.subway_entrance.budapest" = "Metroo sissepääs";
+"type.railway.subway_entrance.buenos_aires" = "Metroo sissepääs";
+"type.railway.subway_entrance.bursa" = "Metroo sissepääs";
+"type.railway.subway_entrance.cairo" = "Metroo sissepääs";
+"type.railway.subway_entrance.caracas" = "Metroo sissepääs";
+"type.railway.subway_entrance.catania" = "Metroo sissepääs";
+"type.railway.subway_entrance.changchun" = "Metroo sissepääs";
+"type.railway.subway_entrance.chengdu" = "Metroo sissepääs";
+"type.railway.subway_entrance.chicago" = "Metroo sissepääs";
+"type.railway.subway_entrance.chongqing" = "Metroo sissepääs";
+"type.railway.subway_entrance.dalian" = "Metroo sissepääs";
+"type.railway.subway_entrance.delhi" = "Metroo sissepääs";
+"type.railway.subway_entrance.dnepro" = "Metroo sissepääs";
+"type.railway.subway_entrance.dubai" = "Metroo sissepääs";
+"type.railway.subway_entrance.ekb" = "Metroo sissepääs";
+"type.railway.subway_entrance.fukuoka" = "Metroo sissepääs";
+"type.railway.subway_entrance.glasgow" = "Metroo sissepääs";
+"type.railway.subway_entrance.guangzhou" = "Metroo sissepääs";
+"type.railway.subway_entrance.hamburg" = "Metroo sissepääs";
+"type.railway.subway_entrance.helsinki" = "Metroo sissepääs";
+"type.railway.subway_entrance.hiroshima" = "Metroo sissepääs";
+"type.railway.subway_entrance.hongkong" = "Metroo sissepääs";
+"type.railway.subway_entrance.isfahan" = "Metroo sissepääs";
+"type.railway.subway_entrance.istanbul" = "Metroo sissepääs";
+"type.railway.subway_entrance.izmir" = "Metroo sissepääs";
+"type.railway.subway_entrance.kazan" = "Metroo sissepääs";
+"type.railway.subway_entrance.kharkiv" = "Metroo sissepääs";
+"type.railway.subway_entrance.kiev" = "Metroo sissepääs";
+"type.railway.subway_entrance.kobe" = "Metroo sissepääs";
+"type.railway.subway_entrance.kolkata" = "Metroo sissepääs";
+"type.railway.subway_entrance.kunming" = "Metroo sissepääs";
+"type.railway.subway_entrance.kyoto" = "Metroo sissepääs";
+"type.railway.subway_entrance.la" = "Metroo sissepääs";
+"type.railway.subway_entrance.lausanne" = "Metroo sissepääs";
+"type.railway.subway_entrance.lille" = "Metroo sissepääs";
+"type.railway.subway_entrance.lima" = "Metroo sissepääs";
+"type.railway.subway_entrance.lisboa" = "Metroo sissepääs";
+"type.railway.subway_entrance.london" = "Metroo sissepääs";
+"type.railway.subway_entrance.lyon" = "Metroo sissepääs";
+"type.railway.subway_entrance.madrid" = "Metroo sissepääs";
+"type.railway.subway_entrance.malaga" = "Metroo sissepääs";
+"type.railway.subway_entrance.manila" = "Metroo sissepääs";
+"type.railway.subway_entrance.maracaibo" = "Metroo sissepääs";
+"type.railway.subway_entrance.mashhad" = "Metroo sissepääs";
+"type.railway.subway_entrance.mecca" = "Metroo sissepääs";
+"type.railway.subway_entrance.medellin" = "Metroo sissepääs";
+"type.railway.subway_entrance.mexico" = "Metroo sissepääs";
+"type.railway.subway_entrance.milan" = "Metroo sissepääs";
+"type.railway.subway_entrance.minsk" = "Metroo sissepääs";
+"type.railway.subway_entrance.montreal" = "Metroo sissepääs";
+"type.railway.subway_entrance.moscow" = "Metroo sissepääs";
+"type.railway.subway_entrance.munchen" = "Metroo sissepääs";
+"type.railway.subway_entrance.nagoya" = "Metroo sissepääs";
+"type.railway.subway_entrance.newyork" = "Metroo sissepääs";
+"type.railway.subway_entrance.nnov" = "Metroo sissepääs";
+"type.railway.subway_entrance.novosibirsk" = "Metroo sissepääs";
+"type.railway.subway_entrance.osaka" = "Metroo sissepääs";
+"type.railway.subway_entrance.oslo" = "Metroo sissepääs";
+"type.railway.subway_entrance.palma" = "Metroo sissepääs";
+"type.railway.subway_entrance.panama" = "Metroo sissepääs";
+"type.railway.subway_entrance.paris" = "Metroo sissepääs";
+"type.railway.subway_entrance.philadelphia" = "Metroo sissepääs";
+"type.railway.subway_entrance.pyongyang" = "Metroo sissepääs";
+"type.railway.subway_entrance.rennes" = "Metroo sissepääs";
+"type.railway.subway_entrance.rio" = "Metroo sissepääs";
+"type.railway.subway_entrance.roma" = "Metroo sissepääs";
+"type.railway.subway_entrance.rotterdam" = "Metroo sissepääs";
+"type.railway.subway_entrance.samara" = "Metroo sissepääs";
+"type.railway.subway_entrance.santiago" = "Metroo sissepääs";
+"type.railway.subway_entrance.santo_domingo" = "Metroo sissepääs";
+"type.railway.subway_entrance.saopaulo" = "Metroo sissepääs";
+"type.railway.subway_entrance.sapporo" = "Metroo sissepääs";
+"type.railway.subway_entrance.sendai" = "Metroo sissepääs";
+"type.railway.subway_entrance.sf" = "Metroo sissepääs";
+"type.railway.subway_entrance.shanghai" = "Metroo sissepääs";
+"type.railway.subway_entrance.shenzhen" = "Metroo sissepääs";
+"type.railway.subway_entrance.shiraz" = "Metroo sissepääs";
+"type.railway.subway_entrance.singapore" = "Metroo sissepääs";
+"type.railway.subway_entrance.sofia" = "Metroo sissepääs";
+"type.railway.subway_entrance.spb" = "Metroo sissepääs";
+"type.railway.subway_entrance.stockholm" = "Metroo sissepääs";
+"type.railway.subway_entrance.tabriz" = "Metroo sissepääs";
+"type.railway.subway_entrance.taipei" = "Metroo sissepääs";
+"type.railway.subway_entrance.taoyuan" = "Metroo sissepääs";
+"type.railway.subway_entrance.tashkent" = "Metroo sissepääs";
+"type.railway.subway_entrance.tbilisi" = "Metroo sissepääs";
+"type.railway.subway_entrance.tehran" = "Metroo sissepääs";
+"type.railway.subway_entrance.tianjin" = "Metroo sissepääs";
+"type.railway.subway_entrance.tokyo" = "Metroo sissepääs";
+"type.railway.subway_entrance.valencia" = "Metroo sissepääs";
+"type.railway.subway_entrance.vienna" = "Metroo sissepääs";
+"type.railway.subway_entrance.warszawa" = "Metroo sissepääs";
+"type.railway.subway_entrance.washington" = "Metroo sissepääs";
+"type.railway.subway_entrance.wuhan" = "Metroo sissepääs";
+"type.railway.subway_entrance.yerevan" = "Metroo sissepääs";
+"type.railway.subway_entrance.yokohama" = "Metroo sissepääs";
+"type.railway.tram" = "Trammiliin";
+"type.railway.tram.bridge" = "Trammiliini sild";
+"type.railway.tram.tunnel" = "Trammiliini tunnel";
+"type.railway.tram_stop" = "Trammipeatus";
+"type.route" = "Marsruut";
+"type.route.ferry" = "Praamiliin";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Pood";
+"type.shop.alcohol" = "Alkoholipood";
+"type.shop.bakery" = "Pagar";
+"type.shop.bathroom_furnishing" = "Vannitoa sisustus";
+"type.shop.beauty" = "Ilupood";
+"type.shop.beverages" = "Joogipood";
+"type.shop.bicycle" = "Jalgrattapood";
+"type.shop.bookmaker" = "Kihlveokontor";
+"type.shop.books" = "Raamatupood";
+"type.shop.butcher" = "Lihunik";
+"type.shop.cannabis" = "Kanepipood";
+"type.shop.car" = "Autopood";
+"type.shop.car_parts" = "Autovaruosade pood";
+"type.shop.car_repair" = "Autoremonditöökoda";
+"type.shop.car_repair.tyres" = "Rehviparandus";
+"type.shop.caravan" = "Haagiselamute müük";
+"type.shop.carpet" = "Vaibapood";
+"type.shop.chemist" = "Apteek ja ilupood";
+"type.shop.chocolate" = "Šokolaadipood";
+"type.shop.clothes" = "Rõivapood";
+"type.shop.coffee" = "Kohvipood";
+"type.shop.computer" = "Arvutipood";
+"type.shop.confectionery" = "Kommipood";
+"type.shop.convenience" = "Lähikauplus";
+"type.shop.copyshop" = "Koopiateenused";
+"type.shop.cosmetics" = "Kosmeetikapood";
+"type.shop.curtain" = "Kardinapood";
+"type.shop.deli" = "Delikatessipood";
+"type.shop.department_store" = "Kaubamaja";
+"type.shop.doityourself" = "Tööriistapood";
+"type.shop.dry_cleaning" = "Keemiline puhastus";
+"type.shop.electronics" = "Elektroonikapood";
+"type.shop.erotic" = "Erootikapood";
+"type.shop.fabric" = "Kangapood";
+"type.shop.farm" = "Talutoitude pood";
+"type.shop.fashion_accessories" = "Moeaksessuaaride pood";
+"type.shop.florist" = "Lillepood";
+"type.shop.funeral_directors" = "Matusekorraldaja";
+"type.shop.furniture" = "Mööblipood";
+"type.shop.garden_centre" = "Aianduskeskus";
+"type.shop.gas" = "Balloongaasi kauplus";
+"type.shop.gift" = "Kingipood";
+"type.shop.greengrocer" = "Puu- ja köögiviljapood";
+"type.shop.grocery" = "Toidukauplus";
+"type.shop.hairdresser" = "Juuksur";
+"type.shop.hardware" = "Rauakauplus";
+"type.shop.health_food" = "Tervisliku toidu kauplus";
+"type.shop.hearing_aids" = "Kuuldeaparaatide kauplus";
+"type.shop.herbalist" = "Ravimtaimede pood";
+"type.shop.hifi" = "Hifi kauplus";
+"type.shop.houseware" = "Kodutarvete kauplus";
+"type.shop.jewelry" = "Ehtepood";
+"type.shop.kiosk" = "Kiosk";
+"type.shop.kitchen" = "Köögimööblikauplus";
+"type.shop.laundry" = "Pesumaja";
+"type.shop.mall" = "Kaubanduskeskus";
+"type.shop.massage" = "Massaažisalong";
+"type.shop.mobile_phone" = "Mobiiltelefonipood";
+"type.shop.money_lender" = "Kiirlaenukontor";
+"type.shop.motorcycle" = "Mootorrattapood";
+"type.shop.motorcycle_repair" = "Mootorrataste remont";
+"type.shop.music" = "Plaadipood";
+"type.shop.musical_instrument" = "Muusikariistade pood";
+"type.shop.newsagent" = "Ajalehekiosk";
+"type.shop.optician" = "Optikapood";
+"type.shop.outdoor" = "Matkatarvete kauplus";
+"type.shop.outpost" = "Veebikaubamaja teeninduslett";
+"type.shop.pasta" = "Pastapood";
+"type.shop.pastry" = "Pagari- ja kondiitriäri";
+"type.shop.pawnbroker" = "Pandimaja";
+"type.shop.pet" = "Lemmikloomapood";
+"type.shop.pet_grooming" = "Ilusalong lemmikloomadele";
+"type.shop.photo" = "Fotopood";
+"type.shop.rental" = "Renditeenuse büroo";
+"type.shop.rental.bicycle" = "Jalgrattalaenutus";
+"type.shop.seafood" = "Mereandide pood";
+"type.shop.second_hand" = "Taaskasutuspood";
+"type.shop.shoes" = "Kingapood";
+"type.shop.sports" = "Sporditarvete pood";
+"type.shop.stationery" = "Kontoritarvete pood";
+"type.shop.supermarket" = "Supermarket";
+"type.shop.tattoo" = "Tätoveerimissalong";
+"type.shop.tea" = "Teepood";
+"type.shop.ticket" = "Piletikassa";
+"type.shop.toys" = "Mänguasjapood";
+"type.shop.travel_agency" = "Reisibüroo";
+"type.shop.tyres" = "Rehvipood";
+"type.shop.variety_store" = "Odavkaupade pood";
+"type.shop.video" = "Videopood";
+"type.shop.video_games" = "Videomängude pood";
+"type.shop.wine" = "Veinipood";
+"type.shop.agrarian" = "Põllumajanduspood";
+"type.shop.antiques" = "Antikvariaat";
+"type.shop.appliance" = "Tehnikapood";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Kunstipood";
+"type.shop.baby_goods" = "Lastekaubad";
+"type.shop.bag" = "Kotipood";
+"type.shop.bed" = "Voodipood";
+"type.shop.boutique" = "Butiik";
+"type.shop.charity" = "Heategevuspood";
+"type.shop.cheese" = "Juustupood";
+"type.shop.craft" = "Kunst ja käsitöö";
+"type.shop.dairy" = "Piimatoodete pood";
+"type.shop.electrical" = "Elektritarvete pood";
+"type.shop.fishing" = "Kalanduspood";
+"type.shop.interior_decoration" = "Sisekujunduskauplus";
+"type.shop.lottery" = "Lotokiosk";
+"type.shop.medical_supply" = "Meditsiinitarvikute kauplus";
+"type.shop.nutrition_supplements" = "Toidulisandite kauplus";
+"type.shop.paint" = "Värvipood";
+"type.shop.perfumery" = "Parfümeeriapood";
+"type.shop.sewing" = "Õmblustarvete pood";
+"type.shop.storage_rental" = "Väike rendiladu";
+"type.shop.tobacco" = "Tubakapood";
+"type.shop.trade" = "Profikaupade pood";
+"type.shop.watches" = "Kellapood";
+"type.shop.wholesale" = "Hulgimüügipood";
+"type.sport" = "Sport";
+"type.sport.american_football" = "Ameerika jalgpall";
+"type.sport.archery" = "Vibulaskmine";
+"type.sport.athletics" = "Kergejõustik";
+"type.sport.australian_football" = "Austraalia jalgpall";
+"type.sport.baseball" = "Pesapall";
+"type.sport.basketball" = "Korvpall";
+"type.sport.beachvolleyball" = "Rannavõrkpall";
+"type.sport.bowls" = "Murukeegel";
+"type.sport.chess" = "Male";
+"type.sport.cricket" = "Kriket";
+"type.sport.curling" = "Jääkeegel";
+"type.sport.equestrian" = "Ratsasport";
+"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Võimlemine";
+"type.sport.handball" = "Käsipall";
+"type.sport.multi" = "Erinevad spordialad";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Sukeldusmiskoht";
+"type.sport.shooting" = "Laskesport";
+"type.sport.skateboard" = "Rulasõit";
+"type.sport.skiing" = "Suusatamine";
+"type.sport.soccer" = "Jalgpall";
+"type.sport.swimming" = "Ujumine";
+"type.sport.table_tennis" = "Lauatennis";
+"type.sport.tennis" = "Tenniseväljak";
+"type.sport.volleyball" = "Võrkpall";
+"type.sport.10pin" = "Hobikeegel";
+"type.sport.9pin" = "Keegel";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Saalijalgpall";
+"type.sport.ice_hockey" = "Jäähoki";
+"type.sport.field_hockey" = "Maahoki";
+"type.sport.badminton" = "Sulgpall";
+"type.sport.pelota" = "Baski pelota";
+"type.tourism" = "Turism";
+"type.tourism.aquarium" = "Akvaarium";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Mägimajake";
+"type.tourism.apartment" = "Külaliskorter";
+"type.tourism.artwork" = "Kunstiteos";
+"type.tourism.artwork.architecture" = "Kunstiteos - arhitektuur";
+"type.tourism.artwork.painting" = "Maal";
+"type.tourism.artwork.sculpture" = "Skulptuur";
+"type.tourism.artwork.statue" = "Kuju";
+"type.tourism.attraction" = "Turismiatraktsioon";
+"type.attraction.amusement_ride" = "Lõbusõidu atraktsioon";
+"type.attraction.animal" = "Loomade aedik";
+"type.attraction.bumper_car" = "Autodroom";
+"type.attraction.big_wheel" = "Vaateratas";
+"type.attraction.carousel" = "Karussell";
+"type.attraction.historic" = "Ajalooline vaatamisväärsus";
+"type.attraction.maze" = "Labürint";
+"type.attraction.roller_coaster" = "Ameerika mäed";
+"type.attraction.water_slide" = "Vesiliug";
+"type.tourism.attraction.specified" = "Turismiatraktsioon";
+"type.tourism.camp_site" = "Kämpinguala";
+"type.tourism.caravan_site" = "Haagiselamute park";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Puhkemaja";
+"type.tourism.gallery" = "Kunstigalerii";
+"type.tourism.guest_house" = "Külalistemaja";
+"type.tourism.hostel" = "Hostel";
+"type.tourism.hotel" = "Hotell";
+"type.tourism.information" = "Turismiinfo";
+"type.tourism.information.board" = "Infotahvel";
+"type.tourism.information.guidepost" = "Teeviit";
+"type.tourism.information.map" = "Infotahvel kaardiga";
+"type.tourism.information.office" = "Turismiinfo kontor";
+"type.tourism.information.visitor_centre" = "Külastuskeskus";
+"type.tourism.motel" = "Motell";
+"type.tourism.museum" = "Muuseum";
+"type.tourism.picnic_site" = "Piknikukoht";
+"type.leisure.resort" = "Kuurort";
+"type.tourism.theme_park" = "Teemapark";
+"type.tourism.viewpoint" = "Vaatekoht";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Kõnnumaa ulualune";
+"type.tourism.zoo" = "Loomaaed";
+"type.tourism.zoo.petting" = "Loomade seltsiaed";
+"type.traffic_calming" = "Liikluse rahustamine";
+"type.traffic_calming.bump" = "Kiirusepiiraja";
+"type.traffic_calming.hump" = "Liikluskünnis";
+"type.waterway" = "Veetee";
+"type.waterway.canal" = "Kanal";
+"type.waterway.canal.tunnel" = "Kanal tunnelis";
+"type.waterway.fish_pass" = "Kalatrepp";
+"type.waterway.dam" = "Tamm";
+"type.barrier.ditch" = "Kraav";
+"type.natural.water.ditch" = "Drenaažikraav";
+"type.waterway.ditch.tunnel" = "Truup";
+"type.waterway.dock" = "Dokk";
+"type.waterway.drain" = "Kuivenduskraav";
+"type.natural.water.drain" = "Kuivenduskraav";
+"type.waterway.drain.tunnel" = "Truup";
+"type.waterway.lock_gate" = "Lüüsivärav";
+"type.waterway.river" = "Jõgi";
+"type.waterway.river.tunnel" = "Jõgi tunnelis";
+"type.waterway.stream" = "Oja";
+"type.waterway.stream.ephemeral" = "Väga ajutine jõgi";
+"type.waterway.stream.intermittent" = "Ajutine jõgi";
+"type.waterway.stream.tunnel" = "Oja tunnelis";
+"type.waterway.waterfall" = "Kosk";
+"type.waterway.weir" = "Ülevoolupais";
+"type.wheelchair" = "Ratastool";
+"type.wheelchair.limited" = "Piiratud ligipääs ratastooliga";
+"type.wheelchair.no" = "Puudub ligipääs ratastooliga";
+"type.wheelchair.yes" = "Täielik ligipääs ratastooliga";
+"type.aerialway.j.bar" = "J-kinnitusega Slepplift";
+"type.aerialway.magic_carpet" = "Suusaeskalaator";
+"type.aerialway.platter" = "Isteplaadikesega lift";
+"type.aerialway.rope_tow" = "Vedukköis";
+"type.aerialway.t.bar" = "T-kinnitusega Slepplift";
+"type.piste_type.downhill" = "Mäesuusarada";
+"type.piste_type.downhill.area" = "Mäesuusarada";
+"type.piste_type.downhill.advanced" = "Keerukas mäesuusarada";
+"type.piste_type.downhill.advanced.area" = "Keerukas mäesuusarada";
+"type.piste_type.downhill.easy" = "Lihtne mäesuusarada";
+"type.piste_type.downhill.easy.area" = "Lihtne mäesuusarada";
+"type.piste_type.downhill.expert" = "Proffide mäesuusarada";
+"type.piste_type.downhill.expert.area" = "Proffide mäesuusarada";
+"type.piste_type.downhill.freeride" = "Tasuta mäesuusatamine";
+"type.piste_type.downhill.intermediate" = "Keskmise raskusastmega laskumine";
+"type.piste_type.downhill.intermediate.area" = "Keskmise raskusastmega laskumine";
+"type.piste_type.downhill.novice" = "Algajasõbralik laskumine";
+"type.piste_type.downhill.novice.area" = "Algajasõbralik laskumine";
+"type.piste_type.nordic" = "Murdmaa suusarada";
+"type.piste_type.sled" = "Kelgurada";
+"type.piste_type.sled.area" = "Kelgurada";
+"type.piste_type.snow_park" = "Lumepark";
+"type.piste_type.hike" = "Matkarada lumes matkamiseks";
+"type.piste_type.connection" = "Suusatõstukite ümberistumisjaam";
+"type.piste_type.skitour" = "Suusamatkarada";
+"type.amenity.events_venue" = "Ürituste toimumiskoht";
+"type.shop.auction" = "Oksjonimaja";
+"type.shop.collector" = "Kollektsioneeritavad esemed";
+"type.self_service.yes" = "Iseteenindus saadaval";
+"type.self_service.only" = "Ainult iseteenindus";
+"type.self_service.partially" = "Osaline iseteenindus";
+"type.self_service.no" = "Iseteenindus puudub";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Sotsiaalasutus";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Erakorralise meditsiini osakonna sissepääs";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dōjō / Võitluskunstide kool";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Spordisaal";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";

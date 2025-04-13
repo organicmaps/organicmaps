@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/start"
+  style="@style/MwmWidget.Button.Primary"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:minWidth="@dimen/start_button_width"
+  android:layout_gravity="center"
+  android:text="@string/p2p_start"
+  tools:showIn="@layout/menu_route_plan_line"/>

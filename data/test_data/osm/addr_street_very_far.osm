@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='60725080' timestamp='2022-04-08T10:26:51Z' uid='260756' user='Felis Pimeja' visible='true' version='17' changeset='119464751' lat='55.8267198' lon='37.6468859'>
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='170618818' timestamp='2023-03-10T13:06:22Z' uid='2055718' user='Bobropiton' visible='true' version='7' changeset='133518020' lat='55.8293621' lon='37.649651' />
+  <node id='239852178' timestamp='2022-04-08T10:26:51Z' uid='260756' user='Felis Pimeja' visible='true' version='7' changeset='119464751' lat='55.8270495' lon='37.6476098' />
+  <node id='251540309' timestamp='2022-04-08T14:30:47Z' uid='260756' user='Felis Pimeja' visible='true' version='11' changeset='119473847' lat='55.829097' lon='37.6493466' />
+  <node id='262997018' timestamp='2018-12-08T20:06:34Z' uid='260756' user='Felis Pimeja' visible='true' version='14' changeset='65299944' lat='55.8334352' lon='37.5952977'>
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='262998331' timestamp='2018-12-06T10:17:46Z' uid='260756' user='Felis Pimeja' visible='true' version='4' changeset='65233634' lat='55.8327926' lon='37.5964708' />
+  <node id='303286274' timestamp='2022-04-08T10:26:51Z' uid='260756' user='Felis Pimeja' visible='true' version='9' changeset='119464751' lat='55.8273477' lon='37.6475361' />
+  <node id='559768673' timestamp='2016-04-09T01:07:41Z' uid='266092' user='luch86' visible='true' version='2' changeset='38420091' lat='55.8289647' lon='37.6495399' />
+  <node id='1069955600' timestamp='2022-04-08T10:26:51Z' uid='260756' user='Felis Pimeja' visible='true' version='5' changeset='119464751' lat='55.8270112' lon='37.6471785'>
+    <tag k='crossing' v='traffic_signals' />
+    <tag k='highway' v='crossing' />
+    <tag k='traffic_signals:sound' v='walk' />
+  </node>
+  <node id='4261845502' timestamp='2023-09-16T23:03:43Z' uid='3305165' user='luisforte' visible='true' version='9' changeset='141361395' lat='55.8285355' lon='37.6487923'>
+    <tag k='bus' v='yes' />
+    <tag k='name' v='Улица Сергея Эйзенштейна' />
+    <tag k='public_transport' v='stop_position' />
+  </node>
+  <node id='4297064723' timestamp='2018-12-08T20:06:36Z' uid='260756' user='Felis Pimeja' visible='true' version='3' changeset='65299944' lat='55.8333342' lon='37.5954708'>
+    <tag k='crossing' v='traffic_signals' />
+    <tag k='highway' v='crossing' />
+  </node>
+  <node id='5165207628' timestamp='2017-10-13T12:52:36Z' uid='260756' user='Felis Pimeja' visible='true' version='1' changeset='52891509' lat='55.8275582' lon='37.6478112' />
+  <node id='5316613130' timestamp='2021-10-09T19:57:40Z' uid='1419157' user='Erelen' visible='true' version='2' changeset='112313641' lat='55.8385829' lon='37.6132963' />
+  <node id='5316613131' timestamp='2021-10-09T19:57:40Z' uid='1419157' user='Erelen' visible='true' version='2' changeset='112313641' lat='55.8385866' lon='37.6135051' />
+  <node id='5316613132' timestamp='2021-10-09T19:57:40Z' uid='1419157' user='Erelen' visible='true' version='2' changeset='112313641' lat='55.8386865' lon='37.6134994' />
+  <node id='5316613133' timestamp='2021-10-09T19:57:40Z' uid='1419157' user='Erelen' visible='true' version='2' changeset='112313641' lat='55.8386828' lon='37.6132906' />
+  <node id='6119965287' timestamp='2018-12-05T20:30:55Z' uid='260756' user='Felis Pimeja' visible='true' version='1' changeset='65217143' lat='55.830996' lon='37.5999878' />
+  <node id='6121142882' timestamp='2018-12-06T10:17:30Z' uid='260756' user='Felis Pimeja' visible='true' version='1' changeset='65233634' lat='55.8311335' lon='37.5997129' />
+  <node id='6121143795' timestamp='2018-12-06T10:17:33Z' uid='260756' user='Felis Pimeja' visible='true' version='1' changeset='65233634' lat='55.8325644' lon='37.5969095' />
+  <node id='6121144195' timestamp='2018-12-06T10:17:31Z' uid='260756' user='Felis Pimeja' visible='true' version='1' changeset='65233634' lat='55.8315108' lon='37.5989739' />
+  <node id='6121144199' timestamp='2023-01-01T13:45:29Z' uid='830106' user='literan' visible='true' version='2' changeset='130748868' lat='55.833139' lon='37.5958119'>
+    <tag k='bus' v='yes' />
+    <tag k='name' v='Оранжерея Ботанического сада' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='share_taxi' v='yes' />
+  </node>
+  <node id='8617667462' timestamp='2021-04-18T05:12:55Z' uid='163023' user='ajvol' visible='true' version='2' changeset='103123835' lat='55.8417885' lon='37.6186135' />
+  <node id='8617667463' timestamp='2021-04-18T05:12:55Z' uid='163023' user='ajvol' visible='true' version='2' changeset='103123835' lat='55.8417309' lon='37.6186262' />
+  <node id='8617667464' timestamp='2021-04-18T05:12:55Z' uid='163023' user='ajvol' visible='true' version='2' changeset='103123835' lat='55.8417261' lon='37.6185574' />
+  <node id='8617667465' timestamp='2021-04-18T05:12:55Z' uid='163023' user='ajvol' visible='true' version='2' changeset='103123835' lat='55.8417837' lon='37.6185447' />
+  <way id='46259825' timestamp='2023-08-23T23:16:13Z' uid='19874231' user='SillyWillyDon' visible='true' version='28' changeset='140296374'>
+    <nd ref='170618818' />
+    <nd ref='251540309' />
+    <nd ref='4261845502' />
+    <nd ref='5165207628' />
+    <nd ref='303286274' />
+    <nd ref='1069955600' />
+    <nd ref='60725080' />
+    <tag k='foot' v='no' />
+    <tag k='highway' v='secondary' />
+    <tag k='lanes' v='4' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='RU:urban' />
+    <tag k='name' v='проспект Мира (дублёр)' />
+    <tag k='name:etymology:wikidata' v='Q454' />
+    <tag k='name:uk' v='проспект Миру (дублер)' />
+    <tag k='omkum:old_name' v='1-я Мещанская улица (до 1917 г.) /+ Ярославское шоссе (до 1917 г.)' />
+    <tag k='oneway' v='yes' />
+    <tag k='smoothness' v='excellent' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='408992425' timestamp='2023-09-17T00:03:46Z' uid='461130' user='Fizzie41' visible='true' version='30' changeset='141362335'>
+    <nd ref='559768673' />
+    <nd ref='239852178' />
+    <tag k='cutting' v='yes' />
+    <tag k='foot' v='no' />
+    <tag k='highway' v='primary' />
+    <tag k='lanes' v='4' />
+    <tag k='lanes:psv' v='1' />
+    <tag k='layer' v='-1' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='RU:urban' />
+    <tag k='name' v='проспект Мира' />
+    <tag k='name:etymology:wikidata' v='Q454' />
+    <tag k='name:uk' v='проспект Миру' />
+    <tag k='omkum:old_name' v='1-я Мещанская улица (до 1917 г.) /+ Ярославское шоссе (до 1917 г.)' />
+    <tag k='oneway' v='yes' />
+    <tag k='smoothness' v='excellent' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='550451626' timestamp='2021-10-09T19:57:40Z' uid='1419157' user='Erelen' visible='true' version='5' changeset='112313641'>
+    <nd ref='5316613133' />
+    <nd ref='5316613132' />
+    <nd ref='5316613131' />
+    <nd ref='5316613130' />
+    <nd ref='5316613133' />
+    <tag k='addr:housenumber' v='119 с351' />
+    <tag k='addr:street' v='проспект Мира' />
+    <tag k='building' v='toilets' />
+  </way>
+  <way id='760530474' timestamp='2023-08-27T00:37:58Z' uid='285369' user='avi32' visible='true' version='11' changeset='140433249'>
+    <nd ref='6119965287' />
+    <nd ref='6121142882' />
+    <nd ref='6121144195' />
+    <nd ref='6121143795' />
+    <nd ref='262998331' />
+    <nd ref='6121144199' />
+    <nd ref='4297064723' />
+    <nd ref='262997018' />
+    <tag k='admin_level' v='8' />
+    <tag k='boundary' v='administrative' />
+    <tag k='highway' v='secondary' />
+    <tag k='lanes' v='2' />
+    <tag k='lit' v='yes' />
+    <tag k='maxspeed' v='RU:urban' />
+    <tag k='name' v='Ботаническая улица' />
+    <tag k='name:en' v='Botanicheskaya Street' />
+    <tag k='name:etymology:wikidata' v='Q441' />
+    <tag k='name:ru' v='Ботаническая улица' />
+    <tag k='name:uk' v='Ботанічна вулиця' />
+    <tag k='omkum:old_name' v='Владыкинское шоссе (1922 г.) Вогаусское шоссе (до 1917 г.)' />
+    <tag k='surface' v='asphalt' />
+  </way>
+  <way id='929222379' timestamp='2023-07-09T14:58:16Z' uid='260756' user='Felis Pimeja' visible='true' version='2' changeset='138299764'>
+    <nd ref='8617667462' />
+    <nd ref='8617667463' />
+    <nd ref='8617667464' />
+    <nd ref='8617667465' />
+    <nd ref='8617667462' />
+    <tag k='addr:housenumber' v='4 с55' />
+    <tag k='addr:street' v='Ботаническая улица' />
+    <tag k='building' v='service' />
+    <tag k='building:levels' v='1' />
+    <tag k='ref' v='281' />
+  </way>
+</osm>

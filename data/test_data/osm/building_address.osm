@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='243497352' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='7' changeset='129010605' lat='1.3591838' lon='103.9889981' />
+  <node id='1832333581' timestamp='2023-01-19T02:31:55Z' uid='9366301' user='GrabSG_akbaralibakar' visible='true' version='8' changeset='131443604' lat='1.358823' lon='103.9894291' />
+  <node id='1842921601' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='7' changeset='129010605' lat='1.3589965' lon='103.9890372' />
+  <node id='5148670230' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='4' changeset='129010605' lat='1.3588954' lon='103.9890333' />
+  <node id='5148670234' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='6' changeset='129010605' lat='1.358796' lon='103.9890244' />
+  <node id='6450971848' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='3' changeset='129010605' lat='1.3588357' lon='103.9894706' />
+  <node id='6759014926' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3609513' lon='103.9895904' />
+  <node id='6759014927' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3609429' lon='103.9897057' />
+  <node id='6759014928' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3609312' lon='103.9897738' />
+  <node id='6956299309' timestamp='2019-11-13T06:20:16Z' uid='6744861' user='Frugol' visible='true' version='4' changeset='76992896' lat='1.3608558' lon='103.9900214' />
+  <node id='6959250691' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3607294' lon='103.9902448' />
+  <node id='6960982491' timestamp='2019-11-11T09:41:21Z' uid='10455297' user='notif' visible='true' version='3' changeset='76897828' lat='1.3606847' lon='103.9903017' />
+  <node id='6960994187' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3606242' lon='103.9903681' />
+  <node id='6961249894' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3605377' lon='103.9904478' />
+  <node id='6961249895' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='3' changeset='76944156' lat='1.3604575' lon='103.9905084' />
+  <node id='6961249902' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='5' changeset='76944156' lat='1.3603024' lon='103.9905892' />
+  <node id='6961249903' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='4' changeset='76944156' lat='1.360209' lon='103.9906162' />
+  <node id='6961249990' timestamp='2019-11-12T13:06:54Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76961721' lat='1.3603941' lon='103.9905458' />
+  <node id='6961250089' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='4' changeset='76944156' lat='1.3596057' lon='103.9903711' />
+  <node id='6965956386' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3603123' lon='103.9888551' />
+  <node id='6965983086' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3602015' lon='103.9888735' />
+  <node id='6966020190' timestamp='2019-11-11T09:53:49Z' uid='10455297' user='notif' visible='true' version='1' changeset='76898565' lat='1.3603261' lon='103.9905779' />
+  <node id='6966232295' timestamp='2019-11-13T06:20:16Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76992896' lat='1.3608237' lon='103.990085' />
+  <node id='6966232393' timestamp='2019-11-13T06:20:16Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76992896' lat='1.3608813' lon='103.9899522' />
+  <node id='6968039085' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3603001' lon='103.9887821' />
+  <node id='6968039086' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3602487' lon='103.9887908' />
+  <node id='6968039087' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3602395' lon='103.988735' />
+  <node id='6968039088' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.360169' lon='103.988749' />
+  <node id='6968039089' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3601922' lon='103.9888758' />
+  <node id='6968039091' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3602047' lon='103.9888926' />
+  <node id='6968039092' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3600868' lon='103.9889371' />
+  <node id='6968039093' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3599715' lon='103.9890031' />
+  <node id='6968039094' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3598849' lon='103.9890691' />
+  <node id='6968039095' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3598089' lon='103.9891425' />
+  <node id='6968039096' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3597405' lon='103.9892215' />
+  <node id='6968039097' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.359672' lon='103.9893215' />
+  <node id='6968039098' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3596146' lon='103.9894245' />
+  <node id='6968039099' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595633' lon='103.9895422' />
+  <node id='6968039100' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3595291' lon='103.9896532' />
+  <node id='6968039101' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3595051' lon='103.9897692' />
+  <node id='6968039102' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3594938' lon='103.9898651' />
+  <node id='6968039103' timestamp='2019-11-12T07:30:26Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944076' lat='1.3607827' lon='103.9901642' />
+  <node id='6968039104' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3594924' lon='103.9899824' />
+  <node id='6968039105' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.359504' lon='103.9900892' />
+  <node id='6968039106' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595171' lon='103.9901542' />
+  <node id='6968039107' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595354' lon='103.9902181' />
+  <node id='6968039108' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595581' lon='103.9902794' />
+  <node id='6968039109' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3595888' lon='103.9903393' />
+  <node id='6968039110' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595742' lon='103.9903483' />
+  <node id='6968039111' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3595265' lon='103.9902787' />
+  <node id='6968039112' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3594666' lon='103.9903204' />
+  <node id='6968039113' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595171' lon='103.9903959' />
+  <node id='6968039114' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3595324' lon='103.9904187' />
+  <node id='6968039116' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3596401' lon='103.9904196' />
+  <node id='6968039117' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3596798' lon='103.990465' />
+  <node id='6968039118' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3597302' lon='103.9905136' />
+  <node id='6968039119' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3597891' lon='103.9905558' />
+  <node id='6968039120' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3598526' lon='103.9905883' />
+  <node id='6968039121' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3599038' lon='103.9906076' />
+  <node id='6968039122' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3599961' lon='103.9906283' />
+  <node id='6968039123' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3601072' lon='103.9906312' />
+  <node id='6968039138' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3609008' lon='103.9898999' />
+  <node id='6968039142' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76961322' lat='1.3609464' lon='103.9894813' />
+  <node id='6968039144' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3609146' lon='103.9893113' />
+  <node id='6968039145' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3608846' lon='103.9892281' />
+  <node id='6968039146' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3608251' lon='103.9891163' />
+  <node id='6968039147' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.360767' lon='103.9890418' />
+  <node id='6968039148' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3606994' lon='103.9889798' />
+  <node id='6968039149' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3606301' lon='103.9889354' />
+  <node id='6968039151' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3605755' lon='103.988908' />
+  <node id='6968039152' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3604735' lon='103.9888774' />
+  <node id='6968039153' timestamp='2019-11-12T07:32:32Z' uid='6744861' user='Frugol' visible='true' version='2' changeset='76944156' lat='1.3603673' lon='103.988869' />
+  <node id='6968039154' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3602555' lon='103.9888818' />
+  <node id='6968039155' timestamp='2019-11-12T03:55:45Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76938284' lat='1.3602529' lon='103.9888649' />
+  <node id='6968086010' timestamp='2019-11-12T04:49:34Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76939338' lat='1.360302' lon='103.9887922' />
+  <node id='6968143492' timestamp='2019-11-12T05:33:17Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76940203' lat='1.3597926' lon='103.9891612' />
+  <node id='6968885496' timestamp='2019-11-12T12:03:15Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76958359' lat='1.3607532' lon='103.9902087' />
+  <node id='6968885794' timestamp='2019-11-12T12:03:16Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76958359' lat='1.3609208' lon='103.9898171' />
+  <node id='6969044269' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76961322' lat='1.3609704' lon='103.9894256' />
+  <node id='6969044270' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76961322' lat='1.3609539' lon='103.9894175' />
+  <node id='6969044271' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76961322' lat='1.3609721' lon='103.9893757' />
+  <node id='6969044272' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76961322' lat='1.3609394' lon='103.9893625' />
+  <node id='6969044273' timestamp='2019-11-12T13:00:14Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76961322' lat='1.3609249' lon='103.9893578' />
+  <node id='6970557400' timestamp='2019-11-13T02:29:28Z' uid='6744861' user='Frugol' visible='true' version='1' changeset='76988524' lat='1.3609578' lon='103.989409' />
+  <node id='10195167896' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='1' changeset='129010605' lat='1.3590688' lon='103.9890288' />
+  <node id='10566650343' timestamp='2023-01-19T02:31:55Z' uid='9366301' user='GrabSG_akbaralibakar' visible='true' version='1' changeset='131443604' lat='1.3587368' lon='103.9892824' />
+  <way id='631939384' timestamp='2022-11-16T20:35:57Z' uid='11276832' user='HaPe-CZ' visible='true' version='9' changeset='129010605'>
+    <nd ref='5148670234' />
+    <nd ref='5148670230' />
+    <nd ref='1842921601' />
+    <nd ref='10195167896' />
+    <nd ref='243497352' />
+    <tag k='alt_name' v='Airport Boulevard' />
+    <tag k='bicycle' v='no' />
+    <tag k='foot' v='no' />
+    <tag k='highway' v='trunk' />
+    <tag k='lanes' v='3' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='T1 Boulevard' />
+    <tag k='oneway' v='yes' />
+    <tag k='sidewalk' v='no' />
+    <tag k='source' v='Kaart Ground Survey 2017' />
+    <tag k='surface' v='asphalt' />
+    <tag k='turn:lanes' v='through|through|through' />
+  </way>
+  <way id='688067545' timestamp='2023-01-19T03:17:33Z' uid='10255156' user='GrabSG_LydiaN' visible='true' version='6' changeset='131444261'>
+    <nd ref='6450971848' />
+    <nd ref='1832333581' />
+    <nd ref='10566650343' />
+    <tag k='bicycle' v='no' />
+    <tag k='foot' v='no' />
+    <tag k='highway' v='trunk' />
+    <tag k='horse' v='no' />
+    <tag k='lanes' v='3' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Airport Boulevard' />
+    <tag k='oneway' v='yes' />
+    <tag k='surface' v='asphalt' />
+    <tag k='turn:lanes' v='through|through|through' />
+  </way>
+  <way id='744520551' timestamp='2020-06-26T16:00:33Z' uid='10674755' user='Ptrho81' visible='true' version='14' changeset='87203277'>
+    <nd ref='6968086010' />
+    <nd ref='6968039085' />
+    <nd ref='6968039086' />
+    <nd ref='6968039087' />
+    <nd ref='6968039088' />
+    <nd ref='6968039089' />
+    <nd ref='6965983086' />
+    <nd ref='6968039091' />
+    <nd ref='6968039092' />
+    <nd ref='6968039093' />
+    <nd ref='6968039094' />
+    <nd ref='6968039095' />
+    <nd ref='6968143492' />
+    <nd ref='6968039096' />
+    <nd ref='6968039097' />
+    <nd ref='6968039098' />
+    <nd ref='6968039099' />
+    <nd ref='6968039100' />
+    <nd ref='6968039101' />
+    <nd ref='6968039102' />
+    <nd ref='6968039104' />
+    <nd ref='6968039105' />
+    <nd ref='6968039106' />
+    <nd ref='6968039107' />
+    <nd ref='6968039108' />
+    <nd ref='6968039109' />
+    <nd ref='6968039110' />
+    <nd ref='6968039111' />
+    <nd ref='6968039112' />
+    <nd ref='6968039113' />
+    <nd ref='6968039114' />
+    <nd ref='6961250089' />
+    <nd ref='6968039116' />
+    <nd ref='6968039117' />
+    <nd ref='6968039118' />
+    <nd ref='6968039119' />
+    <nd ref='6968039120' />
+    <nd ref='6968039121' />
+    <nd ref='6968039122' />
+    <nd ref='6968039123' />
+    <nd ref='6961249903' />
+    <nd ref='6961249902' />
+    <nd ref='6966020190' />
+    <nd ref='6961249990' />
+    <nd ref='6961249895' />
+    <nd ref='6961249894' />
+    <nd ref='6960994187' />
+    <nd ref='6960982491' />
+    <nd ref='6959250691' />
+    <nd ref='6968885496' />
+    <nd ref='6968039103' />
+    <nd ref='6966232295' />
+    <nd ref='6956299309' />
+    <nd ref='6966232393' />
+    <nd ref='6968039138' />
+    <nd ref='6968885794' />
+    <nd ref='6759014928' />
+    <nd ref='6759014927' />
+    <nd ref='6759014926' />
+    <nd ref='6968039142' />
+    <nd ref='6969044269' />
+    <nd ref='6969044270' />
+    <nd ref='6970557400' />
+    <nd ref='6969044271' />
+    <nd ref='6969044272' />
+    <nd ref='6969044273' />
+    <nd ref='6968039144' />
+    <nd ref='6968039145' />
+    <nd ref='6968039146' />
+    <nd ref='6968039147' />
+    <nd ref='6968039148' />
+    <nd ref='6968039149' />
+    <nd ref='6968039151' />
+    <nd ref='6968039152' />
+    <nd ref='6968039153' />
+    <nd ref='6968039154' />
+    <nd ref='6968039155' />
+    <nd ref='6965956386' />
+    <nd ref='6968086010' />
+    <tag k='addr:city' v='Singapore' />
+    <tag k='addr:country' v='SG' />
+    <tag k='addr:housenumber' v='78' />
+    <tag k='addr:postcode' v='819666' />
+    <tag k='addr:street' v='Airport Boulevard' />
+    <tag k='air_conditioning' v='yes' />
+    <tag k='building' v='commercial' />
+    <tag k='building:colour' v='#ADAFBB' />
+    <tag k='building:levels' v='5' />
+    <tag k='building:levels:underground' v='5' />
+    <tag k='building:material' v='metal' />
+    <tag k='height' v='37' />
+    <tag k='name' v='Jewel Changi Airport' />
+    <tag k='name:en' v='Jewel Changi Airport' />
+    <tag k='name:zh' v='星耀樟宜' />
+    <tag k='opening_date' v='2019' />
+    <tag k='operator' v='Changi Group/CapitaLand Ltd' />
+    <tag k='phone' v='+65 6713 2888' />
+    <tag k='roof:colour' v='#516272' />
+    <tag k='roof:height' v='27' />
+    <tag k='roof:material' v='glass' />
+    <tag k='roof:shape' v='dome' />
+    <tag k='shop' v='mall' />
+    <tag k='start_date' v='2019-04-17' />
+    <tag k='website' v='http://www.jewelchangiairport.com/' />
+    <tag k='wheelchair' v='yes' />
+    <tag k='wikidata' v='Q28419359' />
+    <tag k='wikipedia' v='en:Jewel Changi Airport' />
+  </way>
+</osm>

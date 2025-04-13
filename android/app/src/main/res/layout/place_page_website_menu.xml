@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_website_menu"
+  style="@style/PlacePageItemFrame"
+  android:tag="website"
+  tools:background="#20FF0000"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_website_menu"
+    style="@style/PlacePageMetadataIcon"
+    app:srcCompat="@drawable/ic_website_menu"
+    app:tint="?colorAccent"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/tv__place_website_menu"
+      android:textAlignment="viewStart"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/view_menu"
+      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent" />
+
+    <TextView
+        android:id="@+id/tv__place_website_menu_subtitle"
+        android:textAlignment="viewStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+        android:textSize="12sp"
+        tools:text="osm.org" />
+  </LinearLayout>
+
+</LinearLayout>

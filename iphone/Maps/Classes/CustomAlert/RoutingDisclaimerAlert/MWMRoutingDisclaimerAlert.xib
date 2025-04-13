@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Ie9-JJ-hnZ" customClass="MWMRoutingDisclaimerAlert" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogu-AE-Ohh" userLabel="ContainerView">
+                    <rect key="frame" x="47.5" y="265" width="280" height="137.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3s-j7-v6E" userLabel="Title">
+                            <rect key="frame" x="20" y="20" width="240" height="21.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="uht-Xi-vWk"/>
+                                <constraint firstAttribute="width" constant="240" id="wsn-Cq-kJT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="dialog_routing_disclaimer_title"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbr-Xd-hLF">
+                            <rect key="frame" x="20" y="52.5" width="240" height="20"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="GeJ-mk-jko"/>
+                                <constraint firstAttribute="height" constant="20" id="XLp-um-S4A"/>
+                            </constraints>
+                            <attributedString key="attributedText">
+                                <fragment content="Message">
+                                    <attributes>
+                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </textView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIL-q9-MMp" userLabel="hDivider">
+                            <rect key="frame" x="0.0" y="92.5" width="280" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="g4E-tB-Y4R"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCY-1G-NL5" userLabel="right">
+                            <rect key="frame" x="140.5" y="93.5" width="139.5" height="44"/>
+                            <accessibility key="accessibilityConfiguration" identifier="acceptButton"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="AAv-pX-uuc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="right">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="accept"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="okTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="vfz-Rd-Kh6"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfV-qu-qmI" userLabel="left">
+                            <rect key="frame" x="0.0" y="93.5" width="139.5" height="44"/>
+                            <accessibility key="accessibilityConfiguration" identifier="cancelButton"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <state key="normal" title="left">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="decline"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelTap" destination="Ie9-JJ-hnZ" eventType="touchUpInside" id="KWl-Dn-BpU"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="930-J1-9o0" userLabel="vDivider">
+                            <rect key="frame" x="139.5" y="93.5" width="1" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="mf2-e7-Qg6"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="lbr-Xd-hLF" firstAttribute="top" secondItem="S3s-j7-v6E" secondAttribute="bottom" constant="11" id="20T-2E-mmf"/>
+                        <constraint firstAttribute="width" secondItem="XIL-q9-MMp" secondAttribute="width" id="3m7-Ha-HlN"/>
+                        <constraint firstItem="XIL-q9-MMp" firstAttribute="top" secondItem="lbr-Xd-hLF" secondAttribute="bottom" constant="20" id="4k1-g8-WZV"/>
+                        <constraint firstAttribute="trailing" secondItem="aCY-1G-NL5" secondAttribute="trailing" id="BcN-zR-SdX"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="F4d-Td-XJg"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="width" secondItem="aCY-1G-NL5" secondAttribute="width" id="KAH-qc-1f1"/>
+                        <constraint firstAttribute="width" constant="280" id="KpN-ir-OWh"/>
+                        <constraint firstAttribute="centerX" secondItem="lbr-Xd-hLF" secondAttribute="centerX" id="KuP-DA-FWV"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="MPL-wr-BbK"/>
+                        <constraint firstItem="aCY-1G-NL5" firstAttribute="leading" secondItem="930-J1-9o0" secondAttribute="trailing" id="N4p-JX-gzl"/>
+                        <constraint firstAttribute="centerX" secondItem="S3s-j7-v6E" secondAttribute="centerX" id="Oag-6s-ais"/>
+                        <constraint firstItem="S3s-j7-v6E" firstAttribute="top" secondItem="Ogu-AE-Ohh" secondAttribute="top" constant="20" id="OoP-Qp-YIb"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="leading" secondItem="Ogu-AE-Ohh" secondAttribute="leading" id="VYG-iz-HL8"/>
+                        <constraint firstAttribute="bottom" secondItem="aCY-1G-NL5" secondAttribute="bottom" id="WB8-od-eAG"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="top" secondItem="aCY-1G-NL5" secondAttribute="top" id="aP7-3d-zW1"/>
+                        <constraint firstItem="JfV-qu-qmI" firstAttribute="top" secondItem="aCY-1G-NL5" secondAttribute="top" id="b8D-tm-ZFK"/>
+                        <constraint firstAttribute="centerX" secondItem="XIL-q9-MMp" secondAttribute="centerX" id="bas-rx-OTg"/>
+                        <constraint firstItem="930-J1-9o0" firstAttribute="leading" secondItem="JfV-qu-qmI" secondAttribute="trailing" id="gTM-qA-I1T"/>
+                        <constraint firstItem="aCY-1G-NL5" firstAttribute="top" secondItem="XIL-q9-MMp" secondAttribute="bottom" id="swb-Yx-lVo"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="Ogu-AE-Ohh" secondAttribute="centerY" id="Kg9-hX-fvu"/>
+                <constraint firstAttribute="centerX" secondItem="Ogu-AE-Ohh" secondAttribute="centerX" id="dkW-i0-CZ2"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="n9h-Fb-ugd"/>
+            <connections>
+                <outlet property="textView" destination="lbr-Xd-hLF" id="ru3-Uu-UKw"/>
+                <outlet property="textViewHeight" destination="XLp-um-S4A" id="GmU-gr-jlY"/>
+            </connections>
+            <point key="canvasLocation" x="305" y="172"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+    </resources>
+</document>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/height_item_multiline"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:background="?clickableBackground"
+  tools:background="#200000FF">
+
+  <include
+    android:id="@+id/downloader_status_frame"
+    layout="@layout/downloader_status"
+    android:layout_width="@dimen/downloader_status_size"
+    android:layout_height="@dimen/downloader_status_size"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_centerVertical="true"/>
+
+  <TextView
+    android:id="@+id/size"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="5000 MB"
+    tools:background="#80008000"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_base"
+    android:paddingBottom="@dimen/margin_base"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toStartOf="@id/size">
+    <TextView
+      android:id="@+id/found_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:maxLines="1"
+      tools:text="Крымск"
+      tools:background="#60FF00FF"/>
+
+    <TextView
+      android:id="@+id/name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      tools:text="Донецкая область"
+      tools:background="#40FF0000"/>
+
+    <TextView
+      android:id="@+id/subtitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      tools:text="Украина"
+      tools:background="#60FFFF00"/>
+  </LinearLayout>
+</RelativeLayout>

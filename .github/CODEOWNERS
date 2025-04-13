@@ -1,0 +1,69 @@
+# All non-assigned.
+* @organicmaps/mergers
+# Visual design.
+/android/app/src/main/res/drawable*/ @organicmaps/design
+/android/app/src/main/res/font/ @organicmaps/design
+/android/app/src/main/res/mipmap*/ @organicmaps/design
+/data/*.ttf @organicmaps/design
+/data/resources-svg/ @organicmaps/design
+/data/search-icons/ @organicmaps/design
+/iphone/Maps/Images.xcassets/ @organicmaps/design
+# Android.
+/android/ @organicmaps/android
+/android/app/src/main/java/app/organicmaps/car/ @organicmaps/android-auto
+/docs/ANDROID_LOCATION_TEST.md @organicmaps/android
+/docs/JAVA_STYLE.md @organicmaps/android
+# no owner for translation changes
+/android/app/src/main/res/values*/strings.xml
+# iOS.
+/iphone/ @organicmaps/ios
+/xcode/ @organicmaps/ios
+/docs/OBJC_STYLE.md @organicmaps/ios
+# no owner for translation changes
+/iphone/plist.txt
+/iphone/Maps/LocalizedStrings/
+# Qt
+/qt/ @organicmaps/qt
+# Rendering
+/drape/ @organicmaps/rendering
+/drape_frontend/ @organicmaps/rendering
+# Map Data.
+/tools/python/maps_generator/ @organicmaps/data
+/generator/ @organicmaps/data
+/topography_generator/ @organicmaps/data
+/data/borders/ @organicmaps/data
+/data/conf/isolines/ @organicmaps/data
+/docs/SUBWAY_GENERATION.md @organicmaps/data
+/docs/MAPS.md @organicmaps/data
+/docs/EXPERIMENTAL_PUBLIC_TRANSPORT_SUPPORT.md @organicmaps/data
+# no owner (changed often to add a new POI)
+/generator/generator_tests/osm_type_test.cpp
+# Map Styles.
+/data/styles/ @organicmaps/styles
+/data/types.txt @organicmaps/styles
+/data/visibility.txt @organicmaps/styles
+/data/mapcss-mapping.csv @organicmaps/styles
+/data/replaced_tags.txt @organicmaps/styles
+/data/classificator.txt @organicmaps/styles
+/data/drules_* @organicmaps/styles
+/docs/STYLES.md
+/tools/kothic/ @organicmaps/styles
+# DevOps.
+/.github/workflows @organicmaps/devops
+/android/*gradle* @organicmaps/devops
+/docs/RELEASE_MANAGEMENT.md @organicmaps/devops
+/xcode/fastlane/ @organicmaps/devops
+# Growth.
+README.md @organicmaps/growth
+/.github/FUNDING.yml @organicmaps/growth
+/android/app/src/fdroid/play/ @organicmaps/growth
+/android/app/src/google/play/ @organicmaps/growth
+/iphone/metadata/ @organicmaps/growth
+# Legal.
+LEGAL @organicmaps/legal
+LICENSE @organicmaps/legal
+NOTICE @organicmaps/legal
+CONTRIBUTORS @organicmaps/legal
+/docs/CODE_OF_CONDUCT.md @organicmaps/legal
+/docs/DCO.md @organicmaps/legal
+/docs/GOVERNANCE.md @organicmaps/legal

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36" height="36" version="1.1" viewBox="0 0 36 36" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="filter1" x="-.147" y="-.147" width="1.294" height="1.294" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="1.5925"/>
+  </filter>
+  <linearGradient id="linearGradient1" x1="18" x2="18" y1="3" y2="29" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#3fa8f3" offset="0"/>
+   <stop stop-color="#2089d4" offset="1"/>
+  </linearGradient>
+ </defs>
+ <circle cx="18" cy="18" r="13" filter="url(#filter1)" opacity=".35"/>
+ <circle cx="18" cy="16" r="13" fill="url(#linearGradient1)" stroke="#fff" stroke-width="2"/>
+ <path d="m24.125 9.875h-1.75v-1.75h-8.75v1.75h-1.75c-0.9625 0-1.75 0.7875-1.75 1.75v0.875c0 2.2312 1.68 4.0512 3.8412 4.3225 0.55125 1.3125 1.7325 2.3013 3.1588 2.59v2.7125h-3.5v1.75h8.75v-1.75h-3.5v-2.7125c1.4263-0.28875 2.6075-1.2775 3.1588-2.59 2.1612-0.27125 3.8412-2.0913 3.8412-4.3225v-0.875c0-0.9625-0.7875-1.75-1.75-1.75zm-12.25 2.6249v-0.875h1.75v3.3425c-1.015-0.3675-1.75-1.33-1.75-2.4674zm12.25 0c0 1.1375-0.73499 2.1-1.75 2.4674v-3.3425h1.75v0.875z" fill="#fff"/>
+</svg>

@@ -1,0 +1,30 @@
+name: Validate .desktop file
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - qt/res/app.organicmaps.desktop.desktop
+      - .github/workflows/desktop-file-check.yaml  # Run check on self change
+
+jobs:
+  validate-desktop-file:
+    name: Validate .desktop file
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            qt/res/app.organicmaps.desktop.desktop
+
+      - name: Install desktop-file-validate tool
+        shell: bash
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+              desktop-file-utils
+
+      - name: Validate desktop file
+        shell: bash
+        run: desktop-file-validate qt/res/app.organicmaps.desktop.desktop && echo "Successfully validated .desktop file"

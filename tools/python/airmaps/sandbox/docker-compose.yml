@@ -1,0 +1,41 @@
+version: "3"
+services:
+  webdav:
+    image: sashgorokhov/webdav
+    container_name: webdav
+    hostname: webdav
+    restart: always
+    environment:
+      USERNAME: alice
+      PASSWORD: secret1234
+    volumes:
+      - ./storage/tests:/media/tests
+
+  db:
+    image: postgres:12.2
+    container_name: db
+    hostname: db
+    restart: always
+    environment:
+      POSTGRES_DB: airflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  airmaps:
+    build:
+      context: ../../../..
+      dockerfile: ./tools/python/airmaps/sandbox/airmaps/Dockerfile
+      args:
+        - TZ=Europe/Moscow
+    container_name: airmaps
+    hostname: airmaps
+    restart: always
+    links:
+      - webdav
+      - db
+    ports:
+      - "80:8880"
+    command: ./tools/python/airmaps/sandbox/airmaps/run_airmaps_service.sh
+    volumes:
+      - ./airmaps/airflow.cfg:/airflow_home/airflow.cfg
+      - ./airmaps/airmaps.ini:/omim/tools/python/airmaps/var/etc/airmaps.ini

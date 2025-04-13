@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.Tab"
+  android:textAppearance="@style/MwmTextAppearance.Body3"
+  tools:drawableStart="@drawable/ic_menu_open"
+  tools:text="Some tab"/>

@@ -1,0 +1,24 @@
+way|z1-12::*
+{
+  linejoin: bevel;
+}
+
+way|z13-::*
+{
+  linejoin: round;
+}
+
+way|z1-15::*
+{
+  linecap: butt;
+}
+
+way|z16-::*
+{
+  linecap: round;
+}
+
+*::int_name
+{
+  text-offset: 1;
+}

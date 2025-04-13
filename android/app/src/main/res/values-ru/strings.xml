@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Назад</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Отмена</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Удалить</string>
+    <string name="download_maps">Загрузить карты</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Загружается…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Километры</string>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Мили</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Мое местоположение</string>
+    <!-- Update maps later button text -->
+    <string name="later">Не сейчас</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Поиск</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Поиск на карте</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Точность местоположения ограничена</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Включите в настройках точное определение местоположения.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Показать на карте</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Ошибка загрузки</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Попробуйте ещё раз</string>
+    <string name="about_menu_title">Про Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Бесплатно для всех, сделано с любовью</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Без рекламы, без трекинга, без слежки</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Не разряжает батарею, работает в автономном режиме</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Быстрые, минималистичные, разработанные сообществом</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтёрами.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Настройки местоположения</string>
+    <string name="close">Закрыть</string>
+    <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
+    <string name="download">Загрузить</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
+    <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.
+\nПотребуется %s данных.</string>
+    <string name="download_resources_continue">Перейти на карту</string>
+    <string name="downloading_country_can_proceed">Пока загружается %s,
+\nвы можете пользоваться картой.</string>
+    <string name="download_country_ask">Загрузить %s?</string>
+    <string name="update_country_ask">Обновить %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Приостановить</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Продолжить</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">Не удалось загрузить %s</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Добавить список</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Название списка меток</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Метки</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Метки и треки</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Мои Метки</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Название</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Адрес</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Список</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Настройки</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Сохранять карты в</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Выберите место, где будут храниться загруженные карты</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Загруженные карты</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Внутренний скрытый накопитель</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Внутренний общий накопитель</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-карта</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Внешний общий накопитель</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s свободно из %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Переместить карты?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Ошибка перемещения файлов карт</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Это может занять несколько минут.
+\nПожалуйста, подождите…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Единицы измерения</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Использовать километры или мили</string>
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Где поесть</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Продукты</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Транспорт</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Заправка</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Парковка</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Шоппинг</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Секонд-хенд</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Гостиница</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Достопримечательности</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Развлечения</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Банкомат</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Ночная жизнь</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Отдых с детьми</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Банк</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Аптека</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Больница</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Туалет</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Почта</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Полиция</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Переработка</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Вода</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Для автодомов</string>
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Примечание</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
+    <string name="share_bookmarks_email_body">Здравствуйте!
+\n
+\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz
+\n
+\nСпасибо!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Загрузка меток</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохранённых метках.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл повреждён или неисправен.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Тип файла не поддерживается приложением:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Не удалось открыть файл %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Редактировать</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Ваше местоположение ещё не определено</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Извините, настройки места хранения карт сейчас недоступны.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Идет процесс загрузки карт.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Смотри мою метку на карте Organic Maps</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Привет!
+\n
+\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s
+\n
+\nСпасибо.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Поделиться</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">Email</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Скопировано в буфер обмена: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Готово</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">Данные OpenStreetMap: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Вы уверены, что хотите выйти из своей учетной записи OpenStreetMap?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Треки</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Длина</string>
+    <string name="share_my_location">Поделиться местоположением</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Общие настройки</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Информация</string>
+    <string name="prefs_group_route">Навигация</string>
+    <string name="pref_zoom_title">Кнопки масштаба</string>
+    <string name="pref_zoom_summary">Показать на карте</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Ночной режим</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Выключен</string>
+    <!-- Generic «On» string -->
+    <string name="on">Включен</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Автоматически</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Перспективный вид</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D здания</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D-здания отключаются в режиме энергосбережения</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Голосовые инструкции</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Проговаривать названия улиц</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">При включении название улицы или съезда, на который нужно повернуть, будет произноситься вслух.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Язык подсказок</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Проверить голосовые подсказки (TTS, Text-To-Speech).</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Проверьте громкость или системные настройки преобразования текста в речь, если сейчас ничего не слышно.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Не доступны</string>
+    <string name="pref_map_auto_zoom">Автозум</string>
+    <string name="placepage_distance">Расстояние</string>
+    <string name="search_show_on_map">Посмотреть на карте</string>
+    <!-- Menu button -->
+    <string name="menu">Меню</string>
+    <!-- Text in menu -->
+    <string name="website">Вебсайт</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Новости</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Связаться с нами</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Оценить приложение</string>
+    <!-- Text in menu -->
+    <string name="help">Справка</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Вопросы и ответы</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Поддержать деньгами</string>
+    <string name="already_donated">Уже пожертвовано</string>
+    <string name="remind_me_later">Напомнить позже</string>
+    <string name="support_organic_maps">Поддержать Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Помочь проекту</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Копирайт</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">Сообщить о проблеме</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Улучшите направление стрелки, перемещая телефон восьмёркой, чтобы откалибровать компас.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Двигайте телефон восьмёркой, чтобы откалибровать компас и зафиксировать направление стрелки на карте.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Долгое нажатие на карту вернёт интерфейс обратно</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Обновить все</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Отменить все</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Загруженные</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">В очереди</string>
+    <string name="downloader_near_me_subtitle">Возле меня</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Карт</string>
+    <string name="downloader_download_all_button">Загрузить все</string>
+    <string name="downloader_downloading">Загружается:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Чтобы удалить карту, пожалуйста, остановите навигацию.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Маршрут может быть проложен только внутри карты одного региона.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Загрузить карту</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Повторить</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Удалить карту</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Обновить карту</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Службы определения местоположения в Google Play</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Ссылки в гостиницах на Kayak.com</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Ссылки \"Фотографии, отзывы, бронирование\" отображаются для отелей, подключенных к Kayak.com. Реферальный бонус, полученный за каждое бронирование по этим ссылкам, идет на развитие Organic Maps.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Недостаточно места</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Пожалуйста, включите геолокацию</string>
+    <string name="save">Сохранить</string>
+    <string name="create">создать</string>
+    <!-- red color -->
+    <string name="red">Красный</string>
+    <!-- yellow color -->
+    <string name="yellow">Жёлтый</string>
+    <!-- blue color -->
+    <string name="blue">Синий</string>
+    <!-- green color -->
+    <string name="green">Зелёный</string>
+    <!-- purple color -->
+    <string name="purple">Пурпурный</string>
+    <!-- orange color -->
+    <string name="orange">Оранжевый</string>
+    <!-- brown color -->
+    <string name="brown">Коричневый</string>
+    <!-- pink color -->
+    <string name="pink">Розовый</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Тёмно-пурпурный</string>
+    <!-- light blue color -->
+    <string name="light_blue">Голубой</string>
+    <!-- cyan color -->
+    <string name="cyan">Сине-зелёный</string>
+    <!-- teal color -->
+    <string name="teal">Изумрудный</string>
+    <!-- lime color -->
+    <string name="lime">Лайм</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Тёмно-оранжевый</string>
+    <!-- gray color -->
+    <string name="gray">Серый</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Серо-голубой</string>
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>
+    <string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;</string>
+    <string name="dialog_routing_disclaimer_precision">— Карта может быть неточной, а предложенный маршрут не всегда оптимален;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Предлагаемые маршруты — лишь рекомендации;</string>
+    <string name="dialog_routing_disclaimer_borders">— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;</string>
+    <string name="dialog_routing_disclaimer_beware">Будьте внимательны на дорогах и берегите себя!</string>
+    <string name="dialog_routing_check_gps">Проверьте сигнал GPS</string>
+    <string name="dialog_routing_error_location_not_found">Маршрут не построен. Текущая геопозиция не определена.</string>
+    <string name="dialog_routing_location_turn_wifi">Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.</string>
+    <string name="dialog_routing_location_turn_on">Включите режим определения геопозиции</string>
+    <string name="dialog_routing_location_unknown_turn_on">Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.</string>
+    <string name="dialog_routing_unable_locate_route">Маршрут не найден</string>
+    <string name="dialog_routing_cant_build_route">Не получилось построить маршрут.</string>
+    <string name="dialog_routing_change_start_or_end">Пожалуйста, измените начальную или конечную точку маршрута.</string>
+    <string name="dialog_routing_change_start">Измените начальную точку маршрута</string>
+    <string name="dialog_routing_start_not_determined">Маршрут не построен. Не определена начальная точка маршрута.</string>
+    <string name="dialog_routing_select_closer_start">Пожалуйста, выберите начальную точку маршрута ближе к дороге.</string>
+    <string name="dialog_routing_change_end">Измените конечную точку маршрута</string>
+    <string name="dialog_routing_end_not_determined">Маршрут не построен. Не определена конечная точка маршрута.</string>
+    <string name="dialog_routing_select_closer_end">Пожалуйста, выберите конечную точку маршрута ближе к дороге.</string>
+    <string name="dialog_routing_change_intermediate">Не определена промежуточная точка маршрута.</string>
+    <string name="dialog_routing_intermediate_not_determined">Пожалуйста, измените промежуточную точку маршрута.</string>
+    <string name="dialog_routing_system_error">Системная ошибка</string>
+    <string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
+    <string name="dialog_routing_try_again">Попробуйте снова</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
+    <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
+    <string name="search_select_map">Выбрать карту</string>
+    <!-- «Show» context menu -->
+    <string name="show">Показать</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Скрыть</string>
+    <string name="categories">Категории</string>
+    <string name="history">История</string>
+    <string name="search_not_found">К сожалению, мы ничего не нашли.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Загрузите регион, в котором ищете, или попробуйте добавить название близлежащего города/деревни.</string>
+    <string name="search_history_title">История поиска</string>
+    <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
+    <string name="clear_search">Очистить историю поиска</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Википедия</string>
+    <string name="p2p_your_location">Ваше местоположение</string>
+    <string name="p2p_start">Начать</string>
+    <string name="p2p_from_here">Отсюда</string>
+    <string name="p2p_to_here">Сюда</string>
+    <string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
+    <string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Далее</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">С</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">До</string>
+    <string name="editor_time_add">Добавить расписание</string>
+    <string name="editor_time_delete">Удалить расписание</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Весь день (24 часа)</string>
+    <string name="editor_time_open">Открыто</string>
+    <string name="editor_time_close">Закрыто</string>
+    <string name="editor_time_add_closed">Добавить перерыв</string>
+    <string name="editor_time_title">Время работы</string>
+    <string name="editor_time_advanced">Расширенный режим</string>
+    <string name="editor_time_simple">Простой режим</string>
+    <string name="editor_hours_closed">Перерыв</string>
+    <string name="editor_example_values">Примеры значений</string>
+    <string name="editor_correct_mistake">Исправьте ошибку</string>
+    <string name="editor_add_select_location">Выберите местоположение</string>
+    <string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
+    <string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Отправить</string>
+    <string name="editor_report_problem_title">Проблема</string>
+    <string name="editor_report_problem_no_place_title">Места не существует</string>
+    <string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
+    <string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
+    <string name="autodownload">Автоматическая загрузка</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Ежедневно</string>
+    <string name="twentyfour_seven">Круглосуточно</string>
+    <string name="day_off_today">Сегодня закрыто</string>
+    <string name="day_off">Закрыто</string>
+    <string name="today">Сегодня</string>
+    <string name="opens_in">Открывается через %s</string>
+    <string name="closes_in">Закроется через %s</string>
+    <string name="closed">Закрыто</string>
+    <string name="edit_opening_hours">Редактировать время работы</string>
+    <string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Зарегистрироваться</string>
+    <string name="login">Войти</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Не выполнен вход</string>
+    <string name="login_osm">Войти в OpenStreetMap</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="logout">Выйти</string>
+    <string name="edit_place">Редактировать место</string>
+    <string name="add_language">Добавить язык</string>
+    <string name="street">Улица</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Номер дома</string>
+    <string name="details">Подробнее</string>
+    <string name="social_media">Социальные сети</string>
+    <string name="building">Здание</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Добавить улицу</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Введите название улицы</string>
+    <string name="choose_language">Выбрать язык</string>
+    <string name="choose_street">Выбрать улицу</string>
+    <string name="postal_code">Почтовый индекс</string>
+    <string name="cuisine">Кухня</string>
+    <string name="select_cuisine">Выбрать кухню</string>
+    <!-- login text field -->
+    <string name="email_or_username">Эл. почта или имя пользователя</string>
+    <string name="editor_add_phone">Добавить телефон</string>
+    <string name="level">Этаж</string>
+    <!-- Building level -->
+    <string name="level_value_generic">Этаж: %s</string>
+    <string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесённые вами правки на этой карте.</string>
+    <string name="downloader_update_maps">Обновите карты</string>
+    <string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
+    <string name="downloader_search_field_hint">Найти карту</string>
+    <string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
+    <string name="downloader_no_space_title">Недостаточно места</string>
+    <string name="downloader_no_space_message">Удалите ненужные данные</string>
+    <string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
+    <string name="editor_profile_changes">Учтённые правки</string>
+    <string name="editor_focus_map_on_location">Перетащите карту, чтобы поместить крестик на место расположения добавляемого объекта или заведения.</string>
+    <string name="editor_edit_place_title">Редактирование</string>
+    <string name="editor_add_place_title">Добавление</string>
+    <string name="editor_edit_place_name_hint">Название места</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">На местном языке</string>
+    <string name="editor_edit_place_category_title">Категория</string>
+    <string name="detailed_problem_description">Подробное описание проблемы</string>
+    <string name="editor_report_problem_other_title">Другая проблема</string>
+    <string name="placepage_add_business_button">Добавить организацию</string>
+    <string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в Organic Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.
+\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
+    <string name="login_to_make_edits_visible">Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d из %2$d</string>
+    <string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
+    <string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
+    <string name="error_enter_correct_house_number">Введите корректный номер дома</string>
+    <string name="editor_storey_number">Количество этажей (максимум %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Количество этажей не должно превышать %d</string>
+    <string name="editor_zip_code">Почтовый индекс</string>
+    <string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Точка на карте</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью Organic Maps</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
+    <string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
+    <string name="editor_osm_history">Ваша история редактирования</string>
+    <string name="editor_osm_notes">Ваши заметки о данных карты</string>
+    <string name="editor_operator">Оператор</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">Оператор: %s</string>
+    <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
+    <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
+    <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
+    <string name="current_location_unknown_error_title">Местоположение не найдено.</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">км/ч</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">фут</string>
+    <string name="miles_per_hour">ми/ч</string>
+    <string name="hour">ч</string>
+    <string name="minute">мин</string>
+    <string name="day">д</string>
+    <string name="placepage_more_button">Ещё</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографии, отзывы, бронирование</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Подробнее на Kayak</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Отключить Kayak</string>
+    <string name="placepage_edit_bookmark_button">Редактировать метку</string>
+    <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
+    <string name="editor_comment_hint">Коментарий…</string>
+    <string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
+    <string name="editor_reset_edits_button">Сбросить</string>
+    <string name="editor_remove_place_message">Удалить добавленный вами объект?</string>
+    <string name="editor_remove_place_button">Удалить</string>
+    <string name="editor_place_doesnt_exist">Места не существует</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Пожалуйста, укажите причину удаления</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Введите корректный номер телефона</string>
+    <string name="error_enter_correct_web">Введите корректный веб-адрес</string>
+    <string name="error_enter_correct_email">Введите корректный email</string>
+    <string name="error_enter_correct_facebook_page">Введите корректный веб-адрес Facebook страницы или имя пользователя</string>
+    <string name="error_enter_correct_instagram_page">Введите корректный веб-адрес Instagram страницы или имя пользователя</string>
+    <string name="error_enter_correct_twitter_page">Введите корректный веб-адрес Twitter страницы или имя пользователя</string>
+    <string name="error_enter_correct_vk_page">Введите корректный веб-адрес VK страницы или имя пользователя</string>
+    <string name="error_enter_correct_line_page">Введите корректный веб-адрес LINE страницы или LINE ID</string>
+    <string name="placepage_add_place_button">Добавить место в OpenStreetMap</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
+    <string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
+    <string name="navigation_stop_button">Cтоп</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Запись трека</string>
+    <!-- For the first routing -->
+    <string name="accept">Принять</string>
+    <!-- For the first routing -->
+    <string name="decline">Отклонить</string>
+    <string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
+    <string name="mobile_data_option_always">Всегда</string>
+    <string name="mobile_data_option_today">Только сегодня</string>
+    <string name="mobile_data_option_not_today">Не сегодня</string>
+    <string name="mobile_data">Мобильный интернет</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.</string>
+    <string name="mobile_data_option_never">Никогда не использовать</string>
+    <string name="mobile_data_option_ask">Всегда спрашивать</string>
+    <string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
+    <string name="big_font">Увеличить шрифт на карте</string>
+    <string name="traffic_update_app">Обновите Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Данные о пробках недоступны</string>
+    <string name="enable_logging">Включить запись логов</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Отправить отзыв</string>
+    <string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play, Galaxy Store, App Gallery, FDroid).
+\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.
+\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+    <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
+    <string name="transliteration_title">Латинская транслитерация</string>
+    <string name="learn_more">Узнать больше</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Выход</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Используйте поиск или коснитесь карты, чтобы добавить начальную точку маршрута</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Используйте поиск или коснитесь карты, чтобы добавить точку назначения</string>
+    <string name="planning_route_manage_route">Изменить маршрут</string>
+    <string name="button_plan">Построить</string>
+    <string name="placepage_remove_stop">Удалить остановку</string>
+    <string name="placepage_add_stop">Добавить остановку</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
+    <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
+    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
+    <string name="core_entrance">Вход</string>
+    <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
+    <string name="bookmark_lists">Списки</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Спрятать все</string>
+    <string name="bookmark_lists_show_all">Показать все</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d метка</item>
+        <item quantity="few">%d метки</item>
+        <item quantity="other">%d меток</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Создать новый список</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Импортировать метки и треки</string>
+    <string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
+    <string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
+    <string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
+    <string name="bookmarks_error_title_empty_list_name">Имя списка не может быть пустым</string>
+    <string name="bookmarks_error_message_empty_list_name">Введите имя списка, пожалуйста</string>
+    <string name="bookmarks_new_list_hint">Новый список</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Такое имя уже занято</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Выберите, пожалуйста, другое имя</string>
+    <string name="please_wait">Пожалуйста, подождите…</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="profile">Профиль OpenStreetMap</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
+        <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
+        <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
+    </plurals>
+    <string name="restore">Восстановить</string>
+    <plurals name="tracks">
+        <item quantity="one">%d трек</item>
+        <item quantity="few">%d трека</item>
+        <item quantity="other">%d треков</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Приватность</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="terms_of_use">Условия использования</string>
+    <string name="button_layer_traffic">Пробки</string>
+    <string name="button_layer_subway">Метро</string>
+    <string name="layers_title">Стили и слои карты</string>
+    <string name="subway_data_unavailable">Карта метро недоступна</string>
+    <string name="bookmarks_empty_list_title">Список пустой</string>
+    <string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
+    <string name="category_desc_more">…ещё</string>
+    <string name="export_file">Экспорт KMZ</string>
+    <string name="export_file_gpx">Экспорт GPX</string>
+    <string name="delete_list">Удалить список</string>
+    <string name="public_access">Публичный доступ</string>
+    <string name="limited_access">Ограниченный доступ</string>
+    <string name="not_shared">Личный</string>
+    <string name="speedcams_alert_title">Камеры скорости</string>
+    <string name="place_description_title">Описание места</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Загрузка карт</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Предупреждать при превышении скорости</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Всегда предупреждать</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Никогда не предупреждать</string>
+    <string name="power_managment_title">Режим энергосбережения</string>
+    <string name="power_managment_description">Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
+    <string name="power_managment_setting_never">Никогда</string>
+    <string name="power_managment_setting_auto">Авто</string>
+    <string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
+    <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
+    <string name="access_rules_author_only">Редактируется онлайн</string>
+    <string name="driving_options_title">Настройки объезда</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Избегать платных дорог</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Избегать грунтовые дороги</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Избегать паромы</string>
+    <string name="avoid_motorways">Избегать автомагистрали</string>
+    <string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
+    <string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
+    <string name="define_to_avoid_btn">Настроить пути объезда</string>
+    <string name="change_driving_options_btn">Настройки объезда включены</string>
+    <string name="toll_road">Платная дорога</string>
+    <string name="unpaved_road">Грунтовая дорога</string>
+    <string name="ferry_crossing">Паромная переправа</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Да</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Нет</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Есть</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Нет</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">Вместимость: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">Сеть: %s</string>
+    <string name="trip_finished">Вы прибыли!</string>
+    <string name="ok">Ок</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Сортировать…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Сортировать метки</string>
+    <!-- Android -->
+    <string name="by_default">По умолчанию</string>
+    <!-- Android -->
+    <string name="by_type">По типу</string>
+    <!-- Android -->
+    <string name="by_distance">По расстоянию</string>
+    <!-- Android -->
+    <string name="by_date">По дате</string>
+    <!-- Android -->
+    <string name="by_name">По имени</string>
+    <string name="week_ago_sorttype">Неделю назад</string>
+    <string name="month_ago_sorttype">Месяц назад</string>
+    <string name="moremonth_ago_sorttype">Больше месяца назад</string>
+    <string name="moreyear_ago_sorttype">Больше года назад</string>
+    <string name="near_me_sorttype">Рядом со мной</string>
+    <string name="others_sorttype">Другие</string>
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Еда</string>
+    <string name="tourist_places">Достопримечательности</string>
+    <string name="museums">Музеи</string>
+    <string name="parks">Парки</string>
+    <string name="swim_places">Плавание</string>
+    <string name="mountains">Горы</string>
+    <string name="animals">Животные</string>
+    <string name="hotels">Отели</string>
+    <string name="buildings">Здания</string>
+    <string name="money">Деньги</string>
+    <string name="shops">Магазины</string>
+    <string name="parkings">Парковки</string>
+    <string name="fuel_places">Заправки</string>
+    <string name="medicine">Медицина</string>
+    <string name="search_in_the_list">Искать в списке</string>
+    <string name="religious_places">Святые места</string>
+    <string name="select_list">Выбрать список</string>
+    <string name="transit_not_found">Навигация на метро ещё недоступна в данном регионе</string>
+    <string name="dialog_pedestrian_route_is_long_header">Маршрут метро не найден</string>
+    <string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
+    <string name="button_layer_isolines">Высоты</string>
+    <string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
+    <string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
+    <string name="elevation_profile_ascent">Подъём</string>
+    <string name="elevation_profile_descent">Спуск</string>
+    <string name="elevation_profile_min_elevation">Мин. высота</string>
+    <string name="elevation_profile_max_elevation">Макс. высота</string>
+    <string name="elevation_profile_difficulty">Сложность</string>
+    <string name="elevation_profile_distance">Расст.:</string>
+    <string name="elevation_profile_time">В пути:</string>
+    <string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
+    <string name="downloader_loading_ios">Загрузка</string>
+    <string name="download_map_title">Скачать обзорную карту мира</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Не могу создать папку и переместить файлы на устройстве</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Ошибка диска</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Ошибка подключения</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
+    <string name="enable_keep_screen_on">Держи экран включённым</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Если эта функция включена, то при отображении карты экран будет всегда включен.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Показывать на экране блокировки</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Язык карты</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">Картографические данные из OpenStreetMap</string>
+    <!-- Telegram group url for the "?" About page -->
+    <string name="telegram_url">https://t.me/OrganicMapsRu</string>
+    <!-- A link to the TTS FAQ -->
+    <string name="tts_info_link">https://organicmaps.app/ru/faq/синтез-речи-tts-на-android/</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/ru/</string>
+    <!-- Link to OSM wiki for Editor, Profile and About pages -->
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/RU:О_проекте</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Спасибо, что пользуетесь нашими картами, созданными сообществом!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Благодаря вашим пожертвованиям и поддержке мы сможем создать лучшие карты на свете!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Вам нравится наше приложение? Поддержите его развитие деньгами! Пока ещё не нравится? Пожалуйста, сообщите нам, почему, и мы это исправим!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Если вы знаете толкового разработчика программного обеспечения, попросите его реализовать нужную вам функцию для приложения.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Коснитесь любого места на карте, чтобы выбрать что-либо. Длительное нажатие скрывает и возвращает интерфейс.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">А вы знали, что своё местоположение на карте можно выбрать?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Вы можете помочь перевести наше приложение на ваш язык.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Наше приложение разработано несколькими энтузиастами и сообществом.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Вы можете легко исправить и улучшить данные карты.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Наша главная цель — создать быстрые, конфиденциальные и простые в использовании карты, которые вам понравятся.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Сейчас Вы используете Organic Maps на экране телефона</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Сейчас Вы используете Organic Maps на экране автомобиля</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Вы подключены к Android Auto</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Продолжить в телефоне</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Продолжить в авто</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Этому приложению нужно ваше разрешение</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps в Android Auto для эффективной работы необходимо разрешение на определение местоположения</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Разрешить</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Активный отдых</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Веб-браузер недоступен</string>
+    <string name="volume">Громкость</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Экспортировать все метки и треки</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Системные настройки синтеза речи</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Настройки синтеза речи не найдены, вы уверены, что ваше устройство поддерживает их?</string>
+    <string name="drive_through">С окошком для водителей</string>
+    <string name="clear_the_search">Очистите поиск</string>
+    <string name="zoom_in">Приблизить</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">Отдалить</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Ссылка на меню</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Посмотреть меню</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Открыть в другом приложении</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">Самообслуживание</string>
+    <string name="select_option">Выберите вариант</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Сидения на открытом воздухе</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Записать трек</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Остановить запись трека</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Остановить без сохранения</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Продолжить запись</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Сохранить в метки и треки?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Трек пуст - нечего сохранять</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку</string>
+    <string name="choose_color">Выберите цвет</string>
+    <string name="edit_track">Редактировать трек</string>
+    <string name="uri_open_location_failed">Не установлено приложение, которое может открыть местоположение</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Авто в навигации</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
+</resources>

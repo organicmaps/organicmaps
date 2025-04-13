@@ -1,0 +1,1 @@
+../../listings/bg/release-notes.txt

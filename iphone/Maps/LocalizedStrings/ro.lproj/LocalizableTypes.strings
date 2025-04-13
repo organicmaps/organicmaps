@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "Adresă/Bloc";
+"type.addr_interpolation.even" = "Adresă/Bloc";
+"type.addr_interpolation.odd" = "Adresă/Bloc";
+"type.aerialway" = "Aerialway";
+"type.aerialway.cable_car" = "Cable Car";
+"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.gondola" = "Gondola";
+"type.aerialway.mixed_lift" = "Mixed Lift";
+"type.aerialway.station" = "Stație de teleferic";
+"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway.aerodrome" = "Aeroport";
+"type.aeroway.aerodrome.international" = "Aeroport";
+"type.aeroway.apron" = "Apron";
+"type.aeroway.gate" = "Gate";
+"type.aeroway.helipad" = "Heliport";
+"type.aeroway.runway" = "Runway";
+"type.aeroway.taxiway" = "Taxiway";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Obiecte ale infrastructurii";
+"type.amenity.arts_centre" = "Centru de artă";
+"type.amenity.atm" = "Bancomat";
+"type.amenity.bank" = "Bancă";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Grătar";
+"type.amenity.bench" = "Banchetă";
+"type.amenity.bicycle_parking" = "Parcare biciclete";
+"type.amenity.bicycle_rental" = "Închiriere de biciclete";
+"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
+"type.amenity.biergarten" = "Berărie";
+"type.amenity.brothel" = "Bordel";
+"type.amenity.bureau_de_change" = "Schimb valutar";
+"type.amenity.bus_station" = "Gara de autobuz";
+"type.amenity.cafe" = "Cafenea";
+"type.amenity.car_rental" = "Închiriere mașini";
+"type.amenity.motorcycle_rental" = "Închiriere motociclete";
+"type.amenity.car_sharing" = "Car Sharing";
+"type.amenity.car_wash" = "Spălătorie auto";
+"type.amenity.casino" = "Divertisment";
+"type.amenity.gambling" = "Jocuri de noroc";
+"type.leisure.adult_gaming_centre" = "Centru de jocuri pentru adulți";
+"type.leisure.amusement_arcade" = "Arcadă";
+"type.amenity.charging_station" = "Stație încărcare";
+"type.amenity.charging_station.bicycle" = "Stație de încărcare pentru biciclete";
+"type.amenity.charging_station.motorcar" = "Stație de încărcare autoturisme";
+"type.amenity.childcare" = "De îngrijire a copilului";
+"type.amenity.cinema" = "Cinema";
+"type.leisure.bowling_alley" = "Popicărie";
+"type.amenity.clinic" = "Clinică";
+"type.amenity.college" = "Colegiu";
+"type.amenity.community_centre" = "Centru comunitar";
+"type.amenity.compressed_air" = "Aer comprimat";
+"type.amenity.conference_centre" = "Centru de conferinte";
+"type.amenity.courthouse" = "Judecătorie";
+"type.amenity.dentist" = "Dentist";
+"type.amenity.doctors" = "Doctor";
+"type.amenity.drinking_water" = "Apă de băut";
+"type.drinking_water.yes" = "Apă de băut";
+"type.amenity.driving_school" = "Școală de șoferi";
+"type.amenity.exhibition_centre" = "Centru de expozitie";
+"type.amenity.money_transfer" = "Transfer de bani";
+"type.amenity.music_school" = "Scoala de Muzica";
+"type.amenity.language_school" = "Școala de limbi străine";
+"type.office.diplomatic" = "Ambasadă";
+"type.amenity.fast_food" = "Fast food";
+"type.amenity.ferry_terminal" = "Feribot";
+"type.amenity.fire_station" = "Unitate de pompieri";
+"type.amenity.food_court" = "Food Court";
+"type.amenity.fountain" = "Fântână";
+"type.amenity.fuel" = "Benzinărie";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Cimitir";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Cimitir";
+"type.amenity.hospital" = "Spital";
+"type.amenity.hunting_stand" = "Stand de vânătoare";
+"type.amenity.ice_cream" = "Chioșc cu înghețată";
+"type.amenity.internet_cafe" = "Internet Cafe";
+"type.amenity.kindergarten" = "Grădiniță";
+"type.amenity.library" = "Bibliotecă";
+"type.amenity.loading_dock" = "Încărcare doc";
+"type.amenity.marketplace" = "Magazin";
+"type.amenity.motorcycle_parking" = "Parcare de motociclete";
+"type.amenity.nightclub" = "Club de noapte";
+"type.amenity.nursing_home" = "Centru de îngrijire";
+"type.amenity.parking" = "Parcare";
+"type.amenity.parking.fee" = "Parcare";
+"type.amenity.parking.multi.storey" = "Parcare cu mai multe etaje";
+"type.amenity.parking.multi.storey.fee" = "Parcare cu mai multe etaje";
+"type.amenity.parking.no.access" = "Parcare privată";
+"type.amenity.parking.permissive" = "Parcare privată";
+"type.amenity.parking.private" = "Parcare privată";
+"type.amenity.parking.park_and_ride" = "Parcare";
+"type.amenity.parking.underground" = "Parcare subterană";
+"type.amenity.parking.underground.fee" = "Parcare subterană";
+"type.amenity.parking.underground.private" = "Parcare subterană privată";
+"type.amenity.parking.street_side" = "Parcare pe partea stradală";
+"type.amenity.parking.street_side.fee" = "Parcare pe partea stradală";
+"type.amenity.parking.street_side.private" = "Privat parcare laterală pe stradă";
+"type.amenity.parking.lane" = "Parcare pe bandă";
+"type.amenity.parking.lane.fee" = "Parcare pe bandă";
+"type.amenity.parking.lane.private" = "Parcare pe alee privată";
+"type.amenity.parking_entrance" = "Intrare parcare";
+"type.amenity.parking_entrance.private" = "Intrare privată pentru parcare";
+"type.amenity.parking_entrance.permissive" = "Intrare parcare";
+"type.amenity.parking_space" = "Loc de parcare";
+"type.amenity.parking_space.permissive" = "Loc de parcare";
+"type.amenity.parking_space.private" = "Loc de parcare";
+"type.amenity.parking_space.underground" = "Loc de parcare";
+"type.amenity.parking_space.disabled" = "Loc de parcare pentru persoane cu handicap";
+"type.amenity.payment_terminal" = "Terminal de plăți";
+"type.amenity.pharmacy" = "Farmacie";
+"type.amenity.place_of_worship" = "Loc de cult";
+"type.amenity.place_of_worship.buddhist" = "Templu";
+"type.amenity.place_of_worship.christian" = "Biserică";
+"type.amenity.place_of_worship.christian.mormon" = "Biserica lui Isus Hristos a Sfinților din Zilele din Urmă";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Sala Împărăției Martorilor lui Iehova";
+"type.amenity.place_of_worship.hindu" = "Templu";
+"type.amenity.place_of_worship.jewish" = "Sinagogă";
+"type.amenity.place_of_worship.muslim" = "Moschee";
+"type.amenity.place_of_worship.shinto" = "Sanctuar";
+"type.amenity.place_of_worship.taoist" = "Templu";
+"type.amenity.police" = "Poliție";
+"type.amenity.post_box" = "Cutie poștală";
+"type.amenity.post_office" = "Oficiu poștal";
+"type.amenity.prison" = "Închisoare";
+"type.amenity.pub" = "Pub";
+"type.amenity.public_bookcase" = "Bibliotecă";
+"type.amenity.recycling.centre" = "Centru de reciclare";
+"type.amenity.recycling" = "Containere pentru reciclare";
+"type.amenity.recycling.container" = "Containere pentru reciclare";
+"type.recycling.batteries" = "Baterii";
+"type.recycling.clothes" = "Haine vechi";
+"type.recycling.glass_bottles" = "Deșeuri de sticlă";
+"type.recycling.paper" = "Deșeuri de hârtie";
+"type.recycling.plastic" = "Deșeuri de plastic";
+"type.recycling.plastic_bottles" = "Sticle de plastic";
+"type.recycling.scrap_metal" = "Resturi de metal";
+"type.recycling.small_appliances" = "Deșeuri electrice";
+"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cans" = "Cans";
+"type.recycling.shoes" = "Shoes";
+"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.cartons" = "Cartons";
+"type.amenity.restaurant" = "Restaurant";
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.school" = "Școală";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Adăpost";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Adăpost";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Baracă de Bivuac";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.public_bath" = "Baie publică";
+"type.amenity.shower" = "Duș";
+"type.amenity.stripclub" = "Stripclub";
+"type.amenity.taxi" = "Taxi Stand";
+"type.amenity.telephone" = "Telefon";
+"type.amenity.theatre" = "Teatru";
+"type.amenity.toilets" = "Toaletă";
+"type.toilets.yes" = "Toaletă";
+"type.amenity.townhall" = "Primărie";
+"type.amenity.university" = "Universitate";
+"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine.cigarettes" = "Automat de țigări";
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.drinks" = "Automat de băuturi";
+"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.parking_tickets" = "Parcomat";
+"type.amenity.vending_machine.public_transport_tickets" = "Automat de vânzare a biletelor pentru transportul public";
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.vehicle_inspection" = "Inspecția vehiculului";
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.veterinary" = "Cabinet veterinar";
+"type.amenity.waste_basket" = "Pubelă";
+"type.amenity.waste_disposal" = "Gunoi";
+"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.water_point" = "Punct de alimentare cu apă";
+"type.amenity.water_point.drinking_water_no" = "Punct de alimentare cu apă";
+"type.barrier" = "Barrier";
+"type.barrier.block" = "Bloc";
+"type.barrier.bollard" = "Stâlp";
+"type.barrier.border_control" = "Control vamal";
+"type.barrier.chain" = "Chain";
+"type.barrier.city_wall" = "Zidurile orașului";
+"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.waterway.ditch" = "Șanț de drenaj";
+"type.natural.water.moat" = "Şanţ";
+"type.natural.water.wastewater" = "Ape uzate";
+"type.barrier.entrance" = "Intrare";
+"type.barrier.fence" = "Fence";
+"type.barrier.gate" = "Poartă";
+"type.barrier.hedge" = "Hedge";
+"type.barrier.kissing_gate" = "Poartă";
+"type.barrier.lift_gate" = "Barieră cu braț";
+"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.stile" = "Barieră";
+"type.barrier.turnstile" = "Turnichet";
+"type.barrier.swing_gate" = "Barieră cu braț";
+"type.barrier.toll_booth" = "Cabină de taxare";
+"type.barrier.wall" = "Wall";
+"type.boundary" = "Boundary";
+"type.boundary.administrative" = "Administrative Boundary";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "National Border";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.national_park" = "Parcul național";
+"type.boundary.aboriginal_lands" = "Terenuri indigene";
+"type.boundary.protected_area" = "Zonă protejată";
+"type.boundary.protected_area.1" = "Zonă protejată";
+"type.boundary.protected_area.2" = "Zonă protejată";
+"type.boundary.protected_area.3" = "Zonă protejată";
+"type.boundary.protected_area.4" = "Zonă protejată";
+"type.boundary.protected_area.5" = "Zonă protejată";
+"type.boundary.protected_area.6" = "Zonă protejată";
+"type.building" = "Clădire";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresă";
+"type.building.has_parts" = "Clădire";
+"type.building_part" = "Clădire";
+"type.building.garage" = "Garaj";
+"type.building.train_station" = "Clădirea gării";
+"type.building.warehouse" = "Warehouse";
+"type.cemetery.grave" = "Mormânt";
+"type.craft" = "Meșteșuguri";
+"type.craft.beekeeper" = "Apicultor";
+"type.craft.blacksmith" = "Fierar";
+"type.craft.brewery" = "Berărie";
+"type.craft.caterer" = "Catering";
+"type.craft.carpenter" = "Tâmplar";
+"type.craft.confectionery" = "Cofetar";
+"type.craft.electrician" = "Electrician";
+"type.craft.electronics_repair" = "Reparații electronice";
+"type.craft.gardener" = "Peisagist";
+"type.craft.grinding_mill" = "Moara de măcinat";
+"type.craft.handicraft" = "Tehnici de lucru manual";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Încălzire, ventilație și aer condiționat";
+"type.craft.key_cutter" = "Tăierea cheilor";
+"type.craft.locksmith" = "Lăcătuș";
+"type.craft.metal_construction" = "Metalurgist";
+"type.craft.painter" = "Pictor";
+"type.craft.photographer" = "Fotograf";
+"type.shop.camera" = "Magazin de aparate foto";
+"type.craft.plumber" = "Instalator";
+"type.craft.sawmill" = "Fabrica de cherestea";
+"type.craft.shoemaker" = "Reparații încălțăminte";
+"type.craft.winery" = "Vinărie";
+"type.craft.tailor" = "Croitor";
+"type.cuisine.african" = "Bucătărie africană";
+"type.cuisine.american" = "Bucătărie americană";
+"type.cuisine.arab" = "Bucătărie arabă";
+"type.cuisine.argentinian" = "Bucătărie argentiniană";
+"type.cuisine.asian" = "Bucătărie asiatică";
+"type.cuisine.austrian" = "Bucătărie austriacă";
+"type.cuisine.bagel" = "Bagel";
+"type.cuisine.balkan" = "Bucătărie balcanică";
+"type.cuisine.barbecue" = "Grătar";
+"type.cuisine.bavarian" = "Bucătărie bavareză";
+"type.cuisine.beef_bowl" = "Gyudon";
+"type.cuisine.brazilian" = "Bucătărie braziliană";
+"type.cuisine.breakfast" = "Mic dejun";
+"type.cuisine.bubble_tea" = "Ceai cu perle";
+"type.cuisine.burger" = "Burger";
+"type.cuisine.buschenschank" = "Tavernă";
+"type.cuisine.cake" = "Tort";
+"type.cuisine.caribbean" = "Bucătărie caraibă";
+"type.cuisine.chicken" = "Pui";
+"type.cuisine.chinese" = "Bucătărie chineză";
+"type.cuisine.coffee_shop" = "Cafenea";
+"type.cuisine.crepe" = "Clătite";
+"type.cuisine.croatian" = "Bucătărie croată";
+"type.cuisine.curry" = "Curry";
+"type.cuisine.deli" = "Deli";
+"type.cuisine.diner" = "Diner";
+"type.cuisine.donut" = "Gogoși";
+"type.cuisine.ethiopian" = "Bucătărie etiopiană";
+"type.cuisine.filipino" = "Bucătărie filipineză";
+"type.cuisine.fine_dining" = "Restaurant elegant";
+"type.cuisine.fish" = "Pește";
+"type.cuisine.fish_and_chips" = "Pește și cartofi pai";
+"type.cuisine.french" = "Bucătărie franceză";
+"type.cuisine.friture" = "Cartofi prăjiți";
+"type.cuisine.georgian" = "Bucătărie georgiană";
+"type.cuisine.german" = "Bucătărie germană";
+"type.cuisine.greek" = "Bucătărie grecească";
+"type.cuisine.grill" = "Grătar";
+"type.cuisine.heuriger" = "Tavernă";
+"type.cuisine.hotdog" = "Hot dog";
+"type.cuisine.hungarian" = "Bucătărie maghiară";
+"type.cuisine.ice_cream" = "Înghețată";
+"type.cuisine.indian" = "Bucătărie indiană";
+"type.cuisine.indonesian" = "Bucătărie indoneziană";
+"type.cuisine.international" = "Bucătărie internațională";
+"type.cuisine.irish" = "Bucătărie irlandeză";
+"type.cuisine.italian" = "Bucătărie italiană";
+"type.cuisine.italian_pizza" = "Pizza";
+"type.cuisine.japanese" = "Bucătărie japoneză";
+"type.cuisine.kebab" = "Kebab";
+"type.cuisine.korean" = "Bucătărie coreană";
+"type.cuisine.lao" = "Bucătărie laoțiană";
+"type.cuisine.lebanese" = "Bucătărie libaneză";
+"type.cuisine.local" = "Bucătărie locală";
+"type.cuisine.malagasy" = "Bucătărie malgașă";
+"type.cuisine.malaysian" = "Bucătărie malaysiană";
+"type.cuisine.mediterranean" = "Bucătărie mediteraneeană";
+"type.cuisine.mexican" = "Bucătărie mexicană";
+"type.cuisine.moroccan" = "Bucătărie marocană";
+"type.cuisine.noodles" = "Tăiței";
+"type.cuisine.oriental" = "Bucătărie orientală";
+"type.cuisine.pancake" = "Clătite americane";
+"type.cuisine.pasta" = "Paste";
+"type.cuisine.persian" = "Bucătărie persană";
+"type.cuisine.peruvian" = "Bucătărie peruană";
+"type.cuisine.pizza" = "Pizza";
+"type.cuisine.polish" = "Bucătărie poloneză";
+"type.cuisine.portuguese" = "Bucătărie portugheză";
+"type.cuisine.ramen" = "Ramen";
+"type.cuisine.regional" = "Bucătărie regională";
+"type.cuisine.russian" = "Bucătărie rusă";
+"type.cuisine.sandwich" = "Sandwich";
+"type.cuisine.sausage" = "Cârnați";
+"type.cuisine.savory_pancakes" = "Clătite sărate";
+"type.cuisine.seafood" = "Fructe de mare";
+"type.cuisine.soba" = "Soba";
+"type.cuisine.spanish" = "Bucătărie spaniolă";
+"type.cuisine.steak_house" = "Steakhouse";
+"type.cuisine.sushi" = "Sushi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Ceai";
+"type.cuisine.thai" = "Bucătărie tailandeză";
+"type.cuisine.turkish" = "Bucătărie turcă";
+"type.cuisine.vegan" = "Bucătărie vegană";
+"type.cuisine.vegetarian" = "Bucătărie vegetariană";
+"type.cuisine.vietnamese" = "Bucătărie vietnameză";
+"type.emergency" = "Emergency";
+"type.emergency.assembly_point" = "Punct de adunare de urgență";
+"type.emergency.defibrillator" = "Defibrilator";
+"type.emergency.fire_hydrant" = "Hidrant";
+"type.emergency.phone" = "Telefon de urgență";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Salvamar";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Stație de salvare montană";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Intrare";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Intrarea principala";
+"type.entrance.exit" = "Ieșire";
+"type.fee.yes" = "$";
+"type.fee.no" = "Gratuit";
+"type.healthcare.laboratory" = "Laborator medical";
+"type.healthcare.physiotherapist" = "Fizioterapeut";
+"type.healthcare.alternative" = "Medicină alternativă";
+"type.healthcare.audiologist" = "Audiologie";
+"type.healthcare.blood_donation" = "Centrul de donare de sânge";
+"type.healthcare.optometrist" = "Optometrie";
+"type.healthcare.podiatrist" = "Podiatrie";
+"type.healthcare.psychotherapist" = "Psihoterapie";
+"type.healthcare.sample_collection" = "Eșantionare";
+"type.healthcare.speech_therapist" = "Logopedie";
+"type.highway" = "Highway";
+"type.highway.bridleway" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Pod";
+"type.highway.bridleway.permissive" = "Bridle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
+"type.highway.busway" = "Drum dedicat autobuzului";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunel";
+"type.highway.bus_stop" = "Stație de autobuz";
+"type.highway.construction" = "Drum în construcție";
+"type.highway.cycleway" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Pod";
+"type.highway.cycleway.permissive" = "Cycle Path";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
+"type.highway.elevator" = "Elevator";
+"type.highway.footway" = "Cale";
+"type.highway.footway.sidewalk" = "Trotuar";
+"type.highway.footway.crossing" = "Trecere de pietoni";
+"type.highway.footway.area" = "Cale";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel";
+"type.highway.ford" = "Superficial";
+"type.highway.living_street" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
+"type.highway.motorway" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel";
+"type.highway.motorway_junction" = "Ieșire";
+"type.highway.motorway_link" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
+"type.highway.path" = "Cale";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Traseu dificil sau puțin vizibil";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Traseu foarte dificil sau imposibil de distins";
+"type.highway.path.bicycle" = "Cale";
+"type.highway.footway.bicycle" = "Cale";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Pod";
+"type.highway.path.horse" = "Cale";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
+"type.highway.pedestrian" = "Stradă";
+"type.highway.pedestrian.area" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel";
+"type.highway.primary" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
+"type.highway.primary_link" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
+"type.highway.raceway" = "Pistă de curse";
+"type.highway.residential" = "Stradă";
+"type.highway.residential.area" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
+"type.highway.rest_area" = "Zonă de odihnă";
+"type.highway.road" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Pod";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
+"type.highway.secondary" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
+"type.highway.secondary_link" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
+"type.highway.service" = "Stradă";
+"type.highway.service.area" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Pod";
+"type.highway.service.driveway" = "Stradă";
+"type.highway.service.parking_aisle" = "Stradă";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
+"type.highway.services" = "Service Area";
+"type.highway.speed_camera" = "Detector de viteză";
+"type.highway.steps" = "Cale";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
+"type.highway.tertiary" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
+"type.highway.tertiary_link" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
+"type.highway.track" = "Stradă";
+"type.highway.track.area" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Pod";
+"type.highway.track.grade1" = "Stradă";
+"type.highway.track.no.access" = "Stradă";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
+"type.highway.traffic_signals" = "Semafoare";
+"type.highway.trunk" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
+"type.highway.trunk_link" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
+"type.highway.unclassified" = "Stradă";
+"type.highway.unclassified.area" = "Stradă";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Pod";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
+"type.area_highway.cycleway" = "Cycle Path";
+"type.area_highway.footway" = "Cale";
+"type.area_highway.living_street" = "Stradă";
+"type.area_highway.motorway" = "Stradă";
+"type.area_highway.path" = "Cale";
+"type.area_highway.pedestrian" = "Stradă";
+"type.area_highway.primary" = "Stradă";
+"type.area_highway.residential" = "Stradă";
+"type.area_highway.secondary" = "Stradă";
+"type.area_highway.service" = "Stradă";
+"type.area_highway.tertiary" = "Stradă";
+"type.area_highway.steps" = "Cale";
+"type.area_highway.track" = "Stradă";
+"type.area_highway.trunk" = "Stradă";
+"type.area_highway.unclassified" = "Stradă";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "Obiect istoric";
+"type.historic.aircraft" = "Avioane istorice";
+"type.historic.anchor" = "Ancoră istorică";
+"type.historic.archaeological_site" = "Sit arheologic";
+"type.historic.battlefield" = "Câmpul de luptă";
+"type.historic.boundary_stone" = "Piatră de hotar";
+"type.historic.cannon" = "Tun";
+"type.historic.castle" = "Castel";
+"type.historic.castle.castrum" = "Castru";
+"type.historic.castle.defensive" = "Castel";
+"type.historic.castle.fortified_church" = "Biserică fortificată";
+"type.historic.castle.fortress" = "Cetate";
+"type.historic.castle.hillfort" = "Castrul de deal";
+"type.historic.castle.kremlin" = "Kremlin";
+"type.historic.castle.manor" = "Conac";
+"type.historic.castle.palace" = "Palat";
+"type.historic.castle.shiro" = "Castelul japonez";
+"type.historic.castle.stately" = "Castel";
+"type.historic.city_gate" = "Poarta orașului";
+"type.historic.citywalls" = "Zidurile orașului";
+"type.historic.fort" = "Fort";
+"type.historic.gallows" = "Spânzurătoare";
+"type.historic.locomotive" = "Locomotiva istorică";
+"type.historic.memorial" = "Comemorare";
+"type.historic.memorial.cross" = "Cruce comemorativă";
+"type.historic.memorial.plaque" = "Comemorare";
+"type.historic.memorial.sculpture" = "Comemorare";
+"type.historic.memorial.statue" = "Comemorare";
+"type.historic.memorial.stolperstein" = "Blocaj de poticnire";
+"type.historic.stone" = "Piatra istorica";
+"type.historic.memorial.war_memorial" = "Memorial de război";
+"type.historic.mine" = "Mina istorică";
+"type.historic.monument" = "Monument";
+"type.historic.pillory" = "Stâlpul infamiei";
+"type.historic.ruins" = "Ruine";
+"type.historic.ship" = "Navă";
+"type.historic.tank" = "Tanc istoric";
+"type.historic.tomb" = "Mormânt";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Cruce";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Troiță";
+"type.historic.wayside_shrine" = "Altarul de la marginea drumului";
+"type.historic.wreck" = "Naufragiu";
+"type.hwtag" = "hwtag";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "Internet";
+"type.internet_access.wlan" = "Internet";
+"type.junction" = "Junction";
+"type.junction.circular" = "Roundabout";
+"type.junction.roundabout" = "Roundabout";
+"type.landuse" = "Landuse";
+"type.landuse.allotments" = "Allotments";
+"type.landuse.basin" = "Bazin de apă";
+"type.landuse.brownfield" = "Brownfield";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Cimitir";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Cimitir";
+"type.landuse.churchyard" = "Curtea Bisericii";
+"type.landuse.commercial" = "Commercial Area";
+"type.landuse.construction" = "Construction Area";
+"type.landuse.education" = "Educational Facility";
+"type.landuse.farmland" = "Teren arabil";
+"type.landuse.farmyard" = "Farmyard";
+"type.landuse.field" = "Field";
+"type.landuse.flowerbed" = "Pat de flori";
+"type.landuse.forest" = "Pădure";
+"type.landuse.forest.coniferous" = "Pădure";
+"type.landuse.forest.deciduous" = "Pădure";
+"type.landuse.forest.mixed" = "Pădure";
+"type.landuse.garages" = "Garages";
+"type.landuse.grass" = "Gazon";
+"type.landuse.greenfield" = "Greenfield";
+"type.landuse.greenhouse_horticulture" = "Greenhouse";
+"type.landuse.industrial" = "Industrial Area";
+"type.landuse.landfill" = "Gunoiște";
+"type.landuse.meadow" = "Meadow";
+"type.landuse.military" = "Military Area";
+"type.landuse.orchard" = "Orchard";
+"type.landuse.quarry" = "Quarry";
+"type.landuse.railway" = "Instalații feroviare";
+"type.landuse.recreation_ground" = "Recreation Ground";
+"type.landuse.reservoir" = "Apă";
+"type.landuse.residential" = "Residential Area";
+"type.landuse.retail" = "Retail Area";
+"type.landuse.salt_pond" = "Salt Pond";
+"type.landuse.village_green" = "Land";
+"type.landuse.vineyard" = "Vineyard";
+"type.leisure" = "Leisure";
+"type.leisure.common" = "Public Land";
+"type.leisure.dog_park" = "Loc de plimbare a câinilor";
+"type.leisure.fitness_centre" = "Centru fitness";
+"type.leisure.fitness_station" = "Sală de fitness";
+"type.leisure.dance" = "Sala de dans";
+"type.leisure.garden" = "Sit arheologic";
+"type.leisure.garden.residential" = "Sit arheologic";
+"type.leisure.golf_course" = "Teren de golf";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.marina" = "Marina";
+"type.leisure.nature_reserve" = "Rezervație naturală";
+"type.leisure.outdoor_seating" = "Scaune în aer liber";
+"type.leisure.park" = "Parc";
+"type.leisure.park.no.access" = "Parc";
+"type.leisure.park.permissive" = "Parc";
+"type.leisure.park.private" = "Parc";
+"type.leisure.picnic_table" = "Masă de picnic";
+"type.leisure.pitch" = "Teren de sport";
+"type.leisure.playground" = "Loc de joacă";
+"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.sauna" = "Saună";
+"type.leisure.slipway" = "Slipway";
+"type.leisure.sports_centre" = "Sport";
+"type.sport.climbing" = "Centru cățărare";
+"type.sport.yoga" = "Studio yoga";
+"type.leisure.stadium" = "Stadion";
+"type.leisure.swimming_pool" = "Piscină";
+"type.leisure.swimming_pool.private" = "Piscină";
+"type.leisure.track" = "Track";
+"type.leisure.track.area" = "Track";
+"type.leisure.water_park" = "Parc acvatic";
+"type.leisure.beach_resort" = "Beach Resort";
+"type.man_made" = "Man Made";
+"type.man_made.breakwater" = "Breakwater";
+"type.man_made.cairn" = "Cairn";
+"type.man_made.chimney" = "Coș de fabrică";
+"type.man_made.cutline" = "Cutline";
+"type.man_made.survey_point" = "Survey Point";
+"type.man_made.flagpole" = "Flagpole";
+"type.man_made.lighthouse" = "Far";
+"type.man_made.mast" = "Mast";
+"type.man_made.pier" = "Pier";
+"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.silo" = "Silo";
+"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.surveillance" = "Cameră de supraveghere";
+"type.man_made.tower" = "Turn";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Turnul de comunicații";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Turnul de comunicații";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Fântână de țiței sau gaz";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Torță de gaz";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.water_tap" = "Robinet cu apă";
+"type.man_made.water_tap.drinking_water_no" = "Robinet cu apă";
+"type.man_made.water_tower" = "Turn de apă";
+"type.man_made.water_well" = "Puț de apă";
+"type.man_made.water_well.drinking_water_no" = "Puț de apă";
+"type.man_made.windmill" = "Moară de vânt";
+"type.man_made.works" = "Industrial Works";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Military";
+"type.military.bunker" = "Buncăr";
+"type.mountain_pass" = "Mountain Pass";
+"type.natural" = "Natură";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Piatră goală";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pietriș";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Grohotiș";
+"type.natural.bay" = "Golf";
+"type.natural.beach" = "Plajă";
+"type.natural.beach.sand" = "Plaja nisipoasa";
+"type.natural.beach.gravel" = "Plaja cu pietriș";
+"type.natural.cape" = "Mantie";
+"type.natural.cave_entrance" = "Peșteră";
+"type.natural.cliff" = "Faleză";
+"type.natural.earth_bank" = "Faleza";
+"type.man_made.embankment" = "Rambleu";
+"type.natural.coastline" = "Relief litoral";
+"type.natural.desert" = "Desert";
+"type.natural.geyser" = "Gheizer";
+"type.natural.glacier" = "Ghețar";
+"type.natural.grassland" = "Pajiști";
+"type.natural.heath" = "Landă";
+"type.natural.hot_spring" = "Izvor termal";
+"type.natural.water.lake" = "Lac";
+"type.natural.water.lock" = "Camera de blocare";
+"type.natural.water.pond" = "Heleșteu";
+"type.natural.water.reservoir" = "Rezervor";
+"type.natural.water.basin" = "Bazin de apă";
+"type.natural.water.river" = "Râu";
+"type.natural.land" = "Teren";
+"type.natural.meadow" = "Fâneață";
+"type.natural.orchard" = "Livadă";
+"type.natural.peak" = "Munte";
+"type.natural.saddle" = "Sela da Montanha";
+"type.natural.rock" = "Rocă";
+"type.natural.scrub" = "Boschet";
+"type.natural.spring" = "Izvor";
+"type.natural.spring.drinking_water_no" = "Izvor";
+"type.natural.strait" = "Strâmtoare";
+"type.natural.tree_row" = "Rândul de copaci";
+"type.natural.vineyard" = "Vie";
+"type.natural.volcano" = "Vulcan";
+"type.natural.water" = "Apă";
+"type.natural.wetland" = "Loc mlăștinos";
+"type.natural.wetland.bog" = "Turbărie";
+"type.natural.wetland.marsh" = "Mlaştină";
+"type.noexit" = "Dead End";
+"type.office" = "Birou";
+"type.office.company" = "Sediu companei";
+"type.office.estate_agent" = "Agent imobiliar";
+"type.office.government" = "Birou guvernamental";
+"type.office.insurance" = "Birou de asigurări";
+"type.office.lawyer" = "Firmă de avocatură";
+"type.office.ngo" = "Birou ONG";
+"type.office.telecommunication" = "Operator de telefonie mobilă";
+"type.organic.only" = "Organic";
+"type.organic.yes" = "Organic";
+"type.place.city" = "Municipiu";
+"type.place.city.capital" = "Capitală";
+"type.place.city.capital.10" = "Municipiu";
+"type.place.city.capital.11" = "Municipiu";
+"type.place.city.capital.2" = "Capitală";
+"type.place.city.capital.3" = "Municipiu";
+"type.place.city.capital.4" = "Municipiu";
+"type.place.city.capital.5" = "Municipiu";
+"type.place.city.capital.6" = "Municipiu";
+"type.place.city.capital.7" = "Municipiu";
+"type.place.city.capital.8" = "Municipiu";
+"type.place.city.capital.9" = "Municipiu";
+"type.place.continent" = "Continent";
+"type.place.country" = "Continent";
+"type.place.county" = "Județ";
+"type.place.farm" = "Fermă";
+"type.place.hamlet" = "Cătun";
+"type.place.island" = "Insulă";
+"type.place.islet" = "Insult";
+"type.place.isolated_dwelling" = "Locuință izolată";
+"type.place.locality" = "Localitate";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Cartier";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Cartier";
+"type.place.ocean" = "Ocean";
+"type.place.region" = "Regiune";
+"type.place.sea" = "Mare";
+"type.place.square" = "Spațiu";
+"type.place.state" = "Stat";
+"type.place.state.USA" = "Stat";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Suburbie";
+"type.place.town" = "Oraș";
+"type.place.village" = "Sat";
+"type.power" = "Power";
+"type.power.generator" = "Power Generator";
+"type.power.generator.solar" = "Generator solar";
+"type.power.generator.wind" = "Generator eolian";
+"type.power.generator.gas" = "Centrala electrica cu turbina cu gaz";
+"type.power.generator.hydro" = "Centrală hidroelectrică";
+"type.power.line" = "Power Line";
+"type.power.line.underground" = "Underground Power Line";
+"type.power.minor_line" = "Minor Power Line";
+"type.power.plant" = "Centrală electrică";
+"type.power.plant.coal" = "Centrală electrică pe cărbune";
+"type.power.plant.gas" = "Centrala electrica cu turbina cu gaz";
+"type.power.plant.hydro" = "Centrală hidroelectrică";
+"type.power.plant.solar" = "Centrală solară";
+"type.power.plant.wind" = "Centrală eoliană";
+"type.power.station" = "Power Station";
+"type.power.substation" = "Stație subterană";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Stâlp de electricitate";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "Public Transport";
+"type.public_transport.platform" = "Platform";
+"type.railway" = "Railway";
+"type.railway.abandoned" = "Abandoned Railway";
+"type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
+"type.railway.abandoned.tunnel" = "Abandoned Railway Tunnel";
+"type.railway.construction" = "Railway Construction";
+"type.railway.crossing" = "Railway Crossing";
+"type.railway.disused" = "Disused Railway";
+"type.railway.funicular" = "Funicular";
+"type.railway.funicular.bridge" = "Funicular Bridge";
+"type.railway.funicular.tunnel" = "Funicular Tunnel";
+"type.railway.halt" = "Gară";
+"type.railway.level_crossing" = "Trecere feroviară";
+"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail.bridge" = "Light Rail Bridge";
+"type.railway.light_rail.tunnel" = "Light Rail Tunnel";
+"type.railway.monorail" = "Cale ferată monoșină";
+"type.railway.monorail.bridge" = "Monorail Bridge";
+"type.railway.monorail.tunnel" = "Monorail Tunnel";
+"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.platform" = "Railway Platform";
+"type.railway.preserved" = "Preserved Rail";
+"type.railway.preserved.bridge" = "Preserved Rail Bridge";
+"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.rail" = "Cale ferată";
+"type.railway.rail.highspeed" = "Calea ferată de mare viteză";
+"type.railway.rail.tourism" = "Calea ferată turistică";
+"type.railway.rail.main" = "Calea ferată";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Calea ferată secundară";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Calea ferată utilitară";
+"type.railway.rail.spur" = "Pinteni de cale ferată";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Calea ferată auxiliară";
+"type.railway.rail.bridge" = "Podul de cale ferată";
+"type.railway.rail.highspeed.bridge" = "Podul de cale ferată";
+"type.railway.rail.tourism.bridge" = "Podul de cale ferată";
+"type.railway.rail.main.bridge" = "Podul de cale ferată";
+"type.railway.rail.branch.bridge" = "Podul de cale ferată";
+"type.railway.rail.utility.bridge" = "Podul de cale ferată";
+"type.railway.rail.spur.bridge" = "Podul de cale ferată";
+"type.railway.rail.service.bridge" = "Podul de cale ferată";
+"type.railway.rail.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.highspeed.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.tourism.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.main.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.branch.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.utility.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.spur.tunnel" = "Tunel de cale ferată";
+"type.railway.rail.service.tunnel" = "Tunel de cale ferată";
+"type.railway.station" = "Gară";
+"type.railway.station.funicular" = "Funicular";
+"type.railway.station.light_rail" = "Gară";
+"type.railway.station.light_rail.berlin" = "Gară";
+"type.railway.station.light_rail.london" = "Gară";
+"type.railway.station.light_rail.porto" = "Gară";
+"type.railway.station.monorail" = "Gară";
+"type.railway.station.subway" = "Metrou";
+"type.railway.station.subway.adana" = "Metrou";
+"type.railway.station.subway.algiers" = "Metrou";
+"type.railway.station.subway.almaty" = "Metrou";
+"type.railway.station.subway.amsterdam" = "Metrou";
+"type.railway.station.subway.ankara" = "Metrou";
+"type.railway.station.subway.athens" = "Metrou";
+"type.railway.station.subway.baku" = "Metrou";
+"type.railway.station.subway.bangkok" = "Metrou";
+"type.railway.station.subway.barcelona" = "Metrou";
+"type.railway.station.subway.beijing" = "Metrou";
+"type.railway.station.subway.bengalore" = "Metrou";
+"type.railway.station.subway.berlin" = "Metrou";
+"type.railway.station.subway.bilbao" = "Metrou";
+"type.railway.station.subway.brasilia" = "Metrou";
+"type.railway.station.subway.brescia" = "Metrou";
+"type.railway.station.subway.brussels" = "Metrou";
+"type.railway.station.subway.bucharest" = "Metrou";
+"type.railway.station.subway.budapest" = "Metrou";
+"type.railway.station.subway.buenos_aires" = "Metrou";
+"type.railway.station.subway.bursa" = "Metrou";
+"type.railway.station.subway.cairo" = "Metrou";
+"type.railway.station.subway.caracas" = "Metrou";
+"type.railway.station.subway.catania" = "Metrou";
+"type.railway.station.subway.changchun" = "Metrou";
+"type.railway.station.subway.chengdu" = "Metrou";
+"type.railway.station.subway.chicago" = "Metrou";
+"type.railway.station.subway.chongqing" = "Metrou";
+"type.railway.station.subway.dalian" = "Metrou";
+"type.railway.station.subway.delhi" = "Metrou";
+"type.railway.station.subway.dnepro" = "Metrou";
+"type.railway.station.subway.dubai" = "Metrou";
+"type.railway.station.subway.ekb" = "Metrou";
+"type.railway.station.subway.fukuoka" = "Metrou";
+"type.railway.station.subway.glasgow" = "Metrou";
+"type.railway.station.subway.guangzhou" = "Metrou";
+"type.railway.station.subway.hamburg" = "Metrou";
+"type.railway.station.subway.helsinki" = "Metrou";
+"type.railway.station.subway.hiroshima" = "Metrou";
+"type.railway.station.subway.hongkong" = "Metrou";
+"type.railway.station.subway.isfahan" = "Metrou";
+"type.railway.station.subway.istanbul" = "Metrou";
+"type.railway.station.subway.izmir" = "Metrou";
+"type.railway.station.subway.kazan" = "Metrou";
+"type.railway.station.subway.kharkiv" = "Metrou";
+"type.railway.station.subway.kiev" = "Metrou";
+"type.railway.station.subway.kobe" = "Metrou";
+"type.railway.station.subway.kolkata" = "Metrou";
+"type.railway.station.subway.kunming" = "Metrou";
+"type.railway.station.subway.kyoto" = "Metrou";
+"type.railway.station.subway.la" = "Metrou";
+"type.railway.station.subway.lausanne" = "Metrou";
+"type.railway.station.subway.lille" = "Metrou";
+"type.railway.station.subway.lima" = "Metrou";
+"type.railway.station.subway.lisboa" = "Metrou";
+"type.railway.station.subway.london" = "Metrou";
+"type.railway.station.subway.lyon" = "Metrou";
+"type.railway.station.subway.madrid" = "Metrou";
+"type.railway.station.subway.malaga" = "Metrou";
+"type.railway.station.subway.manila" = "Metrou";
+"type.railway.station.subway.maracaibo" = "Metrou";
+"type.railway.station.subway.mashhad" = "Metrou";
+"type.railway.station.subway.mecca" = "Metrou";
+"type.railway.station.subway.medellin" = "Metrou";
+"type.railway.station.subway.mexico" = "Metrou";
+"type.railway.station.subway.milan" = "Metrou";
+"type.railway.station.subway.minsk" = "Metrou";
+"type.railway.station.subway.montreal" = "Metrou";
+"type.railway.station.subway.moscow" = "Metrou";
+"type.railway.station.subway.munchen" = "Metrou";
+"type.railway.station.subway.nagoya" = "Metrou";
+"type.railway.station.subway.newyork" = "Metrou";
+"type.railway.station.subway.nnov" = "Metrou";
+"type.railway.station.subway.novosibirsk" = "Metrou";
+"type.railway.station.subway.osaka" = "Metrou";
+"type.railway.station.subway.oslo" = "Metrou";
+"type.railway.station.subway.palma" = "Metrou";
+"type.railway.station.subway.panama" = "Metrou";
+"type.railway.station.subway.paris" = "Metrou";
+"type.railway.station.subway.philadelphia" = "Metrou";
+"type.railway.station.subway.pyongyang" = "Metrou";
+"type.railway.station.subway.rennes" = "Metrou";
+"type.railway.station.subway.rio" = "Metrou";
+"type.railway.station.subway.roma" = "Metrou";
+"type.railway.station.subway.rotterdam" = "Metrou";
+"type.railway.station.subway.samara" = "Metrou";
+"type.railway.station.subway.santiago" = "Metrou";
+"type.railway.station.subway.santo_domingo" = "Metrou";
+"type.railway.station.subway.saopaulo" = "Metrou";
+"type.railway.station.subway.sapporo" = "Metrou";
+"type.railway.station.subway.sendai" = "Metrou";
+"type.railway.station.subway.sf" = "Metrou";
+"type.railway.station.subway.shanghai" = "Metrou";
+"type.railway.station.subway.shenzhen" = "Metrou";
+"type.railway.station.subway.shiraz" = "Metrou";
+"type.railway.station.subway.singapore" = "Metrou";
+"type.railway.station.subway.sofia" = "Metrou";
+"type.railway.station.subway.spb" = "Metrou";
+"type.railway.station.subway.stockholm" = "Metrou";
+"type.railway.station.subway.tabriz" = "Metrou";
+"type.railway.station.subway.taipei" = "Metrou";
+"type.railway.station.subway.taoyuan" = "Metrou";
+"type.railway.station.subway.tashkent" = "Metrou";
+"type.railway.station.subway.tbilisi" = "Metrou";
+"type.railway.station.subway.tehran" = "Metrou";
+"type.railway.station.subway.tianjin" = "Metrou";
+"type.railway.station.subway.tokyo" = "Metrou";
+"type.railway.station.subway.valencia" = "Metrou";
+"type.railway.station.subway.vienna" = "Metrou";
+"type.railway.station.subway.warszawa" = "Metrou";
+"type.railway.station.subway.washington" = "Metrou";
+"type.railway.station.subway.wuhan" = "Metrou";
+"type.railway.station.subway.yerevan" = "Metrou";
+"type.railway.station.subway.yokohama" = "Metrou";
+"type.railway.subway" = "Subway Line";
+"type.railway.subway.bridge" = "Subway Line Bridge";
+"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway_entrance" = "Intrare în metro";
+"type.railway.subway_entrance.adana" = "Intrare în metro";
+"type.railway.subway_entrance.algiers" = "Intrare în metro";
+"type.railway.subway_entrance.almaty" = "Intrare în metro";
+"type.railway.subway_entrance.amsterdam" = "Intrare în metro";
+"type.railway.subway_entrance.ankara" = "Intrare în metro";
+"type.railway.subway_entrance.athens" = "Intrare în metro";
+"type.railway.subway_entrance.baku" = "Intrare în metro";
+"type.railway.subway_entrance.bangkok" = "Intrare în metro";
+"type.railway.subway_entrance.barcelona" = "Intrare în metro";
+"type.railway.subway_entrance.beijing" = "Intrare în metro";
+"type.railway.subway_entrance.bengalore" = "Intrare în metro";
+"type.railway.subway_entrance.berlin" = "Intrare în metro";
+"type.railway.subway_entrance.bilbao" = "Intrare în metro";
+"type.railway.subway_entrance.brasilia" = "Intrare în metro";
+"type.railway.subway_entrance.brescia" = "Intrare în metro";
+"type.railway.subway_entrance.brussels" = "Intrare în metro";
+"type.railway.subway_entrance.bucharest" = "Intrare în metro";
+"type.railway.subway_entrance.budapest" = "Intrare în metro";
+"type.railway.subway_entrance.buenos_aires" = "Intrare în metro";
+"type.railway.subway_entrance.bursa" = "Intrare în metro";
+"type.railway.subway_entrance.cairo" = "Intrare în metro";
+"type.railway.subway_entrance.caracas" = "Intrare în metro";
+"type.railway.subway_entrance.catania" = "Intrare în metro";
+"type.railway.subway_entrance.changchun" = "Intrare în metro";
+"type.railway.subway_entrance.chengdu" = "Intrare în metro";
+"type.railway.subway_entrance.chicago" = "Intrare în metro";
+"type.railway.subway_entrance.chongqing" = "Intrare în metro";
+"type.railway.subway_entrance.dalian" = "Intrare în metro";
+"type.railway.subway_entrance.delhi" = "Intrare în metro";
+"type.railway.subway_entrance.dnepro" = "Intrare în metro";
+"type.railway.subway_entrance.dubai" = "Intrare în metro";
+"type.railway.subway_entrance.ekb" = "Intrare în metro";
+"type.railway.subway_entrance.fukuoka" = "Intrare în metro";
+"type.railway.subway_entrance.glasgow" = "Intrare în metro";
+"type.railway.subway_entrance.guangzhou" = "Intrare în metro";
+"type.railway.subway_entrance.hamburg" = "Intrare în metro";
+"type.railway.subway_entrance.helsinki" = "Intrare în metro";
+"type.railway.subway_entrance.hiroshima" = "Intrare în metro";
+"type.railway.subway_entrance.hongkong" = "Intrare în metro";
+"type.railway.subway_entrance.isfahan" = "Intrare în metro";
+"type.railway.subway_entrance.istanbul" = "Intrare în metro";
+"type.railway.subway_entrance.izmir" = "Intrare în metro";
+"type.railway.subway_entrance.kazan" = "Intrare în metro";
+"type.railway.subway_entrance.kharkiv" = "Intrare în metro";
+"type.railway.subway_entrance.kiev" = "Intrare în metro";
+"type.railway.subway_entrance.kobe" = "Intrare în metro";
+"type.railway.subway_entrance.kolkata" = "Intrare în metro";
+"type.railway.subway_entrance.kunming" = "Intrare în metro";
+"type.railway.subway_entrance.kyoto" = "Intrare în metro";
+"type.railway.subway_entrance.la" = "Intrare în metro";
+"type.railway.subway_entrance.lausanne" = "Intrare în metro";
+"type.railway.subway_entrance.lille" = "Intrare în metro";
+"type.railway.subway_entrance.lima" = "Intrare în metro";
+"type.railway.subway_entrance.lisboa" = "Intrare în metro";
+"type.railway.subway_entrance.london" = "Intrare în metro";
+"type.railway.subway_entrance.lyon" = "Intrare în metro";
+"type.railway.subway_entrance.madrid" = "Intrare în metro";
+"type.railway.subway_entrance.malaga" = "Intrare în metro";
+"type.railway.subway_entrance.manila" = "Intrare în metro";
+"type.railway.subway_entrance.maracaibo" = "Intrare în metro";
+"type.railway.subway_entrance.mashhad" = "Intrare în metro";
+"type.railway.subway_entrance.mecca" = "Intrare în metro";
+"type.railway.subway_entrance.medellin" = "Intrare în metro";
+"type.railway.subway_entrance.mexico" = "Intrare în metro";
+"type.railway.subway_entrance.milan" = "Intrare în metro";
+"type.railway.subway_entrance.minsk" = "Intrare în metro";
+"type.railway.subway_entrance.montreal" = "Intrare în metro";
+"type.railway.subway_entrance.moscow" = "Intrare în metro";
+"type.railway.subway_entrance.munchen" = "Intrare în metro";
+"type.railway.subway_entrance.nagoya" = "Intrare în metro";
+"type.railway.subway_entrance.newyork" = "Intrare în metro";
+"type.railway.subway_entrance.nnov" = "Intrare în metro";
+"type.railway.subway_entrance.novosibirsk" = "Intrare în metro";
+"type.railway.subway_entrance.osaka" = "Intrare în metro";
+"type.railway.subway_entrance.oslo" = "Intrare în metro";
+"type.railway.subway_entrance.palma" = "Intrare în metro";
+"type.railway.subway_entrance.panama" = "Intrare în metro";
+"type.railway.subway_entrance.paris" = "Intrare în metro";
+"type.railway.subway_entrance.philadelphia" = "Intrare în metro";
+"type.railway.subway_entrance.pyongyang" = "Intrare în metro";
+"type.railway.subway_entrance.rennes" = "Intrare în metro";
+"type.railway.subway_entrance.rio" = "Intrare în metro";
+"type.railway.subway_entrance.roma" = "Intrare în metro";
+"type.railway.subway_entrance.rotterdam" = "Intrare în metro";
+"type.railway.subway_entrance.samara" = "Intrare în metro";
+"type.railway.subway_entrance.santiago" = "Intrare în metro";
+"type.railway.subway_entrance.santo_domingo" = "Intrare în metro";
+"type.railway.subway_entrance.saopaulo" = "Intrare în metro";
+"type.railway.subway_entrance.sapporo" = "Intrare în metro";
+"type.railway.subway_entrance.sendai" = "Intrare în metro";
+"type.railway.subway_entrance.sf" = "Intrare în metro";
+"type.railway.subway_entrance.shanghai" = "Intrare în metro";
+"type.railway.subway_entrance.shenzhen" = "Intrare în metro";
+"type.railway.subway_entrance.shiraz" = "Intrare în metro";
+"type.railway.subway_entrance.singapore" = "Intrare în metro";
+"type.railway.subway_entrance.sofia" = "Intrare în metro";
+"type.railway.subway_entrance.spb" = "Intrare în metro";
+"type.railway.subway_entrance.stockholm" = "Intrare în metro";
+"type.railway.subway_entrance.tabriz" = "Intrare în metro";
+"type.railway.subway_entrance.taipei" = "Intrare în metro";
+"type.railway.subway_entrance.taoyuan" = "Intrare în metro";
+"type.railway.subway_entrance.tashkent" = "Intrare în metro";
+"type.railway.subway_entrance.tbilisi" = "Intrare în metro";
+"type.railway.subway_entrance.tehran" = "Intrare în metro";
+"type.railway.subway_entrance.tianjin" = "Intrare în metro";
+"type.railway.subway_entrance.tokyo" = "Intrare în metro";
+"type.railway.subway_entrance.valencia" = "Intrare în metro";
+"type.railway.subway_entrance.vienna" = "Intrare în metro";
+"type.railway.subway_entrance.warszawa" = "Intrare în metro";
+"type.railway.subway_entrance.washington" = "Intrare în metro";
+"type.railway.subway_entrance.wuhan" = "Intrare în metro";
+"type.railway.subway_entrance.yerevan" = "Intrare în metro";
+"type.railway.subway_entrance.yokohama" = "Intrare în metro";
+"type.railway.tram" = "Tram Line";
+"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram_stop" = "Stație de tramvai";
+"type.route" = "Route";
+"type.route.ferry" = "Ferry";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Magazin";
+"type.shop.alcohol" = "Băuturi alcoolice";
+"type.shop.bakery" = "Brutărie";
+"type.shop.bathroom_furnishing" = "Mobilier pentru baie";
+"type.shop.beauty" = "Salon de înfrumusețare";
+"type.shop.beverages" = "Băuturi";
+"type.shop.bicycle" = "Bicicletă";
+"type.shop.bookmaker" = "Casă de pariuri";
+"type.shop.books" = "Librărie";
+"type.shop.butcher" = "Măcelărie";
+"type.shop.cannabis" = "Magazin de canabis";
+"type.shop.car" = "Magazin auto";
+"type.shop.car_parts" = "Piese auto";
+"type.shop.car_repair" = "Atelier de reparații auto";
+"type.shop.car_repair.tyres" = "Vulcanizare";
+"type.shop.caravan" = "RV Dealership";
+"type.shop.carpet" = "Covoare";
+"type.shop.chemist" = "Mercerie";
+"type.shop.chocolate" = "Magazin de ciocolată";
+"type.shop.clothes" = "Magazin de haine";
+"type.shop.coffee" = "Magazin de cafea";
+"type.shop.computer" = "Magazin de calculatoare";
+"type.shop.confectionery" = "Cofetărie";
+"type.shop.convenience" = "Magazin mixt";
+"type.shop.copyshop" = "Centru copiere";
+"type.shop.cosmetics" = "Cosmetică";
+"type.shop.curtain" = "Perdele";
+"type.shop.deli" = "Magazin de delicatese";
+"type.shop.department_store" = "Magazin universal";
+"type.shop.doityourself" = "Magazin de bricolaj";
+"type.shop.dry_cleaning" = "Curățătorie chimică";
+"type.shop.electronics" = "Electronice";
+"type.shop.erotic" = "Magazin erotic";
+"type.shop.fabric" = "Magazin de țesături";
+"type.shop.farm" = "Magazin alimentar la fermă";
+"type.shop.fashion_accessories" = "Acesorii de modă";
+"type.shop.florist" = "Florărie";
+"type.shop.funeral_directors" = "Pompe funebre";
+"type.shop.furniture" = "Magazin de mobilă";
+"type.shop.garden_centre" = "Pepinieră";
+"type.shop.gas" = "Magazin de gaze";
+"type.shop.gift" = "Magazin de suveniruri";
+"type.shop.greengrocer" = "Băcănie";
+"type.shop.grocery" = "Băcănie";
+"type.shop.hairdresser" = "Coafor";
+"type.shop.hardware" = "Magazin de hardware";
+"type.shop.health_food" = "Magazin de alimente naturiste";
+"type.shop.hearing_aids" = "Magazin de aparate auditive";
+"type.shop.herbalist" = "Magazin de ierburi";
+"type.shop.hifi" = "Audio HiFi";
+"type.shop.houseware" = "Magazin de articole de uz casnic";
+"type.shop.jewelry" = "Bijutier";
+"type.shop.kiosk" = "Chioșc";
+"type.shop.kitchen" = "Magazin de bucatarie";
+"type.shop.laundry" = "Spălătorie";
+"type.shop.mall" = "Mall";
+"type.shop.massage" = "Salon de masaj";
+"type.shop.mobile_phone" = "Magazin de telefoane mobile";
+"type.shop.money_lender" = "Credite";
+"type.shop.motorcycle" = "Magazin moto";
+"type.shop.motorcycle_repair" = "Reparatie motociclete";
+"type.shop.music" = "Magazin de muzică";
+"type.shop.musical_instrument" = "Magazin de instrumente muzicale";
+"type.shop.newsagent" = "Chioșc cu ziare";
+"type.shop.optician" = "Optică";
+"type.shop.outdoor" = "Echipament de exterior";
+"type.shop.outpost" = "Punct de ridicare";
+"type.shop.pasta" = "Magazin de paste";
+"type.shop.pastry" = "Patiserie";
+"type.shop.pawnbroker" = "Amanet";
+"type.shop.pet" = "Pet shop";
+"type.shop.pet_grooming" = "Îngrijirea animalelor de companie";
+"type.shop.photo" = "Centru fotografii";
+"type.shop.rental" = "Magazin de închiriere";
+"type.shop.rental.bicycle" = "Magazin de închiriere de biciclete";
+"type.shop.seafood" = "Pescărie";
+"type.shop.second_hand" = "Magazin second-hand";
+"type.shop.shoes" = "Magazin de încălțăminte";
+"type.shop.sports" = "Articole sportive";
+"type.shop.stationery" = "Magazin de papetărie";
+"type.shop.supermarket" = "Supermarket";
+"type.shop.tattoo" = "Salon de tatuaje";
+"type.shop.tea" = "Magazin de ceai";
+"type.shop.ticket" = "Casă de bilete";
+"type.shop.toys" = "Magazin de jucării";
+"type.shop.travel_agency" = "Agenție de voiaj";
+"type.shop.tyres" = "Magazin anvelope";
+"type.shop.variety_store" = "Magazin universal";
+"type.shop.video" = "Magazin video";
+"type.shop.video_games" = "Magazin de jocuri video";
+"type.shop.wine" = "Vinărie";
+"type.shop.agrarian" = "Magazin agricol";
+"type.shop.antiques" = "Antichități";
+"type.shop.appliance" = "Magazin de electrocasnice";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Magazin de arte";
+"type.shop.baby_goods" = "Magazin pentru copii";
+"type.shop.bag" = "Magazin de genti";
+"type.shop.bed" = "Magazin de paturi";
+"type.shop.boutique" = "Butic";
+"type.shop.charity" = "Magazin de caritate";
+"type.shop.cheese" = "Magazin de branzeturi";
+"type.shop.craft" = "Arte și Meserii";
+"type.shop.dairy" = "Lactate";
+"type.shop.electrical" = "Magazin de electronice";
+"type.shop.fishing" = "Magazin de pescuit";
+"type.shop.interior_decoration" = "Decoratiuni interioare";
+"type.shop.lottery" = "Bilete la loterie";
+"type.shop.medical_supply" = "Consumabile medicale";
+"type.shop.nutrition_supplements" = "Suplimente nutritive";
+"type.shop.paint" = "Vopsele";
+"type.shop.perfumery" = "Parfumerie";
+"type.shop.sewing" = "Rechizite de cusut";
+"type.shop.storage_rental" = "Închiriere depozitare";
+"type.shop.tobacco" = "Tutun";
+"type.shop.trade" = "Comerțuri Rechizite";
+"type.shop.watches" = "Priveste";
+"type.shop.wholesale" = "Magazin cu ridicata";
+"type.sport" = "Sport";
+"type.sport.american_football" = "Fotbal american";
+"type.sport.archery" = "TIR cu arcul";
+"type.sport.athletics" = "Atletica ușoară";
+"type.sport.australian_football" = "Fotbal australian";
+"type.sport.baseball" = "Baseball";
+"type.sport.basketball" = "Baschetbal";
+"type.sport.beachvolleyball" = "Volei de plajă";
+"type.sport.bowls" = "Bowls";
+"type.sport.chess" = "Șah";
+"type.sport.cricket" = "Cricket";
+"type.sport.curling" = "Curling";
+"type.sport.equestrian" = "Sport ecvestru";
+"type.sport.golf" = "Golf";
+"type.sport.gymnastics" = "Gimnastică";
+"type.sport.handball" = "Handbal";
+"type.sport.multi" = "Sporturi Diverse";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Scufundări";
+"type.sport.shooting" = "Filmare";
+"type.sport.skateboard" = "Skateboarding";
+"type.sport.skiing" = "Schi";
+"type.sport.soccer" = "Fotbal";
+"type.sport.swimming" = "Natație";
+"type.sport.table_tennis" = "Tenis de masă";
+"type.sport.tennis" = "Teren de tenis";
+"type.sport.volleyball" = "Volei";
+"type.sport.10pin" = "Bowling";
+"type.sport.9pin" = "Bowling";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futsal";
+"type.sport.ice_hockey" = "Hochei pe gheata";
+"type.sport.field_hockey" = "Hochei pe iarbă";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Pilota bascilor";
+"type.tourism" = "Tourism";
+"type.tourism.aquarium" = "Acvariu";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Cabana de munte";
+"type.tourism.apartment" = "Apartament de vacanță";
+"type.tourism.artwork" = "Turism";
+"type.tourism.artwork.architecture" = "Turism";
+"type.tourism.artwork.painting" = "Turism";
+"type.tourism.artwork.sculpture" = "Turism";
+"type.tourism.artwork.statue" = "Turism";
+"type.tourism.attraction" = "Punct de atracție";
+"type.attraction.amusement_ride" = "Călătorie de distracție";
+"type.attraction.animal" = "Incintă pentru animale";
+"type.attraction.bumper_car" = "Bumper Car";
+"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.carousel" = "Carusel";
+"type.attraction.historic" = "Atracție istorică";
+"type.attraction.maze" = "Labirint";
+"type.attraction.roller_coaster" = "Rollercoaster";
+"type.attraction.water_slide" = "Tobogan de apă";
+"type.tourism.attraction.specified" = "Punct de atracție";
+"type.tourism.camp_site" = "Campground";
+"type.tourism.caravan_site" = "Teren pentru campare";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Cabană de vacanță";
+"type.tourism.gallery" = "Galerie";
+"type.tourism.guest_house" = "Pensiune";
+"type.tourism.hostel" = "Hostel";
+"type.tourism.hotel" = "Hotel";
+"type.tourism.information" = "Informații turistice";
+"type.tourism.information.board" = "Panou de informații";
+"type.tourism.information.guidepost" = "Postul de ghidare";
+"type.tourism.information.map" = "Hartă turistică";
+"type.tourism.information.office" = "Birou de informații turistice";
+"type.tourism.information.visitor_centre" = "Centrul pentru vizitatori";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Muzeu";
+"type.tourism.picnic_site" = "Locații picnic";
+"type.leisure.resort" = "Stațiuni";
+"type.tourism.theme_park" = "Parc de distracții";
+"type.tourism.viewpoint" = "Punct de vedere";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Cabană în pădure";
+"type.tourism.zoo" = "Grădină zoologică";
+"type.tourism.zoo.petting" = "Grădina Zoologică";
+"type.traffic_calming" = "Traffic Calming";
+"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.hump" = "Traffic Hump";
+"type.waterway" = "Waterway";
+"type.waterway.canal" = "Canal";
+"type.waterway.canal.tunnel" = "Canal Tunnel";
+"type.waterway.fish_pass" = "Scară de pește";
+"type.waterway.dam" = "Dam";
+"type.barrier.ditch" = "Ditch";
+"type.natural.water.ditch" = "Șanț de drenaj";
+"type.waterway.ditch.tunnel" = "Canal de scurgere";
+"type.waterway.dock" = "Waterway Dock";
+"type.waterway.drain" = "Drain";
+"type.natural.water.drain" = "Drain";
+"type.waterway.drain.tunnel" = "Canal de scurgere";
+"type.waterway.lock_gate" = "Ecluză";
+"type.waterway.river" = "Râu";
+"type.waterway.river.tunnel" = "Râu";
+"type.waterway.stream" = "Pârâu";
+"type.waterway.stream.ephemeral" = "Pârâu";
+"type.waterway.stream.intermittent" = "Pârâu";
+"type.waterway.stream.tunnel" = "Pârâu";
+"type.waterway.waterfall" = "Cascadă";
+"type.waterway.weir" = "Weir";
+"type.wheelchair" = "Wheelchair";
+"type.wheelchair.limited" = "Parțial utilat pentru invalizi";
+"type.wheelchair.no" = "Nu este utilat pentru invalizi";
+"type.wheelchair.yes" = "Utilat pentru invalizi";
+"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.platter" = "Platter Lift";
+"type.aerialway.rope_tow" = "Rope Tow";
+"type.aerialway.t.bar" = "T-bar Lift";
+"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Downhill Ski Run";
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.sled" = "Sledding Piste";
+"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.hike" = "Zăpadă Hiking Trail";
+"type.piste_type.connection" = "Conexiune Piste";
+"type.piste_type.skitour" = "Traseul Skitour";
+"type.amenity.events_venue" = "Locul de desfășurare a evenimentelor";
+"type.shop.auction" = "Licitație";
+"type.shop.collector" = "Colecții";
+"type.self_service.yes" = "Autoservire disponibilă";
+"type.self_service.only" = "Numai autoservire";
+"type.self_service.partially" = "Autoservire parțială";
+"type.self_service.no" = "Fără autoservire";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Facilitate socială";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Intrarea secției de urgență";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "Sală de sport";

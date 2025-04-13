@@ -1,0 +1,65 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="60dp"
+  android:gravity="center_vertical">
+
+  <ImageView
+    android:id="@+id/type_icon"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:srcCompat="@drawable/route_point_finish"/>
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:ellipsize="end"
+    android:inputType="none"
+    android:maxLines="1"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textStyle="bold"
+    android:textAlignment="viewStart"
+    app:layout_constraintStart_toEndOf="@id/type_icon"
+    app:layout_constraintEnd_toStartOf="@id/delete_icon"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/subtitle"
+    app:layout_constrainedWidth="true"
+    tools:text="Title"/>
+
+  <TextView
+    android:id="@+id/subtitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:ellipsize="end"
+    android:inputType="none"
+    android:maxLines="2"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textAlignment="viewStart"
+    app:layout_constraintStart_toEndOf="@id/type_icon"
+    app:layout_constraintEnd_toStartOf="@id/delete_icon"
+    app:layout_constraintTop_toBottomOf="@id/title"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constrainedWidth="true"
+    tools:text="Subtitle"/>
+
+  <ImageView
+    android:id="@+id/delete_icon"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    style="@style/MwmWidget.Editor.MetadataIcon"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:srcCompat="@drawable/ic_delete"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

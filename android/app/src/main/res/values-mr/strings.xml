@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">मागे</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">रद्द करा</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">हटवा</string>
+    <string name="download_maps">नकाशे डाउनलोड करा</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">डाउनलोड अयशस्वी झाले. पुन्हा प्रयत्न करण्यासाठी स्पर्श करा.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">डाउनलोड करत आहे…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">किलोमीटर</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">मैल</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">माझे स्थान</string>
+    <!-- Update maps later button text -->
+    <string name="later">नंतर</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">शोधा</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">नकाश्यात शोधा</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू करा.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">मर्यादित अचूकता</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">अचूक नेव्हिगेशन सुनिश्चित करण्यासाठी सेटिंग्जमध्ये अचूक स्थान सक्षम करा.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">नकाशावर दाखवा</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">डाउनलोड अयशस्वी</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">पुन्हा प्रयत्न करा</string>
+    <string name="about_menu_title">Organic Maps बद्दल</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• बॅटरी संपत नाही, ऑफलाइन कार्य करते</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• जलद, मिनिमलिस्ट, समुदायाद्वारे विकसित</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">स्थान सेटिंग्ज</string>
+    <string name="close">बंद</string>
+    <string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
+    <string name="download">डाउनलोड करा</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">कृपया ऍप वापरण्यासाठी प्रथम SD कार्ड/USB स्टोरेजवरील काही जागा मोकळी करा</string>
+    <string name="download_resources">ऍपचा वापर सुरू करण्यापूर्वी, आम्हाला तुमच्या उपकरणावर जगाचा सामान्य नकाशा डाउनलोड करण्याची परवानगी द्या.
+\nते %s जागा वापरेल.</string>
+    <string name="download_resources_continue">नकाशावर जा</string>
+    <string name="downloading_country_can_proceed">%s डाउनलोड करत आहे.
+\nतुम्ही आता नकाशावर जाऊ शकता.</string>
+    <string name="download_country_ask">%s डाउनलोड करायचे?</string>
+    <string name="update_country_ask">%s अद्ययावत करायचे?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">विराम द्या</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">चालू ठेवा</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s डाउनलोड अयशस्वी</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">नवीन यादी जोडा</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">खूणपत्र यादीचे नाव</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">खूणपत्रे</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">खूणपत्रे आणि ट्रॅक</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">माझी ठिकाणे</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">नाव</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">पत्ता</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">यादी</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">सेटिंग</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">नकाशे येथे साठवा</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">नकाशे डाउनलोड करायचे ठिकाण निवडा</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">नकाशे हलवायचे?</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">यास काही मिनिटे लागू शकतात.
+\nकृपया प्रतीक्षा करा…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">मापन एकके</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">मैल की किलोमीटर ह्यामध्ये निवडा</string>
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">जेवायचे ठिकाण</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">किराणा</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">वाहतूक</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">इंधन</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">वाहनतळ</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">खरेदी</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">वापरलेले</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">मुक्कामगृह</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">पर्यटन</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">मनोरंजन</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">ATM</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">रात्रीजीवन</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">कौटुंबिक सुट्टी</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">बँक</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">औषधालय</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">रुग्णालय</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">शौचालय</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">टपाल</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">पोलीस</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">वायफाय इंटरनेट</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">भंगारवाला</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">पाणी</string>
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">चिठ्ठया</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले</string>
+    <string name="share_bookmarks_email_body">नमस्कार!
+\n
+\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz
+\n
+\nOrganic Maps सह प्रवासाचा आनंद घ्या!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">खूणपत्रे वाचत आहे</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">फाइल प्रकार ॲपद्वारे ओळखला जात नाही:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">फाइल उघडण्यात अयशस्वी%1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">संपादन</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">तुमचे स्थान अद्याप निश्चित केलेले नाही</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">नकाशा डाउनलोड होत आहे</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">मी आता इथे आहे %1$s किंवा %2$s Organic Maps डाउनलोड करा: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Organic Maps द्वारे एक खूणपत्र पाठवत आहे!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Organic Maps द्वारे माझे वर्तमान स्थान पाठवत आहे!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">नमस्कार,
+\n
+\nमी आता इथे आहे: %1$s. नकाशावर ठिकाण पाहण्यासाठी या %2$s किंवा या %3$s वर क्लिक करा.
+\n
+\nआभारी.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">सामायिक</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">ई-मेल</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">क्लिपबोर्डावर कॉपी केले: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">झाले</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap डेटा: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">तुमची खात्री आहे की तुम्ही तुमच्या OpenStreetMap खात्यातून लॉग आउट करू इच्छिता?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">ट्रॅक</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">लांबी</string>
+    <string name="share_my_location">माझे स्थान सामायिक करा</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">सर्वसामान्य सेटिंग</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">माहिती</string>
+    <string name="prefs_group_route">मार्गनिर्देशन</string>
+    <string name="pref_zoom_title">झूम बटणे</string>
+    <string name="pref_zoom_summary">नकाशावर दाखवा</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">रात्र मोड</string>
+    <!-- Generic «Off» string -->
+    <string name="off">बंद</string>
+    <!-- Generic «On» string -->
+    <string name="on">चालू</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">स्वयं</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">यथार्थ दृश्य</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">त्रिमिती (3D) इमारती</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">ध्वनी सूचना</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">ध्वनी भाषा</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">चाचणी आवाज दिशानिर्देश (TTS, टेक्स्ट-टू-स्पीच)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">तुम्हाला आता आवाज ऐकू येत नसल्यास व्हॉल्यूम किंवा सिस्टम टेक्स्ट-टू-स्पीच सेटिंग्ज तपासा.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">उपलब्ध नाही</string>
+    <string name="pref_map_auto_zoom">स्वयं झूम</string>
+    <string name="placepage_distance">अंतर</string>
+    <string name="search_show_on_map">नकाशावर पहा</string>
+    <!-- Text in menu -->
+    <string name="website">संकेतस्थळ</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">बातम्या</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">अभिप्राय</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">ऍप मानांकित करा</string>
+    <!-- Text in menu -->
+    <string name="help">मदत</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">वारंवार विचारलेले प्रश्न</string>
+    <string name="already_donated">आधीच दान केले</string>
+    <string name="remind_me_later">नंतर आठवण करून द्या</string>
+    <string name="support_organic_maps">Organic Maps ला समर्थन द्या</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">प्रकल्पाला पाठठिंबा द्या</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">प्रकाशन अधिकार (कॉपीराईट)</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">त्रुटी कळवा</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">कंपास कॅलिब्रेट करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवून बाणाची दिशा सुधारा.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">सर्व अद्ययावत</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">सर्व रद्द</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">डाउनलोड केले</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">रांगेत</string>
+    <string name="downloader_near_me_subtitle">माझ्या जवळ</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">नकाशे</string>
+    <string name="downloader_download_all_button">सर्व डाउनलोड</string>
+    <string name="downloader_downloading">डाउनलोड करत आहे:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">नकाशा पुसून टाकण्यासाठी, मार्गनिर्देशन थांबवा.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">केवळ एका प्रदेशाच्या नकाशामध्ये पूर्णपणे समाविष्ट असलेले मार्ग तयार केले जाऊ शकतात.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">नकाशा डाउनलोड करा</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">पुनर्प्रयत्न</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">नकाशा काढून टाका</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">नकाशा अद्ययावत करा</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Google Play स्थान सेवा</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">ब्लूटूथ, वायफाय किंवा मोबाइल नेटवर्क वापरून तुमचे अंदाजे स्थान द्रुतपणे निर्धारित करा</string>
+    <!-- Preference title -->
+    <string name="pref_display_kayak_title">Kayak.com हटल लकस</string>
+    <!-- Preference description -->
+    <string name="pref_display_kayak_text">Kayak.com वर सच असललय हटलसठ फट, पनरवलकन, बकग लकस परदरशत कल जतत. य लकसदवर परतयक बकगसठ मळलल रफरल बनस Organic Maps चय वकससठ जत.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">तुमच्या मार्गावरील सर्व नकाशे डाउनलोड करा</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">मार्ग तयार करण्यासाठी आम्हाला तुमच्या स्थानापासून तुमच्या गंतव्यस्थानापर्यंताचे सर्व नकाशे डाउनलोड करून अद्ययावत करावे लागतील.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">पुरेशी जागा नाही</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">कृपया स्थान सेवा सक्रिय करा</string>
+    <string name="save">साठवा</string>
+    <string name="create">तयार करा</string>
+    <!-- red color -->
+    <string name="red">लाल</string>
+    <!-- yellow color -->
+    <string name="yellow">पिवळा</string>
+    <!-- blue color -->
+    <string name="blue">निळा</string>
+    <!-- green color -->
+    <string name="green">हिरवा</string>
+    <!-- purple color -->
+    <string name="purple">जांभळा</string>
+    <!-- orange color -->
+    <string name="orange">भगवा</string>
+    <!-- brown color -->
+    <string name="brown">तपकिरी</string>
+    <!-- pink color -->
+    <string name="pink">गुलाबी</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">गडद जांभळा</string>
+    <!-- light blue color -->
+    <string name="light_blue">फिकट निळा</string>
+    <!-- cyan color -->
+    <string name="cyan">हिरवट निळा (फिकट)</string>
+    <!-- teal color -->
+    <string name="teal">हिरवट निळा (गडद)</string>
+    <!-- lime color -->
+    <string name="lime">पोपटी</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">नारंगी</string>
+    <!-- gray color -->
+    <string name="gray">राखाडी</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">निळा राखाडी</string>
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">प्रवास करताना, कृपात लक्षात ठेवा:</string>
+    <string name="dialog_routing_disclaimer_priority">— मार्गनिर्देशक संकेतांपेक्षा रस्त्याची परिस्थिती, वाहतुकीचे नियम व वाहतुकीचे चिन्ह ह्यांना जास्त प्राधान्य द्या;</string>
+    <string name="dialog_routing_disclaimer_precision">— नकाशा चुकीचा असू शकतो, आणि सुचवलेला मार्ग हा गंतव्यस्थानापर्यंत पोहोचण्यासाठी नेहमी सर्वोत्तम मार्ग असेलच असे नाही;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— सुचवलेले मार्ग ह्यांना केवळ शिफारसी म्हणून समजावे;</string>
+    <string name="dialog_routing_disclaimer_borders">— सीमेजवळच्या मार्गांबाबतीत सावधानी बाळगा: इथे प्रकाशित मार्ग कधीकधी अनधिकृतरित्या देशाची सीमा ओलांडू शकतात.</string>
+    <string name="dialog_routing_disclaimer_beware">कृपया वाटेवर सतर्क आणि सुरक्षित रहा!</string>
+    <string name="dialog_routing_check_gps">GPS सिग्नल तपासा</string>
+    <string name="dialog_routing_error_location_not_found">मार्ग तयार करण्यात अक्षम. वर्तमान GPS सहनिर्देशक ओळखता आले नाहीत.</string>
+    <string name="dialog_routing_location_turn_wifi">कृपया तुमचा GPS सिग्नल तपासा. WiFi चालू केल्याने तुमच्या स्थानाची अचूकता सुधारेल.</string>
+    <string name="dialog_routing_location_turn_on">स्थान सेवा चालू करा</string>
+    <string name="dialog_routing_location_unknown_turn_on">वर्तमान GPS सहनिर्देशक शोधण्यात अक्षम. मार्गाची गणना करण्यासाठी स्थान सेवा चालू करा.</string>
+    <string name="dialog_routing_unable_locate_route">मार्ग शोधण्यात अक्षम</string>
+    <string name="dialog_routing_cant_build_route">मार्ग तयार करण्यात अक्षम.</string>
+    <string name="dialog_routing_change_start_or_end">कृपया तुमचा प्रारंभस्थान किंवा गंतव्यस्थानाचा बिंदू समायोजित करा.</string>
+    <string name="dialog_routing_change_start">प्रारंभ बिंदू समायोजित करा</string>
+    <string name="dialog_routing_start_not_determined">मार्ग तयार केला नाही. प्रारंभ बिंदू शोधण्यात अक्षम.</string>
+    <string name="dialog_routing_select_closer_start">कृपया रस्त्याच्या जवळचा प्रारंभ बिंदू निवडा.</string>
+    <string name="dialog_routing_change_end">गंतव्यस्थान समायोजित करा</string>
+    <string name="dialog_routing_end_not_determined">मार्ग तयार केला नाही. गंतव्यस्थान शोधण्यात अक्षम.</string>
+    <string name="dialog_routing_select_closer_end">कृपया रस्त्याच्या जवळ असलेले गंतव्यस्थान निवडा.</string>
+    <string name="dialog_routing_change_intermediate">मध्यबिंदू शोधण्यात अक्षम.</string>
+    <string name="dialog_routing_intermediate_not_determined">कृपया तुमचा मध्यबिंदू समायोजित करा.</string>
+    <string name="dialog_routing_system_error">सिस्टम त्रुटी</string>
+    <string name="dialog_routing_application_error">ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.</string>
+    <string name="dialog_routing_try_again">कृपया पुर्नरप्रयत्न करा</string>
+    <string name="not_now">आता नाही</string>
+    <string name="dialog_routing_download_and_build_cross_route">एकापेक्षा जास्त नकाशात पसरलेला अधिक चांगला मार्ग तयार करण्यासाठी, नकाशा डाउनलोड केलेला चालेल का?</string>
+    <string name="dialog_routing_download_cross_route">या नकाशाच्या सीमा ओलांडणारा एक चांगला मार्ग तयार करण्यासाठी अधिक नकाशे डाउनलोड करा.</string>
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.</string>
+    <string name="search_select_map">नकाशा निवडा</string>
+    <!-- «Show» context menu -->
+    <string name="show">दाखवा</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">लपवा</string>
+    <string name="categories">प्रवर्ग</string>
+    <string name="history">इतिहास</string>
+    <string name="search_not_found">अरेच्चा, काहीच सापडले नाही.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.</string>
+    <string name="search_history_title">शोध इतिहास</string>
+    <string name="search_history_text">अलीकडील शोध पहा.</string>
+    <string name="clear_search">शोध इतिहास पुसून टाका</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">विकिपीडिया</string>
+    <string name="p2p_your_location">तुमचे स्थान</string>
+    <string name="p2p_start">सुरू करा</string>
+    <string name="p2p_from_here">पासून मार्ग</string>
+    <string name="p2p_to_here">पर्यंतचा मार्ग</string>
+    <string name="p2p_only_from_current">मार्गनिर्देशन फक्त तुमच्या वर्तमान स्थानावरून उपलब्ध आहे.</string>
+    <string name="p2p_reroute_from_current">तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">पुढे</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">ते</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">पर्यंत</string>
+    <string name="editor_time_add">वेळापत्रक जोडा</string>
+    <string name="editor_time_delete">वेळापत्रक मिटवा</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">दिवसभर (२४ तास)</string>
+    <string name="editor_time_open">उघडे</string>
+    <string name="editor_time_close">बंद</string>
+    <string name="editor_time_add_closed">गैर-व्यवसायाची वेळ जोडा</string>
+    <string name="editor_time_title">व्यवसायाची वेळ</string>
+    <string name="editor_time_advanced">प्रगत मोड</string>
+    <string name="editor_time_simple">साधा मोड</string>
+    <string name="editor_hours_closed">गैर-व्यवसाय वेळ</string>
+    <string name="editor_example_values">उदाहरण मूल्ये</string>
+    <string name="editor_correct_mistake">चूक सुधारा</string>
+    <string name="editor_add_select_location">स्थान निवडा</string>
+    <string name="editor_report_problem_desription_1">OpenStreetMap समुदायाने ही त्रुटी सुधारण्यासाठी कृपया समस्येचे तपशिलात वर्णन करा.</string>
+    <string name="editor_report_problem_desription_2">किंवा https://www.openstreetmap.org/ वर ते स्वतः करा</string>
+    <string name="editor_report_problem_send_button">पाठवा</string>
+    <string name="editor_report_problem_title">समस्या</string>
+    <string name="editor_report_problem_no_place_title">जागा अस्तित्वात नाही</string>
+    <string name="editor_report_problem_under_construction_title">देखभालीसाठी बंद</string>
+    <string name="editor_report_problem_duplicate_place_title">प्रतिलिपीत (डुप्लिकेट) ठिकाण</string>
+    <string name="autodownload">स्वयं डाउनलोड</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">दैनिक</string>
+    <string name="twentyfour_seven">२४/७</string>
+    <string name="day_off_today">आज बंद</string>
+    <string name="day_off">बंद</string>
+    <string name="today">आज</string>
+    <string name="closed">बंद</string>
+    <string name="edit_opening_hours">व्यवसायाची वेळ संपादित करा</string>
+    <string name="no_osm_account">OpenStreetMap खाते नाही?</string>
+    <string name="register_at_openstreetmap">OpenStreetMap वर नोंदणी करा</string>
+    <string name="login">लॉग इन</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">साइन इन केलेले नाही</string>
+    <string name="password">पासवर्ड</string>
+    <string name="forgot_password">पासवर्ड विसरलात?</string>
+    <string name="logout">लॉग आऊट</string>
+    <string name="edit_place">ठिकाण संपादित करा</string>
+    <string name="add_language">भाषा जोडा</string>
+    <string name="street">रस्ता</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">बिल्डिंग क्रमांक</string>
+    <string name="details">तपशील</string>
+    <string name="social_media">सोशल मीडिया</string>
+    <string name="building">इमारत</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">रस्ता जोडा</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">कृपया रस्त्याचे नाव जोडा</string>
+    <string name="choose_language">भाषा निवडा</string>
+    <string name="choose_street">रस्ता निवडा</string>
+    <string name="postal_code">पिनकोड</string>
+    <string name="cuisine">पाककृती</string>
+    <string name="select_cuisine">पाककृती निवडा</string>
+    <!-- login text field -->
+    <string name="email_or_username">ईमेल किंवा वापरकर्तानाव</string>
+    <string name="editor_add_phone">फोन जोडा</string>
+    <string name="level">मजला</string>
+    <string name="downloader_delete_map_dialog">तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.</string>
+    <string name="downloader_update_maps">नकाशे अद्ययावत करा</string>
+    <string name="downloader_mwm_migration_dialog">मार्ग तयार करण्यासाठी तुम्हाला सर्व नकाशे अद्ययावत करावे लागतील आणि मग मार्ग नियोजन करता येईल.</string>
+    <string name="downloader_search_field_hint">नकाशा शोधा</string>
+    <string name="common_check_internet_connection_dialog">कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.</string>
+    <string name="downloader_no_space_title">पुरेशी जागा नाही</string>
+    <string name="downloader_no_space_message">कृपया अनावश्यक डेटा पुसून टाका</string>
+    <string name="editor_login_error_dialog">लॉग इन त्रुटी.</string>
+    <string name="editor_profile_changes">सत्यापित बदल</string>
+    <string name="editor_focus_map_on_location">ठिकाण किंवा व्यवसायाच्या ठिकाणी क्रॉस ठेवण्यासाठी नकाशा ड्रॅग करा.</string>
+    <string name="editor_edit_place_title">संपादन</string>
+    <string name="editor_add_place_title">जोडणे</string>
+    <string name="editor_edit_place_name_hint">ठिकाणाचे नाव</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">स्थानिक भाषेत लिहिल्याप्रमाणे</string>
+    <string name="editor_edit_place_category_title">प्रवर्ग</string>
+    <string name="detailed_problem_description">समस्येचे तपशिलात वर्णन</string>
+    <string name="editor_report_problem_other_title">वेगळी समस्या</string>
+    <string name="placepage_add_business_button">व्यवसाय जोडा</string>
+    <string name="message_invalid_feature_position">इथे कोणतीही वस्तू ठेवू शकत नाही</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s नुसार. OpenStreetMap.org वर नकाशा संपादित आणि अपडेट कसा करायचा याबद्दल अधिक जाणून घ्या</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) हा एक विनामूल्य आणि खुला नकाशा तयार करण्यासाठी एक समुदाय प्रकल्प आहे. ऑरगॅनिक नकाशे मधील नकाशा डेटाचा हा मुख्य स्त्रोत आहे आणि विकिपीडिया प्रमाणेच कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतील.
+\nसमुदायामध्ये सामील व्हा आणि प्रत्येकासाठी चांगला नकाशा बनवण्यात मदत करा!</string>
+    <string name="login_to_make_edits_visible">एक OpenStreetMap खाते तयार करा किंवा तुमची नकाशा संपादने जगासमोर प्रकाशित करण्यासाठी लॉग इन करा.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%2$d पैकी %1$d</string>
+    <string name="download_over_mobile_header">मोबाईल डेटा वापरून डाउनलोड करायचे?</string>
+    <string name="download_over_mobile_message">रोमिंग वर असल्यास हे बरेच महाग पडू शकते.</string>
+    <string name="error_enter_correct_house_number">एक वैध बिल्डिंग क्रमांक प्रविष्ट करा</string>
+    <string name="editor_storey_number">मजल्यांची संख्या (कमाल %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">मजल्यांची संख्या %d पेक्षा जास्त नसावी</string>
+    <string name="editor_zip_code">पिनकोड</string>
+    <string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">नकाशा बिंदू</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">OpenStreetMap स्वयंसेवकांसाठी टीप (पर्यायी)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">नकाशामधील त्रुटी किंवा सेंद्रिय नकाशे वापरून काय संपादित केले जाऊ शकत नाही याचे वर्णन करा</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">तुमची संपादने सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.</string>
+    <string name="editor_more_about_osm">OpenStreetMap बद्दल अधिक</string>
+    <string name="editor_osm_history">तुमचा संपादन इतिहास</string>
+    <string name="editor_osm_notes">तुमचा नकाशा डेटा नोट्स</string>
+    <string name="editor_operator">ऑपरेटर</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">ऑपरेटर: %s</string>
+    <string name="editor_category_unsuitable_title">योग्य श्रेणी शोधू शकत नाही?</string>
+    <string name="editor_category_unsuitable_text">ऑरगॅनिक नकाशे फक्त साध्या बिंदू श्रेणी जोडण्याची परवानगी देतात, म्हणजे शहरे, रस्ते, तलाव, इमारत बाह्यरेखा इ. कृपया अशा श्रेणी थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. तपशीलवार चरण-दर-चरण सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> पहा.</string>
+    <string name="downloader_no_downloaded_maps_title">तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</string>
+    <string name="downloader_no_downloaded_maps_message">स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.</string>
+    <string name="current_location_unknown_error_title">वर्तमान स्थान अज्ञात आहे.</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">किमी</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">फूट</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">तास</string>
+    <string name="minute">मिनिट</string>
+    <string name="day">दि</string>
+    <string name="placepage_more_button">अधिक</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">फोटोपुनरावलोकनेबुकिंगबुकिंग</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">कायाक वर तपशील</string>
+    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_disable_button">Kayak अकषम कर</string>
+    <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
+    <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>
+    <string name="editor_comment_hint">टिप्पणी…</string>
+    <string name="editor_reset_edits_message">सर्व स्थानिक बदल टाकून द्यायचे?</string>
+    <string name="editor_reset_edits_button">टाकून द्या</string>
+    <string name="editor_remove_place_message">जोडलेले ठिकाण पुसून टाकायचे?</string>
+    <string name="editor_remove_place_button">पुसा</string>
+    <string name="editor_place_doesnt_exist">ठिकाण अस्तित्वात नाही</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">कृपया ठिकाण हटवण्याचे कारण सूचित करा</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">वैध संपर्क क्रमांक प्रविष्ट करा</string>
+    <string name="error_enter_correct_web">वैध वेब पत्ता प्रविष्ट करा</string>
+    <string name="error_enter_correct_email">वैध ईमेल प्रविष्ट करा</string>
+    <string name="error_enter_correct_facebook_page">वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा</string>
+    <string name="error_enter_correct_instagram_page">वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा</string>
+    <string name="error_enter_correct_twitter_page">वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा</string>
+    <string name="placepage_add_place_button">OpenStreetMap मध्ये ठिकाण जोडा</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
+    <string name="navigation_stop_button">थांबा</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">ट्रॅक रेकॉर्ड करत आहे</string>
+    <!-- For the first routing -->
+    <string name="accept">स्वीकारा</string>
+    <!-- For the first routing -->
+    <string name="decline">नाकारा</string>
+    <string name="mobile_data_dialog">तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?</string>
+    <string name="mobile_data_option_always">नेहमी वापरा</string>
+    <string name="mobile_data_option_today">फक्त आज</string>
+    <string name="mobile_data_option_not_today">आज वापरू नका</string>
+    <string name="mobile_data">मोबाइल इंटरनेट</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.</string>
+    <string name="mobile_data_option_never">कधीही वापरू नका</string>
+    <string name="mobile_data_option_ask">नेहमी विचारा</string>
+    <string name="traffic_update_maps_text">वाहतूक माहिती दाखवण्यासाठी नकाशे अद्ययावत करणे आवश्यक आहे.</string>
+    <string name="big_font">नकाशावर अक्षरांचा आकार वाढवा</string>
+    <string name="traffic_update_app">कृपया Organic Maps अद्ययावत करा</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">वाहतूक माहिती उपलब्ध नाही</string>
+    <string name="enable_logging">लॉग चालू करा</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">सामान्य अभिप्राय</string>
+    <string name="prefs_languages_information">आम्ही ध्वनी निर्देशांसाठी \"सिस्टम TTS\" वापरतो. अनेक Android उपकरणे \"Google TTS\" वापरतात, जे तुम्ही Google Play वरून डाउनलोड किंवा अद्ययावत करू शकता (https://play.google.com/store/apps/details?idu003dcom.google.android.tts)</string>
+    <string name="prefs_languages_information_off">काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.
+\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → \"टेक्स्ट टू स्पीच आउटपुट\" उघडा.
+\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.</string>
+    <string name="prefs_languages_information_off_link">अधिक माहितीसाठी कृपया ही मार्गदर्शिका पहा.</string>
+    <string name="transliteration_title">रोमन लिपीत लिप्यंतरण</string>
+    <string name="learn_more">अधिक जाणून घ्या</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">बाहेर पडा</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">मार्ग प्रारंभ बिंदू जोडण्यासाठी नकाशावर शोध वापरा किंवा टॅप करा</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">गंतव्य बिंदू जोडण्यासाठी नकाशावर शोधा किंवा टॅप करा</string>
+    <string name="planning_route_manage_route">मार्ग व्यवस्थापन</string>
+    <string name="button_plan">नियोजन</string>
+    <string name="placepage_remove_stop">थांबा काढा</string>
+    <string name="placepage_add_stop">स्टॉप जोडा</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
+    <string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>
+    <string name="dialog_error_storage_message">बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support\@organicmaps.app वर आमच्याशी संपर्क साधा</string>
+    <string name="setting_emulate_bad_storage">खराब साठ्याचे अनुकरण करा</string>
+    <string name="core_entrance">प्रवेशद्वार</string>
+    <string name="error_enter_correct_name">कृपया योग्य नाव प्रविष्ट करा</string>
+    <string name="bookmark_lists">याद्या</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">सर्व लपवा</string>
+    <string name="bookmark_lists_show_all">सर्व दाखवा</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d खूणपत्र</item>
+        <item quantity="other">%d खूणपत्रे</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">नवीन यादी जोडा</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">बुकमार्क आणि ट्रॅक आयात करा</string>
+    <string name="bookmarks_error_message_share_general">ऍप त्रुटीमुळे सामायिक करण्यात अक्षम</string>
+    <string name="bookmarks_error_title_share_empty">सामायिकरण त्रुटी</string>
+    <string name="bookmarks_error_message_share_empty">रिकामी यादी सामायिक करू शकत नाही</string>
+    <string name="bookmarks_error_title_empty_list_name">नाव रिक्त असू शकत नाही</string>
+    <string name="bookmarks_error_message_empty_list_name">कृपया यादीचे नाव प्रविष्ट करा</string>
+    <string name="bookmarks_new_list_hint">नवीन यादी</string>
+    <string name="bookmarks_error_title_list_name_already_taken">हे नाव आधीच वापरात आहे</string>
+    <string name="bookmarks_error_message_list_name_already_taken">कृपया दुसरे नाव निवडा</string>
+    <string name="please_wait">कृपया थांबा…</string>
+    <string name="phone_number">फोन क्रमांक</string>
+    <string name="profile">OpenStreetMap प्रोफाइल</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d फाईल सापडली. रूपांतरानंतर तुम्ही ती पाहू शकता.</item>
+        <item quantity="other">%d फाईली सापडल्या. रूपांतरानंतर तुम्ही त्या पाहू शकता.</item>
+    </plurals>
+    <string name="restore">पूर्ववत् करा</string>
+    <plurals name="tracks">
+        <item quantity="one">%d ट्रॅक</item>
+        <item quantity="other">%d ट्रॅक</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">गोपनीयता</string>
+    <string name="privacy_policy">गोपनीयता धोरण</string>
+    <string name="terms_of_use">वापरण्याच्या अटी</string>
+    <string name="button_layer_traffic">ट्रॅफिक</string>
+    <string name="button_layer_subway">मेट्रो/भुयारी मार्ग</string>
+    <string name="layers_title">नकाशा शैली आणि स्तर</string>
+    <string name="subway_data_unavailable">मेट्रो नकाशा अनुपलब्ध आहे</string>
+    <string name="bookmarks_empty_list_title">ही यादी रिकामी आहे</string>
+    <string name="bookmarks_empty_list_message">खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा</string>
+    <string name="category_desc_more">…अधिक</string>
+    <string name="export_file">KMZ निर्यात करा</string>
+    <string name="export_file_gpx">GPX निर्यात करा</string>
+    <string name="delete_list">यादी मिटवा</string>
+    <string name="public_access">सार्वजनिक प्रवेश</string>
+    <string name="limited_access">मर्यादित प्रवेश</string>
+    <string name="not_shared">खाजगी</string>
+    <string name="speedcams_alert_title">वेग कॅमेरे</string>
+    <string name="place_description_title">ठिकाणाचे वर्णन</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">नकाशा डाउनलोडक</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">वेगाबद्दल चेतावणी द्या</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">नेहमी चेतावणी द्या</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">कधीही चेतावणी देऊ नका</string>
+    <string name="power_managment_title">ऊर्जा बचत मोड</string>
+    <string name="power_managment_description">काही कार्यप्रणालींचा त्याग करून बॅटरीतील ऊर्जा वाचवण्याचा प्रयत्न करा.</string>
+    <string name="power_managment_setting_never">कधीच नाही</string>
+    <string name="power_managment_setting_auto">स्वयंचलित</string>
+    <string name="power_managment_setting_manual_max">कमाल वीज बचत</string>
+    <string name="enable_logging_warning_message">निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.</string>
+    <string name="access_rules_author_only">ऑनलाइन संपादन</string>
+    <string name="driving_options_title">मार्गशोधी पर्याय</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">टोल रस्ते टाळा</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">कच्चे मार्ग टाळा</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">जल मार्ग टाळा</string>
+    <string name="avoid_motorways">मोटरवे टाळा</string>
+    <string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
+    <string name="unable_to_calc_alert_subtitle">दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.</string>
+    <string name="define_to_avoid_btn">टाळण्याचे मार्ग निवडा</string>
+    <string name="change_driving_options_btn">मार्गशोधी पर्याय चालू केले</string>
+    <string name="toll_road">टोल मार्ग</string>
+    <string name="unpaved_road">कच्चे मार्ग</string>
+    <string name="ferry_crossing">जल मार्ग</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">होय</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">नाही</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">होय</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">नाही</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">क्षमता: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">नेटवर्क: %s</string>
+    <string name="trip_finished">तुम्ही पोचलात!</string>
+    <string name="ok">ठीक आहे</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">क्रमाने लावा…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">खूणपत्रे क्रमाने लावा</string>
+    <!-- Android -->
+    <string name="by_default">डिफॉल्ट</string>
+    <!-- Android -->
+    <string name="by_type">प्रकारानुसार</string>
+    <!-- Android -->
+    <string name="by_distance">अंतरानुसार</string>
+    <!-- Android -->
+    <string name="by_date">दिनांकानुसार</string>
+    <!-- Android -->
+    <string name="by_name">नावाने</string>
+    <string name="week_ago_sorttype">गेल्या आठवड्यात</string>
+    <string name="month_ago_sorttype">गेल्या महिन्यात</string>
+    <string name="moremonth_ago_sorttype">एक महिन्यापूर्वी</string>
+    <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
+    <string name="near_me_sorttype">माझ्या जवळ</string>
+    <string name="others_sorttype">इतर</string>
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">अन्न</string>
+    <string name="tourist_places">पर्यटन स्थळ</string>
+    <string name="museums">संग्रहालय</string>
+    <string name="parks">उद्यान</string>
+    <string name="swim_places">जलतरण</string>
+    <string name="mountains">पर्वत</string>
+    <string name="animals">प्राणी</string>
+    <string name="hotels">मुक्कामगृह</string>
+    <string name="buildings">इमारती</string>
+    <string name="money">पैसे</string>
+    <string name="shops">दुकान</string>
+    <string name="parkings">वाहनतळ</string>
+    <string name="fuel_places">पेट्रोल पंप</string>
+    <string name="medicine">औषध</string>
+    <string name="search_in_the_list">यादीत शोधा</string>
+    <string name="religious_places">धार्मिक स्थळ</string>
+    <string name="select_list">यादी निवडा</string>
+    <string name="transit_not_found">या प्रदेशात मेट्रोचे मार्गनिर्देशन अद्याप उपलब्ध नाही</string>
+    <string name="dialog_pedestrian_route_is_long_header">मेट्रो मार्ग सापडला नाही</string>
+    <string name="dialog_pedestrian_route_is_long_message">कृपया मेट्रो स्थानकाजवळचा प्रारंभ किंवा शेवटचा बिंदू निवडा</string>
+    <string name="button_layer_isolines">भूप्रदेश</string>
+    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
+    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="elevation_profile_ascent">चढण</string>
+    <string name="elevation_profile_descent">उतरण</string>
+    <string name="elevation_profile_min_elevation">किमान उंची</string>
+    <string name="elevation_profile_max_elevation">कमाल उंची</string>
+    <string name="elevation_profile_difficulty">काठिण्य</string>
+    <string name="elevation_profile_distance">अंतर.:</string>
+    <string name="elevation_profile_time">वेळ:</string>
+    <string name="isolines_toast_zooms_1_10">समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा</string>
+    <string name="downloader_loading_ios">डाउनलोड करत आहे</string>
+    <string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">डिस्क त्रुटी</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">जोडणी अयशस्वी</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">USB केबल काढा</string>
+    <string name="enable_keep_screen_on">स्क्रीन चालू ठेवा</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">सक्षम असतानानकाशाशप्रदर्शितिकरतानानस्क्रीनीनेहमीमचालूाअसेलसेल.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">लॉक पटलावर (स्क्रीनवर) दाखवा</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">नकाशाची भाषा</string>
+    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://organicmaps.app/mr/</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">आमचे समुदाय-निर्मित नकाशे वापरल्याबद्दल धन्यवाद!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">तुमच्या देणग्या आणि समर्थनासह, आम्ही जगातील सर्वोत्तम नकाशे तयार करू शकतो!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">तुम्हाला आमचे अॅप आवडते का? कृपया विकासाला पाठिंबा देण्यासाठी देणगी द्या! अजून आवडत नाही? कृपया आम्हाला कळवा आणि आम्ही त्याचे निराकरण करू!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">तुम्हाला सॉफ्टवेअर डेव्हलपर माहीत असल्यास, तुम्ही त्याला किंवा तिला तुम्हाला आवश्यक असलेले वैशिष्ट्य लागू करण्यास सांगू शकता.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">काहीही निवडण्यासाठी नकाशावर कुठेही टॅप करा. इंटरफेस लपवण्यासाठी आणि परत दर्शविण्यासाठी दीर्घ-टॅप करा.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">तुम्हाला माहीत आहे का की तुम्ही नकाशावर तुमचे वर्तमान स्थान निवडू शकता?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">तुम्ही आमच्या अॅपचे तुमच्या भाषेत भाषांतर करण्यात मदत करू शकता.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">आमचे अॅप काही उत्साही आणि समुदायाने विकसित केले आहे.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">तुम्ही नकाशा डेटा सहजपणे दुरुस्त करू शकता आणि सुधारू शकता.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">आमचे मुख्य ध्येय जलद, गोपनीयता-केंद्रित, वापरण्यास-सुलभ नकाशे तयार करणे आहे जे तुम्हाला आवडतील.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">तुम्ही आता कार स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">तुम्ही Android Auto शी कनेक्ट आहात</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">फोनवर सुरू ठेवा</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">कारच्या स्क्रीनकडे</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">ऑर्गेनिक नकाशेला स्थान प्रवेश आवश्यक आहे. ते सुरक्षित असताना, तुमच्या फोनवरील सूचना तपासा.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">या अॅपला तुमची परवानगी आवश्यक आहे</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Android Auto मधील ऑरगॅनिक नकाशे प्रभावीपणे कार्य करण्यासाठी स्थान परवानगी आवश्यक आहे</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">परवानग्या द्या</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">भटकंती</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">वेब ब्राउझर उपलब्ध नाही</string>
+    <string name="volume">व्हॉल्यूम</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">सर्व बुकमार्क आणि ट्रॅक निर्यात करा</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">सिस्टम स्पीच सिंथेसिस सेटिंग्ज</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्ज आढळल्या नाहीत, तुमची खात्री आहे की तुमचे डिव्हाइस त्यास समर्थन देते?</string>
+    <string name="drive_through">मार्गे चला</string>
+    <string name="clear_the_search">शोध साफ करा</string>
+    <string name="zoom_in">प्रतिमेचे दृष्य रूप मोठे करा</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">झूम कमी करा</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">मेनू लिंक</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">मेनू पहा</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">दुसऱ्या ॲपमध्ये उघडा</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">स्व: सेवा</string>
+    <string name="select_option">पर्याय निवडा</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">बाहेरची आसनव्यवस्था</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">ट्रॅक रेकॉर्ड करा</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">ट्रॅक रेकॉर्डिंग थांबवा</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">जतन न करता थांबवा</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">रेकॉर्डिंग चालू ठेवा</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">मार्ग रेकॉर्डिंग खूणपत्रे आणि ट्रॅकमध्ये साठवायचे?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">मार्ग रिकामा आहे - साठवण्यासाठी काहीही नाही</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">फोल्डर निवड संवाद प्रदर्शित करण्यात अक्षम कारण आपल्या डिव्हाइसवर कोणतेही योग्य ॲप स्थापित केलेले नाही. कृपया फाइल व्यवस्थापक ॲप स्थापित करा आणि पुन्हा प्रयत्न करा</string>
+    <string name="choose_color">रंग निवडा</string>
+    <string name="edit_track">मार्ग संपादित करा</string>
+    <string name="uri_open_location_failed">स्थान उघडू शकणारे कोणतेही ॲप स्थापित केलेले नाही</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">नेव्हिगेशनमध्ये ऑटो</string>
+    <string name="pref_tts_street_names_title">मार्गांची नावे घोषित करा</string>
+    <string name="about_proposition_1">• जाहिराती नाही, माहितीचा मागोवा नाही, डेटा संग्रहण नाही</string>
+    <string name="donate">दान करा</string>
+    <string name="login_osm">OpenStreetMap मध्ये लॉगिन करा</string>
+    <string name="about_headline">सर्वांसाठी विनामूल्य, आवडीने तयार केलेले</string>
+    <string name="pref_tts_street_names_description">चालू केल्यास, वळण घेण्यापूर्वी रस्त्याचे किंवा वळणाचे नाव बोलून सांगितले जाईल.</string>
+    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap संपादक बदल तपासतील व काही प्रश्न असल्यास तुमच्याशी संपर्क साधतील.</string>
+    <string name="category_rv">कँपिंग वाहन सोयी</string>
+</resources>

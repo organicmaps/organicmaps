@@ -1,0 +1,1486 @@
+"type.addr_interpolation" = "Ünvan/Blok";
+"type.addr_interpolation.even" = "Ünvan/Blok";
+"type.addr_interpolation.odd" = "Ünvan/Blok";
+"type.aerialway" = "Teleferik";
+"type.aerialway.cable_car" = "Teleferik";
+"type.aerialway.chair_lift" = "Kreslo lifti";
+"type.aerialway.drag_lift" = "Bugle teleferik";
+"type.aerialway.gondola" = "Qondol";
+"type.aerialway.mixed_lift" = "Teleferik";
+"type.aerialway.station" = "Hava yolu stansiyası";
+"type.aeroway" = "Hava Məkanı İnfrastruktur";
+"type.aeroway.aerodrome" = "Hava limanı";
+"type.aeroway.aerodrome.international" = "Beynəlxalq Hava Limanı";
+"type.aeroway.apron" = "Bay";
+"type.aeroway.gate" = "Keçid";
+"type.aeroway.helipad" = "Helipad";
+"type.aeroway.runway" = "Uçuş zolağı";
+"type.aeroway.taxiway" = "Taksi yolu";
+"type.aeroway.terminal" = "Terminal";
+"type.amenity" = "Təsis";
+"type.amenity.arts_centre" = "İncəsənət mərkəzi";
+"type.amenity.atm" = "Nağd pul verən";
+"type.amenity.bank" = "Bank";
+"type.amenity.bar" = "Bar";
+"type.amenity.bbq" = "Barbekü qril";
+"type.amenity.bench" = "Skamya";
+"type.amenity.bicycle_parking" = "Velosiped dayanacağı";
+"type.amenity.bicycle_rental" = "Velosiped İcarəsi";
+"type.amenity.bicycle_repair_station" = "Velosiped təmiri stansiyası";
+"type.amenity.biergarten" = "Pivə bağı";
+"type.amenity.brothel" = "Fahişəxana";
+"type.amenity.bureau_de_change" = "Xarici Valyuta İdarəsi";
+"type.amenity.bus_station" = "Avtobus dayanacağı";
+"type.amenity.cafe" = "Kafe";
+"type.amenity.car_rental" = "Avtomobil icarəsi";
+"type.amenity.motorcycle_rental" = "Motosiklet Kirayəsi";
+"type.amenity.car_sharing" = "Avtomobil Paylaşımı";
+"type.amenity.car_wash" = "Avtomobil yuma";
+"type.amenity.casino" = "Casino";
+"type.amenity.gambling" = "Qumar";
+"type.leisure.adult_gaming_centre" = "Böyüklər üçün Oyun Mərkəzi";
+"type.leisure.amusement_arcade" = "Oyun maşını";
+"type.amenity.charging_station" = "Enerji stansiyası";
+"type.amenity.charging_station.bicycle" = "Velosiped doldurma stansiyası";
+"type.amenity.charging_station.motorcar" = "Avtomobilin Doldurma Stansiyası";
+"type.amenity.childcare" = "Uşaq bağçası";
+"type.amenity.cinema" = "Kino";
+"type.leisure.bowling_alley" = "Boulinq zalı";
+"type.amenity.clinic" = "Klinika";
+"type.amenity.college" = "Kollec";
+"type.amenity.community_centre" = "İcma mərkəzi";
+"type.amenity.compressed_air" = "Sıxılmış hava";
+"type.amenity.conference_centre" = "Konfrans mərkəzi";
+"type.amenity.courthouse" = "Məhkəmə binası";
+"type.amenity.dentist" = "Diş həkimi";
+"type.amenity.doctors" = "Həkim";
+"type.amenity.drinking_water" = "İçməli su";
+"type.drinking_water.yes" = "İçməli su";
+"type.amenity.driving_school" = "Sürücülük Məktəbi";
+"type.amenity.exhibition_centre" = "Sərgi Mərkəzi";
+"type.amenity.money_transfer" = "Pul köçürməsi";
+"type.amenity.music_school" = "Musiqi məktəbi";
+"type.amenity.language_school" = "Dil Məktəbi";
+"type.office.diplomatic" = "Səfirlik";
+"type.amenity.fast_food" = "Rahat yemək";
+"type.amenity.ferry_terminal" = "Bərə";
+"type.amenity.fire_station" = "Yanğın İdarəsi";
+"type.amenity.food_court" = "Yemək meydançası";
+"type.amenity.fountain" = "Fəvvarə";
+"type.amenity.fuel" = "Yanacaq doldurma məntəqəsi";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard" = "Məzarlıq";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.amenity.grave_yard.christian" = "Xristian qəbiristanlığı";
+"type.amenity.hospital" = "Xəstəxana";
+"type.amenity.hunting_stand" = "Ovçuluq sahəsi";
+"type.amenity.ice_cream" = "Dondurma köşkü";
+"type.amenity.internet_cafe" = "Internet kafe";
+"type.amenity.kindergarten" = "Uşaq bağçası";
+"type.amenity.library" = "Kitabxana";
+"type.amenity.loading_dock" = "Yükləmə dok";
+"type.amenity.marketplace" = "Bazar";
+"type.amenity.motorcycle_parking" = "Motosiklet parkı";
+"type.amenity.nightclub" = "Gecə klubu";
+"type.amenity.nursing_home" = "Qocalar evi";
+"type.amenity.parking" = "Parkinq";
+"type.amenity.parking.fee" = "Parkinq";
+"type.amenity.parking.multi.storey" = "Çoxmərtəbəli avtomobil dayanacağı";
+"type.amenity.parking.multi.storey.fee" = "Çoxmərtəbəli avtomobil dayanacağı";
+"type.amenity.parking.no.access" = "Şəxsi Parkinq";
+"type.amenity.parking.permissive" = "Şəxsi Parkinq";
+"type.amenity.parking.private" = "Şəxsi Parkinq";
+"type.amenity.parking.park_and_ride" = "Avtomobil dayanacağı";
+"type.amenity.parking.underground" = "Yeraltı dayanacaq";
+"type.amenity.parking.underground.fee" = "Yeraltı dayanacaq";
+"type.amenity.parking.underground.private" = "Şəxsi yeraltı dayanacaq";
+"type.amenity.parking.street_side" = "Küçə kənarında dayanacaq";
+"type.amenity.parking.street_side.fee" = "Küçə kənarında dayanacaq";
+"type.amenity.parking.street_side.private" = "Şəxsi küçə kənarında dayanacaq";
+"type.amenity.parking.lane" = "Zolaqlı parkinq";
+"type.amenity.parking.lane.fee" = "Zolaqlı parkinq";
+"type.amenity.parking.lane.private" = "Şəxsi zolaqlı parkinq";
+"type.amenity.parking_entrance" = "Dayanacaq girişi";
+"type.amenity.parking_entrance.private" = "Şəxsi parkinq girişi";
+"type.amenity.parking_entrance.permissive" = "Dayanacaq girişi";
+"type.amenity.parking_space" = "Park sahəsi";
+"type.amenity.parking_space.permissive" = "Park sahəsi";
+"type.amenity.parking_space.private" = "Park sahəsi";
+"type.amenity.parking_space.underground" = "Park sahəsi";
+"type.amenity.parking_space.disabled" = "Əlil parkinq";
+"type.amenity.payment_terminal" = "Ödəniş nöqtəsi";
+"type.amenity.pharmacy" = "Aptek";
+"type.amenity.place_of_worship" = "İbadət yerləri";
+"type.amenity.place_of_worship.buddhist" = "Məbəd";
+"type.amenity.place_of_worship.christian" = "Kilsə";
+"type.amenity.place_of_worship.christian.mormon" = "İsa Məsihin Son Günlər Müqəddəsləri Kilsəsi";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Yehovanın Şahidlərinin Padşahlıq Zalı";
+"type.amenity.place_of_worship.hindu" = "Məbəd";
+"type.amenity.place_of_worship.jewish" = "Sinaqoq";
+"type.amenity.place_of_worship.muslim" = "Məscid";
+"type.amenity.place_of_worship.shinto" = "Məbəd";
+"type.amenity.place_of_worship.taoist" = "Məbəd";
+"type.amenity.police" = "Polis";
+"type.amenity.post_box" = "Poçt qutusu";
+"type.amenity.post_office" = "Poçt şöbəsi";
+"type.amenity.prison" = "Həbsxana";
+"type.amenity.pub" = "Pub";
+"type.amenity.public_bookcase" = "Kitab mübadiləsi";
+"type.amenity.recycling.centre" = "Təkrar Emal Mərkəzi";
+"type.amenity.recycling" = "Təkrar emal konteyneri";
+"type.amenity.recycling.container" = "Təkrar emal konteyneri";
+"type.recycling.batteries" = "Batareyalar";
+"type.recycling.clothes" = "Geyim";
+"type.recycling.glass_bottles" = "Şüşə Butulkalar";
+"type.recycling.paper" = "Kağız Tullantıları";
+"type.recycling.plastic" = "Plastik Tullantılar";
+"type.recycling.plastic_bottles" = "Plastik Butulkalar";
+"type.recycling.scrap_metal" = "Metal qırıntıları";
+"type.recycling.small_appliances" = "Elektron Tullantılar";
+"type.recycling.cardboard" = "Karton";
+"type.recycling.cans" = "Qalay və alüminium qutular";
+"type.recycling.shoes" = "Ayaqqabı";
+"type.recycling.green_waste" = "Yaşıl/Üzvi Tullantılar";
+"type.recycling.cartons" = "İçki Kartonları";
+"type.amenity.restaurant" = "Restoran";
+"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.school" = "Məktəb";
+
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Sığınacaq";
+
+/* A weather shelter by the public transport stop. */
+"type.amenity.shelter.public_transport" = "Sığınacaq";
+
+/* Compared to wilderness_hut its smaller and simpler, without a fireplace. */
+"type.amenity.shelter.basic_hut" = "Bivouac Daxması";
+
+/* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
+"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.public_bath" = "Hamam";
+"type.amenity.shower" = "Duş";
+"type.amenity.stripclub" = "Striptiz klubu";
+"type.amenity.taxi" = "Taksi";
+"type.amenity.telephone" = "Telefon";
+"type.amenity.theatre" = "Teatr";
+"type.amenity.toilets" = "Tualet";
+"type.toilets.yes" = "Tualet";
+"type.amenity.townhall" = "Şəhər zalı";
+"type.amenity.university" = "Universitet";
+"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine.cigarettes" = "Siqaret Dispenseri";
+"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.drinks" = "Drinks Dispenser";
+"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.parking_tickets" = "Parkomat";
+"type.amenity.vending_machine.public_transport_tickets" = "Bilet satışı aparatı";
+"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
+"type.amenity.parcel_locker" = "Bağlana bilən qutu şkaflar";
+"type.amenity.vehicle_inspection" = "Avtomobilin yoxlanılması";
+"type.amenity.vending_machine.fuel" = "Yanacaq dispenseri";
+"type.amenity.veterinary" = "Baytar";
+"type.amenity.waste_basket" = "Zibil qabı";
+"type.amenity.waste_disposal" = "Zibil konteyneri";
+"type.amenity.waste_transfer_station" = "Tullantıların ötürülməsi stansiyası";
+"type.amenity.water_point" = "Karvanlar üçün su nöqtəsi";
+"type.amenity.water_point.drinking_water_no" = "Karvanlar üçün su nöqtəsi";
+"type.barrier" = "Maneə";
+"type.barrier.block" = "Blok";
+"type.barrier.bollard" = "Birbaşa";
+"type.barrier.border_control" = "Sərhəd Nəzarəti";
+"type.barrier.chain" = "Zəncir";
+"type.barrier.city_wall" = "Şəhər Divarı";
+"type.barrier.cycle_barrier" = "Velosiped maneəsi";
+"type.waterway.ditch" = "Drenaj çuxuru";
+"type.natural.water.moat" = "Xəndək";
+"type.natural.water.wastewater" = "Tullantı su";
+"type.barrier.entrance" = "Giriş";
+"type.barrier.fence" = "Hasar";
+"type.barrier.gate" = "Keçid";
+"type.barrier.hedge" = "Hasar";
+"type.barrier.kissing_gate" = "Keçid";
+"type.barrier.lift_gate" = "Lift Qapısı";
+"type.barrier.retaining_wall" = "İstinad divarı";
+"type.barrier.stile" = "Hasar nərdivanı";
+"type.barrier.turnstile" = "Turniket";
+"type.barrier.swing_gate" = "Yelləncək qapısı";
+"type.barrier.toll_booth" = "Sayğac";
+"type.barrier.wall" = "Divar";
+"type.boundary" = "Sərhəd";
+"type.boundary.administrative" = "İnzibati sərhəd";
+
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Milli sərhəd";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional sərhəd";
+
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional sərhəd";
+"type.boundary.national_park" = "Milli park";
+"type.boundary.aboriginal_lands" = "Yerli torpaqlar";
+"type.boundary.protected_area" = "Qorunan ərazi";
+"type.boundary.protected_area.1" = "Qorunan ərazi";
+"type.boundary.protected_area.2" = "Qorunan ərazi";
+"type.boundary.protected_area.3" = "Qorunan ərazi";
+"type.boundary.protected_area.4" = "Qorunan ərazi";
+"type.boundary.protected_area.5" = "Qorunan ərazi";
+"type.boundary.protected_area.6" = "Qorunan ərazi";
+"type.building" = "Bina";
+
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Address";
+"type.building.has_parts" = "Bina";
+"type.building_part" = "Bina";
+"type.building.garage" = "Qaraj";
+"type.building.train_station" = "Stansiya Binası";
+"type.building.warehouse" = "Anbar";
+"type.cemetery.grave" = "Qəbir";
+"type.craft" = "Sənətkarlıq";
+"type.craft.beekeeper" = "Arıçı";
+"type.craft.blacksmith" = "Dəmirçi";
+"type.craft.brewery" = "Pivə zavodu";
+"type.craft.caterer" = "Catering şirkəti";
+"type.craft.carpenter" = "Dülgər";
+"type.craft.confectionery" = "Şirniyyatçı";
+"type.craft.electrician" = "Elektrikçi";
+"type.craft.electronics_repair" = "Elektron təmirçi";
+"type.craft.gardener" = "Bağ təşkilatçısı";
+"type.craft.grinding_mill" = "Dəyirman";
+"type.craft.handicraft" = "Əl işi";
+
+/* Heating, Ventilation, and Air Conditioning */
+"type.craft.hvac" = "Kondisioner";
+"type.craft.key_cutter" = "Açar nüsxəsi";
+"type.craft.locksmith" = "Çilingər";
+"type.craft.metal_construction" = "Metal konstruksiyalar";
+"type.craft.painter" = "Rəssam";
+"type.craft.photographer" = "Fotostudiya";
+"type.shop.camera" = "Kamera Mağazası";
+"type.craft.plumber" = "Santexnik";
+"type.craft.sawmill" = "Sawmill";
+"type.craft.shoemaker" = "Pinəçi";
+"type.craft.winery" = "Şərabçılıq";
+"type.craft.tailor" = "Dərzi";
+"type.cuisine.african" = "Afrika mətbəxi";
+"type.cuisine.american" = "Amerika mətbəxi";
+"type.cuisine.arab" = "Ərəb mətbəxi";
+"type.cuisine.argentinian" = "Argentina mətbəxi";
+"type.cuisine.asian" = "Asiya mətbəxi";
+"type.cuisine.austrian" = "Avstriya mətbəxi";
+"type.cuisine.bagel" = "Simit";
+"type.cuisine.balkan" = "Balkan mətbəxi";
+"type.cuisine.barbecue" = "Barbekü";
+"type.cuisine.bavarian" = "Bavariya mətbəxi";
+"type.cuisine.beef_bowl" = "Biftek boşqab";
+"type.cuisine.brazilian" = "Braziliya mətbəxi";
+"type.cuisine.breakfast" = "Səhər yeməyi";
+"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.burger" = "Hamburger";
+"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.cake" = "Tort";
+"type.cuisine.caribbean" = "Karib mətbəxi";
+"type.cuisine.chicken" = "Toyuq";
+"type.cuisine.chinese" = "Çin mətbəxi";
+"type.cuisine.coffee_shop" = "Qəhvə";
+"type.cuisine.crepe" = "Krep";
+"type.cuisine.croatian" = "Xorvat mətbəxi";
+"type.cuisine.curry" = "Karri";
+"type.cuisine.deli" = "Delikates";
+"type.cuisine.diner" = "Vaqon restoranı";
+"type.cuisine.donut" = "Donut";
+"type.cuisine.ethiopian" = "Efiopiya mətbəxi";
+"type.cuisine.filipino" = "Filippin mətbəxi";
+"type.cuisine.fine_dining" = "Birinci dərəcəli restoran";
+"type.cuisine.fish" = "Balıq";
+"type.cuisine.fish_and_chips" = "Balıq və çips";
+"type.cuisine.french" = "Fransız mətbəxi";
+"type.cuisine.friture" = "Qovurma";
+"type.cuisine.georgian" = "Gürcü mətbəxi";
+"type.cuisine.german" = "Alman mətbəxi";
+"type.cuisine.greek" = "Yunan mətbəxi";
+"type.cuisine.grill" = "Qril";
+"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.hotdog" = "Hot-doq";
+"type.cuisine.hungarian" = "Macar mətbəxi";
+"type.cuisine.ice_cream" = "Dondurma";
+"type.cuisine.indian" = "Hind mətbəxi";
+"type.cuisine.indonesian" = "İndoneziya mətbəxi";
+"type.cuisine.international" = "Beynəlxalq mətbəx";
+"type.cuisine.irish" = "Irland mətbəxi";
+"type.cuisine.italian" = "Italyan mətbəxi";
+"type.cuisine.italian_pizza" = "Italyan, pizza";
+"type.cuisine.japanese" = "Yapon mətbəxi";
+"type.cuisine.kebab" = "Kabab";
+"type.cuisine.korean" = "Koreya mətbəxi";
+"type.cuisine.lao" = "Laos mətbəxi";
+"type.cuisine.lebanese" = "Livan mətbəxi";
+"type.cuisine.local" = "Yerli mətbəx";
+"type.cuisine.malagasy" = "Madaqaskar mətbəxi";
+"type.cuisine.malaysian" = "Malayziya mətbəxi";
+"type.cuisine.mediterranean" = "Aralıq dənizi mətbəxi";
+"type.cuisine.mexican" = "Meksika mətbəxi";
+"type.cuisine.moroccan" = "Mərakeş mətbəxi";
+"type.cuisine.noodles" = "Əriştə";
+"type.cuisine.oriental" = "Uzaq Şərq mətbəxi";
+"type.cuisine.pancake" = "Müşahidə";
+"type.cuisine.pasta" = "Makaron";
+"type.cuisine.persian" = "İran mətbəxi";
+"type.cuisine.peruvian" = "Peru mətbəxi";
+"type.cuisine.pizza" = "Pizza";
+"type.cuisine.polish" = "Polşa mətbəxi";
+"type.cuisine.portuguese" = "Portuqal mətbəxi";
+"type.cuisine.ramen" = "Yapon əriştəsi";
+"type.cuisine.regional" = "Regional mətbəx";
+"type.cuisine.russian" = "Rus mətbəxi";
+"type.cuisine.sandwich" = "Sendviç";
+"type.cuisine.sausage" = "Kolbasa";
+"type.cuisine.savory_pancakes" = "Açılış";
+"type.cuisine.seafood" = "Dəniz məhsulları";
+"type.cuisine.soba" = "Əriştə";
+"type.cuisine.spanish" = "Ispan mətbəxi";
+"type.cuisine.steak_house" = "Steakhouse";
+"type.cuisine.sushi" = "Suşi";
+"type.cuisine.tapas" = "Tapas";
+"type.cuisine.tea" = "Çay";
+"type.cuisine.thai" = "Tay mətbəxi";
+"type.cuisine.turkish" = "Türk mətbəxi";
+"type.cuisine.vegan" = "Vegan mətbəxi";
+"type.cuisine.vegetarian" = "Vegetarian mətbəxi";
+"type.cuisine.vietnamese" = "Vyetnam mətbəxi";
+"type.emergency" = "Təcili";
+"type.emergency.assembly_point" = "Təcili toplaşma məntəqəsi";
+"type.emergency.defibrillator" = "Defibrilator";
+"type.emergency.fire_hydrant" = "Yanğın Söndürən";
+"type.emergency.phone" = "Təcili telefon";
+
+/* A place where a lifeguard is on duty. */
+"type.emergency.lifeguard" = "Xilasedici";
+
+/* A mountain rescue base for search and rescue activities. */
+"type.emergency.mountain_rescue" = "Dağ xilasetmə stansiyası";
+
+/* This is for secondary entrances, for main entrances see type.entrance.main */
+"type.entrance" = "Giriş";
+
+/* This is for main/primary entrances, for secondary entrances see type.entrance */
+"type.entrance.main" = "Əsas giriş";
+"type.entrance.exit" = "Çıx";
+"type.fee.yes" = "$";
+"type.fee.no" = "Pulsuz";
+"type.healthcare.laboratory" = "Tibbi Laboratoriya";
+"type.healthcare.physiotherapist" = "Fizioterapevt";
+"type.healthcare.alternative" = "Alternativ tibb";
+"type.healthcare.audiologist" = "Audiologiya";
+"type.healthcare.blood_donation" = "Qan Donorluğu Mərkəzi";
+"type.healthcare.optometrist" = "Optometriya";
+"type.healthcare.podiatrist" = "Podiatriya";
+"type.healthcare.psychotherapist" = "Psixoterapiya";
+"type.healthcare.sample_collection" = "Nümunə götürmə";
+"type.healthcare.speech_therapist" = "Loqopediya";
+"type.highway" = "Avtomobil yolu";
+"type.highway.bridleway" = "Atlı yolu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.bridleway.bridge" = "Körpü";
+"type.highway.bridleway.permissive" = "Atlı yolu";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.bridleway.tunnel" = "Tunel";
+"type.highway.busway" = "Şəxsi avtobus marşrutu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunel";
+"type.highway.bus_stop" = "Avtobus dayanacağı";
+"type.highway.construction" = "Tikili Yol";
+"type.highway.cycleway" = "Velosiped yolu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.cycleway.bridge" = "Körpü";
+"type.highway.cycleway.permissive" = "Velosiped yolu";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.cycleway.tunnel" = "Tunel";
+"type.highway.elevator" = "Lift";
+"type.highway.footway" = "Səki";
+"type.highway.footway.sidewalk" = "Səki";
+"type.highway.footway.crossing" = "Piyada keçidi";
+"type.highway.footway.area" = "Piyada ərazisi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.footway.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.footway.tunnel" = "Tunel";
+"type.highway.ford" = "Keçid";
+"type.highway.living_street" = "Küçə";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.living_street.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.living_street.tunnel" = "Tunel";
+"type.highway.motorway" = "Avtomobil yolu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway.tunnel" = "Tunel";
+"type.highway.motorway_junction" = "Çıx";
+"type.highway.motorway_link" = "Magistral yol enişi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.motorway_link.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.motorway_link.tunnel" = "Tunel";
+"type.highway.path" = "Yol";
+
+/* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
+"type.highway.path.difficult" = "Çətin və ya zəif görünən cığır";
+
+/* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
+"type.highway.path.expert" = "Çox çətin və ya fərqlənməyən cığır";
+"type.highway.path.bicycle" = "Velosiped və Gəzinti Yolu";
+"type.highway.footway.bicycle" = "Velosiped və Gəzinti Yolu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.path.bridge" = "Körpü";
+"type.highway.path.horse" = "Atlı yolu";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.path.tunnel" = "Tunel";
+"type.highway.pedestrian" = "Piyadalar üçün küçə";
+"type.highway.pedestrian.area" = "Piyada ərazisi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.pedestrian.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.pedestrian.tunnel" = "Tunel";
+"type.highway.primary" = "Əsas yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary.tunnel" = "Tunel";
+"type.highway.primary_link" = "Əsas yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.primary_link.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.primary_link.tunnel" = "Tunel";
+"type.highway.raceway" = "Yarış yolu";
+"type.highway.residential" = "Küçə";
+"type.highway.residential.area" = "Küçə";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.residential.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.residential.tunnel" = "Tunel";
+"type.highway.rest_area" = "İstirahət zonası";
+"type.highway.road" = "Yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.road.bridge" = "Körpü";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.road.tunnel" = "Tunel";
+"type.highway.secondary" = "Yan yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary.tunnel" = "Tunel";
+"type.highway.secondary_link" = "Yan yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.secondary_link.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.secondary_link.tunnel" = "Tunel";
+"type.highway.service" = "Xidmət Yolu";
+"type.highway.service.area" = "Xidmət Yolu";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.service.bridge" = "Körpü";
+"type.highway.service.driveway" = "Xidmət Yolu";
+"type.highway.service.parking_aisle" = "Park dəhlizi";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.service.tunnel" = "Tunel";
+"type.highway.services" = "Xidmət Sahəsi";
+"type.highway.speed_camera" = "Sürət kamerası";
+"type.highway.steps" = "Pilləkənlər";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.steps.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.steps.tunnel" = "Tunel";
+"type.highway.tertiary" = "Üçüncü yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary.tunnel" = "Tunel";
+"type.highway.tertiary_link" = "Üçüncü yol enişi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.tertiary_link.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.tertiary_link.tunnel" = "Tunel";
+"type.highway.track" = "Uçuş zolağı";
+"type.highway.track.area" = "Uçuş zolağı";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.track.bridge" = "Körpü";
+"type.highway.track.grade1" = "Uçuş zolağı";
+"type.highway.track.no.access" = "Uçuş zolağı";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.track.tunnel" = "Tunel";
+"type.highway.traffic_signals" = "İşıqfor";
+"type.highway.trunk" = "Dövlət şossesi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk.tunnel" = "Tunel";
+"type.highway.trunk_link" = "Dövlət şossesi";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.trunk_link.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.trunk_link.tunnel" = "Tunel";
+"type.highway.unclassified" = "Yan yol";
+"type.highway.unclassified.area" = "Yan yol";
+
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.unclassified.bridge" = "Körpü";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.unclassified.tunnel" = "Tunel";
+"type.area_highway.cycleway" = "Velosiped yolu";
+"type.area_highway.footway" = "Səki";
+"type.area_highway.living_street" = "Küçə";
+"type.area_highway.motorway" = "Avtomobil yolu";
+"type.area_highway.path" = "Yol";
+"type.area_highway.pedestrian" = "Piyadalar üçün küçə";
+"type.area_highway.primary" = "Əsas yol";
+"type.area_highway.residential" = "Küçə";
+"type.area_highway.secondary" = "Yan yol";
+"type.area_highway.service" = "Xidmət Yolu";
+"type.area_highway.tertiary" = "Üçüncü yol";
+"type.area_highway.steps" = "Pilləkənlər";
+"type.area_highway.track" = "Uçuş zolağı";
+"type.area_highway.trunk" = "Dövlət şossesi";
+"type.area_highway.unclassified" = "Yan yol";
+"type.highway.world_level" = "highway-world_level";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.historic" = "Tarix";
+"type.historic.aircraft" = "Tarixi Təyyarə";
+"type.historic.anchor" = "Tarixi Çapa";
+"type.historic.archaeological_site" = "Qorunan ərazi";
+"type.historic.battlefield" = "Döyüş Meydanı";
+"type.historic.boundary_stone" = "Landmark";
+"type.historic.cannon" = "Top";
+"type.historic.castle" = "Möhkəmləndirilmiş qala";
+"type.historic.castle.castrum" = "Kastra";
+"type.historic.castle.defensive" = "Möhkəmləndirilmiş qala";
+"type.historic.castle.fortified_church" = "Möhkəmləndirilmiş kilsə";
+"type.historic.castle.fortress" = "Qala";
+"type.historic.castle.hillfort" = "Hill qalası";
+"type.historic.castle.kremlin" = "Kreml";
+"type.historic.castle.manor" = "Malikanə";
+"type.historic.castle.palace" = "Saray";
+"type.historic.castle.shiro" = "Yapon qalası";
+"type.historic.castle.stately" = "Qala";
+"type.historic.city_gate" = "Şəhər qapısı";
+"type.historic.citywalls" = "Şəhər Divarı";
+"type.historic.fort" = "Qala";
+"type.historic.gallows" = "Dar ağacı";
+"type.historic.locomotive" = "Tarixi Lokomotiv";
+"type.historic.memorial" = "Abidə";
+"type.historic.memorial.cross" = "Xatirə xaç";
+"type.historic.memorial.plaque" = "Xatirə lövhəsi";
+"type.historic.memorial.sculpture" = "Heykəl";
+"type.historic.memorial.statue" = "Heykəl";
+"type.historic.memorial.stolperstein" = "Büdrəmə daşları";
+"type.historic.stone" = "Tarixi Daş";
+"type.historic.memorial.war_memorial" = "Müharibə abidəsi";
+"type.historic.mine" = "Tarixi Mədən";
+"type.historic.monument" = "Abidə";
+"type.historic.pillory" = "Boyunduruq";
+"type.historic.ruins" = "Xarabalar";
+"type.historic.ship" = "Attraksionlar";
+"type.historic.tank" = "Tarixi tank";
+"type.historic.tomb" = "Türbə";
+
+/* Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. */
+"type.man_made.cross" = "Xaç";
+
+/* Usually a Christian historical cross placed along a road. */
+"type.historic.wayside_cross" = "Xristian xaç";
+"type.historic.wayside_shrine" = "Məbəd";
+"type.historic.wreck" = "Gəmi qəzası";
+"type.hwtag" = "hwtag";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.hwtag.lit" = "hwtag-lit";
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+"type.hwtag.nocar" = "hwtag-nocar";
+"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.oneway" = "hwtag-oneway";
+"type.hwtag.private" = "hwtag-private";
+"type.hwtag.toll" = "hwtag-toll";
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+"type.hwtag.yescar" = "hwtag-yescar";
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.internet_access" = "İnternet";
+"type.internet_access.wlan" = "İnternet";
+"type.junction" = "Qovşaq nöqtəsi";
+"type.junction.circular" = "Dairəvi";
+"type.junction.roundabout" = "Dairəvi";
+"type.landuse" = "Torpaqdan istifadə";
+"type.landuse.allotments" = "Ayrılmalar";
+"type.landuse.basin" = "Hövzə";
+"type.landuse.brownfield" = "Tərk edilmiş Sənaye Zonası";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery" = "Məzarlıq";
+
+/* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
+"type.landuse.cemetery.christian" = "Xristian qəbiristanlığı";
+"type.landuse.churchyard" = "Kilsə rayonu";
+"type.landuse.commercial" = "Kommersiya";
+"type.landuse.construction" = "Struktur";
+"type.landuse.education" = "Educational Facility";
+"type.landuse.farmland" = "Kənd Təsərrüfatı Torpaqları";
+"type.landuse.farmyard" = "Ferma rayonu";
+"type.landuse.field" = "Ərazi";
+"type.landuse.flowerbed" = "Çiçəklik";
+"type.landuse.forest" = "Meşə";
+"type.landuse.forest.coniferous" = "Şam meşəsi";
+"type.landuse.forest.deciduous" = "Meşə";
+"type.landuse.forest.mixed" = "Meşə";
+"type.landuse.garages" = "Qarajlar";
+"type.landuse.grass" = "Ot";
+"type.landuse.greenfield" = "Yaşıl sahə";
+"type.landuse.greenhouse_horticulture" = "Qış bağı";
+"type.landuse.industrial" = "Sənaye sahəsi";
+"type.landuse.landfill" = "Poliqon";
+"type.landuse.meadow" = "Çəmən";
+"type.landuse.military" = "Hərbi Bölgə";
+"type.landuse.orchard" = "Meyvə bağı";
+"type.landuse.quarry" = "Daş çuxuru";
+"type.landuse.railway" = "Dəmir yolu binası";
+"type.landuse.recreation_ground" = "İstirahət zonası";
+"type.landuse.reservoir" = "Bu";
+"type.landuse.residential" = "Yaşayış sahəsi";
+"type.landuse.retail" = "Pərakəndə satış sahəsi";
+"type.landuse.salt_pond" = "Üzgüçülük hovuzu";
+"type.landuse.village_green" = "Torpaq";
+"type.landuse.vineyard" = "Üzüm bağı";
+"type.leisure" = "İstirahət üçün yer";
+"type.leisure.common" = "İctimai domen";
+"type.leisure.dog_park" = "İt sahəsi";
+"type.leisure.fitness_centre" = "Fitness mərkəzi";
+"type.leisure.fitness_station" = "Açıq Hava İdman Sahəsi";
+"type.leisure.dance" = "Rəqs zalı";
+"type.leisure.garden" = "Bağ";
+"type.leisure.garden.residential" = "Yaşayış bağı";
+"type.leisure.golf_course" = "Qolf Kursu";
+"type.leisure.miniature_golf" = "Minigolf";
+"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.ice_rink" = "Buz Meydançası";
+"type.leisure.marina" = "Liman";
+"type.leisure.nature_reserve" = "Təbii qoruq";
+"type.leisure.outdoor_seating" = "Açıq oturma";
+"type.leisure.park" = "Park";
+"type.leisure.park.no.access" = "Park";
+"type.leisure.park.permissive" = "Park";
+"type.leisure.park.private" = "Park";
+"type.leisure.picnic_table" = "Piknik masası";
+"type.leisure.pitch" = "İdman sahəsi";
+"type.leisure.playground" = "Oyun meydançası";
+"type.leisure.recreation_ground" = "İstirahət zonası";
+"type.leisure.sauna" = "Sauna";
+"type.leisure.slipway" = "Xizək";
+"type.leisure.sports_centre" = "Fitness mərkəzi";
+"type.sport.climbing" = "Dırmanma Mərkəzi";
+"type.sport.yoga" = "Yoga Studio";
+"type.leisure.stadium" = "Stadion";
+"type.leisure.swimming_pool" = "Üzgüçülük hovuzu";
+"type.leisure.swimming_pool.private" = "Üzgüçülük hovuzu";
+"type.leisure.track" = "Uçuş zolağı";
+"type.leisure.track.area" = "Uçuş zolağı";
+"type.leisure.water_park" = "Su parkı";
+"type.leisure.beach_resort" = "Çimərlik kurort";
+"type.man_made" = "İnsan istehsalı";
+"type.man_made.breakwater" = "Dalğalar";
+"type.man_made.cairn" = "Kurqan";
+"type.man_made.chimney" = "Zavod bacası";
+"type.man_made.cutline" = "Kəsmə xətti";
+"type.man_made.survey_point" = "Survey Point";
+"type.man_made.flagpole" = "Bayraq dirəyi";
+"type.man_made.lighthouse" = "Mayak";
+"type.man_made.mast" = "Birbaşa";
+"type.man_made.pier" = "Dok";
+"type.man_made.pipeline" = "Boru";
+"type.man_made.pipeline.overground" = "Yerüstü boru kəməri";
+"type.man_made.silo" = "Anbar";
+"type.man_made.storage_tank" = "Saxlama tankı";
+"type.man_made.surveillance" = "Təhlükəsizlik kamerası";
+"type.man_made.tower" = "Qüllə";
+
+/* A huge telecommunications tower. Often a local monument or a landmark. */
+"type.man_made.communications_tower" = "Rabitə qülləsi";
+
+/* A regular telecommunications tower / mast. */
+"type.man_made.tower.communication" = "Rabitə qülləsi";
+
+/* A deep hole drilled into the earth to extract oil or gas. */
+"type.man_made.petroleum_well" = "Neft və ya qaz quyusu";
+
+/* A tower/mast constructed to burn off excess gas. */
+"type.man_made.flare" = "Qaz çırağı";
+"type.man_made.wastewater_plant" = "Çirkab Su Zavodu";
+"type.man_made.water_tap" = "Su kranı";
+"type.man_made.water_tap.drinking_water_no" = "Su kranı";
+"type.man_made.water_tower" = "Su qalası";
+"type.man_made.water_well" = "Su quyusu";
+"type.man_made.water_well.drinking_water_no" = "Su quyusu";
+"type.man_made.windmill" = "Yel dəyirmanı";
+"type.man_made.works" = "Sənaye İşləri";
+"type.mapswithme" = "mapswithme";
+"type.mapswithme.grid" = "mapswithme-grid";
+"type.military" = "Hərbi";
+"type.military.bunker" = "Sığınacaq";
+"type.mountain_pass" = "Boğaz";
+"type.natural" = "Təbiət";
+
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Çılpaq qaya";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Şingle";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree";
+"type.natural.bay" = "Bay";
+"type.natural.beach" = "Çimərlik";
+"type.natural.beach.sand" = "Qum çimərliyi";
+"type.natural.beach.gravel" = "Çakıl çimərliyi";
+"type.natural.cape" = "Burun";
+"type.natural.cave_entrance" = "Mağara";
+"type.natural.cliff" = "Uçurum";
+"type.natural.earth_bank" = "Uçurum";
+"type.man_made.embankment" = "Set";
+"type.natural.coastline" = "Sahil xətti";
+"type.natural.desert" = "Desert";
+"type.natural.geyser" = "Geyzer";
+"type.natural.glacier" = "Buzlaq";
+"type.natural.grassland" = "Campo";
+"type.natural.heath" = "Buş";
+"type.natural.hot_spring" = "Spa";
+"type.natural.water.lake" = "Məqsəd";
+"type.natural.water.lock" = "Kilid otağı";
+"type.natural.water.pond" = "Gölməçə";
+"type.natural.water.reservoir" = "Su anbarı";
+"type.natural.water.basin" = "Hövzə";
+"type.natural.water.river" = "Çay";
+"type.natural.land" = "Torpaq";
+"type.natural.meadow" = "Çəmən";
+"type.natural.orchard" = "Meyvə bağı";
+"type.natural.peak" = "Pik";
+"type.natural.saddle" = "Dağ yəhəri";
+"type.natural.rock" = "Qaya";
+"type.natural.scrub" = "Kollar";
+"type.natural.spring" = "Bahar";
+"type.natural.spring.drinking_water_no" = "Bahar";
+"type.natural.strait" = "Boğaz";
+"type.natural.tree_row" = "Ağac cərgəsi";
+"type.natural.vineyard" = "Bond";
+"type.natural.volcano" = "Vulkan";
+"type.natural.water" = "Su təchizatı";
+"type.natural.wetland" = "Bataqlıq";
+"type.natural.wetland.bog" = "Bataqlıq";
+"type.natural.wetland.marsh" = "Bataqlıq";
+"type.noexit" = "Çıxılmaz";
+"type.office" = "Ofis";
+"type.office.company" = "Şirkət ofisi";
+"type.office.estate_agent" = "Əmlak agenti";
+"type.office.government" = "Hökumət Ofisi";
+"type.office.insurance" = "Sığorta Agentliyi";
+"type.office.lawyer" = "Hüquq firması";
+"type.office.ngo" = "QHT binası";
+"type.office.telecommunication" = "Mobil telefon operatoru";
+"type.organic.only" = "Organic";
+"type.organic.yes" = "Organic";
+"type.place.city" = "Şəhər";
+"type.place.city.capital" = "Paytaxt";
+"type.place.city.capital.10" = "Şəhər";
+"type.place.city.capital.11" = "Şəhər";
+"type.place.city.capital.2" = "Paytaxt";
+"type.place.city.capital.3" = "Şəhər";
+"type.place.city.capital.4" = "Şəhər";
+"type.place.city.capital.5" = "Şəhər";
+"type.place.city.capital.6" = "Şəhər";
+"type.place.city.capital.7" = "Şəhər";
+"type.place.city.capital.8" = "Şəhər";
+"type.place.city.capital.9" = "Şəhər";
+"type.place.continent" = "Qitə";
+"type.place.country" = "Ölkə";
+"type.place.county" = "Kənd";
+"type.place.farm" = "Ferma";
+"type.place.hamlet" = "Oba";
+"type.place.island" = "Ada";
+"type.place.islet" = "Ada";
+"type.place.isolated_dwelling" = "Mənzil";
+"type.place.locality" = "Rayon";
+
+/* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
+"type.place.quarter" = "Qonşuluq";
+
+/* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
+"type.place.neighbourhood" = "Qonşuluq";
+"type.place.ocean" = "Okean";
+"type.place.region" = "Ərazi";
+"type.place.sea" = "Dəniz";
+"type.place.square" = "Kvadrat";
+"type.place.state" = "Dövlət";
+"type.place.state.USA" = "Dövlət";
+
+/* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
+"type.place.suburb" = "Qonşuluq";
+"type.place.town" = "Şəhər";
+"type.place.village" = "Bay";
+"type.power" = "Enerji";
+"type.power.generator" = "Generator";
+"type.power.generator.solar" = "Günəş paneli";
+"type.power.generator.wind" = "Külək turbini";
+"type.power.generator.gas" = "Qaz Turbin Elektrik Stansiyası";
+"type.power.generator.hydro" = "Su elektrik stansiyası";
+"type.power.line" = "Guc xətti";
+"type.power.line.underground" = "Yeraltı elektrik xətti";
+"type.power.minor_line" = "Kiçik elektrik xətti";
+"type.power.plant" = "Stansiya";
+"type.power.plant.coal" = "Kömür Elektrik Stansiyası";
+"type.power.plant.gas" = "Qaz Turbin Elektrik Stansiyası";
+"type.power.plant.hydro" = "Su elektrik stansiyası";
+"type.power.plant.solar" = "Günəş Elektrik Stansiyası";
+"type.power.plant.wind" = "Yel deyirmani";
+"type.power.station" = "Stansiya";
+"type.power.substation" = "Transformator";
+
+/* A tower or pylon carrying high voltage electricity cables. */
+"type.power.tower" = "Elektrik qülləsi";
+
+/* A single pole supporting minor power lines. */
+"type.power.pole" = "Power Pole";
+
+/* A single pole supporting various public utilities, such as lighting or telephony. */
+"type.man_made.utility_pole" = "Utility Pole";
+"type.psurface" = "psurface";
+"type.psurface.paved_bad" = "psurface-paved_bad";
+"type.psurface.paved_good" = "psurface-paved_good";
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.public_transport" = "İctimai nəqliyyat";
+"type.public_transport.platform" = "Platforma";
+"type.railway" = "Dəmir yolu";
+"type.railway.abandoned" = "Tərk edilmiş dəmir yolu";
+"type.railway.abandoned.bridge" = "Tərk edilmiş dəmir yolu";
+"type.railway.abandoned.tunnel" = "Tərk edilmiş dəmir yolu";
+"type.railway.construction" = "Dəmir yolu tikintisi";
+"type.railway.crossing" = "Dəmiryol kəsişməsi";
+"type.railway.disused" = "Istifadəsiz dəmir yolu";
+"type.railway.funicular" = "Funikulyor";
+"type.railway.funicular.bridge" = "Funikulyor";
+"type.railway.funicular.tunnel" = "Funikulyor";
+"type.railway.halt" = "Dəmiryolu stansiyası";
+"type.railway.level_crossing" = "Səviyyə Keçid";
+"type.railway.light_rail" = "Yüngül dəmir yolu";
+"type.railway.light_rail.bridge" = "Yüngül dəmir yolu";
+"type.railway.light_rail.tunnel" = "Yüngül dəmir yolu";
+"type.railway.monorail" = "Monorels";
+"type.railway.monorail.bridge" = "Monorels";
+"type.railway.monorail.tunnel" = "Monorels";
+"type.railway.narrow_gauge" = "Dar Ölçü Dəmiryolu";
+"type.railway.narrow_gauge.bridge" = "Dar Ölçü Dəmiryolu";
+"type.railway.narrow_gauge.tunnel" = "Dar Ölçü Dəmiryolu";
+"type.railway.platform" = "Dəmir yolu platforması";
+"type.railway.preserved" = "Qorunan dəmir yolu";
+"type.railway.preserved.bridge" = "Qorunan dəmir yolu";
+"type.railway.preserved.tunnel" = "Qorunan dəmir yolu";
+"type.railway.rail" = "Dəmir yolu";
+"type.railway.rail.highspeed" = "Yüksək sürətli dəmir yolu";
+"type.railway.rail.tourism" = "Turizm dəmir yolu";
+"type.railway.rail.main" = "Dəmir yolu";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Ikinci dərəcəli dəmir yolu";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Köməkçi dəmir yolu";
+"type.railway.rail.spur" = "Düz dəmir yolu";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Köməkçi dəmir yolu xətti";
+"type.railway.rail.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.highspeed.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.tourism.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.main.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.branch.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.utility.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.spur.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.service.bridge" = "Dəmir yolu körpüsü";
+"type.railway.rail.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.highspeed.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.tourism.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.main.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.branch.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.utility.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.spur.tunnel" = "Dəmir yolu tuneli";
+"type.railway.rail.service.tunnel" = "Dəmir yolu tuneli";
+"type.railway.station" = "Dəmiryolu stansiyası";
+"type.railway.station.funicular" = "Funikulyor";
+"type.railway.station.light_rail" = "Dəmiryolu stansiyası";
+"type.railway.station.light_rail.berlin" = "Dəmiryolu stansiyası";
+"type.railway.station.light_rail.london" = "Dəmiryolu stansiyası";
+"type.railway.station.light_rail.porto" = "Dəmiryolu stansiyası";
+"type.railway.station.monorail" = "Dəmiryolu stansiyası";
+"type.railway.station.subway" = "Metro";
+"type.railway.station.subway.adana" = "Metro";
+"type.railway.station.subway.algiers" = "Metro";
+"type.railway.station.subway.almaty" = "Metro";
+"type.railway.station.subway.amsterdam" = "Metro";
+"type.railway.station.subway.ankara" = "Metro";
+"type.railway.station.subway.athens" = "Metro";
+"type.railway.station.subway.baku" = "Metro";
+"type.railway.station.subway.bangkok" = "Metro";
+"type.railway.station.subway.barcelona" = "Metro";
+"type.railway.station.subway.beijing" = "Metro";
+"type.railway.station.subway.bengalore" = "Metro";
+"type.railway.station.subway.berlin" = "Metro";
+"type.railway.station.subway.bilbao" = "Metro";
+"type.railway.station.subway.brasilia" = "Metro";
+"type.railway.station.subway.brescia" = "Metro";
+"type.railway.station.subway.brussels" = "Metro";
+"type.railway.station.subway.bucharest" = "Metro";
+"type.railway.station.subway.budapest" = "Metro";
+"type.railway.station.subway.buenos_aires" = "Metro";
+"type.railway.station.subway.bursa" = "Metro";
+"type.railway.station.subway.cairo" = "Metro";
+"type.railway.station.subway.caracas" = "Metro";
+"type.railway.station.subway.catania" = "Metro";
+"type.railway.station.subway.changchun" = "Metro";
+"type.railway.station.subway.chengdu" = "Metro";
+"type.railway.station.subway.chicago" = "Metro";
+"type.railway.station.subway.chongqing" = "Metro";
+"type.railway.station.subway.dalian" = "Metro";
+"type.railway.station.subway.delhi" = "Metro";
+"type.railway.station.subway.dnepro" = "Metro";
+"type.railway.station.subway.dubai" = "Metro";
+"type.railway.station.subway.ekb" = "Metro";
+"type.railway.station.subway.fukuoka" = "Metro";
+"type.railway.station.subway.glasgow" = "Metro";
+"type.railway.station.subway.guangzhou" = "Metro";
+"type.railway.station.subway.hamburg" = "Metro";
+"type.railway.station.subway.helsinki" = "Metro";
+"type.railway.station.subway.hiroshima" = "Metro";
+"type.railway.station.subway.hongkong" = "Metro";
+"type.railway.station.subway.isfahan" = "Metro";
+"type.railway.station.subway.istanbul" = "Metro";
+"type.railway.station.subway.izmir" = "Metro";
+"type.railway.station.subway.kazan" = "Metro";
+"type.railway.station.subway.kharkiv" = "Metro";
+"type.railway.station.subway.kiev" = "Metro";
+"type.railway.station.subway.kobe" = "Metro";
+"type.railway.station.subway.kolkata" = "Metro";
+"type.railway.station.subway.kunming" = "Metro";
+"type.railway.station.subway.kyoto" = "Metro";
+"type.railway.station.subway.la" = "Metro";
+"type.railway.station.subway.lausanne" = "Metro";
+"type.railway.station.subway.lille" = "Metro";
+"type.railway.station.subway.lima" = "Metro";
+"type.railway.station.subway.lisboa" = "Metro";
+"type.railway.station.subway.london" = "Metro";
+"type.railway.station.subway.lyon" = "Metro";
+"type.railway.station.subway.madrid" = "Metro";
+"type.railway.station.subway.malaga" = "Metro";
+"type.railway.station.subway.manila" = "Metro";
+"type.railway.station.subway.maracaibo" = "Metro";
+"type.railway.station.subway.mashhad" = "Metro";
+"type.railway.station.subway.mecca" = "Metro";
+"type.railway.station.subway.medellin" = "Metro";
+"type.railway.station.subway.mexico" = "Metro";
+"type.railway.station.subway.milan" = "Metro";
+"type.railway.station.subway.minsk" = "Metro";
+"type.railway.station.subway.montreal" = "Metro";
+"type.railway.station.subway.moscow" = "Metro";
+"type.railway.station.subway.munchen" = "Metro";
+"type.railway.station.subway.nagoya" = "Metro";
+"type.railway.station.subway.newyork" = "Metro";
+"type.railway.station.subway.nnov" = "Metro";
+"type.railway.station.subway.novosibirsk" = "Metro";
+"type.railway.station.subway.osaka" = "Metro";
+"type.railway.station.subway.oslo" = "Metro";
+"type.railway.station.subway.palma" = "Metro";
+"type.railway.station.subway.panama" = "Metro";
+"type.railway.station.subway.paris" = "Metro";
+"type.railway.station.subway.philadelphia" = "Metro";
+"type.railway.station.subway.pyongyang" = "Metro";
+"type.railway.station.subway.rennes" = "Metro";
+"type.railway.station.subway.rio" = "Metro";
+"type.railway.station.subway.roma" = "Metro";
+"type.railway.station.subway.rotterdam" = "Metro";
+"type.railway.station.subway.samara" = "Metro";
+"type.railway.station.subway.santiago" = "Metro";
+"type.railway.station.subway.santo_domingo" = "Metro";
+"type.railway.station.subway.saopaulo" = "Metro";
+"type.railway.station.subway.sapporo" = "Metro";
+"type.railway.station.subway.sendai" = "Metro";
+"type.railway.station.subway.sf" = "Metro";
+"type.railway.station.subway.shanghai" = "Metro";
+"type.railway.station.subway.shenzhen" = "Metro";
+"type.railway.station.subway.shiraz" = "Metro";
+"type.railway.station.subway.singapore" = "Metro";
+"type.railway.station.subway.sofia" = "Metro";
+"type.railway.station.subway.spb" = "Metro";
+"type.railway.station.subway.stockholm" = "Metro";
+"type.railway.station.subway.tabriz" = "Metro";
+"type.railway.station.subway.taipei" = "Metro";
+"type.railway.station.subway.taoyuan" = "Metro";
+"type.railway.station.subway.tashkent" = "Metro";
+"type.railway.station.subway.tbilisi" = "Metro";
+"type.railway.station.subway.tehran" = "Metro";
+"type.railway.station.subway.tianjin" = "Metro";
+"type.railway.station.subway.tokyo" = "Metro";
+"type.railway.station.subway.valencia" = "Metro";
+"type.railway.station.subway.vienna" = "Metro";
+"type.railway.station.subway.warszawa" = "Metro";
+"type.railway.station.subway.washington" = "Metro";
+"type.railway.station.subway.wuhan" = "Metro";
+"type.railway.station.subway.yerevan" = "Metro";
+"type.railway.station.subway.yokohama" = "Metro";
+"type.railway.subway" = "Metro xətti";
+"type.railway.subway.bridge" = "Metro xətti";
+"type.railway.subway.tunnel" = "Metro xətti";
+"type.railway.subway_entrance" = "Metro girişi";
+"type.railway.subway_entrance.adana" = "Metro girişi";
+"type.railway.subway_entrance.algiers" = "Metro girişi";
+"type.railway.subway_entrance.almaty" = "Metro girişi";
+"type.railway.subway_entrance.amsterdam" = "Metro girişi";
+"type.railway.subway_entrance.ankara" = "Metro girişi";
+"type.railway.subway_entrance.athens" = "Metro girişi";
+"type.railway.subway_entrance.baku" = "Metro girişi";
+"type.railway.subway_entrance.bangkok" = "Metro girişi";
+"type.railway.subway_entrance.barcelona" = "Metro girişi";
+"type.railway.subway_entrance.beijing" = "Metro girişi";
+"type.railway.subway_entrance.bengalore" = "Metro girişi";
+"type.railway.subway_entrance.berlin" = "Metro girişi";
+"type.railway.subway_entrance.bilbao" = "Metro girişi";
+"type.railway.subway_entrance.brasilia" = "Metro girişi";
+"type.railway.subway_entrance.brescia" = "Metro girişi";
+"type.railway.subway_entrance.brussels" = "Metro girişi";
+"type.railway.subway_entrance.bucharest" = "Metro girişi";
+"type.railway.subway_entrance.budapest" = "Metro girişi";
+"type.railway.subway_entrance.buenos_aires" = "Metro girişi";
+"type.railway.subway_entrance.bursa" = "Metro girişi";
+"type.railway.subway_entrance.cairo" = "Metro girişi";
+"type.railway.subway_entrance.caracas" = "Metro girişi";
+"type.railway.subway_entrance.catania" = "Metro girişi";
+"type.railway.subway_entrance.changchun" = "Metro girişi";
+"type.railway.subway_entrance.chengdu" = "Metro girişi";
+"type.railway.subway_entrance.chicago" = "Metro girişi";
+"type.railway.subway_entrance.chongqing" = "Metro girişi";
+"type.railway.subway_entrance.dalian" = "Metro girişi";
+"type.railway.subway_entrance.delhi" = "Metro girişi";
+"type.railway.subway_entrance.dnepro" = "Metro girişi";
+"type.railway.subway_entrance.dubai" = "Metro girişi";
+"type.railway.subway_entrance.ekb" = "Metro girişi";
+"type.railway.subway_entrance.fukuoka" = "Metro girişi";
+"type.railway.subway_entrance.glasgow" = "Metro girişi";
+"type.railway.subway_entrance.guangzhou" = "Metro girişi";
+"type.railway.subway_entrance.hamburg" = "Metro girişi";
+"type.railway.subway_entrance.helsinki" = "Metro girişi";
+"type.railway.subway_entrance.hiroshima" = "Metro girişi";
+"type.railway.subway_entrance.hongkong" = "Metro girişi";
+"type.railway.subway_entrance.isfahan" = "Metro girişi";
+"type.railway.subway_entrance.istanbul" = "Metro girişi";
+"type.railway.subway_entrance.izmir" = "Metro girişi";
+"type.railway.subway_entrance.kazan" = "Metro girişi";
+"type.railway.subway_entrance.kharkiv" = "Metro girişi";
+"type.railway.subway_entrance.kiev" = "Metro girişi";
+"type.railway.subway_entrance.kobe" = "Metro girişi";
+"type.railway.subway_entrance.kolkata" = "Metro girişi";
+"type.railway.subway_entrance.kunming" = "Metro girişi";
+"type.railway.subway_entrance.kyoto" = "Metro girişi";
+"type.railway.subway_entrance.la" = "Metro girişi";
+"type.railway.subway_entrance.lausanne" = "Metro girişi";
+"type.railway.subway_entrance.lille" = "Metro girişi";
+"type.railway.subway_entrance.lima" = "Metro girişi";
+"type.railway.subway_entrance.lisboa" = "Metro girişi";
+"type.railway.subway_entrance.london" = "Metro girişi";
+"type.railway.subway_entrance.lyon" = "Metro girişi";
+"type.railway.subway_entrance.madrid" = "Metro girişi";
+"type.railway.subway_entrance.malaga" = "Metro girişi";
+"type.railway.subway_entrance.manila" = "Metro girişi";
+"type.railway.subway_entrance.maracaibo" = "Metro girişi";
+"type.railway.subway_entrance.mashhad" = "Metro girişi";
+"type.railway.subway_entrance.mecca" = "Metro girişi";
+"type.railway.subway_entrance.medellin" = "Metro girişi";
+"type.railway.subway_entrance.mexico" = "Metro girişi";
+"type.railway.subway_entrance.milan" = "Metro girişi";
+"type.railway.subway_entrance.minsk" = "Metro girişi";
+"type.railway.subway_entrance.montreal" = "Metro girişi";
+"type.railway.subway_entrance.moscow" = "Metro girişi";
+"type.railway.subway_entrance.munchen" = "Metro girişi";
+"type.railway.subway_entrance.nagoya" = "Metro girişi";
+"type.railway.subway_entrance.newyork" = "Metro girişi";
+"type.railway.subway_entrance.nnov" = "Metro girişi";
+"type.railway.subway_entrance.novosibirsk" = "Metro girişi";
+"type.railway.subway_entrance.osaka" = "Metro girişi";
+"type.railway.subway_entrance.oslo" = "Metro girişi";
+"type.railway.subway_entrance.palma" = "Metro girişi";
+"type.railway.subway_entrance.panama" = "Metro girişi";
+"type.railway.subway_entrance.paris" = "Metro girişi";
+"type.railway.subway_entrance.philadelphia" = "Metro girişi";
+"type.railway.subway_entrance.pyongyang" = "Metro girişi";
+"type.railway.subway_entrance.rennes" = "Metro girişi";
+"type.railway.subway_entrance.rio" = "Metro girişi";
+"type.railway.subway_entrance.roma" = "Metro girişi";
+"type.railway.subway_entrance.rotterdam" = "Metro girişi";
+"type.railway.subway_entrance.samara" = "Metro girişi";
+"type.railway.subway_entrance.santiago" = "Metro girişi";
+"type.railway.subway_entrance.santo_domingo" = "Metro girişi";
+"type.railway.subway_entrance.saopaulo" = "Metro girişi";
+"type.railway.subway_entrance.sapporo" = "Metro girişi";
+"type.railway.subway_entrance.sendai" = "Metro girişi";
+"type.railway.subway_entrance.sf" = "Metro girişi";
+"type.railway.subway_entrance.shanghai" = "Metro girişi";
+"type.railway.subway_entrance.shenzhen" = "Metro girişi";
+"type.railway.subway_entrance.shiraz" = "Metro girişi";
+"type.railway.subway_entrance.singapore" = "Metro girişi";
+"type.railway.subway_entrance.sofia" = "Metro girişi";
+"type.railway.subway_entrance.spb" = "Metro girişi";
+"type.railway.subway_entrance.stockholm" = "Metro girişi";
+"type.railway.subway_entrance.tabriz" = "Metro girişi";
+"type.railway.subway_entrance.taipei" = "Metro girişi";
+"type.railway.subway_entrance.taoyuan" = "Metro girişi";
+"type.railway.subway_entrance.tashkent" = "Metro girişi";
+"type.railway.subway_entrance.tbilisi" = "Metro girişi";
+"type.railway.subway_entrance.tehran" = "Metro girişi";
+"type.railway.subway_entrance.tianjin" = "Metro girişi";
+"type.railway.subway_entrance.tokyo" = "Metro girişi";
+"type.railway.subway_entrance.valencia" = "Metro girişi";
+"type.railway.subway_entrance.vienna" = "Metro girişi";
+"type.railway.subway_entrance.warszawa" = "Metro girişi";
+"type.railway.subway_entrance.washington" = "Metro girişi";
+"type.railway.subway_entrance.wuhan" = "Metro girişi";
+"type.railway.subway_entrance.yerevan" = "Metro girişi";
+"type.railway.subway_entrance.yokohama" = "Metro girişi";
+"type.railway.tram" = "Tramvay xətti";
+"type.railway.tram.bridge" = "Tramvay xətti";
+"type.railway.tram.tunnel" = "Tramvay xətti";
+"type.railway.tram_stop" = "Tramvay dayanacağı";
+"type.route" = "Marşrut";
+"type.route.ferry" = "Bərə";
+"type.route.shuttle_train" = "route-shuttle_train";
+"type.shop" = "Ticarət mərkəzi";
+"type.shop.alcohol" = "Içki mağazası";
+"type.shop.bakery" = "Soba";
+"type.shop.bathroom_furnishing" = "Hamam Mebel Dükanı";
+"type.shop.beauty" = "Gözəllik mərkəzi";
+"type.shop.beverages" = "İçkilər";
+"type.shop.bicycle" = "Velosipedçi";
+"type.shop.bookmaker" = "Bettor";
+"type.shop.books" = "Kitab mağazası";
+"type.shop.butcher" = "Qəssab";
+"type.shop.cannabis" = "Çətənə Dükanı";
+"type.shop.car" = "Avtomobil Dükanı";
+"type.shop.car_parts" = "Avtomobil hissələri";
+"type.shop.car_repair" = "Avtomobil təmiri";
+"type.shop.car_repair.tyres" = "Təkər Təmiri";
+"type.shop.caravan" = "Karvan Dileri";
+"type.shop.carpet" = "Halici";
+"type.shop.chemist" = "Təmizlik məhsulları mağazası";
+"type.shop.chocolate" = "Şokolad Dükanı";
+"type.shop.clothes" = "Geyim mağazası";
+"type.shop.coffee" = "Qəhvə dükanı";
+"type.shop.computer" = "Kompüter Mağazası";
+"type.shop.confectionery" = "Şirniyyatçı";
+"type.shop.convenience" = "Ümumi mağaza";
+"type.shop.copyshop" = "Kopyalama Mərkəzi";
+"type.shop.cosmetics" = "Kosmetika";
+"type.shop.curtain" = "Pərdə ustası";
+"type.shop.deli" = "Deli Dükanı";
+"type.shop.department_store" = "Univermaq";
+"type.shop.doityourself" = "Dəmirçi";
+"type.shop.dry_cleaning" = "Quru təmizləyici";
+"type.shop.electronics" = "Elektronika Mağazası";
+"type.shop.erotic" = "Erotik Məhsullar Mağazası";
+"type.shop.fabric" = "Parça Mağazası";
+"type.shop.farm" = "Ferma Qida Dükanı";
+"type.shop.fashion_accessories" = "Moda Aksesuarları";
+"type.shop.florist" = "Gülçü";
+"type.shop.funeral_directors" = "Zərərçi";
+"type.shop.furniture" = "Mebel Dükanı";
+"type.shop.garden_centre" = "Bağ mağazası";
+"type.shop.gas" = "Qaz doldurma məntəqəsi";
+"type.shop.gift" = "Hədiyyə Dükanı";
+"type.shop.greengrocer" = "Tərəvəzçi";
+"type.shop.grocery" = "Bazar";
+"type.shop.hairdresser" = "Bərbər";
+"type.shop.hardware" = "Hardware mağazası";
+"type.shop.health_food" = "Sağlamlıq Qida Dükanı";
+"type.shop.hearing_aids" = "Eşitmə yardımı mağazası";
+"type.shop.herbalist" = "Transfer";
+"type.shop.hifi" = "Rekord mağaza";
+"type.shop.houseware" = "Ev əşyaları mağazası";
+"type.shop.jewelry" = "Zərgər";
+"type.shop.kiosk" = "Bufet";
+"type.shop.kitchen" = "Mətbəx Dükanı";
+"type.shop.laundry" = "Camaşırxana";
+"type.shop.mall" = "Ticarət mərkəzi";
+"type.shop.massage" = "Masaj salonu";
+"type.shop.mobile_phone" = "Mobil Telefon Mağazası";
+"type.shop.money_lender" = "Borc verən";
+"type.shop.motorcycle" = "Motosiklet Dükanı";
+"type.shop.motorcycle_repair" = "Motosiklet mexaniki";
+"type.shop.music" = "Musiqi mağazası";
+"type.shop.musical_instrument" = "Musiqi Alətləri Mağazası";
+"type.shop.newsagent" = "Qəzet köşkü";
+"type.shop.optician" = "Optik";
+"type.shop.outdoor" = "Xarici Avadanlıqlar";
+"type.shop.outpost" = "Qəbul Nöqtəsi";
+"type.shop.pasta" = "Makaron Dükanı";
+"type.shop.pastry" = "Şirniyyat";
+"type.shop.pawnbroker" = "Sələmçi";
+"type.shop.pet" = "Heyvan mağazası";
+"type.shop.pet_grooming" = "Heyvan baxıcısı";
+"type.shop.photo" = "Fotoqraf";
+"type.shop.rental" = "Mağaza İcarəyə verilir";
+"type.shop.rental.bicycle" = "Velosiped İcarəsi Dükanı";
+"type.shop.seafood" = "Dəniz məhsulları mağazası";
+"type.shop.second_hand" = "İkinci Əl Mağazası";
+"type.shop.shoes" = "Ayaqqabı mağazası";
+"type.shop.sports" = "İdman məhsulları";
+"type.shop.stationery" = "Stasionar";
+"type.shop.supermarket" = "Supermarket";
+"type.shop.tattoo" = "Tatu Salonu";
+"type.shop.tea" = "Çay dükanı";
+"type.shop.ticket" = "Bilet Satıcı";
+"type.shop.toys" = "Oyuncaq mağazası";
+"type.shop.travel_agency" = "Səyahət agentliyi";
+"type.shop.tyres" = "Təkər mağazası";
+"type.shop.variety_store" = "Ucuz Mallar Mağazası";
+"type.shop.video" = "Video Mağazası";
+"type.shop.video_games" = "Video Oyunlar Mağazası";
+"type.shop.wine" = "Şərab mağazası";
+"type.shop.agrarian" = "Kənd Təsərrüfatı Məhsulları Mağazası";
+"type.shop.antiques" = "Antikvar";
+"type.shop.appliance" = "Ağ Əşyalar Mağazası";
+
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "İncəsənət Mağazası";
+"type.shop.baby_goods" = "Uşaq mağazası";
+"type.shop.bag" = "Çanta Mağazası";
+"type.shop.bed" = "Döşək Dükanı";
+"type.shop.boutique" = "Butik";
+"type.shop.charity" = "Xeyriyyə dükanı";
+"type.shop.cheese" = "Pendir Dükanı";
+"type.shop.craft" = "İncəsənət və sənətkarlıq";
+"type.shop.dairy" = "Süd məhsulları";
+"type.shop.electrical" = "Elektrik malları mağazası";
+"type.shop.fishing" = "Balıqçılıq Dükanı";
+"type.shop.interior_decoration" = "Daxili dekorasiya";
+"type.shop.lottery" = "Lotereya bileti";
+"type.shop.medical_supply" = "Tibbi ləvazimatlar";
+"type.shop.nutrition_supplements" = "Qida əlavələri";
+"type.shop.paint" = "Boyalar";
+"type.shop.perfumery" = "Parfümeriya";
+"type.shop.sewing" = "Tikiş ləvazimatları";
+"type.shop.storage_rental" = "Anbar İcarəsi";
+"type.shop.tobacco" = "Tütün";
+"type.shop.trade" = "Usta ləvazimatları";
+"type.shop.watches" = "Saatlar";
+"type.shop.wholesale" = "Topdansatış mağazası";
+"type.sport" = "İdman";
+"type.sport.american_football" = "Futbol";
+"type.sport.archery" = "Oxatma";
+"type.sport.athletics" = "Atletika";
+"type.sport.australian_football" = "Avstraliya futbolu idarə edir";
+"type.sport.baseball" = "Beysbol";
+"type.sport.basketball" = "Basketbol";
+"type.sport.beachvolleyball" = "Çimərlik voleybolu";
+"type.sport.bowls" = "Skittle Oyunu";
+"type.sport.chess" = "Şahmat";
+"type.sport.cricket" = "Kriket";
+"type.sport.curling" = "Qıvrım";
+"type.sport.equestrian" = "Atçılıq İdmanı";
+"type.sport.golf" = "Qolf";
+"type.sport.gymnastics" = "Gimnastika";
+"type.sport.handball" = "Həndbol";
+"type.sport.multi" = "Müxtəlif İdman";
+
+/* Used to tag a scuba diving site. */
+"type.sport.scuba_diving" = "Dalış";
+"type.sport.shooting" = "Çəkin";
+"type.sport.skateboard" = "Skeytbord";
+"type.sport.skiing" = "Xizək sürmək";
+"type.sport.soccer" = "Futbol";
+"type.sport.swimming" = "Üzgüçülük";
+"type.sport.table_tennis" = "Stolüstü tennis";
+"type.sport.tennis" = "Tennis kortu";
+"type.sport.volleyball" = "Voleybol";
+"type.sport.10pin" = "Boulinq";
+"type.sport.9pin" = "Boulinq";
+"type.sport.padel" = "Padel";
+"type.sport.futsal" = "Futzal";
+"type.sport.ice_hockey" = "Buz xokkeyı";
+"type.sport.field_hockey" = "Otüstü xokkey";
+"type.sport.badminton" = "Badminton";
+"type.sport.pelota" = "Bask pelota";
+"type.tourism" = "Turizm";
+"type.tourism.aquarium" = "Akvarium";
+
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Dağ evi";
+"type.tourism.apartment" = "Apart otel";
+"type.tourism.artwork" = "İncəsənət";
+"type.tourism.artwork.architecture" = "Bədii Memarlıq";
+"type.tourism.artwork.painting" = "Sənət əsərləri";
+"type.tourism.artwork.sculpture" = "Heykəl";
+"type.tourism.artwork.statue" = "Heykəl";
+"type.tourism.attraction" = "Attraksionlar";
+"type.attraction.amusement_ride" = "Əyləncəli gəzinti";
+"type.attraction.animal" = "Heyvan mühafizəsi";
+"type.attraction.bumper_car" = "Bumper Car";
+"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.carousel" = "Karusel";
+"type.attraction.historic" = "Tarixi cazibə";
+"type.attraction.maze" = "Labirent";
+"type.attraction.roller_coaster" = "Roller Coaster";
+"type.attraction.water_slide" = "Su Slayd";
+"type.tourism.attraction.specified" = "Attraksionlar";
+"type.tourism.camp_site" = "Düşərgə sahəsi";
+"type.tourism.caravan_site" = "Treyler parkı";
+
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "İstirahət kotteci";
+"type.tourism.gallery" = "Qalereya";
+"type.tourism.guest_house" = "Qonaq evi";
+"type.tourism.hostel" = "Yataqxana";
+"type.tourism.hotel" = "Otel";
+"type.tourism.information" = "Turist məlumatı";
+"type.tourism.information.board" = "Məlumat lövhəsi";
+"type.tourism.information.guidepost" = "Bələdçi postu";
+"type.tourism.information.map" = "Turist xəritəsi";
+"type.tourism.information.office" = "Turizm ofisi";
+"type.tourism.information.visitor_centre" = "Ziyarətçi Mərkəzi";
+"type.tourism.motel" = "Motel";
+"type.tourism.museum" = "Muzey";
+"type.tourism.picnic_site" = "Piknik sahəsi";
+"type.leisure.resort" = "İstirahət kəndi";
+"type.tourism.theme_park" = "Mövzu park";
+"type.tourism.viewpoint" = "Baxın";
+
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Çöl kabinəsi";
+"type.tourism.zoo" = "Zoopark";
+"type.tourism.zoo.petting" = "Zoopark";
+"type.traffic_calming" = "Sürət Qırıcı (Rip)";
+"type.traffic_calming.bump" = "Sürət Qırıcı (Rip)";
+"type.traffic_calming.hump" = "Sürət Qırıcı (Rip)";
+"type.waterway" = "Su yolu";
+"type.waterway.canal" = "Kanal";
+"type.waterway.canal.tunnel" = "Kanal";
+"type.waterway.fish_pass" = "Balıq keçidi";
+"type.waterway.dam" = "Baraj";
+"type.barrier.ditch" = "Xəndək";
+"type.natural.water.ditch" = "Drenaj çuxuru";
+"type.waterway.ditch.tunnel" = "Su kəməri";
+"type.waterway.dock" = "Dok";
+"type.waterway.drain" = "Kanalizasiya";
+"type.natural.water.drain" = "Kanalizasiya";
+"type.waterway.drain.tunnel" = "Su kəməri";
+"type.waterway.lock_gate" = "Ekklüzyon örtüyü";
+"type.waterway.river" = "Çay";
+"type.waterway.river.tunnel" = "Çay";
+"type.waterway.stream" = "Çay";
+"type.waterway.stream.ephemeral" = "Çay";
+"type.waterway.stream.intermittent" = "Çay";
+"type.waterway.stream.tunnel" = "Çay";
+"type.waterway.waterfall" = "Şəlalə";
+"type.waterway.weir" = "Su bəndi";
+"type.wheelchair" = "Əlil arabası";
+"type.wheelchair.limited" = "Əlil arabası üçün məhdud giriş";
+"type.wheelchair.no" = "Əlil arabasına giriş yoxdur";
+"type.wheelchair.yes" = "Əlil arabası üçün giriş var";
+"type.aerialway.j.bar" = "Kayak lifti";
+"type.aerialway.magic_carpet" = "Kayak lifti";
+"type.aerialway.platter" = "Plitəli Lift";
+"type.aerialway.rope_tow" = "Çəkmə xətti";
+"type.aerialway.t.bar" = "Kayakçı lifti";
+"type.piste_type.downhill" = "Downhill Ski Run";
+"type.piste_type.downhill.area" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced" = "Downhill Ski Run";
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+"type.piste_type.downhill.easy" = "Downhill Ski Run";
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+"type.piste_type.downhill.expert" = "Mütəxəssislər üçün xizək enişi";
+"type.piste_type.downhill.expert.area" = "Mütəxəssislər üçün xizək enişi";
+"type.piste_type.downhill.freeride" = "Downhill Ski Run";
+"type.piste_type.downhill.intermediate" = "Orta çətinlikli xizək enişi";
+"type.piste_type.downhill.intermediate.area" = "Orta çətinlikli xizək enişi";
+"type.piste_type.downhill.novice" = "Downhill Ski Run";
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
+"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.sled" = "Toboq çəni";
+"type.piste_type.sled.area" = "Toboq çəni";
+"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.hike" = "Snow Hiking Trail";
+"type.piste_type.connection" = "Piste Connection";
+"type.piste_type.skitour" = "Skitour Trail";
+"type.amenity.events_venue" = "Tədbir yeri";
+"type.shop.auction" = "Hərrac";
+"type.shop.collector" = "Kolleksiya əşyaları";
+"type.self_service.yes" = "Özünə xidmət mövcuddur";
+"type.self_service.only" = "Yalnız özünə xidmət";
+"type.self_service.partially" = "Qismən özünəxidmət";
+"type.self_service.no" = "Özünə xidmət yoxdur";
+
+/* https://wiki.openstreetmap.org/wiki/Key:social_facility */
+"type.amenity.social_facility" = "Sosial obyekt";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
+"type.emergency.emergency_ward_entrance" = "Təcili yardım şöbəsinin girişi";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
+"type.amenity.dojo" = "Dojo";
+
+/* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
+"type.leisure.sports_hall" = "İdman zalı";

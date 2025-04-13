@@ -1,0 +1,383 @@
+/* ~~~~ CONTENT OF ROADS ~~~~~
+
+1.Z-INDEX ROADS
+2.SHIELD 10-22 ZOOM
+3.TRUNK & MOTORWAY 10-22 ZOOM
+4.PRIMARY 10-22 ZOOM
+5.SECONDARY 10-22 ZOOM
+6.RESIDENTAL & TERTIARY 12-22 ZOOM
+7.ROAD, STREETS, UNCLASSIFIED & SERVICE 15-22 ZOOM
+8.OTHERS ROADS 15-22 ZOOM
+9.RAIL 15-22 ZOOM ????
+  9.1 Monorail 14-22 ZOOM
+  9.2 Tram line 13-22 ZOOM
+  9.3 Funicular 12-22 ZOOM
+10.PISTE 12-22 ZOOM ????
+ 10.1 Lift 12-22 ZOOM
+ 10.2 Aerialway 12-22 ZOOM
+ 10.3 Piste & Route 14-22 ZOOM
+11.FERRY 10-22 ZOOM
+12.ONEWAY ARROWS 15-22 ZOOM
+13.JUNCTION 15-22 ZOOM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+line[highway]
+{text-position: line;}
+
+/* 2.SHIELD 10-22 ZOOM */
+
+line|z10-[highway=motorway]::shield,
+line|z10-[highway=trunk]::shield,
+line|z10-[highway=motorway_link]::shield,
+line|z10-[highway=trunk_link]::shield,
+line|z10-[highway=primary]::shield,
+line|z11-[highway=primary_link]::shield,
+line|z12-[highway=secondary]::shield,
+line|z13-[highway=tertiary]::shield,
+line|z15-[highway=residential]::shield,
+{shield-font-size: 9;shield-text-color: @shield_text;shield-text-halo-radius: 0;shield-text-halo-color: @shield_text_halo;shield-color: @shield;shield-outline-radius: 1;shield-outline-color: @shield_outline;}
+
+line|z10[highway=motorway]::shield,
+line|z10[highway=trunk]::shield,
+line|z10[highway=motorway_link]::shield,
+line|z10[highway=trunk_link]::shield,
+line|z10[highway=primary]::shield,
+{shield-min-distance: 85;}
+line|z11-12[highway=motorway]::shield,
+line|z11-12[highway=trunk]::shield,
+line|z11-12[highway=motorway_link]::shield,
+line|z11-12[highway=trunk_link]::shield,
+line|z11-12[highway=primary]::shield,
+line|z11-12[highway=primary_link]::shield,
+line|z12[highway=secondary]::shield,
+{shield-min-distance: 90;}
+line|z13[highway=motorway]::shield,
+line|z13[highway=trunk]::shield,
+line|z13[highway=motorway_link]::shield,
+line|z13[highway=trunk_link]::shield,
+line|z13[highway=primary]::shield,
+line|z13[highway=primary_link]::shield,
+line|z13[highway=secondary]::shield,
+line|z13[highway=tertiary]::shield,
+{shield-min-distance: 120;}
+line|z14[highway=motorway]::shield,
+line|z14[highway=trunk]::shield,
+line|z14[highway=motorway_link]::shield,
+line|z14[highway=trunk_link]::shield,
+line|z14[highway=primary]::shield,
+line|z14[highway=primary_link]::shield,
+line|z14[highway=secondary]::shield,
+line|z14[highway=tertiary]::shield,
+{shield-min-distance: 175;}
+line|z15[highway=motorway]::shield,
+line|z15[highway=trunk]::shield,
+line|z15[highway=motorway_link]::shield,
+line|z15[highway=trunk_link]::shield,
+line|z15[highway=primary]::shield,
+line|z15[highway=primary_link]::shield,
+line|z15[highway=secondary]::shield,
+line|z15[highway=tertiary]::shield,
+line|z15[highway=residential]::shield,
+{shield-min-distance: 250;}
+line|z16[highway=motorway]::shield,
+line|z16[highway=trunk]::shield,
+line|z16[highway=motorway_link]::shield,
+line|z16[highway=trunk_link]::shield,
+line|z16[highway=primary]::shield,
+line|z16[highway=primary_link]::shield,
+line|z16[highway=secondary]::shield,
+line|z16[highway=tertiary]::shield,
+line|z16[highway=residential]::shield,
+{shield-min-distance: 300;}
+line|z17[highway=motorway]::shield,
+line|z17[highway=trunk]::shield,
+line|z17[highway=motorway_link]::shield,
+line|z17[highway=trunk_link]::shield,
+line|z17[highway=primary]::shield,
+line|z17[highway=primary_link]::shield,
+line|z17[highway=secondary]::shield,
+line|z17[highway=tertiary]::shield,
+line|z17[highway=residential]::shield,
+{shield-font-size: 10;shield-min-distance: 300;}
+line|z18[highway=motorway]::shield,
+line|z18[highway=trunk]::shield,
+line|z18[highway=motorway_link]::shield,
+line|z18[highway=trunk_link]::shield,
+line|z18[highway=primary]::shield,
+line|z18[highway=primary_link]::shield,
+line|z18[highway=secondary]::shield,
+line|z18[highway=residential]::shield,
+line|z18[highway=tertiary]::shield,
+{shield-font-size: 10;shield-min-distance: 300;}
+line|z19-[highway=motorway]::shield,
+line|z19-[highway=trunk]::shield,
+line|z19-[highway=motorway_link]::shield,
+line|z19-[highway=trunk_link]::shield,
+line|z19-[highway=primary]::shield,
+line|z19-[highway=primary_link]::shield,
+line|z19-[highway=secondary]::shield,
+line|z19-[highway=residential]::shield,
+line|z19-[highway=tertiary]::shield,
+{shield-font-size: 11;shield-min-distance: 350;}
+
+/* 3.TRUNK & MOTORWAY 10-22 ZOOM */
+
+line|z10-[highway=trunk],
+line|z10-[highway=motorway],
+line|z10-[highway=motorway_link],
+line|z10-[highway=trunk_link],
+{text: name; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z10-11[highway=motorway],
+line|z10-11[highway=trunk],
+{font-size: 11; text-color: @label_medium; text-halo-opacity: 0.9;}
+line|z12-13[highway=motorway],
+line|z12-13[highway=trunk],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1;}
+line|z14-[highway=trunk],
+line|z14-[highway=motorway],
+{font-size: 14; text-color: @label_dark; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+line|z10-13[highway=motorway_link],
+line|z10-13[highway=trunk_link],
+{font-size: 10; text-color: @label_medium; text-halo-opacity: 0.7;}
+line|z14-15[highway=motorway_link],
+line|z14-15[highway=trunk_link],
+{font-size: 11; text-color: @label_medium; text-halo-opacity: 0.9;}
+line|z16-[highway=motorway_link],
+line|z16-[highway=trunk_link],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+/* 4.PRIMARY 10-22 ZOOM */
+
+line|z10-[highway=primary],
+line|z11-[highway=primary_link],
+{text: name; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z10-13[highway=primary],
+line|z11-13[highway=primary_link],
+{font-size: 10; text-color: @label_medium; text-halo-opacity: 0.7;}
+line|z14-15[highway=primary],
+{font-size: 13; text-color: @label_dark; text-halo-opacity: 0.9;}
+line|z16-[highway=primary],
+{font-size: 14; text-color: @label_dark; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+line|z14-15[highway=primary_link],
+{font-size: 10; text-color: @label_medium; text-halo-opacity: 0.9;}
+line|z16-[highway=primary_link],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+/* 5.SECONDARY 10-22 ZOOM */
+
+line|z10-[highway=secondary],
+line|z16-[highway=secondary_link],
+{text: name; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z10-13[highway=secondary],
+{font-size: 10; text-color: @label_light; text-halo-opacity: 0.7;}
+line|z14-15[highway=secondary],
+{font-size: 11; text-color: @label_medium; text-halo-opacity: 0.9;}
+line|z16-[highway=secondary],
+{font-size: 14; text-color: @label_dark; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+line|z16-[highway=secondary_link],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+/* 6.RESIDENTAL & TERTIARY 12-22 ZOOM */
+
+line|z14-[railway=rail][usage=tourism],
+{font-size: 10; text: name; text-position: line; text-color: @label_medium; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+line|z15[railway=rail][usage=tourism],
+{font-size: 11;}
+line|z16-[railway=rail][usage=tourism],
+{font-size: 12; text-halo-color: @label_halo_light;}
+
+
+line|z12-[highway=tertiary],
+line|z13-[highway=unclassified],
+line|z13-[highway=residential],
+line|z14-[highway=road],
+line|z18-[highway=tertiary_link],
+{text: name; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z12-13[highway=tertiary],
+line|z13[highway=unclassified],
+line|z13[highway=residential],
+{font-size: 10; text-color: @label_light; text-halo-opacity: 0.7;}
+line|z14-15[highway=tertiary],
+line|z14-15[highway=unclassified],
+line|z14-15[highway=residential],
+line|z14-15[highway=road],
+{font-size: 10; text-color: @label_medium; text-halo-opacity: 0.9;}
+line|z16-[highway=tertiary],
+line|z16-[highway=unclassified],
+line|z16-[highway=residential],
+line|z16-[highway=road],
+line|z18-[highway=tertiary_link],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+/* 7.STREETS & SERVICE 14-22 ZOOM */
+
+line|z14-[highway=living_street],
+line|z14-[highway=pedestrian],
+line|z16-[highway=service],
+line|z16-[highway=service][service=busway],
+line|z16-[highway=busway],
+{text: name; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z14-15[highway=living_street],
+line|z14-15[highway=pedestrian],
+{font-size: 10; text-color: @label_light; text-halo-opacity: 0.9;}
+line|z16-17[highway=living_street],
+line|z16-17[highway=pedestrian],
+line|z16-17[highway=service],
+line|z16-17[highway=service][service=busway],
+line|z16-17[highway=busway],
+{font-size: 10; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+line|z18-[highway=living_street],
+line|z18-[highway=pedestrian],
+line|z18-[highway=service],
+line|z18-[highway=service][service=busway],
+line|z18-[highway=busway],
+{font-size: 12; text-color: @label_medium; text-halo-opacity: 1; text-halo-color: @label_halo_light;}
+
+/* 8.OTHERS ROADS 15-22 ZOOM */
+
+line|z15-[highway=cycleway],
+line|z15-[highway=construction],
+line|z15-[highway=track],
+line|z15-[highway=path],
+line|z15-[highway=bridleway],
+line|z15-[highway=footway],
+line|z16-[leisure=track],
+line|z16-[highway=steps],
+line|z16-[highway=ford],
+line|z16-[highway=raceway],
+{text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
+
+/* Don't display names of sidewalks and pedestrian crossings. */
+line|z15-[highway=footway][footway=sidewalk],
+line|z15-[highway=footway][footway=crossing],
+{text: none;}
+
+line|z15[highway=construction],
+line|z15[highway=bridleway],
+line|z15[highway=path],
+line|z15[highway=footway],
+line|z15[highway=cycleway],
+line|z15[highway=track]
+{font-size: 8;}
+line|z16-17[highway=ford],
+line|z16-17[highway=cycleway],
+line|z16-17[highway=construction],
+line|z16-17[highway=track],
+line|z16-17[highway=raceway],
+line|z16-17[leisure=track],
+line|z16-17[highway=path],
+line|z16-17[highway=bridleway],
+line|z16-17[highway=footway],
+{font-size: 9;}
+line|z18-[highway=ford],
+line|z18-[highway=cycleway],
+line|z18-[highway=construction],
+line|z18-[highway=track],
+line|z18-[highway=raceway],
+line|z18-[leisure=track],
+line|z18-[highway=path],
+line|z18-[highway=bridleway],
+line|z18-[highway=footway],
+{font-size: 10;}
+
+/* 10.PISTE 15-22 ZOOM */
+
+line|z15-[aerialway=cable_car],
+line|z15-[aerialway=gondola],
+line|z15-[aerialway=mixed_lift],
+line|z15-[aerialway=chair_lift],
+line|z15-[aerialway=drag_lift],
+line|z15-[aerialway=j-bar],
+line|z15-[aerialway=t-bar],
+line|z15-[aerialway=magic_carpet],
+line|z15-[aerialway=platter],
+line|z15-[aerialway=rope_tow],
+line|z15-[piste:type=downhill],
+line|z15-[piste:type=nordic],
+line|z15-[piste:type=sled],
+line|z15-[piste:type=hike],
+line|z15-[piste:type=skitour],
+{font-size: 9; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light; text-position: line;}
+
+line|z16-17[aerialway=cable_car],
+line|z16-17[aerialway=gondola],
+line|z16-17[aerialway=mixed_lift],
+line|z16-17[aerialway=chair_lift],
+line|z16-17[aerialway=drag_lift],
+line|z16-17[aerialway=j-bar],
+line|z16-17[aerialway=t-bar],
+line|z16-17[aerialway=magic_carpet],
+line|z16-17[aerialway=platter],
+line|z16-17[aerialway=rope_tow],
+line|z16-17[piste:type=downhill],
+line|z16-17[piste:type=nordic],
+line|z16-17[piste:type=sled],
+line|z16-17[piste:type=hike],
+line|z16-17[piste:type=skitour],
+{font-size: 10;}
+
+line|z18-[aerialway=cable_car],
+line|z18-[aerialway=gondola],
+line|z18-[aerialway=mixed_lift],
+line|z18-[aerialway=chair_lift],
+line|z18-[aerialway=drag_lift],
+line|z18-[aerialway=j-bar],
+line|z18-[aerialway=t-bar],
+line|z18-[aerialway=magic_carpet],
+line|z18-[aerialway=platter],
+line|z18-[aerialway=rope_tow],
+line|z18-[piste:type=downhill],
+line|z18-[piste:type=nordic],
+line|z18-[piste:type=sled],
+line|z18-[piste:type=hike],
+line|z18-[piste:type=skitour],
+{font-size: 12;}
+
+/* No captions for areal ski runs as they're supposed to have a labelled centerline. */
+area|z15-[piste:type=downhill][area],
+area|z15-[piste:type=sled][area],
+{text: none;}
+
+/* 11. FERRY */
+
+line|z10-[route=ferry],
+{text: name;text-color: @water_label;text-position: line;}
+
+line|z10-16[route=ferry],
+{font-size: 9;}
+line|z17-[route=ferry],
+{font-size: 10;}
+
+/* 12. ONEWAY ARROWS  */
+
+/* line|z15-[highway=primary][hwtag=oneway]::arrows <-- не работает по типам магистралей */
+
+line|z15[hwtag=oneway]::arrows
+{pattern-offset: 30;pattern-image: arrow-xs.svg;pattern-spacing: 60;}
+line|z16[hwtag=oneway]::arrows
+{pattern-offset: 50;pattern-image: arrow-s.svg;pattern-spacing: 70;}
+line|z17[hwtag=oneway]::arrows
+{pattern-offset: 70;pattern-image: arrow-s.svg;pattern-spacing: 80;}
+line|z18-[hwtag=oneway]::arrows
+{pattern-offset: 90;pattern-image: arrow-m.svg;pattern-spacing: 90;}
+
+/* 13.JUNCTION  */
+
+node|z15-[highway=motorway_junction],
+node|z17-[junction],
+{text: name;text-color: @subway_label;text-position: center;}
+
+node|z15[highway=motorway_junction]
+{font-size: 9;}
+node|z16-[highway=motorway_junction],
+node|z17-[junction],
+{font-size: 10;}
