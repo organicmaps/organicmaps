@@ -140,9 +140,9 @@ Please consider [donating](https://organicmaps.app/donate) if you want to see th
 ## Copyrights
 
 Licensed under the Apache License, Version 2.0. See
-[LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE),
-[NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
-and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html)
+[LICENSE](LICENSE),
+[NOTICE](NOTICE)
+and [data/copyright.html](data/copyright.html)
 for more information.
 
 ## Governance
