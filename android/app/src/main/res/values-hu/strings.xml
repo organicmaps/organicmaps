@@ -301,9 +301,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, Wi-Fi vagy mobilhálózat segítségével gyorsan meghatározhatja hozzávetőleges tartózkodási helyét</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com hotelek hivatkozásai</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">A Kayak.com-on szereplő szállodák esetében fényképek, értékelések, foglalási hivatkozások jelennek meg. Az ezeken a hivatkozásokon keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Az összes térkép letöltése az útvonal mentén</string>
     <!-- Text for routing error dialog -->
@@ -527,14 +525,6 @@
     <string name="minute">p</string>
     <string name="day">nap</string>
     <string name="placepage_more_button">Tovább</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fényképek, vélemények, foglalás</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Az ezen a hivatkozáson keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Részletek a Kayakon</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak kikapcsolása</string>
     <string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
     <string name="placepage_personal_notes_hint">Személyes jegyzetek (szöveg vagy html)</string>
     <string name="editor_comment_hint">Megjegyzés…</string>

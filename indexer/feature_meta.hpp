@@ -158,8 +158,6 @@ public:
     FMD_COUNT
   };
 
-  enum ESource : uint8_t { SRC_KAYAK = 0 };
-
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string_view osmTagKey, EType & outType);
 

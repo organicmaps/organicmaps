@@ -296,9 +296,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">블루투스, WiFi 또는 모바일 네트워크를 통해 대략적인 위치를 빠르게 파악할 수 있습니다</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com 호텔 링크</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com에 숙소가 등록된 호텔의 사진, 후기, 예약 링크가 표시됩니다. 이러한 링크를 통해 예약할 때마다 받는 추천 보너스는 Organic Maps의 개발에 사용됩니다.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">경로를 따라 지도 다운로드</string>
     <!-- Text for routing error dialog -->
@@ -524,14 +522,6 @@
     <string name="minute">min</string>
     <string name="day">일</string>
     <string name="placepage_more_button">자세히</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">사진, 리뷰, 예약</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Kayak의 세부 정보</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak 비활성화</string>
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
     <string name="editor_comment_hint">설명…</string>

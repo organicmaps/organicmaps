@@ -1742,33 +1742,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void openKayakLink(@NonNull String url)
-  {
-    // The disclaimer is not needed if a user had explicitly opted-in via the setting.
-    if (Config.isKayakDisclaimerAccepted() || Config.isKayakDisplayEnabled())
-    {
-      Utils.openUrl(this, url);
-      return;
-    }
-
-    dismissAlertDialog();
-    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.how_to_support_us)
-        .setMessage(R.string.dialog_kayak_disclaimer)
-        .setCancelable(true)
-        .setPositiveButton(R.string.dialog_kayak_button, (dlg, which) -> {
-          Config.acceptKayakDisclaimer();
-          Utils.openUrl(this, url);
-        })
-        .setNegativeButton(R.string.cancel, null)
-        .setNeutralButton(R.string.dialog_kayak_disable_button, (dlg, which) -> {
-          Config.setKayakDisplay(false);
-          UiUtils.hide(findViewById(R.id.ll__place_kayak));
-        })
-        .setOnDismissListener(dialog -> mAlertDialog = null)
-        .show();
-  }
-
   private boolean showStartPointNotice()
   {
     final RoutingController controller = RoutingController.get();

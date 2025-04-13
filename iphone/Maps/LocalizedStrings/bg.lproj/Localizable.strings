@@ -638,14 +638,6 @@
 "placepage_more_button" = "Още";
 "book_button" = "Резервиране";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Снимки, отзиви, резервация";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Подробности в Kayak";
 "placepage_call_button" = "Обаждане";
 "placepage_edit_bookmark_button" = "Редакция на отметка";
 "placepage_bookmark_name_hint" = "Име на отметка";

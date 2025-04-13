@@ -638,14 +638,6 @@
 "placepage_more_button" = "เพิ่มเติม";
 "book_button" = "จอง";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "รูปภาพ รีวิว การจอง";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "รายละเอียดบน Kayak";
 "placepage_call_button" = "โทร";
 "placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";

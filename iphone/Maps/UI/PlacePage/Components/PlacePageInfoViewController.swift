@@ -77,7 +77,6 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressCall()
   func didPressWebsite()
   func didPressWebsiteMenu()
-  func didPressKayak()
   func didPressWikipedia()
   func didPressWikimediaCommons()
   func didPressFacebook()
@@ -107,7 +106,6 @@ class PlacePageInfoViewController: UIViewController {
   private var phoneView: InfoItemViewController?
   private var websiteView: InfoItemViewController?
   private var websiteMenuView: InfoItemViewController?
-  private var kayakView: InfoItemViewController?
   private var wikipediaView: InfoItemViewController?
   private var wikimediaCommonsView: InfoItemViewController?
   private var emailView: InfoItemViewController?
@@ -341,18 +339,6 @@ class PlacePageInfoViewController: UIViewController {
                                    icon: UIImage(named: "ic_placepage_address"),
                                    longPressHandler: { [weak self] in
         self?.delegate?.didCopy(address)
-      })
-    }
-
-    if let kayak = placePageInfoData.kayak {
-      kayakView = createInfoItem(L("more_on_kayak"),
-                                 icon: UIImage(named: "ic_placepage_kayak"),
-                                 style: .link,
-                                 tapHandler: { [weak self] in
-        self?.delegate?.didPressKayak()
-      },
-                                 longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(kayak)
       })
     }
 

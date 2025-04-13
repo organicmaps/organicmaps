@@ -291,9 +291,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Determine rapidamente sua localização aproximada via Bluetooth, WiFi ou rede móvel</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Links de hotéis do Kayak.com</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Fotos, avaliações e links de reserva são exibidos para os hotéis que estão listados no Kayak.com. O bônus de indicação recebido por cada reserva feita por meio desses links é destinado ao desenvolvimento do Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Baixar todos os mapas ao longo do trajeto</string>
     <!-- Text for routing error dialog -->
@@ -495,12 +493,6 @@
     <string name="minute">min</string>
     <string name="day">dia</string>
     <string name="placepage_more_button">Mais</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotos, avaliações, reservas</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">O bônus de indicação recebido por cada reserva feita por meio deste link é destinado ao desenvolvimento do Organic Maps.</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Desativar Kayak</string>
     <string name="placepage_edit_bookmark_button">Editar favorito</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
     <string name="editor_comment_hint">Comentar…</string>

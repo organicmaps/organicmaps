@@ -310,9 +310,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">ब्लूटूथ, वाईफाई या मोबाइल नेटवर्क का उपयोग करके तुरंत अपना अनुमानित स्थान निर्धारित करें</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com हटल लक</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">जन हटल क Kayak.com पर सच ह, उनक तसवर, समकषए, बकग लक परदरशत कए जत ह। इन लक क मधयम स परतयक बकग क लए परपत रफरल बनस Organic Maps क वकस क लए जत ह।</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">अपने मार्ग के सभी मानचित्र डाउनलोड करें</string>
     <!-- Text for routing error dialog -->
@@ -423,14 +421,6 @@
     <string name="hour">घंटे</string>
     <string name="minute">मिनट</string>
     <string name="day">दिन</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">तस्वीरें, समीक्षाएँ, बुकिंग</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">इस लिंक के माध्यम से प्रत्येक बुकिंग के लिए प्राप्त रेफरल बोनस ऑर्गेनिक मैप्स के विकास के लिए जाता है।</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">कयाक पर विवरण</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak अकषम कर</string>
     <string name="editor_remove_place_button">मिटाना</string>
     <string name="editor_place_doesnt_exist">जगह मौजूद नहीं है</string>
     <string name="placepage_add_place_button">OpenStreetMap में स्थान जोड़ें</string>

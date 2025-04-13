@@ -638,14 +638,6 @@
 "placepage_more_button" = "Més";
 "book_button" = "Reserva";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Fotos, comentaris, reserves";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "La bonificació de referència rebuda per cada reserva a través d'aquest enllaç es destina al desenvolupament de Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Detalls a Kayak";
 "placepage_call_button" = "Truca-hi";
 "placepage_edit_bookmark_button" = "Edita el marcador";
 "placepage_bookmark_name_hint" = "Nom del marcador";

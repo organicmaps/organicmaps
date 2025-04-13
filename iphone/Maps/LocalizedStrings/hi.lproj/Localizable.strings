@@ -638,14 +638,6 @@
 "placepage_more_button" = "More";
 "book_button" = "Book";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "तस्वीरें, समीक्षाएँ, बुकिंग";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "इस लिंक के माध्यम से प्रत्येक बुकिंग के लिए प्राप्त रेफरल बोनस ऑर्गेनिक मैप्स के विकास के लिए जाता है।";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "कयाक पर विवरण";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";

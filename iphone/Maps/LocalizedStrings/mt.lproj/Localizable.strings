@@ -638,14 +638,6 @@
 "placepage_more_button" = "Aktar";
 "book_button" = "Book";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Ritratti, reċensjonijiet, ibbukkjar";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Ir-referral bonus li wieħed jirċievi għal kull booking permezz ta’ din il-link imur għall-iżvilupp ta’ Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Dettalji dwar Kayak";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Editja l-Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";

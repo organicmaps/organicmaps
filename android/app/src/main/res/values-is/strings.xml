@@ -166,7 +166,6 @@
     <string name="downloader_update_all_button">Uppfæra allt</string>
     <string name="downloader_cancel_all">Hætta við allt</string>
     <string name="downloader_download_all_button">Sækja allt</string>
-    <string name="pref_display_kayak_title">Hóteltenglar frá Kayak.com</string>
     <string name="routing_not_enough_space">Ekki nægilegt pláss</string>
     <string name="enable_location_services">Virkjaðu staðsetningarþjónustur</string>
     <string name="deep_purple">Dökkpurpurablátt</string>

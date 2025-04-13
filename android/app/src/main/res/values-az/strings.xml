@@ -321,9 +321,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, WiFi və ya mobil şəbəkə vasitəsilə təxmini yerinizi tez müəyyənləşdirin</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Otel Bağlantıları</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Şəkillər, rəylər, rezervasiya linkləri Kayak.com-da siyahısı olan otellər üçün göstərilir. Bu bağlantılar vasitəsilə hər bir rezervasiya üçün alınan tövsiyə bonusu Organic Maps-in inkişafına yönəldilir.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Marşrut boyunca bütün xəritələri endirin</string>
     <!-- Text for routing error dialog -->
@@ -558,14 +556,6 @@
     <string name="minute">dəq</string>
     <string name="day">gün</string>
     <string name="placepage_more_button">Digər</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Şəkillər, rəylər, rezervasiya</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Bu link vasitəsilə edilən hər rezervasiya üçün alınan tövsiyə bonusu Organic Maps\'in inkişafına sərf olunur.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Xizək sürmə haqqında təfərrüatlar</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak-ı söndürün</string>
     <string name="placepage_edit_bookmark_button">Əlfəcini redaktə edin</string>
     <string name="placepage_personal_notes_hint">Şəxsi qeydlər (mətn və ya html)</string>
     <string name="editor_comment_hint">Şərh…</string>

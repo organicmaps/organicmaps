@@ -371,9 +371,6 @@
     <string name="downloader_no_downloaded_maps_message">Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.</string>
     <string name="current_location_unknown_error_title">Il-post attwali mhux magħruf.</string>
     <string name="placepage_more_button">Aktar</string>
-    <string name="more_on_kayak">Ritratti, reċensjonijiet, ibbukkjar</string>
-    <string name="dialog_kayak_disclaimer">Ir-referral bonus li wieħed jirċievi għal kull booking permezz ta’ din il-link imur għall-iżvilupp ta’ Organic Maps.</string>
-    <string name="dialog_kayak_disable_button">Itfi Kayak</string>
     <string name="placepage_edit_bookmark_button">Editja l-Bookmark</string>
     <string name="placepage_personal_notes_hint">Noti personali (kitba jew html)</string>
     <string name="editor_reset_edits_message">Armi l-bidliet lokali kollha?</string>
@@ -507,7 +504,6 @@
     <string name="downloader_download_all_button">Niżżel kollox</string>
     <string name="editor_report_problem_desription_2">Jew agħmilha int stess f’ https://www.openstreetmap.org/</string>
     <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
-    <string name="pref_display_kayak_text">Jintwerew links ta ’“ritratti, reċensjonijiet, ibbukkjar” għal lukandi li għandhom lista fuq Kayak.com. Ir-referral bonus li wieħed jirċievi għal kull booking permezz ta’ dawn il-links imur għall-iżvilupp ta ’Organic Maps.</string>
     <string name="routing_not_enough_space">Mhux biżżejjed spazju</string>
     <string name="logout">Oħroġ</string>
     <string name="red">Aħmar</string>
@@ -528,7 +524,6 @@
     <string name="downloader_delete_map_dialog">L-editti kollha tal-mappa tiegħek se jitħassru mal-mappa.</string>
     <string name="common_check_internet_connection_dialog">Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.</string>
     <string name="editor_edit_place_category_title">Kategorija</string>
-    <string name="dialog_kayak_button">Dettalji dwar Kayak</string>
     <string name="avoid_motorways">Evita l-passaġġi ħielsa</string>
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) huwa proġett komunitarju biex tinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mapep fil-mapep organiċi u xogħlijiet simili għall-Wikipedija. Tista ’żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta’ utenti madwar id-dinja kollha. \nIngħaqad mal-komunita’ u għen biex issir mappa aħjar għal kulħadd!</string>
     <string name="sort">Issortja…</string>

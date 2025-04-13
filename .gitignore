@@ -183,6 +183,7 @@ tools/python/routing/etc/*.ini
 
 # VS Code
 .vscode
+.cache
 
 # AppStore metadata
 screenshots/

@@ -290,9 +290,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">ब्लूटूथ, वायफाय किंवा मोबाइल नेटवर्क वापरून तुमचे अंदाजे स्थान द्रुतपणे निर्धारित करा</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com हटल लकस</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com वर सच असललय हटलसठ फट, पनरवलकन, बकग लकस परदरशत कल जतत. य लकसदवर परतयक बकगसठ मळलल रफरल बनस Organic Maps चय वकससठ जत.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">तुमच्या मार्गावरील सर्व नकाशे डाउनलोड करा</string>
     <!-- Text for routing error dialog -->
@@ -522,14 +520,6 @@
     <string name="minute">मिनिट</string>
     <string name="day">दि</string>
     <string name="placepage_more_button">अधिक</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">फोटोपुनरावलोकनेबुकिंगबुकिंग</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">कायाक वर तपशील</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak अकषम कर</string>
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
     <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>
     <string name="editor_comment_hint">टिप्पणी…</string>

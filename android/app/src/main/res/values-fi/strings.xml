@@ -317,9 +317,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Määritä nopeasti likimääräinen sijaintisi Bluetoothin, WiFin tai matkapuhelinverkon kautta</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Hotel Linkit</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kuvat, arvostelut ja varauslinkit näytetään hotelleista, jotka on listattu Kayak.comiin. Jokaisesta näiden linkkien kautta tehdystä varauksesta saatu suosittelupalkkio käytetään Organic Mapsin kehittämiseen.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Lataa karttoja matkalla</string>
     <!-- Text for routing error dialog -->
@@ -552,14 +550,6 @@
     <string name="minute">min</string>
     <string name="day">pv</string>
     <string name="placepage_more_button">Lisää</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Kuvat, arvostelut, varaus</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Lisätietoa osoitteessa Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Poista Kayak käytöstä</string>
     <string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
     <string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät (teksti tai html)</string>
     <string name="editor_comment_hint">Kommentti…</string>

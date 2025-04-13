@@ -320,9 +320,7 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Finn raskt ut din omtrentlige posisjon via Bluetooth, WiFi eller mobilnettverk</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Hotellkoblinger</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Bilder, anmeldelser og bestillingslenker vises for hoteller som har en oppføring på Kayak.com. Henvisningsbonusen som mottas for hver bestilling gjennom disse lenkene går til utvikling av Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Last ned kart langs ruten</string>
     <!-- Text for routing error dialog -->
@@ -555,14 +553,6 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mer</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Bilder, anmeldelser, bestilling</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Henvisningsbonusen som mottas for hver bestilling via denne lenken, går til utviklingen av Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Mer informasjon om Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Deaktiver Kayak</string>
     <string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (text or html)</string>
     <string name="editor_comment_hint">Kommentar…</string>

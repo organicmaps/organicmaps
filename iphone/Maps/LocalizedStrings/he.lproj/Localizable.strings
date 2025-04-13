@@ -638,14 +638,6 @@
 "placepage_more_button" = "עוד";
 "book_button" = "הזמנה";
 
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "תמונות, ביקורות, הזמנה";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מסייע בפיתוח של Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "פרטים על Kayak";
 "placepage_call_button" = "התקשר";
 "placepage_edit_bookmark_button" = "ערוך סימניה";
 "placepage_bookmark_name_hint" = "שם סימניה";
