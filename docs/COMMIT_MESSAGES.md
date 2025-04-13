@@ -1,6 +1,6 @@
 # How to write a commit message
 
-Any commit needs a helpful message. Mind the following guidelines when committing to any of Organic Maps repositories at GitHub.
+Any commit needs a helpful message. Mind the following guidelines when committing to any of CoMaps repositories at Codeberg.
 
 1. Separate subject from body with a blank line.
 2. Limit the subject line to **72 characters**.

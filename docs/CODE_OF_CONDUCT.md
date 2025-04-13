@@ -11,4 +11,4 @@ Here is an excerpt:
 > and other activities._
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported via <conduct@organicmaps.app>.
+reported via <conduct@comaps.app>.

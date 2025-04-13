@@ -1,17 +1,15 @@
-<div align="center">
+<!--<div align="center">
   <img src="qt/res/logo.png" height="100"/>
-</div>
-<h1 align="center"">Organic Maps</h1>
+</div>-->
+<h1 align="center"">CoMaps</h1>
 
-[Organic Maps](https://organicmaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
-It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data and is developed with love by the creators of **MapsWithMe** (later renamed to **Maps.Me**) and by our community.
-No ads, no tracking, no data collection, no crapware. Your [donations](https://organicmaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
+[CoMaps](https://comaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
+It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data, and is developed with love s developed with love by our community and former **Organic Maps** contributors (Forked from **Maps.Me**).
+No ads, no tracking, no data collection, no crapware. Your [donations](https://comaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
 
-[<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/organic-maps/id1567437057)
-[<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.organicmaps)
-[<img src="docs/badges/huawei-appgallery.png" alt="AppGallery" width="160">](https://appgallery.huawei.com/#/app/C104325611)
-[<img src="docs/badges/obtainium.png" alt="Obtainium" width="160">](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)
-[<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.organicmaps/)
+[<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/comaps/id1567437057)
+[<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.comaps)
+[<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.comaps/)
 
 <p float="left">
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
@@ -22,7 +20,7 @@ No ads, no tracking, no data collection, no crapware. Your [donations](https://o
 
 ## Features
 
-Organic Maps is the ultimate companion app for travellers, tourists, hikers, and cyclists:
+CoMaps is the ultimate companion app for travellers, tourists, hikers, and cyclists:
 
 - Detailed offline maps with places that don't exist on other maps, thanks to [OpenStreetMap](https://openstreetmap.org)
 - Cycling routes, hiking trails, and walking paths
@@ -33,16 +31,15 @@ Organic Maps is the ultimate companion app for travellers, tourists, hikers, and
 - Dark Mode to protect your eyes
 - Countries and regions don't take a lot of space
 - Free and open-source
+- Developed by a passionate community
 
-## Why Organic?
-
-Organic Maps is pure and organic, made with love:
+## Why CoMaps?
 
 - Respects your privacy
 - Saves your battery
 - No unexpected mobile data charges
 
-Organic Maps is free from trackers and other bad stuff:
+CoMaps is free from trackers and other bad stuff:
 
 - No ads
 - No tracking
@@ -53,42 +50,36 @@ Organic Maps is free from trackers and other bad stuff:
 - No noisy email spam
 - No push notifications
 - No crapware
-- ~~No pesticides~~ Purely organic!
 
-The Android application is verified by the <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
+<!--The Android application is verified by the <a href="https://reports.exodus-privacy.eu.org/en/reports/app.comaps/latest/">Exodus Privacy Project:
 
 <img src="docs/privacy/exodus.png" width="400">
 </a>
 
-The iOS application is verified by <a href="https://ios.trackercontrol.org/analysis/app.organicmaps">TrackerControl for iOS:
+The iOS application is verified by <a href="https://ios.trackercontrol.org/analysis/app.comaps">TrackerControl for iOS:
 
 <img src="docs/privacy/trackercontrol-ios.png" width="400">
-</a>
+</a>-->
 
 <br/>
 
-Organic Maps doesn't request excessive permissions to spy on you:
+CoMaps doesn't request excessive permissions to spy on you.
 
-<p float="left">
-  <img src="docs/privacy/om.jpg" width="400">
-  <img src="docs/privacy/mm.jpg" width="400">
-</p>
+At CoMaps, we believe that privacy is a fundamental human right:
 
-At Organic Maps, we believe that privacy is a fundamental human right:
-
-- Organic Maps is an indie community-driven open-source project
+- CoMaps is an indie community-driven open-source project
 - We protect your privacy from Big Tech's prying eyes
 - Stay safe no matter where you are
 
 Reject surveillance - embrace your freedom.
 
-[**Give Organic Maps a try!**](#install)
+[**Give CoMaps a try!**](#install)
 
 ## Who is paying for the development?
 
-The app is free for everyone, so we rely on donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate) to support us!
+The app is free for everyone, so we rely on donations. Please donate at [comaps.app/donate](https://comaps.app/donate) to support us!
 
-Please consider [donating](https://organicmaps.app/donate) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
+Please consider [donating](https://comaps.app/donate) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
 
 ## Copyrights
 
@@ -107,29 +98,19 @@ Check the [Governance repository](https://codeberg.org/comaps/governance).
 ## Contributing
 
 If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
-see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](https://organicmaps.app/support-us/), the ability to code is not necessary.
-
-## Beta
-
-Please join our beta program, suggest your features, and report bugs:
-
-- [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
-- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/2f0fee463107b137)
+see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](https://comaps.app/support-us/), the ability to code is not necessary.
 
 ## Feedback
 
-- **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
-and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
+- **Rate us on the [App Store](https://apps.apple.com/app/comaps/id1567437057)
+and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
 - **Star us on Codeberg**.
-- Report bugs or issues to [the issue tracker](https://git.omaps.dev/organicmaps/organicmaps/issues).
+- Report bugs or issues to [the issue tracker](https://codeberg.org/comaps/comaps/issues).
 - Subscribe to our [Telegram Channel](https://t.me/CoMapsApp) or to the [[matrix] space](https://matrix.to/#/#comaps:matrix.org) for updates.
 - Join our [Telegram Chat](https://t.me/CoMaps_EN) to discuss with other users.
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/CoMaps_RU) для обратной связи и помощи.
-- Contact us by [email](mailto:hello@organicmaps.app).
+- Contact us by [email](mailto:hello@comaps.app).
 - Follow our updates in
-[Mastodon](https://fosstodon.org/@CoMaps),
-[Facebook](https://facebook.com/OrganicMaps),
-[X (Twitter)](https://x.com/OrganicMapsApp),
-[Instagram](https://instagram.com/organicmaps.app/).
+[Mastodon](https://fosstodon.org/@CoMaps).
 
-The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+The CoMaps community abides by the CNCF [code of conduct](docs/CODE_OF_CONDUCT.md).
