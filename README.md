@@ -120,19 +120,16 @@ Please join our beta program, suggest your features, and report bugs:
 
 - **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
 and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
-- **Star us on Forgejo**.
+- **Star us on Codeberg**.
 - Report bugs or issues to [the issue tracker](https://git.omaps.dev/organicmaps/organicmaps/issues).
-- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
-- Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
-  - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
-  - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
-  - Rejoignez notre groupe [Telegram](https://t.me/OrganicMapsFR) pour obtenir de l'aide.
+- Subscribe to our [Telegram Channel](https://t.me/CoMapsApp) or to the [[matrix] space](https://matrix.to/#/#comaps:matrix.org) for updates.
+- Join our [Telegram Chat](https://t.me/CoMaps_EN) to discuss with other users.
+  - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/CoMaps_RU) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@organicmaps.app).
 - Follow our updates in
-[Mastodon](https://fosstodon.org/@organicmaps),
+[Mastodon](https://fosstodon.org/@CoMaps),
 [Facebook](https://facebook.com/OrganicMaps),
 [X (Twitter)](https://x.com/OrganicMapsApp),
 [Instagram](https://instagram.com/organicmaps.app/).
-  - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
 
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
