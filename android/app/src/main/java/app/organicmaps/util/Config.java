@@ -343,7 +343,7 @@ public final class Config
     // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
     if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei")) ||
         url.endsWith("organicmaps.app/donate/"))
-      return context.getString(R.string.translated_om_site_url) + "donate/";
+      return context.getString(R.string.app_site_url) + "donate/";
     return url;
   }
 

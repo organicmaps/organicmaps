@@ -177,7 +177,7 @@ public class Utils
   {
     final android.content.ClipboardManager clipboard =
         (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-    final ClipData clip = ClipData.newPlainText("Organic Maps: " + text, text);
+    final ClipData clip = ClipData.newPlainText(context.getString(R.string.project_name) + ": " + text, text);
     clipboard.setPrimaryClip(clip);
   }
 
@@ -318,14 +318,14 @@ public class Utils
    */
   public static void sendBugReport(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity, @NonNull String subject, @NonNull String body)
   {
-    subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
+    subject = activity.getString(R.string.project_name) + " Bug Report" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
     LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, subject, body, Constants.Email.SUPPORT));
   }
 
   // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
   public static void sendFeedback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity)
   {
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "",
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, activity.getString(R.string.project_name) + " Feedback", "",
                                                                  Constants.Email.SUPPORT));
   }
 

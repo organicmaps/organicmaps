@@ -36,7 +36,7 @@
         android:selectAllOnFocus="true"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         android:textIsSelectable="true"
-        tools:text="2021.10.15-15-Google" />
+        tools:text="2025.04.16-FDroid" />
 
     <TextView
         android:layout_width="match_parent"
@@ -169,11 +169,11 @@
         app:drawableStartCompat="@drawable/ic_telegram" />
 
     <TextView
-        android:id="@+id/github"
+        android:id="@+id/code_repo"
         style="@style/MwmWidget.TextView.Item"
-        android:text="@string/github"
+        android:text="@string/codeberg"
         android:textAlignment="viewStart"
-        app:drawableStartCompat="@drawable/ic_github" />
+        app:drawableStartCompat="@drawable/ic_codeberg" />
 
     <TextView
         android:id="@+id/web"
@@ -209,14 +209,14 @@
         android:text="@string/facebook"
         android:textAlignment="viewStart"
         app:drawableStartCompat="@drawable/ic_facebook" />
-
+<!--
     <TextView
         android:id="@+id/twitter"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/twitter"
         android:textAlignment="viewStart"
         app:drawableStartCompat="@drawable/ic_twitterx" />
-
+-->
     <TextView
         android:id="@+id/instagram"
         style="@style/MwmWidget.TextView.Item"
@@ -255,6 +255,5 @@
         style="@style/MwmWidget.TextView.Item"
         android:textAlignment="viewStart"
         android:text="@string/copyright" />
-
   </LinearLayout>
 </ScrollView>
