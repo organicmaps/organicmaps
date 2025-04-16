@@ -391,17 +391,17 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, hasWikipediaEntry());
   }
 
-  private boolean hasProductsEntry()
-  {
-    return Framework.nativeShouldShowProducts();
-  }
+//  private boolean hasProductsEntry()
+//  {
+//    return Framework.nativeShouldShowProducts();
+//  }
 
-  private void updateProductsView()
-  {
-    var hasProductsEntry = hasProductsEntry();
-
-    updateViewFragment(PlacePageProductsFragment.class, PRODUCTS_FRAGMENT_TAG, R.id.place_page_products_fragment, hasProductsEntry);
-  }
+//  private void updateProductsView()
+//  {
+//    var hasProductsEntry = hasProductsEntry();
+//
+//    updateViewFragment(PlacePageProductsFragment.class, PRODUCTS_FRAGMENT_TAG, R.id.place_page_products_fragment, hasProductsEntry);
+//  }
 
   private void setTextAndColorizeSubtitle()
   {
@@ -496,7 +496,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     updateLinksView();
     updateOpeningHoursView();
-    updateProductsView();
+    //updateProductsView(); Disable begging message on placepage
     updateWikipediaView();
     updateBookmarkView();
     updatePhoneView();
