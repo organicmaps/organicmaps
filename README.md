@@ -12,10 +12,10 @@ No ads, no tracking, no data collection, no crapware. Your [donations](https://c
 [<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.comaps/)
 
 <p float="left">
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/2.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="400" />
-  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="400" />
+  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="180" />
+  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/2.jpg" width="180" />
+  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="180" />
+  <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="180" />
 </p>
 
 ## Features
@@ -111,6 +111,8 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/CoMaps_RU) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@comaps.app).
 - Follow our updates in
-[Mastodon](https://fosstodon.org/@CoMaps).
+[Mastodon](https://fosstodon.org/@CoMaps),
+[Facebook](https://www.facebook.com/profile.php?id=61575286559965),
+[Instagram](https://www.instagram.com/comapscommunity/).
 
 The CoMaps community abides by the CNCF [code of conduct](docs/CODE_OF_CONDUCT.md).
