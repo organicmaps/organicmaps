@@ -873,7 +873,6 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
     <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="copyright">Copyright</string>
     <string name="vk">VK</string>
     <string name="editor_add_select_location">Изаберите локацију</string>
@@ -883,7 +882,6 @@
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима.</string>
     <string name="mb">МБ</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="already_donated">Већ је донирано</string>
     <string name="remind_me_later">Подсећати касније</string>

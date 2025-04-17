@@ -878,7 +878,6 @@
     <string name="editor_line_social_network">LINE</string>
     <string name="vk">VK</string>
     <string name="openstreetmap">OpenStreetMap</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="level_value_generic">Kerros: %s</string>
     <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
@@ -891,6 +890,5 @@
     <string name="github">Github</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="instagram">Instagram</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
 </resources>

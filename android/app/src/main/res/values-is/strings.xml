@@ -318,7 +318,6 @@
     <string name="elevation_profile_max_elevation">Hám.hæð</string>
     <string name="isolines_toast_zooms_1_10">Renndu að til að skoða hæðarlínur</string>
     <string name="splash_subtitle">Kortagögn frá OpenStreetMap</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="button_layer_outdoor">Utandyra</string>
     <string name="website_menu">Tengill í valmynd</string>
     <string name="view_menu">Skoða valmynd</string>
@@ -337,7 +336,6 @@
     <string name="disconnect_usb_cable_title">Aftengja USB-kapal</string>
     <string name="enable_keep_screen_on">Halda kveiktu á skjánum</string>
     <string name="enable_show_on_lock_screen">Birta á læsiskjánum</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>

@@ -901,10 +901,8 @@
     <string name="vk">VK</string>
     <string name="instagram">Instagram</string>
     <string name="level_value_generic">Поверх: %s</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="editor_add_phone">Додати телефон</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
 </resources>

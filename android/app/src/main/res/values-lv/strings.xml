@@ -855,10 +855,8 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="continue_recording">Turpināt ierakstīt</string>
     <string name="track_recording_alert_title">Saglabāt ceļu grāmatzīmju sadaļā?</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
     <string name="track_recording_toast_nothing_to_save">Ceļš ir tukšs – nav ko saglabāt</string>
     <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>

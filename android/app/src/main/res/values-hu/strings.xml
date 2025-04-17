@@ -862,9 +862,7 @@
     <string name="delete_place_empty_comment_error">Adja meg a hely törlésének okát</string>
     <string name="error_enter_correct_line_page">Adjon meg egy érvényes LINE ID-t vagy webcímet</string>
     <string name="connection_failure">Kapcsolódási hiba</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="error_enter_correct_vk_page">Adjon meg egy érvényes VK felhasználónevet vagy webcímet</string>
     <string name="editor_add_phone">Telefonszám hozzáadása</string>
     <string name="download_map_title">Áttekintő világtérkép letöltése</string>

@@ -877,9 +877,7 @@
     <string name="mastodon">Mastodon</string>
     <string name="vk">VK</string>
     <string name="facebook">Facebook</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>

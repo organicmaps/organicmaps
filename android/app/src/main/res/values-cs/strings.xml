@@ -884,6 +884,4 @@
     <string name="instagram">Instagram</string>
     <string name="editor_line_social_network">LINE</string>
     <string name="openstreetmap">OpenStreetMap</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 </resources>

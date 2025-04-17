@@ -781,7 +781,7 @@
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Даныя карты з OpenStreetMap</string>
     <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsRu</string>
+    <string name="telegram_url">https://t.me/CoMaps_RU</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/ru/</string>
     <!-- App Tip #00 -->
@@ -899,6 +899,5 @@
     <string name="error_enter_correct_vk_page">Увядзіце сапраўднае імя карыстальніка або спасылку VK</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 </resources>

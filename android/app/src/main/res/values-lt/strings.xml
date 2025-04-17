@@ -831,8 +831,6 @@
     <string name="avoid_tolls">Vengti mokamų kelių</string>
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="enable_keep_screen_on">Laikyti ekraną įjungtą</string>
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
-    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="app_tip_00">Dėkojame, kad naudojatės mūsų bendruomenės sukurtais žemėlapiais!</string>
     <string name="app_tip_02">Patinka šį programėlė? Paremkite, paaukodami jos vystymui! Dar ne? Papasakokite mums, kodėl, ir mes pasistengsime tai pataisyti!</string>
