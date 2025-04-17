@@ -1,31 +1,3 @@
-• New OpenStreetMap data as of February 27
-• Search: split screen to show both the map and the list at the same time
-• Ability to share a single selected track from the list
-• Improved routing for bicycles
-• Added tracks and bookmarks colors into exported GPX files
-
-Map:
-• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
-• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
-• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
-• Added captions to named Cliffs, City Walls, Embankments, Power Lines
-• Tuned visibility and priority of some niche shops
-
-OSM editor:
-• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
-• Don't hide OSM login page when offline
-• Added icons to address and number of floors input fields
-• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
-
-Other:
-• Open track's info page automatically upon record finish / track save
-• Show "Add Stop" button for the selected track point when in the navigation mode
-• Voice directions: announce route recalculation
-• Better looking track elevation profiles
-• Made Track Recording live activity widget properly dismissable
-• Don't always default to the subway routing mode when the subway layer is active
-• Fixed bookmarks storing POI name in a wrong language
-• Fixed on-building POIs disappearing when in perspective view
-• Fixed empty speed limit sign displayed in foot navigation
-• Fixed stuck map rotation gesture when zoomed in max
-• iCloud sync bug fixes and some minor UI fixes
+• New OpenStreetMap data as of March 29
+• Fixed many UI bugs introduced in the previous release
+• Updated translations
