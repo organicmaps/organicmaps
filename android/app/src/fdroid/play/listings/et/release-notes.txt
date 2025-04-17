@@ -1,8 +1,3 @@
-• New OpenStreetMap data as of February 27
-• Ability to manually arrange intermediate route points
-• Share a single selected track from the list
-• Improved routing for bicycles
-• Display a system notification when downloading maps and don't interrupt background downloads
-• Added a flashing Track Recording widget
-
-…more details at omaps.org/news
+• New OpenStreetMap data as of April 18
+• Minor UI bugfixes
+• Updated translations

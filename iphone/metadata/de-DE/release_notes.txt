@@ -1,31 +1,3 @@
-• Neue OpenStreetMap-Daten vom 27. Februar
-• Suche: geteilter Bildschirm, um sowohl die Karte als auch die Liste gleichzeitig anzuzeigen
-• Möglichkeit, einen einzelnen ausgewählten Track aus der Liste zu teilen
-• Verbesserte Routenführung für Fahrräder
-• Track- und Lesezeichenfarben zu exportierten GPX-Dateien hinzugefügt
-
-Karte:
-• Hörgerätegeschäfte, Kommunikationstürme, Kreuze, Öl-/Gasquellen, Gasfackeln, Rettungsschwimmer, Motorradverleihe, Bergrettungsstationen, Obelisken (als Denkmäler), separate Viertel (wurden zuvor mit Nachbarschaften zusammengelegt) hinzugefügt
-• Außenbereich: verbesserte Sichtbarkeit von Hütten, Unterständen, Jagdständen, Türmen, Steinhaufen, Lagertanks, Silos
-• Außenbereich: kleinere Stromleitungen, Versorgungs- und Strommasten hinzugefügt; verbesserte Sichtbarkeit wichtiger Stromleitungen und Masten
-• Beschriftungen für benannte Klippen, Stadtmauern, Böschungen und Stromleitungen hinzugefügt
-• Sichtbarkeit und Priorität einiger Nischengeschäfte angepasst
-
-OSM-Editor:
-• Möglichkeit zum Bearbeiten der POI-Attribute „Selbstbedienung“ und „Sitzplätze im Freien“ hinzugefügt
-• OSM-Anmeldeseite offline nicht ausblenden
-• Symbole für Eingabefelder für Adressen und Stockwerkanzahl hinzugefügt
-• Viele weitere Fehler behoben, danke an den Mitwirkenden @map-per, der viel Arbeit hinter den Kulissen geleistet hat!
-
-Sonstiges:
-• Infoseite der Strecke automatisch öffnen, wenn Aufzeichnung beendet/Strecke gespeichert ist
-• Schaltfläche „Stopp hinzufügen“ für den ausgewählten Streckenpunkt im Navigationsmodus anzeigen
-• Sprachanweisungen: Routenneuberechnung ankündigen
-• Besser aussehende Streckenhöhenprofile
-• Live-Aktivitäts-Widget für Streckenaufzeichnung jetzt richtig abschaltbar
-• Standardmäßig wird nicht immer der U-Bahn-Routingmodus verwendet, wenn die U-Bahn-Ebene aktiv ist
-• Behoben: Lesezeichen speichern POI-Namen in der falschen Sprache
-• Behoben: Verschwinden von POIs auf Gebäuden in der perspektivischen Ansicht
-• Behoben: Leeres Tempolimit-Schild bei Fußnavigation angezeigt
-• Behoben: Feststeckende Kartenrotationsgeste bei maximalem Zoom
-• Fehlerbehebungen bei iCloud-Synchronisierung und einige kleinere UI-Korrekturen
+• New OpenStreetMap data as of April 18
+• Fixed many UI bugs introduced in the previous release
+• Updated translations
