@@ -31,7 +31,9 @@ on:
 jobs:
   linux-no-unity:
     name: Linux no unity build
-    runs-on: ubuntu-24.04
+    runs-on: docker
+    container:
+      image: ubuntu:24.04
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
       group: ${{ github.workflow }}-no-unity-${{ github.event.pull_request.number || github.ref }}
@@ -99,7 +101,9 @@ jobs:
 
   linux-matrix:
     name: Linux builds and tests
-    runs-on: ubuntu-24.04
+    runs-on: docker
+    container:
+      image: ubuntu:24.04
     strategy:
       fail-fast: false
       matrix:
