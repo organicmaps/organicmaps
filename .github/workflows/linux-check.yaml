@@ -33,7 +33,7 @@ jobs:
     name: Linux no unity build
     runs-on: docker
     container:
-      image: ubuntu:24.04
+      image: linux-env
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
       group: ${{ github.workflow }}-no-unity-${{ github.event.pull_request.number || github.ref }}
@@ -103,7 +103,7 @@ jobs:
     name: Linux builds and tests
     runs-on: docker
     container:
-      image: ubuntu:24.04
+      image: linux-env
     strategy:
       fail-fast: false
       matrix:
