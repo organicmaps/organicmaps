@@ -9,7 +9,7 @@
     <string name="delete">Sil</string>
     <string name="download_maps">Harita indir</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">İndirme başarısız oldu. Tekrar denemek için dokunun.</string>
+    <string name="download_has_failed">İndirme başarısız. Yeniden denemek için dokun.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">İndiriliyor…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -27,7 +27,7 @@
     <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
     <string name="search_map">Haritada Ara</string>
     <!-- Location services are disabled by user alert - message -->
-    <string name="location_is_disabled_long_text">Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
+    <string name="location_is_disabled_long_text">Şu anda bu aygıt veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.</string>
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Sınırlı Doğruluk</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
@@ -37,7 +37,7 @@
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">İndirme başarısız oldu</string>
     <!-- Button text for the button under the country_status_download_failed message -->
-    <string name="try_again">Tekrar Dene</string>
+    <string name="try_again">Yeniden Dene</string>
     <string name="about_menu_title">Organic Maps Hakkında</string>
     <!-- Text in About screen -->
     <string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
@@ -46,20 +46,19 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Pilinizi tüketmez, çevrimdışı çalışır</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Hızlı, minimalist, topluluk tarafından geliştirilmiş</string>
+    <string name="about_proposition_3">• Hızlı, minimalist, toplulukça geliştirilmiş</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Konum ayarları</string>
     <string name="close">Kapat</string>
-    <string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
+    <string name="unsupported_phone">Uygulama, donanım hızlandırmalı OpenGL gerektiriyor. Ne yazık ki aygıtınız desteklenmiyor.</string>
     <string name="download">İndir</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
-    <string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.
-\n%s alan gerekli.</string>
+    <string name="download_resources">Uygulamayı kullanmadan önce lütfen aygıtınıza dünya genel görünüm haritasını indirin. \nBu, %s alan kullanacaktır.</string>
     <string name="download_resources_continue">Haritaya Git</string>
     <string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya
 \ngidebilirsiniz.</string>
@@ -92,7 +91,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Haritaları şuraya kaydet:</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Haritaların indirileceği yeri seçin</string>
+    <string name="maps_storage_summary">Haritaların indirileceği yeri seç.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Haritalar</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -116,7 +115,6 @@
     <string name="measurement_units">Ölçü birimleri</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Mil veya kilometre seçimini yap</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Nerede yenir</string>
@@ -164,17 +162,12 @@
     <string name="category_water">Su</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavan tesisleri</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notlar</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
-    <string name="share_bookmarks_email_body">Merhaba!
-\n
-\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz
-\n
-\nOrganic Maps ile seyahat etmenin keyfini çıkarın!</string>
+    <string name="share_bookmarks_email_body">Merhaba! \n \nEktekiler yer imlerim, lütfen bunları Organic Maps\'te açın. Eğer uygulama kurulu değilse, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://omaps.app/get?kmz \n \nOrganic Maps ile gezmenin keyfini çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
@@ -239,13 +232,13 @@
     <!-- Generic «On» string -->
     <string name="on">Açık</string>
     <!-- Generic «Auto» string -->
-    <string name="auto">Otomatik</string>
+    <string name="auto">Kendiliğinden</string>
     <!-- Settings «Map» category: «Perspective view» title -->
     <string name="pref_map_3d_title">Perspektif görünüm</string>
     <!-- Settings «Map» category: «3D buildings» title -->
     <string name="pref_map_3d_buildings_title">3B yapılar</string>
     <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
-    <string name="pref_map_3d_buildings_disabled_summary">3B yapılar güç tasarrufu modundayken kapatılır</string>
+    <string name="pref_map_3d_buildings_disabled_summary">3B yapılar güç tutum kipindeyken kapatılır</string>
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Sesli Yönlendirme</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
@@ -257,10 +250,10 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Sesli yönlendirmeleri test edin (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Sesi şimdi duymuyorsanız ses seviyesini veya sistem metin okuma ayarlarını kontrol edin.</string>
+    <string name="pref_tts_playing_test_voice">Sesi şimdi duymuyorsanız ses düzeyini veya sistem metin okuma ayarlarını denetleyin.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
-    <string name="pref_tts_unavailable">Mevcut Değil</string>
-    <string name="pref_map_auto_zoom">Otomatik yakınlaştırma</string>
+    <string name="pref_tts_unavailable">Yok</string>
+    <string name="pref_map_auto_zoom">Kendiliğinden yaklaştırma</string>
     <string name="placepage_distance">Mesafe</string>
     <string name="search_show_on_map">Haritada görüntüle</string>
     <!-- Text in menu -->
@@ -291,7 +284,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Pusulayı kalibre etmek ve haritadaki ok yönünü düzeltmek için telefonu sekiz şeklinde hareket ettirin.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Seçenekleri görmek için haritaya tekrar basılı tutun</string>
+    <string name="long_tap_toast">Arayüzü görmek için haritaya uzun basın</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Tümünü güncelle</string>
     <!-- Cancel all button text -->
@@ -303,16 +296,16 @@
     <string name="downloader_near_me_subtitle">Yakınlarımda</string>
     <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
     <string name="downloader_status_maps">Haritalar</string>
-    <string name="downloader_download_all_button">Hepsini İndir</string>
+    <string name="downloader_download_all_button">Tümünü İndir</string>
     <string name="downloader_downloading">İndiriliyor:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Haritayı silmek için lütfen navigasyonu durdurun.</string>
     <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.</string>
+    <string name="routing_failed_cross_mwm_building">Rotalar yalnızca tümüyle tek bir bölgenin haritası içinde oluşturulabilir.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Haritayı indir</string>
     <!-- Item status in downloader. -->
-    <string name="downloader_retry">Tekrar dene</string>
+    <string name="downloader_retry">Yeniden Dene</string>
     <!-- Item in context menu. -->
     <string name="downloader_delete_map">Haritayı Sil</string>
     <!-- Item in context menu. -->
@@ -324,7 +317,7 @@
     <!-- Preference title -->
     <string name="pref_display_kayak_title">Kayak.com Otel Bağlantıları</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com\'da mevcut olan oteller için fotoğraf, yorum ve rezervasyon bağlantıları gösterilir. Bu bağlantılar aracılığıyla yapılan rezervasyonlardan kazanılan gelir, Organic Maps\'in geliştirilmesi için kullanılır.</string>
+    <string name="pref_display_kayak_text">Kayak.com\'daki oteller için fotoğraf, yorum ve rezervasyon bağlantıları gösterilir. Bu bağlantılarla yapılan rezervasyonlardan kazanılan gelir Organic Maps\'in geliştirilmesinde kullanılır.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
     <!-- Text for routing error dialog -->
@@ -367,19 +360,18 @@
     <string name="gray">Gri</string>
     <!-- blue gray color -->
     <string name="blue_gray">Mavi Gri</string>
-
     <!-- SECTION: Routing dialogs strings -->
-    <string name="dialog_routing_disclaimer_title">Rotanızı takip ederken şunları lütfen unutmayın:</string>
-    <string name="dialog_routing_disclaimer_priority">— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;</string>
+    <string name="dialog_routing_disclaimer_title">Rotanızı izlerken şunları lütfen unutmayın:</string>
+    <string name="dialog_routing_disclaimer_priority">— Yol koşulları, trafik kuralları ve trafik işaretleri her zaman navigasyon önerilerinden önceliklidir;</string>
     <string name="dialog_routing_disclaimer_precision">— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;</string>
     <string name="dialog_routing_disclaimer_borders">— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.</string>
     <string name="dialog_routing_disclaimer_beware">Lütfen yolda dikkatli ve emniyetli olun!</string>
-    <string name="dialog_routing_check_gps">GPS sinyalini kontrol edin</string>
-    <string name="dialog_routing_error_location_not_found">Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.</string>
-    <string name="dialog_routing_location_turn_wifi">Lütfen GPS sinyalinizi kontrol edin. Wi-Fi\'ı etkinleştirmek konum isabetini arttırır.</string>
-    <string name="dialog_routing_location_turn_on">Konum hizmetlerini etkinleştirin</string>
-    <string name="dialog_routing_location_unknown_turn_on">Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.</string>
+    <string name="dialog_routing_check_gps">GPS sinyalini denetle</string>
+    <string name="dialog_routing_error_location_not_found">Rota oluşturulamıyor. Şu anki GPS koordinatları tanımlanamadı.</string>
+    <string name="dialog_routing_location_turn_wifi">Lütfen GPS sinyalinizi denetleyin. Wi-Fi\'ı etkinleştirmek konum doğruluğunu artırır.</string>
+    <string name="dialog_routing_location_turn_on">Konum hizmetlerini etkinleştir</string>
+    <string name="dialog_routing_location_unknown_turn_on">Şu anki GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.</string>
     <string name="dialog_routing_unable_locate_route">Rota belirlenemiyor</string>
     <string name="dialog_routing_cant_build_route">Rota oluşturulamıyor.</string>
     <string name="dialog_routing_change_start_or_end">Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.</string>
@@ -393,11 +385,10 @@
     <string name="dialog_routing_intermediate_not_determined">Lütfen ara noktanızı ayarlayın.</string>
     <string name="dialog_routing_system_error">Sistem hatası</string>
     <string name="dialog_routing_application_error">Uygulama hatası nedeniyle rota oluşturulamadı.</string>
-    <string name="dialog_routing_try_again">Lütfen tekrar deneyin</string>
+    <string name="dialog_routing_try_again">Lütfen yeniden deneyin</string>
     <string name="not_now">Şimdi Değil</string>
     <string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?</string>
     <string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aramak ve rota oluşturmaya başlamak için lütfen haritayı indirin. İndirdikten sonra artık internet bağlantısına ihtiyacınız olmayacak.</string>
     <string name="search_select_map">Haritayı Seçin</string>
@@ -419,8 +410,8 @@
     <string name="p2p_start">Başla</string>
     <string name="p2p_from_here">Başlangıç</string>
     <string name="p2p_to_here">Varış yeri</string>
-    <string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
-    <string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
+    <string name="p2p_only_from_current">Navigasyon yalnızca şu anki konumunuzdan kullanılabilir.</string>
+    <string name="p2p_reroute_from_current">Şu anki konumunuzdan rota planlamamızı ister misiniz?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Sonraki</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
@@ -445,10 +436,10 @@
     <string name="editor_report_problem_desription_2">Veya bunu https://www.openstreetmap.org/ adresinden kendiniz yapın</string>
     <string name="editor_report_problem_send_button">Gönder</string>
     <string name="editor_report_problem_title">Sorun</string>
-    <string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
+    <string name="editor_report_problem_no_place_title">Yer yok</string>
     <string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
     <string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
-    <string name="autodownload">Haritaları otomatik olarak indir</string>
+    <string name="autodownload">Haritaları kendiliğinden indir</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Her gün</string>
     <string name="twentyfour_seven">7/24</string>
@@ -493,12 +484,12 @@
     <string name="level_value_generic">Kat sayısı: %s</string>
     <string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
     <string name="downloader_update_maps">Haritaları güncelle</string>
-    <string name="downloader_mwm_migration_dialog">Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.</string>
+    <string name="downloader_mwm_migration_dialog">Rota oluşturmak için tüm haritaları güncellemeli ve rotayı yeniden planlamalısınız.</string>
     <string name="downloader_search_field_hint">Harita bul</string>
-    <string name="common_check_internet_connection_dialog">Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.</string>
+    <string name="common_check_internet_connection_dialog">Lütfen aygıtınızın internete bağlandığından emin olun.</string>
     <string name="downloader_no_space_title">Yeterli alan yok</string>
     <string name="downloader_no_space_message">Lütfen gereksiz verileri silin</string>
-    <string name="editor_login_error_dialog">Giriş hatası</string>
+    <string name="editor_login_error_dialog">Giriş hatası.</string>
     <string name="editor_profile_changes">Doğrulanan Düzenleme</string>
     <string name="editor_focus_map_on_location">Çarpı işaretini mekân veya işletmenin konumuna yerleştirmek için haritayı sürükleyin.</string>
     <string name="editor_edit_place_title">Düzenleme</string>
@@ -516,7 +507,7 @@
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
 \nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
-    <string name="login_to_make_edits_visible">Harita düzenlemelerinizin herkese ulaşabilmesi için bir OpenStreetMap hesabı oluşturun veya oturum açın.</string>
+    <string name="login_to_make_edits_visible">Harita düzenlemelerinizi herkese ulaştırmak için OpenStreetMap hesabı oluşturun veya oturum açın.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
     <string name="download_over_mobile_header">Hücresel bir ağ bağlantısı kullanarak indirilsin mi?</string>
@@ -538,9 +529,9 @@
     <string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
     <string name="editor_osm_history">Düzenleme geçmişiniz</string>
     <string name="editor_osm_notes">Harita veri notlarınız</string>
-    <string name="editor_operator">Operatör</string>
+    <string name="editor_operator">İşletici</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
-    <string name="operator">Operatör: %s</string>
+    <string name="operator">İşletici: %s</string>
     <string name="editor_category_unsuitable_title">Uygun bir kategori bulamıyor musunuz?</string>
     <string name="editor_category_unsuitable_text">Organic Maps yalnızca basit nokta kategorilerini eklemeye izin verir. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atabilirsiniz.</string>
     <string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
@@ -576,7 +567,7 @@
     <string name="editor_reset_edits_button">Sıfırla</string>
     <string name="editor_remove_place_message">Eklenen yer kaldırılsın mı?</string>
     <string name="editor_remove_place_button">Kaldır</string>
-    <string name="editor_place_doesnt_exist">Bu yer mevcut değil</string>
+    <string name="editor_place_doesnt_exist">Bu yer yok</string>
     <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
     <string name="delete_place_empty_comment_error">Lütfen bu yerin silinmesinin nedenini belirtin</string>
     <!-- Phone number error message -->
@@ -598,12 +589,12 @@
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">GPS iziniz kaydediliyor</string>
     <!-- For the first routing -->
-    <string name="accept">Kabul et</string>
+    <string name="accept">Kabul Et</string>
     <!-- For the first routing -->
     <string name="decline">Reddet</string>
     <string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
     <string name="mobile_data_option_always">Her Zaman Kullan</string>
-    <string name="mobile_data_option_today">Sadece Bugün</string>
+    <string name="mobile_data_option_today">Yalnızca Bugün</string>
     <string name="mobile_data_option_not_today">Bugün Kullanma</string>
     <string name="mobile_data">Mobil İnternet</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
@@ -618,10 +609,10 @@
     <string name="enable_logging">Günlüğü etkinleştir</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Genel Geri Bildirim</string>
-    <string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Galaxy Store, App Gallery, FDroid) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
+    <string name="prefs_languages_information">Sesli yönlendirme için TTS sistemini kullanıyoruz. Çoğu Android aygıt, Google TTS\'yi kullanıyor. Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play, Galaxy Store, App Gallery, FDroid) başka konuşma sentezleyici ya da ek dil paketi kurmanız gerekebilir.\nAygıt ayarları → Dil ve Giriş → Konuşma → Metin Okuma seçeneğini açın.\nBuradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrim dışı kullanım için dil paketini karşıdan yükleyebilir) ve başka metin okuma motorunu seçebilirsiniz.</string>
     <string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
-    <string name="transliteration_title">Latin harf çevirisi</string>
+    <string name="transliteration_title">Latin alfabesine çevir</string>
     <string name="learn_more">Daha fazla bilgi edinin</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Çık</string>
@@ -631,12 +622,12 @@
     <string name="routing_add_finish_point">Bir hedef noktası eklemek için aramayı kullanın veya haritaya dokunun</string>
     <string name="planning_route_manage_route">Rotayı yönet</string>
     <string name="button_plan">Plan</string>
-    <string name="placepage_remove_stop">Durağı kaldır</string>
+    <string name="placepage_remove_stop">Durağı Kaldır</string>
     <string name="placepage_add_stop">Ara nokta ekle</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>
+    <string name="alert_reauth_message">Tüm harita düzenlemelerinizi kendiliğinden yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha çok bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">buradadır</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
+    <string name="dialog_error_storage_message">Dış depolamaya erişilemiyor. Büyük olasılıkla SD Kart çıkarılmış, hasarlı ya da dosya sistemi salt okunur. Lütfen denetleyin veya support@organicmaps.app adresinden bizimle iletişime geçin</string>
     <string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
     <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Lütfen doğru bir isim girin</string>
@@ -669,7 +660,7 @@
     <string name="restore">Geri al</string>
     <plurals name="tracks">
         <item quantity="one">%d rota</item>
-        <item quantity="other">%d rotalar</item>
+        <item quantity="other">%d rota</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Gizlilik</string>
@@ -678,7 +669,7 @@
     <string name="button_layer_traffic">Trafik</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Harita Stilleri ve Katmanlar</string>
-    <string name="subway_data_unavailable">Metro haritası mevcut değil</string>
+    <string name="subway_data_unavailable">Metro haritası yok</string>
     <string name="bookmarks_empty_list_title">Bu liste boş</string>
     <string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
     <string name="category_desc_more">…daha fazla</string>
@@ -698,11 +689,11 @@
     <string name="pref_tts_speedcams_always">Her zaman uyar</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Hiçbir zaman uyarma</string>
-    <string name="power_managment_title">Güç tasarrufu modu</string>
-    <string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
+    <string name="power_managment_title">Güç tutum kipi</string>
+    <string name="power_managment_description">Kimi işlevler pahasına olsa da güç kullanımını düşürmeyi dener.</string>
     <string name="power_managment_setting_never">Asla</string>
-    <string name="power_managment_setting_auto">Otomatik</string>
-    <string name="power_managment_setting_manual_max">Maksimum güç tasarrufu</string>
+    <string name="power_managment_setting_auto">Pil düşükken</string>
+    <string name="power_managment_setting_manual_max">Her zaman</string>
     <string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
     <string name="access_rules_author_only">Çevrimiçi düzenleme</string>
     <string name="driving_options_title">Yönlendirme seçenekleri</string>
@@ -714,7 +705,7 @@
     <string name="avoid_ferry">Vapurdan kaçın</string>
     <string name="avoid_motorways">Otobandan kaçın</string>
     <string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
-    <string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
+    <string name="unable_to_calc_alert_subtitle">Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.</string>
     <string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
     <string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
     <string name="toll_road">Paralı yol</string>
@@ -754,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Yiyecek</string>
     <string name="tourist_places">Görülecek yerler</string>
@@ -773,12 +763,12 @@
     <string name="search_in_the_list">Listede ara</string>
     <string name="religious_places">Dini yerler</string>
     <string name="select_list">Liste seç</string>
-    <string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
+    <string name="transit_not_found">Metro navigasyonu henüz bu bölgede kullanılamaz</string>
     <string name="dialog_pedestrian_route_is_long_header">Metro rotası bulunamadı</string>
     <string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
     <string name="button_layer_isolines">Arazi</string>
     <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede mevcut değil</string>
+    <string name="isolines_location_error_dialog">Arazi katmanı henüz bu bölgede kullanılamaz</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -788,7 +778,7 @@
     <string name="elevation_profile_time">Süre:</string>
     <string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
     <string name="downloader_loading_ios">İndiriliyor</string>
-    <string name="download_map_title">Dünya haritasını indir</string>
+    <string name="download_map_title">Dünya genel görünüm haritasını indir</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>
     <!-- Used in DownloadResources startup screen -->
@@ -803,7 +793,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.</string>
+    <string name="enable_show_on_lock_screen_description">Etkinleştirildiğinde, aygıt kilitli olsa da uygulama kilit ekranında çalışacaktır.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">Harita dili</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -825,9 +815,9 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Herhangi bir şeyi seçmek için haritada üzerine dokunun. Ekrandaki seçenekleri gizlemek ve geri getirmek için ise basılı tutun.</string>
+    <string name="app_tip_04">Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.</string>
     <!-- App tip #05 -->
-    <string name="app_tip_05">Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?</string>
+    <string name="app_tip_05">Haritada şu anki konumunuzu seçebileceğinizi biliyor musunuz?</string>
     <!-- App tip #06 -->
     <string name="app_tip_06">Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.</string>
     <!-- App tip #07 -->
@@ -851,20 +841,20 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Bu uygulamanın izninize ihtiyacı var</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin bir şekilde çalışması için konum izni gerekiyor</string>
+    <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin çalışmak için konum iznine gereksiniyor</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Yürüyüş</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
-    <string name="browser_not_available">Web tarayıcısı mevcut değil</string>
+    <string name="browser_not_available">Web tarayıcısı yok</string>
     <string name="volume">Ses</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
     <string name="bookmarks_export">Tüm Yer İmlerini ve Kayıtları Dışa Aktar</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Konuşma sentezleme ile ilgili sistem ayarları</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
-    <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, cihazınızın bunu desteklediğinden emin misiniz?</string>
+    <string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, aygıtınızın bunu desteklediğinden emin misiniz?</string>
     <string name="drive_through">Arabaya servis</string>
     <string name="clear_the_search">Aramayı temizleyin</string>
     <string name="zoom_in">Yakınlaştır</string>
@@ -875,14 +865,14 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Menüyü Görüntüle</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Başka Bir Uygulamada Aç</string>
+    <string name="open_in_app">Başka Uygulamada Aç</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Self servis</string>
     <string name="select_option">Seçeneği seçin</string>
     <!-- To indicate if restaurant or other place has outdoor seating -->
     <string name="outdoor_seating">Açık oturma alanı</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
-    <string name="power_save_dialog_summary">En doğru navigasyon için, telefonunuzun pil ayarlarından güç tasarrufu modunu devre dışı bırakmanızı öneririz.</string>
+    <string name="power_save_dialog_summary">En doğru navigasyon için telefonunuzun pil ayarlarından güç tutum kipini devre dışı bırakmanızı öneririz.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">GPS izini kaydet</string>
     <!-- Prompt for stopping a track recording. -->
@@ -896,10 +886,25 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Kaydınız boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Cihazınızda uygun bir uygulama yüklü olmadığından klasör seçim menüsü görüntülenemiyor. Lütfen bir dosya yöneticisi uygulaması yükleyin ve tekrar deneyin.</string>
-    <string name="choose_color">Renk seç</string>
-    <string name="edit_track">Kaydı düzenle</string>
-    <string name="uri_open_location_failed">Konumu açabilecek yüklü bir uygulama yok</string>
+    <string name="error_no_file_manager_app">Aygıtınızda gerekli uygulama kurulmadığından klasör seçim menüsü görüntülenemiyor. Lütfen dosya yönetici uygulaması kurun ve yeniden deneyin.</string>
+    <string name="choose_color">Renk Seç</string>
+    <string name="edit_track">Kaydı Düzenle</string>
+    <string name="uri_open_location_failed">Konumu açabilecek kurulu uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Navigasyonda otomatik</string>
+    <string name="nav_auto">Navigasyonda kendiliğinden</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="menu">Menü</string>
+    <string name="telegram">Telegram</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="vk">VK</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="gb">GB</string>
 </resources>

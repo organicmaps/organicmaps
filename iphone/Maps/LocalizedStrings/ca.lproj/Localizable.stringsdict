@@ -12,8 +12,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d marcador</string>
 			<key>one</key>
 			<string>%d marcador</string>
+			<key>many</key>
+			<string>%d marcadors</string>
 			<key>other</key>
 			<string>%d marcadors</string>
 		</dict>
@@ -28,8 +32,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
 			<key>one</key>
 			<string>S'ha trobat %d fitxer. Podeu veure'l després de la conversió.</string>
+			<key>many</key>
+			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
 			<key>other</key>
 			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
 		</dict>
@@ -44,6 +52,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d recorreguts</string>
 			<key>one</key>
 			<string>%d recorregut</string>
 			<key>many</key>

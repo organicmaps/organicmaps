@@ -12,6 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d marcadores</string>
 			<key>one</key>
 			<string>%d marcador</string>
 			<key>many</key>
@@ -30,6 +32,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Se han encontrado %d archivos. Los verá después de la conversión.</string>
 			<key>one</key>
 			<string>Se encontró %d archivo. Lo verá después de la conversión.</string>
 			<key>many</key>

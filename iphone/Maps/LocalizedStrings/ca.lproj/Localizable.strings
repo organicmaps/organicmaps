@@ -111,7 +111,7 @@
 "category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Turisme";
+"category_tourism" = "Atraccions turístiques";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Entreteniment";
@@ -153,7 +153,7 @@
 "category_water" = "Aigua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Caravanes";
+"category_rv" = "Instal·lacions per a autocaravanes";
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
 
 /* message title of loading file */
@@ -244,7 +244,7 @@
 "pref_tts_test_voice_title" = "Prova les indicacions de veu (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Altres";
+"pref_tts_other_section_title" = "Altre";
 "pref_map_auto_zoom" = "Zoom automàtic";
 "placepage_distance" = "Distància";
 "search_show_on_map" = "Visualitza al mapa";
@@ -413,7 +413,7 @@
 "dialog_routing_disclaimer_title" = "Quan seguiu la ruta, tingueu present:";
 "dialog_routing_disclaimer_priority" = "— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;";
 "dialog_routing_disclaimer_precision" = "— El mapa pot ser imprecís, i la ruta suggerida potser no sempre és la via més òptima per a arribar a la destinació;";
-"dialog_routing_disclaimer_recommendations" = "— Les rutes suggerides només s'han d'entendre com a recomanacions;";
+"dialog_routing_disclaimer_recommendations" = "— Les rutes suggerides només s’han d’entendre com a recomanacions;";
 "dialog_routing_disclaimer_borders" = "— Aneu am cura amb les rutes en zones frontereres: les rutes creades per la nostra aplicació de vegades creuen fronteres internacionals en zones no autoritzades.";
 "dialog_routing_disclaimer_beware" = "Estigueu alerta i segur a la carretera!";
 "dialog_routing_check_gps" = "Comprova el senyal GPS";
@@ -421,7 +421,7 @@
 "dialog_routing_location_turn_wifi" = "Comproveu el senya GPS. L'activació del senya Wi-Fi millorarà la precisió de la ubicació.";
 "dialog_routing_location_turn_on" = "Activa els serveis de geolocalització";
 "dialog_routing_location_unknown_turn_on" = "No s'han pogut trobar les coordenaes GPS actuals. Activeu els serveis de geolocalització per a calcular la ruta.";
-"dialog_routing_download_files" = "Baixa els fitxers fitxers necessaris";
+"dialog_routing_download_files" = "Baixa els fitxers necessaris";
 "dialog_routing_download_and_update_all" = "Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.";
 "dialog_routing_unable_locate_route" = "No s'ha pogut trobar cap ruta";
 "dialog_routing_change_start_or_end" = "Ajusteu el punt inicial o la destinació.";
@@ -692,7 +692,7 @@
 "mobile_data_dialog" = "Voleu usar Internet mòbil per a mostrar informació detallada?";
 "mobile_data_option_always" = "Usa’l sempre";
 "mobile_data_option_today" = "Només avui";
-"mobile_data_option_not_today" = "Avui no";
+"mobile_data_option_not_today" = "No l’utilitzis avui";
 "mobile_data" = "Internet mòbil";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -758,8 +758,8 @@
 "bookmarks_convert_error_title" = "Error";
 "bookmarks_convert_error_message" = "Alguns fitxers no s'han convertit.";
 "restore" = "Restaura";
-"privacy_policy" = "Normes de confidencialitat";
-"terms_of_use" = "Considicions del servei";
+"privacy_policy" = "Política de privadesa";
+"terms_of_use" = "Condicions del servei";
 "button_layer_subway" = "Metro";
 "layers_title" = "Estils i capes del mapa";
 "subway_data_unavailable" = "El mapa del metro no està disponible";
@@ -781,9 +781,9 @@
 "pref_tts_speedcams_always" = "Sempre avisa";
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
-"pref_tts_speedcams_never" = "No n'avisis mai";
+"pref_tts_speedcams_never" = "No n’avisis mai";
 "power_managment_title" = "Mode d’estalvi d’energia";
-"power_managment_description" = "Si està seleccionat el mode automàtic, l'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria";
+"power_managment_description" = "Es provarà de reduir l’ús d’energia a costa d’algunes funcionalitats.";
 "power_managment_setting_never" = "Mai";
 "power_managment_setting_auto" = "Automàtic";
 "power_managment_setting_manual_max" = "Sempre";
@@ -799,7 +799,7 @@
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evita ferris";
 "avoid_motorways" = "Evita autopistes";
-"unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
+"unable_to_calc_alert_title" = "No s’ha pogut calcular la ruta";
 "unable_to_calc_alert_subtitle" = "Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.";
 "define_to_avoid_btn" = "Definiu les vies a evitar";
 "change_driving_options_btn" = "Paràmetres d’encaminament activats";
@@ -859,8 +859,8 @@
 "sort_name" = "Ordena per nom";
 "week_ago_sorttype" = "Fa una setmana";
 "month_ago_sorttype" = "Fa un mes";
-"moremonth_ago_sorttype" = "Fa més d'un mes";
-"moreyear_ago_sorttype" = "Fa més d'un any";
+"moremonth_ago_sorttype" = "Fa més d’un mes";
+"moreyear_ago_sorttype" = "Fa més d’un any";
 "near_me_sorttype" = "Prop meu";
 "others_sorttype" = "Altres";
 "food_places" = "Menjar";
@@ -883,7 +883,7 @@
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
 "button_layer_isolines" = "Corbes de nivell";
-"isolines_activation_error_dialog" = "Per a activar i usar la capa topgràfica, actualitzeu o baixeu el mapa de l'àrea";
+"isolines_activation_error_dialog" = "Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea";
 "isolines_location_error_dialog" = "La capa topogràfica encara no és disponible en aquesta àrea";
 "elevation_profile_diff_level" = "Nivell de dificultat";
 "elevation_profile_diff_level_easy" = "Fàcil";
@@ -893,9 +893,9 @@
 "elevation_profile_descent" = "Descens";
 "elevation_profile_min_elevation" = "Elevació mín.";
 "elevation_profile_max_elevation" = "Elevació màx.";
-"isolines_toast_zooms_1_10" = "Aproplieu el mapa per a explorar les isolínies";
+"isolines_toast_zooms_1_10" = "Apropeu el mapa per a explorar les isolínies";
 "downloader_updating_ios" = "S’està actualitzant";
-"downloader_loading_ios" = "Està baixant";
+"downloader_loading_ios" = "S’està baixant";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Actualitzeu els mapes baixats";
@@ -989,7 +989,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-"drive_through" = "Servei al cotxe";
+"drive_through" = "Servei des del cotxe";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Enllaç del menú";
@@ -1040,7 +1040,7 @@
 "bookmarks_recently_deleted" = "Llistes suprimides recentment";
 
 /* Title for the "Clear" button on the Recently Deleted Lists screen. */
-"clear" = "Netejar";
+"clear" = "Neteja";
 
 /* Title for the "Delete All" button on the Recently Deleted Lists screen. */
 "delete_all" = "Suprimeix-ho tot";

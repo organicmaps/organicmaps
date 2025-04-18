@@ -82,7 +82,7 @@
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nome</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
-    <string name="address">Morada</string>
+    <string name="address">Endereço</string>
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
     <string name="list">Lista</string>
     <!-- Settings button in system menu -->
@@ -102,7 +102,6 @@
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Escolha entre milhas e quilómetros</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Onde comer</string>
@@ -150,7 +149,6 @@
     <string name="category_water">Água</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Para trailers</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
@@ -353,7 +351,6 @@
     <string name="gray">Cinza</string>
     <!-- blue gray color -->
     <string name="blue_gray">Azul-cinza</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Ao seguir o trajeto, lembre-se que:</string>
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;</string>
@@ -383,7 +380,6 @@
     <string name="not_now">Agora não</string>
     <string name="dialog_routing_download_and_build_cross_route">Quer descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
     <string name="dialog_routing_download_cross_route">Descarregue o mapa para traçar uma rota melhor que vai além dos limites deste mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, descarregue o mapa. Desta forma não irá precisra mais de uma ligação à Internet.</string>
     <string name="search_select_map">Selecionar mapa</string>
@@ -726,7 +722,6 @@
     <string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
     <string name="near_me_sorttype">Perto de mim</string>
     <string name="others_sorttype">Outros</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Comida</string>
     <string name="tourist_places">Atrações turísticas</string>

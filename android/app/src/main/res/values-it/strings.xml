@@ -227,7 +227,7 @@
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">Istruzioni vocali</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
-    <string name="pref_tts_street_names_title">Annuncia i nomi delle strade</string>
+    <string name="pref_tts_street_names_title">Annunciare i nomi delle strade</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">Se abilitato, verrà pronunciato ad alta voce il nome della via o dell\'uscita in cui svoltare.</string>
     <!-- Settings «Route» category: «Tts language» title -->
@@ -439,7 +439,7 @@
     <string name="register_at_openstreetmap">Iscriviti a OpenStreetMap</string>
     <string name="login">Accedi</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
-    <string name="not_signed_in">Non sei connesso</string>
+    <string name="not_signed_in">Non connesso</string>
     <string name="login_osm">Accedi a OpenStreetMap</string>
     <string name="password">Password</string>
     <string name="forgot_password">Hai dimenticato la password?</string>

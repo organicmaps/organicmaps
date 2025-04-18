@@ -951,7 +951,7 @@
     <string name="type.railway.tram_stop">Tramvajová zastávka</string>
     <string name="type.shop">Obchod</string>
     <string name="type.shop.alcohol">Obchod s alkoholem</string>
-    <string name="type.shop.bakery">Pekárna</string>
+    <string name="type.shop.bakery">Pekařství</string>
     <string name="type.shop.bathroom_furnishing">Vybavení koupelny</string>
     <string name="type.shop.beauty">Kosmetický salon</string>
     <string name="type.shop.beverages">Nápoje</string>
@@ -1192,7 +1192,7 @@
     <string name="type.recycling.cartons">Kartony</string>
     <string name="type.amenity.sanitary_dump_station">Vypouštěcí stanice nádrže</string>
     <string name="type.amenity.vending_machine.sweets">Automat na sladkosti</string>
-    <string name="type.amenity.vending_machine.excrement_bags">Automat na sáčky na exkrementy</string>
+    <string name="type.amenity.vending_machine.excrement_bags">Sáčky na výkaly</string>
     <string name="type.amenity.parcel_locker">Schránka na balíky</string>
     <string name="type.amenity.vending_machine.fuel">Palivové čerpadlo</string>
     <string name="type.amenity.waste_transfer_station">Překladiště odpadu</string>

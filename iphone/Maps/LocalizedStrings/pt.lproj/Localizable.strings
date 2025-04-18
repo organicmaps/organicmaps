@@ -78,7 +78,7 @@
 "core_my_places" = "Os meus locais";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
-"address" = "Morada";
+"address" = "Endereço";
 
 /* Settings button in system menu */
 "settings" = "Configurações";
@@ -505,9 +505,9 @@
 "opens_tomorrow_at" = "Abre amanhã às %@";
 "opens_dayoftheweek_at" = "Abre %1$@ às %2$@";
 "opens_at" = "Abre às %@";
-"opens_in" = "Opens in %@";
-"closes_at" = "Encerra às %@";
-"closes_in" = "Closes in %@";
+"opens_in" = "Abre em %@";
+"closes_at" = "Fecha às %@";
+"closes_in" = "Fecha em %@";
 "closed" = "Fechado";
 "add_opening_hours" = "Adicionar horário de funcionamento";
 "no_osm_account" = "Não tem uma conta no OpenStreetMap?";

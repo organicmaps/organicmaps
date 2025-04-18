@@ -181,7 +181,7 @@
 "email" = "Email";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copiado al portapapeles: %@";
+"copied_to_clipboard" = "Copiado en el portapapeles: %@";
 
 /* place preview title */
 "info" = "Información";

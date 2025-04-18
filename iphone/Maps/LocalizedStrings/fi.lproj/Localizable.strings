@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
 "dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
-"dialog_routing_disclaimer_priority" = "— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;";
+"dialog_routing_disclaimer_priority" = "— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;";
 "dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";
 "dialog_routing_disclaimer_recommendations" = "— Ehdotettuja reittejä tulee pitää vain suosituksina;";
 "dialog_routing_disclaimer_borders" = "— Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;";

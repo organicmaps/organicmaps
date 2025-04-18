@@ -4,6 +4,24 @@
 <dict>
 	<key>bookmarks_places</key>
 	<dict>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d marcadores</string>
+			<key>one</key>
+			<string>%d marcador</string>
+			<key>other</key>
+			<string>%d marcadores</string>
+		</dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+	</dict>
+	<key>tracks</key>
+	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
 		<key>value</key>
@@ -12,10 +30,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d traxectos</string>
 			<key>one</key>
-			<string>%d bladwijzer</string>
+			<string>%d traxecto</string>
 			<key>other</key>
-			<string>%d bladwijzers</string>
+			<string>%d traxectos</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -29,27 +49,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>%d bestanden gevonden. Je ziet ze na het converteren.</string>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
 			<key>one</key>
-			<string>%d bestand gevonden. Je ziet het na het converteren.</string>
+			<string>Atopouse %d arquivo. Verao despois da conversión.</string>
 			<key>other</key>
-			<string>%d bestanden gevonden. Je ziet ze na het converteren.</string>
-		</dict>
-	</dict>
-	<key>tracks</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%d track</string>
-			<key>other</key>
-			<string>%d tracks</string>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
 		</dict>
 	</dict>
 </dict>

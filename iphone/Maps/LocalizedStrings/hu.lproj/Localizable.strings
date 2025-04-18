@@ -898,7 +898,7 @@
 "downloader_loading_ios" = "Letöltés";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
+"whats_new_auto_update_title" = "Letöltött térképek frissítése";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_message" = "A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat";

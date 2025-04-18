@@ -114,7 +114,6 @@
     <string name="measurement_units">Jednostki miary</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wybiera pomiędzy milami, a kilometrami</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Gdzie zjeść</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Woda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kamper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notatki</string>
@@ -367,7 +365,6 @@
     <string name="gray">Szary</string>
     <!-- blue gray color -->
     <string name="blue_gray">Szaroniebieski</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Jadąc wyznaczoną trasą, pamiętaj, że:</string>
     <string name="dialog_routing_disclaimer_priority">— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;</string>
@@ -397,7 +394,6 @@
     <string name="not_now">Nie teraz</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
     <string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.</string>
     <string name="search_select_map">Wybierz mapę</string>
@@ -755,7 +751,6 @@
     <string name="moreyear_ago_sorttype">Ponad rok temu</string>
     <string name="near_me_sorttype">W pobliżu</string>
     <string name="others_sorttype">Inne</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedzenie</string>
     <string name="tourist_places">Zabytki</string>
@@ -899,4 +894,6 @@
     <string name="uri_open_location_failed">Brak zainstalowanej aplikacji, która może otworzyć lokalizację</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automatyczna nawigacja</string>
+    <string name="level_value_generic">Piętro: %s</string>
+    <string name="github">GitHub</string>
 </resources>

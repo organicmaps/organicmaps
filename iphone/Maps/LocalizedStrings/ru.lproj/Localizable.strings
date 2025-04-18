@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Не разряжает батарею, работает в автономном режиме";
 
 /* Text in About screen */
-"about_proposition_3" = "• Быстрые, минималистичные, разработанные сообществом";
+"about_proposition_3" = "• Быстрый, минималистичный, разработанный сообществом";
 "close" = "Закрыть";
 "download" = "Загрузить";
 
@@ -172,10 +172,10 @@
 "unknown_current_position" = "Ваше местоположение ещё не определено";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
+"bookmark_share_email_subject" = "Проверь мою метку на карте Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Посмотри на карте Organic Maps, где я сейчас нахожусь";
+"my_position_share_email_subject" = "Проверь моё текущее местоположение на карте Organic Maps!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
@@ -241,7 +241,7 @@
 "pref_tts_language_title" = "Язык подсказок";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Проверить голосовые подсказки (TTS, Text-To-Speech).";
+"pref_tts_test_voice_title" = "Протестировать голосовые подсказки (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Другой";
@@ -301,7 +301,7 @@
 "follow_us" = "Подписывайтесь и пишите нам:";
 
 /* Alert text */
-"email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.";
+"email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@";
 
 /* Alert title */
 "email_error_title" = "Ошибка при отправлении письма";
@@ -411,10 +411,10 @@
 /* blue gray color */
 "blue_gray" = "Серо-голубой";
 "dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
-"dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
+"dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и дорожные знаки приоритетнее подсказок навигатора;";
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
 "dialog_routing_disclaimer_recommendations" = "— Предлагаемые маршруты — лишь рекомендации;";
-"dialog_routing_disclaimer_borders" = "— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;";
+"dialog_routing_disclaimer_borders" = "— Будьте внимательны с маршрутами в приграничных зонах: маршруты, построенные нашей программой иногда могут пересекать границы в неположенных местах.";
 "dialog_routing_disclaimer_beware" = "Будьте внимательны на дорогах и берегите себя!";
 "dialog_routing_check_gps" = "Проверьте сигнал GPS";
 "dialog_routing_error_location_not_found" = "Маршрут не построен. Текущая геопозиция не определена.";
@@ -568,7 +568,7 @@
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Созданные сообществом данные OpenStreetMap по состоянию на %@. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.";
+"osm_presentation" = "Созданные сообществом данные OpenStreetMap по состоянию на %@. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org";
 "login_to_make_edits_visible" = "Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.";
 
 /* Error dialog no space */
@@ -606,7 +606,7 @@
 "current_location_unknown_error_title" = "Местоположение не найдено.";
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
 "location_services_disabled_header" = "Определение местоположения отключено";
-"location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства.";
+"location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства";
 "location_services_disabled_1" = "1. Откройте Настройки";
 "location_services_disabled_2" = "2. Нажмите Геопозиция";
 
@@ -692,7 +692,7 @@
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";
 "mobile_data_option_always" = "Всегда";
 "mobile_data_option_today" = "Только сегодня";
-"mobile_data_option_not_today" = "Не сегодня";
+"mobile_data_option_not_today" = "Не использовать сегодня";
 "mobile_data" = "Мобильный интернет";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 "enable_logging" = "Включить запись логов";
 "log_file_size" = "Размер файла логов: %@";
-"transliteration_title" = "Латинская транслитерация";
+"transliteration_title" = "Транслитерировать в Латинский алфавит";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Выход";
@@ -783,7 +783,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Никогда не предупреждать";
 "power_managment_title" = "Режим энергосбережения";
-"power_managment_description" = "Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона";
+"power_managment_description" = "Попробовать уменьшить потребление заряда аккумулятора за счёт отключения некоторых функций.";
 "power_managment_setting_never" = "Никогда";
 "power_managment_setting_auto" = "Авто";
 "power_managment_setting_manual_max" = "Максимальное энергосбережение";
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Избегать паромы";
 "avoid_motorways" = "Избегать автомагистрали";
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
-"unable_to_calc_alert_subtitle" = "К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку";
+"unable_to_calc_alert_subtitle" = "Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.";
 "define_to_avoid_btn" = "Настроить пути объезда";
 "change_driving_options_btn" = "Настройки объезда включены";
 "toll_road" = "Платная дорога";
@@ -1068,4 +1068,4 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
-"edit_track" = "Редактировать трек";
+"edit_track" = "Редактировать маршрут";

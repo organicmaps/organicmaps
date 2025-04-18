@@ -643,7 +643,7 @@
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Wayside Cross";
 "type.historic.wayside_shrine" = "Wayside Shrine";
-"type.historic.wreck" = "Laivo avarija";
+"type.historic.wreck" = "Laivo liekanos";
 "type.hwtag" = "hwtag";
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
@@ -679,7 +679,7 @@
 "type.landuse.farmland" = "Farmland";
 "type.landuse.farmyard" = "Farmyard";
 "type.landuse.field" = "Field";
-"type.landuse.flowerbed" = "Geliu lova";
+"type.landuse.flowerbed" = "Gėlynas";
 "type.landuse.forest" = "Forest";
 "type.landuse.forest.coniferous" = "Coniferous Forest";
 "type.landuse.forest.deciduous" = "Deciduous Forest";
