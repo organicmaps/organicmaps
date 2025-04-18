@@ -42,7 +42,7 @@ jobs:
     name: Android Lint
     runs-on: docker
     container:
-      image: eclipse-temurin:17.0.14_7-jdk
+      image: build-env
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
