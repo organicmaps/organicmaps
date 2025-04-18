@@ -40,7 +40,7 @@ env:
 jobs:
   lint:
     name: Android Lint
-    runs-on: ubuntu-latest
+    runs-on: docker
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
