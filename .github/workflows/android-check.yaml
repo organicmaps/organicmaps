@@ -65,6 +65,8 @@ jobs:
   android-check:
     name: Build Android Debug
     runs-on: docker
+    container:
+      image: build-env
     strategy:
       fail-fast: false
       matrix:
