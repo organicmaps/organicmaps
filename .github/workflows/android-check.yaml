@@ -102,7 +102,7 @@ jobs:
         run: ./configure.sh
 
       - name: Configure ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: https://github.com/hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.flavor }}
 
