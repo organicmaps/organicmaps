@@ -16,11 +16,16 @@ screenlog.0
 
 data/styles/*/*/out/*
 data/resources-*_design/*
+# symbols png/sdf are now generated at build
+data/resources-*_*/symbols.png
+data/resources-*_*/symbols.sdf
 data/drules_proto_default_design.bin
 data/colors_design.txt
 data/patterns_design.txt
 data/bookmarks
 data/edits.xml
+data/World.mwm
+data/WorldCoasts.mwm
 
 # Compiled Python
 *.pyc
