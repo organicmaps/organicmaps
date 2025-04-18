@@ -62,7 +62,7 @@ jobs:
 
   android-check:
     name: Build Android Debug
-    runs-on: ubuntu-latest
+    runs-on: docker
     strategy:
       fail-fast: false
       matrix:
