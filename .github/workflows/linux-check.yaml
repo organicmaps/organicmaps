@@ -91,7 +91,7 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
         run: |
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DNJOBS=2 \
             -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
 
       - name: Compile
@@ -165,7 +165,7 @@ jobs:
         # -g1 should slightly reduce build time.
         run: |
           echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DNJOBS=2 \
             -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
