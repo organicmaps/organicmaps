@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">Hapishane</string>
     <string name="type.amenity.pub">Meyhane</string>
     <string name="type.amenity.public_bookcase">Kitap Değişimi</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Geri Dönüşüm Merkezi</string>
     <string name="type.amenity.recycling">Atık Toplama Merkezi</string>
@@ -364,7 +363,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapi</string>
     <string name="type.healthcare.sample_collection">Örnekleme</string>
     <string name="type.healthcare.speech_therapist">Logopedi</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Otoyol</string>
     <string name="type.highway.bridleway">Atlı Yolu</string>
@@ -530,7 +528,6 @@
     <string name="type.area_highway.track">Pist</string>
     <string name="type.area_highway.trunk">Devlet Yolu</string>
     <string name="type.area_highway.unclassified">Tali Yol</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Tarihi</string>
     <string name="type.historic.aircraft">Tarihi Uçak</string>
@@ -1358,4 +1355,6 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Spor salonu</string>
+    <string name="type.landuse.education">Eğitim tesisi</string>
+    <string name="type.natural.desert">Çöl</string>
 </resources>

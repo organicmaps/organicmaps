@@ -1,10 +1,10 @@
-"type.addr_interpolation" = "Adreça/Bloc";
-"type.addr_interpolation.even" = "Adreça/Bloc";
-"type.addr_interpolation.odd" = "Adreça/Bloc";
+"type.addr_interpolation" = "Adreça/illa";
+"type.addr_interpolation.even" = "Adreça/illa";
+"type.addr_interpolation.odd" = "Adreça/illa";
 "type.aerialway" = "Transport aeri";
 "type.aerialway.cable_car" = "Telefèric";
 "type.aerialway.chair_lift" = "Telecadira";
-"type.aerialway.drag_lift" = "Telesquí";
+"type.aerialway.drag_lift" = "Teleesquí";
 "type.aerialway.gondola" = "Telecabina";
 "type.aerialway.mixed_lift" = "Telemix";
 "type.aerialway.station" = "Estació de telefèric";
@@ -206,10 +206,10 @@
 "type.barrier.kissing_gate" = "Reixat";
 "type.barrier.lift_gate" = "Barrera llevadissa";
 "type.barrier.retaining_wall" = "Mur de contenció";
-"type.barrier.stile" = "Stile";
+"type.barrier.stile" = "Escala";
 "type.barrier.turnstile" = "Torniquet";
 "type.barrier.swing_gate" = "Swing Gate";
-"type.barrier.toll_booth" = "Toll Booth";
+"type.barrier.toll_booth" = "Cabina de peatge";
 "type.barrier.wall" = "Mur";
 "type.boundary" = "Frontera";
 "type.boundary.administrative" = "Frontera administrativa";
@@ -235,10 +235,10 @@
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Adreça";
-"type.building.has_parts" = "Building";
-"type.building_part" = "Building";
+"type.building.has_parts" = "Edifici";
+"type.building_part" = "Edifici";
 "type.building.garage" = "Garatge";
-"type.building.train_station" = "Edifici de l'Estació";
+"type.building.train_station" = "Edifici de l’estació";
 "type.building.warehouse" = "Magatzem";
 "type.cemetery.grave" = "Sepultura";
 "type.craft" = "Manualitats";
@@ -246,13 +246,13 @@
 "type.craft.blacksmith" = "Ferrer";
 "type.craft.brewery" = "Craft Brewery";
 "type.craft.caterer" = "Càtering";
-"type.craft.carpenter" = "Carpenter";
-"type.craft.confectionery" = "Confectioner";
-"type.craft.electrician" = "Electrician";
-"type.craft.electronics_repair" = "Electronics Repair";
-"type.craft.gardener" = "Gardener";
+"type.craft.carpenter" = "Fuster";
+"type.craft.confectionery" = "Confiteria";
+"type.craft.electrician" = "Electricista";
+"type.craft.electronics_repair" = "Reparació d’aparells electrònics";
+"type.craft.gardener" = "Jardiner";
 "type.craft.grinding_mill" = "Molí de mòlta";
-"type.craft.handicraft" = "Handicraft";
+"type.craft.handicraft" = "Artesania";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Calefacció, ventilació i aire condicionat";
@@ -275,26 +275,26 @@
 "type.cuisine.austrian" = "Austríaca";
 "type.cuisine.bagel" = "Bagel";
 "type.cuisine.balkan" = "Balcànica";
-"type.cuisine.barbecue" = "Barbecue";
-"type.cuisine.bavarian" = "Bavarian";
+"type.cuisine.barbecue" = "Barbacoa";
+"type.cuisine.bavarian" = "Bavaresa";
 "type.cuisine.beef_bowl" = "Beef Bowl";
 "type.cuisine.brazilian" = "Brasilera";
 "type.cuisine.breakfast" = "Esmorzar";
 "type.cuisine.bubble_tea" = "Bubble Tea";
-"type.cuisine.burger" = "Burger";
+"type.cuisine.burger" = "Hamburgueses";
 "type.cuisine.buschenschank" = "Buschenschank";
-"type.cuisine.cake" = "Cake";
-"type.cuisine.caribbean" = "Caribbean";
-"type.cuisine.chicken" = "Chicken";
-"type.cuisine.chinese" = "Chinese";
+"type.cuisine.cake" = "Pastissos";
+"type.cuisine.caribbean" = "Caribenya";
+"type.cuisine.chicken" = "Pollastre";
+"type.cuisine.chinese" = "Xinesa";
 "type.cuisine.coffee_shop" = "Cafè";
 "type.cuisine.crepe" = "Crepe";
-"type.cuisine.croatian" = "Croatian";
-"type.cuisine.curry" = "Curry";
+"type.cuisine.croatian" = "Croata";
+"type.cuisine.curry" = "Curri";
 "type.cuisine.deli" = "Deli";
 "type.cuisine.diner" = "Diner";
 "type.cuisine.donut" = "Donut";
-"type.cuisine.ethiopian" = "Ethiopian";
+"type.cuisine.ethiopian" = "Etiòpica";
 "type.cuisine.filipino" = "Filipina";
 "type.cuisine.fine_dining" = "Fine Dining";
 "type.cuisine.fish" = "Fish";
@@ -310,28 +310,28 @@
 "type.cuisine.hungarian" = "Hongaresa";
 "type.cuisine.ice_cream" = "Gelat";
 "type.cuisine.indian" = "Índia";
-"type.cuisine.indonesian" = "Indonesian";
+"type.cuisine.indonesian" = "Indonèsia";
 "type.cuisine.international" = "Internacional";
-"type.cuisine.irish" = "Irish";
-"type.cuisine.italian" = "Italian";
-"type.cuisine.italian_pizza" = "Italian, Pizza";
+"type.cuisine.irish" = "Irlandesa";
+"type.cuisine.italian" = "Italiana";
+"type.cuisine.italian_pizza" = "Italiana, pizza";
 "type.cuisine.japanese" = "Japonesa";
 "type.cuisine.kebab" = "Kebab";
 "type.cuisine.korean" = "Coreana";
 "type.cuisine.lao" = "Laosiana";
 "type.cuisine.lebanese" = "Libanesa";
 "type.cuisine.local" = "Local";
-"type.cuisine.malagasy" = "Malagasy";
-"type.cuisine.malaysian" = "Malaysian";
-"type.cuisine.mediterranean" = "Mediterranean";
+"type.cuisine.malagasy" = "Malgaixa";
+"type.cuisine.malaysian" = "Malàisia";
+"type.cuisine.mediterranean" = "Mediterrània";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquina";
 "type.cuisine.noodles" = "Fideus xinesos";
 "type.cuisine.oriental" = "East Asian";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
-"type.cuisine.persian" = "Persian";
-"type.cuisine.peruvian" = "Peruvian";
+"type.cuisine.persian" = "Persa";
+"type.cuisine.peruvian" = "Peruana";
 "type.cuisine.pizza" = "Pizza";
 "type.cuisine.polish" = "Polonesa";
 "type.cuisine.portuguese" = "Portuguesa";
@@ -352,10 +352,10 @@
 "type.cuisine.turkish" = "Turca";
 "type.cuisine.vegan" = "Vegan";
 "type.cuisine.vegetarian" = "Vegetarian";
-"type.cuisine.vietnamese" = "Vietnamese";
+"type.cuisine.vietnamese" = "Vietnamita";
 "type.emergency" = "Emergències";
-"type.emergency.assembly_point" = "Punt de reunió d'emergència";
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.assembly_point" = "Punt de reunió d’emergència";
+"type.emergency.defibrillator" = "Desfibril·lador";
 "type.emergency.fire_hydrant" = "Fire Hydrant";
 "type.emergency.phone" = "Telèfon d’emergència";
 
@@ -371,7 +371,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrada principal";
 "type.entrance.exit" = "Sortida";
-"type.fee.yes" = "$";
+"type.fee.yes" = "€";
 "type.fee.no" = "Gratuït";
 "type.healthcare.laboratory" = "Laboratori mèdic";
 "type.healthcare.physiotherapist" = "Fisioterapeuta";
@@ -383,7 +383,7 @@
 "type.healthcare.psychotherapist" = "Psicoterapeuta";
 "type.healthcare.sample_collection" = "Sample Collection Centre";
 "type.healthcare.speech_therapist" = "Logopedics";
-"type.highway" = "Highway";
+"type.highway" = "Carretera";
 "type.highway.bridleway" = "Bridle Path";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -400,7 +400,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Túnel";
 "type.highway.bus_stop" = "Parada d’autobús";
-"type.highway.construction" = "Road Under Construction";
+"type.highway.construction" = "Via en construcció";
 "type.highway.cycleway" = "Cycle Path";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -413,13 +413,13 @@
 "type.highway.footway" = "Foot Path";
 "type.highway.footway.sidewalk" = "Vorera";
 "type.highway.footway.crossing" = "Pas de vianants";
-"type.highway.footway.area" = "Foot Path";
+"type.highway.footway.area" = "Àrea de vianants";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Pedestrian Bridge";
+"type.highway.footway.bridge" = "Pont de vianants";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Pedestrian Tunnel";
+"type.highway.footway.tunnel" = "Túnel de vianants";
 "type.highway.ford" = "Gual";
 "type.highway.living_street" = "Living Street";
 
@@ -443,19 +443,19 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway_link.tunnel" = "Túnel";
-"type.highway.path" = "Camí";
+"type.highway.path" = "Corriol";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
 "type.highway.path.difficult" = "Ruta difícil o poc visible";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
 "type.highway.path.expert" = "Sender molt difícil o indistingible";
-"type.highway.path.bicycle" = "Camí";
-"type.highway.footway.bicycle" = "Camí";
+"type.highway.path.bicycle" = "Via per a vianants i ciclistes";
+"type.highway.footway.bicycle" = "Via per a vianants i ciclistes";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Pont";
-"type.highway.path.horse" = "Camí";
+"type.highway.path.horse" = "Corriol eqüestre";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
@@ -491,7 +491,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Túnel";
 "type.highway.rest_area" = "Rest Area";
-"type.highway.road" = "Road";
+"type.highway.road" = "Carretera";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Pont";
@@ -616,7 +616,7 @@
 "type.historic.castle.palace" = "Palau";
 "type.historic.castle.shiro" = "Castell japonès";
 "type.historic.castle.stately" = "Castell";
-"type.historic.city_gate" = "City Gate";
+"type.historic.city_gate" = "Porta de la ciutat";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Fort";
 "type.historic.gallows" = "Forca";
@@ -704,7 +704,7 @@
 "type.landuse.vineyard" = "Vinyar";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
-"type.leisure.dog_park" = "Dog Park";
+"type.leisure.dog_park" = "Parc caní";
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.leisure.fitness_station" = "Fitness Station";
 "type.leisure.dance" = "Dance Hall";
@@ -716,7 +716,7 @@
 "type.leisure.ice_rink" = "Ice Rink";
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
-"type.leisure.outdoor_seating" = "Seients a l'aire lliure";
+"type.leisure.outdoor_seating" = "Seients a l’aire lliure";
 "type.leisure.park" = "Parc";
 "type.leisure.park.no.access" = "Parc privat";
 "type.leisure.park.permissive" = "Parc";
@@ -834,7 +834,7 @@
 "type.office.government" = "Government Office";
 "type.office.insurance" = "Insurance Office";
 "type.office.lawyer" = "Lawyer";
-"type.office.ngo" = "Non-Governmental Organization";
+"type.office.ngo" = "Organització no-governamental";
 "type.office.telecommunication" = "Telecom Company";
 "type.organic.only" = "Organic";
 "type.organic.yes" = "Organic";
@@ -870,10 +870,10 @@
 "type.place.sea" = "Mar";
 "type.place.square" = "Plaça";
 "type.place.state" = "State";
-"type.place.state.USA" = "State";
+"type.place.state.USA" = "Estat";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
-"type.place.suburb" = "Suburb";
+"type.place.suburb" = "Suburbi";
 "type.place.town" = "Town";
 "type.place.village" = "Village";
 "type.power" = "Energia";
@@ -882,7 +882,7 @@
 "type.power.generator.wind" = "Generador eòlic";
 "type.power.generator.gas" = "Central elèctrica de turbina de gas";
 "type.power.generator.hydro" = "Central hidroelèctrica";
-"type.power.line" = "Power Line";
+"type.power.line" = "Línia elèctrica";
 "type.power.line.underground" = "Underground Power Line";
 "type.power.minor_line" = "Minor Power Line";
 "type.power.plant" = "Central elèctrica";
@@ -935,7 +935,7 @@
 "type.railway.preserved.bridge" = "Preserved Rail Bridge";
 "type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
 "type.railway.rail" = "Railway";
-"type.railway.rail.highspeed" = "Ferrocarril d'alta velocitat";
+"type.railway.rail.highspeed" = "Ferrocarril d’alta velocitat";
 "type.railway.rail.tourism" = "Ferrocarril turístic";
 "type.railway.rail.main" = "Ferrocarril";
 
@@ -1261,10 +1261,10 @@
 "type.shop.hifi" = "Àudio HiFi";
 "type.shop.houseware" = "Housewares Store";
 "type.shop.jewelry" = "Jewelry Store";
-"type.shop.kiosk" = "Kiosk";
+"type.shop.kiosk" = "Quiosc";
 "type.shop.kitchen" = "Kitchen Store";
 "type.shop.laundry" = "Laundry";
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "Centre comercial";
 "type.shop.massage" = "Massage Salon";
 "type.shop.mobile_phone" = "Cell Phone Store";
 "type.shop.money_lender" = "Money Lender";
@@ -1290,7 +1290,7 @@
 "type.shop.sports" = "Sports Shop";
 "type.shop.stationery" = "Stationery Shop";
 "type.shop.supermarket" = "Supermarket";
-"type.shop.tattoo" = "Tattoo Parlour";
+"type.shop.tattoo" = "Estudi de tatuatges";
 "type.shop.tea" = "Tea Shop";
 "type.shop.ticket" = "Ticket Shop";
 "type.shop.toys" = "Toy Store";
@@ -1302,7 +1302,7 @@
 "type.shop.wine" = "Wine Shop";
 "type.shop.agrarian" = "Botiga agrícola";
 "type.shop.antiques" = "Antiques Shop";
-"type.shop.appliance" = "Botiga d'electrodomèstics";
+"type.shop.appliance" = "Botiga d’electrodomèstics";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Botiga d’art";
@@ -1441,7 +1441,7 @@
 "type.wheelchair.no" = "No accessible en cadira de rodes";
 "type.wheelchair.yes" = "Accessible en cadira de rodes";
 "type.aerialway.j.bar" = "J-bar Lift";
-"type.aerialway.magic_carpet" = "Magic Carpet";
+"type.aerialway.magic_carpet" = "Catifa rodant";
 "type.aerialway.platter" = "Platter Lift";
 "type.aerialway.rope_tow" = "Rope Tow";
 "type.aerialway.t.bar" = "T-bar Lift";

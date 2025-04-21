@@ -675,7 +675,7 @@
 "type.landuse.churchyard" = "Kilise Bölgesi";
 "type.landuse.commercial" = "Ticari Alan";
 "type.landuse.construction" = "Yapı";
-"type.landuse.education" = "Educational Facility";
+"type.landuse.education" = "Eğitim tesisi";
 "type.landuse.farmland" = "Tarım Arazileri";
 "type.landuse.farmyard" = "Çiftlik Bölgesi";
 "type.landuse.field" = "Alan";
@@ -798,7 +798,7 @@
 "type.natural.earth_bank" = "Uçurum";
 "type.man_made.embankment" = "Set";
 "type.natural.coastline" = "Kıyı Şeridi";
-"type.natural.desert" = "Desert";
+"type.natural.desert" = "Çöl";
 "type.natural.geyser" = "Gayzer";
 "type.natural.glacier" = "Buzul";
 "type.natural.grassland" = "Campo";

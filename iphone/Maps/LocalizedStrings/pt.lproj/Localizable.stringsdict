@@ -5,47 +5,61 @@
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>bookmarks_places</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Não há Favoritos</string>
 			<key>one</key>
-			<string>%d favorito</string>
+			<string>Há %d Favorito</string>
+			<key>many</key>
+			<string>Há %d Favoritos</string>
 			<key>other</key>
-			<string>%d favoritos</string>
+			<string>Há %d Favoritos</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>bookmarks_detect_message</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Nehum arquivo foi encontrado.</string>
 			<key>one</key>
-			<string>%d ficheiro encontrado. Pode vê-lo depois da conversão.</string>
+			<string>Um arquivo encontrado. Você Pode vê-lo depois da conversão.</string>
+			<key>many</key>
+			<string>%d arquivos encontrados. Você Pode vê-los depois da conversão.</string>
 			<key>other</key>
-			<string>%d ficheiros encontrados. Pode vê-los depois da conversão.</string>
+			<string>%d arquivos encontrados. Pode vê-los depois da conversão.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>tracks</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>Não há caminho</string>
+			<key>one</key>
+			<string>Há %d Caminho</string>
+			<key>many</key>
+			<string>Há %d Caminhos</string>
 			<key>other</key>
-			<string>%d trilhos</string>
+			<string>Há %d Caminhos</string>
 		</dict>
 	</dict>
 </dict>

@@ -43,8 +43,8 @@
     <string name="type.historic.tank">Istorinis tankas</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Kryžius</string>
-    <string name="type.historic.wreck">Laivo avarija</string>
-    <string name="type.landuse.flowerbed">Geliu lova</string>
+    <string name="type.historic.wreck">Laivo liekanos</string>
+    <string name="type.landuse.flowerbed">Gėlynas</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftos arba dujų gręžinys</string>
     <!-- A tower/mast constructed to burn off excess gas. -->

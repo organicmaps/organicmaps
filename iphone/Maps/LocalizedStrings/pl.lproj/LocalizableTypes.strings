@@ -182,7 +182,7 @@
 "type.amenity.vending_machine.excrement_bags" = "Automat z torebkami na odchody";
 "type.amenity.parcel_locker" = "Paczkomat";
 "type.amenity.vehicle_inspection" = "Stacja kontroli pojazdów";
-"type.amenity.vending_machine.fuel" = "Fuel Pump";
+"type.amenity.vending_machine.fuel" = "Pompa paliwowa";
 "type.amenity.veterinary" = "Weterynarz";
 "type.amenity.waste_basket" = "Kosz na śmieci";
 "type.amenity.waste_disposal" = "Wysypisko śmieci";
@@ -280,7 +280,7 @@
 "type.cuisine.beef_bowl" = "Gyūdon";
 "type.cuisine.brazilian" = "Kuchnia brazylijska";
 "type.cuisine.breakfast" = "Śniadaniarnia";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Herbata bąbelkowa";
 "type.cuisine.burger" = "Burgery";
 "type.cuisine.buschenschank" = "Winiarnia";
 "type.cuisine.cake" = "Ciasta";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Słup elektryczny";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Słup elektryczny";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Słup użytkowy";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

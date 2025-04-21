@@ -248,7 +248,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Äänen kieli</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Testaa puheohjeita (TTS, Text-To-Speech).</string>
+    <string name="pref_tts_test_voice_title">Testaa puheohjeita (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Tarkista äänenvoimakkuus tai järjestelmän tekstistä puheeksi -asetukset, jos ääni ei kuulu nyt.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -286,7 +286,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Liikuta puhelinta kahdeksikon suuntaisella liikkeellä kompassin kalibroimiseksi ja nuolen suunnan määrittämiseksi kartalla.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Näytä käyttöliittymä napauttamalla karttaa uudelleen pitkään.</string>
+    <string name="long_tap_toast">Paina karttaa pitkään uudelleen nähdäksesi käyttöliittymän</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Päivitä kaikki</string>
     <!-- Cancel all button text -->
@@ -364,10 +364,10 @@
     <string name="blue_gray">Siniharmaa</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
-    <string name="dialog_routing_disclaimer_priority">— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;</string>
+    <string name="dialog_routing_disclaimer_priority">— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;</string>
     <string name="dialog_routing_disclaimer_precision">— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Ehdotettuja reittejä tulee pitää vain suosituksina;</string>
-    <string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;</string>
+    <string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien kanssa raja-alueilla: sovelluksemme luomat reitit voivat joskus ylittää maiden rajoja luvattomissa paikoissa.</string>
     <string name="dialog_routing_disclaimer_beware">Pysy tarkkana ja liiku turvallisesti!</string>
     <string name="dialog_routing_check_gps">Tarkista GPS-signaali</string>
     <string name="dialog_routing_error_location_not_found">Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>
@@ -619,7 +619,7 @@
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Käytä hakua tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen.</string>
+    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen</string>
     <string name="planning_route_manage_route">Hallitse reittiä</string>
     <string name="button_plan">Suunnittele</string>
     <string name="placepage_remove_stop">Poista pysähdys</string>

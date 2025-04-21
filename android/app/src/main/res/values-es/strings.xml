@@ -89,7 +89,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Guardar mapas en</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Seleccione el lugar donde deben descargarse los mapas.</string>
+    <string name="maps_storage_summary">Seleccione la carpeta donde deben descargarse los mapas.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapas descargados</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -130,7 +130,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Turismo</string>
+    <string name="category_tourism">Atracciones turísticas</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entretenimiento</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -158,7 +158,7 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Agua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Caravanas</string>
+    <string name="category_rv">Instalaciones para autocaravanas</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
@@ -203,7 +203,7 @@
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Correo</string>
     <!-- Text for message when used successfully copied something -->
-    <string name="copied_to_clipboard">Copiado al portapapeles: %s</string>
+    <string name="copied_to_clipboard">Copiado en el portapapeles: %s</string>
     <!-- Used for bookmark editing -->
     <string name="done">Hecho</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
@@ -766,7 +766,7 @@
     <string name="dialog_pedestrian_route_is_long_header">No se encontró ninguna ruta de metro</string>
     <string name="dialog_pedestrian_route_is_long_message">Elija un punto de inicio o fin de ruta más cercano a una estación de metro</string>
     <string name="button_layer_isolines">Alturas</string>
-    <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
+    <string name="isolines_activation_error_dialog">Para usar las curvas de nivel, actualice o descargue el mapa del área deseada</string>
     <string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
@@ -838,7 +838,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Esta aplicación necesita su permiso</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita permiso de ubicación para funcionar eficazmente</string>
+    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita permisos de ubicación para funcionar eficazmente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -852,7 +852,7 @@
     <string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Sabe si su dispositivo la admite?</string>
-    <string name="drive_through">Servicio al coche</string>
+    <string name="drive_through">Servicio desde el coche</string>
     <string name="clear_the_search">Borrar búsqueda</string>
     <string name="zoom_in">Acercar</string>
     <!-- Accessibility text for the zoom-out button on the map -->

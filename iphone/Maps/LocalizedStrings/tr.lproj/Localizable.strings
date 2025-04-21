@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Pilinizi tüketmez, çevrimdışı çalışır";
 
 /* Text in About screen */
-"about_proposition_3" = "• Hızlı, minimalist, topluluk tarafından geliştirilmiş";
+"about_proposition_3" = "• Hızlı, minimalist, toplulukça geliştirilmiş";
 "close" = "Kapat";
 "download" = "İndir";
 
@@ -217,7 +217,7 @@
 "on" = "Açık";
 
 /* Generic «Auto» string */
-"auto" = "Otomatik";
+"auto" = "Kendiliğinden";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektif görünüm";
@@ -226,7 +226,7 @@
 "pref_map_3d_buildings_title" = "3B yapılar";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "3B yapılar güç tasarrufu modundayken kapatılır";
+"pref_map_3d_buildings_disabled_summary" = "3B yapılar güç tutum kipindeyken kapatılır";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Sesli Yönlendirme";
@@ -245,7 +245,7 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Diğer";
-"pref_map_auto_zoom" = "Otomatik yakınlaştırma";
+"pref_map_auto_zoom" = "Kendiliğinden yaklaştırma";
 "placepage_distance" = "Mesafe";
 "search_show_on_map" = "Haritada görüntüle";
 
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Pusula kalibrasyonu";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Seçenekleri görmek için haritaya tekrar basılı tutun";
+"long_tap_toast" = "Arayüzü görmek için haritaya uzun basın";
 
 /* Update all button text */
 "downloader_update_all_button" = "Tümünü güncelle";
@@ -327,7 +327,7 @@
 
 /* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
 "downloader_status_maps" = "Haritalar";
-"downloader_download_all_button" = "Hepsini İndir";
+"downloader_download_all_button" = "Tümünü İndir";
 "downloader_downloading" = "İndiriliyor:";
 "downloader_search_results" = "Bulundu";
 
@@ -341,13 +341,13 @@
 "downloader_delete_map_while_routing_dialog" = "Haritayı silmek için lütfen navigasyonu durdurun.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.";
+"routing_failed_cross_mwm_building" = "Rotalar yalnızca tümüyle tek bir bölgenin haritası içinde oluşturulabilir.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Haritayı indir";
 
 /* Item status in downloader. */
-"downloader_retry" = "Tekrar dene";
+"downloader_retry" = "Yeniden Dene";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Haritayı Sil";
@@ -410,17 +410,17 @@
 
 /* blue gray color */
 "blue_gray" = "Mavi Gri";
-"dialog_routing_disclaimer_title" = "Rotanızı takip ederken şunları lütfen unutmayın:";
-"dialog_routing_disclaimer_priority" = "— Yol durumları, trafik kuralları ve trafik işaretleri her zaman navigasyon tavsiyelerinden önceliklidir;";
+"dialog_routing_disclaimer_title" = "Rotanızı izlerken şunları lütfen unutmayın:";
+"dialog_routing_disclaimer_priority" = "— Yol koşulları, trafik kuralları ve trafik işaretleri her zaman navigasyon önerilerinden önceliklidir;";
 "dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen rota da hedefinize ulaşmak için en uygun yol olmayabilir;";
 "dialog_routing_disclaimer_recommendations" = "— Önerilen rotalar yalnızca tavsiye olarak kabul edilmelidir;";
 "dialog_routing_disclaimer_borders" = "— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir.";
 "dialog_routing_disclaimer_beware" = "Lütfen yolda dikkatli ve emniyetli olun!";
-"dialog_routing_check_gps" = "GPS sinyalini kontrol edin";
-"dialog_routing_error_location_not_found" = "Rota oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.";
-"dialog_routing_location_turn_wifi" = "Lütfen GPS sinyalinizi kontrol edin. Wi-Fi'ı etkinleştirmek konum isabetini arttırır.";
-"dialog_routing_location_turn_on" = "Konum hizmetlerini etkinleştirin";
-"dialog_routing_location_unknown_turn_on" = "Mevcut GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.";
+"dialog_routing_check_gps" = "GPS sinyalini denetle";
+"dialog_routing_error_location_not_found" = "Rota oluşturulamıyor. Şu anki GPS koordinatları tanımlanamadı.";
+"dialog_routing_location_turn_wifi" = "Lütfen GPS sinyalinizi denetleyin. Wi-Fi'ı etkinleştirmek konum doğruluğunu artırır.";
+"dialog_routing_location_turn_on" = "Konum hizmetlerini etkinleştir";
+"dialog_routing_location_unknown_turn_on" = "Şu anki GPS koordinatları belirlenemiyor. Rota hesaplamak için konum hizmetlerini etkinleştirin.";
 "dialog_routing_download_files" = "Gerekli dosyaları indirin";
 "dialog_routing_download_and_update_all" = "Planlanan yoldaki tüm harita ve rota bilgilerini indirip güncelleyerek rotayı hesaplayın.";
 "dialog_routing_unable_locate_route" = "Rota belirlenemiyor";
@@ -435,7 +435,7 @@
 "dialog_routing_intermediate_not_determined" = "Lütfen ara noktanızı ayarlayın.";
 "dialog_routing_system_error" = "Sistem hatası";
 "dialog_routing_application_error" = "Uygulama hatası nedeniyle rota oluşturulamadı.";
-"dialog_routing_try_again" = "Lütfen tekrar deneyin";
+"dialog_routing_try_again" = "Lütfen yeniden deneyin";
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir rota oluşturmak ister misiniz?";
 "dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir rota oluşturmak için haritayı indirin.";
 
@@ -472,8 +472,8 @@
 "p2p_start" = "Başla";
 "p2p_from_here" = "Başlangıç";
 "p2p_to_here" = "Varış yeri";
-"p2p_only_from_current" = "Navigasyon sadece şu anki konumunuzdan mevcut.";
-"p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
+"p2p_only_from_current" = "Navigasyon yalnızca şu anki konumunuzdan kullanılabilir.";
+"p2p_reroute_from_current" = "Şu anki konumunuzdan rota planlamamızı ister misiniz?";
 "editor_time_add" = "Plan Ekle";
 "editor_time_delete" = "Planı Sil";
 
@@ -491,7 +491,7 @@
 "editor_done_dialog_1" = "Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.";
 "share_with_friends" = "Arkadaşlarınla paylaş";
 "editor_report_problem_send_button" = "Gönder";
-"autodownload" = "Haritaları otomatik olarak indir";
+"autodownload" = "Haritaları kendiliğinden indir";
 
 /* Place Page opening hours text */
 "closed_now" = "Şu anda kapalı";
@@ -548,7 +548,7 @@
 "downloader_update_maps" = "Haritaları güncelle";
 "downloader_search_field_hint" = "Harita bul";
 "migration_download_error_dialog" = "İndirme hatası";
-"common_check_internet_connection_dialog" = "Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.";
+"common_check_internet_connection_dialog" = "Lütfen aygıtınızın internete bağlandığından emin olun.";
 "downloader_no_space_title" = "Yeterli alan yok";
 "downloader_no_space_message" = "Lütfen gereksiz verileri silin";
 "editor_profile_changes" = "Doğrulanan Düzenleme";
@@ -569,7 +569,7 @@
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
 "osm_presentation" = "%@ tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz";
-"login_to_make_edits_visible" = "Harita düzenlemelerinizin herkese ulaşabilmesi için bir OpenStreetMap hesabı oluşturun veya oturum açın.";
+"login_to_make_edits_visible" = "Harita düzenlemelerinizi herkese ulaştırmak için OpenStreetMap hesabı oluşturun veya oturum açın.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
@@ -595,7 +595,7 @@
 "editor_detailed_description_hint" = "Ayrıntılı yorum";
 "editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.";
 "editor_more_about_osm" = "OpenStreetMap hakkında ek bilgi";
-"editor_operator" = "Operatör";
+"editor_operator" = "İşletici";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operatör: %@";
@@ -657,7 +657,7 @@
 "editor_reset_edits_button" = "Sıfırla";
 "editor_remove_place_message" = "Eklenen yer kaldırılsın mı?";
 "editor_remove_place_button" = "Kaldır";
-"editor_place_doesnt_exist" = "Bu yer mevcut değil";
+"editor_place_doesnt_exist" = "Bu yer yok";
 "text_more_button" = "…daha fazla";
 
 /* Phone number error message */
@@ -685,13 +685,13 @@
 "general_settings" = "Genel ayarlar";
 
 /* For the first routing */
-"accept" = "Kabul et";
+"accept" = "Kabul Et";
 
 /* For the first routing */
 "decline" = "Reddet";
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 "mobile_data_option_always" = "Her Zaman Kullan";
-"mobile_data_option_today" = "Sadece Bugün";
+"mobile_data_option_today" = "Yalnızca Bugün";
 "mobile_data_option_not_today" = "Bugün Kullanma";
 "mobile_data" = "Mobil İnternet";
 
@@ -709,7 +709,7 @@
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 "enable_logging" = "Günlüğü etkinleştir";
 "log_file_size" = "Günlük dosyası boyutu: %@";
-"transliteration_title" = "Latin harf çevirisi";
+"transliteration_title" = "Latin alfabesine çevir";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Çık";
@@ -721,7 +721,7 @@
 "routing_add_finish_point" = "Bir hedef noktası eklemek için aramayı kullanın veya haritaya dokunun";
 "planning_route_manage_route" = "Rotayı yönet";
 "button_plan" = "Plan";
-"placepage_remove_stop" = "Durağı kaldır";
+"placepage_remove_stop" = "Durağı Kaldır";
 "planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
 "placepage_add_stop" = "Ara nokta ekle";
 "start_from_my_position" = "Buradan başla";
@@ -762,7 +762,7 @@
 "terms_of_use" = "Kullanım koşulları";
 "button_layer_subway" = "Metro";
 "layers_title" = "Harita Stilleri ve Katmanlar";
-"subway_data_unavailable" = "Metro haritası mevcut değil";
+"subway_data_unavailable" = "Metro haritası yok";
 "title_error_downloading_bookmarks" = "Bir hata oluştu";
 "popular_place" = "Popüler";
 "export_file" = "KMZ Olarak Dışa Aktar";
@@ -782,11 +782,11 @@
 
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Hiçbir zaman uyarma";
-"power_managment_title" = "Güç tasarrufu modu";
-"power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
+"power_managment_title" = "Güç tutum kipi";
+"power_managment_description" = "Kimi işlevler pahasına olsa da güç kullanımını düşürmeyi dener.";
 "power_managment_setting_never" = "Asla";
-"power_managment_setting_auto" = "Otomatik";
-"power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
+"power_managment_setting_auto" = "Pil düşükken";
+"power_managment_setting_manual_max" = "Her zaman";
 "enable_logging_warning_message" = "Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.";
 "driving_options_title" = "Yönlendirme seçenekleri";
 
@@ -800,7 +800,7 @@
 "avoid_ferry" = "Vapurdan kaçın";
 "avoid_motorways" = "Otobandan kaçın";
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
-"unable_to_calc_alert_subtitle" = "Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin";
+"unable_to_calc_alert_subtitle" = "Rota bulunamadı. Bunun nedeni, belirlediğiniz seçenekler ya da eksik OpenStreetMap verisi olabilir. Lütfen rota seçeneklerinizi değiştirin ve yeniden deneyin.";
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
 "change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 "toll_road" = "Paralı yol";
@@ -879,12 +879,12 @@
 "medicine" = "İlaç";
 "search_in_the_list" = "Listede ara";
 "religious_places" = "Dini yerler";
-"transit_not_found" = "Metro navigasyonu bu bölgede henüz mevcut değil";
+"transit_not_found" = "Metro navigasyonu henüz bu bölgede kullanılamaz";
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
 "button_layer_isolines" = "Arazi";
 "isolines_activation_error_dialog" = "Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin";
-"isolines_location_error_dialog" = "Arazi katmanı henüz bu bölgede mevcut değil";
+"isolines_location_error_dialog" = "Arazi katmanı henüz bu bölgede kullanılamaz";
 "elevation_profile_diff_level" = "Zorluk seviyesi";
 "elevation_profile_diff_level_easy" = "Kolay";
 "elevation_profile_diff_level_moderate" = "Orta";
@@ -949,10 +949,10 @@
 "app_tip_03" = "Bir yazılım mühendisi / geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamaya eklemesini isteyebilirsiniz.";
 
 /* App tip #04 */
-"app_tip_04" = "Herhangi bir şeyi seçmek için haritada üzerine dokunun. Ekrandaki seçenekleri gizlemek ve geri getirmek için ise basılı tutun.";
+"app_tip_04" = "Herhangi bir şeyi seçmek için haritaya dokunun. Uzun dokunarak arayüz gizlenip gösterilebilir.";
 
 /* App tip #05 */
-"app_tip_05" = "Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?";
+"app_tip_05" = "Haritada şu anki konumunuzu seçebileceğinizi biliyor musunuz?";
 
 /* App tip #06 */
 "app_tip_06" = "Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.";
@@ -1028,7 +1028,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "Hata: iCloud kullanılamıyor";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "Başka Bir Uygulamada Aç";
+"open_in_app" = "Başka Uygulamada Aç";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "Self servis";
@@ -1068,4 +1068,4 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
-"edit_track" = "Kaydı düzenle";
+"edit_track" = "Kaydı Düzenle";

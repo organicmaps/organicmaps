@@ -749,7 +749,7 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-"type.man_made.silo" = "Silo";
+"type.man_made.silo" = "Σιλό";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Κάμερα παρακολούθησης";
 "type.man_made.tower" = "Πύργος";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Πυλώνες μεταφοράς ρεύματος";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Ηλεκτρικός πόλος";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Πόλος κοινής ωφέλειας";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -928,7 +928,7 @@
 "type.railway.monorail.bridge" = "Monorail Bridge";
 "type.railway.monorail.tunnel" = "Monorail Tunnel";
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.bridge" = "Σιδηροδρομική γέφυρα στενής γραμμής";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 "type.railway.platform" = "Railway Platform";
 "type.railway.preserved" = "Preserved Rail";
@@ -1445,14 +1445,14 @@
 "type.aerialway.platter" = "Platter Lift";
 "type.aerialway.rope_tow" = "Rope Tow";
 "type.aerialway.t.bar" = "T-bar Lift";
-"type.piste_type.downhill" = "Downhill Ski Run";
-"type.piste_type.downhill.area" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced" = "Downhill Ski Run";
-"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
-"type.piste_type.downhill.easy" = "Downhill Ski Run";
-"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
-"type.piste_type.downhill.expert" = "Downhill Ski Run";
-"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
+"type.piste_type.downhill" = "Κατάβαση πίστας σκι";
+"type.piste_type.downhill.area" = "Κατάβαση πίστας σκι";
+"type.piste_type.downhill.advanced" = "Προχωρημένη πίστα κατάβασης σκι";
+"type.piste_type.downhill.advanced.area" = "Προχωρημένη πίστα σκι κατάβασης";
+"type.piste_type.downhill.easy" = "Εύκολη πίστα κατάβασης σκι";
+"type.piste_type.downhill.easy.area" = "Εύκολη πίστα σκι κατάβασης";
+"type.piste_type.downhill.expert" = "Ειδική πίστα κατάβασης σκι";
+"type.piste_type.downhill.expert.area" = "Ειδική πίστα κατάβασης σκι";
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 "type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";

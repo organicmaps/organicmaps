@@ -111,7 +111,7 @@
 "category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
-"category_tourism" = "Turismo";
+"category_tourism" = "Atracciones turísticas";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Entretenimiento";
@@ -153,7 +153,7 @@
 "category_water" = "Agua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Caravanas";
+"category_rv" = "Instalaciones para autocaravanas";
 "share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!";
 
 /* message title of loading file */
@@ -181,7 +181,7 @@
 "email" = "Correo";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copiado al portapapeles: %@";
+"copied_to_clipboard" = "Copiado en el portapapeles: %@";
 
 /* place preview title */
 "info" = "Información";
@@ -244,7 +244,7 @@
 "pref_tts_test_voice_title" = "Probar indicaciones de voz (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Otros";
+"pref_tts_other_section_title" = "Otro";
 "pref_map_auto_zoom" = "Zum automático";
 "placepage_distance" = "Distancia";
 "search_show_on_map" = "Ver en el mapa";
@@ -883,7 +883,7 @@
 "dialog_pedestrian_route_is_long_header" = "No se encontró ninguna ruta de metro";
 "dialog_pedestrian_route_is_long_message" = "Elija un punto de inicio o fin de ruta más cercano a una estación de metro";
 "button_layer_isolines" = "Alturas";
-"isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
+"isolines_activation_error_dialog" = "Para usar las curvas de nivel, actualice o descargue el mapa del área deseada";
 "isolines_location_error_dialog" = "La altitud de relieve aún no está disponible en esta región";
 "elevation_profile_diff_level" = "Nivel de dificultad";
 "elevation_profile_diff_level_easy" = "Fácil";
@@ -989,7 +989,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-"drive_through" = "Servicio al coche";
+"drive_through" = "Servicio desde el coche";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Enlace al menú";

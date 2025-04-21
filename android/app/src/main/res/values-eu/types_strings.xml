@@ -247,7 +247,7 @@
     <string name="type.craft.metal_construction">Metalgintzako langilea</string>
     <string name="type.craft.painter">Margolaria</string>
     <string name="type.craft.photographer">Argazkilaria</string>
-    <string name="type.shop.camera">Kamera Denda</string>
+    <string name="type.shop.camera">Kamera denda</string>
     <string name="type.craft.plumber">Iturgina</string>
     <string name="type.craft.sawmill">Zerrategi</string>
     <string name="type.craft.shoemaker">Zapataria</string>
@@ -1031,7 +1031,7 @@
     <string name="type.shop.curtain">Gortinak</string>
     <string name="type.shop.deli">Delicatesen Denda</string>
     <string name="type.shop.department_store">Denda handiak</string>
-    <string name="type.shop.doityourself">Burdindegia</string>
+    <string name="type.shop.doityourself">Brikolajea</string>
     <string name="type.shop.dry_cleaning">Garbigailua</string>
     <string name="type.shop.electronics">Elektronika</string>
     <string name="type.shop.erotic">Sexu denda</string>
@@ -1044,12 +1044,12 @@
     <string name="type.shop.garden_centre">Haurtzaindegia</string>
     <string name="type.shop.gas">Gas biltegia</string>
     <string name="type.shop.gift">Opari denda</string>
-    <string name="type.shop.greengrocer">Barazki eta fruta-saltzailea</string>
+    <string name="type.shop.greengrocer">Barazki eta fruta-denda</string>
     <string name="type.shop.grocery">Janariak</string>
-    <string name="type.shop.hairdresser">Bizartegia</string>
-    <string name="type.shop.hardware">Hardware denda</string>
-    <string name="type.shop.health_food">Osasuneko Elikagaien Denda</string>
-    <string name="type.shop.hearing_aids">Entzumen-biltegia</string>
+    <string name="type.shop.hairdresser">Ile-apaindegia</string>
+    <string name="type.shop.hardware">Burdindegia</string>
+    <string name="type.shop.health_food">Elikagai osasungarrien denda</string>
+    <string name="type.shop.hearing_aids">Audiofono denda</string>
     <string name="type.shop.herbalist">Belar denda</string>
     <string name="type.shop.hifi">HiFi Audioa</string>
     <string name="type.shop.houseware">Etxeko tresneria denda</string>
@@ -1276,4 +1276,8 @@
     <string name="type.highway.world_towns_level">Herri mailako errepidea</string>
     <string name="type.landuse.commercial">Komertzial-gunea</string>
     <string name="type.landuse.military">Militar-gunea</string>
+    <string name="type.leisure.recreation_ground">Parkea</string>
+    <string name="type.leisure.slipway">Arrapala</string>
+    <string name="type.leisure.track">Pista</string>
+    <string name="type.leisure.track.area">Pista</string>
 </resources>

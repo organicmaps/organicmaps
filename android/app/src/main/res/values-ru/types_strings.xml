@@ -1376,4 +1376,13 @@
     <string name="type.leisure.sports_hall">Спортивный зал</string>
     <string name="type.man_made.utility_pole">Столб</string>
     <string name="type.power.pole">Столб ЛЭП</string>
+    <string name="type.highway.world_level">Шоссе мирового значения</string>
+    <string name="type.highway.world_towns_level">Шоссе местного значения</string>
+    <string name="type.hwtag.bidir_bicycle">Велосипедная двухсторонняя</string>
+    <string name="type.hwtag.onedir_bicycle">Велосипедная односторонняя</string>
+    <string name="type.hwtag.lit">Освещённая</string>
+    <string name="type.hwtag.nobicycle">Без мотоциклов</string>
+    <string name="type.hwtag.oneway">Одностороннее движение</string>
+    <string name="type.hwtag.toll">Платная</string>
+    <string name="type.hwtag.private">Частная</string>
 </resources>

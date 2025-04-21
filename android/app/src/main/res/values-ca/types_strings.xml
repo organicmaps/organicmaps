@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">Adreça/Bloc</string>
-    <string name="type.addr_interpolation.even">Adreça/Bloc</string>
-    <string name="type.addr_interpolation.odd">Adreça/Bloc</string>
+    <string name="type.addr_interpolation">Adreça/illa</string>
+    <string name="type.addr_interpolation.even">Adreça/illa</string>
+    <string name="type.addr_interpolation.odd">Adreça/illa</string>
     <string name="type.aerialway">Transport aeri</string>
     <string name="type.aerialway.cable_car">Telefèric</string>
     <string name="type.aerialway.chair_lift">Telecadira</string>
-    <string name="type.aerialway.drag_lift">Telesquí</string>
+    <string name="type.aerialway.drag_lift">Teleesquí</string>
     <string name="type.aerialway.gondola">Telecabina</string>
     <string name="type.aerialway.mixed_lift">Telemix</string>
     <string name="type.aerialway.station">Estació de telefèric</string>
@@ -214,13 +214,13 @@
     <string name="type.boundary.protected_area.6">Àrea protegida</string>
     <!-- Duplicates [address] in strings.txt -->
     <string name="type.building.address">Adreça</string>
-    <string name="type.building.train_station">Edifici de l\'Estació</string>
+    <string name="type.building.train_station">Edifici de l’estació</string>
     <string name="type.craft.caterer">Càtering</string>
     <string name="type.craft.grinding_mill">Molí de mòlta</string>
     <string name="type.craft.key_cutter">Tall de claus</string>
     <string name="type.craft.locksmith">Serraller</string>
     <string name="type.shop.camera">Botiga de càmeres</string>
-    <string name="type.emergency.assembly_point">Punt de reunió d\'emergència</string>
+    <string name="type.emergency.assembly_point">Punt de reunió d’emergència</string>
     <!-- A place where a lifeguard is on duty. -->
     <string name="type.emergency.lifeguard">Socorrista</string>
     <!-- A mountain rescue base for search and rescue activities. -->
@@ -233,14 +233,14 @@
     <string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
     <string name="type.highway.footway.sidewalk">Vorera</string>
     <string name="type.highway.footway.crossing">Pas de vianants</string>
-    <string name="type.highway.path">Camí</string>
+    <string name="type.highway.path">Corriol</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
     <string name="type.highway.path.difficult">Ruta difícil o poc visible</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
     <string name="type.highway.path.expert">Sender molt difícil o indistingible</string>
-    <string name="type.highway.path.bicycle">Camí</string>
-    <string name="type.highway.footway.bicycle">Camí</string>
-    <string name="type.highway.path.horse">Camí</string>
+    <string name="type.highway.path.bicycle">Via per a vianants i ciclistes</string>
+    <string name="type.highway.footway.bicycle">Via per a vianants i ciclistes</string>
+    <string name="type.highway.path.horse">Corriol eqüestre</string>
     <string name="type.area_highway.path">Camí</string>
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Avions històrics</string>
@@ -283,7 +283,7 @@
     <string name="type.landuse.cemetery.christian">Cementiri cristià</string>
     <string name="type.landuse.flowerbed">Llit de flors</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
-    <string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
+    <string name="type.leisure.outdoor_seating">Seients a l’aire lliure</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Torre de comunicacions</string>
     <!-- A regular telecommunications tower / mast. -->
@@ -308,7 +308,7 @@
     <string name="type.power.plant.solar">Central d\'energia solar</string>
     <string name="type.power.plant.wind">Central eòlica</string>
     <string name="type.railway.funicular">Funicular</string>
-    <string name="type.railway.rail.highspeed">Ferrocarril d\'alta velocitat</string>
+    <string name="type.railway.rail.highspeed">Ferrocarril d’alta velocitat</string>
     <string name="type.railway.rail.tourism">Ferrocarril turístic</string>
     <string name="type.railway.rail.main">Ferrocarril</string>
     <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
@@ -365,7 +365,7 @@
     <string name="type.shop.rental">Botiga de lloguer</string>
     <string name="type.shop.rental.bicycle">Botiga de lloguer de bicicletes</string>
     <string name="type.shop.agrarian">Botiga agrícola</string>
-    <string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
+    <string name="type.shop.appliance">Botiga d’electrodomèstics</string>
     <!-- maybe change to Art Gallery for en-US when supported -->
     <string name="type.shop.art">Botiga d’art</string>
     <string name="type.shop.bed">Botiga de llits</string>
@@ -912,4 +912,53 @@
     <string name="type.highway.pedestrian.tunnel">Túnel de vianants</string>
     <string name="type.cuisine.turkish">Turca</string>
     <string name="type.highway.pedestrian.bridge">Pont de vianants</string>
+    <string name="type.historic.city_gate">Porta de la ciutat</string>
+    <string name="type.cuisine.irish">Irlandesa</string>
+    <string name="type.cuisine.italian">Italiana</string>
+    <string name="type.cuisine.italian_pizza">Italiana, pizza</string>
+    <string name="type.cuisine.indonesian">Indonèsia</string>
+    <string name="type.cuisine.malagasy">Malgaixa</string>
+    <string name="type.cuisine.malaysian">Malàisia</string>
+    <string name="type.cuisine.persian">Persa</string>
+    <string name="type.cuisine.mediterranean">Mediterrània</string>
+    <string name="type.cuisine.peruvian">Peruana</string>
+    <string name="type.leisure.dog_park">Parc caní</string>
+    <string name="type.barrier.toll_booth">Cabina de peatge</string>
+    <string name="type.building.has_parts">Edifici</string>
+    <string name="type.building_part">Edifici</string>
+    <string name="type.craft.electronics_repair">Reparació d’aparells electrònics</string>
+    <string name="type.craft.gardener">Jardiner</string>
+    <string name="type.craft.electrician">Electricista</string>
+    <string name="type.cuisine.chinese">Xinesa</string>
+    <string name="type.office.ngo">Organització no-governamental</string>
+    <string name="type.highway.road">Carretera</string>
+    <string name="type.shop.tattoo">Estudi de tatuatges</string>
+    <string name="type.shop.mall">Centre comercial</string>
+    <string name="type.emergency.defibrillator">Desfibril·lador</string>
+    <string name="type.highway">Carretera</string>
+    <string name="type.highway.construction">Via en construcció</string>
+    <string name="type.place.continent">Continent</string>
+    <string name="type.shop.kiosk">Quiosc</string>
+    <string name="type.fee.yes">€</string>
+    <string name="type.highway.footway.area">Àrea de vianants</string>
+    <string name="type.highway.footway.tunnel">Túnel de vianants</string>
+    <string name="type.highway.footway.bridge">Pont de vianants</string>
+    <string name="type.cuisine.vietnamese">Vietnamita</string>
+    <string name="type.aerialway.magic_carpet">Catifa rodant</string>
+    <string name="type.barrier.stile">Escala</string>
+    <string name="type.craft.confectionery">Confiteria</string>
+    <string name="type.craft.carpenter">Fuster</string>
+    <string name="type.craft.handicraft">Artesania</string>
+    <string name="type.cuisine.barbecue">Barbacoa</string>
+    <string name="type.cuisine.burger">Hamburgueses</string>
+    <string name="type.cuisine.cake">Pastissos</string>
+    <string name="type.cuisine.bavarian">Bavaresa</string>
+    <string name="type.cuisine.caribbean">Caribenya</string>
+    <string name="type.cuisine.chicken">Pollastre</string>
+    <string name="type.cuisine.croatian">Croata</string>
+    <string name="type.cuisine.curry">Curri</string>
+    <string name="type.cuisine.ethiopian">Etiòpica</string>
+    <string name="type.place.suburb">Suburbi</string>
+    <string name="type.place.state.USA">Estat</string>
+    <string name="type.power.line">Línia elèctrica</string>
 </resources>

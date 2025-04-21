@@ -1,6 +1,6 @@
-"type.addr_interpolation" = "Dirección/Bloque";
-"type.addr_interpolation.even" = "Dirección/Bloque";
-"type.addr_interpolation.odd" = "Dirección/Bloque";
+"type.addr_interpolation" = "Dirección/manzana";
+"type.addr_interpolation.even" = "Dirección/manzana";
+"type.addr_interpolation.odd" = "Dirección/manzana";
 "type.aerialway" = "Transporte aéreo";
 "type.aerialway.cable_car" = "Teleférico";
 "type.aerialway.chair_lift" = "Telesilla";
@@ -11,7 +11,7 @@
 "type.aeroway" = "Infraestructura aérea";
 "type.aeroway.aerodrome" = "Aeropuerto";
 "type.aeroway.aerodrome.international" = "Aeropuerto internacional";
-"type.aeroway.apron" = "Plataforma";
+"type.aeroway.apron" = "Plataforma de estacionamiento de aviones";
 "type.aeroway.gate" = "Puerta de embarque";
 "type.aeroway.helipad" = "Helipuerto";
 "type.aeroway.runway" = "Pista de despegue";
@@ -33,7 +33,7 @@
 "type.amenity.bus_station" = "Estación de autobuses";
 "type.amenity.cafe" = "Café";
 "type.amenity.car_rental" = "Alquiler de coches";
-"type.amenity.motorcycle_rental" = "Alquiler de motos";
+"type.amenity.motorcycle_rental" = "Alquiler de motocicletas";
 "type.amenity.car_sharing" = "Compartir coche";
 "type.amenity.car_wash" = "Lavado de coches";
 "type.amenity.casino" = "Casino";
@@ -281,7 +281,7 @@
 "type.cuisine.brazilian" = "Brasileña";
 "type.cuisine.breakfast" = "Desayunos";
 "type.cuisine.bubble_tea" = "Té de burbujas";
-"type.cuisine.burger" = "Hamburguesas";
+"type.cuisine.burger" = "Hamburguesería";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Tartas";
 "type.cuisine.caribbean" = "Caribeña";
@@ -309,7 +309,7 @@
 "type.cuisine.hotdog" = "Perritos calientes";
 "type.cuisine.hungarian" = "Húngara";
 "type.cuisine.ice_cream" = "Helados";
-"type.cuisine.indian" = "Hindú";
+"type.cuisine.indian" = "India";
 "type.cuisine.indonesian" = "Indonesia";
 "type.cuisine.international" = "Internacional";
 "type.cuisine.irish" = "Irlandesa";
@@ -455,7 +455,7 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Puente";
-"type.highway.path.horse" = "Sendero de herradura";
+"type.highway.path.horse" = "Sendero ecuestre";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Túnel";
@@ -521,7 +521,7 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente de carretera de servicio";
 "type.highway.service.driveway" = "Vía de servicio";
-"type.highway.service.parking_aisle" = "Pasillo de estacionamiento";
+"type.highway.service.parking_aisle" = "Pasillo de aparcamiento";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel de vía de servicio";
@@ -558,7 +558,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Túnel";
-"type.highway.traffic_signals" = "Semáforos";
+"type.highway.traffic_signals" = "Semáforo";
 "type.highway.trunk" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -616,7 +616,7 @@
 "type.historic.castle.palace" = "Palacio";
 "type.historic.castle.shiro" = "Castillo japonés";
 "type.historic.castle.stately" = "Castillo";
-"type.historic.city_gate" = "Puerta de la ciudad";
+"type.historic.city_gate" = "Portón de la ciudad";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Fuerte";
 "type.historic.gallows" = "Horca";
@@ -718,9 +718,9 @@
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Asientos al aire libre";
 "type.leisure.park" = "Parque";
-"type.leisure.park.no.access" = "Parque";
+"type.leisure.park.no.access" = "Parque privado";
 "type.leisure.park.permissive" = "Parque";
-"type.leisure.park.private" = "Parque";
+"type.leisure.park.private" = "Parque privado";
 "type.leisure.picnic_table" = "Mesa de picnic";
 "type.leisure.pitch" = "Cancha";
 "type.leisure.playground" = "Patio de recreo";
@@ -834,7 +834,7 @@
 "type.office.government" = "Oficina gubernamental";
 "type.office.insurance" = "Oficina de seguros";
 "type.office.lawyer" = "Despacho de abogados";
-"type.office.ngo" = "Sede de ONG";
+"type.office.ngo" = "Organización no gubernamental";
 "type.office.telecommunication" = "Operadora de telefonía";
 "type.organic.only" = "Orgánico";
 "type.organic.yes" = "Orgánico";
@@ -856,7 +856,7 @@
 "type.place.farm" = "Granja";
 "type.place.hamlet" = "Aldea";
 "type.place.island" = "Isla";
-"type.place.islet" = "Isla";
+"type.place.islet" = "Islote";
 "type.place.isolated_dwelling" = "Vivienda aislada";
 "type.place.locality" = "Localidad";
 
@@ -924,7 +924,7 @@
 "type.railway.light_rail" = "Tren ligero";
 "type.railway.light_rail.bridge" = "Puente de tren ligero";
 "type.railway.light_rail.tunnel" = "Túnel de tren ligero";
-"type.railway.monorail" = "Tren de monorraíl";
+"type.railway.monorail" = "Monorraíl";
 "type.railway.monorail.bridge" = "Puente de monorraíl";
 "type.railway.monorail.tunnel" = "Túnel de monorraíl";
 "type.railway.narrow_gauge" = "Vía férrea estrecha";
@@ -1203,8 +1203,8 @@
 "type.railway.subway_entrance.yerevan" = "Entrada al metro";
 "type.railway.subway_entrance.yokohama" = "Entrada al metro";
 "type.railway.tram" = "Línea de tranvía";
-"type.railway.tram.bridge" = "Puente de tranvía";
-"type.railway.tram.tunnel" = "Túnel de tranvía";
+"type.railway.tram.bridge" = "Puente de línea de tranvía";
+"type.railway.tram.tunnel" = "Túnel de línea de tranvía";
 "type.railway.tram_stop" = "Parada de tranvía";
 "type.route" = "Ruta";
 "type.route.ferry" = "Ruta de ferry";
@@ -1290,7 +1290,7 @@
 "type.shop.sports" = "Artículos de deporte";
 "type.shop.stationery" = "Papelería";
 "type.shop.supermarket" = "Supermercado";
-"type.shop.tattoo" = "Tatuajes";
+"type.shop.tattoo" = "Estudio de tatuajes";
 "type.shop.tea" = "Tienda de té";
 "type.shop.ticket" = "Venta de entradas";
 "type.shop.toys" = "Tienda de juguetes";
@@ -1387,7 +1387,7 @@
 "type.attraction.water_slide" = "Tobogán acuático";
 "type.tourism.attraction.specified" = "Atracción turística";
 "type.tourism.camp_site" = "Paraje de campamento";
-"type.tourism.caravan_site" = "Zona de caravanas";
+"type.tourism.caravan_site" = "Zona de autocaravanas";
 
 /* A rentable countryside vacation house. */
 "type.tourism.chalet" = "Casa de vacaciones";

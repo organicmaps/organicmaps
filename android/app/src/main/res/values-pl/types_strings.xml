@@ -1313,4 +1313,8 @@
     <string name="type.internet_access.wlan">Internet</string>
     <string name="type.leisure.marina">Przystań</string>
     <string name="type.mapswithme">mapswithme</string>
+    <string name="type.cuisine.bubble_tea">Herbata bąbelkowa</string>
+    <string name="type.power.pole">Słup elektryczny</string>
+    <string name="type.man_made.utility_pole">Słup użytkowy</string>
+    <string name="type.amenity.vending_machine.fuel">Pompa paliwowa</string>
 </resources>

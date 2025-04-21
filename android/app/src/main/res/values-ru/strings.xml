@@ -47,7 +47,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Не разряжает батарею, работает в автономном режиме</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Быстрые, минималистичные, разработанные сообществом</string>
+    <string name="about_proposition_3">• Быстрый, минималистичный, разработанный сообществом</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Приложение с открытым исходным кодом, созданное энтузиастами и волонтёрами.</string>
     <!-- The button that opens system location settings -->
@@ -93,7 +93,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Сохранять карты в</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Выберите место, где будут храниться загруженные карты</string>
+    <string name="maps_storage_summary">Выберите папку куда загружать карты.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Загруженные карты</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -198,9 +198,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Смотри мою метку на карте Organic Maps</string>
+    <string name="bookmark_share_email_subject">Проверь мою метку на карте Organic Maps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
+    <string name="my_position_share_email_subject">Проверь моё текущее местоположение на карте Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Привет!
 \n
@@ -254,7 +254,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Язык подсказок</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Проверить голосовые подсказки (TTS, Text-To-Speech).</string>
+    <string name="pref_tts_test_voice_title">Протестировать голосовые подсказки (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Проверьте громкость или системные настройки преобразования текста в речь, если сейчас ничего не слышно.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -370,10 +370,10 @@
     <string name="blue_gray">Серо-голубой</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">При движении по маршруту помните:</string>
-    <string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;</string>
+    <string name="dialog_routing_disclaimer_priority">— Дорожная обстановка, ПДД и дорожные знаки приоритетнее подсказок навигатора;</string>
     <string name="dialog_routing_disclaimer_precision">— Карта может быть неточной, а предложенный маршрут не всегда оптимален;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Предлагаемые маршруты — лишь рекомендации;</string>
-    <string name="dialog_routing_disclaimer_borders">— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;</string>
+    <string name="dialog_routing_disclaimer_borders">— Будьте внимательны с маршрутами в приграничных зонах: маршруты, построенные нашей программой иногда могут пересекать границы в неположенных местах.</string>
     <string name="dialog_routing_disclaimer_beware">Будьте внимательны на дорогах и берегите себя!</string>
     <string name="dialog_routing_check_gps">Проверьте сигнал GPS</string>
     <string name="dialog_routing_error_location_not_found">Маршрут не построен. Текущая геопозиция не определена.</string>
@@ -511,7 +511,7 @@
     <string name="placepage_add_business_button">Добавить организацию</string>
     <string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.</string>
+    <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту на сайте OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
     <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в Organic Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.
 \nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
@@ -603,7 +603,7 @@
     <string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
     <string name="mobile_data_option_always">Всегда</string>
     <string name="mobile_data_option_today">Только сегодня</string>
-    <string name="mobile_data_option_not_today">Не сегодня</string>
+    <string name="mobile_data_option_not_today">Не использовать сегодня</string>
     <string name="mobile_data">Мобильный интернет</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.</string>
@@ -622,7 +622,7 @@
 \nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.
 \nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
     <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
-    <string name="transliteration_title">Латинская транслитерация</string>
+    <string name="transliteration_title">Транслитерировать в Латинский алфавит</string>
     <string name="learn_more">Узнать больше</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Выход</string>
@@ -637,7 +637,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
     <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
-    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Внешнее хранилище устройства недоступно. Возможно SD карта была удалена, повреждена или файловая система в режиме только для чтения. Проверьте вашу SD карту или свяжитесь с нами через support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
     <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
@@ -648,6 +648,7 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d метка</item>
         <item quantity="few">%d метки</item>
+        <item quantity="many">%d меток</item>
         <item quantity="other">%d меток</item>
     </plurals>
     <string name="bookmarks_create_new_group">Создать новый список</string>
@@ -667,13 +668,15 @@
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл был найден. Вы увидите его после конвертации.</item>
         <item quantity="few">%d файла были найдены. Вы увидите их после конвертации.</item>
-        <item quantity="other">%d файлов было найдено. Вы увидите их после конвертации.</item>
+        <item quantity="many">%d файлов были найдены. Вы увидите их после конвертации.</item>
+        <item quantity="other">%d файлов были найдены. Вы увидите их после конвертации.</item>
     </plurals>
     <string name="restore">Восстановить</string>
     <plurals name="tracks">
-        <item quantity="one">%d трек</item>
-        <item quantity="few">%d трека</item>
-        <item quantity="other">%d треков</item>
+        <item quantity="one">%d маршрут</item>
+        <item quantity="few">%d маршрута</item>
+        <item quantity="many">%d маршрутов</item>
+        <item quantity="other">%d маршрутов</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Приватность</string>
@@ -703,7 +706,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Никогда не предупреждать</string>
     <string name="power_managment_title">Режим энергосбережения</string>
-    <string name="power_managment_description">Если режим энергосбережения включён, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
+    <string name="power_managment_description">Попробовать уменьшить потребление заряда аккумулятора за счёт отключения некоторых функций.</string>
     <string name="power_managment_setting_never">Никогда</string>
     <string name="power_managment_setting_auto">Авто</string>
     <string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
@@ -718,7 +721,7 @@
     <string name="avoid_ferry">Избегать паромы</string>
     <string name="avoid_motorways">Избегать автомагистрали</string>
     <string name="unable_to_calc_alert_title">Невозможно построить маршрут</string>
-    <string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
+    <string name="unable_to_calc_alert_subtitle">Маршрут не найден. Это могло быть спровоцировано вашими настройками прокладки маршрута или неполными данными OpenStreetMap. Пожалуйта, измените ваши настройки прокладки маршрута и попробуйте снова.</string>
     <string name="define_to_avoid_btn">Настроить пути объезда</string>
     <string name="change_driving_options_btn">Настройки объезда включены</string>
     <string name="toll_road">Платная дорога</string>
@@ -854,7 +857,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Этому приложению нужно ваше разрешение</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps в Android Auto для эффективной работы необходимо разрешение на определение местоположения</string>
+    <string name="aa_request_permission_activity_text">Для эффективной работы Organic Maps в Android Auto необходимы разрешения на определение местоположения</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Разрешить</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -899,9 +902,9 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Трек пуст - нечего сохранять</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку</string>
+    <string name="error_no_file_manager_app">Невозможно отобразить диалог выбора папки, потому что на вашем устройстве не установлено подходящее приложение. Пожалуйста, установите менеджер файлов и повторите попытку.</string>
     <string name="choose_color">Выберите цвет</string>
-    <string name="edit_track">Редактировать трек</string>
+    <string name="edit_track">Редактировать маршрут</string>
     <string name="uri_open_location_failed">Не установлено приложение, которое может открыть местоположение</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навигации</string>
@@ -910,4 +913,12 @@
     <string name="github">GitHub</string>
     <string name="telegram">Telegram</string>
     <string name="matrix">[Matrix]</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram">Instagram</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="vk">VK</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
 </resources>
