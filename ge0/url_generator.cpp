@@ -103,6 +103,24 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
   return urlSample;
 }
 
+std::string GenerateCoordUrl(double lat, double lon, double zoom, std::string const & name)
+{
+  std::string url = "https://omaps.app/";
+
+  char buf[64];
+  auto const writtenChars = snprintf(buf, sizeof(buf), "%.5f,%.5f,%.0f", lat, lon, zoom);
+  CHECK(writtenChars > 0 && writtenChars < static_cast<int>(sizeof(buf)), ("Buffer is too small", writtenChars, lat, lon, zoom));
+  url.append(buf);
+
+  if (!name.empty())
+  {
+    url.push_back('/');
+    url.append(UrlEncodeString(TransformName(name)));
+  }
+
+  return url;
+}
+
 std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
 {
   std::ostringstream oss;

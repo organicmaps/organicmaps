@@ -30,6 +30,8 @@ public:
   bool ParseAfterPrefix(std::string const & url, size_t from, Result & result);
 
 protected:
+  static constexpr double kLatAbsLimit = 90.0;
+  static constexpr double kLonAbsLimit = 180.0;
   uint8_t DecodeBase64Char(char const c);
   static double DecodeZoom(uint8_t const zoomByte);
   bool DecodeLatLon(std::string const & s, double & lat, double & lon);
