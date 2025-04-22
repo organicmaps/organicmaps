@@ -427,6 +427,8 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
   }
 }
 
+// MARK: - Public Methods
+
 extension RoutePreviewViewController {
   func render(_ newViewModel: RoutePreview.ViewModel) {
     print(#function)

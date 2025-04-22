@@ -292,8 +292,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
   UITouch *touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
 
-  // Check if the tap is inside searchView)
-  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE && !CGRectContainsPoint(self.searchViewAvailableArea.frame, pt))
+  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE)
     [self.searchManager setMapIsDragging];
 
   e.SetTouchType(type);
