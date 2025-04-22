@@ -5221,6 +5221,25 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
+				"OTHER_LDFLAGS[sdk=iphone*]" = (
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					Foundation,
+					"-framework",
+					IOKit,
+					"-framework",
+					OpenGLES,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-framework",
+					CFNetwork,
+					"-ObjC",
+					"-Xlinker",
+					"-interposable",
+				);
 				"OTHER_LDFLAGS[sdk=macosx*]" = (
 					"-framework",
 					Cocoa,
@@ -5242,8 +5261,6 @@
 					SystemConfiguration,
 					"-framework",
 					CFNetwork,
-					"-Xlinker",
-					"-interposable",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
