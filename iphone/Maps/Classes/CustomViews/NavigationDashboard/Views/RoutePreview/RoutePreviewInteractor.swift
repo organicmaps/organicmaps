@@ -40,9 +40,8 @@ extension RoutePreview {
       case let .selectRoutePoint(point, index):
         searchManager.startSearching(isRouting: false)
         if let textToSearch = point?.title {
-//          searchManager.searchText(textToSearch, isCategory: false)
+          searchManager.searchText(textToSearch, isCategory: false)
         }
-        // TODO: show search with the point
         return .setHidden(true)
 
       case .addRoutePoint:
