@@ -46,7 +46,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Imeshindwa kufungua faili %1$s
 \n
 \n%2$s</string>
@@ -68,7 +68,7 @@
     <string name="pref_tts_test_voice_title">Jaribu maelekezo ya sauti (TTS, maandishi-kwa-hotuba)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Angalia mipangilio ya sauti au ya mfumo ya kubadilisha maandishi-hadi-hotuba ikiwa husikii sauti sasa.</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Habari</string>
     <!-- Button in the main Help dialog -->
     <string name="faq">Maswali na majibu</string>
@@ -76,7 +76,7 @@
     <string name="donate">Changia</string>
     <string name="already_donated">Tayari kutoa</string>
     <string name="remind_me_later">Kumbusha baadaye</string>
-    <string name="support_organic_maps">Kuunga mkono Organic Maps</string>
+    <string name="support_organic_maps">Kuunga mkono CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Saidia mradi</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
@@ -139,7 +139,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Mwendeshaji: %s</string>
     <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
-    <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
+    <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://comaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
     <string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
     <string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
@@ -167,7 +167,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
-    <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Onyeshana hifadhi mbaya</string>
     <string name="core_entrance">Kiingilio</string>
     <string name="error_enter_correct_name">Tafadhali, weka jina sahihi</string>
@@ -232,7 +232,7 @@
     <string name="power_managment_setting_never">Kamwe</string>
     <string name="power_managment_setting_auto">Kiotomatiki</string>
     <string name="power_managment_setting_manual_max">Upeo wa kuhifadhi nishati</string>
-    <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
+    <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa CoMaps tu.</string>
     <string name="access_rules_author_only">Uhariri mtandaoni</string>
     <string name="driving_options_title">Machaguo ya njia</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -353,11 +353,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Kwa skrini ya gari</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
+    <string name="aa_location_permissions_request">CoMaps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Programu hii inahitaji idhini yako</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
+    <string name="aa_request_permission_activity_text">CoMaps katika Android Auto zinahitaji ruhusa ya eneo ili kufanya kazi kwa ufanisi</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Ruhusa za ruzuku</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

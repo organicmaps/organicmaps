@@ -13,5 +13,5 @@ pluginManagement {
 //        mavenCentral()
 //    }
 //}
-rootProject.name = 'Organic Maps'
+rootProject.name = 'CoMaps'
 include ':app'

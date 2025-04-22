@@ -32,7 +32,7 @@
     <string name="country_status_download_failed">Преузимање није успело</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Покушај поново</string>
-    <string name="about_menu_title">О апликацији Organic Maps</string>
+    <string name="about_menu_title">О апликацији CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Слободна за све, направљена с љубављу</string>
     <!-- Text in About screen -->
@@ -49,7 +49,7 @@
     <string name="unsupported_phone">Ова апликација захтева хардверски-убрзан OpenGL. На жалост, ваш уређај није подржан.</string>
     <string name="download">Преузми</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили Organic Maps</string>
+    <string name="disconnect_usb_cable">Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Молим вас, прво ослободите нешто простора на SD картици или на USB меморији да бисте користили апликацију</string>
     <string name="download_resources">Пре него што почнете да користите апликацију, прво преузмите на ваш уређај општу мапу света.
@@ -161,12 +161,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Напомене</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps маркери су подељени са вама</string>
+    <string name="share_bookmarks_email_subject">CoMaps маркери су подељени са вама</string>
     <string name="share_bookmarks_email_body">Здраво!
 \n
-\nУ прилогу су моји маркери; молим те да их отвориш у Organic Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://omaps.app/get?kmz
+\nУ прилогу су моји маркери; молим те да их отвориш у CoMaps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://comaps.app/get?kmz
 \n
-\nУживај у путовању са Organic Maps-ом!</string>
+\nУживај у путовању са CoMaps-ом!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Учитавање маркера</string>
     <!-- Kmz file successful loading -->
@@ -176,7 +176,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Апликација не препознаје ову врсту фајла:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Отварање фајла %1$s није успело
 \n
 \n%2$s</string>
@@ -188,13 +188,13 @@
     <string name="cant_change_this_setting">Извините, подешавање локације за чување мапа је тренутно онемогућено.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Преузимање мапа је у току.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Види моју тренутну локацију у Organic Maps-у! %1$s или %2$s Још не користиш offline мапе? Преузми их овде: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Види моју тренутну локацију у CoMaps-у! %1$s или %2$s Још не користиш offline мапе? Преузми их овде: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Хеј, види мој маркер у Organic Maps-у!</string>
+    <string name="bookmark_share_email_subject">Хеј, види мој маркер у CoMaps-у!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Хеј, види моју тренутну локацију на Organic Maps мапи!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Хеј, види моју тренутну локацију на CoMaps мапи!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Здраво,
 \n
 \nЈа сам овде: %1$s. Кликни на овај %2$s или овај линк %3$s да би видео то место на мапи.
@@ -259,7 +259,7 @@
     <string name="menu">Мени</string>
     <!-- Text in menu -->
     <string name="website">Веб-сајт</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Новости</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Повратне информације</string>
@@ -497,7 +497,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Подаци са OpenStreetMap-а које је креирала заједница до %s. Научите више о томе како да мењате и ажурирате мапу на OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у Organic Maps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у CoMaps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.
 \nПридружите се заједници и помозите да направимо бољу мапу која је доступна свима!</string>
     <string name="login_to_make_edits_visible">Пријавите се на openstreetmap.org да бисте објавили ваше промене остатку света.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -513,7 +513,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Напомена за OpenStreetMap волонтере (није обавезна)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Опишите грешке на мапи или ствари које се не могу променити помоћу Organic Maps-а</string>
+    <string name="editor_note_hint">Опишите грешке на мапи или ствари које се не могу променити помоћу CoMaps-а</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваше промене су послате у јавну <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> базу података. Молимо Вас да не додајете личне податке или податке заштићене ауторским правима.</string>
     <string name="editor_more_about_osm">Више о OpenStreetMap-у</string>
@@ -521,7 +521,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Не можете да пронађете одговарајућу категорију?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Прочитајте наше <a href="https://organicmaps.app/faq/editing/advanced-map-editing">упутство</a> за детаљне инструкције, корак-по-корак.</string>
+    <string name="editor_category_unsuitable_text">CoMaps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Прочитајте наше <a href="https://comaps.app/faq/editing/advanced-map-editing">упутство</a> за детаљне инструкције, корак-по-корак.</string>
     <string name="downloader_no_downloaded_maps_title">Нисте преузели ни једну мапу</string>
     <string name="downloader_no_downloaded_maps_message">Преузмите мапе да бисте претраживали и користили навигацију без интернета.</string>
     <string name="current_location_unknown_error_title">Тренутна локација није позната.</string>
@@ -582,7 +582,7 @@
     <string name="mobile_data_option_ask">Увек ме питај</string>
     <string name="traffic_update_maps_text">Да би се приказали подаци о саобраћају, мапа мора да се ажурира.</string>
     <string name="big_font">Увећана слова на мапи</string>
-    <string name="traffic_update_app">Молим Вас да ажурирате Organic Maps</string>
+    <string name="traffic_update_app">Молим Вас да ажурирате CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Подаци о саобраћају нису доступни</string>
     <string name="enable_logging">Снимање лог фајлова</string>
@@ -608,7 +608,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
-    <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support\\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support\\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Симулирај неисправну меморију</string>
     <string name="core_entrance">Улаз</string>
     <string name="error_enter_correct_name">Молим Вас да унесете исправан назив</string>
@@ -801,9 +801,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Наш главни циљ је да направимо брзу апликацију за мапе, једноставну за коришћење, оријентисану на приватност, коју ћете волети.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ви сада користите Organic Maps на екрану телефона</string>
+    <string name="car_used_on_the_phone_screen">Ви сада користите CoMaps на екрану телефона</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ви сада користите Organic Maps на екрану аутомобила</string>
+    <string name="car_used_on_the_car_screen">Ви сада користите CoMaps на екрану аутомобила</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Повезани сте на Андроид Ауто</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -871,7 +871,7 @@
     <string name="elevation_profile_max_elevation">Максимална висина</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="aa_location_permissions_request">Organic Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
+    <string name="aa_location_permissions_request">CoMaps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.</string>
     <string name="aa_request_permission_notification">Ова апликација је потребна ваша дозвола</string>
     <string name="copyright">Copyright</string>
     <string name="vk">VK</string>
@@ -882,14 +882,14 @@
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима.</string>
     <string name="mb">МБ</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
     <string name="already_donated">Већ је донирано</string>
     <string name="remind_me_later">Подсећати касније</string>
-    <string name="support_organic_maps">Подршка Organic Maps</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="support_organic_maps">Подршка CoMaps</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
     <string name="editor_osm_history">Ваша историја уређивања</string>
     <string name="editor_osm_notes">Ваши подаци о мапи</string>
-    <string name="aa_request_permission_activity_text">Organic Maps у Android Auto-у је потребна дозвола за локацију да ефикасно раде</string>
+    <string name="aa_request_permission_activity_text">CoMaps у Android Auto-у је потребна дозвола за локацију да ефикасно раде</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="social_media">Друштвени медији</string>

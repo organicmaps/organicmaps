@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">ダウンロードに失敗しました</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">再実行</string>
-    <string name="about_menu_title">Organic Mapsについて</string>
+    <string name="about_menu_title">CoMapsについて</string>
     <!-- Text in About screen -->
     <string name="about_headline">すべての人のために無料で、愛を込めて作られています</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
     <string name="download">ダウンロード</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
+    <string name="disconnect_usb_cable">CoMapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
     <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
@@ -164,12 +164,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">メモ</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Mapsのお気に入りリストが共有されました</string>
+    <string name="share_bookmarks_email_subject">CoMapsのお気に入りリストが共有されました</string>
     <string name="share_bookmarks_email_body">こんにちは！
 \n
-\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz
+\n添付ファイルCoMapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://comaps.app/get?kmz
 \n
-\n旅行を楽しむときはOrganic Mapsを使用してください!</string>
+\n旅行を楽しむときはCoMapsを使用してください!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">お気に入りをロード中</string>
     <!-- Kmz file successful loading -->
@@ -179,7 +179,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">ファイルタイプがアプリに認識されない：
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">ファイルを開けなかった %1$s
 \n
 \n%2$s</string>
@@ -191,13 +191,13 @@
     <string name="cant_change_this_setting">恐れ入りますが、マップストレージ設定が無効になっています。</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">ダウンロード中です</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Organic Maps で私の現在地が見れます！%1$s または %2$s オフラインマップはまだインストールしていないですか？ここからダウンロード： https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">CoMaps で私の現在地が見れます！%1$s または %2$s オフラインマップはまだインストールしていないですか？ここからダウンロード： https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Organic Mapsでピン情報を確認</string>
+    <string name="bookmark_share_email_subject">CoMapsでピン情報を確認</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Organic Mapsで現在地を確認</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">CoMapsで現在地を確認</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">私の現在地はここ: %1$s
 \n
 \nリンクをクリックすると詳細がマップに表示されます。
@@ -264,7 +264,7 @@
     <string name="menu">メニュー</string>
     <!-- Text in menu -->
     <string name="website">ウェブサイト</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">ニュース</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">フィードバック</string>
@@ -278,7 +278,7 @@
     <string name="donate">寄付</string>
     <string name="already_donated">寄付済み</string>
     <string name="remind_me_later">後でリマインド</string>
-    <string name="support_organic_maps">Organic Maps を支援</string>
+    <string name="support_organic_maps">CoMaps を支援</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">プロジェクトを支援する</string>
     <!-- Button in the main Help dialog -->
@@ -509,7 +509,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">コミュニティが作成した%s時点の OpenStreetMap のデータ。地図の編集や更新の方法については、OpenStreetMap.org を参照してください。</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、Organic Mapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！</string>
+    <string name="login_osm_presentation">OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、CoMapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！</string>
     <string name="login_to_make_edits_visible">OpenStreetMapのアカウントを作成するかログインして、あなたの地図編集を世界中に公開しましょう。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$dのうち%1$d</string>
@@ -526,7 +526,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMapボランティアへの注意（オプション）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">地図上のエラーやOrganic Mapsで編集できないものについて説明します。</string>
+    <string name="editor_note_hint">地図上のエラーやCoMapsで編集できないものについて説明します。</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">あなたの編集は公開されている<a href="https://wiki.openstreetmap.org/wiki/JA:参加する">OpenStreetMap</a>データベースにアップロードされます。個人情報や著作権のある情報は追加しないでください。</string>
     <string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
@@ -536,7 +536,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">運営者: %s</string>
     <string name="editor_category_unsuitable_title">適切なカテゴリーが見つからない？</string>
-    <string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
+    <string name="editor_category_unsuitable_text">つまり、町、道路、湖、建物の輪郭などは追加できない。そのようなカテゴリーは<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してほしい。私たちの<a href="https://comaps.app/faq/editing/advanced-map-editing">ガイド</a>のステップバイステップの詳細な手順をチェックする。</string>
     <string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
     <string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
     <string name="current_location_unknown_error_title">現在地は不明です。</string>
@@ -598,7 +598,7 @@
     <string name="mobile_data_option_ask">常に確認</string>
     <string name="traffic_update_maps_text">交通データを表示するには、地図を更新する必要があります。</string>
     <string name="big_font">地図上のフォントサイズを大きくする</string>
-    <string name="traffic_update_app">Organic Maps をアップデートしてください</string>
+    <string name="traffic_update_app">CoMaps をアップデートしてください</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">交通データは利用できません</string>
     <string name="enable_logging">ログを有効化</string>
@@ -622,7 +622,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
     <string name="dialog_error_storage_title">ストレージアクセスの問題</string>
-    <string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。SD カードを確認するか、support@organicmaps.app までご連絡ください。</string>
+    <string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。SD カードを確認するか、support@comaps.app までご連絡ください。</string>
     <string name="setting_emulate_bad_storage">壊れたストレージをシミュレートする</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">正しい名前を入力してください</string>
@@ -688,7 +688,7 @@
     <string name="power_managment_setting_never">無効</string>
     <string name="power_managment_setting_auto">自動</string>
     <string name="power_managment_setting_manual_max">最大電力節約</string>
-    <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
+    <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはCoMapsにリクエストされた場合にのみ有効にしてください。</string>
     <string name="access_rules_author_only">オンライン編集</string>
     <string name="driving_options_title">経路オプション</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -815,7 +815,7 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">私たちの主な目標は、ユーザーに気に入っていただける、プライバシーを重視した使いやすいマップを高速に構築することです。</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">端末の画面でOrganic Mapsを使用している</string>
+    <string name="car_used_on_the_phone_screen">端末の画面でCoMapsを使用している</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
     <string name="car_used_on_the_car_screen">あなたは今、車の画面でオーガニック・マップを使用している</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
@@ -829,7 +829,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">このアプリはあなたの許可を必要とする</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android AutoのOrganic Mapsを有効に機能させるには、位置情報の許可が必要です</string>
+    <string name="aa_request_permission_activity_text">Android AutoのCoMapsを有効に機能させるには、位置情報の許可が必要です</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">許可を与える</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

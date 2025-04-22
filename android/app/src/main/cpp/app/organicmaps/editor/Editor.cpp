@@ -337,7 +337,7 @@ Java_app_organicmaps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass claz
 {
   // TODO: Handle upload status in callback
   Editor::Instance().UploadChanges(jni::ToNativeString(env, token),
-      {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+      {{"created_by", "CoMaps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
        {"bundle_id", jni::ToNativeString(env, appId)}}, nullptr);
 }
 

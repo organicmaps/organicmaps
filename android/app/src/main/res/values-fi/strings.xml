@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">Lataus epäonnistui</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Yritä uudelleen</string>
-    <string name="about_menu_title">Tietoa Organic Maps:stä</string>
+    <string name="about_menu_title">Tietoa CoMaps:stä</string>
     <!-- Text in About screen -->
     <string name="about_headline">Ilmainen kaikille, tehty rakkaudella</string>
     <!-- Text in About screen -->
@@ -56,7 +56,7 @@
     <string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
     <string name="download">Lataa</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta</string>
+    <string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi CoMaps -sovellusta</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
     <string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.
@@ -167,7 +167,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Muistiinpanot</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Jaetut Organic Maps-kirjanmerkit</string>
+    <string name="share_bookmarks_email_subject">Jaetut CoMaps-kirjanmerkit</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
     <!-- Kmz file successful loading -->
@@ -177,7 +177,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Sovellus ei tunnista tiedostotyyppiä:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Tiedostoa ei onnistuttu avaamaan %1$s
 \n
 \n%2$s</string>
@@ -189,13 +189,13 @@
     <string name="cant_change_this_setting">Valitettavasti karttatallennusasetukset ovat pois päältä.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Karttaa ladataan parhaillaan.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, katso sijaintini Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Hei, katso sijaintini CoMaps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hei, katso merkintäni Organic Maps-kartalla!</string>
+    <string name="bookmark_share_email_subject">Hei, katso merkintäni CoMaps-kartalla!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini CoMaps:n kartalla!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hei,
 \n
 \nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla.
@@ -260,7 +260,7 @@
     <string name="menu">Menu</string>
     <!-- Text in menu -->
     <string name="website">Kotisivut</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Uutiset</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Palaute</string>
@@ -274,7 +274,7 @@
     <string name="donate">Lahjoita</string>
     <string name="already_donated">Jo lahjoitettu</string>
     <string name="remind_me_later">Muistuta myöhemmin</string>
-    <string name="support_organic_maps">Tukea Organic Maps</string>
+    <string name="support_organic_maps">Tukea CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Tue projektia</string>
     <!-- Button in the main Help dialog -->
@@ -503,7 +503,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Yhteisön luomat OpenStreetMap-tiedot %s:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on Organic Mapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on CoMapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.
 \nLiity yhteisöön ja auta tekemään parempi kartta kaikille!</string>
     <string name="login_to_make_edits_visible">Luo OpenStreetMap-tili tai kirjaudu sisään, jotta voit julkaista karttamuokkauksesi maailmalle.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -521,7 +521,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata Organic Mapsilla.</string>
+    <string name="editor_note_hint">Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata CoMapsilla.</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.</string>
     <string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
@@ -531,7 +531,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operaattori: %s</string>
     <string name="editor_category_unsuitable_title">Etkö löydä sopivaa luokkaa?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.</string>
+    <string name="editor_category_unsuitable_text">CoMaps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://comaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.</string>
     <string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
     <string name="downloader_no_downloaded_maps_message">Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.</string>
     <string name="current_location_unknown_error_title">Nykyinen sijainti on tuntematon.</string>
@@ -593,7 +593,7 @@
     <string name="mobile_data_option_ask">Kysy aina</string>
     <string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
     <string name="big_font">Suurenna fonttikokoa kartalla</string>
-    <string name="traffic_update_app">Päivitä Organic Maps</string>
+    <string name="traffic_update_app">Päivitä CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
     <string name="enable_logging">Ota loki käyttöön</string>
@@ -617,7 +617,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
     <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
-    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista SD-kortin toiminta tai ota yhteyttä osoitteeseen support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista SD-kortin toiminta tai ota yhteyttä osoitteeseen support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
     <string name="core_entrance">Sisäänkäynti</string>
     <string name="error_enter_correct_name">Anna oikea nimi</string>
@@ -684,7 +684,7 @@
     <string name="power_managment_setting_never">Ei koskaan</string>
     <string name="power_managment_setting_auto">Automaattinen</string>
     <string name="power_managment_setting_manual_max">Täysi virransäästö</string>
-    <string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
+    <string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos CoMaps:n tuki pyytää.</string>
     <string name="access_rules_author_only">Nettimuokkaus</string>
     <string name="driving_options_title">Reititysvalinnat</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -809,9 +809,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Päätavoitteemme on rakentaa nopeita, yksityisyyteen keskittyviä, helppokäyttöisiä karttoja, joista pidät.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Käytät nyt puhelimen näytöllä Organic Maps -palvelua.</string>
+    <string name="car_used_on_the_phone_screen">Käytät nyt puhelimen näytöllä CoMaps -palvelua.</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Käytät nyt Organic Maps auton näytöllä</string>
+    <string name="car_used_on_the_car_screen">Käytät nyt CoMaps auton näytöllä</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Olet yhteydessä Android Autoon</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -819,11 +819,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Auton näyttöön</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.</string>
+    <string name="aa_location_permissions_request">CoMaps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tämä sovellus tarvitsee lupasi</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
+    <string name="aa_request_permission_activity_text">CoMaps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lupien myöntäminen</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -879,9 +879,9 @@
     <string name="vk">VK</string>
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="level_value_generic">Kerros: %s</string>
-    <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne CoMaps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://comaps.app/get?kmz \n\nNauti matkustamisesta CoMaps:n kanssa!</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
     <string name="telegram">Telegram</string>
     <string name="twitter">X (Twitter)</string>
     <string name="mastodon">Mastodon</string>

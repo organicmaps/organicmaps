@@ -11,7 +11,7 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Agua</string>
     <!-- SECTION: Other translations -->
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Fallo al abrir el archivo %1$s
 \n
 \n%2$s</string>
@@ -65,7 +65,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
     <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
-    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Emular el almacenamiento dañado</string>
     <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
@@ -125,7 +125,7 @@
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Máximo ahorro de energía</string>
-    <string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.</string>
+    <string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de CoMaps.</string>
     <string name="access_rules_author_only">Se edita en línea</string>
     <string name="driving_options_title">Ajustes de desvío</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
@@ -202,13 +202,13 @@
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
+    <string name="car_used_on_the_car_screen">Ahora usa CoMaps en la pantalla del automóvil</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">A la pantalla del auto</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps necesita acceder a la ubicación. Cuando sea seguro, revise la notificación en el teléfono.</string>
+    <string name="aa_location_permissions_request">CoMaps necesita acceder a la ubicación. Cuando sea seguro, revise la notificación en el teléfono.</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps en Android Auto necesita un permiso de ubicación para funcionar de manera eficaz</string>
+    <string name="aa_request_permission_activity_text">CoMaps en Android Auto necesita un permiso de ubicación para funcionar de manera eficaz</string>
     <string name="drive_through">Servicio al auto</string>
     <string name="back">Atrás</string>
     <string name="cancel">Cancelar</string>

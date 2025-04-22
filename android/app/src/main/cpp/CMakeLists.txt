@@ -75,7 +75,7 @@ omim_add_library(${PROJECT_NAME} SHARED ${SRC})
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 
 target_link_libraries(${PROJECT_NAME}
-  # Organic Maps libs
+  # CoMaps libs
   map
   # ge0
   # tracking

@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Sťahovanie zlyhalo</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Skúsiť znova</string>
-    <string name="about_menu_title">O aplikácii Organic Maps</string>
+    <string name="about_menu_title">O aplikácii CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Zadarmo pre každého, vyrobené s láskou</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
     <string name="download">Stiahnuť</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps</string>
+    <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
     <string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.
@@ -167,12 +167,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Zdielané záložky Organic Maps</string>
+    <string name="share_bookmarks_email_subject">Zdielané záložky CoMaps</string>
     <string name="share_bookmarks_email_body">Ahoj!
 \n
-\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz
+\nV prílohe sú moje záložky z aplikácie CoMaps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://comaps.app/get?kmz
 \n
-\nPrajem šťastnú cestu s Organic Maps!</string>
+\nPrajem šťastnú cestu s CoMaps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Načítavanie záložiek</string>
     <!-- Kmz file successful loading -->
@@ -182,7 +182,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aplikácia nerozpoznáva typ súboru:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Nepodarilo sa otvoriť súbor %1$s
 \n
 \n%2$s</string>
@@ -194,13 +194,13 @@
     <string name="cant_change_this_setting">Prepáčte, nastavenie uloženia máp je dočasne nedostupné.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Práve prebieha sťahovanie krajiny.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Pozri kde som. Otvor odkaz: %1$s alebo %2$s</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Pozri na moju značku na mape Organic Maps</string>
+    <string name="bookmark_share_email_subject">Pozri na moju značku na mape CoMaps</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape Organic Maps</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape CoMaps</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Ahoj,
 \n
 \nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.
@@ -263,7 +263,7 @@
     <string name="search_show_on_map">Zobraziť na mape</string>
     <!-- Text in menu -->
     <string name="website">Webové stránky</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Správy</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Spätná väzba</string>
@@ -277,7 +277,7 @@
     <string name="donate">Darovať</string>
     <string name="already_donated">Už darované</string>
     <string name="remind_me_later">Pripomeň neskôr</string>
-    <string name="support_organic_maps">Podporiť Organic Maps</string>
+    <string name="support_organic_maps">Podporiť CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Podporte projekt</string>
     <!-- Button in the main Help dialog -->
@@ -508,7 +508,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Údaje OpenStreetMap vytvorené komunitou od %s. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe Organic Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe CoMaps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.
 \nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!</string>
     <string name="login_to_make_edits_visible">Vytvorte si účet OpenStreetMap alebo sa prihláste a zverejnite svoje úpravy mapy na celom svete.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -526,7 +526,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pre dobrovoľníkov OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Popíšte chyby na mape alebo veci, ktoré sa nedajú upraviť pomocou aplikácie Mapy Organic</string>
+    <string name="editor_note_hint">Popíšte chyby na mape alebo veci, ktoré sa nedajú upraviť pomocou aplikácie CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy sa nahrajú do verejnej databázy <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosím, nepridávajte osobné informácie alebo informácie chránené autorskými právami.</string>
     <string name="editor_more_about_osm">Viac o OpenStreetMap</string>
@@ -536,7 +536,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Prevádzkovateľ: %s</string>
     <string name="editor_category_unsuitable_title">Nemôžete nájsť vhodnú kategóriu?</string>
-    <string name="editor_category_unsuitable_text">Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.</string>
+    <string name="editor_category_unsuitable_text">Organické mapy umožňujú pridávať len jednoduché kategórie bodov, teda žiadne mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pozrite si náš <a href="https://comaps.app/faq/editing/advanced-map-editing">príručku</a>, kde nájdete podrobné pokyny krok za krokom.</string>
     <string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
     <string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
     <string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
@@ -597,7 +597,7 @@
     <string name="mobile_data_option_ask">Vždy sa opýtať</string>
     <string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
     <string name="big_font">Zväčšiť veľkosť písma na mape</string>
-    <string name="traffic_update_app">Aktualizujte si aplikáciu Organic Maps</string>
+    <string name="traffic_update_app">Aktualizujte si aplikáciu CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Dopravné informácie nie sú k dispozícii</string>
     <string name="enable_logging">Zapnúť zaznamenávanie</string>
@@ -621,7 +621,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.</string>
     <string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
-    <string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
     <string name="core_entrance">Vchod | vjazd</string>
     <string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
@@ -813,9 +813,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Naším hlavným cieľom je vytvárať rýchle, na súkromie, ľahko použiteľné mapy, ktoré si zamilujete.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu Organic Maps</string>
+    <string name="car_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu CoMaps</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Na obrazovke auta teraz používate službu Organic Maps</string>
+    <string name="car_used_on_the_car_screen">Na obrazovke auta teraz používate službu CoMaps</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Ste pripojení k službe Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -823,11 +823,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Na obrazovku auta</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Služba Organic Maps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.</string>
+    <string name="aa_location_permissions_request">Služba CoMaps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Táto aplikácia potrebuje vaše povolenie</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps v službe Android Auto potrebujú na efektívnu prácu povolenie na určenie polohy</string>
+    <string name="aa_request_permission_activity_text">CoMaps v službe Android Auto potrebujú na efektívnu prácu povolenie na určenie polohy</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Udelenie oprávnení</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

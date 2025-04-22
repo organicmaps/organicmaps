@@ -38,7 +38,7 @@
     <string name="country_status_download_failed">İndirme başarısız oldu</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Tekrar Dene</string>
-    <string name="about_menu_title">Organic Maps Hakkında</string>
+    <string name="about_menu_title">CoMaps Hakkında</string>
     <!-- Text in About screen -->
     <string name="about_headline">Sevgiyle yapılmış, herkes için ücretsiz harita</string>
     <!-- Text in About screen -->
@@ -55,7 +55,7 @@
     <string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
     <string name="download">İndir</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+    <string name="disconnect_usb_cable">CoMaps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
     <string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.
@@ -169,12 +169,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notlar</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
+    <string name="share_bookmarks_email_subject">Seninle paylaşılan CoMaps yer imleri</string>
     <string name="share_bookmarks_email_body">Merhaba!
 \n
-\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz
+\nEktekiler benim CoMaps yer imlerim. Eğer CoMaps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://comaps.app/get?kmz
 \n
-\nOrganic Maps ile seyahat etmenin keyfini çıkarın!</string>
+\nCoMaps ile seyahat etmenin keyfini çıkarın!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Yer İmleri Yükleniyor</string>
     <!-- Kmz file successful loading -->
@@ -184,7 +184,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Dosya açılamadı %1$s
 \n
 \n%2$s</string>
@@ -196,13 +196,13 @@
     <string name="cant_change_this_setting">Üzgünüz, Harita Depolama ayarları şu anda devre dışı.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Harita indirme işlemi şu anda sürüyor.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hey, Organic Maps’te geçerli konumumu incele! %1$s veya %2$s Çevrimdışı haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Hey, CoMaps’te geçerli konumumu incele! %1$s veya %2$s Çevrimdışı haritalar sende yok mu? Buradan indir: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hey, Organic Maps haritasında raptiyemi incele!</string>
+    <string name="bookmark_share_email_subject">Hey, CoMaps haritasında raptiyemi incele!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hey, Organic Maps’te geçerli konumumu incele!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Hey, CoMaps’te geçerli konumumu incele!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Merhaba,
 \n
 \nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için %2$s veya %3$s bağlantısına tıkla.
@@ -265,7 +265,7 @@
     <string name="search_show_on_map">Haritada görüntüle</string>
     <!-- Text in menu -->
     <string name="website">Web Sitesi</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Haberler</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Geri Bildirim</string>
@@ -279,7 +279,7 @@
     <string name="donate">Bağış yapın</string>
     <string name="already_donated">Zaten bağış yaptım</string>
     <string name="remind_me_later">Sonra hatırlat</string>
-    <string name="support_organic_maps">Organic Maps’i Destekleyin</string>
+    <string name="support_organic_maps">CoMaps’i Destekleyin</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Bu projeyi destekleyin</string>
     <!-- Button in the main Help dialog -->
@@ -512,7 +512,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">%s tarihine ait topluluk tarafından oluşturulmuş OpenStreetMap verilerini kullanıyorsunuz. OpenStreetMap.org adresinden haritayı nasıl düzenleyebileceğiniz hakkında bilgi edinebilirsiniz</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, Organic Maps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM), ücretsiz ve açık harita oluşturmayı amaçlayan bir topluluk projesidir. OSM, CoMaps\'teki harita verilerinin ana kaynağıdır ve Vikipedi\'ye benzer şekilde çalışır. Haritadaki yerleri ekleyebilir veya düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcı tarafından kullanılabilir hale gelir.
 \nTopluluğa katılın ve herkes için daha iyi bir harita oluşturmaya yardımcı olun!</string>
     <string name="login_to_make_edits_visible">Harita düzenlemelerinizin herkese ulaşabilmesi için bir OpenStreetMap hesabı oluşturun veya oturum açın.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -540,7 +540,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operatör: %s</string>
     <string name="editor_category_unsuitable_title">Uygun bir kategori bulamıyor musunuz?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps yalnızca basit nokta kategorilerini eklemeye izin verir. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atabilirsiniz.</string>
+    <string name="editor_category_unsuitable_text">CoMaps yalnızca basit nokta kategorilerini eklemeye izin verir. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://comaps.app/faq/editing/advanced-map-editing">rehberimize</a> göz atabilirsiniz.</string>
     <string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
     <string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
     <string name="current_location_unknown_error_title">Geçerli konum bilinmiyor.</string>
@@ -602,7 +602,7 @@
     <string name="mobile_data_option_ask">Her Zaman Sor</string>
     <string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
     <string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
-    <string name="traffic_update_app">Lütfen Organic Maps\'i güncelleyin</string>
+    <string name="traffic_update_app">Lütfen CoMaps\'i güncelleyin</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
     <string name="enable_logging">Günlüğü etkinleştir</string>
@@ -626,7 +626,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>
     <string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
+    <string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@comaps.app adresinden bizimle iletişime geçin</string>
     <string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
     <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Lütfen doğru bir isim girin</string>
@@ -800,8 +800,8 @@
     <string name="splash_subtitle">Harita verileri OpenStreetMap\'ten</string>
     <!-- Telegram group url for the "?" About page -->
     <!-- Instagram account url for the "?" About page -->
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/tr/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/tr/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
     <!-- App Tip #00 -->
@@ -825,9 +825,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz bir harita uygulaması oluşturmaktır.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Artık Organic Maps\'i telefon ekranında kullanıyorsunuz</string>
+    <string name="car_used_on_the_phone_screen">Artık CoMaps\'i telefon ekranında kullanıyorsunuz</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Şu anda araç ekranında Organic Maps kullanıyorsunuz</string>
+    <string name="car_used_on_the_car_screen">Şu anda araç ekranında CoMaps kullanıyorsunuz</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Android Auto\'ya bağlandınız</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -835,11 +835,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Arabada göster</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps konum erişimine ihtiyacı vardır. Güvenli olduğunda, telefonunuzdaki bildirimi kontrol edin.</string>
+    <string name="aa_location_permissions_request">CoMaps konum erişimine ihtiyacı vardır. Güvenli olduğunda, telefonunuzdaki bildirimi kontrol edin.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Bu uygulamanın izninize ihtiyacı var</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto\'daki Organic Maps etkin bir şekilde çalışması için konum izni gerekiyor</string>
+    <string name="aa_request_permission_activity_text">Android Auto\'daki CoMaps etkin bir şekilde çalışması için konum izni gerekiyor</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

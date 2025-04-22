@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">Atsiuntimas nepavyko</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Bandyti dar kartą</string>
-    <string name="about_menu_title">Apie „Organic Maps“</string>
+    <string name="about_menu_title">Apie „CoMaps“</string>
     <!-- Text in About screen -->
     <string name="about_headline">Nemokama visiems, sukurta su meile</string>
     <!-- Text in About screen -->
@@ -54,7 +54,7 @@
     <string name="unsupported_phone">Šiai programėlei reikia aparatinio „OpenGL“ spartinimo. Deja, jūsų įrenginys nepalaikomas.</string>
     <string name="download">Atsiųsti</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Jeigu norite naudotis „Organic Maps“, atjunkite USB kabelį arba įdėkite atminties kortelę</string>
+    <string name="disconnect_usb_cable">Jeigu norite naudotis „CoMaps“, atjunkite USB kabelį arba įdėkite atminties kortelę</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Jeigu norite naudotis programėle, atlaisvinkite vietos SD kortelėje ar USB atmintinėje</string>
     <string name="download_resources">Prieš pradėdami naudotis programėle, leiskite atsiųsti bendrąjį pasaulio žemėlapį į jūsų įrenginį. \nJis užims %s vietos saugykloje.</string>
@@ -158,8 +158,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Pastabos</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Su jumis bendrinamas „Organic Maps“ žymių sąrašas</string>
-    <string name="share_bookmarks_email_body">Labas! \n \nČia prisegtas mano žymių sąrašas iš „Organic Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://omaps.app/get?kmz \n \nSmagių kelionių su „Organic Maps“!</string>
+    <string name="share_bookmarks_email_subject">Su jumis bendrinamas „CoMaps“ žymių sąrašas</string>
+    <string name="share_bookmarks_email_body">Labas! \n \nČia prisegtas mano žymių sąrašas iš „CoMaps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://comaps.app/get?kmz \n \nSmagių kelionių su „CoMaps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Žymių sąrašas įkeliamas</string>
     <!-- Kmz file successful loading -->
@@ -168,7 +168,7 @@
     <string name="load_kmz_failed">Žymių sąrašo nepavyko įkelti. Gali būti, kad failas sugadintas.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Programėlė neatpažįsta failo tipo: \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Nepavyko atverti failo %1$s \n \n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Taisyti</string>
@@ -178,13 +178,13 @@
     <string name="cant_change_this_setting">Deja, šiuo metu žemėlapio saugyklos nustatymai negalimi.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Vyksta žemėlapio atsiuntimas.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Pažiūrėk, kur dabar esu „Organic Maps“ autonominių žemėlapių programėlėje! %1$s arba %2$s . Neturi jos? Atsisiųsk čia: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Pažiūrėk, kur dabar esu „CoMaps“ autonominių žemėlapių programėlėje! %1$s arba %2$s . Neturi jos? Atsisiųsk čia: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Labas, pažvelk, ką aš pasižymėjau „Organic Maps“ žemėlapyje!</string>
+    <string name="bookmark_share_email_subject">Labas, pažvelk, ką aš pasižymėjau „CoMaps“ žemėlapyje!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Žvilgtelk, kur dabar esu, „Organic Maps“ žemėlapyje!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Žvilgtelk, kur dabar esu, „CoMaps“ žemėlapyje!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Labas, \n\nŠiuo metu esu čia: %1$s. Spustelėk čia: %2$s, arba čia: %3$s, kad pamatytum šią vietą žemėlapyje. \n \nAčiū.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bendrinti</string>
@@ -237,7 +237,7 @@
     <string name="menu">Meniu</string>
     <!-- Text in menu -->
     <string name="website">Svetainė</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Naujienos</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Atsiliepimas</string>
@@ -251,7 +251,7 @@
     <string name="donate">Paaukoti</string>
     <string name="already_donated">Jau paaukojau</string>
     <string name="remind_me_later">Priminti vėliau</string>
-    <string name="support_organic_maps">Paremti „Organic Maps“</string>
+    <string name="support_organic_maps">Paremti „CoMaps“</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Paremti projektą</string>
     <!-- Button in the main Help dialog -->
@@ -482,7 +482,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Bendruomenės surinkti „OpenStreetMap“ duomenys %s dienai. Sužinokite, kaip redaguoti ir atnaujinti žemėlapį, apsilankydami OpenStreetMap.org svetainėje</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis „Organic Maps“ žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis „CoMaps“ žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!</string>
     <string name="login_to_make_edits_visible">Susikurkite „OpenStreetMap“ paskyrą arba prisijunkite, kad galėtumėte skelbti savo žemėlapio pakeitimus pasauliui.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d iš %2$d</string>
@@ -499,7 +499,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Pastaba „OpenStreetMap“ talkininkams (neprivaloma)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi „Organic Maps“</string>
+    <string name="editor_note_hint">Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi „CoMaps“</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Jūsų pakeitimai įkeliami į viešą <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">„OpenStreetMap“</a> duomenų bazę. Prašome nedėti asmeninės ar autorių teisėmis apsaugotos informacijos.</string>
     <string name="editor_more_about_osm">Plačiau apie „OpenStreetMap“</string>
@@ -509,7 +509,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operatorius: %s</string>
     <string name="editor_category_unsuitable_title">Nerandate tinkamos kategorijos?</string>
-    <string name="editor_category_unsuitable_text">„Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
+    <string name="editor_category_unsuitable_text">„CoMaps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://comaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
     <string name="downloader_no_downloaded_maps_title">Nesate atsiuntę jokių žemėlapių</string>
     <string name="downloader_no_downloaded_maps_message">Atsiųskite žemėlapius, kad galėtumėte ieškoti vietų ir keliauti neprisijungę prie tinklo.</string>
     <string name="current_location_unknown_error_title">Dabartinė vieta nežinoma.</string>
@@ -571,7 +571,7 @@
     <string name="mobile_data_option_ask">Visada klausti</string>
     <string name="traffic_update_maps_text">Jeigu norite matyti eismo duomenis, reikia atnaujinti žemėlapius.</string>
     <string name="big_font">Padidinti žemėlapio užrašų šrifto dydį</string>
-    <string name="traffic_update_app">Atnaujinkite „Organic Maps“</string>
+    <string name="traffic_update_app">Atnaujinkite „CoMaps“</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Eismo duomenys neprieinami</string>
     <string name="enable_logging">Įgalinti derinimo žurnalą</string>
@@ -595,7 +595,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Prisijunkite prie „OpenStreetMap“, kad galėtumėte automatiškai įkelti visus savo žemėlapio pakeitimus. Išsamesnė informacija – <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.</string>
     <string name="dialog_error_storage_title">Prieigos prie saugyklos problema</string>
-    <string name="dialog_error_storage_message">Išorinė saugykla yra nepasiekiama. SD kortelė galimai yra pašalinta, pažeista, arba failų sistema joje yra nustatyta tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis adresu support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Išorinė saugykla yra nepasiekiama. SD kortelė galimai yra pašalinta, pažeista, arba failų sistema joje yra nustatyta tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis adresu support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Emuliuoti blogą saugyklą</string>
     <string name="core_entrance">Įėjimas</string>
     <string name="error_enter_correct_name">Įveskite teisingą pavadinimą</string>
@@ -751,11 +751,11 @@
     <!-- App tip #04 -->
     <string name="app_tip_04">Bakstelėkite bet kurį žemėlapio tašką norimam objektui pasirinkti. Bakstelėkite ir palaikykite, kad paslėptumėte ar vėl pamatytumėte programėlės sąsają.</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">„Organic Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
+    <string name="aa_location_permissions_request">„CoMaps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Šiai programėlei reikia jūsų leidimo</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „Organic Maps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
+    <string name="aa_request_permission_activity_text">Kad „Android Auto“ sistemoje „CoMaps“ veiktų efektyviai, reikia leidimo nustatyti buvimo vietą</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Žygiai pėsčiomis</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
@@ -831,15 +831,15 @@
     <string name="avoid_tolls">Vengti mokamų kelių</string>
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="enable_keep_screen_on">Laikyti ekraną įjungtą</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
     <string name="app_tip_00">Dėkojame, kad naudojatės mūsų bendruomenės sukurtais žemėlapiais!</string>
     <string name="app_tip_02">Patinka šį programėlė? Paremkite, paaukodami jos vystymui! Dar ne? Papasakokite mums, kodėl, ir mes pasistengsime tai pataisyti!</string>
     <string name="app_tip_05">Ar žinote, jog galite pasirinkti savo dabartinę vietą žemėlapyje?</string>
     <string name="app_tip_06">Galite padėti išversti šią programėlę į savo kalbą.</string>
     <string name="app_tip_08">Galite pataisyti ar papildyti žemėlapio duomenis.</string>
     <string name="app_tip_09">Mūsų pagrindinis tikslas – sukurti spartų, privatų ir paprastą naudotis žemėlapį, kuris patiktų visiems.</string>
-    <string name="car_used_on_the_phone_screen">Dabar naudojatės „Organic Maps“ telefono ekrane</string>
-    <string name="car_used_on_the_car_screen">Dabar naudojatės „Organic Maps“ automobilio ekrane</string>
+    <string name="car_used_on_the_phone_screen">Dabar naudojatės „CoMaps“ telefono ekrane</string>
+    <string name="car_used_on_the_car_screen">Dabar naudojatės „CoMaps“ automobilio ekrane</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d žymė</item>
         <item quantity="few">%d žymės</item>
@@ -860,5 +860,5 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="comma_separated_pair">%1$s %2$s</string>
     <string name="aa_grant_permissions">Suteikti leidimą</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
 </resources>

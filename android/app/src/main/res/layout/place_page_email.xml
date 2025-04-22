@@ -20,5 +20,5 @@
     android:textAlignment="viewStart"
     style="@style/PlacePageMetadataText"
     android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-    tools:text="support@organicmaps.app" />
+    tools:text="support@comaps.app" />
 </LinearLayout>

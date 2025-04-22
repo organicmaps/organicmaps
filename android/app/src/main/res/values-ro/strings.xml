@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Descărcarea a eșuat</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Mai încearcă</string>
-    <string name="about_menu_title">Despre Organic Maps</string>
+    <string name="about_menu_title">Despre CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratuit pentru toată lumea, făcut cu dragoste</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
     <string name="download">Descarcă</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza Organic Maps</string>
+    <string name="disconnect_usb_cable">Deconectează cablul USB sau introdu un card de memorie pentru a utiliza CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Spațiul de stocare de pe cardul SD/memoria USB este insuficient pentru a putea utiliza aplicația</string>
     <string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în dispozitivul tău.
@@ -155,10 +155,10 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Detalii</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din Organic Maps</string>
+    <string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din CoMaps</string>
     <string name="share_bookmarks_email_body">Bună!
 \n
-\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
+\nȚi-am atașat locurile mele preferate din aplicația CoMaps. Deschide-le dacă ai instalată CoMaps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://comaps.app/</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Se încarcă locurile preferate</string>
     <!-- Kmz file successful loading -->
@@ -168,7 +168,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Tipul de fișier nu este recunoscut de aplicație:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Nu a reușit să deschidă fișierul %1$s
 \n
 \n%2$s</string>
@@ -180,13 +180,13 @@
     <string name="cant_change_this_setting">Opțiunile pentru stocarea hărților sunt dezactivate în acest moment.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Harta este în curs de descărcare.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Poți vedea poziția mea pe harta Organic Maps! %1$s sau %2$s Nu ai descărcat aplicația? O poți descărca de aici: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Poți vedea poziția mea pe harta CoMaps! %1$s sau %2$s Nu ai descărcat aplicația? O poți descărca de aici: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Poți vedea locul meu preferat pe harta Organic Maps!</string>
+    <string name="bookmark_share_email_subject">Poți vedea locul meu preferat pe harta CoMaps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Poți vedea poziția mea pe harta CoMaps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Bună,
 \n
 \nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.
@@ -249,7 +249,7 @@
     <string name="search_show_on_map">Vezi pe hartă</string>
     <!-- Text in menu -->
     <string name="website">Site web</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Știri</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Părere</string>
@@ -263,7 +263,7 @@
     <string name="donate">Donează</string>
     <string name="already_donated">Deja donat</string>
     <string name="remind_me_later">Amintește mai târziu</string>
-    <string name="support_organic_maps">Susține Organic Maps</string>
+    <string name="support_organic_maps">Susține CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Susține proiectul</string>
     <!-- Button in the main Help dialog -->
@@ -494,7 +494,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în Organic Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în CoMaps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.
 \nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!</string>
     <string name="login_to_make_edits_visible">Creați un cont OpenStreetMap sau conectați-vă pentru a vă publica edițiile de hartă în întreaga lume.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -512,7 +512,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Notă pentru voluntarii OpenStreetMap (opțional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu Organic Maps</string>
+    <string name="editor_note_hint">Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Edițiile dvs. sunt încărcate în baza de date publică <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Vă rugăm să nu adăugați informații personale sau protejate prin drepturi de autor.</string>
     <string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
@@ -522,7 +522,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Nu găsiți o categorie potrivită?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
+    <string name="editor_category_unsuitable_text">CoMaps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://comaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.</string>
     <string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
     <string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
     <string name="current_location_unknown_error_title">Poziția actuală este necunoscută.</string>
@@ -582,7 +582,7 @@
     <string name="mobile_data_option_ask">Întreabă întotdeauna</string>
     <string name="traffic_update_maps_text">Pentru a afișa datele privind traficul, hărțile trebuie actualizate.</string>
     <string name="big_font">Mărește dimensiunea literelor pe hartă</string>
-    <string name="traffic_update_app">Actualizează Organic Maps</string>
+    <string name="traffic_update_app">Actualizează CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
     <string name="enable_logging">Activează jurnalizarea</string>
@@ -608,7 +608,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
     <string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
-    <string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>
     <string name="core_entrance">Intrare</string>
     <string name="error_enter_correct_name">Introdu un nume corect</string>
@@ -797,9 +797,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
+    <string name="car_used_on_the_phone_screen">Acum utilizați CoMaps pe ecranul telefonului</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Acum utilizați Organic Maps pe ecranul mașinii</string>
+    <string name="car_used_on_the_car_screen">Acum utilizați CoMaps pe ecranul mașinii</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Sunteți conectat la Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -807,11 +807,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">La ecranul mașinii</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps are nevoie de acces la locație. Când este sigur, verificați notificarea de pe telefon.</string>
+    <string name="aa_location_permissions_request">CoMaps are nevoie de acces la locație. Când este sigur, verificați notificarea de pe telefon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Această aplicație are nevoie de permisiunea dvs.</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps din Android Auto are nevoie de o permisiune de localizare pentru a funcționa eficient</string>
+    <string name="aa_request_permission_activity_text">CoMaps din Android Auto are nevoie de o permisiune de localizare pentru a funcționa eficient</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Acordarea de permisiuni</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

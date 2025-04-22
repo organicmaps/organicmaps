@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">डाउनलोड विफल हो गया है</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">पुनः प्रयास करें</string>
-    <string name="about_menu_title">Organic Maps के बारे में</string>
+    <string name="about_menu_title">CoMaps के बारे में</string>
     <!-- Text in About screen -->
     <string name="about_headline">सभी के लिए मुफ़्त, प्यार से बनाया गया</string>
     <!-- Text in About screen -->
@@ -171,7 +171,7 @@
     <string name="description">टिप्पणियाँ</string>
     <string name="share_bookmarks_email_body">नमस्ते!
 \n
-\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz
+\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://comaps.app/get?kmz
 \n
 \nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!</string>
     <!-- message title of loading file -->
@@ -183,7 +183,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">फ़ाइल प्रकार ऐप द्वारा पहचाना नहीं गया है:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">फ़ाइल खोलने में असफल %1$s
 \n
 \n%2$s</string>
@@ -195,13 +195,13 @@
     <string name="cant_change_this_setting">क्षमा करें, मानचित्र संग्रहण सेटिंग वर्तमान में अक्षम हैं।</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">मानचित्र डाउनलोड अभी प्रगति पर है.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">ऑर्गेनिक मानचित्र में मेरा वर्तमान स्थान देखें! %1$s या %2$s के पास ऑफ़लाइन मानचित्र नहीं हैं? यहां डाउनलोड करें: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">ऑर्गेनिक मानचित्र में मेरा वर्तमान स्थान देखें! %1$s या %2$s के पास ऑफ़लाइन मानचित्र नहीं हैं? यहां डाउनलोड करें: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">अरे, ऑर्गेनिक मैप्स में मेरा पिन देखें!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">अरे, ऑर्गेनिक मैप मानचित्र पर मेरा वर्तमान स्थान देखें!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">नमस्ते,
 \n
 \nमैं अब यहाँ हूँ: %1$s. इस लिंक पर क्लिक करें %2$s या यह लिंक %3$s मानचित्र पर स्थान देखने के लिए
@@ -266,7 +266,7 @@
     <string name="menu">मेन्यू</string>
     <!-- Text in menu -->
     <string name="website">वेबसाइट</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">समाचार</string>
     <!-- Text in menu -->
     <string name="github">गिटहब</string>
@@ -290,7 +290,7 @@
     <string name="donate">दान देना</string>
     <string name="already_donated">पहले से दान</string>
     <string name="remind_me_later">बाद में याद दिलाना</string>
-    <string name="support_organic_maps">Organic Maps का समर्थन करें</string>
+    <string name="support_organic_maps">CoMaps का समर्थन करें</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">परियोजना का समर्थन करें</string>
     <!-- Button in the main Help dialog -->
@@ -413,7 +413,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">ऑपरेटर: %s</string>
     <string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
-    <string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
+    <string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://comaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
     <!-- abbreviation for meters -->
     <string name="m">मी</string>
     <!-- abbreviation for kilometers -->
@@ -529,8 +529,8 @@
     <string name="enable_show_on_lock_screen_description">सक्षम होने पर, डिवाइस लॉक होने पर भी ऐप लॉकस्क्रीन पर काम करेगा।</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">मानचित्र भाषा</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/hi/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/hi/</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">हमारे समुदाय-निर्मित मानचित्रों का उपयोग करने के लिए धन्यवाद!</string>
     <!-- App tip #01 -->

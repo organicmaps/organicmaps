@@ -13,7 +13,7 @@ public final class Constants
   public static class Url
   {
     public static final String SHORT_SHARE_PREFIX = "om://";
-    public static final String HTTP_SHARE_PREFIX = "https://omaps.app/";
+    public static final String HTTP_SHARE_PREFIX = "https://comaps.app/";
 
     public static final String MAILTO_SCHEME = "mailto:";
     public static final String MAIL_SUBJECT = "?subject=";

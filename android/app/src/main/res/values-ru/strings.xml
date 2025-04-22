@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">Ошибка загрузки</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Попробуйте ещё раз</string>
-    <string name="about_menu_title">Про Organic Maps</string>
+    <string name="about_menu_title">Про CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Бесплатно для всех, сделано с любовью</string>
     <!-- Text in About screen -->
@@ -168,10 +168,10 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примечание</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
+    <string name="share_bookmarks_email_subject">С вами поделились метками CoMaps</string>
     <string name="share_bookmarks_email_body">Здравствуйте!
 \n
-\nВ прикреплённом файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz
+\nВ прикреплённом файле мои метки из офлайновых карт CoMaps. Для того чтобы открыть этот файл, вам потребуется приложение CoMaps, которое можно установить по ссылке: https://comaps.app/get?kmz
 \n
 \nСпасибо!</string>
     <!-- message title of loading file -->
@@ -183,7 +183,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Тип файла не поддерживается приложением:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Не удалось открыть файл %1$s
 \n
 \n%2$s</string>
@@ -195,16 +195,16 @@
     <string name="cant_change_this_setting">Извините, настройки места хранения карт сейчас недоступны.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Идет процесс загрузки карт.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Смотри мою метку на карте Organic Maps</string>
+    <string name="bookmark_share_email_subject">Смотри мою метку на карте CoMaps</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Посмотри на карте CoMaps, где я сейчас нахожусь</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Привет!
 \n
-\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s
+\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте CoMaps, открой эту ссылку %2$s или эту %3$s
 \n
 \nСпасибо.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -266,7 +266,7 @@
     <string name="menu">Меню</string>
     <!-- Text in menu -->
     <string name="website">Вебсайт</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Новости</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Связаться с нами</string>
@@ -280,7 +280,7 @@
     <string name="donate">Поддержать деньгами</string>
     <string name="already_donated">Уже пожертвовано</string>
     <string name="remind_me_later">Напомнить позже</string>
-    <string name="support_organic_maps">Поддержать Organic Maps</string>
+    <string name="support_organic_maps">Поддержать CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Помочь проекту</string>
     <!-- Button in the main Help dialog -->
@@ -511,7 +511,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в Organic Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в CoMaps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.
 \nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
     <string name="login_to_make_edits_visible">Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -529,7 +529,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью Organic Maps</string>
+    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
     <string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
@@ -539,7 +539,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
+    <string name="editor_category_unsuitable_text">CoMaps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://comaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
     <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
     <string name="current_location_unknown_error_title">Местоположение не найдено.</string>
@@ -601,7 +601,7 @@
     <string name="mobile_data_option_ask">Всегда спрашивать</string>
     <string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
     <string name="big_font">Увеличить шрифт на карте</string>
-    <string name="traffic_update_app">Обновите Organic Maps</string>
+    <string name="traffic_update_app">Обновите CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Данные о пробках недоступны</string>
     <string name="enable_logging">Включить запись логов</string>
@@ -627,7 +627,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
     <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
-    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
     <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
@@ -804,9 +804,9 @@
     <!-- Telegram group url for the "?" About page -->
     <string name="telegram_url">https://t.me/CoMaps_RU</string>
     <!-- A link to the TTS FAQ -->
-    <string name="tts_info_link">https://organicmaps.app/ru/faq/синтез-речи-tts-на-android/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/ru/</string>
+    <string name="tts_info_link">https://comaps.app/ru/faq/синтез-речи-tts-на-android/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/ru/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/RU:О_проекте</string>
     <!-- App Tip #00 -->
@@ -830,9 +830,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Наша главная цель — создать быстрые, конфиденциальные и простые в использовании карты, которые вам понравятся.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Сейчас Вы используете Organic Maps на экране телефона</string>
+    <string name="car_used_on_the_phone_screen">Сейчас Вы используете CoMaps на экране телефона</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Сейчас Вы используете Organic Maps на экране автомобиля</string>
+    <string name="car_used_on_the_car_screen">Сейчас Вы используете CoMaps на экране автомобиля</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Вы подключены к Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -840,11 +840,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Продолжить в авто</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
+    <string name="aa_location_permissions_request">CoMaps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Этому приложению нужно ваше разрешение</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps в Android Auto для эффективной работы необходимо разрешение на определение местоположения</string>
+    <string name="aa_request_permission_activity_text">CoMaps в Android Auto для эффективной работы необходимо разрешение на определение местоположения</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Разрешить</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

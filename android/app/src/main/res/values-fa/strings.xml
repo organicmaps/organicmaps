@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">تلاش مجدد</string>
-    <string name="about_menu_title">Organic Maps درباره‌ی</string>
+    <string name="about_menu_title">CoMaps درباره‌ی</string>
     <!-- Text in About screen -->
     <string name="about_headline">رایگان برای همه ، ساخته شده با عشق</string>
     <!-- Text in About screen -->
@@ -162,7 +162,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">فایل باز نشد %1$s
 \n
 \n%2$s</string>
@@ -231,7 +231,7 @@
     <string name="search_show_on_map">مشاهده بر روی نقشه</string>
     <!-- Text in menu -->
     <string name="website">وب سایت</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">اخبار</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">بازخورد</string>
@@ -245,7 +245,7 @@
     <string name="donate">حمایت مالی</string>
     <string name="already_donated">قبلاً اهدا شده</string>
     <string name="remind_me_later">بعداً یادآوری کن</string>
-    <string name="support_organic_maps">پشتیبانی از Organic Maps</string>
+    <string name="support_organic_maps">پشتیبانی از CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ</string>
     <!-- Button in the main Help dialog -->
@@ -501,7 +501,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">اپراتور: %s</string>
     <string name="editor_category_unsuitable_title">آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟</string>
-    <string name="editor_category_unsuitable_text">Organic Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
+    <string name="editor_category_unsuitable_text">CoMaps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://comaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.</string>
     <string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>
     <string name="downloader_no_downloaded_maps_message">برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.</string>
     <string name="current_location_unknown_error_title">مکان فعلیتان ناشناس است.</string>
@@ -556,7 +556,7 @@
     <string name="mobile_data_option_ask">همیشه بپرس</string>
     <string name="traffic_update_maps_text">برای نمایش ترافیک، نقشه می بایستی بروزرسانی شود.</string>
     <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
-    <string name="traffic_update_app">لطفا Organic Maps را بروزرسانی کنید</string>
+    <string name="traffic_update_app">لطفا CoMaps را بروزرسانی کنید</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
     <string name="enable_logging">ورود به سیستم را فعال کنید</string>
@@ -581,7 +581,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
     <string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
-    <string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
+    <string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@comaps.app تماس بگیرید</string>
     <string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
     <string name="core_entrance">ورودی</string>
     <string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
@@ -648,7 +648,7 @@
     <string name="power_managment_setting_never">هرگز</string>
     <string name="power_managment_setting_auto">خودکار</string>
     <string name="power_managment_setting_manual_max">حداکثر ذخیره انرژی</string>
-    <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
+    <string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی CoMaps فعال کنید.</string>
     <string name="access_rules_author_only">ویرایش آنلاین</string>
     <string name="driving_options_title">گزینه‌های رانندگی</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -772,7 +772,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">به صفحه ماشین</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps به دسترسی به مکان نیاز دارد. وقتی ایمن است، اعلان گوشی خود را بررسی کنید.</string>
+    <string name="aa_location_permissions_request">CoMaps به دسترسی به مکان نیاز دارد. وقتی ایمن است، اعلان گوشی خود را بررسی کنید.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">این برنامه به اجازه شما نیاز دارد</string>
     <!-- The text in the activity for location permission request. -->

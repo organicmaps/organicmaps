@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Lejupielāde neizdevās</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Mēģināt vēlreiz</string>
-    <string name="about_menu_title">Par „Organic Maps“</string>
+    <string name="about_menu_title">Par „CoMaps“</string>
     <!-- Text in About screen -->
     <string name="about_headline">Bezmaksas, pieejama visiem un veidota ar mīlestību</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">Lietotnei nepieciešams „OpenGL“ aparatūras paātrinājums, bet diemžēl Jūsu ierīce to neatbalsta.</string>
     <string name="download">Lejupielādēt</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Lai lietotu „Organic Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
+    <string name="disconnect_usb_cable">Lai lietotu „CoMaps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Lietotnes izmantošanai atbrīvojiet vietu ierīces krātuvē</string>
     <string name="download_resources">Pirms sākt izmantot lietotni lejupielādējiet pasaules pārskata karti.
@@ -168,7 +168,7 @@
     <string name="share_bookmarks_email_subject">Ar jums kopīgoja „Oranic Maps“ grāmatzīmes</string>
     <string name="share_bookmarks_email_body">Sveiki!
 \n
-\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz
+\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „CoMaps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://comaps.app/get?kmz
 \n
 \nBaudiet ceļošanu ar „Oranic Maps“!</string>
     <!-- message title of loading file -->
@@ -180,7 +180,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Lietotne neatpazīst datnes tipu:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Neizdevās atvērt datni %1$s
 \n
 \n%2$s</string>
@@ -192,13 +192,13 @@
     <string name="cant_change_this_setting">Atvainojamies, bet kartes saglabāšanas iestatījumi šobrīd ir izslēgti.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Notiek kartes lejupielāde.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Apskatiet manu atrašanās vietu „Organic Maps“ lietotnē! %1$s vai %2$s Vai Jums nav nesaistes kartes? Lejupielādējiet to: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Apskatiet manu atrašanās vietu „CoMaps“ lietotnē! %1$s vai %2$s Vai Jums nav nesaistes kartes? Lejupielādējiet to: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi Organic Maps kartē!</string>
+    <string name="bookmark_share_email_subject">Hei, apskatiet manu grāmatzīmi CoMaps kartē!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, apskati manu atrašanās vietu „Oganic Maps“ kartē!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hei, \n \nŠobrīd atrodos te: %1$s. Spied uz šīs %2$s vai šīs %3$s saites, lai kartē redzētu manu atrašanās vietu. \n \nPaldies.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Kopīgot</string>
@@ -259,7 +259,7 @@
     <string name="menu">Izvēlne</string>
     <!-- Text in menu -->
     <string name="website">Tīmekļa vietne</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Jaunumi</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Atsauksmes</string>
@@ -272,7 +272,7 @@
     <!-- Button in the main menu -->
     <string name="donate">Ziedot</string>
     <string name="remind_me_later">Atgādināt vēlāk</string>
-    <string name="support_organic_maps">Atbalstīt Organic Maps</string>
+    <string name="support_organic_maps">Atbalstīt CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Atbalstiet projektu</string>
     <!-- Button in the main Help dialog -->
@@ -503,7 +503,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Kopienas veidotie „OpenStreetMap“ dati, %s. Uzziniet vairāk par to, kā piedalīties kartes rediģēšanā un uzlabošanā vietnē „OpenStreetMap.org“.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir Organic Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir CoMaps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!</string>
     <string name="login_to_make_edits_visible">Izveidojiet OpenStreetMap kontu vai piesakieties, lai publicētu savas kartes rediģējumus visā pasaulē.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d no %2$d</string>
@@ -522,7 +522,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operators: %s</string>
     <string name="editor_category_unsuitable_title">Vai neatrodat atbilstošu kategoriju?</string>
-    <string name="editor_category_unsuitable_text">„Organic Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
+    <string name="editor_category_unsuitable_text">„CoMaps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://comaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Ierīcē nav lejupielādētu karšu</string>
     <string name="downloader_no_downloaded_maps_message">Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.</string>
     <string name="current_location_unknown_error_title">Pašreizējā vieta nav zināma.</string>
@@ -584,7 +584,7 @@
     <string name="mobile_data_option_ask">Jautāt vienmēr</string>
     <string name="traffic_update_maps_text">Lai parādītu satiksmes datus, kartes ir jāatjaunina.</string>
     <string name="big_font">Palielināt fonta lielumu kartē</string>
-    <string name="traffic_update_app">Atjauniniet „Organic Maps“</string>
+    <string name="traffic_update_app">Atjauniniet „CoMaps“</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Satiksmes dati nav pieejami</string>
     <string name="enable_logging">Ieslēgt žurnalēšanu</string>
@@ -610,7 +610,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Ierakstieties „OpenStreetMap“, lai automātiski augšupielādētu visus kartes rediģējumus. Uzziniet vairāk <a href="https://github.com/organicmaps/organicmaps/issues/6144">te</a>.</string>
     <string name="dialog_error_storage_title">Krātuves pieejas problēma</string>
-    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ārējā krātuve nav pieejama. Iespējams, ir izņemta vai bojāta SD karte, vai arī datņu sistēma ir tikai lasāma. Pārbaudiet savu SD karti vai sazinieties ar mums, rakstot uz support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Simulēt bojātu krātuvi</string>
     <string name="core_entrance">Ieeja</string>
     <string name="error_enter_correct_name">Ierakstiet pareizu nosaukumu</string>
@@ -787,7 +787,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">Ar jūsu ziedojumiem un atbalstu varam izveidot pasaulē labākās kartes!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!</string>
+    <string name="app_tip_02">Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „CoMaps“ uzlabot!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Ja pazīstat kādu programmatūras izstrādātāju, varat viņam vai viņai palūgt ieviest funkciju, kas jums pietrūkst.</string>
     <!-- App tip #05 -->
@@ -801,9 +801,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Mūsu mērķis ir izveidot viegli lietojamas kartes, kas respektē jūsu privātumu un kuras jums patiks.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Tagad „Organic Maps“ izmantojat tālruņa ekrānā</string>
+    <string name="car_used_on_the_phone_screen">Tagad „CoMaps“ izmantojat tālruņa ekrānā</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Tagad „Organic Maps“ izmantojat automobiļa ekrānā</string>
+    <string name="car_used_on_the_car_screen">Tagad „CoMaps“ izmantojat automobiļa ekrānā</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Savienojās ar „Android Audio“</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -854,7 +854,7 @@
     <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
     <string name="continue_recording">Turpināt ierakstīt</string>
     <string name="track_recording_alert_title">Saglabāt ceļu grāmatzīmju sadaļā?</string>
     <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
@@ -864,8 +864,8 @@
     <string name="aa_request_permission_notification">Šai lietotnei ir nepieciešama jūsu atļauja</string>
     <string name="editor_about_osm">Jūsu labojumi tiek augšupielādēti sabiedriskajā <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> datubāzē. Lūdzu, nepievienojiet personisku vai ar autortiesībām aizsargātu informāciju.</string>
     <string name="gb">GB</string>
-    <string name="aa_location_permissions_request">Organic Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.</string>
-    <string name="editor_note_hint">Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot Organic Maps</string>
+    <string name="aa_location_permissions_request">CoMaps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.</string>
+    <string name="editor_note_hint">Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot CoMaps</string>
     <string name="mb">MB</string>
-    <string name="aa_request_permission_activity_text">Organic Maps lietotnei ir nepieciešama atrašanās vietas atļauja sekmīgai Android Auto darbībai</string>
+    <string name="aa_request_permission_activity_text">CoMaps lietotnei ir nepieciešama atrašanās vietas atļauja sekmīgai Android Auto darbībai</string>
 </resources>

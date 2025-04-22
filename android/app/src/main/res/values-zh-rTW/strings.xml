@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">下載失敗</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">再試一次</string>
-    <string name="about_menu_title">關於 Organic Maps</string>
+    <string name="about_menu_title">關於 CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">對每個人都免費，用愛製成</string>
     <!-- Text in About screen -->
@@ -56,14 +56,12 @@
     <string name="unsupported_phone">該應用程式需要硬體加速的 OpenGL。很遺憾，您的裝置不受支援。</string>
     <string name="download">下載</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
+    <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps。</string>
-    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。
-\n它將使用 %s 的儲存空間。</string>
+    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 CoMaps。</string>
+    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置\n它將使用 %s 的儲存空間。</string>
     <string name="download_resources_continue">前往地圖</string>
-    <string name="downloading_country_can_proceed">正在下載%s。您現在可以
-\n繼續查看地圖。</string>
+    <string name="downloading_country_can_proceed">正在下載%s。您現在可以\n繼續查看地圖。</string>
     <string name="download_country_ask">下載%s的地圖嗎？</string>
     <string name="update_country_ask">更新%s的地圖嗎？</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -111,8 +109,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">移動地圖檔案時出錯</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">這可能需要幾分鐘的時間
-\n請稍候…</string>
+    <string name="wait_several_minutes">這可能需要幾分鐘的時間\n請稍候…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">測量單位</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -170,12 +167,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">註釋</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">已與您分享 Organic Maps 書籤</string>
-    <string name="share_bookmarks_email_body">您好！
-\n
-\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz
-\n
-\n祝您使用 Organic Maps 旅行愉快！</string>
+    <string name="share_bookmarks_email_subject">已與您分享 CoMaps 書籤</string>
+    <string name="share_bookmarks_email_body">您好！\n附件是我的書籤，請在 CoMaps 中打開。如果您沒有安裝 CoMaps，可以在這裡下載: https://comaps.app/get?kmz\n祝您使用 CoMaps 旅行愉快！</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在載入書籤…</string>
     <!-- Kmz file successful loading -->
@@ -183,12 +176,9 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">書籤載入失敗，檔案可能已損壞或不完整。</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">應用程式無法識別該文件類型：
-\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">無法打開檔案 %1$s
-\n
-\n%2$s</string>
+    <string name="unknown_file_type">應用程式無法識別該文件類型：\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
+    <string name="failed_to_open_file">無法打開檔案 %1$s\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">編輯</string>
     <!-- Warning message when doing search around current position -->
@@ -197,18 +187,14 @@
     <string name="cant_change_this_setting">很抱歉，地圖儲存設定目前已停用。</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">地圖下載進行中。</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前的位置吧！請打開 %1$s 或 %2$s 鏈接，還沒安裝離線地圖？在此下載: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">嘿，在 CoMaps 查看我的目前的位置吧！請打開 %1$s 或 %2$s 鏈接，還沒安裝離線地圖？在此下載: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 上標記的圖釘吧！</string>
+    <string name="bookmark_share_email_subject">嘿，看看我在 CoMaps 上標記的圖釘吧！</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我目前的位置！</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，
-\n
-\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。
-\n
-\n謝謝。</string>
+    <string name="my_position_share_email_subject">嗨，到 CoMaps 查看我目前的位置！</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">嗨，\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n謝謝。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -268,7 +254,7 @@
     <string name="menu">菜單</string>
     <!-- Text in menu -->
     <string name="website">網站</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">新聞</string>
     <!-- Text in menu -->
     <string name="facebook">Facebook</string>
@@ -286,7 +272,7 @@
     <string name="donate">捐助我們</string>
     <string name="already_donated">已捐贈</string>
     <string name="remind_me_later">稍後提醒</string>
-    <string name="support_organic_maps">支持 Organic Maps</string>
+    <string name="support_organic_maps">支持 CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">支持本項目</string>
     <!-- Button in the main Help dialog -->
@@ -548,7 +534,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">操作員: %s</string>
     <string name="editor_category_unsuitable_title">找不到合適的類別？</string>
-    <string name="editor_category_unsuitable_text">Organic Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
+    <string name="editor_category_unsuitable_text">CoMaps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://comaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。</string>
     <string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
     <string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
     <string name="current_location_unknown_error_title">目前位置未知。</string>
@@ -610,16 +596,14 @@
     <string name="mobile_data_option_ask">一律詢問</string>
     <string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
     <string name="big_font">增加地圖上的字體大小</string>
-    <string name="traffic_update_app">請更新 Organic Maps</string>
+    <string name="traffic_update_app">請更新 CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">交通資訊不可用</string>
     <string name="enable_logging">啟用日誌記錄</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般反應</string>
     <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
-    <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。
-\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。
-\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
+    <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件\n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出\n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
     <string name="prefs_languages_information_off_link">如需瞭解更多資訊，請參閱此指南。</string>
     <string name="transliteration_title">拉丁字母音譯</string>
     <string name="learn_more">瞭解更多資訊</string>
@@ -636,7 +620,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
     <string name="dialog_error_storage_title">儲存空間存儲問題</string>
-    <string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support\@organicmaps.app 聯絡我們。</string>
+    <string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">請輸入正確的名稱</string>
@@ -806,8 +790,8 @@
     <string name="change_map_locale">地圖語言</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">地圖數據來自 OpenStreetMap</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/zh-Hans/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/zh-Hans/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Zh-hant:關於OpenStreetMap</string>
     <!-- App Tip #00 -->
@@ -831,9 +815,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">我們的主要目標是構建您會喜歡的快速、注重隱私、易於使用的地圖。</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用 Organic Maps</string>
+    <string name="car_used_on_the_phone_screen">您現在正在手機螢幕上使用 CoMaps</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用 Organic Maps</string>
+    <string name="car_used_on_the_car_screen">您現在正在汽車螢幕上使用 CoMaps</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">您已連接到 Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->

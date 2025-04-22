@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Allalaadimine ei õnnestunud</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Proovi uuesti</string>
-    <string name="about_menu_title">Organic Mapsi teave</string>
+    <string name="about_menu_title">CoMapsi teave</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
     <!-- Text in About screen -->
@@ -47,7 +47,7 @@
     <string name="unsupported_phone">Rakendus vajab riistvaralist OpenGLi tuge. Kahjuks sinu nutiseade ei ole toetatud.</string>
     <string name="download">Laadi alla</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
+    <string name="disconnect_usb_cable">CoMaps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Rakenduse kasutamiseks palun vabasta kõigepealt piisavalt ruumi mälukaardil/USB salvestusseadmel</string>
     <string name="download_resources">Enne rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart. \nSee kasutab %s mälumahtu.</string>
@@ -157,8 +157,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Märkmed</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps järjehoidjaid jagati Sinuga</string>
-    <string name="share_bookmarks_email_body">Tere! \n\nManuses on minu järjehoidjad rakendusest Organic Maps. Palun ava need kui Sul on Organic Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz \n \nNaudi reisimist Organic Mapsiga!</string>
+    <string name="share_bookmarks_email_subject">CoMaps järjehoidjaid jagati Sinuga</string>
+    <string name="share_bookmarks_email_body">Tere! \n\nManuses on minu järjehoidjad rakendusest CoMaps. Palun ava need kui Sul on CoMaps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https://comaps.app/get?kmz \n \nNaudi reisimist CoMapsiga!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Järjehoidjate laadimine</string>
     <!-- Kmz file successful loading -->
@@ -168,7 +168,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Rakendus ei tunnista failitüüpi:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Faili avamine ei õnnestunud %1$s \n \n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Muuda</string>
@@ -178,13 +178,13 @@
     <string name="cant_change_this_setting">Vabandust, kaardi salvestuse seadistused on hetkel keelatud.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Kaardi allalaadimine on hetkel käimas.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, vaata minu praegust asukohta Organic Mapsi kaardil! %1$s või %2$s Võrguühenduseta kaardid puuduvad? Laadi siit: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Hei, vaata minu praegust asukohta CoMapsi kaardil! %1$s või %2$s Võrguühenduseta kaardid puuduvad? Laadi siit: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hei, vaata minu asukoha märget Organic Mapsi kaardil!</string>
+    <string name="bookmark_share_email_subject">Hei, vaata minu asukoha märget CoMapsi kaardil!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hei, vaata minu praegust asukohta Organic Mapsi kaardil!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Hei, vaata minu praegust asukohta CoMapsi kaardil!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Tere,
 \n
 \nOlen praegu siin: %1$s. Ava see link %2$s või see %3$s, et näha seda kohta kaardil.
@@ -247,7 +247,7 @@
     <string name="search_show_on_map">Vaata kaardil</string>
     <!-- Text in menu -->
     <string name="website">Veebisait</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Uudised</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Tagasiside</string>
@@ -261,7 +261,7 @@
     <string name="donate">Anneta</string>
     <string name="already_donated">Juba annetasin</string>
     <string name="remind_me_later">Meenuta hiljem</string>
-    <string name="support_organic_maps">Toeta Organic Mapsi</string>
+    <string name="support_organic_maps">Toeta CoMapsi</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Toeta meie projekti</string>
     <!-- Button in the main Help dialog -->
@@ -490,7 +490,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Kogukonna loodud OpenStreetMapi andmed seisuga %s. Lisateavet kaardi muutmise ja uuendamise kohta leiad OpenStreetMap.org saidist</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on Organic Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua tasuta ja avatud kaart. See on CoMapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!</string>
     <string name="login_to_make_edits_visible">Loo OpenStreetMapi konto või logi sisse, et avaldada oma kaardimuudatused kogu maailmale.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -507,7 +507,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Märkus OpenStreetMapi vabatahtlikele (valikuline)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Kirjelda kaardil olevaid vigu või objekte, mida ei saa Organic Mapsiga muuta</string>
+    <string name="editor_note_hint">Kirjelda kaardil olevaid vigu või objekte, mida ei saa CoMapsiga muuta</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Sinu muudatused laaditakse üles avalikku <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> andmebaasi. Palun ära lisa isiklikku või autoriõigusega kaitstud teavet.</string>
     <string name="editor_more_about_osm">Lisateave OpenStreetMapi kohta</string>
@@ -517,7 +517,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Käitaja: %s</string>
     <string name="editor_category_unsuitable_title">Ei leia sobivat kategooriat?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saidis. Vaata meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
+    <string name="editor_category_unsuitable_text">CoMaps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saidis. Vaata meie <a href="https://comaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.</string>
     <string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
     <string name="downloader_no_downloaded_maps_message">Laadi alla kaardid asukoha otsimiseks ja võrguühenduseta tee juhatamiseks.</string>
     <string name="current_location_unknown_error_title">Hetkeasukoht on teadmata.</string>
@@ -579,7 +579,7 @@
     <string name="mobile_data_option_ask">Küsi alati</string>
     <string name="traffic_update_maps_text">Liiklusinfo kuvamiseks palun uuenda kaardid.</string>
     <string name="big_font">Suurenda teksti suurust kaardil</string>
-    <string name="traffic_update_app">Palun uuenda Organic Mapsi rakendust</string>
+    <string name="traffic_update_app">Palun uuenda CoMapsi rakendust</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Liiklusinfo ei ole saadaval</string>
     <string name="enable_logging">Luba logimine</string>
@@ -603,7 +603,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Oma kaastöö automaatseks üleslaadimiseks palun logi OpenStreetMappi sisse. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">leidub siin</a>.</string>
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
-    <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Imiteeri vigast andmeruumi</string>
     <string name="core_entrance">Sissepääs</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
@@ -795,9 +795,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis sulle meeldivad.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Nüüd kasutad telefoni ekraanil Organic Mapsi</string>
+    <string name="car_used_on_the_phone_screen">Nüüd kasutad telefoni ekraanil CoMapsi</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Nüüd kasutad auto ekraanil Organic Mapsi</string>
+    <string name="car_used_on_the_car_screen">Nüüd kasutad auto ekraanil CoMapsi</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Oled ühendatud Android Auto\'ga</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -805,11 +805,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Auto ekraanile</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps vajab juurdepääsu asukohale. Kui see on turvaline, kontrolli oma telefonis olevat teadet.</string>
+    <string name="aa_location_permissions_request">CoMaps vajab juurdepääsu asukohale. Kui see on turvaline, kontrolli oma telefonis olevat teadet.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">See rakendus vajab sinu luba</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto liidestusega Organic Maps vajavab tõhusaks tööks luba asukoha tuvastamiseks</string>
+    <string name="aa_request_permission_activity_text">Android Auto liidestusega CoMaps vajavab tõhusaks tööks luba asukoha tuvastamiseks</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Anna luba</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -878,8 +878,8 @@
     <string name="vk">VK</string>
     <string name="facebook">Facebook</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
 </resources>

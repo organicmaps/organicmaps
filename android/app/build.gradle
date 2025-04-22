@@ -80,8 +80,8 @@ def getCommitMessage() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.appId = 'app.organicmaps'
-project.ext.appName = 'Organic Maps'
+project.ext.appId = 'app.comaps'
+project.ext.appName = 'CoMaps'
 
 // I have Java 21 installed, but this doesn't work on MacOS.
 //java {
@@ -103,7 +103,7 @@ android {
   ndkVersion '27.2.12479018'
 
   defaultConfig {
-    // Default package name is taken from the manifest and should be app.organicmaps
+    // Default package name is taken from the manifest and should be app.comaps
     def ver = getVersion()
     versionCode = ver.V1
     versionName = ver.V2
@@ -184,7 +184,7 @@ android {
       dimension 'default'
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"gplay@comaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.comaps"'
     }
 
     web {
@@ -205,7 +205,7 @@ android {
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@comaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.comaps"'
     }
   }
 
@@ -241,7 +241,7 @@ android {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
-        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "$applicationId/app.organicmaps.DownloadResourcesActivity", '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.LAUNCHER'
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "$applicationId/app.comaps.DownloadResourcesActivity", '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.LAUNCHER'
       }
     }
   }
@@ -279,7 +279,7 @@ android {
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       signingConfig signingConfigs.debug
-      resValue 'string', 'app_name', 'Debug Organic Maps'
+      resValue 'string', 'app_name', 'Debug CoMaps'
       // Do not generate separate debug symbols for debug apps, because we don't distribute them.
       ndk.debugSymbolLevel = 'none'
 
@@ -320,7 +320,7 @@ android {
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
-      resValue 'string', 'app_name', 'Beta Organic Maps'
+      resValue 'string', 'app_name', 'Beta CoMaps'
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
 

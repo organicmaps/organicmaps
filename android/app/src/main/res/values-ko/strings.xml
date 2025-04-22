@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">다운로드에 실패하였습니다</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">다시 시도</string>
-    <string name="about_menu_title">Organic Maps 정보</string>
+    <string name="about_menu_title">CoMaps 정보</string>
     <!-- Text in About screen -->
     <string name="about_headline">사랑으로 만든 모든 사람에게 무료</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
     <string name="download">다운로드</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
+    <string name="disconnect_usb_cable">CoMaps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요</string>
     <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.
@@ -152,7 +152,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">메모</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">귀하와 공유된 Organic Maps 즐겨찾기</string>
+    <string name="share_bookmarks_email_subject">귀하와 공유된 CoMaps 즐겨찾기</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">즐겨찾기 로드</string>
     <!-- Kmz file successful loading -->
@@ -162,7 +162,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">파일 형식이 앱에서 인식되지 않습니다:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">파일을 열지 못했습니다 %1$s
 \n
 \n%2$s</string>
@@ -174,13 +174,13 @@
     <string name="cant_change_this_setting">죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">국가 다운로드가 지금 진행 중입니다.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">현재 위치를 알아 보십시오. %1$s 또는 %2$s 열기</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Organic Maps 지도에서 내 핀 보기</string>
+    <string name="bookmark_share_email_subject">CoMaps 지도에서 내 핀 보기</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">CoMaps 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">안녕하세요.
 \n
 \n지금 다음 위치에 있습니다: %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.
@@ -239,7 +239,7 @@
     <string name="search_show_on_map">지도 보기</string>
     <!-- Text in menu -->
     <string name="website">웹사이트</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">소식</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">피드백</string>
@@ -253,7 +253,7 @@
     <string name="donate">기부</string>
     <string name="already_donated">기부완료</string>
     <string name="remind_me_later">나중에 알림</string>
-    <string name="support_organic_maps">Organic Maps 지원하기</string>
+    <string name="support_organic_maps">CoMaps 지원하기</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">프로젝트 지원</string>
     <!-- Button in the main Help dialog -->
@@ -503,7 +503,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">연산자: %s</string>
     <string name="editor_category_unsuitable_title">적합한 카테고리를 찾을 수 없나요?</string>
-    <string name="editor_category_unsuitable_text">오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.</string>
+    <string name="editor_category_unsuitable_text">오가닉 지도에서는 단순한 포인트 카테고리만 추가할 수 있으므로 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 에 직접 추가하세요. 자세한 단계별 지침은 <a href="https://comaps.app/faq/editing/advanced-map-editing">가이드</a>를 참조하세요.</string>
     <string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
     <string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
     <string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
@@ -558,7 +558,7 @@
     <string name="mobile_data_option_ask">항상 표시</string>
     <string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
-    <string name="traffic_update_app">Organic Maps를 업데이트하세요.</string>
+    <string name="traffic_update_app">CoMaps를 업데이트하세요.</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
     <string name="enable_logging">로깅 사용</string>
@@ -584,7 +584,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.</string>
     <string name="dialog_error_storage_title">저장소 액세스 문제</string>
-    <string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@organicmaps.app로 문의하세요.</string>
+    <string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@comaps.app로 문의하세요.</string>
     <string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
     <string name="core_entrance">입구</string>
     <string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
@@ -649,7 +649,7 @@
     <string name="power_managment_setting_never">안함</string>
     <string name="power_managment_setting_auto">자동</string>
     <string name="power_managment_setting_manual_max">최대 전력 절약</string>
-    <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
+    <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 CoMaps 지원 요청에서만 가능합니다.</string>
     <string name="access_rules_author_only">온라인 수정</string>
     <string name="driving_options_title">운전 옵션</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

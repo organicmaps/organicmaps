@@ -264,7 +264,7 @@
     <string name="download_map_title">Sækja heims-yfirlitskortið</string>
     <string name="already_donated">Hef þegar styrkt verkefnið</string>
     <string name="remind_me_later">Áminna mig síðar</string>
-    <string name="support_organic_maps">Styddu við Organic Maps</string>
+    <string name="support_organic_maps">Styddu við CoMaps</string>
     <string name="how_to_support_us">Styddu við verkefnið</string>
     <string name="osm_log_out_confirmation">Ertu viss um að þú viljir skrá þig út af OpenStreetMap-aðgangnum þínum?</string>
     <string name="telegram">Telegram</string>
@@ -301,7 +301,7 @@
     <string name="download_has_failed">Mistókst að sækja. Ýttu til að reyna aftur.</string>
     <string name="search_map">Leita á korti</string>
     <string name="try_again">Reyndu aftur</string>
-    <string name="about_menu_title">Um Organic Maps</string>
+    <string name="about_menu_title">Um CoMaps</string>
     <string name="about_headline">Ókeypis fyrir alla, unnið af alúð</string>
     <string name="location_settings">Staðsetningarstillingar</string>
     <string name="download_resources_continue">Fara á kort</string>
@@ -336,8 +336,8 @@
     <string name="disconnect_usb_cable_title">Aftengja USB-kapal</string>
     <string name="enable_keep_screen_on">Halda kveiktu á skjánum</string>
     <string name="enable_show_on_lock_screen">Birta á læsiskjánum</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://comaps.app/</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="browser_not_available">Vafri er ekki tiltækur</string>
     <string name="open_in_app">Opna í öðru forriti</string>

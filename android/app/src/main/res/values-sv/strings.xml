@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Nedladdningen misslyckades</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Försök igen</string>
-    <string name="about_menu_title">Om Organic Maps</string>
+    <string name="about_menu_title">Om CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratis för alla, skapad med kärlek</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
     <string name="download">Ladda ner</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps</string>
+    <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda appen.</string>
     <string name="download_resources">Innan du startar, låt oss ladda ner den allmäna världskartan på din enhet.
@@ -153,7 +153,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Anteckningar</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Organic Maps bokmärken har delats med dig</string>
+    <string name="share_bookmarks_email_subject">CoMaps bokmärken har delats med dig</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Läser in bokmärken</string>
     <!-- Kmz file successful loading -->
@@ -163,7 +163,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Filtypen känns inte igen av appen:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Det gick inte att öppna filen %1$s
 \n
 \n%2$s</string>
@@ -175,13 +175,13 @@
     <string name="cant_change_this_setting">Tyvärr, kartlagring är inaktiverat i inställningar</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Kartan har börjat laddas ner.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hej, kolla på min nuvarande position på Organic Maps! %1$s eller %2$s Har du inte offline-kartor? Ladda ner här: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Hej, kolla på min nuvarande position på CoMaps! %1$s eller %2$s Har du inte offline-kartor? Ladda ner här: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Hej, kolla min kartnål på Organic Maps kartan</string>
+    <string name="bookmark_share_email_subject">Hej, kolla min kartnål på CoMaps kartan</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på Organic Maps kartan!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på CoMaps kartan!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Hej,
 \n
 \nJag är här nu: %1$s. Klicka på länken %2$s eller här %3$s för att se platsen på kartan.
@@ -240,7 +240,7 @@
     <string name="search_show_on_map">Visa på kartan</string>
     <!-- Text in menu -->
     <string name="website">Webbplats</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Nyheter</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
@@ -254,7 +254,7 @@
     <string name="donate">Donera</string>
     <string name="already_donated">Redan donerat</string>
     <string name="remind_me_later">Påminn senare</string>
-    <string name="support_organic_maps">Stödja Organic Maps</string>
+    <string name="support_organic_maps">Stödja CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Stöd projektet</string>
     <!-- Button in the main Help dialog -->
@@ -478,7 +478,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Community-skapade OpenStreetMap-data från och med %s. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i Organic Maps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i CoMaps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.
 \nGå med i samhället och hjälp till att skapa en bättre karta för alla!</string>
     <string name="login_to_make_edits_visible">Skapa ett OpenStreetMap-konto eller logga in för att publicera dina kartredigeringar till hela världen.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -496,7 +496,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Meddelande till OpenStreetMap-volontärer (valfritt)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Beskriv fel på kartan eller saker som inte kan redigeras med Organic Maps</string>
+    <string name="editor_note_hint">Beskriv fel på kartan eller saker som inte kan redigeras med CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Dina redigeringar laddas upp till den offentliga <a href="https://wiki.openstreetmap.org/wiki/Sv:Om_OpenStreetMap">OpenStreetMap</a>-databasen. Lägg inte till personlig eller upphovsrättsskyddad information.</string>
     <string name="editor_more_about_osm">Mer om OpenStreetMap</string>
@@ -506,7 +506,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operatör: %s</string>
     <string name="editor_category_unsuitable_title">Hittar du ingen lämplig kategori?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
+    <string name="editor_category_unsuitable_text">CoMaps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://comaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
     <string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
     <string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
     <string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
@@ -561,7 +561,7 @@
     <string name="mobile_data_option_ask">Fråga alltid</string>
     <string name="traffic_update_maps_text">Kartor måste uppdateras för att visa trafikdata.</string>
     <string name="big_font">Öka teckenstorlek på kartan</string>
-    <string name="traffic_update_app">Uppdatera Organic Maps</string>
+    <string name="traffic_update_app">Uppdatera CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Trafikdata är inte tillgänglig</string>
     <string name="enable_logging">Aktivera loggning</string>
@@ -587,7 +587,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.</string>
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
-    <string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
     <string name="core_entrance">Ingång</string>
     <string name="error_enter_correct_name">Ange ett korrekt namn</string>
@@ -653,7 +653,7 @@
     <string name="power_managment_setting_never">Aldrig</string>
     <string name="power_managment_setting_auto">Vid lågt batteri</string>
     <string name="power_managment_setting_manual_max">Alltid</string>
-    <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
+    <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av CoMaps supporttjänst.</string>
     <string name="access_rules_author_only">Redigeras online</string>
     <string name="driving_options_title">Ruttinställningar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -743,8 +743,8 @@
     <string name="enable_keep_screen_on_description">Vid aktivering kommer skärmen alltid att vara på när kartan visas.</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Kartdata från OpenStreetMap</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/sv/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/sv/</string>
     <!-- App Tip #00 -->
     <string name="app_tip_00">Tack för att du använder våra community-byggda kartor!</string>
     <!-- App tip #01 -->
@@ -766,9 +766,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Du använder nu Organic Maps på telefonens skärm</string>
+    <string name="car_used_on_the_phone_screen">Du använder nu CoMaps på telefonens skärm</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Du använder nu Organic Maps på bilskärmen</string>
+    <string name="car_used_on_the_car_screen">Du använder nu CoMaps på bilskärmen</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Du är ansluten till Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -776,11 +776,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Till bilens skärm</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.</string>
+    <string name="aa_location_permissions_request">CoMaps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Denna app behöver ditt tillstånd</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps i Android Auto behöver ett platstillstånd för att fungera effektivt</string>
+    <string name="aa_request_permission_activity_text">CoMaps i Android Auto behöver ett platstillstånd för att fungera effektivt</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Tilldela behörigheter</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

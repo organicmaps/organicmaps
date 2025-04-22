@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Sikertelen letöltés</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Újrapróbálkozás</string>
-    <string name="about_menu_title">Az Organic Maps névjegye</string>
+    <string name="about_menu_title">Az CoMaps névjegye</string>
     <!-- Text in About screen -->
     <string name="about_headline">Mindenki számára ingyenes – szeretettel készült</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">Hardveres gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
     <string name="download">Letöltés</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát az Organic Maps használatához</string>
+    <string name="disconnect_usb_cable">Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát az CoMaps használatához</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Az alkalmazás használatához először szabadítson fel némi helyet az SD-kártyán/USB-tárolón</string>
     <string name="download_resources">Mielőtt elkezdené használni az alkalmazást, töltse le az áttekintő világtérképet az eszközre. \nEz %s tárhelyet fog igénybe venni.</string>
@@ -162,7 +162,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Jegyzetek</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Egy Organic Maps könyvjelzőt osztottak meg Önnel</string>
+    <string name="share_bookmarks_email_subject">Egy CoMaps könyvjelzőt osztottak meg Önnel</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Könyvjelzők betöltése</string>
     <!-- Kmz file successful loading -->
@@ -171,7 +171,7 @@
     <string name="load_kmz_failed">Nem sikerült betölteni a könyvjelzőket. A fájl sérült vagy hibás lehet.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Az alkalmazás nem ismeri fel a következő fájltípust:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Nem sikerült megnyitni a(z) %1$s fájlt\n\n%2$s</string>
     <!-- resource for context menu -->
     <string name="edit">Szerkesztés</string>
@@ -181,13 +181,13 @@
     <string name="cant_change_this_setting">A térképek tárolása jelenleg ki van kapcsolva.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">A térkép letöltése folyamatban van.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Tekintse meg a helyzetemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Tekintse meg a helyzetemet az CoMaps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!</string>
+    <string name="bookmark_share_email_subject">Tekintse meg a térképjelzőmet az CoMaps alkalmazásban!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Tekintse meg a helyzetemet az Organic Maps alkalmazásban!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Tekintse meg a helyzetemet az CoMaps alkalmazásban!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a helyzetemet a térképen.\n\nKöszönöm!</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
@@ -244,7 +244,7 @@
     <string name="search_show_on_map">Megtekintés a térképen</string>
     <!-- Text in menu -->
     <string name="website">Honlap</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Hírek</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Visszajelzés</string>
@@ -258,7 +258,7 @@
     <string name="donate">Adományozás</string>
     <string name="already_donated">Már adományozott</string>
     <string name="remind_me_later">Emlékeztessen később</string>
-    <string name="support_organic_maps">Organic Maps támogatása</string>
+    <string name="support_organic_maps">CoMaps támogatása</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">A projekt támogatása</string>
     <!-- Button in the main Help dialog -->
@@ -480,7 +480,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Közösségi OpenStreetMap adatok innen: %s. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az Organic Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
+    <string name="login_osm_presentation">Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az CoMaps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!</string>
     <string name="login_to_make_edits_visible">Hozzon létre egy fiókot az OpenStreetMapen, vagy jelentkezzen be, hogy közzétehesse térképszerkesztéseit a világ számára.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
@@ -497,7 +497,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Megjegyzés az OpenStreetMap önkénteseinek (nem kötelező)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az Organic Maps segítségével szerkeszteni</string>
+    <string name="editor_note_hint">Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az CoMaps segítségével szerkeszteni</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">A szerkesztései feltöltődnek a nyilvános <a href="https://wiki.openstreetmap.org/wiki/Hu:Névjegy">OpenStreetMap</a> adatbázisba. Ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.</string>
     <string name="editor_more_about_osm">További részletek az OpenStreetMap adatbázisról</string>
@@ -507,7 +507,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Üzemeltető: %s</string>
     <string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
-    <string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
+    <string name="editor_category_unsuitable_text">Az CoMaps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://comaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
     <string name="downloader_no_downloaded_maps_message">Térkép letöltése offline kereséshez és navigáláshoz.</string>
     <!-- abbreviation for meters -->
@@ -561,13 +561,13 @@
     <string name="mobile_data_option_ask">Mindig kérdezzen rá</string>
     <string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez frissíteni kell a térképeket.</string>
     <string name="big_font">Betűméret növelése a térképen</string>
-    <string name="traffic_update_app">Frissítse az Organic Maps alkalmazást</string>
+    <string name="traffic_update_app">Frissítse az CoMaps alkalmazást</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
     <string name="enable_logging">Naplózás engedélyezése</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Általános visszajelzés</string>
-    <string name="prefs_languages_information">Az Organic Maps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Az CoMaps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). \nNyissa meg az eszköz beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. \nItt kezelheti a beszédszintézis beállításokat (például: nyelvi csomag letöltése a kapcsolat nélküli használathoz) és másik szövegfelolvasót jelölhet ki.</string>
     <string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
     <string name="transliteration_title">Átírás latin betűkre</string>
@@ -585,7 +585,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
     <string name="dialog_error_storage_title">Tárhelyhozzáférési probléma</string>
-    <string name="dialog_error_storage_message">Külső tárhely nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen</string>
+    <string name="dialog_error_storage_message">Külső tárhely nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@comaps.app címen</string>
     <string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
     <string name="core_entrance">Bejárat</string>
     <string name="error_enter_correct_name">Adjon meg egy érvényes nevet</string>
@@ -747,8 +747,8 @@
     <string name="change_map_locale">Térkép nyelve</string>
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Térképadatok az OpenStreetMap adatbázisából</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/hu/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/hu/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Hu:Névjegy</string>
     <!-- App Tip #00 -->
@@ -772,9 +772,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">A fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ön most az Organic Maps alkalmazást használja a telefon képernyőjén</string>
+    <string name="car_used_on_the_phone_screen">Ön most az CoMaps alkalmazást használja a telefon képernyőjén</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ön most az Organic Maps alkalmazást használja az autó képernyőjén</string>
+    <string name="car_used_on_the_car_screen">Ön most az CoMaps alkalmazást használja az autó képernyőjén</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Ön kapcsolódik az Android Auto rendszerhez</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -782,11 +782,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Az autó képernyőjére</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Az Organic Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést a telefonján.</string>
+    <string name="aa_location_permissions_request">Az CoMaps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést a telefonján.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ennek az alkalmazásnak szüksége van az Ön engedélyére</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Az Organic Maps az Android Autoban helymeghatározási engedélyeket igényel a hatékony működéshez</string>
+    <string name="aa_request_permission_activity_text">Az CoMaps az Android Autoban helymeghatározási engedélyeket igényel a hatékony működéshez</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Engedélyek megadása</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -867,8 +867,8 @@
     <string name="editor_add_phone">Telefonszám hozzáadása</string>
     <string name="download_map_title">Áttekintő világtérkép letöltése</string>
     <string name="mastodon">Mastodon</string>
-    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="share_bookmarks_email_body">Üdvözlöm!\n\nCsatoltam a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!</string>
+    <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="share_bookmarks_email_body">Üdvözlöm!\n\nCsatoltam a könyvjelzőimet; nyissa meg őket az CoMaps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://comaps.app/get?kmz\n\nJó utat kívánok az CoMaps alkalmazással!</string>
     <string name="disconnect_usb_cable_title">USB-kábel leválasztása</string>
     <string name="error_enter_correct_facebook_page">Adjon meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
     <string name="error_enter_correct_twitter_page">Adjon meg egy érvényes X (Twitter) felhasználónevet vagy webcímet</string>

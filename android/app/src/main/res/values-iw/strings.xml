@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">ההורדה נכשלה</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">נסה שוב</string>
-    <string name="about_menu_title">אודות Organic Maps</string>
+    <string name="about_menu_title">אודות CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">חינם לכולם, מיוצרים באהבה</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
     <string name="download">הורדה</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-Organic Maps.</string>
+    <string name="disconnect_usb_cable">אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-CoMaps.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">אנא פנה שטח אחסון בכרטיס הזיכרון או בכונן USB כדי להשתמש בישום</string>
     <string name="download_resources">תחילה, נוריד למכשירך מפה כללית של העולם.
@@ -165,12 +165,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">הערות</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">סימניות של Organic Maps שותפו איתך</string>
+    <string name="share_bookmarks_email_subject">סימניות של CoMaps שותפו איתך</string>
     <string name="share_bookmarks_email_body">שלום!
 \n
-\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz
+\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-CoMaps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://comaps.app/get?kmz
 \n
-\nתהנו לנווט עם Organic Maps!</string>
+\nתהנו לנווט עם CoMaps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">טוען סימניות</string>
     <!-- Kmz file successful loading -->
@@ -180,7 +180,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s
 \n
 \n%2$s</string>
@@ -192,15 +192,15 @@
     <string name="cant_change_this_setting">מצטערים, הגדרות שמירת מפה אינן זמינות כרגע.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">הורדת מפת המדינה מתבצעת כעת.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">קבלו את המיקום שלי ב-Organic Maps!
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">קבלו את המיקום שלי ב-CoMaps!
 \n%1$s או %2$s
-\nאין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get</string>
+\nאין לך מפות בלי אינטרנט? להוריד כאן: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">היי, בדוק את הסיכה שלי במפה של Organic Maps!</string>
+    <string name="bookmark_share_email_subject">היי, בדוק את הסיכה שלי במפה של CoMaps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">היי, בדקו את המיקום הנוכחי שלי במפה של Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">היי, בדקו את המיקום הנוכחי שלי במפה של CoMaps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">היי,
 \n
 \nאני כאן: %1$s. הקש על הלינק %2$s או על %3$s כדי לראות את המקום על המפה.
@@ -265,7 +265,7 @@
     <string name="menu">תפריט</string>
     <!-- Text in menu -->
     <string name="website">אתר</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">חדשות</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">משוב</string>
@@ -279,7 +279,7 @@
     <string name="donate">לתרום</string>
     <string name="already_donated">כבר נתרם</string>
     <string name="remind_me_later">הזכר מאוחר יותר</string>
-    <string name="support_organic_maps">לתמוך ב-Organic Maps</string>
+    <string name="support_organic_maps">לתמוך ב-CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">תמכו בפרויקט</string>
     <!-- Button in the main Help dialog -->
@@ -504,7 +504,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-Organic Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
+    <string name="login_osm_presentation">\u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-CoMaps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.
 \nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!</string>
     <string name="login_to_make_edits_visible">צור חשבון OpenStreetMap או היכנס כדי לפרסם את עריכות המפה שלך לעולם.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -522,7 +522,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">הערה למתנדבי OpenStreetMap (אופציונלי)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות Organic Maps</string>
+    <string name="editor_note_hint">תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">העריכות שלך מועלות למסד הנתונים הציבורי של <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.</string>
     <string name="editor_more_about_osm">עוד על OpenStreetMap</string>
@@ -532,7 +532,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">מַפעִיל: %s</string>
     <string name="editor_category_unsuitable_title">לא מוצאים קטגוריה מתאימה?</string>
-    <string name="editor_category_unsuitable_text">באמצעות Organic Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
+    <string name="editor_category_unsuitable_text">באמצעות CoMaps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו\'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://comaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.</string>
     <string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
     <string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
     <string name="current_location_unknown_error_title">המיקום הנוכחי לא ידוע.</string>
@@ -594,7 +594,7 @@
     <string name="mobile_data_option_ask">שאל תמיד</string>
     <string name="traffic_update_maps_text">כדי להציג מידע על עומס תנועה, יש לעדכן את המפות.</string>
     <string name="big_font">הגדל תגיות במפה</string>
-    <string name="traffic_update_app">נא לעדכן את Organic Maps</string>
+    <string name="traffic_update_app">נא לעדכן את CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">מידע על עומס תנועה לא זמין.</string>
     <string name="enable_logging">הפעל logging</string>
@@ -617,7 +617,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
     <string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
-    <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
     <string name="core_entrance">כניסה</string>
     <string name="error_enter_correct_name">נא להזין שם תקין</string>
@@ -810,9 +810,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">המטרה העיקרית שלנו היא לבנות מפות מהירות, ממוקדות פרטיות, קלות לשימוש שתאהבו.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">אתה משתמש כעת ב-Organic Maps במסך הטלפון</string>
+    <string name="car_used_on_the_phone_screen">אתה משתמש כעת ב-CoMaps במסך הטלפון</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">אתה משתמש כעת ב-Organic Maps במסך המכונית</string>
+    <string name="car_used_on_the_car_screen">אתה משתמש כעת ב-CoMaps במסך המכונית</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">אתה מחובר ל-Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->

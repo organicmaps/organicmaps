@@ -36,7 +36,7 @@
     <string name="country_status_download_failed">Download fallito</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Riprova</string>
-    <string name="about_menu_title">Informazioni su Organic Maps</string>
+    <string name="about_menu_title">Informazioni su CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">Gratuita per tutti, fatta con amore</string>
     <!-- Text in About screen -->
@@ -53,7 +53,7 @@
     <string name="unsupported_phone">L\'app necessita di OpenGL con accelerazione hardware. Purtroppo, il tuo dispositivo non è supportato.</string>
     <string name="download">Scarica</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Scollega il cavo USB o inserisci la scheda di memoria per poter utilizzare Organic Maps</string>
+    <string name="disconnect_usb_cable">Scollega il cavo USB o inserisci la scheda di memoria per poter utilizzare CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda SD/ memoria USB per utilizzare l\'app</string>
     <string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.
@@ -152,8 +152,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Informazioni</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Questi sono i miei luoghi preferiti su Organic Maps</string>
-    <string name="share_bookmarks_email_body">Ciao! \n \nIn allegato ci sono i miei luoghi preferiti; li puoi aprire con Organic Maps. Oppure, se non ce l\'hai, scarica l\'app per iOS o Android seguendo questo link: https://omaps.app/ \n \nDivertiti a viaggiare con Organic Maps!</string>
+    <string name="share_bookmarks_email_subject">Questi sono i miei luoghi preferiti su CoMaps</string>
+    <string name="share_bookmarks_email_body">Ciao! \n \nIn allegato ci sono i miei luoghi preferiti; li puoi aprire con CoMaps. Oppure, se non ce l\'hai, scarica l\'app per iOS o Android seguendo questo link: https://comaps.app/ \n \nDivertiti a viaggiare con CoMaps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Caricamento luoghi preferiti</string>
     <!-- Kmz file successful loading -->
@@ -162,7 +162,7 @@
     <string name="load_kmz_failed">Caricamento dei luoghi preferiti fallito. Il file potrebbe essere corrotto o difettoso.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Questo formato di file non è riconosciuto dall\'app: \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">Impossibile aprire il file %1$s
 \n
 \n%2$s</string>
@@ -174,13 +174,13 @@
     <string name="cant_change_this_setting">Le impostazioni di archiviazione delle mappe sono disabilitate al momento.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Il download della mappa è in corso.</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Guarda la mia posizione in Organic Maps! %1$s o %2$s Non hai scaricato l\'app? La puoi scaricare da qui: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Guarda la mia posizione in CoMaps! %1$s o %2$s Non hai scaricato l\'app? La puoi scaricare da qui: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Dai un\'occhiata a questo posto su Organic Maps!</string>
+    <string name="bookmark_share_email_subject">Dai un\'occhiata a questo posto su CoMaps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Guarda dove mi trovo ora su Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">Guarda dove mi trovo ora su CoMaps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Ciao,
 \n
 \nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.
@@ -243,7 +243,7 @@
     <string name="search_show_on_map">Visualizza sulla mappa</string>
     <!-- Text in menu -->
     <string name="website">Sito web</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">Notizie</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">Feedback</string>
@@ -257,7 +257,7 @@
     <string name="donate">Dona</string>
     <string name="already_donated">Già donato</string>
     <string name="remind_me_later">Ricorda più tardi</string>
-    <string name="support_organic_maps">Supporta Organic Maps</string>
+    <string name="support_organic_maps">Supporta CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Sostieni il progetto</string>
     <!-- Button in the main Help dialog -->
@@ -486,7 +486,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dati OpenStreetMap creati dalla comunità aggiornati al %s. Per saperne di più su come modificare e aggiornare la mappa, visita OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) è un progetto comunitario per creare una mappa libera e aperta. È la principale fonte di dati cartografici di Organic Maps e funziona in modo simile a Wikipedia. Puoi aggiungere o modificare luoghi che diventano disponibili per milioni di utenti in tutto il mondo. \nEntra a far parte della comunità e contribuisci a creare una mappa migliore per tutti!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) è un progetto comunitario per creare una mappa libera e aperta. È la principale fonte di dati cartografici di CoMaps e funziona in modo simile a Wikipedia. Puoi aggiungere o modificare luoghi che diventano disponibili per milioni di utenti in tutto il mondo. \nEntra a far parte della comunità e contribuisci a creare una mappa migliore per tutti!</string>
     <string name="login_to_make_edits_visible">Crea un account OpenStreetMap o effettua il login per pubblicare le tue modifiche alla mappa in tutto il mondo.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d su %2$d</string>
@@ -503,7 +503,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per i volontari di OpenStreetMap (opzionale)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Descrivi gli errori sulla mappa o le cose che non possono essere modificate con Organic Maps</string>
+    <string name="editor_note_hint">Descrivi gli errori sulla mappa o le cose che non possono essere modificate con CoMaps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Le tue modifiche vengono caricate nel database pubblico <a href="https://wiki.openstreetmap.org/wiki/IT:About">OpenStreetMap</a>. Per favore, non aggiungere informazioni personali o protette da copyright.</string>
     <string name="editor_more_about_osm">Informazioni su OpenStreetMap</string>
@@ -513,7 +513,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Gestore: %s</string>
     <string name="editor_category_unsuitable_title">Non riesci a trovare una categoria adatta?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.</string>
+    <string name="editor_category_unsuitable_text">CoMaps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://comaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.</string>
     <string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>
     <string name="downloader_no_downloaded_maps_message">Scarica mappe per trovare luoghi e navigare offline.</string>
     <string name="current_location_unknown_error_title">Posizione attuale sconosciuta.</string>
@@ -572,7 +572,7 @@
     <string name="mobile_data_option_ask">Chiedi sempre</string>
     <string name="traffic_update_maps_text">Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.</string>
     <string name="big_font">Aumenta dimensione caratteri sulla mappa</string>
-    <string name="traffic_update_app">Aggiorna Organic Maps</string>
+    <string name="traffic_update_app">Aggiorna CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Dati sul traffico non disponibili</string>
     <string name="enable_logging">Abilita il logging</string>
@@ -598,7 +598,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più clicca <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.</string>
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
-    <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci a support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci a support@comaps.app</string>
     <string name="setting_emulate_bad_storage">Simula memoria danneggiata</string>
     <string name="core_entrance">Ingresso</string>
     <string name="error_enter_correct_name">Inserire un nome corretto</string>
@@ -767,9 +767,9 @@
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">Dati della mappa da OpenStreetMap</string>
     <!-- A link to the TTS FAQ -->
-    <string name="tts_info_link">https://organicmaps.app/it/faq/sintesi-vocale-tts-su-android/</string>
-    <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
-    <string name="translated_om_site_url">https://organicmaps.app/it/</string>
+    <string name="tts_info_link">https://comaps.app/it/faq/sintesi-vocale-tts-su-android/</string>
+    <!-- Translated CoMaps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
+    <string name="translated_om_site_url">https://comaps.app/it/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/IT:About</string>
     <!-- App Tip #00 -->
@@ -793,9 +793,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Il nostro obiettivo principale è creare mappe veloci, incentrate sulla privacy e facili da usare che adorerai.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ora stai utilizzando Organic Maps sullo schermo del telefono</string>
+    <string name="car_used_on_the_phone_screen">Ora stai utilizzando CoMaps sullo schermo del telefono</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ora stai utilizzando Organic Maps sullo schermo dell\'auto</string>
+    <string name="car_used_on_the_car_screen">Ora stai utilizzando CoMaps sullo schermo dell\'auto</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Sei connesso ad Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -803,11 +803,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Passa al display dell\'auto</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Organic Maps ha bisogno di accedere alla posizione. Quando puoi farlo in sicurezza, controlla la notifica sul tuo telefono.</string>
+    <string name="aa_location_permissions_request">CoMaps ha bisogno di accedere alla posizione. Quando puoi farlo in sicurezza, controlla la notifica sul tuo telefono.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Questa app ha bisogno della tua autorizzazione</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto ha bisogno di accedere alla posizione per funzionare efficacemente</string>
+    <string name="aa_request_permission_activity_text">CoMaps in Android Auto ha bisogno di accedere alla posizione per funzionare efficacemente</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concedi l\'autorizzazione</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->

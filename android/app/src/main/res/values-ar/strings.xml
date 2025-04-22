@@ -39,7 +39,7 @@
     <string name="country_status_download_failed">فشلت عملية تنزيل</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">محاولة مرة أخرى</string>
-    <string name="about_menu_title">حول Organic Maps</string>
+    <string name="about_menu_title">حول CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">مجاني للجميع ، مصنوع من الحب</string>
     <!-- Text in About screen -->
@@ -56,7 +56,7 @@
     <string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
     <string name="download">تنزيل</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.</string>
+    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام CoMaps.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
     <string name="download_resources">قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.
@@ -170,12 +170,12 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">ملاحظات</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">تم مشاركة إشارات Organic Maps المرجعية معك</string>
+    <string name="share_bookmarks_email_subject">تم مشاركة إشارات CoMaps المرجعية معك</string>
     <string name="share_bookmarks_email_body">مرحباً! ْ
 \n
-\n تم إرفاق إشاراتي المرجعية من تطبيق Organic Maps. الرجاء فتحهم إذا لديك تطبيق Organic Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://omaps.app/get?kmz 
+\n تم إرفاق إشاراتي المرجعية من تطبيق CoMaps. الرجاء فتحهم إذا لديك تطبيق CoMaps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://comaps.app/get?kmz 
 \n
-\nاستمتع بالسفر مع Organic Maps!</string>
+\nاستمتع بالسفر مع CoMaps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">يتم تحميل الإشارات المرجعية</string>
     <!-- Kmz file successful loading -->
@@ -185,7 +185,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">لم يتعرف التطبيق على نوع الملف:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">فشل فتح ملف %1$s
 \n
 \n%2$s</string>
@@ -197,13 +197,13 @@
     <string name="cant_change_this_setting">نأسف، اعدادات تخزين الخرائط معطلة حالياً.</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">جاري الآن تنزيل الخريطة</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">مرحباً، تفقد الموقع الخاص بي على CoMaps! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!</string>
+    <string name="bookmark_share_email_subject">مرحباً، تفقد الدبوس الخاص بي على خريطة CoMaps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">مرحباً، تحقق من موقعي الحالي على خريطة Organic Maps!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">مرحباً، تحقق من موقعي الحالي على خريطة CoMaps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">ًمرحبا،
 \n
 \nأنا هنا الآن: %1$s. انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.
@@ -268,7 +268,7 @@
     <string name="menu">القائمة</string>
     <!-- Text in menu -->
     <string name="website">الموقع الإلكتروني</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">أخبار</string>
     <!-- Text in menu -->
     <string name="telegram">تيليجرام</string>
@@ -292,7 +292,7 @@
     <string name="donate">تبرع</string>
     <string name="already_donated">تم التبرع</string>
     <string name="remind_me_later">ذكر لاحقاً</string>
-    <string name="support_organic_maps">دعم Organic Maps</string>
+    <string name="support_organic_maps">دعم CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">دعم المشروع</string>
     <!-- Button in the main Help dialog -->
@@ -548,7 +548,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">المشغل: %s</string>
     <string name="editor_category_unsuitable_title">لا يمكن العثور على فئة مناسبة؟</string>
-    <string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
+    <string name="editor_category_unsuitable_text">تسمح الخرائط العضوية بإضافة فئات نقاط بسيطة فقط، وهذا يعني عدم وجود بلدات وطرق وبحيرات ومخططات للمباني وما إلى ذلك. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع موقعنا <a href="https://comaps.app/faq/editing/advanced-map-editing">دليل</a> للحصول على تعليمات مفصلة خطوة بخطوة.</string>
     <string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
     <string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
     <string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
@@ -610,7 +610,7 @@
     <string name="mobile_data_option_ask">السؤال دوماً</string>
     <string name="traffic_update_maps_text">لعرض البيانات المرورية، يجب تحديث الخرائط.</string>
     <string name="big_font">زيادة حجم الخط على الخريطة</string>
-    <string name="traffic_update_app">الرجاء تحديث Organic Maps</string>
+    <string name="traffic_update_app">الرجاء تحديث CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
     <string name="enable_logging">تفعيل التسجيل</string>
@@ -636,7 +636,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.</string>
     <string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
-    <string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
     <string name="core_entrance">المدخل</string>
     <string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
@@ -712,7 +712,7 @@
     <string name="power_managment_setting_never">أبدًا</string>
     <string name="power_managment_setting_auto">تلقائي</string>
     <string name="power_managment_setting_manual_max">توفير الطاقة الأقصى</string>
-    <string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
+    <string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من CoMaps.</string>
     <string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
     <string name="driving_options_title">خيارات رسم المسار</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->

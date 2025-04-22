@@ -38,7 +38,7 @@
     <string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">ลองอีกครั้ง</string>
-    <string name="about_menu_title">เกี่ยวกับ Organic Maps</string>
+    <string name="about_menu_title">เกี่ยวกับ CoMaps</string>
     <!-- Text in About screen -->
     <string name="about_headline">ฟรีสำหรับทุกคนทำด้วยความรัก</string>
     <!-- Text in About screen -->
@@ -55,7 +55,7 @@
     <string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
     <string name="download">ดาวน์โหลด</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps</string>
+    <string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ CoMaps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
     <string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ
@@ -157,7 +157,7 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">บันทึก</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ Organic Maps แล้ว</string>
+    <string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ CoMaps แล้ว</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
     <!-- Kmz file successful loading -->
@@ -167,7 +167,7 @@
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">แอปไม่รู้จักประเภทไฟล์:
 \n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <!-- Failed to open a bookmarks or tracks file in CoMaps. -->
     <string name="failed_to_open_file">ไม่สามารถเปิดไฟล์ได้ %1$s
 \n
 \n%2$s</string>
@@ -179,13 +179,13 @@
     <string name="cant_change_this_setting">ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน</string>
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้</string>
-    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://comaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ CoMaps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://comaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!</string>
+    <string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ CoMaps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!</string>
-    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ CoMaps สิ!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://comaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">หวัดดี
 \n
 \nฉันอยู่ที่นี่ตอนนี้: %1$s. คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่
@@ -244,7 +244,7 @@
     <string name="search_show_on_map">ดูบนแผนที่</string>
     <!-- Text in menu -->
     <string name="website">เว็บไซต์</string>
-    <!-- Text in About menu, opens Organic Maps news website -->
+    <!-- Text in About menu, opens CoMaps news website -->
     <string name="news">ข่าว</string>
     <!-- Settings: Send feedback button and dialog title -->
     <string name="feedback">ข้อเสนอแนะ</string>
@@ -258,7 +258,7 @@
     <string name="donate">บริจาค</string>
     <string name="already_donated">บริจาคแล้ว</string>
     <string name="remind_me_later">เตือนภายหลัง</string>
-    <string name="support_organic_maps">สนับสนุน Organic Maps</string>
+    <string name="support_organic_maps">สนับสนุน CoMaps</string>
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">สนับสนุนโครงการ</string>
     <!-- Button in the main Help dialog -->
@@ -510,7 +510,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">ตัวดำเนินการ: %s</string>
     <string name="editor_category_unsuitable_title">ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?</string>
-    <string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
+    <string name="editor_category_unsuitable_text">แผนที่ทั่วไปอนุญาตให้เพิ่มหมวดหมู่จุดธรรมดาเท่านั้น ซึ่งหมายความว่าไม่มีเมือง ถนน ทะเลสาบ โครงร่างอาคาร ฯลฯ โปรดเพิ่มหมวดหมู่ดังกล่าวลงใน <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ดู<a href="https://comaps.app/faq/editing/advanced-map-editing">คำแนะนำ</a> ของเราเพื่อดูคำแนะนำโดยละเอียดทีละขั้นตอน</string>
     <string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
     <string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
     <string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
@@ -565,7 +565,7 @@
     <string name="mobile_data_option_ask">ถามก่อนเสมอ</string>
     <string name="traffic_update_maps_text">ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร</string>
     <string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
-    <string name="traffic_update_app">กรุณาอัปเดต Organic Maps</string>
+    <string name="traffic_update_app">กรุณาอัปเดต CoMaps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">ไม่มีข้อมูลการจราจร</string>
     <string name="enable_logging">เปิดใช้งานการเก็บล็อก</string>
@@ -591,7 +591,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
     <string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
-    <string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@comaps.app</string>
     <string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
     <string name="core_entrance">ทางเข้า</string>
     <string name="error_enter_correct_name">กรุณาใส่ชื่อที่ถูกต้อง</string>
@@ -657,7 +657,7 @@
     <string name="power_managment_setting_never">ไม่ใช้</string>
     <string name="power_managment_setting_auto">อัตโนมัติ</string>
     <string name="power_managment_setting_manual_max">ประหยัดพลังงานสูงสุด</string>
-    <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
+    <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก CoMaps เท่านั้น</string>
     <string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
     <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
