@@ -46,8 +46,8 @@ extension RoutePreview {
         return .setHidden(true)
 
       case .addRoutePoint:
-        // TODO: show search or add point
-        return .none
+        searchManager.startSearching(isRouting: false)
+        return .setHidden(true)
 
       case .deleteRoutePoint(let point):
         router.removePoint(point)
