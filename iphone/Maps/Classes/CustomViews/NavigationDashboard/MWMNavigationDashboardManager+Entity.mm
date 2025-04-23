@@ -163,8 +163,10 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
     [result appendAttributedString:attrStringWithImage];
   }
 
-  auto target = [NSString stringWithFormat:@"%@ %@", self.targetDistance, self.targetUnits];
-  [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
+  if (self.targetDistance && self.targetUnits) {
+    auto target = [NSString stringWithFormat:@"%@ %@", self.targetDistance, self.targetUnits];
+    [result appendAttributedString:[[NSAttributedString alloc] initWithString:target attributes:secondaryAttributes]];
+  }
 
   return result;
 }
