@@ -115,6 +115,14 @@
   </screenshots>
 
   <releases>
+   <release version="2025.04.21-4" date="2025-04-21">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of April 18</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.03.02-7" date="2025-03-02">
      <description>
        <p>Highlights:</p>
