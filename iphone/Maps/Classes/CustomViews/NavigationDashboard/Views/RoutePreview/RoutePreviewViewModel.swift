@@ -37,7 +37,7 @@ extension RoutePreview.ViewModel {
     routePoints: RoutePreview.RoutePoints? = nil,
     routerType: MWMRouterType? = nil,
     entity: MWMNavigationDashboardEntity? = nil,
-    elevationInfo: RoutePreview.ElevationInfo? = nil,
+    elevationInfo: RoutePreview.ElevationInfo?? = nil,
     estimates: NSAttributedString? = nil,
     state: MWMNavigationDashboardState? = nil,
     presentationStep: ModalPresentationStep? = nil,
