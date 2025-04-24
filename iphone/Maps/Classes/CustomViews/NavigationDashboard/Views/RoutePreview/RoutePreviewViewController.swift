@@ -22,7 +22,6 @@ final class RoutePreviewViewController: UIViewController {
     static let routePointCellHeight: CGFloat = 52
     static let addRoutePointCellHeight: CGFloat = 30
 
-    static let etaLabelHeight: CGFloat = 30
     static let etaLabelTopSpacing: CGFloat = 8
     static let etaLabelLeadingPadding: CGFloat = 16
   }
@@ -31,7 +30,7 @@ final class RoutePreviewViewController: UIViewController {
   private let grabberView = UIView()
   private let backButton = UIButton(type: .system)
   private var transportOptionsCollectionView: UICollectionView!
-  private let etaLabel = UILabel()
+  private let estimatesPreview = RouteEstimatesPreviewView()
   private let settingsButton = UIButton(type: .system)
   private var routePointsCollectionView: UICollectionView!
   private let startButton = StartRouteButton()
@@ -99,7 +98,6 @@ final class RoutePreviewViewController: UIViewController {
     setupGrabberView()
     setupBackButton()
     setupSettingsButton()
-    setupEtaLabel()
     setupStartButton()
     setupTransportOptionsCollection()
     setupRoutePointsCollectionView()
@@ -189,10 +187,6 @@ final class RoutePreviewViewController: UIViewController {
     transportOptionsCollectionView.register(cell: TransportOptionCollectionViewCell.self)
   }
 
-  private func setupEtaLabel() {
-    etaLabel.setFontStyleAndApply(.bold14)
-  }
-
   private func setupStartButton() {
     startButton.setOnTapAction { [weak self] in
       self?.interactor?.process(.startNavigation)
@@ -221,7 +215,7 @@ final class RoutePreviewViewController: UIViewController {
     availableAreaView.addSubview(grabberView)
     availableAreaView.addSubview(backButton)
     availableAreaView.addSubview(transportOptionsCollectionView)
-    availableAreaView.addSubview(etaLabel)
+    availableAreaView.addSubview(estimatesPreview)
     availableAreaView.addSubview(settingsButton)
     availableAreaView.addSubview(routePointsCollectionView)
     view.addSubview(startButton)
@@ -229,12 +223,12 @@ final class RoutePreviewViewController: UIViewController {
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     backButton.translatesAutoresizingMaskIntoConstraints = false
     transportOptionsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-    etaLabel.translatesAutoresizingMaskIntoConstraints = false
+    estimatesPreview.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
     routePointsCollectionView.translatesAutoresizingMaskIntoConstraints = false
     startButton.translatesAutoresizingMaskIntoConstraints = false
 
-    etaLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    estimatesPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
     backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
@@ -243,7 +237,7 @@ final class RoutePreviewViewController: UIViewController {
       grabberView.widthAnchor.constraint(equalToConstant: Constants.grabberWidth),
       grabberView.topAnchor.constraint(equalTo: availableAreaView.topAnchor, constant: Constants.grabberTopInset),
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
-      
+
       backButton.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.backButtonInsets.left),
       backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize.width),
       backButton.heightAnchor.constraint(equalToConstant: Constants.backButtonSize.height),
@@ -254,19 +248,18 @@ final class RoutePreviewViewController: UIViewController {
       transportOptionsCollectionView.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.transportOptionsCollectionInsets.top),
       transportOptionsCollectionView.heightAnchor.constraint(equalToConstant: Constants.transportOptionsCollectionHeight),
 
-      etaLabel.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.etaLabelLeadingPadding),
-      etaLabel.heightAnchor.constraint(equalToConstant: Constants.etaLabelHeight),
-      etaLabel.topAnchor.constraint(equalTo: transportOptionsCollectionView.bottomAnchor, constant: Constants.etaLabelTopSpacing),
+      estimatesPreview.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.etaLabelLeadingPadding),
+      estimatesPreview.topAnchor.constraint(equalTo: transportOptionsCollectionView.bottomAnchor, constant: Constants.etaLabelTopSpacing),
 
-      settingsButton.leadingAnchor.constraint(equalTo: etaLabel.trailingAnchor, constant: Constants.settingsButtonSpacing),
+      settingsButton.leadingAnchor.constraint(equalTo: estimatesPreview.trailingAnchor, constant: Constants.settingsButtonSpacing),
       settingsButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.settingsButtonInsetRight),
-      settingsButton.centerYAnchor.constraint(equalTo: etaLabel.centerYAnchor),
+      settingsButton.centerYAnchor.constraint(equalTo: estimatesPreview.centerYAnchor),
       settingsButton.heightAnchor.constraint(equalToConstant: Constants.settingsButtonSize),
       settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
 
       routePointsCollectionView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routePointsInsets.left),
       routePointsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routePointsInsets.right),
-      routePointsCollectionView.topAnchor.constraint(equalTo: etaLabel.bottomAnchor, constant: Constants.routePointsInsets.top),
+      routePointsCollectionView.topAnchor.constraint(equalTo: estimatesPreview.bottomAnchor, constant: Constants.routePointsInsets.top),
       routePointsCollectionView.bottomAnchor.constraint(equalTo: availableAreaView.bottomAnchor, constant: Constants.routePointsInsets.bottom),
 
       startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
@@ -446,11 +439,11 @@ extension RoutePreviewViewController {
     if shouldReloadTransportOptions {
       transportOptionsCollectionView.reloadData()
     }
-    startButton.setHidden(newViewModel.startButtonIsHidden)
-    startButton.setEnabled(newViewModel.startButtonIsEnabled,
-                           isLoading: newViewModel.showActivityIndicator)
-    etaLabel.attributedText = viewModel.estimates
+    startButton.setState(newViewModel.startButtonState)
     presentationStepsController.setStep(newViewModel.presentationStep)
+
+    estimatesPreview.onNavigationInfoUpdated(viewModel)
+    // TODO: update the navigation view
   }
 
   private func reloadRoutePoints(from oldPoints: RoutePreview.RoutePoints, to newPoints: RoutePreview.RoutePoints) {
@@ -467,7 +460,7 @@ extension RoutePreviewViewController {
   }
 
   func close() {
-    startButton.setHidden(true)
+    startButton.setState(.hidden)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
