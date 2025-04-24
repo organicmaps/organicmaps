@@ -1,5 +1,12 @@
 final class StartRouteButton: UIView {
 
+  enum State {
+    case enabled
+    case loading
+    case disabled
+    case hidden
+  }
+
   private enum Constants {
     static let buttonHeight: CGFloat = 44
     static let buttonInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -29,6 +36,9 @@ final class StartRouteButton: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+
+  // Prevent touches from being passed to the touch transparent view
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
 
   private func setupView() {
     setStyle(.background)
@@ -66,15 +76,32 @@ final class StartRouteButton: UIView {
     onTapAction?()
   }
 
-  func setEnabled(_ enabled: Bool, isLoading: Bool) {
-    isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
-    button.isEnabled = enabled
-    UIView.transition(with: button,
+  func setState(_ state: State) {
+    UIView.transition(with: self,
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,
-                      animations: {
-      self.button.setTitle(isLoading ? nil : Constants.buttonTitle, for: .normal)
-    }, completion: nil)
+                      animations: { [weak self] in
+      guard let self = self else { return }
+      switch state {
+      case .enabled:
+        self.button.setTitle(Constants.buttonTitle, for: .normal)
+        self.activityIndicator.stopAnimating()
+        self.button.isEnabled = true
+        self.alpha = 1.0
+      case .loading:
+        self.button.setTitle(nil, for: .normal)
+        self.activityIndicator.startAnimating()
+        self.button.isEnabled = false
+        self.alpha = 1.0
+      case .disabled:
+        self.button.setTitle(Constants.buttonTitle, for: .normal)
+        self.activityIndicator.stopAnimating()
+        self.button.isEnabled = false
+        self.alpha = 1.0
+      case .hidden:
+        self.alpha = 0.0
+      }
+    })
   }
 
   func setHidden(_ hidden: Bool) {

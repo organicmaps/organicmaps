@@ -17,11 +17,25 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     }
   }
 
+  init(layout: UICollectionViewLayout) {
+    super.init(frame: .zero, collectionViewLayout: layout)
+    setup()
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func awakeFromNib() {
     super.awakeFromNib()
+    setup()
+  }
+
+  private func setup() {
     dataSource = self
     [TransportTransitIntermediatePoint.self, TransportTransitPedestrian.self,
-        TransportTransitTrain.self, TransportRuler.self].forEach {
+     TransportTransitTrain.self, TransportRuler.self].forEach {
       register(cellClass: $0)
     }
   }

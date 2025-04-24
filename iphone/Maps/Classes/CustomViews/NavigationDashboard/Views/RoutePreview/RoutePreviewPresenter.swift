@@ -21,41 +21,57 @@ extension RoutePreview {
 
     private func resolve(action: Response, with previousViewModel: ViewModel) -> ViewModel {
       var viewModel = previousViewModel
-
       switch action {
       case .none:
         break
       case .goBack:
-        viewModel.shouldClose = true
+        viewModel = viewModel.copy(shouldClose: true)
         placePageManagerHelper.recoverPlacePage()
       case .close:
-        viewModel.shouldClose = true
+        viewModel = viewModel.copy(shouldClose: true)
       case .setHidden(let hidden):
-        viewModel.presentationStep = hidden ? .hidden : .halfScreen
+        viewModel = viewModel.copy(presentationStep: hidden ? .hidden : .halfScreen)
       case .updatePresentationStep(let step):
-        viewModel.presentationStep = step
+        viewModel = viewModel.copy(presentationStep: step)
       case .showNavigationDashboard:
-        viewModel.presentationStep = .hidden
+        viewModel = viewModel.copy(presentationStep: .hidden)
       case .updateRouteBuildingProgress(let progress, routerType: let routerType):
-        viewModel.progress = progress
-        viewModel.routerType = routerType
+        viewModel = viewModel.copy(progress: progress)
+        viewModel = viewModel.copy(routerType: routerType)
       case .updateNavigationInfo(let entity):
-        viewModel.entity = entity
-        // TODO: build elevation info
-        if let estimates = viewModel.entity.estimate().mutableCopy() as? NSMutableAttributedString {
-//          if let elevation = self.elevation {
-//            result.append(MWMNavigationDashboardEntity.estimateDot())
-//            result.append(elevation)
-//          }
-          viewModel.estimates = estimates
-        }
+        let estimates = buildEstimatesString(routerType: viewModel.routerType,
+                                             navigationInfo: entity,
+                                             elevationInfo: viewModel.elevationInfo)
+        viewModel = viewModel.copy(entity: entity, estimates: estimates)
+      case .updateElevationInfo(let elevationInfo):
+        let estimates = buildEstimatesString(routerType: viewModel.routerType,
+                                             navigationInfo: viewModel.entity,
+                                             elevationInfo: elevationInfo)
+        viewModel = viewModel.copy(elevationInfo: elevationInfo, estimates: estimates)
       case let .show(points, routerType):
-        print("update route points")
-        viewModel.routePoints = RoutePreview.RoutePoints(points: points)
-        viewModel.routerType = routerType
-        viewModel.presentationStep = .halfScreen
+        viewModel = viewModel.copy(routePoints: RoutePreview.RoutePoints(points: points))
+        viewModel = viewModel.copy(routerType: routerType)
+        if viewModel.presentationStep == .hidden {
+          viewModel = viewModel.copy(presentationStep: .halfScreen)
+        }
       }
       return viewModel
+    }
+
+    private func buildEstimatesString(routerType: MWMRouterType,
+                                      navigationInfo: MWMNavigationDashboardEntity,
+                                      elevationInfo: ElevationInfo?) -> NSAttributedString {
+      let result = NSMutableAttributedString()
+      if let estimates = navigationInfo.estimate() {
+        if routerType == .ruler {
+          result.append(NSAttributedString(string: L("placepage_distance") + ": "))
+        }
+        result.append(estimates)
+      }
+      if let elevationInfo {
+        result.append(elevationInfo.estimates)
+      }
+      return result
     }
   }
 }

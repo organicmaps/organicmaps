@@ -12,6 +12,7 @@ enum RoutePreview {
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateDrivingOptionState(MWMDrivingOptionsState)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
+    case updateElevationInfo(ElevationInfo?)
     case updatePresentationFrame(CGRect)
 //    case updatePresentationStep(ModalPresentationStep)
     case setHidden(Bool)
@@ -24,6 +25,7 @@ enum RoutePreview {
     case show(points: [MWMRoutePoint], routerType: MWMRouterType)
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
+    case updateElevationInfo(ElevationInfo?)
     case updatePresentationStep(ModalPresentationStep)
     case showNavigationDashboard
     case setHidden(Bool)

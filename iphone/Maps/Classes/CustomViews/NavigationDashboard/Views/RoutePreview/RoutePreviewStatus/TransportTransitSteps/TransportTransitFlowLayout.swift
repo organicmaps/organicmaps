@@ -10,6 +10,11 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
   private var cellsLayoutAttrs = [UICollectionViewLayoutAttributes]()
   private var decoratorsLayoutAttrs = [UICollectionViewLayoutAttributes]()
 
+  override init() {
+    super.init()
+    register(Config.separator, forDecorationViewOfKind: Config.separatorKind)
+  }
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     register(Config.separator, forDecorationViewOfKind: Config.separatorKind)

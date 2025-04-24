@@ -297,6 +297,8 @@ extension GlobalStyleSheet: IStyleSheet {
       return .addFrom(Self.flatNormalButton) { s in
         s.font = fonts.semibold16
         s.cornerRadius = .buttonDefaultBig
+        s.backgroundColor = colors.linkBlue
+        s.backgroundColorDisabled = colors.linkBlueHighlighted
       }
     case .flatNormalTransButton:
       return .add { s in

@@ -21,7 +21,7 @@ extension RoutePreview {
     }
 
     private func resolve(_ event: Request) -> Response {
-      print(String(describing: event))
+      print(#function, String(describing: event))
       switch event {
       case .prepareRoute:
         return .none
@@ -30,6 +30,7 @@ extension RoutePreview {
         return .show(points: router.points(), routerType: router.type())
 
       case .routeIsReady:
+        buildElevationInfoIfNeeded()
         return .show(points: router.points(), routerType: router.type())
 
       case .selectRouterType(let routerType):
@@ -50,13 +51,8 @@ extension RoutePreview {
 
       case .deleteRoutePoint(let point):
         router.removePoint(point)
-        let points = router.points()!
-        if points.count < 2 {
-          router.stopRouting()
-        } else {
-          router.rebuild(withBestRouter: false)
-        }
-        return .show(points: points, routerType: router.type())
+        router.rebuild(withBestRouter: false)
+        return .show(points: router.points()!, routerType: router.type())
 
       case .startNavigation:
         return .showNavigationDashboard
@@ -70,6 +66,9 @@ extension RoutePreview {
 
       case .updateNavigationInfo(let entity):
         return .updateNavigationInfo(entity)
+
+      case .updateElevationInfo(let elevationInfo):
+        return .updateElevationInfo(elevationInfo)
 
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
@@ -100,11 +99,11 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   func setHidden(_ hidden: Bool) {
     process(.setHidden(true))
   }
-  
+
   func stateClosed() {
     process(.close)
   }
-  
+
   func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {
     process(.updateNavigationInfo(entity))
   }
@@ -135,7 +134,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func updateNavigationInfoAvailableArea(_ frame: CGRect) {
-//    print(#function)
+    print(#function)
     // TODO: navigation
   }
 
@@ -168,10 +167,56 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func stateNavigation() {
-    process(.startNavigation) // ?? or onRouteStop
+    process(.startNavigation) // TODO: ?? or onRouteStop
   }
 
   func stateError(_ errorMessage: String) {
-    print(#function)
+    print(#function, errorMessage)
+  }
+
+  // TODO: (KK) elevation info should be removed when the new elevation chart with all statistics will be implemented
+  private func buildElevationInfoIfNeeded() {
+    guard router.hasRouteAltitude() else {
+      presenter.process(.updateElevationInfo(nil))
+      return
+    }
+    router.routeAltitudeImage(
+      for: /*heightProfileImage.frame.size*/ CGSize(width: 350, height: 50)) { [weak self] image, totalAscent, totalDescent in
+        guard let self else { return }
+        guard let totalAscent, let totalDescent else {
+          self.process(.updateElevationInfo(nil))
+          return
+        }
+        let attributes = BaseRoutePreviewStatus.elevationAttributes
+        let ascentImageString: NSAttributedString
+        let descentImageString: NSAttributedString
+        if #available(iOS 13.0, *) {
+          let imageFrame = CGRect(x: 0, y: -4, width: 20, height: 20)
+          let imageColor = UIColor.linkBlue()
+          let ascentImage = NSTextAttachment()
+          ascentImage.image = UIImage(resource: .icEmAscent24)
+            .withRenderingMode(.alwaysTemplate)
+            .withTintColor(imageColor)
+          ascentImage.bounds = imageFrame
+          let descentImage = NSTextAttachment()
+          descentImage.image = UIImage(resource: .icEmDescent24)
+            .withRenderingMode(.alwaysTemplate)
+            .withTintColor(imageColor)
+          descentImage.bounds = imageFrame
+          ascentImageString = NSAttributedString(attachment: ascentImage)
+          descentImageString = NSAttributedString(attachment: descentImage)
+        } else {
+          ascentImageString = NSAttributedString(string: "↗", attributes: attributes)
+          descentImageString = NSAttributedString(string: "↘", attributes: attributes)
+        }
+        let elevation = NSMutableAttributedString(string: "")
+        elevation.append(MWMNavigationDashboardEntity.estimateDot())
+        elevation.append(ascentImageString)
+        elevation.append(NSAttributedString(string: " \(totalAscent)  ", attributes: attributes))
+        elevation.append(descentImageString)
+        elevation.append(NSAttributedString(string: " \(totalDescent)", attributes: attributes))
+        let elevationInfo = RoutePreview.ElevationInfo(estimates: elevation, image: image)
+        self.process(.updateElevationInfo(elevationInfo))
+      }
   }
 }
