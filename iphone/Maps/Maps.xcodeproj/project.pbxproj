@@ -456,8 +456,9 @@
 		ED0C54992C6E6AF000253A5F /* TrackRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C54972C6E14E800253A5F /* TrackRecordingManager.swift */; };
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
-		ED18EF812DBA2FD800B383A0 /* RouteEstimatesPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF802DBA2FD800B383A0 /* RouteEstimatesPreviewView.swift */; };
+		ED18EF812DBA2FD800B383A0 /* TransportTransitStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */; };
 		ED18EF852DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */; };
+		ED18EF872DBA954900B383A0 /* ElevationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
 		ED2D743A2D14337500660FBF /* AppLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742C2D14337500660FBF /* AppLogo.swift */; };
@@ -1441,8 +1442,9 @@
 		ED0C54972C6E14E800253A5F /* TrackRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingManager.swift; sourceTree = "<group>"; };
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
 		ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSeparator.swift"; sourceTree = "<group>"; };
-		ED18EF802DBA2FD800B383A0 /* RouteEstimatesPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEstimatesPreviewView.swift; sourceTree = "<group>"; };
+		ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsView.swift; sourceTree = "<group>"; };
 		ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+WithPriority.swift"; sourceTree = "<group>"; };
+		ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileView.swift; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
 		ED2D742D2D14337500660FBF /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
@@ -2559,7 +2561,8 @@
 				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
 				ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */,
 				ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */,
-				ED18EF802DBA2FD800B383A0 /* RouteEstimatesPreviewView.swift */,
+				ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */,
+				ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */,
 				ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */,
 				ED4F4F4E2D9E7B8E006AD910 /* RoutePreviewBuilder.swift */,
 				ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */,
@@ -4519,7 +4522,7 @@
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
 				99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
-				ED18EF812DBA2FD800B383A0 /* RouteEstimatesPreviewView.swift in Sources */,
+				ED18EF812DBA2FD800B383A0 /* TransportTransitStepsView.swift in Sources */,
 				CDCA273F2238087700167D87 /* MWMCarPlaySearchService.mm in Sources */,
 				348B926D1FF3B5E100379009 /* UIView+Animation.swift in Sources */,
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
@@ -4675,6 +4678,7 @@
 				ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
+				ED18EF872DBA954900B383A0 /* ElevationProfileView.swift in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
 				F6E2FE251E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
