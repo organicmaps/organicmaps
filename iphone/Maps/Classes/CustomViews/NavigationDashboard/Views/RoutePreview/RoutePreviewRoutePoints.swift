@@ -56,7 +56,7 @@ extension RoutePreview.RoutePoints {
     case 0:
       return UIImage(resource: .icRouteManagerMyPosition)
     case count - 1:
-      return UIImage(resource: .finishPoint)
+      return UIImage(resource: .icRouteManagerFinish)
     default:
       let imageName = "route-point-\(index)"
       return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)
