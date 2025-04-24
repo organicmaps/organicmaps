@@ -22,15 +22,19 @@ final class RoutePreviewViewController: UIViewController {
     static let routePointCellHeight: CGFloat = 52
     static let addRoutePointCellHeight: CGFloat = 30
 
-    static let etaLabelTopSpacing: CGFloat = 8
-    static let etaLabelLeadingPadding: CGFloat = 16
+    static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
+    static let routeStatusStackSpacing: CGFloat = 4
   }
 
   // MARK: - UI Components
   private let grabberView = UIView()
   private let backButton = UIButton(type: .system)
   private var transportOptionsCollectionView: UICollectionView!
-  private let estimatesPreview = RouteEstimatesPreviewView()
+  private let estimatesStackView = UIStackView()
+  private let routeStatusStackView = UIStackView()
+  private let estimatesLabel = UILabel()
+  private let transportTransitStepsView = TransportTransitStepsView()
+  private let elevationProfileView = ElevationProfileView()
   private let settingsButton = UIButton(type: .system)
   private var routePointsCollectionView: UICollectionView!
   private let startButton = StartRouteButton()
@@ -97,6 +101,8 @@ final class RoutePreviewViewController: UIViewController {
     availableAreaView.setStyle(.modalSheetBackground)
     setupGrabberView()
     setupBackButton()
+    setupEstimatesStackView()
+    setupRouteStatusStackView()
     setupSettingsButton()
     setupStartButton()
     setupTransportOptionsCollection()
@@ -168,6 +174,18 @@ final class RoutePreviewViewController: UIViewController {
     interactor?.process(.goBack)
   }
 
+  private func setupEstimatesStackView() {
+    estimatesLabel.setFontStyleAndApply(.bold14)
+    estimatesStackView.axis = .horizontal
+    estimatesStackView.distribution = .equalSpacing
+  }
+
+  private func setupRouteStatusStackView() {
+    routeStatusStackView.axis = .vertical
+    routeStatusStackView.distribution = .equalSpacing
+    routeStatusStackView.spacing = Constants.routeStatusStackSpacing
+  }
+
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
@@ -215,20 +233,27 @@ final class RoutePreviewViewController: UIViewController {
     availableAreaView.addSubview(grabberView)
     availableAreaView.addSubview(backButton)
     availableAreaView.addSubview(transportOptionsCollectionView)
-    availableAreaView.addSubview(estimatesPreview)
-    availableAreaView.addSubview(settingsButton)
+
+    estimatesStackView.addArrangedSubview(estimatesLabel)
+    estimatesStackView.addArrangedSubview(settingsButton)
+
+    routeStatusStackView.addArrangedSubview(estimatesStackView)
+    routeStatusStackView.addArrangedSubview(transportTransitStepsView)
+    routeStatusStackView.addArrangedSubview(elevationProfileView)
+    availableAreaView.addSubview(routeStatusStackView)
+
     availableAreaView.addSubview(routePointsCollectionView)
     view.addSubview(startButton)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     backButton.translatesAutoresizingMaskIntoConstraints = false
     transportOptionsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-    estimatesPreview.translatesAutoresizingMaskIntoConstraints = false
+    routeStatusStackView.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
     routePointsCollectionView.translatesAutoresizingMaskIntoConstraints = false
     startButton.translatesAutoresizingMaskIntoConstraints = false
 
-    estimatesPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    routeStatusStackView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
@@ -248,18 +273,16 @@ final class RoutePreviewViewController: UIViewController {
       transportOptionsCollectionView.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.transportOptionsCollectionInsets.top),
       transportOptionsCollectionView.heightAnchor.constraint(equalToConstant: Constants.transportOptionsCollectionHeight),
 
-      estimatesPreview.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.etaLabelLeadingPadding),
-      estimatesPreview.topAnchor.constraint(equalTo: transportOptionsCollectionView.bottomAnchor, constant: Constants.etaLabelTopSpacing),
+      routeStatusStackView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routeStatusInsets.left),
+      routeStatusStackView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routeStatusInsets.right),
+      routeStatusStackView.topAnchor.constraint(equalTo: transportOptionsCollectionView.bottomAnchor, constant: Constants.routeStatusInsets.top),
 
-      settingsButton.leadingAnchor.constraint(equalTo: estimatesPreview.trailingAnchor, constant: Constants.settingsButtonSpacing),
-      settingsButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.settingsButtonInsetRight),
-      settingsButton.centerYAnchor.constraint(equalTo: estimatesPreview.centerYAnchor),
       settingsButton.heightAnchor.constraint(equalToConstant: Constants.settingsButtonSize),
       settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
 
       routePointsCollectionView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor, constant: Constants.routePointsInsets.left),
       routePointsCollectionView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routePointsInsets.right),
-      routePointsCollectionView.topAnchor.constraint(equalTo: estimatesPreview.bottomAnchor, constant: Constants.routePointsInsets.top),
+      routePointsCollectionView.topAnchor.constraint(equalTo: routeStatusStackView.bottomAnchor, constant: Constants.routePointsInsets.top),
       routePointsCollectionView.bottomAnchor.constraint(equalTo: availableAreaView.bottomAnchor, constant: Constants.routePointsInsets.bottom),
 
       startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
@@ -424,7 +447,6 @@ extension RoutePreviewViewController: UICollectionViewDragDelegate, UICollection
 
 extension RoutePreviewViewController {
   func render(_ newViewModel: RoutePreview.ViewModel) {
-    print(#function)
     guard !newViewModel.shouldClose else {
       close()
       return
@@ -441,8 +463,9 @@ extension RoutePreviewViewController {
     }
     startButton.setState(newViewModel.startButtonState)
     presentationStepsController.setStep(newViewModel.presentationStep)
-
-    estimatesPreview.onNavigationInfoUpdated(viewModel)
+    estimatesLabel.attributedText = newViewModel.estimates
+    transportTransitStepsView.setNavigationInfo(newViewModel.entity)
+    elevationProfileView.setImage(viewModel.elevationInfo?.image)
     // TODO: update the navigation view
   }
 
