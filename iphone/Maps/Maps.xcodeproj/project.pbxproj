@@ -459,6 +459,8 @@
 		ED18EF812DBA2FD800B383A0 /* TransportTransitStepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */; };
 		ED18EF852DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */; };
 		ED18EF872DBA954900B383A0 /* ElevationProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */; };
+		ED18EF892DBAA60E00B383A0 /* TransportOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */; };
+		ED18EF8B2DBAA62700B383A0 /* RoutePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
 		ED2D74382D14337500660FBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2D74342D14337500660FBF /* Assets.xcassets */; };
 		ED2D743A2D14337500660FBF /* AppLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742C2D14337500660FBF /* AppLogo.swift */; };
@@ -1445,6 +1447,8 @@
 		ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsView.swift; sourceTree = "<group>"; };
 		ED18EF842DBA38A500B383A0 /* NSLayoutConstraint+WithPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+WithPriority.swift"; sourceTree = "<group>"; };
 		ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileView.swift; sourceTree = "<group>"; };
+		ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionsView.swift; sourceTree = "<group>"; };
+		ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointsView.swift; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
 		ED2D742C2D14337500660FBF /* AppLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogo.swift; sourceTree = "<group>"; };
 		ED2D742D2D14337500660FBF /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
@@ -2555,7 +2559,9 @@
 		34AB65D11FC5AA320078E451 /* RoutePreview */ = {
 			isa = PBXGroup;
 			children = (
+				ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */,
 				ED4F4F522D9E888E006AD910 /* RoutePreviewModel.swift */,
+				ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */,
 				ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */,
 				ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */,
 				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
@@ -4593,6 +4599,7 @@
 				3454D7C51E07F045004AF2AD /* UIButton+Orientation.m in Sources */,
 				34AB66831FC5AA330078E451 /* NavigationAddPointToastView.swift in Sources */,
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
+				ED18EF8B2DBAA62700B383A0 /* RoutePointsView.swift in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */,
 				993DF11223F6BDB100AC231A /* UIImageRenderer.swift in Sources */,
@@ -4928,6 +4935,7 @@
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
 				4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */,
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,
+				ED18EF892DBAA60E00B383A0 /* TransportOptionsView.swift in Sources */,
 				993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
