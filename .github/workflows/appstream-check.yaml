@@ -9,7 +9,9 @@ on:
 jobs:
   validate-appstream:
     name: Validate appstream metadata xml
-    runs-on: ubuntu-24.04
+    runs-on: docker
+    container:
+      image: linux-env
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -21,11 +23,11 @@ jobs:
       - name: Install appstream validator and flatpak Builder
         shell: bash
         run: |
-          sudo apt update -y
-          sudo apt install -y \
+          apt update -y
+          apt install -y \
               flatpak
-          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install -y org.freedesktop.appstream-glib org.flatpak.Builder
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak install -y org.freedesktop.appstream-glib org.flatpak.Builder
 
       - name: Validate appstream data
         shell: bash

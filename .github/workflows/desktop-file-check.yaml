@@ -9,7 +9,9 @@ on:
 jobs:
   validate-desktop-file:
     name: Validate .desktop file
-    runs-on: ubuntu-24.04
+    runs-on: docker
+    container:
+      image: linux-env
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -21,8 +23,8 @@ jobs:
       - name: Install desktop-file-validate tool
         shell: bash
         run: |
-          sudo apt update -y
-          sudo apt install -y \
+          apt update -y
+          apt install -y \
               desktop-file-utils
 
       - name: Validate desktop file
