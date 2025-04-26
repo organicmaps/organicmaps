@@ -260,12 +260,10 @@
     <string name="routing_failed_cross_mwm_building">Só se poden crear rutas que estean totalmente contidas nun mapa dunha soa rexión.</string>
     <string name="downloader_download_map">Descargar mapa</string>
     <string name="google_play_services">Servizos de localización de Google Play</string>
-    <string name="pref_display_kayak_text">Móstranse fotos, revisións e ligazóns de reserva para os hoteis que teñen unha listaxe en Kayak.com. A bonificación por referencia recibida por cada reserva a través destas ligazóns destínase ao desenvolvemento de Organic Maps.</string>
-    <string name="routing_download_maps_along">Descargue todos os mapas do seu roteiro</string>
+        <string name="routing_download_maps_along">Descargue todos os mapas do seu roteiro</string>
     <string name="routing_requires_all_map">Para crear unha ruta é necesario descargar e actualizar todos os mapas desde a súa localización ao seu destino.</string>
     <string name="routing_not_enough_space">Non hai suficiente espazo</string>
     <string name="enable_location_services">Por favor, active os servizos de localización</string>
-    <string name="pref_display_kayak_title">Ligazóns de hoteis de Kayak.com</string>
     <string name="deep_purple">Morado escuro</string>
     <string name="light_blue">Azul Claro</string>
     <string name="teal">Verde azulado</string>
@@ -371,8 +369,6 @@
     <string name="downloader_no_downloaded_maps_message">Descargue mapas para atopar a localización e navegar sen conexión.</string>
     <string name="current_location_unknown_error_title">Descoñécese a localización actual.</string>
     <string name="miles_per_hour">mph</string>
-    <string name="more_on_kayak">Fotos, opinións, reservas</string>
-    <string name="dialog_kayak_disclaimer">A bonificación por recomendación recibida por cada reserva a través desta ligazón destínase ao desenvolvemento de Organic Maps.</string>
     <string name="ft">pé</string>
     <string name="placepage_more_button">Más</string>
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
@@ -382,7 +378,6 @@
     <string name="editor_remove_place_message">Eliminar o lugar engadido?</string>
     <string name="editor_place_doesnt_exist">O lugar non existe</string>
     <string name="delete_place_empty_comment_error">Por favor, indique a razón para eliminar o lugar</string>
-    <string name="dialog_kayak_button">Detalles en Kaiak</string>
     <string name="error_enter_correct_phone">Introduza un número de teléfono válido</string>
     <string name="error_enter_correct_web">Introduza unha dirección web válida</string>
     <string name="error_enter_correct_email">Introduza un correo válido</string>
@@ -570,7 +565,6 @@
     <string name="dialog_routing_check_gps">Verificar o sinal do GPS</string>
     <string name="editor_time_advanced">Modo avanzado</string>
     <string name="bookmark_set_name">Nome do grupo de marcadores</string>
-    <string name="dialog_kayak_disable_button">Desactivar Kayak</string>
     <string name="editor_hours_closed">Horas de peche</string>
     <string name="editor_correct_mistake">Corrixir erro</string>
     <string name="setting_emulate_bad_storage">Emular almacenamento danado</string>

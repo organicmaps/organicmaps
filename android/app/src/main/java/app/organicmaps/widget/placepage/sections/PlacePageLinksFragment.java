@@ -14,12 +14,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import app.organicmaps.Framework;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -46,7 +43,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private View mLinePage;
   private TextView mTvLinePage;
 
-  private View mKayak;
   private View mWebsite;
   private TextView mTvWebsite;
   private View mWebsiteMenu;
@@ -76,7 +72,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     return switch (type)
     {
-      case FMD_EXTERNAL_URI -> mMapObject.getKayakUrl();
       case FMD_WEBSITE ->
           mMapObject.getWebsiteUrl(false /* strip */, Metadata.MetadataType.FMD_WEBSITE);
       case FMD_WEBSITE_MENU ->
@@ -104,20 +99,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     super.onViewCreated(view, savedInstanceState);
     mFrame = view;
-
-    mKayak = mFrame.findViewById(R.id.ll__place_kayak);
-    mKayak.setOnClickListener((v) -> {
-      final String url = mMapObject.getKayakUrl();
-      final MwmActivity activity = (MwmActivity) requireActivity();
-      if (!TextUtils.isEmpty(url))
-        activity.openKayakLink(url);
-    });
-    mKayak.setOnLongClickListener((v) -> {
-      final String url = mMapObject.getKayakUrl();
-      if (!TextUtils.isEmpty(url))
-        PlacePageUtils.copyToClipboard(requireContext(), mFrame, url);
-      return true;
-    });
 
     mWebsite = mFrame.findViewById(R.id.ll__place_website);
     mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
@@ -224,9 +205,6 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
     final String line = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
     refreshMetadataOrHide(line, mLinePage, mTvLinePage);
-
-    final String kayak = Config.isKayakDisplayEnabled() ? mMapObject.getKayakUrl() : null;
-    UiUtils.showIf(!TextUtils.isEmpty(kayak), mKayak);
   }
 
   @Override

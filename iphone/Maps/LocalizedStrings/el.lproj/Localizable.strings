@@ -637,15 +637,6 @@
 "day" = "Μέρα";
 "placepage_more_button" = "Περισσότερα";
 "book_button" = "Κράτηση";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Φωτογραφίες, κριτικές, κράτηση";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Λεπτομέρειες στο Kayak";
 "placepage_call_button" = "Κλήση";
 "placepage_edit_bookmark_button" = "Επεξεργασία αγαπημένου";
 "placepage_bookmark_name_hint" = "Όνομα αγαπημένου";

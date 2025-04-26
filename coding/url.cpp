@@ -113,30 +113,6 @@ string Join(string const & lhs, string const & rhs)
   return lhs + rhs;
 }
 
-string Slug(string const & raw)
-{
-  size_t const count = raw.size();
-  string result;
-  result.reserve(count);
-
-  for (size_t i = 0; i < count; ++i)
-  {
-    char const c = raw[i];
-    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') ||
-        c == '`' || (c > 'z' && c < '~') || c > '~')
-    {
-      // No more than two dashes in a row.
-      size_t sz = result.length();
-      if (sz < 2 || result[sz - 2] != '-' || result[sz - 1] != '-')
-        result += '-';
-    }
-    else
-      result += raw[i];
-  }
-
-  return result;
-}
-
 string UrlEncode(string const & rawUrl)
 {
   size_t const count = rawUrl.size();

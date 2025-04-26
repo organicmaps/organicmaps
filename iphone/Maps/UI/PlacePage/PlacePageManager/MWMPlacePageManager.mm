@@ -250,10 +250,6 @@ using namespace storage;
   [self.ownerViewController openUrl:data.infoData.websiteMenu externally:YES];
 }
 
-- (void)openKayak:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.kayak externally:YES];
-}
-
 - (void)openWikipedia:(PlacePageData *)data {
   [self.ownerViewController openUrl:data.infoData.wikipedia externally:YES];
 }

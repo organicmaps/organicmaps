@@ -637,15 +637,6 @@
 "day" = "ngày";
 "placepage_more_button" = "Bổ sung";
 "book_button" = "Đặt trước";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Hình ảnh, đánh giá, đặt phòng";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Chi tiết trên Kayak";
 "placepage_call_button" = "Gọi";
 "placepage_edit_bookmark_button" = "Sửa Dấu Trang";
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";

@@ -342,17 +342,6 @@ public class Framework
 
   public static native void nativeMemoryWarning();
 
-  /**
-   * @param countryIsoCode Two-letter ISO country code to use country-specific Kayak.com domain.
-   * @param uri `$HOTEL_NAME,-c$CITY_ID-h$HOTEL_ID` URI.
-   * @param firstDaySec the epoch seconds of the first day of planned stay.
-   * @param lastDaySec the epoch seconds of the last day of planned stay.
-   * @return a URL to Kayak's hotel page.
-   */
-  @Nullable
-  public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      long firstDaySec, long lastDaySec);
-
   public static native boolean nativeShouldShowProducts();
 
   @Nullable

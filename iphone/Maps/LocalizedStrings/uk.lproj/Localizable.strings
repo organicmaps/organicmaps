@@ -637,15 +637,6 @@
 "day" = "д";
 "placepage_more_button" = "Ще";
 "book_button" = "Забронювати";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Фото, відгуки, бронювання";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Докладніше на Kayak";
 "placepage_call_button" = "Подзвонити";
 "placepage_edit_bookmark_button" = "Редагувати мiтку";
 "placepage_bookmark_name_hint" = "Назва мiтки";

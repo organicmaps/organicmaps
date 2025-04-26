@@ -637,15 +637,6 @@
 "day" = "z";
 "placepage_more_button" = "Mai mult";
 "book_button" = "Rezervare";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Fotografii, comentarii, rezervări";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Detalii pe Kayak";
 "placepage_call_button" = "Apelează";
 "placepage_edit_bookmark_button" = "Modifică locul preferat";
 "placepage_bookmark_name_hint" = "Numele locului preferat";

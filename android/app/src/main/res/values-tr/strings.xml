@@ -314,10 +314,6 @@
     <string name="google_play_services">Google Play Konum Hizmetleri</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth, WiFi veya mobil ağ üzerinden yaklaşık konumunuzu hızlıca belirleyin</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Otel Bağlantıları</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com\'daki oteller için fotoğraf, yorum ve rezervasyon bağlantıları gösterilir. Bu bağlantılarla yapılan rezervasyonlardan kazanılan gelir Organic Maps\'in geliştirilmesinde kullanılır.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
     <!-- Text for routing error dialog -->
@@ -552,14 +548,6 @@
     <string name="minute">dk</string>
     <string name="day">g</string>
     <string name="placepage_more_button">Diğer</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotoğraflar, yorumlar, rezervasyon</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps\'in geliştirilmesine harcanmaktadır.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Kayak hakkında detaylar</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak\'yı devre dışı bırak</string>
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
     <string name="editor_comment_hint">Yorum…</string>

@@ -37,7 +37,6 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "indexer/feature_altitude.hpp"
-#include "indexer/kayak.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
@@ -1796,17 +1795,6 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 {
   return frm()->MemoryWarning();
-}
-
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jstring countryIsoCode, jstring uri,
-                                                        jlong firstDaySec, jlong lastDaySec)
-{
-  string const url = osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode),
-                                                  jni::ToNativeString(env, uri),
-                                                  static_cast<time_t>(firstDaySec),
-                                                  static_cast<time_t>(lastDaySec));
-  return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
 JNIEXPORT jboolean JNICALL

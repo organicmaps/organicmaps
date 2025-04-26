@@ -634,15 +634,6 @@
 "day" = "दि";
 "placepage_more_button" = "अधिक";
 "book_button" = "पुस्तक";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "फोटोपुनरावलोकनेबुकिंगबुकिंग";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "कायाक वर तपशील";
 "placepage_call_button" = "फोन करा";
 "placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";
 "placepage_bookmark_name_hint" = "खूणपत्राचे नाव";

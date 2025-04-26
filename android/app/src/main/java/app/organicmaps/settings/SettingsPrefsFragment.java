@@ -66,7 +66,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initPowerManagementPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
-    initDisplayKayakPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
   }
@@ -300,21 +299,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         else
           SearchRecents.clear();
       }
-      return true;
-    });
-  }
-
-  private void initDisplayKayakPrefsCallbacks()
-  {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_display_kayak));
-
-    pref.setChecked(Config.isKayakDisplayEnabled());
-    pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      final boolean oldVal = Config.isKayakDisplayEnabled();
-      final boolean newVal = (Boolean) newValue;
-      if (oldVal != newVal)
-        Config.setKayakDisplay(newVal);
-
       return true;
     });
   }

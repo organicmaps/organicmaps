@@ -299,10 +299,6 @@
     <string name="google_play_services">Servizi di localizzazione di Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determina rapidamente la tua posizione approssimativa tramite Bluetooth, WiFi o rete mobile</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Link agli hotel di Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Vengono mostrati i link a foto, recensioni e prenotazioni per gli hotel che hanno un\'inserzione su Kayak.com. Il bonus ricevuto per ogni prenotazione effettuata attraverso questi link è destinato allo sviluppo di Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Scarica le mappe lungo il percorso</string>
     <!-- Text for routing error dialog -->
@@ -531,14 +527,6 @@
     <string name="minute">min</string>
     <string name="day">g</string>
     <string name="placepage_more_button">Di più</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Foto, recensioni, prenotazioni</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Il bonus ricevuto per ogni prenotazione effettuata tramite questo link è destinato allo sviluppo di Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Dettagli su Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Disabilita Kayak</string>
     <string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>
     <string name="placepage_personal_notes_hint">Note personali (testo o html)</string>
     <string name="editor_comment_hint">Commenta…</string>

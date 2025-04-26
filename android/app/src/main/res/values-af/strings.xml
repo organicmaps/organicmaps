@@ -311,7 +311,6 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Bepaal vinnig jou benaderde ligging met behulp van Bluetooth, WiFi of mobiele netwerk</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Foto\'s, resensies, besprekingskakels word vertoon vir hotelle wat \'n lys op Kayak.com het. Die verwysingsbonus wat vir elke bespreking deur hierdie skakels ontvang word, gaan vir die ontwikkeling van Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Laai al die kaarte langs u roete af</string>
     <!-- Text for routing error dialog -->
@@ -545,7 +544,6 @@
     <string name="day">d</string>
     <string name="placepage_more_button">Meer</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Deaktiveer Kayak</string>
     <string name="placepage_edit_bookmark_button">Wysig boekmerk</string>
     <string name="placepage_personal_notes_hint">Persoonlike notas (teks of html)</string>
     <string name="editor_comment_hint">Kommentaar…</string>

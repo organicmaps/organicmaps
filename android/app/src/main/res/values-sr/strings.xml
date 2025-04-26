@@ -310,10 +310,6 @@
     <string name="google_play_services">Google Play прецизност локације</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Брзо одређивање ваше локације коришћењем Bluetooth-а, WiFi-а, или мобилне мреже</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Претрага хотела на Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Линкови \"Фотографије, рецензије, резервације\" приказују се за хотеле повезане са Kayak.com. Бонус добијен за сваку резервацију преко ових линкова иде за развој Organic Maps-а.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Преузми све мапе које се налазе на рути</string>
     <!-- Text for routing error dialog -->
@@ -542,12 +538,6 @@
     <string name="minute">мин</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Више</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Фотографије, утисци, резервације</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Детаљи на Kayak-у</string>
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Брисање свих измена које нису послате?</string>
@@ -896,7 +886,6 @@
     <string name="already_donated">Већ је донирано</string>
     <string name="remind_me_later">Подсећати касније</string>
     <string name="support_organic_maps">Подршка Organic Maps</string>
-    <string name="dialog_kayak_disable_button">Онемогући Kayak</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="editor_osm_history">Ваша историја уређивања</string>
     <string name="editor_osm_notes">Ваши подаци о мапи</string>

@@ -637,15 +637,6 @@
 "day" = "g";
 "placepage_more_button" = "Diğer";
 "book_button" = "Rezervasyon";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Fotoğraflar, yorumlar, rezervasyon";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Kayak hakkında detaylar";
 "placepage_call_button" = "Ara";
 "placepage_edit_bookmark_button" = "Yer İmini Düzenle";
 "placepage_bookmark_name_hint" = "Yer İmi Adı";

@@ -318,10 +318,6 @@
     <string name="google_play_services">Службы месцазнаходжання Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Хуткае вызначэнне прыблізнага месцазнаходжання з дапамогай Bluetooth, WiFi або мабільнай сеткі</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Спасылкі на гасцініцы Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Фота, агляды, спасылкі на браніраванне паказваюцца для гатэляў, якія ёсць у спісе на Kayak.com. Рэферальны бонус, атрыманы за кожнае браніраванне па гэтых спасылках, ідзе на развіццё Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Спампаваць усе мапы на вашым маршруце</string>
     <!-- Text for routing error dialog -->
@@ -553,14 +549,6 @@
     <string name="minute">хв</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Яшчэ</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Фота, водгукі, браніраванне</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Падрабязнасці на Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Адключыць Kayak</string>
     <string name="placepage_edit_bookmark_button">Рэдагаваць закладку</string>
     <string name="placepage_personal_notes_hint">Асабістыя нататкі (тэкст альбо html)</string>
     <string name="editor_comment_hint">Каментарый…</string>

@@ -10,7 +10,6 @@
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)openWebsite:(PlacePageData *)data;
 + (void)openWebsiteMenu:(PlacePageData *)data;
-+ (void)openKayak:(PlacePageData *)data;
 + (void)openWikipedia:(PlacePageData *)data;
 + (void)openWikimediaCommons:(PlacePageData *)data;
 + (void)openEmail:(PlacePageData *)data;

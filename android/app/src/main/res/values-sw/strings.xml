@@ -86,10 +86,8 @@
     <!-- Preference text -->
     <string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
     <!-- Preference title -->
-    <string name="pref_display_kayak_title">Viungo vya Hoteli ya Kayak.com</string>
     <!-- Preference description -->
-    <string name="pref_display_kayak_text">Picha, maoni, viungo vya kuweka nafasi vinaonyeshwa kwa hoteli ambazo zimeorodheshwa kwenye Kayak.com. Bonasi ya rufaa inayopokelewa kwa kila nafasi iliyowekwa kupitia viungo hivi huenda kwenye uundaji wa Organic Maps.</string>
-    <!-- deep purple color -->
+        <!-- deep purple color -->
     <string name="deep_purple">Zambarau Iliyoiva</string>
     <!-- light blue color -->
     <string name="light_blue">Buluu Hafifu</string>
@@ -142,14 +140,6 @@
     <string name="operator">Mwendeshaji: %s</string>
     <string name="editor_category_unsuitable_title">Je, huwezi kupata aina inayofaa?</string>
     <string name="editor_category_unsuitable_text">Ramani za Kikaboni huruhusu kuongeza kategoria rahisi pekee, hiyo inamaanisha hakuna miji, barabara, maziwa, muhtasari wa majengo, n.k. Tafadhali ongeza kategoria kama hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo wetu</a> kwa maagizo ya kina ya hatua kwa hatua.</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Picha, hakiki, uhifadhi</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Maelezo kuhusu Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Lemaza Kayak</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
     <string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
     <string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>

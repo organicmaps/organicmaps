@@ -314,10 +314,6 @@
     <string name="google_play_services">„Google Play“ vietas noteikšanas pakalpojumi</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Ātri nosakiet atrašanās vietu, izmantojot „Bluetooth“, „WiFi“ vai mobilo tīklu</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Viesnīcu saites</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Fotogrāfijas, atsauksmes, rezervēšanas saites tiek rādītas viesnīcām, kas ir iekļautas Kayak.com sarakstā. Par katru rezervāciju, kas veikta, izmantojot šīs saites, saņemtais ieteikuma bonuss tiek novirzīts Organic Maps attīstībai.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Lejupielādēt visas maršruta kartes</string>
     <!-- Text for routing error dialog -->
@@ -543,14 +539,6 @@
     <string name="minute">min.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Vairāk</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Foto, atsauksmes, rezervācija</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Informācija par „Kayak“</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Atslēgt Kayak</string>
     <string name="placepage_edit_bookmark_button">Rediģēt grāmatzīmi</string>
     <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
     <string name="editor_comment_hint">Komentārs…</string>

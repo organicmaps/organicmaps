@@ -637,15 +637,6 @@
 "day" = "pv";
 "placepage_more_button" = "Lisää";
 "book_button" = "Varaa";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Kuvat, arvostelut, varaus";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Lisätietoa osoitteessa Kayak";
 "placepage_call_button" = "Soita";
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
 "placepage_bookmark_name_hint" = "Kirjanmerkin nimi";

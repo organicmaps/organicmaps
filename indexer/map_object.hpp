@@ -58,6 +58,7 @@ public:
       case MetadataID::FMD_CUSTOM_IDS:
       case MetadataID::FMD_PRICE_RATES:
       case MetadataID::FMD_RATINGS:
+      case MetadataID::FMD_EXTERNAL_URI:
         break;
       default: fn(id, value); break;
       }

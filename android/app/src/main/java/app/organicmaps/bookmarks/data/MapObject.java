@@ -282,19 +282,6 @@ public class MapObject implements PlacePageData
     return website;
   }
 
-  @NonNull
-  public String getKayakUrl()
-  {
-    final String uri = getMetadata(Metadata.MetadataType.FMD_EXTERNAL_URI);
-    if (TextUtils.isEmpty(uri))
-      return "";
-    final Instant firstDay = Instant.now();
-    final long firstDaySec = firstDay.getEpochSecond();
-    final long lastDaySec = firstDay.plus(1, ChronoUnit.DAYS).getEpochSecond();
-    final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDaySec, lastDaySec);
-    return res == null ? "" : res;
-  }
-
   public String getApiId()
   {
     return mApiId;
