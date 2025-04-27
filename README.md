@@ -111,7 +111,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/CoMaps_RU) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@comaps.app).
 - Follow our updates in
-[Mastodon](https://fosstodon.org/@CoMaps),
+[Fediverse](https://floss.social/@CoMaps),
 [Facebook](https://www.facebook.com/profile.php?id=61575286559965),
 [Instagram](https://www.instagram.com/comapscommunity/).
 
