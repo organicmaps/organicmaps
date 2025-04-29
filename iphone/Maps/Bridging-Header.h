@@ -43,6 +43,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMNavigationDashboardView.h"
+#import "MWMNavigationInfoView.h"
 #import "MWMNetworkPolicy+UI.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMNoteCell.h"
