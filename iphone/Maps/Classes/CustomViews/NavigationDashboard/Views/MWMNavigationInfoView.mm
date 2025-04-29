@@ -22,6 +22,7 @@ CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
+CGFloat constexpr kSearchButtonsBottomOffset = 32;
 CGFloat constexpr kBaseTurnsTopOffset = 28;
 CGFloat constexpr kShiftedTurnsTopOffset = 8;
 
@@ -83,6 +84,7 @@ BOOL defaultOrientation(CGSize const &size) {
 
 @property(weak, nonatomic) IBOutlet MWMNavigationAddPointToastView *toastView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint *toastViewHideOffset;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchMainButtonBottomConstraint;
 
 @property(nonatomic, readwrite) NavigationSearchState searchState;
 @property(nonatomic) BOOL isVisible;
@@ -141,6 +143,24 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:NO withLocationButton:NO];
   else
     [toastView configWithIsStart:YES withLocationButton:NO];
+}
+
+- (void)updateSideButtonsAvailableArea:(CGRect)frame {
+  CGFloat const height = frame.size.height;
+  if (height == 0)
+    return;
+  CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+  CGFloat bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
+  self.searchMainButtonBottomConstraint.constant = bottomOffset;
+  BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
+
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+    self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
+    self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
+  } completion:^(BOOL finished) {
+    self.searchMainButton.hidden = isOutOfBounds;
+    self.bookmarksButton.hidden = isOutOfBounds;
+  }];
 }
 
 - (SearchOnMapManager *)searchManager {
@@ -478,7 +498,6 @@ BOOL defaultOrientation(CGSize const &size) {
   if (isVisible) {
     [self setSearchState:NavigationSearchStateMinimizedNormal animated:NO];
     self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
-//    self.hidden = NO;
     UIView *sv = self.ownerView;
     NSAssert(sv != nil, @"Superview can't be nil");
     if ([sv.subviews containsObject:self])
@@ -494,7 +513,6 @@ BOOL defaultOrientation(CGSize const &size) {
                    completion:^(BOOL finished) {
     if (!isVisible)
       self.hidden = isVisible;
-//      [self removeFromSuperview];
   }];
 }
 

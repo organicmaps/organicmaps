@@ -398,6 +398,7 @@
                 <outlet property="searchFoodButton" destination="Ggf-tc-U3R" id="RJJ-mh-rwy"/>
                 <outlet property="searchGasButton" destination="2Bv-7H-IZt" id="hUg-CH-kWQ"/>
                 <outlet property="searchMainButton" destination="Xna-Q1-7zW" id="v48-fa-MQE"/>
+                <outlet property="searchMainButtonBottomConstraint" destination="btg-Xq-UVZ" id="7el-wE-jmd"/>
                 <outlet property="searchParkingButton" destination="RP3-01-Pj7" id="sdL-mN-sLE"/>
                 <outlet property="secondTurnImageView" destination="CKi-sy-dNO" id="A29-2z-4oh"/>
                 <outlet property="secondTurnView" destination="8Zu-Ff-6p2" id="yEK-rY-S50"/>

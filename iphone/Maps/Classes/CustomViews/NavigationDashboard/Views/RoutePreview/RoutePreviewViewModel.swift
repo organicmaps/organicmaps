@@ -45,7 +45,7 @@ extension RoutePreview.ViewModel {
     navigationSearchState: nil
   )
 
-  func copy(
+  func copyWith(
     transportOptions: [MWMRouterType]? = nil,
     routePoints: RoutePreview.RoutePoints? = nil,
     routerType: MWMRouterType? = nil,
@@ -53,7 +53,7 @@ extension RoutePreview.ViewModel {
     elevationInfo: RoutePreview.ElevationInfo?? = nil,
     navigationInfo: RoutePreview.NavigationInfo? = nil,
     estimates: NSAttributedString? = nil,
-    state: MWMNavigationDashboardState? = nil,
+    dashboardState: MWMNavigationDashboardState? = nil,
     presentationStep: ModalPresentationStep? = nil,
     shouldClose: Bool? = nil,
     progress: CGFloat? = nil,
@@ -65,9 +65,9 @@ extension RoutePreview.ViewModel {
       routerType: routerType ?? self.routerType,
       entity: entity ?? self.entity,
       elevationInfo: elevationInfo ?? self.elevationInfo,
-      navigationInfo: navigationInfo ?? self.navigationInfo.copy(state: state ?? self.dashboardState),
+      navigationInfo: navigationInfo ?? self.navigationInfo,
       estimates: estimates ?? self.estimates,
-      dashboardState: state ?? self.dashboardState,
+      dashboardState: dashboardState ?? self.dashboardState,
       presentationStep: presentationStep ?? self.presentationStep,
       shouldClose: shouldClose ?? self.shouldClose,
       progress: progress ?? self.progress,
@@ -89,32 +89,38 @@ extension RoutePreview.ViewModel {
   }
 }
 
-extension MWMNavigationDashboardState {
+extension RoutePreview.NavigationInfo {
+  static let hidden = RoutePreview.NavigationInfo(
+    state: .hidden,
+    availableArea: .screenBounds,
+    shouldUpdateToastView: false
+  )
+
+  func copyWith(
+    dashboardState: MWMNavigationDashboardState? = nil,
+    availableArea: CGRect? = nil,
+    shouldUpdateToastView: Bool? = nil
+  ) -> RoutePreview.NavigationInfo {
+    return RoutePreview.NavigationInfo(
+      state: dashboardState?.navigationInfo ?? self.state,
+      availableArea: availableArea ?? self.availableArea,
+      shouldUpdateToastView: shouldUpdateToastView ?? self.shouldUpdateToastView
+    )
+  }
+}
+
+private extension MWMNavigationDashboardState {
   var navigationInfo: MWMNavigationInfoViewState {
     switch self {
     case .navigation: return .navigation
-    case .prepare: return .prepare
+    case .prepare, .planning, .ready: return .prepare
     default: return .hidden
     }
   }
 }
 
-extension RoutePreview.NavigationInfo {
-  static let hidden = RoutePreview.NavigationInfo(
-    state: .hidden,
-    availableArea: .zero,
-    shouldUpdateToastView: false
-  )
-
-  func copy(
-    state: MWMNavigationDashboardState? = nil,
-    availableArea: CGRect? = nil,
-    shouldUpdateToastView: Bool? = nil
-  ) -> RoutePreview.NavigationInfo {
-    return RoutePreview.NavigationInfo(
-      state: state?.navigationInfo ?? self.state,
-      availableArea: availableArea ?? self.availableArea,
-      shouldUpdateToastView: shouldUpdateToastView ?? self.shouldUpdateToastView
-    )
+extension CGRect {
+  static var screenBounds: CGRect {
+    return UIScreen.main.bounds
   }
 }
