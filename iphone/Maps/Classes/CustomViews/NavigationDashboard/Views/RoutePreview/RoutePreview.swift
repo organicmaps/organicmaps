@@ -1,20 +1,28 @@
 enum RoutePreview {
   enum Request {
     case prepareRoute
-    case startRoutePlanning
+    case updateRoutePoints
     case routeIsReady
+    case startNavigation
+    case stopNavigation
+
     case selectRouterType(MWMRouterType)
-    case selectRoutePoint(MWMRoutePoint?, at: Int)
-    case addRoutePoint
+    case selectRoutePoint(MWMRoutePoint?)
     case deleteRoutePoint(MWMRoutePoint)
     case moveRoutePoint(from: Int, to: Int)
-    case startNavigation
+    case addRoutePointButtonDidTap
+    case startButtonDidTap
+    case settingsButtonDidTap
+
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateDrivingOptionState(MWMDrivingOptionsState)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(ElevationInfo?)
     case updatePresentationFrame(CGRect)
-//    case updatePresentationStep(ModalPresentationStep)
+    case updateNavigationInfoAvailableArea(CGRect)
+    case updateSearchState(SearchOnMapState)
+
+    //    case updatePresentationStep(ModalPresentationStep)
     case setHidden(Bool)
     case goBack
     case close
@@ -22,11 +30,14 @@ enum RoutePreview {
 
   enum Response: Equatable {
     case none
+    case prepare
     case show(points: [MWMRoutePoint], routerType: MWMRouterType)
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(ElevationInfo?)
     case updatePresentationStep(ModalPresentationStep)
+    case updateNavigationInfoAvailableArea(CGRect)
+    case updateSearchState(SearchOnMapState)
     case showNavigationDashboard
     case setHidden(Bool)
     case goBack

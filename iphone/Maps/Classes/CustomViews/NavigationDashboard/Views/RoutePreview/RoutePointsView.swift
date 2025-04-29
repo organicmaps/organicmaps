@@ -51,6 +51,7 @@ final class RoutePointsView: UIView {
   }
 
   func setRoutePoints(_ routePoints: RoutePreview.RoutePoints) {
+    guard self.routePoints != routePoints else { return }
     self.routePoints = routePoints
     collectionView.reloadData()
   }
@@ -67,7 +68,7 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     case routePoints.count:
       let cell = collectionView.dequeueReusableCell(cell: AddItemCollectionViewCell.self, indexPath: indexPath)
       cell.didTapAction = { [weak self] in
-        self?.interactor?.process(.addRoutePoint)
+        self?.interactor?.process(.addRoutePointButtonDidTap)
       }
       return cell
     default:
@@ -87,9 +88,8 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     case routePoints.count:
       break // Add point cell
     default:
-      // TODO: point may by unavailable
       let point = routePoints[indexPath.item]
-      interactor?.process(.selectRoutePoint(point, at: indexPath.item))
+      interactor?.process(.selectRoutePoint(point))
       break
     }
   }

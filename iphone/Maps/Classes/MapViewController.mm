@@ -231,6 +231,9 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)onMapObjectDeselected {
   [self hidePlacePage];
 
+  /// @todo(KK): 1. when the search is opened and the route is rebuild the 'ready' state is triggered and it calls the deactivateMapSelection from the Framework. It hides the search unexpetedly.
+
+  LOG(LDEBUG, ("onMapObjectDeselected navigationDashboardManager.state", self.navigationDashboardManager.state));
   BOOL const isSearching = self.searchManager.isSearching;
   BOOL const isNavigationDashboardHidden =
     self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden ||

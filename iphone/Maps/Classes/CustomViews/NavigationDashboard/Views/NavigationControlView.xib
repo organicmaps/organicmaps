@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager">
-            <connections>
-                <outlet property="navigationControlView" destination="9fq-65-qd9" id="KXU-52-J0l"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMNavigationDashboardManager"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fq-65-qd9" customClass="MWMNavigationControlView" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBZ-WO-Nz7">
-                    <rect key="frame" x="-100" y="0.0" width="520" height="216"/>
+                    <rect key="frame" x="-100" y="59" width="520" height="123"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -46,7 +42,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgS-eK-vfD">
-                                    <rect key="frame" x="33" y="10.5" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="33" y="10.666666666666666" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -84,7 +80,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="100" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="ppd-rW-dYo">
-                                    <rect key="frame" x="13" y="4" width="102.5" height="13"/>
+                                    <rect key="frame" x="36.333333333333329" y="4" width="55.333333333333329" height="13"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="BmO-Rd-DKp"/>
@@ -123,7 +119,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dx-1W-LWs">
-                                    <rect key="frame" x="33" y="10.5" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="33" y="10.666666666666666" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -240,7 +236,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="ttsButtonAction" destination="-1" eventType="touchUpInside" id="2U8-vo-LOQ"/>
+                                        <action selector="ttsButtonAction:" destination="9fq-65-qd9" eventType="touchUpInside" id="FpY-RW-zow"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
@@ -250,7 +246,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="settingsButtonAction" destination="-1" eventType="touchUpInside" id="m7v-S7-aqm"/>
+                                        <action selector="settingsButtonAction:" destination="9fq-65-qd9" eventType="touchUpInside" id="MfK-7T-hSL"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -274,7 +270,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="navigation_stop_button"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="stopRoutingButtonAction" destination="-1" eventType="touchUpInside" id="Xvf-fv-3GR"/>
+                                <action selector="stopRoutingButtonAction:" destination="9fq-65-qd9" eventType="touchUpInside" id="Z4k-DX-bD6"/>
                             </connections>
                         </button>
                     </subviews>

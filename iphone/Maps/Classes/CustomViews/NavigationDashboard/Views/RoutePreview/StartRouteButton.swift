@@ -15,6 +15,7 @@ final class StartRouteButton: UIView {
   }
 
   private let button = UIButton(type: .system)
+  private var state: State = .disabled
   private let activityIndicator: UIActivityIndicatorView = {
     if #available(iOS 13.0, *) {
       let activity = UIActivityIndicatorView(style: .medium)
@@ -77,6 +78,8 @@ final class StartRouteButton: UIView {
   }
 
   func setState(_ state: State) {
+    guard self.state != state else { return }
+    self.state = state
     UIView.transition(with: self,
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,

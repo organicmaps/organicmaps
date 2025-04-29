@@ -11,7 +11,7 @@
 
 @end
 
-@interface MWMNavigationDashboardManager () <SearchOnMapManagerObserver, MWMRoutePreviewDelegate>
+@interface MWMNavigationDashboardManager () <SearchOnMapManagerObserver, MWMRoutePreviewDelegate, RouteNavigationControlsDelegate>
 
 @property(copy, nonatomic) NSDictionary * etaAttributes;
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
@@ -60,7 +60,8 @@
 #pragma mark - On route updates
 
 - (void)onSelectPlacePage:(BOOL)selected {
-  if (self.state == MWMNavigationDashboardStateClosed)
+  if (self.state == MWMNavigationDashboardStateClosed ||
+      self.state == MWMNavigationDashboardStateNavigation)
     return;
   self.state = selected ? MWMNavigationDashboardStateHidden : MWMNavigationDashboardStateReady;
 }
@@ -154,8 +155,6 @@
 #pragma mark - State changes
 
 - (void)stateClosed {
-  if (self.state == MWMNavigationDashboardStateClosed)
-    return;
   [self.navigationDashboardView stateClosed];
 }
 

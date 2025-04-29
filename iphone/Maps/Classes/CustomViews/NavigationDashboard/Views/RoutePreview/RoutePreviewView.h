@@ -26,12 +26,17 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
 
 @end
 
-@protocol MWMRoutePreviewDelegate <NSObject>
+@protocol RouteNavigationControlsDelegate <NSObject>
 
-- (void)routePreviewDidPressDrivingOptions:(id<RoutePreviewView>)routePreview;
 - (void)ttsButtonDidTap;
 - (void)settingsButtonDidTap;
 - (void)stopRoutingButtonDidTap;
+
+@end
+
+@protocol MWMRoutePreviewDelegate <RouteNavigationControlsDelegate>
+
+- (void)routePreviewDidPressDrivingOptions:(id<RoutePreviewView>)routePreview;
 - (void)routingStartButtonDidTap;
 
 @end
