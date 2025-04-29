@@ -2,6 +2,9 @@
 final class RoutePreviewViewController: UIViewController {
 
   private enum Constants {
+    static let kNavigationInfoViewXibName = "MWMNavigationInfoView"
+    static let kNavigationControlViewXibName = "NavigationControlView"
+
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
     static let grabberTopInset: CGFloat = 5
@@ -23,6 +26,7 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   // MARK: - UI Components
+  private let availableAreaView = SearchOnMapAreaView()
   private let grabberView = UIView()
   private let backButton = UIButton(type: .system)
   private var transportOptionsView = TransportOptionsView()
@@ -34,10 +38,10 @@ final class RoutePreviewViewController: UIViewController {
   private let settingsButton = UIButton(type: .system)
   private var routePointsView = RoutePointsView()
   private let startButton = StartRouteButton()
-  private let availableAreaView = SearchOnMapAreaView()
+  private var navigationInfoView: NavigationInfoView!
+  private var navigationControlView: NavigationControlView!
 
   var interactor: RoutePreview.Interactor?
-  private var viewModel: RoutePreview.ViewModel = .initial
   private let presentationStepsController = ModalPresentationStepsController()
 
   // MARK: - Init
@@ -54,6 +58,19 @@ final class RoutePreviewViewController: UIViewController {
   // MARK: - Lifecycle
   override func loadView() {
     view = TouchTransparentView()
+    guard let navigationInfoView = Bundle.main.loadNibNamed(Constants.kNavigationInfoViewXibName,
+                                                            owner: nil,
+                                                            options: nil)?.first as? NavigationInfoView,
+          let navigationControlView = Bundle.main.loadNibNamed(Constants.kNavigationControlViewXibName,
+                                                               owner: nil,
+                                                               options: nil)?.first as? NavigationControlView else {
+      fatalError("Failed to load NavigationInfoView from nib")
+    }
+    navigationInfoView.ownerView = view
+    navigationControlView.ownerView = view
+    navigationControlView.delegate = interactor?.delegate
+    self.navigationInfoView = navigationInfoView
+    self.navigationControlView = navigationControlView
   }
 
   // MARK: - Lifecycle
@@ -83,7 +100,7 @@ final class RoutePreviewViewController: UIViewController {
 
   func add(to parentViewController: MapViewController) {
     parentViewController.addChild(self)
-    parentViewController.view.addSubview(view)
+    parentViewController.controlsView.addSubview(view)
     view.frame = parentViewController.view.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     view.setNeedsLayout()
@@ -185,6 +202,12 @@ final class RoutePreviewViewController: UIViewController {
   private func setupSettingsButton() {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
+    settingsButton.addTarget(self, action: #selector(didTapSettingsButton), for: .touchUpInside)
+  }
+
+  @objc
+  private func didTapSettingsButton() {
+    interactor?.process(.settingsButtonDidTap)
   }
 
   private func setupTransportOptionsView() {
@@ -193,7 +216,7 @@ final class RoutePreviewViewController: UIViewController {
 
   private func setupStartButton() {
     startButton.setOnTapAction { [weak self] in
-      self?.interactor?.process(.startNavigation)
+      self?.interactor?.process(.startButtonDidTap)
     }
   }
 
@@ -261,7 +284,7 @@ final class RoutePreviewViewController: UIViewController {
 
       startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
       startButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor),
-      startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
     ])
     presentationStepsController.setInitialState()
   }
@@ -276,25 +299,31 @@ final class RoutePreviewViewController: UIViewController {
 // MARK: - Public Methods
 
 extension RoutePreviewViewController {
-  func render(_ newViewModel: RoutePreview.ViewModel) {
-    guard !newViewModel.shouldClose else {
+  func render(_ viewModel: RoutePreview.ViewModel) {
+    guard !viewModel.shouldClose else {
       close()
       return
     }
 
-    let shouldReloadRoutePoints = viewModel.routePoints != newViewModel.routePoints
-    viewModel = newViewModel
-    if shouldReloadRoutePoints {
-      routePointsView.setRoutePoints(newViewModel.routePoints)
-    }
-    transportOptionsView.set(transportOptions: newViewModel.transportOptions,
-                             selectedRouterType: newViewModel.routerType)
-    startButton.setState(newViewModel.startButtonState)
-    presentationStepsController.setStep(newViewModel.presentationStep)
-    estimatesLabel.attributedText = newViewModel.estimates
-    transportTransitStepsView.setNavigationInfo(newViewModel.entity)
+    routePointsView.setRoutePoints(viewModel.routePoints)
+    transportOptionsView.set(transportOptions: viewModel.transportOptions,
+                             selectedRouterType: viewModel.routerType)
+    startButton.setState(viewModel.startButtonState)
+    presentationStepsController.setStep(viewModel.presentationStep)
+    estimatesLabel.attributedText = viewModel.estimates
+    transportTransitStepsView.setNavigationInfo(viewModel.entity)
     elevationProfileView.setImage(viewModel.elevationInfo?.image)
-    // TODO: update the navigation view
+
+    navigationInfoView.state = viewModel.navigationInfo.state
+    navigationInfoView.onNavigationInfoUpdated(viewModel.entity)
+    navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
+    navigationInfoView.updateToastView()
+    if let navigationSearchState = viewModel.navigationSearchState {
+      navigationInfoView.setSearchState(navigationSearchState, animated: true)
+    }
+
+    navigationControlView.isVisible = viewModel.navigationInfo.isControlsVisible
+    navigationControlView.onNavigationInfoUpdated(viewModel.entity)
   }
 
   func close() {

@@ -27,6 +27,7 @@ final class SearchOnMapPresenter {
     if response == .close {
       view?.close()
       searchState = .closed
+      didChangeState = nil
       return
     }
 

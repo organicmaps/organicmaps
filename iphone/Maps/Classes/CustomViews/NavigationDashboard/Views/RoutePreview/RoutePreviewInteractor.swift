@@ -21,12 +21,11 @@ extension RoutePreview {
     }
 
     private func resolve(_ event: Request) -> Response {
-      print(#function, String(describing: event))
       switch event {
       case .prepareRoute:
-        return .none
+        return .prepare
 
-      case .startRoutePlanning:
+      case .updateRoutePoints:
         return .show(points: router.points(), routerType: router.type())
 
       case .routeIsReady:
@@ -38,14 +37,14 @@ extension RoutePreview {
         router.rebuild(withBestRouter: false)
         return .none
 
-      case let .selectRoutePoint(point, index):
+      case let .selectRoutePoint(point):
         searchManager.startSearching(isRouting: false)
         if let textToSearch = point?.title {
           searchManager.searchText(textToSearch, isCategory: false)
         }
         return .setHidden(true)
 
-      case .addRoutePoint:
+      case .addRoutePointButtonDidTap:
         searchManager.startSearching(isRouting: false)
         return .setHidden(true)
 
@@ -56,6 +55,17 @@ extension RoutePreview {
 
       case .startNavigation:
         return .showNavigationDashboard
+
+      case .stopNavigation:
+        return .close
+
+      case .startButtonDidTap:
+        delegate?.routingStartButtonDidTap()
+        return .none
+
+      case .settingsButtonDidTap:
+        delegate?.settingsButtonDidTap()
+        return .none
 
       case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
@@ -70,6 +80,12 @@ extension RoutePreview {
       case .updateElevationInfo(let elevationInfo):
         return .updateElevationInfo(elevationInfo)
 
+      case .updateNavigationInfoAvailableArea(let frame):
+        return .updateNavigationInfoAvailableArea(frame)
+
+      case .updateSearchState(let state):
+        return .updateSearchState(state)
+        
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
@@ -86,6 +102,7 @@ extension RoutePreview {
       case .goBack:
         router.stopRouting()
         return .goBack
+
       case .close:
         router.stopRouting()
         return .close
@@ -100,10 +117,6 @@ extension RoutePreview.Interactor: NavigationDashboardView {
     process(.setHidden(true))
   }
 
-  func stateClosed() {
-    process(.close)
-  }
-
   func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {
     process(.updateNavigationInfo(entity))
   }
@@ -113,29 +126,11 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func searchManager(withDidChange state: SearchOnMapState) {
-//    switch (state) {
-//      case SearchOnMapStateClosed:
-//        [self.navigationInfoView setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
-//        break;
-//      case SearchOnMapStateHidden:
-//      case SearchOnMapStateSearching:
-//        [self.navigationInfoView setMapSearch];
-//    }
-    switch state {
-    case .closed:
-      process(.setHidden(false))
-    case .hidden:
-      break
-    case .searching:
-      process(.setHidden(true))
-    @unknown default:
-      fatalError("Unknown search state: \(state)")
-    }
+    process(.updateSearchState(state))
   }
 
   func updateNavigationInfoAvailableArea(_ frame: CGRect) {
-    print(#function)
-    // TODO: navigation
+    process(.updateNavigationInfoAvailableArea(frame))
   }
 
   func setRouteBuilderProgress(_ router: MWMRouterType, progress: CGFloat) {
@@ -147,11 +142,15 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func statePlanning() {
-    process(.startRoutePlanning)
+    process(.updateRoutePoints)
   }
 
   func stateReady() {
     process(.routeIsReady)
+  }
+
+  func stateClosed() {
+    process(.stopNavigation)
   }
 
   func onRouteStart() {
@@ -159,11 +158,11 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func onRouteStop() {
-    process(.close)
+    process(.stopNavigation)
   }
 
   func onRoutePointsUpdated() {
-    process(.startRoutePlanning)
+    process(.updateRoutePoints)
   }
 
   func stateNavigation() {
