@@ -22,14 +22,10 @@ extension RoutePreview {
 
     private func resolve(_ event: Request) -> Response {
       switch event {
-      case .prepareRoute:
-        return .prepare
+      case .updateState(let state):
+        return .updateState(state)
 
       case .updateRoutePoints:
-        return .show(points: router.points(), routerType: router.type())
-
-      case .routeIsReady:
-        buildElevationInfoIfNeeded()
         return .show(points: router.points(), routerType: router.type())
 
       case .selectRouterType(let routerType):
@@ -138,18 +134,22 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func statePrepare() {
-    process(.prepareRoute)
+    process(.updateState(.prepare))
   }
 
   func statePlanning() {
+    process(.updateState(.planning))
     process(.updateRoutePoints)
   }
 
   func stateReady() {
-    process(.routeIsReady)
+    process(.updateState(.ready))
+    buildElevationInfoIfNeeded()
+    process(.updateRoutePoints)
   }
 
   func stateClosed() {
+    process(.updateState(.closed))
     process(.stopNavigation)
   }
 
@@ -166,7 +166,8 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func stateNavigation() {
-    process(.startNavigation) // TODO: ?? or onRouteStop
+    process(.updateState(.navigation))
+    process(.startNavigation)
   }
 
   func stateError(_ errorMessage: String) {
