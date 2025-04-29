@@ -36,4 +36,6 @@ NS_SWIFT_NAME(NavigationInfoView)
 
 - (void)updateToastView;
 
+- (void)updateSideButtonsAvailableArea:(CGRect)frame;
+
 @end
