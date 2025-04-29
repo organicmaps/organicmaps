@@ -34,6 +34,8 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   }()
 
   @objc weak var ownerView: UIView!
+  @objc weak var delegate: RouteNavigationControlsDelegate!
+
   @IBOutlet private weak var extendedView: UIView!
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
@@ -124,6 +126,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
+    guard isVisible else { return }
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),
@@ -206,6 +209,21 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     refreshDiminishTimer()
   }
 
+  @IBAction
+  private func ttsButtonAction(_ sender: Any) {
+    delegate.ttsButtonDidTap()
+  }
+
+  @IBAction
+  private func settingsButtonAction(_ sender: Any) {
+    delegate.settingsButtonDidTap()
+  }
+  
+  @IBAction
+  private func stopRoutingButtonAction(_ sender: Any) {
+    delegate.stopRoutingButtonDidTap()
+  }
+  
   private func morphExtendButton() {
     guard let imageView = extendButton.imageView else { return }
     let morphImagesCount = 6

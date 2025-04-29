@@ -206,15 +206,15 @@ NSString *kNavigationControlViewXibName = @"NavigationControlView";
 
 #pragma mark - Button tap Actions
 
-- (IBAction)ttsButtonAction {
+- (void)ttsButtonAction {
   [self.delegate ttsButtonDidTap];
 }
 
-- (IBAction)settingsButtonAction {
+- (void)settingsButtonAction {
   [self.delegate settingsButtonDidTap];
 }
 
-- (IBAction)stopRoutingButtonAction {
+- (void)stopRoutingButtonAction {
   [self.delegate stopRoutingButtonDidTap];
 }
 
@@ -227,7 +227,7 @@ NSString *kNavigationControlViewXibName = @"NavigationControlView";
 - (void)searchManagerWithDidChangeState:(SearchOnMapState)state {
   switch (state) {
     case SearchOnMapStateClosed:
-      [self.navigationInfoView setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
+      [self.navigationInfoView setSearchState:NavigationSearchStateMinimizedNormal animated:YES];
       break;
     case SearchOnMapStateHidden:
     case SearchOnMapStateSearching:
