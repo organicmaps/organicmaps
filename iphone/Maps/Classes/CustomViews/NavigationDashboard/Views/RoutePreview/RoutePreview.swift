@@ -1,8 +1,7 @@
 enum RoutePreview {
   enum Request {
-    case prepareRoute
+    case updateState(MWMNavigationDashboardState)
     case updateRoutePoints
-    case routeIsReady
     case startNavigation
     case stopNavigation
 
@@ -30,7 +29,7 @@ enum RoutePreview {
 
   enum Response: Equatable {
     case none
-    case prepare
+    case updateState(MWMNavigationDashboardState)
     case show(points: [MWMRoutePoint], routerType: MWMRouterType)
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)

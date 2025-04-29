@@ -147,6 +147,10 @@ final class RoutePreviewViewController: UIViewController {
         self.interactor?.process(.close)
       case .didUpdateFrame(let frame):
         self.interactor?.process(.updatePresentationFrame(frame))
+        let sideButtonsAvailableArea = CGRect(origin: .zero,
+                                              size: CGSize(width: frame.width,
+                                                           height: frame.origin.y))
+        self.navigationInfoView.updateSideButtonsAvailableArea(sideButtonsAvailableArea)
       case .didUpdateStep(let step):
 //        self.interactor?.process(.didUpdatePresentationStep(step))
         break
