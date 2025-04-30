@@ -205,7 +205,7 @@
   [MWMRouter startRouting];
 }
 
-- (void)routePreviewDidPressDrivingOptions:(MWMRoutePreview *)routePreview {
+- (void)routePreviewDidPressDrivingOptions {
   [[MapViewController sharedController] openDrivingOptions];
 }
 
