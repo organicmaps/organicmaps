@@ -77,7 +77,6 @@ extension RoutePreview {
         viewModel = viewModel.copyWith(navigationInfo: navigationInfo)
 
       case .updateSearchState(let state):
-        // TODO: 1 start route, 2 search and select category, 3 select PP, 4 deselect PP - the search will appear - it is a bug because during the navigation sth search should not be shown on the pp dissapear
         isSearchOpened = state == .searching
         switch state {
         case .closed:
