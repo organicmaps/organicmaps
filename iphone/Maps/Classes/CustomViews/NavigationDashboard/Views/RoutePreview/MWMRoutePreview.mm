@@ -126,7 +126,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
 }
 
 - (IBAction)onDrivingOptions:(UIButton *)sender {
-  [self.delegate routePreviewDidPressDrivingOptions:self];
+  [self.delegate routePreviewDidPressDrivingOptions];
 }
 
 #pragma mark - MWMCircularProgressProtocol

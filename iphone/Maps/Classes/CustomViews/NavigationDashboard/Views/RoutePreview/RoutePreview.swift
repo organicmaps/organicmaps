@@ -14,7 +14,6 @@ enum RoutePreview {
     case settingsButtonDidTap
 
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
-    case updateDrivingOptionState(MWMDrivingOptionsState)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(ElevationInfo?)
     case updatePresentationFrame(CGRect)

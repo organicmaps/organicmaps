@@ -3,14 +3,17 @@ extension RoutePreview {
 
     private let presenter: Presenter
     private let router: MWMRouter.Type
+    private let mapViewController: MapViewController
     private let searchManager: SearchOnMapManager
     weak var delegate: MWMRoutePreviewDelegate?
 
     init(presenter: Presenter,
          router: MWMRouter.Type = MWMRouter.self,
+         mapViewController: MapViewController = MapViewController.shared()!,
          searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager) {
       self.presenter = presenter
       self.router = router
+      self.mapViewController = mapViewController
       self.searchManager = searchManager
       super.init()
     }
@@ -60,15 +63,11 @@ extension RoutePreview {
         return .none
 
       case .settingsButtonDidTap:
-        delegate?.settingsButtonDidTap()
+        delegate?.routePreviewDidPressDrivingOptions()
         return .none
 
       case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
-
-      case .updateDrivingOptionState(let state):
-        // TODO: implement
-        return .none
 
       case .updateNavigationInfo(let entity):
         return .updateNavigationInfo(entity)
@@ -89,7 +88,7 @@ extension RoutePreview {
 
       case .updatePresentationFrame(let frame):
         let bottomBound = frame.height - frame.origin.y
-        MapViewController.shared()?.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
+        mapViewController.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
         return .none
 
       case .setHidden(let hidden):
@@ -121,7 +120,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func setDrivingOptionState(_ state: MWMDrivingOptionsState) {
-    process(.updateDrivingOptionState(state))
+    // TODO: handle driving option change
   }
 
   func searchManager(withDidChange state: SearchOnMapState) {
