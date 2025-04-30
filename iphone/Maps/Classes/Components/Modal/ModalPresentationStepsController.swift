@@ -1,34 +1,45 @@
-final class ModalPresentationStepsController {
+protocol ModalPresentationStep: Equatable {
+  static var expanded: Self { get }
+  static var hidden: Self { get }
+}
+
+fileprivate enum Constants {
+  static let slowSwipeVelocity: CGFloat = 500
+  static let fastSwipeDownVelocity: CGFloat = 4000
+  static let fastSwipeUpVelocity: CGFloat = 3000
+  static let translationThreshold: CGFloat = 50
+}
+
+final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
   enum StepUpdate {
     case didClose
     case didUpdateFrame(CGRect)
-    case didUpdateStep(ModalPresentationStep)
-  }
-
-  fileprivate enum Constants {
-    static let slowSwipeVelocity: CGFloat = 500
-    static let fastSwipeDownVelocity: CGFloat = 4000
-    static let fastSwipeUpVelocity: CGFloat = 3000
-    static let translationThreshold: CGFloat = 50
+    case didUpdateStep(Step)
   }
 
   private weak var presentedView: UIView?
   private weak var containerViewController: UIViewController?
 
-  private var initialTranslationY: CGFloat = .zero
-
-  private(set) var currentStep: ModalPresentationStep = .fullScreen
+  private let stepStrategy: any ModalPresentationStepStrategy<Step>
+  private var currentStep: Step
   private(set) var maxAvailableFrame: CGRect = .zero
-
+  var didUpdateHandler: ((StepUpdate) -> Void)?
   var currentFrame: CGRect { frame(for: currentStep) }
   var hiddenFrame: CGRect { frame(for: .hidden) }
 
-  var didUpdateHandler: ((StepUpdate) -> Void)?
+  private var initialTranslationY: CGFloat = .zero
 
-  func set(presentedView: UIView, containerViewController: UIViewController) {
+  init(presentedView: UIView,
+       containerViewController: UIViewController,
+       stepStrategy: any ModalPresentationStepStrategy<Step>,
+       currentStep: Step,
+       didUpdateHandler: @escaping ((StepUpdate) -> Void)) {
     self.presentedView = presentedView
     self.containerViewController = containerViewController
+    self.stepStrategy = stepStrategy
+    self.currentStep = currentStep
+    self.didUpdateHandler = didUpdateHandler
   }
 
   func setInitialState() {
@@ -39,8 +50,8 @@ final class ModalPresentationStepsController {
     setStep(.hidden, animation: .slide, completion: completion)
   }
 
-  func updateMaxAvailableFrame() {
-    maxAvailableFrame = frame(for: .fullScreen)
+  func updateFrame() {
+    presentedView?.frame = frame(for: currentStep)
   }
 
   func handlePan(_ gesture: UIPanGestureRecognizer) {
@@ -58,20 +69,20 @@ final class ModalPresentationStepsController {
       presentedView.frame = currentFrame
       didUpdateHandler?(.didUpdateFrame(currentFrame))
     case .ended:
-      let nextStep: ModalPresentationStep
+      let nextStep: Step
       if velocity.y > Constants.fastSwipeDownVelocity {
         didUpdateHandler?(.didClose)
         return
       } else if velocity.y < -Constants.fastSwipeUpVelocity {
-        nextStep = .fullScreen
+        nextStep = stepStrategy.expanded()
       } else if velocity.y > Constants.slowSwipeVelocity || translation.y > Constants.translationThreshold {
-        if currentStep == .compact {
+        if stepStrategy.lowerTo(currentStep) == .hidden {
           didUpdateHandler?(.didClose)
           return
         }
-        nextStep = currentStep.lower
+        nextStep = stepStrategy.lowerTo(currentStep)
       } else if velocity.y < -Constants.slowSwipeVelocity || translation.y < -Constants.translationThreshold {
-        nextStep = currentStep.upper
+        nextStep = stepStrategy.upperTo(currentStep)
       } else {
         nextStep = currentStep
       }
@@ -83,18 +94,17 @@ final class ModalPresentationStepsController {
     }
   }
 
-  func setStep(_ step: ModalPresentationStep,
+  func setStep(_ step: Step,
                completion: (() -> Void)? = nil) {
     guard currentStep != step else { return }
     setStep(step, animation: .slide, completion: completion)
   }
 
-  private func setStep(_ step: ModalPresentationStep,
+  private func setStep(_ step: Step,
                        animation: PresentationStepChangeAnimation,
                        completion: (() -> Void)? = nil) {
     guard let presentedView else { return }
     currentStep = step
-    updateMaxAvailableFrame()
 
     let frame = frame(for: step)
     didUpdateHandler?(.didUpdateStep(step))
@@ -107,8 +117,9 @@ final class ModalPresentationStepsController {
     }
   }
 
-  private func frame(for step: ModalPresentationStep) -> CGRect {
+  private func frame(for step: Step) -> CGRect {
     guard let presentedView, let containerViewController else { return .zero }
-    return step.frame(for: presentedView, in: containerViewController)
+    maxAvailableFrame = stepStrategy.frame(.expanded, for: presentedView, in: containerViewController)
+    return stepStrategy.frame(step, for: presentedView, in: containerViewController)
   }
 }

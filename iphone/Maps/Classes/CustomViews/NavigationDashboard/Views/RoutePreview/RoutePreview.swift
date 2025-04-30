@@ -21,7 +21,7 @@ enum RoutePreview {
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
 
-    //    case updatePresentationStep(ModalPresentationStep)
+    case didUpdatePresentationStep(RoutePreviewModalPresentationStep)
     case setHidden(Bool)
     case goBack
     case close
@@ -34,7 +34,7 @@ enum RoutePreview {
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)
     case updateElevationInfo(ElevationInfo?)
-    case updatePresentationStep(ModalPresentationStep)
+    case updatePresentationStep(RoutePreviewModalPresentationStep)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
     case showNavigationDashboard

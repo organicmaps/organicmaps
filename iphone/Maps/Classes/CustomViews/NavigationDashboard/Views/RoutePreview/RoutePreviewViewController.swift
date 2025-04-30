@@ -25,6 +25,8 @@ final class RoutePreviewViewController: UIViewController {
     static let routeStatusStackSpacing: CGFloat = 4
   }
 
+  typealias StepsController = ModalPresentationStepsController<RoutePreviewModalPresentationStep>
+
   // MARK: - UI Components
   private let availableAreaView = SearchOnMapAreaView()
   private let grabberView = UIView()
@@ -42,12 +44,12 @@ final class RoutePreviewViewController: UIViewController {
   private var navigationControlView: NavigationControlView!
 
   var interactor: RoutePreview.Interactor?
-  private let presentationStepsController = ModalPresentationStepsController()
+  private var presentationStepsController: StepsController!
 
   // MARK: - Init
   init() {
     super.init(nibName: nil, bundle: nil)
-    configureModalPresentation()
+    self.configureModalPresentation()
   }
 
   @available(*, unavailable)
@@ -100,7 +102,7 @@ final class RoutePreviewViewController: UIViewController {
 
   func add(to parentViewController: MapViewController) {
     parentViewController.addChild(self)
-    parentViewController.controlsView.addSubview(view)
+    parentViewController.view.insertSubview(view, belowSubview: parentViewController.searchContainer)
     view.frame = parentViewController.view.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     view.setNeedsLayout()
@@ -111,7 +113,7 @@ final class RoutePreviewViewController: UIViewController {
   // MARK: - Setup Views
   private func setupView() {
     view.backgroundColor = .clear
-    availableAreaView.setStyle(.modalSheetBackground)
+    setupAvailableView()
     setupGrabberView()
     setupBackButton()
     setupEstimatesView()
@@ -120,7 +122,6 @@ final class RoutePreviewViewController: UIViewController {
     setupStartButton()
     setupTransportOptionsView()
     setupRoutePointsView()
-    configureModalPresentation()
     setupGestureRecognizers()
   }
 
@@ -128,18 +129,15 @@ final class RoutePreviewViewController: UIViewController {
     guard let mapViewController = MapViewController.shared() else {
       fatalError("MapViewController is not available")
     }
-    presentationStepsController.set(presentedView: availableAreaView, containerViewController: self)
-    presentationStepsController.didUpdateHandler = presentationUpdateHandler
-
-    // TODO: affect side buttons area
-//    let affectedAreaViews = [
-//      mapViewController.sideButtonsArea,
-//      mapViewController.trafficButtonArea,
-//    ]
-//    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
+    let stepsController = StepsController(presentedView: availableAreaView,
+                                          containerViewController: self,
+                                          stepStrategy: RoutePreviewModalPresentationStepStrategy(),
+                                          currentStep: .hidden,
+                                          didUpdateHandler: presentationUpdateHandler)
+    presentationStepsController = stepsController
   }
 
-  private var presentationUpdateHandler: (ModalPresentationStepsController.StepUpdate) -> Void {
+  private var presentationUpdateHandler: (StepsController.StepUpdate) -> Void {
     { [weak self] update in
       guard let self else { return }
       switch update {
@@ -152,7 +150,7 @@ final class RoutePreviewViewController: UIViewController {
                                                            height: frame.origin.y))
         self.navigationInfoView.updateSideButtonsAvailableArea(sideButtonsAvailableArea)
       case .didUpdateStep(let step):
-//        self.interactor?.process(.didUpdatePresentationStep(step))
+        self.interactor?.process(.didUpdatePresentationStep(step))
         break
       }
     }
@@ -168,6 +166,11 @@ final class RoutePreviewViewController: UIViewController {
   @objc
   private func handlePan(_ gesture: UIPanGestureRecognizer) {
     presentationStepsController.handlePan(gesture)
+  }
+
+  private func setupAvailableView() {
+    availableAreaView.setStyle(.modalSheetBackground)
+    availableAreaView.backgroundColor = .red
   }
 
   private func setupGrabberView() {
@@ -294,8 +297,7 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   private func updateFrameOfPresentedViewInContainerView() {
-    presentationStepsController.updateMaxAvailableFrame()
-    availableAreaView.frame = presentationStepsController.currentFrame
+    presentationStepsController.updateFrame()
     view.layoutIfNeeded()
   }
 }

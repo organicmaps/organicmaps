@@ -42,9 +42,9 @@ extension RoutePreview {
         case true:
           viewModel = viewModel.copyWith(presentationStep: .hidden)
         case false:
-          // Skip presentation step updates when the screen is preseneted
+          // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: ModalPresentationStep = hidden ? .hidden : .halfScreen
+            let step: RoutePreviewModalPresentationStep = hidden ? .hidden : .regular
             viewModel = viewModel.copyWith(presentationStep: step.forNavigationState(viewModel.dashboardState))
           }
         }
@@ -77,6 +77,7 @@ extension RoutePreview {
 
       case .updateSearchState(let state):
         // TODO: 1 start route, 2 search and select category, 3 select PP, 4 deselect PP - the search will appear - it is a bug because during the navigation sth search should not be shown on the pp dissapear
+        isSearchOpened = state == .searching
         switch state {
         case .closed:
           viewModel = resolve(action: .setHidden(false), with: viewModel)
@@ -92,7 +93,7 @@ extension RoutePreview {
         viewModel = viewModel.copyWith(routePoints: RoutePreview.RoutePoints(points: points),
                                        routerType: routerType)
         if viewModel.presentationStep == .hidden {
-          viewModel = viewModel.copyWith(presentationStep: .halfScreen.forNavigationState(viewModel.dashboardState))
+          viewModel = viewModel.copyWith(presentationStep: .regular.forNavigationState(viewModel.dashboardState))
         }
       }
       return viewModel
@@ -116,7 +117,7 @@ extension RoutePreview {
   }
 }
 
-private extension ModalPresentationStep {
+private extension RoutePreviewModalPresentationStep {
   func forNavigationState(_ state: MWMNavigationDashboardState) -> Self {
     guard state != .navigation else {
       return .hidden

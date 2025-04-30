@@ -95,6 +95,9 @@ extension RoutePreview {
       case .setHidden(let hidden):
         return .setHidden(hidden)
 
+      case .didUpdatePresentationStep(let step):
+        return .updatePresentationStep(step)
+
       case .goBack:
         router.stopRouting()
         return .goBack
