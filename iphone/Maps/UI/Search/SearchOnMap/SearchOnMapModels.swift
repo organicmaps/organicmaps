@@ -11,7 +11,7 @@ enum SearchOnMap {
     var skipSuggestions: Bool
     var searchingText: String?
     var contentState: Content
-    var presentationStep: ModalPresentationStep
+    var presentationStep: SearchOnMapModalPresentationStep
   }
 
   struct SearchResults: Equatable {
@@ -54,7 +54,7 @@ enum SearchOnMap {
     case clearButtonDidTap
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
-    case didUpdatePresentationStep(ModalPresentationStep)
+    case didUpdatePresentationStep(SearchOnMapModalPresentationStep)
   }
 
   enum Response: Equatable {
@@ -67,7 +67,7 @@ enum SearchOnMap {
     case clearSearch
     case setSearchScreenHidden(Bool)
     case setSearchScreenCompact
-    case updatePresentationStep(ModalPresentationStep)
+    case updatePresentationStep(SearchOnMapModalPresentationStep)
     case close
     case none
   }
@@ -90,5 +90,5 @@ extension SearchOnMap.ViewModel {
                                              skipSuggestions: false,
                                              searchingText: nil,
                                              contentState: .historyAndCategory,
-                                             presentationStep: .fullScreen)
+                                             presentationStep: .expanded)
 }
