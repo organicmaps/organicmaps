@@ -2,6 +2,7 @@ extension RoutePreview {
   final class Presenter: NSObject {
     private weak var view: RoutePreviewViewController?
     private var viewModel: ViewModel = .initial
+    private var isSearchOpened: Bool = false
     private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
     init(view: RoutePreviewViewController,
@@ -92,7 +93,7 @@ extension RoutePreview {
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: RoutePreview.RoutePoints(points: points),
                                        routerType: routerType)
-        if viewModel.presentationStep == .hidden {
+        if !isSearchOpened && viewModel.presentationStep == .hidden {
           viewModel = viewModel.copyWith(presentationStep: .regular.forNavigationState(viewModel.dashboardState))
         }
       }
