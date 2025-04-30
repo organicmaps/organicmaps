@@ -9,7 +9,7 @@ extension RoutePreview {
     let navigationInfo: NavigationInfo
     let estimates: NSAttributedString
     let dashboardState: MWMNavigationDashboardState
-    let presentationStep: ModalPresentationStep
+    let presentationStep: RoutePreviewModalPresentationStep
     let shouldClose: Bool
     let progress: CGFloat
     let navigationSearchState: NavigationSearchState?
@@ -54,7 +54,7 @@ extension RoutePreview.ViewModel {
     navigationInfo: RoutePreview.NavigationInfo? = nil,
     estimates: NSAttributedString? = nil,
     dashboardState: MWMNavigationDashboardState? = nil,
-    presentationStep: ModalPresentationStep? = nil,
+    presentationStep: RoutePreviewModalPresentationStep? = nil,
     shouldClose: Bool? = nil,
     progress: CGFloat? = nil,
     navigationSearchState: NavigationSearchState? = nil

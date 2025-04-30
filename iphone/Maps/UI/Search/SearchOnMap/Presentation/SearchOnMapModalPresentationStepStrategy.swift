@@ -1,11 +1,11 @@
-enum ModalPresentationStep: Int, CaseIterable {
-  case fullScreen
+enum SearchOnMapModalPresentationStep: Int, CaseIterable, ModalPresentationStep {
+  case expanded
   case halfScreen
   case compact
   case hidden
 }
 
-extension ModalPresentationStep {
+struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let compactHeightOffset: CGFloat = 120
@@ -14,12 +14,18 @@ extension ModalPresentationStep {
     static let landscapeTopInset: CGFloat = 10
   }
 
-  var upper: ModalPresentationStep {
-    switch self {
-    case .fullScreen:
-      return .fullScreen
+  typealias Step = SearchOnMapModalPresentationStep
+
+  func expanded() -> Step {
+    .expanded
+  }
+
+  func upperTo(_ step: Step) -> Step {
+    switch step {
+    case .expanded:
+      return .expanded
     case .halfScreen:
-      return .fullScreen
+      return .expanded
     case .compact:
       return .halfScreen
     case .hidden:
@@ -27,9 +33,9 @@ extension ModalPresentationStep {
     }
   }
 
-  var lower: ModalPresentationStep {
-    switch self {
-    case .fullScreen:
+  func lowerTo(_ step: Step) -> Step {
+    switch step {
+    case .expanded:
       return .halfScreen
     case .halfScreen:
       return .compact
@@ -40,15 +46,15 @@ extension ModalPresentationStep {
     }
   }
 
-  var first: ModalPresentationStep {
-    .fullScreen
+  var first: Step {
+    .expanded
   }
 
-  var last: ModalPresentationStep {
+  var last: Step {
     .compact
   }
 
-  func frame(for presentedView: UIView, in containerViewController: UIViewController) -> CGRect {
+  func frame(_ step: Step, for presentedView: UIView, in containerViewController: UIViewController) -> CGRect {
     let isIPad = UIDevice.current.userInterfaceIdiom == .pad
     var containerSize = containerViewController.view.bounds.size
     if containerSize == .zero {
@@ -60,7 +66,7 @@ extension ModalPresentationStep {
 
     if isIPad {
       frame.size.width = Constants.iPadWidth
-      switch self {
+      switch step {
       case .hidden:
         frame.origin.x = -Constants.iPadWidth
       default:
@@ -71,8 +77,8 @@ extension ModalPresentationStep {
 
     let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
     if isPortraitOrientation {
-      switch self {
-      case .fullScreen:
+      switch step {
+      case .expanded:
         frame.origin.y = containerSize.height * Constants.fullScreenHeightFactorPortrait
       case .halfScreen:
         frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
@@ -84,8 +90,8 @@ extension ModalPresentationStep {
     } else {
       frame.size.width = Constants.iPadWidth
       frame.origin.x = safeAreaInsets.left
-      switch self {
-      case .fullScreen:
+      switch step {
+      case .expanded:
         frame.origin.y = Constants.landscapeTopInset
       case .halfScreen, .compact:
         frame.origin.y = containerSize.height - Constants.compactHeightOffset
@@ -96,3 +102,4 @@ extension ModalPresentationStep {
     return frame
   }
 }
+
