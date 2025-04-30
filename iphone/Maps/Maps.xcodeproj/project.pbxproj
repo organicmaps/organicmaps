@@ -496,14 +496,13 @@
 		ED4F4F752DA7A65F006AD910 /* RoutePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */; };
 		ED4F4F792DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
-		ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */; };
+		ED5E02142D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02132D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift */; };
 		ED5E02522D92E33300A5CC7B /* MWMNavigationDashboardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED5E02512D92E33300A5CC7B /* MWMNavigationDashboardView.mm */; };
 		ED63CEB92BDF8F9D006155C4 /* SettingsTableViewiCloudSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63CEB62BDF8F9C006155C4 /* SettingsTableViewiCloudSwitchCell.swift */; };
 		ED70D55C2D5396F300738C1E /* SearchResult.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED70D55A2D5396F300738C1E /* SearchResult.mm */; };
 		ED70D5892D539A2500738C1E /* SearchOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5872D539A2500738C1E /* SearchOnMapViewController.swift */; };
 		ED70D58A2D539A2500738C1E /* SearchOnMapModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5852D539A2500738C1E /* SearchOnMapModels.swift */; };
 		ED70D58C2D539A2500738C1E /* SearchOnMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5862D539A2500738C1E /* SearchOnMapPresenter.swift */; };
-		ED70D58D2D539A2500738C1E /* ModalPresentationStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D57C2D539A2500738C1E /* ModalPresentationStep.swift */; };
 		ED70D58F2D539A2500738C1E /* SearchOnMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5832D539A2500738C1E /* SearchOnMapInteractor.swift */; };
 		ED70D5922D539A2500738C1E /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5822D539A2500738C1E /* PlaceholderView.swift */; };
 		ED70D5932D539A2500738C1E /* SearchOnMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED70D5842D539A2500738C1E /* SearchOnMapManager.swift */; };
@@ -541,6 +540,9 @@
 		EDC4E34D2C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
+		EDC91B962DC23AAD008BF257 /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B952DC23AAD008BF257 /* ModalPresentationStepsController.swift */; };
+		EDC91B982DC23B06008BF257 /* ModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */; };
+		EDC91B9A2DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B992DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift */; };
 		EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */; };
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
@@ -1486,7 +1488,7 @@
 		ED4F4F742DA7A65F006AD910 /* RoutePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewViewModel.swift; sourceTree = "<group>"; };
 		ED4F4F782DA7A6AF006AD910 /* RoutePreviewRoutePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewRoutePoints.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
-		ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
+		ED5E02132D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
 		ED5E024F2D92AC9300A5CC7B /* RoutePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutePreviewView.h; sourceTree = "<group>"; };
 		ED5E02502D92E33300A5CC7B /* MWMNavigationDashboardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardView.h; sourceTree = "<group>"; };
 		ED5E02512D92E33300A5CC7B /* MWMNavigationDashboardView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardView.mm; sourceTree = "<group>"; };
@@ -1495,7 +1497,6 @@
 		ED70D5592D5396F300738C1E /* SearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
 		ED70D55A2D5396F300738C1E /* SearchResult.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchResult.mm; sourceTree = "<group>"; };
 		ED70D55B2D5396F300738C1E /* SearchResult+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchResult+Core.h"; sourceTree = "<group>"; };
-		ED70D57C2D539A2500738C1E /* ModalPresentationStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStep.swift; sourceTree = "<group>"; };
 		ED70D5822D539A2500738C1E /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		ED70D5832D539A2500738C1E /* SearchOnMapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapInteractor.swift; sourceTree = "<group>"; };
 		ED70D5842D539A2500738C1E /* SearchOnMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapManager.swift; sourceTree = "<group>"; };
@@ -1579,6 +1580,9 @@
 		EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
+		EDC91B952DC23AAD008BF257 /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
+		EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
+		EDC91B992DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
 		EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -2567,6 +2571,7 @@
 				ED4F4F4A2D9E6C94006AD910 /* RoutePreviewInteractor.swift */,
 				ED4F4F502D9E8854006AD910 /* RoutePreviewPresenter.swift */,
 				ED4F4F282D9558C2006AD910 /* RoutePreviewViewController.swift */,
+				EDC91B992DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift */,
 				ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */,
 				ED18EF802DBA2FD800B383A0 /* TransportTransitStepsView.swift */,
 				ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */,
@@ -2822,6 +2827,8 @@
 		47E3C7232111E2F8008B3B27 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */,
+				EDC91B952DC23AAD008BF257 /* ModalPresentationStepsController.swift */,
 				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
 				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
 				CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */,
@@ -3327,9 +3334,8 @@
 		ED70D5812D539A2500738C1E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				ED5E02132D8B17B600A5CC7B /* ModalPresentationStepsController.swift */,
+				ED5E02132D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift */,
 				EDB71DFF2D8B0338004A6A7F /* ModalPresentationAnimator.swift */,
-				ED70D57C2D539A2500738C1E /* ModalPresentationStep.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -4610,7 +4616,7 @@
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
-				ED5E02142D8B17B600A5CC7B /* ModalPresentationStepsController.swift in Sources */,
+				ED5E02142D8B17B600A5CC7B /* SearchOnMapModalPresentationStepStrategy.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
@@ -4738,6 +4744,7 @@
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.m in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				ED79A5AD2BD7BA0F00952D1F /* UIApplication+LoadingOverlay.swift in Sources */,
+				EDC91B962DC23AAD008BF257 /* ModalPresentationStepsController.swift in Sources */,
 				ED4F4F512D9E8854006AD910 /* RoutePreviewPresenter.swift in Sources */,
 				9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */,
 				47CA68D62500448D00671019 /* BookmarksListInteractor.swift in Sources */,
@@ -4778,6 +4785,7 @@
 				F6E2FDF21E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.mm in Sources */,
 				3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */,
 				ED79A5AB2BD7AA9C00952D1F /* LoadingOverlayViewController.swift in Sources */,
+				EDC91B982DC23B06008BF257 /* ModalPresentationStepStrategy.swift in Sources */,
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
@@ -4857,7 +4865,6 @@
 				ED70D5892D539A2500738C1E /* SearchOnMapViewController.swift in Sources */,
 				ED70D58A2D539A2500738C1E /* SearchOnMapModels.swift in Sources */,
 				ED70D58C2D539A2500738C1E /* SearchOnMapPresenter.swift in Sources */,
-				ED70D58D2D539A2500738C1E /* ModalPresentationStep.swift in Sources */,
 				ED70D58F2D539A2500738C1E /* SearchOnMapInteractor.swift in Sources */,
 				ED70D5922D539A2500738C1E /* PlaceholderView.swift in Sources */,
 				ED70D5932D539A2500738C1E /* SearchOnMapManager.swift in Sources */,
@@ -4965,6 +4972,7 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
+				EDC91B9A2DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				ED0C54992C6E6AF000253A5F /* TrackRecordingManager.swift in Sources */,
