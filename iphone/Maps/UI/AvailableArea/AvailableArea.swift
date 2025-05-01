@@ -11,18 +11,15 @@ class AvailableArea: UIView {
     }
   }
 
-  var shouldUpdateAreaFrame: Bool {
-    if let insets = UIApplication.shared.delegate?.window??.safeAreaInsets {
-      return insets.left > 0 || insets.right > 0
-    } else {
-      return false
-    }
+  private var safeArea: UIEdgeInsets? {
+    UIApplication.shared.delegate?.window??.safeAreaInsets
   }
 
   var areaFrame: CGRect {
     return alternative(iPhone: {
       var frame = self.frame
-      if self.shouldUpdateAreaFrame {
+      if let safeArea = self.safeArea, safeArea != .zero {
+        frame.origin.y = safeArea.top
         switch self.orientation {
         case .landscapeLeft:
           frame.origin.x -= 16
