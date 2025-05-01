@@ -13,7 +13,18 @@ final class VisibleArea: AvailableArea {
     if CarPlayService.shared.isCarplayActivated {
       return
     }
-    FrameworkHelper.setVisibleViewport(areaFrame, scaleFactor: MapViewController.shared()?.mapView.contentScaleFactor ?? 1.0)
+    let availableAreaFrame = areaFrame
+    guard !skipAvailableAreaUpdate(for: availableAreaFrame) else {
+      return
+    }
+    FrameworkHelper.setVisibleViewport(availableAreaFrame, scaleFactor: MapViewController.shared()?.mapView.contentScaleFactor ?? 1.0)
+  }
+
+  private func skipAvailableAreaUpdate(for area: CGRect) -> Bool {
+    let mainScreenBounds = UIScreen.main.bounds
+    let kMinAvailableToUpdateFactor: CGFloat = 4.0
+    return area.height < mainScreenBounds.height / kMinAvailableToUpdateFactor ||
+           area.width < mainScreenBounds.width / kMinAvailableToUpdateFactor
   }
 }
 
