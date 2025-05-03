@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - qt/res/app.organicmaps.desktop.desktop
-      - .github/workflows/desktop-file-check.yaml  # Run check on self change
+      - .forgejo/workflows/desktop-file-check.yaml  # Run check on self change
 
 jobs:
   validate-desktop-file:

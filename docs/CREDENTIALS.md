@@ -1,4 +1,4 @@
-This file contains a list of all sensitive credentials, access keys, authentication tokens, and security certificates used by CI/CD (Github Actions).
+This file contains a list of all sensitive credentials, access keys, authentication tokens, and security certificates used by CI/CD (Forgejo Actions).
 
 - [PRIVATE\_H](#private_h)
 - [RELEASE\_KEYSTORE](#release_keystore)

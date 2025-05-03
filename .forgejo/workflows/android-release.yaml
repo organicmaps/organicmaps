@@ -156,7 +156,7 @@ jobs:
             cat ${{ env.RELEASE_NOTES }}
             echo ""
             echo "See [a detailed announce](https://organicmaps.app/news/) on our website when app updates are published in all stores."
-            echo "You can get automatic app updates from GitHub [using Obtainium](https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)."
+            echo "You can get automatic app updates from Codeberg [using Obtainium](https://codeberg.com/comaps/comaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)."
             echo ""
             echo "sha256sum:"
             echo -e '\n```'
@@ -164,7 +164,7 @@ jobs:
             echo -e '\n```'
           } > ${{ runner.temp }}/release-notes.txt
 
-      - name: Upload universal APK to GitHub
+      - name: Upload universal APK to Codeberg
         uses: softprops/action-gh-release@v1
         if: ${{ matrix.flavor == 'web' }}
         with:

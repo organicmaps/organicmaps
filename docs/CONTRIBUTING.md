@@ -4,7 +4,7 @@ Thank you for your interest in contributing to Organic Maps (OM)!
 
 ## How Can I Contribute?
 
-- [Donate](https://organicmaps.app/donate/)
+- [Donate](https://comaps.app/donate/)
 - [Submit a bug report or a feature request](#bug-reports-and-feature-requests)
 
 There are things to do for everyone:
@@ -18,7 +18,7 @@ If you'd like to help in any other way or if there are any related questions - p
 
 ### Bug Reports and Feature Requests
 
-[Submit an issue](https://github.com/organicmaps/organicmaps/issues) and describe your feature idea or report a bug.
+[Submit an issue](https://codeberg.com/comaps/comaps/issues) and describe your feature idea or report a bug.
 Please check if there are no similar issues already submitted by someone else.
 
 When reporting a bug please provide as much information as possible: OS and application versions,
@@ -26,10 +26,8 @@ list of actions leading to a bug, a log file produced by the app.
 
 When using Organic Maps app on a device, use the built-in "Report a bug" option:
 on Android it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to <bugs@organicmaps.app>. Enabling logs in Organic Maps settings on Android
+faster if you send it to <bugs@comaps.app>. Enabling logs in Organic Maps settings on Android
 before sending the bug report also helps us a lot with debugging.
-
-If your idea is very broad or raw then instead of a specific feature request consider [starting a discussion thread](https://github.com/organicmaps/organicmaps/discussions/categories/ideas).
 
 ### Translations
 
@@ -38,17 +36,17 @@ See [translations instructions](TRANSLATIONS.md) for details.
 
 ### UI/UX, map styling and icons
 
-Organic Maps has a strong focus on easy to use UI and smooth user experience. Feel free to join [UI/UX discussions](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AUX) in relevant issues. Mockups are very welcome! Check some [existing designs](https://github.com/organicmaps/organicmaps/wiki/Design-Index).
+Organic Maps has a strong focus on easy to use UI and smooth user experience. Feel free to join [UI/UX discussions](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AUX) in relevant issues. Mockups are very welcome! Check some [existing designs](https://codeberg.com/comaps/comaps/wiki/Design-Index).
 
 If you're into graphic design then OM needs good, clear and free-to-use icons for hundreds of map features / POIs.
-Check OM's [graphic resources and design guidelines](https://github.com/organicmaps/organicmaps/wiki#design) and existing [requests for icons](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons). Post your icons onto relevant issues or take a next step and [integrate them](STYLES.md) yourself.
+Check OM's [graphic resources and design guidelines](https://codeberg.com/comaps/comaps/wiki#design) and existing [requests for icons](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons). Post your icons onto relevant issues or take a next step and [integrate them](STYLES.md) yourself.
 
-Check the [map styling instructions](STYLES.md) and work on adding new map features and other open [styles requests](https://github.com/organicmaps/organicmaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles).
+Check the [map styling instructions](STYLES.md) and work on adding new map features and other open [styles requests](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles).
 
 ### Code Contributions
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
-You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://github.com/organicmaps/organicmaps/labels/Frequently%20Reported%20by%20Users) or our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
+You will find a list of issues for new contributors [here](https://codeberg.com/comaps/comaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://codeberg.com/comaps/comaps/labels/Frequently%20Reported%20by%20Users) or our [Milestones](https://codeberg.com/comaps/comaps/milestones).
 
 **We do not assign issues to first-time contributors.** Any such request notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
 
@@ -73,14 +71,14 @@ Please help us:
 - processing users questions and feedback in chats, app stores, email and social media and creating follow-up issues or updating existing ones
 - reproducing and triaging reported bugs
 - testing upcoming features and bug fixes for Android, iOS and desktop versions
-- keeping [github issues](https://github.com/organicmaps/organicmaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
+- keeping [codeberg issues](https://codeberg.com/comaps/comaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
 - composing nice user-centric release notes and news items
 - etc.
 
 ## Submitting your changes
 
-All contributions to Organic Maps repositories should be submitted via
-[Github pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+All contributions to CoMaps repositories should be submitted via
+[Codeberg pull requests](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/)
 and signed-off with the [Developers Certificate of Origin](#legal-requirements).
 
 Each pull request is reviewed by OM maintainers to ensure its quality.

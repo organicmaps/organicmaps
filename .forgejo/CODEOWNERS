@@ -49,13 +49,13 @@
 /docs/STYLES.md
 /tools/kothic/ @organicmaps/styles
 # DevOps.
-/.github/workflows @organicmaps/devops
+/.forgejo/workflows @organicmaps/devops
 /android/*gradle* @organicmaps/devops
 /docs/RELEASE_MANAGEMENT.md @organicmaps/devops
 /xcode/fastlane/ @organicmaps/devops
 # Growth.
 README.md @organicmaps/growth
-/.github/FUNDING.yml @organicmaps/growth
+/.forgejo/FUNDING.yml @organicmaps/growth
 /android/app/src/fdroid/play/ @organicmaps/growth
 /android/app/src/google/play/ @organicmaps/growth
 /iphone/metadata/ @organicmaps/growth

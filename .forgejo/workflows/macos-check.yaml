@@ -7,8 +7,8 @@ on:
   pull_request:
     paths-ignore:
       - .gitignore
-      - .github/**
-      - '!.github/workflows/macos-check.yaml'  # Run check on self change
+      - .forgejo/**
+      - '!.forgejo/workflows/macos-check.yaml'  # Run check on self change
       - CONTRIBUTORS
       - LICENSE
       - NOTICE

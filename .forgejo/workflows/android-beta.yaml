@@ -6,8 +6,8 @@ on:
       - master
     paths-ignore:
       - .gitignore
-      - .github/**
-      - '!.github/workflows/android-beta.yaml'  # Run check on self change
+      - .forgejo/**
+      - '!.forgejo/workflows/android-beta.yaml'  # Run check on self change
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
       - CONTRIBUTORS

@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "Organic Maps",
+  "name": "Comaps",
   "version": "1.0.0",
   "description": "Tools and helpers",
   "scripts": {
     "format:docs": "prettier --write README.md 'docs/**/*.md' 'tools/python/**/*.md'",
-    "format:github": "prettier --write '.prettierrc.yaml' '.github/**/*.yaml' '.github/*.yml'"
+    "format:forgejo": "prettier --write '.prettierrc.yaml' '.forgejo/**/*.yaml' '.forgejo/*.yml'"
   },
   "author": "Alexander Borsuk <me@alex.bio>",
   "license": "MIT",

@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - packaging/app.organicmaps.desktop.metainfo.xml
-      - .github/workflows/appstream-check.yaml  # Run check on self change
+      - .forgejo/workflows/appstream-check.yaml  # Run check on self change
 
 jobs:
   validate-appstream:

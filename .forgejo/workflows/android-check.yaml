@@ -7,8 +7,8 @@ on:
   pull_request:
     paths-ignore:
       - .gitignore
-      - .github/**
-      - '!.github/workflows/android-check.yaml'  # Run check on self change
+      - .forgejo/**
+      - '!.forgejo/workflows/android-check.yaml'  # Run check on self change
       - '**/*_tests/**'
       - CONTRIBUTORS
       - LICENSE

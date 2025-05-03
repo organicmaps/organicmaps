@@ -3,7 +3,7 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
-      - .github/workflows/ios-check-metadata.yaml  # Run check on self change
+      - .forgejo/workflows/ios-check-metadata.yaml  # Run check on self change
       - iphone/metadata/**
       - tools/python/check_store_metadata.py
 
