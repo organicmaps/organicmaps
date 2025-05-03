@@ -67,7 +67,9 @@ public class Metadata implements Parcelable
     FMD_WEBSITE_MENU(46),
     FMD_SELF_SERVICE(47),
     FMD_OUTDOOR_SEATING(48),
-    FMD_NETWORK(49);
+    FMD_NETWORK(49),
+    FMD_CONTACT_FEDIVERSE(50),
+    FMD_CONTACT_BLUESKY(51);
     private final int mMetaType;
 
     MetadataType(int metadataType)
