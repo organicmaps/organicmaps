@@ -1,9 +1,9 @@
 # Subway layer generation
 
-For the subway layer to be available in Organic Maps, a `SUBWAY_URL`
+For the subway layer to be available in CoMaps, a `SUBWAY_URL`
 parameter ought to be provided to the
-[map generator](https://github.com/organicmaps/organicmaps/tree/master/tools/python/maps_generator).
-Normally you can specify this link https://cdn.organicmaps.app/subway.json,
+[map generator](https://codeberg.com/comaps/comaps/tree/master/tools/python/maps_generator).
+Normally you can specify this link https://cdn.comaps.app/subway.json,
 which provides a regularly updated file.
 These instructions describe how to manually build a subway layer file.
 
@@ -21,7 +21,7 @@ whole planet is also applicable.
     If you already have some not too outdated \*.o5m version, it is enough
     because the subway generation script will update it with `osmupdate`.
 
-1.  With the [Organic Maps subways](https://github.com/organicmaps/subways) repository deployed,
+1.  With the [CoMaps subways](https://codeberg.com/comaps/subways) repository deployed,
     run `scripts/process_subways.sh` bash script or prepare your own script
     which launches `process_subways.py` and `validation_to_html.py` scripts
     with suitable options.

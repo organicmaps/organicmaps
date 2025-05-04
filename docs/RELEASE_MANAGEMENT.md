@@ -4,11 +4,11 @@
 
 ### Upload metadata and screenshots to the App Store
 
-Use [GitHub Actions](../.github/workflows/ios-release.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/ios-release.yaml).
 
 ### Check metadata
 
-Use [GitHub Actions](../.github/workflows/ios-check.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/ios-check.yaml).
 
 Local check:
 
@@ -40,21 +40,21 @@ cd xcode
 
 ### Upload metadata and screenshots to Google Play
 
-Use [GitHub Actions](../.github/workflows/android-release-metadata.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/android-release-metadata.yaml).
 
 ### Uploading a new version to Google Play
 
-Use [GitHub Actions](../.github/workflows/android-release.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/android-release.yaml).
 
 Promote version to "Production" manually in Google Play Console.
 
 ### Uploading a new version to Huawei AppGallery
 
-Use [GitHub Actions](../.github/workflows/android-release.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/android-release.yaml).
 
 ### Checking metadata
 
-Use [GitHub Actions](../.github/workflows/android-check.yaml).
+Use [Forgejo Actions](../.forgejo/workflows/android-check.yaml).
 
 Checking locally:
 

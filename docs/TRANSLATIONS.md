@@ -22,7 +22,7 @@ The project consists of multiple components, each with its own translation files
 | Android Stores Descriptions                                | Google, F-Droid, Huawei store descriptions                 | [android/app/src/fdroid/play][googleplay_git] ([en][googleplay_git_en])                                  |
 | [Website][website_weblate]                          | Website content                                            | [organicmaps/website][website_git] ([see details][website_guide])                                        |
 
-Components without links haven't been integrated into Weblate and must be translated directly via [GitHub Pull Requests](CONTRIBUTING.md).
+Components without links haven't been integrated into Weblate and must be translated directly via [Codeberg Pull Requests](CONTRIBUTING.md).
 
 ## Translating
 
@@ -64,13 +64,13 @@ Weblate maintains an internal copy of the Git repository. The repository URL can
 
 Translations are extracted from the repository and stored in an internal database, which is used by the Weblate UI. Every 24 hours, this internal database is synchronized back to the internal repository. This process can also be triggered manually via _Manage → Repository Maintenance → Commit_.
 
-After committing changes from the internal database to the internal repository, Weblate pushes all updates to the `weblate-i18n` branch of the main GitHub repository and creates or updates a pull request (PR) to `master`. This operation can be manually triggered via _Manage → Repository Maintenance → Push_.
+After committing changes from the internal database to the internal repository, Weblate pushes all updates to the `weblate-i18n` branch of the main Codeberg repository and creates or updates a pull request (PR) to `master`. This operation can be manually triggered via _Manage → Repository Maintenance → Push_.
 
 ### Reviewing PRs
 
 Translations are intended to be reviewed by the community on Weblate. However, if it's a user's first contribution or if there is any doubt, a quick scan and comparison with the English source can be useful.
 
-It is recommended to add comments directly on Weblate, as translators primarily work within that platform. If the contributor has a GitHub account, you may tag them in the pull request, but there is no guarantee that they will respond.
+It is recommended to add comments directly on Weblate, as translators primarily work within that platform. If the contributor has a Codeberg account, you may tag them in the pull request, but there is no guarantee that they will respond.
 
 ### Resolving Conflicts
 
@@ -78,11 +78,11 @@ The recommended approach for resolving conflicts is as follows:
 
 1. Commit all changes from the internal database to the internal Git repository:  
    _Manage → Repository Maintenance → Commit (button)_.
-2. Update the `weblate-i18n` branch on GitHub:  
+2. Update the `weblate-i18n` branch on Codeberg:  
    _Manage → Repository Maintenance → Push (button)_.
 3. Locally checkout the `weblate-i18n` branch.
 4. Rebase it onto `master`, resolving any conflicts during the process.
-5. Push the branch to GitHub to update the pull request, then merge the branch or PR into `master`.
+5. Push the branch to Codeberg to update the pull request, then merge the branch or PR into `master`.
 6. Reset Weblate to sync changes from GitHub:  
    _Manage → Repository Maintenance → Reset (button)_.
 

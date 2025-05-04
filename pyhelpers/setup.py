@@ -502,9 +502,9 @@ def get_requirements(path="", omim_package_version=get_version()):
 def setup_omim_pybinding(
     name,
     version=None,
-    author='Organic Maps',
-    author_email='info@organicmaps.app',
-    url='https://github.com/organicmaps/organicmaps',
+    author='CoMaps',
+    author_email='info@comaps.app',
+    url='https://codeberg.com/comaps/comaps',
     license='Apache-2.0',
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),
 ):
