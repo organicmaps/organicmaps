@@ -65,3 +65,6 @@
 [submodule "3party/imgui/imgui"]
   path = 3party/imgui/imgui
   url = https://github.com/ocornut/imgui
+[submodule "3party/healpix/cfitsio"]
+	path = 3party/healpix/cfitsio
+	url = https://github.com/HEASARC/cfitsio.git
