@@ -4,7 +4,7 @@
 <h1 align="center"">CoMaps</h1>
 
 [CoMaps](https://comaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
-It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data, and is developed with love s developed with love by our community and former **Organic Maps** contributors (Forked from **Maps.Me**).
+It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data, and is developed with love by our community and former **Organic Maps** contributors (Forked from **Maps.Me**).
 No ads, no tracking, no data collection, no crapware. Your [donations](https://comaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
 
 [<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/comaps/id1567437057)
@@ -17,6 +17,12 @@ No ads, no tracking, no data collection, no crapware. Your [donations](https://c
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="180" />
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="180" />
 </p>
+
+## What's the difference to Organic Maps?
+
+CoMaps is a fork/spin-off of Organic Maps, which in turn is a fork/spin-off of Maps.me. The CoMaps project emerged in response to the growing concerns and dissatisfaction with the Organic Maps leadership. The original Organic Maps project, while initially promoted as an open community effort, faced significant issues related to governance, transparency, and the potential of shareholder profit at the expense of the community. These concerns were detailed in an open letter to Organic Maps shareholders, which can be found [here](https://openletter.earth/open-letter-to-organic-maps-shareholders-a0bf770c). Despite some positive steps, the lack of a substantial resolution has led former Organic Maps contributors to the decision to start a new independent project.
+
+With CoMaps, we want to overcome these issues by moving to a nonprofit structure (not finished yet), greater inclusivity in decision-making, and financial transparency.
 
 ## Features
 
