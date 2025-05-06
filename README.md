@@ -14,7 +14,12 @@ The CoMaps project emerged in response to the growing concerns and dissatisfacti
 ### New Path Forward
 
 At CoMaps, we are dedicated to ensuring that all project-related efforts are conducted in public, providing full transparency in decision-making, priorities, goals, financials, and operations. We believe in community decision-making, where those impacted by decisions have a voice and are empowered to participate. Our project operates as a not-for-profit entity, focusing on creating value for the community rather than generating profit. We are committed to maintaining the complete codebase and associated resources under Free and Open Source Software licenses, ensuring that development is open and transparent.
-Privacy is an important part of the project. The app does not track users or collect data behind the scenes; if there is potential of data collection, for example sharing app logs with tech support, it is fully disclosed and requires opt-in consent. Funding for CoMaps primarily comes from community donations, and possibility of grants and B2B products, as long as they align with the principles and are approved by the community. All assets created or acquired are owned by the community and used for its benefit. We are building a navigation app that is not only easy to use and fast, but also reflects the values of openness, transparency, and community collaboration. Join us in creating a navigation solution that truly serves the public good.
+
+Privacy is an important part of the project. The app does not track users or collect personal data behind the scenes; if there is potential of data collection, for example sharing app logs with tech support, it is fully disclosed and requires opt-in consent. Funding for CoMaps primarily comes from community donations, and possibility of grants and B2B products, as long as they align with the principles and are approved by the community. All assets created or acquired are owned by the community and used for its benefit.
+
+We are building a navigation app that is not only easy to use and fast, but also reflects the values of openness, transparency, and community collaboration. Join us in creating a navigation solution that truly serves the public good.
+
+Read on about project's principles and governance structure in the [dedicated repo](https://codeberg.org/comaps/governance#core-principles-work-in-progress).
 
 <br>
 
