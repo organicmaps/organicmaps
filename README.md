@@ -1,10 +1,10 @@
 <!--<div align="center">
   <img src="qt/res/logo.png" height="100"/>
 </div>-->
-<h1 align="center"">CoMaps</h1>
+<h1 align="center"">CoMaps - Discover more of your journey, powered by the community</h1>
 
 
-CoMaps is a new community-driven project born out of the desire to create a truly open, transparent, and community-focused navigation app. Our mission is to provide easy, offline navigation for drivers, hikers, and cyclists, with a strong emphasis on open-source principles and respecting data privacy. We are committed to building a world where the top choice for navigation software is free and developed through open collaboration.
+CoMaps is a new community-driven maps app project born out of the desire to create a truly open, transparent, and community-focused navigation app. Our mission is to provide easy, offline navigation for travellers, drivers, hikers, and cyclists, with a strong emphasis on open-source principles and respecting data privacy. We are committed to building a world where the top choice for navigation software is free and developed through open collaboration.
 
 ### Community Action
 
@@ -19,8 +19,6 @@ Privacy is an important part of the project. The app does not track users or col
 <br>
 
 ## [CoMaps](https://comaps.app) – Hike, Bike, Drive Offline – Easy Map Navigation with Privacy
-
-Discover more of your journey - Powered by the community
 
 A community-led maps app based on an open source foundation and reinforced with commitment to transparency, privacy and being not-for-profit.
 
@@ -122,7 +120,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
 - **Star us on Codeberg**.
 - Report bugs or issues to [the issue tracker](https://codeberg.org/comaps/comaps/issues).
 
-### Connet with us
+### Connect with us
 
 [Bluesky](https://bsky.app/profile/comaps.app)
  | [Facebook](https://www.facebook.com/CoMapsCommunity/)
