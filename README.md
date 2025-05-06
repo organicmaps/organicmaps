@@ -33,9 +33,13 @@ Join the community and help make the best maps app
 
 Your [donations](https://opencollective.com/comaps/donate) and positive reviews motivate and inspire us, thanks ❤️!
 
+**We're working on getting first app releases out soon, please stay tuned!**
+
+<!--
 [<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/comaps/id1567437057)
 [<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.comaps)
 [<img src="docs/badges/fdroid.png" alt="F-Droid" width="160">](https://f-droid.org/en/packages/app.comaps/)
+-->
 
 <p float="left">
   <img src="android/app/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="180" />
@@ -113,12 +117,16 @@ You can help by donating, by helping build the product, or by telling others abo
 If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
 see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](https://comaps.app/support-us/), the ability to code is not necessary.
 
+Some docs might be outdated, contain broken links or old references to Organic Maps, etc. Its a work in progress and help is much appreciated!
+
+<!-- uncomment when linked resources are ready
 ### Feedback
 
 - **Rate us on the [App Store](https://apps.apple.com/app/comaps/id1567437057)
 and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
 - **Star us on Codeberg**.
 - Report bugs or issues to [the issue tracker](https://codeberg.org/comaps/comaps/issues).
+-->
 
 ### Connect with us
 
