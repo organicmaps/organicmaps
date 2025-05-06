@@ -8,7 +8,7 @@ CoMaps is a new community-driven maps app project born out of the desire to crea
 
 ### Community Action
 
-The CoMaps project emerged in response to the growing concerns and dissatisfaction within the Organic Maps community. The original Organic Maps project, while initially promoted as an open community effort, faced significant issues related to governance, transparency, and the potential for shareholder profit at the expense of the community. These concerns were detailed in an open letter to Organic Maps shareholders, which can be found [here](https://openletter.earth/open-letter-to-organic-maps-shareholders-a0bf770c). Despite some positive steps, the lack of a substantive resolution has led to the decision to start a new independent project.
+The CoMaps project was initiated in response to the growing concerns and dissatisfaction within the Organic Maps community. The original Organic Maps project, while initially promoted as an open community effort, faced significant issues related to governance, transparency, and the potential for shareholder profit at the expense of the community. These concerns were detailed in an open letter to Organic Maps shareholders, which can be found [here](https://openletter.earth/open-letter-to-organic-maps-shareholders-a0bf770c). Despite some positive steps, the lack of a substantive resolution has led to the decision to start a new independent project.
 
 
 ### New Path Forward
