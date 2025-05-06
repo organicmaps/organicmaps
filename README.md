@@ -33,7 +33,7 @@ Join the community and help make the best maps app
 –	Update map data in the app or on the [OpenStreetMap](https://www.openstreetmap.org) website
 
 
-Your [donations](https://comaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
+Your [donations](https://opencollective.com/comaps/donate) and positive reviews motivate and inspire us, thanks ❤️!
 
 [<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/comaps/id1567437057)
 [<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.comaps)
@@ -104,10 +104,9 @@ Freedom Is Here Discover your journey, navigate the world with privacy and commu
 
 ### Who is paying for development?
 
-The app is free for everyone, so we rely on donations. Please donate at [comaps.app/donate](https://comaps.app/donate) to support us!
+The app is free for everyone, so we rely on donations. Please [donate](https://opencollective.com/comaps/donate) to support the CoMaps community and see this open project thrive!
 
-Please consider [donating](https://comaps.app/donate) if you want to see this open-source project thriving.
-
+The project's financial information is completely open and transparent at [our Open Collective](https://opencollective.com/comaps).
 
 ### How can I help with CoMaps?
 
