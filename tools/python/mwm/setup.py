@@ -16,10 +16,10 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-mwm",
         version=str(get_version()),
-        author="Organic Maps",
-        author_email="info@organicmaps.app",
+        author="CoMaps",
+        author_email="info@comaps.app",
         description="This package is a library that can work with mwm files.",
-        url="https://github.com/organicmaps",
+        url="https://codeberg.com/comaps",
         package_dir={"mwm": ""},
         packages=["mwm"],
         classifiers=[

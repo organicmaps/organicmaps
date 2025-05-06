@@ -52,10 +52,10 @@ def setup(
         setuptools.setup(
             name="omim-data-{}".format(suffix),
             version=str(get_version()),
-            author="Organic Maps",
-            author_email="info@organicmaps.app",
+            author="CoMaps",
+            author_email="info@comaps.app",
             description="This package contains {} data files.".format(suffix),
-            url="https://github.com/organicmaps",
+            url="https://codeberg.com/comaps",
             packages=[] if packages is None else packages,
             package_dir={} if package_dir is None else package_dir,
             cmdclass={} if cmdclass is None else cmdclass,

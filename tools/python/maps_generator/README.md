@@ -8,7 +8,7 @@ maps built by a generator_tool newer than the app.**
 ## What are maps?
 
 Maps are `.mwm` binary files with special meta-information for rendering, searching, routing, and other use cases.
-Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries for each individual file. The world is segmented into separate files by these boundaries, with the intent of having manageably small files to download. These files are referred to as *maps* or *countries*. A country is referring to one of these files, not necessarily a geographic country. Also note that there are two special countries called *World* and *WorldCoasts*. These are small simplified maps of the world and coastlines (sea and ocean watercover) used when other maps have not yet been downloaded.
+Files from [data/borders](https://codeberg.com/comaps/comaps/src/branch/main/data/borders) define map boundaries for each individual file. The world is segmented into separate files by these boundaries, with the intent of having manageably small files to download. These files are referred to as *maps* or *countries*. A country is referring to one of these files, not necessarily a geographic country. Also note that there are two special countries called *World* and *WorldCoasts*. These are small simplified maps of the world and coastlines (sea and ocean watercover) used when other maps have not yet been downloaded.
 
 ## Setup
 
@@ -42,7 +42,7 @@ cd tools/python/maps_generator
 pip3 install -r requirements_dev.txt
 ```
 
-5. Create a [configuration file with defaults](https://github.com/organicmaps/organicmaps/blob/master/tools/python/maps_generator/var/etc/map_generator.ini.default):
+5. Create a [configuration file with defaults](https://codeberg.com/comaps/comaps/src/branch/main/tools/python/maps_generator/var/etc/map_generator.ini.default):
 
 ```sh
 cp var/etc/map_generator.ini.default var/etc/map_generator.ini
@@ -172,4 +172,4 @@ In this example we skipped generation of the World\* files because they are ones
 
 ### Subways layer
 
-You can manually generate a subway layer file to use in the `SUBWAY_URL` ini setting. See [instructions](https://github.com/organicmaps/organicmaps/tree/master/docs/SUBWAY_GENERATION.md).
+You can manually generate a subway layer file to use in the `SUBWAY_URL` ini setting. See [instructions](https://codeberg.com/comaps/comaps/src/branch/main/docs/SUBWAY_GENERATION.md).

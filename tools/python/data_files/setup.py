@@ -16,10 +16,10 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-data-files",
         version=str(get_version()),
-        author="Organic Maps",
-        author_email="info@organicmaps.app",
+        author="CoMaps",
+        author_email="info@comaps.app",
         description="This package is a library for dealing with data files.",
-        url="https://github.com/organicmaps",
+        url="https://codeberg.com/comaps",
         package_dir={"data_files": ""},
         packages=["data_files",],
         classifiers=["License :: OSI Approved :: Apache Software License",]

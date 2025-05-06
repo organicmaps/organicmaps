@@ -16,11 +16,11 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-descriptions",
         version=str(get_version()),
-        author="Organic Maps",
-        author_email="info@organicmaps.app",
+        author="CoMaps",
+        author_email="info@comaps.app",
         description="This package is a library that provides descriptions "
         "(such as those from Wikipedia) to geographic objects.",
-        url="https://github.com/organicmaps",
+        url="https://codeberg.com/comaps",
         package_dir={"descriptions": ""},
         packages=["descriptions"],
         classifiers=[

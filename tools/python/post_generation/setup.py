@@ -16,10 +16,10 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-post_generation",
         version=str(get_version()),
-        author="Organic Maps",
-        author_email="info@organicmaps.app",
+        author="CoMaps",
+        author_email="info@comaps.app",
         description="This package is a library for post-processing the generated maps.",
-        url="https://github.com/organicmaps",
+        url="https://codeberg.com/comaps",
         package_dir={"post_generation": ""},
         packages=["post_generation"],
         classifiers=[
