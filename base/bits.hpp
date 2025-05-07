@@ -40,21 +40,27 @@ std::make_signed_t<T> ZigZagDecode(T x)
   return (x >> 1) ^ -static_cast<std::make_signed_t<T>>(x & 1);
 }
 
-constexpr uint32_t PerfectShuffle(uint32_t x)
+// Perform a perfect shuffle of the bits of 64-bit integer, shuffling bits from
+// 'abcd efgh ijkl mnop ABCD EFGH IJKL MNOP' to 'aAbB cCdD eEfF gGhH iIjJ kKlL mMnN oOpP'.
+// See http://www.icodeguru.com/Embedded/Hacker's-Delight/047.htm
+constexpr uint64_t PerfectShuffle(uint64_t x)
 {
-  x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF);
-  x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F);
-  x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3);
-  x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999);
+  x = ((x & 0x00000000FFFF0000ULL) << 16) | ((x >> 16) & 0x00000000FFFF0000ULL) | (x & 0xFFFF00000000FFFFULL);
+  x = ((x & 0x0000FF000000FF00ULL) << 8) | ((x >> 8) & 0x0000FF000000FF00ULL) | (x & 0xFF0000FFFF0000FFULL);
+  x = ((x & 0x00F000F000F000F0ULL) << 4) | ((x >> 4) & 0x00F000F000F000F0ULL) | (x & 0xF00FF00FF00FF00FULL);
+  x = ((x & 0x0C0C0C0C0C0C0C0CULL) << 2) | ((x >> 2) & 0x0C0C0C0C0C0C0C0CULL) | (x & 0xC3C3C3C3C3C3C3C3ULL);
+  x = ((x & 0x2222222222222222ULL) << 1) | ((x >> 1) & 0x2222222222222222ULL) | (x & 0x9999999999999999ULL);
   return x;
 }
 
-constexpr uint32_t PerfectUnshuffle(uint32_t x)
+// Reverses the perfect shuffle of bits in a 64-bit integer
+constexpr uint64_t PerfectUnshuffle(uint64_t x)
 {
-  x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999);
-  x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3);
-  x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F);
-  x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF);
+  x = ((x & 0x2222222222222222ULL) << 1) | ((x >> 1) & 0x2222222222222222ULL) | (x & 0x9999999999999999ULL);
+  x = ((x & 0x0C0C0C0C0C0C0C0CULL) << 2) | ((x >> 2) & 0x0C0C0C0C0C0C0C0CULL) | (x & 0xC3C3C3C3C3C3C3C3ULL);
+  x = ((x & 0x00F000F000F000F0ULL) << 4) | ((x >> 4) & 0x00F000F000F000F0ULL) | (x & 0xF00FF00FF00FF00FULL);
+  x = ((x & 0x0000FF000000FF00ULL) << 8) | ((x >> 8) & 0x0000FF000000FF00ULL) | (x & 0xFF0000FFFF0000FFULL);
+  x = ((x & 0x00000000FFFF0000ULL) << 16) | ((x >> 16) & 0x00000000FFFF0000ULL) | (x & 0xFFFF00000000FFFFULL);
   return x;
 }
 
@@ -66,17 +72,14 @@ constexpr uint32_t PerfectUnshuffle(uint32_t x)
 // then the bits of the result are {y31, x31, y30, x30, ..., y0, x0}.
 constexpr uint64_t BitwiseMerge(uint32_t x, uint32_t y)
 {
-  uint32_t const hi = PerfectShuffle((y & 0xFFFF0000) | (x >> 16));
-  uint32_t const lo = PerfectShuffle(((y & 0xFFFF) << 16 ) | (x & 0xFFFF));
-  return (static_cast<uint64_t>(hi) << 32) + lo;
+  return PerfectShuffle((static_cast<uint64_t>(y) << 32) | x);
 }
 
 constexpr void BitwiseSplit(uint64_t v, uint32_t & x, uint32_t & y)
 {
-  uint32_t const hi = PerfectUnshuffle(static_cast<uint32_t>(v >> 32));
-  uint32_t const lo = PerfectUnshuffle(static_cast<uint32_t>(v & 0xFFFFFFFFULL));
-  x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF);
-  y = (hi & 0xFFFF0000) | (lo >> 16);
+  uint64_t unshuffle = PerfectUnshuffle(v);
+  x = static_cast<uint32_t>(unshuffle);
+  y = static_cast<uint32_t>(unshuffle >> 32);
 }
 
 // Returns 1 if bit is set and 0 otherwise.
