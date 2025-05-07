@@ -12,8 +12,8 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
-import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;

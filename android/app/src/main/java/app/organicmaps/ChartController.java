@@ -21,8 +21,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.widget.placepage.AxisValueFormatter;
 import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
 import app.organicmaps.widget.placepage.FloatingMarkerView;

@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
-import app.organicmaps.location.TrackRecorder;
-import app.organicmaps.util.Config;
+import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.sdk.util.Config;
 
 import java.util.ArrayList;
 

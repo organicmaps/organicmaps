@@ -16,19 +16,19 @@ import androidx.car.app.model.ItemList;
 import androidx.car.app.model.Row;
 import androidx.core.graphics.drawable.IconCompat;
 
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
-import app.organicmaps.bookmarks.data.BookmarkInfo;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.Icon;
-import app.organicmaps.bookmarks.data.SortedBlock;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingHelpers;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.util.Distance;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.util.Graphics;
-import app.organicmaps.util.concurrency.ThreadPool;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,7 +112,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     if (sortingType < 0)
       return false;
 
-    final Location loc = LocationHelper.from(mCarContext).getSavedLocation();
+    final Location loc = MwmApplication.from(mCarContext).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
     if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
       return false;
@@ -146,7 +146,7 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
   @NonNull
   private ItemList createBookmarksList(@NonNull BookmarkInfo[] bookmarks)
   {
-    final Location location = LocationHelper.from(mCarContext).getSavedLocation();
+    final Location location = MwmApplication.from(mCarContext).getLocationHelper().getSavedLocation();
     final ItemList.Builder builder = new ItemList.Builder();
     final Map<Icon, CarIcon> iconsCache = new HashMap<>();
     for (final BookmarkInfo bookmarkInfo : bookmarks)

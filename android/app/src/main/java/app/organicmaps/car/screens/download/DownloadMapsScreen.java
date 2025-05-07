@@ -11,8 +11,8 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.util.StringUtils;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.util.StringUtils;
 
 import java.util.List;
 

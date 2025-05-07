@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.BuildConfig;
-import app.organicmaps.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.CountryItem;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -16,12 +16,12 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.products.Product;
-import app.organicmaps.products.ProductsConfig;
-import app.organicmaps.util.Constants;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.products.Product;
+import app.organicmaps.sdk.products.ProductsConfig;
+import app.organicmaps.sdk.util.Constants;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 
 public class PlacePageProductsFragment extends Fragment

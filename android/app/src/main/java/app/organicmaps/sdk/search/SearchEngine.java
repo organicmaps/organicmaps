@@ -8,9 +8,9 @@ import androidx.annotation.Nullable;
 
 import org.chromium.base.ObserverList;
 
-import app.organicmaps.Framework;
-import app.organicmaps.util.Language;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.util.Language;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 
 import java.nio.charset.StandardCharsets;
 

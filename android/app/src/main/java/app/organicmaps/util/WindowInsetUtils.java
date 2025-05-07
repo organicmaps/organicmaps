@@ -9,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.UiUtils;
 
 public final class WindowInsetUtils
 {

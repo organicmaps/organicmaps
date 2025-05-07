@@ -16,16 +16,16 @@ import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.sdk.search.SearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.search.SearchResult;
-import app.organicmaps.util.Language;
+import app.organicmaps.sdk.util.Language;
 
 public class SearchScreen extends BaseMapScreen implements SearchTemplate.SearchCallback, SearchListener
 {
@@ -89,7 +89,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       return;
     }
 
-    final MapObject location = LocationHelper.from(getCarContext()).getMyPosition();
+    final MapObject location = MwmApplication.from(getCarContext()).getLocationHelper().getMyPosition();
     final boolean hasLocation = location != null;
     final double lat = hasLocation ? location.getLat() : 0;
     final double lon = hasLocation ? location.getLon() : 0;

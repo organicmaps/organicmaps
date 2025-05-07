@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
-import app.organicmaps.util.Language;
+import app.organicmaps.sdk.util.Language;
 import app.organicmaps.util.ThemeUtils;
 
 import java.lang.annotation.Retention;

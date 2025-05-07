@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.IconsAdapter;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.Icon;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;

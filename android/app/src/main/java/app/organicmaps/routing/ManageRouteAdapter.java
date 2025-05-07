@@ -16,12 +16,11 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
-import app.organicmaps.sdk.routing.RoutePointInfo;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

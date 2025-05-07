@@ -11,12 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.FeatureId;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.location.LocationHelper;
+import app.organicmaps.sdk.bookmarks.data.FeatureId;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.ResultCodes;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutePointInfo;
@@ -28,10 +29,10 @@ import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.widget.placepage.CoordinatesFormat;
-import app.organicmaps.util.StringUtils;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.concurrency.UiThread;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.log.Logger;
 
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
@@ -118,12 +119,12 @@ public class RoutingController
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodesHelper.NO_ERROR
+      if (mLastResultCode == ResultCodes.NO_ERROR
           || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
       {
         onBuiltRoute();
       }
-      else if (mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
+      else if (mLastResultCode == ResultCodes.HAS_WARNINGS)
       {
         onBuiltRoute();
         if (mContainer != null)
@@ -172,13 +173,13 @@ public class RoutingController
     if (isDrivingOptionsBuildError())
       mContainer.onDrivingOptionsWarning();
 
-    if (mLastResultCode == ResultCodesHelper.NO_ERROR || mLastResultCode == ResultCodesHelper.HAS_WARNINGS)
+    if (mLastResultCode == ResultCodes.NO_ERROR || mLastResultCode == ResultCodes.HAS_WARNINGS)
     {
       updatePlan();
       return;
     }
 
-    if (mLastResultCode == ResultCodesHelper.CANCELLED)
+    if (mLastResultCode == ResultCodes.CANCELLED)
     {
       setBuildState(BuildState.NONE);
       updatePlan();
@@ -264,7 +265,7 @@ public class RoutingController
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     Framework.nativeSetRoutingRecommendationListener(recommendation -> UiThread.run(() -> {
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
-        setStartPoint(LocationHelper.from(context).getMyPosition());
+        setStartPoint(MwmApplication.from(context).getLocationHelper().getMyPosition());
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }

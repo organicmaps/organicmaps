@@ -9,8 +9,8 @@ import androidx.car.app.ScreenManager;
 
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.routing.RoutingController;
 
 public class CurrentCountryChangedListener implements MapManager.CurrentCountryChangedListener

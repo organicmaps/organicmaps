@@ -13,13 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.location.LocationHelper;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.widget.WheelProgressView;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.List;
 
@@ -114,7 +116,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   {
     super.onResume();
 
-    Location loc = LocationHelper.from(requireContext()).getSavedLocation();
+    Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     if (loc != null)
     {
       String id = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());

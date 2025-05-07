@@ -7,7 +7,7 @@ import android.view.View;
 
 import app.organicmaps.R;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 class DownloaderToolbarController extends SearchToolbarController
 {

@@ -1,10 +1,13 @@
 package app.organicmaps.widget.placepage;
 
+import static app.organicmaps.sdk.widget.placepage.PlacePageButtonFactory.nativeHasRecentlyDeletedBookmark;
+
 import android.content.Context;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
@@ -74,6 +77,4 @@ public class PlacePageButtonFactory
     };
     return new PlacePageButton(titleId, iconId, buttonType);
   }
-
-  private native static boolean nativeHasRecentlyDeletedBookmark();
 }

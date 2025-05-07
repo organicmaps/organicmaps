@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;

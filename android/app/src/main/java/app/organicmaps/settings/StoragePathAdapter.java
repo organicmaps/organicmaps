@@ -13,7 +13,7 @@ import android.widget.CheckedTextView;
 
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 class StoragePathAdapter extends BaseAdapter
 {

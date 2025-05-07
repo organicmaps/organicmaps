@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.util.Utils;
-import app.organicmaps.display.DisplayManager;
+import app.organicmaps.sdk.display.DisplayManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.List;

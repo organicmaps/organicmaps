@@ -11,10 +11,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 
 import app.organicmaps.R;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.widget.WheelProgressView;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.HashSet;
 import java.util.List;

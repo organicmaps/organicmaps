@@ -13,7 +13,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.Objects;
 

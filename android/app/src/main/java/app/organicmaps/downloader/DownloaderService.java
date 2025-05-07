@@ -16,7 +16,9 @@ import androidx.core.content.ContextCompat;
 import java.util.List;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.util.log.Logger;
 
 public class DownloaderService extends Service implements MapManager.StorageCallback
 {

@@ -14,18 +14,19 @@ import androidx.car.app.model.Row;
 import androidx.car.app.navigation.model.MapController;
 import androidx.core.graphics.drawable.IconCompat;
 
-import app.organicmaps.Map;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
-import app.organicmaps.editor.OpeningHours;
-import app.organicmaps.editor.data.Timetable;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationState;
-import app.organicmaps.util.LocationUtils;
+import app.organicmaps.sdk.editor.OpeningHours;
+import app.organicmaps.sdk.editor.data.Timetable;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.util.Utils;
 
 import java.util.Calendar;
@@ -180,7 +181,7 @@ public final class UiHelpers
     builder.setIcon(icon);
     builder.setOnClickListener(() -> {
       LocationState.nativeSwitchToNextMode();
-      final LocationHelper locationHelper = LocationHelper.from(context);
+      final LocationHelper locationHelper = MwmApplication.from(context).getLocationHelper();
       if (!locationHelper.isActive() && LocationUtils.checkFineLocationPermission(context))
         locationHelper.start();
     });

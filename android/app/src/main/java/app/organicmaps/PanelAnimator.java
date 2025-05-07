@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import org.chromium.base.ObserverList;
 
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 class PanelAnimator
 {
