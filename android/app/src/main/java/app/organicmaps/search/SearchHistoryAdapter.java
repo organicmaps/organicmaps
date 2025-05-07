@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.widget.SearchToolbarController;
@@ -67,7 +67,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
       case TYPE_MY_POSITION:
         res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
         res.mText.setOnClickListener(v -> {
-          RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
+          RoutingController.get().onPoiSelected(MwmApplication.from(viewGroup.getContext()).getLocationHelper().getMyPosition());
           mSearchToolbarController.onUpClick();
         });
         break;

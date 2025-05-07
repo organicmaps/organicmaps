@@ -10,7 +10,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.core.content.ContextCompat;
 
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.util.log.Logger;
 
 public class RequestPermissionsScreenBuilder
 {

@@ -12,14 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
-import app.organicmaps.util.StringUtils;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.time.LocalTime;
@@ -208,7 +209,7 @@ public class NavMenu
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
-    final Location last = LocationHelper.from(mActivity).getSavedLocation();
+    final Location last = MwmApplication.from(mActivity).getLocationHelper().getSavedLocation();
     if (last == null)
       return;
 

@@ -9,6 +9,7 @@ import androidx.annotation.StringRes;
 
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
+import app.organicmaps.sdk.maplayer.Mode;
 import app.organicmaps.util.ThemeUtils;
 
 public class LayerBottomSheetItem

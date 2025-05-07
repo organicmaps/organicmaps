@@ -10,19 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
-import app.organicmaps.bookmarks.data.DistanceAndAzimut;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationListener;
-import app.organicmaps.location.SensorHelper;
-import app.organicmaps.location.SensorListener;
+import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class DirectionFragment extends BaseMwmDialogFragment
                             implements LocationListener, SensorListener
@@ -99,8 +98,8 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.from(requireContext()).addListener(this);
-    SensorHelper.from(requireContext()).addListener(this);
+    MwmApplication.from(requireContext()).getLocationHelper().addListener(this);
+    MwmApplication.from(requireContext()).getSensorHelper().addListener(this);
     ((MwmActivity) requireActivity()).hideOrShowUIWithoutClosingPlacePage(true);
     refreshViews();
   }
@@ -109,8 +108,8 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public void onPause()
   {
     super.onPause();
-    LocationHelper.from(requireContext()).removeListener(this);
-    SensorHelper.from(requireContext()).removeListener(this);
+    MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
+    MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
   }
 
   @Override
@@ -135,7 +134,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
   @Override
   public void onCompassUpdated(double north)
   {
-    final Location last = LocationHelper.from(requireContext()).getSavedLocation();
+    final Location last = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     if (last == null || mMapObject == null)
       return;
 

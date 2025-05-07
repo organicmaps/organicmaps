@@ -3,7 +3,7 @@ package app.organicmaps.maplayer;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.sdk.location.TrackRecorder;
 
 public class MapButtonsViewModel extends ViewModel
 {

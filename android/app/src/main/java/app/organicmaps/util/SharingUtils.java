@@ -22,12 +22,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
-import app.organicmaps.bookmarks.data.BookmarkInfo;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.util.log.Logger;
 
 public class SharingUtils
 {

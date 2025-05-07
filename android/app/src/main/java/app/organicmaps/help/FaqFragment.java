@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.util.Constants;
+import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
