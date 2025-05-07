@@ -399,7 +399,6 @@ dependencies {
   implementation(platform('org.jetbrains.kotlin:kotlin-bom:2.1.10'))
   implementation 'androidx.annotation:annotation:1.9.1'
   implementation 'androidx.appcompat:appcompat:1.7.0'
-  implementation 'androidx.core:core-splashscreen:1.0.1'
   implementation 'androidx.car.app:app:1.7.0-rc01'
   implementation 'androidx.car.app:app-projected:1.7.0-rc01'
   implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
