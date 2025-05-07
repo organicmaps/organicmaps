@@ -14,8 +14,8 @@ import androidx.fragment.app.FragmentManager;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     implements RadioGroup.OnCheckedChangeListener

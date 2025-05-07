@@ -27,23 +27,23 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
-import app.organicmaps.bookmarks.data.BookmarkInfo;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.BookmarkSharingResult;
-import app.organicmaps.bookmarks.data.CategoryDataSource;
-import app.organicmaps.bookmarks.data.Icon;
-import app.organicmaps.bookmarks.data.KmlFileType;
-import app.organicmaps.bookmarks.data.SortedBlock;
-import app.organicmaps.bookmarks.data.Track;
-import app.organicmaps.location.LocationHelper;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
+import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
+import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.KmlFileType;
+import app.organicmaps.sdk.bookmarks.data.SortedBlock;
+import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.search.BookmarkSearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -423,7 +423,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     mLastSortTimestamp = System.nanoTime();
 
-    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
+    final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
     if (!hasMyPosition && sortingType == BookmarkManager.SORT_BY_DISTANCE)
       return;
@@ -511,7 +511,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private int[] getAvailableSortingTypes()
   {
     final long catId = mCategoryDataSource.getData().getId();
-    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
+    final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
     return BookmarkManager.INSTANCE.getAvailableSortingTypes(catId, hasMyPosition);
   }

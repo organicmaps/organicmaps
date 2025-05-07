@@ -24,9 +24,9 @@ import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.UserActionRequired;
-import app.organicmaps.util.LocationUtils;
-import app.organicmaps.util.concurrency.ThreadPool;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 
 import java.util.concurrent.ExecutorService;
 

@@ -8,20 +8,22 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.maplayer.isolines.IsolinesManager;
-import app.organicmaps.maplayer.subway.SubwayManager;
-import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.location.SensorHelper;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
+import app.organicmaps.sdk.maplayer.subway.SubwayManager;
+import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.settings.StoragePathManager;
-import app.organicmaps.sound.TtsPlayer;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.SharedPropertiesUtils;
-import app.organicmaps.util.StorageUtils;
-import app.organicmaps.util.ThemeSwitcher;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.sound.TtsPlayer;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.ThemeSwitcher;
+import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.util.log.Logger;
 
 import java.io.IOException;
 
@@ -32,8 +34,42 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   @NonNull
   private final Context mContext;
 
+  @NonNull
+  private final IsolinesManager mIsolinesManager;
+  @NonNull
+  private final SubwayManager mSubwayManager;
+
+  @NonNull
+  private final LocationHelper mLocationHelper;
+  @NonNull
+  private final SensorHelper mSensorHelper;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
+
+  @NonNull
+  public LocationHelper getLocationHelper()
+  {
+    return mLocationHelper;
+  }
+
+  @NonNull
+  public SensorHelper getSensorHelper()
+  {
+    return mSensorHelper;
+  }
+
+  @NonNull
+  public SubwayManager getSubwayManager()
+  {
+    return mSubwayManager;
+  }
+
+  @NonNull
+  public IsolinesManager getIsolinesManager()
+  {
+    return mIsolinesManager;
+  }
 
   public OrganicMaps(@NonNull Context context)
   {
@@ -48,6 +84,11 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeSetSettingsDir(settingsPath);
 
     Config.init(mContext);
+
+    mLocationHelper = new LocationHelper(mContext);
+    mSensorHelper = new SensorHelper(mContext);
+    mIsolinesManager = new IsolinesManager(mContext);
+    mSubwayManager = new SubwayManager(mContext);
   }
 
   /**
@@ -128,8 +169,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     ThemeSwitcher.INSTANCE.restart(false);
     RoutingController.get().initialize(mContext);
     TrafficManager.INSTANCE.initialize();
-    SubwayManager.from(mContext).initialize();
-    IsolinesManager.from(mContext).initialize();
+    mSubwayManager.initialize();
+    mIsolinesManager.initialize();
     ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
     Logger.i(TAG, "Framework initialized");

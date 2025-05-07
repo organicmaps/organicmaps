@@ -24,27 +24,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.DistanceAndAzimut;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.bookmarks.data.Metadata;
-import app.organicmaps.downloader.CountryItem;
+import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Metadata;
+import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
-import app.organicmaps.downloader.MapManager;
-import app.organicmaps.editor.Editor;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationListener;
-import app.organicmaps.location.SensorHelper;
-import app.organicmaps.location.SensorListener;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.editor.Editor;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
@@ -60,6 +58,9 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
+import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        View.OnLongClickListener,
@@ -305,8 +306,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
-    LocationHelper.from(requireContext()).addListener(this);
-    SensorHelper.from(requireContext()).addListener(this);
+    MwmApplication.from(requireContext()).getLocationHelper().addListener(this);
+    MwmApplication.from(requireContext()).getSensorHelper().addListener(this);
   }
 
   @Override
@@ -314,8 +315,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
-    LocationHelper.from(requireContext()).removeListener(this);
-    SensorHelper.from(requireContext()).removeListener(this);
+    MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
+    MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
     detachCountry();
   }
 
@@ -332,7 +333,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     refreshPreview();
     refreshDetails();
-    final Location loc = LocationHelper.from(requireContext()).getSavedLocation();
+    final Location loc = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     if (mMapObject.isMyPosition())
       refreshMyPosition(loc);
     else
@@ -457,14 +458,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
 
-    final String wheelchair = Utils.getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
+    final String wheelchair = getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
     refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
 
     final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
     refreshMetadataOrHide(driveThrough.equals("yes") ? getString(R.string.drive_through) : "", mDriveThrough, mTvDriveThrough);
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
-    refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
+    refreshMetadataOrHide(getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
@@ -774,7 +775,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (mMapObject == null || mMapObject.isMyPosition())
       return;
 
-    final Location location = LocationHelper.from(requireContext()).getSavedLocation();
+    final Location location = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
     if (location == null)
     {
       UiUtils.hide(mAvDirection);

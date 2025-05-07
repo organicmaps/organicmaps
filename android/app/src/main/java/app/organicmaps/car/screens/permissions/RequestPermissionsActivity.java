@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.util.LocationUtils;
+import app.organicmaps.sdk.util.LocationUtils;
 
 import java.util.Objects;
 

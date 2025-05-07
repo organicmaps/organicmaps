@@ -1,8 +1,8 @@
-#include "app/organicmaps/Framework.hpp"
+#include "app/organicmaps/sdk/Framework.hpp"
 
-#include "app/organicmaps/platform/AndroidPlatform.hpp"
+#include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 
-#include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 
 extern "C"
 {

@@ -17,8 +17,8 @@ import androidx.annotation.StringRes;
 
 import app.organicmaps.R;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SearchToolbarController extends ToolbarController implements View.OnClickListener

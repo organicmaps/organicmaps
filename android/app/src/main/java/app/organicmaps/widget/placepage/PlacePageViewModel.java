@@ -3,7 +3,7 @@ package app.organicmaps.widget.placepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 
 import java.util.List;
 

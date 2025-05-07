@@ -1,6 +1,6 @@
 package app.organicmaps.car;
 
-import static app.organicmaps.display.DisplayType.Car;
+import static app.organicmaps.sdk.display.DisplayType.Car;
 
 import android.graphics.Rect;
 import android.view.Surface;
@@ -16,14 +16,14 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
-import app.organicmaps.Framework;
-import app.organicmaps.Map;
-import app.organicmaps.MapRenderingListener;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.R;
-import app.organicmaps.display.DisplayManager;
-import app.organicmaps.settings.UnitLocale;
-import app.organicmaps.util.concurrency.UiThread;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.settings.UnitLocale;
+import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.log.Logger;
 
 public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallback, MapRenderingListener
 {

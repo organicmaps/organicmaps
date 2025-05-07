@@ -16,7 +16,7 @@ public final class RoutingHelpers
   private RoutingHelpers() {}
 
   @NonNull
-  public static Distance createDistance(@NonNull final app.organicmaps.util.Distance distance)
+  public static Distance createDistance(@NonNull final app.organicmaps.sdk.util.Distance distance)
   {
     int displayUnit = switch (distance.mUnits)
     {

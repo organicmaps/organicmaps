@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.maplayer.isolines.IsolinesManager;
-import app.organicmaps.util.SharedPropertiesUtils;
+import app.organicmaps.sdk.maplayer.Mode;
+import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.widget.recycler.SpanningLinearLayoutManager;
@@ -74,7 +76,7 @@ public class ToggleMapLayerFragment extends Fragment
     mode.setEnabled(context, !mode.isEnabled(context));
     mAdapter.notifyDataSetChanged();
     mMapButtonsController.updateLayerButton();
-    if (IsolinesManager.from(context).shouldShowNotification())
+    if (MwmApplication.from(context).getIsolinesManager().shouldShowNotification())
       Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
   }
 

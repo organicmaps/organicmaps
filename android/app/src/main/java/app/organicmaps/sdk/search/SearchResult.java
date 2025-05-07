@@ -11,8 +11,8 @@ import android.text.style.StyleSpan;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-import app.organicmaps.bookmarks.data.FeatureId;
-import app.organicmaps.util.Distance;
+import app.organicmaps.sdk.bookmarks.data.FeatureId;
+import app.organicmaps.sdk.util.Distance;
 
 /**
  * Class instances are created from native code.

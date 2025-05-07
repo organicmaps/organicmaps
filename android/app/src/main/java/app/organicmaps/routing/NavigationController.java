@@ -13,16 +13,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.MapButtonsViewModel;
-import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.LanesView;
@@ -261,7 +261,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
 
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
-    final Location location = LocationHelper.from(mFrame.getContext()).getSavedLocation();
+    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
     if (location == null) {
       mSpeedLimit.setSpeedLimit(0, false);
       return;

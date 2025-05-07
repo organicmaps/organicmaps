@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.base.OnBackPressListener;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public abstract class WebContainerDelegate implements OnBackPressListener
 {

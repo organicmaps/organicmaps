@@ -12,12 +12,12 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.downloader.MapManager;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.StorageUtils;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.log.Logger;
 
 import java.io.File;
 import java.io.FilenameFilter;

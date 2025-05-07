@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import app.organicmaps.R;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class MenuBottomSheetFragment extends BottomSheetDialogFragment
 {

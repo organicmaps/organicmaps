@@ -18,11 +18,11 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import app.organicmaps.Map;
+import app.organicmaps.sdk.Map;
 import app.organicmaps.R;
-import app.organicmaps.location.LocationState;
+import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class MyPositionButton
 {

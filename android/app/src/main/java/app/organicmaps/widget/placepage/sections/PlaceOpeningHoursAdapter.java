@@ -8,9 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
-import app.organicmaps.editor.data.Timespan;
-import app.organicmaps.editor.data.Timetable;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.editor.data.Timespan;
+import app.organicmaps.sdk.editor.data.Timetable;
+import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +18,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
-import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
+import static app.organicmaps.sdk.editor.data.TimeFormatUtils.formatNonBusinessTime;
+import static app.organicmaps.sdk.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {

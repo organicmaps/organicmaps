@@ -13,14 +13,14 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.util.Config;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.StorageUtils;
+import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.concurrency.ThreadPool;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;

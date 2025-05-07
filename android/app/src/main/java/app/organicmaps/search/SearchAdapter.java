@@ -16,7 +16,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {

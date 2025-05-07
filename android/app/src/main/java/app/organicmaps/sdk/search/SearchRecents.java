@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import app.organicmaps.util.Language;
+import app.organicmaps.sdk.util.Language;
 
 import java.util.ArrayList;
 import java.util.List;

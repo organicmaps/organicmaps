@@ -14,10 +14,11 @@ import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 
-import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.LaneWay;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.SingleLaneInfo;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.widget.LanesDrawable;
 
@@ -56,7 +57,7 @@ public final class RoutingUtils
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0));
     if (!TextUtils.isEmpty(info.nextStreet))
-      builder.addStep(createNextStep(context, info), createTravelEstimate(app.organicmaps.util.Distance.EMPTY, 0));
+      builder.addStep(createNextStep(context, info), createTravelEstimate(Distance.EMPTY, 0));
     return builder.build();
   }
 
@@ -96,7 +97,7 @@ public final class RoutingUtils
 
   @SuppressWarnings("NewApi") // ZonedDateTime is backported for Android versions below 8.0.
   @NonNull
-  private static TravelEstimate createTravelEstimate(@NonNull app.organicmaps.util.Distance distance, int time)
+  private static TravelEstimate createTravelEstimate(@NonNull Distance distance, int time)
   {
     return new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), ZonedDateTime.now().plusSeconds(time))
         .setRemainingTimeSeconds(time)

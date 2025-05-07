@@ -1,6 +1,6 @@
-#include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 
-#include "app/organicmaps/Framework.hpp"
+#include "app/organicmaps/sdk/Framework.hpp"
 
 #include "indexer/map_style.hpp"
 

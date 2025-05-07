@@ -28,20 +28,19 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.DistanceAndAzimut;
-import app.organicmaps.location.LocationHelper;
+import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
-import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.routing.TransitStepInfo;
-import app.organicmaps.util.Distance;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
 
@@ -264,7 +263,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
     mActionMessage.setTag(RouteMarkType.Start);
-    if (LocationHelper.from(mContext).getMyPosition() != null)
+    if (MwmApplication.from(mContext).getLocationHelper().getMyPosition() != null)
     {
       UiUtils.show(mActionButton);
       Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_location_crosshair);

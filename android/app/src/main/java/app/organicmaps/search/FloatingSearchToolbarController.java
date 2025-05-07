@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class FloatingSearchToolbarController extends SearchToolbarController
 {

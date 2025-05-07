@@ -9,7 +9,6 @@ import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
 import androidx.car.app.CarContext;
 
-import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.MapStyle;

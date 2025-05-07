@@ -24,7 +24,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.StringUtils;
+import app.organicmaps.sdk.util.StringUtils;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
 {

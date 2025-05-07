@@ -12,7 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDialog;
 
 import app.organicmaps.R;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class StackedButtonsDialog extends AppCompatDialog implements View.OnClickListener
 {
