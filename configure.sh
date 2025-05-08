@@ -8,7 +8,7 @@ set -euo pipefail
 echo "Configuring the repository for development."
 
 if [ ! -d 3party/boost/tools ]; then
-  git submodule update --init --recursive
+  git submodule update --init --recursive --depth 1
 fi
 pushd 3party/boost/
 ./bootstrap.sh
