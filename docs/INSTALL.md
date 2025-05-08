@@ -9,13 +9,13 @@
 
 ## System requirements
 
-To build and run CoMaps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 5-10Gb of files.
+To build and run CoMaps you'll need a machine with at least 4Gb of RAM and 20-30Gb of disk space depending on your target platform. Expect to download 2-5Gb of files.
 
 For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/win) installed and Git bash available in the PATH.
 
 ## Getting sources
 
-First of all get the source code. The full CoMaps sources repository is ~10Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
+First of all get the source code. The full CoMaps sources repository is ~3Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
 
 For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
@@ -29,10 +29,10 @@ git config --global core.symlinks true
 
 Clone the repository including all submodules (see [Special cases options](#special-cases-options) below):
 
-(if you plan to contribute and propose pull requests then use a web interface at https://codeberg.com/comaps/comaps to fork the repository first and use your fork's URL in the command below)
+(if you plan to contribute and propose pull requests then use a web interface at https://codeberg.org/comaps/comaps to fork the repository first and use your fork's URL in the command below)
 
 ```bash
-git clone --recurse-submodules --shallow-submodules https://codeberg.com/comaps/comaps.git
+git clone --recurse-submodules --shallow-submodules https://codeberg.org/comaps/comaps.git
 ```
 
 Go into the cloned repository:
@@ -63,6 +63,15 @@ For _Windows 10_:  You should be able to build the project by following either o
 "C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
 ```
 
+Download the latest `World.mwm` and `WorldCoast.mwm` files and put them into the `data/` dir.
+
+Run the skins/textures generation script:
+```bash
+bash ./tools/unix/generate_symbols.sh
+```
+
+Now the repository is prepared to build a CoMaps app!
+
 ### Special cases options
 
 If you're only doing a one-off build or your internet bandwidth or disk space is limited, add following options to the `git clone` command:
@@ -71,10 +80,19 @@ If you're only doing a one-off build or your internet bandwidth or disk space is
 
 - a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
 
-If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive`. If you don't want to clone complete submodules, you can add `--depth=1` to the update command.
+If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive -depth 1`.
 
 To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
-Check `./configure.sh --help` to see how to copy the configs automatically from a private repository.
+
+If you need Organic Maps and Maps.ME commits history (before the CoMaps fork) run:
+```bash
+git remote add om-historic https://codeberg.org/comaps/om-historic.git
+git fetch --tags om-historic
+git replace squashed-history historic-commits
+```
+It'll seamlessly replace the squashed first "Organic Maps sources as of 02.04.2025" commit with all prior commits which will work with all git commands as usual.
+The `om-historic.git` repo is ~1Gb only as various historic blobs, bundled 3rd-party deps, etc. were removed from it.
+If you really need them (e.g. to build a very old app version) then refer to full organicmaps.git repo please.
 
 ## Desktop app
 
@@ -285,7 +303,7 @@ ctest -R "base_tests|coding_tests" --output-on-failure
 ctest -L "omim-test" -E "base_tests|coding_tests" --output-on-failure
 ```
 
-Some tests [are known to be broken](https://codeberg.com/comaps/comaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
+Some tests are known to be broken and disabled on CI.
 
 ### Test Coverage
 
