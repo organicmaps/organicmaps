@@ -2120,7 +2120,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRoutingStart()
   {
     if (!showStartPointNotice())
+    {
+      UiUtils.setFullscreen(this, false);
       return;
+    }
 
     if (!showRoutingDisclaimer())
       return;
