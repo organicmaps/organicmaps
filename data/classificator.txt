@@ -643,6 +643,7 @@ world  +
             danger_area  -
             {}
         orchard  -
+        plant_nursery  -
         quarry  -
         railway  -
         recreation_ground  -
