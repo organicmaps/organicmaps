@@ -476,7 +476,7 @@ mapswithme
 *emergency|mountain_rescue
 *aerialway|platter
 *man_made|flare
-mapswithme
+*highway|ladder
 *railway|preserved|tunnel
 *boundary|protected_area|1
 *boundary|protected_area|2
