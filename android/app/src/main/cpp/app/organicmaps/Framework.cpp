@@ -1452,7 +1452,8 @@ Java_app_organicmaps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring
                                                        jstring subtitle, jobject markType,
                                                        jint intermediateIndex,
                                                        jboolean isMyPosition,
-                                                       jdouble lat, jdouble lon)
+                                                       jdouble lat, jdouble lon,
+                                                       jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1462,7 +1463,7 @@ Java_app_organicmaps_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring
   data.m_isMyPosition = static_cast<bool>(isMyPosition);
   data.m_position = m2::PointD(mercator::FromLatLon(lat, lon));
 
-  frm()->GetRoutingManager().AddRoutePoint(std::move(data));
+  frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
 JNIEXPORT void JNICALL
