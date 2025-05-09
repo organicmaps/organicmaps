@@ -894,6 +894,8 @@ el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 fa:صرافی
 
+amenity-studio
+en:Studio
 
 amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
@@ -4877,6 +4879,9 @@ fi:Koirapuisto
 he:גינת כלבים
 ja:ドッグラン
 
+leisure-dance|amenity-dancing_school|@category_entertainment
+en:4Dance|Dancing school
+
 leisure-garden
 en:3Garden
 ru:Сад
@@ -4915,6 +4920,9 @@ el:Κήπος αναψυχής|αξιοθέατα
 sk:2Záhrada
 sw:Bustani
 fa:باغ تفریحی
+
+leisure-firepit
+en:5Firepit
 
 amenity-bench
 en:Bench
@@ -5344,6 +5352,9 @@ el:Πορνείο|οίκος ανοχής
 sk:Nevestinec|verejný dom
 sw:Danguro
 fa:فاحشه خانه|جنده خانه
+
+amenity-love_hotel|@category_hotel
+en:4Love Hotel|3Sex Hotel|4Adult Hotel
 
 @gambling
 en:Gambling
