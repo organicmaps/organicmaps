@@ -657,8 +657,8 @@
     <string name="bookmarks_empty_list_title">Saraksts ir tukšs</string>
     <string name="bookmarks_empty_list_message">Lai pievienotu grāmatzīmi, sākumā spiediet uz vietas kartē, bet tad uz zvaigznītes ikonas</string>
     <string name="category_desc_more">…vairāk</string>
-    <string name="export_file">Eksportēt KMZ</string>
-    <string name="export_file_gpx">GPX eksportēšana</string>
+    <string name="export_file">Izgūt KMZ formātā</string>
+    <string name="export_file_gpx">Izgūt GPX formātā</string>
     <string name="delete_list">Dzēst sarakstu</string>
     <string name="public_access">Publiska pieeja</string>
     <string name="limited_access">Ierobežota pieeja</string>
@@ -816,7 +816,7 @@
     <string name="browser_not_available">Tīmekļa pārlūkprogramma nav pieejama</string>
     <string name="volume">Skaļums</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Eksportēt visas grāmatzīmes un ceļus</string>
+    <string name="bookmarks_export">Izgūt visus ceļus un grāmatzīmes</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Runas sintēzes sistēmas iestatījumi</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->

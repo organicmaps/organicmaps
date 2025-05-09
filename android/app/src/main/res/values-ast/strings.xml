@@ -174,4 +174,6 @@
     <string name="downloader_download_map">Baxar mapa</string>
     <string name="empty_street_name_error">Pon el nome de la cai</string>
     <string name="choose_street">Escueyi una cai</string>
+    <string name="select_option">Esbilla una opción</string>
+    <string name="choose_color">Escueyi un color</string>
 </resources>

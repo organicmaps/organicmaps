@@ -39,7 +39,7 @@
 "type.amenity.casino" = "Casino";
 "type.amenity.gambling" = "Juegos de apuestas";
 "type.leisure.adult_gaming_centre" = "Centro de juegos para adultos";
-"type.leisure.amusement_arcade" = "Arcade";
+"type.leisure.amusement_arcade" = "Sala de recreativos";
 "type.amenity.charging_station" = "Estación de carga";
 "type.amenity.charging_station.bicycle" = "Estación de carga de bicicletas";
 "type.amenity.charging_station.motorcar" = "Estación de carga de automóviles";
@@ -282,7 +282,7 @@
 "type.cuisine.breakfast" = "Desayunos";
 "type.cuisine.bubble_tea" = "Té de burbujas";
 "type.cuisine.burger" = "Hamburguesería";
-"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.buschenschank" = "Buschenschank (especialidad austríaca)";
 "type.cuisine.cake" = "Tartas";
 "type.cuisine.caribbean" = "Caribeña";
 "type.cuisine.chicken" = "Pollo";
@@ -305,7 +305,7 @@
 "type.cuisine.german" = "Alemana";
 "type.cuisine.greek" = "Griega";
 "type.cuisine.grill" = "Parrilla";
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Heuriger (especialidad austríaca)";
 "type.cuisine.hotdog" = "Perritos calientes";
 "type.cuisine.hungarian" = "Húngara";
 "type.cuisine.ice_cream" = "Helados";
@@ -336,7 +336,7 @@
 "type.cuisine.polish" = "Polaca";
 "type.cuisine.portuguese" = "Portuguesa";
 "type.cuisine.ramen" = "Ramen";
-"type.cuisine.regional" = "Regional";
+"type.cuisine.regional" = "Cocina regional";
 "type.cuisine.russian" = "Rusa";
 "type.cuisine.sandwich" = "Sándwiches";
 "type.cuisine.sausage" = "Salchichas";
@@ -626,7 +626,7 @@
 "type.historic.memorial.plaque" = "Placa conmemorativa";
 "type.historic.memorial.sculpture" = "Escultura";
 "type.historic.memorial.statue" = "Estatua";
-"type.historic.memorial.stolperstein" = "Stolperstein";
+"type.historic.memorial.stolperstein" = "Stolperstein (memoriales de las víctimas del nazismo)";
 "type.historic.stone" = "Piedra histórica";
 "type.historic.memorial.war_memorial" = "Memorial de guerra";
 "type.historic.mine" = "Mina histórica";
@@ -714,7 +714,7 @@
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Espacio para hackers";
 "type.leisure.ice_rink" = "Pisa de patinaje";
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Puerto o amarradero";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Asientos al aire libre";
 "type.leisure.park" = "Parque";
@@ -1404,7 +1404,7 @@
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museo";
 "type.tourism.picnic_site" = "Zona de picnic";
-"type.leisure.resort" = "Resort";
+"type.leisure.resort" = "Resort turístico";
 "type.tourism.theme_park" = "Parque temático";
 "type.tourism.viewpoint" = "Mirador";
 

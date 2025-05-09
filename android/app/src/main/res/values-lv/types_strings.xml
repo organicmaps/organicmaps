@@ -36,7 +36,7 @@
     <string name="type.amenity.bicycle_rental">Velosipēdu īre</string>
     <string name="type.amenity.biergarten">Alus dārzs</string>
     <string name="type.amenity.bureau_de_change">Valūtas maiņa</string>
-    <string name="type.amenity.bus_station">Autobusu stacija</string>
+    <string name="type.amenity.bus_station">Autoosta</string>
     <string name="type.amenity.cafe">Kafejnīca</string>
     <string name="type.amenity.car_rental">Auto īre</string>
     <string name="type.amenity.car_wash">Automazgātuve</string>
@@ -52,4 +52,9 @@
     <string name="type.amenity.atm">Bankomāts</string>
     <string name="type.amenity.bench">Soliņš</string>
     <string name="type.amenity.brothel">Bordelis</string>
+    <string name="type.aeroway.aerodrome">Lidosta</string>
+    <string name="type.highway.busway.bridge">Tilts</string>
+    <string name="type.highway.busway.tunnel">Tunelis</string>
+    <string name="type.aeroway.aerodrome.international">Starptautiskā lidosta</string>
+    <string name="type.highway.bus_stop">Pietura</string>
 </resources>

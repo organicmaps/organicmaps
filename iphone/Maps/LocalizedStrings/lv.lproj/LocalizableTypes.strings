@@ -9,8 +9,8 @@
 "type.aerialway.mixed_lift" = "Mixed Lift";
 "type.aerialway.station" = "Aerialway Station";
 "type.aeroway" = "Airspace Infrastructure";
-"type.aeroway.aerodrome" = "Airport";
-"type.aeroway.aerodrome.international" = "International Airport";
+"type.aeroway.aerodrome" = "Lidosta";
+"type.aeroway.aerodrome.international" = "Starptautiskā lidosta";
 "type.aeroway.apron" = "Apron";
 "type.aeroway.gate" = "Gate";
 "type.aeroway.helipad" = "Helipad";
@@ -30,7 +30,7 @@
 "type.amenity.biergarten" = "Alus dārzs";
 "type.amenity.brothel" = "Bordelis";
 "type.amenity.bureau_de_change" = "Valūtas maiņa";
-"type.amenity.bus_station" = "Autobusu stacija";
+"type.amenity.bus_station" = "Autoosta";
 "type.amenity.cafe" = "Kafejnīca";
 "type.amenity.car_rental" = "Auto īre";
 "type.amenity.motorcycle_rental" = "Motociklu noma";
@@ -395,11 +395,11 @@
 "type.highway.busway" = "Dedicated Bus Road";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.busway.bridge" = "Bridge";
+"type.highway.busway.bridge" = "Tilts";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.busway.tunnel" = "Tunnel";
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.busway.tunnel" = "Tunelis";
+"type.highway.bus_stop" = "Pietura";
 "type.highway.construction" = "Road Under Construction";
 "type.highway.cycleway" = "Cycle Path";
 

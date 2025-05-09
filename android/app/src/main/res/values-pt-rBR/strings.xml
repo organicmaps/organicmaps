@@ -9,7 +9,7 @@
     <string name="delete">Apagar</string>
     <string name="download_maps">Baixar mapas</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">O download falhou, toque para tentar de novo.</string>
+    <string name="download_has_failed">O download falhou. Toque para tentar de novo.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Baixando…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -791,4 +791,6 @@
     <string name="about_proposition_3">• Rápido, minimalista, desenvolvido pela comunidade</string>
     <string name="drive_through">Drive-through</string>
     <string name="editor_operator">Operador</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
 </resources>

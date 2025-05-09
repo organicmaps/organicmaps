@@ -35,11 +35,11 @@
 "type.amenity.car_rental" = "Autoverhuur";
 "type.amenity.motorcycle_rental" = "Motorverhuur";
 "type.amenity.car_sharing" = "Autodelen";
-"type.amenity.car_wash" = "Car Wash";
+"type.amenity.car_wash" = "Wasserette";
 "type.amenity.casino" = "Casino";
 "type.amenity.gambling" = "Gokken";
 "type.leisure.adult_gaming_centre" = "Gamingcentrum voor volwassenen";
-"type.leisure.amusement_arcade" = "Arcade";
+"type.leisure.amusement_arcade" = "Spelletjeshal";
 "type.amenity.charging_station" = "Oplaadstation";
 "type.amenity.charging_station.bicycle" = "Oplaadstation voor fietsen";
 "type.amenity.charging_station.motorcar" = "Oplaadstation voor auto's";
@@ -65,7 +65,7 @@
 "type.amenity.fast_food" = "Fast food";
 "type.amenity.ferry_terminal" = "Veerpont";
 "type.amenity.fire_station" = "Brandweer";
-"type.amenity.food_court" = "Food Court";
+"type.amenity.food_court" = "Food court";
 "type.amenity.fountain" = "Fontein";
 "type.amenity.fuel" = "Tankstation";
 
@@ -158,7 +158,7 @@
 "type.amenity.shelter.basic_hut" = "Bivakhut";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Shelter";
 "type.amenity.public_bath" = "Publiek bad";
 "type.amenity.shower" = "Douche";
 "type.amenity.stripclub" = "Stripclub";
@@ -280,7 +280,7 @@
 "type.cuisine.beef_bowl" = "Gyudon";
 "type.cuisine.brazilian" = "Braziliaans";
 "type.cuisine.breakfast" = "Ontbijt";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Bubbelthee";
 "type.cuisine.burger" = "Hamburgers";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Taart";
@@ -371,7 +371,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Hoofdingang";
 "type.entrance.exit" = "Ga naar";
-"type.fee.yes" = "$";
+"type.fee.yes" = "€";
 "type.fee.no" = "Gratis";
 "type.healthcare.laboratory" = "Medisch laboratorium";
 "type.healthcare.physiotherapist" = "Fysiotherapeut";
@@ -665,7 +665,7 @@
 "type.landuse" = "Landgebruik";
 "type.landuse.allotments" = "Volkstuinen";
 "type.landuse.basin" = "Waterbassin";
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Braakliggend terrein";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Begraafplaats";
@@ -877,7 +877,7 @@
 "type.place.town" = "Stad";
 "type.place.village" = "Dorp";
 "type.power" = "Electriciteit";
-"type.power.generator" = "Power Generator";
+"type.power.generator" = "Generator";
 "type.power.generator.solar" = "Zonne-generator";
 "type.power.generator.wind" = "Wind generator";
 "type.power.generator.gas" = "Gasturbine elektriciteitscentrale";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Elektriciteitsmast";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Stroommast";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Paal";
 "type.psurface" = "Wegdek";
 "type.psurface.paved_bad" = "Verhard";
 "type.psurface.paved_good" = "Verhard";
@@ -1336,7 +1336,7 @@
 "type.sport.baseball" = "Honkbal";
 "type.sport.basketball" = "Basketbal";
 "type.sport.beachvolleyball" = "Beachvolleybal";
-"type.sport.bowls" = "Bowls";
+"type.sport.bowls" = "Bowling";
 "type.sport.chess" = "Schaken";
 "type.sport.cricket" = "Cricket";
 "type.sport.curling" = "Curling";
@@ -1379,7 +1379,7 @@
 "type.attraction.amusement_ride" = "Prettocht";
 "type.attraction.animal" = "Dierenverblijf";
 "type.attraction.bumper_car" = "Botsauto's";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.big_wheel" = "Reuzenrad";
 "type.attraction.carousel" = "Reuzenrad";
 "type.attraction.historic" = "Historische attractie";
 "type.attraction.maze" = "Doolhof";

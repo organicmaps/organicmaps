@@ -7,15 +7,15 @@
     <string name="cancel">Annuller</string>
     <!-- Button which deletes downloaded country -->
     <string name="delete">Slet</string>
-    <string name="download_maps">Download kort</string>
+    <string name="download_maps">Hent kort</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Download mislykkedes. Tryk for at prøve igen.</string>
+    <string name="download_has_failed">Hentning af kort mislykkedes. Tryk for at prøve igen.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
-    <string name="downloading">Downloader…</string>
+    <string name="downloading">Henter…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometer</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
-    <string name="miles">Miles</string>
+    <string name="miles">Mil</string>
     <!-- A text for current gps location point/arrow selected on the map -->
     <string name="core_my_position">Min position</string>
     <!-- Update maps later button text -->
@@ -29,11 +29,11 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Begrænset nøjagtighed</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">For at sikre nøjagtig navigation skal du aktivere Præcis placering i indstillingerne.</string>
+    <string name="precise_location_is_disabled_long_text">For at sikre nøjagtig navigation skal du aktivere præcis placering i indstillinger.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Vis på kortet</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
-    <string name="country_status_download_failed">Download mislykket</string>
+    <string name="country_status_download_failed">Hentning mislykket</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Prøv igen</string>
     <string name="about_menu_title">Om Organic Maps</string>
@@ -44,34 +44,33 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Intet batteridræn, fungerer offline</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Hurtig, minimalistisk, udviklet af fællesskabet</string>
+    <string name="about_proposition_3">• Hurtig, minimalistisk, udviklet i fællesskab</string>
     <!-- Text in About screen -->
-    <string name="about_developed_by_enthusiasts">Open source-applikation oprettet af entusiaster og frivillige.</string>
+    <string name="about_developed_by_enthusiasts">Open source-applikation skabt af entusiaster og frivillige.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Indstillinger for placering</string>
     <string name="close">Luk</string>
     <string name="unsupported_phone">Appen kræver hardwareaccelereret OpenGL. Din enhed er desværre ikke understøttet.</string>
-    <string name="download">Download</string>
+    <string name="download">Hent</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et hukommelseskort for at bruge Organic Maps</string>
+    <string name="disconnect_usb_cable">Frakobl venligst USB-kabel, eller indsæt et hukommelseskort for at bruge Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Frigør først noget plads på dit SD-kort/USB lager for at bruge denne app</string>
-    <string name="download_resources">Før du begynder at bruge appen, skal du downloade oversigtskortet over verden til din enhed. \nDet vil bruge %s lagerplads.</string>
-    <string name="download_resources_continue">Gå til kort</string>
-    <string name="downloading_country_can_proceed">Downloader %s. Du kan nu
-\nfortsætte til kortet.</string>
-    <string name="download_country_ask">Download %s?</string>
+    <string name="download_resources">Før du begynder at bruge appen, skal du hente oversigtskortet over verden til din enhed. \nDet vil bruge %s lagerplads.</string>
+    <string name="download_resources_continue">Gå til kortet</string>
+    <string name="downloading_country_can_proceed">Henter %s. Du kan nu \nfortsætte til kortet.</string>
+    <string name="download_country_ask">Hent %s?</string>
     <string name="update_country_ask">Opdater %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Pause</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="continue_button">Fortsæt</string>
     <!-- Show popup notification on top of the map when country download has failed. -->
-    <string name="download_country_failed">%s download mislykkedes</string>
+    <string name="download_country_failed">%s hentning mislykkedes</string>
     <!-- "Add new bookmark list" dialog title -->
     <string name="add_new_set">Tilføj en ny liste</string>
     <!-- Add Bookmark list dialog - hint when the list name is empty -->
-    <string name="bookmark_set_name">Indstil bogmærkenavn for liste</string>
+    <string name="bookmark_set_name">Indstil navn for bogmærkeliste</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Bogmærker</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
@@ -100,7 +99,7 @@
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Måleenheder</string>
     <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">Vælg mellem miles eller kilometer</string>
+    <string name="measurement_units_summary">Vælg mellem mil eller kilometer</string>
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Spisesteder</string>
@@ -115,7 +114,7 @@
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
     <string name="category_shopping">Indkøb</string>
     <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
-    <string name="category_secondhand">Brugt</string>
+    <string name="category_secondhand">Genbrugsbutikker</string>
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
@@ -143,11 +142,11 @@
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
     <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
-    <string name="category_recycling">Genbrug</string>
+    <string name="category_recycling">Recirkulering</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Vand</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Faciliteter til autocamper</string>
+    <string name="category_rv">Autocamper-faciliteter</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Noter</string>

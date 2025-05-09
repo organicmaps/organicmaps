@@ -601,7 +601,7 @@
     <string name="routing_add_finish_point">Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку</string>
     <string name="planning_route_manage_route">Измени руту</string>
     <string name="button_plan">План</string>
-    <string name="placepage_remove_stop">Уклони стајање</string>
+    <string name="placepage_remove_stop">Уклони међуодредиште</string>
     <string name="placepage_add_stop">Међуодредиште</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
@@ -616,7 +616,7 @@
     <string name="bookmark_lists_show_all">Прикажи све</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d маркер</item>
-        <item quantity="few">%d маркери</item>
+        <item quantity="few">%d маркера</item>
         <item quantity="other">%d маркера</item>
     </plurals>
     <string name="bookmarks_create_new_group">Креирај нову листу</string>

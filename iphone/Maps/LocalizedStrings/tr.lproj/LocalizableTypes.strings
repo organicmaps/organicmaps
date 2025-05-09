@@ -4,29 +4,29 @@
 "type.aerialway" = "Teleferik";
 "type.aerialway.cable_car" = "Teleferik";
 "type.aerialway.chair_lift" = "Telesiyej";
-"type.aerialway.drag_lift" = "Teleferik hattı";
-"type.aerialway.gondola" = "Teleferik";
-"type.aerialway.mixed_lift" = "Teleferik";
+"type.aerialway.drag_lift" = "Kayak Teleferiği";
+"type.aerialway.gondola" = "Telekabin";
+"type.aerialway.mixed_lift" = "Karışık Teleferik";
 "type.aerialway.station" = "Havayolu İstasyonu";
 "type.aeroway" = "Hava Sahası Altyapısı";
 "type.aeroway.aerodrome" = "Havaalanı";
 "type.aeroway.aerodrome.international" = "Uluslararası Havalimanı";
 "type.aeroway.apron" = "Peron";
 "type.aeroway.gate" = "Geçit";
-"type.aeroway.helipad" = "Helikopter pisti";
+"type.aeroway.helipad" = "Helikopter Pisti";
 "type.aeroway.runway" = "Pist";
-"type.aeroway.taxiway" = "Taksi yolu";
+"type.aeroway.taxiway" = "Taksi Yolu";
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Tesis";
 "type.amenity.arts_centre" = "Sanat Merkezi";
 "type.amenity.atm" = "Bankamatik";
 "type.amenity.bank" = "Banka";
 "type.amenity.bar" = "Bar";
-"type.amenity.bbq" = "Barbekü ızgara";
+"type.amenity.bbq" = "Barbekü Izgarası";
 "type.amenity.bench" = "Bank";
 "type.amenity.bicycle_parking" = "Bisiklet Park Yeri";
 "type.amenity.bicycle_rental" = "Bisiklet Kiralama";
-"type.amenity.bicycle_repair_station" = "Bisiklet tamir istasyonu";
+"type.amenity.bicycle_repair_station" = "Bisiklet Tamir İstasyonu";
 "type.amenity.biergarten" = "Bira Bahçesi";
 "type.amenity.brothel" = "Genelev";
 "type.amenity.bureau_de_change" = "Döviz Bürosu";
@@ -39,18 +39,18 @@
 "type.amenity.casino" = "Kumarhane";
 "type.amenity.gambling" = "Kumar";
 "type.leisure.adult_gaming_centre" = "Yetişkin Oyun Merkezi";
-"type.leisure.amusement_arcade" = "Oyun makinesi";
+"type.leisure.amusement_arcade" = "Oyun Makinesi";
 "type.amenity.charging_station" = "Şarj İstasyonu";
 "type.amenity.charging_station.bicycle" = "Bisiklet Şarj İstasyonu";
 "type.amenity.charging_station.motorcar" = "Araç Şarj İstasyonu";
 "type.amenity.childcare" = "Kreş";
 "type.amenity.cinema" = "Sinema";
-"type.leisure.bowling_alley" = "Bowling pisti";
+"type.leisure.bowling_alley" = "Bowling Pisti";
 "type.amenity.clinic" = "Klinik";
 "type.amenity.college" = "Kolej";
 "type.amenity.community_centre" = "Toplum Merkezi";
-"type.amenity.compressed_air" = "Basınçlı hava";
-"type.amenity.conference_centre" = "Konferans merkezi";
+"type.amenity.compressed_air" = "Basınçlı Hava";
+"type.amenity.conference_centre" = "Konferans Merkezi";
 "type.amenity.courthouse" = "Adliye";
 "type.amenity.dentist" = "Dişçi";
 "type.amenity.doctors" = "Doktor";
@@ -65,7 +65,7 @@
 "type.amenity.fast_food" = "Hazır Yemek";
 "type.amenity.ferry_terminal" = "Feribot";
 "type.amenity.fire_station" = "İtfaiye";
-"type.amenity.food_court" = "Yemek katı";
+"type.amenity.food_court" = "Yemek Katı";
 "type.amenity.fountain" = "Çeşme";
 "type.amenity.fuel" = "Benzinlik";
 
@@ -93,35 +93,35 @@
 "type.amenity.parking.permissive" = "Özel Otopark";
 "type.amenity.parking.private" = "Özel Otopark";
 "type.amenity.parking.park_and_ride" = "Otopark";
-"type.amenity.parking.underground" = "Yeraltı otoparkı";
-"type.amenity.parking.underground.fee" = "Yeraltı otoparkı";
-"type.amenity.parking.underground.private" = "Özel yeraltı otoparkı";
-"type.amenity.parking.street_side" = "Sokak tarafı otopark";
-"type.amenity.parking.street_side.fee" = "Sokak tarafı otopark";
-"type.amenity.parking.street_side.private" = "Özel sokak tarafı otopark";
-"type.amenity.parking.lane" = "Şerit park";
-"type.amenity.parking.lane.fee" = "Şerit park";
-"type.amenity.parking.lane.private" = "Özel şerit otopark";
-"type.amenity.parking_entrance" = "Otopark girişi";
-"type.amenity.parking_entrance.private" = "Özel otopark girişi";
-"type.amenity.parking_entrance.permissive" = "Otopark girişi";
+"type.amenity.parking.underground" = "Yeraltı Otoparkı";
+"type.amenity.parking.underground.fee" = "Yeraltı Otoparkı";
+"type.amenity.parking.underground.private" = "Özel Yeraltı Otoparkı";
+"type.amenity.parking.street_side" = "Sokak Kenarı Otopark";
+"type.amenity.parking.street_side.fee" = "Sokak Kenarı Otopark";
+"type.amenity.parking.street_side.private" = "Özel Sokak Kenarı Otopark";
+"type.amenity.parking.lane" = "Şerit Park";
+"type.amenity.parking.lane.fee" = "Şerit Park";
+"type.amenity.parking.lane.private" = "Özel Şerit Parkı";
+"type.amenity.parking_entrance" = "Otopark Girişi";
+"type.amenity.parking_entrance.private" = "Özel Otopark Girişi";
+"type.amenity.parking_entrance.permissive" = "Otopark Girişi";
 "type.amenity.parking_space" = "Park Alanı";
 "type.amenity.parking_space.permissive" = "Park Alanı";
 "type.amenity.parking_space.private" = "Park Alanı";
 "type.amenity.parking_space.underground" = "Park Alanı";
-"type.amenity.parking_space.disabled" = "Engelli park yeri";
+"type.amenity.parking_space.disabled" = "Engelli Park Yeri";
 "type.amenity.payment_terminal" = "Ödeme Noktası";
 "type.amenity.pharmacy" = "Eczane";
-"type.amenity.place_of_worship" = "İbadet Yerleri";
-"type.amenity.place_of_worship.buddhist" = "Tapınak";
+"type.amenity.place_of_worship" = "İbadet Yeri";
+"type.amenity.place_of_worship.buddhist" = "Budist Tapınağı";
 "type.amenity.place_of_worship.christian" = "Kilise";
 "type.amenity.place_of_worship.christian.mormon" = "İsa Mesih'in Son Zaman Azizleri Kilisesi";
-"type.amenity.place_of_worship.christian.jehovahs_witness" = "Jehova'nın Şahitlerinin Krallık Salonu";
-"type.amenity.place_of_worship.hindu" = "Tapınak";
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Yehova'nın Şahitleri Krallık Salonu";
+"type.amenity.place_of_worship.hindu" = "Hindu Tapınağı";
 "type.amenity.place_of_worship.jewish" = "Sinagog";
 "type.amenity.place_of_worship.muslim" = "Cami";
-"type.amenity.place_of_worship.shinto" = "Mabet";
-"type.amenity.place_of_worship.taoist" = "Tapınak";
+"type.amenity.place_of_worship.shinto" = "Şinto Tapınağı";
+"type.amenity.place_of_worship.taoist" = "Taoist Tapınağı";
 "type.amenity.police" = "Polis";
 "type.amenity.post_box" = "Posta Kutusu";
 "type.amenity.post_office" = "Postane";
@@ -140,10 +140,10 @@
 "type.recycling.scrap_metal" = "Hurda Metaller";
 "type.recycling.small_appliances" = "Elektronik Atıklar";
 "type.recycling.cardboard" = "Karton";
-"type.recycling.cans" = "Teneke ve alüminyum kutular";
+"type.recycling.cans" = "Tenekeler";
 "type.recycling.shoes" = "Ayakkabılar";
 "type.recycling.green_waste" = "Yeşil/Organik Atık";
-"type.recycling.cartons" = "İçecek Kartonları";
+"type.recycling.cartons" = "Kartonlar";
 "type.amenity.restaurant" = "Restoran";
 "type.amenity.sanitary_dump_station" = "Tank Boşaltma İstasyonu";
 "type.amenity.school" = "Okul";
@@ -158,11 +158,11 @@
 "type.amenity.shelter.basic_hut" = "Bivouac Kulübe";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Sundurma Barınak";
 "type.amenity.public_bath" = "Hamam";
 "type.amenity.shower" = "Duş";
-"type.amenity.stripclub" = "Striptiz kulübü";
-"type.amenity.taxi" = "Taksi";
+"type.amenity.stripclub" = "Striptiz Kulübü";
+"type.amenity.taxi" = "Taksi Durağı";
 "type.amenity.telephone" = "Telefon";
 "type.amenity.theatre" = "Tiyatro";
 "type.amenity.toilets" = "Tuvalet";
@@ -171,44 +171,44 @@
 "type.amenity.university" = "Üniversite";
 "type.amenity.vending_machine" = "Otomat";
 "type.amenity.vending_machine.cigarettes" = "Sigara Dağıtıcı";
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.coffee" = "Kahve Dağıtıcı";
+"type.amenity.vending_machine.condoms" = "Prezervatif Dağıtıcı";
 "type.amenity.vending_machine.drinks" = "İçecek Dağıtıcı";
-"type.amenity.vending_machine.food" = "Food Dispenser";
-"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
+"type.amenity.vending_machine.food" = "Yiyecek Dağıtıcı";
+"type.amenity.vending_machine.newspapers" = "Gazete Dağıtıcı";
 "type.amenity.vending_machine.parking_tickets" = "Otopark Fişi";
-"type.amenity.vending_machine.public_transport_tickets" = "Toplu Taşıma Biletleri için Otomatlar";
-"type.amenity.vending_machine.sweets" = "Sweets Dispenser";
+"type.amenity.vending_machine.public_transport_tickets" = "Bilet Dağıtıcı";
+"type.amenity.vending_machine.sweets" = "Şekerleme Dağıtıcı";
 "type.amenity.vending_machine.excrement_bags" = "Dışkı Torbası Dağıtıcı";
-"type.amenity.parcel_locker" = "Kilitlenebilen Kutu Dolaplar";
-"type.amenity.vehicle_inspection" = "Araç muayenesi";
+"type.amenity.parcel_locker" = "Kilitlenir Paket Dolabı";
+"type.amenity.vehicle_inspection" = "Araç Muayenesi";
 "type.amenity.vending_machine.fuel" = "Yakıt Dağıtıcı";
-"type.amenity.veterinary" = "Veteriner";
+"type.amenity.veterinary" = "Veteriner Hekim";
 "type.amenity.waste_basket" = "Çöp Kutusu";
 "type.amenity.waste_disposal" = "Çöp Konteyneri";
 "type.amenity.waste_transfer_station" = "Atık Transfer İstasyonu";
-"type.amenity.water_point" = "Karavanlar için Su Noktası";
-"type.amenity.water_point.drinking_water_no" = "Karavanlar için Su Noktası";
+"type.amenity.water_point" = "Su Tankı Yeniden Doldurma Noktası";
+"type.amenity.water_point.drinking_water_no" = "Su Tankı Yeniden Doldurma Noktası";
 "type.barrier" = "Bariyer";
 "type.barrier.block" = "Blok";
 "type.barrier.bollard" = "Direk";
-"type.barrier.border_control" = "Sınır Kontrolü";
+"type.barrier.border_control" = "Sınır Denetimi";
 "type.barrier.chain" = "Zincir";
 "type.barrier.city_wall" = "Şehir Duvarı";
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
-"type.waterway.ditch" = "Drenaj çukuru";
+"type.waterway.ditch" = "Drenaj Çukuru";
 "type.natural.water.moat" = "Hendek";
-"type.natural.water.wastewater" = "Atık su";
+"type.natural.water.wastewater" = "Atık Su";
 "type.barrier.entrance" = "Giriş";
 "type.barrier.fence" = "Çit";
 "type.barrier.gate" = "Geçit";
-"type.barrier.hedge" = "Çit";
-"type.barrier.kissing_gate" = "Geçit";
+"type.barrier.hedge" = "Çalı Çit";
+"type.barrier.kissing_gate" = "İnsan Geçidi";
 "type.barrier.lift_gate" = "Asansör Kapısı";
-"type.barrier.retaining_wall" = "İstinat duvarı";
+"type.barrier.retaining_wall" = "İstinat Duvarı";
 "type.barrier.stile" = "Çit Merdiveni";
 "type.barrier.turnstile" = "Turnike";
-"type.barrier.swing_gate" = "Salıncak Kapısı";
+"type.barrier.swing_gate" = "Salınımlı Kapı";
 "type.barrier.toll_booth" = "Gişe";
 "type.barrier.wall" = "Duvar";
 "type.boundary" = "Sınır";
@@ -223,14 +223,14 @@
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
 "type.boundary.administrative.4" = "Bölgesel Sınır";
 "type.boundary.national_park" = "Ulusal Park";
-"type.boundary.aboriginal_lands" = "Yerli topraklar";
-"type.boundary.protected_area" = "Korunmuş bölge";
-"type.boundary.protected_area.1" = "Korunmuş bölge";
-"type.boundary.protected_area.2" = "Korunmuş bölge";
-"type.boundary.protected_area.3" = "Korunmuş bölge";
-"type.boundary.protected_area.4" = "Korunmuş bölge";
-"type.boundary.protected_area.5" = "Korunmuş bölge";
-"type.boundary.protected_area.6" = "Korunmuş bölge";
+"type.boundary.aboriginal_lands" = "Yerli Toprakları";
+"type.boundary.protected_area" = "Korunmuş Bölge";
+"type.boundary.protected_area.1" = "Korunmuş Bölge";
+"type.boundary.protected_area.2" = "Korunmuş Bölge";
+"type.boundary.protected_area.3" = "Korunmuş Bölge";
+"type.boundary.protected_area.4" = "Korunmuş Bölge";
+"type.boundary.protected_area.5" = "Korunmuş Bölge";
+"type.boundary.protected_area.6" = "Korunmuş Bölge";
 "type.building" = "Bina";
 
 /* Duplicates [address] in strings.txt */
@@ -245,13 +245,13 @@
 "type.craft.beekeeper" = "Arıcı";
 "type.craft.blacksmith" = "Demirci";
 "type.craft.brewery" = "Bira Fabrikası";
-"type.craft.caterer" = "Yemek şirketi";
+"type.craft.caterer" = "Yemek Şirketi";
 "type.craft.carpenter" = "Marangoz";
 "type.craft.confectionery" = "Şekerlemeci";
 "type.craft.electrician" = "Elektrikçi";
 "type.craft.electronics_repair" = "Elektronik Tamircisi";
 "type.craft.gardener" = "Bahçe Düzenleyici";
-"type.craft.grinding_mill" = "Öğütme değirmeni";
+"type.craft.grinding_mill" = "Öğütme Değirmeni";
 "type.craft.handicraft" = "El İşi";
 
 /* Heating, Ventilation, and Air Conditioning */
@@ -267,92 +267,92 @@
 "type.craft.shoemaker" = "Ayakkabı Tamircisi";
 "type.craft.winery" = "Şaraphane";
 "type.craft.tailor" = "Terzi";
-"type.cuisine.african" = "Afrika mutfağı";
-"type.cuisine.american" = "Amerikan mutfağı";
-"type.cuisine.arab" = "Arap mutfağı";
-"type.cuisine.argentinian" = "Arjantin mutfağı";
-"type.cuisine.asian" = "Asya mutfağı";
-"type.cuisine.austrian" = "Avusturya mutfağı";
+"type.cuisine.african" = "Afrika Mutfağı";
+"type.cuisine.american" = "Amerikan Mutfağı";
+"type.cuisine.arab" = "Arap Mutfağı";
+"type.cuisine.argentinian" = "Arjantin Mutfağı";
+"type.cuisine.asian" = "Asya Mutfağı";
+"type.cuisine.austrian" = "Avusturya Mutfağı";
 "type.cuisine.bagel" = "Simit";
-"type.cuisine.balkan" = "Balkan mutfağı";
+"type.cuisine.balkan" = "Balkan Mutfağı";
 "type.cuisine.barbecue" = "Mangal";
-"type.cuisine.bavarian" = "Bavyera mutfağı";
-"type.cuisine.beef_bowl" = "Biftek tabağı";
-"type.cuisine.brazilian" = "Brezilya mutfağı";
+"type.cuisine.bavarian" = "Bavyera Mutfağı";
+"type.cuisine.beef_bowl" = "Biftek Tabağı";
+"type.cuisine.brazilian" = "Brezilya Mutfağı";
 "type.cuisine.breakfast" = "Kahvaltı";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "İnci Çayı";
 "type.cuisine.burger" = "Hamburger";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Pasta";
-"type.cuisine.caribbean" = "Karayip mutfağı";
+"type.cuisine.caribbean" = "Karayip Mutfağı";
 "type.cuisine.chicken" = "Tavuk";
-"type.cuisine.chinese" = "Çin mutfağı";
+"type.cuisine.chinese" = "Çin Mutfağı";
 "type.cuisine.coffee_shop" = "Kahve";
 "type.cuisine.crepe" = "Krep";
-"type.cuisine.croatian" = "Hırvat mutfağı";
+"type.cuisine.croatian" = "Hırvat Mutfağı";
 "type.cuisine.curry" = "Köri";
 "type.cuisine.deli" = "Şarküteri";
-"type.cuisine.diner" = "Vagon restoran";
+"type.cuisine.diner" = "Lokanta";
 "type.cuisine.donut" = "Donut";
-"type.cuisine.ethiopian" = "Etiyopya mutfağı";
-"type.cuisine.filipino" = "Filipin mutfağı";
-"type.cuisine.fine_dining" = "Birinci sınıf restoran";
+"type.cuisine.ethiopian" = "Etiyopya Mutfağı";
+"type.cuisine.filipino" = "Filipin Mutfağı";
+"type.cuisine.fine_dining" = "Birinci Sınıf Restoran";
 "type.cuisine.fish" = "Balık";
-"type.cuisine.fish_and_chips" = "Balık ve patates cipsi";
-"type.cuisine.french" = "Fransız mutfağı";
+"type.cuisine.fish_and_chips" = "Balık ve Patates Cipsi";
+"type.cuisine.french" = "Fransız Mutfağı";
 "type.cuisine.friture" = "Kızartma";
-"type.cuisine.georgian" = "Gürcistan mutfağı";
-"type.cuisine.german" = "Alman mutfağı";
-"type.cuisine.greek" = "Yunan mutfağı";
+"type.cuisine.georgian" = "Gürcü Mutfağı";
+"type.cuisine.german" = "Alman Mutfağı";
+"type.cuisine.greek" = "Yunan Mutfağı";
 "type.cuisine.grill" = "Izgara";
 "type.cuisine.heuriger" = "Heuriger";
 "type.cuisine.hotdog" = "Sosisli";
-"type.cuisine.hungarian" = "Macar mutfağı";
+"type.cuisine.hungarian" = "Macar Mutfağı";
 "type.cuisine.ice_cream" = "Dondurma";
-"type.cuisine.indian" = "Hint mutfağı";
-"type.cuisine.indonesian" = "Endonezya mutfağı";
-"type.cuisine.international" = "Uluslararası mutfak";
-"type.cuisine.irish" = "İrlanda mutfağı";
-"type.cuisine.italian" = "İtalyan mutfağı";
-"type.cuisine.italian_pizza" = "İtalyan, pizza";
-"type.cuisine.japanese" = "Japon mutfağı";
+"type.cuisine.indian" = "Hint Mutfağı";
+"type.cuisine.indonesian" = "Endonezya Mutfağı";
+"type.cuisine.international" = "Uluslararası Mutfak";
+"type.cuisine.irish" = "İrlanda Mutfağı";
+"type.cuisine.italian" = "İtalyan Mutfağı";
+"type.cuisine.italian_pizza" = "İtalyan, Pizza";
+"type.cuisine.japanese" = "Japon Mutfağı";
 "type.cuisine.kebab" = "Kebap";
-"type.cuisine.korean" = "Kore mutfağı";
-"type.cuisine.lao" = "Lao mutfağı";
-"type.cuisine.lebanese" = "Lübnan mutfağı";
-"type.cuisine.local" = "Yerel mutfak";
-"type.cuisine.malagasy" = "Madagaskar mutfağı";
-"type.cuisine.malaysian" = "Malezya mutfağı";
-"type.cuisine.mediterranean" = "Akdeniz mutfağı";
-"type.cuisine.mexican" = "Meksika mutfağı";
-"type.cuisine.moroccan" = "Fas mutfağı";
+"type.cuisine.korean" = "Kore Mutfağı";
+"type.cuisine.lao" = "Lao Mutfağı";
+"type.cuisine.lebanese" = "Lübnan Mutfağı";
+"type.cuisine.local" = "Yerel Mutfak";
+"type.cuisine.malagasy" = "Madagaskar Mutfağı";
+"type.cuisine.malaysian" = "Malezya Mutfağı";
+"type.cuisine.mediterranean" = "Akdeniz Mutfağı";
+"type.cuisine.mexican" = "Meksika Mutfağı";
+"type.cuisine.moroccan" = "Fas Mutfağı";
 "type.cuisine.noodles" = "Erişte";
-"type.cuisine.oriental" = "Uzak Doğu mutfağı";
+"type.cuisine.oriental" = "Uzak Doğu Mutfağı";
 "type.cuisine.pancake" = "Gözleme";
 "type.cuisine.pasta" = "Makarna";
-"type.cuisine.persian" = "İran mutfağı";
-"type.cuisine.peruvian" = "Peru mutfağı";
+"type.cuisine.persian" = "İran Mutfağı";
+"type.cuisine.peruvian" = "Peru Mutfağı";
 "type.cuisine.pizza" = "Pizza";
-"type.cuisine.polish" = "Polonya mutfağı";
-"type.cuisine.portuguese" = "Portekiz mutfağı";
-"type.cuisine.ramen" = "Japon eriştesi";
-"type.cuisine.regional" = "Bölgesel mutfak";
-"type.cuisine.russian" = "Rus mutfağı";
+"type.cuisine.polish" = "Leh Mutfağı";
+"type.cuisine.portuguese" = "Portekiz Mutfağı";
+"type.cuisine.ramen" = "Japon Eriştesi";
+"type.cuisine.regional" = "Bölgesel Mutfak";
+"type.cuisine.russian" = "Rus Mutfağı";
 "type.cuisine.sandwich" = "Sandviç";
 "type.cuisine.sausage" = "Sucuk";
 "type.cuisine.savory_pancakes" = "Açma";
-"type.cuisine.seafood" = "Deniz ürünleri";
+"type.cuisine.seafood" = "Deniz Ürünleri";
 "type.cuisine.soba" = "Erişte";
-"type.cuisine.spanish" = "İspanyol mutfağı";
+"type.cuisine.spanish" = "İspanyol Mutfağı";
 "type.cuisine.steak_house" = "Biftekçi";
 "type.cuisine.sushi" = "Suşi";
 "type.cuisine.tapas" = "Tapas";
 "type.cuisine.tea" = "Çay";
-"type.cuisine.thai" = "Tayland mutfağı";
-"type.cuisine.turkish" = "Türk mutfağı";
-"type.cuisine.vegan" = "Vegan mutfağı";
-"type.cuisine.vegetarian" = "Vejetaryen mutfağı";
-"type.cuisine.vietnamese" = "Vietnam mutfağı";
+"type.cuisine.thai" = "Tay Mutfağı";
+"type.cuisine.turkish" = "Türk Mutfağı";
+"type.cuisine.vegan" = "Vegan Mutfağı";
+"type.cuisine.vegetarian" = "Vejetaryen Mutfağı";
+"type.cuisine.vietnamese" = "Vietnam Mutfağı";
 "type.emergency" = "Acil";
 "type.emergency.assembly_point" = "Acil Toplanma Noktası";
 "type.emergency.defibrillator" = "Defibrilatör";
@@ -369,19 +369,19 @@
 "type.entrance" = "Giriş";
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
-"type.entrance.main" = "Ana giriş";
+"type.entrance.main" = "Ana Giriş";
 "type.entrance.exit" = "Çıkış";
-"type.fee.yes" = "$";
+"type.fee.yes" = "₺";
 "type.fee.no" = "Ücretsiz";
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
 "type.healthcare.physiotherapist" = "Fizyoterapist";
-"type.healthcare.alternative" = "Alternatif tıp";
+"type.healthcare.alternative" = "Alternatif Tıp";
 "type.healthcare.audiologist" = "Odyoloji";
 "type.healthcare.blood_donation" = "Kan Bağışı Merkezi";
 "type.healthcare.optometrist" = "Optometri";
 "type.healthcare.podiatrist" = "Podiatri";
 "type.healthcare.psychotherapist" = "Psikoterapi";
-"type.healthcare.sample_collection" = "Örnekleme";
+"type.healthcare.sample_collection" = "Örnek Toplama Merkezi";
 "type.healthcare.speech_therapist" = "Logopedi";
 "type.highway" = "Otoyol";
 "type.highway.bridleway" = "Atlı Yolu";
@@ -392,7 +392,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tünel";
-"type.highway.busway" = "Özel otobüs yolu";
+"type.highway.busway" = "Ayrık Otobüs Yolu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "Köprü";
@@ -416,11 +416,11 @@
 "type.highway.footway.area" = "Yaya Alanı";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.footway.bridge" = "Köprü";
+"type.highway.footway.bridge" = "Yaya Köprüsü";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Tünel";
-"type.highway.ford" = "Geçit";
+"type.highway.footway.tunnel" = "Yaya Tüneli";
+"type.highway.ford" = "Sığ Geçit";
 "type.highway.living_street" = "Cadde";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -431,11 +431,11 @@
 "type.highway.motorway" = "Otoyol";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Köprü";
+"type.highway.motorway.bridge" = "Otoyol Köprüsü";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Tünel";
-"type.highway.motorway_junction" = "Çıkış";
+"type.highway.motorway.tunnel" = "Otoyol Tüneli";
+"type.highway.motorway_junction" = "Yol Çıkışı";
 "type.highway.motorway_link" = "Otoyol Rampası";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -446,10 +446,10 @@
 "type.highway.path" = "Yol";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Zor veya kötü görünür patika";
+"type.highway.path.difficult" = "Zor ya da Belirsiz Patika";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Çok zor veya ayırt edilemeyen iz";
+"type.highway.path.expert" = "Çok Zor ya da Seçilemez Patika";
 "type.highway.path.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 "type.highway.footway.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 
@@ -459,14 +459,14 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tünel";
-"type.highway.pedestrian" = "Yayalar için Cadde";
+"type.highway.pedestrian" = "Yaya Caddesi";
 "type.highway.pedestrian.area" = "Yaya Alanı";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Köprü";
+"type.highway.pedestrian.bridge" = "Yaya Köprüsü";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tünel";
+"type.highway.pedestrian.tunnel" = "Yaya Tüneli";
 "type.highway.primary" = "Ana Yol";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -474,7 +474,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tünel";
-"type.highway.primary_link" = "Ana Yol";
+"type.highway.primary_link" = "Ana Yol Rampası";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Köprü";
@@ -508,7 +508,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Tünel";
-"type.highway.secondary_link" = "Tali Yol";
+"type.highway.secondary_link" = "Tali Yol Rampası";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Köprü";
@@ -566,7 +566,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Tünel";
-"type.highway.trunk_link" = "Devlet Yolu";
+"type.highway.trunk_link" = "Devlet Yolu Rampası";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Köprü";
@@ -598,14 +598,14 @@
 "type.area_highway.unclassified" = "Tali Yol";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
-"type.historic" = "Tarihi";
+"type.historic" = "Tarihi Nesne";
 "type.historic.aircraft" = "Tarihi Uçak";
 "type.historic.anchor" = "Tarihi Çapa";
 "type.historic.archaeological_site" = "Sit Alanı";
 "type.historic.battlefield" = "Harp Meydanı";
 "type.historic.boundary_stone" = "Sınır Taşı";
 "type.historic.cannon" = "Top";
-"type.historic.castle" = "Müstahkem şato";
+"type.historic.castle" = "Müstahkem Şato";
 "type.historic.castle.castrum" = "Castra";
 "type.historic.castle.defensive" = "Müstahkem şato";
 "type.historic.castle.fortified_church" = "Müstahkem kilise";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Elektrik Kulesi";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Elektrik Direği";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Hizmet Direği";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

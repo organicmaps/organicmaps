@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Nazad</string>
+    <string name="download_has_failed">Preuzimanje neuspješno. Dotaknite za ponovni pokušaj.</string>
+    <string name="cancel">Odustani</string>
+    <string name="delete">Obriši</string>
+    <string name="kilometres">Kilometri</string>
+    <string name="downloading">Preuzimanje…</string>
+    <string name="download_maps">Preuzmi Karte</string>
+    <string name="miles">Milje</string>
+    <string name="core_my_position">Moja lokacija</string>
+    <string name="later">Kasnije</string>
+    <string name="search">Traži</string>
+    <string name="search_map">Pretraži kartu</string>
+    <string name="limited_accuracy">Ograničena preciznost</string>
+    <string name="zoom_to_country">Prikaži na karti</string>
+    <string name="country_status_download_failed">Preuzimanje neuspješno</string>
+    <string name="try_again">Pokušaj ponovo</string>
+    <string name="about_proposition_2">Štedi bateriju, radi offline</string>
+    <string name="close">Zatvori</string>
+    <string name="download">Preuzmi</string>
+    <string name="download_resources_continue">Prikaži kartu</string>
+    <string name="download_country_ask">Preuzmi %s?</string>
+    <string name="continue_button">Nastavi</string>
+    <string name="download_country_failed">%s neuspješno preuzimanje</string>
+</resources>

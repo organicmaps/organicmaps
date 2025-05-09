@@ -46,10 +46,10 @@
 "about_headline" = "Gratuit pour tout le monde, fait avec amour";
 
 /* Text in About screen */
-"about_proposition_1" = "• Pas d'annonces, pas de suivi, pas de collecte de données";
+"about_proposition_1" = "• Pas de pub, pas de suivi, pas de collecte de données";
 
 /* Text in About screen */
-"about_proposition_2" = "• Pas d'épuisement de la batterie, fonctionne hors ligne";
+"about_proposition_2" = "• Préserve la batterie, fonctionne hors ligne";
 
 /* Text in About screen */
 "about_proposition_3" = "• Rapide, minimaliste, développé par la communauté";

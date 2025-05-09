@@ -435,7 +435,7 @@
     <string name="register_at_openstreetmap">Iscriviti a OpenStreetMap</string>
     <string name="login">Accedi</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
-    <string name="not_signed_in">Non connesso</string>
+    <string name="not_signed_in">Accesso non effettuato</string>
     <string name="login_osm">Accedi a OpenStreetMap</string>
     <string name="password">Password</string>
     <string name="forgot_password">Hai dimenticato la password?</string>
@@ -606,6 +606,7 @@
     <string name="bookmark_lists_show_all">Mostra tutto</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d preferito</item>
+        <item quantity="many">%d preferiti</item>
         <item quantity="other">%d preferiti</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crea un nuovo elenco</string>
@@ -629,7 +630,7 @@
     <string name="restore">Ripristina</string>
     <plurals name="tracks">
         <item quantity="one">%d traccia</item>
-        <item quantity="many"/>
+        <item quantity="many">%dtracce</item>
         <item quantity="other">%d tracce</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

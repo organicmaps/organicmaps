@@ -42,7 +42,7 @@
     <string name="type.amenity.casino">Casino</string>
     <string name="type.amenity.gambling">Juegos de apuestas</string>
     <string name="type.leisure.adult_gaming_centre">Centro de juegos para adultos</string>
-    <string name="type.leisure.amusement_arcade">Arcade</string>
+    <string name="type.leisure.amusement_arcade">Sala de recreativos</string>
     <string name="type.amenity.charging_station">Estación de carga</string>
     <string name="type.amenity.charging_station.bicycle">Estación de carga de bicicletas</string>
     <string name="type.amenity.charging_station.motorcar">Estación de carga de automóviles</string>
@@ -275,7 +275,7 @@
     <string name="type.cuisine.breakfast">Desayunos</string>
     <string name="type.cuisine.bubble_tea">Té de burbujas</string>
     <string name="type.cuisine.burger">Hamburguesería</string>
-    <string name="type.cuisine.buschenschank">Buschenschank</string>
+    <string name="type.cuisine.buschenschank">Buschenschank (especialidad austríaca)</string>
     <string name="type.cuisine.cake">Tartas</string>
     <string name="type.cuisine.caribbean">Caribeña</string>
     <string name="type.cuisine.chicken">Pollo</string>
@@ -298,7 +298,7 @@
     <string name="type.cuisine.german">Alemana</string>
     <string name="type.cuisine.greek">Griega</string>
     <string name="type.cuisine.grill">Parrilla</string>
-    <string name="type.cuisine.heuriger">Heuriger</string>
+    <string name="type.cuisine.heuriger">Heuriger (especialidad austríaca)</string>
     <string name="type.cuisine.hotdog">Perritos calientes</string>
     <string name="type.cuisine.hungarian">Húngara</string>
     <string name="type.cuisine.ice_cream">Helados</string>
@@ -329,7 +329,7 @@
     <string name="type.cuisine.polish">Polaca</string>
     <string name="type.cuisine.portuguese">Portuguesa</string>
     <string name="type.cuisine.ramen">Ramen</string>
-    <string name="type.cuisine.regional">Regional</string>
+    <string name="type.cuisine.regional">Cocina regional</string>
     <string name="type.cuisine.russian">Rusa</string>
     <string name="type.cuisine.sandwich">Sándwiches</string>
     <string name="type.cuisine.sausage">Salchichas</string>
@@ -565,7 +565,7 @@
     <string name="type.historic.memorial.plaque">Placa conmemorativa</string>
     <string name="type.historic.memorial.sculpture">Escultura</string>
     <string name="type.historic.memorial.statue">Estatua</string>
-    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.historic.memorial.stolperstein">Stolperstein (memoriales de las víctimas del nazismo)</string>
     <string name="type.historic.stone">Piedra histórica</string>
     <string name="type.historic.memorial.war_memorial">Memorial de guerra</string>
     <string name="type.historic.mine">Mina histórica</string>
@@ -636,7 +636,7 @@
     <string name="type.leisure.miniature_golf">Minigolf</string>
     <string name="type.leisure.hackerspace">Espacio para hackers</string>
     <string name="type.leisure.ice_rink">Pisa de patinaje</string>
-    <string name="type.leisure.marina">Marina</string>
+    <string name="type.leisure.marina">Puerto o amarradero</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
     <string name="type.leisure.outdoor_seating">Asientos al aire libre</string>
     <string name="type.leisure.park">Parque</string>
@@ -1281,7 +1281,7 @@
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Museo</string>
     <string name="type.tourism.picnic_site">Zona de picnic</string>
-    <string name="type.leisure.resort">Resort</string>
+    <string name="type.leisure.resort">Resort turístico</string>
     <string name="type.tourism.theme_park">Parque temático</string>
     <string name="type.tourism.viewpoint">Mirador</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

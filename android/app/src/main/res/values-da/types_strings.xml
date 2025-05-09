@@ -178,7 +178,7 @@
     <string name="type.craft">Håndværk</string>
     <string name="type.craft.beekeeper">Biavler</string>
     <string name="type.craft.blacksmith">Smed</string>
-    <string name="type.craft.brewery">Bryggeri</string>
+    <string name="type.craft.brewery">Mikrobryggeri</string>
     <string name="type.craft.caterer">Cateringfirma</string>
     <string name="type.craft.carpenter">Tømrer</string>
     <string name="type.craft.confectionery">Konfekturehandler</string>
@@ -189,7 +189,7 @@
     <string name="type.craft.handicraft">Kunsthåndværk</string>
     <!-- Heating, Ventilation, and Air Conditioning -->
     <string name="type.craft.hvac">VVS</string>
-    <string name="type.craft.key_cutter">Nøgleskæring</string>
+    <string name="type.craft.key_cutter">Nøgleskærer</string>
     <string name="type.craft.locksmith">Låsesmed</string>
     <string name="type.craft.metal_construction">Metalarbejder</string>
     <string name="type.craft.painter">Maler</string>
@@ -313,66 +313,66 @@
     <string name="type.highway.bridleway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.bridleway.tunnel">Tunnel</string>
-    <string name="type.highway.busway">Dedikeret busvej</string>
+    <string name="type.highway.busway">Busgade</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.busway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Tunnel</string>
     <string name="type.highway.bus_stop">Busstoppested</string>
-    <string name="type.highway.construction">Vej under opbygning</string>
+    <string name="type.highway.construction">Vej under anlæggelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Tunnel</string>
-    <string name="type.highway.footway">Sti</string>
+    <string name="type.highway.footway">Gangsti</string>
     <string name="type.highway.footway.sidewalk">Fortov</string>
     <string name="type.highway.footway.crossing">Fodgængerovergang</string>
-    <string name="type.highway.footway.area">Sti</string>
+    <string name="type.highway.footway.area">Fodgængerareal</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.footway.tunnel">Tunnel</string>
     <string name="type.highway.ford">Vadested</string>
-    <string name="type.highway.living_street">Gade</string>
+    <string name="type.highway.living_street">Legegade</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.living_street.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.living_street.tunnel">Tunnel</string>
-    <string name="type.highway.motorway">Gade</string>
+    <string name="type.highway.motorway">Motorvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Tunnel</string>
     <string name="type.highway.motorway_junction">Motorvejsafkørsel</string>
-    <string name="type.highway.motorway_link">Gade</string>
+    <string name="type.highway.motorway_link">Motorvejsrampe</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
     <string name="type.highway.path">Sti</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Vanskelig eller dårligt synlig sti</string>
+    <string name="type.highway.path.difficult">Krævende eller utydeligt vandrespor</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
-    <string name="type.highway.path.expert">Meget svær eller umulig at skelne fra hinanden</string>
-    <string name="type.highway.path.bicycle">Sti</string>
-    <string name="type.highway.footway.bicycle">Sti</string>
+    <string name="type.highway.path.expert">Meget krævende eller usynligt vandrespor</string>
+    <string name="type.highway.path.bicycle">Fællessti</string>
+    <string name="type.highway.footway.bicycle">Fællessti</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Bro</string>
-    <string name="type.highway.path.horse">Sti</string>
+    <string name="type.highway.path.horse">Ridesti</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Tunnel</string>
-    <string name="type.highway.pedestrian">Gade</string>
-    <string name="type.highway.pedestrian.area">Gade</string>
+    <string name="type.highway.pedestrian">Gågade</string>
+    <string name="type.highway.pedestrian.area">Gågadeareal</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.pedestrian.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Tunnel</string>
-    <string name="type.highway.primary">Gade</string>
+    <string name="type.highway.primary">Hovedvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Tunnel</string>
-    <string name="type.highway.primary_link">Gade</string>
+    <string name="type.highway.primary_link">Hovedvejsforbindelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -385,91 +385,91 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">Tunnel</string>
     <string name="type.highway.rest_area">Holdeplads</string>
-    <string name="type.highway.road">Gade</string>
+    <string name="type.highway.road">Vej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.road.bridge">Bro</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.road.tunnel">Tunnel</string>
-    <string name="type.highway.secondary">Gade</string>
+    <string name="type.highway.secondary">Sækunder hovedvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary.tunnel">Tunnel</string>
-    <string name="type.highway.secondary_link">Gade</string>
+    <string name="type.highway.secondary_link">Sekundær hovedvejsforbindelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary_link.tunnel">Tunnel</string>
-    <string name="type.highway.service">Gade</string>
-    <string name="type.highway.service.area">Gade</string>
+    <string name="type.highway.service">Servicevej</string>
+    <string name="type.highway.service.area">Servicevej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Bro</string>
-    <string name="type.highway.service.driveway">Gade</string>
-    <string name="type.highway.service.parking_aisle">Gade</string>
+    <string name="type.highway.service.driveway">Indkørsel</string>
+    <string name="type.highway.service.parking_aisle">Vej mellem parkeringspladser</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Tunnel</string>
-    <string name="type.highway.speed_camera">Automatisk Trafikkontrol</string>
-    <string name="type.highway.steps">Sti</string>
+    <string name="type.highway.speed_camera">Automatisk Fartkontrol</string>
+    <string name="type.highway.steps">Trappe</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Tunnel</string>
-    <string name="type.highway.tertiary">Gade</string>
+    <string name="type.highway.tertiary">Tertiær hovedvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary.tunnel">Tunnel</string>
-    <string name="type.highway.tertiary_link">Gade</string>
+    <string name="type.highway.tertiary_link">Tertiær hovedvejsforbindelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary_link.tunnel">Tunnel</string>
-    <string name="type.highway.track">Gade</string>
-    <string name="type.highway.track.area">Gade</string>
+    <string name="type.highway.track">Hjulspor</string>
+    <string name="type.highway.track.area">Hjulspor</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.track.bridge">Bro</string>
-    <string name="type.highway.track.grade1">Gade</string>
-    <string name="type.highway.track.no.access">Gade</string>
+    <string name="type.highway.track.grade1">Adgangsvej</string>
+    <string name="type.highway.track.no.access">Adgangsvej</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Tunnel</string>
     <string name="type.highway.traffic_signals">Trafiklys</string>
-    <string name="type.highway.trunk">Gade</string>
+    <string name="type.highway.trunk">Motortrafikvej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk.tunnel">Tunnel</string>
-    <string name="type.highway.trunk_link">Gade</string>
+    <string name="type.highway.trunk_link">Motortrafikvejsforbindelse</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk_link.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk_link.tunnel">Tunnel</string>
-    <string name="type.highway.unclassified">Gade</string>
-    <string name="type.highway.unclassified.area">Gade</string>
+    <string name="type.highway.unclassified">Vej</string>
+    <string name="type.highway.unclassified.area">Vej</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Bro</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.footway">Sti</string>
-    <string name="type.area_highway.living_street">Gade</string>
-    <string name="type.area_highway.motorway">Gade</string>
+    <string name="type.area_highway.living_street">Legegade</string>
+    <string name="type.area_highway.motorway">Motorvej</string>
     <string name="type.area_highway.path">Sti</string>
-    <string name="type.area_highway.pedestrian">Gade</string>
-    <string name="type.area_highway.primary">Gade</string>
+    <string name="type.area_highway.pedestrian">Gågade</string>
+    <string name="type.area_highway.primary">Hovedvej</string>
     <string name="type.area_highway.residential">Gade</string>
-    <string name="type.area_highway.secondary">Gade</string>
-    <string name="type.area_highway.service">Gade</string>
-    <string name="type.area_highway.tertiary">Gade</string>
-    <string name="type.area_highway.steps">Sti</string>
-    <string name="type.area_highway.track">Gade</string>
-    <string name="type.area_highway.trunk">Gade</string>
-    <string name="type.area_highway.unclassified">Gade</string>
+    <string name="type.area_highway.secondary">Sekundær hovedvej</string>
+    <string name="type.area_highway.service">Servicevej</string>
+    <string name="type.area_highway.tertiary">Tertiær hovedvej</string>
+    <string name="type.area_highway.steps">Trappe</string>
+    <string name="type.area_highway.track">Hjulspor</string>
+    <string name="type.area_highway.trunk">Motortrafikvej</string>
+    <string name="type.area_highway.unclassified">Mindre vej</string>
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisk objekt</string>
-    <string name="type.historic.aircraft">Historiske fly</string>
+    <string name="type.historic.aircraft">Historisk fly</string>
     <string name="type.historic.anchor">Historisk anker</string>
-    <string name="type.historic.archaeological_site">Arkæologisk sted</string>
+    <string name="type.historic.archaeological_site">Arkæologisk fundsted</string>
     <string name="type.historic.battlefield">Slagmark</string>
     <string name="type.historic.boundary_stone">Grænsesten</string>
     <string name="type.historic.cannon">Kanon</string>
@@ -519,14 +519,14 @@
     <string name="type.landuse.farmland">Landbrugsjord</string>
     <string name="type.landuse.flowerbed">Blomsterseng</string>
     <string name="type.landuse.forest">Skov</string>
-    <string name="type.landuse.forest.coniferous">Skov</string>
-    <string name="type.landuse.forest.deciduous">Skov</string>
+    <string name="type.landuse.forest.coniferous">Nåleskov</string>
+    <string name="type.landuse.forest.deciduous">Løvskov</string>
     <string name="type.landuse.forest.mixed">Skov</string>
     <string name="type.landuse.grass">Græsplæne</string>
     <string name="type.landuse.landfill">Affaldsdepot</string>
     <string name="type.landuse.railway">Jernbaneanlæg</string>
-    <string name="type.landuse.reservoir">Vand</string>
-    <string name="type.leisure.dog_park">Hundepark</string>
+    <string name="type.landuse.reservoir">Vandreservoir</string>
+    <string name="type.leisure.dog_park">Hundeskov</string>
     <string name="type.leisure.fitness_centre">Trænings- og motionscenter</string>
     <string name="type.leisure.fitness_station">Fitness-station</string>
     <string name="type.leisure.dance">Dansesal</string>
@@ -534,7 +534,7 @@
     <string name="type.leisure.garden.residential">Have</string>
     <string name="type.leisure.golf_course">Golf</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
-    <string name="type.leisure.nature_reserve">Reservat</string>
+    <string name="type.leisure.nature_reserve">Naturreservat</string>
     <string name="type.leisure.outdoor_seating">Udendørs siddepladser</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Park</string>
@@ -602,13 +602,13 @@
     <string name="type.natural.orchard">Frugthave</string>
     <string name="type.natural.peak">Bjerg</string>
     <string name="type.natural.saddle">Bjergsadel</string>
-    <string name="type.natural.rock">Bjergart</string>
-    <string name="type.natural.scrub">Kratbevokset område</string>
+    <string name="type.natural.rock">Sten</string>
+    <string name="type.natural.scrub">Krat</string>
     <string name="type.natural.spring">Kilde</string>
     <string name="type.natural.spring.drinking_water_no">Kilde</string>
     <string name="type.natural.strait">Stræde</string>
-    <string name="type.natural.tree_row">Trærækker</string>
-    <string name="type.natural.vineyard">Vingård</string>
+    <string name="type.natural.tree_row">Trærække</string>
+    <string name="type.natural.vineyard">Vinmark</string>
     <string name="type.natural.volcano">Vulkan</string>
     <string name="type.natural.water">Vandmasse</string>
     <string name="type.natural.wetland">Vådområde</string>
@@ -649,7 +649,7 @@
     <string name="type.place.neighbourhood">Nabolag</string>
     <string name="type.place.ocean">Verdenshave</string>
     <string name="type.place.region">Region</string>
-    <string name="type.place.sea">Er</string>
+    <string name="type.place.sea">Hav</string>
     <string name="type.place.square">Torv</string>
     <string name="type.place.state">Stat</string>
     <string name="type.place.state.USA">Stat</string>
@@ -938,39 +938,39 @@
     <string name="type.railway.subway_entrance.yokohama">Metroindgang</string>
     <string name="type.railway.tram_stop">Sporvognsstoppested</string>
     <string name="type.shop">Butik</string>
-    <string name="type.shop.alcohol">Alkohol</string>
+    <string name="type.shop.alcohol">Alkoholforhandler</string>
     <string name="type.shop.bakery">Bager</string>
-    <string name="type.shop.bathroom_furnishing">Badeværelsesindretning</string>
+    <string name="type.shop.bathroom_furnishing">Badeværelsesbutik</string>
     <string name="type.shop.beauty">Skønhedssalon</string>
-    <string name="type.shop.beverages">Drikkevarer</string>
-    <string name="type.shop.bicycle">Cykelforretning</string>
+    <string name="type.shop.beverages">Drikkevarehandel</string>
+    <string name="type.shop.bicycle">Cykelhandel</string>
     <string name="type.shop.books">Boghandel</string>
     <string name="type.shop.butcher">Slagter</string>
-    <string name="type.shop.cannabis">Cannabis butik</string>
+    <string name="type.shop.cannabis">Cannabisbutik</string>
     <string name="type.shop.car">Bilforhandler</string>
-    <string name="type.shop.car_parts">Bildele</string>
-    <string name="type.shop.car_repair">Bilmekaniker</string>
+    <string name="type.shop.car_parts">Reservedelsforhandler til biler</string>
+    <string name="type.shop.car_repair">Bilværksted</string>
     <string name="type.shop.car_repair.tyres">Dækreparation</string>
-    <string name="type.shop.carpet">Tæpper</string>
+    <string name="type.shop.carpet">Tæppehandel</string>
     <string name="type.shop.chemist">Materialist</string>
-    <string name="type.shop.chocolate">Chokolade butik</string>
+    <string name="type.shop.chocolate">Chokoladebutik</string>
     <string name="type.shop.clothes">Tøjbutik</string>
-    <string name="type.shop.coffee">Butik med kaffe</string>
+    <string name="type.shop.coffee">Kaffehandel</string>
     <string name="type.shop.computer">Computerforretning</string>
     <string name="type.shop.confectionery">Slikbutik</string>
     <string name="type.shop.convenience">Døgnbutik</string>
     <string name="type.shop.copyshop">Kopieringsbutik</string>
-    <string name="type.shop.cosmetics">Kosmetik</string>
-    <string name="type.shop.curtain">Gardiner</string>
+    <string name="type.shop.cosmetics">Kosmetiker</string>
+    <string name="type.shop.curtain">Gardinhandel</string>
     <string name="type.shop.deli">Delikatessebutik</string>
     <string name="type.shop.department_store">Stormagasin</string>
     <string name="type.shop.doityourself">Isenkræmmer</string>
     <string name="type.shop.dry_cleaning">Renseri</string>
     <string name="type.shop.electronics">Elektronikbutik</string>
-    <string name="type.shop.erotic">Erotisk butik</string>
+    <string name="type.shop.erotic">Erotikbutik</string>
     <string name="type.shop.fabric">Stofbutik</string>
-    <string name="type.shop.farm">Farm Food Shop</string>
-    <string name="type.shop.fashion_accessories">Mode tilbehør</string>
+    <string name="type.shop.farm">Foderhandel</string>
+    <string name="type.shop.fashion_accessories">Accessory-butik</string>
     <string name="type.shop.florist">Blomsterbutik</string>
     <string name="type.shop.funeral_directors">Bedemand</string>
     <string name="type.shop.furniture">Møbelbutik</string>
@@ -1025,32 +1025,32 @@
     <string name="type.shop.video_games">Computerspilbutik</string>
     <string name="type.shop.wine">Vinhandel</string>
     <string name="type.shop.agrarian">Landbrugsbutik</string>
-    <string name="type.shop.antiques">Antikviteter</string>
+    <string name="type.shop.antiques">Antikvitetsbutik</string>
     <string name="type.shop.appliance">Hvidevarer butik</string>
     <!-- maybe change to Art Gallery for en-US when supported -->
     <string name="type.shop.art">Kunstbutik</string>
     <string name="type.shop.baby_goods">Børnebutik</string>
-    <string name="type.shop.bag">Tasker butik</string>
-    <string name="type.shop.bed">Senge butik</string>
-    <string name="type.shop.boutique">Boutique</string>
+    <string name="type.shop.bag">Taskebutik</string>
+    <string name="type.shop.bed">Sengebutik</string>
+    <string name="type.shop.boutique">Modebutik</string>
     <string name="type.shop.charity">Velgørenhedsbutik</string>
     <string name="type.shop.cheese">Ostebutik</string>
     <string name="type.shop.craft">Kunst og kunsthåndværk</string>
     <string name="type.shop.dairy">Mejeriprodukter</string>
     <string name="type.shop.electrical">El-butik</string>
-    <string name="type.shop.fishing">Fiskeri butik</string>
-    <string name="type.shop.interior_decoration">Indvendige dekorationer</string>
-    <string name="type.shop.lottery">Lotterikuponer</string>
-    <string name="type.shop.medical_supply">Medicinske forsyninger</string>
-    <string name="type.shop.nutrition_supplements">Kosttilskud</string>
-    <string name="type.shop.paint">Maling</string>
+    <string name="type.shop.fishing">Fiskeributik</string>
+    <string name="type.shop.interior_decoration">Brugskunsthandel</string>
+    <string name="type.shop.lottery">Lottobutik</string>
+    <string name="type.shop.medical_supply">Medicinaludstyrsforhandler</string>
+    <string name="type.shop.nutrition_supplements">Kosttilskudsbutik</string>
+    <string name="type.shop.paint">Malerbutik</string>
     <string name="type.shop.perfumery">Parfumeri</string>
-    <string name="type.shop.sewing">Syudstyr</string>
+    <string name="type.shop.sewing">Sybutik</string>
     <string name="type.shop.storage_rental">Lagerudlejning</string>
-    <string name="type.shop.tobacco">Tobak</string>
-    <string name="type.shop.trade">Handler forsyninger</string>
-    <string name="type.shop.watches">Ure</string>
-    <string name="type.shop.wholesale">Engros butik</string>
+    <string name="type.shop.tobacco">Tobaksforhandler</string>
+    <string name="type.shop.trade">Specialistleverandør</string>
+    <string name="type.shop.watches">Urbutik</string>
+    <string name="type.shop.wholesale">Engroshandel</string>
     <string name="type.sport">Sport</string>
     <string name="type.sport.american_football">Amerikansk fodbold</string>
     <string name="type.sport.archery">Bueskydning</string>
@@ -1136,13 +1136,13 @@
     <string name="type.wheelchair.limited">Begrænset tilgængelighed for kørestol</string>
     <string name="type.wheelchair.no">Ingen tilgængelighed for kørestol</string>
     <string name="type.wheelchair.yes">Fuld tilgængelighed for kørestol</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Snepark</string>
     <string name="type.piste_type.hike">Vandresti i sne</string>
     <string name="type.piste_type.connection">Pisteforbindelse</string>
-    <string name="type.piste_type.skitour">Skitour Trail</string>
-    <string name="type.amenity.events_venue">Sted for arrangementer</string>
-    <string name="type.shop.auction">Auktion</string>
-    <string name="type.shop.collector">Samlerobjekter</string>
+    <string name="type.piste_type.skitour">Skitoursti</string>
+    <string name="type.amenity.events_venue">Selskabslokale</string>
+    <string name="type.shop.auction">Auktionshus</string>
+    <string name="type.shop.collector">Samlerbutik</string>
     <string name="type.self_service.yes">Selvbetjening tilgængelig</string>
     <string name="type.self_service.only">Kun selvbetjening</string>
     <string name="type.self_service.partially">Delvis selvbetjening</string>
@@ -1232,7 +1232,7 @@
     <string name="type.landuse.commercial">Erhvervsområde</string>
     <string name="type.landuse.construction">Byggeplads</string>
     <string name="type.landuse.education">Uddannelsesområde</string>
-    <string name="type.landuse.farmyard">Gårdsplads</string>
+    <string name="type.landuse.farmyard">Gårdanlæg</string>
     <string name="type.landuse.field">Mark</string>
     <string name="type.landuse.garages">Garager</string>
     <string name="type.landuse.greenfield">Ubebygget område</string>

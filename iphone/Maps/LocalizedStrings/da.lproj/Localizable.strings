@@ -7,10 +7,10 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Slet";
-"download_maps" = "Download kort";
+"download_maps" = "Hent kort";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Downloader…";
+"downloading" = "Henter…";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometer";
@@ -19,7 +19,7 @@
 "leave_a_review" = "Lav en bedømmelse";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "Miles";
+"miles" = "Mil";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min position";
@@ -40,7 +40,7 @@
 "country_status_download_without_size" = "Download kort";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Download mislykket";
+"country_status_download_failed" = "Hentning mislykket";
 
 /* Text in About screen */
 "about_headline" = "Gratis for alle, lavet med kærlighed";
@@ -52,9 +52,9 @@
 "about_proposition_2" = "• Intet batteridræn, fungerer offline";
 
 /* Text in About screen */
-"about_proposition_3" = "• Hurtig, minimalistisk, udviklet af fællesskabet";
+"about_proposition_3" = "• Hurtig, minimalistisk, udviklet i fællesskab";
 "close" = "Luk";
-"download" = "Download";
+"download" = "Hent";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_button" = "Fortsæt";
@@ -63,7 +63,7 @@
 "add_new_set" = "Tilføj en ny liste";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
-"bookmark_set_name" = "Indstil bogmærkenavn for liste";
+"bookmark_set_name" = "Indstil navn for bogmærkeliste";
 
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bogmærkelister";
@@ -105,7 +105,7 @@
 "category_shopping" = "Indkøb";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
-"category_secondhand" = "Brugt";
+"category_secondhand" = "Genbrugsbutikker";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hotel";
@@ -147,13 +147,13 @@
 "category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
-"category_recycling" = "Genbrug";
+"category_recycling" = "Recirkulering";
 
 /* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
 "category_water" = "Vand";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Faciliteter til autocamper";
+"category_rv" = "Autocamper-faciliteter";
 "share_bookmarks_email_body" = "Hej! \n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n\nGod rejse med Organic Maps!";
 
 /* message title of loading file */

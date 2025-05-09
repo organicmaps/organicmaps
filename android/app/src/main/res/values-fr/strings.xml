@@ -32,7 +32,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Précision limitée</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Pour garantir une navigation précise, activez l\'option Localisation précise dans les paramètres.</string>
+    <string name="precise_location_is_disabled_long_text">Pour garantir une navigation précise, activez l\'option Position Exacte dans les paramètres.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Voir sur la carte</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -43,9 +43,9 @@
     <!-- Text in About screen -->
     <string name="about_headline">Gratuit pour tout le monde, fait avec amour</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">• Pas d\'annonces, pas de suivi, pas de collecte de données</string>
+    <string name="about_proposition_1">• Pas de pub, pas de suivi, pas de collecte de données</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">• Pas d\'épuisement de la batterie, fonctionne hors ligne</string>
+    <string name="about_proposition_2">• Préserve la batterie, fonctionne hors ligne</string>
     <!-- Text in About screen -->
     <string name="about_proposition_3">• Rapide, minimaliste, développé par la communauté</string>
     <!-- Text in About screen -->
@@ -59,8 +59,7 @@
     <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
-    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.
-\n%s de données sont nécessaires.</string>
+    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil. \n%s d\'espace de stockage sont nécessaires.</string>
     <string name="download_resources_continue">Aller sur la carte</string>
     <string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez
 \nmaintenant aller sur la carte.</string>

@@ -756,8 +756,8 @@
 "subway_data_unavailable" = "Metro karte nav pieejama";
 "title_error_downloading_bookmarks" = "Notika kļūda";
 "popular_place" = "Populāras";
-"export_file" = "Eksportēt KMZ";
-"export_file_gpx" = "GPX eksportēšana";
+"export_file" = "Izgūt KMZ formātā";
+"export_file_gpx" = "Izgūt GPX formātā";
 "delete_list" = "Dzēst sarakstu";
 "hide_from_map" = "Slēpt kartē";
 "tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
@@ -973,7 +973,7 @@
 "button_layer_outdoor" = "Aktīvā atpūta";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Eksportēt visas grāmatzīmes un ceļus";
+"bookmarks_export" = "Izgūt visus ceļus un grāmatzīmes";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Mainīt krāsu";

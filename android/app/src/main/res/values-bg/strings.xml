@@ -47,7 +47,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Без източване на батерията, работи офлайн</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Бързи, минималистични, разработен от общността</string>
+    <string name="about_proposition_3">• Бърз, прост, разработен от общността</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Приложение с отворен код, създадено от ентусиасти и доброволци.</string>
     <!-- The button that opens system location settings -->
@@ -59,8 +59,7 @@
     <string name="disconnect_usb_cable">Моля, изключете USB кабела или поставете карта с памет.</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Моля, първо освободете място на SD картата/USB паметта, за да можете да използвате приложението.</string>
-    <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим общата карта на света на вашето устройство.
-\nТова ще използва %s от паметта.</string>
+    <string name="download_resources">Преди да започнете да използвате приложението, позволете ни да изтеглим основната карта на света на вашето устройство. \nТова ще използва %s от паметта.</string>
     <string name="download_resources_continue">Към картата</string>
     <string name="downloading_country_can_proceed">Изтегляне на %s. Вече можете да преминете към картата.</string>
     <string name="download_country_ask">Изтегляне на %s?</string>
@@ -104,7 +103,6 @@
     <string name="measurement_units">Мерни единици</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Изберете между километри или мили</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Места за хапване</string>
@@ -152,7 +150,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">За RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Бележки</string>
@@ -329,10 +326,9 @@
     <string name="brown">Кафяво</string>
     <!-- pink color -->
     <string name="pink">Розово</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Когато следвате маршрута, моля, имайте предвид:</string>
-    <string name="dialog_routing_disclaimer_priority">- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;</string>
+    <string name="dialog_routing_disclaimer_priority">- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат предимство пред пътеводителните подсказки;</string>
     <string name="dialog_routing_disclaimer_precision">- Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;</string>
     <string name="dialog_routing_disclaimer_recommendations">- Предложените маршрути са само препоръки;</string>
     <string name="dialog_routing_disclaimer_borders">- Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.</string>
@@ -359,7 +355,6 @@
     <string name="not_now">Не сега</string>
     <string name="dialog_routing_download_and_build_cross_route">Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?</string>
     <string name="dialog_routing_download_cross_route">За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.</string>
     <string name="search_select_map">Избор на карта</string>
@@ -559,7 +554,7 @@
 \nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.
 \nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.</string>
     <string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
-    <string name="transliteration_title">Латинска транслитерация</string>
+    <string name="transliteration_title">Изпиши на латиница</string>
     <string name="learn_more">Научете повече</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Изход</string>
@@ -574,7 +569,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.</string>
     <string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>
-    <string name="dialog_error_storage_message">Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Емулация на грешки с външна памет</string>
     <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Моля, въведете правилно име</string>
@@ -677,7 +672,6 @@
     <string name="by_date">По дата</string>
     <!-- Android -->
     <string name="by_name">По име</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="search_in_the_list">Търсене в списъка</string>
     <string name="select_list">Избор на списък</string>
@@ -695,7 +689,7 @@
     <string name="elevation_profile_distance">Разст.:</string>
     <string name="elevation_profile_time">Време:</string>
     <string name="isolines_toast_zooms_1_10">Увеличете мащаба, за да разгледате изолиниите</string>
-    <string name="download_map_title">Изтегляне на картата на света</string>
+    <string name="download_map_title">Изтегляне на осноената картата на света</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="connection_failure">Неуспешно свързване</string>
     <!-- Used in DownloadResources startup screen -->
@@ -793,4 +787,65 @@
     <string name="uri_open_location_failed">Не е инсталирано приложение, което може да отвори местоположението</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Автоматично в навигацията</string>
+    <string name="parks">Паркове</string>
+    <string name="deep_purple">Тъмно Лилаво</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="maps_storage_removable">Карта памет</string>
+    <string name="placepage_distance">Разстояние</string>
+    <string name="menu">Меню</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="light_blue">Светло Синьо</string>
+    <string name="cyan">Синьо</string>
+    <string name="teal">Тюркоаз</string>
+    <string name="lime">Светло Зелено</string>
+    <string name="kilometers_per_hour">км/ч</string>
+    <string name="phone_number">Телефонен номер</string>
+    <string name="unpaved_road">Път без настилка</string>
+    <string name="week_ago_sorttype">Преди седмица</string>
+    <string name="food_places">Храна</string>
+    <string name="swim_places">Плуване</string>
+    <string name="mountains">Планини</string>
+    <string name="money">Пари</string>
+    <string name="parkings">Паркинги</string>
+    <string name="fuel_places">Бензиностанции</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="moreyear_ago_sorttype">Преди повече от година</string>
+    <string name="maps_storage_external">Външно споделено хранилище</string>
+    <string name="deep_orange">Тъмно Оранжево</string>
+    <string name="maps_storage_shared">Вътрешно споделено хранилище</string>
+    <string name="maps_storage_free_size">%1$s свободни от %2$s</string>
+    <string name="telegram">Telegram</string>
+    <string name="shops">Магазини</string>
+    <string name="delete_place_empty_comment_error">Моля, опишете причината за премахването</string>
+    <string name="medicine">Лечение</string>
+    <string name="change_map_locale">Език на картата</string>
+    <string name="moremonth_ago_sorttype">Преди повече от месец</string>
+    <string name="religious_places">Храмове</string>
+    <string name="navigation_stop_button">Спри</string>
+    <string name="tourist_places">Забележителности</string>
+    <string name="museums">Музеи</string>
+    <string name="gray">Сиво</string>
+    <string name="blue_gray">Синкаво Сиво</string>
+    <string name="read_in_wikipedia">Уикипедия</string>
+    <string name="editor_add_phone">Добави телефон</string>
+    <string name="move_maps_error">Грешка при преместването на картовите файлове</string>
+    <string name="miles_per_hour">мили/ч</string>
+    <string name="animals">Животни</string>
+    <string name="buildings">Сгради</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="hotels">Хотели</string>
+    <string name="others_sorttype">Други</string>
+    <string name="month_ago_sorttype">Преди месец</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="toll_road">Път с винетка</string>
+    <string name="vk">VK</string>
+    <string name="near_me_sorttype">На близо</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="trip_finished">Пристигнахте!</string>
+    <string name="instagram">Instagram</string>
+    <string name="downloader_loading_ios">Изтегляне</string>
 </resources>
