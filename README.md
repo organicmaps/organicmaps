@@ -14,6 +14,9 @@
 
 A community-led free & open source maps app based on [OpenStreetMap](https://www.openstreetmap.org) data and reinforced with commitment to transparency, privacy and being not-for-profit. CoMaps is a fork/spin-off of Organic Maps, which in turn is a fork of Maps.ME.
 
+There are apps for Android and iOS (and ARM macOS).
+An alpha linux / macOS Qt desktop version, which is also suitable for linux phones.
+
 **We're working on getting first app releases out soon, please stay tuned!**
 
 <!--
@@ -35,7 +38,7 @@ A community-led free & open source maps app based on [OpenStreetMap](https://www
 
 **Simple and Polished**: essential easy to use features that just work.
 
-**Save Your Battery**: Efficiently uses the battery during your travels, doesn’t drain your battery like other navigation apps.
+**Saves Your Battery and Space**: Doesn’t drain your battery like other navigation apps. Compact maps save precious space on your phone.
 
 **Free and Built by the Community**: People like you helped build the app by adding places to [OpenStreetMap](https://www.openstreetmap.org), testing and giving feedback on features and contributing their development skills and money.
 
@@ -57,9 +60,19 @@ A community-led free & open source maps app based on [OpenStreetMap](https://www
 
 - Bookmark your favorite places with a single tap
 
+- Offline Wikipedia articles
+
+- Subway transit layer and directions
+
 - Track recording
 
 - Export and import bookmarks and tracks in KML, KMZ, GPX formats
+
+- A dark mode to use during the night
+
+- Improve map data for everyone using a basic built-in editor
+
+- Android Auto and CarPlay support
 
 *Freedom Is Here - Discover your journey, navigate the world with privacy and community at the forefront!*
 
