@@ -50,6 +50,9 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     Button planButton = v.findViewById(R.id.btn__plan);
     planButton.setOnClickListener(this);
 
+    Button saveButton = v.findViewById(R.id.btn__save);
+    saveButton.setOnClickListener(this);
+
     mMyLocationImageView = v.findViewById(R.id.image_my_location);
     mMyLocationImageView.setOnClickListener(this);
 
@@ -123,6 +126,10 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
       // Set 'My Location' as starting point of the route.
       if (myLocation != null)
         mManageRouteAdapter.setMyLocationAsStartingPoint(myLocation);
+    }
+    else if (buttonId == R.id.btn__save)
+    {
+      Framework.nativeSaveRoute();
     }
     else if (buttonId == R.id.btn__plan)
     {
