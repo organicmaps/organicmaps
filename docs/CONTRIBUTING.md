@@ -1,10 +1,10 @@
 # Contributing
 
-Thank you for your interest in contributing to Organic Maps (OM)!
+Thank you for your interest in contributing to CoMaps!
 
 ## How Can I Contribute?
 
-- [Donate](https://comaps.app/donate/)
+- [Donate](https://opencollective.com/comaps/donate)
 - [Submit a bug report or a feature request](#bug-reports-and-feature-requests)
 
 There are things to do for everyone:
@@ -14,7 +14,7 @@ There are things to do for everyone:
 - [Day-to-day activities](#day-to-day-activities) like user support, testing, issue management, community relations, etc.
 - [Submitting your work](#submitting-your-changes)
 
-If you'd like to help in any other way or if there are any related questions - please [contact us](COMMUNICATION.md).
+If you'd like to help in any other way or if there are any related questions - please [contact us](https://codeberg.org/comaps#keep-connected).
 
 ### Bug Reports and Feature Requests
 
@@ -24,29 +24,29 @@ Please check if there are no similar issues already submitted by someone else.
 When reporting a bug please provide as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
-When using Organic Maps app on a device, use the built-in "Report a bug" option:
+When using CoMaps app on a device, use the built-in "Report a bug" option:
 on Android it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to <bugs@comaps.app>. Enabling logs in Organic Maps settings on Android
+faster if you send it to <bugs@comaps.app>. Enabling logs in CoMaps settings on Android
 before sending the bug report also helps us a lot with debugging.
 
 ### Translations
 
-OM is available in 35 languages already, but some of them are incomplete and existing translations need regular updates as the app evolves.
+CoMaps is available in 35 languages already, but some of them are incomplete and existing translations need regular updates as the app evolves.
 See [translations instructions](TRANSLATIONS.md) for details.
 
 ### UI/UX, map styling and icons
 
-Organic Maps has a strong focus on easy to use UI and smooth user experience. Feel free to join [UI/UX discussions](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AUX) in relevant issues. Mockups are very welcome! Check some [existing designs](https://codeberg.com/comaps/comaps/wiki/Design-Index).
+CoMaps has a strong focus on easy to use UI and smooth user experience. Feel free to join UI/UX discussions in relevant issues. Mockups are very welcome!
 
-If you're into graphic design then OM needs good, clear and free-to-use icons for hundreds of map features / POIs.
-Check OM's [graphic resources and design guidelines](https://codeberg.com/comaps/comaps/wiki#design) and existing [requests for icons](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons). Post your icons onto relevant issues or take a next step and [integrate them](STYLES.md) yourself.
+If you're into graphic design then CoMaps needs good, clear and free-to-use icons for hundreds of map features / POIs.
+Check CoMaps' [design principles](https://codeberg.org/comaps/comaps/wiki/Design-Principles). Post your icons onto relevant issues or take a next step and [integrate them](STYLES.md) yourself.
 
-Check the [map styling instructions](STYLES.md) and work on adding new map features and other open [styles requests](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles).
+Check the [map styling instructions](STYLES.md) and work on adding new map features and other open map styles issues.
 
 ### Code Contributions
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
-You will find a list of issues for new contributors [here](https://codeberg.com/comaps/comaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://codeberg.com/comaps/comaps/labels/Frequently%20Reported%20by%20Users) or our [Milestones](https://codeberg.com/comaps/comaps/milestones).
+You will find a list of issues for new contributors [here](https://codeberg.org/comaps/comaps/issues?labels=393881%2c393944) to help you get started with simple tasks.
 
 **We do not assign issues to first-time contributors.** Any such request notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
 
@@ -71,19 +71,18 @@ Please help us:
 - processing users questions and feedback in chats, app stores, email and social media and creating follow-up issues or updating existing ones
 - reproducing and triaging reported bugs
 - testing upcoming features and bug fixes for Android, iOS and desktop versions
-- keeping [codeberg issues](https://codeberg.com/comaps/comaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
+- keeping [issues](https://codeberg.com/comaps/comaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
 - composing nice user-centric release notes and news items
 - etc.
 
 ## Submitting your changes
 
 All contributions to CoMaps repositories should be submitted via
-[Codeberg pull requests](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/)
+[pull requests](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/)
 and signed-off with the [Developers Certificate of Origin](#legal-requirements).
 
-Each pull request is reviewed by OM maintainers to ensure its quality.
-Sometimes the review process even for smallest commits can be
-very thorough.
+Each pull request is reviewed by CoMaps maintainers to ensure its quality.
+Sometimes the review process even for smallest commits can be very thorough.
 
 ### Legal Requirements
 
@@ -106,7 +105,3 @@ Git has a flag that can sign a commit for you. An example using it is:
 
 Use your real name or on some rare cases a company email address, but we
 disallow pseudonyms or anonymous contributions.
-
-### Code of Conduct
-
-The OM community abides by the [CNCF code of conduct](CODE_OF_CONDUCT.md).
