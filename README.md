@@ -1,42 +1,18 @@
 <!--<div align="center">
   <img src="qt/res/logo.png" height="100"/>
 </div>-->
-<h1 align="center"">CoMaps - Discover more of your journey, powered by the community</h1>
 
+<!-- a nav bar -->
+[Project Intro](https://codeberg.org/comaps#comaps)
+ | [Governance](https://codeberg.org/comaps/Governance#comaps-project-governance-docs)
+ | [FAQ](https://codeberg.org/comaps/Governance/src/branch/main/FAQ.md)
+ | [Contribute](#contributing)
+ | [Donate](https://opencollective.com/comaps/donate)
+ | [Keep Connected](https://codeberg.org/comaps#keep-connected)
 
-CoMaps is a new community-driven maps app project born out of the desire to create a truly open, transparent, and community-focused navigation app. Our mission is to provide easy, offline navigation for travellers, drivers, hikers, and cyclists, with a strong emphasis on open-source principles and respecting data privacy. We are committed to building a world where the top choice for navigation software is free and developed through open collaboration.
+# [CoMaps](https://comaps.app) – Hike, Bike, Drive Offline – Easy Map Navigation with Privacy
 
-### Community Action
-
-The CoMaps project was initiated in response to the growing concerns and dissatisfaction within the Organic Maps community. The original Organic Maps project, while initially promoted as an open community effort, faced significant issues related to governance, transparency, and the potential for shareholder profit at the expense of the community. These concerns were detailed in an open letter to Organic Maps shareholders, which can be found [here](https://openletter.earth/open-letter-to-organic-maps-shareholders-a0bf770c). Despite some positive steps, the lack of a substantive resolution has led to the decision to start a new independent project.
-
-
-### New Path Forward
-
-At CoMaps, we are dedicated to ensuring that all project-related efforts are conducted in public, providing full transparency in decision-making, priorities, goals, financials, and operations. We believe in community decision-making, where those impacted by decisions have a voice and are empowered to participate. Our project operates as a not-for-profit entity, focusing on creating value for the community rather than generating profit. We are committed to maintaining the complete codebase and associated resources under Free and Open Source Software licenses, ensuring that development is open and transparent.
-
-Privacy is an important part of the project. The app does not track users or collect personal data behind the scenes; if there is potential of data collection, for example sharing app logs with tech support, it is fully disclosed and requires opt-in consent. Funding for CoMaps primarily comes from community donations, and possibility of grants and B2B products, as long as they align with the principles and are approved by the community. All assets created or acquired are owned by the community and used for its benefit.
-
-We are building a navigation app that is not only easy to use and fast, but also reflects the values of openness, transparency, and community collaboration. Join us in creating a navigation solution that truly serves the public good.
-
-Read on about project's principles and governance structure in the [dedicated repo](https://codeberg.org/comaps/governance#core-principles-work-in-progress).
-
-<br>
-
-## [CoMaps](https://comaps.app) – Hike, Bike, Drive Offline – Easy Map Navigation with Privacy
-
-A community-led maps app based on an open source foundation and reinforced with commitment to transparency, privacy and being not-for-profit.
-
-Join the community and help make the best maps app
-
-–	Use the app and spread the word about it
-
-–	Give feedback and report issues
-
-–	Update map data in the app or on the [OpenStreetMap](https://www.openstreetmap.org) website
-
-
-Your [donations](https://opencollective.com/comaps/donate) and positive reviews motivate and inspire us, thanks ❤️!
+A community-led free & open source maps app based on [OpenStreetMap](https://www.openstreetmap.org) data and reinforced with commitment to transparency, privacy and being not-for-profit. CoMaps is a fork/spin-off of Organic Maps, which in turn is a fork of Maps.ME.
 
 **We're working on getting first app releases out soon, please stay tuned!**
 
@@ -55,116 +31,67 @@ Your [donations](https://opencollective.com/comaps/donate) and positive reviews 
 
 **Offline-focused**: Plan and navigate your trip abroad without the need for cellular service, search waypoints while on a distant hike, etc. All app functions are designed to work offline.
 
-**No Data Collection**: The app is designed with privacy in mind - does not identify people, does not track, and does not collect any information.
+**Respecting Privacy**: The app is designed with privacy in mind - does not identify people, does not track, and does not collect personal information. Ads-free.
+
+**Simple and Polished**: essential easy to use features that just work.
 
 **Save Your Battery**: Efficiently uses the battery during your travels, doesn’t drain your battery like other navigation apps.
 
-**Free and Built by the Community**: People like you helped build the app by adding locations to OpenStreetMap, giving feedback on features, and contributing code on Codeberg in the open-source community.
+**Free and Built by the Community**: People like you helped build the app by adding places to [OpenStreetMap](https://www.openstreetmap.org), testing and giving feedback on features and contributing their development skills and money.
 
-### Principles
-1.	Transparency
-2.	Community Decision-making
-3.	Not-for-profit
-4.	Open source
-5.	Privacy-focused
-6.	Clear Funding
-7.	Assets for Public Interest
+**Open and Transparent Decision-making and Financials, Not-for-profit and Fully Open Source.**
 
+### Main Features
 
-### Respecting Privacy
-• No tracking
-• No data collection
-• No ads
+- Downloadable detailed maps with places which are not available with Google Maps
 
+- Outdoor mode with highlighted hiking trails, campsites, water sources, peaks, contour lines, etc
 
-## Features
+- Walking paths and cycleways
 
-• Search by name or an address or by point of interest category
+- Points of interest like restaurants, gas stations, hotels, shops, sightseeings and many more
 
-• Navigation with voice announcements for walking, cycling, or driving
+- Search by name or an address or by point of interest category
 
-• Track recording
+- Navigation with voice announcements for walking, cycling, or driving
 
-• Export and import bookmarks and tracks in KML, KMZ, GPX formats
+- Bookmark your favorite places with a single tap
 
+- Track recording
 
-### Maps
+- Export and import bookmarks and tracks in KML, KMZ, GPX formats
 
-• Downloadable detailed maps from OpenStreetMap with places which are not available with Google Maps
-
-• Hiking trails, walking paths and cycleways
-
-• Contour lines, elevation profiles and peaks
-
-• Points of interest like restaurants, gas stations, hotels, shops, sightseeings and many more
-
-
-
-Please report app issues, suggest ideas and join our community at comaps.app website.
-
-Freedom Is Here Discover your journey, navigate the world with privacy and community at the forefront. 
-
-
-<a name="contributing">
+*Freedom Is Here - Discover your journey, navigate the world with privacy and community at the forefront!*
 
 ## Contributing
 
-### Who is paying for development?
+You can help by donating, contributing code, translating, or by telling others about it. To build the best maps app there is a need for software development, design, product, community development, and other areas. Reach out to us and let us know how you want to help.
+
+If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
+see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can help in many ways, the ability to code is not necessary.
+
+Some docs might be outdated, contain broken links or old references to Organic Maps, etc. Its a work in progress and help is much appreciated!
+
+There is a dedicated Zulip chat for active contributors: [comaps.zulipchat.com](https://comaps.zulipchat.com)
+
+### Feedback
+
+<!-- uncomment when linked resources are ready
+- **Rate us on the [App Store](https://apps.apple.com/app/comaps/id1567437057)
+and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**. -->
+- Star our repos on Codeberg
+- Report bugs and discuss features at [the issue tracker](https://codeberg.org/comaps/comaps/issues)
+
+## Who is paying for development?
 
 The app is free for everyone, so we rely on donations. Please [donate](https://opencollective.com/comaps/donate) to support the CoMaps community and see this open project thrive!
 
 The project's financial information is completely open and transparent at [our Open Collective](https://opencollective.com/comaps).
 
-### How can I help with CoMaps?
-
-You can help by donating, by helping build the product, or by telling others about it. To build a great product there is a need for software development, design, product, community development, and other areas. Reach out to us and let us know how you want to help.
-
-If you want to build the project, check [docs/INSTALL.md](docs/INSTALL.md). If you want to help the project,
-see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](https://comaps.app/support-us/), the ability to code is not necessary.
-
-Some docs might be outdated, contain broken links or old references to Organic Maps, etc. Its a work in progress and help is much appreciated!
-
-<!-- uncomment when linked resources are ready
-### Feedback
-
-- **Rate us on the [App Store](https://apps.apple.com/app/comaps/id1567437057)
-and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**.
-- **Star us on Codeberg**.
-- Report bugs or issues to [the issue tracker](https://codeberg.org/comaps/comaps/issues).
--->
-
-### Connect with us
-
-[Bluesky](https://bsky.app/profile/comaps.app)
- | [Facebook](https://www.facebook.com/CoMapsCommunity/)
- | [Instagram](https://www.instagram.com/comapscommunity/)
- | [Lemmy](https://sopuli.xyz/c/CoMaps)
- | [LinkedIn](https://www.linkedin.com/company/comaps-community/)
- | [Mastodon](https://floss.social/@CoMaps)
- | [Matrix](https://matrix.to/#/#comaps:matrix.org)
- | [Open Collective](https://opencollective.com/comaps)
- | [Reddit](https://www.reddit.com/r/CoMaps/)
- | [Telegram](https://t.me/CoMapsApp) [EN Chat](https://t.me/CoMaps_EN) [RU Chat](https://t.me/CoMaps_RU)
- | [Threads](https://www.threads.com/@comapscommunity)
- | [TikTok](https://www.tiktok.com/@comapscommunity)
-
-## What's the difference to Organic Maps?
-
-CoMaps is a fork/spin-off of Organic Maps, which in turn is a fork/spin-off of Maps.me. The CoMaps project emerged in response to the growing concerns and dissatisfaction with the Organic Maps leadership. The original Organic Maps project, while initially promoted as an open community effort, faced significant issues related to governance, transparency, and the potential of shareholder profit at the expense of the community. These concerns were detailed in an open letter to Organic Maps shareholders, which can be found [here](https://openletter.earth/open-letter-to-organic-maps-shareholders-a0bf770c). Despite some positive steps, the lack of a substantial resolution has led former Organic Maps contributors to the decision to start a new independent project.
-
-With CoMaps, we want to overcome these issues by moving to a nonprofit structure (not finished yet), greater inclusivity in decision-making, and financial transparency.
-
-## Governance
-
-See the [Principles](https://codeberg.org/comaps/governance).
-
-The CoMaps community abides by the CNCF [code of conduct](docs/CODE_OF_CONDUCT.md).
-
-### Copyrights
+## License and Copyright
 
 Licensed under the Apache License, Version 2.0. See
 [LICENSE](LICENSE),
 [NOTICE](NOTICE)
 and [data/copyright.html](data/copyright.html)
 for more information.
-
