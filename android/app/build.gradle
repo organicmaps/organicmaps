@@ -182,26 +182,29 @@ android {
 
     google {
       dimension 'default'
+      applicationIdSuffix '.google'
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"gplay@comaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.comaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.comaps.google"'
     }
 
+    // Distributed directly by the project, e.g. in repo releases, chats, etc.
     web {
       dimension 'default'
-      applicationIdSuffix '.web'
-      versionName = android.defaultConfig.versionName + '-Web'
+      versionName = android.defaultConfig.versionName
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@comaps.app"'
     }
 
     fdroid {
       dimension 'default'
+      applicationIdSuffix '.fdroid'
       versionName = android.defaultConfig.versionName + '-FDroid'
       buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@comaps.app"'
     }
 
     huawei {
       dimension 'default'
+      applicationIdSuffix '.huawei'
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@comaps.app"'
