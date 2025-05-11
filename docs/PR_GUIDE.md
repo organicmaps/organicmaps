@@ -40,7 +40,7 @@
 - Functions and methods should not be long. In most cases, it's good if the whole body of a function or method fits on the monitor. It's good to write a function or a method shorter than 60 lines
 - Source files should not be very long
 - If you are solving a big task it's worth splitting it into subtasks and develop one or several PRs for every subtask.
-- If it's necessary to make a big change list which should be merged to master at once, it's worth creating a branch and make PRs on it. Then to make PR with all commits of the branch to the master
+- If it's necessary to make a big change list which should be merged to main at once, it's worth creating a branch and make PRs on it. Then to make PR with all commits of the branch to the main
 - In most cases refactoring should be done in a separate PR
 - If you want to refactor a significant part of the code base, it's worth discussing it with all developers before starting work
 - It's worth using the 'Resolve' conversation button to minimize the list of comments in a PR

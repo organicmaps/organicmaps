@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: Translations
-    url: https://codeberg.org/comaps/comaps/blob/master/docs/TRANSLATIONS.md
+    url: https://codeberg.org/comaps/comaps/src/branch/main/docs/TRANSLATIONS.md
     about: Translate CoMaps into your language
   - name: News
     url: https://comaps.app/news/

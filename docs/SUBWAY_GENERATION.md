@@ -2,7 +2,7 @@
 
 For the subway layer to be available in CoMaps, a `SUBWAY_URL`
 parameter ought to be provided to the
-[map generator](https://codeberg.org/comaps/comaps/tree/master/tools/python/maps_generator).
+[map generator](https://codeberg.org/comaps/comaps/src/branch/main/tools/python/maps_generator).
 Normally you can specify this link https://cdn.comaps.app/subway.json,
 which provides a regularly updated file.
 These instructions describe how to manually build a subway layer file.

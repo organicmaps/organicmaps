@@ -97,7 +97,7 @@ jobs:
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
-          ref: master
+          ref: main
           path: screenshots
 
       - name: Restore release keys

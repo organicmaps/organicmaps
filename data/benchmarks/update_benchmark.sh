@@ -6,10 +6,10 @@ filepath+="_result.txt"
 adb pull /mnt/sdcard/MapsWithMe/bench/results.txt $filepath
 cd ~/dev/omim/
 echo "current work dir : " $PWD
-git checkout master
+git checkout main
 echo "pull upstream"
 git fetch upstream
-git merge upstream/master
+git merge upstream/main
 echo "move to android dir"
 cd android/MapsWithMePro/
 echo "current work dir : " $PWD

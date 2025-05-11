@@ -29,7 +29,7 @@ jobs:
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
-          ref: master
+          ref: main
           path: screenshots
 
       - name: Checkout keywords
@@ -37,7 +37,7 @@ jobs:
         with:
           repository: ${{ secrets.KEYWORDS_REPO }}
           ssh-key: ${{ secrets.KEYWORDS_SSH_KEY }}
-          ref: master
+          ref: main
           path: keywords
 
       - name: Update metadata
