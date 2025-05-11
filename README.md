@@ -95,7 +95,7 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.comaps)**. -
 - Star our repos on Codeberg
 - Report bugs and discuss features at [the issue tracker](https://codeberg.org/comaps/comaps/issues)
 
-## Who is paying for development?
+## How is development funded?
 
 The app is free for everyone, so we rely on donations. Please [donate](https://opencollective.com/comaps/donate) to support the CoMaps community and see this open project thrive!
 
