@@ -18,7 +18,7 @@ If you'd like to help in any other way or if there are any related questions - p
 
 ### Bug Reports and Feature Requests
 
-[Submit an issue](https://codeberg.com/comaps/comaps/issues) and describe your feature idea or report a bug.
+[Submit an issue](https://codeberg.org/comaps/comaps/issues) and describe your feature idea or report a bug.
 Please check if there are no similar issues already submitted by someone else.
 
 When reporting a bug please provide as much information as possible: OS and application versions,
@@ -71,7 +71,7 @@ Please help us:
 - processing users questions and feedback in chats, app stores, email and social media and creating follow-up issues or updating existing ones
 - reproducing and triaging reported bugs
 - testing upcoming features and bug fixes for Android, iOS and desktop versions
-- keeping [issues](https://codeberg.com/comaps/comaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
+- keeping [issues](https://codeberg.org/comaps/comaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
 - composing nice user-centric release notes and news items
 - etc.
 

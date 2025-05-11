@@ -10,10 +10,10 @@ Here is the basic workflow to update styles:
 Please prepend `[styles]` to your commit message and add [Developers Certificate of Origin](CONTRIBUTING.md#legal-requirements) to it.
 Files changed by the script should be added as a separate `[styles] Regenerated` commit.
 
-Please check [a list of current styling issues](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles)
-and ["icons wanted" issues](https://codeberg.com/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons+label%3A%22Good+first+issue%22).
+Please check [a list of current styling issues](https://codeberg.org/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AStyles)
+and ["icons wanted" issues](https://codeberg.org/comaps/comaps/issues?q=is%3Aopen+is%3Aissue+label%3AIcons+label%3A%22Good+first+issue%22).
 
-An overview of currently used icons can be found in the [Wiki](https://codeberg.com/comaps/comaps/wiki/Icons).
+An overview of currently used icons can be found in the [Wiki](https://codeberg.org/comaps/comaps/wiki/Icons).
 
 ## Requirements
 
@@ -107,7 +107,7 @@ A whole map needs to be [regenerated](MAPS.md) for the changes to take effect if
 Map style files syntax is based on [MapCSS/0.2](https://wiki.openstreetmap.org/wiki/MapCSS/0.2),
 though the specification is not supported in full and there are OM-specific extensions to it.
 
-The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://codeberg.com/comaps/kothic)
+The `tools/unix/generate_drules.sh` script uses a customized version of [Kothic](https://codeberg.org/comaps/kothic)
 stylesheet processor to compile MapCSS files into binary drawing rules files `data/drules_proto*.bin`.
 The processor also produces text versions of these files (`data/drules_proto*.txt`) to ease debugging.
 

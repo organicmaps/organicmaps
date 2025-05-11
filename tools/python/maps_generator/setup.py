@@ -19,7 +19,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         author="CoMaps",
         author_email="info@comaps.app",
         description="This package contains tools for maps generation.",
-        url="https://codeberg.com/comaps",
+        url="https://codeberg.org/comaps",
         package_dir={"maps_generator": ""},
         package_data={"": ["var/**/*"]},
         packages=[

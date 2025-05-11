@@ -156,7 +156,7 @@ jobs:
             cat ${{ env.RELEASE_NOTES }}
             echo ""
             echo "See [a detailed announce](https://organicmaps.app/news/) on our website when app updates are published in all stores."
-            echo "You can get automatic app updates from Codeberg [using Obtainium](https://codeberg.com/comaps/comaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)."
+            echo "You can get automatic app updates from Codeberg [using Obtainium](https://codeberg.org/comaps/comaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium)."
             echo ""
             echo "sha256sum:"
             echo -e '\n```'

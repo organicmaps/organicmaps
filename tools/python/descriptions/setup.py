@@ -20,7 +20,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         author_email="info@comaps.app",
         description="This package is a library that provides descriptions "
         "(such as those from Wikipedia) to geographic objects.",
-        url="https://codeberg.com/comaps",
+        url="https://codeberg.org/comaps",
         package_dir={"descriptions": ""},
         packages=["descriptions"],
         classifiers=[

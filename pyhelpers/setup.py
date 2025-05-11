@@ -504,7 +504,7 @@ def setup_omim_pybinding(
     version=None,
     author='CoMaps',
     author_email='info@comaps.app',
-    url='https://codeberg.com/comaps/comaps',
+    url='https://codeberg.org/comaps/comaps',
     license='Apache-2.0',
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),
 ):

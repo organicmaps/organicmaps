@@ -55,7 +55,7 @@ def setup(
             author="CoMaps",
             author_email="info@comaps.app",
             description="This package contains {} data files.".format(suffix),
-            url="https://codeberg.com/comaps",
+            url="https://codeberg.org/comaps",
             packages=[] if packages is None else packages,
             package_dir={} if package_dir is None else package_dir,
             cmdclass={} if cmdclass is None else cmdclass,

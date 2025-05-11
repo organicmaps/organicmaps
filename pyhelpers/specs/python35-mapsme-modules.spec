@@ -32,7 +32,7 @@ License:	Apache Public License 2.0
 Vendor:         Mail.Ru Group
 
 Group:          Development/Languages/Python
-URL:		https://codeberg.com/comaps/comaps
+URL:		https://codeberg.org/comaps/comaps
 Source:		omim-py-modules-%{version}.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -63,7 +63,7 @@ if [ -e %{S:0} ]; then
         %{__tar} xzf %{S:0}
         %{__chmod} -Rf a+rX,u+w,g-w,o-w %{_builddir}/%{name}-%{version}
 else
-        git clone --depth=1 https://codeberg.com/comaps/comaps.git %{_builddir}/%{name}-%{version}/omim
+        git clone --depth=1 https://codeberg.org/comaps/comaps.git %{_builddir}/%{name}-%{version}/omim
         pushd %{_builddir}/%{name}-%{version}/omim
 	git fetch origin tag %{tag} --depth=1
         git checkout %{tag}

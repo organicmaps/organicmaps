@@ -19,7 +19,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         author="CoMaps",
         author_email="info@comaps.app",
         description="This package is a library that can work with mwm files.",
-        url="https://codeberg.com/comaps",
+        url="https://codeberg.org/comaps",
         package_dir={"mwm": ""},
         packages=["mwm"],
         classifiers=[

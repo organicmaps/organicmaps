@@ -19,7 +19,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         author="CoMaps",
         author_email="info@comaps.app",
         description="This package contains tools for generating maps with Apache Airflow.",
-        url="https://codeberg.com/comaps",
+        url="https://codeberg.org/comaps",
         package_dir={"airmaps": ""},
         package_data={"": ["var/**/*"]},
         packages=[

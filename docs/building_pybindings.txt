@@ -9,7 +9,7 @@ This document describes how to build these python bindings.
 
 Preparing source tree
 ---------------------
-The Organic Maps project comes with its own version of Boost (https://www.boost.org/)
+The CoMaps project comes with its own version of Boost (https://www.boost.org/)
 in a submodule. You have to recursively update submodules before you start
 building anything.
 
