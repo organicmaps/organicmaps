@@ -95,6 +95,9 @@ extension RoutePreview {
         if !isSearchOpened && viewModel.presentationStep == .hidden {
           viewModel = viewModel.copyWith(presentationStep: .regular.forNavigationState(viewModel.dashboardState))
         }
+
+      case .showError(let errorMessage):
+        viewModel = viewModel.copyWith(errorMessage: errorMessage)
       }
       return viewModel
     }
