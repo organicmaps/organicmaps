@@ -1,5 +1,5 @@
 extension RoutePreview {
-  
+
   struct ViewModel: Equatable {
     let transportOptions: [MWMRouterType]
     let routePoints: RoutePoints
@@ -13,6 +13,7 @@ extension RoutePreview {
     let shouldClose: Bool
     let progress: CGFloat
     let navigationSearchState: NavigationSearchState?
+    let errorMessage: String?
   }
   
   struct ElevationInfo: Equatable {
@@ -42,7 +43,8 @@ extension RoutePreview.ViewModel {
     presentationStep: .hidden,
     shouldClose: false,
     progress: 0,
-    navigationSearchState: nil
+    navigationSearchState: nil,
+    errorMessage: nil
   )
 
   func copyWith(
@@ -57,7 +59,8 @@ extension RoutePreview.ViewModel {
     presentationStep: RoutePreviewModalPresentationStep? = nil,
     shouldClose: Bool? = nil,
     progress: CGFloat? = nil,
-    navigationSearchState: NavigationSearchState? = nil
+    navigationSearchState: NavigationSearchState? = nil,
+    errorMessage: String? = nil
   ) -> RoutePreview.ViewModel {
     return RoutePreview.ViewModel(
       transportOptions: transportOptions ?? self.transportOptions,
@@ -71,7 +74,8 @@ extension RoutePreview.ViewModel {
       presentationStep: presentationStep ?? self.presentationStep,
       shouldClose: shouldClose ?? self.shouldClose,
       progress: progress ?? self.progress,
-      navigationSearchState: navigationSearchState
+      navigationSearchState: navigationSearchState,
+      errorMessage: errorMessage ?? self.errorMessage
     )
   }
 
@@ -79,13 +83,23 @@ extension RoutePreview.ViewModel {
     if routerType == .ruler || presentationStep == .hidden {
       return .hidden
     }
-    if routePoints.count < 2 || routePoints.start == nil || routePoints.finish == nil {
+    if routePoints.count < 2 || routePoints.start == nil || routePoints.finish == nil || dashboardState == .error {
       return .disabled
     }
     if progress < 1 {
       return .loading
     }
     return .enabled
+  }
+
+  var estimatesState: EstimatesView.State {
+    if dashboardState == .error, let errorMessage {
+      return .error(errorMessage)
+    }
+    if progress < 1 {
+      return .loading
+    }
+    return .estimates(estimates)
   }
 }
 

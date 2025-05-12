@@ -4,6 +4,7 @@ enum RoutePreview {
     case updateRoutePoints
     case startNavigation
     case stopNavigation
+    case showError(String)
 
     case selectRouterType(MWMRouterType)
     case selectRoutePoint(MWMRoutePoint?)
@@ -38,6 +39,7 @@ enum RoutePreview {
     case updateSearchState(SearchOnMapState)
     case showNavigationDashboard
     case setHidden(Bool)
+    case showError(String)
     case goBack
     case close
   }

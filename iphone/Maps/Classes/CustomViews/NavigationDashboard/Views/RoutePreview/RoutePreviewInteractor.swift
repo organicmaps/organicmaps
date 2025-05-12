@@ -58,6 +58,9 @@ extension RoutePreview {
       case .stopNavigation:
         return .close
 
+      case .showError(let errorMessage):
+        return .showError(errorMessage)
+
       case .startButtonDidTap:
         delegate?.routingStartButtonDidTap()
         return .none
@@ -173,7 +176,8 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func stateError(_ errorMessage: String) {
-    print(#function, errorMessage)
+    process(.updateState(.error))
+    process(.showError(errorMessage))
   }
 
   // TODO: (KK) elevation info should be removed when the new elevation chart with all statistics will be implemented

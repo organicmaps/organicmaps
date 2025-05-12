@@ -34,7 +34,7 @@ final class RoutePreviewViewController: UIViewController {
   private var transportOptionsView = TransportOptionsView()
   private let estimatesStackView = UIStackView()
   private let routeStatusStackView = UIStackView()
-  private let estimatesLabel = UILabel()
+  private let estimatesView = EstimatesView()
   private let transportTransitStepsView = TransportTransitStepsView()
   private let elevationProfileView = ElevationProfileView()
   private let settingsButton = UIButton(type: .system)
@@ -87,6 +87,11 @@ final class RoutePreviewViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    print(routePointsView.frame)
+  }
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     updateFrameOfPresentedViewInContainerView()
@@ -126,9 +131,6 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   private func configureModalPresentation() {
-    guard let mapViewController = MapViewController.shared() else {
-      fatalError("MapViewController is not available")
-    }
     let stepsController = StepsController(presentedView: availableAreaView,
                                           containerViewController: self,
                                           stepStrategy: RoutePreviewModalPresentationStepStrategy(),
@@ -146,8 +148,7 @@ final class RoutePreviewViewController: UIViewController {
       case .didUpdateFrame(let frame):
         self.interactor?.process(.updatePresentationFrame(frame))
         let sideButtonsAvailableArea = CGRect(origin: .zero,
-                                              size: CGSize(width: frame.width,
-                                                           height: frame.origin.y))
+                                              size: CGSize(width: frame.width, height: frame.origin.y))
         self.navigationInfoView.updateSideButtonsAvailableArea(sideButtonsAvailableArea)
       case .didUpdateStep(let step):
         self.interactor?.process(.didUpdatePresentationStep(step))
@@ -195,7 +196,6 @@ final class RoutePreviewViewController: UIViewController {
   }
 
   private func setupEstimatesView() {
-    estimatesLabel.setFontStyleAndApply(.bold14)
     estimatesStackView.axis = .horizontal
     estimatesStackView.distribution = .equalSpacing
   }
@@ -238,7 +238,7 @@ final class RoutePreviewViewController: UIViewController {
     availableAreaView.addSubview(backButton)
     availableAreaView.addSubview(transportOptionsView)
 
-    estimatesStackView.addArrangedSubview(estimatesLabel)
+    estimatesStackView.addArrangedSubview(estimatesView)
     estimatesStackView.addArrangedSubview(settingsButton)
 
     routeStatusStackView.addArrangedSubview(estimatesStackView)
@@ -311,14 +311,15 @@ extension RoutePreviewViewController {
       return
     }
 
-    routePointsView.setRoutePoints(viewModel.routePoints)
     transportOptionsView.set(transportOptions: viewModel.transportOptions,
                              selectedRouterType: viewModel.routerType)
+    estimatesView.setState(viewModel.estimatesState)
+    let isError = viewModel.dashboardState == .error
+    transportTransitStepsView.setNavigationInfo(isError ? nil : viewModel.entity)
+    elevationProfileView.setImage(isError ? nil : viewModel.elevationInfo?.image)
+    routePointsView.setRoutePoints(viewModel.routePoints)
+
     startButton.setState(viewModel.startButtonState)
-    presentationStepsController.setStep(viewModel.presentationStep)
-    estimatesLabel.attributedText = viewModel.estimates
-    transportTransitStepsView.setNavigationInfo(viewModel.entity)
-    elevationProfileView.setImage(viewModel.elevationInfo?.image)
 
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.onNavigationInfoUpdated(viewModel.entity)
@@ -330,6 +331,8 @@ extension RoutePreviewViewController {
 
     navigationControlView.isVisible = viewModel.navigationInfo.isControlsVisible
     navigationControlView.onNavigationInfoUpdated(viewModel.entity)
+
+    presentationStepsController.setStep(viewModel.presentationStep)
   }
 
   func close() {
@@ -341,3 +344,5 @@ extension RoutePreviewViewController {
     }
   }
 }
+
+
