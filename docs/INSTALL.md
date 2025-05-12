@@ -80,7 +80,7 @@ If you're only doing a one-off build or your internet bandwidth or disk space is
 
 - a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
 
-If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive -depth 1`.
+If you mistakenly did a `git clone` without checking out submodules, you can run `git submodule update --init --recursive --depth 1`.
 
 To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
 
