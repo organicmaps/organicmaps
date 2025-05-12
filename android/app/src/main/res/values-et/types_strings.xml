@@ -297,7 +297,7 @@
     <string name="type.cuisine.greek">Kreeka</string>
     <string name="type.cuisine.grill">Grill</string>
     <string name="type.cuisine.heuriger">Austria hooajaline veinikõrts (heuriger)</string>
-    <string name="type.cuisine.hotdog">Hotdog</string>
+    <string name="type.cuisine.hotdog">Viinersai</string>
     <string name="type.cuisine.hungarian">Ungari</string>
     <string name="type.cuisine.ice_cream">Jäätis</string>
     <string name="type.cuisine.indian">India</string>
@@ -336,7 +336,7 @@
     <string name="type.cuisine.soba">Jaapani soba-nuudlid</string>
     <string name="type.cuisine.spanish">Hispaania</string>
     <string name="type.cuisine.steak_house">Liharestoran</string>
-    <string name="type.cuisine.sushi">Sushi</string>
+    <string name="type.cuisine.sushi">Suši</string>
     <string name="type.cuisine.tapas">Tapas</string>
     <string name="type.cuisine.tea">Tee</string>
     <string name="type.cuisine.thai">Tai</string>

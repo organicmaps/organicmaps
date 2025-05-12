@@ -882,4 +882,8 @@
     <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
+    <string name="app_site_url">https://comaps.app/</string>
+    <string name="instagram_url">https://www.instagram.com/comapscommunity</string>
+    <string name="telegram_url">https://t.me/CoMaps</string>
+    <string name="codeberg">Codeberg</string>
 </resources>

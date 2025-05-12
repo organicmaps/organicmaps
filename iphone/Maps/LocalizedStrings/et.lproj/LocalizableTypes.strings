@@ -306,7 +306,7 @@
 "type.cuisine.greek" = "Kreeka";
 "type.cuisine.grill" = "Grill";
 "type.cuisine.heuriger" = "Austria hooajaline veinikõrts (heuriger)";
-"type.cuisine.hotdog" = "Hotdog";
+"type.cuisine.hotdog" = "Viinersai";
 "type.cuisine.hungarian" = "Ungari";
 "type.cuisine.ice_cream" = "Jäätis";
 "type.cuisine.indian" = "India";
@@ -345,7 +345,7 @@
 "type.cuisine.soba" = "Jaapani soba-nuudlid";
 "type.cuisine.spanish" = "Hispaania";
 "type.cuisine.steak_house" = "Liharestoran";
-"type.cuisine.sushi" = "Sushi";
+"type.cuisine.sushi" = "Suši";
 "type.cuisine.tapas" = "Tapas";
 "type.cuisine.tea" = "Tee";
 "type.cuisine.thai" = "Tai";

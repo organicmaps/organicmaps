@@ -2,21 +2,21 @@
 <resources>
     <!-- SECTION: Types -->
     <string name="type.addr_interpolation">地址/区块</string>
-    <string name="type.addr_interpolation.even">地址/区块</string>
-    <string name="type.addr_interpolation.odd">地址/区块</string>
-    <string name="type.aerialway">缆车要素</string>
+    <string name="type.addr_interpolation.even">偶地址/区块</string>
+    <string name="type.addr_interpolation.odd">奇‌地址/区块</string>
+    <string name="type.aerialway">架空索道</string>
     <string name="type.aerialway.cable_car">缆车</string>
-    <string name="type.aerialway.chair_lift">缆车</string>
-    <string name="type.aerialway.drag_lift">缆车要素</string>
-    <string name="type.aerialway.gondola">循环式索道</string>
-    <string name="type.aerialway.mixed_lift">缆车</string>
+    <string name="type.aerialway.chair_lift">吊椅式缆车</string>
+    <string name="type.aerialway.drag_lift">拖牵式缆车</string>
+    <string name="type.aerialway.gondola">吊舱式缆车</string>
+    <string name="type.aerialway.mixed_lift">混合式缆车</string>
     <string name="type.aerialway.station">缆车车站</string>
-    <string name="type.aeroway">机场要素</string>
+    <string name="type.aeroway">空域基础设施</string>
     <string name="type.aeroway.aerodrome">机场</string>
-    <string name="type.aeroway.aerodrome.international">机场</string>
+    <string name="type.aeroway.aerodrome.international">国际机场</string>
     <string name="type.aeroway.apron">机场停机坪</string>
     <string name="type.aeroway.gate">登机口</string>
-    <string name="type.aeroway.helipad">直升机场</string>
+    <string name="type.aeroway.helipad">直升机停机坪</string>
     <string name="type.aeroway.runway">机场跑道</string>
     <string name="type.aeroway.taxiway">滑行道</string>
     <string name="type.aeroway.terminal">航站楼</string>
@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">监狱</string>
     <string name="type.amenity.pub">酒馆</string>
     <string name="type.amenity.public_bookcase">公共书架</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">资源回收设施</string>
     <string name="type.amenity.recycling">回收容器</string>
@@ -368,7 +367,6 @@
     <string name="type.healthcare.psychotherapist">心理治疗师</string>
     <string name="type.healthcare.sample_collection">样本采集设施</string>
     <string name="type.healthcare.speech_therapist">语言治疗师</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">马道</string>
@@ -429,11 +427,11 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">隧道</string>
     <string name="type.highway.pedestrian">步行街</string>
-    <string name="type.highway.pedestrian.area">步行区域</string>
+    <string name="type.highway.pedestrian.area">步行区</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.pedestrian.bridge">桥</string>
+    <string name="type.highway.pedestrian.bridge">人行天桥</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">隧道</string>
+    <string name="type.highway.pedestrian.tunnel">人行隧道</string>
     <string name="type.highway.primary">主要道路</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">桥</string>
@@ -534,7 +532,6 @@
     <string name="type.area_highway.track">土路</string>
     <string name="type.area_highway.trunk">干线道路</string>
     <string name="type.area_highway.unclassified">道路</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">历史地点</string>
     <string name="type.historic.aircraft">历史悠久的飞机</string>
@@ -545,15 +542,15 @@
     <string name="type.historic.cannon">大炮</string>
     <string name="type.historic.castle">城堡</string>
     <string name="type.historic.castle.castrum">古罗马兵营</string>
-    <string name="type.historic.castle.defensive">城堡</string>
-    <string name="type.historic.castle.fortified_church">坚固的教堂</string>
-    <string name="type.historic.castle.fortress">要塞</string>
+    <string name="type.historic.castle.defensive">要塞城堡</string>
+    <string name="type.historic.castle.fortified_church">防御型教堂</string>
+    <string name="type.historic.castle.fortress">堡垒</string>
     <string name="type.historic.castle.hillfort">丘堡</string>
     <string name="type.historic.castle.kremlin">克里姆林</string>
-    <string name="type.historic.castle.manor">庄园大屋</string>
+    <string name="type.historic.castle.manor">庄园宅邸</string>
     <string name="type.historic.castle.palace">宮殿</string>
-    <string name="type.historic.castle.shiro">城</string>
-    <string name="type.historic.castle.stately">法式城堡</string>
+    <string name="type.historic.castle.shiro">日本城堡</string>
+    <string name="type.historic.castle.stately">庄严城堡</string>
     <string name="type.historic.city_gate">城门</string>
     <string name="type.historic.citywalls">城墙</string>
     <string name="type.historic.fort">历史要塞</string>
@@ -602,9 +599,9 @@
     <string name="type.landuse.field">田地</string>
     <string name="type.landuse.flowerbed">花坛</string>
     <string name="type.landuse.forest">森林</string>
-    <string name="type.landuse.forest.coniferous">森林</string>
-    <string name="type.landuse.forest.deciduous">森林</string>
-    <string name="type.landuse.forest.mixed">森林</string>
+    <string name="type.landuse.forest.coniferous">针叶林</string>
+    <string name="type.landuse.forest.deciduous">阔叶林</string>
+    <string name="type.landuse.forest.mixed">混交林</string>
     <string name="type.landuse.garages">车库</string>
     <string name="type.landuse.grass">草坪</string>
     <string name="type.landuse.greenfield">待开发荒地</string>
@@ -781,9 +778,9 @@
     <string name="type.power.generator.wind">风力发电机</string>
     <string name="type.power.generator.gas">燃气轮机发电厂</string>
     <string name="type.power.generator.hydro">水力发电厂</string>
-    <string name="type.power.line">超高压输电线</string>
-    <string name="type.power.line.underground">超高压输电线</string>
-    <string name="type.power.minor_line">超高压输电线</string>
+    <string name="type.power.line">输电线</string>
+    <string name="type.power.line.underground">地下输电线</string>
+    <string name="type.power.minor_line">小型输电线</string>
     <string name="type.power.plant">发电厂</string>
     <string name="type.power.plant.coal">燃煤电厂</string>
     <string name="type.power.plant.gas">燃气轮机发电厂</string>
@@ -1210,7 +1207,7 @@
     <string name="type.sport.baseball">棒球</string>
     <string name="type.sport.basketball">篮球</string>
     <string name="type.sport.beachvolleyball">沙滩排球</string>
-    <string name="type.sport.bowls">草地滾球</string>
+    <string name="type.sport.bowls">草地滚球</string>
     <string name="type.sport.chess">国际象棋</string>
     <string name="type.sport.cricket">板球</string>
     <string name="type.sport.curling">冰壶</string>
@@ -1296,8 +1293,8 @@
     <string name="type.waterway.river">河流</string>
     <string name="type.waterway.river.tunnel">河流</string>
     <string name="type.waterway.stream">溪</string>
-    <string name="type.waterway.stream.ephemeral">溪</string>
-    <string name="type.waterway.stream.intermittent">溪</string>
+    <string name="type.waterway.stream.ephemeral">季节性河流</string>
+    <string name="type.waterway.stream.intermittent">间歇性河流</string>
     <string name="type.waterway.stream.tunnel">溪</string>
     <string name="type.waterway.waterfall">瀑布</string>
     <string name="type.waterway.weir">堰</string>
@@ -1313,7 +1310,7 @@
     <string name="type.piste_type.snow_park">冰雪公园</string>
     <string name="type.piste_type.hike">雪地徒步路径</string>
     <string name="type.piste_type.connection">滑雪道连接</string>
-    <string name="type.piste_type.skitour">Skitour 小径</string>
+    <string name="type.piste_type.skitour">滑雪旅行路线</string>
     <string name="type.amenity.events_venue">活动场所</string>
     <string name="type.shop.auction">拍卖会</string>
     <string name="type.shop.collector">收藏品</string>
@@ -1329,4 +1326,73 @@
     <string name="type.amenity.dojo">道场</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">体育馆</string>
+    <string name="type.recycling.cans">金属罐</string>
+    <string name="type.recycling.shoes">鞋子</string>
+    <string name="type.recycling.cartons">纸盒</string>
+    <string name="type.hwtag.bidir_bicycle">双向自行车道标签</string>
+    <string name="type.hwtag.onedir_bicycle">单向自行车道标签</string>
+    <string name="type.hwtag.lit">照明设施标签</string>
+    <string name="type.hwtag.nobicycle">禁止自行车标签</string>
+    <string name="type.hwtag.nocar">禁止汽车标签</string>
+    <string name="type.hwtag.oneway">单行道标签</string>
+    <string name="type.hwtag.private">私有道路标签</string>
+    <string name="type.hwtag.toll">收费道路标签</string>
+    <string name="type.hwtag.yesbicycle">允许自行车标签</string>
+    <string name="type.hwtag.yesfoot">允许行人标签</string>
+    <string name="type.man_made.cairn">堆石标</string>
+    <string name="type.man_made.mast">桅杆</string>
+    <string name="type.man_made.silo">筒仓</string>
+    <string name="type.man_made.storage_tank">储罐</string>
+    <string name="type.mapswithme.grid">MapsWithMe—网格</string>
+    <string name="type.mountain_pass">山口</string>
+    <string name="type.natural.desert">沙漠</string>
+    <string name="type.organic.yes">有机</string>
+    <string name="type.power.pole">电线杆</string>
+    <string name="type.psurface">路面</string>
+    <string name="type.psurface.paved_bad">铺装路面—较差</string>
+    <string name="type.psurface.paved_good">铺装路面—良好</string>
+    <string name="type.psurface.unpaved_bad">未铺装路面—较差</string>
+    <string name="type.psurface.unpaved_good">未铺装路面—良好</string>
+    <string name="type.railway.crossing">铁路道口</string>
+    <string name="type.railway.preserved.tunnel">保留铁路隧道</string>
+    <string name="type.railway.subway.bridge">地铁线路桥</string>
+    <string name="type.railway.subway.tunnel">地铁线路隧道</string>
+    <string name="type.attraction.big_wheel">摩天轮</string>
+    <string name="type.traffic_calming.bump">减速带</string>
+    <string name="type.traffic_calming.hump">减速丘</string>
+    <string name="type.piste_type.downhill.area">速降滑雪区</string>
+    <string name="type.piste_type.downhill.advanced">高级速降滑雪道</string>
+    <string name="type.piste_type.downhill.advanced.area">高级速降滑雪区</string>
+    <string name="type.piste_type.downhill.easy">初级速降滑雪道</string>
+    <string name="type.piste_type.downhill.easy.area">初级速降滑雪区</string>
+    <string name="type.piste_type.downhill.expert">专家级速降滑雪道</string>
+    <string name="type.piste_type.downhill.expert.area">专家级速降滑雪区</string>
+    <string name="type.piste_type.downhill.freeride">自由式速降滑雪道</string>
+    <string name="type.piste_type.downhill.intermediate">中级速降滑雪道</string>
+    <string name="type.piste_type.downhill.intermediate.area">中级速降滑雪区</string>
+    <string name="type.piste_type.downhill.novice">新手速降滑雪道</string>
+    <string name="type.piste_type.downhill.novice.area">新手速降滑雪区</string>
+    <string name="type.piste_type.nordic">北欧滑雪道</string>
+    <string name="type.piste_type.sled">雪橇滑道</string>
+    <string name="type.piste_type.sled.area">雪橇滑道区</string>
+    <string name="type.recycling.green_waste">绿色/有机垃圾</string>
+    <string name="type.recycling.cardboard">硬纸板</string>
+    <string name="type.highway.world_towns_level">高速公路—城镇级</string>
+    <string name="type.hwtag.nofoot">禁止行人标签</string>
+    <string name="type.noexit">死胡同</string>
+    <string name="type.organic.only">有机</string>
+    <string name="type.power.station">发电站</string>
+    <string name="type.railway.preserved">保留铁路</string>
+    <string name="type.railway.preserved.bridge">保留铁路桥</string>
+    <string name="type.railway.subway">地铁线路</string>
+    <string name="type.traffic_calming">交通静化</string>
+    <string name="type.piste_type.downhill">速降滑雪道</string>
+    <string name="type.highway.world_level">高速公路—世界级</string>
+    <string name="type.hwtag">交通属性标签</string>
+    <string name="type.hwtag.yescar">允许汽车标签</string>
+    <string name="type.man_made.survey_point">测量点</string>
+    <string name="type.mapswithme">MapsWithMe</string>
+    <string name="type.man_made.utility_pole">公共设施杆</string>
+    <string name="type.route.shuttle_train">穿梭列车</string>
+    <string name="type.attraction.bumper_car">碰碰车</string>
 </resources>

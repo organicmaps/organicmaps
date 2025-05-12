@@ -9,7 +9,7 @@
     <string name="delete">Обриши</string>
     <string name="download_maps">Преузми мапе</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Преузимање није успело. Додирни за поновни покушај.</string>
+    <string name="download_has_failed">Преузимање није успело. Тапни за поновни покушај.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Преузимање…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -46,7 +46,7 @@
     <!-- The button that opens system location settings -->
     <string name="location_settings">Подешавања локације</string>
     <string name="close">Затвори</string>
-    <string name="unsupported_phone">Ова апликација захтева хардверски-убрзан OpenGL. На жалост, ваш уређај није подржан.</string>
+    <string name="unsupported_phone">Ова апликација захтева OpenGL. На жалост, ваш уређај није подржан.</string>
     <string name="download">Преузми</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили CoMaps</string>
@@ -172,7 +172,7 @@
     <!-- Kmz file successful loading -->
     <string name="load_kmz_successful">Маркери су успешно учитани! Можете их проначи на мапи помоћу Менаџера маркера.</string>
     <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.</string>
+    <string name="load_kmz_failed">Неуспешно учитавање маркера. Могуће да је фајл оштећен или неисправан.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Апликација не препознаје ову врсту фајла:
 \n%1$s</string>
@@ -884,7 +884,7 @@
     <string name="mb">МБ</string>
     <string name="translated_om_site_url">https://comaps.app/</string>
     <string name="already_donated">Већ је донирано</string>
-    <string name="remind_me_later">Подсећати касније</string>
+    <string name="remind_me_later">Подсети ме касније</string>
     <string name="support_organic_maps">Подршка CoMaps</string>
     <string name="tts_info_link">https://comaps.app/faq/text-to-speech-android-tts/</string>
     <string name="editor_osm_history">Ваша историја уређивања</string>
@@ -895,4 +895,8 @@
     <string name="social_media">Друштвени медији</string>
     <string name="building">Зграда</string>
     <string name="core_placepage_unknown_place">Тачка на мапи</string>
+    <string name="codeberg">Codeberg</string>
+    <string name="instagram_url">https://www.instagram.com/comapscommunity</string>
+    <string name="app_site_url">https://comaps.app/</string>
+    <string name="telegram_url">https://t.me/CoMaps</string>
 </resources>

@@ -163,7 +163,7 @@
 "load_kmz_successful" = "Маркери су успешно учитани! Можете их проначи на мапи помоћу Менаџера маркера.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Неуспешно учитавање маркера. Могуће је да је фајл оштећен или неисправан.";
+"load_kmz_failed" = "Неуспешно учитавање маркера. Могуће да је фајл оштећен или неисправан.";
 
 /* resource for context menu */
 "edit" = "Измени";
@@ -282,7 +282,7 @@
 /* Tex label above the Donate button */
 "donate_description" = "Донирате да бисмо заједно направили најбоље мапе!";
 "already_donated" = "Већ је донирано";
-"remind_me_later" = "Подсећати касније";
+"remind_me_later" = "Подсети ме касније";
 "support_organic_maps" = "Подршка Organic Maps";
 
 /* Button in the main Help dialog */
@@ -637,7 +637,6 @@
 "day" = "д";
 "placepage_more_button" = "Више";
 "book_button" = "Резервиши";
-
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_bookmark_name_hint" = "Назив маркера";
