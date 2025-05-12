@@ -1,6 +1,6 @@
 # Available debug commands
 
-Organic Maps exposes debug commands to help you control the native components (engine, editor, navigation, ...). **These commands are not intended for regular users** and are only used for debug purposes. Please only use these commands if you are working on Organic Maps.
+CoMaps exposes debug commands to help you control the native components (engine, editor, navigation, ...). **These commands are not intended for regular users** and are only used for debug purposes. Please only use these commands if you are working on CoMaps.
 
 Each command is entered in the search input (Android and iOS) and are activated as soon as the full search keyword is entered. Unless specified, the effects triggered are discarded after a restart.
 

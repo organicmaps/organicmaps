@@ -17,7 +17,7 @@ Below are our specific (but not all!) exceptions to the Google's coding standard
 Naming and formatting
 
 - We ALWAYS use two spaces indent and don't use tabs.
-- We don't have strict limits on line width, but keep it reasonable to fit on the screen. The advised width is that written in the [.clang-format](/.clang-format) file (currently 100).
+- We don't have strict limits on line width, but keep it reasonable to fit on the screen. The advised width is that written in the [.clang-format](.clang-format) file (currently 100).
 - Doxygen-style comments can be used.
 - Underscores are allowed only in prefixes for member variables and namespace names, like `int m_countriesCount; namespace utf_parser`.
 - Use right-to-left order for variables/params: `string const & s` (reference to the const string).
@@ -200,7 +200,7 @@ v = w * (x + z);
 - Cover your code with unit tests. See examples for existing libraries
 - Check Base and Coding libraries for most of the basic functions
 - Ask your team if you have any questions
-- Use dev@organicmaps.app mailing list to ask all developers and bugs@organicmaps.app mailing list to post bugs
+- Use dev@comaps.app mailing list to ask all developers and bugs@comaps.app mailing list to post bugs
 - Release builds contain debugging information (for profiling), production builds do not
 - If you don't have enough time to make it right, leave a `// TODO(DeveloperName): need to fix it` comment
 

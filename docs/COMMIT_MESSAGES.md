@@ -34,7 +34,7 @@ Any commit needs a helpful message. Mind the following guidelines when committin
 9. Use the body to explain **what and why** vs. how.
 10. Link Codeberg issues on the last lines:
 
-    - [See tutorial](https://help.github.com/articles/closing-issues-via-commit-messages).
+    - [See tutorial](https://forgejo.org/docs/latest/user/linked-references/).
 
 11. Use your real name and real email address.
 
