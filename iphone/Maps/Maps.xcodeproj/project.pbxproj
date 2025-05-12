@@ -540,6 +540,7 @@
 		EDC4E34D2C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */; };
 		EDC4E3612C5E2576009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3412C5D1BD3009286A2 /* RecentlyDeletedCategoriesViewModelTests.swift */; };
 		EDC4E3692C5E6F5B009286A2 /* MockRecentlyDeletedCategoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4E3402C5D1BD3009286A2 /* MockRecentlyDeletedCategoriesManager.swift */; };
+		EDC670802DD23E7600CC0691 /* EstimatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6707F2DD23E7600CC0691 /* EstimatesView.swift */; };
 		EDC91B962DC23AAD008BF257 /* ModalPresentationStepsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B952DC23AAD008BF257 /* ModalPresentationStepsController.swift */; };
 		EDC91B982DC23B06008BF257 /* ModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */; };
 		EDC91B9A2DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B992DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift */; };
@@ -1580,6 +1581,7 @@
 		EDC4E3472C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewController.swift; sourceTree = "<group>"; };
 		EDC4E3482C5D1BEF009286A2 /* RecentlyDeletedCategoriesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedCategoriesViewModel.swift; sourceTree = "<group>"; };
 		EDC4E3492C5D1BEF009286A2 /* RecentlyDeletedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyDeletedTableViewCell.swift; sourceTree = "<group>"; };
+		EDC6707F2DD23E7600CC0691 /* EstimatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatesView.swift; sourceTree = "<group>"; };
 		EDC91B952DC23AAD008BF257 /* ModalPresentationStepsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepsController.swift; sourceTree = "<group>"; };
 		EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
 		EDC91B992DC23B5B008BF257 /* RoutePreviewModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
@@ -2563,6 +2565,7 @@
 		34AB65D11FC5AA320078E451 /* RoutePreview */ = {
 			isa = PBXGroup;
 			children = (
+				EDC6707F2DD23E7600CC0691 /* EstimatesView.swift */,
 				ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */,
 				ED4F4F522D9E888E006AD910 /* RoutePreview.swift */,
 				ED18EF882DBAA60E00B383A0 /* TransportOptionsView.swift */,
@@ -4544,6 +4547,7 @@
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
+				EDC670802DD23E7600CC0691 /* EstimatesView.swift in Sources */,
 				99514BBA23E82B450085D3A7 /* ElevationProfileViewController.swift in Sources */,
 				340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */,
 				3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,

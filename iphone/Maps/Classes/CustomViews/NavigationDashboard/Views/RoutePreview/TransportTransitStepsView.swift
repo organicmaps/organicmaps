@@ -41,8 +41,8 @@ final class TransportTransitStepsView: SolidTouchView {
     layoutSubviews()
   }
 
-  func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity) {
-    if let steps = navigationInfo.transitSteps {
+  func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity?) {
+    if let steps = navigationInfo?.transitSteps {
       stepsCollectionView.steps = steps
       isHidden = steps.isEmpty
     } else {
