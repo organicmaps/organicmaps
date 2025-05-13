@@ -11,9 +11,7 @@ on:
 jobs:
   android-check-metadata:
     name: Check app metadata
-    runs-on: docker
-    container:
-      image: build-env
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

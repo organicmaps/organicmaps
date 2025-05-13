@@ -33,21 +33,19 @@ on:
       - xcode/**
 
 env:
-  JAVA_HOME: /opt/java/openjdk  # Java 17 is required for Android Gradle 8 plugin
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   android-google-beta:
     name: Android Google Beta
-    runs-on: docker
-    container:
-      image: build-env
+    runs-on: ubuntu-latest
     environment: beta
     steps:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          apt-get update -y
-          apt-get install -y ninja-build
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
 
       - name: Checkout sources
         uses: actions/checkout@v4

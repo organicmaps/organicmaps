@@ -5,14 +5,12 @@ on:
 env:
   RELEASE_NOTES: android/app/src/google/play/release-notes/en-US/default.txt
   FDROID_VERSION: android/app/src/fdroid/play/version.yaml
-  JAVA_HOME: /opt/java/openjdk  # Java 17 is required for Android Gradle 8 plugin
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   tag:
     name: Tag
-    runs-on: docker
-    container:
-      image: linux-env
+    runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Checkout sources
@@ -60,9 +58,7 @@ jobs:
 
   android-release:
     name: Android Release
-    runs-on: docker
-    container:
-      image: build-env
+    runs-on: ubuntu-latest
     environment: production
     needs: tag
     strategy:
@@ -76,8 +72,8 @@ jobs:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          apt-get update -y
-          apt-get install -y ninja-build
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
 
       - name: Checkout sources
         uses: actions/checkout@v4
