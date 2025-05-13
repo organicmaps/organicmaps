@@ -35,14 +35,12 @@ on:
       - xcode/**
 
 env:
-  JAVA_HOME: /opt/java/openjdk  # Java 17 is required for Android Gradle 8 plugin
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   lint:
     name: Android Lint
-    runs-on: docker
-    container:
-      image: build-env
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -64,9 +62,7 @@ jobs:
 
   android-check:
     name: Build Android Debug
-    runs-on: docker
-    container:
-      image: build-env
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -85,8 +81,8 @@ jobs:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          apt-get update -y
-          apt-get install -y ninja-build
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
 
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -102,7 +98,7 @@ jobs:
         run: ./configure.sh
 
       - name: Configure ccache
-        uses: https://github.com/hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.flavor }}
 
@@ -118,7 +114,7 @@ jobs:
           ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
 
       - name: Upload ${{ matrix.flavor }} apk
-        uses: https://code.forgejo.org/forgejo/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: android-${{ matrix.flavor }}
           path: android/app/build/outputs/apk/**/OrganicMaps-*.apk

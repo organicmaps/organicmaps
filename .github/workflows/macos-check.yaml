@@ -30,9 +30,9 @@ on:
 jobs:
   macos-matrix:
     name: macOS builds and tests
-    runs-on: self-hosted
+    runs-on: macos-15
     env:
-      DEVELOPER_DIR: /Applications/Xcode.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
       HOMEBREW_NO_ANALYTICS: 1
       HOMEBREW_NO_INSTALL_CLEANUP: 1
     strategy:
@@ -50,7 +50,7 @@ jobs:
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --depth 1 --init --recursive
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
       - name: Install build tools and dependencies
         shell: bash
@@ -62,7 +62,7 @@ jobs:
         run: ./configure.sh
 
       - name: Configure ccache
-        uses: https://github.com/hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-${{ matrix.CMAKE_BUILD_TYPE }}
 
@@ -74,7 +74,7 @@ jobs:
         run: |
           echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
           cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
-            -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+            -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash

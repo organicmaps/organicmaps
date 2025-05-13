@@ -33,9 +33,7 @@ concurrency:
 jobs:
   should-run-check:
     name: Should run coverage
-    runs-on: docker
-    container:
-      image: linux-env
+    runs-on: ubuntu-24.04
     outputs:
       run-from-pr: ${{ steps.run-from-pr.outputs.run-from-pr }}
       manually-triggered: ${{ steps.manually-triggered.outputs.manually-triggered }}
@@ -61,11 +59,14 @@ jobs:
   coverage:
     needs: should-run-check
     name: Generate coverage report
-    runs-on: docker
-    container:
-      image: linux-env
+    runs-on: ubuntu-24.04
     if: ${{ needs.should-run-check.outputs.run-from-pr == 'true' || needs.should-run-check.outputs.manually-triggered == 'true'}}
     steps:
+      - name: Free disk space by removing .NET, Android and Haskell
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
       - name: Checkout sources
         uses: actions/checkout@v4
         with:
@@ -78,18 +79,11 @@ jobs:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          apt update -y
-          apt install -y \
+          sudo apt update -y
+          sudo apt install -y \
               ninja-build \
               libgl1-mesa-dev \
               libglvnd-dev \
-              libxrandr-dev \
-              libxinerama-dev \
-              libxcursor-dev \
-              libxi-dev \
-              libxext-dev \
-              libwayland-dev \
-              libxkbcommon-dev \
               qt6-base-dev \
               libfreetype-dev \
               libharfbuzz-dev \
@@ -105,7 +99,7 @@ jobs:
         run: ./configure.sh
 
       - name: Configure ccache
-        uses: https://github.com/hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ github.workflow }}-coverage
 
@@ -139,15 +133,15 @@ jobs:
           # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
           CTEST_EXCLUDE_REGEX: "generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
         run: |
-          locale-gen en_US
-          locale-gen en_US.UTF-8
-          locale-gen es_ES
-          locale-gen es_ES.UTF-8
-          locale-gen fr_FR
-          locale-gen fr_FR.UTF-8
-          locale-gen ru_RU
-          locale-gen ru_RU.UTF-8
-          update-locale
+          sudo locale-gen en_US
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen es_ES
+          sudo locale-gen es_ES.UTF-8
+          sudo locale-gen fr_FR
+          sudo locale-gen fr_FR.UTF-8
+          sudo locale-gen ru_RU
+          sudo locale-gen ru_RU.UTF-8
+          sudo update-locale
           ctest -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
 
       - name: Run coverage report generation

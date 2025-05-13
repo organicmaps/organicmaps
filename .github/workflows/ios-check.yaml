@@ -35,9 +35,9 @@ on:
 jobs:
   ios-check:
     name: Build iOS
-    runs-on: self-hosted
+    runs-on: macos-15
     env:
-      DEVELOPER_DIR: /Applications/Xcode.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_16.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        buildType: [Debug]
+        buildType: [Debug, Release]
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
@@ -55,16 +55,16 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-#      - name: Parallel submodules checkout
-#        shell: bash
-#        run: git submodule update --depth 1 --init --recursive
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
       - name: Configure repository
         shell: bash
         run: ./configure.sh
 
       - name: Configure XCode cache
-        uses: https://github.com/irgaly/xcode-cache@v1
+        uses: irgaly/xcode-cache@v1
         with:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
