@@ -8,7 +8,7 @@
 "type.aerialway.gondola" = "Télécabine";
 "type.aerialway.mixed_lift" = "Téléporté mixte";
 "type.aerialway.station" = "Remontées mécaniques";
-"type.aeroway" = "Equipement aérien";
+"type.aeroway" = "Équipement aérien";
 "type.aeroway.aerodrome" = "Aéroport";
 "type.aeroway.aerodrome.international" = "Aéroport";
 "type.aeroway.apron" = "Aire de stationnement pour aéronefs";
@@ -28,7 +28,7 @@
 "type.amenity.bicycle_rental" = "Location de vélos";
 "type.amenity.bicycle_repair_station" = "Station de réparation de vélos";
 "type.amenity.biergarten" = "Biergarten";
-"type.amenity.brothel" = "Maison de prostitution";
+"type.amenity.brothel" = "Maison close";
 "type.amenity.bureau_de_change" = "Bureau de change";
 "type.amenity.bus_station" = "Gare routière";
 "type.amenity.cafe" = "Café";
@@ -162,7 +162,7 @@
 "type.amenity.public_bath" = "Bain public";
 "type.amenity.shower" = "Douche";
 "type.amenity.stripclub" = "Club de strip-tease";
-"type.amenity.taxi" = "Taxi Stand";
+"type.amenity.taxi" = "Station de taxi";
 "type.amenity.telephone" = "Téléphone";
 "type.amenity.theatre" = "Théâtre";
 "type.amenity.toilets" = "Toilettes";

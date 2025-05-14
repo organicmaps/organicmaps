@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Instalaciones para autocaravanas";
-"share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!";
+"share_bookmarks_email_body" = "¡Hola!\n\nAdjunto mis marcadores; ábrelos en Organic Maps. Si no lo tienes instalado, puedes descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfruta viajando con Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando marcadores";

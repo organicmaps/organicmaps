@@ -12,6 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d bladwijzers</string>
 			<key>one</key>
 			<string>%d bladwijzer</string>
 			<key>other</key>
@@ -46,6 +48,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d tracks</string>
 			<key>one</key>
 			<string>%d track</string>
 			<key>other</key>

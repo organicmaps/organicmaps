@@ -712,7 +712,7 @@
 "routing_add_finish_point" = "Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку";
 "planning_route_manage_route" = "Измени руту";
 "button_plan" = "План";
-"placepage_remove_stop" = "Уклони стајање";
+"placepage_remove_stop" = "Уклони међуодредиште";
 "planning_route_remove_title" = "Превуците овде за уклањање";
 "placepage_add_stop" = "Међуодредиште";
 "start_from_my_position" = "Крени од";

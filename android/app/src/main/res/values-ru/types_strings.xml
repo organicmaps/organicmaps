@@ -1385,4 +1385,5 @@
     <string name="type.hwtag.oneway">Одностороннее движение</string>
     <string name="type.hwtag.toll">Платная</string>
     <string name="type.hwtag.private">Частная</string>
+    <string name="type.fee.yes">$</string>
 </resources>

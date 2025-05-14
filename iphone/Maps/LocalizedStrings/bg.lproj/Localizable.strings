@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Без източване на батерията, работи офлайн";
 
 /* Text in About screen */
-"about_proposition_3" = "• Бързи, минималистични, разработен от общността";
+"about_proposition_3" = "• Бърз, прост, разработен от общността";
 "close" = "Затваряне";
 "download" = "Изтегляне";
 
@@ -246,7 +246,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Друго";
 "pref_map_auto_zoom" = "Автоматично мащабиране";
-"placepage_distance" = "Distance";
+"placepage_distance" = "Разстояние";
 "search_show_on_map" = "Преглед на картата";
 
 /* Text in menu */
@@ -388,30 +388,30 @@
 "pink" = "Розово";
 
 /* deep purple color */
-"deep_purple" = "Deep Purple";
+"deep_purple" = "Тъмно Лилаво";
 
 /* light blue color */
-"light_blue" = "Light Blue";
+"light_blue" = "Светло Синьо";
 
 /* cyan color */
-"cyan" = "Cyan";
+"cyan" = "Синьо";
 
 /* teal color */
-"teal" = "Teal";
+"teal" = "Тюркоаз";
 
 /* lime color */
-"lime" = "Lime";
+"lime" = "Светло Зелено";
 
 /* deep orange color */
-"deep_orange" = "Deep Orange";
+"deep_orange" = "Тъмно Оранжево";
 
 /* gray color */
-"gray" = "Gray";
+"gray" = "Сиво";
 
 /* blue gray color */
-"blue_gray" = "Blue Gray";
+"blue_gray" = "Синкаво Сиво";
 "dialog_routing_disclaimer_title" = "Когато следвате маршрута, моля, имайте предвид:";
-"dialog_routing_disclaimer_priority" = "- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;";
+"dialog_routing_disclaimer_priority" = "- Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат предимство пред пътеводителните подсказки;";
 "dialog_routing_disclaimer_precision" = "- Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;";
 "dialog_routing_disclaimer_recommendations" = "- Предложените маршрути са само препоръки;";
 "dialog_routing_disclaimer_borders" = "- Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.";
@@ -464,7 +464,7 @@
 "clear_search" = "Изчистване на историята на търсенията";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Уикипедия";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
@@ -624,14 +624,14 @@
 "km" = "км";
 
 /* abbreviation for kilometers per hour */
-"kilometers_per_hour" = "km/h";
+"kilometers_per_hour" = "км/ч";
 
 /* abbreviation for mile(s) */
 "mi" = "ми";
 
 /* A unit of measure */
 "ft" = "фут";
-"miles_per_hour" = "mph";
+"miles_per_hour" = "мили/ч";
 "hour" = "ч";
 "minute" = "мин";
 "day" = "д";
@@ -664,7 +664,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Уверете се, че не сте въвели никакви лични данни.";
 "editor_share_to_all_dialog_message_2" = "Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.";
-"navigation_stop_button" = "Stop";
+"navigation_stop_button" = "Спри";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Деактивиране на записването на последния ви маршрут?";
@@ -700,7 +700,7 @@
 "traffic_data_unavailable" = "Няма налични данни за трафика";
 "enable_logging" = "Активиране на запис на дневник";
 "log_file_size" = "Размер на регистрационния файл: %@";
-"transliteration_title" = "Латинска транслитерация";
+"transliteration_title" = "Изпиши на латиница";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Изход";
@@ -794,8 +794,8 @@
 "unable_to_calc_alert_subtitle" = "За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.";
 "define_to_avoid_btn" = "Определяне пътищата, които да се избягват";
 "change_driving_options_btn" = "Разрешени опции за маршрутизиране";
-"toll_road" = "Toll road";
-"unpaved_road" = "Unpaved road";
+"toll_road" = "Път с винетка";
+"unpaved_road" = "Път без настилка";
 "ferry_crossing" = "Ferry crossing";
 "trip_start" = "Let's go";
 "pick_destination" = "Destination";
@@ -821,7 +821,7 @@
 
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Мрежа: %@";
-"trip_finished" = "You have arrived!";
+"trip_finished" = "Пристигнахте!";
 "keyboard_availability_alert" = "Keyboard is not available while driving";
 "dialog_routing_change_start_carplay" = "Unable to build a route from your current location";
 "dialog_routing_change_end_carplay" = "Unable to find a route to your destination. Please choose another end point";
@@ -848,28 +848,28 @@
 "sort_distance" = "Sort by distance";
 "sort_date" = "Sort by date";
 "sort_name" = "Сортиране по име";
-"week_ago_sorttype" = "A week ago";
-"month_ago_sorttype" = "A month ago";
-"moremonth_ago_sorttype" = "More than a month ago";
-"moreyear_ago_sorttype" = "More than a year ago";
-"near_me_sorttype" = "Near me";
-"others_sorttype" = "Others";
-"food_places" = "Food";
-"tourist_places" = "Sights";
-"museums" = "Museums";
-"parks" = "Parks";
-"swim_places" = "Swim";
-"mountains" = "Mountains";
-"animals" = "Animals";
-"hotels" = "Hotels";
-"buildings" = "Buildings";
-"money" = "Money";
-"shops" = "Shops";
-"parkings" = "Parking";
-"fuel_places" = "Gas Stations";
-"medicine" = "Medicine";
+"week_ago_sorttype" = "Преди седмица";
+"month_ago_sorttype" = "Преди месец";
+"moremonth_ago_sorttype" = "Преди повече от месец";
+"moreyear_ago_sorttype" = "Преди повече от година";
+"near_me_sorttype" = "На близо";
+"others_sorttype" = "Други";
+"food_places" = "Храна";
+"tourist_places" = "Забележителности";
+"museums" = "Музеи";
+"parks" = "Паркове";
+"swim_places" = "Плуване";
+"mountains" = "Планини";
+"animals" = "Животни";
+"hotels" = "Хотели";
+"buildings" = "Сгради";
+"money" = "Пари";
+"shops" = "Магазини";
+"parkings" = "Паркинги";
+"fuel_places" = "Бензиностанции";
+"medicine" = "Лечение";
 "search_in_the_list" = "Търсене в списъка";
-"religious_places" = "Religious places";
+"religious_places" = "Храмове";
 "transit_not_found" = "Навигацията за метро все още не е налична в региона";
 "dialog_pedestrian_route_is_long_header" = "Не е открит маршрут за метро";
 "dialog_pedestrian_route_is_long_message" = "Моля, изберете начална или крайна точка по-близо до метростанция";
@@ -886,7 +886,7 @@
 "elevation_profile_max_elevation" = "Макс. височина";
 "isolines_toast_zooms_1_10" = "Увеличете мащаба, за да разгледате изолиниите";
 "downloader_updating_ios" = "Updating";
-"downloader_loading_ios" = "Downloading";
+"downloader_loading_ios" = "Изтегляне";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Актуализиране на изтеглените карти";

@@ -11,7 +11,7 @@
     <string name="type.aerialway.gondola">Télécabine</string>
     <string name="type.aerialway.mixed_lift">Téléporté mixte</string>
     <string name="type.aerialway.station">Remontées mécaniques</string>
-    <string name="type.aeroway">Equipement aérien</string>
+    <string name="type.aeroway">Équipement aérien</string>
     <string name="type.aeroway.aerodrome">Aéroport</string>
     <string name="type.aeroway.aerodrome.international">Aéroport</string>
     <string name="type.aeroway.apron">Aire de stationnement pour aéronefs</string>
@@ -28,7 +28,7 @@
     <string name="type.amenity.bicycle_parking">Parking à vélo</string>
     <string name="type.amenity.bicycle_rental">Location de vélos</string>
     <string name="type.amenity.bicycle_repair_station">Station de réparation de vélos</string>
-    <string name="type.amenity.brothel">Maison de prostitution</string>
+    <string name="type.amenity.brothel">Maison close</string>
     <string name="type.amenity.bureau_de_change">Bureau de change</string>
     <string name="type.amenity.bus_station">Gare routière</string>
     <string name="type.amenity.cafe">Café</string>
@@ -1310,4 +1310,7 @@
     <string name="type.aeroway.terminal">Terminal</string>
     <string name="type.power.pole">Pylône électrique</string>
     <string name="type.man_made.utility_pole">Pylônes (Télécommunication, lampadaire)</string>
+    <string name="type.amenity.bar">Bar</string>
+    <string name="type.amenity.biergarten">Biergarten</string>
+    <string name="type.amenity.taxi">Station de taxi</string>
 </resources>

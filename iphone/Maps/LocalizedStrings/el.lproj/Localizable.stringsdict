@@ -5,7 +5,7 @@
 	<key>bookmarks_places</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>%#@αξία@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d αγαπημένο</string>
+			<string>%d σελιδοδείκτης</string>
 			<key>other</key>
-			<string>%d αγαπημένα</string>
+			<string>%d σελιδοδείκτες</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>%#@αξία@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -29,23 +29,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</string>
+			<string>Βρέθηκε το αρχείο %d. Μπορείτε να το δείτε μετά τη μετατροπή.</string>
 			<key>other</key>
-			<string>Βρέθηκαν %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</string>
+			<string>Βρέθηκαν %d αρχεία. Μπορείτε να τα δείτε μετά τη μετατροπή.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
+		<string>%#@αξία@</string>
 		<key>value</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d διαδρομή</string>
 			<key>other</key>
-			<string>%d ίχνη</string>
+			<string>%d διαδρομές</string>
 		</dict>
 	</dict>
 </dict>

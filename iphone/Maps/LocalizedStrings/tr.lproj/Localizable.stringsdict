@@ -15,7 +15,7 @@
 			<key>one</key>
 			<string>%d yer imi</string>
 			<key>other</key>
-			<string>%d yer imleri</string>
+			<string>%d yer imi</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d dosya bulundu. Dönüştürmeden sonra onu görebilirsiniz.</string>
+			<string>%d dosya bulundu. Dönüştürmeden sonra görebilirsiniz.</string>
 			<key>other</key>
-			<string>%d dosya bulundu. Dönüştürmeden sonra onları görebilirsiniz.</string>
+			<string>%d dosya bulundu. Dönüştürmeden sonra görebilirsiniz.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
@@ -44,8 +44,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>one</key>
+			<string>%d iz</string>
 			<key>other</key>
-			<string>%d yol?</string>
+			<string>%d iz</string>
 		</dict>
 	</dict>
 </dict>

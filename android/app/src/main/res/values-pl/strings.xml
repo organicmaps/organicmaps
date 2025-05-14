@@ -884,4 +884,21 @@
     <string name="nav_auto">Automatyczna nawigacja</string>
     <string name="level_value_generic">Piętro: %s</string>
     <string name="github">GitHub</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="mb">MB</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="gb">GB</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="telegram">Telegram</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="navigation_stop_button">Stop</string>
 </resources>
