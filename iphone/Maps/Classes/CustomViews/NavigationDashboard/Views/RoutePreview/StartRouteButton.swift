@@ -44,6 +44,12 @@ final class StartRouteButton: UIView {
   private func setupView() {
     setStyle(.background)
 
+    layer.shadowColor = UIColor.black.cgColor
+    layer.shadowOffset = CGSize(width: 0, height: -3)
+    layer.shadowOpacity = 0.1
+    layer.shadowRadius = 3
+    layer.masksToBounds = false
+
     button.setTitle(Constants.buttonTitle, for: .normal)
     button.setStyle(.flatNormalButtonBig)
     button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -112,6 +118,13 @@ final class StartRouteButton: UIView {
       self.alpha = hidden ? 0 : 1
     } completion: { _ in
       self.isHidden = hidden
+    }
+  }
+
+  func setShadowVisible(_ visible: Bool) {
+    guard state != .hidden else { return }
+    UIView.animate(withDuration: Constants.animationDuration) {
+      self.layer.shadowOpacity = visible ? 0.1 : 0
     }
   }
 }
