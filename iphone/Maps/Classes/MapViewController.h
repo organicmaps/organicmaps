@@ -11,6 +11,7 @@
 @class WidgetsArea;
 @class TrafficButtonArea;
 @class PlacePageArea;
+@class NavigationInfoArea;
 
 @protocol MWMLocationModeListener;
 
@@ -64,5 +65,6 @@
 @property (weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
 @property (weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
 @property (weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
+@property (weak, nonatomic) IBOutlet NavigationInfoArea * navigationInfoArea;
 
 @end
