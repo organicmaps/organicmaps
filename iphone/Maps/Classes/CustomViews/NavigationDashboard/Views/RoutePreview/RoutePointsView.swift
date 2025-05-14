@@ -27,6 +27,12 @@ final class RoutePointsView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    coordinator.animate(alongsideTransition: { _ in
+      self.collectionView.collectionViewLayout.invalidateLayout()
+    }, completion: nil)
+  }
+
   private func setupView() {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
