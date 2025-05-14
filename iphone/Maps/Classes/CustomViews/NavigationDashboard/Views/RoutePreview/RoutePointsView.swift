@@ -12,6 +12,10 @@ final class RoutePointsView: UIView {
 
   weak var interactor: RoutePreview.Interactor?
 
+  var contentBottom: CGPoint {
+    origin.applying(CGAffineTransform(translationX: .zero, y: collectionView.contentSize.height))
+  }
+
   init() {
     super.init(frame: .zero)
     setupView()

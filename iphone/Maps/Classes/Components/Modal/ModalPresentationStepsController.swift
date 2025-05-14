@@ -20,15 +20,16 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
   private weak var presentedView: UIView?
   private weak var containerViewController: UIViewController?
-
-  private let stepStrategy: any ModalPresentationStepStrategy<Step>
   private var currentStep: Step
   private(set) var maxAvailableFrame: CGRect = .zero
+
+  var stepStrategy: any ModalPresentationStepStrategy<Step>
   var didUpdateHandler: ((StepUpdate) -> Void)?
   var currentFrame: CGRect { frame(for: currentStep) }
   var hiddenFrame: CGRect { frame(for: .hidden) }
 
   private var initialTranslationY: CGFloat = .zero
+  private var isDragging: Bool = false
 
   init(presentedView: UIView,
        containerViewController: UIViewController,
@@ -51,7 +52,10 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   }
 
   func updateFrame() {
-    presentedView?.frame = frame(for: currentStep)
+    guard !isDragging else { return }
+    let newFrame = frame(for: currentStep)
+    presentedView?.frame = newFrame
+    didUpdateHandler?(.didUpdateFrame(newFrame))
   }
 
   func handlePan(_ gesture: UIPanGestureRecognizer) {
@@ -62,6 +66,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
     switch gesture.state {
     case .began:
+      isDragging = true
       initialTranslationY = presentedView.frame.origin.y
     case .changed:
       let newY = max(max(initialTranslationY + translation.y, 0), maxAvailableFrame.origin.y)
@@ -69,6 +74,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
       presentedView.frame = currentFrame
       didUpdateHandler?(.didUpdateFrame(currentFrame))
     case .ended:
+      isDragging = false
       let nextStep: Step
       if velocity.y > Constants.fastSwipeDownVelocity {
         didUpdateHandler?(.didClose)
