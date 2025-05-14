@@ -98,10 +98,10 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
       frame.size.width = Constants.iPadWidth
       frame.origin.x = safeAreaInsets.left
       switch step {
-      case .expanded:
+      case .expanded, .regular:
         frame.origin.y = Constants.landscapeTopInset
-      case .regular, .compact:
-        frame.origin.y = containerSize.height - Constants.compactHeightOffset
+      case .compact:
+        frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
       case .hidden:
         frame.origin.y = containerSize.height
       }
