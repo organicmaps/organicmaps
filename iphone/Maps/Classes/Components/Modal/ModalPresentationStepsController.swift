@@ -74,7 +74,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
         didUpdateHandler?(.didClose)
         return
       } else if velocity.y < -Constants.fastSwipeUpVelocity {
-        nextStep = stepStrategy.expanded()
+        nextStep = .expanded
       } else if velocity.y > Constants.slowSwipeVelocity || translation.y > Constants.translationThreshold {
         if stepStrategy.lowerTo(currentStep) == .hidden {
           didUpdateHandler?(.didClose)

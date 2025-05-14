@@ -16,9 +16,6 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
 
   typealias Step = RoutePreviewModalPresentationStep
 
-  func expanded() -> Step {
-    .expanded
-  }
 
   func upperTo(_ step: Step) -> Step {
     switch step {
