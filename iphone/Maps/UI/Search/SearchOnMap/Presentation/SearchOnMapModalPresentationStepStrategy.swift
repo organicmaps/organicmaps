@@ -15,10 +15,6 @@ struct SearchOnMapModalPresentationStepStrategy: ModalPresentationStepStrategy {
 
   typealias Step = SearchOnMapModalPresentationStep
 
-  func expanded() -> Step {
-    .expanded
-  }
-
   func upperTo(_ step: Step) -> Step {
     switch step {
     case .expanded:
