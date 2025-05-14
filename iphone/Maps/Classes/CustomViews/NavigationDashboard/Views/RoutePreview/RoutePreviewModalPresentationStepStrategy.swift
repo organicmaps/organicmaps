@@ -16,6 +16,8 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
 
   typealias Step = RoutePreviewModalPresentationStep
 
+  var regularHeigh: CGFloat = .zero
+  var compactHeight: CGFloat = .zero
 
   func upperTo(_ step: Step) -> Step {
     switch step {
@@ -78,9 +80,17 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
       case .expanded:
         frame.origin.y = containerSize.height * Constants.fullScreenHeightFactorPortrait
       case .regular:
-        frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+        if regularHeigh != 0 {
+          frame.origin.y = containerSize.height - regularHeigh
+        } else {
+          frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+        }
       case .compact:
-        frame.origin.y = containerSize.height - Constants.compactHeightOffset
+        if compactHeight != 0 {
+          frame.origin.y = containerSize.height - compactHeight
+        } else {
+          frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
+        }
       case .hidden:
         frame.origin.y = containerSize.height
       }

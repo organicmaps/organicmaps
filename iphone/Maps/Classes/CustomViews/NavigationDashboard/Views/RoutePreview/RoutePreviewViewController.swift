@@ -44,7 +44,9 @@ final class RoutePreviewViewController: UIViewController {
   private var navigationControlView: NavigationControlView!
 
   var interactor: RoutePreview.Interactor?
+  private var presentationStepStrategy = RoutePreviewModalPresentationStepStrategy()
   private var presentationStepsController: StepsController!
+  private var presentationStepsUpdateDebounceWorkItem: DispatchWorkItem?
 
   // MARK: - Init
   init() {
@@ -66,7 +68,7 @@ final class RoutePreviewViewController: UIViewController {
           let navigationControlView = Bundle.main.loadNibNamed(Constants.kNavigationControlViewXibName,
                                                                owner: nil,
                                                                options: nil)?.first as? NavigationControlView else {
-      fatalError("Failed to load NavigationInfoView from nib")
+      fatalError("Failed to load NavigationInfoView or NavigationControlView from nib")
     }
     navigationInfoView.ownerView = view
     navigationControlView.ownerView = view
@@ -85,11 +87,6 @@ final class RoutePreviewViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     view.layoutIfNeeded()
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    print(routePointsView.frame)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -133,7 +130,7 @@ final class RoutePreviewViewController: UIViewController {
   private func configureModalPresentation() {
     let stepsController = StepsController(presentedView: availableAreaView,
                                           containerViewController: self,
-                                          stepStrategy: RoutePreviewModalPresentationStepStrategy(),
+                                          stepStrategy: presentationStepStrategy,
                                           currentStep: .hidden,
                                           didUpdateHandler: presentationUpdateHandler)
     presentationStepsController = stepsController
@@ -300,6 +297,29 @@ final class RoutePreviewViewController: UIViewController {
     presentationStepsController.updateFrame()
     view.layoutIfNeeded()
   }
+
+  private func updatePresentationStepsHeight() {
+    presentationStepsUpdateDebounceWorkItem?.cancel()
+    let workItem = DispatchWorkItem { [weak self] in
+      guard let self else { return }
+      self.availableAreaView.layoutIfNeeded()
+      UIView.animate(withDuration: kDefaultAnimationDuration) {
+        let regularHeight = self.routePointsView.contentBottom.y + self.startButton.frame.height
+        self.presentationStepStrategy.regularHeigh = regularHeight
+
+        let estimatesBottomPoint = CGPoint(x: self.estimatesView.origin.x,
+                                           y: self.estimatesView.frame.maxY)
+        let compactHeight = self.estimatesView.convert(estimatesBottomPoint,
+                                                       to: self.availableAreaView).y + self.startButton.frame.height
+        self.presentationStepStrategy.compactHeight = compactHeight
+        self.presentationStepsController.stepStrategy = self.presentationStepStrategy
+        self.updateFrameOfPresentedViewInContainerView()
+      }
+    }
+    presentationStepsUpdateDebounceWorkItem = workItem
+    DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration / 2,
+                                  execute: workItem)
+  }
 }
 
 // MARK: - Public Methods
@@ -332,6 +352,7 @@ extension RoutePreviewViewController {
     navigationControlView.isVisible = viewModel.navigationInfo.isControlsVisible
     navigationControlView.onNavigationInfoUpdated(viewModel.entity)
 
+    updatePresentationStepsHeight()
     presentationStepsController.setStep(viewModel.presentationStep)
   }
 
@@ -344,5 +365,3 @@ extension RoutePreviewViewController {
     }
   }
 }
-
-
