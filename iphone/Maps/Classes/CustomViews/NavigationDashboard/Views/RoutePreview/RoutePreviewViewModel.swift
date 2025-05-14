@@ -106,7 +106,7 @@ extension RoutePreview.ViewModel {
 extension RoutePreview.NavigationInfo {
   static let hidden = RoutePreview.NavigationInfo(
     state: .hidden,
-    availableArea: .screenBounds,
+    availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds,
     shouldUpdateToastView: false
   )
 
