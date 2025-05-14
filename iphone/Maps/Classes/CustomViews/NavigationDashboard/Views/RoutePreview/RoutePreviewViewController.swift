@@ -2,8 +2,8 @@
 final class RoutePreviewViewController: UIViewController {
 
   private enum Constants {
-    static let kNavigationInfoViewXibName = "MWMNavigationInfoView"
-    static let kNavigationControlViewXibName = "NavigationControlView"
+    static let navigationInfoViewXibName = "MWMNavigationInfoView"
+    static let navigationControlViewXibName = "NavigationControlView"
 
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
@@ -23,6 +23,7 @@ final class RoutePreviewViewController: UIViewController {
 
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
+    static let startButtonSpacing: CGFloat = 4
   }
 
   typealias StepsController = ModalPresentationStepsController<RoutePreviewModalPresentationStep>
@@ -62,10 +63,10 @@ final class RoutePreviewViewController: UIViewController {
   // MARK: - Lifecycle
   override func loadView() {
     view = TouchTransparentView()
-    guard let navigationInfoView = Bundle.main.loadNibNamed(Constants.kNavigationInfoViewXibName,
+    guard let navigationInfoView = Bundle.main.loadNibNamed(Constants.navigationInfoViewXibName,
                                                             owner: nil,
                                                             options: nil)?.first as? NavigationInfoView,
-          let navigationControlView = Bundle.main.loadNibNamed(Constants.kNavigationControlViewXibName,
+          let navigationControlView = Bundle.main.loadNibNamed(Constants.navigationControlViewXibName,
                                                                owner: nil,
                                                                options: nil)?.first as? NavigationControlView else {
       fatalError("Failed to load NavigationInfoView or NavigationControlView from nib")
@@ -87,6 +88,12 @@ final class RoutePreviewViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     view.layoutIfNeeded()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    let routePointsBottomPoint = availableAreaView.convert(routePointsView.contentBottom, to: view)
+    startButton.setShadowVisible(routePointsBottomPoint.y + Constants.startButtonSpacing > startButton.origin.y)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -304,13 +311,18 @@ final class RoutePreviewViewController: UIViewController {
       guard let self else { return }
       self.availableAreaView.layoutIfNeeded()
       UIView.animate(withDuration: kDefaultAnimationDuration) {
-        let regularHeight = self.routePointsView.contentBottom.y + self.startButton.frame.height
+        let regularHeight = self.routePointsView.contentBottom.y +
+          self.startButton.frame.height +
+          Constants.startButtonSpacing
         self.presentationStepStrategy.regularHeigh = regularHeight
 
         let estimatesBottomPoint = CGPoint(x: self.estimatesView.origin.x,
                                            y: self.estimatesView.frame.maxY)
         let compactHeight = self.estimatesView.convert(estimatesBottomPoint,
-                                                       to: self.availableAreaView).y + self.startButton.frame.height
+                                                       to: self.availableAreaView).y +
+          self.startButton.frame.height +
+          Constants.startButtonSpacing
+
         self.presentationStepStrategy.compactHeight = compactHeight
         self.presentationStepsController.stepStrategy = self.presentationStepStrategy
         self.updateFrameOfPresentedViewInContainerView()
