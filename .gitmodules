@@ -1,15 +1,19 @@
 [submodule "tools/osmctools"]
   path = tools/osmctools
-  url = https://git.omaps.dev/organicmaps/osmctools.git
+  url = https://github.com/organicmaps/osmctools.git
+  branch = master
 [submodule "tools/kothic"]
   path = tools/kothic
-  url = https://git.omaps.dev/organicmaps/kothic.git
+  url = https://github.com/organicmaps/kothic.git
+  branch = master
 [submodule "3party/protobuf/protobuf"]
   path = 3party/protobuf/protobuf
-  url = https://git.omaps.dev/organicmaps/protobuf.git
+  url = https://github.com/organicmaps/protobuf.git
+  branch = master
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
+  branch = main
 [submodule "3party/boost"]
   path = 3party/boost
   url = https://github.com/boostorg/boost.git
@@ -17,7 +21,7 @@
   ignore = dirty
 [submodule "3party/just_gtfs"]
   path = 3party/just_gtfs
-  url = https://git.omaps.dev/organicmaps/just_gtfs.git
+  url = https://github.com/organicmaps/just_gtfs.git
   branch = for-usage-as-submodule
 [submodule "3party/expat"]
   path = 3party/expat
@@ -26,42 +30,56 @@
 [submodule "3party/glm"]
   path = 3party/glm
   url = https://github.com/g-truc/glm.git
+  branch = master
 [submodule "3party/icu/icu"]
   path = 3party/icu/icu
   url = https://github.com/unicode-org/icu.git
+  branch = main
 [submodule "3party/freetype/freetype"]
   path = 3party/freetype/freetype
-  url = https://git.omaps.dev/organicmaps/freetype.git
+  url = https://github.com/organicmaps/freetype.git
+  branch = master
 [submodule "3party/googletest"]
   path = 3party/googletest
   url = https://github.com/google/googletest.git
+  branch = main
 [submodule "3party/fast_double_parser"]
   path = 3party/fast_double_parser
   url = https://github.com/lemire/fast_double_parser.git
+  branch = master
 [submodule "3party/pugixml/pugixml"]
   path = 3party/pugixml/pugixml
   url = https://github.com/zeux/pugixml.git
+  branch = master
 [submodule "3party/jansson/jansson"]
   path = 3party/jansson/jansson
   url = https://github.com/akheron/jansson.git
+  branch = master
 [submodule "3party/gflags"]
   path = 3party/gflags
   url = https://github.com/gflags/gflags
+  branch = master
 [submodule "3party/fast_obj"]
   path = 3party/fast_obj
   url = https://github.com/thisistherk/fast_obj
+  branch = master
 [submodule "3party/harfbuzz/harfbuzz"]
   path = 3party/harfbuzz/harfbuzz
   url = https://github.com/harfbuzz/harfbuzz.git
+  branch = main
 [submodule "3party/utfcpp"]
   path = 3party/utfcpp
   url = https://github.com/nemtrif/utfcpp.git
+  branch = master
 [submodule "3party/glfw"]
   path = 3party/glfw
   url = https://github.com/glfw/glfw.git
+  branch = master
 [submodule "3party/CMake-MetalShaderSupport"]
   path = 3party/CMake-MetalShaderSupport
   url = https://github.com/dpogue/CMake-MetalShaderSupport.git
+  branch = main
 [submodule "3party/imgui/imgui"]
   path = 3party/imgui/imgui
   url = https://github.com/ocornut/imgui
+  branch = master
