@@ -5,6 +5,7 @@ final class RoutePointsView: UIView {
     static let routePointsVerticalSpacing: CGFloat = 6
     static let routePointCellHeight: CGFloat = 52
     static let addRoutePointCellHeight: CGFloat = 30
+    static let bottomContentInset: CGFloat = 200
   }
 
   private var collectionView: UICollectionView!
@@ -40,11 +41,12 @@ final class RoutePointsView: UIView {
     collectionView.backgroundColor = .clear
     collectionView.dragInteractionEnabled = true
     collectionView.alwaysBounceVertical = false
-    collectionView.isScrollEnabled = false
+    collectionView.isScrollEnabled = true
     collectionView.dragDelegate = self
     collectionView.dropDelegate = self
     collectionView.dataSource = self
     collectionView.delegate = self
+    collectionView.contentInset.bottom = Constants.bottomContentInset
     collectionView.register(cell: RouteStopCollectionViewCell.self)
     collectionView.register(cell: AddItemCollectionViewCell.self)
   }
