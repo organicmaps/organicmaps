@@ -42,11 +42,19 @@ extension RoutePreview {
         switch hidden {
         case true:
           viewModel = viewModel.copyWith(presentationStep: .hidden)
+          // Hide side buttons if it is not in navigation state
+          if viewModel.dashboardState != .navigation {
+            viewModel = viewModel.copyWith(dashboardState: .hidden)
+          }
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
             let step: RoutePreviewModalPresentationStep = hidden ? .hidden : .regular
             viewModel = viewModel.copyWith(presentationStep: step.forNavigationState(viewModel.dashboardState))
+          }
+          // Show side buttons if it is not in navigation state
+          if viewModel.dashboardState != .navigation {
+            viewModel = viewModel.copyWith(dashboardState: .prepare)
           }
         }
       case .updatePresentationStep(let step):
