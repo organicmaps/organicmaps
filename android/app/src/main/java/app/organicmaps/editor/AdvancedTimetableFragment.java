@@ -16,10 +16,11 @@ import androidx.annotation.Nullable;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.util.Constants;
+import app.organicmaps.sdk.editor.OpeningHours;
+import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment

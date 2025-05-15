@@ -1,6 +1,6 @@
 #pragma once
 
-#include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 
 jobject GetRebuildAfterPointsLoading(JNIEnv * env)
 {

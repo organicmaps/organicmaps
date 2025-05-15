@@ -14,10 +14,10 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.base.BaseScreen;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 
 import java.util.HashMap;
 import java.util.List;

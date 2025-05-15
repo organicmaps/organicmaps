@@ -17,9 +17,9 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
 import app.organicmaps.R;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 {

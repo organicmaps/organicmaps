@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.Config;
 
 public final class ThemeUtils
 {

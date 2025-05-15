@@ -8,7 +8,6 @@ import android.view.WindowManager;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
-import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -17,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.base.OnBackPressListener;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.search.MapSearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.widget.PlaceholderView;
@@ -54,9 +55,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
   private final MapSearchListener mSearchListener = new MapSearchListener()
   {
-    // Called from JNI.
-    @Keep
-    @SuppressWarnings("unused")
     @Override
     public void onMapSearchResults(@NonNull Result[] results, long timestamp, boolean isLast)
     {

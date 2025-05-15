@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import app.organicmaps.R;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.NetworkPolicy;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.NetworkPolicy;
 
 public class StackedButtonDialogFragment extends DialogFragment
 {

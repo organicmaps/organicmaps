@@ -1,5 +1,15 @@
 package app.organicmaps;
 
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_DISK_ERROR;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_DOWNLOAD_ERROR;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_DOWNLOAD_SUCCESS;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_NOT_ENOUGH_FREE_SPACE;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_NO_MORE_FILES;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.ERR_STORAGE_DISCONNECTED;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeCancelCurrentFile;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeGetBytesToDownload;
+import static app.organicmaps.sdk.DownloadResourcesLegacyActivity.nativeStartNextFileDownload;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -15,22 +25,21 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
-import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.downloader.CountryItem;
-import app.organicmaps.downloader.MapManager;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationListener;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.ConnectionState;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.ConnectionState;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -43,15 +52,6 @@ import java.util.Objects;
 public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
-
-  // Error codes, should match the same codes in JNI
-  private static final int ERR_DOWNLOAD_SUCCESS = 0;
-  private static final int ERR_DISK_ERROR = -1;
-  private static final int ERR_NOT_ENOUGH_FREE_SPACE = -2;
-  private static final int ERR_STORAGE_DISCONNECTED = -3;
-  private static final int ERR_DOWNLOAD_ERROR = -4;
-  private static final int ERR_NO_MORE_FILES = -5;
-  private static final int ERR_FILE_IN_PROGRESS = -6;
 
   private TextView mTvMessage;
   private LinearProgressIndicator mProgress;
@@ -79,19 +79,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private String[] mBtnNames;
 
   private int mCountryDownloadListenerSlot;
-
-  private interface Listener
-  {
-    // Called by JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onProgress(int percent);
-
-    // Called by JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onFinish(int errorCode);
-  }
 
   private final LocationListener mLocationListener = new LocationListener()
   {
@@ -125,11 +112,11 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         mChbDownloadCountry.setText(checkBoxText);
       }
 
-      LocationHelper.from(DownloadResourcesLegacyActivity.this).removeListener(this);
+      MwmApplication.from(DownloadResourcesLegacyActivity.this).getLocationHelper().removeListener(this);
     }
   };
 
-  private final Listener mResourcesDownloadListener = new Listener()
+  private final app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener mResourcesDownloadListener = new app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener()
   {
     @Override
     public void onProgress(final int percent)
@@ -234,14 +221,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     if (!isFinishing())
-      LocationHelper.from(this).addListener(mLocationListener);
+      MwmApplication.from(this).getLocationHelper().addListener(mLocationListener);
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    LocationHelper.from(this).removeListener(mLocationListener);
+    MwmApplication.from(this).getLocationHelper().removeListener(mLocationListener);
     if (mAlertDialog != null && mAlertDialog.isShowing())
       mAlertDialog.dismiss();
     mAlertDialog = null;
@@ -456,8 +443,4 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     return R.style.MwmTheme_DownloadResourcesLegacy;
   }
-
-  private static native int nativeGetBytesToDownload();
-  private static native int nativeStartNextFileDownload(Listener listener);
-  private static native void nativeCancelCurrentFile();
 }
