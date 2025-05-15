@@ -42,13 +42,14 @@ final class EstimatesView: UIView {
       switch state {
       case .error(let errorMessage):
         self.estimatesLabel.alpha = 1.0
-        self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage)
-        self.estimatesLabel.setFontStyleAndApply(.semibold16, color: .red)
+        self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
+          .font: Fonts().semibold16,
+          .foregroundColor: UIColor.buttonRed()
+        ])
       case .estimates(let estimates):
         self.estimatesLabel.alpha = 1.0
         self.estimatesLabel.text = nil
         self.estimatesLabel.attributedText = estimates
-        self.estimatesLabel.setFontStyleAndApply(.bold14)
       case .loading:
         self.estimatesLabel.alpha = 0.0
         self.estimatesLabel.text = nil
