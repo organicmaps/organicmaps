@@ -1170,7 +1170,7 @@ dp::Color BookmarkManager::GenerateTrackRecordingColor() const
   return kml::ColorFromPredefinedColor(kml::GetRandomPredefinedColor());
 }
 
-kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> points)
+kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points)
 {
   kml::MultiGeometry geometry;
   geometry.m_lines.emplace_back();
@@ -1196,12 +1196,12 @@ kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> points)
 
   trackData.m_timestamp = kml::TimestampClock::now();
 
-   auto editSession = GetEditSession();
-   auto const track = editSession.CreateTrack(std::move(trackData));
-   auto const groupId = LastEditedBMCategory();
-   auto const trackId = track->GetId();
-   AttachTrack(trackId, groupId);
-   return trackId;
+  auto editSession = GetEditSession();
+  auto const track = editSession.CreateTrack(std::move(trackData));
+  auto const groupId = LastEditedBMCategory();
+  auto const trackId = track->GetId();
+  AttachTrack(trackId, groupId);
+  return trackId;
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
