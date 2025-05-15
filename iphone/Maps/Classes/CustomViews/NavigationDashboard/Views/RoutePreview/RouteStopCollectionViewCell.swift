@@ -66,6 +66,8 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
   private func layout() {
     contentView.addSubview(logoImageView)
     contentView.addSubview(contentBackgroundView)
+    let dot = makeDotSeparator()
+    contentBackgroundView.addSubview(dot)
     contentBackgroundView.addSubview(textStackView)
     textStackView.addArrangedSubview(titleLabel)
     textStackView.addArrangedSubview(subtitleLabel)
@@ -94,6 +96,9 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
       reorderButton.widthAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
       reorderButton.heightAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
 
+      dot.centerXAnchor.constraint(equalTo: logoImageView.centerXAnchor),
+      dot.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor, constant: -Constants.logoSize),
+
       textStackView.leadingAnchor.constraint(equalTo: reorderButton.trailingAnchor, constant: Constants.titleToReorderSpacing),
       textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       textStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButton.leadingAnchor, constant: -Constants.horizontalSpacing),
@@ -103,6 +108,18 @@ final class RouteStopCollectionViewCell: UICollectionViewCell {
       closeButton.widthAnchor.constraint(equalToConstant: Constants.closeButtonSize),
       closeButton.heightAnchor.constraint(equalToConstant: Constants.closeButtonSize)
     ])
+  }
+
+  private func makeDotSeparator() -> UIView {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .systemGray
+    view.layer.cornerRadius = 2
+    NSLayoutConstraint.activate([
+      view.widthAnchor.constraint(equalToConstant: 4),
+      view.heightAnchor.constraint(equalToConstant: 4)
+    ])
+    return view
   }
 
   func configure(with viewModel: ViewModel) {
