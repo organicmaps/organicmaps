@@ -10,7 +10,6 @@ extension RoutePreview {
     let estimates: NSAttributedString
     let dashboardState: MWMNavigationDashboardState
     let presentationStep: RoutePreviewModalPresentationStep
-    let shouldClose: Bool
     let progress: CGFloat
     let navigationSearchState: NavigationSearchState?
     let errorMessage: String?
@@ -25,8 +24,6 @@ extension RoutePreview {
     let state: MWMNavigationInfoViewState
     let availableArea: CGRect
     let shouldUpdateToastView: Bool
-
-    var isControlsVisible: Bool { state == .navigation }
   }
 }
 
@@ -41,7 +38,6 @@ extension RoutePreview.ViewModel {
     estimates: NSAttributedString(),
     dashboardState: .hidden,
     presentationStep: .hidden,
-    shouldClose: false,
     progress: 0,
     navigationSearchState: nil,
     errorMessage: nil
@@ -57,7 +53,6 @@ extension RoutePreview.ViewModel {
     estimates: NSAttributedString? = nil,
     dashboardState: MWMNavigationDashboardState? = nil,
     presentationStep: RoutePreviewModalPresentationStep? = nil,
-    shouldClose: Bool? = nil,
     progress: CGFloat? = nil,
     navigationSearchState: NavigationSearchState? = nil,
     errorMessage: String? = nil
@@ -72,7 +67,6 @@ extension RoutePreview.ViewModel {
       estimates: estimates ?? self.estimates,
       dashboardState: dashboardState ?? self.dashboardState,
       presentationStep: presentationStep ?? self.presentationStep,
-      shouldClose: shouldClose ?? self.shouldClose,
       progress: progress ?? self.progress,
       navigationSearchState: navigationSearchState,
       errorMessage: errorMessage ?? self.errorMessage
