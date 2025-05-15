@@ -68,7 +68,7 @@ extension RoutePreview.ViewModel {
       routerType: routerType ?? self.routerType,
       entity: entity ?? self.entity,
       elevationInfo: elevationInfo ?? self.elevationInfo,
-      navigationInfo: navigationInfo ?? self.navigationInfo,
+      navigationInfo: navigationInfo ?? self.navigationInfo.copyWith(dashboardState: self.dashboardState),
       estimates: estimates ?? self.estimates,
       dashboardState: dashboardState ?? self.dashboardState,
       presentationStep: presentationStep ?? self.presentationStep,
