@@ -104,7 +104,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) PlacePageViewController *placePageVC;
-@property(nonatomic) UIView *placePageContainer;
 
 @property(nonatomic) NSLayoutConstraint *placePageWidthConstraint;
 @property(nonatomic) NSLayoutConstraint *placePageLeadingConstraint;
@@ -235,7 +234,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
     self.navigationDashboardManager.state == MWMNavigationDashboardStateHidden ||
     self.navigationDashboardManager.state == MWMNavigationDashboardStateClosed;
   if (isSearching)
-    [self.searchManager setPlaceOnMapSelected:!isNavigationDashboardHidden];
+    [self.searchManager setPlaceOnMapSelected:!isNavigationDashboardHidden && PlacePageData.hasData];
   else if (isNavigationDashboardHidden)
     [self.navigationDashboardManager onSelectPlacePage:NO];
   // Always show the controls during the navigation or planning mode.
