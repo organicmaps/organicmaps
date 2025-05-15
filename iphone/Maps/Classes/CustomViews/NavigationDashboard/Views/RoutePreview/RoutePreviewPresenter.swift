@@ -32,11 +32,11 @@ extension RoutePreview {
                                        dashboardState: state)
 
       case .goBack:
-        viewModel = viewModel.copyWith(shouldClose: true)
+        viewModel = viewModel.copyWith(dashboardState: .closed)
         placePageManagerHelper.recoverPlacePage()
 
       case .close:
-        viewModel = viewModel.copyWith(shouldClose: true)
+        viewModel = viewModel.copyWith(dashboardState: .closed)
 
       case .setHidden(let hidden):
         switch hidden {
@@ -90,12 +90,18 @@ extension RoutePreview {
         case .closed:
           viewModel = resolve(action: .setHidden(false), with: viewModel)
             .copyWith(navigationSearchState: .minimizedNormal)
-        case .hidden, .searching:
+        case .hidden:
+          viewModel = resolve(action: .setHidden(PlacePageData.hasData), with: viewModel)
+            .copyWith(navigationSearchState: .minimizedNormal)
+        case .searching:
           viewModel = resolve(action: .setHidden(true), with: viewModel)
-            .copyWith(navigationSearchState: .minimizedSearch)
+            .copyWith(navigationSearchState: .minimizedNormal)
         @unknown default:
           fatalError("Unknown search state: \(state)")
         }
+
+      case .updateDrivingOptionsState(let state):
+        print("RoutePreview: updateDrivingOptionsState \(state)")
 
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: RoutePreview.RoutePoints(points: points),
