@@ -306,7 +306,7 @@ final class RoutePreviewViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
-  private func updatePresentationStepsHeight() {
+  private func updatePresentationStepHeights() {
     presentationStepsUpdateDebounceWorkItem?.cancel()
     let workItem = DispatchWorkItem { [weak self] in
       guard let self else { return }
@@ -333,48 +333,52 @@ final class RoutePreviewViewController: UIViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration / 2,
                                   execute: workItem)
   }
-}
 
-// MARK: - Public Methods
-
-extension RoutePreviewViewController {
-  func render(_ viewModel: RoutePreview.ViewModel) {
-    guard !viewModel.shouldClose else {
-      close()
-      return
-    }
-
-    transportOptionsView.set(transportOptions: viewModel.transportOptions,
-                             selectedRouterType: viewModel.routerType)
-    estimatesView.setState(viewModel.estimatesState)
-    let isError = viewModel.dashboardState == .error
-    transportTransitStepsView.setNavigationInfo(isError ? nil : viewModel.entity)
-    elevationProfileView.setImage(isError ? nil : viewModel.elevationInfo?.image)
-    routePointsView.setRoutePoints(viewModel.routePoints)
-
-    startButton.setState(viewModel.startButtonState)
-
-    navigationInfoView.state = viewModel.navigationInfo.state
-    navigationInfoView.onNavigationInfoUpdated(viewModel.entity)
-    navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
-    navigationInfoView.updateToastView()
-    if let navigationSearchState = viewModel.navigationSearchState {
-      navigationInfoView.setSearchState(navigationSearchState, animated: true)
-    }
-
-    navigationControlView.isVisible = viewModel.navigationInfo.isControlsVisible
-    navigationControlView.onNavigationInfoUpdated(viewModel.entity)
-
-    updatePresentationStepsHeight()
-    presentationStepsController.setStep(viewModel.presentationStep)
-  }
-
-  func close() {
+  private func close() {
     startButton.setState(.hidden)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
       self?.removeFromParent()
     }
+  }
+}
+
+// MARK: - Public Methods
+
+extension RoutePreviewViewController {
+  func render(_ viewModel: RoutePreview.ViewModel) {
+    switch viewModel.dashboardState {
+    case .closed:
+      close()
+      return
+
+    case .navigation:
+      navigationInfoView.onNavigationInfoUpdated(viewModel.entity)
+      navigationInfoView.updateToastView()
+      if let navigationSearchState = viewModel.navigationSearchState {
+        navigationInfoView.setSearchState(navigationSearchState, animated: true)
+      }
+
+      navigationControlView.isVisible = true
+      navigationControlView.onNavigationInfoUpdated(viewModel.entity)
+
+    default:
+      transportOptionsView.set(transportOptions: viewModel.transportOptions,
+                               selectedRouterType: viewModel.routerType)
+      estimatesView.setState(viewModel.estimatesState)
+      let isError = viewModel.dashboardState == .error
+      transportTransitStepsView.setNavigationInfo(isError ? nil : viewModel.entity)
+      elevationProfileView.setImage(isError ? nil : viewModel.elevationInfo?.image)
+      routePointsView.setRoutePoints(viewModel.routePoints)
+    }
+
+    navigationInfoView.state = viewModel.navigationInfo.state
+    navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
+    
+    startButton.setState(viewModel.startButtonState)
+
+    updatePresentationStepHeights()
+    presentationStepsController.setStep(viewModel.presentationStep)
   }
 }
