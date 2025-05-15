@@ -112,7 +112,7 @@ final class RoutePreviewViewController: UIViewController {
 
   func add(to parentViewController: MapViewController) {
     parentViewController.addChild(self)
-    parentViewController.view.insertSubview(view, belowSubview: parentViewController.searchContainer)
+    parentViewController.view.insertSubview(view, belowSubview: parentViewController.placePageContainer)
     view.frame = parentViewController.view.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     view.setNeedsLayout()

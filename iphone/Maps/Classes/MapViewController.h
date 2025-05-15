@@ -59,12 +59,13 @@
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
+@property(nonatomic) UIView * _Nonnull placePageContainer;
 @property(nonatomic) UIView * _Nonnull searchContainer;
 
-@property (weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
-@property (weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
-@property (weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
-@property (weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
-@property (weak, nonatomic) IBOutlet NavigationInfoArea * navigationInfoArea;
+@property(weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
+@property(weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
+@property(weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
+@property(weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
+@property(weak, nonatomic) IBOutlet NavigationInfoArea * navigationInfoArea;
 
 @end
