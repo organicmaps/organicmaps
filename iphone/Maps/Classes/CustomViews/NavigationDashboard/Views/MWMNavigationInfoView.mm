@@ -153,7 +153,6 @@ BOOL defaultOrientation(CGSize const &size) {
   CGFloat bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
   BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
-
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
     self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
     self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
@@ -500,10 +499,10 @@ BOOL defaultOrientation(CGSize const &size) {
     self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
     UIView *sv = self.ownerView;
     NSAssert(sv != nil, @"Superview can't be nil");
-    if ([sv.subviews containsObject:self])
-      return;
-    [sv insertSubview:self atIndex:0];
-    [self configLayout];
+    if (![sv.subviews containsObject:self]) {
+      [sv insertSubview:self atIndex:0];
+      [self configLayout];
+    }
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
