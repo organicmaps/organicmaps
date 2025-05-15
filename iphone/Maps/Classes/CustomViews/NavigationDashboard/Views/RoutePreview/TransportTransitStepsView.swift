@@ -23,6 +23,7 @@ final class TransportTransitStepsView: SolidTouchView {
   private func setupViews() {
     let layout = TransportTransitFlowLayout()
     stepsCollectionView = TransportTransitStepsCollectionView(layout: layout)
+    stepsCollectionView.backgroundColor = .clear
   }
 
   private func layout() {
