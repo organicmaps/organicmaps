@@ -106,6 +106,7 @@ extension RoutePreview {
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: RoutePreview.RoutePoints(points: points),
                                        routerType: routerType)
+        // TODO: (KK) When the presentation state is compact before hiding the screen, it should be compact after showing points, not regular.
         if !isSearchOpened && viewModel.presentationStep == .hidden {
           viewModel = viewModel.copyWith(presentationStep: .regular.forNavigationState(viewModel.dashboardState))
         }
