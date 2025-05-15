@@ -1144,7 +1144,7 @@ Java_app_organicmaps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong t
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeSaveRoute(JNIEnv * env, jclass)
+Java_app_organicmaps_Framework_nativeSaveRoute(JNIEnv *, jclass)
 {
   frm()->SaveRoute();
 }
