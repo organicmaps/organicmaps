@@ -44,21 +44,22 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
-      - name: Parallel submodules checkout
-        shell: bash
-        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
-
-      - name: Configure repository
-        shell: bash
-        run: ./configure.sh
+      - name: Install reviewdog
+        uses: reviewdog/action-setup@v1
 
       - name: Lint
         shell: bash
         working-directory: android
-        run: ./gradlew -Pandroidauto=true lint
+        run: ./gradlew lint
+
+      - name: Report Android Lint Results
+        uses: ilyagulya/android-lint-action@v0.12.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lint_xml_file: android/app/build/reports/lint-results-fdroidDebug.xml
+          reporter: github-pr-review
+          level: warning
 
   android-check:
     name: Build Android Debug
@@ -87,6 +88,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
         with:
+          # Needed for versioning script
           fetch-depth: 200 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
