@@ -137,7 +137,7 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
 }
 
 - (NSAttributedString *)estimate {
-  NSDictionary * primaryAttributes = @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont medium17]};
+  NSDictionary * primaryAttributes = @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont semibold17]};
   NSDictionary * secondaryAttributes = @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
 
   auto result = [[NSMutableAttributedString alloc] initWithString:@""];
