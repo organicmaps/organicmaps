@@ -161,52 +161,27 @@
   [self.navigationDashboardView setHidden:YES];
 }
 
-- (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus {
-  if (!_baseRoutePreviewStatus)
-    [self loadPreviewWithStatusBoxes];
-  return _baseRoutePreviewStatus;
 - (void)statePrepare {
   [self.navigationDashboardView statePrepare];
 }
 
-- (MWMTransportRoutePreviewStatus *)transportRoutePreviewStatus {
-  if (!_transportRoutePreviewStatus)
-    [self loadPreviewWithStatusBoxes];
-  return _transportRoutePreviewStatus;
 - (void)statePlanning {
   [self statePrepare];
   [self.navigationDashboardView statePlanning];
   [self setRouteBuilderProgress:0.];
 }
 
-- (MWMNavigationInfoView *)navigationInfoView {
-  if (!_navigationInfoView) {
-    [NSBundle.mainBundle loadNibNamed:kNavigationInfoViewXibName owner:self options:nil];
-    _navigationInfoView.state = MWMNavigationInfoViewStateHidden;
-    _navigationInfoView.ownerView = self.ownerView;
-  }
-  return _navigationInfoView;
 - (void)stateError {
   if (_state == MWMNavigationDashboardStateReady)
     return;
   [self.navigationDashboardView stateError:self.errorMessage];
 }
 
-- (MWMNavigationControlView *)navigationControlView {
-  if (!_navigationControlView) {
-    [NSBundle.mainBundle loadNibNamed:kNavigationControlViewXibName owner:self options:nil];
-    _navigationControlView.ownerView = self.ownerView;
-  }
-  return _navigationControlView;
 - (void)stateReady {
   [self setRouteBuilderProgress:100.];
   [self.navigationDashboardView stateReady];
 }
 
-- (MWMNavigationDashboardEntity *)entity {
-  if (!_entity)
-    _entity = [[MWMNavigationDashboardEntity alloc] init];
-  return _entity;
 - (void)onRouteStart {
   self.state = MWMNavigationDashboardStateNavigation;
 }
