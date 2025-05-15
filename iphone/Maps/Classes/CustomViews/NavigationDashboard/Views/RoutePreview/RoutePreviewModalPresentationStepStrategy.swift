@@ -80,8 +80,9 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
       case .expanded:
         frame.origin.y = containerSize.height * Constants.fullScreenHeightFactorPortrait
       case .regular:
+        let maxHeight = containerSize.height * Constants.fullScreenHeightFactorPortrait
         if regularHeigh != 0 {
-          frame.origin.y = containerSize.height - regularHeigh
+          frame.origin.y = max(containerSize.height - regularHeigh, maxHeight)
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
