@@ -22,7 +22,7 @@ CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
-CGFloat constexpr kSearchButtonsBottomOffset = 8;
+CGFloat constexpr kSearchButtonsBottomOffset = 6;
 CGFloat constexpr kBaseTurnsTopOffset = 28;
 CGFloat constexpr kShiftedTurnsTopOffset = 8;
 
@@ -148,10 +148,12 @@ BOOL defaultOrientation(CGSize const &size) {
   CGFloat const height = frame.size.height;
   if (height == 0)
     return;
-  CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-  CGFloat bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
+  CGFloat const screenHeight = [UIScreen mainScreen].bounds.size.height;
+  CGFloat const bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
-  BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
+
+  CGFloat const topSafeAreaInset = UIApplication.sharedApplication.delegate.window.safeAreaInsets.top;
+  BOOL isOutOfBounds = height < topSafeAreaInset + kSearchButtonsSideSize + kSearchButtonsViewHeightPortrait;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
     self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
     self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
