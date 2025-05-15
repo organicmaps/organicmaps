@@ -71,7 +71,8 @@ extension TransportOptionsView: UICollectionViewDataSource, UICollectionViewDele
     let routerType = transportOptions[indexPath.item]
     cell.configure(with: routerType)
     if self.selectedRouterType == routerType {
-      collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+      collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+      cell.isSelected = true
     }
     return cell
   }
