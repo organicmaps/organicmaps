@@ -548,10 +548,10 @@ mapswithme
 mapswithme
 mapswithme
 *waterway|lock_gate
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*leisure|firepit
+*barrier|guard_rail
+*amenity|studio
+*amenity|love_hotel
 highway|path|expert
 mapswithme
 mapswithme
