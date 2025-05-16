@@ -38,7 +38,8 @@ extension NavigationDashboard {
       case let .selectRoutePoint(point):
         searchManager.startSearching(isRouting: false)
         if let textToSearch = point?.title {
-          searchManager.searchText(textToSearch, isCategory: false)
+          let searchText = SearchQuery(textToSearch, source: .typedText)
+          searchManager.searchText(searchText)
         }
         return .setHidden(true)
 
@@ -93,7 +94,7 @@ extension NavigationDashboard {
 
       case .updatePresentationFrame(let frame):
         let bottomBound = frame.height - frame.origin.y
-        mapViewController.setRoutePreviewTopBound(bottomBound, duration: kDefaultAnimationDuration)
+        mapViewController.setRoutePreviewTopBound(bottomBound)
         return .none
 
       case .setHidden(let hidden):

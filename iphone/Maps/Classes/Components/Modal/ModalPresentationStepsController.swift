@@ -29,7 +29,6 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   var hiddenFrame: CGRect { frame(for: .hidden) }
 
   private var initialTranslationY: CGFloat = .zero
-  private var isDragging: Bool = false
 
   init(presentedView: UIView,
        containerViewController: UIViewController,
@@ -52,7 +51,6 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   }
 
   func updateFrame() {
-    guard !isDragging else { return }
     let newFrame = frame(for: currentStep)
     presentedView?.frame = newFrame
     didUpdateHandler?(.didUpdateFrame(newFrame))
@@ -66,7 +64,6 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
     switch gesture.state {
     case .began:
-      isDragging = true
       initialTranslationY = presentedView.frame.origin.y
     case .changed:
       let newY = max(max(initialTranslationY + translation.y, 0), maxAvailableFrame.origin.y)
@@ -74,7 +71,6 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
       presentedView.frame = currentFrame
       didUpdateHandler?(.didUpdateFrame(currentFrame))
     case .ended:
-      isDragging = false
       let nextStep: Step
       if velocity.y > Constants.fastSwipeDownVelocity {
         didUpdateHandler?(.didClose)

@@ -86,6 +86,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 @property(nonatomic) CGFloat currentRotation;
 @property(nonatomic) CGFloat placePageTopBound;
 @property(nonatomic) CGFloat routePreviewTopBound;
+@property(nonatomic) CGFloat searchTopBound;
 
 @property(nonatomic, readwrite) MWMMapDownloadDialog *downloadDialog;
 
@@ -216,7 +217,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
     [self.placePageVC removeFromParentViewController];
     self.placePageVC = nil;
     self.placePageContainer.hidden = YES;
-    [self setPlacePageTopBound:0 duration:0];
+    [self setPlacePageTopBound:0];
   }];
 }
 
@@ -778,18 +779,23 @@ NSString *const kSettingsSegue = @"Map2Settings";
   return _downloadDialog;
 }
 
-- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
-  self.placePageTopBound = bound;
-  [self updateAvailableAreaBoundWithDuration:duration];
+- (void)setPlacePageTopBound:(CGFloat)bound {
+  _placePageTopBound = bound;
+  [self updateAvailableAreaBound];
 }
 
-- (void)setRoutePreviewTopBound:(CGFloat)bound duration:(double)duration {
-  self.routePreviewTopBound = bound;
-  [self updateAvailableAreaBoundWithDuration:duration];
+- (void)setRoutePreviewTopBound:(CGFloat)bound {
+  _routePreviewTopBound = bound;
+  [self updateAvailableAreaBound];
 }
 
-- (void)updateAvailableAreaBoundWithDuration:(double)duration {
-  CGFloat bound = MAX(self.routePreviewTopBound, self.placePageTopBound);
+- (void)setSearchTopBound:(CGFloat)bound {
+  _searchTopBound = bound;
+  [self updateAvailableAreaBound];
+}
+
+- (void)updateAvailableAreaBound {
+  CGFloat bound = MAX(self.placePageTopBound, MAX(self.routePreviewTopBound, self.searchTopBound));
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
 }

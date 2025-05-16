@@ -68,6 +68,11 @@ final class SearchOnMapInteractor: NSObject {
       searchManager.setSearchMode(searchModeForPresentationStep(step))
       return .updatePresentationStep(step)
 
+    case .updatePresentationFrame(let frame):
+      let bottomBound = frame.height - frame.origin.y
+      MapViewController.shared()!.setSearchTopBound(bottomBound)
+
+      return .none
     case .closeSearch:
       return closeSearch()
     }
@@ -147,9 +152,9 @@ final class SearchOnMapInteractor: NSObject {
     return .close
   }
 
-  private func searchModeForPresentationStep(_ step: ModalPresentationStep) -> SearchMode {
+  private func searchModeForPresentationStep(_ step: SearchOnMapModalPresentationStep) -> SearchMode {
     switch step {
-    case .fullScreen:
+    case .expanded:
       return isiPad ? .everywhereAndViewport : .everywhere
     case .halfScreen, .compact:
       return  .everywhereAndViewport

@@ -145,20 +145,28 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:YES withLocationButton:NO];
 }
 
-- (void)updateSideButtonsAvailableArea:(CGRect)frame {
+- (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated {
   CGFloat const height = frame.size.height;
   if (height == 0)
     return;
+
   CGFloat const screenHeight = [UIScreen mainScreen].bounds.size.height;
   CGFloat const bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
+  [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0
+                        delay:0
+                      options:UIViewAnimationOptionBeginFromCurrentState
+                   animations:^{
+    [self layoutIfNeeded];
+  }
+                   completion:nil];
 
   CGFloat const topSafeAreaInset = UIApplication.sharedApplication.delegate.window.safeAreaInsets.top;
   BOOL isOutOfBounds = height < topSafeAreaInset + kSearchButtonsSideSize + kSearchButtonsViewHeightPortrait;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
     self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
     self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
-    [self layoutIfNeeded];
   }];
 }
 

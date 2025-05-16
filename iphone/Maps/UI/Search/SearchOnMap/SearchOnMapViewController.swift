@@ -65,12 +65,6 @@ final class SearchOnMapViewController: UIViewController {
     view.frame = mapViewController.searchContainer.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     didMove(toParent: mapViewController)
-
-    let affectedAreaViews = [
-      mapViewController.sideButtonsArea,
-      mapViewController.trafficButtonArea,
-    ]
-    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
   }
 
   @available(*, unavailable)
@@ -274,6 +268,7 @@ final class SearchOnMapViewController: UIViewController {
       case .didClose:
         self.interactor?.handle(.closeSearch)
       case .didUpdateFrame(let frame):
+        self.interactor?.handle(.updatePresentationFrame(frame))
         self.presentationFrameDidChange(frame)
         self.updateDimView(for: frame)
       case .didUpdateStep(let step):
@@ -285,7 +280,7 @@ final class SearchOnMapViewController: UIViewController {
   private func updateDimView(for frame: CGRect) {
     guard let dimView else { return }
     let currentTop = frame.origin.y
-    let maxTop = presentationStepsController.maxAvailableFrame.origin.y ?? 0
+    let maxTop = presentationStepsController.maxAvailableFrame.origin.y
     let alpha = (1 - (currentTop - maxTop) / Constants.dimViewThreshold) * Constants.dimAlpha
     let isCloseToTop = currentTop - maxTop < Constants.dimViewThreshold
     let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
