@@ -9,9 +9,9 @@ final class RoutePointsView: UIView {
   }
 
   private var collectionView: UICollectionView!
-  private var routePoints: RoutePreview.RoutePoints = .empty
+  private var routePoints: NavigationDashboard.RoutePoints = .empty
 
-  weak var interactor: RoutePreview.Interactor?
+  weak var interactor: NavigationDashboard.Interactor?
 
   var contentBottom: CGPoint {
     origin.applying(CGAffineTransform(translationX: .zero, y: collectionView.contentSize.height))
@@ -62,7 +62,7 @@ final class RoutePointsView: UIView {
     ])
   }
 
-  func setRoutePoints(_ routePoints: RoutePreview.RoutePoints) {
+  func setRoutePoints(_ routePoints: NavigationDashboard.RoutePoints) {
     guard self.routePoints != routePoints else { return }
     self.routePoints = routePoints
     collectionView.reloadData()
@@ -160,7 +160,7 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
   }
 }
 
-private extension RoutePreview.RoutePoints {
+private extension NavigationDashboard.RoutePoints {
   func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RouteStopCollectionViewCell.ViewModel {
     let point = self[index]
     return RouteStopCollectionViewCell.ViewModel(

@@ -1,5 +1,4 @@
-extension RoutePreview {
-
+enum NavigationDashboard {
   struct ViewModel: Equatable {
     let transportOptions: [MWMRouterType]
     let routePoints: RoutePoints
@@ -9,7 +8,7 @@ extension RoutePreview {
     let navigationInfo: NavigationInfo
     let estimates: NSAttributedString
     let dashboardState: MWMNavigationDashboardState
-    let presentationStep: RoutePreviewModalPresentationStep
+    let presentationStep: NavigationDashboardModalPresentationStep
     let progress: CGFloat
     let navigationSearchState: NavigationSearchState?
     let errorMessage: String?
@@ -27,8 +26,8 @@ extension RoutePreview {
   }
 }
 
-extension RoutePreview.ViewModel {
-  static let initial = RoutePreview.ViewModel(
+extension NavigationDashboard.ViewModel {
+  static let initial = NavigationDashboard.ViewModel(
     transportOptions: MWMRouterType.allCases,
     routePoints: .empty,
     routerType: .vehicle,
@@ -45,19 +44,19 @@ extension RoutePreview.ViewModel {
 
   func copyWith(
     transportOptions: [MWMRouterType]? = nil,
-    routePoints: RoutePreview.RoutePoints? = nil,
+    routePoints: NavigationDashboard.RoutePoints? = nil,
     routerType: MWMRouterType? = nil,
     entity: MWMNavigationDashboardEntity? = nil,
-    elevationInfo: RoutePreview.ElevationInfo?? = nil,
-    navigationInfo: RoutePreview.NavigationInfo? = nil,
+    elevationInfo: NavigationDashboard.ElevationInfo?? = nil,
+    navigationInfo: NavigationDashboard.NavigationInfo? = nil,
     estimates: NSAttributedString? = nil,
     dashboardState: MWMNavigationDashboardState? = nil,
-    presentationStep: RoutePreviewModalPresentationStep? = nil,
+    presentationStep: NavigationDashboardModalPresentationStep? = nil,
     progress: CGFloat? = nil,
     navigationSearchState: NavigationSearchState? = nil,
     errorMessage: String? = nil
-  ) -> RoutePreview.ViewModel {
-    return RoutePreview.ViewModel(
+  ) -> NavigationDashboard.ViewModel {
+    return NavigationDashboard.ViewModel(
       transportOptions: transportOptions ?? self.transportOptions,
       routePoints: routePoints ?? self.routePoints,
       routerType: routerType ?? self.routerType,
@@ -97,8 +96,8 @@ extension RoutePreview.ViewModel {
   }
 }
 
-extension RoutePreview.NavigationInfo {
-  static let hidden = RoutePreview.NavigationInfo(
+extension NavigationDashboard.NavigationInfo {
+  static let hidden = NavigationDashboard.NavigationInfo(
     state: .hidden,
     availableArea: MapViewController.shared()?.navigationInfoArea.areaFrame ?? .screenBounds,
     shouldUpdateToastView: false
@@ -108,8 +107,8 @@ extension RoutePreview.NavigationInfo {
     dashboardState: MWMNavigationDashboardState? = nil,
     availableArea: CGRect? = nil,
     shouldUpdateToastView: Bool? = nil
-  ) -> RoutePreview.NavigationInfo {
-    return RoutePreview.NavigationInfo(
+  ) -> NavigationDashboard.NavigationInfo {
+    return NavigationDashboard.NavigationInfo(
       state: dashboardState?.navigationInfo ?? self.state,
       availableArea: availableArea ?? self.availableArea,
       shouldUpdateToastView: shouldUpdateToastView ?? self.shouldUpdateToastView

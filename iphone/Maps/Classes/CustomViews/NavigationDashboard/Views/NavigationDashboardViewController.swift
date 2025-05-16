@@ -1,5 +1,5 @@
 @objcMembers
-final class RoutePreviewViewController: UIViewController {
+final class NavigationDashboardViewController: UIViewController {
 
   private enum Constants {
     static let navigationInfoViewXibName = "MWMNavigationInfoView"
@@ -26,7 +26,7 @@ final class RoutePreviewViewController: UIViewController {
     static let startButtonSpacing: CGFloat = 4
   }
 
-  typealias StepsController = ModalPresentationStepsController<RoutePreviewModalPresentationStep>
+  typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
 
   // MARK: - UI Components
   private let availableAreaView = SearchOnMapAreaView()
@@ -44,8 +44,8 @@ final class RoutePreviewViewController: UIViewController {
   private var navigationInfoView: NavigationInfoView!
   private var navigationControlView: NavigationControlView!
 
-  var interactor: RoutePreview.Interactor?
-  private var presentationStepStrategy = RoutePreviewModalPresentationStepStrategy()
+  var interactor: NavigationDashboard.Interactor?
+  private var presentationStepStrategy = NavigationDashboardModalPresentationStepStrategy()
   private var presentationStepsController: StepsController!
   private var presentationStepsUpdateDebounceWorkItem: DispatchWorkItem?
 
@@ -176,7 +176,6 @@ final class RoutePreviewViewController: UIViewController {
 
   private func setupAvailableView() {
     availableAreaView.setStyle(.modalSheetBackground)
-    availableAreaView.backgroundColor = .red
   }
 
   private func setupGrabberView() {
@@ -346,8 +345,8 @@ final class RoutePreviewViewController: UIViewController {
 
 // MARK: - Public Methods
 
-extension RoutePreviewViewController {
-  func render(_ viewModel: RoutePreview.ViewModel) {
+extension NavigationDashboardViewController {
+  func render(_ viewModel: NavigationDashboard.ViewModel) {
     switch viewModel.dashboardState {
     case .closed:
       close()

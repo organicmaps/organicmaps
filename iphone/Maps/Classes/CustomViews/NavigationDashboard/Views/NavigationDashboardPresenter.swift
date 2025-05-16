@@ -1,11 +1,11 @@
-extension RoutePreview {
+extension NavigationDashboard {
   final class Presenter: NSObject {
-    private weak var view: RoutePreviewViewController?
+    private weak var view: NavigationDashboardViewController?
     private var viewModel: ViewModel = .initial
     private var isSearchOpened: Bool = false
     private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
-    init(view: RoutePreviewViewController,
+    init(view: NavigationDashboardViewController,
          placePageManagerHelper: MWMPlacePageManagerHelper.Type = MWMPlacePageManagerHelper.self) {
       self.view = view
       self.placePageManagerHelper = placePageManagerHelper
@@ -49,7 +49,7 @@ extension RoutePreview {
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: RoutePreviewModalPresentationStep = hidden ? .hidden : .regular
+            let step: NavigationDashboardModalPresentationStep = hidden ? .hidden : .regular
             viewModel = viewModel.copyWith(presentationStep: step.forNavigationState(viewModel.dashboardState))
           }
           // Show side buttons if it is not in navigation state
@@ -104,7 +104,7 @@ extension RoutePreview {
         print("RoutePreview: updateDrivingOptionsState \(state)")
 
       case let .show(points, routerType):
-        viewModel = viewModel.copyWith(routePoints: RoutePreview.RoutePoints(points: points),
+        viewModel = viewModel.copyWith(routePoints: NavigationDashboard.RoutePoints(points: points),
                                        routerType: routerType)
         // TODO: (KK) When the presentation state is compact before hiding the screen, it should be compact after showing points, not regular.
         if !isSearchOpened && viewModel.presentationStep == .hidden {
@@ -135,7 +135,7 @@ extension RoutePreview {
   }
 }
 
-private extension RoutePreviewModalPresentationStep {
+private extension NavigationDashboardModalPresentationStep {
   func forNavigationState(_ state: MWMNavigationDashboardState) -> Self {
     guard state != .navigation else {
       return .hidden

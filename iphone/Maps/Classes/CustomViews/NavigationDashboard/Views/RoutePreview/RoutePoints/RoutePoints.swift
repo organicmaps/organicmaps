@@ -1,4 +1,4 @@
-extension RoutePreview {
+extension NavigationDashboard {
   struct RoutePoints: Equatable {
     let start: MWMRoutePoint?
     let finish: MWMRoutePoint?
@@ -14,8 +14,8 @@ extension RoutePreview {
   }
 }
 
-extension RoutePreview.RoutePoints {
-  static let empty = RoutePreview.RoutePoints(points: [])
+extension NavigationDashboard.RoutePoints {
+  static let empty = NavigationDashboard.RoutePoints(points: [])
 
   var count: Int { 2 + intermediate.count }
 
