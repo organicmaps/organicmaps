@@ -50218,6 +50218,208 @@ cont {
   }
 }
 cont {
+  name: "landuse-plant_nursery"
+  element {
+    scale: 12
+    area {
+      color: 11584112
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 11584112
+      priority: -1930
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 11190117
+      priority: -1930
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 11190117
+      priority: -1930
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 11190117
+      priority: -1930
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 12
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 20
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 3832097
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 20
+    area {
+      color: 11190117
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+}
+cont {
   name: "landuse-quarry"
   element {
     scale: 15
