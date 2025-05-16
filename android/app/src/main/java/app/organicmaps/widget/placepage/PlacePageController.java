@@ -33,6 +33,7 @@ import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
@@ -224,7 +225,10 @@ public class PlacePageController
 
   private void onHiddenInternal()
   {
-    Framework.nativeDeactivatePopup();
+    if (ChoosePositionMode.get() == ChoosePositionMode.None) {
+      Framework.nativeDeactivatePopup();
+    }
+    Framework.nativeDeactivateMapSelectionCircle();
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
