@@ -10,7 +10,7 @@ GuiThread::GuiThread()
 {
   JNIEnv * env = jni::GetEnv();
 
-  m_class = GetGlobalClassRef(env, "app/organicmaps/util/concurrency/UiThread");
+  m_class = jni::GetGlobalClassRef(env, "app/organicmaps/util/concurrency/UiThread");
   ASSERT(m_class, ());
 
   m_method = env->GetStaticMethodID(m_class, "forwardToMainThread", "(J)V");

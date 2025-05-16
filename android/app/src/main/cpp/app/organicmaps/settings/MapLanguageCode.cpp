@@ -2,6 +2,8 @@
 
 #include "platform/settings.hpp"
 
+#include "app/organicmaps/core/jni_helper.hpp"
+
 extern "C"
 {
 JNIEXPORT void JNICALL

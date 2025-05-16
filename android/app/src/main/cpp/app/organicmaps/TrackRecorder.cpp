@@ -2,6 +2,8 @@
 
 #include "map/gps_tracker.hpp"
 
+#include "app/organicmaps/core/jni_helper.hpp"
+
 #include <chrono>
 
 extern "C"
