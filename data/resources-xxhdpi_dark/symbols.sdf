@@ -624,18 +624,19 @@
   <symbol minX="1263" maxY="1445" name="subway-bangkok-s" minY="1399" maxX="1309"/>
   <symbol minX="1309" maxY="1445" name="subway-athens-s" minY="1399" maxX="1355"/>
   <symbol minX="1355" maxY="1445" name="subway-almaty-m" minY="1399" maxX="1413"/>
-  <symbol minX="1413" maxY="1445" name="light_rail-porto-s" minY="1399" maxX="1459"/>
-  <symbol minX="1459" maxY="1445" name="bookmark-default-xs" minY="1399" maxX="1493"/>
-  <symbol minX="1493" maxY="1445" name="bookmark-bg-xs" minY="1399" maxX="1527"/>
-  <symbol minX="1527" maxY="1442" name="subway_entrance-london-m" minY="1399" maxX="1582"/>
-  <symbol minX="1582" maxY="1442" name="subway-yerevan-m" minY="1399" maxX="1640"/>
-  <symbol minX="1640" maxY="1442" name="subway-tehran-s" minY="1399" maxX="1683"/>
-  <symbol minX="1683" maxY="1442" name="subway-tabriz-s" minY="1399" maxX="1738"/>
-  <symbol minX="1738" maxY="1442" name="subway-tabriz-m" minY="1399" maxX="1796"/>
-  <symbol minX="1796" maxY="1442" name="subway-spb-s" minY="1399" maxX="1839"/>
-  <symbol minX="1839" maxY="1442" name="subway-shenzhen-s" minY="1399" maxX="1882"/>
-  <symbol minX="1882" maxY="1442" name="subway-santiago-m" minY="1399" maxX="1940"/>
-  <symbol minX="1940" maxY="1442" name="subway-philadelphia-m" minY="1399" maxX="1998"/>
+  <symbol minX="1413" maxY="1445" name="plant_nursery-m" minY="1399" maxX="1459"/>
+  <symbol minX="1459" maxY="1445" name="light_rail-porto-s" minY="1399" maxX="1505"/>
+  <symbol minX="1505" maxY="1445" name="bookmark-default-xs" minY="1399" maxX="1539"/>
+  <symbol minX="1539" maxY="1445" name="bookmark-bg-xs" minY="1399" maxX="1573"/>
+  <symbol minX="1573" maxY="1442" name="subway_entrance-london-m" minY="1399" maxX="1628"/>
+  <symbol minX="1628" maxY="1442" name="subway-yerevan-m" minY="1399" maxX="1686"/>
+  <symbol minX="1686" maxY="1442" name="subway-tehran-s" minY="1399" maxX="1729"/>
+  <symbol minX="1729" maxY="1442" name="subway-tabriz-s" minY="1399" maxX="1784"/>
+  <symbol minX="1784" maxY="1442" name="subway-tabriz-m" minY="1399" maxX="1842"/>
+  <symbol minX="1842" maxY="1442" name="subway-spb-s" minY="1399" maxX="1885"/>
+  <symbol minX="1885" maxY="1442" name="subway-shenzhen-s" minY="1399" maxX="1928"/>
+  <symbol minX="1928" maxY="1442" name="subway-santiago-m" minY="1399" maxX="1986"/>
+  <symbol minX="1986" maxY="1442" name="subway-philadelphia-m" minY="1399" maxX="2044"/>
   <symbol minX="0" maxY="1488" name="subway-osaka-m" minY="1445" maxX="58"/>
   <symbol minX="58" maxY="1488" name="subway-omsk-m" minY="1445" maxX="116"/>
   <symbol minX="116" maxY="1488" name="subway-mexico-s" minY="1445" maxX="156"/>
