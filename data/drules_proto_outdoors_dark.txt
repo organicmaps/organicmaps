@@ -7455,6 +7455,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-love_hotel"
+  element {
+    scale: 18
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+}
+cont {
   name: "amenity-marketplace"
   element {
     scale: 16
@@ -12897,6 +12948,93 @@ cont {
   }
 }
 cont {
+  name: "amenity-studio"
+  element {
+    scale: 16
+    symbol {
+      name: "studio-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+}
+cont {
   name: "amenity-taxi"
   element {
     scale: 16
@@ -16403,6 +16541,58 @@ cont {
         is_optional: true
       }
       priority: -7700
+    }
+  }
+}
+cont {
+  name: "barrier-guard_rail"
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 2151957572
+      priority: 320
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2151957572
+      priority: 320
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.3
+      color: 1715749956
+      priority: 320
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 860111940
+      priority: 320
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 860111940
+      priority: 320
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 860111940
+      priority: 320
     }
   }
 }
@@ -51800,46 +51990,70 @@ cont {
   name: "leisure-dance"
   element {
     scale: 17
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 18
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 19
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 20
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
 }
@@ -51928,6 +52142,89 @@ cont {
         is_optional: true
       }
       priority: -7700
+    }
+  }
+}
+cont {
+  name: "leisure-firepit"
+  element {
+    scale: 16
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
