@@ -1,0 +1,47 @@
+name: "💡 Feature Request"
+description: "Suggest an idea or improvement for CoMaps"
+title: "feat: "
+labels:
+  - "enhancement"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠ **Have you searched for similar, already existing issues?**
+        Please make sure your idea hasn't been suggested before.
+
+  - type: textarea
+    id: related-problem
+    attributes:
+      label: "What problem would this feature help solve?"
+      description: "Share how this feature could make the experience better, smoother, or more enjoyable."
+      placeholder: "It would be great if..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: ideal-solution
+    attributes:
+      label: "Describe the ideal solution"
+      description: "What would you like to see in CoMaps?"
+      placeholder: "I would like CoMaps to..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Describe alternatives you have considered"
+      description: |
+        How do you solve this issue now with CoMaps or other apps?
+        You can also share screenshots or examples from other apps.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: "Additional context"
+      description: "Any other context, comments, or screenshots to support your request."
+    validations:
+      required: false

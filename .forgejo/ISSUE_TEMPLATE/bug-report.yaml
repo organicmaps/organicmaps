@@ -1,0 +1,70 @@
+name: 🐞 Bug Report
+description: Report a problem you've encountered
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠ **Have you searched for similar, already existing issues?**
+        Please do that before submitting a new one.
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Describe the issue
+      description: Please write a clear and concise description of the issue here.
+      placeholder: Describe what is not working as expected...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Describe the steps needed to reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See the error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behaviour
+      description: A clear and concise description of what you expected to happen.
+      placeholder: I expected that...
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots or screen recordings to help explain your problem.
+    validations:
+      required: false
+
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System information
+      description: Provide information about the system where the issue occurred.
+      placeholder: |
+        - OS: e.g. Ubuntu 22, iOS 12
+        - CoMaps version: e.g. 1.2.3
+        - Device model: e.g. iPhone 6, Samsung S22
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context or comments that may be useful.
+    validations:
+      required: false
