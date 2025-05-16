@@ -31,6 +31,7 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -225,7 +226,9 @@ public class PlacePageController extends Fragment implements
 
   private void onHiddenInternal()
   {
-    Framework.nativeDeactivatePopup();
+    if (ChoosePositionMode.get() == ChoosePositionMode.None) {
+      Framework.nativeDeactivatePopup();
+    }
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
