@@ -48,7 +48,6 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageManagerHelper.h"
-#import "MWMRouteManagerPointType.h"
 #import "MWMRouter.h"
 #import "MWMRouterResultCode.h"
 #import "MWMRouterTransitStepInfo.h"

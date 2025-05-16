@@ -28,14 +28,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWMNavigationDashboardView : NSObject<NavigationDashboardView>
-
-@property(weak, nonatomic) id<MWMRoutePreviewDelegate> delegate;
-
-- (instancetype)initWithOwnerView:(UIView *)ownerView;
-
-- (void)loadPreview;
-
-@end
-
 NS_ASSUME_NONNULL_END

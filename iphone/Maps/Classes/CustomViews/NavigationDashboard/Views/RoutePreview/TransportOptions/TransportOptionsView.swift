@@ -8,7 +8,7 @@ final class TransportOptionsView: UIView {
   private var transportOptions: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
 
-  weak var interactor: RoutePreview.Interactor?
+  weak var interactor: NavigationDashboard.Interactor?
 
   init() {
     super.init(frame: .zero)

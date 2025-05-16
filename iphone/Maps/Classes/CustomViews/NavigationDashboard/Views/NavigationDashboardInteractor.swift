@@ -1,6 +1,5 @@
-extension RoutePreview {
+extension NavigationDashboard {
   final class Interactor: NSObject {
-
     private let presenter: Presenter
     private let router: MWMRouter.Type
     private let mapViewController: MapViewController
@@ -83,7 +82,10 @@ extension RoutePreview {
 
       case .updateSearchState(let state):
         return .updateSearchState(state)
-        
+
+      case .updateDrivingOptionsState(let state):
+        return .updateDrivingOptionsState(state)
+
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
@@ -113,7 +115,7 @@ extension RoutePreview {
 }
 
 // MARK: - NavigationDashboardView
-extension RoutePreview.Interactor: NavigationDashboardView {
+extension NavigationDashboard.Interactor: NavigationDashboardView {
   func setHidden(_ hidden: Bool) {
     process(.setHidden(true))
   }
@@ -123,7 +125,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
   }
 
   func setDrivingOptionState(_ state: MWMDrivingOptionsState) {
-    // TODO: handle driving option change
+    process(.updateDrivingOptionsState(state))
   }
 
   func searchManager(withDidChange state: SearchOnMapState) {
@@ -187,7 +189,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
       return
     }
     router.routeAltitudeImage(
-      for: /*heightProfileImage.frame.size*/ CGSize(width: 350, height: 50)) { [weak self] image, totalAscent, totalDescent in
+      for: CGSize(width: 350, height: 50)) { [weak self] image, totalAscent, totalDescent in
         guard let self else { return }
         guard let totalAscent, let totalDescent else {
           self.process(.updateElevationInfo(nil))
@@ -221,7 +223,7 @@ extension RoutePreview.Interactor: NavigationDashboardView {
         elevation.append(NSAttributedString(string: " \(totalAscent)  ", attributes: attributes))
         elevation.append(descentImageString)
         elevation.append(NSAttributedString(string: " \(totalDescent)", attributes: attributes))
-        let elevationInfo = RoutePreview.ElevationInfo(estimates: elevation, image: image)
+        let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)
         self.process(.updateElevationInfo(elevationInfo))
       }
   }

@@ -1,11 +1,11 @@
-enum RoutePreviewModalPresentationStep: Int, ModalPresentationStep {
+enum NavigationDashboardModalPresentationStep: Int, ModalPresentationStep {
   case expanded
   case regular
   case compact
   case hidden
 }
 
-struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy {
+struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepStrategy {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let compactHeightOffset: CGFloat = 300
@@ -14,7 +14,7 @@ struct RoutePreviewModalPresentationStepStrategy: ModalPresentationStepStrategy 
     static let landscapeTopInset: CGFloat = 10
   }
 
-  typealias Step = RoutePreviewModalPresentationStep
+  typealias Step = NavigationDashboardModalPresentationStep
 
   var regularHeigh: CGFloat = .zero
   var compactHeight: CGFloat = .zero

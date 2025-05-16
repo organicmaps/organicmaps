@@ -1,5 +1,4 @@
 #import "MWMNavigationDashboardManager.h"
-#import "MWMRoutePreview.h"
 #import "MWMSearch.h"
 #import "MapViewController.h"
 #import "MWMNavigationDashboardView.h"
@@ -41,7 +40,7 @@
   auto navigationDashboardView = _navigationDashboardView;
   if (navigationDashboardView)
     return navigationDashboardView;
-  RoutePreviewViewController * routePreviewViewController = [RoutePreviewBuilder buildWithDelegate:self];
+  NavigationDashboardViewController * routePreviewViewController = [NavigationDashboardBuilder buildWithDelegate:self];
   [routePreviewViewController addTo:self.parentViewController];
   _navigationDashboardView = routePreviewViewController.interactor;
   return navigationDashboardView;

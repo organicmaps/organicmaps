@@ -1,4 +1,4 @@
-enum RoutePreview {
+extension NavigationDashboard {
   enum Request {
     case updateState(MWMNavigationDashboardState)
     case updateRoutePoints
@@ -20,26 +20,10 @@ enum RoutePreview {
     case updatePresentationFrame(CGRect)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
+    case updateDrivingOptionsState(MWMDrivingOptionsState)
 
-    case didUpdatePresentationStep(RoutePreviewModalPresentationStep)
+    case didUpdatePresentationStep(NavigationDashboardModalPresentationStep)
     case setHidden(Bool)
-    case goBack
-    case close
-  }
-
-  enum Response: Equatable {
-    case none
-    case updateState(MWMNavigationDashboardState)
-    case show(points: [MWMRoutePoint], routerType: MWMRouterType)
-    case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
-    case updateNavigationInfo(MWMNavigationDashboardEntity)
-    case updateElevationInfo(ElevationInfo?)
-    case updatePresentationStep(RoutePreviewModalPresentationStep)
-    case updateNavigationInfoAvailableArea(CGRect)
-    case updateSearchState(SearchOnMapState)
-    case showNavigationDashboard
-    case setHidden(Bool)
-    case showError(String)
     case goBack
     case close
   }
