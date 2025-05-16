@@ -63,8 +63,13 @@ For _Windows 10_:  You should be able to build the project by following either o
 ```bash
 "C:\Program Files\Git\bin\bash.exe" configure.sh # execute the script by using Developer Command Prompt
 ```
+### Generate symbols
+Download the latest [World.mwm](https://cdn-us-1.comaps.app/maps/250511/World.mwm) and [WorldCoast.mwm](https://cdn-us-1.comaps.app/maps/250511/WorldCoasts.mwm) files and put them into the `<repo_root>/data/` dir.
 
-Download the latest `World.mwm` and `WorldCoast.mwm` files and put them into the `data/` dir.
+Install required packages (Ubuntu/Debian):
+```bash
+sudo apt install qt6-base-dev qt6-declarative-dev libqt6svg6-dev optipng
+```
 
 Run the skins/textures generation script:
 ```bash
