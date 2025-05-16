@@ -189,7 +189,6 @@
 - (void)stateError {
   if (_state == MWMNavigationDashboardStateReady)
     return;
-  NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (error)");
   [self.navigationDashboardView stateError:self.errorMessage];
 }
 
@@ -200,9 +199,6 @@
   }
   return _navigationControlView;
 - (void)stateReady {
-  // TODO: Here assert sometimes fires with _state = MWMNavigationDashboardStateReady, if app was stopped while navigating and then restarted.
-  // Also in ruler mode when new point is added by single tap on the map state MWMNavigationDashboardStatePlanning is skipped and we get _state = MWMNavigationDashboardStateReady.
-  NSAssert(_state == MWMNavigationDashboardStatePlanning || _state == MWMNavigationDashboardStateReady, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self.navigationDashboardView stateReady];
 }
