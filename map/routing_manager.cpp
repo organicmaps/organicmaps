@@ -1089,6 +1089,18 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
   }
 }
 
+
+void RoutingManager::SaveRoute()
+{
+  auto points = GetRoutePolyline().GetPolyline().GetPoints();
+  // remove equal sequential points
+  points.erase(
+      std::unique(points.begin(), points.end(), [](const m2::PointD & p1, const m2::PointD & p2) { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
+      points.end());
+
+  m_bmManager->SaveRoute(points);
+}
+
 bool RoutingManager::DisableFollowMode()
 {
   bool const disabled = m_routingSession.DisableFollowMode();
