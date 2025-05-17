@@ -229,6 +229,7 @@ public class PlacePageController extends Fragment implements
     if (ChoosePositionMode.get() == ChoosePositionMode.None) {
       Framework.nativeDeactivatePopup();
     }
+    Framework.nativeDeactivateMapSelectionCircle();
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();
