@@ -1391,4 +1391,5 @@
     <string name="type.piste_type.downhill.intermediate.area">Středně těžká sjezdovka</string>
     <string name="type.piste_type.sled">Sáňkařská dráha</string>
     <string name="type.piste_type.sled.area">Sáňkařská dráha</string>
+    <string name="type.landuse.plant_nursery">Rostlinná školka</string>
 </resources>
