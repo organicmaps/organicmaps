@@ -2,6 +2,8 @@ package app.organicmaps.sdk.search;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -20,7 +22,7 @@ import app.organicmaps.util.Distance;
 // Used by JNI.
 @Keep
 @SuppressWarnings("unused")
-public class SearchResult
+public class SearchResult implements Parcelable
 {
   public static final int TYPE_PURE_SUGGEST = 0;
   public static final int TYPE_SUGGEST = 1;
@@ -37,7 +39,7 @@ public class SearchResult
   // Used by JNI.
   @Keep
   @SuppressWarnings("unused")
-  public static class Description
+  public static class Description implements Parcelable
   {
     public final FeatureId featureId;
     public final String localizedFeatureType;
@@ -64,6 +66,54 @@ public class SearchResult
       this.minutesUntilOpen = minutesUntilOpen;
       this.minutesUntilClosed = minutesUntilClosed;
       this.hasPopularityHigherPriority = hasPopularityHigherPriority;
+    }
+
+    public static final Creator<Description> CREATOR = new Creator<Description>()
+    {
+      @Override
+      public Description createFromParcel(Parcel in)
+      {
+        return new Description(in);
+      }
+
+      @Override
+      public Description[] newArray(int size)
+      {
+        return new Description[size];
+      }
+    };
+
+    protected Description(Parcel in)
+    {
+      featureId = in.readParcelable(FeatureId.class.getClassLoader());
+      localizedFeatureType = in.readString();
+      region = in.readString();
+      distance = in.readParcelable(Distance.class.getClassLoader());
+      description = in.readString();
+      openNow = in.readInt();
+      minutesUntilOpen = in.readInt();
+      minutesUntilClosed = in.readInt();
+      hasPopularityHigherPriority = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeParcelable(featureId, flags);
+      dest.writeString(localizedFeatureType);
+      dest.writeString(region);
+      dest.writeParcelable(distance, flags);
+      dest.writeString(description);
+      dest.writeInt(openNow);
+      dest.writeInt(minutesUntilOpen);
+      dest.writeInt(minutesUntilClosed);
+      dest.writeByte((byte) (hasPopularityHigherPriority ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
     }
   }
 
@@ -113,6 +163,19 @@ public class SearchResult
     this.descHighlightRanges = descHighlightRanges;
   }
 
+  protected SearchResult(Parcel in)
+  {
+    name = in.readString();
+    suggestion = in.readString();
+    lat = in.readDouble();
+    lon = in.readDouble();
+    type = in.readInt();
+    description = in.readParcelable(Description.class.getClassLoader());
+    highlightRanges = in.createIntArray();
+    descHighlightRanges = in.createIntArray();
+    mPopularity = in.readParcelable(Popularity.class.getClassLoader());
+  }
+
   @NonNull
   public String getTitle(@NonNull Context context)
   {
@@ -157,4 +220,38 @@ public class SearchResult
     return builder;
   }
 
+  public static final Creator<SearchResult> CREATOR = new Creator<>()
+  {
+    @Override
+    public SearchResult createFromParcel(Parcel in)
+    {
+      return new SearchResult(in);
+    }
+
+    @Override
+    public SearchResult[] newArray(int size)
+    {
+      return new SearchResult[size];
+    }
+  };
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(name);
+    dest.writeString(suggestion);
+    dest.writeDouble(lat);
+    dest.writeDouble(lon);
+    dest.writeInt(type);
+    dest.writeParcelable(description, flags);
+    dest.writeIntArray(highlightRanges);
+    dest.writeIntArray(descHighlightRanges);
+    dest.writeParcelable(mPopularity, flags);
+  }
 }
