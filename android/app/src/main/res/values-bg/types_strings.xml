@@ -775,4 +775,14 @@
     <string name="type.highway.road">Път</string>
     <string name="type.highway.tertiary">Третостепенен път</string>
     <string name="type.landuse.cemetery">Гробище</string>
+    <string name="type.amenity.vending_machine.newspapers">Машина за вестници</string>
+    <string name="type.cuisine.cake">Торта</string>
+    <string name="type.cuisine.chicken">Пилешко</string>
+    <string name="type.highway.track.area">Пътека</string>
+    <string name="type.barrier.retaining_wall">Подпорна стена</string>
+    <string name="type.highway.track">Пътека</string>
+    <string name="type.highway.track.grade1">Пътека</string>
+    <string name="type.area_highway.steps">Стълби</string>
+    <string name="type.junction">Разклонение</string>
+    <string name="type.amenity.vending_machine.parking_tickets">Паркометър</string>
 </resources>
