@@ -25646,6 +25646,80 @@ cont {
   }
 }
 cont {
+  name: "highway-ladder"
+  element {
+    scale: 16
+    symbol {
+      name: "ladder-m"
+      priority: 2810
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "ladder-m"
+      priority: 2810
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7190
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "ladder-m"
+      priority: 2810
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7190
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "ladder-m"
+      priority: 2810
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7190
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "ladder-m"
+      priority: 2810
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7190
+    }
+  }
+}
+cont {
   name: "highway-living_street"
   element {
     scale: 12

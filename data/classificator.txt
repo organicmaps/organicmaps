@@ -441,6 +441,7 @@ world  +
             tunnel  -
             {}
         ford  -
+        ladder  -
         living_street  +
             bridge  -
             tunnel  -
