@@ -130,6 +130,9 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     else if (buttonId == R.id.btn__save)
     {
       Framework.nativeSaveRoute();
+      Button saveButton = v.findViewById(R.id.btn__save);
+      saveButton.setEnabled(false);
+      saveButton.setText(R.string.saved);
     }
     else if (buttonId == R.id.btn__plan)
     {
