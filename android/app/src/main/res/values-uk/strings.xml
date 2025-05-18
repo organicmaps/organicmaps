@@ -9,7 +9,7 @@
     <string name="delete">Видалити</string>
     <string name="download_maps">Завантажити мапи</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Помилка завантаження. Натисніть, щоб повторити спробу</string>
+    <string name="download_has_failed">Помилка завантаження. Натисніть, щоб повторити спробу.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Завантажується…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -59,8 +59,7 @@
     <string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
-    <string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.
-\nВона потребує %s даних.</string>
+    <string name="download_resources">Перш ніж розпочати, дозвольте нам завантажити оглядову мапу світу на ваш пристрій. \nВона потребує %s даних.</string>
     <string name="download_resources_continue">Перейти на мапу</string>
     <string name="downloading_country_can_proceed">Поки завантажується %s
 \nви можете користуватися програмою.</string>
@@ -93,7 +92,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Зберігати мапи до</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи</string>
+    <string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Завантаженнi мапи</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -117,7 +116,6 @@
     <string name="measurement_units">Одиниці виміру</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Використовувати милі чи кілометри</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Де поїсти</string>
@@ -165,7 +163,6 @@
     <string name="category_water">Вода</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Для автобудинків</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примітка</string>
@@ -200,9 +197,9 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Глянь де я зараз. Іди %1$s або %2$s</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Поглянь на мою мiтку на мапі Organic Maps</string>
+    <string name="bookmark_share_email_subject">Поглянь на мою мiтку на мапі Organic Maps!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на мапі Organic Maps</string>
+    <string name="my_position_share_email_subject">Поглянь на моє поточне розташування на мапі Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
     <string name="my_position_share_email">Привіт,
 \n
@@ -324,10 +321,6 @@
     <string name="google_play_services">Служби визначення місцезнаходження Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Швидке визначення приблизного місця розташування за допомогою Bluetooth, WiFi або мобільної мережі</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Посилання на готелі Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Фотографії, відгуки, посилання на бронювання відображаються для готелів, які мають лістинг на Kayak.com. Реферальний бонус, отриманий за кожне бронювання за цими посиланнями, йде на розвиток Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Завантажити мапи з дороги</string>
     <!-- Text for routing error dialog -->
@@ -370,13 +363,12 @@
     <string name="gray">Сірий</string>
     <!-- blue gray color -->
     <string name="blue_gray">Сіро-блакитний</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
     <string name="dialog_routing_disclaimer_priority">— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;</string>
     <string name="dialog_routing_disclaimer_precision">— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Запропоновані маршрути — лише рекомендації;</string>
-    <string name="dialog_routing_disclaimer_borders">— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;</string>
+    <string name="dialog_routing_disclaimer_borders">— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях.</string>
     <string name="dialog_routing_disclaimer_beware">Будьте уважні на дорогах і бережіть себе!</string>
     <string name="dialog_routing_check_gps">Перевірте сигнал GPS</string>
     <string name="dialog_routing_error_location_not_found">Маршрут не побудовано. Поточну геопозицію не визначено.</string>
@@ -400,7 +392,6 @@
     <string name="not_now">Не зараз</string>
     <string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
     <string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
     <string name="search_select_map">Вибрати мапу</string>
@@ -561,14 +552,6 @@
     <string name="minute">хв</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Ще</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Фото, відгуки, бронювання</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Докладніше на Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Вимкнути Kayak</string>
     <string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
     <string name="placepage_personal_notes_hint">Примітка (текст чи html)</string>
     <string name="editor_comment_hint">Коментар…</string>
@@ -623,7 +606,7 @@
 \nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.
 \nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
     <string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
-    <string name="transliteration_title">Транслітерація латинськими літерами</string>
+    <string name="transliteration_title">Транслітерувати латиницею</string>
     <string name="learn_more">Докладніше</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Вихід</string>
@@ -638,7 +621,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
     <string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
-    <string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Перевірте та зв\'яжіться з нами, написавши на поштову адресу support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
     <string name="core_entrance">Вхід</string>
     <string name="error_enter_correct_name">Будь ласка, введіть коректне ім\'я</string>
@@ -649,6 +632,7 @@
     <plurals name="bookmarks_places">
         <item quantity="one">%d мітка</item>
         <item quantity="few">%d мітки</item>
+        <item quantity="many">%d міток</item>
         <item quantity="other">%d міток</item>
     </plurals>
     <string name="bookmarks_create_new_group">Створити новий список</string>
@@ -667,14 +651,16 @@
     <string name="profile">Профіль OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
-        <item quantity="few">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
-        <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
+        <item quantity="few">%d файли було знайдено. Ви побачите їх після перетворення.</item>
+        <item quantity="many">%d файлів було знайдено. Ви побачите їх після перетворення.</item>
+        <item quantity="other">%d файлів було знайдено. Ви побачите їх після перетворення.</item>
     </plurals>
     <string name="restore">Відновити</string>
     <plurals name="tracks">
-        <item quantity="one">%d трек</item>
-        <item quantity="few">%d треки</item>
-        <item quantity="other">%d треків</item>
+        <item quantity="one">%d маршрут</item>
+        <item quantity="few">%d маршрути</item>
+        <item quantity="many">%d маршрутів</item>
+        <item quantity="other">%d маршрутів</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Приватність</string>
@@ -704,7 +690,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Ніколи не попереджати</string>
     <string name="power_managment_title">Режим енергозбереження</string>
-    <string name="power_managment_description">Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону</string>
+    <string name="power_managment_description">Спроба зменшити енергоспоживання коштом деяких функцій.</string>
     <string name="power_managment_setting_never">Ніколи</string>
     <string name="power_managment_setting_auto">Автоматично</string>
     <string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
@@ -719,7 +705,7 @@
     <string name="avoid_ferry">Уникати поромів</string>
     <string name="avoid_motorways">Уникати автострад</string>
     <string name="unable_to_calc_alert_title">Неможливо побудувати маршрут</string>
-    <string name="unable_to_calc_alert_subtitle">На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз</string>
+    <string name="unable_to_calc_alert_subtitle">Не вдалося знайти маршрут. Це може бути пов\'язано з вашими параметрами прокладання маршруту або неповними даними OpenStreetMap. Змініть параметри і спробуйте ще раз.</string>
     <string name="define_to_avoid_btn">Налаштувати шляхи об’їзду</string>
     <string name="change_driving_options_btn">Увімкнено налаштування об’їзду</string>
     <string name="toll_road">Платна дорога</string>
@@ -740,7 +726,7 @@
     <string name="trip_finished">Ви прибули!</string>
     <string name="ok">Ок</string>
     <!-- max. 10 symbols, both iOS and Android -->
-    <string name="sort">Сортувати</string>
+    <string name="sort">Сортувати…</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Сортувати мітки</string>
     <!-- Android -->
@@ -759,7 +745,6 @@
     <string name="moreyear_ago_sorttype">Понад рік тому</string>
     <string name="near_me_sorttype">Поруч зі мною</string>
     <string name="others_sorttype">Інші</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Їжа</string>
     <string name="tourist_places">Пам’ятки</string>
@@ -779,7 +764,7 @@
     <string name="religious_places">Святі місця</string>
     <string name="select_list">Обрати список</string>
     <string name="transit_not_found">Навігація на метро ще недоступна в цьому регіоні</string>
-    <string name="dialog_pedestrian_route_is_long_header">Маршрут метро не знайдено</string>
+    <string name="dialog_pedestrian_route_is_long_header">Жодного маршруту метро не знайдено</string>
     <string name="dialog_pedestrian_route_is_long_message">Виберіть початкову чи кінцеву точку маршруту ближче до станції метро</string>
     <string name="button_layer_isolines">Висоти</string>
     <string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
@@ -793,7 +778,7 @@
     <string name="elevation_profile_time">Шлях:</string>
     <string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
     <string name="downloader_loading_ios">Завантаження</string>
-    <string name="download_map_title">Завантажити карту світу</string>
+    <string name="download_map_title">Завантажити оглядову мапу світу</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти</string>
     <!-- Used in DownloadResources startup screen -->
@@ -852,7 +837,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ця програма потребує вашого дозволу</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Для ефективної роботи Organic Maps в Android Auto потрібен дозвіл на розташування</string>
+    <string name="aa_request_permission_activity_text">Для ефективної роботи Organic Maps в Android Auto потрібні дозвіли на розташування</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Надавати дозволи</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -876,7 +861,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">Переглянути меню</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">Відкрити в іншій програмі</string>
+    <string name="open_in_app">Відкрити в іншому застосунку</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">Самообслуговування</string>
     <string name="select_option">Виберіть варіант</string>
@@ -897,10 +882,27 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Маршрут порожній - нічого зберігати</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Неможливо відобразити діалогове вікно вибору папки, оскільки на вашому пристрої не встановлено відповідну програму. Будь ласка, встановіть файловий менеджер і спробуйте ще раз</string>
+    <string name="error_no_file_manager_app">Неможливо відобразити діалогове вікно вибору теки, оскільки на вашому пристрої не встановлено відповідний застосунок. Встановіть файловий менеджер і спробуйте ще раз.</string>
     <string name="choose_color">Виберіть колір</string>
     <string name="edit_track">Редагувати маршрут</string>
-    <string name="uri_open_location_failed">Не встановлено додаток, який може відкрити локацію</string>
+    <string name="uri_open_location_failed">Не встановлено застосунок, який може відкрити розташування</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Авто в навігації</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="telegram">Telegram</string>
+    <string name="vk">VK</string>
+    <string name="instagram">Instagram</string>
+    <string name="level_value_generic">Поверх: %s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="editor_add_phone">Додати телефон</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
 </resources>

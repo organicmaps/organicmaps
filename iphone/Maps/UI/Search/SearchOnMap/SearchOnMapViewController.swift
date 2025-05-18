@@ -1,52 +1,73 @@
 protocol SearchOnMapView: AnyObject {
-  var scrollViewDelegate: SearchOnMapScrollViewDelegate? { get set }
-
   func render(_ viewModel: SearchOnMap.ViewModel)
+  func show()
+  func close()
 }
 
 @objc
 protocol SearchOnMapScrollViewDelegate: AnyObject {
   func scrollViewDidScroll(_ scrollView: UIScrollView)
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+}
+
+@objc
+protocol ModallyPresentedViewController: AnyObject {
+  @objc func presentationFrameDidChange(_ frame: CGRect)
 }
 
 final class SearchOnMapViewController: UIViewController {
   typealias ViewModel = SearchOnMap.ViewModel
-  typealias ContentState = SearchOnMap.ViewModel.ContentState
+  typealias Content = SearchOnMap.ViewModel.Content
   typealias SearchText = SearchOnMap.SearchText
 
   fileprivate enum Constants {
-    static let categoriesHeight: CGFloat = 100
-    static let filtersHeight: CGFloat = 50
-    static let keyboardAnimationDuration: CGFloat = 0.3
-    static let cancelButtonInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 8)
     static let estimatedRowHeight: CGFloat = 80
+    static let panGestureThreshold: CGFloat = 5
+    static let dimAlpha: CGFloat = 0.3
+    static let dimViewThreshold: CGFloat = 50
   }
 
-  let interactor: SearchOnMapInteractor
-  weak var scrollViewDelegate: SearchOnMapScrollViewDelegate?
+  var interactor: SearchOnMapInteractor?
 
-  private var searchResults = SearchOnMap.SearchResults([])
-
-  // MARK: - UI Elements
+  @objc let availableAreaView = SearchOnMapAreaView()
+  private let contentView = UIView()
   private let headerView = SearchOnMapHeaderView()
-  private let containerView = UIView()
+  private let searchResultsView = UIView()
   private let resultsTableView = UITableView()
   private let historyAndCategoryTabViewController = SearchTabViewController()
-  // TODO: implement filters
-  private let filtersCollectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    return UICollectionView(frame: .zero, collectionViewLayout: layout)
-  }()
   private var searchingActivityView = PlaceholderView(hasActivityIndicator: true)
-  private var containerModalYTranslation: CGFloat = 0
   private var searchNoResultsView = PlaceholderView(title: L("search_not_found"),
                                                     subtitle: L("search_not_found_query"))
+  private var dimView: UIView?
+
+  private var internalScrollViewContentOffset: CGFloat = .zero
+  private let presentationStepsController = ModalPresentationStepsController()
+  private var searchResults = SearchOnMap.SearchResults([])
 
   // MARK: - Init
-  init(interactor: SearchOnMapInteractor) {
-    self.interactor = interactor
+  init() {
     super.init(nibName: nil, bundle: nil)
+    configureModalPresentation()
+  }
+
+  private func configureModalPresentation() {
+    guard let mapViewController = MapViewController.shared() else {
+      fatalError("MapViewController is not available")
+    }
+    presentationStepsController.set(presentedView: availableAreaView, containerViewController: self)
+    presentationStepsController.didUpdateHandler = presentationUpdateHandler
+
+    mapViewController.searchContainer.addSubview(view)
+    mapViewController.addChild(self)
+    view.frame = mapViewController.searchContainer.bounds
+    view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    didMove(toParent: mapViewController)
+
+    let affectedAreaViews = [
+      mapViewController.sideButtonsArea,
+      mapViewController.trafficButtonArea,
+    ]
+    affectedAreaViews.forEach { $0?.addAffectingView(availableAreaView) }
   }
 
   @available(*, unavailable)
@@ -54,16 +75,16 @@ final class SearchOnMapViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  deinit {
-    NotificationCenter.default.removeObserver(self)
+  // MARK: - Lifecycle
+  override func loadView() {
+    view = TouchTransparentView()
   }
 
-  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupViews()
     layoutViews()
-    interactor.handle(.openSearch)
+    presentationStepsController.setInitialState()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -71,30 +92,58 @@ final class SearchOnMapViewController: UIViewController {
     headerView.setIsSearching(false)
   }
 
-  // MARK: - Private methods
-  private func setupViews() {
-    view.setStyle(.clearBackground)
-    setupTapGestureRecognizer()
-    setupHeaderView()
-    setupContainerView()
-    setupResultsTableView()
-    setupHistoryAndCategoryTabView()
-    setupResultsTableView()
-    setupFiltersCollectionView()
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateFrameOfPresentedViewInContainerView()
+    updateDimView(for: availableAreaView.frame)
   }
 
-  private func setupTapGestureRecognizer() {
+  override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+      updateFrameOfPresentedViewInContainerView()
+    }
+  }
+
+  // MARK: - Private methods
+  private func setupViews() {
+    availableAreaView.setStyleAndApply(.modalSheetBackground)
+    contentView.setStyleAndApply(.modalSheetContent)
+
+    setupGestureRecognizers()
+    setupDimView()
+    setupHeaderView()
+    setupSearchResultsView()
+    setupResultsTableView()
+    setupHistoryAndCategoryTabView()
+  }
+
+  private func setupDimView() {
+    iPhoneSpecific {
+      dimView = UIView()
+      dimView?.backgroundColor = .black
+      dimView?.frame = view.bounds
+    }
+  }
+
+  private func setupGestureRecognizers() {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutside))
     tapGesture.cancelsTouchesInView = false
-    view.addGestureRecognizer(tapGesture)
+    contentView.addGestureRecognizer(tapGesture)
+
+    iPhoneSpecific {
+      let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+      panGestureRecognizer.delegate = self
+      contentView.addGestureRecognizer(panGestureRecognizer)
+    }
   }
 
   private func setupHeaderView() {
     headerView.delegate = self
   }
 
-  private func setupContainerView() {
-    containerView.setStyle(.background)
+  private func setupSearchResultsView() {
+    searchResultsView.setStyle(.background)
   }
 
   private func setupResultsTableView() {
@@ -112,91 +161,141 @@ final class SearchOnMapViewController: UIViewController {
     historyAndCategoryTabViewController.delegate = self
   }
 
-  // TODO: (KK) Implement filters collection viewe
-  private func setupFiltersCollectionView() {
-    filtersCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "FilterCell")
-    filtersCollectionView.dataSource = self
-  }
-
   private func layoutViews() {
-    view.addSubview(headerView)
-    view.addSubview(containerView)
+    if let dimView {
+      view.addSubview(dimView)
+      dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    view.addSubview(availableAreaView)
+    availableAreaView.addSubview(contentView)
+    contentView.addSubview(headerView)
+    contentView.addSubview(searchResultsView)
+
+    contentView.translatesAutoresizingMaskIntoConstraints = false
     headerView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.translatesAutoresizingMaskIntoConstraints = false
+    searchResultsView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      headerView.topAnchor.constraint(equalTo: view.topAnchor),
-      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      contentView.topAnchor.constraint(equalTo: availableAreaView.topAnchor),
+      contentView.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
+      contentView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor),
+      contentView.bottomAnchor.constraint(equalTo: availableAreaView.bottomAnchor),
 
-      containerView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-      containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+      searchResultsView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+      searchResultsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      searchResultsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      searchResultsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
     ])
 
     layoutResultsView()
     layoutHistoryAndCategoryTabView()
     layoutSearchNoResultsView()
     layoutSearchingView()
+    updateFrameOfPresentedViewInContainerView()
   }
 
   private func layoutResultsView() {
-    containerView.addSubview(resultsTableView)
+    searchResultsView.addSubview(resultsTableView)
     resultsTableView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      resultsTableView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      resultsTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      resultsTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      resultsTableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      resultsTableView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      resultsTableView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      resultsTableView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      resultsTableView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutHistoryAndCategoryTabView() {
-    containerView.addSubview(historyAndCategoryTabViewController.view)
+    searchResultsView.addSubview(historyAndCategoryTabViewController.view)
     historyAndCategoryTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      historyAndCategoryTabViewController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
-      historyAndCategoryTabViewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      historyAndCategoryTabViewController.view.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      historyAndCategoryTabViewController.view.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutSearchNoResultsView() {
     searchNoResultsView.translatesAutoresizingMaskIntoConstraints = false
-    containerView.addSubview(searchNoResultsView)
+    searchResultsView.addSubview(searchNoResultsView)
     NSLayoutConstraint.activate([
-      searchNoResultsView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      searchNoResultsView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      searchNoResultsView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      searchNoResultsView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      searchNoResultsView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      searchNoResultsView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      searchNoResultsView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      searchNoResultsView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
   private func layoutSearchingView() {
-    containerView.insertSubview(searchingActivityView, at: 0)
+    searchResultsView.insertSubview(searchingActivityView, at: 0)
     searchingActivityView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      searchingActivityView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-      searchingActivityView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-      searchingActivityView.topAnchor.constraint(equalTo: containerView.topAnchor),
-      searchingActivityView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+      searchingActivityView.leadingAnchor.constraint(equalTo: searchResultsView.leadingAnchor),
+      searchingActivityView.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
+      searchingActivityView.topAnchor.constraint(equalTo: searchResultsView.topAnchor),
+      searchingActivityView.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor)
     ])
   }
 
-  // MARK: - Handle Button Actions
-  @objc private func handleTapOutside(_ gesture: UITapGestureRecognizer) {
+  // MARK: - Handle Presentation Steps
+  private func updateFrameOfPresentedViewInContainerView() {
+    presentationStepsController.updateMaxAvailableFrame()
+    availableAreaView.frame = presentationStepsController.currentFrame
+    view.layoutIfNeeded()
+  }
+
+  @objc
+  private func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     let location = gesture.location(in: view)
     if resultsTableView.frame.contains(location) && searchResults.isEmpty {
       headerView.setIsSearching(false)
     }
   }
 
-  // MARK: - Handle State Updates
-  private func setContent(_ content: ContentState) {
+  @objc
+  private func handlePan(_ gesture: UIPanGestureRecognizer) {
+    interactor?.handle(.didStartDraggingSearch)
+    presentationStepsController.handlePan(gesture)
+  }
+
+  private var presentationUpdateHandler: (ModalPresentationStepsController.StepUpdate) -> Void {
+    { [weak self] update in
+      guard let self else { return }
+      switch update {
+      case .didClose:
+        self.interactor?.handle(.closeSearch)
+      case .didUpdateFrame(let frame):
+        self.presentationFrameDidChange(frame)
+        self.updateDimView(for: frame)
+      case .didUpdateStep(let step):
+        self.interactor?.handle(.didUpdatePresentationStep(step))
+      }
+    }
+  }
+
+  private func updateDimView(for frame: CGRect) {
+    guard let dimView else { return }
+    let currentTop = frame.origin.y
+    let maxTop = presentationStepsController.maxAvailableFrame.origin.y
+    let alpha = (1 - (currentTop - maxTop) / Constants.dimViewThreshold) * Constants.dimAlpha
+    let isCloseToTop = currentTop - maxTop < Constants.dimViewThreshold
+    let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+    let shouldDim = isCloseToTop && isPortrait
+    UIView.animate(withDuration: kDefaultAnimationDuration / 2) {
+      dimView.alpha = shouldDim ? alpha : 0
+      dimView.isHidden = !shouldDim
+    }
+  }
+
+  // MARK: - Handle Content Updates
+  private func setContent(_ content: Content) {
     switch content {
     case .historyAndCategory:
       historyAndCategoryTabViewController.reloadSearchHistory()
@@ -214,7 +313,7 @@ final class SearchOnMapViewController: UIViewController {
     showView(viewToShow(for: content))
   }
 
-  private func viewToShow(for content: ContentState) -> UIView {
+  private func viewToShow(for content: Content) -> UIView {
     switch content {
     case .historyAndCategory:
       return historyAndCategoryTabViewController.view
@@ -232,24 +331,26 @@ final class SearchOnMapViewController: UIViewController {
                                  historyAndCategoryTabViewController.view,
                                  searchNoResultsView,
                                  searchingActivityView].filter { $0 != view }
-    UIView.transition(with: containerView,
-                      duration: kDefaultAnimationDuration / 2,
-                      options: [.transitionCrossDissolve, .curveEaseInOut], animations: {
-      viewsToHide.forEach { viewToHide in
-        view.isHidden = false
-        view.alpha = 1
-        viewToHide.isHidden = true
-        viewToHide.alpha = 0
-      }
-    })
+    UIView.animate(withDuration: kDefaultAnimationDuration / 2,
+                   delay: 0,
+                   options: .curveEaseInOut,
+                   animations: {
+      viewsToHide.forEach { $0.alpha = 0 }
+      view.alpha = 1
+    }) { _ in
+      viewsToHide.forEach { $0.isHidden = true }
+      view.isHidden = false
+    }
   }
 
   private func setIsSearching(_ isSearching: Bool) {
     headerView.setIsSearching(isSearching)
   }
 
-  private func replaceSearchText(with text: String) {
-    headerView.setSearchText(text)
+  private func setSearchText(_ text: String?) {
+    if let text {
+      headerView.setSearchText(text)
+    }
   }
 }
 
@@ -258,20 +359,33 @@ extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
     setContent(viewModel.contentState)
     setIsSearching(viewModel.isTyping)
-    if let searchingText = viewModel.searchingText {
-      replaceSearchText(with: searchingText)
+    setSearchText(viewModel.searchingText)
+    presentationStepsController.setStep(viewModel.presentationStep)
+  }
+
+  func show() {
+    interactor?.handle(.openSearch)
+  }
+
+  func close() {
+    headerView.setIsSearching(false)
+    updateDimView(for: presentationStepsController.hiddenFrame)
+    willMove(toParent: nil)
+    presentationStepsController.close { [weak self] in
+      self?.view.removeFromSuperview()
+      self?.removeFromParent()
     }
   }
 }
 
 // MARK: - ModallyPresentedViewController
 extension SearchOnMapViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
-    self.containerModalYTranslation = translationY
+  func presentationFrameDidChange(_ frame: CGRect) {
+    let translationY = frame.origin.y
     resultsTableView.contentInset.bottom = translationY
-    historyAndCategoryTabViewController.translationYDidUpdate(translationY)
-    searchNoResultsView.translationYDidUpdate(translationY)
-    searchingActivityView.translationYDidUpdate(translationY)
+    historyAndCategoryTabViewController.presentationFrameDidChange(frame)
+    searchNoResultsView.presentationFrameDidChange(frame)
+    searchingActivityView.presentationFrameDidChange(frame)
   }
 }
 
@@ -303,60 +417,82 @@ extension SearchOnMapViewController: UITableViewDataSource {
 extension SearchOnMapViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let result = searchResults[indexPath.row]
-    interactor.handle(.didSelectResult(result, withSearchText: headerView.searchText))
+    interactor?.handle(.didSelectResult(result, withSearchText: headerView.searchText))
     tableView.deselectRow(at: indexPath, animated: true)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    interactor.handle(.didStartDraggingSearch)
-  }
-
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    scrollViewDelegate?.scrollViewDidScroll(scrollView)
-  }
-}
-
-// MARK: - UICollectionViewDataSource
-extension SearchOnMapViewController: UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    // TODO: remove search from here
-    Int(Search.resultsCount())
-  }
-
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath)
-    return cell
+    interactor?.handle(.didStartDraggingSearch)
   }
 }
 
 // MARK: - SearchOnMapHeaderViewDelegate
 extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    interactor.handle(.didStartTyping)
+    interactor?.handle(.didStartTyping)
   }
 
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     guard !searchText.isEmpty else {
-      interactor.handle(.clearButtonDidTap)
+      interactor?.handle(.clearButtonDidTap)
       return
     }
-    interactor.handle(.didType(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
+    interactor?.handle(.didType(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-    interactor.handle(.searchButtonDidTap(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
+    interactor?.handle(.searchButtonDidTap(SearchText(searchText, locale: searchBar.textInputMode?.primaryLanguage)))
   }
 
   func cancelButtonDidTap() {
-    interactor.handle(.closeSearch)
+    interactor?.handle(.closeSearch)
+  }
+
+  func grabberDidTap() {
+    interactor?.handle(.didUpdatePresentationStep(.fullScreen))
   }
 }
 
 // MARK: - SearchTabViewControllerDelegate
 extension SearchOnMapViewController: SearchTabViewControllerDelegate {
   func searchTabController(_ viewController: SearchTabViewController, didSearch text: String, withCategory: Bool) {
-    interactor.handle(.didSelectText(SearchText(text, locale: nil), isCategory: withCategory))
+    interactor?.handle(.didSelectText(SearchText(text, locale: nil), isCategory: withCategory))
   }
 }
 
+// MARK: - UIGestureRecognizerDelegate
+extension SearchOnMapViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    true
+  }
+
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    if gestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer {
+      // threshold is used to soften transition from the internal scroll zero content offset
+      return internalScrollViewContentOffset < Constants.panGestureThreshold
+    }
+    return false
+  }
+}
+
+// MARK: - SearchOnMapScrollViewDelegate
+extension SearchOnMapViewController: SearchOnMapScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let hasReachedTheTop = Int(availableAreaView.frame.origin.y) > Int(presentationStepsController.maxAvailableFrame.origin.y)
+    let hasZeroContentOffset = internalScrollViewContentOffset == 0
+    if hasReachedTheTop && hasZeroContentOffset {
+      // prevent the internal scroll view scrolling
+      scrollView.contentOffset.y = internalScrollViewContentOffset
+      return
+    }
+    internalScrollViewContentOffset = scrollView.contentOffset.y
+  }
+
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    // lock internal scroll view when the user fast scrolls screen to the top
+    if internalScrollViewContentOffset == 0 {
+      targetContentOffset.pointee = .zero
+    }
+  }
+}

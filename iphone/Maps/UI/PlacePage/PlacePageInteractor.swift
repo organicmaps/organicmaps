@@ -65,8 +65,8 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     !OpenInApplication.availableApps.isEmpty
   }
 
-  func didPressCall() {
-    MWMPlacePageManagerHelper.call(placePageData)
+  func didPressCall(to phone: PlacePagePhone) {
+    MWMPlacePageManagerHelper.call(phone)
   }
 
   func didPressWebsite() {
@@ -75,22 +75,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
 
   func didPressWebsiteMenu() {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
-  }
-
-  func didPressKayak() {
-    let kUDDidShowKayakInformationDialog = "kUDDidShowKayakInformationDialog"
-    
-    if UserDefaults.standard.bool(forKey: kUDDidShowKayakInformationDialog) {
-      MWMPlacePageManagerHelper.openKayak(placePageData)
-    } else { 
-      let alert = UIAlertController(title: nil, message: L("dialog_kayak_disclaimer"), preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
-      alert.addAction(UIAlertAction(title: L("dialog_kayak_button"), style: .default, handler: { _ in
-        UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
-        MWMPlacePageManagerHelper.openKayak(self.placePageData)
-      }))
-      presenter?.showAlert(alert)
-    }
   }
 
   func didPressWikipedia() {
@@ -129,7 +113,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     UIPasteboard.general.string = content
     let message = String(format: L("copied_to_clipboard"), content)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    Toast.toast(withText: message).show(withAlignment: .bottom)
+    Toast.show(withText: message, alignment: .bottom)
   }
 
   func didPressOpenInApp(from sourceView: UIView) {
@@ -204,7 +188,15 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         MWMPlacePageManagerHelper.addBookmark(placePageData)
       }
     case .call:
-      MWMPlacePageManagerHelper.call(placePageData)
+      // since `.call` is a case in an obj-c enum, it can't have associated data, so there is no easy way to
+      // pass the exact phone, and we have to ask the user here which one to use, if there are multiple ones
+      let phones = placePageData.infoData?.phones ?? []
+      let hasOnePhoneNumber = phones.count == 1
+      if hasOnePhoneNumber {
+        MWMPlacePageManagerHelper.call(phones[0])
+      } else if (phones.count > 1) {
+        showPhoneNumberPicker(phones, handler: MWMPlacePageManagerHelper.call)
+      }
     case .download:
       guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
         fatalError("Download button can't be displayed if mapNodeAttributes is empty")
@@ -265,6 +257,20 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       alert.popoverPresentationController?.sourceView = viewController.view
       alert.popoverPresentationController?.sourceRect = viewController.view.frame
     }
+    viewController.present(alert, animated: true)
+  }
+
+  private func showPhoneNumberPicker(_ phones: [PlacePagePhone], handler: @escaping (PlacePagePhone) -> Void) {
+    guard let viewController else { return }
+
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    phones.forEach({phone in
+      alert.addAction(UIAlertAction(title: phone.phone, style: .default, handler: { _ in
+        handler(phone)
+      }))
+    })
+    alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+
     viewController.present(alert, animated: true)
   }
 }

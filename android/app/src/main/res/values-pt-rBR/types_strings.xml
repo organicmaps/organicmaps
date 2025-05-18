@@ -108,7 +108,6 @@
     <string name="type.amenity.prison">Prisão</string>
     <string name="type.amenity.pub">Bar ou boteco</string>
     <string name="type.amenity.public_bookcase">Biblioteca livre</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centro de reciclagem</string>
     <string name="type.amenity.recycling">Contêiner de reciclagem</string>
@@ -217,7 +216,7 @@
     <string name="type.craft.plumber">Encanador</string>
     <string name="type.craft.winery">Vinícola</string>
     <string name="type.cuisine.african">Cozinha africana</string>
-    <string name="type.cuisine.american">Cozinha americana</string>
+    <string name="type.cuisine.american">Cozinha estado-unidense</string>
     <string name="type.cuisine.arab">Cozinha árabe</string>
     <string name="type.cuisine.argentinian">Cozinha argentina</string>
     <string name="type.cuisine.asian">Cozinha asiática</string>
@@ -290,7 +289,7 @@
     <string name="type.cuisine.sausage">Linguiças</string>
     <string name="type.cuisine.savory_pancakes">Panquecas salgadas</string>
     <string name="type.cuisine.seafood">Frutos do mar</string>
-    <string name="type.cuisine.soba">Soba</string>
+    <string name="type.cuisine.soba">Sobá</string>
     <string name="type.cuisine.spanish">Cozinha espanhola</string>
     <string name="type.cuisine.steak_house">Churrascaria</string>
     <string name="type.cuisine.sushi">Sushi</string>
@@ -321,7 +320,6 @@
     <string name="type.healthcare.psychotherapist">Psicoterapia</string>
     <string name="type.healthcare.sample_collection">Amostragem</string>
     <string name="type.healthcare.speech_therapist">Terapia da fala</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Rodovia</string>
     <string name="type.highway.bridleway">Caminho para cavaleiros</string>
@@ -485,7 +483,6 @@
     <string name="type.area_highway.track">Pista para desportos não motorizados</string>
     <string name="type.area_highway.trunk">Via expressa</string>
     <string name="type.area_highway.unclassified">Estrada sem classificação</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic.aircraft">Aeronaves Históricas</string>
     <string name="type.historic.anchor">Âncora Histórica</string>
@@ -581,7 +578,7 @@
     <string name="type.man_made.cutline">Aceiro</string>
     <string name="type.man_made.lighthouse">Farol</string>
     <string name="type.man_made.pier">Píer</string>
-    <string name="type.man_made.pipeline">Pipeline</string>
+    <string name="type.man_made.pipeline">Tubulação</string>
     <string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Tanque de armazenagem</string>
@@ -676,7 +673,7 @@
     <string name="type.railway.station.light_rail">Estação de trem</string>
     <string name="type.railway.station.light_rail.berlin">Estação de trem</string>
     <string name="type.railway.station.light_rail.london">Estação de trem</string>
-    <string name="type.railway.station.light_rail.porto">Estação de trem</string>
+    <string name="type.railway.station.light_rail.porto">Estação de metrô</string>
     <string name="type.railway.station.monorail">Estação de trem</string>
     <string name="type.railway.station.subway">Estação de metrô</string>
     <string name="type.railway.station.subway.adana">Estação de metrô</string>
@@ -1011,7 +1008,7 @@
     <string name="type.shop.baby_goods">Loja infantil</string>
     <string name="type.shop.bag">Loja de bolsas</string>
     <string name="type.shop.bed">Loja de camas</string>
-    <string name="type.shop.boutique">Boutique</string>
+    <string name="type.shop.boutique">Loja de alta costura</string>
     <string name="type.shop.charity">Loja de caridade</string>
     <string name="type.shop.cheese">Loja de queijos</string>
     <string name="type.shop.craft">Artes e ofícios</string>
@@ -1111,4 +1108,98 @@
     <string name="type.emergency.emergency_ward_entrance">Entrada da ala de emergência</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Salão de esportes</string>
+    <string name="type.power.pole">Poste de eletricidade</string>
+    <string name="type.man_made.utility_pole">Poste</string>
+    <string name="type.historic.memorial">Memorial</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.leisure.beach_resort">Resort de praia</string>
+    <string name="type.man_made.flagpole">Mastro de bandeira</string>
+    <string name="type.railway.funicular">Funicular</string>
+    <string name="type.railway.station.funicular">Funicular</string>
+    <string name="type.sport.padel">Pádel</string>
+    <string name="type.tourism.information.visitor_centre">Centro de visitantes</string>
+    <string name="type.waterway.canal">Canal</string>
+    <string name="type.cuisine.bubble_tea">Chá de bolhas</string>
+    <string name="type.historic.castle.kremlin">Kremlin</string>
+    <string name="type.man_made.survey_point">Marco geodésico</string>
+    <string name="type.sport.badminton">Badminton</string>
+    <string name="type.sport.futsal">Futsal</string>
+    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.leisure.resort">Resort</string>
+    <string name="type.man_made.mast">Mastro</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.historic.memorial.stolperstein">Stolperstein</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.shop.caravan">Concessionária de trailers</string>
+    <string name="type.sport.curling">Curling</string>
+    <string name="type.emergency.assembly_point">Ponto de Reunião de Emergência</string>
+    <string name="type.emergency.mountain_rescue">Estação de resgate na montanha</string>
+    <string name="type.entrance.exit">Saída</string>
+    <string name="type.amenity.arts_centre">Centro de artes</string>
+    <string name="type.amenity.bbq">Churrasqueira</string>
+    <string name="type.amenity.compressed_air">Ar comprimido</string>
+    <string name="type.amenity.conference_centre">Centro de conferências</string>
+    <string name="type.amenity.exhibition_centre">Centro de exposições</string>
+    <string name="type.amenity.music_school">Escola de música</string>
+    <string name="type.amenity.language_school">Escola de idiomas</string>
+    <string name="type.amenity.parking.fee">Estacionamento</string>
+    <string name="type.amenity.parking.underground">Estacionamento subterrâneo</string>
+    <string name="type.amenity.parking.underground.fee">Estacionamento subterrâneo</string>
+    <string name="type.amenity.parking.street_side">Estacionamento ao lado da rua</string>
+    <string name="type.amenity.parking.street_side.fee">Estacionamento ao lado da rua</string>
+    <string name="type.amenity.parking_entrance">Entrada do estacionamento</string>
+    <string name="type.amenity.parking_entrance.permissive">Entrada do estacionamento</string>
+    <string name="type.amenity.parking_space">Lugar de estacionamento</string>
+    <string name="type.amenity.parking_space.permissive">Lugar de estacionamento</string>
+    <string name="type.amenity.parking_space.private">Lugar de estacionamento</string>
+    <string name="type.amenity.parking_space.underground">Lugar de estacionamento</string>
+    <string name="type.amenity.parking_space.disabled">Estacionamento para deficientes</string>
+    <string name="type.amenity.place_of_worship.christian.mormon">Igreja de Jesus Cristo dos Santos dos Últimos Dias</string>
+    <string name="type.amenity.shelter.basic_hut">Cabana Básica</string>
+    <string name="type.amenity.public_bath">Banho público</string>
+    <string name="type.amenity.vehicle_inspection">Inspeção veicular</string>
+    <string name="type.natural.water.moat">Fosso</string>
+    <string name="type.boundary.aboriginal_lands">Terras indígenas</string>
+    <string name="type.building.train_station">Edifício da estação</string>
+    <string name="type.craft.beekeeper">Apicultor</string>
+    <string name="type.craft.brewery">Cervejaria artesanal</string>
+    <string name="type.craft.carpenter">Carpinteiro</string>
+    <string name="type.craft.confectionery">Confeitaria</string>
+    <string name="type.craft.electrician">Eletricista</string>
+    <string name="type.craft.gardener">Jardineiro</string>
+    <string name="type.craft.handicraft">Artesanato</string>
+    <string name="type.craft.painter">Pintor</string>
+    <string name="type.craft.photographer">Fotógrafo</string>
+    <string name="type.craft.sawmill">Serraria</string>
+    <string name="type.craft.shoemaker">Sapateiro</string>
+    <string name="type.craft.tailor">Alfaiate</string>
+    <string name="type.amenity.parking">Estacionamento</string>
+    <string name="type.barrier.chain">Corrente</string>
+    <string name="type.craft">Artesanato</string>
+    <string name="type.craft.blacksmith">Serralheiro</string>
+    <string name="type.craft.metal_construction">Ferreiro</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.fee.no">Gratuito</string>
+    <string name="type.highway.path">Caminho</string>
+    <string name="type.area_highway.path">Caminho</string>
+    <string name="type.historic.battlefield">Campo de batalha histórico</string>
+    <string name="type.historic.castle.castrum">Fortaleza Romana</string>
+    <string name="type.historic.castle.defensive">Castelo Fortificado</string>
+    <string name="type.historic.castle.hillfort">Fortaleza de Colina</string>
+    <string name="type.historic.castle.stately">Castelo</string>
+    <string name="type.historic">Objeto histórico</string>
+    <string name="type.historic.archaeological_site">Sítio arqueológico</string>
+    <string name="type.historic.boundary_stone">Marco fronteiriço</string>
+    <string name="type.historic.castle">Castelo</string>
+    <string name="type.historic.castle.fortified_church">Igreja fortificada</string>
+    <string name="type.historic.castle.fortress">Fortaleza</string>
+    <string name="type.historic.castle.manor">Solar</string>
+    <string name="type.historic.castle.palace">Palácio</string>
+    <string name="type.historic.castle.shiro">Castelo japonês</string>
+    <string name="type.historic.city_gate">Portões da Cidade</string>
+    <string name="type.historic.fort">Forte</string>
 </resources>

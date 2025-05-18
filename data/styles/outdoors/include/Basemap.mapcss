@@ -97,6 +97,13 @@ line|z18-[barrier=fence],
 line|z18-[barrier=wall],
 {width: 1.5; opacity: 1;}
 
+line|z15-[barrier=guard_rail],
+{color: @fence; width: 1; opacity: 0.5;}
+line|z17[barrier=guard_rail],
+{width: 1.3; opacity: 0.6;}
+line|z18-[barrier=guard_rail],
+{width: 1.5; opacity: 0.8;}
+
 line|z15-[barrier=ditch],
 {width: 1.8; opacity: 0.8; color: @cliff; dashes: 0.9,0.9;}
 

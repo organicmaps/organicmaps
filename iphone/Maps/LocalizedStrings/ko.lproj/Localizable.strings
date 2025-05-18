@@ -87,7 +87,7 @@
 "measurement_units" = "측정 단위";
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
-"category_eat" = "어디서먹을까";
+"category_eat" = "어디서 먹을까";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
 "category_food" = "식료품들";
@@ -198,7 +198,7 @@
 /* Length of track in cell that describes route */
 "length" = "길이";
 "share_my_location" = "내 위치 공유";
-"prefs_group_route" = "네비게이션";
+"prefs_group_route" = "내비게이션";
 "pref_zoom_title" = "확대/축소 버튼";
 
 /* Settings «Map» category: «Appearance» title */
@@ -637,15 +637,6 @@
 "day" = "일";
 "placepage_more_button" = "자세히";
 "book_button" = "예약";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "사진, 리뷰, 예약";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Kayak의 세부 정보";
 "placepage_call_button" = "전화";
 "placepage_edit_bookmark_button" = "즐겨찾기 편집";
 "placepage_bookmark_name_hint" = "즐겨찾기 이름";
@@ -733,7 +724,7 @@
 "alert_reauth_link_text_ios" = "여기";
 "core_entrance" = "입구";
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
-"bookmark_lists" = "기울기";
+"bookmark_lists" = "목록";
 
 /* Do not display all bookmark lists on the map */
 "bookmark_lists_hide_all" = "모두 숨기기";
@@ -798,7 +789,7 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "여객선 횡단길 피하기";
-"avoid_motorways" = "고속도로를 피하세요";
+"avoid_motorways" = "고속도로 피하기";
 "unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
 "unable_to_calc_alert_subtitle" = "아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요";
 "define_to_avoid_btn" = "피할 도로 정의하기";
@@ -1052,10 +1043,10 @@
 "recover_all" = "모두 복구";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "트랙 녹음";
+"start_track_recording" = "트랙 기록";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "트랙 기록을 중지하시겠습니까";
+"stop_track_recording" = "트랙 기록 중지";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "저장하지 않고 중지";

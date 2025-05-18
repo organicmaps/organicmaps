@@ -52,7 +52,7 @@
 "about_proposition_2" = "• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης";
 
 /* Text in About screen */
-"about_proposition_3" = "• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
+"about_proposition_3" = "- Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
 "close" = "Κλείσιμο";
 "download" = "Λήψη";
 
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Καλιμπράρισμα πυξίδας";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας.";
+"long_tap_toast" = "Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας";
 
 /* Update all button text */
 "downloader_update_all_button" = "Ενημέρωση όλων";
@@ -411,9 +411,9 @@
 /* blue gray color */
 "blue_gray" = "Γκρίζο μπλε";
 "dialog_routing_disclaimer_title" = "Όταν ακολουθείτε την διαδρομή, να θυμάστε:";
-"dialog_routing_disclaimer_priority" = "— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,";
-"dialog_routing_disclaimer_precision" = "— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,";
-"dialog_routing_disclaimer_recommendations" = "— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·";
+"dialog_routing_disclaimer_priority" = "- Οι οδικές συνθήκες, οι κανόνες οδικής κυκλοφορίας και οι πινακίδες έχουν πάντα προτεραιότητα έναντι των συμβουλών πλοήγησης;";
+"dialog_routing_disclaimer_precision" = "— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό;";
+"dialog_routing_disclaimer_recommendations" = "— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις;";
 "dialog_routing_disclaimer_borders" = "— Προσέξτε τις διαδρομές στις παραμεθόριες περιοχές: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.";
 "dialog_routing_disclaimer_beware" = "Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!";
 "dialog_routing_check_gps" = "Ελέγξτε το σήμα GPS";
@@ -467,7 +467,7 @@
 "read_in_wikipedia" = "Βικιπέδια";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "Κοινά της Wikimedia";
 "p2p_your_location" = "Η τοποθεσία σας";
 "p2p_start" = "Έναρξη";
 "p2p_from_here" = "Διαδρομή από";
@@ -627,25 +627,16 @@
 "kilometers_per_hour" = "χμ/ω";
 
 /* abbreviation for mile(s) */
-"mi" = "mi";
+"mi" = "μι";
 
 /* A unit of measure */
 "ft" = "πόδια";
 "miles_per_hour" = "mph";
-"hour" = "h";
-"minute" = "min";
-"day" = "d";
+"hour" = "Ωρα";
+"minute" = "λπτ";
+"day" = "Μέρα";
 "placepage_more_button" = "Περισσότερα";
 "book_button" = "Κράτηση";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Φωτογραφίες, κριτικές, κράτηση";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Λεπτομέρειες στο Kayak";
 "placepage_call_button" = "Κλήση";
 "placepage_edit_bookmark_button" = "Επεξεργασία αγαπημένου";
 "placepage_bookmark_name_hint" = "Όνομα αγαπημένου";
@@ -692,7 +683,7 @@
 "mobile_data_dialog" = "Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;";
 "mobile_data_option_always" = "Να χρησιμοποιείται πάντα";
 "mobile_data_option_today" = "Μόνο σήμερα";
-"mobile_data_option_not_today" = "Να μην χρησιμοποιηθεί σήμερα";
+"mobile_data_option_not_today" = "Να Μην χρησιμοποιηθεί σήμερα";
 "mobile_data" = "Ίντερνετ μέσω δικτύου κινητής";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -709,7 +700,7 @@
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
 "log_file_size" = "Μέγεθος αρχείου καταγραφής: %@";
-"transliteration_title" = "Μεταγραφή στα Λατινικά";
+"transliteration_title" = "Μεταγραφή στο λατινικό αλφάβητο";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Έξοδος";
@@ -849,7 +840,7 @@
 "carplay_roundabout_exit" = "%@ έξοδος";
 
 /* max. 10 symbols, both iOS and Android */
-"sort" = "Ταξινόμηση";
+"sort" = "Ταξινόμηση…";
 
 /* iOS */
 "sort_default" = "Ταξινόμηση κατά προεπιλογή";
@@ -880,7 +871,7 @@
 "search_in_the_list" = "Αναζήτηση στη λίστα";
 "religious_places" = "Χώροι Λατρείας";
 "transit_not_found" = "Η πλοήγηση με μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
-"dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή μετρό";
+"dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή του μετρό";
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";
 "button_layer_isolines" = "Υψομετρικά";
 "isolines_activation_error_dialog" = "Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής";
@@ -970,13 +961,13 @@
 "car_used_on_the_phone_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου.";
+"car_used_on_the_car_screen" = "Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Συνέχεια στο κινητό";
 
 /* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
-"car_continue_in_the_car" = "Προς οθόνη αυτοκ.";
+"car_continue_in_the_car" = "Στην οθόνη του αυτοκινήτου";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Πεζοπορία";

@@ -1041,6 +1041,7 @@ node|z17-[aeroway=gate],
 area|z17-[aeroway=gate],
 node|z17-[sport],
 area|z17-[sport],
+node|z17-[highway=ladder],
 node|z18-[amenity=dojo],
 area|z18-[amenity=dojo],
 node|z18-[amenity=vending_machine],
@@ -1080,10 +1081,12 @@ node|z18-[man_made=water_tower],
 node|z18-[man_made=tower],
 node|z18-[amenity=bbq],
 area|z18-[amenity=bbq],
+node|z18-[leisure=firepit],
 node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],
 area|z18-[amenity=stripclub],
+node|z18-[amenity=love_hotel],
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
@@ -1280,6 +1283,8 @@ node|z17-[leisure=fitness_station]
 node|z17-[leisure=sports_centre]
 node|z17-[leisure=sports_hall]
 {icon-image: pitch-m.svg;icon-min-distance: 10;}
+node|z17-[leisure=dance]
+{icon-image: dance-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_centre]
 {icon-image: fitness_centre-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
@@ -1476,6 +1481,7 @@ node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub]
 {icon-image: nightclub-m.svg;font-size: 11;}
 
+node|z18-[amenity=love_hotel],
 node|z18-[amenity=brothel],
 area|z18-[amenity=brothel],
 node|z18-[amenity=stripclub],
@@ -1548,6 +1554,9 @@ node|z16-[barrier=turnstile],
 
 node|z16-[barrier=entrance],
 {icon-image: entrance-barrier-s.svg; font-size: 11;}
+
+node|z17-[highway=ladder],
+{icon-image: ladder-m.svg;font-size: 11;}
 
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
@@ -1844,6 +1853,9 @@ node|z18-[amenity=bbq],
 area|z18-[amenity=bbq]
 {icon-image: bbq-m.svg;font-size: 11;}
 
+node|z18-[leisure=firepit],
+{icon-image: firepit-m.svg;font-size: 11;}
+
 node|z18-[man_made=survey_point],
 {icon-image: survey_point-m.svg;font-size: 11;}
 
@@ -1978,6 +1990,7 @@ node|z16-[shop=gift],
 area|z16-[shop=gift],
 node|z16-[shop=music],
 area|z16-[shop=music],
+node|z16-[amenity=studio],
 node|z16-[shop=video],
 area|z16-[shop=video],
 node|z16-[shop=musical_instrument],
@@ -2209,6 +2222,8 @@ area|z16[shop=gift]
 node|z16[shop=music],
 area|z16[shop=music],
 {icon-image: music-m.svg;}
+node|z16[amenity=studio],
+{icon-image: studio-m.svg;}
 node|z16[shop=video],
 area|z16[shop=video]
 {icon-image: media-m.svg;}
@@ -2421,6 +2436,8 @@ area|z17-[shop=gift]
 node|z17-[shop=music],
 area|z17-[shop=music],
 {icon-image: music-m.svg;icon-min-distance: 24;}
+node|z17-[amenity=studio],
+{icon-image: studio-m.svg;icon-min-distance: 24;}
 node|z17-[shop=video],
 area|z17-[shop=video]
 {icon-image: media-m.svg;icon-min-distance: 24;}

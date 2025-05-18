@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Kaarten opslaan in</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Selecteer de map waar kaarten naar gedownload worden</string>
+    <string name="maps_storage_summary">Selecteer de map waar kaarten naar gedownload worden.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Kaarten</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -114,7 +114,6 @@
     <string name="measurement_units">Afstandseenheid</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Waar iets gaan eten</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Caravanfaciliteiten</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notities</string>
@@ -319,10 +317,6 @@
     <string name="google_play_services">Google Play-locatieservices</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bepaal snel je locatie bij benadering via Bluetooth, WiFi of een mobiel netwerk</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Hotellinks</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Foto\'s, beoordelingen en reserveringslinks worden weergegeven voor hotels die een vermelding op Kayak.com hebben. De verwijzingsbonus die voor elke boeking via deze links wordt ontvangen, gaat naar de ontwikkeling van Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Download kaarten op de route</string>
     <!-- Text for routing error dialog -->
@@ -365,13 +359,12 @@
     <string name="gray">Grijs</string>
     <!-- blue gray color -->
     <string name="blue_gray">Grijsblauw</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Belangrijk bij het volgen van een route:</string>
-    <string name="dialog_routing_disclaimer_priority">— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;</string>
+    <string name="dialog_routing_disclaimer_priority">— De toestand van het wegdek, de verkeersregels en -borden hebben altijd voorrang op het advies van het navigatiesysteem;</string>
     <string name="dialog_routing_disclaimer_precision">— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Beschouw de voorgestelde routes enkel als aanbevelingen;</string>
-    <string name="dialog_routing_disclaimer_borders">— Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen;</string>
+    <string name="dialog_routing_disclaimer_borders">— Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen.</string>
     <string name="dialog_routing_disclaimer_beware">Blijf alert en rij veilig!</string>
     <string name="dialog_routing_check_gps">Controleer gps-signaal</string>
     <string name="dialog_routing_error_location_not_found">Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.</string>
@@ -395,7 +388,6 @@
     <string name="not_now">Niet nu</string>
     <string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
     <string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
     <string name="search_select_map">Selecteer de kaart</string>
@@ -555,14 +547,6 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Meer</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Foto\'s, beoordelingen, boeken</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">De doorverwijsbonus die je ontvangt voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Details op Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayak uitschakelen</string>
     <string name="placepage_edit_bookmark_button">Bewerk bladwijzer</string>
     <string name="placepage_personal_notes_hint">Persoonlijke aantekeningen (tekst of html)</string>
     <string name="editor_comment_hint">Reactie…</string>
@@ -632,7 +616,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
     <string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
-    <string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
     <string name="core_entrance">Ingang</string>
     <string name="error_enter_correct_name">Voer een geldige naam in</string>
@@ -695,7 +679,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Waarschuw nooit</string>
     <string name="power_managment_title">Energiebesparende modus</string>
-    <string name="power_managment_description">Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon</string>
+    <string name="power_managment_description">Probeer batterijgebruik te verminderen ten koste van enkele functionaliteit.</string>
     <string name="power_managment_setting_never">Nooit</string>
     <string name="power_managment_setting_auto">Wanneer batterij bijna leeg is</string>
     <string name="power_managment_setting_manual_max">Maximale energiebesparing</string>
@@ -710,7 +694,7 @@
     <string name="avoid_ferry">Vermijd veerboten</string>
     <string name="avoid_motorways">Vermijd snelwegen</string>
     <string name="unable_to_calc_alert_title">Kan route niet berekenen</string>
-    <string name="unable_to_calc_alert_subtitle">Helaas konden we geen route berekenen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
+    <string name="unable_to_calc_alert_subtitle">Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.</string>
     <string name="define_to_avoid_btn">Configureer wegen om te vermijden</string>
     <string name="change_driving_options_btn">Route-instellingen ingeschakeld</string>
     <string name="toll_road">Tolweg</string>
@@ -750,7 +734,6 @@
     <string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Eten</string>
     <string name="tourist_places">Bezienswaardigheden</string>
@@ -770,7 +753,7 @@
     <string name="religious_places">Religieuze plaatsen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="transit_not_found">Metro-navigatie is nog niet beschikbaar in deze regio</string>
-    <string name="dialog_pedestrian_route_is_long_header">Metroroute niet gevonden</string>
+    <string name="dialog_pedestrian_route_is_long_header">Geen metroroute gevonden</string>
     <string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
     <string name="button_layer_isolines">Hoogtes</string>
     <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
@@ -784,7 +767,7 @@
     <string name="elevation_profile_time">Tijd:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in om hoogtelijnen te bekijken</string>
     <string name="downloader_loading_ios">Downloaden</string>
-    <string name="download_map_title">Download de wereldkaart</string>
+    <string name="download_map_title">Download de wereldoverzichtskaart</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen</string>
     <!-- Used in DownloadResources startup screen -->
@@ -843,7 +826,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Deze app heeft je toestemming nodig</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto heeft een locatie toestemming nodig om effectief te werken</string>
+    <string name="aa_request_permission_activity_text">Organic Maps in Android Auto heeft locatietoestemming nodig om effectief te werken</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Geef toestemming</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -888,10 +871,30 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Route is leeg - niets om op te slaan</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Kan het dialoogvenster voor het selecteren van mappen niet weergeven omdat er geen geschikte app op uw apparaat is geïnstalleerd. Installeer een app voor bestandsbeheer en probeer het opnieuw</string>
+    <string name="error_no_file_manager_app">Kan het mappen-selecteerscherm niet weergeven omdat er geen geschikte app op uw apparaat is geïnstalleerd. Installeer een app voor bestandsbeheer en probeer het opnieuw.</string>
     <string name="choose_color">Kies een kleur</string>
     <string name="edit_track">Route bewerken</string>
     <string name="uri_open_location_failed">Geen app geïnstalleerd die de locatie kan openen</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigatie</string>
+    <string name="menu">Menu</string>
+    <string name="github">GitHub</string>
+    <string name="gb">GB</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">Matrix</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="level_value_generic">Niveau: %s</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="mb">MB</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
 </resources>

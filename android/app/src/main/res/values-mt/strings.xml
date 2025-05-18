@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Lura</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Ikkanċella</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Ħassar</string>
+    <string name="download_maps">Niżżel il-mapep</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">It-tniżżil falla. Għaffas biex terġa tipprova.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Tniżżil…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometri</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Mili</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
+    <!-- Update maps later button text -->
+    <string name="later">Aktar tard</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Fittex</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Fittex fuq il-mappa</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Bħalissa għandek kull Servizzi tal-Lokażżjoni fuq dan l-apparat jew l-applikazzjoni mitfijin. Jekk jogħġbok erġa ixgħelhom ġos-Settings.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Uri fuq il-mappa</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">It-tniżżil falla</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Erġa prova</string>
+    <string name="about_menu_title">Dwar Organic Maps</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">B\' xejn għal kulħadd, magħmul bl-imħabba</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Bla reklami, bla traċċar, bla kollezjoni ta\' data</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Bla ħela ta\' batterija, jaħdem offline</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Malajr, minimalista, żvillupat mill-komunità</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Apliażżjoni tas-sors miftuħ magħmula min dilettanti u il-voluntiera</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Settings tal-lokażżjoni</string>
+    <string name="close">Ġħalaq</string>
+    <string name="unsupported_phone">L-applikazzjoni għanda bżonn \'hardware accelerated OpenGL\'. Sfortunatament, l-apparat tiegħek ma jappoġġjax dan.</string>
+    <string name="download">Niżżel</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża Organic Maps</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Jekk jogħġbok żid ftit spazju fuq il-karta tal-memorja jew il-ħażna tal-USB biex tkun tista tuża l-applikazzjoni</string>
+    <string name="download_resources">Qabel ma tibda tuża l-applikazzjoni, niżżel il-mappa ġenerali tad-dinja fuq l-apparat. 
+\nDan ser juża %s ta\' storage.</string>
+    <string name="download_resources_continue">Mur għal Mappa</string>
+    <string name="downloading_country_can_proceed">Tniżżil %s. Issa tista
+\ntkompli għal mappa.</string>
+    <string name="download_country_ask">Tniżżel %s?</string>
+    <string name="update_country_ask">Aġġorna %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pawsa</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Kompli</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s tniżżil falla</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Żid lista ġdida</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Isem tal-lista tal-Bookmark</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Werrejja u Korsiji</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Il-Postijiet Tiegħi</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Isem</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Indirizz</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Lista</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Issalvagwardja il-mapep ġo</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Għażel il-post fejn tixtieq tniżżel il-mapep.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Mapep imniżżla</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Ħażna internali privata</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Ħażna internali maqsuma</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Karta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ħażna esterna maqsuma</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s b\' xejn min %2$s</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Iċċaqlaq il-mapep?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Errur waqt it-tmexxija tal-fajls tal-mapep</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Din tista tieħu diversi minuti. 
+\nJekk jogħġbok stenna…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Unitajiet tal-kejl</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Għażel bejn mili u kilometri</string>
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Għażel fejn tiekol</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Tal-Merċa</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Trasport</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkeġġ</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Xiri</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Lukanda</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Siti</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Divertiment</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">ATM</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Ħajja tal-lejl</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Vaganza tal-Familja</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Bank</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Spiżerija</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Sptar</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">Loki</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Uffiċċju postali</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Puliżija</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Riċiklaġġ</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Ilma</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Faċilitajiet tal-RV</string>
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Noti</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Organic Maps bookmarks maqsuma miegħek</string>
+    <string name="share_bookmarks_email_body">Helow!
+\n
+\nMehmuża huma il-bookmarks; iftaħhom ġo Organic Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://omaps.app/get?kmz
+\n
+\nĦu pjaċir ivvjaġġa ġo Organic Maps!</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Tgħobijja tal-bookmarks</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Bookmarks mgħobbija b\'suċċess!Tista issibhom ġol-mappa jew fuq l-iskrin tal-Maniġer tal-Bookmarks.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">It-tgħobbija tal-bookmarks falliet. Il-fajl jista jkun korrott jew difettuż.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">It-tip tal-fajl mhuwiex rikonoxxut mill-applikazzjoni:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Il-fajl falla biex jiftaħ %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Editja</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Il-lokażżjoni tiegħek mhuwiex determinat s\'issa</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Jiddispjaċini, is-settings tal-Ħażna tal-Mappa huma mitfija bħalissa.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">It-tniżżil tal-mappa għaddej bħalissa.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Ara il-lokażżjoni kurrenti tiegħi ġo Organic Maps! %1$s or %2$s M\'għandekx mapep offlajn? Niżżel hawn: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Merħba, ara il-pin tiegħi fuq Organic Maps!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Merħba, ara il-lokażżjoni kurrenti tiegħi fuq il-mappa ta\'Organic Maps!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Merħba, 
+\n
+\nJien qiegħed hawn: %1$s. Għaffas din il-link %2$s jew fuq din %3$s biex tara il-post fuq il-mappa.
+\n
+\nGrazzi.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Aqsam</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">E-mejl</string>
+    <string name="limited_accuracy">Preċiżjoni Limitata</string>
+    <string name="category_secondhand">Użati</string>
+    <string name="copied_to_clipboard">Ikkupjat fuq il-klibbord: %s</string>
+    <string name="done">Lest</string>
+    <string name="data_version">Dejta tal-OpenStreetMap: %s</string>
+    <string name="osm_log_out_confirmation">Ċert li trid toħroġ mill-akkount tal-OpenStreetMap?</string>
+    <string name="tracks_title">Korsa</string>
+    <string name="share_my_location">Ixxerja l-post tiegħi</string>
+    <string name="prefs_group_information">Informazzjoni</string>
+    <string name="prefs_group_route">Navigazzjoni</string>
+    <string name="pref_zoom_title">Buttuni taż-żum</string>
+    <string name="pref_zoom_summary">Uri fuq il-mappa</string>
+    <string name="pref_map_style_title">Il-mod ta’ bil-lejl</string>
+    <string name="pref_map_3d_title">Dehra tal-perspettiva</string>
+    <string name="pref_map_3d_buildings_disabled_summary">Il-binjiet 3D huma mitfigħin fil-mod tal-iffrankar tal-enerġija</string>
+    <string name="pref_tts_enable_title">Istruzzjonijiet tal-vuċi</string>
+    <string name="pref_tts_street_names_description">Meta jkun attivat, l-isem tat-triq jew tal-ħruġ biex iddur fuqu se jiġi mitkellem b’ leħen għoli.</string>
+    <string name="pref_tts_test_voice_title">Ittestja id-Direzzjonijiet tal-vuċi (TTS, Test għad-diskors)</string>
+    <string name="pref_tts_unavailable">Mhux disponibbli</string>
+    <string name="pref_map_auto_zoom">Iżżumja awtomatikament</string>
+    <string name="placepage_distance">Distanza</string>
+    <string name="search_show_on_map">Uri fuq il-mappa</string>
+    <string name="menu">Menu</string>
+    <string name="website">Websajt</string>
+    <string name="news">Aħbarijiet</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="rate_the_app">Għati rata lill-app</string>
+    <string name="help">Għajnuna</string>
+    <string name="faq">Mistoqsijiet Frekwenti</string>
+    <string name="already_donated">Ġa mogħtija id-donazzjoni</string>
+    <string name="remind_me_later">Fakkar aktar tard</string>
+    <string name="support_organic_maps">Appoġġja lill-Organic Maps</string>
+    <string name="how_to_support_us">Appoġġja lill-proġett</string>
+    <string name="copyright">Drittijiet tal-awtur</string>
+    <string name="report_a_bug">Irrapporta problemi bl-app</string>
+    <string name="long_tap_toast">Taptap fit-tul fuq il-mappa għal darb’ oħra biex tara l-interface</string>
+    <string name="downloader_update_all_button">Aġġorna kollox</string>
+    <string name="downloader_downloaded_subtitle">Imniżżla</string>
+    <string name="downloader_queued">Fil-kju</string>
+    <string name="downloader_near_me_subtitle">Ħdejja</string>
+    <string name="length">Tul</string>
+    <string name="bookmarks">Werrejja</string>
+    <string name="pref_tts_language_title">Lingwa tal-vuċi</string>
+    <string name="donate">Donazzjoni</string>
+    <string name="compass_calibration_recommended">Tejjeb id-direzzjoni tal-vleġġa billi tmexxi l-mowbajl f’ moviment figure-eight biex tikkalibra l-boxxla.</string>
+    <string name="downloader_cancel_all">Ikkanċella kollox</string>
+    <string name="category_fuel">Gass</string>
+    <string name="compass_calibration_required">Mexxi l-mowbajl f\' moviment figura-tmienja biex tikkalibra l-boxxla u tiffissa d-direzzjoni vleġġa fuq il-mappa.</string>
+    <string name="precise_location_is_disabled_long_text">Biex tassigura navigazzjoni preċisa ixgħel Precise Location ġewwa is-Settings.</string>
+    <string name="off">Itfi</string>
+    <string name="pref_map_3d_buildings_title">Bini 3D</string>
+    <string name="prefs_group_general">Settings ġenerali</string>
+    <string name="on">Ixgħel</string>
+    <string name="pref_tts_street_names_title">Ħabbar l-ismijiet tat-toroq</string>
+    <string name="downloader_status_maps">Mappep</string>
+    <string name="pref_tts_playing_test_voice">Iċċekkja l-volum jew is-settings tal-Vuċi għad-diskors tas-sistema jekk ma tismax il-vuċi issa.</string>
+    <string name="feedback">Feedback</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="downloader_downloading">Tniżżil:</string>
+    <string name="downloader_delete_map_while_routing_dialog">Biex tħassar il-mappa, waqqaf in-navigazzjoni.</string>
+    <string name="downloader_retry">Erġa ’pprova</string>
+    <string name="routing_download_maps_along">Niżżel il-mapep kollha tul ir-rotta tiegħek</string>
+    <string name="routing_requires_all_map">Niżżel il-mapep kollha tul ir-rotta tiegħek.</string>
+    <string name="enable_location_services">Attiva s-servizzi tal-post</string>
+    <string name="save">Issejvja</string>
+    <string name="create">Oħloq</string>
+    <string name="green">Aħdar</string>
+    <string name="purple">Vjola</string>
+    <string name="brown">Kannella</string>
+    <string name="pink">Roża</string>
+    <string name="deep_purple">Vjola Fond</string>
+    <string name="light_blue">Blu Ċar</string>
+    <string name="cyan">Blu jagħti fl-aħdar</string>
+    <string name="deep_orange">Oranġjo Fond</string>
+    <string name="gray">Griż</string>
+    <string name="dialog_routing_disclaimer_title">Meta ssegwi r-rotta, jekk jogħġbok żomm f’ moħħok:</string>
+    <string name="dialog_routing_disclaimer_precision">— Il-mappa tista ’ma tkunx preċiża, u r-rotta ssuġġerita mhux dejjem tista’ tkun l-aħjar mod biex tasal fid-destinazzjoni;</string>
+    <string name="dialog_routing_disclaimer_beware">Jekk jogħġbok ibqa ’attent u sikur fit-toroq!</string>
+    <string name="dialog_routing_error_location_not_found">Ma jistax joħloq rotta. Il-koordinati attwali tal-GPS ma setgħux jiġu identifikati.</string>
+    <string name="dialog_routing_location_turn_wifi">Jekk jogħġbok iċċekkja s-sinjal tal-GPS tiegħek. L-attivazzjoni tal-Wi-Fi ttejjeb il-preċiżjoni tal-post tiegħek.</string>
+    <string name="dialog_routing_location_turn_on">Attiva s-servizzi tal-post</string>
+    <string name="dialog_routing_location_unknown_turn_on">Ma jistax isib il-koordinati GPS attwali. Attiva s-servizzi tal-post biex tikkalkula r-rotta.</string>
+    <string name="dialog_routing_unable_locate_route">Ir-rotta ma\' tistax tinsab</string>
+    <string name="dialog_routing_cant_build_route">Ir-rotta ma\' tistax tinħoloq.</string>
+    <string name="dialog_routing_change_start_or_end">Irranġa l-punt tal-bidu jew id-destinazzjoni tiegħek.</string>
+    <string name="dialog_routing_change_start">Irranġa l-punt tat-tluq</string>
+    <string name="dialog_routing_start_not_determined">Ir-rotta ma\' nħolqitx. Il-punt tal-bidu ma\' jistax jinsab.</string>
+    <string name="dialog_routing_select_closer_start">Jekk jogħġbok agħżel punt tat-tluq eqreb lejn triq.</string>
+    <string name="dialog_routing_change_end">Irranġa d-destinazzjoni</string>
+    <string name="dialog_routing_end_not_determined">Ir-rotta ma nħolqitx. Id-destinazzjoni ma\' tistax tinsab.</string>
+    <string name="dialog_routing_select_closer_end">Agħżel punt ta’ destinazzjoni li jinsab eqreb ta’ triq.</string>
+    <string name="dialog_routing_intermediate_not_determined">Jekk jogħġbok irranġa l-punt intermedju tiegħek.</string>
+    <string name="dialog_routing_application_error">Ir-rotta ma\' tistax tinħoloq minħabba żball fl-applikazzjoni.</string>
+    <string name="dialog_routing_try_again">Jekk jogħġbok erġa ’pprova</string>
+    <string name="search_select_map">Agħżel il-Mappa</string>
+    <string name="show">Uri</string>
+    <string name="hide">Aħbi</string>
+    <string name="categories">Kategoriji</string>
+    <string name="search_not_found">Oops, ma nstab l-ebda riżultat.</string>
+    <string name="search_not_found_query">Niżżel ir-reġjun fejn qed tfittex jew ipprova żid isem ta’ belt/raħal fil-qrib.</string>
+    <string name="p2p_your_location">Il-Lokazzjoni Tiegħek</string>
+    <string name="p2p_start">Ibda</string>
+    <string name="p2p_from_here">Rotta minn</string>
+    <string name="p2p_only_from_current">In-navigazzjoni hija disponibbli biss mill-post attwali tiegħek.</string>
+    <string name="next_button">Li jmiss</string>
+    <string name="editor_time_to">Sa</string>
+    <string name="editor_time_add">Żid Skeda</string>
+    <string name="editor_time_delete">Ħassar l-Iskeda</string>
+    <string name="editor_time_open">Miftuħ</string>
+    <string name="editor_time_add_closed">Żid Ħinijiet Mhux tan-Negozju</string>
+    <string name="editor_time_advanced">Mod Avvanzat</string>
+    <string name="editor_time_simple">Mod Sempliċi</string>
+    <string name="editor_hours_closed">Ħinijiet Mhux tan-Negozju</string>
+    <string name="editor_time_title">Sigħat tan-Negozju</string>
+    <string name="editor_example_values">Valuri tal-Eżempju</string>
+    <string name="editor_correct_mistake">Irranġa żball</string>
+    <string name="editor_add_select_location">Agħżel il-Post</string>
+    <string name="editor_report_problem_desription_1">Jekk jogħġbok iddeskrivi l-problema fid-dettall sabiex il-komunita OpenStreetMap tkun tista ’tirranġaha.</string>
+    <string name="editor_report_problem_title">Kwistjoni</string>
+    <string name="editor_report_problem_no_place_title">Dan il-post ma jeżistix</string>
+    <string name="editor_report_problem_under_construction_title">Magħluq għall-manutenzjoni</string>
+    <string name="editor_report_problem_duplicate_place_title">Post Duplikat</string>
+    <string name="autodownload">Mapep Jitniżżlu Awtomatikament</string>
+    <string name="daily">Kuljum</string>
+    <string name="closes_in">Jagħlaq f’ %s</string>
+    <string name="opens_in">Jiftaħ f’ %s</string>
+    <string name="closed">Magħluq</string>
+    <string name="edit_opening_hours">Editja s-sigħat tan-negozju</string>
+    <string name="no_osm_account">M’ għandekx kont ta’ OpenStreetMap?</string>
+    <string name="register_at_openstreetmap">Irreġistra f’ OpenStreetMap</string>
+    <string name="not_signed_in">Mhux imdaħħal</string>
+    <string name="login">Illoggja</string>
+    <string name="forgot_password">Insejt il-password tiegħek?</string>
+    <string name="street">Triq</string>
+    <string name="house_number">Numru tal-bini</string>
+    <string name="building">Bini</string>
+    <string name="add_street">Żid triq</string>
+    <string name="empty_street_name_error">Daħħal isem tat-triq</string>
+    <string name="choose_language">Agħżel lingwa</string>
+    <string name="cuisine">Kċina</string>
+    <string name="select_cuisine">Agħżel il-kċina</string>
+    <string name="email_or_username">E-mejl jew isem l-utent</string>
+    <string name="downloader_mwm_migration_dialog">Biex toħloq rotta, trid taġġorna l-mapep kollha u mbagħad terġa ’tippjana r-rotta.</string>
+    <string name="downloader_no_space_title">Mhux biżżejjed spazju</string>
+    <string name="downloader_no_space_message">Ħassar kwalunkwe dejta mhux neċessarja</string>
+    <string name="editor_login_error_dialog">Żball tal-illoggjar.</string>
+    <string name="editor_profile_changes">Bidliet Ivverifikati</string>
+    <string name="editor_focus_map_on_location">Mexxi l-mappa biex tqiegħed is-salib fil-post tal-post jew tan-negozju.</string>
+    <string name="editor_edit_place_title">Editjar</string>
+    <string name="editor_add_place_title">Żiddiet</string>
+    <string name="editor_edit_place_name_hint">Isem tal-post</string>
+    <string name="editor_report_problem_other_title">Problema differenti</string>
+    <string name="placepage_add_business_button">Żid in-negozju</string>
+    <string name="osm_presentation">Dejta tal-OpenStreetMap maħluqa mill-komunita’ fl-%s. Sir af aktar dwar kif teditja u taġġorna l-mappa f’ OpenStreetMap.org</string>
+    <string name="login_to_make_edits_visible">Oħloq kont OpenStreetMap jew idħol biex tippubblika l-editjar tal-mapep tiegħek fid-dinja.</string>
+    <string name="downloader_of">%1$d ta\' %2$d</string>
+    <string name="download_over_mobile_header">Niżżel fuq konnessjoni tan-netwerk ċellulari?</string>
+    <string name="error_enter_correct_house_number">Daħħal numru tal-bini validu</string>
+    <string name="editor_storey_number">Numru ta’ sulari (massimu ta’ %d)</string>
+    <string name="error_enter_correct_storey_number">In-numru ta’ sulari m’ għandux jaqbeż il-%d</string>
+    <string name="editor_zip_code">Kodiċi ZIP</string>
+    <string name="error_enter_correct_zip_code">Daħħal kodiċi ZIP validu</string>
+    <string name="core_placepage_unknown_place">Il-Punt tal-Mappa</string>
+    <string name="editor_other_info">Nota lill-voluntiera ta’ OpenStreetMap (fakultattiva)</string>
+    <string name="editor_more_about_osm">Aktar dwar OpenStreetMap</string>
+    <string name="editor_osm_history">Il-kronoloġija tal-editjar tiegħek</string>
+    <string name="editor_operator">Operatur</string>
+    <string name="editor_category_unsuitable_title">Ma tistax isib kategorija adattata?</string>
+    <string name="downloader_no_downloaded_maps_title">Ma niżżilt l-ebda mapep</string>
+    <string name="downloader_no_downloaded_maps_message">Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.</string>
+    <string name="current_location_unknown_error_title">Il-post attwali mhux magħruf.</string>
+    <string name="placepage_more_button">Aktar</string>
+    <string name="placepage_edit_bookmark_button">Editja l-Bookmark</string>
+    <string name="placepage_personal_notes_hint">Noti personali (kitba jew html)</string>
+    <string name="editor_reset_edits_message">Armi l-bidliet lokali kollha?</string>
+    <string name="editor_reset_edits_button">Armi</string>
+    <string name="editor_remove_place_button">Ħassar</string>
+    <string name="editor_place_doesnt_exist">Il-post ma\' jeżistix</string>
+    <string name="error_enter_correct_phone">Daħħal numru tat-telefown validu</string>
+    <string name="error_enter_correct_web">Daħħal indirizz validu tal-web</string>
+    <string name="error_enter_correct_email">Daħħal l\' e-mejl</string>
+    <string name="error_enter_correct_vk_page">Daħħal isem l-utent jew indirizz tal-web validu ta\' VK</string>
+    <string name="error_enter_correct_line_page">Daħħal ID tal-LINJA jew indirizz tal-web validu</string>
+    <string name="placepage_add_place_button">Żid post f’ OpenStreetMap</string>
+    <string name="editor_share_to_all_dialog_message_2">L-edituri ta’ OpenStreetMap ser jiċċekkjaw il-bidliet u jikkuntattjawk jekk ikollhom xi mistoqsijiet.</string>
+    <string name="navigation_stop_button">Waqqaf</string>
+    <string name="track_recording">Reġistrazzjoni tal-korsija</string>
+    <string name="accept">Aċċetta</string>
+    <string name="mobile_data_option_today">Illum Biss</string>
+    <string name="mobile_data_option_not_today">Tużax Illum</string>
+    <string name="mobile_data">Internet Mobbli</string>
+    <string name="mobile_data_option_never">Tuża Qatt</string>
+    <string name="mobile_data_option_ask">Staqsi Dejjem</string>
+    <string name="traffic_update_maps_text">Biex tintwera d-dejta dwar it-traffiku, il-mapep iridu jiġu aġġornati.</string>
+    <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
+    <string name="traffic_update_app">Aġġorna Organic Maps</string>
+    <string name="enable_logging">Attiva l-illoggjar</string>
+    <string name="prefs_languages_information_off_link">Għal aktar informazzjoni jekk jogħġbok iċċekkja din il-gwida.</string>
+    <string name="core_exit">Oħroġ</string>
+    <string name="routing_add_finish_point">Uża t-tiftixa jew għafas fuq il-mappa biex iżżid punt tad-destinazzjoni</string>
+    <string name="planning_route_manage_route">Immaniġġja r-Rotta</string>
+    <string name="button_plan">Pjan</string>
+    <string name="placepage_add_stop">Żid Waqfa</string>
+    <string name="dialog_error_storage_title">Problema tal-aċċess għall-ħażna</string>
+    <string name="dialog_error_storage_message">Il-ħżin estern mhuwiex aċċessibbli. Il-kard tal-SD setgħet tneħħiet, saritilha l-ħsara, jew is-sistema tal-fajl tinqara biss. Jekk jogħġbok, iċċekkja l-karta tal-SD tiegħek jew ikkuntattjana fuq support@organicmaps.app</string>
+    <string name="core_entrance">Daħla</string>
+    <string name="error_enter_correct_name">Daħħal isem korrett</string>
+    <string name="bookmark_lists">Listi</string>
+    <string name="bookmark_lists_hide_all">Aħbi kollox</string>
+    <string name="bookmarks_create_new_group">Oħloq lista ġdida</string>
+    <string name="bookmarks_import">Importa l-Bookmarks u l-Korsiji</string>
+    <string name="bookmarks_error_title_empty_list_name">L-isem ma jistax ikun vojt</string>
+    <string name="bookmarks_error_message_empty_list_name">Daħħal l-isem tal-lista</string>
+    <string name="bookmarks_new_list_hint">Lista ġdida</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Dan l-isem diġa meħud</string>
+    <string name="phone_number">Numru tat-telefown</string>
+    <string name="profile">Profil ta’ OpenStreetMap</string>
+    <string name="terms_of_use">Termini tal-użu</string>
+    <string name="restore">Irrestawra</string>
+    <plurals name="tracks">
+        <item quantity="one">Trekk %d</item>
+        <item quantity="two">%d Trekks</item>
+        <item quantity="few">%d Trekks</item>
+        <item quantity="many">%d Trekks</item>
+        <item quantity="other">%d Trekks</item>
+    </plurals>
+    <string name="button_layer_traffic">Traffiku</string>
+    <string name="subway_data_unavailable">Il-mappa tas-subway mhix disponibbli</string>
+    <string name="bookmarks_empty_list_title">Din il-lista hija vojta</string>
+    <string name="bookmarks_empty_list_message">Biex iżżid bookmark, għafas post fuq il-mappa u mbagħad għafas is-simbolu tal-istilla</string>
+    <string name="export_file_gpx">Esporta GPX</string>
+    <string name="delete_list">Ħassar il-lista</string>
+    <string name="speedcams_alert_title">Kameras tal-veloċita</string>
+    <string name="place_description_title">Deskrizzjoni tal-Post</string>
+    <string name="pref_tts_speedcams_auto">Wissi jekk għaddej b\' veloċita qawwija</string>
+    <string name="pref_tts_speedcams_always">Dejjem wissi</string>
+    <string name="pref_tts_speedcams_never">Qatt twissi</string>
+    <string name="power_managment_title">Mod ta’ ffrankar tal-enerġija</string>
+    <string name="avoid_ferry">Evita l-laneċ</string>
+    <string name="unable_to_calc_alert_subtitle">Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.</string>
+    <string name="define_to_avoid_btn">Iddefinixxi t-toroq li tixtieq tevita</string>
+    <string name="change_driving_options_btn">Għażliet tar-rotta attivati</string>
+    <string name="capacity">Kapaċita: %s</string>
+    <string name="sort_bookmarks">Issortja l-bookmarks</string>
+    <string name="by_default">B’ mod awtomatiku</string>
+    <string name="by_type">Skont it-tip</string>
+    <string name="by_date">Skont id-data</string>
+    <string name="by_name">Skont l-isem</string>
+    <string name="week_ago_sorttype">Ġimgħa ilu</string>
+    <string name="month_ago_sorttype">Xahar ilu</string>
+    <string name="moremonth_ago_sorttype">Aktar minn xahar ilu</string>
+    <string name="moreyear_ago_sorttype">Aktar minn sena ilu</string>
+    <string name="near_me_sorttype">Ħdejja</string>
+    <string name="tourist_places">Siti</string>
+    <string name="museums">Mużewijiet</string>
+    <string name="swim_places">Għawm</string>
+    <string name="mountains">Muntanji</string>
+    <string name="animals">Annimali</string>
+    <string name="hotels">Lukandi</string>
+    <string name="shops">Ħwienet</string>
+    <string name="religious_places">Postijiet reliġjużi</string>
+    <string name="select_list">Agħżel il-lista</string>
+    <string name="button_layer_isolines">Linji tal-Contour</string>
+    <string name="isolines_activation_error_dialog">L-attivazzjoni tal-linji tal-contour teħtieġ it-tniżżil tad-dejta tal-mappa għal din iż-żona</string>
+    <string name="isolines_location_error_dialog">Il-linji tal-Contour għadhom mhumiex disponibbli f ’din iż-żona</string>
+    <string name="elevation_profile_ascent">Tlugħ</string>
+    <string name="elevation_profile_max_elevation">Elevazzjoni massima</string>
+    <string name="isolines_toast_zooms_1_10">Iżżumja ’l ġewwa biex tesplora l-isolines</string>
+    <string name="downloader_loading_ios">Tniżżil</string>
+    <string name="disk_error">Ma jistax joħloq fowlder u jmexxi fajls fuq il-memorja tat-tagħmir intern jew l-SD card</string>
+    <string name="disk_error_title">Żball fid-diska</string>
+    <string name="disconnect_usb_cable_title">Aqla\' l-kejbil tal-USB</string>
+    <string name="enable_keep_screen_on_description">Meta attivat, l-iskrin dejjem se jkun mixgħul meta juri l-mappa.</string>
+    <string name="enable_show_on_lock_screen">Uri fuq l-iskrin imsakkar</string>
+    <string name="change_map_locale">Lingwa tal-mappa</string>
+    <string name="app_tip_02">Togħġbok l-app tagħna? Jekk jogħġbok agħti donazzjoni biex tappoġġja l-iżvilupp! Għadha ma togħġbokx? Jekk jogħġbok għidilna għaliex, u nirranġawha!</string>
+    <string name="app_tip_03">Jekk taf żviluppatur tas-softwer, tista’ titolbu jimplimenta il-karatteristika li għandek bżonn.</string>
+    <string name="app_tip_06">Tista’ tgħin sabiex tittraduċi l-applikazzjoni tagħna fil-lingwa tiegħek.</string>
+    <string name="aa_request_permission_activity_text">organic Maps ġo\' Android Auto jeħtieġ permessi tal-post biex jaħdem b ’mod effettiv</string>
+    <string name="aa_grant_permissions">Għati Permess</string>
+    <string name="volume">Volum</string>
+    <string name="bookmarks_export">Esporta l-bookmarks u l-korsiji kollha</string>
+    <string name="clear_the_search">Neħħi t-tiftixa</string>
+    <string name="zoom_in">Iżżumja ’l ġewwa</string>
+    <string name="zoom_out">Iżżumja ’l barra</string>
+    <string name="website_menu">Link tal-menu</string>
+    <string name="open_in_app">Iftaħ f’ Applikazzjoni Oħra</string>
+    <string name="choose_color">Agħżel Kulur</string>
+    <string name="nav_auto">Auto fin-navigazzjoni</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">bookmark ta\' %d</item>
+        <item quantity="two">bookmarks ta\' %d</item>
+        <item quantity="few">bookmarks ta\' %d</item>
+        <item quantity="many">bookmarks ta\' %d</item>
+        <item quantity="other">bookmarks ta\' %d</item>
+    </plurals>
+    <string name="blue">Blu</string>
+    <string name="search_without_internet_advertisement">Biex tibda tfittex u toħloq rotot, jekk jogħġbok niżżel il-mappa. Wara dan ma jkollokx bżonn aktar konnessjoni mal-Internet.</string>
+    <string name="p2p_to_here">Rotta lejn</string>
+    <string name="clear_search">Neħħi l-kronoloġija tat-tiftix</string>
+    <string name="downloader_delete_map">Ħassar il-Mappa</string>
+    <string name="downloader_update_map">Aġġorna l-Mappa</string>
+    <string name="downloader_download_all_button">Niżżel kollox</string>
+    <string name="editor_report_problem_desription_2">Jew agħmilha int stess f’ https://www.openstreetmap.org/</string>
+    <string name="dialog_routing_download_cross_route">Niżżel mapep addizzjonali biex toħloq rotta aħjar li taqsam il-konfini ta ’din il-mappa.</string>
+        <string name="routing_not_enough_space">Mhux biżżejjed spazju</string>
+    <string name="logout">Oħroġ</string>
+    <string name="red">Aħmar</string>
+    <string name="orange">Oranġjo</string>
+    <string name="editor_time_close">Magħluq</string>
+    <string name="yes">Iva</string>
+    <string name="no">Le</string>
+    <string name="editor_osm_notes">In-noti tad-dejta tal-mappa tiegħek</string>
+    <string name="today">Illum</string>
+    <string name="social_media">Midja Soċjali</string>
+    <string name="downloader_update_maps">Aġġorna l-Mapep</string>
+    <string name="postal_code">Kodiċi Postali</string>
+    <string name="error_enter_correct_facebook_page">Daħħal indirizz tal-web, kont, jew isem tal-paġna validu ta ’Facebook</string>
+    <string name="no_available">Le</string>
+    <string name="downloader_search_field_hint">Sib mappa</string>
+    <string name="download_over_mobile_message">Dan jista’ jkun konsiderevolment għali b’ xi pjanijiet tal-mowbajl jew jekk qed tuża\' r-roaming.</string>
+    <string name="level_value_generic">Livell: %s</string>
+    <string name="downloader_delete_map_dialog">L-editti kollha tal-mappa tiegħek se jitħassru mal-mappa.</string>
+    <string name="common_check_internet_connection_dialog">Żgura li t-tagħmir tiegħek huwa mqabbad mal-Internet.</string>
+    <string name="editor_edit_place_category_title">Kategorija</string>
+    <string name="avoid_motorways">Evita l-passaġġi ħielsa</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) huwa proġett komunitarju biex tinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mapep fil-mapep organiċi u xogħlijiet simili għall-Wikipedija. Tista ’żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta’ utenti madwar id-dinja kollha. \nIngħaqad mal-komunita’ u għen biex issir mappa aħjar għal kulħadd!</string>
+    <string name="sort">Issortja…</string>
+    <string name="enable_show_on_lock_screen_description">Meta tkun attivata, l-applikazzjoni taħdem fuq il-lockscreen anki meta t-tagħmir ikun imsakkar.</string>
+    <string name="editor_comment_hint">Kumment…</string>
+    <string name="editor_about_osm">L-editjar tiegħek jittella’ fid-database pubblika <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">ta’ OpenStreetMap</a>. Jekk jogħġbok iżżidx informazzjoni personali jew bid-drittijiet tal-awtur.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Iċċekkja l-<a href="https://organicmaps.app/faq/editing/advanced-map-editing">gwida</a> tagħna għal struzzjonijiet dettaljati.</string>
+    <string name="learn_more">Tgħallem iktar</string>
+    <string name="editor_share_to_all_dialog_message_1">Kun ċert li ma daħħalt l-ebda informazzjoni privata jew personali.</string>
+    <string name="error_enter_correct_instagram_page">Daħħal isem l-utent jew indirizz tal-web validu ta’ Instagram</string>
+    <string name="delete_place_empty_comment_error">Jekk jogħġbok indika r-raġuni għat-tħassir tal-post</string>
+    <string name="mobile_data_description">L-internet mobbli huwa meħtieġ għan-notifiki tal-aġġornament tal-mapep u għat-tlugħ tal-editjar.</string>
+    <string name="bookmarks_error_message_share_empty">Ma tistax tixxerja lista vojta</string>
+    <string name="category_desc_more">…aktar</string>
+    <string name="alert_reauth_message">Illoggja f’ OpenStreetMap biex awtomatikament ittella’ l-editjar kollu tal-mappa tiegħek. Tgħallem aktar <a href="https://github.com/organicmaps/organicmaps/issues/6144">hawn</a>.</string>
+    <string name="blue_gray">Blu Griż</string>
+    <string name="dialog_routing_system_error">Żball fis-sistema</string>
+    <string name="level">Livell</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Ir-rotot issuġġeriti għandhom jinftiehmu biss bħala rakkomandazzjonijiet;</string>
+    <string name="dialog_routing_disclaimer_borders">— Oqgħod attent bir-rotot fiż-żoni tal-fruntiera: ir-rotot maħluqa mill-app tagħna xi kultant jistgħu jaqsmu l-fruntieri tal-pajjiż f ’postijiet mhux awtorizzati.</string>
+    <string name="dialog_routing_check_gps">Iċċekkja s-sinjal tal-GPS</string>
+    <string name="pref_use_google_play">Iddetermina malajr il-post approssimattiv tiegħek billi tuża Bluetooth, WiFi, jew netwerk mobbli</string>
+    <string name="dialog_routing_disclaimer_priority">— Il-kundizzjonijiet tat-toroq, il-liġijiet tat-traffiku, u s-sinjali tat-toroq dejjem jieħdu preċedenza fuq il-ħjiel tan-navigazzjoni;</string>
+    <string name="day_off_today">Magħluq illum</string>
+    <string name="yellow">Isfar</string>
+    <string name="choose_street">Agħżel triq</string>
+    <string name="operator">Operatur: %s</string>
+    <string name="dialog_routing_change_intermediate">Il-punt intermedju ma\' jistax jinsab.</string>
+    <string name="not_now">Mhux issa</string>
+    <string name="dialog_routing_download_and_build_cross_route">Tixtieq tniżżel il-mappa u toħloq rotta aktar ottimali li tkopri aktar minn mappa waħda?</string>
+    <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
+    <string name="history">Kronoloġija</string>
+    <string name="editor_add_phone">Żid in-Numru tat-Telefown</string>
+    <string name="p2p_reroute_from_current">Tixtieq tippjana rotta mill-post attwali tiegħek?</string>
+    <string name="detailed_problem_description">Deskrizzjoni dettaljata tal-kwistjoni</string>
+    <string name="prefs_languages_information">Aħna nużaw is-sistema TTS għall-istruzzjonijiet tal-vuċi. Ħafna tagħmir tal-Android jużaw Google TTS, inti tista tniżżel jew taġġornah minn Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="editor_time_allday">Il-Ġurnata Kollha (24 siegħa)</string>
+    <string name="editor_report_problem_send_button">Ibgħat</string>
+    <string name="add_language">Żid lingwa</string>
+    <string name="network">Netwerk: %s</string>
+    <string name="routing_failed_cross_mwm_building">Jistgħu jinħolqu rotot biss li jinsabu kompletament f’ mappa ta’ reġjun wieħed.</string>
+    <string name="message_invalid_feature_position">Ebda oġġett ma jista\' jinstab hawn</string>
+    <string name="login_osm">Illoggja f’ OpenStreetMap</string>
+    <string name="search_history_title">Kronoloġija tat-tiftix</string>
+    <string name="editor_time_from">Minn</string>
+    <string name="downloader_download_map">Niżżel il-mappa</string>
+    <string name="day_off">Magħluq</string>
+    <string name="details">Dettalji</string>
+    <string name="edit_place">Editja l-Post</string>
+    <string name="mobile_data_dialog">Uża l-internet mobbli biex turi informazzjoni dettaljata?</string>
+    <string name="editor_default_language_hint">Kif inhi miktuba bil-lingwa lokali</string>
+    <string name="layers_title">Stili u Saffi tal-Mapep</string>
+    <string name="fuel_places">Stazzjonijiet tal-Gass</string>
+    <string name="editor_note_hint">Iddeskrivi l-iżbalji fuq il-mappa jew l-affarijiet li ma jistgħux jiġu editjati ġewwa Organic Maps</string>
+    <string name="placepage_remove_stop">Neħħi l-Waqfa</string>
+    <string name="enable_logging_warning_message">Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.</string>
+    <string name="trip_finished">Wasalt!</string>
+    <string name="editor_share_to_all_dialog_title">Tixtieq tibgħatha lill-utenti kollha?</string>
+    <string name="decline">Irrifjuta</string>
+    <string name="editor_remove_place_message">Ħassar il-post miżjud?</string>
+    <string name="mobile_data_option_always">Uża Dejjem</string>
+    <string name="feedback_general">Feedback Ġenerali</string>
+    <string name="please_wait">Stenna ftit…</string>
+    <string name="driving_options_title">Għażliet tar-rotta</string>
+    <string name="prefs_languages_information_off">Għal xi lingwi, se jkollok bżonn tinstalla sintetizzatur tad-diskors jew pakkett tal-lingwa addizzjonali mill-App Store (Google Play, Galaxy Store, App Gallery, FDroid).\nIftaħ is-settings tat-tagħmir → Language and input → Speech → Text to speech output.\nHawnhekk tista’ timmaniġġja s-settings għas-sinteżi tad-diskors (pereżempju, niżżel il-pakkett tal-lingwa għall-użu offline) u agħżel magna oħra minn kitba għal diskors.</string>
+    <string name="by_distance">Skont id-distanza</string>
+    <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
+    <string name="export_file">Esporta KMZ</string>
+    <string name="error_enter_correct_twitter_page">Daħħal isem l-utent jew indirizz tal-web validu ta’ Twitter</string>
+    <string name="traffic_data_unavailable">L-Informazzjoni dwar it-traffiku mhijiex disponibbli</string>
+    <string name="routing_add_start_point">Uża t-tiftix jew għafas fuq il-mappa biex iżżid punt tal-bidu tar-rotta</string>
+    <string name="elevation_profile_difficulty">Diffikulta’</string>
+    <string name="limited_access">Aċċess limitat</string>
+    <string name="setting_emulate_bad_storage">Imita ħażna ħażina</string>
+    <string name="not_shared">Privat</string>
+    <string name="bookmark_lists_show_all">Uri kollox</string>
+    <string name="access_rules_author_only">Editjar onlajn</string>
+    <string name="bookmarks_error_message_share_general">Ma jistax jixxerja minħabba żball fl-applikazzjoni</string>
+    <string name="bookmarks_error_title_share_empty">Żball fl-ixxerjar</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Agħżel isem ieħor</string>
+    <string name="public_access">Aċċess pubbliku</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">Instab fajl %d. Tista’ tarah wara l-konverżjoni.</item>
+        <item quantity="two">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
+        <item quantity="few">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
+        <item quantity="many">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
+        <item quantity="other">Instabu %d fajls. Tista ’tarahom wara l-konverżjoni.</item>
+    </plurals>
+    <string name="privacy">Privatezza</string>
+    <string name="power_managment_setting_manual_max">Dejjem</string>
+    <string name="privacy_policy">Politika dwar il-privatezza</string>
+    <string name="power_managment_description">Ipprova naqqas l-użu tal-enerġija għad-detriment ta’ xi funzjonalitajiet.</string>
+    <string name="notification_channel_downloader">Tniżżil ta’ mapep</string>
+    <string name="power_managment_setting_auto">Meta l-batterija tkun baxxa</string>
+    <string name="avoid_tolls">Evita ħlasijiet għall-użu tat-triq</string>
+    <string name="power_managment_setting_never">Qatt</string>
+    <string name="food_places">Ikel</string>
+    <string name="buildings">Bini</string>
+    <string name="dialog_pedestrian_route_is_long_message">Agħżel punt tal-bidu jew tat-tmiem eqreb lejn stazzjon tas-subway</string>
+    <string name="avoid_unpaved">Evita toroq mhux pavimentati</string>
+    <string name="yes_available">Iva</string>
+    <string name="others_sorttype">Oħrajn</string>
+    <string name="unable_to_calc_alert_title">Ir-rotta ma\' tistax tiġi kalkulata</string>
+    <string name="unpaved_road">Triq mhux pavimentata</string>
+    <string name="toll_road">Triq għall-pedaġġ</string>
+    <string name="ferry_crossing">Qsim bil-lanċa</string>
+    <string name="elevation_profile_distance">Distanza:</string>
+    <string name="parkings">Parkeġġi</string>
+    <string name="money">Flus</string>
+    <string name="medicine">Mediċina</string>
+    <string name="transit_not_found">In-navigazzjoni tas-subway f’ dan ir-reġjun għadha mhix disponibbli</string>
+    <string name="dialog_pedestrian_route_is_long_header">Ma nstabet l-ebda rotta tas-subway</string>
+    <string name="search_in_the_list">Fittex fil-lista</string>
+    <string name="elevation_profile_descent">Inżul</string>
+    <string name="elevation_profile_time">Ħin:</string>
+    <string name="elevation_profile_min_elevation">Elevazzjoni minima</string>
+    <string name="app_tip_07">L-app tagħna hija żviluppata minn ftit dilettanti u l-komunita’.</string>
+    <string name="car_continue_on_the_phone">Kompli fuq il-mowbajl</string>
+    <string name="edit_track">Editja l-Korsija</string>
+    <string name="outdoor_seating">Sedili barra</string>
+    <string name="download_map_title">Niżżel il-mappa ġenerali tad-dinja</string>
+    <string name="splash_subtitle">Informazzjoni tal-mappa minn OpenStreetMap</string>
+    <string name="app_tip_04">Għafas kullimkien fuq il-mappa biex tagħżel xi ħaġa. Tgħafisa twila tista\' tintuża biex taħbi u turi l-interface.</string>
+    <string name="power_save_dialog_summary">Għan-navigazzjoni l-aktar preċiża, nirrakkomandaw li titfi l-mod tal-iffrankar tal-enerġija fl-issettjar tal-batterija tal-mowbajl.</string>
+    <string name="stop_without_saving">Waqqaf Mingħajr ma\' Tissejvja</string>
+    <string name="continue_recording">Kompli Rrekordja</string>
+    <string name="app_tip_01">Bid-donazzjonijiet u l-appoġġ tiegħek, nistgħu noħolqu l-aqwa mapep fid-dinja!</string>
+    <string name="connection_failure">Falliment tal-konnessjoni</string>
+    <string name="aa_request_permission_notification">Din l-applikazzjoni teħtieġ il-permess tiegħek</string>
+    <string name="start_track_recording">Rekord Track</string>
+    <string name="enable_keep_screen_on">Żomm l-iskrin mixgħul</string>
+    <string name="app_tip_00">Grazzi talli użajtu l-mapep tagħna mibnija mill-komunita’!</string>
+    <string name="car_used_on_the_car_screen">Issa qed tuża Organic Maps fuq l-iskrin tal-karozza</string>
+    <string name="app_tip_09">L-għan ewlieni tagħna huwa li nibnu mapep veloċi, iffukati fuq il-privatezza, u faċli biex jintużaw li se jinħabbu.</string>
+    <string name="app_tip_05">Kont taf li l-post attwali tiegħek fuq il-mappa jista’ jintgħażel?</string>
+    <string name="select_option">Agħżel l-għażla</string>
+    <string name="app_tip_08">Tista’ faċilment tirranġa u ttejjeb l-informazzjoni tal-mappa.</string>
+    <string name="car_used_on_the_phone_screen">Issa qed tuża Organic Maps fuq l-iskrin tat-telefown</string>
+    <string name="uri_open_location_failed">Ebda applikazzjoni installata li tista’ tiftaħ il-post</string>
+    <string name="aa_connected_title">Int imqabbad ma’ Android Auto</string>
+    <string name="car_continue_in_the_car">Lejn l-iskrin tal-karozza</string>
+    <string name="button_layer_outdoor">Barra</string>
+    <string name="pref_tts_open_system_settings">Settings tas-sistema tas-sinteżi tad-diskors</string>
+    <string name="track_recording_toast_nothing_to_save">Il-Korsija hija vojta - xejn x’ tissejvja</string>
+    <string name="error_no_file_manager_app">Ma jistax juri d-djalogu tal-għażla tal-fowlder għax l-ebda applikazzjoni xierqa mhi installata fuq it-tagħmir tiegħek. Installa applikazzjoni tal-maniġer tal-fajl u erġa ’pprova.</string>
+    <string name="browser_not_available">Brawżer tal-web mhux disponibbli</string>
+    <string name="view_menu">Ara l-Menu</string>
+    <string name="aa_location_permissions_request">Organic Maps teħtieġ aċċess għall-post. Meta jkun sigur, iċċekkja n-notifika fuq il-mowbajl tiegħek.</string>
+    <string name="pref_tts_no_system_tts">Is-settings tas-Sinteżi tad-diskors ma nstabux, żgur li t-tagħmir tiegħek jappoġġjah?</string>
+    <string name="track_recording_alert_title">Issejvja fil-Bookmarks u l-Korsiji?</string>
+    <string name="settings">Settings</string>
+    <string name="auto">Auto</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="teal">Teal</string>
+    <string name="lime">Lime</string>
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="twentyfour_seven">24/7</string>
+</resources>

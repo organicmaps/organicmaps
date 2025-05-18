@@ -193,7 +193,7 @@
 "type.barrier.block" = "Bloco";
 "type.barrier.bollard" = "Pilarete";
 "type.barrier.border_control" = "Controle de fronteira";
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Corrente";
 "type.barrier.city_wall" = "Muro da cidade";
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
 "type.waterway.ditch" = "Vala de drenagem";
@@ -241,9 +241,9 @@
 "type.building.train_station" = "Edifício da estação";
 "type.building.warehouse" = "Armazém";
 "type.cemetery.grave" = "Túmulo";
-"type.craft" = "Ofícios";
+"type.craft" = "Artesanato";
 "type.craft.beekeeper" = "Apicultor";
-"type.craft.blacksmith" = "Ferreiro";
+"type.craft.blacksmith" = "Serralheiro";
 "type.craft.brewery" = "Cervejaria artesanal";
 "type.craft.caterer" = "Serviço de bufê";
 "type.craft.carpenter" = "Carpinteiro";
@@ -258,7 +258,7 @@
 "type.craft.hvac" = "Aquecimento, Ventilação e Ar Condicionado";
 "type.craft.key_cutter" = "Chaveiro";
 "type.craft.locksmith" = "Serralheiro";
-"type.craft.metal_construction" = "Serralheiro metálico";
+"type.craft.metal_construction" = "Ferreiro";
 "type.craft.painter" = "Pintor";
 "type.craft.photographer" = "Fotógrafo";
 "type.shop.camera" = "Loja de câmeras";
@@ -268,7 +268,7 @@
 "type.craft.winery" = "Vinícola";
 "type.craft.tailor" = "Alfaiate";
 "type.cuisine.african" = "Cozinha africana";
-"type.cuisine.american" = "Cozinha americana";
+"type.cuisine.american" = "Cozinha estado-unidense";
 "type.cuisine.arab" = "Cozinha árabe";
 "type.cuisine.argentinian" = "Cozinha argentina";
 "type.cuisine.asian" = "Cozinha asiática";
@@ -280,7 +280,7 @@
 "type.cuisine.beef_bowl" = "Tigela com carne bovina";
 "type.cuisine.brazilian" = "Cozinha brasileira";
 "type.cuisine.breakfast" = "Café da manhã";
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Chá de bolhas";
 "type.cuisine.burger" = "Hambúrguer";
 "type.cuisine.buschenschank" = "Buschenschank";
 "type.cuisine.cake" = "Bolo";
@@ -342,7 +342,7 @@
 "type.cuisine.sausage" = "Linguiças";
 "type.cuisine.savory_pancakes" = "Panquecas salgadas";
 "type.cuisine.seafood" = "Frutos do mar";
-"type.cuisine.soba" = "Soba";
+"type.cuisine.soba" = "Sobá";
 "type.cuisine.spanish" = "Cozinha espanhola";
 "type.cuisine.steak_house" = "Churrascaria";
 "type.cuisine.sushi" = "Sushi";
@@ -602,21 +602,21 @@
 "type.historic.aircraft" = "Aeronaves Históricas";
 "type.historic.anchor" = "Âncora Histórica";
 "type.historic.archaeological_site" = "Sítio arqueológico";
-"type.historic.battlefield" = "Campo de batalha";
+"type.historic.battlefield" = "Campo de batalha histórico";
 "type.historic.boundary_stone" = "Marco fronteiriço";
 "type.historic.cannon" = "Canhão";
 "type.historic.castle" = "Castelo";
-"type.historic.castle.castrum" = "Castro";
-"type.historic.castle.defensive" = "Castelo";
+"type.historic.castle.castrum" = "Fortaleza Romana";
+"type.historic.castle.defensive" = "Castelo Fortificado";
 "type.historic.castle.fortified_church" = "Igreja fortificada";
 "type.historic.castle.fortress" = "Fortaleza";
-"type.historic.castle.hillfort" = "Castro";
+"type.historic.castle.hillfort" = "Fortaleza de Colina";
 "type.historic.castle.kremlin" = "Kremlin";
 "type.historic.castle.manor" = "Solar";
 "type.historic.castle.palace" = "Palácio";
 "type.historic.castle.shiro" = "Castelo japonês";
-"type.historic.castle.stately" = "Château";
-"type.historic.city_gate" = "Portas da cidade";
+"type.historic.castle.stately" = "Castelo";
+"type.historic.city_gate" = "Portões da Cidade";
 "type.historic.citywalls" = "Muro da cidade";
 "type.historic.fort" = "Forte";
 "type.historic.gallows" = "Galo";
@@ -736,18 +736,18 @@
 "type.leisure.track" = "Pista para esportes não motorizados";
 "type.leisure.track.area" = "Pista para esportes não motorizados";
 "type.leisure.water_park" = "Parque aquático";
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Resort de praia";
 "type.man_made" = "Construção humana";
 "type.man_made.breakwater" = "Molhe";
 "type.man_made.cairn" = "Moledro ou mariola";
 "type.man_made.chimney" = "Chaminé de fábrica";
 "type.man_made.cutline" = "Aceiro";
-"type.man_made.survey_point" = "Survey Point";
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.survey_point" = "Marco geodésico";
+"type.man_made.flagpole" = "Mastro de bandeira";
 "type.man_made.lighthouse" = "Farol";
-"type.man_made.mast" = "Mast";
+"type.man_made.mast" = "Mastro";
 "type.man_made.pier" = "Píer";
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "Tubulação";
 "type.man_made.pipeline.overground" = "Pipeline aéreo";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Tanque de armazenagem";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Torre de eletricidade";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Poste de eletricidade";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Poste";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -969,7 +969,7 @@
 "type.railway.station.light_rail" = "Estação de trem";
 "type.railway.station.light_rail.berlin" = "Estação de trem";
 "type.railway.station.light_rail.london" = "Estação de trem";
-"type.railway.station.light_rail.porto" = "Estação de trem";
+"type.railway.station.light_rail.porto" = "Estação de metrô";
 "type.railway.station.monorail" = "Estação de trem";
 "type.railway.station.subway" = "Estação de metrô";
 "type.railway.station.subway.adana" = "Estação de metrô";
@@ -1224,7 +1224,7 @@
 "type.shop.car_parts" = "Peças de carro";
 "type.shop.car_repair" = "Oficina de automóveis";
 "type.shop.car_repair.tyres" = "Borracheiro";
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Concessionária de trailers";
 "type.shop.carpet" = "Loja de tapetes";
 "type.shop.chemist" = "Drogaria";
 "type.shop.chocolate" = "Loja de chocolates";
@@ -1309,7 +1309,7 @@
 "type.shop.baby_goods" = "Loja infantil";
 "type.shop.bag" = "Loja de bolsas";
 "type.shop.bed" = "Loja de camas";
-"type.shop.boutique" = "Boutique";
+"type.shop.boutique" = "Loja de alta costura";
 "type.shop.charity" = "Loja de caridade";
 "type.shop.cheese" = "Loja de queijos";
 "type.shop.craft" = "Artes e ofícios";
@@ -1358,7 +1358,7 @@
 "type.sport.volleyball" = "Voleibol";
 "type.sport.10pin" = "Boliche";
 "type.sport.9pin" = "Boliche";
-"type.sport.padel" = "Padel";
+"type.sport.padel" = "Pádel";
 "type.sport.futsal" = "Futsal";
 "type.sport.ice_hockey" = "Hóquei no gelo";
 "type.sport.field_hockey" = "Hóquei em campo";

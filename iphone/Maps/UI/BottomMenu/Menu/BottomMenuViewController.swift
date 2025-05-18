@@ -25,7 +25,7 @@ class BottomMenuViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.layer.setCorner(radius: 8, corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+    tableView.layer.setCornerRadius(.buttonDefault, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
     tableView.sectionFooterHeight = 0
     
     tableView.dataSource = presenter

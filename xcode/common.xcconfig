@@ -20,6 +20,10 @@ SUPPORTED_PLATFORMS = macosx iphonesimulator iphoneos
 OTHER_LDFLAGS[sdk=macosx*] = -framework Cocoa -framework IOKit -framework OpenGL -framework QtCore -framework QtGui -framework QtNetwork -framework QtOpenGL -framework QtWidgets -framework SystemConfiguration -framework CFNetwork
 OTHER_LDFLAGS[sdk=iphone*] = -framework CoreGraphics -framework Foundation -framework IOKit -framework OpenGLES -framework SystemConfiguration -framework UIKit -framework CFNetwork -ObjC
 
+// Workaround for boost/gil boost/geometry boost/qvm template errors appeared in newer clang from XCode 16.3
+// See https://github.com/llvm/llvm-project/issues/94194
+OTHER_CPLUSPLUSFLAGS = -Wno-missing-template-arg-list-after-template-kw
+
 // Warnings settings
 CLANG_WARN_ASSIGN_ENUM = YES
 CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST = YES

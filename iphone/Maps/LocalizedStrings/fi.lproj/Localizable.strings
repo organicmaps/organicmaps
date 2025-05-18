@@ -241,7 +241,7 @@
 "pref_tts_language_title" = "Äänen kieli";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testaa puheohjeita (TTS, Text-To-Speech).";
+"pref_tts_test_voice_title" = "Testaa puheohjeita (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Muu";
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Kompassin kalibrointi";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Näytä käyttöliittymä napauttamalla karttaa uudelleen pitkään.";
+"long_tap_toast" = "Paina karttaa pitkään uudelleen nähdäksesi käyttöliittymän";
 
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
@@ -411,10 +411,10 @@
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
 "dialog_routing_disclaimer_title" = "Muista seuraavat asiat seuratessasi reittiä:";
-"dialog_routing_disclaimer_priority" = "— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;";
+"dialog_routing_disclaimer_priority" = "— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;";
 "dialog_routing_disclaimer_precision" = "— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;";
 "dialog_routing_disclaimer_recommendations" = "— Ehdotettuja reittejä tulee pitää vain suosituksina;";
-"dialog_routing_disclaimer_borders" = "— Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;";
+"dialog_routing_disclaimer_borders" = "— Ole varovainen reittien kanssa raja-alueilla: sovelluksemme luomat reitit voivat joskus ylittää maiden rajoja luvattomissa paikoissa.";
 "dialog_routing_disclaimer_beware" = "Pysy tarkkana ja liiku turvallisesti!";
 "dialog_routing_check_gps" = "Tarkista GPS-signaali";
 "dialog_routing_error_location_not_found" = "Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.";
@@ -568,7 +568,7 @@
 "message_invalid_feature_position" = "Kohdetta ei voida asettaa tänne";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "Yhteisön luomat OpenStreetMap-tiedot %@:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org.";
+"osm_presentation" = "Yhteisön luomat OpenStreetMap-tiedot %@:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org";
 "login_to_make_edits_visible" = "Luo OpenStreetMap-tili tai kirjaudu sisään, jotta voit julkaista karttamuokkauksesi maailmalle.";
 
 /* Error dialog no space */
@@ -598,7 +598,7 @@
 "editor_operator" = "Operaattori";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Operaattori: %@";
+"operator" = "Palveluntarjoaja: %@";
 "editor_category_unsuitable_title" = "Etkö löydä sopivaa luokkaa?";
 "editor_category_unsuitable_text" = "Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Tarkista <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.";
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
@@ -637,15 +637,6 @@
 "day" = "pv";
 "placepage_more_button" = "Lisää";
 "book_button" = "Varaa";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Kuvat, arvostelut, varaus";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Lisätietoa osoitteessa Kayak";
 "placepage_call_button" = "Soita";
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
 "placepage_bookmark_name_hint" = "Kirjanmerkin nimi";
@@ -718,7 +709,7 @@
 "routing_add_start_point" = "Käytä hakua tai napauta karttaa lisätäksesi reitin lähtöpisteen";
 
 /* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
-"routing_add_finish_point" = "Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen.";
+"routing_add_finish_point" = "Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen";
 "planning_route_manage_route" = "Hallitse reittiä";
 "button_plan" = "Suunnittele";
 "placepage_remove_stop" = "Poista pysähdys";
@@ -1004,7 +995,7 @@
 "enable_icloud_synchronization_message" = "iCloud-synkronointi on kehitteillä oleva kokeellinen ominaisuus. Varmista, että olet tehnyt varmuuskopion kaikista kirjanmerkeistäsi ja kappaleistasi.";
 
 /* Title for the "iCloud Is Disabled" alert. */
-"icloud_disabled_title" = "iCloud on poistettu käytöstä";
+"icloud_disabled_title" = "iCloud on poissa käytöstä";
 
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";

@@ -45,6 +45,10 @@ final class SearchCategoriesViewController: MWMTableViewController {
     delegate?.scrollViewDidScroll(scrollView)
   }
 
+  override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+  }
+
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
     return categories[index]
@@ -52,8 +56,8 @@ final class SearchCategoriesViewController: MWMTableViewController {
 }
 
 extension SearchCategoriesViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
+  func presentationFrameDidChange(_ frame: CGRect) {
     guard isViewLoaded else { return }
-    tableView.contentInset.bottom = translationY + view.safeAreaInsets.bottom
+    tableView.contentInset.bottom = frame.origin.y + view.safeAreaInsets.bottom
   }
 }

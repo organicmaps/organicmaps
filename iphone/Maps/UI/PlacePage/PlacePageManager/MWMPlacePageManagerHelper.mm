@@ -16,7 +16,6 @@
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)openWebsite:(PlacePageData *)data;
 - (void)openWebsiteMenu:(PlacePageData *)data;
-- (void)openKayak:(PlacePageData *)data;
 - (void)openWikipedia:(PlacePageData *)data;
 - (void)openWikimediaCommons:(PlacePageData *)data;
 - (void)openEmail:(PlacePageData *)data;
@@ -25,7 +24,7 @@
 - (void)openTwitter:(PlacePageData *)data;
 - (void)openVk:(PlacePageData *)data;
 - (void)openLine:(PlacePageData *)data;
-- (void)call:(PlacePageData *)data;
+- (void)call:(PlacePagePhone *)phone;
 - (void)showAllFacilities:(PlacePageData *)data;
 - (void)showPlaceDescription:(NSString *)htmlString;
 - (void)openMoreUrl:(PlacePageData *)data;
@@ -78,10 +77,6 @@
   [[MWMMapViewControlsManager manager].placePageManager openWebsiteMenu:data];
 }
 
-+ (void)openKayak:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openKayak:data];
-}
-
 + (void)openEmail:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openEmail:data];
 }
@@ -114,8 +109,8 @@
   [[MWMMapViewControlsManager manager].placePageManager openLine:data];
 }
 
-+ (void)call:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager call:data];
++ (void)call:(PlacePagePhone *)phone {
+  [[MWMMapViewControlsManager manager].placePageManager call:phone];
 }
 
 + (void)showAllFacilities:(PlacePageData *)data {

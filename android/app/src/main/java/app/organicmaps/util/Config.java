@@ -20,8 +20,7 @@ public final class Config
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
-  private static final String KEY_PREF_KAYAK_DISPLAY = "DisplayKayak";
-  private static final String KEY_MISC_KAYAK_ACCEPTED = "IsKayakApproved";
+
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
@@ -218,28 +217,6 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
-  }
-
-  public static boolean isKayakDisplayEnabled()
-  {
-    // Kayak is disabled by default in F-Droid build,
-    // unless a user has already accepted its disclaimer before.
-    return getBool(KEY_PREF_KAYAK_DISPLAY, !isFdroid() || isKayakDisclaimerAccepted());
-  }
-
-  public static void setKayakDisplay(boolean enabled)
-  {
-    setBool(KEY_PREF_KAYAK_DISPLAY, enabled);
-  }
-
-  public static boolean isKayakDisclaimerAccepted()
-  {
-    return getBool(KEY_MISC_KAYAK_ACCEPTED);
-  }
-
-  public static void acceptKayakDisclaimer()
-  {
-    setBool(KEY_MISC_KAYAK_ACCEPTED);
   }
 
   public static boolean isLocationRequested()

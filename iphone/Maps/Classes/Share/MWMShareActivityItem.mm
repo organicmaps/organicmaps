@@ -4,6 +4,7 @@
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageInfoData.h>
+#import <CoreApi/PlacePagePhone.h>
 #import <LinkPresentation/LPLinkMetadata.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
@@ -135,11 +136,16 @@ NSString * httpGe0Url(NSString * shortUrl)
         stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), url, ge0Url];
   }
 
+  NSMutableArray *phones = [NSMutableArray new];
+  [self.data.infoData.phones enumerateObjectsUsingBlock:^(PlacePagePhone * _Nonnull phone, NSUInteger idx, BOOL * _Nonnull stop) {
+    [phones addObject:phone.phone];
+  }];
+
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
   std::vector<NSString *> strings{self.data.previewData.title,
                                  self.data.previewData.subtitle,
                                  self.data.previewData.secondarySubtitle,
-                                 self.data.infoData.phone,
+                                 [phones componentsJoinedByString:@"; "],
                                  url,
                                  ge0Url};
 

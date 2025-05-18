@@ -19,7 +19,7 @@ namespace
 {
 SHA1::Hash ExtractHash(boost::uuids::detail::sha1 & sha1)
 {
-  uint32_t digest[5];
+  boost::uuids::detail::sha1::digest_type digest;
   sha1.get_digest(digest);
   for (auto & b : digest)
     b = boost::core::byteswap(b);

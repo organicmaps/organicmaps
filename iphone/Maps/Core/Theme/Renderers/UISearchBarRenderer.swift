@@ -31,7 +31,7 @@ class UISearchBarRenderer: UIViewRenderer {
       } else {
         control.setSearchFieldBackgroundImage(UIImage(), for: .normal)
       }
-      searchTextField.layer.setCorner(radius: 8)
+      searchTextField.layer.setCornerRadius(.buttonDefault)
       searchTextField.layer.masksToBounds = true
       // Placeholder color
       if let placeholder = searchTextField.placeholder {

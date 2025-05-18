@@ -1,4 +1,5 @@
 @class PlacePageData;
+@class PlacePagePhone;
 @class ElevationProfileData;
 
 @interface MWMPlacePageManagerHelper : NSObject
@@ -9,7 +10,6 @@
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)openWebsite:(PlacePageData *)data;
 + (void)openWebsiteMenu:(PlacePageData *)data;
-+ (void)openKayak:(PlacePageData *)data;
 + (void)openWikipedia:(PlacePageData *)data;
 + (void)openWikimediaCommons:(PlacePageData *)data;
 + (void)openEmail:(PlacePageData *)data;
@@ -18,7 +18,7 @@
 + (void)openTwitter:(PlacePageData *)data;
 + (void)openVk:(PlacePageData *)data;
 + (void)openLine:(PlacePageData *)data;
-+ (void)call:(PlacePageData *)data;
++ (void)call:(PlacePagePhone *)phone;
 + (void)showAllFacilities:(PlacePageData *)data;
 + (void)showPlaceDescription:(NSString *)htmlString;
 + (void)openMoreUrl:(PlacePageData *)data;

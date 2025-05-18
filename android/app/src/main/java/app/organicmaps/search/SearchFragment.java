@@ -35,6 +35,10 @@ import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchListener;
+import app.organicmaps.sdk.search.SearchRecents;
+import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
@@ -51,7 +55,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchFragment extends BaseMwmFragment
-                         implements NativeSearchListener,
+                         implements SearchListener,
                                     CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;

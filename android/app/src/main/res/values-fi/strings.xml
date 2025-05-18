@@ -9,7 +9,7 @@
     <string name="delete">Poista</string>
     <string name="download_maps">Lataa karttoja</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Lataus epäonnistui, yritä uudelleen koskettamalla</string>
+    <string name="download_has_failed">Lataus epäonnistui. Napauta yrittääksesi uudelleen.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Ladataan…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -62,7 +62,7 @@
     <string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.
 \nSe tarvitsee yhteensä %s tilaa.</string>
     <string name="download_resources_continue">Siirry karttaan</string>
-    <string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
+    <string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa \nkartalle.</string>
     <string name="download_country_ask">Ladataanko %s?</string>
     <string name="update_country_ask">Päivitetäänkö %s?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -116,7 +116,6 @@
     <string name="measurement_units">Mittayksiköt</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Valitse mailit tai kilometrit</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Missä syödä</string>
@@ -164,7 +163,6 @@
     <string name="category_water">Vesi</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Karavaanaritilat</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Muistiinpanot</string>
@@ -250,7 +248,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Äänen kieli</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Testaa puheohjeita (TTS, Text-To-Speech).</string>
+    <string name="pref_tts_test_voice_title">Testaa puheohjeita (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Tarkista äänenvoimakkuus tai järjestelmän tekstistä puheeksi -asetukset, jos ääni ei kuulu nyt.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -288,7 +286,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Liikuta puhelinta kahdeksikon suuntaisella liikkeellä kompassin kalibroimiseksi ja nuolen suunnan määrittämiseksi kartalla.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Näytä käyttöliittymä napauttamalla karttaa uudelleen pitkään.</string>
+    <string name="long_tap_toast">Paina karttaa pitkään uudelleen nähdäksesi käyttöliittymän</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Päivitä kaikki</string>
     <!-- Cancel all button text -->
@@ -318,10 +316,6 @@
     <string name="google_play_services">Google Play Sijaintipalvelut</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Määritä nopeasti likimääräinen sijaintisi Bluetoothin, WiFin tai matkapuhelinverkon kautta</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Hotel Linkit</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kuvat, arvostelut ja varauslinkit näytetään hotelleista, jotka on listattu Kayak.comiin. Jokaisesta näiden linkkien kautta tehdystä varauksesta saatu suosittelupalkkio käytetään Organic Mapsin kehittämiseen.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Lataa karttoja matkalla</string>
     <!-- Text for routing error dialog -->
@@ -364,13 +358,12 @@
     <string name="gray">Harmaa</string>
     <!-- blue gray color -->
     <string name="blue_gray">Siniharmaa</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
-    <string name="dialog_routing_disclaimer_priority">— Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;</string>
+    <string name="dialog_routing_disclaimer_priority">— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;</string>
     <string name="dialog_routing_disclaimer_precision">— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Ehdotettuja reittejä tulee pitää vain suosituksina;</string>
-    <string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;</string>
+    <string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien kanssa raja-alueilla: sovelluksemme luomat reitit voivat joskus ylittää maiden rajoja luvattomissa paikoissa.</string>
     <string name="dialog_routing_disclaimer_beware">Pysy tarkkana ja liiku turvallisesti!</string>
     <string name="dialog_routing_check_gps">Tarkista GPS-signaali</string>
     <string name="dialog_routing_error_location_not_found">Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>
@@ -394,7 +387,6 @@
     <string name="not_now">Ei nyt</string>
     <string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?</string>
     <string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.</string>
     <string name="search_select_map">Valitse kartta</string>
@@ -556,14 +548,6 @@
     <string name="minute">min</string>
     <string name="day">pv</string>
     <string name="placepage_more_button">Lisää</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Kuvat, arvostelut, varaus</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Lisätietoa osoitteessa Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Poista Kayak käytöstä</string>
     <string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
     <string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät (teksti tai html)</string>
     <string name="editor_comment_hint">Kommentti…</string>
@@ -614,7 +598,7 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Yleinen palaute</string>
     <string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
+    <string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid).\nAvaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. \nTäällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
     <string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
     <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
     <string name="learn_more">Lisätietoja</string>
@@ -623,7 +607,7 @@
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Käytä hakua tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen.</string>
+    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen</string>
     <string name="planning_route_manage_route">Hallitse reittiä</string>
     <string name="button_plan">Suunnittele</string>
     <string name="placepage_remove_stop">Poista pysähdys</string>
@@ -631,7 +615,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
     <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
-    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista tai ota yhteyttä osoitteeseen support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista SD-kortin toiminta tai ota yhteyttä osoitteeseen support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
     <string name="core_entrance">Sisäänkäynti</string>
     <string name="error_enter_correct_name">Anna oikea nimi</string>
@@ -749,7 +733,6 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Ruoka</string>
     <string name="tourist_places">Nähtävyydet</string>
@@ -838,7 +821,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Tämä sovellus tarvitsee lupasi</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auton Organic Maps tarvitsevat sijaintiluvan toimiakseen tehokkaasti.</string>
+    <string name="aa_request_permission_activity_text">Organic Maps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Lupien myöntäminen</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -889,4 +872,23 @@
     <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automaattinen navigointi</string>
+    <string name="facebook">Facebook</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="vk">VK</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="level_value_generic">Kerros: %s</string>
+    <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="telegram">Telegram</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="github">Github</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram">Instagram</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
 </resources>

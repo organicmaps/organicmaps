@@ -9,8 +9,8 @@
 "type.aerialway.mixed_lift" = "Mixed Lift";
 "type.aerialway.station" = "Aerialway Station";
 "type.aeroway" = "Airspace Infrastructure";
-"type.aeroway.aerodrome" = "Airport";
-"type.aeroway.aerodrome.international" = "International Airport";
+"type.aeroway.aerodrome" = "Lidosta";
+"type.aeroway.aerodrome.international" = "Starptautiskā lidosta";
 "type.aeroway.apron" = "Apron";
 "type.aeroway.gate" = "Gate";
 "type.aeroway.helipad" = "Helipad";
@@ -19,37 +19,37 @@
 "type.aeroway.terminal" = "Terminal";
 "type.amenity" = "Amenity";
 "type.amenity.arts_centre" = "Arts Center";
-"type.amenity.atm" = "ATM";
-"type.amenity.bank" = "Bank";
-"type.amenity.bar" = "Bar";
+"type.amenity.atm" = "Bankomāts";
+"type.amenity.bank" = "Banka";
+"type.amenity.bar" = "Bārs";
 "type.amenity.bbq" = "Barbecue Grill";
-"type.amenity.bench" = "Bench";
-"type.amenity.bicycle_parking" = "Bicycle Parking";
-"type.amenity.bicycle_rental" = "Bicycle Rental";
+"type.amenity.bench" = "Soliņš";
+"type.amenity.bicycle_parking" = "Velostāvvieta";
+"type.amenity.bicycle_rental" = "Velosipēdu īre";
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
-"type.amenity.biergarten" = "Biergarten";
-"type.amenity.brothel" = "Brothel";
-"type.amenity.bureau_de_change" = "Currency Exchange";
-"type.amenity.bus_station" = "Bus Station";
-"type.amenity.cafe" = "Cafe";
-"type.amenity.car_rental" = "Car Rental";
+"type.amenity.biergarten" = "Alus dārzs";
+"type.amenity.brothel" = "Bordelis";
+"type.amenity.bureau_de_change" = "Valūtas maiņa";
+"type.amenity.bus_station" = "Autoosta";
+"type.amenity.cafe" = "Kafejnīca";
+"type.amenity.car_rental" = "Auto īre";
 "type.amenity.motorcycle_rental" = "Motociklu noma";
 "type.amenity.car_sharing" = "Car Sharing";
-"type.amenity.car_wash" = "Car Wash";
-"type.amenity.casino" = "Casino";
+"type.amenity.car_wash" = "Automazgātuve";
+"type.amenity.casino" = "Kazino";
 "type.amenity.gambling" = "Gambling";
 "type.leisure.adult_gaming_centre" = "Adult Gaming Centre";
 "type.leisure.amusement_arcade" = "Arcade";
-"type.amenity.charging_station" = "Charging Station";
+"type.amenity.charging_station" = "Uzlādes stacija";
 "type.amenity.charging_station.bicycle" = "Velosipēdu uzlāde";
-"type.amenity.charging_station.motorcar" = "Car Charging Station";
+"type.amenity.charging_station.motorcar" = "Auto uzlādes stacija";
 "type.amenity.childcare" = "Nursery";
-"type.amenity.cinema" = "Cinema";
+"type.amenity.cinema" = "Kinoteātris";
 "type.leisure.bowling_alley" = "Bowling Alley";
-"type.amenity.clinic" = "Clinic";
-"type.amenity.college" = "College";
-"type.amenity.community_centre" = "Community Centre";
-"type.amenity.compressed_air" = "Compressed Air";
+"type.amenity.clinic" = "Poliklīnika";
+"type.amenity.college" = "Koledža";
+"type.amenity.community_centre" = "Kultūras nams";
+"type.amenity.compressed_air" = "Saspiests gaiss";
 "type.amenity.conference_centre" = "Conference Center";
 "type.amenity.courthouse" = "Courthouse";
 "type.amenity.dentist" = "Dentist";
@@ -126,7 +126,7 @@
 "type.amenity.post_box" = "Mailbox";
 "type.amenity.post_office" = "Post Office";
 "type.amenity.prison" = "Prison";
-"type.amenity.pub" = "Pub";
+"type.amenity.pub" = "Krogs";
 "type.amenity.public_bookcase" = "Book Exchange";
 "type.amenity.recycling.centre" = "Recycling Center";
 "type.amenity.recycling" = "Recycling Container";
@@ -395,11 +395,11 @@
 "type.highway.busway" = "Dedicated Bus Road";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.busway.bridge" = "Bridge";
+"type.highway.busway.bridge" = "Tilts";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.busway.tunnel" = "Tunnel";
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.busway.tunnel" = "Tunelis";
+"type.highway.bus_stop" = "Pietura";
 "type.highway.construction" = "Road Under Construction";
 "type.highway.cycleway" = "Cycle Path";
 
@@ -867,7 +867,7 @@
 "type.place.neighbourhood" = "Maza apkaime";
 "type.place.ocean" = "Ocean";
 "type.place.region" = "Region";
-"type.place.sea" = "Sea";
+"type.place.sea" = "Jūra";
 "type.place.square" = "Square";
 "type.place.state" = "State";
 "type.place.state.USA" = "State";

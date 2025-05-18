@@ -6,7 +6,7 @@
     <!-- Button text (should be short) -->
     <string name="cancel">Cancel·la</string>
     <!-- Button which deletes downloaded country -->
-    <string name="delete">Esborra</string>
+    <string name="delete">Suprimeix</string>
     <string name="download_maps">Baixa mapes</string>
     <!-- Settings/Downloader - info for country when download fails -->
     <string name="download_has_failed">La baixada ha fallat. Toqueu per a tornar-ho a intentar.</string>
@@ -56,8 +56,7 @@
     <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
-    <string name="download_resources">Abans d’usar l’aplicació, autoritzeu que baixem el mapa del món general al vostre aparell.
-\nUsarà %s d’emmagatzematge.</string>
+    <string name="download_resources">Abans d’usar l’aplicació, cal que baixeu el mapa del món general al vostre aparell. \nUsarà %s d’emmagatzematge.</string>
     <string name="download_resources_continue">Ves al mapa</string>
     <string name="downloading_country_can_proceed">S’està baixant %s. Mentrestant, podeu
 \nanar al mapa.</string>
@@ -76,7 +75,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Marcadors</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Marcadors i traces</string>
+    <string name="bookmarks_and_tracks">Marcadors i recorreguts</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Els meus llocs</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -86,11 +85,11 @@
     <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
     <string name="list">Llista</string>
     <!-- Settings button in system menu -->
-    <string name="settings">Configuració</string>
+    <string name="settings">Paràmetres</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Desa els mapes a</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Indiqueu la ubicació on s\'han de desar els mapes</string>
+    <string name="maps_storage_summary">Indiqueu la carpeta on s’han de baixar els mapes.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapes baixats</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -114,7 +113,6 @@
     <string name="measurement_units">Unitats de mesura</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Trieu entre milles i quilòmetres</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">On menjar</string>
@@ -133,7 +131,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Turisme</string>
+    <string name="category_tourism">Atraccions turístiques</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entreteniment</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -161,13 +159,12 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Aigua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Caravanes</string>
-
+    <string name="category_rv">Instal·lacions per a autocaravanes</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Marcadors d\'Organic Maps compartits</string>
+    <string name="share_bookmarks_email_subject">S’han compartit amb vós marcadors de l’Organic Maps</string>
     <string name="share_bookmarks_email_body">Hola!
 \n
 \nAdjunto els meus marcadors de l\'aplicació Organic Maps. Obriu-los si teniu l\'Organic Maps instal·lat. O, si no teniu l\'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz
@@ -176,7 +173,7 @@
     <!-- message title of loading file -->
     <string name="load_kmz_title">S\'estan carregant els marcadors</string>
     <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Els marcadors s\'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.</string>
+    <string name="load_kmz_successful">Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.</string>
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
@@ -189,7 +186,7 @@
     <!-- resource for context menu -->
     <string name="edit">Edita</string>
     <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">Encara no s\'ha pogut determinar la vostra geolocalització</string>
+    <string name="unknown_current_position">Encara no s’ha determinat la vostra ubicació</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">La configuració de l\'emmagatzematge del mapes està desactivada.</string>
     <!-- Alert message that downloading is in progress. -->
@@ -211,7 +208,7 @@
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Correu-e</string>
     <!-- Text for message when used successfully copied something -->
-    <string name="copied_to_clipboard">S\'ha copiat al porta-retalls: %s</string>
+    <string name="copied_to_clipboard">S’ha copiat al porta-retalls: %s</string>
     <!-- Used for bookmark editing -->
     <string name="done">Fet</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
@@ -219,10 +216,10 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Esteu segur que voleu tancar la sessió del vostre compte d\'OpenStreetMap?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Traces</string>
+    <string name="tracks_title">Recorreguts</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Longitud</string>
-    <string name="share_my_location">Comparteix la meva ubicacio</string>
+    <string name="share_my_location">Comparteix la meva ubicació</string>
     <!-- Settings general group in settings screen -->
     <string name="prefs_group_general">Configuració general</string>
     <!-- Settings information group in settings screen -->
@@ -260,7 +257,7 @@
     <string name="pref_tts_unavailable">No disponible</string>
     <string name="pref_map_auto_zoom">Zoom automàtic</string>
     <string name="placepage_distance">Distància</string>
-    <string name="search_show_on_map">Veure al mapa</string>
+    <string name="search_show_on_map">Visualitza al mapa</string>
     <!-- Menu button -->
     <string name="menu">Menú</string>
     <!-- Text in menu -->
@@ -283,9 +280,9 @@
     <!-- Button in the main Help dialog -->
     <string name="how_to_support_us">Donar suport al projecte</string>
     <!-- Button in the main Help dialog -->
-    <string name="copyright">Copyright</string>
+    <string name="copyright">Drets d’autor</string>
     <!-- Text in menu + Button in the main Help dialog -->
-    <string name="report_a_bug">Informació d\'errors</string>
+    <string name="report_a_bug">Informa d’un error</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_recommended">Milloreu la direcció de la fletxa movent el telèfon amb un moviment de vuit per calibrar la brúixola.</string>
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
@@ -306,7 +303,7 @@
     <string name="downloader_download_all_button">Baixa-ho tot</string>
     <string name="downloader_downloading">Baixant:</string>
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-    <string name="downloader_delete_map_while_routing_dialog">Per a esborrar el mapa, abans atureu la navegació.</string>
+    <string name="downloader_delete_map_while_routing_dialog">Per a suprimir el mapa, atureu la navegació.</string>
     <!-- PointsInDifferentMWM -->
     <string name="routing_failed_cross_mwm_building">Només es poden crear rutes que pertanyin totalment al mapa d\'una sola regió.</string>
     <!-- Context menu item for downloader. -->
@@ -314,17 +311,13 @@
     <!-- Item status in downloader. -->
     <string name="downloader_retry">Torna-hi</string>
     <!-- Item in context menu. -->
-    <string name="downloader_delete_map">Esborra el mapa</string>
+    <string name="downloader_delete_map">Suprimeix el mapa</string>
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualitza el mapa</string>
     <!-- Preference title -->
     <string name="google_play_services">Serveis d\'ubicació de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Enllaços d\'hotels del Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Es mostren fotos, comentaris i enllaços de reserva per als hotels que tenen una llista a Kayak.com. La bonificació de referència rebuda per cada reserva a través d\'aquests enllaços es destina al desenvolupament d\'Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Baixeu tots els mapes de la ruta</string>
     <!-- Text for routing error dialog -->
@@ -367,12 +360,11 @@
     <string name="gray">Gris</string>
     <!-- blue gray color -->
     <string name="blue_gray">Gris blavós</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Quan seguiu la ruta, tingueu present:</string>
     <string name="dialog_routing_disclaimer_priority">— Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;</string>
     <string name="dialog_routing_disclaimer_precision">— El mapa pot ser imprecís, i la ruta suggerida potser no sempre és la via més òptima per a arribar a la destinació;</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Les rutes suggerides només s\'han d\'entendre com a recomanacions;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Les rutes suggerides només s’han d’entendre com a recomanacions;</string>
     <string name="dialog_routing_disclaimer_borders">— Aneu am cura amb les rutes en zones frontereres: les rutes creades per la nostra aplicació de vegades creuen fronteres internacionals en zones no autoritzades.</string>
     <string name="dialog_routing_disclaimer_beware">Estigueu alerta i segur a la carretera!</string>
     <string name="dialog_routing_check_gps">Comprova el senyal GPS</string>
@@ -397,7 +389,6 @@
     <string name="not_now">Ara no</string>
     <string name="dialog_routing_download_and_build_cross_route">Voleu baixar el mapa i crar una ruta més òptima que travessi més d\'un mapa?</string>
     <string name="dialog_routing_download_cross_route">Baixeu mapes addicionals per a crear una ruta millor que creua els límits d\'aquest mapa.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Per a començar a cercar i crear rutes, baixeu el mapa. Després ja no us caldrà connexio a Internet.</string>
     <string name="search_select_map">Seleccioneu un mapa</string>
@@ -407,12 +398,12 @@
     <string name="hide">Amaga</string>
     <string name="categories">Categories</string>
     <string name="history">Historial</string>
-    <string name="search_not_found">Ups! No s\'ha trobat cap resultat.</string>
+    <string name="search_not_found">No s’ha trobat cap resultat.</string>
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Baixeu la regió on esteu cercant o proveu d\'afegir un nom de ciutat o poble proper.</string>
     <string name="search_history_title">Historial de cerca</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
-    <string name="clear_search">Buida l\'historial de cerques.</string>
+    <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Viquipèdia</string>
     <string name="p2p_your_location">La vostra ubicació</string>
@@ -428,7 +419,7 @@
     <!-- Tab title in the Edit Opening Hours time picker -->
     <string name="editor_time_to">A</string>
     <string name="editor_time_add">Afegeix un horari</string>
-    <string name="editor_time_delete">Esborra l\'horari</string>
+    <string name="editor_time_delete">Suprimeix l’horari</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Tot el dia (24 hores)</string>
     <string name="editor_time_open">Obert</string>
@@ -459,7 +450,7 @@
     <string name="closes_in">Tanca en %s</string>
     <string name="closed">Tancat</string>
     <string name="edit_opening_hours">Edita l\'horari d\'obertura</string>
-    <string name="no_osm_account">No teniu commpte d\'OpenStreetMap?</string>
+    <string name="no_osm_account">No teniu compte de l’OpenStreetMap?</string>
     <string name="register_at_openstreetmap">Registre a OpenStreetMap</string>
     <string name="login">Inicia sessió</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
@@ -533,7 +524,7 @@
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
-    <string name="editor_osm_history">El teu historial d\'edició</string>
+    <string name="editor_osm_history">El vostre historial d’edicions</string>
     <string name="editor_osm_notes">Notes de les vostres dades del mapa</string>
     <string name="editor_operator">Operador</string>
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
@@ -558,21 +549,13 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Més</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotos, comentaris, reserves</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">La bonificació de referència rebuda per cada reserva a través d\'aquest enllaç es destina al desenvolupament de Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Detalls a Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Desactiva Kayak</string>
     <string name="placepage_edit_bookmark_button">Edita el marcador</string>
     <string name="placepage_personal_notes_hint">Notes personals (text o html)</string>
     <string name="editor_comment_hint">Comentari…</string>
     <string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>
     <string name="editor_reset_edits_button">Descarta</string>
-    <string name="editor_remove_place_message">Voleu esborrar el lloc afegit?</string>
-    <string name="editor_remove_place_button">Esborra</string>
+    <string name="editor_remove_place_message">Voleu suprimir el lloc afegit?</string>
+    <string name="editor_remove_place_button">Suprimeix</string>
     <string name="editor_place_doesnt_exist">El lloc no existeix</string>
     <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
     <string name="delete_place_empty_comment_error">Indiqueu per què esborreu el lloc</string>
@@ -591,17 +574,17 @@
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
     <string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
-    <string name="navigation_stop_button">Atura\'t</string>
+    <string name="navigation_stop_button">Atura</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Enregistrament de la pista</string>
+    <string name="track_recording">S’està enregistrant el recorregut</string>
     <!-- For the first routing -->
-    <string name="accept">D\'acord</string>
+    <string name="accept">Accepta</string>
     <!-- For the first routing -->
     <string name="decline">Ho rebutjo</string>
     <string name="mobile_data_dialog">Voleu usar Internet mòbil per a mostrar informació detallada?</string>
-    <string name="mobile_data_option_always">Sempre</string>
+    <string name="mobile_data_option_always">Usa’l sempre</string>
     <string name="mobile_data_option_today">Només avui</string>
-    <string name="mobile_data_option_not_today">Avui no</string>
+    <string name="mobile_data_option_not_today">No l’utilitzis avui</string>
     <string name="mobile_data">Internet mòbil</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Es necessita Internet mòbil per a les notifiacions d\'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.</string>
@@ -609,9 +592,9 @@
     <string name="mobile_data_option_ask">Demana-ho sempre</string>
     <string name="traffic_update_maps_text">Per a mostrar les dades de trànsit, els maps han d\'estar actualitzats.</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
-    <string name="traffic_update_app">Actualitzeu l\'Organic Maps</string>
+    <string name="traffic_update_app">Actualitzeu l’Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
-    <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles.</string>
+    <string name="traffic_data_unavailable">No hi ha dades de trànsit disponibles</string>
     <string name="enable_logging">Activa el registre</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinió general</string>
@@ -620,10 +603,10 @@
 \nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.
 \nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
     <string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
-    <string name="transliteration_title">Translitertació a l\'alfabet llatí</string>
+    <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
     <string name="learn_more">Més informació</string>
     <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Surt</string>
+    <string name="core_exit">Sortida</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de partida de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -635,7 +618,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
     <string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>
-    <string name="dialog_error_storage_message">L\'emmagatzematg extern no és accessible. La targeta SD potser s\'ha retirat, malmès, o el sistema de fitxer és de només lectura. Comproveu la targeta SD o contacteu amb nosaltres a support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">L\'emmagatzematge extern no és accessible. La targeta SD pot haver estat eliminada, danyada o sigui només de lectura. Si us plau, reviseu la targeta SD o contacta amb nosaltres a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
     <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduïu un nom correcte</string>
@@ -645,11 +628,12 @@
     <string name="bookmark_lists_show_all">Mostra-ho tot</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
+        <item quantity="many">%d marcadors</item>
         <item quantity="other">%d marcadors</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crea una llista</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importa marcadors i les traces</string>
+    <string name="bookmarks_import">Importa marcadors i recorreguts</string>
     <string name="bookmarks_error_message_share_general">No s\'ha pogut compartir a causa d\'un error de l\'aplicació</string>
     <string name="bookmarks_error_title_share_empty">Error al compartir</string>
     <string name="bookmarks_error_message_share_empty">No es pot compartir una llista buida</string>
@@ -660,51 +644,53 @@
     <string name="bookmarks_error_message_list_name_already_taken">Trieu-ne un altre</string>
     <string name="please_wait">Espereu…</string>
     <string name="phone_number">Número de telèfon</string>
-    <string name="profile">Perfil d\'OpenStreetMap</string>
+    <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">S\'ha trobat %d fitxer. Podeu veure\'l després de la conversió.</item>
+        <item quantity="many">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
         <item quantity="other">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
     </plurals>
     <string name="restore">Restaura</string>
     <plurals name="tracks">
         <item quantity="one">%d traça</item>
+        <item quantity="many">%d traces</item>
         <item quantity="other">%d traces</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privadesa</string>
-    <string name="privacy_policy">Normes de confidencialitat</string>
-    <string name="terms_of_use">Considicions del servei</string>
+    <string name="privacy_policy">Política de privadesa</string>
+    <string name="terms_of_use">Condicions del servei</string>
     <string name="button_layer_traffic">Trànsit</string>
     <string name="button_layer_subway">Metro</string>
-    <string name="layers_title">Estils i capes de mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro no és disponible</string>
+    <string name="layers_title">Estils i capes del mapa</string>
+    <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
     <string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
     <string name="category_desc_more">…més</string>
     <string name="export_file">Exporta KMZ</string>
     <string name="export_file_gpx">Exporta GPX</string>
-    <string name="delete_list">Esborra la llista</string>
+    <string name="delete_list">Suprimeix la llista</string>
     <string name="public_access">Accés públic</string>
     <string name="limited_access">Accés limitat</string>
     <string name="not_shared">Privat</string>
     <string name="speedcams_alert_title">Radars</string>
     <string name="place_description_title">Descripció del lloc</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
-    <string name="notification_channel_downloader">Descàrrega de mapes</string>
+    <string name="notification_channel_downloader">Baixada de mapes</string>
     <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
     <string name="pref_tts_speedcams_auto">Avisa en excedir el límit de velocitat</string>
     <!-- Speed camera settings menu option - Always warn (about speedcams) -->
     <string name="pref_tts_speedcams_always">Sempre avisa</string>
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
-    <string name="pref_tts_speedcams_never">No n\'avisis mai</string>
-    <string name="power_managment_title">Mode d\'estalvi d\'energia</string>
-    <string name="power_managment_description">Si està seleccionat el mode automàtic, l\'aplicació desactivarà funcions que consumeixen energia, depenent del nivell de càrrega actual de la bateria</string>
+    <string name="pref_tts_speedcams_never">No n’avisis mai</string>
+    <string name="power_managment_title">Mode d’estalvi d’energia</string>
+    <string name="power_managment_description">Es provarà de reduir l’ús d’energia a costa d’algunes funcionalitats.</string>
     <string name="power_managment_setting_never">Mai</string>
     <string name="power_managment_setting_auto">Automàtic</string>
-    <string name="power_managment_setting_manual_max">Estalvi d\'energia màxim</string>
-    <string name="enable_logging_warning_message">L\'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l\'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.</string>
+    <string name="power_managment_setting_manual_max">Sempre</string>
+    <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
     <string name="access_rules_author_only">Edició en línia</string>
-    <string name="driving_options_title">Opcions de la ruta</string>
+    <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita peatges</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -712,10 +698,10 @@
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evita ferris</string>
     <string name="avoid_motorways">Evita autopistes</string>
-    <string name="unable_to_calc_alert_title">No s\'ha pogut calcular la ruta</string>
+    <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
     <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
     <string name="define_to_avoid_btn">Definiu les vies a evitar</string>
-    <string name="change_driving_options_btn">Paràmetres de ruta activats</string>
+    <string name="change_driving_options_btn">Paràmetres d’encaminament activats</string>
     <string name="toll_road">Via de peatge</string>
     <string name="unpaved_road">Via sense pavimentar</string>
     <string name="ferry_crossing">Ferris</string>
@@ -732,7 +718,7 @@
     <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="network">Xarxa: %s</string>
     <string name="trip_finished">Heu arribat!</string>
-    <string name="ok">D\'acord</string>
+    <string name="ok">D’acord</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordena…</string>
     <!-- Android, title, max 20-22 symbols -->
@@ -749,11 +735,10 @@
     <string name="by_name">Per nom</string>
     <string name="week_ago_sorttype">Fa una setmana</string>
     <string name="month_ago_sorttype">Fa un mes</string>
-    <string name="moremonth_ago_sorttype">Fa més d\'un mes</string>
-    <string name="moreyear_ago_sorttype">Fa més d\'un any</string>
+    <string name="moremonth_ago_sorttype">Fa més d’un mes</string>
+    <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Menjar</string>
     <string name="tourist_places">Llocs d\'interès</string>
@@ -767,27 +752,27 @@
     <string name="money">Diners</string>
     <string name="shops">Botigues</string>
     <string name="parkings">Aparcaments</string>
-    <string name="fuel_places">Gasolineres</string>
+    <string name="fuel_places">Benzineres</string>
     <string name="medicine">Medicina</string>
     <string name="search_in_the_list">Cerca en la llista</string>
     <string name="religious_places">Llocs de culte</string>
     <string name="select_list">Trieu una llista</string>
     <string name="transit_not_found">La navegació en metro en aquesta regió encara no és disponible</string>
-    <string name="dialog_pedestrian_route_is_long_header">No s\'ha trobat cap ruta en metro</string>
+    <string name="dialog_pedestrian_route_is_long_header">No s’ha trobat cap ruta en metro</string>
     <string name="dialog_pedestrian_route_is_long_message">Trieu un altre punt, inicial o final, més proper a una estació de metro</string>
     <string name="button_layer_isolines">Corbes de nivell</string>
-    <string name="isolines_activation_error_dialog">Per a activar i usar la capa topgràfica, actualitzeu o baixeu el mapa de l\'àrea</string>
+    <string name="isolines_activation_error_dialog">Per a activar i usar la capa topogràfica, actualitzeu o baixeu el mapa de l’àrea</string>
     <string name="isolines_location_error_dialog">La capa topogràfica encara no és disponible en aquesta àrea</string>
     <string name="elevation_profile_ascent">Ascens</string>
     <string name="elevation_profile_descent">Descens</string>
-    <string name="elevation_profile_min_elevation">Min. elevació</string>
-    <string name="elevation_profile_max_elevation">Màx. elevació</string>
+    <string name="elevation_profile_min_elevation">Elevació mín.</string>
+    <string name="elevation_profile_max_elevation">Elevació màx.</string>
     <string name="elevation_profile_difficulty">Dificultat</string>
-    <string name="elevation_profile_distance">Dist.:</string>
+    <string name="elevation_profile_distance">Distància:</string>
     <string name="elevation_profile_time">Temps:</string>
-    <string name="isolines_toast_zooms_1_10">Aproplieu el mapa per a explorar les isolínies</string>
-    <string name="downloader_loading_ios">Està baixant</string>
-    <string name="download_map_title">Baixa el mapa mundial</string>
+    <string name="isolines_toast_zooms_1_10">Apropeu el mapa per a explorar les isolínies</string>
+    <string name="downloader_loading_ios">S’està baixant</string>
+    <string name="download_map_title">Baixa el mapa general del món</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">No s\'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l\'aparell o targeta SD</string>
     <!-- Used in DownloadResources startup screen -->
@@ -804,9 +789,9 @@
     <!-- Description in preferences -->
     <string name="enable_show_on_lock_screen_description">Si està activa, no cal desblocar l\'aparell cada vegada mentre l\'aplicació està funcionant.</string>
     <!-- Current language of the map! -->
-    <string name="change_map_locale">Idioma del mapa</string>
+    <string name="change_map_locale">Llengua del mapa</string>
     <!-- OpenStreetMap text on splash screen -->
-    <string name="splash_subtitle">Dades del mapa de l\'OpenStreetMap</string>
+    <string name="splash_subtitle">Dades cartogràfiques de l’OpenStreetMap</string>
     <!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
     <string name="translated_om_site_url">https://organicmaps.app/ca/</string>
     <!-- Link to OSM wiki for Editor, Profile and About pages -->
@@ -820,7 +805,7 @@
     <!-- App tip #03 -->
     <string name="app_tip_03">Si coneixeu un desenvolupador de programari, podeu demanar-li que implementi una funcionalitat que necessiteu.</string>
     <!-- App tip #04 -->
-    <string name="app_tip_04">Toqueu qualsevol lloc del mapa per seleccionar qualsevol cosa. Toqueu llargament per ocultar i mostrar la interfície.</string>
+    <string name="app_tip_04">Toqueu qualsevol lloc del mapa per seleccionar qualsevol cosa. Toqueu llargament per amagar i mostrar la interfície.</string>
     <!-- App tip #05 -->
     <string name="app_tip_05">Sabíeu que podeu seleccionar la vostra ubicació actual al mapa?</string>
     <!-- App tip #06 -->
@@ -838,7 +823,7 @@
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Us heu connectat a Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
-    <string name="car_continue_on_the_phone">Continua al telèfon</string>
+    <string name="car_continue_on_the_phone">Passa al telèfon</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">A la pantalla del cotxe</string>
     <!-- Ask user to grant location permissions -->
@@ -846,7 +831,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Aquesta aplicació necessita el vostre permís</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Organic Maps a Android Auto necessita un permís d\'ubicació per funcionar de manera eficaç</string>
+    <string name="aa_request_permission_activity_text">L’Organic Maps a l’Android Auto necessita permissos d’ubicació per a funcionar eficaçment</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Concedeix permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -855,12 +840,12 @@
     <string name="browser_not_available">El navegador web no està disponible</string>
     <string name="volume">Volum</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Exporta totes les adreces d\'interès i pistes</string>
+    <string name="bookmarks_export">Exporta tots els marcadors i recorreguts</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Paràmetres de la síntesi de veu del sistema</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">No s’han trobat els paràmetres de la síntesi de veu. Esteu segur que el vostre dispositiu l’admet?</string>
-    <string name="drive_through">Servei al cotxe</string>
+    <string name="drive_through">Servei des del cotxe</string>
     <string name="clear_the_search">Elimina la cerca</string>
     <string name="zoom_in">Apropa</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -879,22 +864,41 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">Gravar ruta</string>
+    <string name="start_track_recording">Enregistra el recorregut</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">Aturar la gravació de la ruta</string>
+    <string name="stop_track_recording">Atura l’enregistrament del recorregut</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="stop_without_saving">Atura sense desar</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Continuar enregistrant</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Vols desar la gravació a Marcadors i Traces?</string>
+    <string name="track_recording_alert_title">Voleu desar l’enregistrament a Marcadors i recorreguts?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">El recorregut està buit, no hi ha res a desar</string>
+    <string name="track_recording_toast_nothing_to_save">El recorregut està buit; no hi ha res a desar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestor de fitxers i torneu-ho a provar</string>
+    <string name="error_no_file_manager_app">No es pot mostrar el diàleg de selecció de carpetes perquè no hi ha cap aplicació adequada instal·lada al vostre dispositiu. Instal·leu una aplicació de gestió de fitxers i torneu-ho a provar.</string>
     <string name="choose_color">Tria el color</string>
     <string name="edit_track">Edita el recorregut</string>
     <string name="uri_open_location_failed">No hi ha cap aplicació instal·lada que pugui obrir la ubicació</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto a la navegació</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="vk">VK</string>
+    <string name="facebook">Facebook</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="telegram">Telegram</string>
+    <string name="github">GitHub</string>
+    <string name="level_value_generic">Nivell: %s</string>
+    <string name="instagram">Instagram</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
 </resources>

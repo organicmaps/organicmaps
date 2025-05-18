@@ -199,7 +199,7 @@
 "length" = "Дужина";
 "share_my_location" = "Подели моју локацију";
 "prefs_group_route" = "Навигација";
-"pref_zoom_title" = "Дугмад за увећавање/умањивање";
+"pref_zoom_title" = "Дугме за зумирање";
 
 /* Settings «Map» category: «Appearance» title */
 "pref_appearance_title" = "Изглед";
@@ -470,8 +470,8 @@
 "wikimedia_commons" = "Викимедијина остава";
 "p2p_your_location" = "Ваша локација";
 "p2p_start" = "Крени";
-"p2p_from_here" = "Рута од";
-"p2p_to_here" = "Рута до";
+"p2p_from_here" = "Старт";
+"p2p_to_here" = "Одредиште";
 "p2p_only_from_current" = "Навигација је могућа само од ваше тренутне локације.";
 "p2p_reroute_from_current" = "Да ли желите да направите руту од ваше тренутне локације?";
 "editor_time_add" = "Додај време";
@@ -637,15 +637,6 @@
 "day" = "д";
 "placepage_more_button" = "Више";
 "book_button" = "Резервиши";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Фотографије, утисци, резервације";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Детаљи на Kayak-у";
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_bookmark_name_hint" = "Назив маркера";
@@ -721,9 +712,9 @@
 "routing_add_finish_point" = "Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку";
 "planning_route_manage_route" = "Измени руту";
 "button_plan" = "План";
-"placepage_remove_stop" = "Уклони стајање";
+"placepage_remove_stop" = "Уклони међуодредиште";
 "planning_route_remove_title" = "Превуците овде за уклањање";
-"placepage_add_stop" = "Додај стајање";
+"placepage_add_stop" = "Међуодредиште";
 "start_from_my_position" = "Крени од";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */

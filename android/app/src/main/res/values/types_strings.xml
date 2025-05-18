@@ -32,6 +32,7 @@
     <string name="type.amenity.bicycle_repair_station">Bicycle Repair Station</string>
     <string name="type.amenity.biergarten">Biergarten</string>
     <string name="type.amenity.brothel">Brothel</string>
+    <string name="type.amenity.love_hotel">Love Hotel</string>
     <string name="type.amenity.bureau_de_change">Currency Exchange</string>
     <string name="type.amenity.bus_station">Bus Station</string>
     <string name="type.amenity.cafe">Cafe</string>
@@ -48,6 +49,7 @@
     <string name="type.amenity.charging_station.motorcar">Car Charging Station</string>
     <string name="type.amenity.childcare">Nursery</string>
     <string name="type.amenity.cinema">Cinema</string>
+    <string name="type.amenity.studio">Studio</string>
     <string name="type.leisure.bowling_alley">Bowling Alley</string>
     <string name="type.amenity.clinic">Clinic</string>
     <string name="type.amenity.college">College</string>
@@ -199,6 +201,7 @@
     <string name="type.natural.water.wastewater">Wastewater</string>
     <string name="type.barrier.entrance">Entrance</string>
     <string name="type.barrier.fence">Fence</string>
+    <string name="type.barrier.guard_rail">Guard Rail</string>
     <string name="type.barrier.gate">Gate</string>
     <string name="type.barrier.hedge">Hedge</string>
     <string name="type.barrier.kissing_gate">Kissing Gate</string>
@@ -483,6 +486,7 @@
     <string name="type.highway.services">Service Area</string>
     <string name="type.highway.speed_camera">Speed Camera</string>
     <string name="type.highway.steps">Stairs</string>
+    <string name="type.highway.ladder">Ladder</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Bridge</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -640,6 +644,7 @@
     <string name="type.landuse.salt_pond">Salt Pond</string>
     <string name="type.landuse.village_green">Land</string>
     <string name="type.landuse.vineyard">Vineyard</string>
+    <string name="type.landuse.plant_nursery">Plant Nursery</string>
     <string name="type.leisure">Leisure</string>
     <string name="type.leisure.common">Public Land</string>
     <string name="type.leisure.dog_park">Dog Park</string>
@@ -655,6 +660,7 @@
     <string name="type.leisure.marina">Marina</string>
     <string name="type.leisure.nature_reserve">Nature Reserve</string>
     <string name="type.leisure.outdoor_seating">Outdoor Seating</string>
+    <string name="type.leisure.firepit">Firepit</string>
     <string name="type.leisure.park">Park</string>
     <string name="type.leisure.park.no.access">Private Park</string>
     <string name="type.leisure.park.permissive">Park</string>

@@ -24,7 +24,7 @@ import app.organicmaps.editor.data.Language;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
-import app.organicmaps.routing.RoutingOptions;
+import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
@@ -32,7 +32,7 @@ import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
-import app.organicmaps.search.SearchRecents;
+import app.organicmaps.sdk.search.SearchRecents;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Locale;
@@ -66,7 +66,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initPowerManagementPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
-    initDisplayKayakPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
   }
@@ -231,6 +230,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
       removePreference(getString(R.string.pref_settings_general), pref);
+    else
+      pref.setVisible(true);
   }
 
   private void initAutoZoomPrefsCallbacks()
@@ -298,21 +299,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         else
           SearchRecents.clear();
       }
-      return true;
-    });
-  }
-
-  private void initDisplayKayakPrefsCallbacks()
-  {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_display_kayak));
-
-    pref.setChecked(Config.isKayakDisplayEnabled());
-    pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      final boolean oldVal = Config.isKayakDisplayEnabled();
-      final boolean newVal = (Boolean) newValue;
-      if (oldVal != newVal)
-        Config.setKayakDisplay(newVal);
-
       return true;
     });
   }

@@ -14,6 +14,5 @@
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode;
 
 + (void)updateAvailableArea:(CGRect)frame;
-+ (CGRect)getAvailableArea;
 
 @end

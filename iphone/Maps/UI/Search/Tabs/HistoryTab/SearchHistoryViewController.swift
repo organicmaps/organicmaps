@@ -122,9 +122,9 @@ extension SearchHistoryViewController: UITableViewDelegate {
 }
 
 extension SearchHistoryViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
+  func presentationFrameDidChange(_ frame: CGRect) {
     guard isViewLoaded else { return }
-    tableView.contentInset.bottom = translationY
-    emptyHistoryView.translationYDidUpdate(translationY)
+    tableView.contentInset.bottom = frame.origin.y
+    emptyHistoryView.presentationFrameDidChange(frame)
   }
 }

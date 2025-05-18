@@ -22,11 +22,27 @@ set(SRC
   app/organicmaps/vulkan/android_vulkan_context_factory.hpp
 
   # JNI sources
+  app/organicmaps/sdk/search/DisplayedCategories.cpp
+  app/organicmaps/sdk/search/SearchEngine.cpp
+  app/organicmaps/sdk/search/SearchRecents.cpp
+  app/organicmaps/sdk/routing/JunctionInfo.hpp
+  app/organicmaps/sdk/routing/RouteMarkData.hpp
+  app/organicmaps/sdk/routing/RouteMarkType.hpp
+  app/organicmaps/sdk/routing/RoutePointInfo.hpp
+  app/organicmaps/sdk/routing/RouteRecommendationType.hpp
+  app/organicmaps/sdk/routing/RoutingInfo.hpp
+  app/organicmaps/sdk/routing/RoutingOptions.cpp
+  app/organicmaps/sdk/routing/SingleLaneInfo.hpp
+  app/organicmaps/sdk/routing/TransitRouteInfo.hpp
+  app/organicmaps/sdk/routing/TransitStepInfo.hpp
+  app/organicmaps/sdk/ChoosePositionMode.cpp
+  app/organicmaps/sdk/MapStyle.cpp
+  app/organicmaps/sdk/OrganicMaps.cpp
+  app/organicmaps/sdk/Router.cpp
   app/organicmaps/core/jni_helper.cpp
   app/organicmaps/core/jni_java_methods.cpp
   app/organicmaps/core/logging.cpp
   app/organicmaps/bookmarks/data/BookmarkManager.cpp
-  app/organicmaps/DisplayedCategories.cpp
   app/organicmaps/DownloadResourcesLegacyActivity.cpp
   app/organicmaps/editor/Editor.cpp
   app/organicmaps/editor/OpeningHours.cpp
@@ -36,10 +52,6 @@ set(SRC
   app/organicmaps/LocationState.cpp
   app/organicmaps/Map.cpp
   app/organicmaps/MapManager.cpp
-  app/organicmaps/MwmApplication.cpp
-  app/organicmaps/routing/RoutingOptions.cpp
-  app/organicmaps/SearchEngine.cpp
-  app/organicmaps/SearchRecents.cpp
   app/organicmaps/settings/UnitLocale.cpp
   app/organicmaps/settings/MapLanguageCode.cpp
   app/organicmaps/sound/tts.cpp

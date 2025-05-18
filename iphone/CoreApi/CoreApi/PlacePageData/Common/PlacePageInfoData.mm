@@ -1,13 +1,13 @@
 #import "PlacePageInfoData+Core.h"
 
 #import "OpeningHours.h"
+#import "PlacePagePhone.h"
 
 #import <CoreApi/StringUtils.h>
 
 #include "platform/localization.hpp"
 
 #include "indexer/validate_and_format_contacts.hpp"
-#include "indexer/kayak.hpp"
 #include "indexer/feature_meta.hpp"
 
 #include "map/place_page_info.hpp"
@@ -47,25 +47,21 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
           break;
         case MetadataID::FMD_PHONE_NUMBER:
         {
-          _phone = ToNSString(value);
-          NSString *filteredDigits = [[_phone componentsSeparatedByCharactersInSet:
-                                       [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                                      componentsJoinedByString:@""];
-          NSString *resultNumber = [_phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
-          _phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+          NSArray<NSString *> *phones = [ToNSString(value) componentsSeparatedByString:@";"];
+          NSMutableArray<PlacePagePhone *> *placePhones = [NSMutableArray new];
+          [phones enumerateObjectsUsingBlock:^(NSString * _Nonnull phone, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *filteredDigits = [[phone componentsSeparatedByCharactersInSet:
+                                         [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                                        componentsJoinedByString:@""];
+            NSString *resultNumber = [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
+            NSURL *phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+
+            [placePhones addObject:[PlacePagePhone placePagePhoneWithPhone:phone andURL:phoneUrl]];
+          }];
+          _phones = [placePhones copy];
           break;
         }
         case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
-        case MetadataID::FMD_EXTERNAL_URI:
-        {
-          NSString *countryIsoCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] ?: @"US";
-          time_t firstDaySec = time_t([[NSDate date] timeIntervalSince1970]);
-          time_t lastDaySec = firstDaySec + 86400;
-          std::string kayakUrl = osm::GetKayakHotelURLFromURI([countryIsoCode UTF8String], value, firstDaySec, lastDaySec);
-          if (!kayakUrl.empty())
-            _kayak = ToNSString(kayakUrl);
-          break;
-        }
         case MetadataID::FMD_WIKIPEDIA: _wikipedia = ToNSString(value); break;
         case MetadataID::FMD_WIKIMEDIA_COMMONS: _wikimediaCommons = ToNSString(value); break;
         case MetadataID::FMD_EMAIL:

@@ -74,10 +74,9 @@ class InfoItemViewController: UIViewController {
 protocol PlacePageInfoViewControllerDelegate: AnyObject {
   var shouldShowOpenInApp: Bool { get }
 
-  func didPressCall()
+  func didPressCall(to phone: PlacePagePhone)
   func didPressWebsite()
   func didPressWebsiteMenu()
-  func didPressKayak()
   func didPressWikipedia()
   func didPressWikimediaCommons()
   func didPressFacebook()
@@ -104,10 +103,9 @@ class PlacePageInfoViewController: UIViewController {
   }()
 
   private var rawOpeningHoursView: InfoItemViewController?
-  private var phoneView: InfoItemViewController?
+  private var phoneViews: [InfoItemViewController] = []
   private var websiteView: InfoItemViewController?
   private var websiteMenuView: InfoItemViewController?
-  private var kayakView: InfoItemViewController?
   private var wikipediaView: InfoItemViewController?
   private var wikimediaCommonsView: InfoItemViewController?
   private var emailView: InfoItemViewController?
@@ -159,21 +157,21 @@ class PlacePageInfoViewController: UIViewController {
 
     /// @todo Entrance is missing compared with Android. It's shown in title, but anyway ..
 
-    if let phone = placePageInfoData.phone {
+    phoneViews = placePageInfoData.phones.map({ phone in
       var cellStyle: Style = .regular
-      if let phoneUrl = placePageInfoData.phoneUrl, UIApplication.shared.canOpenURL(phoneUrl) {
+      if let phoneUrl = phone.url, UIApplication.shared.canOpenURL(phoneUrl) {
         cellStyle = .link
       }
-      phoneView = createInfoItem(phone,
+      return createInfoItem(phone.phone,
                                  icon: UIImage(named: "ic_placepage_phone_number"),
                                  style: cellStyle,
                                  tapHandler: { [weak self] in
-        self?.delegate?.didPressCall()
+        self?.delegate?.didPressCall(to: phone)
       },
                                  longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(phone)
+        self?.delegate?.didCopy(phone.phone)
       })
-    }
+    })
 
     if let ppOperator = placePageInfoData.ppOperator {
       operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
@@ -341,18 +339,6 @@ class PlacePageInfoViewController: UIViewController {
                                    icon: UIImage(named: "ic_placepage_address"),
                                    longPressHandler: { [weak self] in
         self?.delegate?.didCopy(address)
-      })
-    }
-
-    if let kayak = placePageInfoData.kayak {
-      kayakView = createInfoItem(L("more_on_kayak"),
-                                 icon: UIImage(named: "ic_placepage_kayak"),
-                                 style: .link,
-                                 tapHandler: { [weak self] in
-        self?.delegate?.didPressKayak()
-      },
-                                 longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(kayak)
       })
     }
 

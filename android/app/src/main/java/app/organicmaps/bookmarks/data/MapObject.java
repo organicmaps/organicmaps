@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.Framework;
-import app.organicmaps.routing.RoutePointInfo;
-import app.organicmaps.search.Popularity;
+import app.organicmaps.sdk.routing.RoutePointInfo;
+import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageData;
 
@@ -280,19 +280,6 @@ public class MapObject implements PlacePageData
       return website.substring(start, end);
     }
     return website;
-  }
-
-  @NonNull
-  public String getKayakUrl()
-  {
-    final String uri = getMetadata(Metadata.MetadataType.FMD_EXTERNAL_URI);
-    if (TextUtils.isEmpty(uri))
-      return "";
-    final Instant firstDay = Instant.now();
-    final long firstDaySec = firstDay.getEpochSecond();
-    final long lastDaySec = firstDay.plus(1, ChronoUnit.DAYS).getEpochSecond();
-    final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDaySec, lastDaySec);
-    return res == null ? "" : res;
   }
 
   public String getApiId()

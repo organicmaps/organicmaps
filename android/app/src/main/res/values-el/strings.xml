@@ -9,7 +9,7 @@
     <string name="delete">Διαγραφή</string>
     <string name="download_maps">Λήψη χαρτών</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.</string>
+    <string name="download_has_failed">Η λήψη απέτυχε. Πατήστε για να προσπαθήσετε ξανά.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">Λήψη…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -45,7 +45,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
+    <string name="about_proposition_3">- Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.</string>
     <!-- The button that opens system location settings -->
@@ -91,7 +91,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Αποθήκευση χαρτών σε</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Επιλέξτε την τοποθεσία λήψης των χαρτών</string>
+    <string name="maps_storage_summary">Επιλέξτε την τοποθεσία λήψης των χαρτών.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Κατεβασμένοι Χάρτες</string>
     <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -115,7 +115,6 @@
     <string name="measurement_units">Μονάδες μέτρησης</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Μέρη για φαγητό</string>
@@ -163,7 +162,6 @@
     <string name="category_water">Νερό</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Για RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Σημειώσεις</string>
@@ -292,7 +290,7 @@
     <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
     <string name="compass_calibration_required">Μετακινήστε το τηλέφωνο με μια κίνηση σχήματος οκτώ για να καλιμπράρετε την πυξίδα και να καθορίσετε την κατεύθυνση του βέλους στο χάρτη.</string>
     <!-- Toast text when user hides UI with a long tap anywhere on the map -->
-    <string name="long_tap_toast">Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας.</string>
+    <string name="long_tap_toast">Πατήστε ξανά παρατεταμένα στο χάρτη για να δείτε το περιβάλλον εργασίας</string>
     <!-- Update all button text -->
     <string name="downloader_update_all_button">Ενημέρωση όλων</string>
     <!-- Cancel all button text -->
@@ -322,10 +320,6 @@
     <string name="google_play_services">Υπηρεσίες τοποθεσίας Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Σύνδεσμοι ξενοδοχείων</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Οι φωτογραφίες, οι κριτικές και οι σύνδεσμοι κρατήσεων εμφανίζονται για τα ξενοδοχεία που έχουν καταχωρηθεί στο Kayak.com. Το μπόνους παραπομπής που λαμβάνεται για κάθε κράτηση μέσω αυτών των συνδέσμων πηγαίνει στην ανάπτυξη του Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Κατέβασμα όλων των χαρτών για ολόκληρο το μήκος της διαδρομής σας</string>
     <!-- Text for routing error dialog -->
@@ -368,12 +362,11 @@
     <string name="gray">Γκρι</string>
     <!-- blue gray color -->
     <string name="blue_gray">Γκρίζο μπλε</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Όταν ακολουθείτε την διαδρομή, να θυμάστε:</string>
-    <string name="dialog_routing_disclaimer_priority">— Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,</string>
-    <string name="dialog_routing_disclaimer_precision">— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό,</string>
-    <string name="dialog_routing_disclaimer_recommendations">— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·</string>
+    <string name="dialog_routing_disclaimer_priority">- Οι οδικές συνθήκες, οι κανόνες οδικής κυκλοφορίας και οι πινακίδες έχουν πάντα προτεραιότητα έναντι των συμβουλών πλοήγησης;</string>
+    <string name="dialog_routing_disclaimer_precision">— Ο Χάρτης μπορεί να είναι ανακριβής, και η προτεινόμενη διαδρομή μπορεί να μην είναι πάντα ο βέλτιστος τρόπος να φτάσετε στον προορισμό;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις;</string>
     <string name="dialog_routing_disclaimer_borders">— Προσέξτε τις διαδρομές στις παραμεθόριες περιοχές: οι διαδρομές που δημιουργούνται από την εφαρμογή μας μπορεί μερικές φορές να διαπερνούν τα εθνικά σύνορα σε απαγορευμένες περιοχές.</string>
     <string name="dialog_routing_disclaimer_beware">Να είστε πάντα σε εγρήγορση και να οδηγείτε με ασφάλεια στους δρόμους!</string>
     <string name="dialog_routing_check_gps">Ελέγξτε το σήμα GPS</string>
@@ -398,7 +391,6 @@
     <string name="not_now">Όχι τώρα</string>
     <string name="dialog_routing_download_and_build_cross_route">Θέλετε να κατεβάσετε το χάρτη και να δημιουργήσετε μια πιο βέλτιστη διαδρομή που εκτείνεται σε περισσότερους από έναν χάρτες;</string>
     <string name="dialog_routing_download_cross_route">Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Για να ξεκινήσετε την αναζήτηση και τη δημιουργία διαδρομών, κατεβάστε το χάρτη. Μετά από αυτό δεν θα χρειάζεστε πλέον σύνδεση στο Internet.</string>
     <string name="search_select_map">Επιλογή χάρτη</string>
@@ -554,14 +546,6 @@
     <!-- A unit of measure -->
     <string name="ft">πόδια</string>
     <string name="placepage_more_button">Περισσότερα</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Λεπτομέρειες στο Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Απενεργοποίηση του Kayak</string>
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
     <string name="editor_comment_hint">Σχόλιο…</string>
@@ -597,7 +581,7 @@
     <string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
     <string name="mobile_data_option_always">Να χρησιμοποιείται πάντα</string>
     <string name="mobile_data_option_today">Μόνο σήμερα</string>
-    <string name="mobile_data_option_not_today">Να μην χρησιμοποιηθεί σήμερα</string>
+    <string name="mobile_data_option_not_today">Να Μην χρησιμοποιηθεί σήμερα</string>
     <string name="mobile_data">Ίντερνετ μέσω δικτύου κινητής</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Απαιτείται πρόσβαση στο ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.</string>
@@ -616,7 +600,7 @@
 \nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.
 \nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
     <string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
-    <string name="transliteration_title">Μεταγραφή στα Λατινικά</string>
+    <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Έξοδος</string>
@@ -631,7 +615,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.</string>
     <string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
-    <string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Η εξωτερική αποθήκευση δεν είναι προσβάσιμη. Η κάρτα SD μπορεί να έχει αφαιρεθεί, να έχει υποστεί ζημιά ή το σύστημα αρχείων να είναι μόνο για ανάγνωση. Ελέγξτε την κάρτα SD ή επικοινωνήστε μαζί μας στο support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
     <string name="core_entrance">Είσοδος</string>
     <string name="error_enter_correct_name">Εισάγετε ένα σωστό όνομα</string>
@@ -730,7 +714,7 @@
     <string name="trip_finished">Μόλις φτάσατε!</string>
     <string name="ok">Οκ</string>
     <!-- max. 10 symbols, both iOS and Android -->
-    <string name="sort">Ταξινόμηση</string>
+    <string name="sort">Ταξινόμηση…</string>
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ταξινόμηση σελιδ/κτών</string>
     <!-- Android -->
@@ -749,7 +733,6 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Φαγητό</string>
     <string name="tourist_places">Αξιοθέατα</string>
@@ -769,7 +752,7 @@
     <string name="religious_places">Χώροι Λατρείας</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="transit_not_found">Η πλοήγηση με μετρό γι\' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη</string>
-    <string name="dialog_pedestrian_route_is_long_header">Δεν βρέθηκε διαδρομή μετρό</string>
+    <string name="dialog_pedestrian_route_is_long_header">Δεν βρέθηκε διαδρομή του μετρό</string>
     <string name="dialog_pedestrian_route_is_long_message">Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
     <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
@@ -783,7 +766,7 @@
     <string name="elevation_profile_time">Διάρκ:</string>
     <string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
     <string name="downloader_loading_ios">Κατέβασμα</string>
-    <string name="download_map_title">Κατέβασμα παγκόσμιου χάρτη</string>
+    <string name="download_map_title">Κατεβάστε τον παγκόσμιο χάρτη επισκόπησης</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">Δεν μπόρεσε να δημιουργηθεί φάκελος και να μεταφερθούν τα αρχεία στην εσωτερική ή εξωτερική μνήμη</string>
     <!-- Used in DownloadResources startup screen -->
@@ -828,19 +811,19 @@
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
     <string name="car_used_on_the_phone_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του κινητού</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου.</string>
+    <string name="car_used_on_the_car_screen">Αυτή τη στιγμή το Organic Maps βρίσκεται στην οθόνη του αυτοκινήτου</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Είστε συνδεδεμένοι στο Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
     <string name="car_continue_on_the_phone">Συνέχεια στο κινητό</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
-    <string name="car_continue_in_the_car">Προς οθόνη αυτοκ.</string>
+    <string name="car_continue_in_the_car">Στην οθόνη του αυτοκινήτου</string>
     <!-- Ask user to grant location permissions -->
     <string name="aa_location_permissions_request">Η εφαρμογή Organic Maps χρειάζεται πρόσβαση στην τοποθεσία. Όταν είναι ασφαλές, ελέγξτε την ειδοποίηση στο τηλέφωνό σας.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Αυτή η εφαρμογή χρειάζεται την άδειά σας</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Η εφαρμογή Organic Maps στο Android Auto χρειάζεται μια άδεια τοποθεσίας για να λειτουργήσει αποτελεσματικά</string>
+    <string name="aa_request_permission_activity_text">Οι οργανικοί χάρτες στο Android Auto χρειάζονται δικαιώματα τοποθεσίας για να λειτουργούν αποτελεσματικά</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Να επιτραπεί</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -885,10 +868,33 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά</string>
+    <string name="error_no_file_manager_app">Δεν είναι δυνατή η εμφάνιση του διαλόγου επιλογής φακέλου επειδή δεν είναι εγκατεστημένη η κατάλληλη εφαρμογή στη συσκευή σας. Εγκαταστήστε μια εφαρμογή διαχείρισης αρχείων και δοκιμάστε ξανά.</string>
     <string name="choose_color">Επιλέξτε χρώμα</string>
     <string name="edit_track">Επεξεργασία διαδρομής</string>
     <string name="uri_open_location_failed">Δεν υπάρχει εγκατεστημένη εφαρμογή που να μπορεί να ανοίξει την τοποθεσία</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Αυτόματη πλοήγηση</string>
+    <string name="wikimedia_commons">Κοινά της Wikimedia</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="facebook">Facebook</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="github">GitHub</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">Όροφος: %s</string>
+    <string name="mb">MB</string>
+    <string name="mi">μι</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="minute">λπτ</string>
+    <string name="day">Μέρα</string>
+    <string name="hour">Ωρα</string>
+    <string name="matrix">Μήτρα</string>
+    <string name="vk">VK</string>
+    <string name="telegram">Telegram</string>
 </resources>

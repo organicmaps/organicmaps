@@ -194,9 +194,10 @@ using namespace storage;
   f.GetBookmarkManager().GetEditSession().DeleteTrack(data.trackData.trackId);
 }
 
-- (void)call:(PlacePageData *)data {
-  if (data.infoData.phoneUrl && [UIApplication.sharedApplication canOpenURL:data.infoData.phoneUrl]) {
-    [UIApplication.sharedApplication openURL:data.infoData.phoneUrl options:@{} completionHandler:nil];
+- (void)call:(PlacePagePhone *)phone {
+  NSURL * _Nullable phoneURL = phone.url;
+  if (phoneURL && [UIApplication.sharedApplication canOpenURL:phoneURL]) {
+    [UIApplication.sharedApplication openURL:phoneURL options:@{} completionHandler:nil];
   }
 }
 
@@ -247,10 +248,6 @@ using namespace storage;
 
 - (void)openWebsiteMenu:(PlacePageData *)data {
   [self.ownerViewController openUrl:data.infoData.websiteMenu externally:YES];
-}
-
-- (void)openKayak:(PlacePageData *)data {
-  [self.ownerViewController openUrl:data.infoData.kayak externally:YES];
 }
 
 - (void)openWikipedia:(PlacePageData *)data {

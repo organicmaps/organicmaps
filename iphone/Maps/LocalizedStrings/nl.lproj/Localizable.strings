@@ -411,10 +411,10 @@
 /* blue gray color */
 "blue_gray" = "Grijsblauw";
 "dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
-"dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
+"dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
 "dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
 "dialog_routing_disclaimer_recommendations" = "— Beschouw de voorgestelde routes enkel als aanbevelingen;";
-"dialog_routing_disclaimer_borders" = "— Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen;";
+"dialog_routing_disclaimer_borders" = "— Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen.";
 "dialog_routing_disclaimer_beware" = "Blijf alert en rij veilig!";
 "dialog_routing_check_gps" = "Controleer gps-signaal";
 "dialog_routing_error_location_not_found" = "Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.";
@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "Meer";
 "book_button" = "Boek";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Foto's, beoordelingen, boeken";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "De doorverwijsbonus die je ontvangt voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Details op Kayak";
 "placepage_call_button" = "Bel";
 "placepage_edit_bookmark_button" = "Bewerk bladwijzer";
 "placepage_bookmark_name_hint" = "Bladwijzernaam";
@@ -783,7 +774,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Waarschuw nooit";
 "power_managment_title" = "Energiebesparende modus";
-"power_managment_description" = "Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon";
+"power_managment_description" = "Probeer batterijgebruik te verminderen ten koste van enkele functionaliteit.";
 "power_managment_setting_never" = "Nooit";
 "power_managment_setting_auto" = "Wanneer batterij bijna leeg is";
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
@@ -800,7 +791,7 @@
 "avoid_ferry" = "Vermijd veerboten";
 "avoid_motorways" = "Vermijd snelwegen";
 "unable_to_calc_alert_title" = "Kan route niet berekenen";
-"unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw";
+"unable_to_calc_alert_subtitle" = "Helaas konden we geen route berekenen. Dit kan komen door uw gekozen opties of door incomplete OpenStreetMap-data. Wijzig de instellingen en probeer het opnieuw.";
 "define_to_avoid_btn" = "Configureer wegen om te vermijden";
 "change_driving_options_btn" = "Route-instellingen ingeschakeld";
 "toll_road" = "Tolweg";
@@ -880,7 +871,7 @@
 "search_in_the_list" = "Zoek in de lijst";
 "religious_places" = "Religieuze plaatsen";
 "transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
-"dialog_pedestrian_route_is_long_header" = "Metroroute niet gevonden";
+"dialog_pedestrian_route_is_long_header" = "Geen metroroute gevonden";
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 "button_layer_isolines" = "Hoogtes";
 "isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden";

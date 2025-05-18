@@ -600,7 +600,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Can't find a suitable category?";
-"editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
+"editor_category_unsuitable_text" = "Organic Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step-by-step instructions.";
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 "current_location_unknown_error_title" = "Current location is unknown.";
@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "More";
 "book_button" = "Book";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Photos, reviews, booking";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Details on Kayak";
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";

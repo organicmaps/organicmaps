@@ -8,7 +8,7 @@
 "type.aerialway.gondola" = "Télécabine";
 "type.aerialway.mixed_lift" = "Téléporté mixte";
 "type.aerialway.station" = "Remontées mécaniques";
-"type.aeroway" = "Equipement aérien";
+"type.aeroway" = "Équipement aérien";
 "type.aeroway.aerodrome" = "Aéroport";
 "type.aeroway.aerodrome.international" = "Aéroport";
 "type.aeroway.apron" = "Aire de stationnement pour aéronefs";
@@ -28,7 +28,7 @@
 "type.amenity.bicycle_rental" = "Location de vélos";
 "type.amenity.bicycle_repair_station" = "Station de réparation de vélos";
 "type.amenity.biergarten" = "Biergarten";
-"type.amenity.brothel" = "Maison de prostitution";
+"type.amenity.brothel" = "Maison close";
 "type.amenity.bureau_de_change" = "Bureau de change";
 "type.amenity.bus_station" = "Gare routière";
 "type.amenity.cafe" = "Café";
@@ -162,7 +162,7 @@
 "type.amenity.public_bath" = "Bain public";
 "type.amenity.shower" = "Douche";
 "type.amenity.stripclub" = "Club de strip-tease";
-"type.amenity.taxi" = "Taxi Stand";
+"type.amenity.taxi" = "Station de taxi";
 "type.amenity.telephone" = "Téléphone";
 "type.amenity.theatre" = "Théâtre";
 "type.amenity.toilets" = "Toilettes";
@@ -268,7 +268,7 @@
 "type.craft.winery" = "Chai";
 "type.craft.tailor" = "Tailleur";
 "type.cuisine.african" = "Cuisine africaine";
-"type.cuisine.american" = "Cuisine américaine";
+"type.cuisine.american" = "Cuisine états-unienne";
 "type.cuisine.arab" = "Cuisine arabe";
 "type.cuisine.argentinian" = "Cuisine argentine";
 "type.cuisine.asian" = "Cuisine asiatique";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Pylône électrique";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Pylône électrique";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Pylônes (Télécommunication, lampadaire)";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";

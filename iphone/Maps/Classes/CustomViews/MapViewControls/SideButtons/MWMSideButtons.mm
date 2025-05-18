@@ -58,8 +58,6 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 
 + (void)updateAvailableArea:(CGRect)frame { [[self buttons].sideView updateAvailableArea:frame]; }
 
-+ (CGRect)getAvailableArea { return [self buttons].sideView.getAvailableArea; }
-
 - (void)zoomIn
 {
   GetFramework().Scale(Framework::SCALE_MAG, true);
@@ -143,7 +141,7 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 - (void)setHidden:(BOOL)hidden 
 {
   if (!self.hidden && hidden)
-    [[MWMToast toastWithText:L(@"long_tap_toast")] show];
+    [Toast showWithText:L(@"long_tap_toast")];
 
   return [self.sideView setHidden:hidden animated:YES];
 }

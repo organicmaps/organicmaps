@@ -114,7 +114,6 @@
     <string name="measurement_units">Jednostki miary</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">Wybiera pomiędzy milami, a kilometrami</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Gdzie zjeść</string>
@@ -162,7 +161,6 @@
     <string name="category_water">Woda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kamper</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notatki</string>
@@ -321,10 +319,6 @@
     <string name="google_play_services">Usługi lokalizacyjne Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Szybko określ swoją przybliżoną lokalizację przez Bluetooth, WiFi lub sieć komórkową</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Linki do hoteli Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Zdjęcia, recenzje, linki do rezerwacji są wyświetlane dla hoteli, które mają wpis na Kayak.com. Premia za polecenie otrzymana za każdą rezerwację za pośrednictwem tych linków jest przeznaczona na rozwój Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Pobierz mapy wzdłuż trasy</string>
     <!-- Text for routing error dialog -->
@@ -367,7 +361,6 @@
     <string name="gray">Szary</string>
     <!-- blue gray color -->
     <string name="blue_gray">Szaroniebieski</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Jadąc wyznaczoną trasą, pamiętaj, że:</string>
     <string name="dialog_routing_disclaimer_priority">— Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;</string>
@@ -397,7 +390,6 @@
     <string name="not_now">Nie teraz</string>
     <string name="dialog_routing_download_and_build_cross_route">Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?</string>
     <string name="dialog_routing_download_cross_route">Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.</string>
     <string name="search_select_map">Wybierz mapę</string>
@@ -559,14 +551,6 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Więcej</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Zdjęcia, opinie, rezerwacja</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Premia za polecenie otrzymywana za każdą rezerwację za pośrednictwem tego linku jest przeznaczana na rozwój Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Szczegóły na Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Proszę wyłączyć Kayak</string>
     <string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
     <string name="placepage_personal_notes_hint">Notatki osobiste (tekst lub html)</string>
     <string name="editor_comment_hint">Komentarz…</string>
@@ -755,7 +739,6 @@
     <string name="moreyear_ago_sorttype">Ponad rok temu</string>
     <string name="near_me_sorttype">W pobliżu</string>
     <string name="others_sorttype">Inne</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Jedzenie</string>
     <string name="tourist_places">Zabytki</string>
@@ -899,4 +882,23 @@
     <string name="uri_open_location_failed">Brak zainstalowanej aplikacji, która może otworzyć lokalizację</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automatyczna nawigacja</string>
+    <string name="level_value_generic">Piętro: %s</string>
+    <string name="github">GitHub</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="mb">MB</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="gb">GB</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="telegram">Telegram</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="navigation_stop_button">Stop</string>
 </resources>

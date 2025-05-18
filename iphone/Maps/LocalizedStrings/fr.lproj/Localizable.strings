@@ -46,10 +46,10 @@
 "about_headline" = "Gratuit pour tout le monde, fait avec amour";
 
 /* Text in About screen */
-"about_proposition_1" = "• Pas d'annonces, pas de suivi, pas de collecte de données";
+"about_proposition_1" = "• Pas de pub, pas de suivi, pas de collecte de données";
 
 /* Text in About screen */
-"about_proposition_2" = "• Pas d'épuisement de la batterie, fonctionne hors ligne";
+"about_proposition_2" = "• Préserve la batterie, fonctionne hors ligne";
 
 /* Text in About screen */
 "about_proposition_3" = "• Rapide, minimaliste, développé par la communauté";
@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "Gris-bleu";
 "dialog_routing_disclaimer_title" = "Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :";
-"dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
+"dialog_routing_disclaimer_priority" = "— Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation ;";
 "dialog_routing_disclaimer_precision" = "— La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination ;";
 "dialog_routing_disclaimer_recommendations" = "— L'itinéraire proposé doit être considéré comme une simple recommandation ;";
 "dialog_routing_disclaimer_borders" = "— Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites ;";
@@ -598,7 +598,7 @@
 "editor_operator" = "Opérateur";
 
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
-"operator" = "Opérateur : %@";
+"operator" = "Opérateur : %@";
 "editor_category_unsuitable_title" = "Tu ne trouves pas de catégorie appropriée ?";
 "editor_category_unsuitable_text" = "Organic Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte notre <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> pour obtenir des instructions détaillées étape par étape.";
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
@@ -637,15 +637,6 @@
 "day" = "j";
 "placepage_more_button" = "Plus";
 "book_button" = "Réserver";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Photos, commentaires, réservations";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "La prime de parrainage reçue pour chaque réservation effectuée par l'intermédiaire de ce lien sert à développer Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Détails sur Kayak";
 "placepage_call_button" = "Appeler";
 "placepage_edit_bookmark_button" = "Éditer le signet";
 "placepage_bookmark_name_hint" = "Nom du signet";
@@ -709,7 +700,7 @@
 "traffic_data_unavailable" = "Les données de circulation ne sont pas disponibles";
 "enable_logging" = "Activer le journal";
 "log_file_size" = "Taille du fichier journal : %@";
-"transliteration_title" = "Translittération en latin";
+"transliteration_title" = "Translittératisé en alphabet latin";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Sortie";

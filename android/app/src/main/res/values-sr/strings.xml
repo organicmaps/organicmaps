@@ -222,7 +222,7 @@
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Информације</string>
     <string name="prefs_group_route">Навигација</string>
-    <string name="pref_zoom_title">Дугмад за увећавање/умањивање</string>
+    <string name="pref_zoom_title">Дугме за зумирање</string>
     <string name="pref_zoom_summary">Прикажи на мапи</string>
     <!-- Settings «Map» category: «Night style» title -->
     <string name="pref_map_style_title">Ноћни режим</string>
@@ -310,10 +310,6 @@
     <string name="google_play_services">Google Play прецизност локације</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Брзо одређивање ваше локације коришћењем Bluetooth-а, WiFi-а, или мобилне мреже</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Претрага хотела на Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Линкови \"Фотографије, рецензије, резервације\" приказују се за хотеле повезане са Kayak.com. Бонус добијен за сваку резервацију преко ових линкова иде за развој Organic Maps-а.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Преузми све мапе које се налазе на рути</string>
     <!-- Text for routing error dialog -->
@@ -406,8 +402,8 @@
     <string name="wikimedia_commons">Викимедијина остава</string>
     <string name="p2p_your_location">Ваша локација</string>
     <string name="p2p_start">Крени</string>
-    <string name="p2p_from_here">Рута од</string>
-    <string name="p2p_to_here">Рута до</string>
+    <string name="p2p_from_here">Старт</string>
+    <string name="p2p_to_here">Одредиште</string>
     <string name="p2p_only_from_current">Навигација је могућа само од ваше тренутне локације.</string>
     <string name="p2p_reroute_from_current">Да ли желите да направите руту од ваше тренутне локације?</string>
     <!-- Edit open hours/set time and minutes dialog -->
@@ -542,12 +538,6 @@
     <string name="minute">мин</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Више</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Фотографије, утисци, резервације</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Детаљи на Kayak-у</string>
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="editor_comment_hint">Коментар…</string>
     <string name="editor_reset_edits_message">Брисање свих измена које нису послате?</string>
@@ -611,8 +601,8 @@
     <string name="routing_add_finish_point">Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку</string>
     <string name="planning_route_manage_route">Измени руту</string>
     <string name="button_plan">План</string>
-    <string name="placepage_remove_stop">Уклони стајање</string>
-    <string name="placepage_add_stop">Додај стајање</string>
+    <string name="placepage_remove_stop">Уклони међуодредиште</string>
+    <string name="placepage_add_stop">Међуодредиште</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Молим Вас да се пријавите на OpenStreetMap да бисте аутоматски послали своје промене на мапи. Сазнајте више о томе <a href="https://github.com/organicmaps/organicmaps/issues/6144">овде</a>.</string>
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
@@ -626,7 +616,7 @@
     <string name="bookmark_lists_show_all">Прикажи све</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d маркер</item>
-        <item quantity="few">%d маркери</item>
+        <item quantity="few">%d маркера</item>
         <item quantity="other">%d маркера</item>
     </plurals>
     <string name="bookmarks_create_new_group">Креирај нову листу</string>
@@ -896,7 +886,6 @@
     <string name="already_donated">Већ је донирано</string>
     <string name="remind_me_later">Подсећати касније</string>
     <string name="support_organic_maps">Подршка Organic Maps</string>
-    <string name="dialog_kayak_disable_button">Онемогући Kayak</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="editor_osm_history">Ваша историја уређивања</string>
     <string name="editor_osm_notes">Ваши подаци о мапи</string>

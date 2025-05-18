@@ -12,7 +12,7 @@
 "type.aeroway.aerodrome" = "Flugplatz";
 "type.aeroway.aerodrome.international" = "Flughafen";
 "type.aeroway.apron" = "Vorfeld";
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Tor";
 "type.aeroway.helipad" = "Hubschrauberlandeplatz";
 "type.aeroway.runway" = "Start-/Landebahn";
 "type.aeroway.taxiway" = "Rollweg";
@@ -203,7 +203,7 @@
 "type.barrier.fence" = "Zaun";
 "type.barrier.gate" = "Tor";
 "type.barrier.hedge" = "Hecke";
-"type.barrier.kissing_gate" = "Tor";
+"type.barrier.kissing_gate" = "Kissing Gate";
 "type.barrier.lift_gate" = "Schranke";
 "type.barrier.retaining_wall" = "Stützmauer";
 "type.barrier.stile" = "Zaunübertritt";
@@ -215,13 +215,13 @@
 "type.boundary.administrative" = "Verwaltungsgrenze";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Landesgrenze";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.3" = "Regional Boundary";
+"type.boundary.administrative.3" = "Regionale Grenze";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.4" = "Regional Boundary";
+"type.boundary.administrative.4" = "Regionale Grenze";
 "type.boundary.national_park" = "Nationalpark";
 "type.boundary.aboriginal_lands" = "Indigene länder";
 "type.boundary.protected_area" = "Geschützter Bereich";
@@ -245,7 +245,7 @@
 "type.craft.beekeeper" = "Imker";
 "type.craft.blacksmith" = "Schmied";
 "type.craft.brewery" = "Brauerei";
-"type.craft.caterer" = "Caterer";
+"type.craft.caterer" = "Partyservice";
 "type.craft.carpenter" = "Zimmermann";
 "type.craft.confectionery" = "Süßwarenladen";
 "type.craft.electrician" = "Elektriker";
@@ -268,7 +268,7 @@
 "type.craft.winery" = "Kellerei";
 "type.craft.tailor" = "Schneider";
 "type.cuisine.african" = "Afrikanisch";
-"type.cuisine.american" = "Amerikanisch";
+"type.cuisine.american" = "US-amerikanisch";
 "type.cuisine.arab" = "Arabisch";
 "type.cuisine.argentinian" = "Argentinisch";
 "type.cuisine.asian" = "Asiatisch";
@@ -298,7 +298,7 @@
 "type.cuisine.filipino" = "Philippinisch";
 "type.cuisine.fine_dining" = "Gehoben";
 "type.cuisine.fish" = "Fisch";
-"type.cuisine.fish_and_chips" = "Fish and Chips";
+"type.cuisine.fish_and_chips" = "Fisch und Chips";
 "type.cuisine.french" = "Französisch";
 "type.cuisine.friture" = "Pommes";
 "type.cuisine.georgian" = "Georgisch";
@@ -712,7 +712,7 @@
 "type.leisure.garden.residential" = "Garten";
 "type.leisure.golf_course" = "Golfplatz";
 "type.leisure.miniature_golf" = "Minigolf";
-"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.hackerspace" = "Hackerraum";
 "type.leisure.ice_rink" = "Eislaufplatz";
 "type.leisure.marina" = "Jachthafen";
 "type.leisure.nature_reserve" = "Naturschutzgebiet";
@@ -748,7 +748,7 @@
 "type.man_made.mast" = "Mast";
 "type.man_made.pier" = "Anlegestelle";
 "type.man_made.pipeline" = "Pipeline";
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "Oberirdische Rohrleitung";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Speichertank";
 "type.man_made.surveillance" = "Überwachungskamera";
@@ -827,7 +827,7 @@
 "type.natural.wetland" = "Feuchtgebiet";
 "type.natural.wetland.bog" = "Moor";
 "type.natural.wetland.marsh" = "Sumpf";
-"type.noexit" = "Dead End";
+"type.noexit" = "Sackgasse";
 "type.office" = "Büro";
 "type.office.company" = "Firmenbüro";
 "type.office.estate_agent" = "Immobilienmakler";
@@ -898,17 +898,17 @@
 "type.power.tower" = "Hochspannungsmast";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Strommast";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Versorgungsmast";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Öffentlicher Verkehr";
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "Plattform";
 "type.railway" = "Eisenbahn";
 "type.railway.abandoned" = "Ehemalige Eisenbahnstrecke";
 "type.railway.abandoned.bridge" = "Ehemalige Eisenbahnbrücke";
@@ -1349,7 +1349,7 @@
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Gerätetauchen";
 "type.sport.shooting" = "Schießen";
-"type.sport.skateboard" = "Skateboarding";
+"type.sport.skateboard" = "Skateboarden";
 "type.sport.skiing" = "Skifahren";
 "type.sport.soccer" = "Fußball";
 "type.sport.swimming" = "Schwimmen";
@@ -1461,7 +1461,7 @@
 "type.piste_type.nordic" = "Langlaufloipe";
 "type.piste_type.sled" = "Rodelbahn";
 "type.piste_type.sled.area" = "Rodelbahn";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.snow_park" = "Schneepark";
 "type.piste_type.hike" = "Schneewanderweg";
 "type.piste_type.connection" = "Pistenanschluss";
 "type.piste_type.skitour" = "Skitour Pfad";

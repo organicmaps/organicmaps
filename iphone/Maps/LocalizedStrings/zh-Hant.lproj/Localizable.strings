@@ -637,15 +637,6 @@
 "day" = "天";
 "placepage_more_button" = "更多";
 "book_button" = "預定";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "照片、評論、預訂";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "每次通過此鏈接預定所獲得的推薦獎金將用於 Organic Maps 的開發。";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Kayak 上的詳細資訊";
 "placepage_call_button" = "呼叫";
 "placepage_edit_bookmark_button" = "編輯書籤";
 "placepage_bookmark_name_hint" = "書籤名稱";

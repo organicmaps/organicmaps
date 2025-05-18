@@ -120,7 +120,7 @@
 "type.amenity.place_of_worship.hindu" = "Hinduistický chrám";
 "type.amenity.place_of_worship.jewish" = "Synagoga";
 "type.amenity.place_of_worship.muslim" = "Mešita";
-"type.amenity.place_of_worship.shinto" = "Posvátné místo";
+"type.amenity.place_of_worship.shinto" = "Šintoistická svatyně";
 "type.amenity.place_of_worship.taoist" = "Taoistický chrám";
 "type.amenity.police" = "Policie";
 "type.amenity.post_box" = "Poštovní schránka";
@@ -179,7 +179,7 @@
 "type.amenity.vending_machine.parking_tickets" = "Parkovací automat";
 "type.amenity.vending_machine.public_transport_tickets" = "Automat na jízdenky";
 "type.amenity.vending_machine.sweets" = "Automat na sladkosti";
-"type.amenity.vending_machine.excrement_bags" = "Automat na sáčky na exkrementy";
+"type.amenity.vending_machine.excrement_bags" = "Sáčky na výkaly";
 "type.amenity.parcel_locker" = "Schránka na balíky";
 "type.amenity.vehicle_inspection" = "Kontrola vozidla";
 "type.amenity.vending_machine.fuel" = "Palivové čerpadlo";
@@ -419,7 +419,7 @@
 "type.highway.footway.bridge" = "Most";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.footway.tunnel" = "Tunel";
+"type.highway.footway.tunnel" = "Tunel pro pěší";
 "type.highway.ford" = "Brod";
 "type.highway.living_street" = "Ulice";
 
@@ -434,7 +434,7 @@
 "type.highway.motorway.bridge" = "Most";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Tunel";
+"type.highway.motorway.tunnel" = "Silniční tunel";
 "type.highway.motorway_junction" = "Dopravní uzel";
 "type.highway.motorway_link" = "Ulice";
 
@@ -466,7 +466,7 @@
 "type.highway.pedestrian.bridge" = "Most";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunel";
+"type.highway.pedestrian.tunnel" = "Tunel pro pěší";
 "type.highway.primary" = "Ulice";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -1211,7 +1211,7 @@
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Obchod";
 "type.shop.alcohol" = "Obchod s alkoholem";
-"type.shop.bakery" = "Pekárna";
+"type.shop.bakery" = "Pekařství";
 "type.shop.bathroom_furnishing" = "Vybavení koupelny";
 "type.shop.beauty" = "Kosmetický salon";
 "type.shop.beverages" = "Nápoje";

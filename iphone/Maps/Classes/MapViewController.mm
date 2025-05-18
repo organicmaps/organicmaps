@@ -148,34 +148,48 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)setupPlacePageContainer {
   self.placePageContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
+  self.placePageContainer.translatesAutoresizingMaskIntoConstraints = NO;
   [self.view addSubview:self.placePageContainer];
   [self.view bringSubviewToFront:self.placePageContainer];
 
-  self.placePageContainer.translatesAutoresizingMaskIntoConstraints = NO;
   self.placePageLeadingConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:kPlacePageLeadingOffset];
-  self.placePageLeadingConstraint.active = YES;
+  if (IPAD)
+    self.placePageLeadingConstraint.priority = UILayoutPriorityDefaultLow;
 
-  self.placePageWidthConstraint = [self.placePageContainer.widthAnchor constraintEqualToConstant:0];
+  self.placePageWidthConstraint = [self.placePageContainer.widthAnchor constraintEqualToConstant:kPlacePageCompactWidth];
   self.placePageTrailingConstraint = [self.placePageContainer.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor];
 
-  [self.placePageContainer.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
-  if (IPAD) {
-    self.placePageLeadingConstraint.priority = UILayoutPriorityDefaultLow;
-    [self.placePageContainer.bottomAnchor constraintLessThanOrEqualToAnchor:self.view.bottomAnchor].active = YES;
-  }
-  else {
-    [self.placePageContainer.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
-  }
+  NSLayoutConstraint * topConstraint = [self.placePageContainer.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor];
+
+  NSLayoutConstraint * bottomConstraint;
+  if (IPAD)
+    bottomConstraint = [self.placePageContainer.bottomAnchor constraintLessThanOrEqualToAnchor:self.view.bottomAnchor];
+  else
+    bottomConstraint = [self.placePageContainer.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor];
+
+  [NSLayoutConstraint activateConstraints:@[
+    self.placePageLeadingConstraint,
+    topConstraint,
+    bottomConstraint,
+  ]];
 
   [self updatePlacePageContainerConstraints];
 }
 
+- (void)setupSearchContainer {
+  if (self.searchContainer != nil)
+    return;
+  self.searchContainer = [[TouchTransparentView alloc] initWithFrame:self.view.bounds];
+  [self.view addSubview:self.searchContainer];
+  [self.view bringSubviewToFront:self.searchContainer];
+  self.searchContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
 - (void)updatePlacePageContainerConstraints {
   const BOOL isLimitedWidth = IPAD || self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
-  [self.placePageWidthConstraint setConstant:kPlacePageCompactWidth];
 
-  if (IPAD && self.searchViewContainer != nil) {
-    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchViewContainer.trailingAnchor constant:kPlacePageLeadingOffset];
+  if (IPAD && self.searchViewAvailableArea != nil) {
+    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchViewAvailableArea.trailingAnchor constant:kPlacePageLeadingOffset];
     leadingToSearchConstraint.priority = UILayoutPriorityDefaultHigh;
     leadingToSearchConstraint.active = isLimitedWidth;
   }
@@ -259,9 +273,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
     return;
   }
 
-  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE)
-    [self.searchManager setMapIsDragging];
-
   NSArray *allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)
     return;
@@ -272,6 +283,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
   df::TouchEvent e;
   UITouch *touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
+
+  // Check if the tap is inside searchView)
+  if (self.searchManager.isSearching && type == df::TouchEvent::TOUCH_MOVE && !CGRectContainsPoint(self.searchViewAvailableArea.frame, pt))
+    [self.searchManager setMapIsDragging];
 
   e.SetTouchType(type);
 
@@ -372,6 +387,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setupPlacePageContainer];
+  [self setupSearchContainer];
 
   if (@available(iOS 14.0, *))
     [self setupTrackPadGestureRecognizers];
@@ -726,12 +742,12 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (SearchOnMapManager *)searchManager {
   if (!_searchManager)
-    _searchManager = [[SearchOnMapManager alloc] initWithNavigationController:self.navigationController];
+    _searchManager = [[SearchOnMapManager alloc] init];
   return _searchManager;
 }
 
-- (UIView * _Nullable)searchViewContainer {
-  return self.searchManager.viewController.view;
+- (UIView * _Nullable)searchViewAvailableArea {
+  return self.searchManager.viewController.availableAreaView;
 }
 
 - (BOOL)hasNavigationBar {

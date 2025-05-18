@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Types -->
+    <string name="type.amenity.bbq">Grilis</string>
+    <string name="type.amenity.motorcycle_rental">Motociklų nuoma</string>
+    <string name="type.amenity.conference_centre">Konferencijų centras</string>
+    <string name="type.amenity.exhibition_centre">Parodų centras</string>
+    <!-- SECTION: Types: Recycling -->
+    <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+    <string name="type.amenity.shelter.basic_hut">Bivako Namelis</string>
+    <string name="type.waterway.ditch">Drenažo griovys</string>
+    <string name="type.natural.water.wastewater">Nuotekos</string>
+    <string name="type.barrier.turnstile">Turniketas</string>
+    <string name="type.boundary.aboriginal_lands">Vietinių gyventojų žemės</string>
+    <!-- Duplicates [address] in strings.txt -->
+    <string name="type.building.address">Adresas</string>
+    <string name="type.building.train_station">Stoties pastatas</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Gelbėtojas</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Kalnų gelbėjimo stotis</string>
+    <string name="type.entrance.exit">Išeiti</string>
+    <string name="type.fee.no">Nemokama</string>
+    <!-- SECTION: Types: Roads -->
+    <string name="type.highway.footway.sidewalk">Šaligatvis</string>
+    <string name="type.highway.footway.crossing">Pėsčiųjų perėja</string>
+    <string name="type.highway.path">Kelias</string>
+    <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+    <string name="type.highway.path.difficult">Sudėtingas arba blogai matomas takas</string>
+    <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+    <string name="type.highway.path.expert">Labai sudėtingas arba neišsiskiriantis takas</string>
+    <string name="type.highway.path.bicycle">Kelias</string>
+    <string name="type.highway.footway.bicycle">Kelias</string>
+    <string name="type.highway.path.horse">Kelias</string>
+    <string name="type.area_highway.path">Kelias</string>
+    <!-- SECTION: Types: Historic -->
+    <string name="type.historic.aircraft">Istorinis lėktuvas</string>
+    <string name="type.historic.anchor">Istorinis inkaras</string>
+    <string name="type.historic.cannon">Patranka</string>
+    <string name="type.historic.locomotive">Istorinis lokomotyvas</string>
+    <string name="type.historic.stone">Istorinis akmuo</string>
+    <string name="type.historic.mine">Istorinė kasykla</string>
+    <string name="type.historic.tank">Istorinis tankas</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Kryžius</string>
+    <string name="type.historic.wreck">Laivo liekanos</string>
+    <string name="type.landuse.flowerbed">Gėlynas</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Naftos arba dujų gręžinys</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Dujų fakelas</string>
+    <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+    <string name="type.natural.shingle">Akmenukai</string>
+    <!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+    <string name="type.natural.scree">Akmenuoti skardžiai</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">Kaimynystė</string>
+    <string name="type.shop.hearing_aids">Klausos aparatų parduotuvė</string>
+    <string name="type.shop.pasta">Makaronų parduotuvė</string>
+    <string name="type.shop.rental">Nuomos parduotuvė</string>
+    <string name="type.shop.rental.bicycle">Dviračių nuomos parduotuvė</string>
+    <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+    <string name="type.tourism.alpine_hut">Kalnų namelis</string>
+    <string name="type.tourism.apartment">Atostogoms nuomojami butai</string>
+    <string name="type.attraction.amusement_ride">Atrakcionų atrakcionas</string>
+    <string name="type.attraction.animal">Gyvūnų aptvaras</string>
+    <string name="type.attraction.carousel">Karuselė</string>
+    <string name="type.attraction.historic">Istorinė atrakcija</string>
+    <string name="type.attraction.maze">Labirintas</string>
+    <string name="type.attraction.roller_coaster">Amerikietiški kalneliai</string>
+    <string name="type.attraction.water_slide">Vandens kalnelis</string>
+    <!-- A rentable countryside vacation house. -->
+    <string name="type.tourism.chalet">Atostogų namelis</string>
+    <string name="type.tourism.zoo.petting">Petting Zoo</string>
+    <string name="type.natural.water.ditch">Drenažo griovys</string>
+    <string name="type.waterway.ditch.tunnel">Pralaida</string>
+    <string name="type.waterway.drain.tunnel">Pralaida</string>
+    <string name="type.piste_type.snow_park">Sniego parkas</string>
+    <string name="type.piste_type.hike">Sniego pėsčiųjų takas</string>
+    <string name="type.piste_type.connection">\"Piste Connection</string>
+    <string name="type.piste_type.skitour">\"Skitour\" takas</string>
+    <string name="type.self_service.yes">Galimybė naudotis savitarnos paslaugomis</string>
+    <string name="type.self_service.only">Tik savitarna</string>
+    <string name="type.self_service.partially">Dalinė savitarna</string>
+    <string name="type.self_service.no">Nėra savitarnos</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+    <string name="type.amenity.social_facility">Socialinė priemonė</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+    <string name="type.emergency.emergency_ward_entrance">Skubios pagalbos skyriaus įėjimas</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+    <string name="type.amenity.dojo">Dojo</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+    <string name="type.leisure.sports_hall">Sporto salė</string>
+    <string name="type.addr_interpolation">Adresas / blokas</string>
+    <string name="type.addr_interpolation.even">Adresas / blokas</string>
+    <string name="type.aerialway">Keltuvas</string>
+    <string name="type.addr_interpolation.odd">Adresas / blokas</string>
+</resources>

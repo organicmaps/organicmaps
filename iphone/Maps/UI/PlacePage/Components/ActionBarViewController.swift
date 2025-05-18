@@ -66,7 +66,8 @@ final class ActionBarViewController: UIViewController {
     if isRoutePlanning {
       buttons.append(.routeFrom)
     }
-    if placePageData.infoData?.phone != nil, AppInfo.shared().canMakeCalls {
+    let hasAnyPhones = !(placePageData.infoData?.phones ?? []).isEmpty
+    if hasAnyPhones, AppInfo.shared().canMakeCalls {
       buttons.append(.call)
     }
     if !isRoutePlanning {

@@ -202,12 +202,12 @@
 "type.barrier.entrance" = "Прохід";
 "type.barrier.fence" = "Огорожа";
 "type.barrier.gate" = "Ворота";
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Жива огорожа";
 "type.barrier.kissing_gate" = "Ворота";
 "type.barrier.lift_gate" = "Шлагбаум";
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Підпірна стіна";
 "type.barrier.stile" = "Перелаз";
-"type.barrier.turnstile" = "Турнікет.";
+"type.barrier.turnstile" = "Турнікет";
 "type.barrier.swing_gate" = "Шлагбаум";
 "type.barrier.toll_booth" = "Пункт оплати";
 "type.barrier.wall" = "Стіна";
@@ -353,7 +353,7 @@
 "type.cuisine.vegan" = "Веганська кухня";
 "type.cuisine.vegetarian" = "Вегетаріанська кухня";
 "type.cuisine.vietnamese" = "В'єтнамська кухня";
-"type.emergency" = "Emergency";
+"type.emergency" = "Швидка";
 "type.emergency.assembly_point" = "Аварійний збірний пункт";
 "type.emergency.defibrillator" = "Дефібрилятор";
 "type.emergency.fire_hydrant" = "Пожежний гідрант";
@@ -712,7 +712,7 @@
 "type.leisure.garden.residential" = "Частный сад";
 "type.leisure.golf_course" = "Майданчик для гольфу";
 "type.leisure.miniature_golf" = "Мінігольф";
-"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.hackerspace" = "Хакерський простір";
 "type.leisure.ice_rink" = "Каток";
 "type.leisure.marina" = "Пристань";
 "type.leisure.nature_reserve" = "Заповідник";
@@ -748,7 +748,7 @@
 "type.man_made.mast" = "Щогла/вишка";
 "type.man_made.pier" = "Пірс";
 "type.man_made.pipeline" = "Трубопровід";
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "Наземний трубопровід";
 "type.man_made.silo" = "Силос";
 "type.man_made.storage_tank" = "Резервуар";
 "type.man_made.surveillance" = "Камера спостереження";
@@ -775,7 +775,7 @@
 "type.man_made.works" = "Промислове виробництво";
 "type.mapswithme" = "mapswithme";
 "type.mapswithme.grid" = "mapswithme-grid";
-"type.military" = "Military";
+"type.military" = "Військові об'єкти";
 "type.military.bunker" = "Бункер";
 "type.mountain_pass" = "Перевал";
 "type.natural" = "Природа";
@@ -898,17 +898,17 @@
 "type.power.tower" = "Стовп ЛЕП";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Стовп ЛЕП";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Стовп передачі";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Громадський транспорт";
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "Платформа";
 "type.railway" = "Залізниця";
 "type.railway.abandoned" = "Закинута залізниця";
 "type.railway.abandoned.bridge" = "Закинутий залізничний міст";
@@ -1378,8 +1378,8 @@
 "type.tourism.attraction" = "Пам’ятне місце";
 "type.attraction.amusement_ride" = "Атракціон";
 "type.attraction.animal" = "Вольєр для тварин";
-"type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.bumper_car" = "Доджем";
+"type.attraction.big_wheel" = "Колесо огляду";
 "type.attraction.carousel" = "Карусель";
 "type.attraction.historic" = "Історична пам'ятка";
 "type.attraction.maze" = "Лабіринт";

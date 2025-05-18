@@ -60,12 +60,6 @@
     <!-- SECTION: Strings for downloading map from search -->
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotos, reseñas, reservas.</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Detalles sobre Kayak</string>
     <string name="placepage_add_place_button">Agregar lugar a OpenStreetMap</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->

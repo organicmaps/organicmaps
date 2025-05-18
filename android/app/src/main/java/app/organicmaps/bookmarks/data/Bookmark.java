@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.Framework;
-import app.organicmaps.routing.RoutePointInfo;
-import app.organicmaps.search.Popularity;
+import app.organicmaps.sdk.routing.RoutePointInfo;
+import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.

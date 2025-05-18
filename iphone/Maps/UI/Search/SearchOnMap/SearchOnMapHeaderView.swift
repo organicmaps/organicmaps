@@ -1,5 +1,6 @@
 protocol SearchOnMapHeaderViewDelegate: UISearchBarDelegate {
   func cancelButtonDidTap()
+  func grabberDidTap()
 }
 
 final class SearchOnMapHeaderView: UIView {
@@ -10,15 +11,19 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private enum Constants {
+    static let searchBarHeight: CGFloat = 36
+    static let searchBarInsets: UIEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 10, right: 0)
     static let grabberHeight: CGFloat = 5
     static let grabberWidth: CGFloat = 36
     static let grabberTopMargin: CGFloat = 5
-    static let cancelButtonInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 8)
+    static let cancelButtonInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 16)
   }
 
   private let grabberView = UIView()
+  private let grabberTapHandlerView = UIView()
   private let searchBar = UISearchBar()
   private let cancelButton = UIButton()
+  private let cancelContainer = UIView()
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -32,19 +37,26 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupView() {
-    setStyle(.searchHeader)
-    layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    setStyle(.primaryBackground)
 
     setupGrabberView()
+    setupGrabberTapHandlerView()
     setupSearchBar()
     setupCancelButton()
   }
 
   private func setupGrabberView() {
-    grabberView.setStyle(.background)
-    grabberView.layer.setCorner(radius: Constants.grabberHeight / 2)
+    grabberView.setStyle(.grabber)
     iPadSpecific { [weak self] in
       self?.grabberView.isHidden = true
+    }
+  }
+
+  private func setupGrabberTapHandlerView() {
+    grabberTapHandlerView.backgroundColor = .clear
+    iPhoneSpecific {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(grabberDidTap))
+      grabberTapHandlerView.addGestureRecognizer(tapGesture)
     }
   }
 
@@ -59,19 +71,24 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupCancelButton() {
-    cancelButton.tintColor = .whitePrimaryText()
-    cancelButton.setStyle(.clearBackground)
+    cancelContainer.setStyle(.primaryBackground)
+    cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
-    cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+    cancelButton.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
   }
 
   private func layoutView() {
     addSubview(grabberView)
+    addSubview(grabberTapHandlerView)
     addSubview(searchBar)
-    addSubview(cancelButton)
+    addSubview(cancelContainer)
+    cancelContainer.addSubview(cancelButton)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
+    grabberTapHandlerView.translatesAutoresizingMaskIntoConstraints = false
+    grabberTapHandlerView.setContentHuggingPriority(.defaultLow, for: .vertical)
     searchBar.translatesAutoresizingMaskIntoConstraints = false
+    cancelContainer.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
@@ -80,18 +97,33 @@ final class SearchOnMapHeaderView: UIView {
       grabberView.widthAnchor.constraint(equalToConstant: Constants.grabberWidth),
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
 
-      searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor),
-      searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-      searchBar.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -Constants.cancelButtonInsets.left),
+      grabberTapHandlerView.topAnchor.constraint(equalTo: grabberView.bottomAnchor),
+      grabberTapHandlerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      grabberTapHandlerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      grabberTapHandlerView.bottomAnchor.constraint(equalTo: searchBar.topAnchor),
 
-      cancelButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-      cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.cancelButtonInsets.right),
+      searchBar.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.searchBarInsets.top),
+      searchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.searchBarInsets.left),
+      searchBar.trailingAnchor.constraint(equalTo: cancelContainer.leadingAnchor),
+      searchBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.searchBarInsets.bottom),
+      searchBar.heightAnchor.constraint(equalToConstant: Constants.searchBarHeight),
 
-      bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
+      cancelContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+      cancelContainer.topAnchor.constraint(equalTo: searchBar.topAnchor),
+      cancelContainer.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor),
+
+      cancelButton.topAnchor.constraint(equalTo: cancelContainer.topAnchor),
+      cancelButton.leadingAnchor.constraint(equalTo: cancelContainer.leadingAnchor, constant: Constants.cancelButtonInsets.left),
+      cancelButton.trailingAnchor.constraint(equalTo: cancelContainer.trailingAnchor, constant: -Constants.cancelButtonInsets.right),
+      cancelButton.bottomAnchor.constraint(equalTo: cancelContainer.bottomAnchor),
     ])
   }
 
-  @objc private func cancelButtonTapped() {
+  @objc private func grabberDidTap() {
+    delegate?.grabberDidTap()
+  }
+
+  @objc private func cancelButtonDidTap() {
     delegate?.cancelButtonDidTap()
   }
 

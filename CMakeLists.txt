@@ -90,6 +90,19 @@ else()
   message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
 
+if(${PLATFORM_MAC})
+  set(XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES)
+
+  # Metal language support
+  list(APPEND CMAKE_MODULE_PATH ${OMIM_ROOT}/3party/CMake-MetalShaderSupport/cmake)
+  include(CheckLanguage)
+  include(MetalShaderSupport)
+  check_language(Metal)
+  if(CMAKE_Metal_COMPILER)
+    enable_language(Metal)
+  endif()
+endif()
+
 # Sanitizer
 if (PLATFORM_DESKTOP)
   # https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation
@@ -234,7 +247,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   find_program(LLD_FOUND ld.lld)
   if (LLD_FOUND)
-    message(STATUS "Using ld.ldd linker")
+    message(STATUS "Using ld.lld linker")
     set(CMAKE_EXE_LINKER_FLAGS "-fuse-ld=lld")
   else()
     find_program(GOLD_FOUND ld.gold)
@@ -384,6 +397,7 @@ if (PLATFORM_DESKTOP)
     add_subdirectory(qt)
     omim_add_tool_subdirectory(skin_generator)
   endif()
+  add_subdirectory(dev_sandbox)
 endif()
 
 omim_add_test_subdirectory(qt_tstfrm)

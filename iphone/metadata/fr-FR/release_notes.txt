@@ -1,20 +1,31 @@
-• Nouvelles données OpenStreetMap du 21 janvier
-• Appuyez sur les pistes pour afficher des statistiques et un profil d'altitude interactif
-• Un bouton d'enregistrement de piste autonome
-• Widget d'activité en direct d'enregistrement de piste avec statistiques de piste (iOS 16.2 et versions ultérieures)
-• Ajout des langues serbe (cyrillique) et lettone
-• Ajout de POI de tour
+• Nouvelles données OpenStreetMap du 27 février
+• Recherche : écran partagé pour afficher simultanément la carte et la liste
+• Possibilité de partager une seule piste sélectionnée dans la liste
+• Amélioration du routage pour les vélos
+• Ajout de pistes et de couleurs de signets dans les fichiers GPX exportés
 
-• Ajout d'icônes spécifiques pour le métro de Hong Kong, de Shenzhen et le métro léger de Berlin, ainsi qu'une icône de monorail distincte
-• Ajout d'un menu contextuel au bouton de coordonnées dans les détails du POI
-• Afficher une fenêtre contextuelle de rappel à chaque fois que le mode plein écran est activé
-• Afficher une explication lorsque la recherche de catégorie de l'éditeur OSM ne renvoie rien
-• Faire la différence entre les couleurs de l’herbe et celles des prairies
-• Couleur des jardins résidentiels moins saturée/proéminente
-• Correction des panneaux routiers jaunes affichés en vert en mode nuit
-• Afficher les remplissages de végétation plus tôt dans le style de navigation automobile
-• Afficher des niveaux complexes non numériques pour la création de POI
-• Améliorer la recherche de sommets et de cols
-• EN comme langue de recherche supplémentaire dans l'éditeur OSM
-• Mettre à jour les traductions en estonien, finnois, allemand, italien et turc
-• ... de nombreuses autres corrections de bugs et améliorations de l'interface utilisateur
+Carte :
+• Ajout de magasins d'appareils auditifs, de tours de communication, de croix, de puits de pétrole/gaz, de torchères à gaz, de sauveteurs, de locations de motos, de postes de secours en montagne, d'obélisques (en tant que monuments), de quartiers séparés (qui étaient auparavant fusionnés avec les quartiers)
+• Extérieur : visibilité accrue des cabanes, abris, postes de chasse, tours, cairns, réservoirs de stockage, silos
+• Extérieur : ajout de lignes électriques secondaires, de poteaux électriques et de services publics ; visibilité accrue des principales lignes électriques et pylônes
+• Ajout de légendes aux falaises nommées, aux murs de la ville, aux remblais et aux lignes électriques
+• Visibilité et priorité optimisées de certains magasins de niche
+
+Éditeur OSM :
+• Ajout de la possibilité de modifier les attributs POI « Libre-service » et « Terrasse en extérieur »
+• Ne pas masquer la page de connexion OSM en mode hors ligne
+• Ajout d'icônes aux champs de saisie d'adresse et de nombre d'étages
+• Correction de nombreux autres bugs, grâce au contributeur @map-per qui a fait beaucoup de travail en coulisses !
+
+Autre :
+• Ouvrir automatiquement la page d'informations de la piste à la fin de l'enregistrement/enregistrement de la piste
+• Afficher le bouton « Ajouter un arrêt » pour le point de piste sélectionné en mode navigation
+• Directions vocales : annoncer le recalcul de l'itinéraire
+• Profils d'élévation de piste plus esthétiques
+• Le widget d'activité en direct d'enregistrement de piste peut désormais être correctement supprimé
+• Ne pas toujours passer par défaut au mode de routage du métro lorsque la couche de métro est active
+• Correction des signets stockant le nom du POI dans une mauvaise langue
+• Correction des POI sur bâtiment qui disparaissaient en vue perspective
+• Correction du panneau de limitation de vitesse vide affiché dans la navigation à pied
+• Correction du geste de rotation de carte bloqué lors d'un zoom avant maximal
+• Correction des bugs de synchronisation iCloud et quelques corrections mineures de l'interface utilisateur

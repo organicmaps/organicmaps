@@ -54,14 +54,18 @@ final class SearchTabViewController: TabViewController {
 }
 
 extension SearchTabViewController: ModallyPresentedViewController {
-  func translationYDidUpdate(_ translationY: CGFloat) {
-    viewControllers.forEach { ($0 as? ModallyPresentedViewController)?.translationYDidUpdate(translationY) }
+  func presentationFrameDidChange(_ frame: CGRect) {
+    viewControllers.forEach { ($0 as? ModallyPresentedViewController)?.presentationFrameDidChange(frame) }
   }
 }
 
 extension SearchTabViewController: SearchOnMapScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     delegate?.scrollViewDidScroll(scrollView)
+  }
+
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
   }
 }
 

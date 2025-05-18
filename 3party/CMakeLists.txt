@@ -31,9 +31,10 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   set(JANSSON_WITHOUT_TESTS ON)
   add_subdirectory(jansson/jansson/)
   target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
-  add_library(jansson::jansson ALIAS jansson)
 
   # Add gflags library.
+  set(GFLAGS_BUILD_TESTING OFF)
+  set(GFLAGS_BUILD_PACKAGING OFF)
   add_subdirectory(gflags)
   target_compile_options(gflags_nothreads_static PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wno-subobject-linkage>)
 
@@ -66,4 +67,19 @@ add_subdirectory(vulkan_wrapper)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(libtess2)
+
+  set(GLFW_BUILD_DOCS OFF CACHE BOOL "")
+  set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "")
+  set(GLFW_BUILD_TESTS OFF CACHE BOOL "")
+  set(GLFW_INSTALL OFF CACHE BOOL "")
+  set(GLFW_VULKAN_STATIC OFF CACHE BOOL "")
+  set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "")
+  # Disable ARC for glfw and re-enable after it because it's globally set in the root CMakeLists.txt
+  set(CMAKE_OBJC_FLAGS "")
+  add_subdirectory(glfw)
+  set_target_properties(glfw PROPERTIES UNITY_BUILD OFF)
+  set_target_properties(glfw PROPERTIES XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC NO)
+  set(CMAKE_OBJC_FLAGS -fobjc-arc)
+
+  add_subdirectory(imgui)
 endif()
