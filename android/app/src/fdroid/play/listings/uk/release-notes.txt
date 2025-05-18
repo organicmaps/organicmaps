@@ -1,8 +1,2 @@
-• Нові дані OpenStreetMap від 27 лютого
-• Можливість вручну розставляти проміжні точки маршруту
-• Експорт одного вибраного треку зі списку
-• Покращена маршрутизація для велосипедистів
-• Додано системне повідомлення під час завантаження карт, фонові завантаження більше не перериваються
-• Додано миготливий віджет запису треку
-
-…більше подробиць на omaps.org/news
+• New OpenStreetMap data as of May 11
+• The referral link to view more details/book some hotels on Kayak has been removed, but maybe you need it back? Please let us know by leaving a review/by email/in our social networks.
