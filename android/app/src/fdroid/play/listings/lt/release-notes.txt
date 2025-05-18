@@ -1,8 +1,4 @@
-• New OpenStreetMap data as of February 27
-• Ability to manually arrange intermediate route points
-• Share a single selected track from the list
-• Improved routing for bicycles
-• Display a system notification when downloading maps and don't interrupt background downloads
-• Added a flashing Track Recording widget
-
-…more details at omaps.org/news
+• New OpenStreetMap data as of May 11
+• UI zoom buttons fix
+• Fixed missing newlines in Bookmark's description
+• The referral link to view more details/book some hotels on Kayak has been removed, but maybe you need it back? Please let us know by leaving a review/by email/in our social networks.

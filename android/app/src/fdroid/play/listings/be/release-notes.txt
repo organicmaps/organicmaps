@@ -1,8 +1,4 @@
-• Новыя дадзеныя OpenStreetMap ад 27 лютага
-• Магчымасць уручную расстаўляць прамежкавыя кропкі маршруту
-• Экспарт аднаго абранага трэка са спісу
-• Палепшаная маршрутызацыя для веласіпедыстаў
-• Дададзена сістэмнае апавяшчэнне пры загрузцы карт, фонавыя загрузкі больш не перарываюцца
-• Дададзены мігатлівы віджэт запісу трэка
-
-…і шматлікае іншае на omaps.org/news
+• New OpenStreetMap data as of May 11
+• UI zoom buttons fix
+• Fixed missing newlines in Bookmark's description
+• The referral link to view more details/book some hotels on Kayak has been removed, but maybe you need it back? Please let us know by leaving a review/by email/in our social networks.
