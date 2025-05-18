@@ -17,6 +17,7 @@ if (${PLATFORM_MAC})
   add_metal_shader_library(shaders_metal
     ${SHADER_SOURCES_FILES}
   )
+  set_target_properties(shaders_metal PROPERTIES LANGUAGE Metal LINKER_LANGUAGE Metal)
 endif()
 
 if (${PLATFORM_LINUX})
