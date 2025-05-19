@@ -24,6 +24,7 @@ final class SearchOnMapHeaderView: UIView {
   private let searchBar = UISearchBar()
   private let cancelButton = UIButton()
   private let cancelContainer = UIView()
+  private var separator: UIView?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -37,7 +38,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupView() {
-    setStyle(.primaryBackground)
+    setStyle(.background)
 
     setupGrabberView()
     setupGrabberTapHandlerView()
@@ -61,6 +62,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupSearchBar() {
+    searchBar.setStyle(.defaultSearchBar)
     searchBar.placeholder = L("search")
     searchBar.showsCancelButton = false
     if #available(iOS 13.0, *) {
@@ -71,7 +73,7 @@ final class SearchOnMapHeaderView: UIView {
   }
 
   private func setupCancelButton() {
-    cancelContainer.setStyle(.primaryBackground)
+    cancelContainer.setStyle(.background)
     cancelButton.setStyle(.searchCancelButton)
     cancelButton.setTitle(L("cancel"), for: .normal)
     cancelButton.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
@@ -83,6 +85,7 @@ final class SearchOnMapHeaderView: UIView {
     addSubview(searchBar)
     addSubview(cancelContainer)
     cancelContainer.addSubview(cancelButton)
+    separator = addSeparator(.bottom)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     grabberTapHandlerView.translatesAutoresizingMaskIntoConstraints = false
@@ -141,5 +144,9 @@ final class SearchOnMapHeaderView: UIView {
 
   var searchQuery: SearchQuery {
     SearchQuery(searchBar.text ?? "", locale: searchBar.textInputMode?.primaryLanguage, source: .typedText)
+  }
+
+  func setSeparatorHidden(_ hidden: Bool) {
+    separator?.isHidden = hidden
   }
 }

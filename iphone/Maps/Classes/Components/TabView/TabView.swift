@@ -19,6 +19,8 @@ fileprivate class ContentCell: UICollectionViewCell {
 
 fileprivate class HeaderCell: UICollectionViewCell {
   private let label = UILabel()
+  private var selectedAttributes: [NSAttributedString.Key : Any] = [:]
+  private var deselectedAttributes: [NSAttributedString.Key : Any] = [:]
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -32,20 +34,30 @@ fileprivate class HeaderCell: UICollectionViewCell {
     label.textAlignment = .center
   }
 
-  var attributedText: NSAttributedString? {
+  override var isSelected: Bool {
     didSet {
-      label.attributedText = attributedText
+      label.attributedText = NSAttributedString(string: label.text ?? "",
+                                            attributes: isSelected ? selectedAttributes : deselectedAttributes)
     }
   }
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    attributedText = nil
+    label.attributedText = nil
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
     label.frame = contentView.bounds
+  }
+
+  func configureWith(selectedAttributes: [NSAttributedString.Key : Any],
+                     deselectedAttributes: [NSAttributedString.Key : Any],
+                     text: String) {
+    self.selectedAttributes = selectedAttributes
+    self.deselectedAttributes = deselectedAttributes
+    label.attributedText = NSAttributedString(string: text.uppercased(),
+                                              attributes: deselectedAttributes)
   }
 }
 
@@ -88,8 +100,17 @@ class TabView: UIView {
     }
   }
 
-  var headerTextAttributes: [NSAttributedString.Key : Any] = [
+  var selectedHeaderTextAttributes: [NSAttributedString.Key : Any] = [
     .foregroundColor : UIColor.white,
+    .font : UIFont.systemFont(ofSize: 14, weight: .semibold)
+    ] {
+    didSet {
+      tabsCollectionView.reloadData()
+    }
+  }
+
+  var deselectedHeaderTextAttributes: [NSAttributedString.Key : Any] = [
+    .foregroundColor : UIColor.gray,
     .font : UIFont.systemFont(ofSize: 14, weight: .semibold)
     ] {
     didSet {
@@ -145,14 +166,10 @@ class TabView: UIView {
 
     slidingView.backgroundColor = tintColor
 
-    headerView.layer.shadowOffset = CGSize(width: 0, height: 2)
-    headerView.layer.shadowColor = UIColor(white: 0, alpha: 1).cgColor
-    headerView.layer.shadowOpacity = 0.12
-    headerView.layer.shadowRadius = 2
-    headerView.layer.masksToBounds = false
     headerView.backgroundColor = barTintColor
     headerView.addSubview(tabsCollectionView)
     headerView.addSubview(slidingView)
+    headerView.addSeparator(.bottom)
   }
 
   private func configureContent() {
@@ -235,7 +252,12 @@ extension TabView : UICollectionViewDataSource {
       cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.header, for: indexPath)
       if let headerCell = cell as? HeaderCell {
         let title = dataSource?.tabView(self, titleAt: indexPath.item) ?? ""
-        headerCell.attributedText = NSAttributedString(string: title.uppercased(), attributes: headerTextAttributes)
+        headerCell.configureWith(selectedAttributes: selectedHeaderTextAttributes,
+                                 deselectedAttributes: deselectedHeaderTextAttributes,
+                                 text: title)
+        if indexPath.item == selectedIndex {
+          collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        }
       }
     }
 
@@ -264,11 +286,18 @@ extension TabView : UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if (collectionView == tabsCollectionView) {
-      if selectedIndex != indexPath.item {
+      let isSelected = selectedIndex == indexPath.item
+      if !isSelected {
         selectedIndex = indexPath.item
         tabsContentCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         delegate?.tabView(self, didSelectTabAt: selectedIndex!)
       }
+    }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    if (collectionView == tabsCollectionView) {
+      collectionView.deselectItem(at: indexPath, animated: false)
     }
   }
 
