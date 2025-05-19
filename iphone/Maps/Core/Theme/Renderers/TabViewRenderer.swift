@@ -21,8 +21,12 @@ class TabViewRenderer {
     if let tintColor = style.tintColor {
       control.tintColor = tintColor
     }
+    if let font = style.font, let fontColor = style.fontColorHighlighted {
+      control.selectedHeaderTextAttributes = [.foregroundColor: fontColor,
+                                      .font: font]
+    }
     if let font = style.font, let fontColor = style.fontColor {
-      control.headerTextAttributes = [.foregroundColor: fontColor,
+      control.deselectedHeaderTextAttributes = [.foregroundColor: fontColor,
                                       .font: font]
     }
   }

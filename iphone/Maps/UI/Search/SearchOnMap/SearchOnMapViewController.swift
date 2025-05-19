@@ -168,8 +168,8 @@ final class SearchOnMapViewController: UIViewController {
     }
     view.addSubview(availableAreaView)
     availableAreaView.addSubview(contentView)
-    contentView.addSubview(headerView)
     contentView.addSubview(searchResultsView)
+    contentView.addSubview(headerView)
 
     contentView.translatesAutoresizingMaskIntoConstraints = false
     headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -310,6 +310,7 @@ final class SearchOnMapViewController: UIViewController {
     case .searching:
       break
     }
+    headerView.setSeparatorHidden(content == .historyAndCategory)
     showView(viewToShow(for: content))
   }
 
