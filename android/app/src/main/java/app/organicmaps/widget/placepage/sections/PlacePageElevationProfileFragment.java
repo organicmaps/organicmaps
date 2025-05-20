@@ -1,31 +1,42 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.widget.placepage.sections;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
-
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.ChartController;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.ElevationInfo;
+import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.placepage.PlacePageData;
+import app.organicmaps.widget.placepage.PlacePageStateListener;
+import app.organicmaps.widget.placepage.PlacePageViewModel;
 
 import java.util.Objects;
 
 @SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
-public class ElevationProfileViewRenderer implements PlacePageStateListener
+public class PlacePageElevationProfileFragment extends Fragment implements PlacePageStateListener,
+                                                                           Observer<MapObject>
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
   private static final int UNKNOWN_DIFFICULTY = 0;
 
+  private View mFrame;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private NestedScrollView mScrollView;
@@ -60,6 +71,39 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTimeContainer;
+  private PlacePageViewModel mViewModel;
+  private Track track;
+
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  {
+    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
+    return inflater.inflate(R.layout.elevation_profile_bottom_sheet, container, false);
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated(view, savedInstanceState);
+
+    mFrame = view;
+    initialize(mFrame);
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    mViewModel.getMapObject().observe(requireActivity(), this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    mViewModel.getMapObject().removeObserver(this);
+  }
 
   public void render(@NonNull PlacePageData data)
   {
@@ -144,4 +188,16 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mChartController.onHide();
   }
 
+  @Override
+  public void onChanged(@Nullable MapObject mapObject)
+  {
+    // MapObject could be something else than a Track if the user already has the place page
+    // opened and clicks on a non-Track POI.
+    // This callback would be called before the fragment had time to be destroyed
+    if (mapObject != null && mapObject.isTrack())
+    {
+      track = (Track) mapObject;
+      render(track.getElevationInfo());
+    }
+  }
 }
