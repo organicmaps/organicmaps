@@ -751,9 +751,9 @@ public enum BookmarkManager {
     return nativeGetElevationCurPositionDistance(trackId);
   }
 
-  public void setElevationActivePoint(long trackId, double distance)
+  public void setElevationActivePoint(long trackId, double distance, ElevationInfo.Point point)
   {
-    nativeSetElevationActivePoint(trackId, distance);
+    nativeSetElevationActivePoint(trackId, distance, point.getLatitude(), point.getLongitude());
   }
 
   public double getElevationActivePointDistance(long trackId)
@@ -913,7 +913,7 @@ public enum BookmarkManager {
 
   public static native void nativeRemoveElevationCurrentPositionChangedListener();
 
-  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
+  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters, double latitude, double longitude);
 
   private static native double nativeGetElevationActivePointDistance(long trackId);
 
