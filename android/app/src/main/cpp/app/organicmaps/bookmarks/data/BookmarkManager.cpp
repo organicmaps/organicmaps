@@ -948,7 +948,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrackElevationInfo(
 {
   auto const &track = frm()->GetBookmarkManager().GetTrack(track_id);
   auto const &elevationInfo = track->GetElevationInfo();
-  return usermark_helper::CreateElevationInfo(env, elevationInfo.value(), track_id);
+  return usermark_helper::CreateElevationInfo(env, elevationInfo.value());
 }
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsElevationInfoHasValue(JNIEnv *env,

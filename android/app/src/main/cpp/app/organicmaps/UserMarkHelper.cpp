@@ -206,27 +206,15 @@ jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & p
                          });
 }
 
-jobject CreateElevationInfo(JNIEnv *env, ElevationInfo const &info, long trackId)
+jobject CreateElevationInfo(JNIEnv *env, ElevationInfo const &info)
 {
-  // public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
-  //                      int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
-  //                      long m_duration)
+  // public ElevationInfo(@NonNull Point[] points, int difficulty);
   static jmethodID const ctorId = jni::GetConstructorID(env, g_elevationInfoClazz,
-                                                        "(JLjava/lang/String;"
-                                                       "[Lapp/organicmaps/bookmarks/data/ElevationInfo$Point;"
-                                                       "IIIIIJ)V");
+                                                        "([Lapp/organicmaps/bookmarks/data/ElevationInfo$Point;I)V");
+
   jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
-  // TODO (KK): elevation info should have only the elevation data - see the https://github.com/organicmaps/organicmaps/pull/10063
-  auto const trackStatistics = frm()->GetBookmarkManager().GetTrack(trackId)->GetStatistics();
-  return env->NewObject(g_elevationInfoClazz, ctorId, static_cast<jlong>(trackId),
-                        jni::ToJavaString(env,
-                                          frm()->GetBookmarkManager().GetTrack(trackId)->GetName()),
-                        jPoints.get(), static_cast<jint>(trackStatistics.m_ascent),
-                        static_cast<jint>(trackStatistics.m_descent),
-                        static_cast<jint>(trackStatistics.m_minElevation),
-                        static_cast<jint>(trackStatistics.m_maxElevation),
-                        static_cast<jint>(info.GetDifficulty()),
-                        static_cast<jlong>(trackStatistics.m_duration));
+  return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(),
+                        static_cast<jint>(info.GetDifficulty()));
 }
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
