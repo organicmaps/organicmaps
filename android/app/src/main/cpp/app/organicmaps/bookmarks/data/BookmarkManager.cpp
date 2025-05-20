@@ -904,12 +904,16 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeRemoveElevationCurrent
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetElevationActivePoint(
-  JNIEnv *, jclass, jlong trackId, jdouble distanceInMeters)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetElevationActivePoint(JNIEnv *, jclass,
+                                                                                  jlong trackId,
+                                                                                  jdouble distanceInMeters,
+                                                                                  jdouble latitude,
+                                                                                  jdouble longitude)
 {
   auto & bm = frm()->GetBookmarkManager();
   bm.SetElevationActivePoint(static_cast<kml::TrackId>(trackId),
-                             {0,0}, // todo(KK): replace with coordinates from the elevation profile point to show selection mark on the track
+                             m2::PointD(static_cast<double>(latitude),
+                                        static_cast<double>(longitude)),
                              static_cast<double>(distanceInMeters));
 }
 
