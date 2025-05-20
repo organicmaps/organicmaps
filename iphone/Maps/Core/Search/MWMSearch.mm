@@ -91,7 +91,7 @@ using Observers = NSHashTable<Observer>;
   search::ViewportSearchParams params{
     m_query, m_locale, {} /* default timeout */, m_isCategory,
     // m_onStarted
-    [self] { self.searchCount += 1; },
+    {},
     // m_onCompleted
     [self](search::Results results)
     {
@@ -99,7 +99,6 @@ using Observers = NSHashTable<Observer>;
         return;
       if (!results.IsEndedCancelled())
         self->m_viewportResults = std::move(results);
-      self.searchCount -= 1;
     }
   };
 
