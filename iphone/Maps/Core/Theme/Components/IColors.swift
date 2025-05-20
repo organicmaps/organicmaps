@@ -1,4 +1,5 @@
 let alpha04: CGFloat = 0.04
+let alpha08: CGFloat = 0.08
 let alpha12: CGFloat = 0.12
 let alpha20: CGFloat = 0.20
 let alpha26: CGFloat = 0.26
