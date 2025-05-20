@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+import java.security.InvalidParameterException;
+
 // Called from JNI.
 @Keep
 @SuppressWarnings("unused")
@@ -29,6 +31,21 @@ public final class RoutePointInfo implements Parcelable
   public final RouteMarkType mMarkType;
 
   public final int mIntermediateIndex;
+
+  // Called from JNI.
+  @Keep
+  public RoutePointInfo(int markType, int intermediateIndex)
+  {
+    switch (markType)
+    {
+      case 0: mMarkType = RouteMarkType.Start; break;
+      case 1: mMarkType = RouteMarkType.Intermediate; break;
+      case 2: mMarkType = RouteMarkType.Finish; break;
+      default: throw new IllegalArgumentException("Mark type is not valid = " + markType);
+    }
+
+    mIntermediateIndex = intermediateIndex;
+  }
 
   private RoutePointInfo(@NonNull RouteMarkType markType, int intermediateIndex)
   {
