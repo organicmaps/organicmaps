@@ -93,18 +93,16 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
 
-    viewControllers.append(wikiDescriptionViewController)
-    if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
-      wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
-      if placePageData.bookmarkData?.bookmarkDescription == nil {
-        wikiDescriptionViewController.view.isHidden = false
-      }
-    }
-
     viewControllers.append(editBookmarkViewController)
     if let bookmarkData = placePageData.bookmarkData {
       editBookmarkViewController.data = .bookmark(bookmarkData)
       editBookmarkViewController.view.isHidden = false
+    }
+
+    viewControllers.append(wikiDescriptionViewController)
+    if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
+      wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
+      wikiDescriptionViewController.view.isHidden = false
     }
 
     if placePageData.infoData != nil {
