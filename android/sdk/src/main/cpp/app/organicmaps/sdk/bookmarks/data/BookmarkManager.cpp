@@ -940,4 +940,36 @@ Java_app_organicmaps_sdk_widget_placepage_PlacePageButtonFactory_nativeHasRecent
 {
   return frm()->GetBookmarkManager().HasRecentlyDeletedBookmark();
 }
+
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrackElevationInfo(JNIEnv *env,
+                                                                                jclass clazz,
+                                                                                jlong track_id)
+{
+  auto const &track = frm()->GetBookmarkManager().GetTrack(track_id);
+  auto const &elevationInfo = track->GetElevationInfo();
+  return usermark_helper::CreateElevationInfo(env, elevationInfo.value(), track_id);
+}
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeIsElevationInfoHasValue(JNIEnv *env,
+                                                                                  jclass clazz,
+                                                                                  jlong track_id)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().GetTrack(
+    track_id)->GetElevationInfo().has_value());
+}
+JNIEXPORT jobject JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetTrackStatistics(JNIEnv *env,
+                                                                             jclass clazz,
+                                                                             jlong track_id)
+{
+  static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
+  auto const trackStats = frm()->GetBookmarkManager().GetTrack(track_id)->GetStatistics();
+  return env->NewObject(g_trackStatisticsClazz, cId, static_cast<jdouble>(trackStats.m_length),
+                        static_cast<jdouble>(trackStats.m_duration),
+                        static_cast<jdouble>(trackStats.m_ascent),
+                        static_cast<jdouble>(trackStats.m_descent),
+                        static_cast<jint>(trackStats.m_minElevation),
+                        static_cast<jint>(trackStats.m_maxElevation));
+}
 }  // extern "C"
