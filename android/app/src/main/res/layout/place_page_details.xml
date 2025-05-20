@@ -21,7 +21,11 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:layout="@layout/place_page_bookmark_fragment" />
-
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/place_page_elevation_info_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:layout="@layout/elevation_profile_bottom_sheet" />
     <androidx.fragment.app.FragmentContainerView
       android:id="@+id/place_page_wikipedia_fragment"
       android:layout_width="match_parent"
