@@ -31,6 +31,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
+import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
@@ -46,6 +47,7 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.widget.ArrowView;
+import app.organicmaps.widget.placepage.sections.PlacePageElevationProfileFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
@@ -70,6 +72,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String TRACK_ELEVATION_INFO_FRAGMENT_TAG = "TRACK_ELEVATION_INFO_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
@@ -382,6 +385,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         mMapObject.isBookmark());
   }
 
+  private void updateElevationInfoView()
+  {
+    updateViewFragment(PlacePageElevationProfileFragment.class, TRACK_ELEVATION_INFO_FRAGMENT_TAG, R.id.place_page_elevation_info_fragment, mMapObject.isTrack() && ((Track) mMapObject).isElevationInfoHasValue());
+  }
+
   private boolean hasWikipediaEntry()
   {
     final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
@@ -503,6 +511,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateWikipediaView();
     updateBookmarkView();
     updatePhoneView();
+    updateElevationInfoView();
   }
 
   private void refreshWiFi()

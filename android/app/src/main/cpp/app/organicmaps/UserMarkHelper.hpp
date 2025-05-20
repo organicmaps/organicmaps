@@ -26,6 +26,7 @@ static constexpr int kApiPoint = 1;
 static constexpr int kBookmark = 2;
 static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
+static constexpr int kTrack = 5;
 
 static constexpr int kPriceRateUndefined = -1;
 
@@ -34,7 +35,7 @@ void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
-jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info);
+jobject CreateElevationInfo(JNIEnv *env, ElevationInfo const &info, long trackId);
 
 jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);
 
