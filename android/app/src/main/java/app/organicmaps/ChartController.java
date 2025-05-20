@@ -7,12 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.AxisValueFormatter;
@@ -29,6 +28,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,6 +45,7 @@ public class ChartController implements OnChartValueSelectedListener,
   private static final int CHART_AXIS_GRANULARITY = 100;
   private static final float CUBIC_INTENSITY = 0.2f;
   private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
+  private static final String ELEVATION_PROFILE_POINTS = "ELEVATION_PROFILE_POINTS";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -152,10 +153,10 @@ public class ChartController implements OnChartValueSelectedListener,
     TrackStatistics stats = track.getTrackStatistics();
     List<Entry> values = new ArrayList<>();
 
-    for (ElevationInfo.Point point : info.getPoints())
-      values.add(new Entry((float) point.getDistance(), point.getAltitude()));
+    for (ElevationInfo.Point point: info.getPoints())
+      values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
 
-    LineDataSet set = new LineDataSet(values, "Elevation_profile_points");
+    LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setCubicIntensity(CUBIC_INTENSITY);
     set.setDrawFilled(true);
@@ -197,7 +198,7 @@ public class ChartController implements OnChartValueSelectedListener,
     if (mTrackId == Utils.INVALID_ID)
       return;
 
-    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX());
+    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX(), (ElevationInfo.Point) e.getData());
   }
 
   @NonNull
