@@ -921,6 +921,11 @@ public enum BookmarkManager {
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
+  public static native ElevationInfo nativeGetTrackElevationInfo(long trackId);
+
+  public static native boolean nativeIsElevationInfoHasValue(long trackId);
+
+  public static native TrackStatistics nativeGetTrackStatistics(long trackId);
   public interface BookmarksLoadingListener
   {
     default void onBookmarksLoadingStarted() {}
