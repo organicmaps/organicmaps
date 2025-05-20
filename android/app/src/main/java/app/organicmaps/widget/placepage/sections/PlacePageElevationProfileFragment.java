@@ -19,9 +19,9 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.UiUtils;
-import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.sdk.widget.placepage.PlacePageStateListener;
 import app.organicmaps.sdk.widget.placepage.PlacePageViewModel;
 
@@ -104,20 +104,21 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     mViewModel.getMapObject().removeObserver(this);
   }
 
-  public void render(@NonNull PlacePageData data)
+  public void render(@NonNull Track track)
   {
     final Context context = mAscent.getContext();
+    TrackStatistics stats = track.getTrackStatistics();
 
-    mElevationInfo = (ElevationInfo) data;
-    mChartController.setData(mElevationInfo);
-    mTitle.setText(mElevationInfo.getName());
+    mElevationInfo = track.getElevationInfo();
+    mChartController.setData(track);
+    mTitle.setText(track.getName());
     setDifficulty(mElevationInfo.getDifficulty());
-    mAscent.setText(formatDistance(context, mElevationInfo.getAscent()));
-    mDescent.setText(formatDistance(context, mElevationInfo.getDescent()));
-    mMaxAltitude.setText(formatDistance(context, mElevationInfo.getMaxAltitude()));
-    mMinAltitude.setText(formatDistance(context, mElevationInfo.getMinAltitude()));
-    UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
-    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(), (int) mElevationInfo.getDuration(),
+    mAscent.setText(formatDistance(context, (int) stats.getAscent()));
+    mDescent.setText(formatDistance(context, (int) stats.getDescent()));
+    mMaxAltitude.setText(formatDistance(context, stats.getMaxElevation()));
+    mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
+    UiUtils.hideIf(stats.getDuration() == 0, mTimeContainer);
+    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(), (int) stats.getDuration(),
                                                       R.dimen.text_size_body_2));
   }
 
@@ -195,7 +196,7 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     if (mapObject != null && mapObject.isTrack())
     {
       track = (Track) mapObject;
-      render(track.getElevationInfo());
+      render(track);
     }
   }
 }
