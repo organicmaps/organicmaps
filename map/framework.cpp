@@ -2159,6 +2159,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
                                       false /* isAnim */, false /* isGeometrySelectionAllowed */,
                                       true /* isSelectionShapeVisible */);
         }
+        auto const info = m_currentPlacePageInfo;
+        auto const &track = GetBookmarkManager().GetTrack(info->GetTrackId());
+        GetBookmarkManager().SetTrackSelectionInfo(Framework::FindTrackInTapPosition(buildInfo),
+                                                   true);
         return;
       }
       GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
