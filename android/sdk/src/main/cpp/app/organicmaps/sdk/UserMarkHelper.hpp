@@ -35,7 +35,11 @@ void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
-jobject CreateElevationInfo(JNIEnv *env, ElevationInfo const &info, long trackId);
+jobject CreateTrack(JNIEnv *env, const place_page::Info &info,
+                    const jni::TScopedLocalObjectArrayRef &jrawTypes,
+                    const jni::TScopedLocalRef &routingPointInfo, jobject const &popularity);
+
+jobject CreateElevationInfo(JNIEnv *env, ElevationInfo const &info);
 
 jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);
 
