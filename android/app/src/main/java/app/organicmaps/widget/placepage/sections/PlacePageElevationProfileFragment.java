@@ -104,7 +104,7 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     mViewModel.getMapObject().removeObserver(this);
   }
 
-  public void render(@NonNull Track track)
+  private void render(@NonNull Track track)
   {
     final Context context = mAscent.getContext();
     TrackStatistics stats = track.getTrackStatistics();
@@ -128,9 +128,9 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     return Framework.nativeFormatAltitude(distance);
   }
 
-  public void initialize(@Nullable View view)
+  private void initialize(@Nullable View view)
   {
-    Objects.requireNonNull(view);
+    requireView();
     mChartController = new ChartController(view.getContext());
     mChartController.initialize(view);
     mScrollView = (NestedScrollView) view;
