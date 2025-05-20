@@ -187,11 +187,12 @@ jobject CreateElevationPoint(JNIEnv * env, ElevationInfo::Point const & point)
 {
   static jclass const pointClass =
       jni::GetGlobalClassRef(env, "app/organicmaps/bookmarks/data/ElevationInfo$Point");
-  // public Point(double distance, int altitude)
-  static jmethodID const pointCtorId =
-      jni::GetConstructorID(env, pointClass, "(DI)V");
-  return env->NewObject(pointClass, pointCtorId, static_cast<jdouble >(point.m_distance),
-                        static_cast<jint>(point.m_point.GetAltitude()));
+  // public Point(double distance, int altitude, double latitude, double longitude)
+  static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DIDD)V");
+  return env->NewObject(pointClass, pointCtorId, static_cast<jdouble>(point.m_distance),
+                        static_cast<jint>(point.m_point.GetAltitude()),
+                        static_cast<jdouble>(point.m_point.GetPoint().x),
+                        static_cast<jdouble>(point.m_point.GetPoint().y));
 }
 
 jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & points)
