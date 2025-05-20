@@ -8,9 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-
+import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.bookmarks.data.ElevationInfo;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.bookmarks.data.TrackStatistics;
+import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.AxisValueFormatter;
+import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
+import app.organicmaps.widget.placepage.FloatingMarkerView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -22,14 +28,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.ElevationInfo;
-import app.organicmaps.widget.placepage.AxisValueFormatter;
-import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
-import app.organicmaps.widget.placepage.FloatingMarkerView;
-import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +45,7 @@ public class ChartController implements OnChartValueSelectedListener,
   private static final int CHART_AXIS_GRANULARITY = 100;
   private static final float CUBIC_INTENSITY = 0.2f;
   private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
+  private static final String ELEVATION_PROFILE_POINTS = "ELEVATION_PROFILE_POINTS";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -155,9 +154,9 @@ public class ChartController implements OnChartValueSelectedListener,
     List<Entry> values = new ArrayList<>();
 
     for (ElevationInfo.Point point: info.getPoints())
-      values.add(new Entry((float) point.getDistance(), point.getAltitude()));
+      values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
 
-    LineDataSet set = new LineDataSet(values, "Elevation_profile_points");
+    LineDataSet set = new LineDataSet(values, ELEVATION_PROFILE_POINTS);
     set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
     set.setCubicIntensity(CUBIC_INTENSITY);
     set.setDrawFilled(true);
@@ -199,7 +198,7 @@ public class ChartController implements OnChartValueSelectedListener,
     if (mTrackId == Utils.INVALID_ID)
       return;
 
-    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX());
+    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX(), (ElevationInfo.Point) e.getData());
   }
 
   @NonNull
