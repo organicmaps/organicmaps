@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import app.organicmaps.bookmarks.data.Track;
+import app.organicmaps.bookmarks.data.TrackStatistics;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -145,9 +147,11 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.getAxisRight().setEnabled(false);
   }
 
-  public void setData(@NonNull ElevationInfo info)
+  public void setData(Track track)
   {
-    mTrackId = info.getId();
+    mTrackId = track.getTrackId();
+    ElevationInfo info = track.getElevationInfo();
+    TrackStatistics stats = track.getTrackStatistics();
     List<Entry> values = new ArrayList<>();
 
     for (ElevationInfo.Point point: info.getPoints())
@@ -176,8 +180,8 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.setData(data);
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()));
-    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()));
+    mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
+    mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
 
     highlightActivePointManually();
   }
