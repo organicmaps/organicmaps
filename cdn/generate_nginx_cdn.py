@@ -2,6 +2,12 @@
 # Copyright: Veniamin Gvozdikov and contributors
 # License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 
+#
+# To generate configuration of CDN just execute command like below
+#
+# $ python generate_nginx_cdn.py
+#
+
 VERSIONS_LIST = set([
   210529,
   210703,
