@@ -66,6 +66,7 @@ public class ChartController implements OnChartValueSelectedListener,
   private final Context mContext;
   private long mTrackId = Utils.INVALID_ID;
   private boolean mCurrentPositionOutOfTrack = true;
+  private boolean mInformSelectedActivePointToCore = true;
 
   public ChartController(@NonNull Context context)
   {
@@ -198,7 +199,9 @@ public class ChartController implements OnChartValueSelectedListener,
     if (mTrackId == Utils.INVALID_ID)
       return;
 
-    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX(), (ElevationInfo.Point) e.getData());
+    if (mInformSelectedActivePointToCore)
+      BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX(), (ElevationInfo.Point) e.getData());
+    mInformSelectedActivePointToCore = true;
   }
 
   @NonNull
@@ -240,6 +243,7 @@ public class ChartController implements OnChartValueSelectedListener,
   private void highlightActivePointManually()
   {
     Highlight highlight = getActivePoint();
+    mInformSelectedActivePointToCore = false;
     mChart.highlightValue(highlight, true);
   }
 
