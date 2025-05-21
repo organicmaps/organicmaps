@@ -25,8 +25,6 @@ import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.widget.placepage.PlacePageStateListener;
 import app.organicmaps.sdk.widget.placepage.PlacePageViewModel;
 
-import java.util.Objects;
-
 @SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
 public class PlacePageElevationProfileFragment extends Fragment implements PlacePageStateListener,
                                                                            Observer<MapObject>
@@ -71,7 +69,8 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
   @NonNull
   private View mTimeContainer;
   private PlacePageViewModel mViewModel;
-  private Track track;
+  @Nullable
+  private Track mTrack;
 
   @Nullable
   @Override
@@ -195,8 +194,10 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     // This callback would be called before the fragment had time to be destroyed
     if (mapObject != null && mapObject.isTrack())
     {
-      track = (Track) mapObject;
-      render(track);
+      if (mTrack != null && ((Track) mapObject).getTrackId() == mTrack.getTrackId())
+        return;
+      mTrack = (Track) mapObject;
+      render(mTrack);
     }
   }
 }
