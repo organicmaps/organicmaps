@@ -1,6 +1,7 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,10 +32,13 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
+import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.editor.Editor;
+import app.organicmaps.editor.OsmLoginActivity;
+import app.organicmaps.editor.OsmOAuth;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.SensorHelper;
@@ -53,6 +57,7 @@ import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +80,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
+  private static final String NOTE_CONFIRMATION_SHOWN = "NoteConfirmationAlertWasShown";
+
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
@@ -123,6 +130,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
+  private View mAddNote;
   private View mEditTopSpace;
 
   // Data
@@ -282,6 +290,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = mFrame.findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
+    mAddNote = mFrame.findViewById(R.id.ll__add_note);
+    mAddNote.setOnClickListener(this);
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
@@ -473,16 +483,19 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mEditTopSpace);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mAddNote, mEditTopSpace );
+
     }
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
+      UiUtils.showIf(Editor.nativeShouldShowAddPlace() || Editor.nativeShouldShowEditPlace() , mAddNote);
       mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
       mAddOrganisation.setEnabled(Editor.nativeShouldEnableAddPlace());
       mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
+      mAddNote.setEnabled(Editor.nativeShouldEnableAddPlace() || Editor.nativeShouldEnableEditPlace());
       TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
       TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
       TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
@@ -492,7 +505,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       mTvAddPlace.setTextColor(editPlaceButtonColor);
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
-                     || UiUtils.isVisible(mAddPlace), mEditTopSpace);
+                     || UiUtils.isVisible(mAddPlace)
+                     || UiUtils.isVisible(mAddNote), mEditTopSpace);
     }
     updateLinksView();
     updateOpeningHoursView();
@@ -595,6 +609,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       addOrganisation();
     else if (id == R.id.ll__place_add)
       addPlace();
+    else if (id == R.id.ll__add_note)
+      onAddOsmNoteClicked();
     else if (id == R.id.ll__place_latlon)
     {
       final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
@@ -613,6 +629,84 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else if (id == R.id.direction_frame)
       showBigDirection();
+  }
+
+  private void onAddOsmNoteClicked() {
+    final Context context = requireContext();
+    if (!OsmOAuth.isAuthorized(context)) {
+      //  Navigate to OsmLoginActivity
+      final Intent intent = new Intent(requireActivity(), OsmLoginActivity.class);
+      requireActivity().startActivity(intent);
+      return;
+    }
+    if (mMapObject == null) {
+      return;
+    }
+    double lat = mMapObject.getLat();
+    double lon = mMapObject.getLon();
+    addNoteInputDialog(lat, lon);
+  }
+
+  private void addNoteInputDialog(double lat, double lon) {
+    final Context context = requireContext();
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(
+            getString(R.string.placepage_add_note),
+            "",
+            getString(R.string.osm_note_hint),
+            getString(R.string.editor_report_problem_send_button),
+            getString(R.string.cancel),
+            this,
+            getNoteValidator()
+        );
+    dialogFragment.setTextSaveListener(noteText -> {
+      if (!MwmApplication.prefs(requireContext()).contains(NOTE_CONFIRMATION_SHOWN))
+      {
+        showNoteConfirmationDialog(lat, lon, noteText);
+      }
+      else
+      {
+        if( Editor.nativeShouldShowEditPlace()){
+          //Loads g_editableMapObject based on current selection
+          Editor.nativeStartEdit();
+          Editor.nativeCreateNote(noteText);
+        }else{
+          Editor.nativeCreateStandaloneNote(lat, lon, noteText);
+        }
+      }
+    });
+  }
+
+  private void showNoteConfirmationDialog(double lat, double lon, String noteText)
+  {
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.editor_share_to_all_dialog_title)
+        .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
+            + " " + getString(R.string.editor_share_to_all_dialog_message_2))
+        .setPositiveButton(android.R.string.ok, (dlg, which) -> {
+          MwmApplication.prefs(requireContext()).edit()
+              .putBoolean(NOTE_CONFIRMATION_SHOWN, true)
+              .apply();
+          if( Editor.nativeShouldShowEditPlace()){
+              //Loads g_editableMapObject based on current selection
+              Editor.nativeStartEdit();
+              Editor.nativeCreateNote(noteText);
+          }else{
+              Editor.nativeCreateStandaloneNote(lat, lon, noteText);
+          }
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
+  }
+
+  @NonNull
+  private EditTextDialogFragment.Validator getNoteValidator() {
+    return (activity, text) -> {
+      if (TextUtils.isEmpty(text))
+        return activity.getString(R.string.error_enter_note);
+      else
+        return null;
+    };
   }
 
   private void showBigDirection()
