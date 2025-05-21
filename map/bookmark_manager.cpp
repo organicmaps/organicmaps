@@ -1170,7 +1170,19 @@ dp::Color BookmarkManager::GenerateTrackRecordingColor() const
   return kml::ColorFromPredefinedColor(kml::GetRandomPredefinedColor());
 }
 
-kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points)
+std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, std::string const & to)
+{
+  if (!from.empty() && !to.empty())
+    return from + " - " + to;
+  else if (!from.empty())
+    return from;
+  else if (!to.empty())
+    return to;
+  else
+    return GenerateTrackRecordingName();
+}
+
+kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points, std::string const & from, std::string const & to)
 {
   kml::MultiGeometry geometry;
   geometry.m_lines.emplace_back();
@@ -1183,7 +1195,7 @@ kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points)
   kml::TrackData trackData;
   trackData.m_geometry = std::move(geometry);
 
-  auto trackName = GenerateTrackRecordingName();
+  auto trackName = GenerateSavedRouteName(from, to);
   kml::SetDefaultStr(trackData.m_name, trackName);
 
   kml::ColorData colorData;

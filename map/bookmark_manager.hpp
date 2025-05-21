@@ -435,7 +435,7 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(std::vector<m2::PointD> const & points);
+  kml::TrackId SaveRoute(std::vector<m2::PointD> const & points, std::string const & from, std::string const & to);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -625,6 +625,7 @@ private:
   void CleanupInvalidMetadata();
   std::string GetMetadataEntryName(kml::MarkGroupId groupId) const;
 
+  std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
   void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);

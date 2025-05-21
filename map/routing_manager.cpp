@@ -1089,16 +1089,25 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
   }
 }
 
+std::string GetNameFromPoint(RouteMarkData rmd)
+{
+  if (rmd.m_subTitle.empty())
+    return "";
+  return rmd.m_title;
+}
 
 void RoutingManager::SaveRoute()
 {
   auto points = GetRoutePolyline().GetPolyline().GetPoints();
+  auto routePoints = GetRoutePoints();
+  std::string from = GetNameFromPoint(routePoints.front());
+  std::string to = GetNameFromPoint(routePoints.back());
   // remove equal sequential points
   points.erase(
       std::unique(points.begin(), points.end(), [](const m2::PointD & p1, const m2::PointD & p2) { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
       points.end());
 
-  m_bmManager->SaveRoute(points);
+  m_bmManager->SaveRoute(points, from, to);
 }
 
 bool RoutingManager::DisableFollowMode()

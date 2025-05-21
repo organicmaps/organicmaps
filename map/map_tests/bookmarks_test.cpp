@@ -1645,9 +1645,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
   auto points = {m2::PointD(0.0, 0.0), m2::PointD(0.001, 0.001)};
-  auto trackId = bmManager.SaveRoute(points);
+  auto trackId = bmManager.SaveRoute(points, "London", "Paris");
   auto track = bmManager.GetTrack(trackId);
-  TEST_NOT_EQUAL(track->GetName(), "", ());
+  TEST_EQUAL(track->GetName(), "London - Paris", ());
   auto line = track->GetData().m_geometry.m_lines[0];
   vector expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0)), geometry::PointWithAltitude(m2::PointD(0.001, 0.001))}};
   TEST_EQUAL(line, expectedLine, ());
