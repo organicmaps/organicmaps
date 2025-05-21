@@ -170,6 +170,8 @@ public:
 
   Stats GetStats() const;
 
+  void CreateStandaloneNote(ms::LatLon const & latLon, std::string const & noteText);
+
   // Don't use this function to determine if a feature in editor was created.
   // Use GetFeatureStatus(fid) instead. This function is used when a feature is
   // not yet saved, and we have to know if it was modified or created.
