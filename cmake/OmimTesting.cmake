@@ -1,5 +1,3 @@
-include(OmimConfig)
-
 # Tests read files from a data directory.
 if (NOT SKIP_TESTS)
   if (NOT IS_DIRECTORY ${CMAKE_BINARY_DIR}/data AND NOT IS_SYMLINK ${CMAKE_BINARY_DIR}/data)
