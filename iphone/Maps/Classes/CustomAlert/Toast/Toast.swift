@@ -1,101 +1,112 @@
-@objc(MWMToast)
+@objc
 final class Toast: NSObject {
-  @objc(MWMToastAlignment)
+  @objc
   enum Alignment: Int {
     case bottom
     case top
   }
 
-  private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-  private var timer: Timer?
+  private enum Constants {
+    static let presentationDuration: TimeInterval = 3
+    static let animationDuration: TimeInterval = kDefaultAnimationDuration
+    static let bottomOffset: CGFloat = 63
+    static let topOffset: CGFloat = 50
+    static let horizontalOffset: CGFloat = 16
+    static let labelOffsets = UIEdgeInsets(top: 10, left: 14, bottom: -10, right: -14)
+    static let maxWidth: CGFloat = 400
+  }
 
   private static var toasts: [Toast] = []
+  private var blurView: UIVisualEffectView
 
-  @objc static func toast(withText text: String) -> Toast {
-    let toast = Toast(text)
-    toasts.append(toast)
-    return toast
-  }
-  
-  @objc static func hideAll() {
-    toasts.forEach { $0.hide() }
-  }
-  
   private init(_ text: String) {
-    blurView.layer.setCornerRadius(.buttonDefault)
-    blurView.clipsToBounds = true
+    blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    blurView.setStyle(.toastBackground)
+    blurView.isUserInteractionEnabled = false
     blurView.alpha = 0
+    blurView.translatesAutoresizingMaskIntoConstraints = false
 
     let label = UILabel()
     label.text = text
-    label.textAlignment = .center
+    label.setStyle(.toastLabel)
     label.numberOfLines = 0
-    label.font = .regular14()
-    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
+    label.setContentHuggingPriority(.defaultLow, for: .horizontal)
     blurView.contentView.addSubview(label)
-    blurView.isUserInteractionEnabled = false
 
     NSLayoutConstraint.activate([
-        label.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor, constant: 8),
-        label.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor, constant: -8),
-        label.topAnchor.constraint(equalTo: blurView.contentView.topAnchor, constant: 8),
-        label.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor, constant: -8)
+      label.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor, constant: Constants.labelOffsets.left),
+      label.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor, constant: Constants.labelOffsets.right),
+      label.topAnchor.constraint(equalTo: blurView.contentView.topAnchor, constant: Constants.labelOffsets.top),
+      label.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor, constant: Constants.labelOffsets.bottom)
     ])
   }
-  
-  deinit {
-    timer?.invalidate()
+
+  // MARK: - Public methods
+
+  @objc
+  static func show(withText text: String) {
+    show(withText: text, alignment: .bottom)
   }
 
-  @objc func show() {
-    show(in: UIApplication.shared.keyWindow, alignment: .bottom)
+  @objc
+  static func show(withText text: String, alignment: Alignment) {
+    show(withText: text, alignment: alignment, pinToSafeArea: true)
   }
 
-  @objc func show(withAlignment alignment: Alignment, pinToSafeArea: Bool = true) {
-    show(in: UIApplication.shared.keyWindow, alignment: alignment, pinToSafeArea: pinToSafeArea)
+  @objc
+  static func show(withText text: String, alignment: Alignment, pinToSafeArea: Bool) {
+    let toast = Toast(text)
+    toasts.append(toast)
+    toast.show(withAlignment: alignment, pinToSafeArea: pinToSafeArea)
   }
 
-  @objc func show(in view: UIView?, alignment: Alignment, pinToSafeArea: Bool = true) {
-    guard let view = view else { return }
-    blurView.translatesAutoresizingMaskIntoConstraints = false
+  @objc
+  static func hideAll() {
+    toasts.forEach { $0.hide() }
+  }
+
+  // MARK: - Private methods
+
+  private func show(withAlignment alignment: Alignment, pinToSafeArea: Bool) {
+    Self.hideAll()
+    guard let view = UIApplication.shared.keyWindow else { return }
     view.addSubview(blurView)
 
-    let leadingConstraint = blurView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 16)
-    let trailingConstraint = blurView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -16)
-    
+    let leadingConstraint = blurView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: Constants.horizontalOffset)
+    let trailingConstraint = blurView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -Constants.horizontalOffset)
+    let maxWidthConstraint = blurView.widthAnchor.constraint(equalToConstant: Constants.maxWidth).withPriority(.defaultLow)
+
+    let verticalConstraint: NSLayoutConstraint
+    switch alignment {
+    case .bottom:
+      verticalConstraint = blurView.bottomAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor,
+                                                       constant: -Constants.bottomOffset)
+    case .top:
+      verticalConstraint = blurView.topAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor,
+                                                    constant: Constants.topOffset)
+    }
+
     NSLayoutConstraint.activate([
       leadingConstraint,
-      trailingConstraint
-    ])
-    
-    let topConstraint: NSLayoutConstraint
-    if alignment == .bottom {
-      topConstraint = blurView.bottomAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor, constant: -63)
-    } else {
-      topConstraint = blurView.topAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor, constant: 50)
-    }
-    
-    NSLayoutConstraint.activate([
-      topConstraint,
+      trailingConstraint,
+      maxWidthConstraint,
+      verticalConstraint,
       blurView.centerXAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.centerXAnchor : view.centerXAnchor)
     ])
 
-    UIView.animate(withDuration: kDefaultAnimationDuration) {
+    UIView.animate(withDuration: Constants.animationDuration, animations: {
       self.blurView.alpha = 1
-    }
-
-    timer = Timer.scheduledTimer(timeInterval: 3,
-                                 target: self,
-                                 selector: #selector(hide),
-                                 userInfo: nil,
-                                 repeats: false)
+    } , completion: { _ in
+      DispatchQueue.main.asyncAfter(deadline: .now() + Constants.presentationDuration) {
+        self.hide()
+      }
+    })
   }
-  
-  @objc func hide() {
-    timer?.invalidate()
+
+  private func hide() {
     if self.blurView.superview != nil {
-      UIView.animate(withDuration: kDefaultAnimationDuration,
+      UIView.animate(withDuration: Constants.animationDuration,
                      animations: { self.blurView.alpha = 0 }) { [self] _ in
         self.blurView.removeFromSuperview()
         Self.toasts.removeAll(where: { $0 === self }) }

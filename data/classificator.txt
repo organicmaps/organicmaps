@@ -83,6 +83,7 @@ world  +
         language_school  -
         library  -
         loading_dock  -
+        love_hotel  -
         marketplace  -
         money_transfer  -
         motorcycle_parking  -
@@ -159,6 +160,7 @@ world  +
         shower  -
         social_facility  -
         stripclub  -
+        studio  -
         taxi  -
         telephone  -
         theatre  -
@@ -227,6 +229,7 @@ world  +
         entrance  -
         fence  -
         gate  -
+        guard_rail  -
         hedge  -
         kissing_gate  -
         lift_gate  -
@@ -438,6 +441,7 @@ world  +
             tunnel  -
             {}
         ford  -
+        ladder  -
         living_street  +
             bridge  -
             tunnel  -
@@ -643,6 +647,7 @@ world  +
             danger_area  -
             {}
         orchard  -
+        plant_nursery  -
         quarry  -
         railway  -
         recreation_ground  -
@@ -661,6 +666,7 @@ world  +
         common  -
         dance  -
         dog_park  -
+        firepit  -
         fitness_centre  -
         fitness_station  -
         garden  +
@@ -1051,6 +1057,7 @@ world  +
                 paris  -
                 philadelphia  -
                 pyongyang  -
+                qingdao  -
                 rennes  -
                 rio  -
                 roma  -
@@ -1172,6 +1179,7 @@ world  +
             paris  -
             philadelphia  -
             pyongyang  -
+            qingdao  -
             rennes  -
             rio  -
             roma  -

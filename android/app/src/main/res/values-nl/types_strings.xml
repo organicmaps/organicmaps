@@ -38,11 +38,11 @@
     <string name="type.amenity.car_rental">Autoverhuur</string>
     <string name="type.amenity.motorcycle_rental">Motorverhuur</string>
     <string name="type.amenity.car_sharing">Autodelen</string>
-    <string name="type.amenity.car_wash">Car Wash</string>
+    <string name="type.amenity.car_wash">Wasserette</string>
     <string name="type.amenity.casino">Casino</string>
     <string name="type.amenity.gambling">Gokken</string>
     <string name="type.leisure.adult_gaming_centre">Gamingcentrum voor volwassenen</string>
-    <string name="type.leisure.amusement_arcade">Arcade</string>
+    <string name="type.leisure.amusement_arcade">Spelletjeshal</string>
     <string name="type.amenity.charging_station">Oplaadstation</string>
     <string name="type.amenity.charging_station.bicycle">Oplaadstation voor fietsen</string>
     <string name="type.amenity.charging_station.motorcar">Oplaadstation voor auto\'s</string>
@@ -128,7 +128,6 @@
     <string name="type.amenity.prison">Gevangenis</string>
     <string name="type.amenity.pub">Kroeg</string>
     <string name="type.amenity.public_bookcase">Boekenkast</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Milieustraat</string>
     <string name="type.amenity.recycling">Recycling container</string>
@@ -367,7 +366,6 @@
     <string name="type.healthcare.psychotherapist">Psychotherapie</string>
     <string name="type.healthcare.sample_collection">Bemonstering</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straat</string>
     <string name="type.highway.bridleway">Ruiterpad</string>
@@ -533,7 +531,6 @@
     <string name="type.area_highway.track">Straat</string>
     <string name="type.area_highway.trunk">Straat</string>
     <string name="type.area_highway.unclassified">Straat</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisch object</string>
     <string name="type.historic.aircraft">Historische vliegtuigen</string>
@@ -1227,7 +1224,7 @@
     <string name="type.sport.baseball">Honkbal</string>
     <string name="type.sport.basketball">Basketbal</string>
     <string name="type.sport.beachvolleyball">Beachvolleybal</string>
-    <string name="type.sport.bowls">Bowls</string>
+    <string name="type.sport.bowls">Bowling</string>
     <string name="type.sport.chess">Schaken</string>
     <string name="type.sport.cricket">Cricket</string>
     <string name="type.sport.curling">Curling</string>
@@ -1365,4 +1362,36 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sporthal</string>
+    <string name="type.cuisine.bubble_tea">Bubbelthee</string>
+    <string name="type.fee.yes">€</string>
+    <string name="type.power.pole">Stroommast</string>
+    <string name="type.man_made.utility_pole">Paal</string>
+    <string name="type.cuisine.fish_and_chips">Fish and Chips</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.landuse.reservoir">Reservoir</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.tourism.motel">Motel</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.attraction.big_wheel">Reuzenrad</string>
+    <string name="type.amenity.shelter.lean_to">Shelter</string>
+    <string name="type.landuse.brownfield">Braakliggend terrein</string>
+    <string name="type.landuse.greenfield">Greenfield</string>
+    <string name="type.power.generator">Generator</string>
+    <string name="type.highway.world_level">highway-world_level</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.amenity.food_court">Food court</string>
 </resources>

@@ -33,6 +33,7 @@ import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sound.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
@@ -152,7 +153,7 @@ public class NavigationService extends Service implements LocationListener
         .setOngoing(true)
         .setShowWhen(false)
         .setOnlyAlertOnce(true)
-        .setSmallIcon(R.drawable.logo)
+        .setSmallIcon(R.drawable.ic_splash)
         .setContentIntent(pendingIntent)
         .addAction(0, context.getString(R.string.navigation_stop_button), exitPendingIntent)
         .setColorized(isColorizedSupported())
@@ -201,7 +202,7 @@ public class NavigationService extends Service implements LocationListener
       return START_NOT_STICKY;
     }
 
-    if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
+    if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       // The system restarts the service if the app's process has crashed or been stopped. It would be nice to
       // automatically restore the last route and resume navigation. Unfortunately, the current implementation of

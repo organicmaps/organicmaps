@@ -244,7 +244,7 @@
 "type.craft" = "Håndværk";
 "type.craft.beekeeper" = "Biavler";
 "type.craft.blacksmith" = "Smed";
-"type.craft.brewery" = "Bryggeri";
+"type.craft.brewery" = "Mikrobryggeri";
 "type.craft.caterer" = "Cateringfirma";
 "type.craft.carpenter" = "Tømrer";
 "type.craft.confectionery" = "Konfekturehandler";
@@ -256,7 +256,7 @@
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "VVS";
-"type.craft.key_cutter" = "Nøgleskæring";
+"type.craft.key_cutter" = "Nøgleskærer";
 "type.craft.locksmith" = "Låsesmed";
 "type.craft.metal_construction" = "Metalarbejder";
 "type.craft.painter" = "Maler";
@@ -392,7 +392,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Tunnel";
-"type.highway.busway" = "Dedikeret busvej";
+"type.highway.busway" = "Busgade";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "Bro";
@@ -400,7 +400,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Tunnel";
 "type.highway.bus_stop" = "Busstoppested";
-"type.highway.construction" = "Vej under opbygning";
+"type.highway.construction" = "Vej under anlæggelse";
 "type.highway.cycleway" = "Cykelsti";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -410,10 +410,10 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Tunnel";
 "type.highway.elevator" = "Elevator";
-"type.highway.footway" = "Sti";
+"type.highway.footway" = "Gangsti";
 "type.highway.footway.sidewalk" = "Fortov";
 "type.highway.footway.crossing" = "Fodgængerovergang";
-"type.highway.footway.area" = "Sti";
+"type.highway.footway.area" = "Fodgængerareal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Bro";
@@ -421,14 +421,14 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
 "type.highway.ford" = "Vadested";
-"type.highway.living_street" = "Gade";
+"type.highway.living_street" = "Legegade";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Tunnel";
-"type.highway.motorway" = "Gade";
+"type.highway.motorway" = "Motorvej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Bro";
@@ -436,7 +436,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Tunnel";
 "type.highway.motorway_junction" = "Motorvejsafkørsel";
-"type.highway.motorway_link" = "Gade";
+"type.highway.motorway_link" = "Motorvejsrampe";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Bro";
@@ -446,35 +446,35 @@
 "type.highway.path" = "Sti";
 
 /* Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. */
-"type.highway.path.difficult" = "Vanskelig eller dårligt synlig sti";
+"type.highway.path.difficult" = "Krævende eller utydeligt vandrespor";
 
 /* Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. */
-"type.highway.path.expert" = "Meget svær eller umulig at skelne fra hinanden";
-"type.highway.path.bicycle" = "Sti";
-"type.highway.footway.bicycle" = "Sti";
+"type.highway.path.expert" = "Meget krævende eller usynligt vandrespor";
+"type.highway.path.bicycle" = "Fællessti";
+"type.highway.footway.bicycle" = "Fællessti";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Bro";
-"type.highway.path.horse" = "Sti";
+"type.highway.path.horse" = "Ridesti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Tunnel";
-"type.highway.pedestrian" = "Gade";
-"type.highway.pedestrian.area" = "Gade";
+"type.highway.pedestrian" = "Gågade";
+"type.highway.pedestrian.area" = "Gågadeareal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Tunnel";
-"type.highway.primary" = "Gade";
+"type.highway.primary" = "Hovedvej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Tunnel";
-"type.highway.primary_link" = "Gade";
+"type.highway.primary_link" = "Hovedvejsforbindelse";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Bro";
@@ -491,7 +491,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Tunnel";
 "type.highway.rest_area" = "Holdeplads";
-"type.highway.road" = "Gade";
+"type.highway.road" = "Vej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Bro";
@@ -501,80 +501,80 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Tunnel";
-"type.highway.secondary" = "Gade";
+"type.highway.secondary" = "Sækunder hovedvej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Tunnel";
-"type.highway.secondary_link" = "Gade";
+"type.highway.secondary_link" = "Sekundær hovedvejsforbindelse";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Tunnel";
-"type.highway.service" = "Gade";
-"type.highway.service.area" = "Gade";
+"type.highway.service" = "Servicevej";
+"type.highway.service.area" = "Servicevej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Bro";
-"type.highway.service.driveway" = "Gade";
-"type.highway.service.parking_aisle" = "Gade";
+"type.highway.service.driveway" = "Indkørsel";
+"type.highway.service.parking_aisle" = "Vej mellem parkeringspladser";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Tunnel";
 "type.highway.services" = "Rasteplads";
-"type.highway.speed_camera" = "Automatisk Trafikkontrol";
-"type.highway.steps" = "Sti";
+"type.highway.speed_camera" = "Automatisk Fartkontrol";
+"type.highway.steps" = "Trappe";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Tunnel";
-"type.highway.tertiary" = "Gade";
+"type.highway.tertiary" = "Tertiær hovedvej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Tunnel";
-"type.highway.tertiary_link" = "Gade";
+"type.highway.tertiary_link" = "Tertiær hovedvejsforbindelse";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Tunnel";
-"type.highway.track" = "Gade";
-"type.highway.track.area" = "Gade";
+"type.highway.track" = "Hjulspor";
+"type.highway.track.area" = "Hjulspor";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Bro";
-"type.highway.track.grade1" = "Gade";
-"type.highway.track.no.access" = "Gade";
+"type.highway.track.grade1" = "Adgangsvej";
+"type.highway.track.no.access" = "Adgangsvej";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunnel";
 "type.highway.traffic_signals" = "Trafiklys";
-"type.highway.trunk" = "Gade";
+"type.highway.trunk" = "Motortrafikvej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Tunnel";
-"type.highway.trunk_link" = "Gade";
+"type.highway.trunk_link" = "Motortrafikvejsforbindelse";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Tunnel";
-"type.highway.unclassified" = "Gade";
-"type.highway.unclassified.area" = "Gade";
+"type.highway.unclassified" = "Vej";
+"type.highway.unclassified.area" = "Vej";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Bro";
@@ -583,25 +583,25 @@
 "type.highway.unclassified.tunnel" = "Tunnel";
 "type.area_highway.cycleway" = "Cykelsti";
 "type.area_highway.footway" = "Sti";
-"type.area_highway.living_street" = "Gade";
-"type.area_highway.motorway" = "Gade";
+"type.area_highway.living_street" = "Legegade";
+"type.area_highway.motorway" = "Motorvej";
 "type.area_highway.path" = "Sti";
-"type.area_highway.pedestrian" = "Gade";
-"type.area_highway.primary" = "Gade";
+"type.area_highway.pedestrian" = "Gågade";
+"type.area_highway.primary" = "Hovedvej";
 "type.area_highway.residential" = "Gade";
-"type.area_highway.secondary" = "Gade";
-"type.area_highway.service" = "Gade";
-"type.area_highway.tertiary" = "Gade";
-"type.area_highway.steps" = "Sti";
-"type.area_highway.track" = "Gade";
-"type.area_highway.trunk" = "Gade";
-"type.area_highway.unclassified" = "Gade";
+"type.area_highway.secondary" = "Sekundær hovedvej";
+"type.area_highway.service" = "Servicevej";
+"type.area_highway.tertiary" = "Tertiær hovedvej";
+"type.area_highway.steps" = "Trappe";
+"type.area_highway.track" = "Hjulspor";
+"type.area_highway.trunk" = "Motortrafikvej";
+"type.area_highway.unclassified" = "Mindre vej";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 "type.historic" = "Historisk objekt";
-"type.historic.aircraft" = "Historiske fly";
+"type.historic.aircraft" = "Historisk fly";
 "type.historic.anchor" = "Historisk anker";
-"type.historic.archaeological_site" = "Arkæologisk sted";
+"type.historic.archaeological_site" = "Arkæologisk fundsted";
 "type.historic.battlefield" = "Slagmark";
 "type.historic.boundary_stone" = "Grænsesten";
 "type.historic.cannon" = "Kanon";
@@ -675,12 +675,12 @@
 "type.landuse.construction" = "Byggeplads";
 "type.landuse.education" = "Uddannelsesområde";
 "type.landuse.farmland" = "Landbrugsjord";
-"type.landuse.farmyard" = "Gårdsplads";
+"type.landuse.farmyard" = "Gårdanlæg";
 "type.landuse.field" = "Mark";
 "type.landuse.flowerbed" = "Blomsterseng";
 "type.landuse.forest" = "Skov";
-"type.landuse.forest.coniferous" = "Skov";
-"type.landuse.forest.deciduous" = "Skov";
+"type.landuse.forest.coniferous" = "Nåleskov";
+"type.landuse.forest.deciduous" = "Løvskov";
 "type.landuse.forest.mixed" = "Skov";
 "type.landuse.garages" = "Garager";
 "type.landuse.grass" = "Græsplæne";
@@ -694,7 +694,7 @@
 "type.landuse.quarry" = "Brud";
 "type.landuse.railway" = "Jernbaneanlæg";
 "type.landuse.recreation_ground" = "Fritidsområde";
-"type.landuse.reservoir" = "Vand";
+"type.landuse.reservoir" = "Vandreservoir";
 "type.landuse.residential" = "Boligområde";
 "type.landuse.retail" = "Detailhandelsområde";
 "type.landuse.salt_pond" = "Saltfordampningsdam";
@@ -702,7 +702,7 @@
 "type.landuse.vineyard" = "Vinmark";
 "type.leisure" = "Fritid";
 "type.leisure.common" = "Fællesområde";
-"type.leisure.dog_park" = "Hundepark";
+"type.leisure.dog_park" = "Hundeskov";
 "type.leisure.fitness_centre" = "Trænings- og motionscenter";
 "type.leisure.fitness_station" = "Fitness-station";
 "type.leisure.dance" = "Dansesal";
@@ -713,7 +713,7 @@
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Skøjtebane";
 "type.leisure.marina" = "Lystbådehavn";
-"type.leisure.nature_reserve" = "Reservat";
+"type.leisure.nature_reserve" = "Naturreservat";
 "type.leisure.outdoor_seating" = "Udendørs siddepladser";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Park";
@@ -813,13 +813,13 @@
 "type.natural.orchard" = "Frugthave";
 "type.natural.peak" = "Bjerg";
 "type.natural.saddle" = "Bjergsadel";
-"type.natural.rock" = "Bjergart";
-"type.natural.scrub" = "Kratbevokset område";
+"type.natural.rock" = "Sten";
+"type.natural.scrub" = "Krat";
 "type.natural.spring" = "Kilde";
 "type.natural.spring.drinking_water_no" = "Kilde";
 "type.natural.strait" = "Stræde";
-"type.natural.tree_row" = "Trærækker";
-"type.natural.vineyard" = "Vingård";
+"type.natural.tree_row" = "Trærække";
+"type.natural.vineyard" = "Vinmark";
 "type.natural.volcano" = "Vulkan";
 "type.natural.water" = "Vandmasse";
 "type.natural.wetland" = "Vådområde";
@@ -865,7 +865,7 @@
 "type.place.neighbourhood" = "Nabolag";
 "type.place.ocean" = "Verdenshave";
 "type.place.region" = "Region";
-"type.place.sea" = "Er";
+"type.place.sea" = "Hav";
 "type.place.square" = "Torv";
 "type.place.state" = "Stat";
 "type.place.state.USA" = "Stat";
@@ -1208,41 +1208,41 @@
 "type.route.ferry" = "Færgerute";
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Butik";
-"type.shop.alcohol" = "Alkohol";
+"type.shop.alcohol" = "Alkoholforhandler";
 "type.shop.bakery" = "Bager";
-"type.shop.bathroom_furnishing" = "Badeværelsesindretning";
+"type.shop.bathroom_furnishing" = "Badeværelsesbutik";
 "type.shop.beauty" = "Skønhedssalon";
-"type.shop.beverages" = "Drikkevarer";
-"type.shop.bicycle" = "Cykelforretning";
+"type.shop.beverages" = "Drikkevarehandel";
+"type.shop.bicycle" = "Cykelhandel";
 "type.shop.bookmaker" = "Væddemålsagent";
 "type.shop.books" = "Boghandel";
 "type.shop.butcher" = "Slagter";
-"type.shop.cannabis" = "Cannabis butik";
+"type.shop.cannabis" = "Cannabisbutik";
 "type.shop.car" = "Bilforhandler";
-"type.shop.car_parts" = "Bildele";
-"type.shop.car_repair" = "Bilmekaniker";
+"type.shop.car_parts" = "Reservedelsforhandler til biler";
+"type.shop.car_repair" = "Bilværksted";
 "type.shop.car_repair.tyres" = "Dækreparation";
 "type.shop.caravan" = "Autocamperforhandler";
-"type.shop.carpet" = "Tæpper";
+"type.shop.carpet" = "Tæppehandel";
 "type.shop.chemist" = "Materialist";
-"type.shop.chocolate" = "Chokolade butik";
+"type.shop.chocolate" = "Chokoladebutik";
 "type.shop.clothes" = "Tøjbutik";
-"type.shop.coffee" = "Butik med kaffe";
+"type.shop.coffee" = "Kaffehandel";
 "type.shop.computer" = "Computerforretning";
 "type.shop.confectionery" = "Slikbutik";
 "type.shop.convenience" = "Døgnbutik";
 "type.shop.copyshop" = "Kopieringsbutik";
-"type.shop.cosmetics" = "Kosmetik";
-"type.shop.curtain" = "Gardiner";
+"type.shop.cosmetics" = "Kosmetiker";
+"type.shop.curtain" = "Gardinhandel";
 "type.shop.deli" = "Delikatessebutik";
 "type.shop.department_store" = "Stormagasin";
 "type.shop.doityourself" = "Isenkræmmer";
 "type.shop.dry_cleaning" = "Renseri";
 "type.shop.electronics" = "Elektronikbutik";
-"type.shop.erotic" = "Erotisk butik";
+"type.shop.erotic" = "Erotikbutik";
 "type.shop.fabric" = "Stofbutik";
-"type.shop.farm" = "Farm Food Shop";
-"type.shop.fashion_accessories" = "Mode tilbehør";
+"type.shop.farm" = "Foderhandel";
+"type.shop.fashion_accessories" = "Accessory-butik";
 "type.shop.florist" = "Blomsterbutik";
 "type.shop.funeral_directors" = "Bedemand";
 "type.shop.furniture" = "Møbelbutik";
@@ -1299,33 +1299,33 @@
 "type.shop.video_games" = "Computerspilbutik";
 "type.shop.wine" = "Vinhandel";
 "type.shop.agrarian" = "Landbrugsbutik";
-"type.shop.antiques" = "Antikviteter";
+"type.shop.antiques" = "Antikvitetsbutik";
 "type.shop.appliance" = "Hvidevarer butik";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Kunstbutik";
 "type.shop.baby_goods" = "Børnebutik";
-"type.shop.bag" = "Tasker butik";
-"type.shop.bed" = "Senge butik";
-"type.shop.boutique" = "Boutique";
+"type.shop.bag" = "Taskebutik";
+"type.shop.bed" = "Sengebutik";
+"type.shop.boutique" = "Modebutik";
 "type.shop.charity" = "Velgørenhedsbutik";
 "type.shop.cheese" = "Ostebutik";
 "type.shop.craft" = "Kunst og kunsthåndværk";
 "type.shop.dairy" = "Mejeriprodukter";
 "type.shop.electrical" = "El-butik";
-"type.shop.fishing" = "Fiskeri butik";
-"type.shop.interior_decoration" = "Indvendige dekorationer";
-"type.shop.lottery" = "Lotterikuponer";
-"type.shop.medical_supply" = "Medicinske forsyninger";
-"type.shop.nutrition_supplements" = "Kosttilskud";
-"type.shop.paint" = "Maling";
+"type.shop.fishing" = "Fiskeributik";
+"type.shop.interior_decoration" = "Brugskunsthandel";
+"type.shop.lottery" = "Lottobutik";
+"type.shop.medical_supply" = "Medicinaludstyrsforhandler";
+"type.shop.nutrition_supplements" = "Kosttilskudsbutik";
+"type.shop.paint" = "Malerbutik";
 "type.shop.perfumery" = "Parfumeri";
-"type.shop.sewing" = "Syudstyr";
+"type.shop.sewing" = "Sybutik";
 "type.shop.storage_rental" = "Lagerudlejning";
-"type.shop.tobacco" = "Tobak";
-"type.shop.trade" = "Handler forsyninger";
-"type.shop.watches" = "Ure";
-"type.shop.wholesale" = "Engros butik";
+"type.shop.tobacco" = "Tobaksforhandler";
+"type.shop.trade" = "Specialistleverandør";
+"type.shop.watches" = "Urbutik";
+"type.shop.wholesale" = "Engroshandel";
 "type.sport" = "Sport";
 "type.sport.american_football" = "Amerikansk fodbold";
 "type.sport.archery" = "Bueskydning";
@@ -1459,13 +1459,13 @@
 "type.piste_type.nordic" = "Langrendsløjpe";
 "type.piste_type.sled" = "Kælkebane";
 "type.piste_type.sled.area" = "Kælkebane";
-"type.piste_type.snow_park" = "Snow Park";
+"type.piste_type.snow_park" = "Snepark";
 "type.piste_type.hike" = "Vandresti i sne";
 "type.piste_type.connection" = "Pisteforbindelse";
-"type.piste_type.skitour" = "Skitour Trail";
-"type.amenity.events_venue" = "Sted for arrangementer";
-"type.shop.auction" = "Auktion";
-"type.shop.collector" = "Samlerobjekter";
+"type.piste_type.skitour" = "Skitoursti";
+"type.amenity.events_venue" = "Selskabslokale";
+"type.shop.auction" = "Auktionshus";
+"type.shop.collector" = "Samlerbutik";
 "type.self_service.yes" = "Selvbetjening tilgængelig";
 "type.self_service.only" = "Kun selvbetjening";
 "type.self_service.partially" = "Delvis selvbetjening";

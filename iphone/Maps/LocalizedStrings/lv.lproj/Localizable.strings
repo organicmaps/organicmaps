@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "Vairāk";
 "book_button" = "Rezervēt";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Foto, atsauksmes, rezervācija";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Informācija par „Kayak“";
 "placepage_call_button" = "Zvanīt";
 "placepage_edit_bookmark_button" = "Rediģēt grāmatzīmi";
 "placepage_bookmark_name_hint" = "Grāmatzīmes nosaukums";
@@ -765,8 +756,8 @@
 "subway_data_unavailable" = "Metro karte nav pieejama";
 "title_error_downloading_bookmarks" = "Notika kļūda";
 "popular_place" = "Populāras";
-"export_file" = "Eksportēt KMZ";
-"export_file_gpx" = "GPX eksportēšana";
+"export_file" = "Izgūt KMZ formātā";
+"export_file_gpx" = "Izgūt GPX formātā";
 "delete_list" = "Dzēst sarakstu";
 "hide_from_map" = "Slēpt kartē";
 "tags_loading_error_subtitle" = "Kļūda, ielādējot birkas. Mēģiniet vēlreiz.";
@@ -982,7 +973,7 @@
 "button_layer_outdoor" = "Aktīvā atpūta";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Eksportēt visas grāmatzīmes un ceļus";
+"bookmarks_export" = "Izgūt visus ceļus un grāmatzīmes";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Mainīt krāsu";

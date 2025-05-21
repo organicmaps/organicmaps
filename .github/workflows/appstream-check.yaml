@@ -25,11 +25,7 @@ jobs:
           sudo apt install -y \
               flatpak
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install -y org.freedesktop.appstream-glib org.flatpak.Builder
-
-      - name: Validate appstream data
-        shell: bash
-        run: flatpak run org.freedesktop.appstream-glib validate --nonet packaging/app.organicmaps.desktop.metainfo.xml
+          sudo flatpak install -y org.flatpak.Builder
 
       - name: Lint appstream data with flatpak Builder
         shell: bash

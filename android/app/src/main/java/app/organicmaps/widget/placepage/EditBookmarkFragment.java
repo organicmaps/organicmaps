@@ -193,6 +193,14 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     }
   }
 
+  @Override
+  public void onAttach(@NonNull Context context)
+  {
+    super.onAttach(context);
+    if (mListener == null && getParentFragment() instanceof EditBookmarkListener)
+      mListener = (EditBookmarkListener) getParentFragment();
+  }
+
   private void initToolbar(View view)
   {
     Toolbar toolbar = view.findViewById(R.id.toolbar);

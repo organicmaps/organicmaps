@@ -157,7 +157,7 @@
 "share_bookmarks_email_body" = "您好！\n\n附件是我的书签，请在 Organic Maps 中打开。如果您没有安装 Organic Maps，可以在这里下载: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
-"load_kmz_title" = "正在载入书签…";
+"load_kmz_title" = "正在加载书签";
 
 /* Kmz file successful loading */
 "load_kmz_successful" = "书签载入成功！您可以在地图或书签管理页面中找到它们。";
@@ -301,7 +301,7 @@
 "follow_us" = "关注并联系我们：";
 
 /* Alert text */
-"email_error_body" = "电子邮件客户端未设置。请配置电子邮件客户端或通过 %@ 联系我们。";
+"email_error_body" = "尚未设置电子邮件客户端。请进行配置或通过 %@ 联系我们";
 
 /* Alert title */
 "email_error_title" = "电子邮件发送失败";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— 路况、交通法规和路标始终优先于导航建议；";
 "dialog_routing_disclaimer_precision" = "— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路线；";
 "dialog_routing_disclaimer_recommendations" = "— 建议的路线仅作为推荐路线供您采纳；";
-"dialog_routing_disclaimer_borders" = "— 小心对待国界区的路线：我们的应用程序生成的路线有时会在未经授权的地方跨越国界；";
+"dialog_routing_disclaimer_borders" = "— 小心对待国界区的路线：我们的应用生成的路线有时会在未经授权的地方跨越国界。";
 "dialog_routing_disclaimer_beware" = "上路时请当心，祝您一路平安！";
 "dialog_routing_check_gps" = "检查 GPS 信号";
 "dialog_routing_error_location_not_found" = "无法规划路线。无法识别当前 GPS 坐标。";
@@ -502,22 +502,22 @@
 "day_off_today" = "今天不营业";
 "day_off" = "不营业";
 "today" = "今天";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
-"opens_in" = "将于 %@ 后开业";
-"closes_at" = "Closes at %@";
-"closes_in" = "将于 %@ 后歇业";
+"opens_tomorrow_at" = "明天 %@ 营业";
+"opens_dayoftheweek_at" = "%1$@ %2$@ 营业";
+"opens_at" = "%@ 营业";
+"opens_in" = "将于 %@ 后营业";
+"closes_at" = "%@ 不营业";
+"closes_in" = "将于 %@ 后不营业";
 "closed" = "已停止营业";
 "add_opening_hours" = "添加营业时间";
-"no_osm_account" = "没有 OpenStreetMap 账户吗？";
+"no_osm_account" = "没有 OpenStreetMap 账号吗？";
 "register_at_openstreetmap" = "注册";
 "password_8_chars_min" = "密码（至少 8 个字符）";
 "invalid_username_or_password" = "无效的用户名或密码。";
 "login" = "登录";
 "login_osm" = "登录 OpenStreetMap";
-"forgot_password" = "忘记密码";
-"osm_account" = "OSM 账户";
+"forgot_password" = "忘记密码？";
+"osm_account" = "OSM 账号";
 "logout" = "登出";
 
 /* Information text: "Last upload 11.01.2016" */
@@ -568,8 +568,8 @@
 "message_invalid_feature_position" = "地点不能放置在这里";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息。";
-"login_to_make_edits_visible" = "创建 OpenStreetMap 账户或登录，向全世界发布您编辑的地图。";
+"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 详细了解如何编辑和更新地图";
+"login_to_make_edits_visible" = "创建 OpenStreetMap 账号或登录，向全世界发布您编辑的地图。";
 
 /* Error dialog no space */
 "migration_no_space_message" = "为了下载，您需要更多的存储空间。请删除不必要的文件。";
@@ -615,7 +615,7 @@
 "location_services_disabled_on_device_2" = "2. 点击“隐私和安全性”";
 "location_services_disabled_on_device_3" = "3. 选择“定位服务”";
 "location_services_disabled_on_device_4" = "4. 打开“定位服务”";
-"location_services_disabled_on_device_additional_message" = "或继续使用 Organic Maps，但无法定位到您目前所在的位置。";
+"location_services_disabled_on_device_additional_message" = "或没有定位继续使用 Organic Maps";
 
 /* abbreviation for meters */
 "m" = "米";
@@ -637,15 +637,6 @@
 "day" = "天";
 "placepage_more_button" = "更多";
 "book_button" = "预定";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "照片、评论、预订";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "客涯 (Kayak) 上的详细信息";
 "placepage_call_button" = "呼叫";
 "placepage_edit_bookmark_button" = "编辑书签";
 "placepage_bookmark_name_hint" = "书签名称";
@@ -764,7 +755,7 @@
 "layers_title" = "地图样式和图层";
 "subway_data_unavailable" = "地铁地图不可用";
 "title_error_downloading_bookmarks" = "发生错误";
-"popular_place" = "Popular";
+"popular_place" = "受欢迎的";
 "export_file" = "导出为 KMZ";
 "export_file_gpx" = "导出为 GPX";
 "delete_list" = "删除列表";
@@ -783,7 +774,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "永远不会对摄像头发出警告";
 "power_managment_title" = "省电模式";
-"power_managment_description" = "如果开启省电模式，应用程序将根据手机的当前电量关闭耗电功能";
+"power_managment_description" = "如果开启省电模式，本应用将根据手机的当前电量关闭耗电功能。";
 "power_managment_setting_never" = "从不";
 "power_managment_setting_auto" = "当电量低时";
 "power_managment_setting_manual_max" = "最大程度省电";
@@ -800,7 +791,7 @@
 "avoid_ferry" = "避开轮渡";
 "avoid_motorways" = "避开高速公路";
 "unable_to_calc_alert_title" = "无法规划路线";
-"unable_to_calc_alert_subtitle" = "很遗憾，我们无法使用所选的绕行设置规划路线。请更改设置，然后重试";
+"unable_to_calc_alert_subtitle" = "找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。";
 "define_to_avoid_btn" = "选择要避开的道路";
 "change_driving_options_btn" = "绕行设置已开启";
 "toll_road" = "收费公路";
@@ -1028,7 +1019,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "错误：iCloud 不可用";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "在另一个应用程序中打开";
+"open_in_app" = "在另一个应用中打开";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "自助服务";
@@ -1067,5 +1058,5 @@
 "track_recording_alert_title" = "保存到书签和轨迹？";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "轨迹是空的 - 没有要保存的内容";
+"track_recording_toast_nothing_to_save" = "轨迹为空 — 无内容可保存";
 "edit_track" = "编辑轨迹";

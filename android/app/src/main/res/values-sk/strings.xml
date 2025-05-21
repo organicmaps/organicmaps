@@ -319,10 +319,6 @@
     <string name="google_play_services">Lokalizačné služby Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Rýchle určenie približnej polohy cez Bluetooth, WiFi alebo mobilnú sieť</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com Hotel Odkazy</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Fotografie, recenzie a rezervačné odkazy sa zobrazujú pre hotely, ktoré majú svoju ponuku na Kayak.com. Bonus získaný za každú rezerváciu prostredníctvom týchto odkazov ide na rozvoj Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
     <!-- Text for routing error dialog -->
@@ -557,14 +553,6 @@
     <string name="minute">min</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Viac</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotografie, recenzie, rezervácie</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Podrobnosti na Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Zakázať Kayak</string>
     <string name="placepage_edit_bookmark_button">Upraviť záložku</string>
     <string name="placepage_personal_notes_hint">Osobné poznámky (text alebo html)</string>
     <string name="editor_comment_hint">Poznámka…</string>

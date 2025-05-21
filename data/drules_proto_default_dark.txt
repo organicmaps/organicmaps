@@ -7304,6 +7304,57 @@ cont {
   }
 }
 cont {
+  name: "amenity-love_hotel"
+  element {
+    scale: 18
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "stripclub-m"
+      priority: 500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9500
+    }
+  }
+}
+cont {
   name: "amenity-marketplace"
   element {
     scale: 16
@@ -12503,6 +12554,93 @@ cont {
   }
 }
 cont {
+  name: "amenity-studio"
+  element {
+    scale: 16
+    symbol {
+      name: "studio-m"
+      priority: 1550
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "studio-m"
+      priority: 1550
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8450
+    }
+  }
+}
+cont {
   name: "amenity-taxi"
   element {
     scale: 16
@@ -15824,6 +15962,49 @@ cont {
         is_optional: true
       }
       priority: -7700
+    }
+  }
+}
+cont {
+  name: "barrier-guard_rail"
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 3007595588
+      priority: 320
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.3
+      color: 2571387972
+      priority: 320
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1715749956
+      priority: 320
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1715749956
+      priority: 320
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1715749956
+      priority: 320
     }
   }
 }
@@ -23975,6 +24156,73 @@ cont {
         stroke_color: 856032768
       }
       priority: 2850
+    }
+  }
+}
+cont {
+  name: "highway-ladder"
+  element {
+    scale: 17
+    symbol {
+      name: "ladder-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "ladder-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "ladder-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "ladder-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
 }
@@ -47639,6 +47887,208 @@ cont {
   }
 }
 cont {
+  name: "landuse-plant_nursery"
+  element {
+    scale: 12
+    area {
+      color: 1317888
+      priority: -1930
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 1317888
+      priority: -1930
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 1317888
+      priority: -1930
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 1317888
+      priority: -1930
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1317888
+      priority: -1930
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 17
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 18
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+  element {
+    scale: 20
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2836760
+        stroke_color: 856756497
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+    apply_if: "name"
+  }
+  element {
+    scale: 20
+    area {
+      color: 1317888
+      priority: -1930
+    }
+    symbol {
+      name: "plant_nursery-m"
+      priority: 2450
+    }
+    apply_if: "!name"
+  }
+}
+cont {
   name: "landuse-quarry"
   element {
     scale: 15
@@ -48973,46 +49423,70 @@ cont {
   name: "leisure-dance"
   element {
     scale: 17
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 18
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 19
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
   element {
     scale: 20
+    symbol {
+      name: "dance-m"
+      priority: 1250
+      min_distance: 10
+    }
     caption {
       primary {
         height: 10
         color: 9211020
         offset_y: 1
+        is_optional: true
       }
-      priority: 1600
+      priority: -8750
     }
   }
 }
@@ -49101,6 +49575,68 @@ cont {
         is_optional: true
       }
       priority: -7700
+    }
+  }
+}
+cont {
+  name: "leisure-firepit"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+      }
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "firepit-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
     }
   }
 }
@@ -91979,6 +92515,184 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-qingdao"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 6250
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 11
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 12
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 856032768
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-qingdao-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+}
+cont {
   name: "railway-station-subway-rennes"
   element {
     scale: 13
@@ -106756,6 +107470,112 @@ cont {
     scale: 20
     symbol {
       name: "subway-pyongyang-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-qingdao"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 3700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-qingdao-s"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 8947848
+        stroke_color: 436602368
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-qingdao-s"
       priority: 3700
     }
     caption {

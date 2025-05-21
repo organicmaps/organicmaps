@@ -33,6 +33,7 @@
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
 "type.amenity.biergarten" = "Biergarten";
 "type.amenity.brothel" = "Brothel";
+"type.amenity.love_hotel" = "Love Hotel";
 "type.amenity.bureau_de_change" = "Currency Exchange";
 "type.amenity.bus_station" = "Bus Station";
 "type.amenity.cafe" = "Cafe";
@@ -42,6 +43,7 @@
 "type.amenity.car_wash" = "Car Wash";
 "type.amenity.casino" = "Casino";
 "type.amenity.gambling" = "Gambling";
+"type.amenity.studio" = "Studio";
 "type.leisure.adult_gaming_centre" = "Adult Gaming Centre";
 "type.leisure.amusement_arcade" = "Arcade";
 "type.amenity.charging_station" = "Charging Station";
@@ -209,6 +211,7 @@
 "type.natural.water.wastewater" = "Wastewater";
 "type.barrier.entrance" = "Entrance";
 "type.barrier.fence" = "Fence";
+"type.barrier.guard_rail" = "Guard Rail";
 "type.barrier.gate" = "Gate";
 "type.barrier.hedge" = "Hedge";
 "type.barrier.kissing_gate" = "Kissing Gate";
@@ -540,6 +543,7 @@
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Speed Camera";
 "type.highway.steps" = "Stairs";
+"type.highway.ladder" = "Ladder";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Bridge";
@@ -718,6 +722,7 @@
 "type.landuse.salt_pond" = "Salt Pond";
 "type.landuse.village_green" = "Land";
 "type.landuse.vineyard" = "Vineyard";
+"type.landuse.plant_nursery" = "Plant Nursery";
 "type.leisure" = "Leisure";
 "type.leisure.common" = "Public Land";
 "type.leisure.dog_park" = "Dog Park";
@@ -733,6 +738,7 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Nature Reserve";
 "type.leisure.outdoor_seating" = "Outdoor Seating";
+"type.leisure.firepit" = "Firepit";
 "type.leisure.park" = "Park";
 "type.leisure.park.no.access" = "Private Park";
 "type.leisure.park.permissive" = "Park";

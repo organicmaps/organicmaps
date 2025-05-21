@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Instalaciones para autocaravanas";
-"share_bookmarks_email_body" = "Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!";
+"share_bookmarks_email_body" = "¡Hola!\n\nAdjunto mis marcadores; ábrelos en Organic Maps. Si no lo tienes instalado, puedes descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfruta viajando con Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando marcadores";
@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "Más";
 "book_button" = "Reservar";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Fotos, opiniones, reservas";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "La bonificación por recomendación recibida por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Detalles en Kayak";
 "placepage_call_button" = "Llamar";
 "placepage_edit_bookmark_button" = "Editar marcador";
 "placepage_bookmark_name_hint" = "Nombre del marcador";

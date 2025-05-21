@@ -637,15 +637,6 @@
 "day" = "يوم";
 "placepage_more_button" = "المزيد";
 "book_button" = "حجز";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "الصور والتعليقات والحجز";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "التفاصيل على Kayak";
 "placepage_call_button" = "اتصال";
 "placepage_edit_bookmark_button" = "تحرير العلامة المرجعية";
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";

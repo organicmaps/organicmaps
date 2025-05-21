@@ -293,10 +293,6 @@
     <string name="google_play_services">„Google Play“ vietos nustatymo paslaugos</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Greitai nustatyti apytikslę jūsų buvimo vietą remiantis pasiekiamais „Bluetooth“ įrenginiais, belaidžiais tinklais ir mobiliojo ryšio siųstuvais</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">„Kayak.com“ viešbučių nuorodos</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Rodyti nuotraukų, apžvalgų ir užsakymo nuorodas viešbučiams, registruotiems „Kayak.com“ kataloge. Už kiekvieną per šias nuorodas atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Atsiųsti visus žemėlapius, į kuriuos patenka jūsų maršrutas</string>
     <!-- Text for routing error dialog -->
@@ -531,7 +527,6 @@
     <string name="day">d</string>
     <string name="placepage_more_button">Išsamiau</string>
     <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Išjungti „Kayak“</string>
     <string name="placepage_edit_bookmark_button">Taisyti žymę</string>
     <string name="placepage_personal_notes_hint">Asmeninės pastabos (tekstas arba HTML)</string>
     <string name="editor_comment_hint">Komentaras…</string>
@@ -827,9 +822,6 @@
     <string name="vk">VK</string>
     <string name="pref_tts_test_voice_title">Išbandyti balso instrukcijas (kalbos sintezę)</string>
     <string name="pref_tts_playing_test_voice">Patikrinkite sistemos kalbos sintezės garsumo nustatymus, jeigu dabar negirdite balso.</string>
-    <string name="more_on_kayak">Nuotraukos, apžvalgos, užsakymas</string>
-    <string name="dialog_kayak_button">Išsamiau „Kayak“ svetainėje</string>
-    <string name="dialog_kayak_disclaimer">Už kiekvieną per šią nuorodą atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.</string>
     <plurals name="tracks">
         <item quantity="one">%d trasa</item>
         <item quantity="few">%d trasos</item>

@@ -138,7 +138,7 @@ final class TrackRecordingManager: NSObject {
 
   private func stop(completion: (CompletionHandler)? = nil) {
     guard !trackRecorder.isTrackRecordingEmpty() else {
-      Toast.toast(withText: L("track_recording_toast_nothing_to_save")).show()
+      Toast.show(withText: L("track_recording_toast_nothing_to_save"))
       stopRecording(.withoutSaving, completion: completion)
       return
     }

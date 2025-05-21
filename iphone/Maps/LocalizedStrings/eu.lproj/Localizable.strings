@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;";
 "dialog_routing_disclaimer_precision" = "— Mapa zehazgabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;";
 "dialog_routing_disclaimer_recommendations" = "— Iradokitako ibilbideak gomendio gisa soilik hartu behar dira;";
-"dialog_routing_disclaimer_borders" = "— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan;";
+"dialog_routing_disclaimer_borders" = "— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan.";
 "dialog_routing_disclaimer_beware" = "Egon adi eta seguru errepideetan!";
 "dialog_routing_check_gps" = "Egiaztatu GPS seinalea";
 "dialog_routing_error_location_not_found" = "Ezin da ibilbidea sortu. Ezin izan dira uneko GPS koordenatuak identifikatu.";
@@ -458,7 +458,7 @@
 "search_not_found" = "Barkatu, ez dut ezer aurkitu.";
 
 /* The message when user did not find anything in the search. */
-"search_not_found_query" = "Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/herri izena gehitzen.";
+"search_not_found_query" = "Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/hiri izena gehitzen.";
 "search_history_title" = "Bilaketa historia";
 "search_history_text" = "Ikusi azken bilaketak.";
 "clear_search" = "Garbitu bilaketa historia";
@@ -637,15 +637,6 @@
 "day" = "e";
 "placepage_more_button" = "Gehiago";
 "book_button" = "Erreserba";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Argazkiak, iritziak, erreserba";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Xehetasunak Kayak-en";
 "placepage_call_button" = "Deitu";
 "placepage_edit_bookmark_button" = "Editatu markagailua";
 "placepage_bookmark_name_hint" = "Markagailuaren izena";
@@ -800,7 +791,7 @@
 "avoid_ferry" = "Ferriak saihestea";
 "avoid_motorways" = "Autobideak saihestea";
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
-"unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro";
+"unable_to_calc_alert_subtitle" = "Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro.";
 "define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
 "change_driving_options_btn" = "Bideratze aukerak gaituta";
 "toll_road" = "Ordainpeko errepidea";

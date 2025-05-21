@@ -213,6 +213,7 @@ node|z16-[leisure=picnic_table],
 area|z16-[leisure=picnic_table],
 node|z16-[amenity=bbq],
 area|z16-[amenity=bbq],
+node|z16-[leisure=firepit],
 node|z13-[amenity=shelter],
 area|z13-[amenity=shelter],
 node|z13-[amenity=shelter][shelter_type=basic_hut],
@@ -275,6 +276,9 @@ area|z16-[leisure=picnic_table],
 node|z16-[amenity=bbq],
 area|z16-[amenity=bbq],
 {icon-image: bbq-m.svg; font-size: 11;}
+
+node|z16-[leisure=firepit],
+{icon-image: firepit-m.svg; font-size: 11;}
 
 node|z12-[amenity=shelter],
 node|z12-[amenity=shelter][shelter_type=lean_to],
@@ -361,6 +365,9 @@ node|z14-[barrier=border_control],
 
 node|z14-[highway=ford],
 {icon-image: ford-m.svg;}
+
+node|z16-[highway=ladder],
+{icon-image: ladder-m.svg;}
 
 node|z13[power=tower],
 {icon-image: mast-m.svg;}

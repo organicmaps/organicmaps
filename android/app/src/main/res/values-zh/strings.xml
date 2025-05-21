@@ -9,7 +9,7 @@
     <string name="delete">删除</string>
     <string name="download_maps">下载地图</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">下载失败，点击以再试一次</string>
+    <string name="download_has_failed">下载失败，请点击重试。</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">正在下载…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -58,7 +58,7 @@
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">请拔除 USB 线或插入 SD 卡以使用 Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">请先释放一些 SD 卡 / USB 存储空间以使用 Organic Maps。</string>
+    <string name="not_enough_free_space_on_sdcard">请先释放一些 SD 卡 / USB 存储空间以使用本应用</string>
     <string name="download_resources">在您开始使用此应用程序之前，请下载全球地图到您的设备。
 \n它将使用 %s 的存储空间。</string>
     <string name="download_resources_continue">前往地图</string>
@@ -117,7 +117,6 @@
     <string name="measurement_units">测量单位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">选择公里或英里</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">在哪儿吃</string>
@@ -165,7 +164,6 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">房车设施</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">注释</string>
@@ -177,7 +175,7 @@
 \n
 \n祝您使用 Organic Maps 旅行愉快！</string>
     <!-- message title of loading file -->
-    <string name="load_kmz_title">正在载入书签…</string>
+    <string name="load_kmz_title">正在加载书签</string>
     <!-- Kmz file successful loading -->
     <string name="load_kmz_successful">书签载入成功！您可以在地图或书签管理页面中找到它们。</string>
     <!-- Kml file loading failed -->
@@ -220,7 +218,7 @@
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
     <string name="data_version">OpenStreetMap 数据：%s</string>
     <!-- Confirmation for OpenStreetMap log out. -->
-    <string name="osm_log_out_confirmation">您确定要注销您的OpenStreetMap账户吗？</string>
+    <string name="osm_log_out_confirmation">是否确定要登出您的 OpenStreetMap 账号？</string>
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">轨迹</string>
     <!-- Length of track in cell that describes route -->
@@ -328,10 +326,6 @@
     <string name="google_play_services">Google Play 定位服务</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">通过蓝牙、WiFi 或移动网络快速确定您的大致位置</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com 酒店链接</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.com上列出的酒店会显示照片、评论和预订链接。通过这些链接进行预订所获得的推荐奖金将用于发展 Organic Maps。</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">下载路线上的所有地图</string>
     <!-- Text for routing error dialog -->
@@ -374,13 +368,12 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">蓝灰色</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
     <string name="dialog_routing_disclaimer_priority">— 路况、交通法规和路标始终优先于导航建议；</string>
     <string name="dialog_routing_disclaimer_precision">— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路线；</string>
     <string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳；</string>
-    <string name="dialog_routing_disclaimer_borders">— 小心对待国界区的路线：我们的应用程序生成的路线有时会在未经授权的地方跨越国界；</string>
+    <string name="dialog_routing_disclaimer_borders">— 小心对待国界区的路线：我们的应用生成的路线有时会在未经授权的地方跨越国界。</string>
     <string name="dialog_routing_disclaimer_beware">上路时请当心，祝您一路平安！</string>
     <string name="dialog_routing_check_gps">检查 GPS 信号</string>
     <string name="dialog_routing_error_location_not_found">无法规划路线。无法识别当前 GPS 坐标。</string>
@@ -404,7 +397,6 @@
     <string name="not_now">以后再说</string>
     <string name="dialog_routing_download_and_build_cross_route">您是否要下载地图，以规划跨越边界的更佳路线？</string>
     <string name="dialog_routing_download_cross_route">下载地图，以规划一条跨越边界的更佳路线。</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">要开始搜索和规划路线，请下载地图，然后您就不再需要网络连接了。</string>
     <string name="search_select_map">选择地图</string>
@@ -451,7 +443,7 @@
     <string name="editor_correct_mistake">纠正错误</string>
     <string name="editor_add_select_location">选择地点</string>
     <string name="editor_report_problem_desription_1">请详细描述此问题以便 OpenStreetMap 社区能够修复此错误。</string>
-    <string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上亲自修复此错误。</string>
+    <string name="editor_report_problem_desription_2">或者在 https://www.openstreetmap.org/ 上亲自修复此错误</string>
     <string name="editor_report_problem_send_button">发送</string>
     <string name="editor_report_problem_title">问题</string>
     <string name="editor_report_problem_no_place_title">该地点不存在</string>
@@ -468,14 +460,14 @@
     <string name="closes_in">将于 %s 后歇业</string>
     <string name="closed">已停止营业</string>
     <string name="edit_opening_hours">编辑营业时间</string>
-    <string name="no_osm_account">没有 OpenStreetMap 账户吗？</string>
+    <string name="no_osm_account">没有 OpenStreetMap 账号吗？</string>
     <string name="register_at_openstreetmap">注册</string>
     <string name="login">登录</string>
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">未登录</string>
     <string name="login_osm">登录 OpenStreetMap</string>
     <string name="password">密码</string>
-    <string name="forgot_password">忘记密码</string>
+    <string name="forgot_password">忘记密码？</string>
     <string name="logout">登出</string>
     <string name="edit_place">编辑地点</string>
     <string name="add_language">添加语言</string>
@@ -521,10 +513,10 @@
     <string name="placepage_add_business_button">将地点添加到</string>
     <string name="message_invalid_feature_position">地点不能放置在这里</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息。</string>
+    <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 以了解有关如何编辑和更新地图的信息</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建免费开放地图的社区项目。它是有机地图中地图数据的主要来源，其工作原理类似于维基百科。你可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！</string>
-    <string name="login_to_make_edits_visible">创建 OpenStreetMap 账户或登录，向全世界发布您编辑的地图。</string>
+    <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建免费开放地图的社区项目。它是 Organic Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！</string>
+    <string name="login_to_make_edits_visible">创建 OpenStreetMap 账号或登录，向全世界发布您编辑的地图。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
     <string name="download_over_mobile_header">用手机网络连接下载吗？</string>
@@ -540,7 +532,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap 志愿者须知（可选）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">描述地图上的错误或无法用有机地图编辑的内容</string>
+    <string name="editor_note_hint">描述地图上的错误或无法使用 Organic Maps 编辑的内容</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:关于">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。</string>
     <string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
@@ -569,14 +561,6 @@
     <string name="minute">分钟</string>
     <string name="day">天</string>
     <string name="placepage_more_button">更多</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">照片、评论、预订</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">客涯 (Kayak) 上的详细信息</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">禁用 Kayak</string>
     <string name="placepage_edit_bookmark_button">编辑书签</string>
     <string name="placepage_personal_notes_hint">个人备注（文字或 html）</string>
     <string name="editor_comment_hint">备注…</string>
@@ -591,11 +575,11 @@
     <string name="error_enter_correct_phone">输入正确的电话号码</string>
     <string name="error_enter_correct_web">请输入有效的网址</string>
     <string name="error_enter_correct_email">请输入有效的电子邮件</string>
-    <string name="error_enter_correct_facebook_page">请输入有效的 Facebook 网页地址、账号或页面名称</string>
-    <string name="error_enter_correct_instagram_page">请输入有效的 Instagram 用户名或网页地址</string>
-    <string name="error_enter_correct_twitter_page">请输入有效的 Twitter 用户名或网页地址</string>
-    <string name="error_enter_correct_vk_page">请输入有效的 VK 用户名或网页地址</string>
-    <string name="error_enter_correct_line_page">请输入有效的 LINE ID 或网页地址</string>
+    <string name="error_enter_correct_facebook_page">请输入有效的 Facebook 网址、账号或页面名称</string>
+    <string name="error_enter_correct_instagram_page">请输入有效的 Instagram 用户名或网址</string>
+    <string name="error_enter_correct_twitter_page">请输入有效的 Twitter 用户名或网址</string>
+    <string name="error_enter_correct_vk_page">请输入有效的 VK 用户名或网址</string>
+    <string name="error_enter_correct_line_page">请输入有效的 LINE ID 或网址</string>
     <string name="placepage_add_place_button">将地点添加到 OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">您想要发送给所有用户吗？</string>
@@ -646,7 +630,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">请登录 OpenStreetMap 以自动上传您的所有地图编辑。诺要了解更多信息请点击<a href="https://github.com/organicmaps/organicmaps/issues/6144">这里</a>。</string>
     <string name="dialog_error_storage_title">存储空间访问问题</string>
-    <string name="dialog_error_storage_message">外部存储空间不可用，很可能是因为 SD 卡已移除、损毁，或者文件系统为只读状态。请进行检查，然后通过 support\@organicmaps.app 联系我们。</string>
+    <string name="dialog_error_storage_message">外部存储空间不可用，很可能是因为 SD 卡已移除、损毁，或者文件系统为只读状态。请进行检查，然后通过 support@organicmaps.app 联系我们</string>
     <string name="setting_emulate_bad_storage">模拟不良存储空间</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">请输入正确的名称</string>
@@ -707,7 +691,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">永远不会对摄像头发出警告</string>
     <string name="power_managment_title">省电模式</string>
-    <string name="power_managment_description">如果开启省电模式，应用程序将根据手机的当前电量关闭耗电功能</string>
+    <string name="power_managment_description">如果开启省电模式，本应用将根据手机的当前电量关闭耗电功能。</string>
     <string name="power_managment_setting_never">从不</string>
     <string name="power_managment_setting_auto">当电量低时</string>
     <string name="power_managment_setting_manual_max">最大程度省电</string>
@@ -722,7 +706,7 @@
     <string name="avoid_ferry">避开轮渡</string>
     <string name="avoid_motorways">避开高速公路</string>
     <string name="unable_to_calc_alert_title">无法规划路线</string>
-    <string name="unable_to_calc_alert_subtitle">很遗憾，我们无法使用所选的绕行设置规划路线。请更改设置，然后重试</string>
+    <string name="unable_to_calc_alert_subtitle">找不到路线。这可能是由于您的绕行设置或 OpenStreetMap 数据不完整造成的。请更改设置，然后重试。</string>
     <string name="define_to_avoid_btn">选择要避开的道路</string>
     <string name="change_driving_options_btn">绕行设置已开启</string>
     <string name="toll_road">收费公路</string>
@@ -762,7 +746,6 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">美食</string>
     <string name="tourist_places">旅游景点</string>
@@ -851,11 +834,11 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">转到汽车屏幕</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">有机地图需要位置访问权限。安全后，查看手机上的通知。</string>
+    <string name="aa_location_permissions_request">Organic Maps 需要位置访问权限。在安全的情况下，请查看手机上的通知。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">此应用程序需要您的许可</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto 中的有机地图需要获得定位许可才能有效工作</string>
+    <string name="aa_request_permission_activity_text">Android Auto 中的 Organic Maps 需要位置权限才能有效工作</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">授予权限</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -879,7 +862,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">查看菜单</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">在另一个应用程序中打开</string>
+    <string name="open_in_app">在另一个应用中打开</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">自助服务</string>
     <string name="select_option">选择选项</string>
@@ -898,12 +881,24 @@
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">保存到书签和轨迹？</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">轨迹是空的 - 没有要保存的内容</string>
+    <string name="track_recording_toast_nothing_to_save">轨迹为空 — 无内容可保存</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">由于您的设备上未安装合适的应用程序，因此无法显示文件夹选择对话框。请安装文件管理器应用程序并重试。</string>
     <string name="choose_color">选择颜色</string>
     <string name="edit_track">编辑轨迹</string>
-    <string name="uri_open_location_failed">未安装可打开位置的应用程序</string>
+    <string name="uri_open_location_failed">未安装可以打开位置的应用</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">自动导航</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="github">GitHub</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="comma_separated_pair">%1$s，%2$s</string>
 </resources>

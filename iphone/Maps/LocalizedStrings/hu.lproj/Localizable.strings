@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Lakókocsis létesítmények";
-"share_bookmarks_email_body" = "Üdvözlöm!\n\nCsatoltam a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!";
+"share_bookmarks_email_body" = "Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az Organic Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://omaps.app/get?kmz\n\nJó utat kívánok az Organic Maps alkalmazással!";
 
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők betöltése";
@@ -286,7 +286,7 @@
 "support_organic_maps" = "Organic Maps támogatása";
 
 /* Button in the main Help dialog */
-"copyright" = "Szerzői jog";
+"copyright" = "Szerzői jogok";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Hiba jelentése";
@@ -637,15 +637,6 @@
 "day" = "nap";
 "placepage_more_button" = "Tovább";
 "book_button" = "Foglalás";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Fényképek, vélemények, foglalás";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Az ezen a hivatkozáson keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Részletek a Kayakon";
 "placepage_call_button" = "Hívás";
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
@@ -787,7 +778,7 @@
 "power_managment_setting_never" = "Soha";
 "power_managment_setting_auto" = "Amikor az akkumulátor lemerül";
 "power_managment_setting_manual_max" = "Mindig";
-"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt az opciót, akkor a Súgó párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
+"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt az opciót, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */

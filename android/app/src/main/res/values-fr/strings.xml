@@ -32,7 +32,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Précision limitée</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Pour garantir une navigation précise, activez l\'option Localisation précise dans les paramètres.</string>
+    <string name="precise_location_is_disabled_long_text">Pour garantir une navigation précise, activez l\'option Position Exacte dans les paramètres.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Voir sur la carte</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -43,9 +43,9 @@
     <!-- Text in About screen -->
     <string name="about_headline">Gratuit pour tout le monde, fait avec amour</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_1">• Pas d\'annonces, pas de suivi, pas de collecte de données</string>
+    <string name="about_proposition_1">• Pas de pub, pas de suivi, pas de collecte de données</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_2">• Pas d\'épuisement de la batterie, fonctionne hors ligne</string>
+    <string name="about_proposition_2">• Préserve la batterie, fonctionne hors ligne</string>
     <!-- Text in About screen -->
     <string name="about_proposition_3">• Rapide, minimaliste, développé par la communauté</string>
     <!-- Text in About screen -->
@@ -59,8 +59,7 @@
     <string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Veuillez d\'abord libérer de l\'espace sur la carte SD/le stockage USB afin d\'utiliser l\'appli</string>
-    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.
-\n%s de données sont nécessaires.</string>
+    <string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil. \n%s d\'espace de stockage sont nécessaires.</string>
     <string name="download_resources_continue">Aller sur la carte</string>
     <string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez
 \nmaintenant aller sur la carte.</string>
@@ -322,10 +321,6 @@
     <string name="google_play_services">Services de localisation de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Détermine rapidement ta position approximative via Bluetooth, WiFi ou le réseau mobile</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Liens vers les hôtels Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Des photos, des commentaires et des liens de réservation sont affichés pour les hôtels répertoriés sur Kayak.com. La prime de parrainage reçue pour chaque réservation effectuée par le biais de ces liens est destinée au développement d\'Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Téléchargez toutes les cartes le long de votre itinéraire</string>
     <!-- Text for routing error dialog -->
@@ -560,14 +555,6 @@
     <string name="minute">min</string>
     <string name="day">j</string>
     <string name="placepage_more_button">Plus</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Photos, commentaires, réservations</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">La prime de parrainage reçue pour chaque réservation effectuée par l\'intermédiaire de ce lien sert à développer Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Détails sur Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Désactiver Kayak</string>
     <string name="placepage_edit_bookmark_button">Éditer le signet</string>
     <string name="placepage_personal_notes_hint">Remarques personnelles (texte ou html)</string>
     <string name="editor_comment_hint">Commentaire…</string>

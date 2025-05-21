@@ -322,10 +322,6 @@
     <string name="google_play_services">Службы определения местоположения в Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Быстрое определение приблизительного местоположения с помощью Bluetooth, WiFi или мобильной сети</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Ссылки в гостиницах на Kayak.com</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Ссылки \"Фотографии, отзывы, бронирование\" отображаются для отелей, подключенных к Kayak.com. Реферальный бонус, полученный за каждое бронирование по этим ссылкам, идет на развитие Organic Maps.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
     <!-- Text for routing error dialog -->
@@ -560,14 +556,6 @@
     <string name="minute">мин</string>
     <string name="day">д</string>
     <string name="placepage_more_button">Ещё</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Фотографии, отзывы, бронирование</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Подробнее на Kayak</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Отключить Kayak</string>
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
     <string name="editor_comment_hint">Коментарий…</string>

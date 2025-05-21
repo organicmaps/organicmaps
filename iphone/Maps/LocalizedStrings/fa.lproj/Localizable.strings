@@ -637,15 +637,6 @@
 "day" = "روز";
 "placepage_more_button" = "بیشتر";
 "book_button" = "رزرو";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "عکس ها، نظرات، رزرو";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "جزئیات در Kayak";
 "placepage_call_button" = "تماس";
 "placepage_edit_bookmark_button" = "ویرایش نشانه‌ها";
 "placepage_bookmark_name_hint" = "نام نشانه‌ها";

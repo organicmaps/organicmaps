@@ -5257,7 +5257,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Organic Maps. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Organic Maps. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5287,7 +5287,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Organic Maps. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Organic Maps. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

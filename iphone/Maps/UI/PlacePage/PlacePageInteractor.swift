@@ -77,22 +77,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
   }
 
-  func didPressKayak() {
-    let kUDDidShowKayakInformationDialog = "kUDDidShowKayakInformationDialog"
-    
-    if UserDefaults.standard.bool(forKey: kUDDidShowKayakInformationDialog) {
-      MWMPlacePageManagerHelper.openKayak(placePageData)
-    } else { 
-      let alert = UIAlertController(title: nil, message: L("dialog_kayak_disclaimer"), preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
-      alert.addAction(UIAlertAction(title: L("dialog_kayak_button"), style: .default, handler: { _ in
-        UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
-        MWMPlacePageManagerHelper.openKayak(self.placePageData)
-      }))
-      presenter?.showAlert(alert)
-    }
-  }
-
   func didPressWikipedia() {
     MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }
@@ -129,7 +113,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     UIPasteboard.general.string = content
     let message = String(format: L("copied_to_clipboard"), content)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    Toast.toast(withText: message).show(withAlignment: .bottom)
+    Toast.show(withText: message, alignment: .bottom)
   }
 
   func didPressOpenInApp(from sourceView: UIView) {

@@ -477,7 +477,8 @@ public class Holders
                     ? category.getDescription()
                     : category.getAnnotation();
 
-      Spanned spannedDesc = Utils.fromHtml(desc);
+      String formattedDesc = desc.replace("\n", "<br>");
+      Spanned spannedDesc = Utils.fromHtml(formattedDesc);
       mDescText.setText(spannedDesc);
 
       UiUtils.showIf(!TextUtils.isEmpty(spannedDesc), mDescText);

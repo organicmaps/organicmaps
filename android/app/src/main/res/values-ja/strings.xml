@@ -320,10 +320,6 @@
     <string name="google_play_services">Google Play位置情報サービス</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Bluetooth、WiFi、またはモバイルネットワーク経由で、おおよその位置を素早く特定する</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.comホテルリンク</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Kayak.comに掲載されているホテルの写真、レビュー、予約リンクが表示されます。これらのリンクを経由して予約された場合、紹介ボーナスはOrganic Mapsの開発に使用されます。</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">ルート上の地図をダウンロード</string>
     <!-- Text for routing error dialog -->
@@ -557,14 +553,6 @@
     <string name="minute">分</string>
     <string name="day">日</string>
     <string name="placepage_more_button">さらに詳しく</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">写真、レビュー、予約</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Kayak で詳細表示</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Kayakの無効化</string>
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
     <string name="editor_comment_hint">コメント…</string>

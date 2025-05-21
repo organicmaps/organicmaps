@@ -24,7 +24,7 @@ class DayColors: IColors {
   var blackPrimaryText = UIColor(0, 0, 0, alpha87)
   var blackSecondaryText = UIColor(0, 0, 0, alpha54)
   var blackHintText = UIColor(0, 0, 0, alpha26)
-  var blackDividers = UIColor(0, 0, 0, alpha12)
+  var blackDividers = UIColor(0, 0, 0, alpha08)
   var solidDividers = UIColor(224, 224, 224, alpha100)
   var white = UIColor(255, 255, 255, alpha100)
   var whitePrimaryText = UIColor(255, 255, 255, alpha87);
@@ -86,7 +86,7 @@ class NightColors: IColors {
   var blackPrimaryText =  UIColor(255, 255, 255, alpha90)
   var blackSecondaryText =  UIColor(255, 255, 255, alpha70)
   var blackHintText =  UIColor(255, 255, 255, alpha30)
-  var blackDividers =  UIColor(255, 255, 255, alpha12)
+  var blackDividers =  UIColor(255, 255, 255, alpha08)
   var solidDividers = UIColor(84, 86, 90, alpha100)
   var white =  UIColor(60, 64, 68, alpha100)
   var whitePrimaryText = UIColor(255, 255, 255, alpha87)

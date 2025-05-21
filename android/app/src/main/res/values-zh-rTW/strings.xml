@@ -328,10 +328,6 @@
     <string name="google_play_services">Google Play 定位服務</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">使用藍牙、WiFi 或行動數據快速確定您的大致位置</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com 飯店鏈接</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">顯示在 Kayak.com 上列出的飯店的照片、評論和預訂連結。透過這些連結進行的每次預訂收到的推薦獎金將用於 Organic Maps 的開發。</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">下載路線上的所有地圖</string>
     <!-- Text for routing error dialog -->
@@ -569,14 +565,6 @@
     <string name="minute">分鐘</string>
     <string name="day">天</string>
     <string name="placepage_more_button">更多</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">照片、評論、預訂</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">每次通過此鏈接預定所獲得的推薦獎金將用於 Organic Maps 的開發。</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">禁用 Kayak</string>
     <string name="placepage_edit_bookmark_button">編輯書籤</string>
     <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>
     <string name="editor_comment_hint">備註…</string>

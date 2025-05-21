@@ -3,9 +3,7 @@
 </div>
 <h1 align="center"">Organic Maps</h1>
 
-[Organic Maps](https://organicmaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
-It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data and is developed with love by the creators of **MapsWithMe** (later renamed to **Maps.Me**) and by our community.
-No ads, no tracking, no data collection, no crapware. Your [donations](https://organicmaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
+**Organic Maps** is a privacy-first offline maps & GPS app for hiking, cycling, biking, and driving. Absolutely free. No ads. No tracking. Developed with love by the open-source community. Powered by [OpenStreetMap](https://www.openstreetmap.org) data.
 
 [<img src="docs/badges/apple-appstore.png" alt="App Store" width="160">](https://apps.apple.com/app/organic-maps/id1567437057)
 [<img src="docs/badges/google-play.png" alt="Google Play" width="160">](https://play.google.com/store/apps/details?id=app.organicmaps)
@@ -170,7 +168,7 @@ Please join our beta program, suggest your features, and report bugs:
 - **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
 and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
 - **Star us on Forgejo**.
-- Report bugs or issues to [the issue tracker](https://git.omaps.dev/organicmaps/organicmaps/issues).
+- Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
   - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.

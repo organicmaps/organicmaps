@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "Więcej";
 "book_button" = "Zarezerwuj";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Zdjęcia, opinie, rezerwacja";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Premia za polecenie otrzymywana za każdą rezerwację za pośrednictwem tego linku jest przeznaczana na rozwój Organic Maps.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Szczegóły na Kayak";
 "placepage_call_button" = "Zadzwoń";
 "placepage_edit_bookmark_button" = "Edytuj zakładkę";
 "placepage_bookmark_name_hint" = "Nazwa zakładki";

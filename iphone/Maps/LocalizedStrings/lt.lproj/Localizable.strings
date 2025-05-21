@@ -637,15 +637,6 @@
 "day" = "d";
 "placepage_more_button" = "Išsamiau";
 "book_button" = "Užsakyti";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Nuotraukos, apžvalgos, užsakymas";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Už kiekvieną per šią nuorodą atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Išsamiau „Kayak“ svetainėje";
 "placepage_call_button" = "Skambinti";
 "placepage_edit_bookmark_button" = "Taisyti žymę";
 "placepage_bookmark_name_hint" = "Žymės pavadinimas";

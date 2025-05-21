@@ -106,7 +106,7 @@ public class TrackRecordingService extends Service implements LocationListener
         .setOngoing(true)
         .setShowWhen(true)
         .setOnlyAlertOnce(true)
-        .setSmallIcon(R.drawable.logo)
+        .setSmallIcon(R.drawable.ic_splash)
         .setContentTitle(context.getString(R.string.track_recording))
         .addAction(0, context.getString(R.string.navigation_stop_button), getExitPendingIntent(context))
         .setContentIntent(getPendingIntent(context))
@@ -135,7 +135,7 @@ public class TrackRecordingService extends Service implements LocationListener
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
-    if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
+    if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       Logger.w(TAG, "Application is not initialized");
       stopSelf();

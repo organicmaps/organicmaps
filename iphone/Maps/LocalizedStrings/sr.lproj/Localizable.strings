@@ -637,15 +637,6 @@
 "day" = "д";
 "placepage_more_button" = "Више";
 "book_button" = "Резервиши";
-
-/* A referral link on the place page for some hotels */
-"more_on_kayak" = "Фотографије, утисци, резервације";
-
-/* An explanation dialog shown when clicking on more_on_kayak link. */
-"dialog_kayak_disclaimer" = "Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.";
-
-/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
-"dialog_kayak_button" = "Детаљи на Kayak-у";
 "placepage_call_button" = "Позови";
 "placepage_edit_bookmark_button" = "Измени маркер";
 "placepage_bookmark_name_hint" = "Назив маркера";
@@ -721,7 +712,7 @@
 "routing_add_finish_point" = "Користите претрагу или кратко додирните мапу да бисте додали одредишну тачку";
 "planning_route_manage_route" = "Измени руту";
 "button_plan" = "План";
-"placepage_remove_stop" = "Уклони стајање";
+"placepage_remove_stop" = "Уклони међуодредиште";
 "planning_route_remove_title" = "Превуците овде за уклањање";
 "placepage_add_stop" = "Међуодредиште";
 "start_from_my_position" = "Крени од";

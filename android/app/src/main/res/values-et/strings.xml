@@ -303,10 +303,6 @@
     <string name="google_play_services">Google Play asukohateenused</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Määra kiiresti oma ligikaudne asukoht Bluetoothi, WiFi või mobiilivõrgu kaudu</string>
-    <!-- Preference title -->
-    <string name="pref_display_kayak_title">Kayak.com hotellilingid</string>
-    <!-- Preference description -->
-    <string name="pref_display_kayak_text">Fotod, arvustused ja broneerimislingid kuvatakse hotellide kohta, mis on Kayak.com-is loetletud. Iga nende linkide kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">Laadi alla kõik kaardid oma teekonnal</string>
     <!-- Text for routing error dialog -->
@@ -538,14 +534,6 @@
     <string name="minute">min</string>
     <string name="day">p</string>
     <string name="placepage_more_button">Veel</string>
-    <!-- A referral link on the place page for some hotels -->
-    <string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
-    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
-    <string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.</string>
-    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_button">Üksikasjad Kayaki kohta</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
-    <string name="dialog_kayak_disable_button">Lülita Kayaki teave välja</string>
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>
     <string name="editor_comment_hint">Kommenteeri…</string>

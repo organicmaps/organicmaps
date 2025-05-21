@@ -166,7 +166,6 @@
     <string name="downloader_update_all_button">Uppfæra allt</string>
     <string name="downloader_cancel_all">Hætta við allt</string>
     <string name="downloader_download_all_button">Sækja allt</string>
-    <string name="pref_display_kayak_title">Hóteltenglar frá Kayak.com</string>
     <string name="routing_not_enough_space">Ekki nægilegt pláss</string>
     <string name="enable_location_services">Virkjaðu staðsetningarþjónustur</string>
     <string name="deep_purple">Dökkpurpurablátt</string>
@@ -393,9 +392,6 @@
     <string name="core_placepage_unknown_place">Punktur á korti</string>
     <string name="editor_more_about_osm">Meira um OpenStreetMap</string>
     <string name="editor_osm_history">Breytingaferillinn þinn</string>
-    <string name="more_on_kayak">Ljósmyndir, umsagnir, bókanir</string>
-    <string name="dialog_kayak_button">Nánar á Kayak</string>
-    <string name="dialog_kayak_disable_button">Gera Kayak óvirkt</string>
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>
     <string name="editor_place_doesnt_exist">Staðurinn er ekki til</string>
     <string name="mobile_data_option_today">Aðeins í dag</string>
@@ -603,8 +599,6 @@
     <string name="prefs_languages_information">Við notum TTS-talgervil kerfisins fyrir talaðar leiðbeiningar. Mörg Android-tæki nota TTS-kerfi Google, þú getur sótt það eða uppfært á Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off">Fyrir sum tungumál þarftu að setja upp talgervil eða viðbótar-tungumálapakka úr hugbúnaðarsöfnum (Google Play, Galaxy Store, App Gallery, FDroid). \nOpnaðu stillingar tækisins þíns → Tungumál og innsláttur → Tal → Texti-í-tal úttak upplesturs. \nHér geturðu sýslað með stillingar fyrir talgervilinn (til dæmis sótt tungumálapakka til notkunar án nettengingar) og valið önnur texti-í-tal kerfi.</string>
     <string name="dialog_error_storage_message">Ytra geymsluminnið er ekki aðgengilegt. SD-minniskortið gæti hafa verið fjarlægt, það skemmst eða að skráakerfið sé skrifvarið. Athugaðu SD-minniskortið þitt eða hafðu samband á support@organicmaps.app</string>
-    <string name="pref_display_kayak_text">\"Ljósmyndir, umsagnir, bókanir\" tenglar birtast fyrir hótel sem skráð eru á Kayak.com. Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þessa tengla og rennur það til áframhaldandi þróunar Organic Maps.</string>
-    <string name="dialog_kayak_disclaimer">Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þennan tengil og rennur það til áframhaldandi þróunar Organic Maps.</string>
-    <string name="enable_logging_warning_message">Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.</string>
+        <string name="enable_logging_warning_message">Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.</string>
     <string name="error_no_file_manager_app">Mistókst að birta val á möppum þar sem ekkert hentugt forrit er uppsett á tækinu þínu. Settu upp skráastjóra og prófaðu svo aftur.</string>
 </resources>

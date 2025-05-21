@@ -476,7 +476,7 @@ mapswithme
 *emergency|mountain_rescue
 *aerialway|platter
 *man_made|flare
-mapswithme
+*highway|ladder
 *railway|preserved|tunnel
 *boundary|protected_area|1
 *boundary|protected_area|2
@@ -548,10 +548,10 @@ mapswithme
 mapswithme
 mapswithme
 *waterway|lock_gate
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*leisure|firepit
+*barrier|guard_rail
+*amenity|studio
+*amenity|love_hotel
 highway|path|expert
 mapswithme
 mapswithme
@@ -691,7 +691,7 @@ mapswithme
 mapswithme
 *man_made|cross
 landuse|orchard
-mapswithme
+*landuse|plant_nursery
 mapswithme
 mapswithme
 mapswithme
@@ -1620,3 +1620,5 @@ amenity|recycling|container
 *railway|station|subway|shenzhen
 *railway|subway_entrance|shenzhen
 *shop|hearing_aids
+*railway|station|subway|qingdao
+*railway|subway_entrance|qingdao

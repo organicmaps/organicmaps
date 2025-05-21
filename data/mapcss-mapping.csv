@@ -594,7 +594,7 @@ emergency|lifeguard;475;
 emergency|mountain_rescue;476;
 aerialway|platter;477;
 man_made|flare;478;
-deprecated|deprecated;479;x
+highway|ladder;479;
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
 boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
 boundary|protected_area|2;[boundary=protected_area][protect_class=2];;name;int_name;482;
@@ -667,10 +667,10 @@ deprecated|deprecated;547;x
 deprecated|deprecated;548;x
 deprecated|deprecated;549;x
 waterway|lock_gate;550;
-deprecated|deprecated;551;x
-deprecated|deprecated;552;x
-deprecated|deprecated;553;x
-deprecated|deprecated;554;x
+leisure|firepit;551;
+barrier|guard_rail;552;
+amenity|studio;553;
+amenity|love_hotel;554;
 deprecated:highway|footway|demanding_alpine_hiking:04.2024;[highway=footway][sac_scale=demanding_alpine_hiking];x;name;int_name;555;highway|path|expert
 deprecated|deprecated;556;x
 deprecated|deprecated;557;x
@@ -810,7 +810,7 @@ deprecated|deprecated;690;x
 deprecated:boundary|administrative|country:04.2024;[boundary=administrative][border_type=country];x;name;int_name;691;
 man_made|cross;692;
 natural|orchard;693;landuse|orchard
-deprecated|deprecated;694;x
+landuse|plant_nursery;694;
 deprecated|deprecated;695;x
 deprecated|deprecated;696;x
 deprecated|deprecated;697;x
@@ -1250,7 +1250,7 @@ amenity|vending_machine|condoms;[amenity=vending_machine][vending=condoms];;name
 amenity|vending_machine|food;[amenity=vending_machine][vending=food];;name;int_name;1129;
 amenity|vending_machine|newspapers;[amenity=vending_machine][vending=newspapers];;name;int_name;1130;
 amenity|vending_machine|sweets;[amenity=vending_machine][vending=sweets];;name;int_name;1131;
-leisure|dance;1132;
+leisure|dance;[leisure=dance],[amenity=dancing_school];;;;1132;
 amenity|music_school;1133;
 amenity|language_school;1134;
 historic|city_gate;1135;
@@ -1741,3 +1741,5 @@ railway|station|light_rail|berlin;[railway=station][station=light_rail][city=ber
 railway|station|subway|shenzhen;[railway=station][transport=subway][city=shenzhen],[railway=station][station=subway][city=shenzhen];;name;int_name;1620;
 railway|subway_entrance|shenzhen;[railway=subway_entrance][city=shenzhen];;name;int_name;1621;
 shop|hearing_aids;1622;
+railway|station|subway|qingdao;[railway=station][transport=subway][city=qingdao],[railway=station][station=subway][city=qingdao];;name;int_name;1623;
+railway|subway_entrance|qingdao;[railway=subway_entrance][city=qingdao];;name;int_name;1624;
