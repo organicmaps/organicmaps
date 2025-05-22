@@ -86,11 +86,13 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
 - (void)refreshLayout {
   dispatch_async(dispatch_get_main_queue(), ^{
     auto const availableArea = self.availableArea;
-    auto const leftOffset = self.hidden ? -self.view.width : availableArea.origin.x + kViewControlsOffsetToBounds;
+    auto const fitInAvailableArea = CGRectGetMaxY(self.view.frame) < CGRectGetMaxY(availableArea) + kTopOffset;
+    auto const shouldHide = self.hidden || !fitInAvailableArea;
+    auto const leftOffset = shouldHide ? -self.view.width : availableArea.origin.x + kViewControlsOffsetToBounds;
     [self.view.superview animateConstraintsWithAnimations:^{
       self.topOffset.constant = availableArea.origin.y + kTopOffset;
       self.leftOffset.constant = leftOffset;
-      self.view.alpha = self.hidden ? 0 : 1;
+      self.view.alpha = shouldHide ? 0 : 1;
     }];
   });
 }
@@ -195,8 +197,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   if (CGRectEqualToRect(controller.availableArea, frame))
     return;
   controller.availableArea = frame;
-  BOOL isHidden = frame.origin.y + frame.size.height < controller.view.origin.y + controller.view.height + kTopOffset;
-  [MapViewController.sharedController.controlsManager setTrafficButtonHidden:isHidden];
   [controller refreshLayout];
 }
 
