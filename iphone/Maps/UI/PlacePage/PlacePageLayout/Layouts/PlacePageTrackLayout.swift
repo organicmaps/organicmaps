@@ -104,9 +104,6 @@ class PlacePageTrackLayout: IPlacePageLayout {
     }
     let previewFrame = scrollView.convert(previewView.bounds, from: previewView)
     steps.append(.preview(previewFrame.maxY - scrollHeight))
-    if !compact {
-      steps.append(.expanded(-scrollHeight * 0.55))
-    }
     steps.append(.full(0))
     return steps
   }
