@@ -59,25 +59,28 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)layoutYPosition {
   CGFloat const centerShift = (self.height - self.zoomIn.midY - self.zoomOut.midY) / 2;
-  self.midY = centerShift + self.superview.height / 2;
-  if (self.maxY > self.bottomBound)
-    self.maxY = self.bottomBound;
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+    self.midY = centerShift + self.superview.height / 2;
+    if (self.maxY > self.bottomBound)
+      self.maxY = self.bottomBound;
+  }];
 }
 
 - (void)fadeZoomButtonsShow:(BOOL)show {
   CGFloat const alpha = show ? 1.0 : 0.0;
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
-                     self.zoomIn.alpha = alpha;
-                     self.zoomOut.alpha = alpha;
-                   }];
+    self.zoomIn.alpha = alpha;
+    self.zoomOut.alpha = alpha;
+  }];
 }
 
 - (void)fadeLocationButtonShow:(BOOL)show {
   [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
-                     self.location.alpha = show ? 1.0 : 0.0;
-                   }];
+    self.location.alpha = show ? 1.0 : 0.0;
+  }];
 }
 
 // Show/hide zoom and location buttons depending on available vertical space.

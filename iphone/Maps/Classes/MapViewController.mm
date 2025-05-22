@@ -763,9 +763,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
-  [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-    [self.view layoutIfNeeded];
-  } completion:nil];
 }
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomLevel {
