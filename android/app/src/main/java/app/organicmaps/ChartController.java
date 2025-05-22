@@ -12,6 +12,7 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.ElevationInfo;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.bookmarks.data.TrackStatistics;
+import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.AxisValueFormatter;
@@ -180,8 +181,10 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.setData(data);
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
-    mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
+    mMinAltitude.setText(StringUtils.nativeFormatDistance(stats.getMinElevation())
+                                    .toString(mContext));
+    mMaxAltitude.setText(StringUtils.nativeFormatDistance(stats.getMaxElevation())
+                                    .toString(mContext));
 
     highlightActivePointManually();
   }
