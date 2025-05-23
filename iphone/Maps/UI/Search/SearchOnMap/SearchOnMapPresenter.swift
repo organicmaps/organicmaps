@@ -78,8 +78,16 @@ final class SearchOnMapPresenter {
       viewModel.skipSuggestions = false
       viewModel.searchingText = query.text
       viewModel.contentState = .searching
-      viewModel.isTyping = false
-      viewModel.presentationStep = isRouting ? .hidden : .halfScreen
+
+      switch query.source {
+      case .typedText, .suggestion:
+        viewModel.isTyping = true
+      case .category, .deeplink:
+        viewModel.isTyping = false
+        viewModel.presentationStep = isRouting ? .hidden : .halfScreen
+      @unknown default:
+        fatalError("Unknown search text source")
+      }
     case .clearSearch:
       viewModel.searchingText = ""
       viewModel.isTyping = true
