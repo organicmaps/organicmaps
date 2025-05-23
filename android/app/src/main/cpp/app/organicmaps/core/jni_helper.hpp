@@ -55,6 +55,9 @@ inline jstring ToJavaString(JNIEnv * env, std::string_view sv)
   return ToJavaString(env, std::string(sv).c_str());
 }
 
+// Remove after dropping Android 5 and 6 support.
+jstring ToJavaStringWithSupplementalCharsFix(JNIEnv * env, std::string const & s);
+
 jclass GetStringClass(JNIEnv * env);
 char const * GetStringClassName();
 
