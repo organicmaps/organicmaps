@@ -9,9 +9,8 @@ extension ModalPresentationStep {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let compactHeightOffset: CGFloat = 120
-    static let fullScreenHeightFactorPortrait: CGFloat = 0.1
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
-    static let landscapeTopInset: CGFloat = 10
+    static let topInset: CGFloat = 8
   }
 
   var upper: ModalPresentationStep {
@@ -73,7 +72,7 @@ extension ModalPresentationStep {
     if isPortraitOrientation {
       switch self {
       case .fullScreen:
-        frame.origin.y = containerSize.height * Constants.fullScreenHeightFactorPortrait
+        frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .halfScreen:
         frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
       case .compact:
@@ -86,7 +85,7 @@ extension ModalPresentationStep {
       frame.origin.x = safeAreaInsets.left
       switch self {
       case .fullScreen:
-        frame.origin.y = Constants.landscapeTopInset
+        frame.origin.y = Constants.topInset
       case .halfScreen, .compact:
         frame.origin.y = containerSize.height - Constants.compactHeightOffset
       case .hidden:
