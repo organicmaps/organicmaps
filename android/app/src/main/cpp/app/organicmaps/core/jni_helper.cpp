@@ -28,6 +28,21 @@ jclass g_elevationInfoClazz;
 
 extern "C"
 {
+int __system_property_get(char const * name, char * value);
+
+static bool IsAndroidLowerThan7()
+{
+  char value[92] = { 0 };
+  if (__system_property_get("ro.build.version.sdk", value) < 1)
+    return false;
+  const int apiLevel = atoi(value);
+  if (apiLevel > 0 && apiLevel < 24)
+    return true;
+  return false;
+}
+
+static bool const g_isAndroidLowerThan7 = IsAndroidLowerThan7();
+
 JNIEXPORT jint JNICALL
 JNI_OnLoad(JavaVM * jvm, void *)
 {
@@ -152,6 +167,24 @@ std::string ToNativeString(JNIEnv * env, jbyteArray const & bytes)
 jstring ToJavaString(JNIEnv * env, char const * s)
 {
   return env->NewStringUTF(s);
+}
+
+jstring ToJavaStringWithSupplementalCharsFix(JNIEnv * env, std::string const & s)
+{
+  // Android 5 and 6 do not support unicode characters greater than 0xFFFF encoded in UTF-8.
+  if (g_isAndroidLowerThan7)
+  {
+    // Detect 4-byte sequence start marker to avoid unnecessary allocation + copy.
+    for (const auto c : s)
+    {
+      if (0b11110000 == (c & 0b11111000))
+      {
+        const auto utf16 = strings::ToUtf16(s);
+        return env->NewString(reinterpret_cast<jchar const *>(utf16.data()), utf16.size());
+      }
+    }
+  }
+  return env->NewStringUTF(s.c_str());
 }
 
 jclass GetStringClass(JNIEnv * env)

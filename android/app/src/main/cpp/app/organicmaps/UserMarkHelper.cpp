@@ -76,7 +76,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
                           (jint)fID.m_index));
   jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
   jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
-  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
+  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetSecondarySubtitle()));
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, parseApi ? info.GetApiUrl() : ""));
   jni::TScopedLocalRef jWikiDescription(env, jni::ToJavaString(env, info.GetWikiDescription()));
@@ -120,7 +120,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
                               (jlong)info.GetID().GetMwmVersion(), (jint)info.GetID().m_index));
   jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
   jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
-  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
+  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaStringWithSupplementalCharsFix(env, info.GetSubtitle()));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetSecondarySubtitle()));
   jni::TScopedLocalRef jWikiDescription(env, jni::ToJavaString(env, info.GetWikiDescription()));
   jobject mapObject = env->NewObject(
