@@ -219,8 +219,9 @@ final class SearchOnMapTests: XCTestCase {
     interactor.handle(.didSelectResult(result, withQuery: query))
 
     XCTAssertEqual(view.viewModel.searchingText, "cafe")
+    XCTAssertEqual(view.viewModel.presentationStep, .fullScreen)
     XCTAssertEqual(view.viewModel.contentState, .searching)
-    XCTAssertEqual(view.viewModel.isTyping, false)
+    XCTAssertEqual(view.viewModel.isTyping, true)
   }
 
   func test_GivenSearchIsActive_WhenPasteDeeplink_ThenShowResult() {
@@ -235,6 +236,7 @@ final class SearchOnMapTests: XCTestCase {
     interactor.onSearchCompleted()
 
     XCTAssertEqual(view.viewModel.contentState, .results(results))
+    XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
     XCTAssertEqual(view.viewModel.isTyping, false) // No typing when deeplink is used
   }
 }
