@@ -1,3 +1,16 @@
+@objcMembers
+final class SearchQuery: NSObject {
+  let text: String
+  let locale: String
+  let source: SearchTextSource
+
+  init(_ text: String, locale: String? = nil, source: SearchTextSource) {
+    self.text = text
+    self.locale = locale ?? AppInfo.shared().languageId
+    self.source = source
+  }
+}
+
 enum SearchOnMap {
   struct ViewModel: Equatable {
     enum Content: Equatable {
@@ -30,16 +43,6 @@ enum SearchOnMap {
     }
   }
 
-  struct SearchText {
-    let text: String
-    let locale: String
-
-    init(_ text: String, locale: String? = nil) {
-      self.text = text
-      self.locale = locale ?? AppInfo.shared().languageId
-    }
-  }
-
   enum Request {
     case openSearch
     case hideSearch
@@ -47,10 +50,10 @@ enum SearchOnMap {
     case didStartDraggingSearch
     case didStartDraggingMap
     case didStartTyping
-    case didType(SearchText)
-    case didSelectText(SearchText, isCategory: Bool)
-    case didSelectResult(SearchResult, withSearchText: SearchText)
-    case searchButtonDidTap(SearchText)
+    case didType(SearchQuery)
+    case didSelect(SearchQuery)
+    case didSelectResult(SearchResult, withQuery: SearchQuery)
+    case searchButtonDidTap(SearchQuery)
     case clearButtonDidTap
     case didSelectPlaceOnMap
     case didDeselectPlaceOnMap
@@ -63,7 +66,7 @@ enum SearchOnMap {
     case setIsTyping(Bool)
     case showHistoryAndCategory
     case showResults(SearchResults, isSearchCompleted: Bool = false)
-    case selectText(String?)
+    case selectQuery(SearchQuery)
     case clearSearch
     case setSearchScreenHidden(Bool)
     case setSearchScreenCompact

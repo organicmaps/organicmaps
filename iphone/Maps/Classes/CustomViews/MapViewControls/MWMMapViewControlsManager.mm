@@ -104,19 +104,19 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 #pragma mark - MWMPlacePageViewManager
 
-- (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale {
-  if (![self searchText:text forInputLocale:locale])
+- (void)searchOnMap:(SearchQuery *)query {
+  if (![self search:query])
     return;
 
   [self.searchManager startSearchingWithIsRouting:NO];
 }
 
-- (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale {
-  if (text.length == 0)
+- (BOOL)search:(SearchQuery *)query {
+  if (query.text.length == 0)
     return NO;
 
   [self.searchManager startSearchingWithIsRouting:NO];
-  [self.searchManager searchText:text locale:locale isCategory:NO];
+  [self.searchManager searchText:query];
   return YES;
 }
 

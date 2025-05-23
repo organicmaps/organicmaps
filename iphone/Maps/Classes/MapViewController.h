@@ -36,7 +36,6 @@
 - (void)openEditor;
 - (void)openBookmarkEditor;
 - (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
-- (void)searchText:(NSString *_Nonnull)text;
 - (void)openDrivingOptions;
 
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration;
