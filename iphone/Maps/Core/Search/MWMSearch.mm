@@ -88,7 +88,7 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (void)searchInViewport {
-  search::ViewportSearchParams params{
+  search::ViewportSearchParams params {
     m_query, m_locale, {} /* default timeout */, m_isCategory,
     // m_onStarted
     {},
@@ -125,29 +125,29 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - Methods
 
-+ (void)saveQuery:(NSString *)query forInputLocale:(NSString *)inputLocale {
-  if (!query || query.length == 0)
++ (void)saveQuery:(SearchQuery *)query {
+  if (!query.text || query.text.length == 0)
     return;
 
-  std::string locale = (!inputLocale || inputLocale.length == 0)
+  std::string locale = (!query.locale || query.locale == 0)
                         ? [MWMSearch manager]->m_locale
-                        : inputLocale.UTF8String;
-  std::string text = query.UTF8String;
+                        : query.locale.UTF8String;
+  std::string text = query.text.UTF8String;
   GetFramework().GetSearchAPI().SaveSearchQuery({std::move(locale), std::move(text)});
 }
 
-+ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale withCategory:(BOOL)isCategory {
-  if (!query)
++ (void)searchQuery:(SearchQuery *)query {
+  if (!query.text)
     return;
 
   MWMSearch *manager = [MWMSearch manager];
-  if (inputLocale.length != 0)
-    manager->m_locale = inputLocale.UTF8String;
+  if (query.locale.length != 0)
+    manager->m_locale = query.locale.UTF8String;
 
   // Pass input query as-is without any normalization (precomposedStringWithCompatibilityMapping).
   // Otherwise № -> No, and it's unexpectable for the search index.
-  manager->m_query = query.UTF8String;
-  manager->m_isCategory = (isCategory == YES);
+  manager->m_query = query.text.UTF8String;
+  manager->m_isCategory = (query.source == SearchTextSourceCategory);
   manager.textChanged = YES;
 
   [manager update];

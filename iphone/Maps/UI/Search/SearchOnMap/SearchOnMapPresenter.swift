@@ -74,11 +74,11 @@ final class SearchOnMapPresenter {
         searchResults.skipSuggestions()
       }
       viewModel.contentState = searchResults.isEmpty && isSearchCompleted ? .noResults : .results(searchResults)
-    case .selectText(let text):
-      viewModel.isTyping = false
+    case .selectQuery(let query):
       viewModel.skipSuggestions = false
-      viewModel.searchingText = text
+      viewModel.searchingText = query.text
       viewModel.contentState = .searching
+      viewModel.isTyping = false
       viewModel.presentationStep = isRouting ? .hidden : .halfScreen
     case .clearSearch:
       viewModel.searchingText = ""

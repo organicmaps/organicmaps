@@ -612,10 +612,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
   [self.navigationController pushViewController:descriptionViewController animated:YES];
 }
 
-- (void)searchText:(NSString *)text {
-  [self.controlsManager searchText:text forInputLocale:[[AppInfo sharedInfo] languageId]];
-}
-
 - (void)openDrivingOptions {
   UIStoryboard *sb = [UIStoryboard instance:MWMStoryboardDrivingOptions];
   UIViewController *vc = [sb instantiateInitialViewController];

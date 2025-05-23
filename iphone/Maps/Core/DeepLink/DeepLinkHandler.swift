@@ -113,10 +113,11 @@
           sd.onViewportChanged(kSearchInViewportZoom)
         }
       }
+      let searchQuery = SearchQuery(sd.query, locale: sd.locale, source: .deeplink)
       if (sd.isSearchOnMap) {
-        MWMMapViewControlsManager.manager()?.searchText(onMap: sd.query, forInputLocale: sd.locale)
+        MWMMapViewControlsManager.manager()?.search(onMap: searchQuery)
       } else {
-        MWMMapViewControlsManager.manager()?.searchText(sd.query, forInputLocale: sd.locale)
+        MWMMapViewControlsManager.manager()?.search(searchQuery)
       }
       return true
     case .menu:

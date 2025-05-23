@@ -139,7 +139,7 @@ final class SearchOnMapHeaderView: UIView {
     }
   }
 
-  var searchText: SearchOnMap.SearchText {
-    SearchOnMap.SearchText(searchBar.text ?? "", locale: searchBar.textInputMode?.primaryLanguage)
+  var searchQuery: SearchQuery {
+    SearchQuery(searchBar.text ?? "", locale: searchBar.textInputMode?.primaryLanguage, source: .typedText)
   }
 }

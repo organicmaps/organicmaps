@@ -2,6 +2,8 @@
 #import "MWMCarPlaySearchResultObject.h"
 #import "MWMSearch.h"
 
+#import "SwiftBridge.h"
+
 API_AVAILABLE(ios(12.0))
 @interface MWMCarPlaySearchService ()<MWMSearchObserver>
 @property(strong, nonatomic, nullable) void (^completionHandler)(NSArray<MWMCarPlaySearchResultObject *> *searchResults);
@@ -30,12 +32,14 @@ API_AVAILABLE(ios(12.0))
   self.lastResults = @[];
   self.completionHandler = completionHandler;
   /// @todo Didn't find pure category request in CarPlay.
-  [MWMSearch searchQuery:text forInputLocale:inputLocale withCategory:NO];
+  SearchQuery * query = [[SearchQuery alloc] init:text locale:inputLocale source:SearchTextSourceTypedText];
+  [MWMSearch searchQuery:query];
 }
 
 - (void)saveLastQuery {
   if (self.lastQuery != nil && self.inputLocale != nil) {
-    [MWMSearch saveQuery:self.lastQuery forInputLocale:self.inputLocale];
+    SearchQuery * query = [[SearchQuery alloc] init:self.lastQuery locale:self.inputLocale source:SearchTextSourceTypedText];
+    [MWMSearch saveQuery:query];
   }
 }
 

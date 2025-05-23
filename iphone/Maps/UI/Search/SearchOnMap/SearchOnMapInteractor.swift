@@ -41,12 +41,12 @@ final class SearchOnMapInteractor: NSObject {
       return processTypedText(searchText)
     case .clearButtonDidTap:
       return processClearButtonDidTap()
-    case .didSelectText(let searchText, let isCategory):
-      return processSelectedText(searchText, isCategory: isCategory)
+    case .didSelect(let searchText):
+      return processSelectedText(searchText)
     case .searchButtonDidTap(let searchText):
       return processSearchButtonDidTap(searchText)
-    case .didSelectResult(let result, let searchText):
-      return processSelectedResult(result, searchText: searchText)
+    case .didSelectResult(let result, let query):
+      return processSelectedResult(result, query: query)
     case .didSelectPlaceOnMap:
       return isIPad ? .none : .setSearchScreenHidden(true)
     case .didDeselectPlaceOnMap:
@@ -66,38 +66,31 @@ final class SearchOnMapInteractor: NSObject {
     return .clearSearch
   }
 
-  private func processSearchButtonDidTap(_ searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
-    searchManager.saveQuery(searchText.text,
-                            forInputLocale: searchText.locale)
+  private func processSearchButtonDidTap(_ query: SearchQuery) -> SearchOnMap.Response {
+    searchManager.save(query)
     showResultsOnMap = true
     searchManager.showEverywhereSearchResultsOnMap()
     return .showOnTheMap
   }
 
-  private func processTypedText(_ searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
+  private func processTypedText(_ query: SearchQuery) -> SearchOnMap.Response {
     isUpdatesDisabled = false
-    searchManager.searchQuery(searchText.text,
-                              forInputLocale: searchText.locale,
-                              withCategory: false)
+    searchManager.searchQuery(query)
     return .startSearching
   }
 
-  private func processSelectedText(_ searchText: SearchOnMap.SearchText, isCategory: Bool) -> SearchOnMap.Response {
+  private func processSelectedText(_ query: SearchQuery) -> SearchOnMap.Response {
     isUpdatesDisabled = false
-    searchManager.saveQuery(searchText.text,
-                            forInputLocale: searchText.locale)
-    searchManager.searchQuery(searchText.text,
-                              forInputLocale: searchText.locale,
-                              withCategory: isCategory)
+    searchManager.save(query)
+    searchManager.searchQuery(query)
     showResultsOnMap = true
-    return .selectText(searchText.text)
+    return .selectQuery(query)
   }
 
-  private func processSelectedResult(_ result: SearchResult, searchText: SearchOnMap.SearchText) -> SearchOnMap.Response {
+  private func processSelectedResult(_ result: SearchResult, query: SearchQuery) -> SearchOnMap.Response {
     switch result.itemType {
     case .regular:
-      searchManager.saveQuery(searchText.text,
-                              forInputLocale:searchText.locale)
+      searchManager.save(query)
       switch routingTooltipSearch {
       case .none:
         searchManager.showResult(at: result.index)
@@ -120,10 +113,11 @@ final class SearchOnMapInteractor: NSObject {
       }
       return isIPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
-      searchManager.searchQuery(result.suggestion,
-                                forInputLocale: searchText.locale,
-                                withCategory: result.isPureSuggest)
-      return .selectText(result.suggestion)
+      var suggestionQuery = SearchQuery(result.suggestion,
+                                        locale: query.locale,
+                                        source: result.isPureSuggest ? .suggestion : .typedText)
+      searchManager.searchQuery(suggestionQuery)
+      return .selectQuery(suggestionQuery)
     @unknown default:
       fatalError("Unsupported result type")
     }

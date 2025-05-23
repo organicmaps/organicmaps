@@ -85,9 +85,10 @@ using namespace osm_auth_ios;
     });
     return;
   }
-
-  [[MWMMapViewControlsManager manager] searchText:[searchString stringByAppendingString:@" "]
-                                   forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
+  SearchQuery * query = [[SearchQuery alloc] init:[searchString stringByAppendingString:@" "]
+                                           locale:[MWMSettings spotlightLocaleLanguageId]
+                                           source:SearchTextSourceDeeplink];
+  [[MWMMapViewControlsManager manager] search:query];
 }
 
 - (void)commonInit {

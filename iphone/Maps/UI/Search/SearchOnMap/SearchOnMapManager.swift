@@ -61,9 +61,8 @@ final class SearchOnMapManager: NSObject {
     interactor?.handle(.didStartDraggingMap)
   }
 
-  func searchText(_ text: String, locale: String, isCategory: Bool) {
-    let searchText = SearchOnMap.SearchText(text, locale: locale)
-    interactor?.handle(.didSelectText(searchText, isCategory: isCategory))
+  func searchText(_ searchText: SearchQuery) {
+    interactor?.handle(.didSelect(searchText))
   }
 
   func addObserver(_ observer: SearchOnMapManagerObserver) {
