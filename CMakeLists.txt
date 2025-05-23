@@ -96,6 +96,7 @@ if(${PLATFORM_MAC})
   # Metal language support
   list(APPEND CMAKE_MODULE_PATH ${OMIM_ROOT}/3party/CMake-MetalShaderSupport/cmake)
   include(CheckLanguage)
+  include(CMakeMetalInformation)
   include(MetalShaderSupport)
   check_language(Metal)
   if(CMAKE_Metal_COMPILER)
