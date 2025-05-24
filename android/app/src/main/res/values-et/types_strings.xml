@@ -1394,4 +1394,10 @@
     <string name="type.hwtag.toll">hwtag-toll</string>
     <string name="type.hwtag.yescar">hwtag-yescar</string>
     <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.landuse.plant_nursery">Puukool</string>
+    <string name="type.amenity.love_hotel">Armuhotell</string>
+    <string name="type.barrier.guard_rail">Madal maanteepiire</string>
+    <string name="type.leisure.firepit">Tulease</string>
+    <string name="type.amenity.studio">Stuudio</string>
+    <string name="type.highway.ladder">Redel</string>
 </resources>

@@ -1391,4 +1391,10 @@
     <string name="type.piste_type.downhill.intermediate.area">Středně těžká sjezdovka</string>
     <string name="type.piste_type.sled">Sáňkařská dráha</string>
     <string name="type.piste_type.sled.area">Sáňkařská dráha</string>
+    <string name="type.landuse.plant_nursery">Rostlinná školka</string>
+    <string name="type.amenity.love_hotel">Hodinový hotel</string>
+    <string name="type.amenity.studio">Studio</string>
+    <string name="type.leisure.firepit">Ohniště</string>
+    <string name="type.barrier.guard_rail">Ochranné zábradlí</string>
+    <string name="type.highway.ladder">Žebřík</string>
 </resources>

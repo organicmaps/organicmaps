@@ -351,7 +351,7 @@
     <string name="type.shop.clothes">Botiga de roba</string>
     <string name="type.shop.convenience">Botiga a l’abast</string>
     <string name="type.shop.cosmetics">Botiga de cosmètics</string>
-    <string name="type.shop.curtain">Cortines</string>
+    <string name="type.shop.curtain">Botiga de cortines</string>
     <string name="type.shop.fashion_accessories">Complements de moda</string>
     <string name="type.shop.gas">Botiga de gas</string>
     <string name="type.shop.hearing_aids">Botiga d’aparells auditius</string>
@@ -961,4 +961,19 @@
     <string name="type.place.suburb">Suburbi</string>
     <string name="type.place.state.USA">Estat</string>
     <string name="type.power.line">Línia elèctrica</string>
+    <string name="type.leisure.sauna">Sauna</string>
+    <string name="type.barrier.guard_rail">Tanca de contenció</string>
+    <string name="type.shop.department_store">Gran magatzem</string>
+    <string name="type.shop.erotic">Botiga eròtica</string>
+    <string name="type.amenity.studio">Estudi</string>
+    <string name="type.shop.electronics">Botiga d’electrònica</string>
+    <string name="type.amenity.love_hotel">Meublé</string>
+    <string name="type.man_made.breakwater">Escullera</string>
+    <string name="type.highway.ladder">Escala de mà</string>
+    <string name="type.landuse.plant_nursery">Viver</string>
+    <string name="type.man_made.cutline">Línia de tall</string>
+    <string name="type.man_made.survey_point">Punt geodèsic</string>
+    <string name="type.man_made.pier">Moll</string>
+    <string name="type.man_made.pipeline">Ducte</string>
+    <string name="type.man_made.pipeline.overground">Ducte a cel obert</string>
 </resources>

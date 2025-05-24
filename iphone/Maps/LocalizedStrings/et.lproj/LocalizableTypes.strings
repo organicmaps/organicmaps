@@ -1484,3 +1484,9 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Spordisaal";
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.landuse.plant_nursery" = "Puukool";
+"type.amenity.studio" = "Stuudio";
+"type.amenity.love_hotel" = "Armuhotell";
+"type.leisure.firepit" = "Tulease";
+"type.barrier.guard_rail" = "Madal maanteepiire";
+"type.highway.ladder" = "Redel";

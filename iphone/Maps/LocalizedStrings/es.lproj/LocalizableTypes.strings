@@ -1484,3 +1484,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Pabellón deportivo";
+"type.highway.ladder" = "Escalera";
+"type.barrier.guard_rail" = "Barrera de contención";
+"type.amenity.studio" = "Estudio";
+"type.amenity.love_hotel" = "Hotel para parejas";

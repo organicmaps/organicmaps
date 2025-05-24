@@ -1373,4 +1373,13 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.piste_type.sled.area">Stok saneczkowy</string>
+    <string name="type.piste_type.sled">Stok saneczkowy</string>
+    <string name="type.barrier.guard_rail">Barierka ochronna</string>
+    <string name="type.highway.ladder">Drabina</string>
+    <string name="type.aerialway.j.bar">Wyciąg orczykowy</string>
+    <string name="type.amenity.love_hotel">Hotel miłości</string>
+    <string name="type.amenity.studio">Studio</string>
+    <string name="type.landuse.plant_nursery">Szkółka roślin</string>
+    <string name="type.leisure.firepit">Ognisko</string>
 </resources>

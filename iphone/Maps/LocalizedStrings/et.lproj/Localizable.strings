@@ -749,7 +749,7 @@
 "bookmarks_convert_error_title" = "Viga";
 "bookmarks_convert_error_message" = "Mõned failid jäid teisendamata.";
 "restore" = "Taasta";
-"privacy_policy" = "Privaatsuspoliitika";
+"privacy_policy" = "Andmekaitsepõhimõtted";
 "terms_of_use" = "Kasutustingimused";
 "button_layer_subway" = "Metroo";
 "layers_title" = "Kaardi stiilid ja kihid";

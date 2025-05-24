@@ -1039,7 +1039,7 @@
     <string name="type.shop.variety_store">100 forintos bolt</string>
     <string name="type.shop.video">Videófilmbolt vagy -kölcsönző</string>
     <string name="type.shop.video_games">Videojáték-bolt</string>
-    <string name="type.shop.wine">Boszaküzlet</string>
+    <string name="type.shop.wine">Borszaküzlet</string>
     <string name="type.shop.agrarian">Gazdabolt</string>
     <string name="type.shop.antiques">Régiségkereskedés</string>
     <string name="type.shop.appliance">Háztartásigép-bolt</string>
@@ -1391,4 +1391,10 @@
     <string name="type.hwtag.nocar">útcímke-személyautóval_nem_használható</string>
     <string name="type.hwtag.nofoot">útcímke-gyalogosan_nem_használható</string>
     <string name="type.piste_type.downhill.freeride">Természetes eredetű sípálya</string>
+    <string name="type.landuse.plant_nursery">Faiskola</string>
+    <string name="type.leisure.firepit">Tűzrakóhely</string>
+    <string name="type.amenity.love_hotel">Szeretőszálló</string>
+    <string name="type.amenity.studio">Stúdió</string>
+    <string name="type.barrier.guard_rail">Szalagkorlát</string>
+    <string name="type.highway.ladder">Létra</string>
 </resources>

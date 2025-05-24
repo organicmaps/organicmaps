@@ -158,4 +158,20 @@
     <string name="type.amenity.language_school">Escuela de llingües</string>
     <string name="type.amenity.hospital">Hospital</string>
     <string name="type.craft.confectionery">Confitería</string>
+    <string name="type.amenity.recycling.centre">Centru de reciclaxe</string>
+    <string name="type.leisure.sauna">Sauna</string>
+    <string name="type.amenity.studio">Estudiu</string>
+    <string name="type.amenity.arts_centre">Centru artísticu</string>
+    <string name="type.leisure.park.no.access">Parque priváu</string>
+    <string name="type.leisure.park.permissive">Parque</string>
+    <string name="type.leisure.park.private">Parque priváu</string>
+    <string name="type.amenity.love_hotel">Hotel pa pareyes</string>
+    <string name="type.highway.ladder">Escalera de mano</string>
+    <string name="type.leisure.park">Parque</string>
+    <string name="type.leisure.stadium">Estadiu</string>
+    <string name="type.leisure.nature_reserve">Reserva natural</string>
+    <string name="type.man_made.survey_point">Puntu xeodésicu</string>
+    <string name="type.man_made.communications_tower">Torre de comunicaciones</string>
+    <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
+    <string name="type.man_made.tower">Torre</string>
 </resources>

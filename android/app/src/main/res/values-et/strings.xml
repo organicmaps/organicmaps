@@ -638,7 +638,7 @@
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privaatsus</string>
-    <string name="privacy_policy">Privaatsuspoliitika</string>
+    <string name="privacy_policy">Andmekaitsepõhimõtted</string>
     <string name="terms_of_use">Kasutustingimused</string>
     <string name="button_layer_traffic">Liiklus</string>
     <string name="button_layer_subway">Metroo</string>

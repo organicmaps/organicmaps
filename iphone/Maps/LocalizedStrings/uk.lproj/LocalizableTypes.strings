@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортивний зал";
+"type.landuse.plant_nursery" = "Розсадник";
+"type.amenity.love_hotel" = "Готель кохання";
+"type.amenity.studio" = "Студія";
+"type.barrier.guard_rail" = "Захисна огорожа";
+"type.highway.ladder" = "Драбина";
+"type.leisure.firepit" = "Вогняна яма";

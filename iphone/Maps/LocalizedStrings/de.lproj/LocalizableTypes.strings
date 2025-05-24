@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sporthalle";
+"type.amenity.love_hotel" = "Liebeshotel";
+"type.amenity.studio" = "Studio";
+"type.landuse.plant_nursery" = "Gärtnerei";
+"type.leisure.firepit" = "Feuerstelle";
+"type.barrier.guard_rail" = "Geländer";
+"type.highway.ladder" = "Leiter";
