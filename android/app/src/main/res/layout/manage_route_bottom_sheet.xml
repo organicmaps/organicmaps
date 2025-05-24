@@ -99,16 +99,6 @@
       android:text="@string/cancel"/>
 
     <Button
-            android:id="@+id/btn__save"
-            style="@style/MwmWidget.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/btn__cancel"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:text="@string/save"/>
-
-    <Button
       android:id="@+id/btn__plan"
       style="@style/MwmWidget.Button.Primary"
       android:layout_width="wrap_content"
