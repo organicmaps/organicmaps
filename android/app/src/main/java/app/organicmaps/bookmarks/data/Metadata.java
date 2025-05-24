@@ -76,7 +76,7 @@ public class Metadata implements Parcelable
     }
 
     @NonNull
-    public static MetadataType fromInt(@IntRange(from = 1, to = 41) int metaType)
+    public static MetadataType fromInt(@IntRange(from = 1, to = 49) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)
