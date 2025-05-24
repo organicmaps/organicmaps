@@ -94,8 +94,9 @@
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
-        <item quantity="one">%d rastreo</item>
-        <item quantity="other">%d rastreos</item>
+        <item quantity="one">%d trayecto</item>
+        <item quantity="many">%d trayectos</item>
+        <item quantity="other">%d trayectos</item>
     </plurals>
     <string name="privacy_policy">Política de Privacidad</string>
     <string name="terms_of_use">Términos de uso</string>

@@ -1300,4 +1300,10 @@
     <string name="type.piste_type.hike">Snjógönguleið</string>
     <string name="type.piste_type.connection">Leiðatenging</string>
     <string name="type.piste_type.skitour">Ferðaskíðaleið</string>
+    <string name="type.amenity.love_hotel">Elskendahótel</string>
+    <string name="type.landuse.plant_nursery">Græðlingaræktun</string>
+    <string name="type.leisure.firepit">Eldgryfja</string>
+    <string name="type.amenity.studio">Stúdíó</string>
+    <string name="type.barrier.guard_rail">Handrið</string>
+    <string name="type.highway.ladder">Stigi</string>
 </resources>

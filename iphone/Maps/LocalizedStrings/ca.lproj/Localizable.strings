@@ -226,7 +226,7 @@
 "pref_map_3d_buildings_title" = "Edificis en 3D";
 
 /* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
-"pref_map_3d_buildings_disabled_summary" = "Els edificis en 3D es desactiven en mode d'estalvi d'energia";
+"pref_map_3d_buildings_disabled_summary" = "Els edificis en 3D es desactiven en mode d’estalvi d’energia";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instruccions de veu";
@@ -280,10 +280,10 @@
 "donate" = "Donatiu";
 
 /* Tex label above the Donate button */
-"donate_description" = "Fes una donació per construir els millors mapes junts!";
-"already_donated" = "Ja donat";
-"remind_me_later" = "Recorda més tard";
-"support_organic_maps" = "Donar suport a Organic Maps";
+"donate_description" = "Feu una donació per a construir els millors mapes junts!";
+"already_donated" = "Ja he donat";
+"remind_me_later" = "Recorda’m més tard";
+"support_organic_maps" = "Doneu suport a l’Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "Drets d’autor";
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Calibratge de la brúixola";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Toqueu llargament el mapa de nou per veure la interfície";
+"long_tap_toast" = "Toqueu llargament el mapa de nou per a veure la interfície";
 
 /* Update all button text */
 "downloader_update_all_button" = "Actualitza-ho tot";
@@ -826,7 +826,7 @@
 "dialog_routing_change_start_carplay" = "No es pot calcular cap ruta des de la vostra ubicació actual";
 "dialog_routing_change_end_carplay" = "No es pot calcular cap ruta a la vostra destinació. Trieu un altre punt";
 "dialog_routing_check_gps_carplay" = "No hi ha senyal GPS. Aneu a un àrea oberta";
-"dialog_routing_unable_locate_route_carplay" = "No es pot calcular cap ruta. Indiqueu uns punts de ruta diferents.";
+"dialog_routing_unable_locate_route_carplay" = "No es pot calcular cap ruta. Indiqueu uns punts de ruta diferents";
 "dialog_routing_download_files_carplay" = "Per a crear una ruta, baixeu les mapes que manquen en el vostre aparell";
 "dialog_routing_system_error_carplay" = "S’ha produït un error. Reinicieu l’aplicació";
 "dialog_routing_rebuild_from_current_location_carplay" = "Es tornarà a calcular la ruta des de la ubicació actual";

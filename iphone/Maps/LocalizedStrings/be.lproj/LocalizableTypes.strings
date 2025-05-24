@@ -1,72 +1,72 @@
 "type.addr_interpolation" = "Адрас/Блок";
 "type.addr_interpolation.even" = "Адрас/Блок";
 "type.addr_interpolation.odd" = "Адрас/Блок";
-"type.aerialway" = "Aerialway";
-"type.aerialway.cable_car" = "Cable Car";
-"type.aerialway.chair_lift" = "Chair Lift";
-"type.aerialway.drag_lift" = "Drag Lift";
-"type.aerialway.gondola" = "Gondola";
-"type.aerialway.mixed_lift" = "Mixed Lift";
-"type.aerialway.station" = "Aerialway Station";
-"type.aeroway" = "Airspace Infrastructure";
-"type.aeroway.aerodrome" = "Airport";
-"type.aeroway.aerodrome.international" = "International Airport";
-"type.aeroway.apron" = "Apron";
-"type.aeroway.gate" = "Gate";
-"type.aeroway.helipad" = "Helipad";
-"type.aeroway.runway" = "Runway";
-"type.aeroway.taxiway" = "Taxiway";
-"type.aeroway.terminal" = "Terminal";
-"type.amenity" = "Amenity";
-"type.amenity.arts_centre" = "Arts Center";
-"type.amenity.atm" = "ATM";
-"type.amenity.bank" = "Bank";
-"type.amenity.bar" = "Bar";
+"type.aerialway" = "Паветраная дарога";
+"type.aerialway.cable_car" = "Канатная дарога";
+"type.aerialway.chair_lift" = "Крэсельны ліфт";
+"type.aerialway.drag_lift" = "Пад'ёмнік з буксірам";
+"type.aerialway.gondola" = "Гандоола";
+"type.aerialway.mixed_lift" = "Змяшаны пад'ёмнік";
+"type.aerialway.station" = "Станцыя падвеснай дарогі";
+"type.aeroway" = "Паветраная інфраструктура";
+"type.aeroway.aerodrome" = "Аэрапорт";
+"type.aeroway.aerodrome.international" = "Міжнародны аэрапорт";
+"type.aeroway.apron" = "Перон";
+"type.aeroway.gate" = "Выхад на пасадку";
+"type.aeroway.helipad" = "Верталётная пляцоўка";
+"type.aeroway.runway" = "Узлётна-пасадачная паласа";
+"type.aeroway.taxiway" = "Рулёжная дарожка";
+"type.aeroway.terminal" = "Тэрмінал";
+"type.amenity" = "Аб'екты інфраструктуры";
+"type.amenity.arts_centre" = "Цэнтр мастацтваў";
+"type.amenity.atm" = "Банкамат";
+"type.amenity.bank" = "Банк";
+"type.amenity.bar" = "Бар";
 "type.amenity.bbq" = "Барбекю-грыль";
-"type.amenity.bench" = "Bench";
+"type.amenity.bench" = "Лаўка";
 "type.amenity.bicycle_parking" = "Велапаркоўка";
-"type.amenity.bicycle_rental" = "Bicycle Rental";
-"type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
-"type.amenity.biergarten" = "Biergarten";
-"type.amenity.brothel" = "Brothel";
-"type.amenity.bureau_de_change" = "Currency Exchange";
-"type.amenity.bus_station" = "Bus Station";
-"type.amenity.cafe" = "Cafe";
-"type.amenity.car_rental" = "Car Rental";
+"type.amenity.bicycle_rental" = "Пракат ровараў";
+"type.amenity.bicycle_repair_station" = "Станцыя рамонту ровараў";
+"type.amenity.biergarten" = "Піўная пад адкрытым небам";
+"type.amenity.brothel" = "Бардэль";
+"type.amenity.bureau_de_change" = "Абмен валют";
+"type.amenity.bus_station" = "Аўтавакзал";
+"type.amenity.cafe" = "Кавярня";
+"type.amenity.car_rental" = "Пракат аўтамабіляў";
 "type.amenity.motorcycle_rental" = "Пракат матацыклаў";
-"type.amenity.car_sharing" = "Car Sharing";
-"type.amenity.car_wash" = "Car Wash";
-"type.amenity.casino" = "Casino";
+"type.amenity.car_sharing" = "Каршэрынг";
+"type.amenity.car_wash" = "Аўтамыйка";
+"type.amenity.casino" = "Казіно";
 "type.amenity.gambling" = "Азартныя гульні";
 "type.leisure.adult_gaming_centre" = "Гульнявы цэнтр для дарослых";
 "type.leisure.amusement_arcade" = "Аркада";
-"type.amenity.charging_station" = "Charging Station";
+"type.amenity.charging_station" = "Зарадная станцыя";
 "type.amenity.charging_station.bicycle" = "Станцыя для зарадкі ровараў";
 "type.amenity.charging_station.motorcar" = "Аўтамабільная зарадная станцыя";
-"type.amenity.childcare" = "Nursery";
-"type.amenity.cinema" = "Cinema";
+"type.amenity.childcare" = "Дзіцячы пакой";
+"type.amenity.cinema" = "Кінатэатр";
 "type.leisure.bowling_alley" = "Боўлінг";
-"type.amenity.clinic" = "Clinic";
-"type.amenity.college" = "College";
-"type.amenity.community_centre" = "Community Centre";
+"type.amenity.clinic" = "Паліклініка";
+"type.amenity.college" = "Каледж";
+"type.amenity.community_centre" = "Грамадскі цэнтр";
 "type.amenity.compressed_air" = "Сціснутае паветра";
 "type.amenity.conference_centre" = "Канферэнц-цэнтр";
-"type.amenity.courthouse" = "Courthouse";
-"type.amenity.dentist" = "Dentist";
-"type.amenity.doctors" = "Doctor";
-"type.amenity.drinking_water" = "Drinking Water";
-"type.drinking_water.yes" = "Drinking Water";
+"type.amenity.courthouse" = "Суд";
+"type.amenity.dentist" = "Стаматолаг";
+"type.amenity.doctors" = "Лекар";
+"type.amenity.drinking_water" = "Пітная вада";
+"type.drinking_water.yes" = "Пітная вада";
 "type.amenity.driving_school" = "Аўташкола";
 "type.amenity.exhibition_centre" = "Выставачны цэнтр";
 "type.amenity.money_transfer" = "Грашовыя пераводы";
 "type.amenity.music_school" = "Музычная школа";
 "type.amenity.language_school" = "Моўная школа";
-"type.office.diplomatic" = "Embassy";
-"type.amenity.fast_food" = "Fast Food";
-"type.amenity.ferry_terminal" = "Ferry";
+"type.office.diplomatic" = "Амбасада";
+"type.amenity.fast_food" = "Фастфуд";
+"type.amenity.ferry_terminal" = "Паром";
 "type.amenity.fire_station" = "Пажарная частка";
-"type.amenity.food_court" = "Food Court";
-"type.amenity.fountain" = "Fountain";
+"type.amenity.food_court" = "Фуд-корт";
+"type.amenity.fountain" = "Фантан";
 "type.amenity.fuel" = "АЗС";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -74,17 +74,17 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Хрысціянскія могілкі";
-"type.amenity.hospital" = "Hospital";
-"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.hospital" = "Шпіталь";
+"type.amenity.hunting_stand" = "Паляўнічая вежа";
 "type.amenity.ice_cream" = "Марозіва";
-"type.amenity.internet_cafe" = "Internet Cafe";
-"type.amenity.kindergarten" = "Kindergarten";
-"type.amenity.library" = "Library";
+"type.amenity.internet_cafe" = "Інтэрнэт-кавярня";
+"type.amenity.kindergarten" = "Дзіцячы сад";
+"type.amenity.library" = "Бібліятэка";
 "type.amenity.loading_dock" = "Пагрузная платформа";
-"type.amenity.marketplace" = "Marketplace";
-"type.amenity.motorcycle_parking" = "Motorcycle Parking";
-"type.amenity.nightclub" = "Nightclub";
-"type.amenity.nursing_home" = "Nursing Home";
+"type.amenity.marketplace" = "Рынак";
+"type.amenity.motorcycle_parking" = "Паркоўка для матацыклаў";
+"type.amenity.nightclub" = "Начны клуб";
+"type.amenity.nursing_home" = "Дом састарэлых";
 "type.amenity.parking" = "Паркоўка";
 "type.amenity.parking.fee" = "Паркоўка";
 "type.amenity.parking.multi.storey" = "Шматпавярховая паркоўка";
@@ -92,7 +92,7 @@
 "type.amenity.parking.no.access" = "Прыватная паркоўка";
 "type.amenity.parking.permissive" = "Прыватная паркоўка";
 "type.amenity.parking.private" = "Прыватная паркоўка";
-"type.amenity.parking.park_and_ride" = "Park And Ride Parking";
+"type.amenity.parking.park_and_ride" = "Паркоўка для пасажыраў";
 "type.amenity.parking.underground" = "Падземны паркінг";
 "type.amenity.parking.underground.fee" = "Падземны паркінг";
 "type.amenity.parking.underground.private" = "Прыватны падземны паркінг";
@@ -105,29 +105,29 @@
 "type.amenity.parking_entrance" = "Уваход на паркоўку";
 "type.amenity.parking_entrance.private" = "Уваход на прыватную паркоўку";
 "type.amenity.parking_entrance.permissive" = "Уваход на паркоўку";
-"type.amenity.parking_space" = "Parking Space";
-"type.amenity.parking_space.permissive" = "Parking Space";
-"type.amenity.parking_space.private" = "Parking Space";
-"type.amenity.parking_space.underground" = "Parking Space";
+"type.amenity.parking_space" = "Парковачнае месца";
+"type.amenity.parking_space.permissive" = "Парковачнае месца";
+"type.amenity.parking_space.private" = "Парковачнае месца";
+"type.amenity.parking_space.underground" = "Парковачнае месца";
 "type.amenity.parking_space.disabled" = "Паркоўка для інвалідаў";
-"type.amenity.payment_terminal" = "Payment Terminal";
-"type.amenity.pharmacy" = "Pharmacy";
-"type.amenity.place_of_worship" = "Place of Worship";
-"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
-"type.amenity.place_of_worship.christian" = "Church";
+"type.amenity.payment_terminal" = "Плацежны тэрмінал";
+"type.amenity.pharmacy" = "Фармацыя";
+"type.amenity.place_of_worship" = "Храм";
+"type.amenity.place_of_worship.buddhist" = "Будыйскі храм";
+"type.amenity.place_of_worship.christian" = "Царква";
 "type.amenity.place_of_worship.christian.mormon" = "Царква Ісуса Хрыста Святых апошніх дзён";
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Зала царства Сведкаў Іегавы";
-"type.amenity.place_of_worship.hindu" = "Hindu Temple";
-"type.amenity.place_of_worship.jewish" = "Synagogue";
-"type.amenity.place_of_worship.muslim" = "Mosque";
-"type.amenity.place_of_worship.shinto" = "Shinto Shrine";
-"type.amenity.place_of_worship.taoist" = "Taoist Temple";
-"type.amenity.police" = "Police";
+"type.amenity.place_of_worship.hindu" = "Індуісцкі храм";
+"type.amenity.place_of_worship.jewish" = "Сінагога";
+"type.amenity.place_of_worship.muslim" = "Мячэць";
+"type.amenity.place_of_worship.shinto" = "Сінтаісцкі храм";
+"type.amenity.place_of_worship.taoist" = "Даоскі храм";
+"type.amenity.police" = "Паліцыя";
 "type.amenity.post_box" = "Паштовая скрыня";
-"type.amenity.post_office" = "Post Office";
+"type.amenity.post_office" = "Паштовае аддзяленне";
 "type.amenity.prison" = "Турма";
-"type.amenity.pub" = "Pub";
-"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.pub" = "Паб";
+"type.amenity.public_bookcase" = "Абмен кнігамі";
 "type.amenity.recycling.centre" = "Прыём другсыравіны";
 "type.amenity.recycling" = "Кантэйнер для другаснай сыравіны";
 "type.amenity.recycling.container" = "Кантэйнер для другаснай сыравіны";
@@ -138,15 +138,15 @@
 "type.recycling.plastic" = "Пластык";
 "type.recycling.plastic_bottles" = "Пластыкавыя бутэлькі";
 "type.recycling.scrap_metal" = "Металалом";
-"type.recycling.small_appliances" = "Electronic Waste";
+"type.recycling.small_appliances" = "Электроннае смецце";
 "type.recycling.cardboard" = "Кардон";
 "type.recycling.cans" = "Бляшаныя і алюмініевыя слоікі";
 "type.recycling.shoes" = "Абутак";
 "type.recycling.green_waste" = "Арганіка / Харчовыя адходы";
 "type.recycling.cartons" = "Тэтрапак і аналагі";
-"type.amenity.restaurant" = "Restaurant";
+"type.amenity.restaurant" = "Рэстаран";
 "type.amenity.sanitary_dump_station" = "Зліў для прыбіральняў транспартных сродкаў";
-"type.amenity.school" = "School";
+"type.amenity.school" = "Школа";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Навес";
@@ -160,15 +160,15 @@
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
 "type.amenity.shelter.lean_to" = "Бівальны навес";
 "type.amenity.public_bath" = "Грамадская лазня";
-"type.amenity.shower" = "Shower";
+"type.amenity.shower" = "Душ";
 "type.amenity.stripclub" = "Стрыптыз-клуб";
-"type.amenity.taxi" = "Taxi Stand";
-"type.amenity.telephone" = "Phone";
-"type.amenity.theatre" = "Theatre";
-"type.amenity.toilets" = "Toilet";
-"type.toilets.yes" = "Toilet";
+"type.amenity.taxi" = "Стаянка таксі";
+"type.amenity.telephone" = "Тэлефон";
+"type.amenity.theatre" = "Тэатр";
+"type.amenity.toilets" = "Туалет";
+"type.toilets.yes" = "Туалет";
 "type.amenity.townhall" = "Адміністрацыя";
-"type.amenity.university" = "University";
+"type.amenity.university" = "Універсітэт";
 "type.amenity.vending_machine" = "Гандлёвы аўтамат";
 "type.amenity.vending_machine.cigarettes" = "Аўтамат з цыгарэтамі";
 "type.amenity.vending_machine.coffee" = "Кававы аўтамат";
@@ -183,46 +183,46 @@
 "type.amenity.parcel_locker" = "Паштамат";
 "type.amenity.vehicle_inspection" = "Тэхагляд аўтамабіля";
 "type.amenity.vending_machine.fuel" = "Паліўная калонка";
-"type.amenity.veterinary" = "Veterinary Doctor";
-"type.amenity.waste_basket" = "Trash Bin";
-"type.amenity.waste_disposal" = "Dumpster";
+"type.amenity.veterinary" = "Ветэрынар";
+"type.amenity.waste_basket" = "Сметніца";
+"type.amenity.waste_disposal" = "Смеццевы кантэйнер";
 "type.amenity.waste_transfer_station" = "Станцыя перавалкі адходаў";
 "type.amenity.water_point" = "Вада для аўтадомаў";
 "type.amenity.water_point.drinking_water_no" = "Вада для аўтадомаў";
-"type.barrier" = "Barrier";
-"type.barrier.block" = "Block";
-"type.barrier.bollard" = "Bollard";
-"type.barrier.border_control" = "Border Control";
+"type.barrier" = "Бар'ер";
+"type.barrier.block" = "Блок";
+"type.barrier.bollard" = "Слупок";
+"type.barrier.border_control" = "Памежны кантроль";
 "type.barrier.chain" = "Ланцуг";
 "type.barrier.city_wall" = "Гарадскі вал";
-"type.barrier.cycle_barrier" = "Cycle Barrier";
+"type.barrier.cycle_barrier" = "Роварны бар'ер";
 "type.waterway.ditch" = "Дрэнажная канава";
 "type.natural.water.moat" = "Роў";
 "type.natural.water.wastewater" = "Сцёкавыя вады";
-"type.barrier.entrance" = "Entrance";
-"type.barrier.fence" = "Fence";
-"type.barrier.gate" = "Gate";
-"type.barrier.hedge" = "Hedge";
-"type.barrier.kissing_gate" = "Gate";
+"type.barrier.entrance" = "Уваход";
+"type.barrier.fence" = "Плот";
+"type.barrier.gate" = "Брама";
+"type.barrier.hedge" = "Жывая загарадзь";
+"type.barrier.kissing_gate" = "Брамка";
 "type.barrier.lift_gate" = "Шлагбаўм";
-"type.barrier.retaining_wall" = "Retaining Wall";
-"type.barrier.stile" = "Stile";
+"type.barrier.retaining_wall" = "Падпорная сцяна";
+"type.barrier.stile" = "Пералаз";
 "type.barrier.turnstile" = "Турнікет";
 "type.barrier.swing_gate" = "Шлагбаўм";
-"type.barrier.toll_booth" = "Toll Booth";
-"type.barrier.wall" = "Wall";
-"type.boundary" = "Boundary";
-"type.boundary.administrative" = "Administrative Boundary";
+"type.barrier.toll_booth" = "Пункт аплаты";
+"type.barrier.wall" = "Сцяна";
+"type.boundary" = "Мяжа";
+"type.boundary.administrative" = "Адміністрацыйная мяжа";
 
 /* Borders between countries. */
-"type.boundary.administrative.2" = "National Border";
+"type.boundary.administrative.2" = "Дзяржаўная мяжа";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.3" = "Regional Boundary";
+"type.boundary.administrative.3" = "Рэгіянальная мяжа";
 
 /* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
-"type.boundary.administrative.4" = "Regional Boundary";
-"type.boundary.national_park" = "National Park";
+"type.boundary.administrative.4" = "Рэгіянальная мяжа";
+"type.boundary.national_park" = "Нацыянальны парк";
 "type.boundary.aboriginal_lands" = "Тэрыторыі першабытнікаў";
 "type.boundary.protected_area" = "Запаведная зона";
 "type.boundary.protected_area.1" = "Запаведная зона";
@@ -231,15 +231,15 @@
 "type.boundary.protected_area.4" = "Запаведная зона";
 "type.boundary.protected_area.5" = "Запаведная зона";
 "type.boundary.protected_area.6" = "Запаведная зона";
-"type.building" = "Building";
+"type.building" = "Будынак";
 
 /* Duplicates [address] in strings.txt */
 "type.building.address" = "Адрас";
-"type.building.has_parts" = "Building";
-"type.building_part" = "Building";
-"type.building.garage" = "Garage";
+"type.building.has_parts" = "Будынак";
+"type.building_part" = "Будынак";
+"type.building.garage" = "Гараж";
 "type.building.train_station" = "Будынак вакзала";
-"type.building.warehouse" = "Warehouse";
+"type.building.warehouse" = "Склад";
 "type.cemetery.grave" = "Магіла";
 "type.craft" = "Рамяство";
 "type.craft.beekeeper" = "Пчаляр";
@@ -267,97 +267,97 @@
 "type.craft.shoemaker" = "Шавец";
 "type.craft.winery" = "Вінакурня";
 "type.craft.tailor" = "Кравец";
-"type.cuisine.african" = "African";
-"type.cuisine.american" = "American";
-"type.cuisine.arab" = "Arab";
-"type.cuisine.argentinian" = "Argentinian";
-"type.cuisine.asian" = "Asian";
-"type.cuisine.austrian" = "Austrian";
-"type.cuisine.bagel" = "Bagel";
-"type.cuisine.balkan" = "Balkan";
-"type.cuisine.barbecue" = "Barbecue";
-"type.cuisine.bavarian" = "Bavarian";
-"type.cuisine.beef_bowl" = "Beef Bowl";
-"type.cuisine.brazilian" = "Brazilian";
-"type.cuisine.breakfast" = "Breakfast";
+"type.cuisine.african" = "Афрыканскі";
+"type.cuisine.american" = "Амерыканскі";
+"type.cuisine.arab" = "Арабскі";
+"type.cuisine.argentinian" = "Аргенцінскі";
+"type.cuisine.asian" = "Азіяцкі";
+"type.cuisine.austrian" = "Аўстрыйскі";
+"type.cuisine.bagel" = "Абаранак";
+"type.cuisine.balkan" = "Балканскі";
+"type.cuisine.barbecue" = "Барбекю";
+"type.cuisine.bavarian" = "Баварскі";
+"type.cuisine.beef_bowl" = "Міска ялавічыны";
+"type.cuisine.brazilian" = "Бразільскі";
+"type.cuisine.breakfast" = "Сняданак";
 "type.cuisine.bubble_tea" = "Чай з бурбалкамі";
-"type.cuisine.burger" = "Burger";
-"type.cuisine.buschenschank" = "Buschenschank";
-"type.cuisine.cake" = "Cake";
-"type.cuisine.caribbean" = "Caribbean";
-"type.cuisine.chicken" = "Chicken";
-"type.cuisine.chinese" = "Chinese";
-"type.cuisine.coffee_shop" = "Coffee";
-"type.cuisine.crepe" = "Crepe";
-"type.cuisine.croatian" = "Croatian";
-"type.cuisine.curry" = "Curry";
+"type.cuisine.burger" = "Бургер";
+"type.cuisine.buschenschank" = "Бушэншанк";
+"type.cuisine.cake" = "Торт";
+"type.cuisine.caribbean" = "Карыбскі";
+"type.cuisine.chicken" = "Кураня";
+"type.cuisine.chinese" = "Кітайскі";
+"type.cuisine.coffee_shop" = "Кава";
+"type.cuisine.crepe" = "Блін";
+"type.cuisine.croatian" = "Харвацкі";
+"type.cuisine.curry" = "Кары";
 "type.cuisine.deli" = "Дэлікатэсы";
-"type.cuisine.diner" = "Diner";
-"type.cuisine.donut" = "Donut";
-"type.cuisine.ethiopian" = "Ethiopian";
-"type.cuisine.filipino" = "Filipino";
-"type.cuisine.fine_dining" = "Fine Dining";
-"type.cuisine.fish" = "Fish";
-"type.cuisine.fish_and_chips" = "Fish and Chips";
-"type.cuisine.french" = "French";
-"type.cuisine.friture" = "Friture";
-"type.cuisine.georgian" = "Georgian";
-"type.cuisine.german" = "German";
-"type.cuisine.greek" = "Greek";
-"type.cuisine.grill" = "Grill";
-"type.cuisine.heuriger" = "Heuriger";
-"type.cuisine.hotdog" = "Hotdog";
-"type.cuisine.hungarian" = "Hungarian";
-"type.cuisine.ice_cream" = "Ice Cream";
-"type.cuisine.indian" = "Indian";
-"type.cuisine.indonesian" = "Indonesian";
-"type.cuisine.international" = "International";
-"type.cuisine.irish" = "Irish";
-"type.cuisine.italian" = "Italian";
-"type.cuisine.italian_pizza" = "Italian, Pizza";
-"type.cuisine.japanese" = "Japanese";
-"type.cuisine.kebab" = "Kebab";
-"type.cuisine.korean" = "Korean";
-"type.cuisine.lao" = "Lao";
-"type.cuisine.lebanese" = "Lebanese";
-"type.cuisine.local" = "Local";
-"type.cuisine.malagasy" = "Malagasy";
-"type.cuisine.malaysian" = "Malaysian";
-"type.cuisine.mediterranean" = "Mediterranean";
-"type.cuisine.mexican" = "Mexican";
-"type.cuisine.moroccan" = "Moroccan";
-"type.cuisine.noodles" = "Noodles";
-"type.cuisine.oriental" = "East Asian";
-"type.cuisine.pancake" = "Pancake";
-"type.cuisine.pasta" = "Pasta";
-"type.cuisine.persian" = "Persian";
-"type.cuisine.peruvian" = "Peruvian";
-"type.cuisine.pizza" = "Pizza";
-"type.cuisine.polish" = "Polish";
-"type.cuisine.portuguese" = "Portuguese";
-"type.cuisine.ramen" = "Ramen";
-"type.cuisine.regional" = "Regional";
-"type.cuisine.russian" = "Russian";
-"type.cuisine.sandwich" = "Sandwich";
-"type.cuisine.sausage" = "Sausage";
-"type.cuisine.savory_pancakes" = "Savory Pancakes";
-"type.cuisine.seafood" = "Seafood";
-"type.cuisine.soba" = "Soba";
-"type.cuisine.spanish" = "Spanish";
-"type.cuisine.steak_house" = "Steak House";
-"type.cuisine.sushi" = "Sushi";
-"type.cuisine.tapas" = "Tapas";
-"type.cuisine.tea" = "Tea";
-"type.cuisine.thai" = "Thai";
-"type.cuisine.turkish" = "Turkish";
-"type.cuisine.vegan" = "Vegan";
-"type.cuisine.vegetarian" = "Vegetarian";
-"type.cuisine.vietnamese" = "Vietnamese";
-"type.emergency" = "Emergency";
+"type.cuisine.diner" = "Закусачная";
+"type.cuisine.donut" = "Пончык";
+"type.cuisine.ethiopian" = "Эфіопскі";
+"type.cuisine.filipino" = "Філіпінскі";
+"type.cuisine.fine_dining" = "Вытанчаная кухня";
+"type.cuisine.fish" = "Рыба";
+"type.cuisine.fish_and_chips" = "Рыба і чыпсы";
+"type.cuisine.french" = "Французскі";
+"type.cuisine.friture" = "Фрыцюр";
+"type.cuisine.georgian" = "Грузінскі";
+"type.cuisine.german" = "Нямецкі";
+"type.cuisine.greek" = "Грэчаскі";
+"type.cuisine.grill" = "Грыль";
+"type.cuisine.heuriger" = "Вінная карчма (хойрыгер)";
+"type.cuisine.hotdog" = "Хот-дог";
+"type.cuisine.hungarian" = "Вугорскі";
+"type.cuisine.ice_cream" = "Марозіва";
+"type.cuisine.indian" = "Індыйскі";
+"type.cuisine.indonesian" = "Інданэзійскі";
+"type.cuisine.international" = "Міжнародны";
+"type.cuisine.irish" = "Ірландскі";
+"type.cuisine.italian" = "Італьянскі";
+"type.cuisine.italian_pizza" = "Італьянская, піца";
+"type.cuisine.japanese" = "Японская";
+"type.cuisine.kebab" = "Кебаб";
+"type.cuisine.korean" = "Карэйская";
+"type.cuisine.lao" = "Лаоска";
+"type.cuisine.lebanese" = "Ліванская";
+"type.cuisine.local" = "Мясцовая";
+"type.cuisine.malagasy" = "Малагасійская";
+"type.cuisine.malaysian" = "Малайзійская";
+"type.cuisine.mediterranean" = "Міжземнаморская";
+"type.cuisine.mexican" = "Мексіканская";
+"type.cuisine.moroccan" = "Мараканская";
+"type.cuisine.noodles" = "Локшына";
+"type.cuisine.oriental" = "Усходнеазіяцкая";
+"type.cuisine.pancake" = "Блінніца";
+"type.cuisine.pasta" = "Паста";
+"type.cuisine.persian" = "Персідская";
+"type.cuisine.peruvian" = "Перуанская";
+"type.cuisine.pizza" = "Піцэрыя";
+"type.cuisine.polish" = "Польская";
+"type.cuisine.portuguese" = "Партугальская";
+"type.cuisine.ramen" = "Рамен";
+"type.cuisine.regional" = "Рэгіянальная";
+"type.cuisine.russian" = "Руская";
+"type.cuisine.sandwich" = "Сандвічы";
+"type.cuisine.sausage" = "Каўбасная";
+"type.cuisine.savory_pancakes" = "Несалодкія бліны";
+"type.cuisine.seafood" = "Морапрадукты";
+"type.cuisine.soba" = "Соба";
+"type.cuisine.spanish" = "Іспанская";
+"type.cuisine.steak_house" = "Стэйк-хаус";
+"type.cuisine.sushi" = "Сушы";
+"type.cuisine.tapas" = "Тапас";
+"type.cuisine.tea" = "Чай";
+"type.cuisine.thai" = "Тайская";
+"type.cuisine.turkish" = "Турэцкая";
+"type.cuisine.vegan" = "Веганская";
+"type.cuisine.vegetarian" = "Вегетарыянская";
+"type.cuisine.vietnamese" = "В'етнамская";
+"type.emergency" = "Экстраная служба";
 "type.emergency.assembly_point" = "Аварыйны зборны пункт";
 "type.emergency.defibrillator" = "Дэфібрылятар";
 "type.emergency.fire_hydrant" = "Пажарны гідрант";
-"type.emergency.phone" = "Emergency Phone";
+"type.emergency.phone" = "Тэлефон экстранай дапамогі";
 
 /* A place where a lifeguard is on duty. */
 "type.emergency.lifeguard" = "Ратавальнік";
@@ -366,7 +366,7 @@
 "type.emergency.mountain_rescue" = "ГорныГ ратавальны пункт";
 
 /* This is for secondary entrances, for main entrances see type.entrance.main */
-"type.entrance" = "Entrance";
+"type.entrance" = "Уваход";
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Галоўны ўваход";
@@ -383,12 +383,12 @@
 "type.healthcare.psychotherapist" = "Псіхатэрапія";
 "type.healthcare.sample_collection" = "Збор аналізаў";
 "type.healthcare.speech_therapist" = "лагапедыя";
-"type.highway" = "Highway";
-"type.highway.bridleway" = "Bridle Path";
+"type.highway" = "Шаша";
+"type.highway.bridleway" = "Конная дарожка";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.bridleway.bridge" = "Мост";
-"type.highway.bridleway.permissive" = "Bridle Path";
+"type.highway.bridleway.permissive" = "Конная дарожка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Тунэль";
@@ -399,44 +399,44 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.busway.tunnel" = "Тунэль";
-"type.highway.bus_stop" = "Bus Stop";
-"type.highway.construction" = "Road Under Construction";
-"type.highway.cycleway" = "Cycle Path";
+"type.highway.bus_stop" = "Аўтобусны прыпынак";
+"type.highway.construction" = "Дарога ў працэсе будаўніцтва";
+"type.highway.cycleway" = "Веладарожка";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.cycleway.bridge" = "Мост";
-"type.highway.cycleway.permissive" = "Cycle Path";
+"type.highway.cycleway.permissive" = "Веладарожка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Тунэль";
-"type.highway.elevator" = "Elevator";
-"type.highway.footway" = "Foot Path";
+"type.highway.elevator" = "Ліфт";
+"type.highway.footway" = "Пешаходная сцежка";
 "type.highway.footway.sidewalk" = "Тратуар";
 "type.highway.footway.crossing" = "Пешаходны пераход";
-"type.highway.footway.area" = "Foot Path";
+"type.highway.footway.area" = "Пешаходная зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Тунэль";
-"type.highway.ford" = "Ford";
-"type.highway.living_street" = "Living Street";
+"type.highway.ford" = "Брод";
+"type.highway.living_street" = "Жылая зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Тунэль";
-"type.highway.motorway" = "Motorway";
+"type.highway.motorway" = "Аўтамагістраль";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.motorway.tunnel" = "Тунэль";
-"type.highway.motorway_junction" = "Road Exit";
-"type.highway.motorway_link" = "Motorway";
+"type.highway.motorway_junction" = "З'езд";
+"type.highway.motorway_link" = "З'езд з аўтамагістралі";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Мост";
@@ -459,39 +459,39 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.path.tunnel" = "Тунэль";
-"type.highway.pedestrian" = "Pedestrian Street";
-"type.highway.pedestrian.area" = "Pedestrian Street";
+"type.highway.pedestrian" = "Пешаходная вуліца";
+"type.highway.pedestrian.area" = "Пешаходная зона";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.pedestrian.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Тунэль";
-"type.highway.primary" = "Primary Road";
+"type.highway.primary" = "Галоўная дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Тунэль";
-"type.highway.primary_link" = "Primary Road";
+"type.highway.primary_link" = "З'езд з галоўнай дарогі";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Тунэль";
-"type.highway.raceway" = "Racetrack";
-"type.highway.residential" = "Residential Street";
-"type.highway.residential.area" = "Residential Street";
+"type.highway.raceway" = "Аўтадром";
+"type.highway.residential" = "Жылая вуліца";
+"type.highway.residential.area" = "Жылая вуліца";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Тунэль";
-"type.highway.rest_area" = "Rest Area";
-"type.highway.road" = "Road";
+"type.highway.rest_area" = "Зона адпачынку";
+"type.highway.road" = "Дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Мост";
@@ -501,64 +501,64 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Тунэль";
-"type.highway.secondary" = "Secondary Road";
+"type.highway.secondary" = "Другасная дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Тунэль";
-"type.highway.secondary_link" = "Secondary Road";
+"type.highway.secondary_link" = "З'езд з другаснай дарогі";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Тунэль";
-"type.highway.service" = "Service Road";
-"type.highway.service.area" = "Service Road";
+"type.highway.service" = "Службовая дарога";
+"type.highway.service.area" = "Службовая дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Мост";
-"type.highway.service.driveway" = "Service Road";
-"type.highway.service.parking_aisle" = "Service Road";
+"type.highway.service.driveway" = "Пад'езд";
+"type.highway.service.parking_aisle" = "Парковачны праезд";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Тунэль";
-"type.highway.services" = "Service Area";
-"type.highway.speed_camera" = "Speed Camera";
-"type.highway.steps" = "Stairs";
+"type.highway.services" = "Зона абслугоўвання";
+"type.highway.speed_camera" = "Камера хуткасці";
+"type.highway.steps" = "Лесвіца";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.steps.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Тунэль";
-"type.highway.tertiary" = "Tertiary Road";
+"type.highway.tertiary" = "Трацічная дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Тунэль";
-"type.highway.tertiary_link" = "Tertiary Road";
+"type.highway.tertiary_link" = "Трацічны з'езд з дарогі";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Тунэль";
-"type.highway.track" = "Track";
-"type.highway.track.area" = "Track";
+"type.highway.track" = "Грунтоўка";
+"type.highway.track.area" = "Грунтоўка";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Мост";
-"type.highway.track.grade1" = "Track";
-"type.highway.track.no.access" = "Track";
+"type.highway.track.grade1" = "Грунтоўка";
+"type.highway.track.no.access" = "Грунтоўка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Тунэль";
-"type.highway.traffic_signals" = "Traffic Lights";
+"type.highway.traffic_signals" = "Святлафор";
 "type.highway.trunk" = "Траса";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -573,29 +573,29 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Тунэль";
-"type.highway.unclassified" = "Minor Road";
-"type.highway.unclassified.area" = "Minor Road";
+"type.highway.unclassified" = "Малая дарога";
+"type.highway.unclassified.area" = "Малая дарога";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.unclassified.tunnel" = "Тунэль";
-"type.area_highway.cycleway" = "Cycle Path";
-"type.area_highway.footway" = "Foot Path";
-"type.area_highway.living_street" = "Living Street";
-"type.area_highway.motorway" = "Motorway";
+"type.area_highway.cycleway" = "Веладарожка";
+"type.area_highway.footway" = "Пешаходная сцежка";
+"type.area_highway.living_street" = "Жылая зона";
+"type.area_highway.motorway" = "Аўтамагістраль";
 "type.area_highway.path" = "Сцежка";
-"type.area_highway.pedestrian" = "Pedestrian Street";
-"type.area_highway.primary" = "Primary Road";
-"type.area_highway.residential" = "Residential Street";
-"type.area_highway.secondary" = "Secondary Road";
-"type.area_highway.service" = "Service Road";
-"type.area_highway.tertiary" = "Tertiary Road";
-"type.area_highway.steps" = "Stairs";
-"type.area_highway.track" = "Track";
+"type.area_highway.pedestrian" = "Пешаходная вуліца";
+"type.area_highway.primary" = "Галоўная дарога";
+"type.area_highway.residential" = "Жылая вуліца";
+"type.area_highway.secondary" = "Другасная дарога";
+"type.area_highway.service" = "Службовая дарога";
+"type.area_highway.tertiary" = "Трацічная дарога";
+"type.area_highway.steps" = "Лесвіца";
+"type.area_highway.track" = "Грунтоўка";
 "type.area_highway.trunk" = "Траса";
-"type.area_highway.unclassified" = "Minor Road";
+"type.area_highway.unclassified" = "Малая дарога";
 "type.highway.world_level" = "highway-world_level";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 "type.historic" = "Гістарычны аб'ект";
@@ -657,54 +657,54 @@
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
 "type.hwtag.yescar" = "hwtag-yescar";
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-"type.internet_access" = "Internet";
-"type.internet_access.wlan" = "Internet";
-"type.junction" = "Junction";
-"type.junction.circular" = "Roundabout";
-"type.junction.roundabout" = "Roundabout";
-"type.landuse" = "Landuse";
-"type.landuse.allotments" = "Allotments";
+"type.internet_access" = "Інтэрнэт";
+"type.internet_access.wlan" = "Інтэрнэт";
+"type.junction" = "Скрыжаванне";
+"type.junction.circular" = "Кальцавая развязка";
+"type.junction.roundabout" = "Кальцавая развязка";
+"type.landuse" = "Землекарыстанне";
+"type.landuse.allotments" = "Надзелы";
 "type.landuse.basin" = "Рэзервуар";
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Браўнфілд";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Могілкі";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Хрысціянскія могілкі";
-"type.landuse.churchyard" = "Churchyard";
-"type.landuse.commercial" = "Commercial Area";
-"type.landuse.construction" = "Construction Area";
+"type.landuse.churchyard" = "Цвінтар";
+"type.landuse.commercial" = "Камерцыйная зона";
+"type.landuse.construction" = "Будаўнічая пляцоўка";
 "type.landuse.education" = "Адукацыйныя ўстановы";
-"type.landuse.farmland" = "Farmland";
-"type.landuse.farmyard" = "Farmyard";
-"type.landuse.field" = "Field";
+"type.landuse.farmland" = "Сельгасугоддзі";
+"type.landuse.farmyard" = "Гаспадарчы двор";
+"type.landuse.field" = "Поле";
 "type.landuse.flowerbed" = "клумба";
-"type.landuse.forest" = "Forest";
-"type.landuse.forest.coniferous" = "Coniferous Forest";
-"type.landuse.forest.deciduous" = "Deciduous Forest";
-"type.landuse.forest.mixed" = "Mixed-Leaf Forest";
-"type.landuse.garages" = "Garages";
-"type.landuse.grass" = "Grass";
-"type.landuse.greenfield" = "Greenfield";
-"type.landuse.greenhouse_horticulture" = "Greenhouse";
-"type.landuse.industrial" = "Industrial Area";
-"type.landuse.landfill" = "Landfill";
-"type.landuse.meadow" = "Meadow";
-"type.landuse.military" = "Military Area";
-"type.landuse.orchard" = "Orchard";
-"type.landuse.quarry" = "Quarry";
-"type.landuse.railway" = "Railway Premises";
-"type.landuse.recreation_ground" = "Recreation Ground";
-"type.landuse.reservoir" = "Reservoir";
-"type.landuse.residential" = "Residential Area";
-"type.landuse.retail" = "Retail Area";
-"type.landuse.salt_pond" = "Salt Pond";
-"type.landuse.village_green" = "Land";
-"type.landuse.vineyard" = "Vineyard";
-"type.leisure" = "Leisure";
-"type.leisure.common" = "Public Land";
-"type.leisure.dog_park" = "Dog Park";
+"type.landuse.forest" = "Лес";
+"type.landuse.forest.coniferous" = "Хвойны лес";
+"type.landuse.forest.deciduous" = "Лісцевы лес";
+"type.landuse.forest.mixed" = "Змешаны лісцевы лес";
+"type.landuse.garages" = "Гаражы";
+"type.landuse.grass" = "Трава";
+"type.landuse.greenfield" = "Зямля для забудовы";
+"type.landuse.greenhouse_horticulture" = "Цяпліца";
+"type.landuse.industrial" = "Прамысловая зона";
+"type.landuse.landfill" = "Сметнік";
+"type.landuse.meadow" = "Луг";
+"type.landuse.military" = "Ваенная зона";
+"type.landuse.orchard" = "Сад";
+"type.landuse.quarry" = "Кар'ер";
+"type.landuse.railway" = "Чыгуначныя будынкі";
+"type.landuse.recreation_ground" = "Зона адпачынку";
+"type.landuse.reservoir" = "Вадасховішча";
+"type.landuse.residential" = "Жылы раён";
+"type.landuse.retail" = "Гандлёвая зона";
+"type.landuse.salt_pond" = "Саляная сажалка";
+"type.landuse.village_green" = "Парк";
+"type.landuse.vineyard" = "Вінаграднік";
+"type.leisure" = "Месца адпачынку";
+"type.leisure.common" = "Грамадская зямля";
+"type.leisure.dog_park" = "Сабачы парк";
 "type.leisure.fitness_centre" = "Fitness Centre";
 "type.leisure.fitness_station" = "Fitness Station";
 "type.leisure.dance" = "Танцавальная зала";
@@ -898,10 +898,10 @@
 "type.power.tower" = "Power Tower";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Электрычны слуп";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Слуп ЛЭП";
 "type.psurface" = "psurface";
 "type.psurface.paved_bad" = "psurface-paved_bad";
 "type.psurface.paved_good" = "psurface-paved_good";
@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спартыўная зала";
+"type.amenity.love_hotel" = "Любоўны гатэль";
+"type.highway.ladder" = "Лесвіца";
+"type.barrier.guard_rail" = "Агароджа";
+"type.leisure.firepit" = "Кастрышча";
+"type.landuse.plant_nursery" = "Гадавальнік раслін";
+"type.amenity.studio" = "Студыя гуказапісу, тэлестудыя";

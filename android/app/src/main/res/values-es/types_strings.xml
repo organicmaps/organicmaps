@@ -1395,4 +1395,8 @@
     <string name="type.fee.yes">$</string>
     <string name="type.railway.narrow_gauge.tunnel">Túnel de vía férrea estrecha</string>
     <string name="type.railway.light_rail.bridge">Puente de tren ligero</string>
+    <string name="type.highway.ladder">Escalera</string>
+    <string name="type.barrier.guard_rail">Barrera de contención</string>
+    <string name="type.amenity.studio">Estudio</string>
+    <string name="type.amenity.love_hotel">Hotel para parejas</string>
 </resources>

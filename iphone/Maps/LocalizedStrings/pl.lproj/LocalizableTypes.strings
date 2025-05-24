@@ -1440,7 +1440,7 @@
 "type.wheelchair.limited" = "Częściowo wyposażono dla osób niepełnosprawnych";
 "type.wheelchair.no" = "Nie wyposażono dla osób niepełnosprawnych";
 "type.wheelchair.yes" = "Wyposażono dla osób niepełnosprawnych";
-"type.aerialway.j.bar" = "J-bar Lift";
+"type.aerialway.j.bar" = "Wyciąg orczykowy";
 "type.aerialway.magic_carpet" = "Magic Carpet";
 "type.aerialway.platter" = "Platter Lift";
 "type.aerialway.rope_tow" = "Rope Tow";
@@ -1459,8 +1459,8 @@
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
 "type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 "type.piste_type.nordic" = "Nordic Ski Trail";
-"type.piste_type.sled" = "Sledding Piste";
-"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.sled" = "Stok saneczkowy";
+"type.piste_type.sled.area" = "Stok saneczkowy";
 "type.piste_type.snow_park" = "Snow Park";
 "type.piste_type.hike" = "Śnieżny szlak turystyczny";
 "type.piste_type.connection" = "Piste Connection";
@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Hala sportowa";
+"type.amenity.love_hotel" = "Hotel miłości";
+"type.amenity.studio" = "Studio";
+"type.barrier.guard_rail" = "Barierka ochronna";
+"type.landuse.plant_nursery" = "Szkółka roślin";
+"type.highway.ladder" = "Drabina";
+"type.leisure.firepit" = "Ognisko";

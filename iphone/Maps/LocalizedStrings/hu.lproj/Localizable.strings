@@ -481,11 +481,11 @@
 "editor_time_allday" = "Egész nap (24 óra)";
 "editor_time_open" = "Nyitva";
 "editor_time_close" = "Zárva";
-"editor_time_add_closed" = "Zárva tartás hozzáadása";
-"editor_time_title" = "Nyitva tartás";
+"editor_time_add_closed" = "Zárvatartás hozzáadása";
+"editor_time_title" = "Nyitvatartás";
 "editor_time_advanced" = "Speciális mód";
 "editor_time_simple" = "Egyszerű mód";
-"editor_hours_closed" = "Zárva tartás";
+"editor_hours_closed" = "Zárvatartás";
 "editor_example_values" = "Példaértékek";
 "editor_add_select_location" = "Hely kiválasztása";
 "editor_done_dialog_1" = "Módosította a világtérképet! Ne tartsa meg magának, mondja el a barátainak, és szerkesszék azt közösen.";
@@ -561,7 +561,7 @@
 "editor_edit_place_name_hint" = "Hely neve";
 
 /* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
-"editor_default_language_hint" = "Ahogyan a helyi nyelven írva van";
+"editor_default_language_hint" = "Ahogyan az, a helyi nyelven írva van";
 "editor_edit_place_category_title" = "Kategória";
 "whatsnew_editor_message_1" = "Új helyek hozzáadása a térképhez, és a meglévők szerkesztése közvetlenül az alkalmazásból.";
 "dialog_incorrect_feature_position" = "Helyszín módosítása";
@@ -602,7 +602,7 @@
 "editor_category_unsuitable_title" = "Nem találja a megfelelő kategóriát?";
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
-"downloader_no_downloaded_maps_message" = "Térkép letöltése offline kereséshez és navigáláshoz.";
+"downloader_no_downloaded_maps_message" = "Térképek letöltése az offline kereséshez és navigáláshoz.";
 "current_location_unknown_error_title" = "A jelenlegi helyzet ismeretlen.";
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 "location_services_disabled_header" = "Helymeghatározás kikapcsolva";
@@ -624,14 +624,14 @@
 "km" = "km";
 
 /* abbreviation for kilometers per hour */
-"kilometers_per_hour" = "km/h";
+"kilometers_per_hour" = "km/ó";
 
 /* abbreviation for mile(s) */
 "mi" = "mf";
 
 /* A unit of measure */
 "ft" = "láb";
-"miles_per_hour" = "mf/h";
+"miles_per_hour" = "mf/ó";
 "hour" = "ó";
 "minute" = "p";
 "day" = "nap";
@@ -756,8 +756,8 @@
 "subway_data_unavailable" = "A metrótérkép nem érhető el";
 "title_error_downloading_bookmarks" = "Hiba történt";
 "popular_place" = "Népszerű";
-"export_file" = "Exportálás KMZ fájlba";
-"export_file_gpx" = "Exportálás GPX fájlba";
+"export_file" = "Exportálás KMZ-fájlba";
+"export_file_gpx" = "Exportálás GPX-fájlba";
 "delete_list" = "Lista törlése";
 "hide_from_map" = "Elrejtés a térképről";
 "tags_loading_error_subtitle" = "Hiba történt a címkék betöltése közben, próbálja meg újra";
@@ -949,7 +949,7 @@
 "app_tip_06" = "Segítsen lefordítani az alkalmazást az Ön nyelvére.";
 
 /* App tip #07 */
-"app_tip_07" = "Ezt az alkalmazást néhány lelkes közreműködő és a közösség fejleszteti.";
+"app_tip_07" = "Ezt az alkalmazást néhány lelkes közreműködő és a közösség fejleszti.";
 
 /* App tip #08 */
 "app_tip_08" = "Könnyedén javíthatja a térképadatokat.";

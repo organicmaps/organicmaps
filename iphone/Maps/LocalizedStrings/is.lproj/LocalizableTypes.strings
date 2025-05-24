@@ -1298,3 +1298,9 @@
 "type.amenity.events_venue" = "Aðstaða fyrir atburð";
 "type.amenity.social_facility" = "Félagsþjónusta";
 "type.leisure.sports_hall" = "Íþróttahús";
+"type.amenity.love_hotel" = "Elskendahótel";
+"type.amenity.studio" = "Stúdíó";
+"type.barrier.guard_rail" = "Handrið";
+"type.landuse.plant_nursery" = "Græðlingaræktun";
+"type.leisure.firepit" = "Eldgryfja";
+"type.highway.ladder" = "Stigi";

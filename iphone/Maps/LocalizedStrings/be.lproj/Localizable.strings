@@ -301,7 +301,7 @@
 "follow_us" = "Падпісвайцеся і пішыце нам:";
 
 /* Alert text */
-"email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.";
+"email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@";
 
 /* Alert title */
 "email_error_title" = "Памылка пры адпраўцы пошты";
@@ -606,7 +606,7 @@
 "current_location_unknown_error_title" = "Месцазнаходжанне невядома.";
 "current_location_unknown_error_message" = "Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.";
 "location_services_disabled_header" = "Геалакацыя адключана";
-"location_services_disabled_message" = "Уключыце доступ да геалакацыі у наладах прылады.";
+"location_services_disabled_message" = "Уключыце доступ да геалакацыі у наладах прылады";
 "location_services_disabled_1" = "1. Адкрыйце Налады";
 "location_services_disabled_2" = "2. Націсніце Геалакацыя";
 
@@ -824,9 +824,9 @@
 "trip_finished" = "Вы прыбылі!";
 "keyboard_availability_alert" = "Клавіятура недасягальная падчас язды";
 "dialog_routing_change_start_carplay" = "Не атрымалася пракласці маршрут ад вашага цяперашняга месцазнаходжання";
-"dialog_routing_change_end_carplay" = "Не атрымалася пракласці маршрут да вашага пункту прызначэння. Выберыце іншы пункт прызначэння.";
+"dialog_routing_change_end_carplay" = "Не атрымалася пракласці маршрут да вашага пункту прызначэння. Выберыце іншы пункт прызначэння";
 "dialog_routing_check_gps_carplay" = "Няма сігналу GPS. Перамясціцеся на адкрытую прастору";
-"dialog_routing_unable_locate_route_carplay" = "Не атрымалася пракласці маршрут. Выберыце іншыя кропкі маршрута.";
+"dialog_routing_unable_locate_route_carplay" = "Не атрымалася пракласці маршрут. Выберыце іншыя кропкі маршрута";
 "dialog_routing_download_files_carplay" = "Каб пракласці маршрут, спампуйце карты, якіх не хапае на вашай прыладзе";
 "dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце праграму";
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання";

@@ -232,7 +232,7 @@
 "pref_tts_enable_title" = "音声指示";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "通りの名前を発表";
+"pref_tts_street_names_title" = "通りの名前をアナウンスする";
 
 /* Settings «Route» category: «Tts announce street names» description */
 "pref_tts_street_names_description" = "有効にすると、右折する通りまたは出口の名前が読み上げられます。";

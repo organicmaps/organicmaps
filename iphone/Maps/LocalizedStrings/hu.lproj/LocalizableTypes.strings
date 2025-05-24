@@ -1275,7 +1275,7 @@
 "type.shop.variety_store" = "100 forintos bolt";
 "type.shop.video" = "Videófilmbolt vagy -kölcsönző";
 "type.shop.video_games" = "Videojáték-bolt";
-"type.shop.wine" = "Boszaküzlet";
+"type.shop.wine" = "Borszaküzlet";
 "type.shop.agrarian" = "Gazdabolt";
 "type.shop.antiques" = "Régiségkereskedés";
 "type.shop.appliance" = "Háztartásigép-bolt";
@@ -1480,3 +1480,9 @@
 "type.mapswithme.grid" = "mapswithme-rács";
 "type.hwtag.nocar" = "útcímke-személyautóval_nem_használható";
 "type.hwtag.yesfoot" = "útcímke-gyalogosan_használható";
+"type.landuse.plant_nursery" = "Faiskola";
+"type.leisure.firepit" = "Tűzrakóhely";
+"type.barrier.guard_rail" = "Szalagkorlát";
+"type.amenity.love_hotel" = "Szeretőszálló";
+"type.amenity.studio" = "Stúdió";
+"type.highway.ladder" = "Létra";

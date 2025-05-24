@@ -1395,4 +1395,10 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
+    <string name="type.amenity.love_hotel">Готель кохання</string>
+    <string name="type.highway.ladder">Драбина</string>
+    <string name="type.landuse.plant_nursery">Розсадник</string>
+    <string name="type.leisure.firepit">Вогняна яма</string>
+    <string name="type.amenity.studio">Студія</string>
+    <string name="type.barrier.guard_rail">Захисна огорожа</string>
 </resources>

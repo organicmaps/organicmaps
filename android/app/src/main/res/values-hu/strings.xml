@@ -395,20 +395,20 @@
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Következő</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_from">Ettől:</string>
+    <string name="editor_time_from">Ettől</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
-    <string name="editor_time_to">Eddig:</string>
+    <string name="editor_time_to">Eddig</string>
     <string name="editor_time_add">Ütemterv hozzáadása</string>
     <string name="editor_time_delete">Ütemterv törlése</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">Egész nap (24 óra)</string>
     <string name="editor_time_open">Nyitva</string>
     <string name="editor_time_close">Zárva</string>
-    <string name="editor_time_add_closed">Zárva tartás hozzáadása</string>
-    <string name="editor_time_title">Nyitva tartás</string>
+    <string name="editor_time_add_closed">Zárvatartás hozzáadása</string>
+    <string name="editor_time_title">Nyitvatartás</string>
     <string name="editor_time_advanced">Speciális mód</string>
     <string name="editor_time_simple">Egyszerű mód</string>
-    <string name="editor_hours_closed">Zárva tartás</string>
+    <string name="editor_hours_closed">Zárvatartás</string>
     <string name="editor_example_values">Példaértékek</string>
     <string name="editor_correct_mistake">Hiba javítása</string>
     <string name="editor_add_select_location">Hely kiválasztása</string>
@@ -469,7 +469,7 @@
     <string name="editor_add_place_title">Hozzáadás</string>
     <string name="editor_edit_place_name_hint">Hely neve</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
-    <string name="editor_default_language_hint">Ahogyan a helyi nyelven írva van</string>
+    <string name="editor_default_language_hint">Ahogyan az, a helyi nyelven írva van</string>
     <string name="editor_edit_place_category_title">Kategória</string>
     <string name="detailed_problem_description">A probléma részletes leírása</string>
     <string name="editor_report_problem_other_title">Más jellegű probléma</string>
@@ -507,18 +507,18 @@
     <string name="editor_category_unsuitable_title">Nem találja a megfelelő kategóriát?</string>
     <string name="editor_category_unsuitable_text">Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
-    <string name="downloader_no_downloaded_maps_message">Térkép letöltése offline kereséshez és navigáláshoz.</string>
+    <string name="downloader_no_downloaded_maps_message">Térképek letöltése az offline kereséshez és navigáláshoz.</string>
     <!-- abbreviation for meters -->
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
     <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/h</string>
+    <string name="kilometers_per_hour">km/ó</string>
     <!-- abbreviation for mile(s) -->
     <string name="mi">mf</string>
     <!-- A unit of measure -->
     <string name="ft">láb</string>
-    <string name="miles_per_hour">mf/h</string>
+    <string name="miles_per_hour">mf/ó</string>
     <string name="hour">ó</string>
     <string name="minute">p</string>
     <string name="day">nap</string>
@@ -629,8 +629,8 @@
     <string name="bookmarks_empty_list_title">Ez a lista üres</string>
     <string name="bookmarks_empty_list_message">Egy könyvjelző hozzáadásához érintsen meg a térképen egy helyet, majd érintse meg a csillag ikont</string>
     <string name="category_desc_more">…több</string>
-    <string name="export_file">Exportálás KMZ fájlba</string>
-    <string name="export_file_gpx">Exportálás GPX fájlba</string>
+    <string name="export_file">Exportálás KMZ-fájlba</string>
+    <string name="export_file_gpx">Exportálás GPX-fájlba</string>
     <string name="delete_list">Lista törlése</string>
     <string name="public_access">Nyilvános hozzáférés</string>
     <string name="limited_access">Korlátozott hozzáférés</string>
@@ -764,7 +764,7 @@
     <!-- App tip #06 -->
     <string name="app_tip_06">Segítsen lefordítani az alkalmazást az Ön nyelvére.</string>
     <!-- App tip #07 -->
-    <string name="app_tip_07">Ezt az alkalmazást néhány lelkes közreműködő és a közösség fejleszteti.</string>
+    <string name="app_tip_07">Ezt az alkalmazást néhány lelkes közreműködő és a közösség fejleszti.</string>
     <!-- App tip #08 -->
     <string name="app_tip_08">Könnyedén javíthatja a térképadatokat.</string>
     <!-- App tip #09 -->

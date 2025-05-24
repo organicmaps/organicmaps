@@ -56,7 +56,7 @@
     <string name="disconnect_usb_cable">Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
-    <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
+    <string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。\nこれには%sの空き容量が必要です。</string>
     <string name="download_resources_continue">マップを表示</string>
     <string name="downloading_country_can_proceed">%sをダウンロードしました
 \nマップを表示可能です</string>
@@ -246,7 +246,7 @@
     <!-- Settings «Route» category: «Tts enabled» title -->
     <string name="pref_tts_enable_title">音声指示</string>
     <!-- Settings «Route» category: «Tts announce street names» title -->
-    <string name="pref_tts_street_names_title">通りの名前を発表</string>
+    <string name="pref_tts_street_names_title">通りの名前をアナウンスする</string>
     <!-- Settings «Route» category: «Tts announce street names» description -->
     <string name="pref_tts_street_names_description">有効にすると、右折する通りまたは出口の名前が読み上げられます。</string>
     <!-- Settings «Route» category: «Tts language» title -->
@@ -770,7 +770,7 @@
     <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">等高線を調べるようにズームインしてください</string>
     <string name="downloader_loading_ios">ダウンロード中</string>
-    <string name="download_map_title">世界地図をダウンロード</string>
+    <string name="download_map_title">おおまかな世界地図をダウンロード</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">フォルダーの作成と内部ストレージまたはSDカードへのファイルの移動に失敗しました</string>
     <!-- Used in DownloadResources startup screen -->
@@ -875,7 +875,25 @@
     <string name="error_no_file_manager_app">デバイスに適切なアプリがインストールされていないため、フォルダ選択ダイアログを表示できません。ファイルマネージャーアプリをインストールして再度お試しください。</string>
     <string name="choose_color">色を選択</string>
     <string name="edit_track">ルートを編集</string>
-    <string name="uri_open_location_failed">場所を開くことができるアプリがインストールされていません</string>
+    <string name="uri_open_location_failed">場所を開けるアプリがインストールされていません</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">ナビゲーションオート</string>
+    <string name="mb">MB</string>
+    <string name="instagram">Instagram</string>
+    <string name="matrix">表</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="gb">GB</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="level_value_generic">レベル: %s</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 </resources>

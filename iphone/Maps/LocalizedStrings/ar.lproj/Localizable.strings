@@ -169,7 +169,7 @@
 "edit" = "تعديل";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "لم يتم تحديد موقعك بعد.";
+"unknown_current_position" = "لم يتم تحديد موقعك بعد";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "مرحباً، تفقد الدبوس الخاص بي على خريطة Organic Maps!";
@@ -265,7 +265,7 @@
 "instagram" = "إنستغرام";
 
 /* Text in the editor */
-"vk" = "VK";
+"vk" = "في كيه";
 
 /* Text in menu */
 "rate_the_app" = "قيّم التطبيق";
@@ -356,7 +356,7 @@
 "routing_download_maps_along" = "تنزيل الخرائط على طول طريقك";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك";
+"routing_requires_all_map" = "من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك.";
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
@@ -414,13 +414,13 @@
 "dialog_routing_disclaimer_priority" = "— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;";
 "dialog_routing_disclaimer_precision" = "— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;";
 "dialog_routing_disclaimer_recommendations" = "— يجب التعامل مع المسارات المقترحة كتوصيات فقط;";
-"dialog_routing_disclaimer_borders" = "— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها;";
+"dialog_routing_disclaimer_borders" = "— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها.";
 "dialog_routing_disclaimer_beware" = "يجب أن تظل يقظًا وآمنًا على الطريق!";
 "dialog_routing_check_gps" = "تحقق من إشارة نظام تحديد الموقع الجغرافي";
 "dialog_routing_error_location_not_found" = "تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.";
 "dialog_routing_location_turn_wifi" = "الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.";
 "dialog_routing_location_turn_on" = "تفعيل خدمات الموقع الجغرافي";
-"dialog_routing_location_unknown_turn_on" = "لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب";
+"dialog_routing_location_unknown_turn_on" = "لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب.";
 "dialog_routing_download_files" = "تنزيل الملفات المطلوبة";
 "dialog_routing_download_and_update_all" = "قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.";
 "dialog_routing_unable_locate_route" = "تعذر إيجاد المسار";
@@ -467,7 +467,7 @@
 "read_in_wikipedia" = "ويكيبيديا";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "مشاعات ويكيميديا";
 "p2p_your_location" = "موقعك";
 "p2p_start" = "ابدأ";
 "p2p_from_here" = "الطريق من هنا";
@@ -700,7 +700,7 @@
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
 "enable_logging" = "تفعيل التسجيل";
 "log_file_size" = "حجم ملف السجل: %@";
-"transliteration_title" = "كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي";
+"transliteration_title" = "ترجمة حرفية إلى الأبجدية اللاتينية";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "خروج";
@@ -774,7 +774,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "لا تحذرني من أبداً";
 "power_managment_title" = "وضع توفير الطاقة";
-"power_managment_description" = "عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي";
+"power_managment_description" = "عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي.";
 "power_managment_setting_never" = "أبدًا";
 "power_managment_setting_auto" = "تلقائي";
 "power_managment_setting_manual_max" = "توفير الطاقة الأقصى";
@@ -791,7 +791,7 @@
 "avoid_ferry" = "تجنب استخدام العبّارات";
 "avoid_motorways" = "تجنب الطريق السريع";
 "unable_to_calc_alert_title" = "لا يمكن حساب الطريق";
-"unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا";
+"unable_to_calc_alert_subtitle" = "نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.";
 "define_to_avoid_btn" = "حدد الطرق التي يجب تجنبها";
 "change_driving_options_btn" = "تم تفعيل خيارات رسم الطريق";
 "toll_road" = "طريق برسوم مرور";
@@ -871,7 +871,7 @@
 "search_in_the_list" = "ابحث في القائمة";
 "religious_places" = "أماكن دينية";
 "transit_not_found" = "التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن";
-"dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مترو الانفاق";
+"dialog_pedestrian_route_is_long_header" = "لم يتم العثور على مسار مترو الأنفاق";
 "dialog_pedestrian_route_is_long_message" = "يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق";
 "button_layer_isolines" = "تضاريس";
 "isolines_activation_error_dialog" = "لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة";

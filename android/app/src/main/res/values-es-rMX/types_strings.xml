@@ -555,4 +555,5 @@
     <string name="type.amenity.motorcycle_rental">Renta de motocicletas</string>
     <string name="type.highway.traffic_signals">Semáforo</string>
     <string name="type.cuisine.crepe">Crepas</string>
+    <string name="type.shop.department_store">Tienda departamental</string>
 </resources>

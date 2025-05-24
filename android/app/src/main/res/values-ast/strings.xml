@@ -176,4 +176,23 @@
     <string name="choose_street">Escueyi una cai</string>
     <string name="select_option">Esbilla una opción</string>
     <string name="choose_color">Escueyi un color</string>
+    <string name="buildings">Edificaciones</string>
+    <string name="done">Fecho</string>
+    <string name="pref_map_3d_buildings_title">Edificaciones 3D</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="house_number">Númberu d’edificación</string>
+    <string name="cuisine">Cocina</string>
+    <string name="editor_add_place_title">Amestando</string>
+    <string name="speedcams_alert_title">Radares de velocidá</string>
+    <string name="bookmarks">Marcadores</string>
+    <string name="category_hotel">Hotel</string>
+    <string name="category_recycling">Reciclaxe</string>
+    <string name="category_police">Policía</string>
+    <string name="core_placepage_unknown_place">Puntu nel mapa</string>
+    <string name="choose_language">Escueyi una llingua</string>
+    <string name="compass_calibration_recommended">Ameyora la direición de la flecha moviendo’l teléfonu en forma d’ocho pa calibrar la brúxula.</string>
+    <string name="share_my_location">Compartir el mio allugamientu</string>
+    <string name="hotels">Hoteles</string>
+    <string name="compass_calibration_required">Mueve’l teléfonu en forma d’ocho para calibrar la brúxula y afitar la direición de la flecha nel mapa.</string>
+    <string name="pref_tts_speedcams_auto">Alvertir al esceder la llende de velocidá</string>
 </resources>

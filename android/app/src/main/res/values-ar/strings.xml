@@ -9,7 +9,7 @@
     <string name="delete">حذف</string>
     <string name="download_maps">تنزيل الخرائط</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">فشلت عملية التنزيل، انقر لإعادة المحاولة</string>
+    <string name="download_has_failed">فشلت عملية التنزيل، انقر لإعادة المحاولة.</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">جاري التنزيل…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -56,11 +56,10 @@
     <string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
     <string name="download">تنزيل</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.</string>
+    <string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
-    <string name="download_resources">قبل أن تبدأ باستخدام التطبيق، سنقوم بتنزيل خريطة العالم العامة على جهازك.
-\nستحتاج إلى %s من البيانات.</string>
+    <string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنةلناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق</string>
+    <string name="download_resources">قبل البدء في استخدام التطبيق، يرجى تنزيل خريطة نظرة عامة على العالم على جهازك. \nسيستخدم %s من مساحة التخزين.</string>
     <string name="download_resources_continue">الذهاب الى الخريطة</string>
     <string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن
 \nالمتابعة الى الخريطة.</string>
@@ -116,8 +115,7 @@
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">وحدات القياس</string>
     <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">اختر من بين الأميال و الكيلومترات.</string>
-
+    <string name="measurement_units_summary">اختر من بين الأميال و الكيلومترات</string>
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">أمكان لتناول الطعام</string>
@@ -165,7 +163,6 @@
     <string name="category_water">ماء</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">منشآت للمنازل المتنقلة</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">ملاحظات</string>
@@ -192,11 +189,11 @@
     <!-- resource for context menu -->
     <string name="edit">تعديل</string>
     <!-- Warning message when doing search around current position -->
-    <string name="unknown_current_position">لم يتم تحديد موقعك بعد.</string>
+    <string name="unknown_current_position">لم يتم تحديد موقعك بعد</string>
     <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
     <string name="cant_change_this_setting">نأسف، اعدادات تخزين الخرائط معطلة حالياً.</string>
     <!-- Alert message that downloading is in progress. -->
-    <string name="downloading_is_active">جاري الآن تنزيل الخريطة</string>
+    <string name="downloading_is_active">جاري الآن تنزيل الخريطة.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">مرحباً، تفقد الموقع الخاص بي على Organic Maps! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
@@ -337,7 +334,7 @@
     <!-- Text for routing error dialog -->
     <string name="routing_download_maps_along">تنزيل الخرائط على طول طريقك</string>
     <!-- Text for routing error dialog -->
-    <string name="routing_requires_all_map">من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك</string>
+    <string name="routing_requires_all_map">من أجل تعيين الطريق، نحتاج إلى تنزيل أو تحديث جميع الخرائط التي تغطي المنطقة من موقعك إلى وجهتك.</string>
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">لا يوجد مساحة كافية</string>
     <!-- location service disabled -->
@@ -376,19 +373,18 @@
     <string name="gray">رمادي</string>
     <!-- blue gray color -->
     <string name="blue_gray">رمادي أزرق</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">عند اتباع المسار، يُرجى الانتباه إلى ما يلي:</string>
     <string name="dialog_routing_disclaimer_priority">— إن ظروف الطريق وقوانين وإشارات المرور لها الأولوية على المشورة الملاحية دائماً;</string>
     <string name="dialog_routing_disclaimer_precision">— قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;</string>
     <string name="dialog_routing_disclaimer_recommendations">— يجب التعامل مع المسارات المقترحة كتوصيات فقط;</string>
-    <string name="dialog_routing_disclaimer_borders">— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها;</string>
+    <string name="dialog_routing_disclaimer_borders">— تحذير بشأن المسارات في المناطق الحدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر أحياناً حدود الدول في أماكن غير مصرح بها.</string>
     <string name="dialog_routing_disclaimer_beware">يجب أن تظل يقظًا وآمنًا على الطريق!</string>
     <string name="dialog_routing_check_gps">تحقق من إشارة نظام تحديد الموقع الجغرافي</string>
     <string name="dialog_routing_error_location_not_found">تعذر إنشاء مسار. لم نستطع تحديد الإحداثيات الجغرافية الحالية.</string>
     <string name="dialog_routing_location_turn_wifi">الرجاء التحقق من إشارة نظام تحديد الموقع. إن تفعيل الWi-Fi سيحسب دقة الموقع.</string>
     <string name="dialog_routing_location_turn_on">تفعيل خدمات الموقع الجغرافي</string>
-    <string name="dialog_routing_location_unknown_turn_on">لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب</string>
+    <string name="dialog_routing_location_unknown_turn_on">لم نستطع تحديد الإحداثيات الجغرافية الحالي. قم بتفعيل خدمات الموقع الجغرافي لحساب الطريق المناسب.</string>
     <string name="dialog_routing_unable_locate_route">تعذر إيجاد المسار</string>
     <string name="dialog_routing_cant_build_route">تعذر إنشاء مسار.</string>
     <string name="dialog_routing_change_start_or_end">الرجاء تعديل نقطة بدء أو تعديل وجهتك.</string>
@@ -406,7 +402,6 @@
     <string name="not_now">ليس الآن</string>
     <string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
     <string name="dialog_routing_download_cross_route">تنزيل خرائط إضافية لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، ولن تحتاج إلى اتصال بالإنترنت بعد ذلك.</string>
     <string name="search_select_map">اختيار الخريطة</string>
@@ -521,7 +516,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %s. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي لبناء خريطة مجانية ومفتوحة. إنه المصدر الرئيسي لبيانات الخرائط في الخرائط العضوية ويعمل على غرار ويكيبيديا. يمكنك إضافة الأماكن أو تعديلها وتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم. \انضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) هو مشروع مجتمعي لبناء خريطة مجانية ومفتوحة. إنه المصدر الرئيسي لبيانات الخرائط في الخرائط العضوية ويعمل على غرار ويكيبيديا. يمكنك إضافة الأماكن أو تعديلها وتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم. \nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!</string>
     <string name="login_to_make_edits_visible">أنشئ حساباً على OpenStreetMap أو سجّل الدخول لنشر تعديلاتك على الخريطة للعالم.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d من%2$d</string>
@@ -617,11 +612,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">تعقيب عام</string>
     <string name="prefs_languages_information">نحن نستخدم نظام تحويل النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة أندرويد نظام Google TTS، يمكنك تنزيله من أو تحديثه من متجر Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(.
-\nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام.
-\nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت)</string>
+    <string name="prefs_languages_information_off">بالنسبة لبعض اللغات، ستحتاج إلى تنزيل تطبيق تحويل النص إلى كلام أو حزمة لغات إضافية من متجر التطبيقات(متجر Play، Galaxy Store، App Gallery، FDroid(. \nافتح إعدادات جهازك ثم اللغة والإدخال ثم تحويل النص إلى كلام. \nهنا يمكنك إدارة الإعدادات لأنظمة تحويل النص إلى كلا(على سبيل المثال، تنزيل حزمة اللغة للاستجدام دون اتصال انترنيت).</string>
     <string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
-    <string name="transliteration_title">كتابة جميع الاسماء بالحروف اللاتينية بشكل حرفي</string>
+    <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
     <string name="learn_more">معرفة المزيد</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">خروج</string>
@@ -636,7 +629,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.</string>
     <string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
-    <string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
     <string name="core_entrance">المدخل</string>
     <string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
@@ -645,6 +638,7 @@
     <string name="bookmark_lists_hide_all">إخفاء الكل</string>
     <string name="bookmark_lists_show_all">إظهار الكل</string>
     <plurals name="bookmarks_places">
+        <item quantity="zero">%d إشارة مرجعية</item>
         <item quantity="one">%d إشارة مرجعية</item>
         <item quantity="two">%d إشارتان مرجعيتان</item>
         <item quantity="few">%d إشارات مرجعية</item>
@@ -666,6 +660,7 @@
     <string name="phone_number">رقم الهاتف</string>
     <string name="profile">ملف الشخصي على خريطة الشارع المفتوحة</string>
     <plurals name="bookmarks_detect_message">
+        <item quantity="zero">لم يتم العثور على أي ملف.</item>
         <item quantity="one">تم العثور على %d ملف. يمكنك رؤيته بعد التحويل.</item>
         <item quantity="two">تم العثور على %d ملفين. يمكنك رؤيتهما بعد التحويل.</item>
         <item quantity="few">تم العثور على %d ملفات. يمكنك رؤيتها بعد التحويل.</item>
@@ -674,6 +669,7 @@
     </plurals>
     <string name="restore">استعادة</string>
     <plurals name="tracks">
+        <item quantity="zero">%d مسار</item>
         <item quantity="one">%d مسار</item>
         <item quantity="two">%d مساران</item>
         <item quantity="few">%d مسارات</item>
@@ -708,7 +704,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">لا تحذرني من أبداً</string>
     <string name="power_managment_title">وضع توفير الطاقة</string>
-    <string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي</string>
+    <string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي.</string>
     <string name="power_managment_setting_never">أبدًا</string>
     <string name="power_managment_setting_auto">تلقائي</string>
     <string name="power_managment_setting_manual_max">توفير الطاقة الأقصى</string>
@@ -723,7 +719,7 @@
     <string name="avoid_ferry">تجنب استخدام العبّارات</string>
     <string name="avoid_motorways">تجنب الطريق السريع</string>
     <string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
-    <string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا</string>
+    <string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا.</string>
     <string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>
     <string name="change_driving_options_btn">تم تفعيل خيارات رسم الطريق</string>
     <string name="toll_road">طريق برسوم مرور</string>
@@ -763,7 +759,6 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">طعام</string>
     <string name="tourist_places">أماكن سياحية</string>
@@ -783,7 +778,7 @@
     <string name="religious_places">أماكن دينية</string>
     <string name="select_list">اختر القائمة</string>
     <string name="transit_not_found">التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن</string>
-    <string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مترو الانفاق</string>
+    <string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مسار مترو الأنفاق</string>
     <string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة مترو الأنفاق</string>
     <string name="button_layer_isolines">تضاريس</string>
     <string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة</string>
@@ -797,7 +792,7 @@
     <string name="elevation_profile_time">المدة:</string>
     <string name="isolines_toast_zooms_1_10">قم بالتقريب لتكتشف خطوط الكنتور</string>
     <string name="downloader_loading_ios">جاري التنزيل</string>
-    <string name="download_map_title">تنزيل خريطة العالم</string>
+    <string name="download_map_title">تنزيل الخريطة العامة للعالم</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">تعذر إنشاء المجلد ونقل الملفات على الذاكرة الداخلية للجهاز أو على بطاقة SD</string>
     <!-- Used in DownloadResources startup screen -->
@@ -812,7 +807,7 @@
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">إظهار التطبيق فوق شاشة القفل</string>
     <!-- Description in preferences -->
-    <string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق</string>
+    <string name="enable_show_on_lock_screen_description">عند التفعيل، لن تحتاج لفتح قفل جهازك كل مرة أثناء تشغيل التطبيق.</string>
     <!-- Current language of the map! -->
     <string name="change_map_locale">لغة الخريطة</string>
     <!-- OpenStreetMap text on splash screen -->
@@ -854,7 +849,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">هذا التطبيق يحتاج إلى إذنك</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في Android Auto إلى إذن تحديد الموقع للعمل بفعالية</string>
+    <string name="aa_request_permission_activity_text">تحتاج الخرائط العضوية في أندرويد أوتو إلى أذونات الموقع للعمل بفعالية</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">أذونات المنح</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -905,4 +900,16 @@
     <string name="uri_open_location_failed">لم يتم تثبيت أي تطبيق يمكنه فتح الموقع</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">تلقائي في التنقل</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="level_value_generic">المستوى: %s</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="matrix">[ماتريكس]</string>
+    <string name="wikimedia_commons">مشاعات ويكيميديا</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="mastodon">ماستودون</string>
+    <string name="vk">في كيه</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="github">جيثب</string>
+    <string name="editor_line_social_network">لاين</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
 </resources>

@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sportovní hala";
+"type.landuse.plant_nursery" = "Rostlinná školka";
+"type.amenity.love_hotel" = "Hodinový hotel";
+"type.barrier.guard_rail" = "Ochranné zábradlí";
+"type.leisure.firepit" = "Ohniště";
+"type.highway.ladder" = "Žebřík";
+"type.amenity.studio" = "Studio";

@@ -110,7 +110,6 @@
     <string name="type.amenity.post_office">Kantor pos</string>
     <string name="type.amenity.prison">Penjara</string>
     <string name="type.amenity.public_bookcase">Rak Buku</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">TPA</string>
     <string name="type.amenity.recycling">Wadah daur ulang</string>
@@ -315,7 +314,6 @@
     <string name="type.healthcare.psychotherapist">Psikoterapi</string>
     <string name="type.healthcare.sample_collection">Pengambilan sampel</string>
     <string name="type.healthcare.speech_therapist">Logopedik</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Menjembatani</string>
@@ -473,7 +471,6 @@
     <string name="type.area_highway.track">Jalan</string>
     <string name="type.area_highway.trunk">Jalan</string>
     <string name="type.area_highway.unclassified">Jalan</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Objek bersejarah</string>
     <string name="type.historic.aircraft">Pesawat Bersejarah</string>
@@ -1169,4 +1166,5 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Ruang olahraga</string>
+    <string name="type.barrier.guard_rail">Захисна огорожа</string>
 </resources>
