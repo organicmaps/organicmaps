@@ -15,7 +15,7 @@
 #include <QtWidgets/QVBoxLayout>
 
 AboutDialog::AboutDialog(QWidget * parent)
-  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
+  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint)
 {
   QIcon icon(":/ui/logo.png");
   setWindowIcon(icon);
