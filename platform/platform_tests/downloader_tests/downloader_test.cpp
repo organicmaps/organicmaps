@@ -211,8 +211,6 @@ UNIT_TEST(DownloaderSimpleGet)
   }
 }
 
-// TODO: This test sometimes fails on CI. Reasons are unknown.
-#ifndef OMIM_OS_MAC
 UNIT_TEST(DownloaderSimplePost)
 {
   // simple success case
@@ -226,7 +224,6 @@ UNIT_TEST(DownloaderSimplePost)
   observer.TestOk();
   TEST_EQUAL(request->GetData(), postData, ());
 }
-#endif
 
 UNIT_TEST(ChunksDownloadStrategy)
 {
