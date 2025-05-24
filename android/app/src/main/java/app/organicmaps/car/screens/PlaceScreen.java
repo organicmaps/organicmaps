@@ -26,10 +26,11 @@ import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
@@ -38,12 +39,11 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.OnBackPressedCallback;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.ResultCodesHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.Router;
-import app.organicmaps.util.Config;
+import app.organicmaps.sdk.util.Config;
 
 import java.util.Objects;
 
@@ -105,7 +105,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       }
       else if (hasIncorrectEndPoint || isNotPlanningMode)
       {
-        mRoutingController.prepare(LocationHelper.from(getCarContext()).getMyPosition(), mMapObject);
+        mRoutingController.prepare(MwmApplication.from(getCarContext()).getLocationHelper().getMyPosition(), mMapObject);
       }
     }
   }

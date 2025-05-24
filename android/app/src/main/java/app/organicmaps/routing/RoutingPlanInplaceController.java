@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 
 public class RoutingPlanInplaceController extends RoutingPlanController
 {

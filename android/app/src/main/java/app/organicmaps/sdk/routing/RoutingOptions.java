@@ -2,7 +2,7 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
 
-import app.organicmaps.settings.RoadType;
+import app.organicmaps.sdk.settings.RoadType;
 
 import java.util.HashSet;
 import java.util.Set;

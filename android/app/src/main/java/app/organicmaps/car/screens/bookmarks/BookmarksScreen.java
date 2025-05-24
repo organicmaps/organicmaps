@@ -14,7 +14,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;

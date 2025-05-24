@@ -16,13 +16,13 @@ import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkCategory;
-import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.location.LocationHelper;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
@@ -133,7 +133,7 @@ class SortingScreen extends BaseMapScreen
   @BookmarkManager.SortingType
   private int[] getAvailableSortingTypes()
   {
-    final Location loc = LocationHelper.from(getCarContext()).getSavedLocation();
+    final Location loc = MwmApplication.from(getCarContext()).getLocationHelper().getSavedLocation();
     final boolean hasMyPosition = loc != null;
     return BookmarkManager.INSTANCE.getAvailableSortingTypes(mBookmarkCategoryId, hasMyPosition);
   }
