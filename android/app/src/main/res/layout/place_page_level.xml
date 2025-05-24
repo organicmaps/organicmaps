@@ -5,7 +5,6 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_level"
   style="@style/PlacePageItemFrame"
-  android:tag="level"
   tools:background="#4000FFFF"
   tools:visibility="visible">
 

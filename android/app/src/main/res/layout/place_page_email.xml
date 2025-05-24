@@ -5,7 +5,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_email"
   style="@style/PlacePageItemFrame"
-  android:tag="email"
   tools:background="#200000FF"
   tools:visibility="visible">
 
