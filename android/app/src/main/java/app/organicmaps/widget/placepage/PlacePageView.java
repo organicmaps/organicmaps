@@ -461,10 +461,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
 
     final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
-    if (driveThrough.equals("yes"))
-    {
-      refreshMetadataOrHide(getString(R.string.drive_through), mDriveThrough, mTvDriveThrough);
-    }
+    refreshMetadataOrHide(driveThrough.equals("yes") ? getString(R.string.drive_through) : "", mDriveThrough, mTvDriveThrough);
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
     refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
