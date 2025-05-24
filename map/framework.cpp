@@ -1773,6 +1773,11 @@ bool Framework::IsTrackRecordingEnabled() const
   return GpsTracker::Instance().IsEnabled();
 }
 
+void Framework::SaveRoute()
+{
+  m_routingManager.SaveRoute();
+}
+
 void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
                                                pair<size_t, size_t> const & toRemove,
                                                TrackStatistics const & trackStatistics)
