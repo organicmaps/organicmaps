@@ -2136,28 +2136,12 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   }
   else
   {
-    auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId()
-                                                    : kml::kInvalidTrackId;
     DeactivateHotelSearchMark();
 
     m_currentPlacePageInfo = placePageInfo;
 
     if (m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
-    {
-      if (m_currentPlacePageInfo->GetTrackId() == prevTrackId)
-      {
-        if (m_drapeEngine)
-        {
-          m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
-                                      m_currentPlacePageInfo->GetMercator(), FeatureID(),
-                                      false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                      true /* isSelectionShapeVisible */);
-        }
-        return;
-      }
       GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
-    }
-
     ActivateMapSelection();
   }
 }
@@ -2253,16 +2237,8 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   FeatureID selectedFeature = buildInfo.m_featureId;
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
-  // @TODO: (KK) Enable track selection.
-  // The isTrackSelectionEnabled should be removed to enable the track selection when the UI will be implemented.
-  #if defined(TARGET_OS_IPHONE)
-    bool constexpr isTrackSelectionEnabled = true;
-  #else
-    bool constexpr isTrackSelectionEnabled = false;
-  #endif
-
   // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (isTrackSelectionEnabled && m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
+  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() &&
       !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
   {
     Track::TrackSelectionInfo trackSelectionInfo;
