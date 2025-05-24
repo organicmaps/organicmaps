@@ -18,8 +18,8 @@ extension SearchStyleSheet: IStyleSheet {
       }
     case .searchCancelButton:
       return .add { s in
-        s.fontColor = colors.whitePrimaryText
-        s.fontColorHighlighted = colors.whitePrimaryTextHighlighted
+        s.fontColor = colors.linkBlue
+        s.fontColorHighlighted = colors.linkBlueHighlighted
         s.font = fonts.regular17
         s.backgroundColor = .clear
       }

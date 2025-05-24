@@ -4,9 +4,10 @@ extension UIView {
     case bottom
   }
 
+  @discardableResult
   func addSeparator(_ position: SeparatorPosition = .top,
                     thickness: CGFloat = 1.0,
-                    insets: UIEdgeInsets = .zero) {
+                    insets: UIEdgeInsets = .zero) -> UIView {
     let lineView = UIView()
     lineView.setStyleAndApply(.divider)
     lineView.isUserInteractionEnabled = false
@@ -24,5 +25,6 @@ extension UIView {
     case .bottom:
       lineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom).isActive = true
     }
+    return lineView
   }
 }

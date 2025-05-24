@@ -4,6 +4,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case tableViewCell = "MWMTableViewCell"
   case defaultTableViewCell
   case tableViewHeaderFooterView = "TableViewHeaderFooterView"
+  case defaultSearchBar
   case searchBar = "SearchBar"
   case navigationBar = "NavigationBar"
   case navigationBarItem = "NavigationBarItem"
@@ -94,6 +95,14 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.font = fonts.medium14
         s.fontColor = colors.blackSecondaryText
+      }
+    case .defaultSearchBar:
+      return .add { s in
+        s.backgroundColor = colors.pressBackground
+        s.barTintColor = colors.clear
+        s.fontColor = colors.blackPrimaryText
+        s.fontColorDetailed = UIColor.white
+        s.tintColor = colors.blackSecondaryText
       }
     case .searchBar:
       return .add { s in
@@ -224,10 +233,11 @@ extension GlobalStyleSheet: IStyleSheet {
       }
     case .tabView:
       return .add { s in
-        s.backgroundColor = colors.pressBackground
-        s.barTintColor = colors.primary
-        s.tintColor = colors.white
-        s.fontColor = colors.whitePrimaryText
+        s.backgroundColor = colors.white
+        s.barTintColor = colors.white
+        s.tintColor = colors.linkBlue
+        s.fontColor = colors.blackSecondaryText
+        s.fontColorHighlighted = colors.linkBlue
         s.font = fonts.medium14
       }
     case .dialogView:
