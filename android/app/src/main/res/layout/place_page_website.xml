@@ -5,7 +5,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_website"
   style="@style/PlacePageItemFrame"
-  android:tag="website"
   tools:background="#20FF0000"
   tools:visibility="visible">
 

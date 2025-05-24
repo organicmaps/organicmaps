@@ -5,7 +5,6 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_self_service"
   style="@style/PlacePageItemFrame"
-  android:tag="drive_through"
   tools:background="#4000FFFF"
   tools:visibility="visible">
 

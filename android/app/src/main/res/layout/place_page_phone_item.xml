@@ -7,8 +7,7 @@
   style="@style/PlacePageItemFrame"
   tools:background="#2000FF00"
   android:orientation="horizontal"
-  android:visibility="visible"
-  android:tag="phone">
+  android:visibility="visible">
 
   <ImageView
     android:id="@+id/iv__place_phone"
