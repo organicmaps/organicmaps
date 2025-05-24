@@ -1,5 +1,3 @@
-include(OmimConfig)
-
 # Functions for using in subdirectories
 function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
