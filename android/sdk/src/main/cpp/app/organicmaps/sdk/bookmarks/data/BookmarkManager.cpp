@@ -502,13 +502,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeUpdateTrackPlacePage(
   if (!frm()->HasPlacePageInfo())
     return;
 
-  auto &info = g_framework->GetPlacePageInfo();
-  auto buildInfo = info.GetBuildInfo();
-  auto &bm = frm()->GetBookmarkManager();
-  buildInfo.m_trackId = static_cast<kml::MarkId>(trackId);
-  frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
-
-  usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
+  frm()->UpdatePlacePageInfoForCurrentSelection();
 }
 
 JNIEXPORT jobject JNICALL
@@ -931,6 +925,15 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeSetElevationActive
                              m2::PointD(static_cast<double>(latitude),
                                         static_cast<double>(longitude)),
                              static_cast<double>(distanceInMeters));
+
+  if (!frm()->HasPlacePageInfo())
+    return;
+
+  auto &info = g_framework->GetPlacePageInfo();
+  auto buildInfo = info.GetBuildInfo();
+  buildInfo.m_mercator = m2::PointD(static_cast<double>(latitude),
+                                    static_cast<double>(longitude));
+  frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 }
 
 JNIEXPORT jdouble JNICALL
