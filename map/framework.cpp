@@ -2137,7 +2137,6 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   else
   {
     DeactivateHotelSearchMark();
-
     m_currentPlacePageInfo = placePageInfo;
 
     if (m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)

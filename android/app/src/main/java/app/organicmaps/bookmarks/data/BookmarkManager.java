@@ -292,6 +292,12 @@ public enum BookmarkManager
   }
 
   @Nullable
+  public void updateTrackPlacePage(long trackId)
+  {
+    nativeUpdateTrackPlacePage(trackId);
+  }
+
+  @Nullable
   public BookmarkInfo getBookmarkInfo(long bmkId)
   {
     return nativeGetBookmarkInfo(bmkId);
@@ -745,6 +751,9 @@ public enum BookmarkManager
 
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
+
+  @Nullable
+  private native void nativeUpdateTrackPlacePage(long trackId);
 
   @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
