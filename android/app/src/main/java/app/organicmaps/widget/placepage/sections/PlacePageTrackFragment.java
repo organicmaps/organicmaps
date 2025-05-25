@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Track;
 import app.organicmaps.util.UiUtils;
@@ -102,6 +103,6 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
   @Override
   public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
   {
-    // To be implemented
+    BookmarkManager.INSTANCE.updateTrackPlacePage(bookmarkId);
   }
 }
