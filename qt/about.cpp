@@ -65,4 +65,6 @@ AboutDialog::AboutDialog(QWidget * parent)
   }
   else
     setLayout(hBox);
+
+  adjustSize();
 }
