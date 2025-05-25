@@ -1,39 +1,30 @@
-package app.organicmaps.widget.placepage.sections;
+package app.organicmaps.widget.placepage;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.ChartController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.UiUtils;
-import app.organicmaps.sdk.widget.placepage.PlacePageStateListener;
-import app.organicmaps.sdk.widget.placepage.PlacePageViewModel;
+
+import java.util.Objects;
 
 @SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
-public class PlacePageElevationProfileFragment extends Fragment implements PlacePageStateListener,
-                                                                           Observer<MapObject>
+public class ElevationProfileViewRenderer implements PlacePageStateListener
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
   private static final int UNKNOWN_DIFFICULTY = 0;
 
-  private View mFrame;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private NestedScrollView mScrollView;
@@ -68,48 +59,16 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTimeContainer;
-  private PlacePageViewModel mViewModel;
-  @Nullable
-  private Track mTrack;
+  private View mTitleContainer;
 
-  @Nullable
-  @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-  {
-    mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    return inflater.inflate(R.layout.elevation_profile_bottom_sheet, container, false);
-  }
-
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-  {
-    super.onViewCreated(view, savedInstanceState);
-
-    mFrame = view;
-    initialize(mFrame);
-  }
-
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    mViewModel.getMapObject().observe(requireActivity(), this);
-  }
-
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-    mViewModel.getMapObject().removeObserver(this);
-  }
-
-  private void render(@NonNull Track track)
+  public void render(@NonNull Track track)
   {
     final Context context = mAscent.getContext();
     TrackStatistics stats = track.getTrackStatistics();
 
     mElevationInfo = track.getElevationInfo();
     mChartController.setData(track);
+    UiUtils.hide(mTitleContainer);
     mTitle.setText(track.getName());
     setDifficulty(mElevationInfo.getDifficulty());
     mAscent.setText(formatDistance(context, (int) stats.getAscent()));
@@ -117,7 +76,7 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     mMaxAltitude.setText(formatDistance(context, stats.getMaxElevation()));
     mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
     UiUtils.hideIf(stats.getDuration() == 0, mTimeContainer);
-    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(), (int) stats.getDuration(),
+    mTime.setText(RoutingController.formatRoutingTime(mAscent.getContext(), (int) stats.getDuration(),
                                                       R.dimen.text_size_body_2));
   }
 
@@ -127,13 +86,14 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
     return Framework.nativeFormatAltitude(distance);
   }
 
-  private void initialize(@Nullable View view)
+  public void initialize(@Nullable View view)
   {
-    requireView();
+    Objects.requireNonNull(view);
     mChartController = new ChartController(view.getContext());
     mChartController.initialize(view);
     mScrollView = (NestedScrollView) view;
     mTitle = view.findViewById(R.id.title);
+    mTitleContainer = view.findViewById(R.id.title_container);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
@@ -166,38 +126,5 @@ public class PlacePageElevationProfileFragment extends Fragment implements Place
 
     for (int i = 0; i < level; i++)
       mDifficultyLevels[i].setEnabled(true);
-  }
-
-  public void onSave(@NonNull Bundle outState)
-  {
-    //    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
-  }
-
-  public void onRestore(@NonNull Bundle inState)
-  {
-    //    mElevationInfo = BundleCompat.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA,
-    //    ElevationInfo.class); if (mElevationInfo != null)
-    //      render(mElevationInfo);
-  }
-
-  public void onHide()
-  {
-    mScrollView.scrollTo(0, 0);
-    mChartController.onHide();
-  }
-
-  @Override
-  public void onChanged(@Nullable MapObject mapObject)
-  {
-    // MapObject could be something else than a Track if the user already has the place page
-    // opened and clicks on a non-Track POI.
-    // This callback would be called before the fragment had time to be destroyed
-    if (mapObject != null && mapObject.isTrack())
-    {
-      if (mTrack != null && ((Track) mapObject).getTrackId() == mTrack.getTrackId())
-        return;
-      mTrack = (Track) mapObject;
-      render(mTrack);
-    }
   }
 }

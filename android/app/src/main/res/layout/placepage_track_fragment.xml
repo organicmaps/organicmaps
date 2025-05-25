@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/place_page_track_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <include
+    android:id="@+id/elevation_profile"
+    layout="@layout/elevation_profile_bottom_sheet" />
+  <include layout="@layout/divider_horizontal" />
+  <TextView
+    android:id="@+id/tv__track_edit"
+    style="@style/PlacePageMetadataText.Button"
+    android:layout_height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:text="@string/edit_track" />
+  <include layout="@layout/divider_horizontal" />
+</LinearLayout>
