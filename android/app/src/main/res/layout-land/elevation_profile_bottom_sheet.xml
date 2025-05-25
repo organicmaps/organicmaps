@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/elevation_profile"
-  android:layout_width="@dimen/place_page_width"
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:paddingTop="@dimen/margin_base"
   android:paddingBottom="@dimen/margin_base"

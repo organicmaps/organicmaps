@@ -34,10 +34,15 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
-import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.DownloaderStatusIcon;
-import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.editor.Editor;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.SensorHelper;
+import app.organicmaps.sdk.location.SensorListener;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -50,15 +55,15 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.util.SharingUtils;
+import app.organicmaps.sdk.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
-import app.organicmaps.widget.placepage.sections.PlacePageElevationProfileFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
@@ -71,7 +76,7 @@ public class PlacePageView extends Fragment
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
-  private static final String TRACK_ELEVATION_INFO_FRAGMENT_TAG = "TRACK_ELEVATION_INFO_FRAGMENT_TAG";
+  private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
@@ -374,9 +379,9 @@ public class PlacePageView extends Fragment
                        mMapObject.isBookmark());
   }
 
-  private void updateElevationInfoView()
+  private void updateTrackView()
   {
-    updateViewFragment(PlacePageElevationProfileFragment.class, TRACK_ELEVATION_INFO_FRAGMENT_TAG, R.id.place_page_elevation_info_fragment, mMapObject.isTrack() && ((Track) mMapObject).isElevationInfoHasValue());
+    updateViewFragment(PlacePageTrackFragment.class, TRACK_FRAGMENT_TAG, R.id.place_page_track_fragment, mMapObject.isTrack());
   }
 
   private boolean hasWikipediaEntry()
@@ -509,7 +514,7 @@ public class PlacePageView extends Fragment
     updateWikipediaView();
     updateBookmarkView();
     updatePhoneView();
-    updateElevationInfoView();
+    updateTrackView();
   }
 
   private void refreshWiFi()
