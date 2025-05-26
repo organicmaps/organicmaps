@@ -317,7 +317,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     disableOrEnable3DBuildingsForPowerMode(powerManagementValue);
 
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      Framework.nativeSet3dMode(_3d.enabled, (Boolean)newValue);
+      Framework.Params3dMode current = new Framework.Params3dMode();
+      Framework.nativeGet3dMode(current);
+      Framework.nativeSet3dMode(current.enabled, (Boolean)newValue);
       return true;
     });
   }
@@ -356,7 +358,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     pref.setChecked(_3d.enabled);
 
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      Framework.nativeSet3dMode((Boolean) newValue, _3d.buildings);
+      Framework.Params3dMode current = new Framework.Params3dMode();
+      Framework.nativeGet3dMode(current);
+      Framework.nativeSet3dMode((Boolean) newValue, current.buildings);
       return true;
     });
   }
