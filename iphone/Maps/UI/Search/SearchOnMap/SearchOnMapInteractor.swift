@@ -81,7 +81,9 @@ final class SearchOnMapInteractor: NSObject {
 
   private func processSelectedText(_ query: SearchQuery) -> SearchOnMap.Response {
     isUpdatesDisabled = false
-    searchManager.save(query)
+    if query.source != .history {
+      searchManager.save(query)
+    }
     searchManager.searchQuery(query)
     showResultsOnMap = true
     return .selectQuery(query)

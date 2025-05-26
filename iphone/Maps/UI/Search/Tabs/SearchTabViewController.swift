@@ -78,7 +78,7 @@ extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
 extension SearchTabViewController: SearchHistoryViewControllerDelegate {
   func searchHistoryViewController(_ viewController: SearchHistoryViewController,
                                    didSelect query: String) {
-    let query = SearchQuery(query.trimmingCharacters(in: .whitespacesAndNewlines) + " ", source: .suggestion)
+    let query = SearchQuery(query.trimmingCharacters(in: .whitespacesAndNewlines) + " ", source: .history)
     delegate?.searchTabController(self, didSearch: query)
   }
 }
