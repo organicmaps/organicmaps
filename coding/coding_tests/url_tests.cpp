@@ -105,6 +105,13 @@ UNIT_TEST(Url_Invalid)
   TEST(!Url("").IsValid(), ());
   TEST(!Url(":/").IsValid(), ());
   TEST(!Url("//").IsValid(), ());
+
+  // Updated tests for the new behavior:
+  TEST(!Url("scheme://").IsValid(), ());  
+  TEST(!Url("@&€:1;asf").IsValid(), ());
+  TEST(!Url("123scheme:test").IsValid(), ());
+  TEST(!Url("scheme:").IsValid(), ());
+  TEST(!Url("scheme:/").IsValid(), ());
 }
 
 UNIT_TEST(Url_Valid)
@@ -112,22 +119,26 @@ UNIT_TEST(Url_Valid)
   TestUrl("mapswithme://map?ll=10.3,12.3223&n=Hello%20World")
       .Scheme("mapswithme")
       .Host("map")
+      .Path("")  
       .KV("ll", "10.3,12.3223")
       .KV("n", "Hello World");
 
-  TestUrl("om:M&M//path?q=q&w=w")
+      TestUrl("om:M&M//path?q=q&w=w")
       .Scheme("om")
       .Host("M&M")
-      .Path("path")
+      .Path("path")  // Expected "path" (no leading slash)
       .KV("q", "q")
       .KV("w", "w");
 
   TestUrl("http://www.sandwichparlour.com.au/")
       .Scheme("http")
       .Host("www.sandwichparlour.com.au")
-      .Path("");
+      .Path("");  
 
-  TestUrl("om:/&test").Scheme("om").Host("&test").Path("");
+  TestUrl("om:/&test")
+      .Scheme("om")
+      .Host("&test")
+      .Path("");  
 }
 
 UNIT_TEST(Url_Fragment)
@@ -135,7 +146,7 @@ UNIT_TEST(Url_Fragment)
   TestUrl("https://www.openstreetmap.org/way/179409926#map=19/46.34998/48.03213&layers=N")
       .Scheme("https")
       .Host("www.openstreetmap.org")
-      .Path("way/179409926")
+      .Path("way/179409926") // Expected to be relative (without leading slash)
       .KV("map", "19/46.34998/48.03213")
       .KV("layers", "N");
 
@@ -150,9 +161,9 @@ UNIT_TEST(Url_Fragment)
 UNIT_TEST(UrlScheme_Comprehensive)
 {
   TestUrl("");
-  TestUrl("scheme:").Scheme("scheme").Host("").Path("");
-  TestUrl("scheme:/").Scheme("scheme").Host("").Path("");
-  TestUrl("scheme://").Scheme("scheme").Host("").Path("");
+  TestUrl("scheme:host").Scheme("scheme").Host("host").Path(""); 
+  TestUrl("scheme:/host").Scheme("scheme").Host("host").Path(""); 
+  TestUrl("scheme://host").Scheme("scheme").Host("host").Path(""); 
   TestUrl("sometext");
   TestUrl(":noscheme");
   TestUrl("://noscheme?");
