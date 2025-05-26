@@ -96,24 +96,24 @@ final class SearchOnMapInteractor: NSObject {
         searchManager.showResult(at: result.index)
       case .start:
         let point = MWMRoutePoint(cgPoint: result.point,
-                               title: result.titleText,
-                               subtitle: result.addressText,
-                               type: .start,
-                               intermediateIndex: 0)
+                                  title: result.titleText,
+                                  subtitle: result.addressText,
+                                  type: .start,
+                                  intermediateIndex: 0)
         routeManager.build(from: point, bestRouter: false)
       case .finish:
         let point = MWMRoutePoint(cgPoint: result.point,
-                               title: result.titleText,
-                               subtitle: result.addressText,
-                               type: .finish,
-                               intermediateIndex: 0)
+                                  title: result.titleText,
+                                  subtitle: result.addressText,
+                                  type: .finish,
+                                  intermediateIndex: 0)
         routeManager.build(to: point, bestRouter: false)
       @unknown default:
         fatalError("Unsupported routingTooltipSearch")
       }
       return isIPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
-      var suggestionQuery = SearchQuery(result.suggestion,
+      let suggestionQuery = SearchQuery(result.suggestion,
                                         locale: query.locale,
                                         source: result.isPureSuggest ? .suggestion : .typedText)
       searchManager.searchQuery(suggestionQuery)
