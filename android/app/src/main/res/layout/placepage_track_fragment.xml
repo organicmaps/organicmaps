@@ -8,7 +8,7 @@
   <include
     android:id="@+id/elevation_profile"
     layout="@layout/elevation_profile_bottom_sheet" />
-  <include layout="@layout/divider_horizontal" />
+  <include layout="@layout/place_page_fat_shadow" />
   <TextView
     android:id="@+id/tv__track_edit"
     style="@style/PlacePageMetadataText.Button"

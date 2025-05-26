@@ -3,7 +3,9 @@ package app.organicmaps.widget.placepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+
 import java.util.List;
 
 public class PlacePageViewModel extends ViewModel
@@ -33,6 +35,13 @@ public class PlacePageViewModel extends ViewModel
     mMapObject.setValue(mapObject);
   }
 
+  public void modifyMapObjectPointSilently(ElevationInfo.Point point)
+  {
+    if (mMapObject.getValue() == null)
+      return;
+    mMapObject.getValue().setLat(point.getLatitude());
+    mMapObject.getValue().setLon(point.getLongitude());
+  }
   public MutableLiveData<Integer> getPlacePageWidth()
   {
     return mPlacePageWidth;
