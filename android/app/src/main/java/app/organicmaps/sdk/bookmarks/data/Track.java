@@ -26,7 +26,7 @@ public class Track extends MapObject
 
   Track(long trackId, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.fromFeatureIdString("1:2:3"), BOOKMARK, name, "", "", "", 0, 0, "",
+    super(FeatureId.fromFeatureIdString("1:2:3"), TRACK, name, "", "", "", 0, 0, "",
           null, OPENING_MODE_PREVIEW_PLUS, null, "", RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackId = trackId;
     mCategoryId = categoryId;

@@ -35,14 +35,14 @@ import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.downloader.CountryItem;
-import app.organicmaps.sdk.downloader.DownloaderStatusIcon;
+import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.SensorListener;
-import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -55,7 +55,7 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.sdk.util.SharingUtils;
+import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
@@ -338,6 +338,16 @@ public class PlacePageView extends Fragment
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
+    if (mMapObject.isTrack())
+    {
+      UiUtils.hide(mFrame.findViewById(R.id.share_button),
+                   mFrame.findViewById(R.id.ll__place_latlon),
+                   mFrame.findViewById(R.id.ll__place_open_in),
+                   mFrame.findViewById(R.id.ll__place_add),
+                   mTvAzimuth,
+                   mTvDistance,
+                   mAvDirection);
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -554,6 +564,8 @@ public class PlacePageView extends Fragment
 
   private void refreshDistanceToObject(Location l)
   {
+    if (mMapObject.isTrack())
+      return;
     UiUtils.showIf(l != null, mTvDistance);
     UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
@@ -783,7 +795,7 @@ public class PlacePageView extends Fragment
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || mMapObject.isMyPosition())
+    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack())
       return;
 
     final Location location = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();

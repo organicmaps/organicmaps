@@ -578,7 +578,7 @@ public class PlacePageController
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                                           : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
       if (needToShowRoutingButtons)
       {
