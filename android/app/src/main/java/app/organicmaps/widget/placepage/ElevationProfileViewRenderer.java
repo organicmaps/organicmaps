@@ -13,7 +13,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
-import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.Objects;
@@ -126,5 +126,15 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
 
     for (int i = 0; i < level; i++)
       mDifficultyLevels[i].setEnabled(true);
+  }
+
+  public void onChartElevationActivePointChanged()
+  {
+    mChartController.onElevationActivePointChanged();
+  }
+
+  public void onChartCurrentPositionChanged()
+  {
+    mChartController.onCurrentPositionChanged();
   }
 }
