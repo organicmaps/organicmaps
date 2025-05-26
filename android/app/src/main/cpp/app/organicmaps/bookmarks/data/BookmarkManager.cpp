@@ -925,15 +925,6 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetElevationActivePoin
                              m2::PointD(static_cast<double>(latitude),
                                         static_cast<double>(longitude)),
                              static_cast<double>(distanceInMeters));
-
-  if (!frm()->HasPlacePageInfo())
-    return;
-
-  auto &info = g_framework->GetPlacePageInfo();
-  auto buildInfo = info.GetBuildInfo();
-  buildInfo.m_mercator = m2::PointD(static_cast<double>(latitude),
-                                    static_cast<double>(longitude));
-  frm()->UpdatePlacePageInfoForCurrentSelection(buildInfo);
 }
 
 JNIEXPORT jdouble JNICALL

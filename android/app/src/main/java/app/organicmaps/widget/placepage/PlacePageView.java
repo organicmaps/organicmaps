@@ -339,6 +339,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
+    if (mMapObject.isTrack())
+    {
+      UiUtils.hide(mFrame.findViewById(R.id.share_button),
+                   mFrame.findViewById(R.id.ll__place_latlon),
+                   mFrame.findViewById(R.id.ll__place_open_in),
+                   mFrame.findViewById(R.id.ll__place_add),
+                   mTvAzimuth,
+                   mTvDistance,
+                   mAvDirection);
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
@@ -550,6 +560,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void refreshDistanceToObject(Location l)
   {
+    if (mMapObject.isTrack())
+      return;
     UiUtils.showIf(l != null, mTvDistance);
     UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
@@ -782,7 +794,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || mMapObject.isMyPosition())
+    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack())
       return;
 
     final Location location = LocationHelper.from(requireContext()).getSavedLocation();
