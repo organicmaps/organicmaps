@@ -7,7 +7,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   private weak var delegate: SearchCategoriesViewControllerDelegate?
   private let categories: [String]
 
-  init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchCategoriesViewControllerDelegate?) {
+  init(frameworkHelper: MWMSearchFrameworkHelper.Type, delegate: SearchCategoriesViewControllerDelegate?) {
     self.delegate = delegate
     categories = frameworkHelper.searchCategories()
     super.init(nibName: nil, bundle: nil)

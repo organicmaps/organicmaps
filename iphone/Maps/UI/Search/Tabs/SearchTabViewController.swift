@@ -13,10 +13,8 @@ final class SearchTabViewController: TabViewController {
   private static let selectedIndexKey = "SearchTabViewController_selectedIndexKey"
   @objc weak var delegate: SearchTabViewControllerDelegate?
   
-  private lazy var frameworkHelper: MWMSearchFrameworkHelper = {
-    return MWMSearchFrameworkHelper()
-  }()
-  
+  private var frameworkHelper = MWMSearchFrameworkHelper.self
+
   private var activeTab: SearchActiveTab = SearchActiveTab.init(rawValue:
     UserDefaults.standard.integer(forKey: SearchTabViewController.selectedIndexKey)) ?? .categories {
     didSet {
