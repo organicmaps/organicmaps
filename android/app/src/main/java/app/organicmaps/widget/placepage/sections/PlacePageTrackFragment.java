@@ -12,10 +12,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.bookmarks.data.Track;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
@@ -24,7 +25,9 @@ import app.organicmaps.widget.placepage.PlacePageViewModel;
 public class PlacePageTrackFragment extends Fragment implements PlacePageStateListener,
                                                                 Observer<MapObject>,
                                                                 View.OnClickListener,
-                                                                EditBookmarkFragment.EditBookmarkListener
+                                                                EditBookmarkFragment.EditBookmarkListener,
+                                                                BookmarkManager.OnElevationActivePointChangedListener,
+                                                                BookmarkManager.OnElevationCurrentPositionChangedListener
 {
   private PlacePageViewModel mViewModel;
   @Nullable
@@ -59,6 +62,8 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
   public void onStart()
   {
     super.onStart();
+    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(this);
+    BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(this);
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
@@ -70,6 +75,14 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
   }
 
   @Override
+  public void onDestroy()
+  {
+    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
+    BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(null);
+    super.onDestroy();
+  }
+
+  @Override
   public void onChanged(@Nullable MapObject mapObject)
   {
     // MapObject could be something else than a Track if the user already has the place page
@@ -77,8 +90,6 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
     // This callback would be called before the fragment had time to be destroyed
     if (mapObject != null && mapObject.isTrack())
     {
-      if (mTrack != null && ((Track) mapObject).getTrackId() == mTrack.getTrackId())
-        return;
       mTrack = (Track) mapObject;
       if (mTrack.isElevationInfoHasValue())
       {
@@ -104,5 +115,21 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
   public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
   {
     BookmarkManager.INSTANCE.updateTrackPlacePage(bookmarkId);
+  }
+
+  @Override
+  public void onElevationActivePointChanged()
+  {
+    if (mTrack == null)
+      return;
+    mElevationProfileViewRenderer.onChartElevationActivePointChanged();
+    ElevationInfo.Point point = BookmarkManager.INSTANCE.getElevationActivePointCoordinates(mTrack.getTrackId());
+    mViewModel.modifyMapObjectPointSilently(point);
+  }
+
+  @Override
+  public void onCurrentPositionChanged()
+  {
+    mElevationProfileViewRenderer.onChartCurrentPositionChanged();
   }
 }
