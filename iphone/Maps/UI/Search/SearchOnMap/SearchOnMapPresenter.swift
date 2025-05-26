@@ -82,7 +82,7 @@ final class SearchOnMapPresenter {
       switch query.source {
       case .typedText, .suggestion:
         viewModel.isTyping = true
-      case .category, .deeplink:
+      case .category, .history, .deeplink:
         viewModel.isTyping = false
         viewModel.presentationStep = isRouting ? .hidden : .halfScreen
       @unknown default:
