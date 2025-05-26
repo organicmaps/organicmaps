@@ -6,14 +6,14 @@ protocol SearchHistoryViewControllerDelegate: SearchOnMapScrollViewDelegate {
 final class SearchHistoryViewController: MWMViewController {
   private weak var delegate: SearchHistoryViewControllerDelegate?
   private var lastQueries: [String] = []
-  private let frameworkHelper: MWMSearchFrameworkHelper
+  private let frameworkHelper: MWMSearchFrameworkHelper.Type
   private let emptyHistoryView = PlaceholderView(title: L("search_history_title"),
                                                  subtitle: L("search_history_text"))
 
   private let tableView = UITableView()
 
   // MARK: - Init
-  init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchHistoryViewControllerDelegate?) {
+  init(frameworkHelper: MWMSearchFrameworkHelper.Type, delegate: SearchHistoryViewControllerDelegate?) {
     self.delegate = delegate
     self.frameworkHelper = frameworkHelper
     super.init(nibName: nil, bundle: nil)
