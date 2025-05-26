@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import app.organicmaps.R;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+
 import static app.organicmaps.downloader.CountryItem.*;
 
 class BottomPanel
@@ -39,7 +40,8 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-        mFragment.getAdapter().refreshData();
+      MapManager.nativeCancel(mFragment.getCurrentRoot());
+      mFragment.getAdapter().refreshData();
     }
   };
 
