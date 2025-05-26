@@ -97,11 +97,11 @@ jobject CreateTrack(JNIEnv *env, const place_page::Info &info,
                     const jni::TScopedLocalRef &routingPointInfo, jobject const &popularity)
 {
   static jmethodID const ctorId = jni::GetConstructorID(env, g_trackClazz,
-                                                        "(Lapp/organicmaps/bookmarks/data/FeatureId;JJLjava/lang/String;"
+                                                        "(Lapp/organicmaps/sdk/bookmarks/data/FeatureId;JJLjava/lang/String;"
                                                         "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                                         "Lapp/organicmaps/sdk/routing/RoutePointInfo;"
                                                         "ILapp/organicmaps/sdk/search/Popularity;Ljava/lang/String;"
-                                                        "[Ljava/lang/String;ILapp/organicmaps/util/Distance;DD)V");
+                                                        "[Ljava/lang/String;ILapp/organicmaps/sdk/util/Distance;DD)V");
   static jmethodID const featureCtorId = jni::GetConstructorID(env, g_featureIdClazz,
                                                                "(Ljava/lang/String;JI)V");
 

@@ -768,6 +768,8 @@ public enum BookmarkManager {
     return nativeGetElevationActivePointDistance(trackId);
   }
 
+  private static native ElevationInfo.Point nativeGetElevationActivePointCoordinates(long trackId);
+
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
@@ -926,6 +928,11 @@ public enum BookmarkManager {
   private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters, double latitude, double longitude);
 
   private static native double nativeGetElevationActivePointDistance(long trackId);
+
+  public ElevationInfo.Point getElevationActivePointCoordinates(long trackId)
+  {
+    return nativeGetElevationActivePointCoordinates(trackId);
+  }
 
   private static native void nativeSetElevationActiveChangedListener();
 
