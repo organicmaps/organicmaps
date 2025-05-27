@@ -1347,7 +1347,7 @@
 "type.sport.multi" = "Různé sporty";
 
 /* Used to tag a scuba diving site. */
-"type.sport.scuba_diving" = "Potápění";
+"type.sport.scuba_diving" = "Místo pro potápění";
 "type.sport.shooting" = "Střílení";
 "type.sport.skateboard" = "Skateboarding";
 "type.sport.skiing" = "Lyžování";
@@ -1437,9 +1437,9 @@
 "type.waterway.waterfall" = "Vodopád";
 "type.waterway.weir" = "Jez";
 "type.wheelchair" = "Vozíčkář";
-"type.wheelchair.limited" = "Omezený vstup pro vozíčkáře";
-"type.wheelchair.no" = "Bez přístupu pro vozíčkáře";
-"type.wheelchair.yes" = "Plný vstup pro vozíčkáře";
+"type.wheelchair.limited" = "Omezený bezbariérový přístup";
+"type.wheelchair.no" = "Žádný bezbariérový přístup";
+"type.wheelchair.yes" = "Plně bezbariérový přístup";
 "type.aerialway.j.bar" = "Jednokotva";
 "type.aerialway.magic_carpet" = "Jezdící koberec";
 "type.aerialway.platter" = "Poma";
@@ -1490,3 +1490,4 @@
 "type.leisure.firepit" = "Ohniště";
 "type.highway.ladder" = "Žebřík";
 "type.amenity.studio" = "Studio";
+"type.sport.diving" = "Potápění";

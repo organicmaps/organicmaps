@@ -160,7 +160,7 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Water</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Caravanfaciliteiten</string>
+    <string name="category_rv" translatable="false">Caravan Faciliteiten</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notities</string>

@@ -131,7 +131,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Atraccions turístiques</string>
+    <string name="category_tourism" translatable="false">Turisme</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entreteniment</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -159,7 +159,7 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Aigua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Instal·lacions per a autocaravanes</string>
+    <string name="category_rv" translatable="false">Caravanes</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
@@ -315,7 +315,7 @@
     <!-- Item in context menu. -->
     <string name="downloader_update_map">Actualitza el mapa</string>
     <!-- Preference title -->
-    <string name="google_play_services">Serveis d\'ubicació de Google Play</string>
+    <string name="google_play_services">Serveis d’ubicació de Google Play</string>
     <!-- Preference text -->
     <string name="pref_use_google_play">Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil</string>
     <!-- Text for routing error dialog -->
@@ -616,8 +616,8 @@
     <string name="placepage_remove_stop">Elimina parada</string>
     <string name="placepage_add_stop">Afegeix una parada</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
-    <string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>
+    <string name="alert_reauth_message">Inicieu sessió a l’OpenStreetMap per a pujar automàticament totes les edicions al mapa. Llegiu <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a> més informació.</string>
+    <string name="dialog_error_storage_title">Hi ha un problema d’accés a l’emmagatzematge</string>
     <string name="dialog_error_storage_message">L\'emmagatzematge extern no és accessible. La targeta SD pot haver estat eliminada, danyada o sigui només de lectura. Si us plau, reviseu la targeta SD o contacta amb nosaltres a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
     <string name="core_entrance">Entrada</string>
@@ -901,4 +901,5 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="saved">Desat</string>
 </resources>

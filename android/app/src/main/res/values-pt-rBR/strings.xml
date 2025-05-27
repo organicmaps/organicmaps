@@ -27,29 +27,29 @@
     <!-- Location services are disabled by user alert - message -->
     <string name="location_is_disabled_long_text">Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">Para garantir uma navegação precisa, ative a Localização precisa nas configurações.</string>
+    <string name="precise_location_is_disabled_long_text">Para garantir uma navegação precisa, ative a Localização Precisa nas configurações.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Mostrar no mapa</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
     <string name="country_status_download_failed">O download falhou</string>
     <!-- Button text for the button under the country_status_download_failed message -->
     <string name="try_again">Tentar novamente</string>
-    <string name="about_menu_title">Sobre o Organic Maps</string>
+    <string name="about_menu_title">Sobre Organic Maps</string>
     <!-- Text in About screen -->
-    <string name="about_headline">Grátis para todos, feito com amor</string>
+    <string name="about_headline">Livre para todos, feito com amor</string>
     <!-- Text in About screen -->
     <string name="about_proposition_1">• Sem anúncios, rastreamento ou coleta de dados</string>
     <!-- Text in About screen -->
     <string name="about_proposition_2">• Sem consumo de bateria, funciona off-line</string>
     <!-- The button that opens system location settings -->
-    <string name="location_settings">Configurações de localização</string>
+    <string name="location_settings">Configurações de Localização</string>
     <string name="close">Fechar</string>
     <string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
     <string name="download">Baixar</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps</string>
+    <string name="disconnect_usb_cable">Por favor, desconecte o cabo USB ou insira um cartão de memória para utilizar Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
+    <string name="not_enough_free_space_on_sdcard">Por favor, libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o aplicativo</string>
     <string name="download_resources">Antes de começar, vamos baixar a visão geral mundial para o seu dispositivo.
 \nÉ necessário %s de armazenamento.</string>
     <string name="download_resources_continue">Ir para o mapa</string>
@@ -102,8 +102,7 @@
     <!-- Error moving map files from one storage to another -->
     <string name="move_maps_error">Erro ao mover arquivos de mapas</string>
     <!-- Ask user to wait several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Isto pode demorar alguns minutos.
-\nPor favor aguarde…</string>
+    <string name="wait_several_minutes">Isto pode demorar alguns minutos. \nPor favor, aguarde…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -160,11 +159,7 @@
     <string name="description">Anotações</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Favoritos do Organic Maps foram compartilhados com você</string>
-    <string name="share_bookmarks_email_body">Olá!
-\n
-\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz
-\n
-\nDisfrute viajar com o Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Olá! \n \nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz \n \nDisfrute viajar com Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Carregando favoritos</string>
     <!-- Kmz file successful loading -->
@@ -203,7 +198,7 @@
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Email</string>
     <!-- Text for message when used successfully copied something -->
-    <string name="copied_to_clipboard">Copiado para a área de transferência: %s</string>
+    <string name="copied_to_clipboard">Copiado para área de transferência: %s</string>
     <!-- Used for bookmark editing -->
     <string name="done">Feito</string>
     <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
@@ -237,7 +232,7 @@
     <!-- Settings «Route» category: «Tts language» title -->
     <string name="pref_tts_language_title">Idioma da voz</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Testar instruções de voz (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Testar Instruções de Voz (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Verifique o volume ou as configurações de conversão de texto em fala do sistema se você não estiver ouvindo a voz agora.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
@@ -279,7 +274,7 @@
     <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
     <string name="downloader_delete_map_while_routing_dialog">Favor parar a navegação para apagar o mapa.</string>
     <!-- PointsInDifferentMWM -->
-    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam completamente contidas em um único mapa.</string>
+    <string name="routing_failed_cross_mwm_building">Só podem ser criadas rotas que estejam totalmente contidas em um mapa de uma única região.</string>
     <!-- Context menu item for downloader. -->
     <string name="downloader_download_map">Baixar o mapa</string>
     <!-- Item status in downloader. -->
@@ -793,4 +788,28 @@
     <string name="editor_operator">Operador</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="about_developed_by_enthusiasts">Aplicativo de código aberto criado por entusiastas e voluntários.</string>
+    <string name="on">Ligado</string>
+    <string name="limited_accuracy">Precisão limitada</string>
+    <string name="pref_map_style_title">Modo Noturno</string>
+    <string name="off">Desligado</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="how_to_support_us">Apoiar o projeto</string>
+    <string name="pref_tts_street_names_title">Anunciar Nomes de Ruas</string>
+    <string name="already_donated">Já doei</string>
+    <string name="remind_me_later">Lembrar mais tarde</string>
+    <string name="support_organic_maps">Apoiar Organic Maps</string>
+    <string name="menu">Menu</string>
+    <string name="news">Notícias</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="faq">Perguntas Frequentes</string>
+    <string name="long_tap_toast">Toque longamente no mapa novamente para ver a interface</string>
 </resources>

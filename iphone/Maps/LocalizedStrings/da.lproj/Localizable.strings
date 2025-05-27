@@ -153,7 +153,7 @@
 "category_water" = "Vand";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
-"category_rv" = "Autocamper-faciliteter";
+"category_rv" = "Til RV";
 "share_bookmarks_email_body" = "Hej! \n\nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n\nGod rejse med Organic Maps!";
 
 /* message title of loading file */

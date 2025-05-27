@@ -1248,7 +1248,7 @@
 "type.shop.florist" = "Floristería";
 "type.shop.funeral_directors" = "Funeraria";
 "type.shop.furniture" = "Tienda de muebles";
-"type.shop.garden_centre" = "Vivero";
+"type.shop.garden_centre" = "Centro de jardinería";
 "type.shop.gas" = "Tienda de gasolina";
 "type.shop.gift" = "Tienda de regalos";
 "type.shop.greengrocer" = "Frutería";
@@ -1488,3 +1488,5 @@
 "type.barrier.guard_rail" = "Barrera de contención";
 "type.amenity.studio" = "Estudio";
 "type.amenity.love_hotel" = "Hotel para parejas";
+"type.sport.diving" = "Clavado";
+"type.landuse.plant_nursery" = "Vivero";

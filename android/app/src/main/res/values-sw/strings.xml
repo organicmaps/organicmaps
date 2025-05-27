@@ -21,7 +21,6 @@
     <string name="address">Anwani</string>
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Hifadhi ramani kwenye</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Sehemu ya kula</string>
@@ -41,7 +40,6 @@
     <string name="category_water">Maji</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">Kwa RV</string>
-
     <!-- SECTION: Other translations -->
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
     <string name="unknown_file_type">Aina ya faili haitambuliwi na programu:
@@ -103,11 +101,9 @@
     <string name="gray">Kijivu</string>
     <!-- blue gray color -->
     <string name="blue_gray">Kijivu Buluu</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_change_intermediate">Imeshindwa kupata eneo la kati.</string>
     <string name="dialog_routing_intermediate_not_determined">Tafadhali badilisha eneo lako la kati.</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Pakua eneo ambalo unatafuta au jaribu kuongeza jina la mji/kijiji kilicho karibu.</string>
@@ -283,7 +279,6 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">Chakula</string>
     <string name="tourist_places">Vivutio</string>
@@ -408,4 +403,6 @@
     <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Urambazaji otomatiki</string>
+    <string name="category_police">Polisi</string>
+    <string name="category_post" translatable="false">Posta</string>
 </resources>

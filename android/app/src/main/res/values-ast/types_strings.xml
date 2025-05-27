@@ -174,4 +174,5 @@
     <string name="type.man_made.communications_tower">Torre de comunicaciones</string>
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
     <string name="type.man_made.tower">Torre</string>
+    <string name="type.shop.garden_centre">Centru de xardinería</string>
 </resources>

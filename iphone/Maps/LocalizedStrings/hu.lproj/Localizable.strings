@@ -715,7 +715,7 @@
 "placepage_remove_stop" = "Megálló eltávolítása";
 "planning_route_remove_title" = "Húzza ide az eltávolításhoz";
 "placepage_add_stop" = "Köztes célpont hozzáadása";
-"start_from_my_position" = "Kiindulás innen:";
+"start_from_my_position" = "Kiindulás innen";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. Tudjon meg többet";

@@ -106,7 +106,7 @@
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">Onde comer</string>
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
-    <string name="category_food">Lojas alimentares</string>
+    <string name="category_food" translatable="false">Mercearias</string>
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
     <string name="category_transport">Transporte</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->

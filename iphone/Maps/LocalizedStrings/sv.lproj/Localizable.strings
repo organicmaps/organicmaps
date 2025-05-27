@@ -96,7 +96,7 @@
 "category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
-"category_fuel" = "Bensinstation";
+"category_fuel" = "Bensin";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Parkering";

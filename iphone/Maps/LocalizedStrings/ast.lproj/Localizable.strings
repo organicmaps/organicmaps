@@ -153,3 +153,6 @@
 "download_button" = "Baxar";
 "pref_tts_speedcams_auto" = "Alvertir al esceder la llende de velocidá";
 "speedcams_alert_title_carplay_2" = "Alvertencies de velocidá";
+"money" = "Dineru";
+"pref_tts_street_names_title" = "Anunciar nomes de cais";
+"read_in_wikipedia" = "Wikipedia";

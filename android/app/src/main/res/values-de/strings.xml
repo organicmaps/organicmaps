@@ -896,4 +896,5 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="facebook">Facebook</string>
+    <string name="saved">Gespeichert</string>
 </resources>

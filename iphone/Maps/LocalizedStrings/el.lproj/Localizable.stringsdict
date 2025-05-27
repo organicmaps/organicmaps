@@ -44,10 +44,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d διαδρομή</string>
 			<key>other</key>
-			<string>%d διαδρομές</string>
+			<string>%d ίχνη</string>
 		</dict>
 	</dict>
 </dict>

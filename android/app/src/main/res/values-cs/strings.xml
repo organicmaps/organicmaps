@@ -147,7 +147,7 @@
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Voda</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Pro obytné vozy</string>
+    <string name="category_rv" translatable="false">Pro RV</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
@@ -884,4 +884,5 @@
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="saved">Uloženo</string>
 </resources>
