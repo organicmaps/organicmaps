@@ -1397,4 +1397,5 @@
     <string name="type.amenity.studio">Stúdió</string>
     <string name="type.barrier.guard_rail">Szalagkorlát</string>
     <string name="type.highway.ladder">Létra</string>
+    <string name="type.sport.diving">Búvárkodás</string>
 </resources>

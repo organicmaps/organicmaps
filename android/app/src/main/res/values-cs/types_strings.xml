@@ -1080,7 +1080,7 @@
     <string name="type.sport.handball">Házená</string>
     <string name="type.sport.multi">Různé sporty</string>
     <!-- Used to tag a scuba diving site. -->
-    <string name="type.sport.scuba_diving">Potápění</string>
+    <string name="type.sport.scuba_diving">Místo pro potápění</string>
     <string name="type.sport.shooting">Střílení</string>
     <string name="type.sport.skateboard">Skateboarding</string>
     <string name="type.sport.skiing">Lyžování</string>
@@ -1150,9 +1150,9 @@
     <string name="type.waterway.stream.intermittent">Řeka</string>
     <string name="type.waterway.stream.tunnel">Řeka</string>
     <string name="type.waterway.waterfall">Vodopád</string>
-    <string name="type.wheelchair.limited">Omezený vstup pro vozíčkáře</string>
-    <string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
-    <string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
+    <string name="type.wheelchair.limited">Omezený bezbariérový přístup</string>
+    <string name="type.wheelchair.no">Žádný bezbariérový přístup</string>
+    <string name="type.wheelchair.yes">Plně bezbariérový přístup</string>
     <string name="type.piste_type.snow_park">Snowpark</string>
     <string name="type.piste_type.hike">Zimní stezka</string>
     <string name="type.piste_type.connection">Připojení sjezdovky</string>
@@ -1397,4 +1397,5 @@
     <string name="type.leisure.firepit">Ohniště</string>
     <string name="type.barrier.guard_rail">Ochranné zábradlí</string>
     <string name="type.highway.ladder">Žebřík</string>
+    <string name="type.sport.diving">Potápění</string>
 </resources>

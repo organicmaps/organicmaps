@@ -1129,7 +1129,7 @@
     <string name="type.shop.florist">Floristería</string>
     <string name="type.shop.funeral_directors">Funeraria</string>
     <string name="type.shop.furniture">Tienda de muebles</string>
-    <string name="type.shop.garden_centre">Vivero</string>
+    <string name="type.shop.garden_centre">Centro de jardinería</string>
     <string name="type.shop.gas">Tienda de gasolina</string>
     <string name="type.shop.gift">Tienda de regalos</string>
     <string name="type.shop.greengrocer">Frutería</string>
@@ -1399,4 +1399,6 @@
     <string name="type.barrier.guard_rail">Barrera de contención</string>
     <string name="type.amenity.studio">Estudio</string>
     <string name="type.amenity.love_hotel">Hotel para parejas</string>
+    <string name="type.sport.diving">Clavado</string>
+    <string name="type.landuse.plant_nursery">Vivero</string>
 </resources>

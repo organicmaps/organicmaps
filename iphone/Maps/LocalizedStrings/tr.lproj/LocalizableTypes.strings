@@ -596,7 +596,7 @@
 "type.area_highway.track" = "Pist";
 "type.area_highway.trunk" = "Devlet Yolu";
 "type.area_highway.unclassified" = "Tali Yol";
-"type.highway.world_level" = "highway-world_level";
+"type.highway.world_level" = "yer_seviyesi-karayolu";
 "type.highway.world_towns_level" = "highway-world_towns_level";
 "type.historic" = "Tarihi Nesne";
 "type.historic.aircraft" = "Tarihi Uçak";
@@ -605,20 +605,20 @@
 "type.historic.battlefield" = "Harp Meydanı";
 "type.historic.boundary_stone" = "Sınır Taşı";
 "type.historic.cannon" = "Top";
-"type.historic.castle" = "Müstahkem Şato";
+"type.historic.castle" = "Şato";
 "type.historic.castle.castrum" = "Castra";
-"type.historic.castle.defensive" = "Müstahkem şato";
+"type.historic.castle.defensive" = "Savunma şatosu";
 "type.historic.castle.fortified_church" = "Müstahkem kilise";
-"type.historic.castle.fortress" = "Kale";
-"type.historic.castle.hillfort" = "Tepe Kalesi";
+"type.historic.castle.fortress" = "Hisar";
+"type.historic.castle.hillfort" = "Tepe kalesi";
 "type.historic.castle.kremlin" = "Kremlin";
 "type.historic.castle.manor" = "Malikane";
 "type.historic.castle.palace" = "Saray";
 "type.historic.castle.shiro" = "Japon kalesi";
-"type.historic.castle.stately" = "Şato";
+"type.historic.castle.stately" = "Görkemli şato";
 "type.historic.city_gate" = "Şehir kapısı";
 "type.historic.citywalls" = "Şehir Duvarı";
-"type.historic.fort" = "Hisar";
+"type.historic.fort" = "Kale";
 "type.historic.gallows" = "Darağacı";
 "type.historic.locomotive" = "Tarihi Lokomotif";
 "type.historic.memorial" = "Abide";
@@ -1484,3 +1484,10 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Spor salonu";
+"type.sport.diving" = "Dalış";
+"type.highway.ladder" = "Basamak";
+"type.landuse.plant_nursery" = "Fidanlık";
+"type.amenity.love_hotel" = "Çiftler için otel";
+"type.amenity.studio" = "Atölye";
+"type.barrier.guard_rail" = "Korkuluk";
+"type.leisure.firepit" = "Ateş yeri";

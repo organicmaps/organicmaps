@@ -138,7 +138,7 @@
 "category_toilet" = "توالت";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
-"category_post" = "صندوق پست";
+"category_post" = "پست";
 
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "پلیس";

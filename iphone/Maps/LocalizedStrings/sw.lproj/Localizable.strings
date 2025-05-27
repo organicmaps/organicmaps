@@ -138,10 +138,10 @@
 "category_toilet" = "Toilet";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
-"category_post" = "Post";
+"category_post" = "Posta";
 
 /* Search category for police; any changes should be duplicated in categories.txt @category_police! */
-"category_police" = "Police";
+"category_police" = "Polisi";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "WiFi";

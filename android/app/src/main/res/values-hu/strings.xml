@@ -873,4 +873,5 @@
     <string name="error_enter_correct_facebook_page">Adjon meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
     <string name="error_enter_correct_twitter_page">Adjon meg egy érvényes X (Twitter) felhasználónevet vagy webcímet</string>
     <string name="error_enter_correct_instagram_page">Adjon meg egy érvényes Instagram felhasználónevet vagy webcímet</string>
+    <string name="saved">Elmentve</string>
 </resources>

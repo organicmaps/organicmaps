@@ -1506,3 +1506,4 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sports hall";
+"type.sport.diving" = "Diving";

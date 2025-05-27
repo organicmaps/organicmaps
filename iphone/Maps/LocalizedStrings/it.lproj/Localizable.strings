@@ -93,7 +93,7 @@
 "category_food" = "Alimentari";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
-"category_transport" = "Trasporti";
+"category_transport" = "Trasporto";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
 "category_fuel" = "Benzinaio";

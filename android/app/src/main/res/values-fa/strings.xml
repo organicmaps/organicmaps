@@ -136,7 +136,7 @@
     <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
     <string name="category_toilet">توالت</string>
     <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
-    <string name="category_post">صندوق پست</string>
+    <string name="category_post" translatable="false">پست</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">پلیس</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->

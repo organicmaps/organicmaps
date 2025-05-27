@@ -106,7 +106,7 @@
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Alimentari</string>
     <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
-    <string name="category_transport">Trasporti</string>
+    <string name="category_transport" translatable="false">Trasporto</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Benzinaio</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->

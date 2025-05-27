@@ -1248,7 +1248,7 @@
 "type.shop.florist" = "Florist";
 "type.shop.funeral_directors" = "Funeral Directors";
 "type.shop.furniture" = "Furniture Store";
-"type.shop.garden_centre" = "Garden Center";
+"type.shop.garden_centre" = "Centre de jardineria";
 "type.shop.gas" = "Botiga de gas";
 "type.shop.gift" = "Gift Shop";
 "type.shop.greengrocer" = "Greengrocer";
@@ -1343,22 +1343,22 @@
 "type.sport.equestrian" = "Esports eqüestres";
 "type.sport.golf" = "Golf";
 "type.sport.gymnastics" = "Gimnàstica";
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Handbol";
 "type.sport.multi" = "Diversos esports";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Scuba Diving Site";
 "type.sport.shooting" = "Shooting";
-"type.sport.skateboard" = "Skateboarding";
-"type.sport.skiing" = "Skiing";
-"type.sport.soccer" = "Soccer";
+"type.sport.skateboard" = "Monopatinatge";
+"type.sport.skiing" = "Esquí";
+"type.sport.soccer" = "Futbol";
 "type.sport.swimming" = "Natació";
-"type.sport.table_tennis" = "Table Tennis";
-"type.sport.tennis" = "Tennis Court";
-"type.sport.volleyball" = "Volleyball";
+"type.sport.table_tennis" = "Tennis de taula";
+"type.sport.tennis" = "Pista de tennis";
+"type.sport.volleyball" = "Voleibol";
 "type.sport.10pin" = "Bowling";
 "type.sport.9pin" = "Bowling";
-"type.sport.padel" = "Padel";
+"type.sport.padel" = "Pàdel";
 "type.sport.futsal" = "Futsal";
 "type.sport.ice_hockey" = "Ice Hockey";
 "type.sport.field_hockey" = "Field Hockey";
@@ -1489,3 +1489,4 @@
 "type.amenity.love_hotel" = "Meublé";
 "type.highway.ladder" = "Escala de mà";
 "type.landuse.plant_nursery" = "Viver";
+"type.sport.diving" = "Salts";

@@ -1488,5 +1488,6 @@
 "type.amenity.studio" = "Studio";
 "type.landuse.plant_nursery" = "Gärtnerei";
 "type.leisure.firepit" = "Feuerstelle";
-"type.barrier.guard_rail" = "Geländer";
+"type.barrier.guard_rail" = "Schutzgeländer";
 "type.highway.ladder" = "Leiter";
+"type.sport.diving" = "Tauchen";

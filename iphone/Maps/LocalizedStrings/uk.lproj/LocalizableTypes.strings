@@ -1490,3 +1490,4 @@
 "type.barrier.guard_rail" = "Захисна огорожа";
 "type.highway.ladder" = "Драбина";
 "type.leisure.firepit" = "Вогняна яма";
+"type.sport.diving" = "Дайвінг";

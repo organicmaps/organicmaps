@@ -905,4 +905,5 @@
     <string name="editor_add_phone">Додати телефон</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="saved">Збережено</string>
 </resources>

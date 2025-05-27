@@ -260,7 +260,7 @@
     <string name="routing_failed_cross_mwm_building">Só se poden crear rutas que estean totalmente contidas nun mapa dunha soa rexión.</string>
     <string name="downloader_download_map">Descargar mapa</string>
     <string name="google_play_services">Servizos de localización de Google Play</string>
-        <string name="routing_download_maps_along">Descargue todos os mapas do seu roteiro</string>
+    <string name="routing_download_maps_along">Descargue todos os mapas do seu roteiro</string>
     <string name="routing_requires_all_map">Para crear unha ruta é necesario descargar e actualizar todos os mapas desde a súa localización ao seu destino.</string>
     <string name="routing_not_enough_space">Non hai suficiente espazo</string>
     <string name="enable_location_services">Por favor, active os servizos de localización</string>
@@ -601,4 +601,5 @@
         <item quantity="one">%d marcador</item>
         <item quantity="other">%d marcadores</item>
     </plurals>
+    <string name="saved">Gardado</string>
 </resources>

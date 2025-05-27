@@ -130,7 +130,7 @@
     <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
     <string name="category_hotel">Hotel</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
-    <string name="category_tourism">Atracciones turísticas</string>
+    <string name="category_tourism" translatable="false">Turismo</string>
     <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
     <string name="category_entertainment">Entretenimiento</string>
     <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
@@ -152,13 +152,13 @@
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Policía</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">Wifi</string>
+    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclaje</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
     <string name="category_water">Agua</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
-    <string name="category_rv">Instalaciones para autocaravanas</string>
+    <string name="category_rv" translatable="false">Caravanas</string>
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notas</string>
@@ -601,20 +601,20 @@
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Salida</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
-    <string name="routing_add_start_point">Busca o toca en el mapa para añadir el origen de la ruta</string>
+    <string name="routing_add_start_point">Busque o toque en el mapa para añadir el origen de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
-    <string name="routing_add_finish_point">Busca o toca en el mapa para añadir el destino</string>
-    <string name="planning_route_manage_route">Administrar ruta</string>
+    <string name="routing_add_finish_point">Busque o toque en el mapa para añadir un destino</string>
+    <string name="planning_route_manage_route">Gestionar ruta</string>
     <string name="button_plan">Planificar</string>
     <string name="placepage_remove_stop">Eliminar parada</string>
     <string name="placepage_add_stop">Añadir parada</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
-    <string name="alert_reauth_message">Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
+    <string name="alert_reauth_message">Acceda a OpenStreetMap para cargar automáticamente todas sus ediciones al mapa. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
     <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
-    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo ó escríbanos a support@organicmaps.app</string>
+    <string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Compruébelo o escríbanos a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular almacenamiento dañado</string>
     <string name="core_entrance">Entrada</string>
-    <string name="error_enter_correct_name">Por favor, introduzca el nombre correcto</string>
+    <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
     <string name="bookmark_lists">Listas</string>
     <!-- Do not display all bookmark lists on the map -->
     <string name="bookmark_lists_hide_all">Ocultar todo</string>
@@ -894,4 +894,5 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="level_value_generic">Nivel: %s</string>
     <string name="editor_line_social_network">LINE</string>
+    <string name="saved">Guardado</string>
 </resources>

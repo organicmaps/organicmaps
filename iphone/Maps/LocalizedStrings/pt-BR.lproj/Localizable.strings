@@ -43,7 +43,7 @@
 "country_status_download_failed" = "O download falhou";
 
 /* Text in About screen */
-"about_headline" = "Grátis para todos, feito com amor";
+"about_headline" = "Livre para todos, feito com amor";
 
 /* Text in About screen */
 "about_proposition_1" = "• Sem anúncios, rastreamento ou coleta de dados";
@@ -232,7 +232,7 @@
 "pref_tts_enable_title" = "Orientação por voz";
 
 /* Settings «Route» category: «Tts announce street names» title */
-"pref_tts_street_names_title" = "Anunciar nomes de ruas";
+"pref_tts_street_names_title" = "Anunciar Nomes de Ruas";
 
 /* Settings «Route» category: «Tts announce street names» description */
 "pref_tts_street_names_description" = "Quando ativado, o nome da rua ou saída para virar será falado em voz alta.";
@@ -241,7 +241,7 @@
 "pref_tts_language_title" = "Idioma da voz";
 
 /* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testar instruções de voz (TTS, Text-To-Speech)";
+"pref_tts_test_voice_title" = "Testar Instruções de Voz (TTS, Text-To-Speech)";
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Outro";
@@ -274,7 +274,7 @@
 "help" = "Ajuda";
 
 /* Button in the main Help dialog */
-"faq" = "Perguntas frequentes";
+"faq" = "Perguntas Frequentes";
 
 /* Button in the main menu */
 "donate" = "Doar";
@@ -282,8 +282,8 @@
 /* Tex label above the Donate button */
 "donate_description" = "Doe para criarmos juntos os melhores mapas!";
 "already_donated" = "Já doei";
-"remind_me_later" = "Lembre-me mais tarde";
-"support_organic_maps" = "Apoie o Organic Maps";
+"remind_me_later" = "Lembrar mais tarde";
+"support_organic_maps" = "Apoiar Organic Maps";
 
 /* Button in the main Help dialog */
 "copyright" = "Direitos autorais";
@@ -310,7 +310,7 @@
 "pref_calibration_title" = "Calibração da bússola";
 
 /* Toast text when user hides UI with a long tap anywhere on the map */
-"long_tap_toast" = "Dê um toque longo no mapa novamente para ver a interface";
+"long_tap_toast" = "Toque longamente no mapa novamente para ver a interface";
 
 /* Update all button text */
 "downloader_update_all_button" = "Atualizar tudo";
@@ -341,7 +341,7 @@
 "downloader_delete_map_while_routing_dialog" = "Favor parar a navegação para apagar o mapa.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam completamente contidas em um único mapa.";
+"routing_failed_cross_mwm_building" = "Só podem ser criadas rotas que estejam totalmente contidas em um mapa de uma única região.";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Baixar o mapa";

@@ -90,7 +90,7 @@
 "category_eat" = "Onde comer";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
-"category_food" = "Lojas alimentares";
+"category_food" = "Mercearias";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
 "category_transport" = "Transporte";
