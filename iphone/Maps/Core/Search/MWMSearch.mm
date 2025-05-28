@@ -17,15 +17,11 @@ using Observers = NSHashTable<Observer>;
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
 
 @property(nonatomic) NSUInteger suggestionsCount;
-
+@property(nonatomic) SearchMode searchMode;
 @property(nonatomic) BOOL textChanged;
-
-@property(nonatomic) Observers *observers;
-
+@property(nonatomic) Observers * observers;
 @property(nonatomic) NSUInteger lastSearchTimestamp;
-
-@property(nonatomic) SearchIndex *itemsIndex;
-
+@property(nonatomic) SearchIndex * itemsIndex;
 @property(nonatomic) NSInteger searchCount;
 
 @end
@@ -106,11 +102,21 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (void)update {
-  [self reset];
   if (m_query.empty())
     return;
-  [self searchInViewport];
-  [self searchEverywhere];
+
+  switch (self.searchMode) {
+    case SearchModeEverywhere:
+      [self searchEverywhere];
+      break;
+    case SearchModeViewport:
+      [self searchInViewport];
+      break;
+    case SearchModeEverywhereAndViewport:
+      [self searchEverywhere];
+      [self searchInViewport];
+      break;
+  }
 }
 
 #pragma mark - Add/Remove Observers
@@ -150,6 +156,7 @@ using Observers = NSHashTable<Observer>;
   manager->m_isCategory = (query.source == SearchTextSourceCategory);
   manager.textChanged = YES;
 
+  [manager reset];
   [manager update];
 }
 
@@ -164,23 +171,6 @@ using Observers = NSHashTable<Observer>;
                                                       itemType:[MWMSearch resultTypeWithRow:index]
                                                          index:index];
   return result;
-}
-
-+ (void)showEverywhereSearchResultsOnMap {
-  MWMSearch * manager = [MWMSearch manager];
-  if (![MWMRouter isRoutingActive]) {
-    auto const & results = manager->m_everywhereResults;
-    if (results.GetCount() == 1)
-      [self showResultAtIndex:0];
-    else
-      GetFramework().ShowSearchResults(manager->m_everywhereResults);
-  }
-}
-
-+ (void)showViewportSearchResultsOnMap {
-  MWMSearch * manager = [MWMSearch manager];
-  if (![MWMRouter isRoutingActive])
-    [manager processViewportChangedEvent];
 }
 
 + (NSArray<SearchResult *> *)getResults {
@@ -219,9 +209,22 @@ using Observers = NSHashTable<Observer>;
   [manager reset];
 }
 
++ (SearchMode)searchMode {
+  return [MWMSearch manager].searchMode;
+}
+
++ (void)setSearchMode:(SearchMode)mode {
+  MWMSearch * manager = [MWMSearch manager];
+  if (manager.searchMode == mode)
+    return;
+  manager.searchMode = mode;
+  [manager update];
+}
+
 + (NSUInteger)suggestionsCount {
   return [MWMSearch manager].suggestionsCount;
 }
+
 + (NSUInteger)resultsCount {
   return [MWMSearch manager].itemsIndex.count;
 }
@@ -264,7 +267,19 @@ using Observers = NSHashTable<Observer>;
 - (void)processViewportChangedEvent {
   if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
     return;
-  [self searchEverywhere];
+
+  BOOL const isSearchCompleted = self.searchCount == 0;
+  if (!isSearchCompleted)
+    return;
+
+  switch (self.searchMode) {
+    case SearchModeEverywhere:
+    case SearchModeViewport:
+      break;
+    case SearchModeEverywhereAndViewport:
+      [self searchEverywhere];
+      break;
+  }
 }
 
 #pragma mark - Properties
