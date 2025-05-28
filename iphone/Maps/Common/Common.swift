@@ -1,10 +1,15 @@
 import Foundation
 
-var isIPad: Bool { return UI_USER_INTERFACE_IDIOM() == .pad }
+var isIPad: Bool {
+  if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+    return true
+  }
+  return UIDevice.current.userInterfaceIdiom == .pad
+}
 
 func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
 
-func alternative<T>(iPhone: T, iPad: T) -> T { return isIPad ? iPad : iPhone }
+func alternative<T>(iPhone: T, iPad: T) -> T { isIPad ? iPad : iPhone }
 
 func iPadSpecific(_ f: () -> Void) {
   if isIPad {
