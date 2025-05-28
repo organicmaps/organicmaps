@@ -1,16 +1,9 @@
 extension UIViewController {
   func alternativeSizeClass<T>(iPhone: @autoclosure () -> T, iPad: @autoclosure () -> T) -> T {
-    if traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular {
-      return iPad()
-    }
-    return iPhone()
+    isIPad ? iPad() : iPhone()
   }
 
   func alternativeSizeClass(iPhone: () -> Void, iPad: () -> Void) {
-    if traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular {
-      iPad()
-    } else {
-      iPhone()
-    }
+    isIPad ? iPad() : iPhone()
   }
 }
