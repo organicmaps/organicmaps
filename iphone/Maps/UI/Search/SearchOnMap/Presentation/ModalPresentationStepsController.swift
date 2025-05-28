@@ -77,7 +77,7 @@ final class ModalPresentationStepsController {
       }
 
       let animation: PresentationStepChangeAnimation = abs(velocity.y) > Constants.slowSwipeVelocity ? .slideAndBounce : .slide
-      setStep(nextStep, animation: animation, notifyAboutStepUpdate: true)
+      setStep(nextStep, animation: animation)
     default:
       break
     }
@@ -86,27 +86,23 @@ final class ModalPresentationStepsController {
   func setStep(_ step: ModalPresentationStep,
                completion: (() -> Void)? = nil) {
     guard currentStep != step else { return }
-    setStep(step, animation: .slide, notifyAboutStepUpdate: false, completion: completion)
+    setStep(step, animation: .slide, completion: completion)
   }
 
   private func setStep(_ step: ModalPresentationStep,
                        animation: PresentationStepChangeAnimation,
-                       notifyAboutStepUpdate: Bool = true,
                        completion: (() -> Void)? = nil) {
     guard let presentedView else { return }
     currentStep = step
     updateMaxAvailableFrame()
 
     let frame = frame(for: step)
+    didUpdateHandler?(.didUpdateStep(step))
     didUpdateHandler?(.didUpdateFrame(frame))
 
     ModalPresentationAnimator.animate(with: animation) {
       presentedView.frame = frame
-    } completion: { [weak self] _ in
-      guard let self else { return }
-      if notifyAboutStepUpdate {
-        self.didUpdateHandler?(.didUpdateStep(step))
-      }
+    } completion: { _ in
       completion?()
     }
   }
