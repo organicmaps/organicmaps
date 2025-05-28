@@ -130,7 +130,7 @@ final class SearchOnMapTests: XCTestCase {
     searchManager.results = results
 
     interactor.handle(.didSelectResult(results[0], withQuery: query))
-    if isIPad {
+    if isiPad {
       XCTAssertEqual(currentState, .searching)
       XCTAssertEqual(view.viewModel.presentationStep, .fullScreen)
     } else {
@@ -145,7 +145,7 @@ final class SearchOnMapTests: XCTestCase {
 
     interactor.handle(.didSelectPlaceOnMap)
 
-    if isIPad {
+    if isiPad {
       XCTAssertNotEqual(view.viewModel.presentationStep, .hidden)
     } else {
       XCTAssertEqual(view.viewModel.presentationStep, .hidden)
@@ -163,7 +163,7 @@ final class SearchOnMapTests: XCTestCase {
     searchManager.results = results
 
     interactor.handle(.didSelectResult(results[0], withQuery: query))
-    if isIPad {
+    if isiPad {
       XCTAssertEqual(currentState, .searching)
       XCTAssertEqual(view.viewModel.presentationStep, .fullScreen)
     } else {

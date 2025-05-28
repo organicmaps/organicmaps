@@ -1,6 +1,6 @@
 import Foundation
 
-var isIPad: Bool {
+var isiPad: Bool {
   if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
     return true
   }
@@ -9,16 +9,16 @@ var isIPad: Bool {
 
 func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
 
-func alternative<T>(iPhone: T, iPad: T) -> T { isIPad ? iPad : iPhone }
+func alternative<T>(iPhone: T, iPad: T) -> T { isiPad ? iPad : iPhone }
 
 func iPadSpecific(_ f: () -> Void) {
-  if isIPad {
+  if isiPad {
     f()
   }
 }
 
 func iPhoneSpecific(_ f: () -> Void) {
-  if !isIPad {
+  if !isiPad {
     f()
   }
 }

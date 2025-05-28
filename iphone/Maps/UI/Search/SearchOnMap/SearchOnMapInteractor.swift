@@ -48,7 +48,7 @@ final class SearchOnMapInteractor: NSObject {
     case .didSelectResult(let result, let query):
       return processSelectedResult(result, query: query)
     case .didSelectPlaceOnMap:
-      return isIPad ? .none : .setSearchScreenHidden(true)
+      return isiPad ? .none : .setSearchScreenHidden(true)
     case .didDeselectPlaceOnMap:
       return deselectPlaceOnMap()
     case .didStartDraggingMap:
@@ -113,7 +113,7 @@ final class SearchOnMapInteractor: NSObject {
       @unknown default:
         fatalError("Unsupported routingTooltipSearch")
       }
-      return isIPad ? .none : .setSearchScreenHidden(true)
+      return isiPad ? .none : .setSearchScreenHidden(true)
     case .suggestion:
       let suggestionQuery = SearchQuery(result.suggestion,
                                         locale: query.locale,

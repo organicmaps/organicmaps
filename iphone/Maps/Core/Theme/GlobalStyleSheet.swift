@@ -452,7 +452,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.shadowRadius = 6
         s.cornerRadius = .modalSheet
         s.clip = false
-        s.maskedCorners = isIPad ? [] : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        s.maskedCorners = isiPad ? [] : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
       }
     case .modalSheetContent:
       return .addFrom(Self.modalSheetBackground) { s in
