@@ -125,7 +125,7 @@ extension PlacePageStyleSheet: IStyleSheet {
     case .ppBackgroundView:
       return .addFrom(GlobalStyleSheet.modalSheetBackground) { s in
         s.backgroundColor = colors.pressBackground
-        s.maskedCorners = isIPad ? CACornerMask.all : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        s.maskedCorners = isiPad ? CACornerMask.all : [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         s.clip = false
       }
     case .ppView:
