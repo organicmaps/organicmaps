@@ -66,6 +66,10 @@ void PowerManager::Load()
   {
     LOG(LERROR, ("Cannot deserialize power manager data from file. Exception:", ex.Msg()));
   }
+  catch (FileReader::OpenException const & ex)
+  {
+    // Do nothing if config file is absent => a user didn't set it up yet.
+  }
   catch (FileReader::Exception const & ex)
   {
     LOG(LWARNING, ("Cannot read power manager config file. Exception:", ex.Msg()));
