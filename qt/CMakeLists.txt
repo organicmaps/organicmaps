@@ -126,6 +126,8 @@ copy_resources(
   countries.txt
   drules_proto_default_light.bin
   drules_proto_default_dark.bin
+  drules_proto_outdoors_light.bin
+  drules_proto_outdoors_dark.bin
   drules_proto_vehicle_light.bin
   drules_proto_vehicle_dark.bin
   editor.config
