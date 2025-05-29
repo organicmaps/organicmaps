@@ -7,8 +7,6 @@ set(3PARTY_INCLUDE_DIRS "${OMIM_ROOT}/3party/boost")
 set(OMIM_DATA_DIR "${OMIM_ROOT}/data")
 set(OMIM_USER_RESOURCES_DIR "${OMIM_ROOT}/data")
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 # GCC 10.0 is required to support <charconv> header inclusion in base/string_utils.hpp
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0)
   message(FATAL_ERROR "Minimum supported g++ version is 10.0, yours is ${CMAKE_CXX_COMPILER_VERSION}")

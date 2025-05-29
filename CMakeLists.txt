@@ -19,6 +19,9 @@ endif()
 set(OMIM_ROOT ${CMAKE_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
 include(OmimPlatform)
 include(OmimOptions)
 include(OmimConfig)
