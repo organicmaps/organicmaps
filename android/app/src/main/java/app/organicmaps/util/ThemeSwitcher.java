@@ -37,11 +37,19 @@ public enum ThemeSwitcher
       // Cancel old checker
       UiThread.cancelDelayedTasks(mAutoThemeChecker);
 
+      String theme;
       if (navAuto || ThemeUtils.isAutoTheme(mContext))
       {
         UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
-        setThemeAndMapStyle(calcAutoTheme());
+        theme = calcAutoTheme();
       }
+      else
+      {
+        // Happens when exiting the Navigation mode. Should restore the light.
+        theme = mContext.getResources().getString(R.string.theme_default);
+      }
+
+      setThemeAndMapStyle(theme);
     }
   };
 
