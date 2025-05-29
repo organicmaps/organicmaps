@@ -100,9 +100,6 @@ BOOL defaultOrientation(CGSize const &size) {
 
 @implementation MWMNavigationInfoView
 
-- (void)setMapSearch {
-  [self setSearchState:NavigationSearchState::MinimizedSearch animated:YES];
-}
 - (void)updateToastView {
   // -S-F-L -> Start
   // -S-F+L -> Finish

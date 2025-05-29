@@ -29,8 +29,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
 
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info;
 
-- (void)setMapSearch;
-
 - (void)updateToastView;
 
 @end
