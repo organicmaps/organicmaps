@@ -581,7 +581,7 @@ public class PlacePageController extends Fragment implements
       // And move the bookmark button at the end
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
-      else
+      else if (mMapObject != null && !mMapObject.isTrack())
         buttons.add(mapObject.isBookmark()
                     ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                     : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
