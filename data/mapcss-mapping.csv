@@ -1016,7 +1016,7 @@ historic|memorial|cross;[historic=memorial][memorial=cross];;name;int_name;895;
 historic|gallows;[historic=gallows];;name;int_name;896;
 historic|pillory;[historic=pillory];;name;int_name;897;
 amenity|money_transfer;898;
-deprecated|deprecated;899;x
+man_made|crane;899;
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel
 deprecated|deprecated;901;x
 railway|subway|gray;[railway=subway][colour=gray];x;name;int_name;902;railway|subway|tunnel
