@@ -11,10 +11,17 @@ typedef NS_ENUM(NSUInteger, SearchTextSource) {
   SearchTextSourceDeeplink
 };
 
+typedef NS_ENUM(NSUInteger, SearchMode) {
+  SearchModeEverywhere,
+  SearchModeViewport,
+  SearchModeEverywhereAndViewport
+};
+
 @class SearchResult;
 @class SearchQuery;
 
 @protocol SearchManager
+
 + (void)addObserver:(id<MWMSearchObserver>)observer;
 + (void)removeObserver:(id<MWMSearchObserver>)observer;
 
@@ -22,8 +29,8 @@ typedef NS_ENUM(NSUInteger, SearchTextSource) {
 + (void)searchQuery:(SearchQuery *)query;
 
 + (void)showResultAtIndex:(NSUInteger)index;
-+ (void)showEverywhereSearchResultsOnMap;
-+ (void)showViewportSearchResultsOnMap;
++ (SearchMode)searchMode;
++ (void)setSearchMode:(SearchMode)mode;
 
 + (NSArray<SearchResult *> *)getResults;
 

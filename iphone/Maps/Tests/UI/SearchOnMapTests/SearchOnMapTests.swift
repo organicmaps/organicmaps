@@ -239,6 +239,23 @@ final class SearchOnMapTests: XCTestCase {
     XCTAssertEqual(view.viewModel.presentationStep, .halfScreen)
     XCTAssertEqual(view.viewModel.isTyping, false) // No typing when deeplink is used
   }
+
+  func test_GivenSearchIsActive_WhenPresentationStepUpdate_ThenUpdateSearchMode() {
+    interactor.handle(.openSearch)
+    XCTAssertEqual(searchManager.searchMode(), isiPad ? .everywhereAndViewport : .everywhere)
+
+    interactor.handle(.didUpdatePresentationStep(.halfScreen))
+    XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
+
+    interactor.handle(.didUpdatePresentationStep(.compact))
+    XCTAssertEqual(searchManager.searchMode(), .everywhereAndViewport)
+
+    interactor.handle(.didUpdatePresentationStep(.hidden))
+    XCTAssertEqual(searchManager.searchMode(), .viewport)
+
+    interactor.handle(.didUpdatePresentationStep(.fullScreen))
+    XCTAssertEqual(searchManager.searchMode(), isiPad ? .everywhereAndViewport : .everywhere)
+  }
 }
 
 // MARK: - Mocks
@@ -264,6 +281,7 @@ private class SearchManagerMock: SearchManager {
       }
     }
   }
+  private static var _searchMode: SearchMode = .everywhere
 
   static func add(_ observer: any MWMSearchObserver) {
     self.observers.addListener(observer)
@@ -276,10 +294,10 @@ private class SearchManagerMock: SearchManager {
   static func save(_ query: SearchQuery) {}
   static func searchQuery(_ query: SearchQuery) {}
   static func showResult(at index: UInt) {}
-  static func showEverywhereSearchResultsOnMap() {}
-  static func showViewportSearchResultsOnMap() {}
   static func clear() {}
   static func getResults() -> [SearchResult] { results.results }
+  static func searchMode() -> SearchMode { _searchMode }
+  static func setSearchMode(_ mode: SearchMode) { _searchMode = mode }
 }
 
 private extension SearchResult {
