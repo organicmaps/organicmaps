@@ -14121,6 +14121,10 @@ el:Καμινάδα εργοστασίου
 sk:Komín
 mr:कारखाना चिमणी
 
+man_made-crane
+en:Crane
+ru:Кран
+
 man_made-tower|man_made-flare
 en:Tower
 ru:Башня

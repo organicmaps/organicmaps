@@ -1094,6 +1094,7 @@ landuse-vineyard                                    # caption z15- (also has are
 leisure-ice_rink                                    # icon z17- (also has caption(optional) z17-)
 leisure-pitch                                       # icon z17- (also has caption(optional) z17-, area z15-)
 man_made-chimney                                    # icon z16- (also has caption(optional) z18-)
+man_made-crane                                      # icon z16- (also has caption(optional) z18-)
 man_made-flagpole                                   # icon z15-
 man_made-flare                                      # icon z16- (also has caption(optional) z18-)
 man_made-tower                                      # icon z16- (also has caption(optional) z18-)
@@ -2034,6 +2035,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # leisure-ice_rink                                  # caption(optional) z17- (also has icon z17-)
 # leisure-pitch                                     # caption(optional) z17- (also has icon z17-, area z15-)
 # man_made-chimney                                  # caption(optional) z18- (also has icon z16-)
+# man_made-crane                                    # caption(optional) z18- (also has icon z16-)
 # man_made-flare                                    # caption(optional) z18- (also has icon z16-)
 # man_made-tower                                    # caption(optional) z18- (also has icon z16-)
 # man_made-tower-communication                      # caption(optional) z18- (also has icon z16-)
