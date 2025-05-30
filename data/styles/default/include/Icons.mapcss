@@ -1041,7 +1041,6 @@ node|z17-[aeroway=gate],
 area|z17-[aeroway=gate],
 node|z17-[sport],
 area|z17-[sport],
-node|z17-[highway=ladder],
 node|z18-[amenity=dojo],
 area|z18-[amenity=dojo],
 node|z18-[amenity=vending_machine],
@@ -1556,7 +1555,7 @@ node|z16-[barrier=entrance],
 {icon-image: entrance-barrier-s.svg; font-size: 11;}
 
 node|z17-[highway=ladder],
-{icon-image: ladder-m.svg;font-size: 11;}
+{icon-image: ladder-s.svg;}
 
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
