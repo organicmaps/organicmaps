@@ -690,7 +690,7 @@
 "mobile_data_description" = "Es necessita Internet mòbil per a les notifiacions d'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.";
 "mobile_data_option_never" = "Mai";
 "mobile_data_option_ask" = "Demana-ho sempre";
-"traffic_update_maps_text" = "Per a mostrar les dades de trànsit, els maps han d'estar actualitzats.";
+"traffic_update_maps_text" = "Per a mostrar les dades de trànsit, s’han d’actualitzar els mapes.";
 "big_font" = "Augmenta la mida de lletra del mapa";
 
 /* "traffic" as in road congestion */

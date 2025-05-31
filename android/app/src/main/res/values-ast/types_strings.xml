@@ -175,4 +175,8 @@
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
     <string name="type.man_made.tower">Torre</string>
     <string name="type.shop.garden_centre">Centru de xardinería</string>
+    <string name="type.amenity.bicycle_rental">Alquiler de bicicletes</string>
+    <string name="type.shop.bookmaker">Casa d’apuestes</string>
+    <string name="type.shop.books">Llibrería</string>
+    <string name="type.shop.hardware">Ferretería</string>
 </resources>

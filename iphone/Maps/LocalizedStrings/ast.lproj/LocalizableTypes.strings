@@ -173,3 +173,7 @@
 "type.man_made.tower" = "Torre";
 "type.man_made.tower.communication" = "Torre de comunicaciones";
 "type.shop.garden_centre" = "Centru de xardinería";
+"type.shop.bookmaker" = "Casa d’apuestes";
+"type.amenity.bicycle_rental" = "Alquiler de bicicletes";
+"type.shop.hardware" = "Ferretería";
+"type.shop.books" = "Llibrería";

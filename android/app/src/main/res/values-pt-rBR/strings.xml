@@ -348,7 +348,7 @@
     <string name="dialog_routing_change_end">Ajuste o ponto de chegada</string>
     <string name="dialog_routing_end_not_determined">A rota não foi traçada, pois não foi possível localizar o ponto de chegada.</string>
     <string name="dialog_routing_select_closer_end">Selecione um ponto de chegada mais perto de uma estrada.</string>
-    <string name="dialog_routing_intermediate_not_determined">Ajuste seu ponto intermédio.</string>
+    <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste seu ponto intermediário.</string>
     <string name="dialog_routing_system_error">Erro de sistema</string>
     <string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
     <string name="dialog_routing_try_again">Por favor, tente novamente</string>
@@ -812,4 +812,6 @@
     <string name="twitter">X (Twitter)</string>
     <string name="faq">Perguntas Frequentes</string>
     <string name="long_tap_toast">Toque longamente no mapa novamente para ver a interface</string>
+    <string name="google_play_services">Serviços de localização do Google Play</string>
+    <string name="dialog_routing_change_intermediate">Incapaz de localizar o ponto intermediário.</string>
 </resources>
