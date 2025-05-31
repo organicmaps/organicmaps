@@ -432,7 +432,7 @@
 "dialog_routing_end_not_determined" = "La ruta no se creó. No se pudo encontrar el destino.";
 "dialog_routing_select_closer_end" = "Seleccione un punto de destino cercano a una carretera.";
 "dialog_routing_change_intermediate" = "No se ha podido ubicar la parada intermedia.";
-"dialog_routing_intermediate_not_determined" = "Por favor, ajuste la parada intermedia.";
+"dialog_routing_intermediate_not_determined" = "Ajuste la parada intermedia.";
 "dialog_routing_system_error" = "Error del sistema";
 "dialog_routing_application_error" = "No se pudo crear la ruta debido a un error en la aplicación.";
 "dialog_routing_try_again" = "Intentar nuevamente";
@@ -600,7 +600,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
 "operator" = "Operador: %@";
 "editor_category_unsuitable_title" = "¿No halla una categoría adecuada?";
-"editor_category_unsuitable_text" = "Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nuestra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obtener instrucciones detalladas paso a paso.";
+"editor_category_unsuitable_text" = "Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Añada dichas categorías directamente a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nuestra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obtener instrucciones detalladas paso a paso.";
 "downloader_no_downloaded_maps_title" = "No ha descargado ningún mapa";
 "downloader_no_downloaded_maps_message" = "Descargue mapas para encontrar la ubicación y navegar sin conexión.";
 "current_location_unknown_error_title" = "Se desconoce la ubicación actual.";
@@ -934,7 +934,7 @@
 "app_tip_01" = "¡Con sus donaciones y apoyo, podemos crear los mejores mapas del mundo!";
 
 /* App tip #02 */
-"app_tip_02" = "¿Le gusta nuestra aplicación? ¡Por favor done para apoyar su desarrollo! ¿Todavía no le gusta? ¡Díganos por qué y lo arreglaremos!";
+"app_tip_02" = "¿Le gusta nuestra aplicación? ¡Done para apoyar su desarrollo! ¿Todavía no le gusta? ¡Díganos por qué y lo arreglaremos!";
 
 /* App tip #03 */
 "app_tip_03" = "Si conoce a algún desarrollador o desarrolladora de software, le puede pedir que implemente alguna funcionalidad que usted necesite.";

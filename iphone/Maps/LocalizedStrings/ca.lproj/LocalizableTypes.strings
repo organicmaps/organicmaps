@@ -1252,12 +1252,12 @@
 "type.shop.gas" = "Botiga de gas";
 "type.shop.gift" = "Gift Shop";
 "type.shop.greengrocer" = "Greengrocer";
-"type.shop.grocery" = "Grocery Store";
-"type.shop.hairdresser" = "Hairdresser";
-"type.shop.hardware" = "Hardware Store";
+"type.shop.grocery" = "Botiga de queviures";
+"type.shop.hairdresser" = "Perruqueria";
+"type.shop.hardware" = "Ferreteria";
 "type.shop.health_food" = "Health Food Shop";
 "type.shop.hearing_aids" = "Botiga d’aparells auditius";
-"type.shop.herbalist" = "Botiga d'herbes";
+"type.shop.herbalist" = "Herbolari";
 "type.shop.hifi" = "Àudio HiFi";
 "type.shop.houseware" = "Housewares Store";
 "type.shop.jewelry" = "Jewelry Store";

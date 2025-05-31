@@ -199,4 +199,12 @@
     <string name="saved">Guardáu</string>
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="pref_tts_street_names_title">Anunciar nomes de cais</string>
+    <string name="mobile_data_option_ask">Entrugar siempres</string>
+    <string name="traffic_update_maps_text">P’amosar datos de tráficu, tienen d’anovase los mapes.</string>
+    <string name="search_history_title">Historial de guetes</string>
+    <string name="forgot_password">¿Escaeciesti la contraseña?</string>
+    <string name="app_tip_06">Pues ayudar a traducir la nuesa aplicación na to llingua.</string>
+    <string name="connection_failure">Falló la conexón</string>
+    <string name="disk_error_title">Error nel discu</string>
+    <string name="splash_subtitle">Datos cartográficos d’OpenStreetMap</string>
 </resources>

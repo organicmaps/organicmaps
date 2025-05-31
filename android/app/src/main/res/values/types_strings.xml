@@ -1404,4 +1404,5 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sports hall</string>
     <string name="type.sport.diving">Diving</string>
+    <string name="type.man_made.crane">Crane</string>
 </resources>

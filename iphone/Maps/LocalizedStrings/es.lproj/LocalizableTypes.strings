@@ -1488,5 +1488,7 @@
 "type.barrier.guard_rail" = "Barrera de contención";
 "type.amenity.studio" = "Estudio";
 "type.amenity.love_hotel" = "Hotel para parejas";
-"type.sport.diving" = "Clavado";
+"type.sport.diving" = "Clavados";
 "type.landuse.plant_nursery" = "Vivero";
+"type.leisure.firepit" = "Fogón";
+"type.man_made.crane" = "Grúa";

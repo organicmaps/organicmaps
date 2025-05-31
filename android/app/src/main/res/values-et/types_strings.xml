@@ -1401,4 +1401,5 @@
     <string name="type.amenity.studio">Stuudio</string>
     <string name="type.highway.ladder">Redel</string>
     <string name="type.sport.diving">Sukeldumine</string>
+    <string name="type.man_made.crane">Kraana</string>
 </resources>

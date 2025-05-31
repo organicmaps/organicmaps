@@ -431,8 +431,8 @@
 "dialog_routing_change_end" = "Ajuste o ponto de chegada";
 "dialog_routing_end_not_determined" = "A rota não foi traçada, pois não foi possível localizar o ponto de chegada.";
 "dialog_routing_select_closer_end" = "Selecione um ponto de chegada mais perto de uma estrada.";
-"dialog_routing_change_intermediate" = "Não foi possível localizar o ponto intermédio.";
-"dialog_routing_intermediate_not_determined" = "Ajuste seu ponto intermédio.";
+"dialog_routing_change_intermediate" = "Incapaz de localizar o ponto intermediário.";
+"dialog_routing_intermediate_not_determined" = "Por favor, ajuste seu ponto intermediário.";
 "dialog_routing_system_error" = "Erro de sistema";
 "dialog_routing_application_error" = "Não foi possível traçar uma rota devido a um erro no aplicativo.";
 "dialog_routing_try_again" = "Por favor, tente novamente";
