@@ -1,5 +1,6 @@
-Copyright 2020 My.com B.V. (Mail.Ru Group)
-Copyright 2021-2025 Organic Maps Contributors
+Copyright 2015-2021 My.com B.V. (Mail.Ru Group)
+Copyright 2020-2025 Organic Maps (OMaps) Contributors;
+See the list of contributors in the CONTRIBUTORS file.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,10 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Most libraries in the following directories made by other people and
-organizations and licensed in different ways:
-* `3party`
-* `tools`
-Please refer to their LICENCE, COPYING or NOTICE files for terms of use.
-Some icons files may be copyrighted by (C) 2020 My.com B.V. (Mail.Ru Group)
-See also the `.reuse/dep5` and `data/copyright.html` file for a full list of copyright notices.
+Third-party dependencies are governed by separate licenses. Please see
+the `.reuse/dep5`, `data/copyright.html`, and individual `LICENSE`,
+`COPYING`, or `NOTICE` files for more details.
+
+Map data is from OpenStreetMap, licensed under the Open Data Commons Open
+Database License (ODbL) 1.0. You may obtain a copy of the Open Database
+License (ODbL) 1.0 at
+
+    https://opendatacommons.org/licenses/odbl/1-0/
+
+For any legal inquiries, feel free to contact legal@organicmaps.app.
