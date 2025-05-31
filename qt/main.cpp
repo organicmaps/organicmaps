@@ -1,3 +1,4 @@
+#include "qt/html_processor.hpp"
 #include "qt/info_dialog.hpp"
 #include "qt/mainwindow.hpp"
 #include "qt/screenshoter.hpp"
@@ -7,6 +8,7 @@
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/reader.hpp"
@@ -163,7 +165,10 @@ int main(int argc, char * argv[])
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(),
+                              ProcessCopyrightHtml(buffer, languages::GetCurrentTwine()), 
+                              nullptr,
+                              {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }

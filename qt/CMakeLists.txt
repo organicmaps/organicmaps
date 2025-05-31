@@ -27,6 +27,8 @@ set(SRC
   draw_widget.hpp
   editor_dialog.cpp
   editor_dialog.hpp
+  html_processor.cpp
+  html_processor.hpp
   info_dialog.cpp
   info_dialog.hpp
   main.cpp
