@@ -9,9 +9,10 @@
   <CheckBox
     android:id="@+id/checkbox"
     android:layout_width="@dimen/margin_double_plus"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_alignParentTop="true"
+    android:layout_alignBottom="@id/bottom_line_container"
     android:background="@null"
     android:button="@drawable/button_visibility_centre_inset"
     android:buttonTint="?accentColorSelector" />
@@ -32,7 +33,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/name"
     android:layout_alignStart="@id/name"
-    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:paddingBottom="@dimen/margin_half_plus"
     android:layout_toStartOf="@id/more"
     android:orientation="horizontal">
     <TextView
@@ -48,9 +49,11 @@
   <ImageView
     android:id="@+id/more"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_centerVertical="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignBottom="@id/bottom_line_container"
     android:background="?selectableItemBackgroundBorderless"
     android:importantForAccessibility="no"
     android:paddingHorizontal="@dimen/margin_half"
