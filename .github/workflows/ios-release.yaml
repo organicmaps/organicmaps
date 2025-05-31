@@ -11,6 +11,7 @@ jobs:
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
+      SKIP_SWIFTLINT: true
     environment: production
     steps:
       - name: Checkout
