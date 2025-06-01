@@ -120,6 +120,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvOutdoorSeating;
   private View mEntrance;
   private TextView mTvEntrance;
+  private View mMaxPower;
+  private TextView mTvMaxPower;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -276,6 +278,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
+    mMaxPower = mFrame.findViewById(R.id.ll__place_max_power);
+    mTvMaxPower = mFrame.findViewById(R.id.tv__place_max_power);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
@@ -294,6 +298,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mDriveThrough.setOnLongClickListener(this);
     mSelfService.setOnLongClickListener(this);
     mOutdoorSeating.setOnLongClickListener(this);
+    mMaxPower.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -468,6 +473,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
+
+    final String maxPower = mMapObject.getMetadata(Metadata.MetadataType.FMD_MAX_POWER);
+    refreshMetadataOrHide(!TextUtils.isEmpty(maxPower) ? getString(R.string.max_power, maxPower) : "", mMaxPower, mTvMaxPower);
 
 //    showTaxiOffer(mapObject);
 
@@ -668,6 +676,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvDriveThrough.getText().toString());
     else if (id == R.id.ll__place_outdoor_seating)
       items.add(mTvOutdoorSeating.getText().toString());
+    else if (id == R.id.ll__place_max_power)
+      items.add(mTvMaxPower.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)
