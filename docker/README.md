@@ -7,7 +7,7 @@ containerize the environment using Docker.
 1. Dockerfile.android - Android building environment
 2. Dockerfile.linux - Linux building environment
 
-```
+```bash
 $ docker build -f Dockerfile.linux -t linux-env .
 $ docker build -f Dockerfile.android -t android-env .
 ```
