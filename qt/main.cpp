@@ -166,7 +166,7 @@ int main(int argc, char * argv[])
       reader.ReadAsString(buffer);
     }
     qt::InfoDialog eulaDialog(QCoreApplication::applicationName(),
-                              ProcessCopyrightHtml(buffer, languages::GetCurrentTwine()), 
+                              RemovePTagsWithNonMatchedLanguages(buffer, languages::GetCurrentTwine()).c_str(), 
                               nullptr,
                               {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);

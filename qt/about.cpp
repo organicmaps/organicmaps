@@ -57,7 +57,7 @@ AboutDialog::AboutDialog(QWidget * parent)
     aboutTextBrowser->setReadOnly(true);
     aboutTextBrowser->setOpenLinks(true);
     aboutTextBrowser->setOpenExternalLinks(true);
-    aboutTextBrowser->setText(ProcessCopyrightHtml(aboutText, languages::GetCurrentTwine()));
+    aboutTextBrowser->setText(RemovePTagsWithNonMatchedLanguages(aboutText, languages::GetCurrentTwine()).c_str());
 
     QVBoxLayout * vBox = new QVBoxLayout();
     vBox->addLayout(hBox);

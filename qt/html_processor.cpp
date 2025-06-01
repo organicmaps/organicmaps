@@ -1,49 +1,52 @@
-#include "html_processor.hpp"
+﻿#include "html_processor.hpp"
 
 #include <string>
+#include <string_view>
 
-#include <QString>
-
-QString ProcessCopyrightHtml(std::string const & html, std::string const & lang)
+std::string RemovePTagsWithNonMatchedLanguages(std::string_view html, std::string_view lang)
 {
-  QString result = html.c_str();
+  std::string_view static constexpr kPLangStart = "<p lang=\"";
+  std::string_view static constexpr kPLangEnd = "</p>";
 
-  int pos = 0;
+  std::string result(html);  // Copy input into mutable string
+  std::size_t pos = 0;
 
-  // Loop to find and remove <p lang="..."> tags
-  while (true)
+  while (pos != std::string::npos && pos < result.size())
   {
     // Find opening <p lang="...">
-    int startTagStart = result.indexOf("<p lang=\"", pos);
-    if (startTagStart == -1)
+    std::size_t startTagStart = result.find(kPLangStart, pos);
+    if (startTagStart == std::string::npos)
       break;
 
-    int startTagEnd = result.indexOf('>', startTagStart);
-    if (startTagEnd == -1)
+    std::size_t startTagEnd = result.find('>', startTagStart);
+    if (startTagEnd == std::string::npos)
       break;
 
     // Extract the lang value
-    int langStart = startTagStart + strlen("<p lang=\"");
-    int langEnd = result.indexOf('"', langStart);
-    if (langEnd == -1)
+    std::size_t langStart = startTagStart + kPLangStart.size();
+    std::size_t langEnd = result.find('"', langStart);
+    if (langEnd == std::string::npos)
       break;
 
-    std::string tagLang = result.mid(langStart, langEnd - langStart).toStdString();
-
-    // If language doesn't match, find closing </p> and remove entire block
-    if (tagLang != lang)
+    if (lang != result.substr(langStart, langEnd - langStart))
     {
-      int endTagStart = result.indexOf("</p>", startTagEnd);
-      if (endTagStart == -1)
+      // Language doesn't match - find closing </p>
+      std::size_t endTagStart = result.find(kPLangEnd, startTagEnd);
+      if (endTagStart == std::string::npos)
         break;
 
-      int endTagEnd = endTagStart + strlen("</p>");
-      result.remove(startTagStart, endTagEnd - startTagStart);
-      pos = startTagStart;  // Restart from same place after removal
+      std::size_t endTagEnd = endTagStart + kPLangEnd.size();
+
+      // Remove entire block
+      result.erase(startTagStart, endTagEnd - startTagStart);
+
+      // Restart from same position after removal
+      pos = startTagStart;
     }
     else
     {
-      pos = startTagEnd + 1;  // Continue searching
+      // Move past this tag
+      pos = startTagEnd + 1;
     }
   }
 
