@@ -1,0 +1,18 @@
+# Copyright: Veniamin Gvozdikov and contributors
+# License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
+
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y curl \
+  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && apt-get install -y \
+    nodejs \
+    locales \
+    git \
+    gcc \
+    g++ \
+    g++-14 \
+    gcc-14 \
+    clang++-18 \
+    clang-18 \
+    cmake 
