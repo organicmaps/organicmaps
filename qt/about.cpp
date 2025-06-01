@@ -1,6 +1,8 @@
 #include "qt/about.hpp"
+#include "qt/html_processor.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
 #include "base/logging.hpp"
 
@@ -56,6 +58,7 @@ AboutDialog::AboutDialog(QWidget * parent)
     aboutTextBrowser->setReadOnly(true);
     aboutTextBrowser->setOpenLinks(true);
     aboutTextBrowser->setOpenExternalLinks(true);
+    RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), aboutText);
     aboutTextBrowser->setText(aboutText.c_str());
 
     QVBoxLayout * vBox = new QVBoxLayout();
