@@ -472,78 +472,88 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string con
   return format(hours);
 }
 
-std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & m, std::string const & k, std::string const & v)
+std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & previousMetadata, std::string const & k, std::string v)
 {
-  bool typedc = false;
-  char split = ' ';
-  size_t pos = 0, last = 0, mult = 0, watts = 0;
-  float numeric = 0.0, maximum = 0.0;
-  std::string dc, ac, lower = v, part, result;
+  static constexpr char kMaxPowerDC[]=" kW DC";
+  static constexpr char kMaxPowerAC[]=" kW AC";
+  static constexpr char kMaxPowerDelim[]=", ";
+  static constexpr char kMaxPowerPoint='.';
+  size_t pos = 0;
+  std::string dc, ac, prev = static_cast<std::string>(previousMetadata);
 
-  std::string value = static_cast<std::string>(m);
-  if (v.find("http") != std::string::npos)
-    return value;
-  if (MAX_POWER_POINT != '.')
-    std::replace(dc.begin(), dc.end(), MAX_POWER_POINT, '.');
+  if (prev.size() > 1) {
+    if ((pos = prev.find(kMaxPowerDelim)) != std::string::npos) {
+      dc = prev.substr(0, pos - (sizeof(kMaxPowerDC) - 1));
+      ac = prev.substr(pos + sizeof(kMaxPowerDelim) - 1, prev.size() - (pos + sizeof(kMaxPowerDelim) + sizeof(kMaxPowerAC) - 2));
 
-  if (value.size() > 1) {
-    if ((pos = value.find(MAX_POWER_DELIM)) != std::string::npos) {
-      dc = value.substr(0, pos - (sizeof(MAX_POWER_DCSTR) - 1));
-      ac = value.substr(pos + sizeof(MAX_POWER_DELIM) - 1, value.size() - (pos + sizeof(MAX_POWER_DELIM) + sizeof(MAX_POWER_ACSTR) - 2));
-    } else if ((pos = value.find(MAX_POWER_DCSTR)) != std::string::npos) {
-      dc = value.substr(0, pos);
-    } else if ((pos = value.find(MAX_POWER_ACSTR)) != std::string::npos) {
-      ac = value.substr(0, pos);
+      if (kMaxPowerPoint != '.') {
+        std::replace(dc.begin(), dc.end(), kMaxPowerPoint, '.');
+        std::replace(ac.begin(), ac.end(), kMaxPowerPoint, '.');
+      }
+    } else if ((pos = prev.find(kMaxPowerDC)) != std::string::npos) {
+      dc = prev.substr(0, pos);
+      if (kMaxPowerPoint != '.')
+        std::replace(dc.begin(), dc.end(), kMaxPowerPoint, '.');
+    } else if ((pos = prev.find(kMaxPowerAC)) != std::string::npos) {
+      ac = prev.substr(0, pos);
+      if (kMaxPowerPoint != '.')
+        std::replace(ac.begin(), ac.end(), kMaxPowerPoint, '.');
     }
   }
 
-  while ((pos = lower.find("к")) != std::string::npos) {
-    lower[pos] = 'k';
-    lower[pos + 1] = ' ';
+  while ((pos = v.find("к")) != std::string::npos) {
+    v[pos] = 'k';
+    v[pos + 1] = ' ';
   }
 
-  while ((pos = lower.find("К")) != std::string::npos) {
-    lower[pos] = 'k';
-    lower[pos + 1] = ' ';
+  while ((pos = v.find("К")) != std::string::npos) {
+    v[pos] = 'k';
+    v[pos + 1] = ' ';
   }
 
-  while ((pos = lower.find("в")) != std::string::npos) {
-    lower[pos] = 'w';
-    lower[pos + 1] = ' ';
+  while ((pos = v.find("в")) != std::string::npos) {
+    v[pos] = 'w';
+    v[pos + 1] = ' ';
   }
 
-  while ((pos = lower.find("В")) != std::string::npos) {
-    lower[pos] = 'w';
-    lower[pos + 1] = ' ';
+  while ((pos = v.find("В")) != std::string::npos) {
+    v[pos] = 'w';
+    v[pos + 1] = ' ';
   }
 
-  std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
-  lower.erase(std::remove_if(lower.begin(), lower.end(), ::isspace), lower.end());
+  std::transform(v.begin(), v.end(), v.begin(), ::tolower);
+  if (v.find("http") != std::string::npos)
+    return prev;
+  v.erase(std::remove_if(v.begin(), v.end(), ::isspace), v.end());
 
-  if ((pos = lower.find(';')) != std::string::npos) {
+  char split = ' ';
+  size_t mult = 0;
+
+  if ((pos = v.find(';')) != std::string::npos)
     split = ';';
-  } else if ((pos = lower.find('+')) != std::string::npos) {
+  else if ((pos = v.find('+')) != std::string::npos)
     split = '+';
-  } else if ((pos = lower.find('-')) != std::string::npos) {
+  else if ((pos = v.find('-')) != std::string::npos)
     split = '-';
-  } else if ((pos = lower.find('=')) != std::string::npos) {
+  else if ((pos = v.find('=')) != std::string::npos)
     split = '=';
-  } else if ((pos = lower.find(':')) != std::string::npos) {
+  else if ((pos = v.find(':')) != std::string::npos)
     split = ':';
-  } else if ((pos = lower.find('/')) != std::string::npos) {
+  else if ((pos = v.find('/')) != std::string::npos)
     split = '/';
-  } else if ((pos = lower.find('\\')) != std::string::npos) {
+  else if ((pos = v.find('\\')) != std::string::npos)
     split = '\\';
-  } else if ((pos = lower.find(',')) != std::string::npos) {
-    if (((mult = lower.find("kw")) != std::string::npos) && (lower.find("kw", mult + 1) != std::string::npos)) {
+  else if ((pos = v.find(',')) != std::string::npos) {
+    if (((mult = v.find("kw")) != std::string::npos) && (v.find("kw", mult + 1) != std::string::npos)) {
       split = ',';
     } else {
       split = ' ';
-      pos = lower.size();
+      pos = v.size();
     }
-  } else {
-    pos = lower.size();
-  }
+  } else
+    pos = v.size();
+
+  bool typedc = false;
 
   if ((k.find("combo") != std::string::npos) || (k.find("chademo") != std::string::npos) ||
       (k.find("super") != std::string::npos) || (k.find("bosch") != std::string::npos) ||
@@ -551,8 +561,12 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
       (k.find("roadster") != std::string::npos))
     typedc = true;
 
+  size_t last = 0, watts = 0;
+  float numeric = 0.0, maximum = 0.0;
+  std::string part, result;
+
   do {
-    part = lower.substr(last, pos - last);
+    part = v.substr(last, pos - last);
     std::replace(part.begin(), part.end(), ',', '.');
     if (((mult = part.find('(')) != std::string::npos) && ((watts = part.find(')', mult + 1)) != std::string::npos))
       part.erase(mult, mult - watts);
@@ -584,9 +598,7 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
     if ((mult = part.find('w')) != std::string::npos)
       part = part.substr(0, mult);
     mult = part.size();
-    part.erase(
-      std::remove_if(part.begin(), part.end(), [](unsigned char c) { return ((!std::isdigit(c)) && (c != '.')); }),
-      part.end());
+    part.erase(std::remove_if(part.begin(), part.end(), [](unsigned char c) { return ((!std::isdigit(c)) && (c != '.')); }), part.end());
     if (part.size() < (mult >> 1))
       part = "";
 
@@ -603,23 +615,29 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
       std::stringstream stream;
       stream << std::fixed << std::setprecision(numeric < 100.0 ? 1 : 0) << numeric;
       part = stream.str();
-    } else if ((numeric > 0.0) && ((mult = part.find('.')) != std::string::npos) && (mult < (part.size() - 2))) {
-      std::stringstream stream;
-      stream << std::fixed << std::setprecision(numeric < 100.0 ? 1 : 0) << numeric;
-      part = stream.str();
     }
 
     if (numeric > maximum) {
+      if (((mult = part.find('.')) != std::string::npos) && (mult < (part.size() - 2))) {
+        std::stringstream stream;
+        stream << std::fixed << std::setprecision(numeric < 100.0 ? 1 : 0) << numeric;
+        part = stream.str();
+      }
+
       maximum = numeric;
-      result = part;
+
+      if ((part.find('.') != std::string::npos) && (part[part.size() - 1] == '0'))
+        result = part.substr(0, part.size() - 2);
+      else
+        result = part;
     }
 
     last = pos;
-    pos = lower.find(split, last + 1);
-  } while ((last++) < (lower.size() - 1));
+    pos = v.find(split, last + 1);
+  } while ((last++) < (v.size() - 1));
 
   if (maximum == 0.0)
-    return value;
+    return prev;
 
   if (((k.find("nacs") != std::string::npos) || (k == "charging_station:output")) && (maximum >= 50.0))
     typedc = true;
@@ -630,23 +648,23 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
 
   if (!dc.empty()) {
     if (!ac.empty()) {
-      if (MAX_POWER_POINT != '.')
-        std::replace(dc.begin(), dc.end(), '.', MAX_POWER_POINT);
-      if (MAX_POWER_POINT != '.')
-        std::replace(ac.begin(), ac.end(), '.', MAX_POWER_POINT);
-      value = dc + MAX_POWER_DCSTR + MAX_POWER_DELIM + ac + MAX_POWER_ACSTR;
+      if (kMaxPowerPoint != '.')
+        std::replace(dc.begin(), dc.end(), '.', kMaxPowerPoint);
+      if (kMaxPowerPoint != '.')
+        std::replace(ac.begin(), ac.end(), '.', kMaxPowerPoint);
+      prev = dc + kMaxPowerDC + kMaxPowerDelim + ac + kMaxPowerAC;
     } else {
-      if (MAX_POWER_POINT != '.')
-        std::replace(dc.begin(), dc.end(), '.', MAX_POWER_POINT);
-      value = dc + MAX_POWER_DCSTR;
+      if (kMaxPowerPoint != '.')
+        std::replace(dc.begin(), dc.end(), '.', kMaxPowerPoint);
+      prev = dc + kMaxPowerDC;
     }
   } else if (!ac.empty()) {
-    if (MAX_POWER_POINT != '.')
-      std::replace(ac.begin(), ac.end(), '.', MAX_POWER_POINT);
-    value = ac + MAX_POWER_ACSTR;
+    if (kMaxPowerPoint != '.')
+      std::replace(ac.begin(), ac.end(), '.', kMaxPowerPoint);
+    prev = ac + kMaxPowerAC;
   }
 
-  return value;
+  return prev;
 }
 
 MetadataTagProcessor::~MetadataTagProcessor()

@@ -1054,8 +1054,8 @@
 /* To indicate if restaurant or other place has outdoor seating. */
 "outdoor_seating" = "Outdoor seating";
 
-/* To indicate the maximum calculated power of electric vehicle charging stations. */
-"max_power" = "Maximum: %@";
+/* To indicate a maximum value. */
+"maximum_value" = "Maximum: %@";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "Recently Deleted Lists";

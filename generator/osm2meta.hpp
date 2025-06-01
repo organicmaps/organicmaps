@@ -5,11 +5,6 @@
 
 #include <string>
 
-#define MAX_POWER_DCSTR " kW DC"
-#define MAX_POWER_ACSTR " kW AC"
-#define MAX_POWER_DELIM ", "
-#define MAX_POWER_POINT '.'
-
 struct MetadataTagProcessorImpl
 {
   MetadataTagProcessorImpl(FeatureBuilderParams & params) : m_params(params) {}
@@ -45,7 +40,7 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_drive_through(std::string v);
   static std::string ValidateAndFormat_self_service(std::string v);
   static std::string ValidateAndFormat_outdoor_seating(std::string v);
-  std::string MaxChargingPower(std::string_view const & m, std::string const & k, std::string const & v);
+  std::string MaxChargingPower(std::string_view const & previousMetadata, std::string const & k, std::string v);
 
 protected:
   FeatureBuilderParams & m_params;

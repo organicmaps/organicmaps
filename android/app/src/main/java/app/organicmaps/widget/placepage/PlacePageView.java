@@ -475,7 +475,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
 
     final String maxPower = mMapObject.getMetadata(Metadata.MetadataType.FMD_MAX_POWER);
-    refreshMetadataOrHide(!TextUtils.isEmpty(maxPower) ? getString(R.string.max_power, maxPower) : "", mMaxPower, mTvMaxPower);
+    refreshMetadataOrHide(!TextUtils.isEmpty(maxPower) ? getString(R.string.maximum_value, maxPower) : "", mMaxPower, mTvMaxPower);
 
 //    showTaxiOffer(mapObject);
 
