@@ -165,10 +165,8 @@ int main(int argc, char * argv[])
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(),
-                              RemovePTagsWithNonMatchedLanguages(buffer, languages::GetCurrentTwine()).c_str(), 
-                              nullptr,
-                              {"Accept", "Decline"});
+    RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), buffer);
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
