@@ -474,17 +474,17 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string con
 
 std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & previousMetadata, std::string const & k, std::string v)
 {
-  static constexpr char kMaxPowerDC[]=" kW DC";
-  static constexpr char kMaxPowerAC[]=" kW AC";
-  static constexpr char kMaxPowerDelim[]=", ";
-  static constexpr char kMaxPowerPoint='.';
+  std::string_view constexpr kMaxPowerDC{" kW DC"};
+  std::string_view constexpr kMaxPowerAC{" kW AC"};
+  std::string_view constexpr kMaxPowerDelim{", "};
+  char constexpr kMaxPowerPoint='.';
   size_t pos = 0;
   std::string dc, ac, prev = static_cast<std::string>(previousMetadata);
 
   if (prev.size() > 1) {
     if ((pos = prev.find(kMaxPowerDelim)) != std::string::npos) {
-      dc = prev.substr(0, pos - (sizeof(kMaxPowerDC) - 1));
-      ac = prev.substr(pos + sizeof(kMaxPowerDelim) - 1, prev.size() - (pos + sizeof(kMaxPowerDelim) + sizeof(kMaxPowerAC) - 2));
+      dc = prev.substr(0, pos - kMaxPowerDC.size());
+      ac = prev.substr(pos + kMaxPowerDelim.size(), prev.size() - (pos + kMaxPowerDelim.size() + kMaxPowerAC.size()));
 
       if (kMaxPowerPoint != '.') {
         std::replace(dc.begin(), dc.end(), kMaxPowerPoint, '.');
@@ -533,10 +533,10 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
     split = ';';
   else if ((pos = v.find('+')) != std::string::npos)
     split = '+';
-  else if ((pos = v.find('-')) != std::string::npos)
-    split = '-';
   else if ((pos = v.find('=')) != std::string::npos)
     split = '=';
+  else if ((pos = v.find('-')) != std::string::npos)
+    split = '-';
   else if ((pos = v.find(':')) != std::string::npos)
     split = ':';
   else if ((pos = v.find('/')) != std::string::npos)
@@ -652,16 +652,16 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
         std::replace(dc.begin(), dc.end(), '.', kMaxPowerPoint);
       if (kMaxPowerPoint != '.')
         std::replace(ac.begin(), ac.end(), '.', kMaxPowerPoint);
-      prev = dc + kMaxPowerDC + kMaxPowerDelim + ac + kMaxPowerAC;
+      prev = dc + static_cast<std::string>(kMaxPowerDC) + static_cast<std::string>(kMaxPowerDelim) + ac + static_cast<std::string>(kMaxPowerAC);
     } else {
       if (kMaxPowerPoint != '.')
         std::replace(dc.begin(), dc.end(), '.', kMaxPowerPoint);
-      prev = dc + kMaxPowerDC;
+      prev = dc + static_cast<std::string>(kMaxPowerDC);
     }
   } else if (!ac.empty()) {
     if (kMaxPowerPoint != '.')
       std::replace(ac.begin(), ac.end(), '.', kMaxPowerPoint);
-    prev = ac + kMaxPowerAC;
+    prev = ac + static_cast<std::string>(kMaxPowerAC);
   }
 
   return prev;
