@@ -486,14 +486,14 @@ std::string MetadataTagProcessorImpl::MaxChargingPower(std::string_view const & 
   if (MAX_POWER_POINT != '.')
     std::replace(dc.begin(), dc.end(), MAX_POWER_POINT, '.');
 
-  if (value.size() > 5) {
+  if (value.size() > 1) {
     if ((pos = value.find(MAX_POWER_DELIM)) != std::string::npos) {
-      dc = value.substr(0, value.find_first_not_of("0123456789.,"));
-      ac = value.substr(pos + 2, value.find_first_not_of("0123456789.,", pos + 3) - (pos + 2));
-    } else if (value.at(value.size() - 2) == 'D') {
-      dc = value.substr(0, value.find_first_not_of("0123456789.,"));
-    } else if (value.at(value.size() - 2) == 'A') {
-      ac = value.substr(0, value.find_first_not_of("0123456789.,"));
+      dc = value.substr(0, pos - (sizeof(MAX_POWER_DCSTR) - 1));
+      ac = value.substr(pos + sizeof(MAX_POWER_DELIM) - 1, value.size() - (pos + sizeof(MAX_POWER_DELIM) + sizeof(MAX_POWER_ACSTR) - 2));
+    } else if ((pos = value.find(MAX_POWER_DCSTR)) != std::string::npos) {
+      dc = value.substr(0, pos);
+    } else if ((pos = value.find(MAX_POWER_ACSTR)) != std::string::npos) {
+      ac = value.substr(0, pos);
     }
   }
 
