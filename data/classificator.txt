@@ -708,6 +708,7 @@ world  +
         cairn  -
         chimney  -
         communications_tower  -
+        crane  -
         cross  -
         cutline  -
         embankment  -
