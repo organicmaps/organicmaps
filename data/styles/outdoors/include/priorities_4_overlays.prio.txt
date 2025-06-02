@@ -714,7 +714,7 @@ highway-path-horse                                  # pathtext z13- (also has li
 highway-path-tunnel                                 # pathtext z13- (also has line z11-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2820
 
-highway-ladder                                      # icon z16- (also has caption(optional) z17-)
+highway-ladder                                      # icon z16-
 highway-steps                                       # pathtext z13- (also has line z12-)
 highway-steps-bridge                                # pathtext z13- (also has line z12-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-steps-tunnel                                # pathtext z13- (also has line z12-, line::tunnelBackground z17-, line::tunnelCasing z17-)
@@ -1070,7 +1070,7 @@ amenity-vending_machine-fuel                        # icon z18- (also has captio
 amenity-vending_machine-parking_tickets             # icon z17- (also has caption(optional) z17-)
 amenity-vending_machine-public_transport_tickets    # icon z17- (also has caption(optional) z17-)
 amenity-water_point-drinking_water_no               # icon z14- (also has caption(optional) z14-)
-highway-elevator                                    # icon z17-
+highway-elevator                                    # icon z16-
 leisure-picnic_table                                # icon z15- (also has caption(optional) z16-)
 man_made-water_tap-drinking_water_no                # icon z14- (also has caption(optional) z14-)
 man_made-water_well-drinking_water_no               # icon z14- (also has caption(optional) z14-)
@@ -1720,9 +1720,6 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # natural-rock                                      # caption(optional) z17- (also has icon z14-)
 # === -7150
-
-# highway-ladder                                    # caption(optional) z17- (also has icon z16-)
-# === -7190
 
 # amenity-townhall                                  # caption(optional) z16- (also has icon z16-)
 # leisure-resort                                    # caption(optional) z16- (also has icon z16-)

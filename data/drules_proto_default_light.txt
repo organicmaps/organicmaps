@@ -24164,65 +24164,29 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "ladder-m"
+      name: "ladder-s"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
   }
   element {
     scale: 18
     symbol {
-      name: "ladder-m"
+      name: "ladder-s"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
   }
   element {
     scale: 19
     symbol {
-      name: "ladder-m"
+      name: "ladder-s"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
   }
   element {
     scale: 20
     symbol {
-      name: "ladder-m"
+      name: "ladder-s"
       priority: 850
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -9150
     }
   }
 }
@@ -47627,201 +47591,117 @@ cont {
   element {
     scale: 12
     area {
-      color: 11584112
+      color: 13620648
       priority: -1930
     }
   }
   element {
     scale: 13
     area {
-      color: 11584112
+      color: 13620648
       priority: -1930
     }
   }
   element {
     scale: 14
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
   }
   element {
     scale: 15
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
   }
   element {
     scale: 16
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
   }
   element {
     scale: 17
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
     symbol {
       name: "plant_nursery-m"
       priority: 2450
-      min_distance: 8
     }
     caption {
       primary {
-        height: 12
-        color: 3832097
-        stroke_color: 872415231
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
         height: 10
-        color: 3832097
-        stroke_color: 872415231
+        color: 4473924
         offset_y: 1
         is_optional: true
       }
       priority: -7550
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    apply_if: "!name"
   }
   element {
     scale: 18
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
     symbol {
       name: "plant_nursery-m"
       priority: 2450
-      min_distance: 8
     }
     caption {
       primary {
-        height: 13
-        color: 3832097
-        stroke_color: 872415231
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 3832097
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
         offset_y: 1
         is_optional: true
       }
       priority: -7550
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    symbol {
-      name: "plant_nursery-m"
-      priority: 2450
-    }
-    apply_if: "!name"
   }
   element {
     scale: 19
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
     symbol {
       name: "plant_nursery-m"
       priority: 2450
-      min_distance: 8
     }
     caption {
       primary {
-        height: 13
-        color: 3832097
-        stroke_color: 872415231
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 3832097
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
         offset_y: 1
         is_optional: true
       }
       priority: -7550
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    symbol {
-      name: "plant_nursery-m"
-      priority: 2450
-    }
-    apply_if: "!name"
   }
   element {
     scale: 20
     area {
-      color: 11190117
+      color: 13029267
       priority: -1930
     }
     symbol {
       name: "plant_nursery-m"
       priority: 2450
-      min_distance: 8
     }
     caption {
       primary {
-        height: 13
-        color: 3832097
-        stroke_color: 872415231
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 3832097
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
         offset_y: 1
         is_optional: true
       }
       priority: -7550
     }
-    apply_if: "name"
-  }
-  element {
-    scale: 20
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    symbol {
-      name: "plant_nursery-m"
-      priority: 2450
-    }
-    apply_if: "!name"
   }
 }
 cont {
@@ -49316,17 +49196,6 @@ cont {
 }
 cont {
   name: "leisure-firepit"
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 450
-    }
-  }
   element {
     scale: 18
     symbol {
@@ -53410,6 +53279,71 @@ cont {
         is_optional: true
       }
       priority: -4600
+    }
+  }
+}
+cont {
+  name: "man_made-crane"
+  element {
+    scale: 16
+    symbol {
+      name: "crane-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "crane-m"
+      priority: 850
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "crane-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "crane-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "crane-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
     }
   }
 }
