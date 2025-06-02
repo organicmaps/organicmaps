@@ -1506,6 +1506,9 @@ node|z15-[landuse=industrial][industrial=mine],
 area|z15-[landuse=industrial][industrial=mine]
 {icon-image: mine-m.svg;text-offset: 1;font-size: 10;}
 
+area|z17-[landuse=plant_nursery],
+{icon-image: plant_nursery-m.svg; text-offset: 1;}
+
 node|z16-[leisure=water_park],
 area|z16-[leisure=water_park]
 {icon-image: swimming-m.svg;icon-min-distance: 30;}
