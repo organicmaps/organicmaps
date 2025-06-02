@@ -197,7 +197,7 @@ std::unique_ptr<CountryInfoReader> CountryInfoReader::CreateCountryInfoReader(Pl
 {
   try
   {
-    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
+    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE_NAME),
                                                        platform.GetReader(COUNTRIES_FILE_NAME));
     return std::unique_ptr<CountryInfoReader>(result);
   }
