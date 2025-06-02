@@ -348,7 +348,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (mapType == MapType::Country)
       {
-        string const metalinesFilename = genInfo.GetIntermediateFileName(METALINES_FILENAME);
+        string const metalinesFilename = genInfo.GetIntermediateFileName(METALINES_FILE_NAME);
 
         LOG(LINFO, ("Processing metalines from", metalinesFilename));
         if (!feature::WriteMetalinesSection(dataFile, metalinesFilename, osmToFeatureFilename))
@@ -444,7 +444,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 //      }
 //      else
 //      {
-        string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+        string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME);
 
         BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
 //      }
@@ -476,14 +476,14 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       // Order is important: city roads first, routing graph, maxspeeds then (to check inside/outside a city).
       if (FLAGS_make_city_roads)
       {
-        auto const boundariesPath = genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
+        auto const boundariesPath = genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILE_NAME);
         LOG(LINFO, ("Generating", CITY_ROADS_FILE_TAG, "for", dataFile, "using", boundariesPath));
         if (!BuildCityRoads(dataFile, boundariesPath))
           LOG(LCRITICAL, ("Generating city roads error."));
       }
 
-      string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
-      string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
+      string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILE_NAME);
+      string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILE_NAME);
 
       BuildRoutingIndex(dataFile, country, *countryParentGetter);
       auto routingGraph = CreateIndexGraph(dataFile, country, *countryParentGetter);
@@ -500,7 +500,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (FLAGS_generate_maxspeed)
       {
-        string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
+        string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILE_NAME);
         LOG(LINFO, ("Generating maxspeeds section for", dataFile, "using", maxspeedsFilename));
         BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
       }
@@ -577,7 +577,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   if (FLAGS_stats_general || FLAGS_stats_geometry || FLAGS_stats_types)
   {
     LOG(LINFO, ("Calculating statistics for", dataFile));
-    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
+    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_FILE_EXTENSION));
     file << std::fixed << std::setprecision(1);
     stats::MapInfo info(FLAGS_stats_geom_min_diff, FLAGS_stats_geom_min_factor);
     stats::CalcStats(dataFile, info);
@@ -598,7 +598,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Writing types statistics"));
       stats::PrintTypeStats(file, info);
     }
-    LOG(LINFO, ("Stats written to file", FLAGS_output + STATS_EXTENSION));
+    LOG(LINFO, ("Stats written to file", FLAGS_output + STATS_FILE_EXTENSION));
   }
 
   if (FLAGS_dump_types)

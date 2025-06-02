@@ -229,7 +229,7 @@ double EdgeEstimator::GetLeapWeightSpeed(NumMwmId /*mwmId*/)
 {
   double defaultSpeed = ComputeDefaultLeapWeightSpeed();
 
-  /// @todo By VNG: We don't have LEAP_SPEEDS_FILE to assign RegionData::SetLeapWeightSpeed
+  /// @todo By VNG: We don't have LEAP_SPEEDS_FILE_NAME to assign RegionData::SetLeapWeightSpeed
   /// unique for each MWM, so this is useless now. And what about possible races here?
 //  if (mwmId != kFakeNumMwmId)
 //  {

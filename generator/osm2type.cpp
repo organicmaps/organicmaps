@@ -395,7 +395,7 @@ void LeaveLongestTypes(std::vector<generator::TypeStrings> & matchedTypes)
 
 void MatchTypes(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT const & filterType)
 {
-  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
+  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE_NAME));
 
   std::vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
@@ -980,7 +980,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
     {
       m_infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
       CHECK(m_infoGetter, ());
-      m_countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
+      m_countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE_NAME);
       CHECK(m_countryTree, ());
     }
 

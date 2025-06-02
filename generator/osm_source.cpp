@@ -229,7 +229,7 @@ bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
   auto nodes =
-      cache::CreatePointStorageWriter(info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
+      cache::CreatePointStorageWriter(info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE_NAME));
   cache::IntermediateDataWriter cache(*nodes, info);
   TownsDumper towns;
   SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -253,7 +253,7 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   }
 
   cache.SaveIndex();
-  towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
+  towns.Dump(info.GetIntermediateFileName(TOWNS_FILE_NAME));
   LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   return true;
 }

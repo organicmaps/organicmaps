@@ -129,7 +129,7 @@ Storage::Storage(int)
   // Do nothing here, used in RunCountriesCheckAsync() only.
 }
 
-Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
+Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE_NAME */,
                  string const & dataDir /* = string() */)
   : m_downloader(GetDownloader())
   , m_dataDir(dataDir)
@@ -1034,20 +1034,20 @@ bool Storage::CheckFailedCountries(CountriesVec const & countries) const
 
 void Storage::RunCountriesCheckAsync()
 {
-  m_downloader->DownloadAsString(SERVER_DATAVERSION_FILE, [this](std::string const & buffer)
+  m_downloader->DownloadAsString(SERVER_DATAVERSION_FILE_NAME, [this](std::string const & buffer)
   {
-    LOG(LDEBUG, (SERVER_DATAVERSION_FILE, "downloaded"));
+    LOG(LDEBUG, (SERVER_DATAVERSION_FILE_NAME, "downloaded"));
 
     int64_t const dataVersion = ParseIndexAndGetDataVersion(buffer);
     if (dataVersion <= m_currentVersion)
       return false;
 
-    LOG(LDEBUG, ("Try download", COUNTRIES_FILE, "for", dataVersion));
+    LOG(LDEBUG, ("Try download", COUNTRIES_FILE_NAME, "for", dataVersion));
 
-    m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
+    m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE_NAME, dataVersion),
       [this, dataVersion](std::string const & buffer)
       {
-        LOG(LDEBUG, (COUNTRIES_FILE, "downloaded"));
+        LOG(LDEBUG, (COUNTRIES_FILE_NAME, "downloaded"));
 
         std::shared_ptr<Storage> storage(new Storage(7 /* dummy */));
         storage->m_currentVersion = LoadCountriesFromBuffer(buffer, storage->m_countries, storage->m_affiliations, storage->m_countryNameSynonyms,
@@ -1125,7 +1125,7 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
 
   {
     // Save file to the WritableDir (LoadCountriesFile checks it first).
-    FileWriter writer(base::JoinPath(GetPlatform().WritableDir(), COUNTRIES_FILE));
+    FileWriter writer(base::JoinPath(GetPlatform().WritableDir(), COUNTRIES_FILE_NAME));
     writer.Write(countriesBuffer.data(), countriesBuffer.size());
   }
 

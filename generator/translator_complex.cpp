@@ -22,13 +22,13 @@ TranslatorComplex::TranslatorComplex(std::shared_ptr<FeatureProcessorInterface> 
                                      feature::GenerateInfo const & info)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   , m_tagReplacer(std::make_shared<TagReplacer>(
-                    base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
+                    base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE_NAME)))
 {
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterComplex>());
   filters->Append(std::make_shared<FilterElements>(
-      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE_NAME)));
   SetFilter(filters);
 
   SetCollector(std::make_shared<BuildingPartsCollector>(

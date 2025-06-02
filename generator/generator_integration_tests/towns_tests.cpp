@@ -23,7 +23,7 @@ UNIT_TEST(MajorTowns_KansasCity)
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(kansasCity), distanceThreshold);
 
   // Get this file from intermediate_data folder of full data generation process.
-  std::ifstream in("./data-integration/" TOWNS_FILE);
+  std::ifstream in("./data-integration/" TOWNS_FILE_NAME);
 
   std::string line;
   while (std::getline(in, line))

@@ -22,7 +22,7 @@ std::vector<std::string> GetFullFilePathsByExt(std::string const & dir, std::str
 
 std::vector<std::string> GetFullDataTmpFilePaths(std::string const & dir)
 {
-  return GetFullFilePathsByExt(dir, DATA_FILE_EXTENSION_TMP);
+  return GetFullFilePathsByExt(dir, DATA_TMP_FILE_EXTENSION);
 }
 }  // namespace platform_helpers
 }  // namespace generator

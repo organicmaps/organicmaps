@@ -90,7 +90,7 @@ UNIT_TEST(Processor_Smoke)
   }
 
   Platform::FilesList files;
-  Platform::GetFilesByExt(outPath.Get(), TEMP_ADDR_EXTENSION, files);
+  Platform::GetFilesByExt(outPath.Get(), TEMP_ADDR_FILE_EXTENSION, files);
   TEST_EQUAL(files.size(), 4, ());
 
   CHECK(base::DeleteFileX(kTestFileName), ());
@@ -118,7 +118,7 @@ public:
     processor.Run(ss);
 
     Platform::FilesList files;
-    Platform::GetFilesByExt(m_outPath.Get(), TEMP_ADDR_EXTENSION, files);
+    Platform::GetFilesByExt(m_outPath.Get(), TEMP_ADDR_FILE_EXTENSION, files);
     TEST_EQUAL(files.size(), 1, ());
 
     m_mwmName = std::move(files.front());

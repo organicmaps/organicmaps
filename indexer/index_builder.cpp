@@ -12,7 +12,7 @@ bool BuildIndexFromDataFile(std::string const & dataFile, std::string const & tm
 {
   try
   {
-    std::string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
+    std::string const idxFileName(tmpFile + GEOM_INDEX_TMP_FILE_EXTENSION);
     {
       FeaturesVectorTest features(dataFile);
       FileWriter writer(idxFileName);

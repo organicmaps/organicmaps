@@ -82,43 +82,43 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   /// @todo Looks like ways.csv was in some MM proprietary generator routine?!
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
-                                              info.GetIntermediateFileName(TOWNS_FILE)))
+                                              info.GetIntermediateFileName(TOWNS_FILE_NAME)))
   , m_tagReplacer(std::make_shared<TagReplacer>(
-        base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
+        base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE_NAME)))
 {
   /// @todo This option is not used, but may be useful in future?
 //  if (needMixTags)
 //  {
 //    m_osmTagMixer = std::make_shared<OsmTagMixer>(
-//        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+//        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE_NAME));
 //  }
 
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterRoads>());
-  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE_NAME)));
 
   SetFilter(filters);
 
   auto collectors = std::make_shared<CollectorCollection>();
   collectors->Append(std::make_shared<feature::MetalinesBuilder>(
-      info.GetIntermediateFileName(METALINES_FILENAME)));
+      info.GetIntermediateFileName(METALINES_FILE_NAME)));
   collectors->Append(std::make_shared<BoundaryPostcodeCollector>(
-      info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME), cache->GetCache()));
+      info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILE_NAME), cache->GetCache()));
 
   // Collectors for gathering of additional information for the future building of routing section.
   collectors->Append(std::make_shared<RoutingCityBoundariesCollector>(
-      info.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILENAME)));
+      info.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILE_NAME), cache->GetCache()));
+  collectors->Append(std::make_shared<MaxspeedsCollector>(info.GetIntermediateFileName(MAXSPEEDS_FILE_NAME)));
   collectors->Append(std::make_shared<routing_builder::RestrictionWriter>(
-      info.GetIntermediateFileName(RESTRICTIONS_FILENAME), cache->GetCache()));
+      info.GetIntermediateFileName(RESTRICTIONS_FILE_NAME), cache->GetCache()));
   collectors->Append(std::make_shared<routing_builder::RoadAccessCollector>(
-      info.GetIntermediateFileName(ROAD_ACCESS_FILENAME), cache->GetCache()));
+      info.GetIntermediateFileName(ROAD_ACCESS_FILE_NAME), cache->GetCache()));
   collectors->Append(std::make_shared<routing_builder::CameraCollector>(
-      info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache()));
+      info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME), cache->GetCache()));
   collectors->Append(std::make_shared<MiniRoundaboutCollector>(
-      info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME), cache->GetCache()));
-  collectors->Append(std::make_shared<AddressesCollector>(info.GetIntermediateFileName(ADDR_INTERPOL_FILENAME)));
+      info.GetIntermediateFileName(MINI_ROUNDABOUTS_FILE_NAME), cache->GetCache()));
+  collectors->Append(std::make_shared<AddressesCollector>(info.GetIntermediateFileName(ADDR_INTERPOL_FILE_NAME)));
 
   if (affiliation)
     collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));

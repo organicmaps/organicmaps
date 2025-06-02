@@ -105,7 +105,7 @@ public:
     // Test load this data from cached file.
     generator::cache::IntermediateDataObjectsCache objectsCache;
     auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
-    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache());
+    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME), cache->GetCache());
     auto processor = CreateProcessor(ProcessorType::Noop);
     auto translator = std::make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);

@@ -23,7 +23,7 @@ Processor::Processor(std::string const & dataPath, std::string const & outputPat
 
 FileWriter & Processor::GetWriter(std::string const & country)
 {
-  auto res = m_country2writer.try_emplace(country, base::JoinPath(m_outputPath, country) + TEMP_ADDR_EXTENSION);
+  auto res = m_country2writer.try_emplace(country, base::JoinPath(m_outputPath, country) + TEMP_ADDR_FILE_EXTENSION);
   return res.first->second;
 }
 
