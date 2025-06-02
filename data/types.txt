@@ -896,7 +896,7 @@ railway|subway|tunnel
 *historic|gallows
 *historic|pillory
 *amenity|money_transfer
-mapswithme
+*man_made|crane
 railway|subway|tunnel
 mapswithme
 railway|subway|tunnel
