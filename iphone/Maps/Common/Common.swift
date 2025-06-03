@@ -9,6 +9,15 @@ var isiPad: Bool {
 
 func L(_ key: String) -> String { return NSLocalizedString(key, comment: "") }
 
+func L(_ key: String, languageCode: String) -> String {
+  guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+        let bundle = Bundle(path: path) else {
+    LOG(.warning, "Localization bundle not found for language code: \(languageCode)")
+    return L(key)
+  }
+  return NSLocalizedString(key, bundle: bundle, comment: "")
+}
+
 func alternative<T>(iPhone: T, iPad: T) -> T { isiPad ? iPad : iPhone }
 
 func iPadSpecific(_ f: () -> Void) {

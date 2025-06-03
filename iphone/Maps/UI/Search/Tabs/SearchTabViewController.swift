@@ -14,6 +14,7 @@ final class SearchTabViewController: TabViewController {
   @objc weak var delegate: SearchTabViewControllerDelegate?
   
   private var frameworkHelper = MWMSearchFrameworkHelper.self
+  private var isLangSupported = true
 
   private var activeTab: SearchActiveTab = SearchActiveTab.init(rawValue:
     UserDefaults.standard.integer(forKey: SearchTabViewController.selectedIndexKey)) ?? .categories {
@@ -21,10 +22,12 @@ final class SearchTabViewController: TabViewController {
       UserDefaults.standard.set(activeTab.rawValue, forKey: SearchTabViewController.selectedIndexKey)
     }
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
+    isLangSupported = MWMSearchFrameworkHelper.isLanguageSupported(AppInfo.shared().languageId)
+
     let history = SearchHistoryViewController(frameworkHelper: frameworkHelper,
                                               delegate: self)
     history.title = L("history")
@@ -70,7 +73,13 @@ extension SearchTabViewController: SearchOnMapScrollViewDelegate {
 extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String) {
-    let query = SearchQuery(L(category) + " ", source: .category)
+    let searchText: String
+    if !isLangSupported {
+      searchText = L(category, languageCode: "en")
+    } else {
+      searchText = L(category)
+    }
+    let query = SearchQuery(searchText + " ", source: .category)
     delegate?.searchTabController(self, didSearch: query)
   }
 }
