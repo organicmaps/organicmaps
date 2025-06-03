@@ -1,6 +1,7 @@
 #import "MWMSearchFrameworkHelper.h"
 
 #include "platform/preferred_languages.hpp"
+#include "search/displayed_categories.hpp"
 
 #include "Framework.h"
 
@@ -18,6 +19,11 @@
 + (BOOL)isSearchHistoryEmpty
 {
   return GetFramework().GetSearchAPI().GetLastSearchQueries().empty();
+}
+
++ (BOOL)isLanguageSupported:(NSString *)languageCode
+{
+  return search::DisplayedCategories::IsLanguageSupported(languageCode.UTF8String);
 }
 
 + (NSArray<NSString *> *)lastSearchQueries
