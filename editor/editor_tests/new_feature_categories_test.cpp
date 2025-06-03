@@ -18,8 +18,6 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
   for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
     std::string const lang(locale.m_name);
-    if (base::IsExist(CategoriesHolder::kDisabledLanguages, lang))
-      continue;
     categories.AddLanguage(lang);
     auto names = categories.GetAllCreatableTypeNames();
     std::sort(names.begin(), names.end());
