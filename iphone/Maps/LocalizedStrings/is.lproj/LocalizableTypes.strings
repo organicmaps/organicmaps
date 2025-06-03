@@ -1304,3 +1304,5 @@
 "type.landuse.plant_nursery" = "Græðlingaræktun";
 "type.leisure.firepit" = "Eldgryfja";
 "type.highway.ladder" = "Stigi";
+"type.sport.diving" = "Köfun";
+"type.man_made.crane" = "Krani";

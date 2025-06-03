@@ -1487,3 +1487,4 @@
 "type.amenity.studio" = "Stúdió";
 "type.highway.ladder" = "Létra";
 "type.sport.diving" = "Búvárkodás";
+"type.man_made.crane" = "Daru";

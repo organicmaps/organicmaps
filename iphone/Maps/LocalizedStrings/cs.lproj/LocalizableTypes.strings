@@ -1491,3 +1491,4 @@
 "type.highway.ladder" = "Žebřík";
 "type.amenity.studio" = "Studio";
 "type.sport.diving" = "Potápění";
+"type.man_made.crane" = "Jeřáb";

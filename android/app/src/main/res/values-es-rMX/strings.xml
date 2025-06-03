@@ -126,13 +126,13 @@
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Máximo ahorro de energía</string>
-    <string name="enable_logging_warning_message">Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.</string>
+    <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
     <string name="access_rules_author_only">Se edita en línea</string>
     <string name="driving_options_title">Ajustes de desvío</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
     <string name="define_to_avoid_btn">Configurar rutas de desvío</string>
-    <string name="change_driving_options_btn">Ajustes de desvío habilitados</string>
+    <string name="change_driving_options_btn">Opciones de enrutamiento activadas</string>
     <string name="toll_road">Carretera de peaje</string>
     <string name="unpaved_road">Camino de tierra</string>
     <string name="ferry_crossing">Cruce de ferri</string>
@@ -201,7 +201,7 @@
     <string name="downloader_loading_ios">Cargando</string>
     <string name="enable_keep_screen_on">Mantener la pantalla encendida</string>
     <!-- Description in preferences -->
-    <string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
+    <string name="enable_keep_screen_on_description">Si se activa, la pantalla permanecerá encendida al mostrar el mapa.</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
     <string name="car_used_on_the_car_screen">Ahora usa Organic Maps en la pantalla del automóvil</string>
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
@@ -213,4 +213,5 @@
     <string name="drive_through">Servicio al auto</string>
     <string name="back">Atrás</string>
     <string name="cancel">Cancelar</string>
+    <string name="enable_logging">Activar registros</string>
 </resources>

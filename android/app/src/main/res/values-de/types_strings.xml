@@ -1399,4 +1399,5 @@
     <string name="type.leisure.firepit">Feuerstelle</string>
     <string name="type.amenity.studio">Studio</string>
     <string name="type.sport.diving">Tauchen</string>
+    <string name="type.man_made.crane">Kran</string>
 </resources>

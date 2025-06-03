@@ -1490,3 +1490,5 @@
 "type.leisure.firepit" = "Кастрышча";
 "type.landuse.plant_nursery" = "Гадавальнік раслін";
 "type.amenity.studio" = "Студыя гуказапісу, тэлестудыя";
+"type.sport.diving" = "Дайвінг";
+"type.man_made.crane" = "Кран";

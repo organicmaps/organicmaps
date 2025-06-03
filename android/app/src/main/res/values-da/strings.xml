@@ -868,4 +868,5 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="change_map_locale">Sprog på kort</string>
     <string name="prefs_group_information">Information</string>
+    <string name="saved">Gemt</string>
 </resources>

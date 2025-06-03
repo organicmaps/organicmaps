@@ -355,7 +355,7 @@
     <string name="type.shop.fashion_accessories">Complements de moda</string>
     <string name="type.shop.gas">Botiga de gas</string>
     <string name="type.shop.hearing_aids">Botiga d’aparells auditius</string>
-    <string name="type.shop.herbalist">Botiga d\'herbes</string>
+    <string name="type.shop.herbalist">Herbolari</string>
     <string name="type.shop.hifi">Àudio HiFi</string>
     <string name="type.shop.motorcycle_repair">Reparació de motos</string>
     <string name="type.shop.outpost">Punt de recollida</string>
@@ -987,4 +987,7 @@
     <string name="type.sport.padel">Pàdel</string>
     <string name="type.sport.skiing">Esquí</string>
     <string name="type.sport.soccer">Futbol</string>
+    <string name="type.shop.hairdresser">Perruqueria</string>
+    <string name="type.shop.hardware">Ferreteria</string>
+    <string name="type.shop.grocery">Botiga de queviures</string>
 </resources>

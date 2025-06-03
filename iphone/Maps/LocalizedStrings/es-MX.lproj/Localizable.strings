@@ -668,7 +668,7 @@
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "¿Desactivar la grabación de su ruta recientemente recorrida?";
-"off_recent_track_background_button" = "Deshabilitar";
+"off_recent_track_background_button" = "Desactivar";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Comprueba";
@@ -698,7 +698,7 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Los datos de tráfico no están disponibles";
-"enable_logging" = "Habilitar historial";
+"enable_logging" = "Activar registros";
 "log_file_size" = "Tamaño del archivo de registro: %@";
 "transliteration_title" = "Transliteración al alfabeto latino";
 
@@ -778,7 +778,7 @@
 "power_managment_setting_never" = "Nunca";
 "power_managment_setting_auto" = "Automático";
 "power_managment_setting_manual_max" = "Máximo ahorro de energía";
-"enable_logging_warning_message" = "Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.";
+"enable_logging_warning_message" = "Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.";
 "driving_options_title" = "Ajustes de desvío";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -793,7 +793,7 @@
 "unable_to_calc_alert_title" = "No se puede construir una ruta";
 "unable_to_calc_alert_subtitle" = "Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo";
 "define_to_avoid_btn" = "Configurar rutas de desvío";
-"change_driving_options_btn" = "Ajustes de desvío habilitados";
+"change_driving_options_btn" = "Opciones de enrutamiento activadas";
 "toll_road" = "Carretera de peaje";
 "unpaved_road" = "Camino de tierra";
 "ferry_crossing" = "Cruce de ferri";

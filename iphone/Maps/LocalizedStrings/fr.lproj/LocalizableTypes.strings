@@ -113,16 +113,16 @@
 "type.amenity.payment_terminal" = "Terminal de paiement";
 "type.amenity.pharmacy" = "Pharmacie";
 "type.amenity.place_of_worship" = "Lieu de culte";
-"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
+"type.amenity.place_of_worship.buddhist" = "Temple Bouddhiste";
 "type.amenity.place_of_worship.christian" = "Église";
 "type.amenity.place_of_worship.christian.mormon" = "Église de Jésus-Christ des Saints des Derniers Jours";
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Salle du Royaume des Témoins de Jéhovah";
-"type.amenity.place_of_worship.hindu" = "Hindu Temple";
+"type.amenity.place_of_worship.hindu" = "Temple Hindou";
 "type.amenity.place_of_worship.jewish" = "Synagogue";
 "type.amenity.place_of_worship.muslim" = "Mosquée";
-"type.amenity.place_of_worship.shinto" = "Sanctuaire";
-"type.amenity.place_of_worship.taoist" = "Temmple Taoïste";
-"type.amenity.police" = "Police";
+"type.amenity.place_of_worship.shinto" = "Sanctuaire Shinto";
+"type.amenity.place_of_worship.taoist" = "Temple Taoïste";
+"type.amenity.police" = "Poste de Police";
 "type.amenity.post_box" = "Boîte aux lettres";
 "type.amenity.post_office" = "Bureau de poste";
 "type.amenity.prison" = "Prison";
@@ -158,7 +158,7 @@
 "type.amenity.shelter.basic_hut" = "Cabane de Bivouac";
 
 /* A traditional 3-walled shelter (one side open), suitable for overnight camping. */
-"type.amenity.shelter.lean_to" = "Lean-to Shelter";
+"type.amenity.shelter.lean_to" = "Abri";
 "type.amenity.public_bath" = "Bain public";
 "type.amenity.shower" = "Douche";
 "type.amenity.stripclub" = "Club de strip-tease";
@@ -371,7 +371,7 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Entrée principale";
 "type.entrance.exit" = "Sortie";
-"type.fee.yes" = "$";
+"type.fee.yes" = "€";
 "type.fee.no" = "Gratuit";
 "type.healthcare.laboratory" = "Laboratoire médical";
 "type.healthcare.physiotherapist" = "Physiothérapeute";
@@ -383,7 +383,7 @@
 "type.healthcare.psychotherapist" = "Psychothérapie";
 "type.healthcare.sample_collection" = "Prélèvements biologiques";
 "type.healthcare.speech_therapist" = "Logopédie";
-"type.highway" = "Highway";
+"type.highway" = "Autoroute";
 "type.highway.bridleway" = "Chemin équestre";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -659,7 +659,7 @@
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 "type.internet_access" = "Internet";
 "type.internet_access.wlan" = "Internet";
-"type.junction" = "Junction";
+"type.junction" = "Jonction";
 "type.junction.circular" = "Rond-point";
 "type.junction.roundabout" = "Rond-point";
 "type.landuse" = "Utilisation du sol";
@@ -700,10 +700,10 @@
 "type.landuse.residential" = "Zone résidentielle";
 "type.landuse.retail" = "Zone commerciale";
 "type.landuse.salt_pond" = "Marais salants";
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Terrain";
 "type.landuse.vineyard" = "Vignes";
-"type.leisure" = "Leisure";
-"type.leisure.common" = "Public Land";
+"type.leisure" = "Loisirs";
+"type.leisure.common" = "Terrain communal";
 "type.leisure.dog_park" = "Parc canin";
 "type.leisure.fitness_centre" = "Centre fitness";
 "type.leisure.fitness_station" = "Station de fitness";
@@ -714,7 +714,7 @@
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Hackerspace";
 "type.leisure.ice_rink" = "Patinoire";
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Port de plaisance";
 "type.leisure.nature_reserve" = "Réserve naturelle";
 "type.leisure.outdoor_seating" = "Sièges extérieurs";
 "type.leisure.park" = "Parc";
@@ -724,7 +724,7 @@
 "type.leisure.picnic_table" = "Table de pique-nique";
 "type.leisure.pitch" = "Terrain de sport";
 "type.leisure.playground" = "Aire de jeu";
-"type.leisure.recreation_ground" = "Recreation Ground";
+"type.leisure.recreation_ground" = "Aire de jeux";
 "type.leisure.sauna" = "Sauna";
 "type.leisure.slipway" = "Cale de mise à l'eau";
 "type.leisure.sports_centre" = "Centre sportif";
@@ -736,8 +736,8 @@
 "type.leisure.track" = "Piste de course";
 "type.leisure.track.area" = "Piste de course";
 "type.leisure.water_park" = "Centre aquatique";
-"type.leisure.beach_resort" = "Beach Resort";
-"type.man_made" = "Man Made";
+"type.leisure.beach_resort" = "Station balnéaire";
+"type.man_made" = "Artificiel";
 "type.man_made.breakwater" = "Brise-lames";
 "type.man_made.cairn" = "Cairn";
 "type.man_made.chimney" = "Cheminée d'usine";
@@ -747,8 +747,8 @@
 "type.man_made.lighthouse" = "Phare";
 "type.man_made.mast" = "Mât";
 "type.man_made.pier" = "Jetée";
-"type.man_made.pipeline" = "Pipeline";
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline" = "Canalisation";
+"type.man_made.pipeline.overground" = "Canalisation aérienne";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Réservoir";
 "type.man_made.surveillance" = "Caméra de surveillance";
@@ -772,11 +772,11 @@
 "type.man_made.water_well" = "Puits à eau";
 "type.man_made.water_well.drinking_water_no" = "Puits à eau";
 "type.man_made.windmill" = "Moulin à vent";
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Ouvrages industriels";
 "type.mapswithme" = "mapswithme";
 "type.mapswithme.grid" = "mapswithme-grid";
-"type.military" = "Military";
-"type.military.bunker" = "Bunker";
+"type.military" = "Armée";
+"type.military.bunker" = "Casemate";
 "type.mountain_pass" = "Col de montagne";
 "type.natural" = "Nature";
 
@@ -876,7 +876,7 @@
 "type.place.suburb" = "Quartier";
 "type.place.town" = "Ville";
 "type.place.village" = "Village";
-"type.power" = "Power";
+"type.power" = "Énergie";
 "type.power.generator" = "Générateur";
 "type.power.generator.solar" = "Panneaux solaires";
 "type.power.generator.wind" = "Éolienne génératrice";
@@ -891,7 +891,7 @@
 "type.power.plant.hydro" = "Centrale hydroélectrique";
 "type.power.plant.solar" = "Centrale solaire";
 "type.power.plant.wind" = "Ferme d'éoliennes";
-"type.power.station" = "Power Station";
+"type.power.station" = "Centrale électrique";
 "type.power.substation" = "Poste électrique";
 
 /* A tower or pylon carrying high voltage electricity cables. */
@@ -921,7 +921,7 @@
 "type.railway.funicular.tunnel" = "Funiculaire";
 "type.railway.halt" = "Gare ferroviaire";
 "type.railway.level_crossing" = "Passage à niveau";
-"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail" = "Metro";
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
 "type.railway.light_rail.tunnel" = "Light Rail Tunnel";
 "type.railway.monorail" = "Monorail";
@@ -1484,3 +1484,7 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Salle de sport";
+"type.highway.ladder" = "Échelle";
+"type.barrier.guard_rail" = "Garde-corps";
+"type.landuse.plant_nursery" = "Pépinière";
+"type.leisure.firepit" = "Cheminée";

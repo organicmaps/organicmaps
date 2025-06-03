@@ -23,4 +23,18 @@
     <string name="download_country_ask">Preuzmi %s?</string>
     <string name="continue_button">Nastavi</string>
     <string name="download_country_failed">%s neuspješno preuzimanje</string>
+    <string name="saved">Spremljeno</string>
+    <string name="location_settings">Postavke lokacije</string>
+    <string name="pause">Pauza</string>
+    <string name="core_my_places">Moja mjesta</string>
+    <string name="name">Naziv</string>
+    <string name="address">Adresa</string>
+    <string name="list">Lista</string>
+    <string name="settings">Postavke</string>
+    <string name="edit">Uredi</string>
+    <string name="share">Podijeli</string>
+    <string name="elevation_profile_descent">Silazak</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="elevation_profile_ascent">Uspon</string>
 </resources>

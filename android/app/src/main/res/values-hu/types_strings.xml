@@ -1398,4 +1398,5 @@
     <string name="type.barrier.guard_rail">Szalagkorlát</string>
     <string name="type.highway.ladder">Létra</string>
     <string name="type.sport.diving">Búvárkodás</string>
+    <string name="type.man_made.crane">Daru</string>
 </resources>
