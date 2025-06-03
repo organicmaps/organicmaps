@@ -882,8 +882,8 @@
 "elevation_profile_diff_level_hard" = "Zaila";
 "elevation_profile_ascent" = "Maldan gora";
 "elevation_profile_descent" = "Maldan behera";
-"elevation_profile_min_elevation" = "Goragune min.";
-"elevation_profile_max_elevation" = "Goragune max.";
+"elevation_profile_min_elevation" = "Altitude min";
+"elevation_profile_max_elevation" = "Altitude max";
 "isolines_toast_zooms_1_10" = "Handitu mapa sestra kurbak ikusteko";
 "downloader_updating_ios" = "Eguneratzen";
 "downloader_loading_ios" = "Deskargatzen";
@@ -980,7 +980,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-"drive_through" = "Drive-through";
+"drive_through" = "Autoz hartzeko";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menuaren esteka";

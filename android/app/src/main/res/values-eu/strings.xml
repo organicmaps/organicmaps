@@ -756,8 +756,8 @@
     <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
-    <string name="elevation_profile_min_elevation">Goragune min.</string>
-    <string name="elevation_profile_max_elevation">Goragune max.</string>
+    <string name="elevation_profile_min_elevation">Altitude min</string>
+    <string name="elevation_profile_max_elevation">Altitude max</string>
     <string name="elevation_profile_difficulty">Zailtasuna</string>
     <string name="elevation_profile_distance">Distantzia:</string>
     <string name="elevation_profile_time">Denbora:</string>
@@ -834,7 +834,7 @@
     <string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
-    <string name="drive_through">Drive-through</string>
+    <string name="drive_through">Autoz hartzeko</string>
     <string name="clear_the_search">Garbitu bilaketa</string>
     <string name="zoom_in">Handitu</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -891,4 +891,5 @@
     <string name="instagram">Instagram</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="tts_info_link">https://organicmaps.app/faq/voice/text-to-speech-android-tts/</string>
+    <string name="saved">Gordeta</string>
 </resources>

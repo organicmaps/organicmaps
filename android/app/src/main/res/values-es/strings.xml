@@ -164,7 +164,7 @@
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Marcadores de Organic Maps compartidos con usted</string>
-    <string name="share_bookmarks_email_body">¡Hola! \n\nAdjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n\n¡Disfrute viajando con Organic Maps!</string>
+    <string name="share_bookmarks_email_body">¡Hola! \n\nAdjunto mis marcadores de la aplicación Organic Maps. Si no la tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz \n\n¡Disfrute viajando con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
     <!-- Kmz file successful loading -->
@@ -320,7 +320,7 @@
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">No hay suficiente espacio</string>
     <!-- location service disabled -->
-    <string name="enable_location_services">Por favor, active los servicios de localización</string>
+    <string name="enable_location_services">Active los servicios de localización</string>
     <string name="save">Guardar</string>
     <string name="create">crear</string>
     <!-- red color -->
@@ -377,7 +377,7 @@
     <string name="dialog_routing_end_not_determined">La ruta no se creó. No se pudo encontrar el destino.</string>
     <string name="dialog_routing_select_closer_end">Seleccione un punto de destino cercano a una carretera.</string>
     <string name="dialog_routing_change_intermediate">No se ha podido ubicar la parada intermedia.</string>
-    <string name="dialog_routing_intermediate_not_determined">Por favor, ajuste la parada intermedia.</string>
+    <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
     <string name="dialog_routing_system_error">Error del sistema</string>
     <string name="dialog_routing_application_error">No se pudo crear la ruta debido a un error en la aplicación.</string>
     <string name="dialog_routing_try_again">Intentar nuevamente</string>
@@ -427,7 +427,7 @@
     <string name="editor_example_values">Valores de ejemplo</string>
     <string name="editor_correct_mistake">Corregir error</string>
     <string name="editor_add_select_location">Seleccione la ubicación</string>
-    <string name="editor_report_problem_desription_1">Por favor, describa el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.</string>
+    <string name="editor_report_problem_desription_1">Describa el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.</string>
     <string name="editor_report_problem_desription_2">O hágalo usted mismo en https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Enviar</string>
     <string name="editor_report_problem_title">Problema</string>
@@ -517,7 +517,7 @@
     <!-- Hint of the input field in the OSM note section of the editor -->
     <string name="editor_note_hint">Describa los errores en el mapa o las cosas que no se pueden editar con Organic Maps</string>
     <!-- Information about OSM at the top of the editing page -->
-    <string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. Por favor, no añada información personal o protegida por derechos de autor.</string>
+    <string name="editor_about_osm">Sus ediciones se cargan en la base de datos pública <a href="https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap">OpenStreetMap</a>. No añada información personal o protegida por derechos de autor.</string>
     <string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
     <string name="editor_osm_history">Su historial de ediciones</string>
     <string name="editor_osm_notes">Mis notas de datos cartográficos</string>
@@ -525,7 +525,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
     <string name="operator">Operador: %s</string>
     <string name="editor_category_unsuitable_title">¿No halla una categoría adecuada?</string>
-    <string name="editor_category_unsuitable_text">Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.</string>
+    <string name="editor_category_unsuitable_text">Organic Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.</string>
     <string name="downloader_no_downloaded_maps_title">No ha descargado ningún mapa</string>
     <string name="downloader_no_downloaded_maps_message">Descargue mapas para encontrar la ubicación y navegar sin conexión.</string>
     <string name="current_location_unknown_error_title">Se desconoce la ubicación actual.</string>
@@ -621,7 +621,7 @@
     <string name="bookmark_lists_show_all">Mostrar todo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
-        <item quantity="many">%d marcadores</item>
+        <item quantity="many">%d de marcadores</item>
         <item quantity="other">%d marcadores</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crear nueva lista</string>
@@ -640,13 +640,13 @@
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">Se encontró %d archivo. Lo verá después de la conversión.</item>
-        <item quantity="many">Se han encontrado %d archivos. Los verá después de la conversión.</item>
-        <item quantity="other">Se han encontrado %d archivos. Los verá después de la conversión.</item>
+        <item quantity="many">Se encontraron %d de archivos. Los verá después de la conversión.</item>
+        <item quantity="other">Se encontraron %d archivos. Los verá después de la conversión.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
         <item quantity="one">%d trayecto</item>
-        <item quantity="many">%d trayectos</item>
+        <item quantity="many">%d de trayectos</item>
         <item quantity="other">%d trayectos</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -776,7 +776,7 @@
     <string name="disconnect_usb_cable_title">Desconecte el cable USB</string>
     <string name="enable_keep_screen_on">Mantener pantalla encendida</string>
     <!-- Description in preferences -->
-    <string name="enable_keep_screen_on_description">Cuando está activada, la pantalla siempre estará encendida cuando se muestre el mapa.</string>
+    <string name="enable_keep_screen_on_description">Si se activa, la pantalla permanecerá encendida al mostrar el mapa.</string>
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Mostrar en la pantalla de bloqueo</string>
     <!-- Description in preferences -->
@@ -796,7 +796,7 @@
     <!-- App tip #01 -->
     <string name="app_tip_01">¡Con sus donaciones y apoyo, podemos crear los mejores mapas del mundo!</string>
     <!-- App tip #02 -->
-    <string name="app_tip_02">¿Le gusta nuestra aplicación? ¡Por favor done para apoyar su desarrollo! ¿Todavía no le gusta? ¡Díganos por qué y lo arreglaremos!</string>
+    <string name="app_tip_02">¿Le gusta nuestra aplicación? ¡Done para apoyar su desarrollo! ¿Todavía no le gusta? ¡Díganos por qué y lo arreglaremos!</string>
     <!-- App tip #03 -->
     <string name="app_tip_03">Si conoce a algún desarrollador o desarrolladora de software, le puede pedir que implemente alguna funcionalidad que usted necesite.</string>
     <!-- App tip #04 -->

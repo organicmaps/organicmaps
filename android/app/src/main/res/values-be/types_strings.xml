@@ -943,4 +943,6 @@
     <string name="type.cuisine.heuriger">Вінная карчма (хойрыгер)</string>
     <string name="type.highway.footway">Пешаходная сцежка</string>
     <string name="type.highway.residential.area">Жылая вуліца</string>
+    <string name="type.sport.diving">Дайвінг</string>
+    <string name="type.man_made.crane">Кран</string>
 </resources>

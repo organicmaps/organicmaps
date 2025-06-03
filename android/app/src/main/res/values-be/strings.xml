@@ -892,4 +892,5 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="saved">Захавана</string>
 </resources>

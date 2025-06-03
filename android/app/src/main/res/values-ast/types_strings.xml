@@ -175,4 +175,13 @@
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
     <string name="type.man_made.tower">Torre</string>
     <string name="type.shop.garden_centre">Centru de xardinería</string>
+    <string name="type.amenity.bicycle_rental">Alquiler de bicicletes</string>
+    <string name="type.shop.bookmaker">Casa d’apuestes</string>
+    <string name="type.shop.books">Llibrería</string>
+    <string name="type.shop.hardware">Ferretería</string>
+    <string name="type.amenity.place_of_worship.muslim">Mezquita</string>
+    <string name="type.power">Enerxía</string>
+    <string name="type.power.generator">Xenerador d’enerxía</string>
+    <string name="type.power.generator.solar">Xenerador solar</string>
+    <string name="type.place.region">Rexón</string>
 </resources>

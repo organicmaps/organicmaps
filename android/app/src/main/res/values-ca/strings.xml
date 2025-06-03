@@ -590,7 +590,7 @@
     <string name="mobile_data_description">Es necessita Internet mòbil per a les notifiacions d\'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.</string>
     <string name="mobile_data_option_never">Mai</string>
     <string name="mobile_data_option_ask">Demana-ho sempre</string>
-    <string name="traffic_update_maps_text">Per a mostrar les dades de trànsit, els maps han d\'estar actualitzats.</string>
+    <string name="traffic_update_maps_text">Per a mostrar les dades de trànsit, s’han d’actualitzar els mapes.</string>
     <string name="big_font">Augmenta la mida de lletra del mapa</string>
     <string name="traffic_update_app">Actualitzeu l’Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
@@ -628,7 +628,7 @@
     <string name="bookmark_lists_show_all">Mostra-ho tot</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d marcador</item>
-        <item quantity="many">%d marcadors</item>
+        <item quantity="many">%d de marcadors</item>
         <item quantity="other">%d marcadors</item>
     </plurals>
     <string name="bookmarks_create_new_group">Crea una llista</string>
@@ -646,14 +646,14 @@
     <string name="phone_number">Número de telèfon</string>
     <string name="profile">Perfil de l’OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">S\'ha trobat %d fitxer. Podeu veure\'l després de la conversió.</item>
-        <item quantity="many">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
-        <item quantity="other">S\'han trobat %d fitxers. Podeu veure\'ls després de la conversió.</item>
+        <item quantity="one">S’ha trobat %d fitxer. Podeu veure’l després de la conversió.</item>
+        <item quantity="many">S’han trobat %d de fitxers. Podeu veure’ls després de la conversió.</item>
+        <item quantity="other">S’han trobat %d fitxers. Podeu veure’ls després de la conversió.</item>
     </plurals>
     <string name="restore">Restaura</string>
     <plurals name="tracks">
         <item quantity="one">%d recorregut</item>
-        <item quantity="many">%d recorreguts</item>
+        <item quantity="many">%d de recorreguts</item>
         <item quantity="other">%d recorreguts</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->

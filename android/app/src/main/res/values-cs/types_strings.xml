@@ -1398,4 +1398,5 @@
     <string name="type.barrier.guard_rail">Ochranné zábradlí</string>
     <string name="type.highway.ladder">Žebřík</string>
     <string name="type.sport.diving">Potápění</string>
+    <string name="type.man_made.crane">Jeřáb</string>
 </resources>

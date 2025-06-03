@@ -1306,4 +1306,6 @@
     <string name="type.amenity.studio">Stúdíó</string>
     <string name="type.barrier.guard_rail">Handrið</string>
     <string name="type.highway.ladder">Stigi</string>
+    <string name="type.sport.diving">Köfun</string>
+    <string name="type.man_made.crane">Krani</string>
 </resources>
