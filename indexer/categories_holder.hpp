@@ -117,10 +117,6 @@ public:
       {"zh-Hant", kTraditionalChineseCode},
   }};
 
-  // List of languages that are currently disabled in the application
-  // because their translations are not yet complete.
-  static std::array<char const *, 1> constexpr kDisabledLanguages = {"sw"};
-
   explicit CategoriesHolder(std::unique_ptr<Reader> && reader);
 
   template <class ToDo>
