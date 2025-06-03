@@ -37,6 +37,11 @@ public:
       fn(name.m_name, CategoriesHolder::MapIntegerToLocale(name.m_locale));
   }
 
+  static bool IsLanguageSupported(std::string_view locale)
+  {
+    return CategoriesHolder::MapLocaleToInteger(locale) != CategoriesHolder::kUnsupportedLocaleCode;
+  }
+
  private:
   CategoriesHolder const & m_holder;
   Keys m_keys;
