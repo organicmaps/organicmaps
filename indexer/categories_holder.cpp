@@ -6,7 +6,7 @@
 #include "coding/reader_streambuf.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
+
 
 namespace
 {
@@ -309,7 +309,6 @@ int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
   ASSERT(!kLocaleMapping.empty(), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_name, std::string_view("en"), ());
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
-  ASSERT(!base::IsExist(kDisabledLanguages, std::string_view("en")), ());
 
   for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
   {
