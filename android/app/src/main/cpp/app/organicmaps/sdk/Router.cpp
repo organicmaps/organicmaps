@@ -17,7 +17,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Router_nativeSet(JNIEnv *, jclas
   case 2: type = Type::Bicycle; break;
   case 3: type = Type::Transit; break;
   case 4: type = Type::Ruler; break;
-  default: assert(false); break;
+  default: ASSERT(false, (routerType)); return;
   }
   frm()->GetRoutingManager().SetRouter(type);
 }
