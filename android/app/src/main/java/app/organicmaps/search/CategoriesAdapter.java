@@ -3,6 +3,7 @@ package app.organicmaps.search;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import app.organicmaps.util.ThemeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Locale;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
@@ -46,13 +48,24 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   }
 
   private CategoriesUiListener mListener;
+  private boolean mIsLangSupported;
+  private Resources mEnglishResources;
 
   CategoriesAdapter(@NonNull Fragment fragment)
   {
-    if (fragment instanceof CategoriesUiListener)
-      mListener = (CategoriesUiListener) fragment;
     mResources = fragment.getResources();
     mInflater = LayoutInflater.from(fragment.requireActivity());
+
+    if (fragment instanceof CategoriesUiListener)
+    {
+      mListener = (CategoriesUiListener) fragment;
+      mIsLangSupported = DisplayedCategories.nativeIsLangSupported(Locale.getDefault().getLanguage());
+
+      Configuration config = new Configuration(mResources.getConfiguration());
+      config.setLocale(new Locale("en"));
+      Context localizedContext = fragment.getContext().createConfigurationContext(config);
+      mEnglishResources = localizedContext.getResources();
+    }
   }
 
   void updateCategories(@NonNull Fragment fragment)
@@ -82,7 +95,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @NonNull
   private static String[] getAllCategories()
   {
-    String[] searchCategories = DisplayedCategories.getKeys();
+    String[] searchCategories = DisplayedCategories.nativeGetKeys();
     int amountSize = searchCategories.length;
     String[] allCategories = new String[amountSize];
 
@@ -190,7 +203,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       {
         @StringRes
         int categoryId = mCategoryResIds[position];
-        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " ");
+
+        String category;
+        if (mIsLangSupported)
+          category = mResources.getString(categoryId);
+        else
+          category = mEnglishResources.getString(categoryId);
+
+        mListener.onSearchCategorySelected(category + " ");
       }
     }
 
