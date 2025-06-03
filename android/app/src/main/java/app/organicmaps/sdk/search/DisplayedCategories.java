@@ -5,11 +5,6 @@ import androidx.annotation.NonNull;
 public class DisplayedCategories
 {
   @NonNull
-  public static String[] getKeys()
-  {
-    return nativeGetKeys();
-  }
-
-  @NonNull
-  private static native String[] nativeGetKeys();
+  public static native String[] nativeGetKeys();
+  public static native boolean nativeIsLangSupported(String langCode);
 }
