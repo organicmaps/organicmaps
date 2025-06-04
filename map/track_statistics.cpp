@@ -3,25 +3,27 @@
 #include "geometry/mercator.hpp"
 #include "base/logging.hpp"
 
-using namespace geometry;
-using namespace location;
-using namespace kml;
+#include "platform/duration.hpp"
+#include "platform/distance.hpp"
 
+namespace
+{
 double constexpr kInvalidTimestamp = std::numeric_limits<double>::min();
-PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), kInvalidAltitude};
+geometry::PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), geometry::kInvalidAltitude};
+} // namespace
 
 TrackStatistics::TrackStatistics()
   : m_length(0),
     m_duration(0),
     m_ascent(0),
     m_descent(0),
-    m_minElevation(kDefaultAltitudeMeters),
-    m_maxElevation(kDefaultAltitudeMeters),
+    m_minElevation(geometry::kDefaultAltitudeMeters),
+    m_maxElevation(geometry::kDefaultAltitudeMeters),
     m_previousPoint(kInvalidPoint),
     m_previousTimestamp(kInvalidTimestamp)
 {}
 
-TrackStatistics::TrackStatistics(MultiGeometry const & geometry)
+TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry)
   : TrackStatistics()
 {
   for (auto const & line : geometry.m_lines)
@@ -36,10 +38,10 @@ TrackStatistics::TrackStatistics(MultiGeometry const & geometry)
   }
 }
 
-void TrackStatistics::AddGpsInfoPoint(GpsInfo const & point)
+void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
 {
   auto const pointWithAltitude = geometry::PointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude), point.m_altitude);
-  auto const altitude = Altitude(point.m_altitude);
+  auto const altitude = geometry::Altitude(point.m_altitude);
   if (HasNoPoints())
   {
     m_minElevation = altitude;
@@ -108,3 +110,34 @@ bool TrackStatistics::HasNoPoints() const
 {
   return m_previousPoint == kInvalidPoint;
 }
+
+std::string TrackStatistics::GetFormattedLength() const
+{
+  return platform::Distance::CreateFormatted(m_length).ToString();
+}
+
+std::string TrackStatistics::GetFormattedDuration() const
+{
+  return platform::Duration(static_cast<int>(m_duration)).GetPlatformLocalizedString();
+}
+
+std::string TrackStatistics::GetFormattedAscent() const
+{
+  return platform::Distance::FormatAltitude(m_ascent);
+}
+
+std::string TrackStatistics::GetFormattedDescent() const
+{
+  return platform::Distance::FormatAltitude(m_descent);
+}
+
+std::string TrackStatistics::GetFormattedMinElevation() const
+{
+  return platform::Distance::FormatAltitude(m_minElevation);
+}
+
+std::string TrackStatistics::GetFormattedMaxElevation() const
+{
+  return platform::Distance::FormatAltitude(m_maxElevation);
+}
+
