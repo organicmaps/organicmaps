@@ -43,7 +43,7 @@ class PlacePageTrackLayout: IPlacePageLayout {
   }()
 
   lazy var elevationMapViewController: ElevationProfileViewController? = {
-    guard trackData.trackInfo.hasElevationInfo(),
+    guard trackData.trackInfo.hasElevationInfo,
           let elevationProfileData = trackData.elevationProfileData else {
       return nil
     }

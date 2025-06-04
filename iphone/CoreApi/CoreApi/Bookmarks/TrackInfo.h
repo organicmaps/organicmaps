@@ -4,14 +4,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TrackInfo : NSObject
 
-@property (nonatomic, readonly) double distance;
-@property (nonatomic, readonly) double duration;
-@property (nonatomic, readonly) NSUInteger ascent;
-@property (nonatomic, readonly) NSUInteger descent;
-@property (nonatomic, readonly) NSUInteger maxElevation;
-@property (nonatomic, readonly) NSUInteger minElevation;
+@property (nonatomic, readonly) NSString * distance;
+@property (nonatomic, readonly) NSString * duration;
+@property (nonatomic, readonly) NSString * ascent;
+@property (nonatomic, readonly) NSString * descent;
+@property (nonatomic, readonly) NSString * maxElevation;
+@property (nonatomic, readonly) NSString * minElevation;
 
-- (BOOL)hasElevationInfo;
+@property (nonatomic, readonly) BOOL hasElevationInfo;
 
 + (TrackInfo *)emptyInfo;
 
