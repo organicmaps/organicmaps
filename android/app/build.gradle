@@ -97,6 +97,14 @@ android {
     dataBinding = true
     buildConfig = true
   }
+
+  // Users are complaining that the app should be re-downloaded from the Play Store after changing the language.
+  bundle {
+    language {
+      enableSplit = false
+    }
+  }
+
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
