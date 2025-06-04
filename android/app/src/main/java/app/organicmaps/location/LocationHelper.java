@@ -213,7 +213,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     if (mSavedLocation != null)
     {
-      if (!LocationUtils.isFromFusedProvider(location) && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      if (!LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
       {
         Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
         return;
