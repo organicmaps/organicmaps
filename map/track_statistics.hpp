@@ -19,6 +19,13 @@ struct TrackStatistics
   geometry::Altitude m_minElevation;
   geometry::Altitude m_maxElevation;
 
+  std::string GetFormattedLength() const;
+  std::string GetFormattedDuration() const;
+  std::string GetFormattedAscent() const;
+  std::string GetFormattedDescent() const;
+  std::string GetFormattedMinElevation() const;
+  std::string GetFormattedMaxElevation() const;
+
   void AddGpsInfoPoint(location::GpsInfo const & point);
 private:
   void AddPoints(Points const & points);
