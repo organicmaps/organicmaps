@@ -48,19 +48,12 @@ extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
 
 private extension TrackRecordingLiveActivityAttributes.ContentState {
   init(trackInfo: TrackInfo) {
-    let distance = DistanceFormatter.distanceString(fromMeters: trackInfo.distance)
-    let duration = DurationFormatter.durationString(from: trackInfo.duration)
-    let maxElevation = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.maxElevation))
-    let minElevation = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.minElevation))
-    let ascent = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.ascent))
-    let descent = AltitudeFormatter.altitudeString(fromMeters: Double(trackInfo.descent))
-
-    self.distance = StatisticsViewModel(key: "", value: distance)
-    self.duration = StatisticsViewModel(key: "", value: duration)
-    self.maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: maxElevation)
-    self.minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: minElevation)
-    self.ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: ascent)
-    self.descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: descent)
+    self.distance = StatisticsViewModel(key: "", value: trackInfo.distance)
+    self.duration = StatisticsViewModel(key: "", value: trackInfo.duration)
+    self.maxElevation = StatisticsViewModel(key: L("elevation_profile_max_elevation"), value: trackInfo.maxElevation)
+    self.minElevation = StatisticsViewModel(key: L("elevation_profile_min_elevation"), value: trackInfo.minElevation)
+    self.ascent = StatisticsViewModel(key: L("elevation_profile_ascent"), value: trackInfo.ascent)
+    self.descent = StatisticsViewModel(key: L("elevation_profile_descent"), value: trackInfo.descent)
   }
 }
 

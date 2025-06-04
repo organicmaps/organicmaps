@@ -16,7 +16,7 @@ protocol ElevationProfileViewControllerDelegate: AnyObject {
 
 fileprivate struct DescriptionsViewModel {
   let title: String
-  let value: UInt
+  let value: String
   let imageName: String
 }
 
@@ -117,7 +117,7 @@ extension ElevationProfilePresenter {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(cell: ElevationProfileDescriptionCell.self, indexPath: indexPath)
     let model = descriptionModels[indexPath.row]
-    cell.configure(subtitle: model.title, value: formatter.yAxisString(from: Double(model.value)), imageName: model.imageName)
+    cell.configure(subtitle: model.title, value: model.value, imageName: model.imageName)
     return cell
   }
 }
