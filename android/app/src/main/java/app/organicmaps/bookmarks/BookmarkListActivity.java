@@ -2,13 +2,11 @@ package app.organicmaps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
@@ -17,9 +15,7 @@ import app.organicmaps.util.ThemeUtils;
 
 public class BookmarkListActivity extends BaseToolbarActivity
 {
-  @CallSuper
-  @Override
-  public void onResume()
+  @CallSuper @Override public void onResume()
   {
     super.onResume();
 
@@ -29,9 +25,7 @@ public class BookmarkListActivity extends BaseToolbarActivity
     BookmarkManager.INSTANCE.setNotificationsEnabled(false);
   }
 
-  @CallSuper
-  @Override
-  public void onPause()
+  @CallSuper @Override public void onPause()
   {
     // Allow to send all notifications in BM.
     BookmarkManager.INSTANCE.setNotificationsEnabled(true);
@@ -39,26 +33,23 @@ public class BookmarkListActivity extends BaseToolbarActivity
     super.onPause();
   }
 
-  @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
+  @Override @StyleRes public int getThemeResourceId(@NonNull String theme)
   {
     return ThemeUtils.getCardBgThemeResourceId(getApplicationContext(), theme);
   }
 
-  @Override
-  protected Class<? extends Fragment> getFragmentClass()
+  @Override protected Class<? extends Fragment> getFragmentClass()
   {
     return BookmarksListFragment.class;
   }
 
-  @Override
-  protected int getContentLayoutResId()
+  @Override protected int getContentLayoutResId()
   {
     return R.layout.bookmarks_activity;
   }
 
-  static void startForResult(@NonNull Fragment fragment, ActivityResultLauncher<Intent> startBookmarkListForResult, @NonNull BookmarkCategory category)
+  static void startForResult(@NonNull Fragment fragment, ActivityResultLauncher<Intent> startBookmarkListForResult,
+    @NonNull BookmarkCategory category)
   {
     Bundle args = new Bundle();
     Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);

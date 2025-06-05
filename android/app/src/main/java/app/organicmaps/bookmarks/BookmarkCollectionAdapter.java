@@ -3,59 +3,48 @@ package app.organicmaps.bookmarks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.util.UiUtils;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_HEADER_ITEM, TYPE_CATEGORY_ITEM })
-  public @interface SectionType { }
+  @Retention(RetentionPolicy.SOURCE) @IntDef({TYPE_HEADER_ITEM, TYPE_CATEGORY_ITEM}) public @interface SectionType {}
 
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
 
-  @NonNull
-  private final BookmarkCategory mBookmarkCategory;
+  @NonNull private final BookmarkCategory mBookmarkCategory;
 
-  @NonNull
-  private List<BookmarkCategory> mItemsCategory;
+  @NonNull private List<BookmarkCategory> mItemsCategory;
 
   private int mSectionCount;
   private int mCategorySectionIndex = SectionPosition.INVALID_POSITION;
 
   private boolean mVisible;
 
-  @Nullable
-  private OnItemClickListener<BookmarkCategory> mClickListener;
-  @NonNull
-  private final MassOperationAction mMassOperationAction = new MassOperationAction();
+  @Nullable private OnItemClickListener<BookmarkCategory> mClickListener;
+  @NonNull private final MassOperationAction mMassOperationAction = new MassOperationAction();
 
   private class ToggleVisibilityClickListener implements View.OnClickListener
   {
-    @NonNull
-    private final Holders.CollectionViewHolder mHolder;
+    @NonNull private final Holders.CollectionViewHolder mHolder;
 
     ToggleVisibilityClickListener(@NonNull Holders.CollectionViewHolder holder)
     {
       mHolder = holder;
     }
 
-    @Override
-    public void onClick(View v)
+    @Override public void onClick(View v)
     {
       BookmarkCategory category = mHolder.getEntity();
       BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
@@ -63,11 +52,10 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 
-  BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory,
-                            @NonNull List<BookmarkCategory> itemsCategories)
+  BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory, @NonNull List<BookmarkCategory> itemsCategories)
   {
     mBookmarkCategory = bookmarkCategory;
-    //noinspection AssignmentOrReturnOfFieldWithMutableType
+    // noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
 
     mSectionCount = 0;
@@ -82,22 +70,19 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return 0;
   }
 
-  @SectionType
-  public int getItemsType(int sectionIndex)
+  @SectionType public int getItemsType(int sectionIndex)
   {
     if (sectionIndex == mCategorySectionIndex)
       return TYPE_CATEGORY_ITEM;
     throw new AssertionError("Invalid section index: " + sectionIndex);
   }
 
-  @NonNull
-  private List<BookmarkCategory> getItemsListByType(@SectionType int type)
+  @NonNull private List<BookmarkCategory> getItemsListByType(@SectionType int type)
   {
-      return mItemsCategory;
+    return mItemsCategory;
   }
 
-  @NonNull
-  public BookmarkCategory getGroupByPosition(SectionPosition sp, @SectionType int type)
+  @NonNull public BookmarkCategory getGroupByPosition(SectionPosition sp, @SectionType int type)
   {
     List<BookmarkCategory> categories = getItemsListByType(type);
 
@@ -129,18 +114,15 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @NonNull
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
-                                                    @SectionType int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @SectionType int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RecyclerView.ViewHolder holder = null;
 
     if (viewType == TYPE_HEADER_ITEM)
-      holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header,
-                                                             parent, false));
+      holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header, parent, false));
     if (viewType == TYPE_CATEGORY_ITEM)
-      holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection,
-                                                                 parent, false));
+      holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection, parent, false));
 
     if (holder == null)
       throw new AssertionError("Unsupported view type: " + viewType);
@@ -148,8 +130,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return holder;
   }
 
-  @Override
-  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+  @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
   {
     SectionPosition sectionPosition = getSectionPosition(position);
     if (sectionPosition.isTitlePosition())
@@ -158,9 +139,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       bindCollectionHolder(holder, sectionPosition, getItemsType(sectionPosition.getSectionIndex()));
   }
 
-  @Override
-  @SectionType
-  public int getItemViewType(int position)
+  @Override @SectionType public int getItemViewType(int position)
   {
     SectionPosition sectionPosition = getSectionPosition(position);
     if (sectionPosition.isTitlePosition())
@@ -170,8 +149,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     throw new AssertionError("Position not found: " + position);
   }
 
-  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position,
-                                    @SectionType int type)
+  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position, @SectionType int type)
   {
     final BookmarkCategory category = getGroupByPosition(position, type);
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
@@ -188,8 +166,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder, int nextSectionPosition)
   {
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
-    headerViewHolder.getText()
-                    .setText(holder.itemView.getResources().getString(R.string.bookmarks));
+    headerViewHolder.getText().setText(holder.itemView.getResources().getString(R.string.bookmarks));
     final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
     headerViewHolder.setAction(mMassOperationAction, visibility);
     updateVisibility(headerViewHolder.itemView);
@@ -200,14 +177,12 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     UiUtils.showRecyclerItemView(mVisible, itemView);
   }
 
-  @Override
-  public long getItemId(int position)
+  @Override public long getItemId(int position)
   {
     return position;
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     int itemCount = 0;
 
@@ -234,16 +209,14 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   class MassOperationAction implements Holders.HeaderViewHolder.HeaderActionChildCategories
   {
-    @Override
-    public void onHideAll()
+    @Override public void onHideAll()
     {
       BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), false);
       updateAllItems();
       notifyDataSetChanged();
     }
 
-    @Override
-    public void onShowAll()
+    @Override public void onShowAll()
     {
       BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), true);
       updateAllItems();
@@ -251,4 +224,3 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 }
-

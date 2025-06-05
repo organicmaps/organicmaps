@@ -5,12 +5,8 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.location.Location;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-
-import java.util.Calendar;
-
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -20,6 +16,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.util.concurrency.UiThread;
+import java.util.Calendar;
 
 public enum ThemeSwitcher
 {
@@ -28,10 +25,8 @@ public enum ThemeSwitcher
   private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
   private static boolean mRendererActive = false;
 
-  private final Runnable mAutoThemeChecker = new Runnable()
-  {
-    @Override
-    public void run()
+  private final Runnable mAutoThemeChecker = new Runnable() {
+    @Override public void run()
     {
       boolean navAuto = RoutingController.get().isNavigating() && ThemeUtils.isNavAutoTheme(mContext);
       // Cancel old checker
@@ -53,9 +48,7 @@ public enum ThemeSwitcher
     }
   };
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private Context mContext;
 
   public void initialize(@NonNull Context context)
   {
@@ -71,8 +64,7 @@ public enum ThemeSwitcher
    *                         <code>true</code> only if the map is rendered and visible on the screen
    *                         at this moment, otherwise <code>false</code>.
    */
-  @androidx.annotation.UiThread
-  public void restart(boolean isRendererActive)
+  @androidx.annotation.UiThread public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
     String theme = Config.getUiThemeSettings(mContext);

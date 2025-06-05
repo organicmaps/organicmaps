@@ -4,8 +4,7 @@ import androidx.annotation.NonNull;
 
 public interface DataSource<D>
 {
-  @NonNull
-  D getData();
+  @NonNull D getData();
 
   void invalidate();
 }

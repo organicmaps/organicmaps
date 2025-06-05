@@ -2,7 +2,6 @@ package app.organicmaps.util;
 
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -12,19 +11,15 @@ import app.organicmaps.R;
 
 public final class WindowInsetUtils
 {
-
-  private WindowInsetUtils()
-  {
-  }
+  private WindowInsetUtils() {}
 
   /**
    * The insets that include areas where content may be covered by other drawn content.
    * This includes all systemBars, displayCutout and ime.
    */
   @WindowInsetsCompat.Type.InsetsType
-  public static final int TYPE_SAFE_DRAWING = WindowInsetsCompat.Type.systemBars()
-                                              | WindowInsetsCompat.Type.displayCutout()
-                                              | WindowInsetsCompat.Type.ime();
+  public static final int TYPE_SAFE_DRAWING =
+    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout() | WindowInsetsCompat.Type.ime();
 
   /**
    * A utility class that implements {@link android.view.View.OnApplyWindowInsetsListener}
@@ -40,11 +35,8 @@ public final class WindowInsetUtils
    */
   public static final class ScrollableContentInsetsListener implements OnApplyWindowInsetsListener
   {
-
-    @Nullable
-    private final View mFloatingActionButton;
-    @NonNull
-    private final View mScrollableView;
+    @Nullable private final View mFloatingActionButton;
+    @NonNull private final View mScrollableView;
 
     public ScrollableContentInsetsListener(@NonNull View scrollableView)
     {
@@ -58,10 +50,10 @@ public final class WindowInsetUtils
 
       if (floatingActionButton != null)
       {
-        floatingActionButton.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-        {
+        floatingActionButton.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
           @Override
-          public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+          public void onLayoutChange(
+            View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
           {
             int height = v.getMeasuredHeight();
             if (height > 0)
@@ -87,12 +79,11 @@ public final class WindowInsetUtils
         int spacing = UiUtils.dimen(v.getContext(), R.dimen.margin_base);
         int buttonMarginBottom = insets.bottom + spacing;
 
-        ViewGroup.MarginLayoutParams buttonLayoutParams = (ViewGroup.MarginLayoutParams) mFloatingActionButton.getLayoutParams();
+        ViewGroup.MarginLayoutParams buttonLayoutParams =
+          (ViewGroup.MarginLayoutParams) mFloatingActionButton.getLayoutParams();
         buttonLayoutParams.bottomMargin = buttonMarginBottom;
 
-        scrollableViewPaddingBottom = buttonMarginBottom
-                                    + mFloatingActionButton.getMeasuredHeight()
-                                    + spacing;
+        scrollableViewPaddingBottom = buttonMarginBottom + mFloatingActionButton.getMeasuredHeight() + spacing;
       }
       else
       {
@@ -100,10 +91,7 @@ public final class WindowInsetUtils
       }
 
       mScrollableView.setPadding(
-          v.getPaddingLeft(),
-          v.getPaddingTop(),
-          v.getPaddingRight(),
-          scrollableViewPaddingBottom);
+        v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), scrollableViewPaddingBottom);
 
       // update margins instead of paddings, because item decorators do not respect paddings
       updateScrollableViewMargins(insets);
@@ -113,7 +101,8 @@ public final class WindowInsetUtils
 
     private void updateScrollableViewMargins(@NonNull Insets insets)
     {
-      final ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mScrollableView.getLayoutParams();
+      final ViewGroup.MarginLayoutParams layoutParams =
+        (ViewGroup.MarginLayoutParams) mScrollableView.getLayoutParams();
       if (layoutParams != null)
       {
         boolean dirty = false;
@@ -137,7 +126,6 @@ public final class WindowInsetUtils
 
   public static final class PaddingInsetsListener implements OnApplyWindowInsetsListener
   {
-
     private final int insetsTypeMask;
     private final boolean top;
     private final boolean bottom;
@@ -181,16 +169,13 @@ public final class WindowInsetUtils
     public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets)
     {
       final Insets insets = windowInsets.getInsets(insetsTypeMask);
-      v.setPadding(
-          left ? insets.left : v.getPaddingLeft(),
-          top ? insets.top : v.getPaddingTop(),
-          right ? insets.right : v.getPaddingRight(),
-          bottom ? insets.bottom : v.getPaddingBottom());
+      v.setPadding(left ? insets.left : v.getPaddingLeft(), top ? insets.top : v.getPaddingTop(),
+        right ? insets.right : v.getPaddingRight(), bottom ? insets.bottom : v.getPaddingBottom());
       return windowInsets;
     }
 
-    public static class Builder {
-
+    public static class Builder
+    {
       private int mInsetsTypeMask = TYPE_SAFE_DRAWING;
       private boolean mTop;
       private boolean mBottom;
@@ -203,7 +188,8 @@ public final class WindowInsetUtils
         return this;
       }
 
-      public Builder setAllSides() {
+      public Builder setAllSides()
+      {
         mTop = true;
         mBottom = true;
         mLeft = true;
@@ -211,7 +197,8 @@ public final class WindowInsetUtils
         return this;
       }
 
-      public Builder setExcludeTop() {
+      public Builder setExcludeTop()
+      {
         mTop = false;
         mBottom = true;
         mLeft = true;
@@ -219,7 +206,8 @@ public final class WindowInsetUtils
         return this;
       }
 
-      public Builder setExcludeBottom() {
+      public Builder setExcludeBottom()
+      {
         mTop = true;
         mBottom = false;
         mLeft = true;

@@ -1,23 +1,20 @@
 package app.organicmaps.util;
 
+import static app.organicmaps.util.Constants.Vendor.HUAWEI;
+import static app.organicmaps.util.Constants.Vendor.XIAOMI;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
-
 import androidx.annotation.IntDef;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.Framework;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import static app.organicmaps.util.Constants.Vendor.HUAWEI;
-import static app.organicmaps.util.Constants.Vendor.XIAOMI;
 
 public final class PowerManagment
 {
@@ -31,14 +28,9 @@ public final class PowerManagment
   public static final int HIGH = 3;
   public static final int AUTO = 4;
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ NONE, NORMAL, MEDIUM, HIGH, AUTO })
-  public @interface SchemeType
-  {
-  }
+  @Retention(RetentionPolicy.SOURCE) @IntDef({NONE, NORMAL, MEDIUM, HIGH, AUTO}) public @interface SchemeType {}
 
-  @SchemeType
-  public static int getScheme()
+  @SchemeType public static int getScheme()
   {
     return Framework.nativeGetPowerManagerScheme();
   }
@@ -54,15 +46,13 @@ public final class PowerManagment
     {
       final String XIAOMI_SETTING_NAME = "POWER_SAVE_MODE_OPEN";
       final int XIAOMI_SETTING_VALUE = 1;
-      return Settings.System.getInt(context.getContentResolver(), XIAOMI_SETTING_NAME, -1)
-             == XIAOMI_SETTING_VALUE;
+      return Settings.System.getInt(context.getContentResolver(), XIAOMI_SETTING_NAME, -1) == XIAOMI_SETTING_VALUE;
     }
     else if (HUAWEI.equalsIgnoreCase(Build.MANUFACTURER))
     {
       final String HUAWEI_SETTING_NAME = "SmartModeStatus";
       final int HUAWEI_SETTING_VALUE = 4;
-      return Settings.System.getInt(context.getContentResolver(), HUAWEI_SETTING_NAME, -1)
-             == HUAWEI_SETTING_VALUE;
+      return Settings.System.getInt(context.getContentResolver(), HUAWEI_SETTING_NAME, -1) == HUAWEI_SETTING_VALUE;
     }
 
     final PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -78,8 +68,7 @@ public final class PowerManagment
     if (XIAOMI.equalsIgnoreCase(Build.MANUFACTURER))
     {
       final Intent intent = new Intent();
-      intent.setComponent(new ComponentName("com.miui.securitycenter",
-                                            "com.miui.powercenter.PowerMainActivity"));
+      intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.powercenter.PowerMainActivity"));
       if (Utils.isIntentSupported(context, intent))
         return intent;
     }

@@ -5,9 +5,7 @@ import androidx.annotation.NonNull;
 
 // Corresponds to StringUtf8Multilang::Lang in core.
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class Language
+@Keep @SuppressWarnings("unused") public class Language
 {
   // StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode).
   public static final String DEFAULT_LANG_CODE = "default";

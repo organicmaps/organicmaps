@@ -8,7 +8,6 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
@@ -16,20 +15,14 @@ import app.organicmaps.car.util.UserActionRequired;
 
 public class ErrorScreen extends BaseScreen implements UserActionRequired
 {
-  @StringRes
-  private final int mTitle;
-  @StringRes
-  private final int mErrorMessage;
+  @StringRes private final int mTitle;
+  @StringRes private final int mErrorMessage;
 
-  @StringRes
-  private final int mPositiveButtonText;
-  @Nullable
-  private final Runnable mPositiveButtonCallback;
+  @StringRes private final int mPositiveButtonText;
+  @Nullable private final Runnable mPositiveButtonCallback;
 
-  @StringRes
-  private final int mNegativeButtonText;
-  @Nullable
-  private final Runnable mNegativeButtonCallback;
+  @StringRes private final int mNegativeButtonText;
+  @Nullable private final Runnable mNegativeButtonCallback;
 
   private ErrorScreen(@NonNull Builder builder)
   {
@@ -42,9 +35,7 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
     mNegativeButtonCallback = builder.mNegativeButtonCallback;
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(mErrorMessage));
 
@@ -58,15 +49,15 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
       builder.addAction(new Action.Builder()
           .setBackgroundColor(Colors.BUTTON_ACCEPT)
           .setTitle(getCarContext().getString(mPositiveButtonText))
-          .setOnClickListener(this::onPositiveButton).build()
-      );
+          .setOnClickListener(this::onPositiveButton)
+          .build());
     }
     if (mNegativeButtonText != -1)
     {
       builder.addAction(new Action.Builder()
           .setTitle(getCarContext().getString(mNegativeButtonText))
-          .setOnClickListener(this::onNegativeButton).build()
-      );
+          .setOnClickListener(this::onNegativeButton)
+          .build());
     }
 
     return builder.build();
@@ -88,23 +79,16 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
 
   public static class Builder
   {
-    @NonNull
-    private final CarContext mCarContext;
+    @NonNull private final CarContext mCarContext;
 
-    @StringRes
-    private int mTitle = -1;
-    @StringRes
-    private int mErrorMessage;
+    @StringRes private int mTitle = -1;
+    @StringRes private int mErrorMessage;
 
-    @StringRes
-    private int mPositiveButtonText = -1;
-    @Nullable
-    private Runnable mPositiveButtonCallback;
+    @StringRes private int mPositiveButtonText = -1;
+    @Nullable private Runnable mPositiveButtonCallback;
 
-    @StringRes
-    private int mNegativeButtonText = -1;
-    @Nullable
-    private Runnable mNegativeButtonCallback;
+    @StringRes private int mNegativeButtonText = -1;
+    @Nullable private Runnable mNegativeButtonCallback;
 
     public Builder(@NonNull CarContext carContext)
     {

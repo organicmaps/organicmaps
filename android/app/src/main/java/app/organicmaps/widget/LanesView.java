@@ -11,12 +11,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleableRes;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.SingleLaneInfo;
 
@@ -24,12 +22,9 @@ public class LanesView extends View
 {
   private interface DefaultValues
   {
-    @ColorInt
-    int BACKGROUND_COLOR = Color.BLACK;
-    @ColorInt
-    int ACTIVE_LANE_TINT_COLOR = Color.WHITE;
-    @ColorInt
-    int INACTIVE_LANE_TINT_COLOR = Color.GRAY;
+    @ColorInt int BACKGROUND_COLOR = Color.BLACK;
+    @ColorInt int ACTIVE_LANE_TINT_COLOR = Color.WHITE;
+    @ColorInt int INACTIVE_LANE_TINT_COLOR = Color.GRAY;
 
     float CORNER_RADIUS = 0.0f;
 
@@ -38,18 +33,13 @@ public class LanesView extends View
 
   private final int mCornerRadius;
 
-  @ColorInt
-  private final int mActiveLaneTintColor;
-  @ColorInt
-  private final int mInactiveLaneTintColor;
+  @ColorInt private final int mActiveLaneTintColor;
+  @ColorInt private final int mInactiveLaneTintColor;
 
-  @NonNull
-  private final Paint mBackgroundPaint;
+  @NonNull private final Paint mBackgroundPaint;
 
-  @Nullable
-  private LanesDrawable mLanesDrawable;
-  @Nullable
-  private Rect mViewBounds = null;
+  @Nullable private LanesDrawable mLanesDrawable;
+  @Nullable private Rect mViewBounds = null;
 
   public LanesView(Context context, @Nullable AttributeSet attrs)
   {
@@ -60,13 +50,17 @@ public class LanesView extends View
     try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LanesView, 0, 0))
     {
       backgroundColor = getAttrColor(data, R.styleable.LanesView_lanesBackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mActiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesActiveLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
-      mInactiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesInactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
-      mCornerRadius = (int) Math.max(data.getDimension(R.styleable.LanesView_lanesCornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
+      mActiveLaneTintColor =
+        getAttrColor(data, R.styleable.LanesView_lanesActiveLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
+      mInactiveLaneTintColor =
+        getAttrColor(data, R.styleable.LanesView_lanesInactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
+      mCornerRadius =
+        (int) Math.max(data.getDimension(R.styleable.LanesView_lanesCornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
 
       if (isInEditMode())
       {
-        final int lanesCount = Math.max(1, data.getInt(R.styleable.LanesView_lanesEditModeLanesCount, DefaultValues.LANES_COUNT));
+        final int lanesCount =
+          Math.max(1, data.getInt(R.styleable.LanesView_lanesEditModeLanesCount, DefaultValues.LANES_COUNT));
         createLanesForEditMode(lanesCount);
       }
     }
@@ -84,8 +78,7 @@ public class LanesView extends View
     update();
   }
 
-  @Override
-  public void draw(@NonNull Canvas canvas)
+  @Override public void draw(@NonNull Canvas canvas)
   {
     super.draw(canvas);
 
@@ -111,8 +104,7 @@ public class LanesView extends View
     mLanesDrawable.draw(canvas);
   }
 
-  @Override
-  public boolean onTouchEvent(MotionEvent event)
+  @Override public boolean onTouchEvent(MotionEvent event)
   {
     if (mViewBounds != null && mViewBounds.contains((int) event.getX(), (int) event.getY()))
     {
@@ -123,8 +115,7 @@ public class LanesView extends View
     return false;
   }
 
-  @Override
-  public boolean performClick()
+  @Override public boolean performClick()
   {
     super.performClick();
     return false;
@@ -139,8 +130,7 @@ public class LanesView extends View
     invalidate();
   }
 
-  @ColorInt
-  private int getAttrColor(@NonNull TypedArray data, @StyleableRes int index, @ColorInt int defaultColor)
+  @ColorInt private int getAttrColor(@NonNull TypedArray data, @StyleableRes int index, @ColorInt int defaultColor)
   {
     final TypedValue typedValue = new TypedValue();
     data.getValue(index, typedValue);
@@ -156,15 +146,15 @@ public class LanesView extends View
   private void createLanesForEditMode(int lanesCount)
   {
     final SingleLaneInfo[] lanes = new SingleLaneInfo[lanesCount];
-    lanes[0] = new SingleLaneInfo(new byte[]{1}, false);
+    lanes[0] = new SingleLaneInfo(new byte[] {1}, false);
     if (lanes.length > 1)
-      lanes[1] = new SingleLaneInfo(new byte[]{3}, false);
+      lanes[1] = new SingleLaneInfo(new byte[] {3}, false);
     for (int i = 2; i <= lanes.length - 1; i++)
-      lanes[i] = new SingleLaneInfo(new byte[]{0}, true);
+      lanes[i] = new SingleLaneInfo(new byte[] {0}, true);
     if (lanes.length > 2)
-      lanes[lanes.length - 2] = new SingleLaneInfo(new byte[]{8}, false);
+      lanes[lanes.length - 2] = new SingleLaneInfo(new byte[] {8}, false);
     if (lanes.length > 3)
-      lanes[lanes.length - 1] = new SingleLaneInfo(new byte[]{9}, false);
+      lanes[lanes.length - 1] = new SingleLaneInfo(new byte[] {9}, false);
 
     setLanes(lanes);
   }

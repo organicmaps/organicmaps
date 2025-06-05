@@ -2,15 +2,12 @@ package app.organicmaps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Nullable;
 
 public class Result implements Parcelable
 {
-  @Nullable
-  private final String mFilePath;
-  @Nullable
-  private final String mArchiveId;
+  @Nullable private final String mFilePath;
+  @Nullable private final String mArchiveId;
 
   public Result(@Nullable String filePath, @Nullable String archiveId)
   {
@@ -24,38 +21,30 @@ public class Result implements Parcelable
     mArchiveId = in.readString();
   }
 
-  @Override
-  public int describeContents()
+  @Override public int describeContents()
   {
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
+  @Override public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeString(mFilePath);
     dest.writeString(mArchiveId);
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
-    return "Result{" +
-           "mFilePath='" + mFilePath + '\'' +
-           ", mArchiveId='" + mArchiveId + '\'' +
-           '}';
+    return "Result{"
+  + "mFilePath='" + mFilePath + '\'' + ", mArchiveId='" + mArchiveId + '\'' + '}';
   }
 
-  public static final Creator<Result> CREATOR = new Creator<>()
-  {
-    @Override
-    public Result createFromParcel(Parcel in)
+  public static final Creator<Result> CREATOR = new Creator<>() {
+    @Override public Result createFromParcel(Parcel in)
     {
       return new Result(in);
     }
 
-    @Override
-    public Result[] newArray(int size)
+    @Override public Result[] newArray(int size)
     {
       return new Result[size];
     }

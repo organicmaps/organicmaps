@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.CallSuper;
@@ -19,7 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
@@ -28,7 +26,6 @@ import app.organicmaps.util.RtlUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
-
 import java.util.Objects;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
@@ -37,16 +34,14 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   private boolean mSafeCreated;
 
-  @NonNull
-  private String mThemeName;
+  @NonNull private String mThemeName;
 
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
+  @StyleRes protected int getThemeResourceId(@NonNull String theme)
   {
     Context context = getApplicationContext();
 
     if (ThemeUtils.isDefaultTheme(context, theme))
-        return R.style.MwmTheme;
+      return R.style.MwmTheme;
 
     if (ThemeUtils.isNightTheme(context, theme))
       return R.style.MwmTheme_Night;
@@ -60,9 +55,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
    * Do not override this method!
    * Use {@link #onSafeCreate(Bundle savedInstanceState)}
    */
-  @CallSuper
-  @Override
-  protected final void onCreate(@Nullable Bundle savedInstanceState)
+  @CallSuper @Override protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mThemeName = Config.getCurrentUiTheme(getApplicationContext());
@@ -85,8 +78,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
    * Use this safe method instead of {@link #onCreate(Bundle savedInstanceState)}.
    * When this method is called, the core is already initialized.
    */
-  @CallSuper
-  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
+  @CallSuper protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
@@ -97,9 +89,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     mSafeCreated = true;
   }
 
-  @CallSuper
-  @Override
-  protected final void onDestroy()
+  @CallSuper @Override protected final void onDestroy()
   {
     super.onDestroy();
 
@@ -114,15 +104,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
    * When this method is called, the core is already initialized and
    * {@link #onSafeCreate(Bundle savedInstanceState)} was called.
    */
-  @CallSuper
-  protected void onSafeDestroy()
+  @CallSuper protected void onSafeDestroy()
   {
     mSafeCreated = false;
   }
 
-  @CallSuper
-  @Override
-  public void onPostResume()
+  @CallSuper @Override public void onPostResume()
   {
     super.onPostResume();
     if (!mThemeName.equals(Config.getCurrentUiTheme(getApplicationContext())))
@@ -132,8 +119,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
   }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
+  @Override public boolean onOptionsItemSelected(MenuItem item)
   {
     if (item.getItemId() == android.R.id.home)
     {
@@ -158,8 +144,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     setSupportActionBar(getToolbar());
   }
 
-  @Override
-  public void onBackPressed()
+  @Override public void onBackPressed()
   {
     if (getFragmentClass() == null)
     {
@@ -215,11 +200,13 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   /**
    * Replace attached fragment with the new one.
    */
-  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
+  public void replaceFragment(
+    @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)
-      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() isn't implemented or returns wrong resourceId.");
+      throw new IllegalStateException(
+        "Fragment can't be added, since getFragmentContentResId() isn't implemented or returns wrong resourceId.");
 
     String name = fragmentClass.getName();
     Fragment potentialInstance = getSupportFragmentManager().findFragmentByTag(name);
@@ -229,9 +216,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       final FragmentFactory factory = manager.getFragmentFactory();
       final Fragment fragment = factory.instantiate(getClassLoader(), name);
       fragment.setArguments(args);
-      manager.beginTransaction()
-          .replace(resId, fragment, name)
-          .commitAllowingStateLoss();
+      manager.beginTransaction().replace(resId, fragment, name).commitAllowingStateLoss();
       manager.executePendingTransactions();
       if (completionListener != null)
         completionListener.run();
@@ -239,8 +224,8 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   }
 
   /**
-   * Override to automatically attach fragment in onCreate. Tag applied to fragment in back stack is set to fragment name, too.
-   * WARNING : if custom layout for activity is set, getFragmentContentResId() must be implemented, too.
+   * Override to automatically attach fragment in onCreate. Tag applied to fragment in back stack is set to fragment
+   * name, too. WARNING : if custom layout for activity is set, getFragmentContentResId() must be implemented, too.
    * @return class of the fragment, eg FragmentClass.getClass()
    */
   protected Class<? extends Fragment> getFragmentClass()

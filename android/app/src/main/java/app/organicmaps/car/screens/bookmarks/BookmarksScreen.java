@@ -12,7 +12,6 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.car.SurfaceRenderer;
@@ -21,27 +20,23 @@ import app.organicmaps.car.util.UiHelpers;
 
 public class BookmarksScreen extends BaseMapScreen
 {
-  @NonNull
-  private final BookmarkCategory mBookmarkCategory;
+  @NonNull private final BookmarkCategory mBookmarkCategory;
 
-  @NonNull
-  private final BookmarksLoader mBookmarksLoader;
+  @NonNull private final BookmarksLoader mBookmarksLoader;
 
-  @Nullable
-  private ItemList mBookmarksList = null;
+  @Nullable private ItemList mBookmarksList = null;
 
   private boolean mIsOnSortingScreen = false;
 
-  public BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull BookmarkCategory bookmarkCategory)
+  public BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
+    @NonNull BookmarkCategory bookmarkCategory)
   {
     super(carContext, surfaceRenderer);
     mBookmarkCategory = bookmarkCategory;
     mBookmarksLoader = new BookmarksLoader(carContext, mBookmarkCategory, this::onBookmarksLoaded);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -49,15 +44,13 @@ public class BookmarksScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     if (!mIsOnSortingScreen)
       mBookmarksLoader.cancel();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -66,8 +59,7 @@ public class BookmarksScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createBookmarksListTemplate()
+  @NonNull private ListTemplate createBookmarksListTemplate()
   {
     final ListTemplate.Builder builder = new ListTemplate.Builder();
     builder.setHeader(createHeader());
@@ -83,14 +75,14 @@ public class BookmarksScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Action createSortingAction()
+  @NonNull private Action createSortingAction()
   {
     final Action.Builder builder = new Action.Builder();
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_sort)).build());
     builder.setOnClickListener(() -> {
       mIsOnSortingScreen = true;
-      getScreenManager().pushForResult(new SortingScreen(getCarContext(), getSurfaceRenderer(), mBookmarkCategory), this::onSortingResult);
+      getScreenManager().pushForResult(
+        new SortingScreen(getCarContext(), getSurfaceRenderer(), mBookmarkCategory), this::onSortingResult);
     });
     return builder.build();
   }

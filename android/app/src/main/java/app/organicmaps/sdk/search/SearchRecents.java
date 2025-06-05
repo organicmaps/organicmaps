@@ -2,11 +2,8 @@ package app.organicmaps.sdk.search;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.util.Language;
-
 import java.util.ArrayList;
 import java.util.List;
 

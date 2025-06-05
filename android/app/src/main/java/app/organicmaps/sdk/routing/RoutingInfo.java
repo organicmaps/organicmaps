@@ -1,13 +1,10 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
-
 import app.organicmaps.util.Distance;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class RoutingInfo
+@Keep @SuppressWarnings("unused") public final class RoutingInfo
 {
   // Target (end point of route).
   public final Distance distToTarget;
@@ -35,10 +32,10 @@ public final class RoutingInfo
   private final boolean speedCamLimitExceeded;
   private final boolean shouldPlayWarningSignal;
 
-  private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet, String nextNextStreet, double completionPercent,
-                     int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
-                     int totalTime, SingleLaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
-                     boolean shouldPlayWarningSignal)
+  private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet,
+    String nextNextStreet, double completionPercent, int vehicleTurnOrdinal, int vehicleNextTurnOrdinal,
+    int pedestrianTurnOrdinal, int exitNum, int totalTime, SingleLaneInfo[] lanes, double speedLimitMps,
+    boolean speedLimitExceeded, boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;

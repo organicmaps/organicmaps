@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.MwmApplication;
@@ -18,7 +17,6 @@ import app.organicmaps.R;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -31,12 +29,11 @@ import java.util.Locale;
  * During loading each item in this list is marked as {@code downloaded} or {@code not downloaded},
  * unsupported voices are excluded.
  * <p>
- * At startup we check whether currently selected language is in our list of supported voices and its data is downloaded.
- * If not, we check system default locale. If failed, the same check is made for English language.
- * Finally, if mentioned checks fail we manually disable TTS, so the user must go to the settings and select
- * preferred voice language by hand.
- * <p>
- * If no core supported languages can be used by the system, TTS is locked down and can not be enabled and used.
+ * At startup we check whether currently selected language is in our list of supported voices and its data is
+ * downloaded. If not, we check system default locale. If failed, the same check is made for English language. Finally,
+ * if mentioned checks fail we manually disable TTS, so the user must go to the settings and select preferred voice
+ * language by hand. <p> If no core supported languages can be used by the system, TTS is locked down and can not be
+ * enabled and used.
  */
 public enum TtsPlayer
 {
@@ -48,7 +45,7 @@ public enum TtsPlayer
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
 
   public static Runnable sOnReloadCallback = null;
-  
+
   private ContentObserver mTtsEngineObserver;
   private TextToSpeech mTts;
   private boolean mInitializing;
@@ -59,9 +56,7 @@ public enum TtsPlayer
 
   private final Handler delayHandler = new Handler(Looper.getMainLooper());
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private Context mContext;
 
   // TTS is locked down due to absence of supported languages
   private boolean mUnavailable;
@@ -166,13 +161,13 @@ public enum TtsPlayer
       refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
       mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-        @Override
-        public void onStart(String utteranceId) {
+        @Override public void onStart(String utteranceId)
+        {
           mAudioFocusManager.requestAudioFocus();
         }
 
-        @Override
-        public void onDone(String utteranceId) {
+        @Override public void onDone(String utteranceId)
+        {
           mAudioFocusManager.releaseAudioFocus();
         }
 
@@ -183,8 +178,8 @@ public enum TtsPlayer
           mAudioFocusManager.releaseAudioFocus();
         }
 
-        @Override
-        public void onError(String utteranceId, int errorCode) {
+        @Override public void onError(String utteranceId, int errorCode)
+        {
           mAudioFocusManager.releaseAudioFocus();
         }
       });
@@ -198,13 +193,15 @@ public enum TtsPlayer
       }
     }));
 
-    if (mTtsEngineObserver == null) {
+    if (mTtsEngineObserver == null)
+    {
       mTtsEngineObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
-        @Override
-        public void onChange(boolean selfChange) {
+        @Override public void onChange(boolean selfChange)
+        {
           Logger.d(TAG, "System TTS engine changed – reloading TTS engine");
           mReloadTriggered = true;
-          if (mTts != null) {
+          if (mTts != null)
+          {
             mTts.shutdown();
             mTts = null;
           }
@@ -212,10 +209,7 @@ public enum TtsPlayer
         }
       };
       mContext.getContentResolver().registerContentObserver(
-          Settings.Secure.getUriFor("tts_default_synth"),
-          false,
-          mTtsEngineObserver
-      );
+        Settings.Secure.getUriFor("tts_default_synth"), false, mTtsEngineObserver);
     }
   }
 
@@ -231,7 +225,8 @@ public enum TtsPlayer
       {
         boolean isMusicActive = mAudioFocusManager.requestAudioFocus();
         if (isMusicActive)
-          delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+          delayHandler.postDelayed(
+            () -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
         else
           mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak);
       }
@@ -296,7 +291,8 @@ public enum TtsPlayer
       {
         outList.add(new LanguageData(codes[i], names[i], mTts));
       }
-      catch (LanguageData.NotAvailableException ignored) {
+      catch (LanguageData.NotAvailableException ignored)
+      {
         Logger.w(TAG, "Failed to get usable languages " + ignored.getMessage());
       }
       catch (IllegalArgumentException e)

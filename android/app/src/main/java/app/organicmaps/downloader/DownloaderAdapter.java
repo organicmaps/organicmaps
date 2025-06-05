@@ -12,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
@@ -28,7 +26,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -58,17 +55,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   // Use List, because we have multiple search results now for a single country.
   private final Map<String, List<CountryItem>> mCountryIndex = new HashMap<>();
 
-  private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
+  private final Stack<PathEntry> mPath =
+    new Stack<>(); // Holds navigation history. The last element is the current level.
 
   private int mListenerSlot;
   private CountryItem mSelectedItem;
 
   private static class GenericItem
   {
-    @Nullable
-    public final String mHeaderText;
-    @Nullable
-    public final CountryItem mItem;
+    @Nullable public final String mHeaderText;
+    @Nullable public final CountryItem mItem;
     public GenericItem(@Nullable CountryItem item)
     {
       mItem = item;
@@ -110,10 +106,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (RoutingController.get().isNavigating())
     {
       new MaterialAlertDialogBuilder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
-          .setTitle(R.string.downloader_delete_map)
-          .setMessage(R.string.downloader_delete_map_while_routing_dialog)
-          .setPositiveButton(R.string.ok, null)
-          .show();
+        .setTitle(R.string.downloader_delete_map)
+        .setMessage(R.string.downloader_delete_map_while_routing_dialog)
+        .setPositiveButton(R.string.ok, null)
+        .show();
       return;
     }
 
@@ -124,11 +120,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
 
     new MaterialAlertDialogBuilder(adapter.mActivity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.downloader_delete_map)
-        .setMessage(R.string.downloader_delete_map_dialog)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, (dialog, which) -> deleteNode(item, adapter))
-        .show();
+      .setTitle(R.string.downloader_delete_map)
+      .setMessage(R.string.downloader_delete_map_dialog)
+      .setNegativeButton(R.string.cancel, null)
+      .setPositiveButton(R.string.ok, (dialog, which) -> deleteNode(item, adapter))
+      .show();
   }
 
   private void onCancelActionSelected(CountryItem item)
@@ -154,20 +150,15 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   }
 
   private record PathEntry(CountryItem item, boolean myMapsMode, int topPosition, int topOffset)
-    {
-
-      @Override
-      public String toString()
-      {
-        return item.id + " (" + item.name + "), " +
-               "myMapsMode: " + myMapsMode +
-               ", topPosition: " + topPosition +
-               ", topOffset: " + topOffset;
-      }
-    }
-
-  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
+    @Override public String toString()
+    {
+      return item.id + " (" + item.name + "), "
+    + "myMapsMode: " + myMapsMode + ", topPosition: " + topPosition + ", topOffset: " + topOffset;
+    }
+  }
+
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
     private void updateItem(String countryId)
     {
       List<CountryItem> lst = mCountryIndex.get(countryId);
@@ -193,8 +184,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
     }
 
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       for (MapManager.StorageCallbackData item : data)
       {
@@ -211,8 +201,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
     }
 
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    @Override public void onProgress(String countryId, long localSize, long remoteSize)
     {
       updateItem(countryId);
     }
@@ -224,14 +213,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       return inflate(parent, R.layout.downloader_item);
     else
       return inflate(parent, R.layout.downloader_item_header);
-
   }
 
   class ViewHolderWrapper extends RecyclerView.ViewHolder
   {
     private final int mKind;
-    @NonNull
-    private final BaseInnerViewHolder mHolder;
+    @NonNull private final BaseInnerViewHolder mHolder;
 
     ViewHolderWrapper(@NonNull ViewGroup parent, int kind)
     {
@@ -244,8 +231,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         mHolder = new HeaderViewHolder(itemView);
     }
 
-    @SuppressWarnings("unchecked")
-    void bind(int position)
+    @SuppressWarnings("unchecked") void bind(int position)
     {
       final GenericItem item = mItemsAndHeader.get(position);
       if (mKind == TYPE_COUNTRY && item.mItem != null)
@@ -274,7 +260,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     mSelectedItem = selectedItem;
     MenuBottomSheetFragment.newInstance(DOWNLOADER_MENU_ID, mSelectedItem.name)
-                           .show(mFragment.getChildFragmentManager(), DOWNLOADER_MENU_ID);
+      .show(mFragment.getChildFragmentManager(), DOWNLOADER_MENU_ID);
   }
 
   public ArrayList<MenuBottomSheetItem> getMenuItems()
@@ -282,64 +268,61 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     switch (mSelectedItem.status)
     {
-      case CountryItem.STATUS_DOWNLOADABLE:
-        items.add(getDownloadMenuItem());
-        break;
+    case CountryItem.STATUS_DOWNLOADABLE: items.add(getDownloadMenuItem()); break;
 
-      case CountryItem.STATUS_UPDATABLE:
-        items.add(getUpdateMenuItem());
-        // Fallthrough
+    case CountryItem.STATUS_UPDATABLE:
+      items.add(getUpdateMenuItem());
+      // Fallthrough
 
-      case CountryItem.STATUS_DONE:
-        if (!mSelectedItem.isExpandable())
-          items.add(getExploreMenuItem());
+    case CountryItem.STATUS_DONE:
+      if (!mSelectedItem.isExpandable())
+        items.add(getExploreMenuItem());
+      appendDeleteMenuItem(items);
+      break;
+
+    case CountryItem.STATUS_FAILED:
+      items.add(getCancelMenuItem());
+
+      if (mSelectedItem.present)
+      {
         appendDeleteMenuItem(items);
-        break;
+        items.add(getExploreMenuItem());
+      }
+      break;
 
-      case CountryItem.STATUS_FAILED:
-        items.add(getCancelMenuItem());
+    case CountryItem.STATUS_PROGRESS:
+    case CountryItem.STATUS_APPLYING:
+    case CountryItem.STATUS_ENQUEUED:
+      items.add(getCancelMenuItem());
 
-        if (mSelectedItem.present)
-        {
-          appendDeleteMenuItem(items);
-          items.add(getExploreMenuItem());
-        }
-        break;
+      if (mSelectedItem.present)
+        items.add(getExploreMenuItem());
+      break;
 
-      case CountryItem.STATUS_PROGRESS:
-      case CountryItem.STATUS_APPLYING:
-      case CountryItem.STATUS_ENQUEUED:
-        items.add(getCancelMenuItem());
-
-        if (mSelectedItem.present)
-          items.add(getExploreMenuItem());
-        break;
-
-      case CountryItem.STATUS_PARTLY:
-        items.add(getDownloadMenuItem());
-        appendDeleteMenuItem(items);
-        break;
+    case CountryItem.STATUS_PARTLY:
+      items.add(getDownloadMenuItem());
+      appendDeleteMenuItem(items);
+      break;
     }
     return items;
   }
 
-
   private MenuBottomSheetItem getDownloadMenuItem()
   {
     return new MenuBottomSheetItem(R.string.downloader_download_map, R.drawable.ic_download,
-                                   () -> onDownloadActionSelected(mSelectedItem, DownloaderAdapter.this));
+      () -> onDownloadActionSelected(mSelectedItem, DownloaderAdapter.this));
   }
 
   private MenuBottomSheetItem getUpdateMenuItem()
   {
     return new MenuBottomSheetItem(R.string.downloader_update_map, R.drawable.ic_update,
-                                   () -> onUpdateActionSelected(mSelectedItem, DownloaderAdapter.this));
+      () -> onUpdateActionSelected(mSelectedItem, DownloaderAdapter.this));
   }
 
   private MenuBottomSheetItem getExploreMenuItem()
   {
     return new MenuBottomSheetItem(R.string.zoom_to_country, R.drawable.ic_explore,
-                                   () -> onExploreActionSelected(mSelectedItem, DownloaderAdapter.this));
+      () -> onExploreActionSelected(mSelectedItem, DownloaderAdapter.this));
   }
 
   private void appendDeleteMenuItem(ArrayList<MenuBottomSheetItem> items)
@@ -348,15 +331,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     // Checking the name is not beautiful, but the simplest way for now ..
     if (!mSelectedItem.id.startsWith("World"))
     {
-      items.add(new MenuBottomSheetItem(R.string.delete, R.drawable.ic_delete,
-                                        () -> onDeleteActionSelected(mSelectedItem, DownloaderAdapter.this)));
+      items.add(new MenuBottomSheetItem(
+        R.string.delete, R.drawable.ic_delete, () -> onDeleteActionSelected(mSelectedItem, DownloaderAdapter.this)));
     }
   }
 
   private MenuBottomSheetItem getCancelMenuItem()
   {
-    return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel,
-                                   () -> onCancelActionSelected(mSelectedItem));
+    return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel, () -> onCancelActionSelected(mSelectedItem));
   }
 
   private class ItemViewHolder extends BaseInnerViewHolder<CountryItem>
@@ -371,22 +353,23 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       switch (mItem.status)
       {
-        case CountryItem.STATUS_DONE, CountryItem.STATUS_PROGRESS, CountryItem.STATUS_APPLYING, CountryItem.STATUS_ENQUEUED ->
-            processLongClick();
-        case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
-        {
-          if (clickOnStatus)
-            onDownloadActionSelected(mItem, DownloaderAdapter.this);
-          else
-            processLongClick();
-        }
-        case CountryItem.STATUS_FAILED ->
-        {
-          MapManager.warn3gAndRetry(mActivity, mItem.id, null);
-        }
-        case CountryItem.STATUS_UPDATABLE ->
-            MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.startUpdate(mItem.id));
-        default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
+      case CountryItem.STATUS_DONE, CountryItem.STATUS_PROGRESS, CountryItem.STATUS_APPLYING,
+        CountryItem.STATUS_ENQUEUED ->
+        processLongClick();
+      case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
+      {
+        if (clickOnStatus)
+          onDownloadActionSelected(mItem, DownloaderAdapter.this);
+        else
+          processLongClick();
+      }
+      case CountryItem.STATUS_FAILED ->
+      {
+        MapManager.warn3gAndRetry(mActivity, mItem.id, null);
+      }
+      case CountryItem.STATUS_UPDATABLE ->
+        MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.startUpdate(mItem.id));
+      default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
       }
     }
 
@@ -397,23 +380,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     ItemViewHolder(View frame)
     {
-      mStatusIcon = new DownloaderStatusIcon(frame.findViewById(R.id.downloader_status_frame))
-      {
-        @Override
-        protected int selectIcon(CountryItem country)
+      mStatusIcon = new DownloaderStatusIcon(frame.findViewById(R.id.downloader_status_frame)) {
+        @Override protected int selectIcon(CountryItem country)
         {
           if (country.status == CountryItem.STATUS_DOWNLOADABLE || country.status == CountryItem.STATUS_PARTLY)
           {
-            return (country.isExpandable() ? (mMyMapsMode ? R.attr.status_folder_done
-                                                          : R.attr.status_folder)
+            return (country.isExpandable() ? (mMyMapsMode ? R.attr.status_folder_done : R.attr.status_folder)
                                            : R.attr.status_downloadable);
           }
 
           return super.selectIcon(country);
         }
 
-        @Override
-        protected void updateIcon(CountryItem country)
+        @Override protected void updateIcon(CountryItem country)
         {
           super.updateIcon(country);
           mIcon.setFocusable(country.isExpandable() && country.status != CountryItem.STATUS_DONE);
@@ -441,8 +420,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       });
     }
 
-    @Override
-    void bind(CountryItem item)
+    @Override void bind(CountryItem item)
     {
       super.bind(item);
 
@@ -476,17 +454,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       if (mItem.isExpandable())
       {
-        UiUtils.setTextAndHideIfEmpty(mSubtitle, String.format("%s: %s", mActivity.getString(R.string.downloader_status_maps),
-                                                                         mActivity.getString(R.string.downloader_of, mItem.childCount,
-                                                                                                                     mItem.totalChildCount)));
+        UiUtils.setTextAndHideIfEmpty(
+          mSubtitle, String.format("%s: %s", mActivity.getString(R.string.downloader_status_maps),
+                       mActivity.getString(R.string.downloader_of, mItem.childCount, mItem.totalChildCount)));
       }
 
       UiUtils.showIf(mSearchResultsMode && !TextUtils.isEmpty(found), mFoundName);
 
       long size;
-      if (mItem.status == CountryItem.STATUS_ENQUEUED ||
-          mItem.status == CountryItem.STATUS_PROGRESS ||
-          mItem.status == CountryItem.STATUS_APPLYING)
+      if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS
+          || mItem.status == CountryItem.STATUS_APPLYING)
       {
         size = mItem.enqueuedSize;
       }
@@ -502,8 +479,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   static class HeaderViewHolder extends BaseInnerViewHolder<String>
   {
-    @NonNull
-    private final TextView mTitle;
+    @NonNull private final TextView mTitle;
 
     HeaderViewHolder(@NonNull View frame)
     {
@@ -512,7 +488,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     void bind(String text)
     {
-        mTitle.setText(text);
+      mTitle.setText(text);
     }
   }
 
@@ -522,39 +498,39 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     int headerId = 0;
     int prev = -1;
-    for (CountryItem ci: mItems)
+    for (CountryItem ci : mItems)
     {
       // Disable headers when using the search
       if (!mSearchResultsMode)
       {
         switch (ci.category)
         {
-          case CountryItem.CATEGORY_NEAR_ME ->
+        case CountryItem.CATEGORY_NEAR_ME ->
+        {
+          if (ci.category != prev)
           {
-            if (ci.category != prev)
-            {
-              headerId = CountryItem.CATEGORY_NEAR_ME;
-              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
-              prev = ci.category;
-            }
-          }
-          case CountryItem.CATEGORY_DOWNLOADED ->
-          {
-            if (ci.category != prev)
-            {
-              headerId = CountryItem.CATEGORY_DOWNLOADED;
-              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
-              prev = ci.category;
-            }
-          }
-          default ->
-          {
-            int prevHeader = headerId;
-            headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
-            if (headerId != prevHeader)
-              mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
+            headerId = CountryItem.CATEGORY_NEAR_ME;
+            mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
             prev = ci.category;
           }
+        }
+        case CountryItem.CATEGORY_DOWNLOADED ->
+        {
+          if (ci.category != prev)
+          {
+            headerId = CountryItem.CATEGORY_DOWNLOADED;
+            mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
+            prev = ci.category;
+          }
+        }
+        default ->
+        {
+          int prevHeader = headerId;
+          headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
+          if (headerId != prevHeader)
+            mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
+          prev = ci.category;
+        }
         }
         ci.headerId = headerId;
       }
@@ -611,12 +587,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     collectHeaders();
 
     mCountryIndex.clear();
-    for (CountryItem ci: mItems)
+    for (CountryItem ci : mItems)
     {
       List<CountryItem> lst = mCountryIndex.get(ci.id);
       if (lst != null)
         lst.add(ci);
-      else {
+      else
+      {
         lst = new ArrayList<>();
         lst.add(ci);
         mCountryIndex.put(ci.id, lst);
@@ -638,14 +615,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mRecycler = mFragment.getRecyclerView();
   }
 
-  @NonNull
-  private View inflate(ViewGroup parent, @LayoutRes int layoutId)
+  @NonNull private View inflate(ViewGroup parent, @LayoutRes int layoutId)
   {
     return LayoutInflater.from(mActivity).inflate(layoutId, parent, false);
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @Override public int getItemViewType(int position)
   {
     if (mItemsAndHeader.get(position).mItem != null)
       return TYPE_COUNTRY;
@@ -653,27 +628,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       return TYPE_HEADER;
   }
 
-  @Override
-  public ViewHolderWrapper onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public ViewHolderWrapper onCreateViewHolder(ViewGroup parent, int viewType)
   {
     return new ViewHolderWrapper(parent, viewType);
   }
 
-  @Override
-  public void onBindViewHolder(ViewHolderWrapper holder, int position)
+  @Override public void onBindViewHolder(ViewHolderWrapper holder, int position)
   {
     holder.bind(position);
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mItemsAndHeader.size();
   }
 
   private void goDeeper(CountryItem child, boolean refresh)
   {
-    LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
+    LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
 
     // Save scroll positions (top item + item`s offset) for current hierarchy level
     int position = lm.findFirstVisibleItemPosition();

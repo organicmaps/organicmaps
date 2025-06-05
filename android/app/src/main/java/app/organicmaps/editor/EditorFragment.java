@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -20,10 +19,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
@@ -38,7 +33,9 @@ import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,34 +52,28 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private RecyclerView mNamesView;
 
-  private final RecyclerView.AdapterDataObserver mNamesObserver = new RecyclerView.AdapterDataObserver()
-  {
-    @Override
-    public void onChanged()
+  private final RecyclerView.AdapterDataObserver mNamesObserver = new RecyclerView.AdapterDataObserver() {
+    @Override public void onChanged()
     {
       refreshNamesCaption();
     }
 
-    @Override
-    public void onItemRangeChanged(int positionStart, int itemCount)
+    @Override public void onItemRangeChanged(int positionStart, int itemCount)
     {
       refreshNamesCaption();
     }
 
-    @Override
-    public void onItemRangeInserted(int positionStart, int itemCount)
+    @Override public void onItemRangeInserted(int positionStart, int itemCount)
     {
       refreshNamesCaption();
     }
 
-    @Override
-    public void onItemRangeRemoved(int positionStart, int itemCount)
+    @Override public void onItemRangeRemoved(int positionStart, int itemCount)
     {
       refreshNamesCaption();
     }
 
-    @Override
-    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
+    @Override public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
     {
       refreshNamesCaption();
     }
@@ -118,10 +109,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     final MetadataEntry e = mMetadata.get(type);
     final int id = type.toInt();
     e.mEdit.setText(Editor.nativeGetMetadata(id));
-    e.mEdit.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
+    e.mEdit.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         UiUtils.setInputError(e.mInput, Editor.nativeIsMetadataValid(id, s.toString()) ? 0 : error);
       }
@@ -148,9 +137,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return inflater.inflate(R.layout.fragment_editor, container, false);
   }
 
-  @CallSuper
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @CallSuper @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     mParent = (EditorHostFragment) getParentFragment();
 
@@ -161,26 +148,26 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mStreet.setText(street.defaultName);
 
     mHouseNumber.setText(Editor.nativeGetHouseNumber());
-    mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
+    mHouseNumber.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        UiUtils.setInputError(mInputHouseNumber, Editor.nativeIsHouseValid(s.toString()) ? 0 : R.string.error_enter_correct_house_number);
+        UiUtils.setInputError(
+          mInputHouseNumber, Editor.nativeIsHouseValid(s.toString()) ? 0 : R.string.error_enter_correct_house_number);
       }
     });
 
     initMetadataEntry(Metadata.MetadataType.FMD_POSTCODE, R.string.error_enter_correct_zip_code);
 
     mBuildingLevels.setText(Editor.nativeGetBuildingLevels());
-    mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
+    mBuildingLevels.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         final Context context = mInputBuildingLevels.getContext();
         final boolean isValid = Editor.nativeIsLevelValid(s.toString());
-        UiUtils.setInputError(mInputBuildingLevels, isValid ? null : context.getString(R.string.error_enter_correct_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
+        UiUtils.setInputError(mInputBuildingLevels, isValid
+                                                      ? null
+                                                      : context.getString(R.string.error_enter_correct_storey_number,
+                                                          Editor.nativeGetMaxEditableBuildingLevels()));
       }
     });
 
@@ -201,14 +188,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
     mWifi.setChecked(Editor.nativeHasWifi());
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
-    //mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
+    // mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
     refreshOpeningTime();
     refreshEditableFields();
     refreshResetButton();
   }
 
-  @Override
-  public void onSaveInstanceState(Bundle outState)
+  @Override public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
     setEdits();
@@ -225,7 +211,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetNames(mParent.getNamesAsArray());
 
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
-    //Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(), "yes", "no");
+    // Editor.nativeSetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(), mOutdoorSeating.isChecked(),
+    // "yes", "no");
 
     for (var e : mMetadata.entrySet())
       Editor.nativeSetMetadata(e.getKey().toInt(), e.getValue().mEdit.getText().toString());
@@ -233,8 +220,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return true;
   }
 
-  @NonNull
-  protected String getDescription()
+  @NonNull protected String getDescription()
   {
     return mDescription.getText().toString().trim();
   }
@@ -310,7 +296,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     setCardVisibility(mCardSocialMedia, mSocialMediaBlocks, editableDetails);
   }
 
-  private void setCardVisibility(View card, Map<Metadata. MetadataType, View> blocks, int[] editableDetails) {
+  private void setCardVisibility(View card, Map<Metadata.MetadataType, View> blocks, int[] editableDetails)
+  {
     for (var e : blocks.entrySet())
       UiUtils.hide(e.getValue());
 
@@ -338,10 +325,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     else
     {
       final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(openingHours);
-      String content = timetables == null ? openingHours
-                                          : TimeFormatUtils.formatTimetables(getResources(),
-                                                                             openingHours,
-                                                                             timetables);
+      String content =
+        timetables == null ? openingHours : TimeFormatUtils.formatTimetables(getResources(), openingHours, timetables);
       UiUtils.hide(mEmptyOpeningHours);
       UiUtils.setTextAndShow(mOpeningHours, content);
       UiUtils.show(mEditOpeningHours);
@@ -392,8 +377,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
   }
 
-  private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock,
-                         @DrawableRes int idIcon, @StringRes int idName, int inputType)
+  private View initBlock(View view, Metadata.MetadataType type, @IdRes int idBlock, @DrawableRes int idIcon,
+    @StringRes int idName, int inputType)
   {
     View block = view.findViewById(idBlock);
     MetadataEntry e = new MetadataEntry();
@@ -425,12 +410,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mHouseNumber = findInputAndInitBlock(blockHouseNumber, R.drawable.ic_building, R.string.house_number);
     mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
 
-    initBlock(view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, R.drawable.ic_address, R.string.editor_zip_code, 0);
+    initBlock(
+      view, Metadata.MetadataType.FMD_POSTCODE, R.id.block_zipcode, R.drawable.ic_address, R.string.editor_zip_code, 0);
 
     // Details
     View mBlockLevels = view.findViewById(R.id.block_levels);
     mBuildingLevels = findInputAndInitBlock(mBlockLevels, R.drawable.ic_floor,
-        getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
+      getString(R.string.editor_storey_number, Editor.nativeGetMaxEditableBuildingLevels()));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
@@ -438,24 +424,24 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
     mEditPhoneLink.setOnClickListener(this);
     mPhone.setOnClickListener(this);
-    View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website,
-            R.drawable.ic_website, R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
+    View websiteBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE, R.id.block_website, R.drawable.ic_website,
+      R.string.website, InputType.TYPE_TEXT_VARIATION_URI);
     View websiteMenuBlock = initBlock(view, Metadata.MetadataType.FMD_WEBSITE_MENU, R.id.block_website_menu,
-            R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
-    View emailBlock = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email,
-            R.drawable.ic_email, R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+      R.drawable.ic_website_menu, R.string.website_menu, InputType.TYPE_TEXT_VARIATION_URI);
+    View emailBlock = initBlock(view, Metadata.MetadataType.FMD_EMAIL, R.id.block_email, R.drawable.ic_email,
+      R.string.email, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     View facebookContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_FACEBOOK, R.id.block_facebook,
-            R.drawable.ic_facebook_white, R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
+      R.drawable.ic_facebook_white, R.string.facebook, InputType.TYPE_TEXT_VARIATION_URI);
     View instagramContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, R.id.block_instagram,
-            R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
+      R.drawable.ic_instagram_white, R.string.instagram, InputType.TYPE_TEXT_VARIATION_URI);
     View twitterContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_TWITTER, R.id.block_twitter,
-            R.drawable.ic_twitterx_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
-    View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk,
-            R.drawable.ic_vk_white, R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
+      R.drawable.ic_twitterx_white, R.string.twitter, InputType.TYPE_TEXT_VARIATION_URI);
+    View vkContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_VK, R.id.block_vk, R.drawable.ic_vk_white,
+      R.string.vk, InputType.TYPE_TEXT_VARIATION_URI);
     View lineContactBlock = initBlock(view, Metadata.MetadataType.FMD_CONTACT_LINE, R.id.block_line,
-            R.drawable.ic_line_white, R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
+      R.drawable.ic_line_white, R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
     View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
-            R.drawable.ic_operator, R.string.editor_operator, 0);
+      R.drawable.ic_operator, R.string.editor_operator, 0);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
@@ -493,7 +479,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_SELF_SERVICE, blockSelfService);
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     UiUtils.hide(blockOutdoorSeating);
-    //mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
+    // mDetailsBlocks.put(Metadata.MetadataType.FMD_OUTDOOR_SEATING, blockOutdoorSeating);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE, websiteBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
@@ -524,8 +510,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return input.findViewById(R.id.input);
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
@@ -563,14 +548,14 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void refreshNamesCaption()
   {
     if (mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount())
-      setNamesArrow(0 /* arrowResourceId */);  // bind arrow with empty resource (do not draw arrow)
+      setNamesArrow(0 /* arrowResourceId */); // bind arrow with empty resource (do not draw arrow)
     else if (mNamesAdapter.areAdditionalLanguagesShown())
       setNamesArrow(R.drawable.ic_expand_less);
     else
       setNamesArrow(R.drawable.ic_expand_more);
 
-    boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount() ||
-      mNamesAdapter.areAdditionalLanguagesShown();
+    boolean showAddLanguage = mNamesAdapter.getNamesCount() <= mNamesAdapter.getMandatoryNamesCount()
+                           || mNamesAdapter.areAdditionalLanguagesShown();
 
     UiUtils.showIf(showAddLanguage, mAddLanguage);
     UiUtils.showIf(!showAddLanguage, mMoreLanguages);
@@ -586,10 +571,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
 
     mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(
-      null,
-      null,
-      Graphics.tint(requireActivity(), arrowResourceId, R.attr.iconTint),
-      null);
+      null, null, Graphics.tint(requireActivity(), arrowResourceId, R.attr.iconTint), null);
   }
 
   private void refreshResetButton()
@@ -608,13 +590,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-      case Editor.CREATED -> mReset.setText(R.string.editor_remove_place_button);
-      case Editor.MODIFIED -> mReset.setText(R.string.editor_reset_edits_button);
-      case Editor.UNTOUCHED -> mReset.setText(R.string.editor_place_doesnt_exist);
-      case Editor.DELETED ->
-          throw new IllegalStateException("Can't delete already deleted feature.");
-      case Editor.OBSOLETE ->
-          throw new IllegalStateException("Obsolete objects cannot be reverted.");
+    case Editor.CREATED -> mReset.setText(R.string.editor_remove_place_button);
+    case Editor.MODIFIED -> mReset.setText(R.string.editor_reset_edits_button);
+    case Editor.UNTOUCHED -> mReset.setText(R.string.editor_place_doesnt_exist);
+    case Editor.DELETED -> throw new IllegalStateException("Can't delete already deleted feature.");
+    case Editor.OBSOLETE -> throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 
@@ -628,13 +608,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-      case Editor.CREATED -> rollback(Editor.CREATED);
-      case Editor.MODIFIED -> rollback(Editor.MODIFIED);
-      case Editor.UNTOUCHED -> placeDoesntExist();
-      case Editor.DELETED ->
-          throw new IllegalStateException("Can't delete already deleted feature.");
-      case Editor.OBSOLETE ->
-          throw new IllegalStateException("Obsolete objects cannot be reverted.");
+    case Editor.CREATED -> rollback(Editor.CREATED);
+    case Editor.MODIFIED -> rollback(Editor.MODIFIED);
+    case Editor.UNTOUCHED -> placeDoesntExist();
+    case Editor.DELETED -> throw new IllegalStateException("Can't delete already deleted feature.");
+    case Editor.OBSOLETE -> throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 
@@ -654,26 +632,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
 
     new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(message)
-        .setPositiveButton(title, (dialog, which) -> {
+      .setTitle(message)
+      .setPositiveButton(title,
+        (dialog, which) -> {
           Editor.nativeRollbackMapObject();
           Framework.nativePokeSearchInViewport();
           mParent.onBackPressed();
         })
-        .setNegativeButton(R.string.cancel, null)
-        .show();
+      .setNegativeButton(R.string.cancel, null)
+      .show();
   }
 
   private void placeDoesntExist()
   {
-    EditTextDialogFragment dialogFragment =
-        EditTextDialogFragment.show(getString(R.string.editor_place_doesnt_exist),
-                                    "",
-                                    getString(R.string.editor_comment_hint),
-                                    getString(R.string.editor_report_problem_send_button),
-                                    getString(R.string.cancel),
-                                    this,
-                                    getDeleteCommentValidator());
+    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(getString(R.string.editor_place_doesnt_exist),
+      "", getString(R.string.editor_comment_hint), getString(R.string.editor_report_problem_send_button),
+      getString(R.string.cancel), this, getDeleteCommentValidator());
     dialogFragment.setTextSaveListener(this::commitPlaceDoesntExists);
   }
 
@@ -683,10 +657,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mParent.onBackPressed();
   }
 
-  @NonNull
-  private EditTextDialogFragment.Validator getDeleteCommentValidator()
+  @NonNull private EditTextDialogFragment.Validator getDeleteCommentValidator()
   {
-    return (activity, text) -> {
+    return (activity, text) ->
+    {
       if (TextUtils.isEmpty(text))
         return activity.getString(R.string.delete_place_empty_comment_error);
       else

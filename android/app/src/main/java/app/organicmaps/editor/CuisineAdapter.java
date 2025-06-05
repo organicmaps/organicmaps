@@ -6,12 +6,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,8 +28,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       this.cuisineTranslated = translation;
     }
 
-    @Override
-    public int compareTo(@NonNull Item another)
+    @Override public int compareTo(@NonNull Item another)
     {
       return cuisineTranslated.compareTo(another.cuisineTranslated);
     }
@@ -75,20 +71,17 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     notifyDataSetChanged();
   }
 
-  @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cuisine, parent, false));
   }
 
-  @Override
-  public void onBindViewHolder(ViewHolder holder, int position)
+  @Override public void onBindViewHolder(ViewHolder holder, int position)
   {
     holder.bind(position);
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mItems.size();
   }
@@ -121,8 +114,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       selected.setOnCheckedChangeListener(this);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
       final String key = mItems.get(getBindingAdapterPosition()).cuisineKey;
       if (isChecked)

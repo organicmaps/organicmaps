@@ -8,14 +8,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
-import java.util.List;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.util.log.Logger;
+import java.util.List;
 
 public class DownloaderService extends Service implements MapManager.StorageCallback
 {
@@ -24,8 +21,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   private final DownloaderNotifier mNotifier = new DownloaderNotifier(this);
   private int mSubscriptionSlot;
 
-  @Override
-  public void onCreate()
+  @Override public void onCreate()
   {
     super.onCreate();
 
@@ -34,8 +30,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     mSubscriptionSlot = MapManager.nativeSubscribe(this);
   }
 
-  @Override
-  public int onStartCommand(Intent intent, int flags, int startId)
+  @Override public int onStartCommand(Intent intent, int flags, int startId)
   {
     Logger.i(TAG, "Downloading: " + MapManager.nativeIsDownloading());
 
@@ -45,11 +40,13 @@ public class DownloaderService extends Service implements MapManager.StorageCall
       try
       {
         startForeground(DownloaderNotifier.NOTIFICATION_ID, notification);
-      } catch (ForegroundServiceStartNotAllowedException e)
+      }
+      catch (ForegroundServiceStartNotAllowedException e)
       {
         Logger.e(TAG, "Oops! ForegroundService is not allowed", e);
       }
-    } else
+    }
+    else
     {
       startForeground(DownloaderNotifier.NOTIFICATION_ID, notification);
     }
@@ -57,15 +54,12 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     return START_NOT_STICKY;
   }
 
-  @Nullable
-  @Override
-  public IBinder onBind(Intent intent)
+  @Nullable @Override public IBinder onBind(Intent intent)
   {
     return null;
   }
 
-  @Override
-  public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+  @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
   {
     var isDownloading = MapManager.nativeIsDownloading();
     var hasFailed = hasDownloadFailed(data);
@@ -80,7 +74,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
           stopForeground(Service.STOP_FOREGROUND_DETACH);
-        } else
+        }
+        else
         {
           stopForeground(false);
         }
@@ -89,11 +84,10 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     }
   }
 
-  @Override
-  public void onProgress(String countryId, long localSize, long remoteSize)
+  @Override public void onProgress(String countryId, long localSize, long remoteSize)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        && ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
     {
       Logger.w(TAG, "Permission POST_NOTIFICATIONS is not granted, skipping notification");
       return;
@@ -103,8 +97,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     mNotifier.notifyProgress();
   }
 
-  @Override
-  public void onDestroy()
+  @Override public void onDestroy()
   {
     super.onDestroy();
 

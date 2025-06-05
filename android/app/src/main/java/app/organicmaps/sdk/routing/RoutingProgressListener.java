@@ -6,8 +6,5 @@ import androidx.annotation.MainThread;
 public interface RoutingProgressListener
 {
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @MainThread
-  void onRouteBuildingProgress(float progress);
+  @Keep @SuppressWarnings("unused") @MainThread void onRouteBuildingProgress(float progress);
 }

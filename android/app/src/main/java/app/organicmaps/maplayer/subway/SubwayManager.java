@@ -2,18 +2,16 @@ package app.organicmaps.maplayer.subway;
 
 import android.app.Application;
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 
 public class SubwayManager
 {
-  @NonNull
-  private final OnTransitSchemeChangedListener mSchemeChangedListener;
+  @NonNull private final OnTransitSchemeChangedListener mSchemeChangedListener;
 
-  public SubwayManager(@NonNull Application application) {
+  public SubwayManager(@NonNull Application application)
+  {
     mSchemeChangedListener = new OnTransitSchemeChangedListener.Default(application);
   }
 
@@ -41,8 +39,7 @@ public class SubwayManager
     nativeAddListener(mSchemeChangedListener);
   }
 
-  @NonNull
-  public static SubwayManager from(@NonNull Context context)
+  @NonNull public static SubwayManager from(@NonNull Context context)
   {
     MwmApplication app = (MwmApplication) context.getApplicationContext();
     return app.getSubwayManager();

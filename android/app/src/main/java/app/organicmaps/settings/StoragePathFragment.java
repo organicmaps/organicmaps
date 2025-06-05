@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.util.Config;
@@ -22,7 +20,6 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.io.File;
 import java.util.List;
 
@@ -34,14 +31,12 @@ public class StoragePathFragment extends BaseSettingsFragment
   private StoragePathManager mPathManager;
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
-  @Override
-  protected int getLayoutRes()
+  @Override protected int getLayoutRes()
   {
     return R.layout.fragment_prefs_storage;
   }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     View root = super.onCreateView(inflater, container, savedInstanceState);
     mPathManager = new StoragePathManager(requireActivity());
@@ -57,8 +52,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     return root;
   }
 
-  @Override
-  public void onResume()
+  @Override public void onResume()
   {
     super.onResume();
     mPathManager.startExternalStorageWatching((items, idx) -> updateList());
@@ -66,8 +60,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     updateList();
   }
 
-  @Override
-  public void onPause()
+  @Override public void onPause()
   {
     mPathManager.stopExternalStorageWatching();
     super.onPause();
@@ -75,9 +68,10 @@ public class StoragePathFragment extends BaseSettingsFragment
 
   private void updateList()
   {
-    final long dirSize = StorageUtils.getDirSizeRecursively(new File(Framework.nativeGetWritableDir()),
-                                                            StoragePathManager.MOVABLE_FILES_FILTER);
-    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(requireActivity(), dirSize));
+    final long dirSize = StorageUtils.getDirSizeRecursively(
+      new File(Framework.nativeGetWritableDir()), StoragePathManager.MOVABLE_FILES_FILTER);
+    mHeader.setText(
+      getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(requireActivity(), dirSize));
     mAdapter.update(dirSize);
   }
 
@@ -98,12 +92,12 @@ public class StoragePathFragment extends BaseSettingsFragment
     final String newPath = storages.get(newIndex).mPath;
 
     new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setCancelable(false)
-        .setTitle(R.string.move_maps)
-        .setPositiveButton(R.string.ok, (dlg, which) -> moveStorage(newPath, oldPath))
-        .setNegativeButton(R.string.cancel, (dlg, which) -> dlg.dismiss())
-        .create()
-        .show();
+      .setCancelable(false)
+      .setTitle(R.string.move_maps)
+      .setPositiveButton(R.string.ok, (dlg, which) -> moveStorage(newPath, oldPath))
+      .setNegativeButton(R.string.cancel, (dlg, which) -> dlg.dismiss())
+      .create()
+      .show();
   }
 
   @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3629
@@ -134,10 +128,10 @@ public class StoragePathFragment extends BaseSettingsFragment
         if (!result)
         {
           new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-              .setTitle(R.string.move_maps_error)
-              .setPositiveButton(R.string.report_a_bug,
-                  (dlg, which) -> Utils.sendBugReport(shareLauncher, requireActivity(), "Error moving map files", ""))
-              .show();
+            .setTitle(R.string.move_maps_error)
+            .setPositiveButton(R.string.report_a_bug,
+              (dlg, which) -> Utils.sendBugReport(shareLauncher, requireActivity(), "Error moving map files", ""))
+            .show();
         }
         Framework.nativeChangeWritableDir(newPath);
         Config.setStoragePath(newPath);
@@ -147,8 +141,7 @@ public class StoragePathFragment extends BaseSettingsFragment
     });
   }
 
-  @Override
-  public boolean onBackPressed()
+  @Override public boolean onBackPressed()
   {
     return false;
   }

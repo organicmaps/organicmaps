@@ -2,20 +2,17 @@ package app.organicmaps.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatRadioButton;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 
 public class RoutingToolbarButton extends AppCompatRadioButton
 {
   private boolean mInProgress;
-  @DrawableRes
-  private int mIcon;
+  @DrawableRes private int mIcon;
 
   public RoutingToolbarButton(Context context, AttributeSet attrs, int defStyleAttr)
   {

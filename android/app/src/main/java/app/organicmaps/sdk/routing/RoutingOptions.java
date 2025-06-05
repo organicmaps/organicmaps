@@ -1,9 +1,7 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.NonNull;
-
 import app.organicmaps.settings.RoadType;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,8 +32,7 @@ public final class RoutingOptions
     return false;
   }
 
-  @NonNull
-  public static Set<RoadType> getActiveRoadTypes()
+  @NonNull public static Set<RoadType> getActiveRoadTypes()
   {
     Set<RoadType> roadTypes = new HashSet<>();
     for (RoadType each : RoadType.values())

@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.UiUtils;
@@ -26,56 +24,48 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
   private enum Mode
   {
-    SIMPLE
-    {
-      @NonNull
-      String getFragmentClassname() { return SimpleTimetableFragment.class.getName(); }
-      @StringRes
-      int getSwitchButtonLabel() { return R.string.editor_time_advanced; }
+    SIMPLE {
+      @NonNull String getFragmentClassname()
+      {
+        return SimpleTimetableFragment.class.getName();
+      }
+      @StringRes int getSwitchButtonLabel()
+      {
+        return R.string.editor_time_advanced;
+      }
     },
-    ADVANCED
-    {
-      @NonNull
-      String getFragmentClassname() { return AdvancedTimetableFragment.class.getName(); }
-      @StringRes
-      int getSwitchButtonLabel() { return R.string.editor_time_simple; }
+    ADVANCED {
+      @NonNull String getFragmentClassname()
+      {
+        return AdvancedTimetableFragment.class.getName();
+      }
+      @StringRes int getSwitchButtonLabel()
+      {
+        return R.string.editor_time_simple;
+      }
 
-      void setTimetableChangedListener(@NonNull Fragment fragment,
-                                       @NonNull TimetableChangedListener listener)
+      void setTimetableChangedListener(@NonNull Fragment fragment, @NonNull TimetableChangedListener listener)
       {
         ((AdvancedTimetableFragment) fragment).setTimetableChangedListener(listener);
       }
     };
 
-    @NonNull
-    abstract String getFragmentClassname();
-    @StringRes
-    abstract int getSwitchButtonLabel();
-    void setTimetableChangedListener(@NonNull Fragment fragment,
-                                     @NonNull TimetableChangedListener listener)
-    {
-    }
-    @NonNull
-    static TimetableProvider getTimetableProvider(@NonNull Fragment fragment)
+    @NonNull abstract String getFragmentClassname();
+    @StringRes abstract int getSwitchButtonLabel();
+    void setTimetableChangedListener(@NonNull Fragment fragment, @NonNull TimetableChangedListener listener) {}
+    @NonNull static TimetableProvider getTimetableProvider(@NonNull Fragment fragment)
     {
       return (TimetableProvider) fragment;
     }
   }
 
-  @NonNull
-  private Mode mMode = Mode.ADVANCED;
-  @NonNull
-  private final Fragment[] mFragments = new Fragment[Mode.values().length];
-  @Nullable
-  private TimetableProvider mTimetableProvider;
+  @NonNull private Mode mMode = Mode.ADVANCED;
+  @NonNull private final Fragment[] mFragments = new Fragment[Mode.values().length];
+  @Nullable private TimetableProvider mTimetableProvider;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mSwitchMode;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mSwitchMode;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mBottomBar;
+  @SuppressWarnings("NullableProblems") @NonNull private View mBottomBar;
 
   @Nullable
   @Override
@@ -84,8 +74,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
     return inflater.inflate(R.layout.fragment_timetable, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
@@ -107,8 +96,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
       setMode(Mode.ADVANCED, time);
   }
 
-  @Nullable
-  public String getTimetable()
+  @Nullable public String getTimetable()
   {
     if (mTimetableProvider == null)
       return null;
@@ -116,17 +104,15 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
     return mTimetableProvider.getTimetables();
   }
 
-  @Override
-  public void onTimetableChanged(@Nullable String timetable)
+  @Override public void onTimetableChanged(@Nullable String timetable)
   {
-    boolean isValidTimetable = TextUtils.isEmpty(timetable)
-                               || OpeningHours.nativeTimetablesFromString(timetable) != null;
+    boolean isValidTimetable =
+      TextUtils.isEmpty(timetable) || OpeningHours.nativeTimetablesFromString(timetable) != null;
     UiUtils.showIf(isValidTimetable, mSwitchMode);
     UiUtils.showIf(isValidTimetable, mBottomBar);
   }
 
-  @Override
-  public boolean onBackPressed()
+  @Override public boolean onBackPressed()
   {
     return false;
   }
@@ -140,8 +126,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
   private void switchMode()
   {
-    final String filledTimetables = mTimetableProvider != null ? mTimetableProvider.getTimetables()
-                                                               : null;
+    final String filledTimetables = mTimetableProvider != null ? mTimetableProvider.getTimetables() : null;
 
     if (filledTimetables != null && !OpeningHours.nativeIsTimetableStringValid(filledTimetables))
     {
@@ -158,8 +143,8 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
     switch (mMode)
     {
-      case SIMPLE -> setMode(Mode.ADVANCED, filledTimetables);
-      case ADVANCED -> setMode(Mode.SIMPLE, filledTimetables);
+    case SIMPLE -> setMode(Mode.ADVANCED, filledTimetables);
+    case ADVANCED -> setMode(Mode.SIMPLE, filledTimetables);
     }
   }
 
@@ -168,9 +153,10 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
     mMode = mode;
     mSwitchMode.setText(mMode.getSwitchButtonLabel());
 
-    if (mFragments[mMode.ordinal()] == null) {
-      mFragments[mMode.ordinal()] = requireActivity().getSupportFragmentManager().getFragmentFactory()
-        .instantiate(requireActivity().getClassLoader(), mMode.getFragmentClassname());
+    if (mFragments[mMode.ordinal()] == null)
+    {
+      mFragments[mMode.ordinal()] = requireActivity().getSupportFragmentManager().getFragmentFactory().instantiate(
+        requireActivity().getClassLoader(), mMode.getFragmentClassname());
     }
     Fragment fragment = mFragments[mMode.ordinal()];
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();

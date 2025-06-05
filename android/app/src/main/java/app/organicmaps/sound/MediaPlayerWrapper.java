@@ -3,7 +3,6 @@ package app.organicmaps.sound;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
@@ -12,11 +11,9 @@ public class MediaPlayerWrapper
 {
   private static final int UNDEFINED_SOUND_STREAM = -1;
 
-  @Nullable
-  private MediaPlayer mPlayer;
+  @Nullable private MediaPlayer mPlayer;
   private int mStreamResId = UNDEFINED_SOUND_STREAM;
-  @NonNull
-  final private Context mContext;
+  @NonNull final private Context mContext;
 
   public MediaPlayerWrapper(@NonNull Context context)
   {
@@ -85,16 +82,14 @@ public class MediaPlayerWrapper
   @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
   private static class InitPlayerTask extends AsyncTask<Integer, Void, InitializationResult>
   {
-    @NonNull
-    private final MediaPlayerWrapper mWrapper;
+    @NonNull private final MediaPlayerWrapper mWrapper;
 
     InitPlayerTask(@NonNull MediaPlayerWrapper wrapper)
     {
       mWrapper = wrapper;
     }
 
-    @Override
-    protected InitializationResult doInBackground(Integer... params)
+    @Override protected InitializationResult doInBackground(Integer... params)
     {
       if (params.length == 0)
         throw new IllegalArgumentException("Params not found");
@@ -103,8 +98,7 @@ public class MediaPlayerWrapper
       return new InitializationResult(player, resId);
     }
 
-    @Override
-    protected void onPostExecute(InitializationResult initializationResult)
+    @Override protected void onPostExecute(InitializationResult initializationResult)
     {
       super.onPostExecute(initializationResult);
       mWrapper.onInitializationCompleted(initializationResult);
@@ -113,10 +107,8 @@ public class MediaPlayerWrapper
 
   private static class InitializationResult
   {
-    @Nullable
-    private final MediaPlayer mPlayer;
-    @RawRes
-    private final int mStreamResId;
+    @Nullable private final MediaPlayer mPlayer;
+    @RawRes private final int mStreamResId;
 
     private InitializationResult(@Nullable MediaPlayer player, @RawRes int streamResId)
     {
@@ -124,14 +116,12 @@ public class MediaPlayerWrapper
       mStreamResId = streamResId;
     }
 
-    @RawRes
-    private int getStreamResId()
+    @RawRes private int getStreamResId()
     {
       return mStreamResId;
     }
 
-    @Nullable
-    private MediaPlayer getPlayer()
+    @Nullable private MediaPlayer getPlayer()
     {
       return mPlayer;
     }

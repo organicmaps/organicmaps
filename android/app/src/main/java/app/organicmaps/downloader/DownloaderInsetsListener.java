@@ -3,7 +3,6 @@ package app.organicmaps.downloader;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
@@ -15,17 +14,11 @@ import app.organicmaps.util.WindowInsetUtils;
 
 final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
 {
-
-  @NonNull
-  private final Context mContext;
-  @NonNull
-  private final View mToolbar;
-  @NonNull
-  private final View mFab;
-  @NonNull
-  private final View mButton;
-  @NonNull
-  private final RecyclerView mRecyclerView;
+  @NonNull private final Context mContext;
+  @NonNull private final View mToolbar;
+  @NonNull private final View mFab;
+  @NonNull private final View mButton;
+  @NonNull private final RecyclerView mRecyclerView;
 
   DownloaderInsetsListener(@NonNull View fragmentView)
   {
@@ -37,9 +30,7 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
     mRecyclerView.setClipToPadding(false);
   }
 
-  @NonNull
-  @Override
-  public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat insets)
+  @NonNull @Override public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat insets)
   {
     final Insets safeInsets = insets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
 
@@ -82,10 +73,7 @@ final class DownloaderInsetsListener implements OnApplyWindowInsetsListener
     int bottomInset = isAnyButtonVisible ? 0 : insets.bottom;
 
     mRecyclerView.setPadding(
-        mRecyclerView.getPaddingLeft(),
-        mRecyclerView.getPaddingTop(),
-        mRecyclerView.getPaddingRight(),
-        bottomInset);
+      mRecyclerView.getPaddingLeft(), mRecyclerView.getPaddingTop(), mRecyclerView.getPaddingRight(), bottomInset);
 
     final ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
     layoutParams.rightMargin = insets.right;

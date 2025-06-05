@@ -6,15 +6,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,10 +19,8 @@ public class SensorHelper implements SensorEventListener
 {
   private static final String TAG = SensorHelper.class.getSimpleName();
 
-  @NonNull
-  private final SensorManager mSensorManager;
-  @Nullable
-  private Sensor mRotationVectorSensor;
+  @NonNull private final SensorManager mSensorManager;
+  @Nullable private Sensor mRotationVectorSensor;
 
   private final float[] mRotationMatrix = new float[9];
   private final float[] mRotationValues = new float[3];
@@ -34,17 +29,14 @@ public class SensorHelper implements SensorEventListener
   private double mSavedNorth = Double.NaN;
   private int mRotation = 0;
 
-  @NonNull
-  private final Set<SensorListener> mListeners = new LinkedHashSet<>();
+  @NonNull private final Set<SensorListener> mListeners = new LinkedHashSet<>();
 
-  @NonNull
-  public static SensorHelper from(@NonNull Context context)
+  @NonNull public static SensorHelper from(@NonNull Context context)
   {
     return MwmApplication.from(context).getSensorHelper();
   }
 
-  @Override
-  public void onSensorChanged(SensorEvent event)
+  @Override public void onSensorChanged(SensorEvent event)
   {
     // Here we can have events from one out of these two sensors:
     // TYPE_GEOMAGNETIC_ROTATION_VECTOR
@@ -55,17 +47,16 @@ public class SensorHelper implements SensorEventListener
       mLastAccuracy = event.accuracy;
       switch (mLastAccuracy)
       {
-        case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
-          break;
-        case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
-          for (SensorListener listener : mListeners)
-            listener.onCompassCalibrationRecommended();
-          break;
-        case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
-        case SensorManager.SENSOR_STATUS_UNRELIABLE:
-        default:
-          for (SensorListener listener : mListeners)
-            listener.onCompassCalibrationRequired();
+      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: break;
+      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
+        for (SensorListener listener : mListeners)
+          listener.onCompassCalibrationRecommended();
+        break;
+      case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
+      case SensorManager.SENSOR_STATUS_UNRELIABLE:
+      default:
+        for (SensorListener listener : mListeners)
+          listener.onCompassCalibrationRequired();
       }
     }
 
@@ -81,8 +72,7 @@ public class SensorHelper implements SensorEventListener
       listener.onCompassUpdated(mSavedNorth);
   }
 
-  @Override
-  public void onAccuracyChanged(Sensor sensor, int accuracy)
+  @Override public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
     Log.w("onAccuracyChanged", "Sensor " + sensor.getStringType() + " has changed accuracy to " + accuracy);
     // This method is called _only_ when accuracy changes. To know the initial startup accuracy,
@@ -110,8 +100,7 @@ public class SensorHelper implements SensorEventListener
    * Registers listener to obtain compass updates.
    * @param listener listener to be registered.
    */
-  @UiThread
-  public void addListener(@NonNull SensorListener listener)
+  @UiThread public void addListener(@NonNull SensorListener listener)
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
@@ -124,8 +113,7 @@ public class SensorHelper implements SensorEventListener
    * Removes given compass listener.
    * @param listener listener to unregister.
    */
-  @UiThread
-  public void removeListener(@NonNull SensorListener listener)
+  @UiThread public void removeListener(@NonNull SensorListener listener)
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
     mListeners.remove(listener);

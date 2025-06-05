@@ -9,29 +9,25 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.editor.data.HoursMinutes;
 import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.editor.data.Timespan;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.util.UiUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter.BaseTimetableViewHolder>
-                          implements HoursMinutesPickerFragment.OnPickListener,
-                                     TimetableProvider
+  implements HoursMinutesPickerFragment.OnPickListener, TimetableProvider
 {
   private static final int TYPE_TIMETABLE = 0;
   private static final int TYPE_ADD_TIMETABLE = 1;
@@ -54,8 +50,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     refreshComplement();
   }
 
-  @Override
-  public void setTimetables(@Nullable String timetables)
+  @Override public void setTimetables(@Nullable String timetables)
   {
     if (timetables == null)
       return;
@@ -67,38 +62,32 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     notifyDataSetChanged();
   }
 
-  @Nullable
-  @Override
-  public String getTimetables()
+  @Nullable @Override public String getTimetables()
   {
     return OpeningHours.nativeTimetablesToString(mItems.toArray(new Timetable[mItems.size()]));
   }
 
-  @Override
-  public BaseTimetableViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public BaseTimetableViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-    return viewType == TYPE_TIMETABLE ? new TimetableViewHolder(inflater.inflate(R.layout.item_timetable, parent, false))
-                                      : new AddTimetableViewHolder(inflater.inflate(R.layout.item_timetable_add, parent, false));
+    return viewType == TYPE_TIMETABLE
+    ? new TimetableViewHolder(inflater.inflate(R.layout.item_timetable, parent, false))
+    : new AddTimetableViewHolder(inflater.inflate(R.layout.item_timetable_add, parent, false));
   }
 
-  @Override
-  public void onBindViewHolder(BaseTimetableViewHolder holder, int position)
+  @Override public void onBindViewHolder(BaseTimetableViewHolder holder, int position)
   {
     holder.onBind();
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mItems.size() + 1;
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @Override public int getItemViewType(int position)
   {
-    return position == getItemCount() - 1 ? TYPE_ADD_TIMETABLE
-                                          : TYPE_TIMETABLE;
+    return position == getItemCount() - 1 ? TYPE_ADD_TIMETABLE : TYPE_TIMETABLE;
   }
 
   private void addTimetable()
@@ -121,18 +110,17 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     notifyItemChanged(getItemCount() - 1);
   }
 
-  private void pickTime(int position, @IntRange(from = HoursMinutesPickerFragment.TAB_FROM, to = HoursMinutesPickerFragment.TAB_TO) int tab,
-                        @IntRange(from = ID_OPENING, to = ID_CLOSING) int id)
+  private void pickTime(int position,
+    @IntRange(from = HoursMinutesPickerFragment.TAB_FROM, to = HoursMinutesPickerFragment.TAB_TO) int tab,
+    @IntRange(from = ID_OPENING, to = ID_CLOSING) int id)
   {
     final Timetable data = mItems.get(position);
     mPickingPosition = position;
     HoursMinutesPickerFragment.pick(mFragment.requireActivity(), mFragment.getChildFragmentManager(),
-                                    data.workingTimespan.start, data.workingTimespan.end,
-                                    tab, id);
+      data.workingTimespan.start, data.workingTimespan.end, tab, id);
   }
 
-  @Override
-  public void onHoursMinutesPicked(HoursMinutes from, HoursMinutes to, int id)
+  @Override public void onHoursMinutesPicked(HoursMinutes from, HoursMinutes to, int id)
   {
     final Timetable item = mItems.get(mPickingPosition);
     if (id == ID_OPENING)
@@ -180,7 +168,8 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     abstract void onBind();
   }
 
-  private class TimetableViewHolder extends BaseTimetableViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener
+  private class TimetableViewHolder
+    extends BaseTimetableViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener
   {
     // Limit closed spans to avoid dynamic inflation of views in recycler's children. Yeah, its a hack.
     static final int MAX_CLOSED_SPANS = 10;
@@ -222,16 +211,14 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       final ViewGroup closedHost = itemView.findViewById(R.id.closed_host);
       for (int i = 0; i < MAX_CLOSED_SPANS; i++)
       {
-        final View span = LayoutInflater
-            .from(itemView.getContext())
-            .inflate(R.layout.item_timetable_closed_hours, closedHost, false);
-        closedHost.addView(span, new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            UiUtils.dimen(closedHost.getContext(), R.dimen.editor_height_closed)));
+        final View span =
+          LayoutInflater.from(itemView.getContext()).inflate(R.layout.item_timetable_closed_hours, closedHost, false);
+        closedHost.addView(span, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                   UiUtils.dimen(closedHost.getContext(), R.dimen.editor_height_closed)));
         closedHours[i] = span;
         final int finalI = i;
         span.findViewById(R.id.iv__remove_closed)
-            .setOnClickListener(v -> removeClosedHours(getBindingAdapterPosition(), finalI));
+          .setOnClickListener(v -> removeClosedHours(getBindingAdapterPosition(), finalI));
       }
     }
 
@@ -246,8 +233,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
         addDay(i, DAYS[day++]);
     }
 
-    @Override
-    void onBind()
+    @Override void onBind()
     {
       final int position = getBindingAdapterPosition();
       final Timetable data = mItems.get(position);
@@ -259,8 +245,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       showClosedHours(data.closedTimespans);
     }
 
-    @Override
-    public void onClick(View v)
+    @Override public void onClick(View v)
     {
       final int id = v.getId();
       if (id == R.id.time_open)
@@ -275,8 +260,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
         swAllday.toggle();
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
       final int id = buttonView.getId();
       if (id == R.id.sw__allday)
@@ -370,14 +354,12 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       mAdd.setOnClickListener(v -> addTimetable());
     }
 
-    @Override
-    void onBind()
+    @Override void onBind()
     {
       final boolean enable = mComplementItem != null && mComplementItem.weekdays.length != 0;
       final String text = mFragment.getString(R.string.editor_time_add);
       mAdd.setEnabled(enable);
-      mAdd.setText(enable ? text + " (" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")"
-                          : text);
+      mAdd.setText(enable ? text + " (" + TimeFormatUtils.formatWeekdays(mComplementItem) + ")" : text);
     }
   }
 }

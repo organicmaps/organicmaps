@@ -5,18 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.editor.data.FeatureCategory;
 import app.organicmaps.util.UiUtils;
 
 public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-
   private static final int TYPE_CATEGORY = 0;
   private static final int TYPE_FOOTER = 1;
 
@@ -24,7 +21,8 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   private final FeatureCategoryFragment mFragment;
   private final FeatureCategory mSelectedCategory;
 
-  public FeatureCategoryAdapter(@NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories, @Nullable FeatureCategory category)
+  public FeatureCategoryAdapter(
+    @NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories, @Nullable FeatureCategory category)
   {
     mFragment = host;
     mCategories = categories;
@@ -37,8 +35,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     notifyDataSetChanged();
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @Override public int getItemViewType(int position)
   {
     if (position == mCategories.length)
       return TYPE_FOOTER;
@@ -46,24 +43,28 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       return TYPE_CATEGORY;
   }
 
-  @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    switch (viewType) {
-      case TYPE_CATEGORY -> {
-        return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
-      }
-      case TYPE_FOOTER -> {
-        return new FooterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false));
-      }
-      default -> {
-        throw new IllegalArgumentException("Unsupported");
-      }
+    switch (viewType)
+    {
+    case TYPE_CATEGORY ->
+    {
+      return new FeatureViewHolder(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
+    }
+    case TYPE_FOOTER ->
+    {
+      return new FooterViewHolder(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false));
+    }
+    default ->
+    {
+      throw new IllegalArgumentException("Unsupported");
+    }
     }
   }
 
-  @Override
-  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+  @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
   {
     if (holder instanceof FeatureViewHolder)
     {
@@ -71,18 +72,15 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mCategories.length + 1;
   }
 
   protected class FeatureViewHolder extends RecyclerView.ViewHolder
   {
-    @NonNull
-    private final TextView mName;
-    @NonNull
-    private final View mSelected;
+    @NonNull private final TextView mName;
+    @NonNull private final View mSelected;
 
     FeatureViewHolder(@NonNull View itemView)
     {
@@ -96,15 +94,14 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void bind(int position)
     {
       mName.setText(mCategories[position].getLocalizedTypeName());
-      boolean showCondition = mSelectedCategory != null
-                              && mCategories[position].getType().equals(mSelectedCategory.getType());
+      boolean showCondition =
+        mSelectedCategory != null && mCategories[position].getType().equals(mSelectedCategory.getType());
       UiUtils.showIf(showCondition, mSelected);
     }
   }
 
   protected static class FooterViewHolder extends RecyclerView.ViewHolder
   {
-
     FooterViewHolder(@NonNull View itemView)
     {
       super(itemView);

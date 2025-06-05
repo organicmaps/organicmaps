@@ -4,38 +4,32 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DotDividerItemDecoration extends RecyclerView.ItemDecoration
 {
-  @Dimension
-  private final int mHorizontalMargin;
-  @Dimension
-  private final int mVerticalMargin;
-  @NonNull
-  private final Drawable mDivider;
+  @Dimension private final int mHorizontalMargin;
+  @Dimension private final int mVerticalMargin;
+  @NonNull private final Drawable mDivider;
 
-  public DotDividerItemDecoration(@NonNull Drawable divider, @Dimension int horizontalMargin,
-                                  @Dimension int verticalMargin)
+  public DotDividerItemDecoration(
+    @NonNull Drawable divider, @Dimension int horizontalMargin, @Dimension int verticalMargin)
   {
     mDivider = divider;
     mHorizontalMargin = horizontalMargin;
     mVerticalMargin = verticalMargin;
   }
 
-  @Override
-  public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
+  @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
   {
     super.getItemOffsets(outRect, view, parent, state);
     outRect.right = mHorizontalMargin;
     outRect.bottom = mVerticalMargin;
   }
 
-  @Override
-  public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state)
+  @Override public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state)
   {
     if (state.isMeasuring())
       return;
@@ -44,7 +38,7 @@ public class DotDividerItemDecoration extends RecyclerView.ItemDecoration
     boolean parentLayoutRTL = (parent.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL);
 
     for (int i = parentLayoutRTL ? childCount - 1 : 0; parentLayoutRTL ? i > 0 : i < childCount - 1;
-         i += parentLayoutRTL ? -1 : 1)
+      i += parentLayoutRTL ? -1 : 1)
     {
       View child = parent.getChildAt(i);
 

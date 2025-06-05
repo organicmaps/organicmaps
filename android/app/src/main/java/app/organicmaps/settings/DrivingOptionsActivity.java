@@ -2,7 +2,6 @@ package app.organicmaps.settings;
 
 import android.app.Activity;
 import android.content.Intent;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,8 +9,7 @@ import app.organicmaps.base.BaseMwmFragmentActivity;
 
 public class DrivingOptionsActivity extends BaseMwmFragmentActivity
 {
-  @Override
-  protected Class<? extends Fragment> getFragmentClass()
+  @Override protected Class<? extends Fragment> getFragmentClass()
   {
     return DrivingOptionsFragment.class;
   }

@@ -3,18 +3,16 @@ package app.organicmaps.bookmarks.data;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class BookmarkSharingResult
+@Keep @SuppressWarnings("unused") public class BookmarkSharingResult
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SUCCESS, EMPTY_CATEGORY, ARCHIVE_ERROR, FILE_ERROR })
-  public @interface Code {}
+  @IntDef({SUCCESS, EMPTY_CATEGORY, ARCHIVE_ERROR, FILE_ERROR})
+  public @interface Code
+  {}
 
   public static final int SUCCESS = 0;
   public static final int EMPTY_CATEGORY = 1;
@@ -22,18 +20,13 @@ public class BookmarkSharingResult
   public static final int FILE_ERROR = 3;
 
   private final long[] mCategoriesIds;
-  @Code
-  private final int mCode;
-  @NonNull
-  private final String mSharingPath;
-  @NonNull
-  @SuppressWarnings("unused")
-  private final String mErrorString;
-  @NonNull
-  @SuppressWarnings("unused")
-  private final String mMimeType;
+  @Code private final int mCode;
+  @NonNull private final String mSharingPath;
+  @NonNull @SuppressWarnings("unused") private final String mErrorString;
+  @NonNull @SuppressWarnings("unused") private final String mMimeType;
 
-  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String mimeType, @NonNull String errorString)
+  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath,
+    @NonNull String mimeType, @NonNull String errorString)
   {
     mCategoriesIds = categoriesIds;
     mCode = code;
@@ -52,19 +45,16 @@ public class BookmarkSharingResult
     return mCode;
   }
 
-  @NonNull
-  public String getSharingPath()
+  @NonNull public String getSharingPath()
   {
     return mSharingPath;
   }
-  @NonNull
-  public String getMimeType()
+  @NonNull public String getMimeType()
   {
     return mMimeType;
   }
 
-  @NonNull
-  public String getErrorString()
+  @NonNull public String getErrorString()
   {
     return mErrorString;
   }

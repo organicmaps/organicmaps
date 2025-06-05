@@ -9,13 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.util.Objects;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.products.Product;
@@ -23,18 +19,19 @@ import app.organicmaps.products.ProductsConfig;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import java.util.Objects;
 
 public class PlacePageProductsFragment extends Fragment
 {
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(
+    @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.place_page_products_fragment, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
@@ -44,7 +41,8 @@ public class PlacePageProductsFragment extends Fragment
       UiUtils.show(view);
 
       updateView(view, config);
-    } else
+    }
+    else
     {
       UiUtils.hide(view);
     }
@@ -68,24 +66,18 @@ public class PlacePageProductsFragment extends Fragment
     {
       var button = (Button) layoutInflater.inflate(R.layout.item_product, productsButtons, false);
       button.setText(product.title);
-      button.setOnClickListener((v) -> {
-        onProductSelected(product);
-      });
+      button.setOnClickListener((v) -> { onProductSelected(product); });
 
       productsButtons.addView(button);
     }
 
-    closeButton.setOnClickListener((v) -> {
-      closeWithReason(view, Constants.ProductsPopupCloseReason.CLOSE);
-    });
+    closeButton.setOnClickListener((v) -> { closeWithReason(view, Constants.ProductsPopupCloseReason.CLOSE); });
 
-    productsRemindLater.setOnClickListener((v) -> {
-      closeWithReason(view, Constants.ProductsPopupCloseReason.REMIND_LATER);
-    });
+    productsRemindLater.setOnClickListener(
+      (v) -> { closeWithReason(view, Constants.ProductsPopupCloseReason.REMIND_LATER); });
 
-    alreadyDonated.setOnClickListener((v) -> {
-      closeWithReason(view, Constants.ProductsPopupCloseReason.ALREADY_DONATED);
-    });
+    alreadyDonated.setOnClickListener(
+      (v) -> { closeWithReason(view, Constants.ProductsPopupCloseReason.ALREADY_DONATED); });
   }
 
   private void closeWithReason(View view, String reason)

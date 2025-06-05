@@ -1,7 +1,6 @@
 package app.organicmaps.background;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
@@ -17,7 +16,6 @@ import app.organicmaps.util.log.Logger;
 
 public class OsmUploadWork extends Worker
 {
-
   private static final String TAG = OsmUploadWork.class.getSimpleName();
   private final Context mContext;
   private final WorkerParameters mWorkerParameters;
@@ -42,9 +40,7 @@ public class OsmUploadWork extends Worker
     }
   }
 
-  @NonNull
-  @Override
-  public Result doWork()
+  @NonNull @Override public Result doWork()
   {
     final MwmApplication app = MwmApplication.from(mContext);
     if (!app.getOrganicMaps().arePlatformAndCoreInitialized())

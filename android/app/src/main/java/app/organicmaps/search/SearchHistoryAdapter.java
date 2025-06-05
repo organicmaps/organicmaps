@@ -4,16 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchRecents;
-import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.widget.SearchToolbarController;
 
 class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>
 {
@@ -21,8 +19,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
   private static final int TYPE_CLEAR = 1;
   private static final int TYPE_MY_POSITION = 2;
 
-  @NonNull
-  private final SearchToolbarController mSearchToolbarController;
+  @NonNull private final SearchToolbarController mSearchToolbarController;
   private final boolean mShowMyPosition;
 
   public static class ViewHolder extends RecyclerView.ViewHolder
@@ -44,44 +41,44 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     mShowMyPosition = showMyPosition;
   }
 
-  @Override
-  public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int type)
+  @Override public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int type)
   {
     final ViewHolder res;
 
     switch (type)
     {
-      case TYPE_ITEM:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
-        res.mText.setOnClickListener(v -> mSearchToolbarController.setQuery(res.mText.getText()));
-        break;
+    case TYPE_ITEM:
+      res = new ViewHolder(
+        LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
+      res.mText.setOnClickListener(v -> mSearchToolbarController.setQuery(res.mText.getText()));
+      break;
 
-      case TYPE_CLEAR:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
-        res.mText.setOnClickListener(v -> {
-          SearchRecents.clear();
-          notifyDataSetChanged();
-        });
-        break;
+    case TYPE_CLEAR:
+      res = new ViewHolder(
+        LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
+      res.mText.setOnClickListener(v -> {
+        SearchRecents.clear();
+        notifyDataSetChanged();
+      });
+      break;
 
-      case TYPE_MY_POSITION:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
-        res.mText.setOnClickListener(v -> {
-          RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
-          mSearchToolbarController.onUpClick();
-        });
-        break;
+    case TYPE_MY_POSITION:
+      res = new ViewHolder(
+        LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
+      res.mText.setOnClickListener(v -> {
+        RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
+        mSearchToolbarController.onUpClick();
+      });
+      break;
 
-      default:
-        throw new IllegalArgumentException("Unsupported ViewHolder type given");
+    default: throw new IllegalArgumentException("Unsupported ViewHolder type given");
     }
 
     Graphics.tint(res.mText);
     return res;
   }
 
-  @Override
-  public void onBindViewHolder(ViewHolder viewHolder, int position)
+  @Override public void onBindViewHolder(ViewHolder viewHolder, int position)
   {
     if (getItemViewType(position) == TYPE_ITEM)
     {
@@ -92,8 +89,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     }
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     int res = SearchRecents.getSize();
     if (res > 0)
@@ -105,8 +101,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     return res;
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @Override public int getItemViewType(int position)
   {
     if (mShowMyPosition)
     {

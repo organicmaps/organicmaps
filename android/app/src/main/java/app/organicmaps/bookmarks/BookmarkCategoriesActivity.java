@@ -3,13 +3,11 @@ package app.organicmaps.bookmarks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
@@ -18,9 +16,7 @@ import app.organicmaps.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
-  @CallSuper
-  @Override
-  public void onResume()
+  @CallSuper @Override public void onResume()
   {
     super.onResume();
 
@@ -30,9 +26,7 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     BookmarkManager.INSTANCE.setNotificationsEnabled(false);
   }
 
-  @CallSuper
-  @Override
-  public void onPause()
+  @CallSuper @Override public void onPause()
   {
     // Allow to send all notifications in BM.
     BookmarkManager.INSTANCE.setNotificationsEnabled(true);
@@ -40,21 +34,17 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     super.onPause();
   }
 
-  @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
+  @Override @StyleRes public int getThemeResourceId(@NonNull String theme)
   {
     return ThemeUtils.getWindowBgThemeResourceId(getApplicationContext(), theme);
   }
 
-  @Override
-  protected Class<? extends Fragment> getFragmentClass()
+  @Override protected Class<? extends Fragment> getFragmentClass()
   {
     return BookmarkCategoriesFragment.class;
   }
 
-  @Override
-  protected int getContentLayoutResId()
+  @Override protected int getContentLayoutResId()
   {
     return R.layout.bookmarks_activity;
   }

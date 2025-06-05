@@ -6,16 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
-
 import java.util.List;
 
-public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<ChooseBookmarkCategoryAdapter.SingleChoiceHolder>
+public class ChooseBookmarkCategoryAdapter
+  extends BaseBookmarkCategoryAdapter<ChooseBookmarkCategoryAdapter.SingleChoiceHolder>
 {
   public static final int VIEW_TYPE_CATEGORY = 0;
   public static final int VIEW_TYPE_ADD_NEW = 1;
@@ -31,8 +29,7 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
 
   private CategoryListener mListener;
 
-  public ChooseBookmarkCategoryAdapter(Context context, int pos,
-                                       @NonNull List<BookmarkCategory> categories)
+  public ChooseBookmarkCategoryAdapter(Context context, int pos, @NonNull List<BookmarkCategory> categories)
   {
     super(context, categories);
     mCheckedPosition = pos;
@@ -43,8 +40,7 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
     mListener = listener;
   }
 
-  @Override
-  public SingleChoiceHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public SingleChoiceHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     View view;
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -68,8 +64,7 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
     return holder;
   }
 
-  @Override
-  public void onBindViewHolder(SingleChoiceHolder holder, int position)
+  @Override public void onBindViewHolder(SingleChoiceHolder holder, int position)
   {
     if (holder.getItemViewType() == VIEW_TYPE_CATEGORY)
     {
@@ -79,14 +74,12 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
     }
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @Override public int getItemViewType(int position)
   {
     return position == getItemCount() - 1 ? VIEW_TYPE_ADD_NEW : VIEW_TYPE_CATEGORY;
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return super.getItemCount() + 1;
   }

@@ -1,12 +1,10 @@
 package app.organicmaps.editor;
 
 import android.content.Context;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.bookmarks.data.Metadata;
@@ -15,10 +13,8 @@ import app.organicmaps.editor.data.Language;
 import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.editor.data.LocalizedStreet;
 import app.organicmaps.editor.data.NamesDataSource;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
 
 /**
  * Edits active(selected on the map) feature, which is represented as osm::EditableFeature in the core.
@@ -28,7 +24,8 @@ public final class Editor
   // Should correspond to core osm::FeatureStatus.
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({UNTOUCHED, DELETED, OBSOLETE, MODIFIED, CREATED})
-  public @interface FeatureStatus {}
+  public @interface FeatureStatus
+  {}
 
   public static final int UNTOUCHED = 0;
   public static final int DELETED = 1;
@@ -45,12 +42,10 @@ public final class Editor
 
   private static native void nativeInit();
 
-  @WorkerThread
-  public static void uploadChanges(@NonNull Context context)
+  @WorkerThread public static void uploadChanges(@NonNull Context context)
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
-      nativeUploadChanges(OsmOAuth.getAuthToken(context),
-                          BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
+      nativeUploadChanges(OsmOAuth.getAuthToken(context), BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
 
   public static native boolean nativeShouldShowEditPlace();
@@ -58,8 +53,7 @@ public final class Editor
   public static native boolean nativeShouldShowAddPlace();
   public static native boolean nativeShouldEnableEditPlace();
   public static native boolean nativeShouldEnableAddPlace();
-  @NonNull
-  public static native int[] nativeGetEditableProperties();
+  @NonNull public static native int[] nativeGetEditableProperties();
 
   public static native String nativeGetCategory();
 
@@ -111,8 +105,7 @@ public final class Editor
   public static native Language[] nativeGetSupportedLanguages(boolean includeServiceLangs);
   public static native LocalizedStreet nativeGetStreet();
   public static native void nativeSetStreet(LocalizedStreet street);
-  @NonNull
-  public static native LocalizedStreet[] nativeGetNearbyStreets();
+  @NonNull public static native LocalizedStreet[] nativeGetNearbyStreets();
 
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
@@ -127,16 +120,13 @@ public final class Editor
   }
   public static native boolean nativeIsNameValid(String name);
 
-
   public static native boolean nativeHasSomethingToUpload();
-  @WorkerThread
-  private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId);
+  @WorkerThread private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId);
 
   /**
    * @return array [total edits count, uploaded edits count, last upload timestamp in seconds]
    */
-  @Size(3)
-  public static native long[] nativeGetStats();
+  @Size(3) public static native long[] nativeGetStats();
   public static native void nativeClearLocalEdits();
 
   /**
@@ -149,11 +139,8 @@ public final class Editor
    */
   public static native boolean nativeSaveEditedFeature();
 
-  @NonNull
-  public static native String[] nativeGetAllCreatableFeatureTypes(@NonNull String lang);
-  @NonNull
-  public static native String[] nativeSearchCreatableFeatureTypes(@NonNull String query,
-                                                                  @NonNull String lang);
+  @NonNull public static native String[] nativeGetAllCreatableFeatureTypes(@NonNull String lang);
+  @NonNull public static native String[] nativeSearchCreatableFeatureTypes(@NonNull String query, @NonNull String lang);
 
   /**
    * Creates new object on the map. Places it in the center of current viewport.
@@ -180,7 +167,7 @@ public final class Editor
   public static native String[] nativeGetSelectedCuisines();
   public static native String[] nativeFilterCuisinesKeys(String substr);
   public static native String[] nativeTranslateCuisines(String[] keys);
-  public static native void nativeSetSelectedCuisines(String [] keys);
+  public static native void nativeSetSelectedCuisines(String[] keys);
   /**
    * @return properly formatted and appended cuisines string to display in UI.
    */
@@ -189,7 +176,6 @@ public final class Editor
   public static native String nativeGetMwmName();
   public static native long nativeGetMwmVersion();
 
-  @FeatureStatus
-  public static native int nativeGetMapObjectStatus();
+  @FeatureStatus public static native int nativeGetMapObjectStatus();
   public static native boolean nativeIsMapObjectUploaded();
 }

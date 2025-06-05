@@ -1,14 +1,12 @@
 package app.organicmaps.maplayer.isolines;
 
 import android.app.Application;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 class OnIsolinesChangedListener
 {
-  @NonNull
-  private final Application mApp;
+  @NonNull private final Application mApp;
   private IsolinesErrorDialogListener mListener;
 
   OnIsolinesChangedListener(@NonNull Application app)
@@ -17,9 +15,7 @@ class OnIsolinesChangedListener
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public void onStateChanged(int type)
+  @Keep @SuppressWarnings("unused") public void onStateChanged(int type)
   {
     IsolinesState state = IsolinesState.values()[type];
     if (mListener == null)

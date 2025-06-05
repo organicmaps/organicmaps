@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -35,12 +34,10 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-
 import java.util.List;
 import java.util.Objects;
 
-@SuppressLint("StringFormatMatches")
-public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
+@SuppressLint("StringFormatMatches") public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
 
@@ -60,11 +57,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private String mCurrentCountry;
 
-  @Nullable
-  private Dialog mAlertDialog;
+  @Nullable private Dialog mAlertDialog;
 
-  @NonNull
-  private ActivityResultLauncher<Intent> mApiRequest;
+  @NonNull private ActivityResultLauncher<Intent> mApiRequest;
 
   private boolean mAreResourcesDownloaded;
 
@@ -83,20 +78,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private interface Listener
   {
     // Called by JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onProgress(int percent);
+    @Keep @SuppressWarnings("unused") void onProgress(int percent);
 
     // Called by JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onFinish(int errorCode);
+    @Keep @SuppressWarnings("unused") void onFinish(int errorCode);
   }
 
-  private final LocationListener mLocationListener = new LocationListener()
-  {
-    @Override
-    public void onLocationUpdated(Location location)
+  private final LocationListener mLocationListener = new LocationListener() {
+    @Override public void onLocationUpdated(Location location)
     {
       if (mCurrentCountry != null)
         return;
@@ -129,17 +118,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   };
 
-  private final Listener mResourcesDownloadListener = new Listener()
-  {
-    @Override
-    public void onProgress(final int percent)
+  private final Listener mResourcesDownloadListener = new Listener() {
+    @Override public void onProgress(final int percent)
     {
       if (!isFinishing())
         mProgress.setProgressCompat(percent, true);
     }
 
-    @Override
-    public void onFinish(final int errorCode)
+    @Override public void onFinish(final int errorCode)
     {
       if (isFinishing())
         return;
@@ -155,10 +141,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   };
 
-  private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback()
-  {
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+  private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback() {
+    @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       for (MapManager.StorageCallbackData item : data)
       {
@@ -172,23 +156,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           showMap();
           return;
 
-        case CountryItem.STATUS_FAILED:
-          MapManager.showError(DownloadResourcesLegacyActivity.this, item, null);
-          return;
+        case CountryItem.STATUS_FAILED: MapManager.showError(DownloadResourcesLegacyActivity.this, item, null); return;
         }
       }
     }
 
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    @Override public void onProgress(String countryId, long localSize, long remoteSize)
     {
       mProgress.setProgressCompat((int) localSize, true);
     }
   };
 
-  @CallSuper
-  @Override
-  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
+  @CallSuper @Override protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
     UiUtils.setLightStatusBar(this, true);
@@ -213,9 +192,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     showMap();
   }
 
-  @CallSuper
-  @Override
-  protected void onSafeDestroy()
+  @CallSuper @Override protected void onSafeDestroy()
   {
     super.onSafeDestroy();
     mApiRequest.unregister();
@@ -228,17 +205,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  @CallSuper
-  @Override
-  protected void onResume()
+  @CallSuper @Override protected void onResume()
   {
     super.onResume();
     if (!isFinishing())
       LocationHelper.from(this).addListener(mLocationListener);
   }
 
-  @Override
-  protected void onPause()
+  @Override protected void onPause()
   {
     super.onPause();
     LocationHelper.from(this).removeListener(mLocationListener);
@@ -249,8 +223,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void setDownloadMessage(int bytesToDownload)
   {
-    mTvMessage.setText(getString(R.string.download_resources,
-                                 StringUtils.getFileSizeString(this, bytesToDownload)));
+    mTvMessage.setText(getString(R.string.download_resources, StringUtils.getFileSizeString(this, bytesToDownload)));
   }
 
   private boolean prepareFilesDownload(boolean showMap)
@@ -386,7 +359,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         CountryItem item = CountryItem.fill(mCurrentCountry);
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
-        mProgress.setMax((int)item.totalSize);
+        mProgress.setMax((int) item.totalSize);
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
@@ -426,8 +399,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       case ERR_DOWNLOAD_ERROR ->
       {
         titleId = R.string.connection_failure;
-        yield (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
-                                                      : R.string.common_check_internet_connection_dialog);
+        yield(ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
+                                                     : R.string.common_check_internet_connection_dialog);
       }
       case ERR_DISK_ERROR ->
       {
@@ -438,21 +411,20 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     };
 
     mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(titleId)
-        .setMessage(messageId)
-        .setCancelable(true)
-        .setOnCancelListener((dialog) -> setAction(PAUSE))
-        .setPositiveButton(R.string.try_again, (dialog, which) -> {
-          setAction(TRY_AGAIN);
-          onTryAgainClicked();
-        })
-        .setOnDismissListener(dialog -> mAlertDialog = null)
-        .show();
+                     .setTitle(titleId)
+                     .setMessage(messageId)
+                     .setCancelable(true)
+                     .setOnCancelListener((dialog) -> setAction(PAUSE))
+                     .setPositiveButton(R.string.try_again,
+                       (dialog, which) -> {
+                         setAction(TRY_AGAIN);
+                         onTryAgainClicked();
+                       })
+                     .setOnDismissListener(dialog -> mAlertDialog = null)
+                     .show();
   }
 
-  @Override
-  @StyleRes
-  public int getThemeResourceId(@NonNull String theme)
+  @Override @StyleRes public int getThemeResourceId(@NonNull String theme)
   {
     return R.style.MwmTheme_DownloadResourcesLegacy;
   }

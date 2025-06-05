@@ -10,7 +10,6 @@ import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -26,9 +25,7 @@ public class HelpScreen extends BaseMapScreen
     super(carContext, surfaceRenderer);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -36,8 +33,7 @@ public class HelpScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -45,8 +41,7 @@ public class HelpScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createSettingsListTemplate()
+  @NonNull private ListTemplate createSettingsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createVersionInfo());
@@ -54,21 +49,19 @@ public class HelpScreen extends BaseMapScreen
     return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
-  @NonNull
-  private Item createVersionInfo()
+  @NonNull private Item createVersionInfo()
   {
     return new Row.Builder()
-        .setTitle(getCarContext().getString(R.string.app_name))
-        .addText(BuildConfig.VERSION_NAME)
-        .build();
+      .setTitle(getCarContext().getString(R.string.app_name))
+      .addText(BuildConfig.VERSION_NAME)
+      .build();
   }
 
-  @NonNull
-  private Item createDataVersionInfo()
+  @NonNull private Item createDataVersionInfo()
   {
     return new Row.Builder()
-        .setTitle(getCarContext().getString(R.string.data_version, ""))
-        .addText(DateUtils.getShortDateFormatter().format(Framework.getDataVersion()))
-        .build();
+      .setTitle(getCarContext().getString(R.string.data_version, ""))
+      .addText(DateUtils.getShortDateFormatter().format(Framework.getDataVersion()))
+      .build();
   }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -34,41 +33,33 @@ public class RoutingPlanController extends ToolbarController
   private static final String BUNDLE_HAS_DRIVING_OPTIONS_VIEW = "has_driving_options_view";
 
   private final View mFrame;
-  @NonNull
-  private final RoutingPlanInplaceController.RoutingPlanListener mRoutingPlanListener;
+  @NonNull private final RoutingPlanInplaceController.RoutingPlanListener mRoutingPlanListener;
   private final RadioGroup mRouterTypes;
-  @NonNull
-  private final WheelProgressView mProgressVehicle;
-  @NonNull
-  private final WheelProgressView mProgressPedestrian;
-  @NonNull
-  private final WheelProgressView mProgressTransit;
-  @NonNull
-  private final WheelProgressView mProgressBicycle;
-  @NonNull
-  private final WheelProgressView mProgressRuler;
+  @NonNull private final WheelProgressView mProgressVehicle;
+  @NonNull private final WheelProgressView mProgressPedestrian;
+  @NonNull private final WheelProgressView mProgressTransit;
+  @NonNull private final WheelProgressView mProgressBicycle;
+  @NonNull private final WheelProgressView mProgressRuler;
 
-//  @NonNull
-//  private final WheelProgressView mProgressTaxi;
+  //  @NonNull
+  //  private final WheelProgressView mProgressTaxi;
 
-  @NonNull
-  private final RoutingBottomMenuController mRoutingBottomMenuController;
+  @NonNull private final RoutingBottomMenuController mRoutingBottomMenuController;
 
   int mFrameHeight;
   final int mAnimToggle;
 
-  @NonNull
-  private final View mDrivingOptionsBtnContainer;
+  @NonNull private final View mDrivingOptionsBtnContainer;
 
-  @NonNull
-  private final View.OnLayoutChangeListener mDriverOptionsLayoutListener;
+  @NonNull private final View.OnLayoutChangeListener mDriverOptionsLayoutListener;
 
-  @NonNull
-  private final View mDrivingOptionsImage;
+  @NonNull private final View mDrivingOptionsImage;
 
-  private void setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
+  private void setupRouterButton(
+    @IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
-    CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) -> {
+    CompoundButton.OnCheckedChangeListener listener = (buttonView, isChecked) ->
+    {
       RoutingToolbarButton button = (RoutingToolbarButton) buttonView;
       button.setIcon(iconRes);
       if (isChecked)
@@ -83,10 +74,9 @@ public class RoutingPlanController extends ToolbarController
     rb.setOnClickListener(clickListener);
   }
 
-  RoutingPlanController(View root, Activity activity,
-                        ActivityResultLauncher<Intent> startDrivingOptionsForResult,
-                        @NonNull RoutingPlanInplaceController.RoutingPlanListener routingPlanListener,
-                        @NonNull RoutingBottomMenuListener listener)
+  RoutingPlanController(View root, Activity activity, ActivityResultLauncher<Intent> startDrivingOptionsForResult,
+    @NonNull RoutingPlanInplaceController.RoutingPlanListener routingPlanListener,
+    @NonNull RoutingBottomMenuListener listener)
   {
     super(root, activity);
     mFrame = root;
@@ -102,7 +92,7 @@ public class RoutingPlanController extends ToolbarController
     mProgressTransit = progressFrame.findViewById(R.id.progress_transit);
     mProgressBicycle = progressFrame.findViewById(R.id.progress_bicycle);
     mProgressRuler = progressFrame.findViewById(R.id.progress_ruler);
-//    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
+    //    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, listener);
 
@@ -112,25 +102,24 @@ public class RoutingPlanController extends ToolbarController
 
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
-    mAnimToggle = MwmApplication.from(activity.getApplicationContext())
-                                .getResources().getInteger(R.integer.anim_default);
+    mAnimToggle =
+      MwmApplication.from(activity.getApplicationContext()).getResources().getInteger(R.integer.anim_default);
 
     final View menuFrame = activity.findViewById(R.id.menu_frame);
-    final PaddingInsetsListener insetsListener = new PaddingInsetsListener.Builder()
+    final PaddingInsetsListener insetsListener =
+      new PaddingInsetsListener.Builder()
         .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
         .setExcludeTop()
         .build();
     ViewCompat.setOnApplyWindowInsetsListener(menuFrame, insetsListener);
   }
 
-  @NonNull
-  protected View getFrame()
+  @NonNull protected View getFrame()
   {
     return mFrame;
   }
 
-  @NonNull
-  private View getDrivingOptionsBtnContainer()
+  @NonNull private View getDrivingOptionsBtnContainer()
   {
     return mDrivingOptionsBtnContainer;
   }
@@ -139,7 +128,7 @@ public class RoutingPlanController extends ToolbarController
   {
     setupRouterButton(R.id.vehicle, R.drawable.ic_car, this::onVehicleModeSelected);
     setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, this::onPedestrianModeSelected);
-//    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
+    //    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
     setupRouterButton(R.id.transit, R.drawable.ic_transit, this::onTransitModeSelected);
     setupRouterButton(R.id.bicycle, R.drawable.ic_bike, this::onBicycleModeSelected);
     setupRouterButton(R.id.ruler, R.drawable.ic_ruler_route, this::onRulerModeSelected);
@@ -170,8 +159,7 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.get().setRouterType(Router.Vehicle);
   }
 
-  @Override
-  public void onUpClick()
+  @Override public void onUpClick()
   {
     // Ignore the event if the back and start buttons are pressed at the same time.
     // See {@link #RoutingBottomMenuController.setStartButton()}.
@@ -195,7 +183,7 @@ public class RoutingPlanController extends ToolbarController
 
     final boolean ready = (buildState == RoutingController.BuildState.BUILT);
 
-    if (!ready) 
+    if (!ready)
     {
       mRoutingBottomMenuController.hideAltitudeChartAndRoutingDetails();
       return;
@@ -224,8 +212,7 @@ public class RoutingPlanController extends ToolbarController
 
   public void updateBuildProgress(int progress, @NonNull Router router)
   {
-    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
-                      mProgressBicycle, mProgressRuler);
+    UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit, mProgressBicycle, mProgressRuler);
     WheelProgressView progressView;
     switch (router)
     {
@@ -237,11 +224,11 @@ public class RoutingPlanController extends ToolbarController
       mRouterTypes.check(R.id.pedestrian);
       progressView = mProgressPedestrian;
       break;
-    //case Taxi:
-    //    {
-    //      mRouterTypes.check(R.id.taxi);
-    //      progressView = mProgressTaxi;
-    //    }
+    // case Taxi:
+    //     {
+    //       mRouterTypes.check(R.id.taxi);
+    //       progressView = mProgressTaxi;
+    //     }
     case Transit:
       mRouterTypes.check(R.id.transit);
       progressView = mProgressTransit;
@@ -254,12 +241,10 @@ public class RoutingPlanController extends ToolbarController
       mRouterTypes.check(R.id.ruler);
       progressView = mProgressRuler;
       break;
-    default:
-        throw new IllegalArgumentException("unknown router: " + router);
+    default: throw new IllegalArgumentException("unknown router: " + router);
     }
 
-    RoutingToolbarButton button = mRouterTypes
-        .findViewById(mRouterTypes.getCheckedRadioButtonId());
+    RoutingToolbarButton button = mRouterTypes.findViewById(mRouterTypes.getCheckedRadioButtonId());
     button.progress();
 
     updateProgressLabels();
@@ -317,8 +302,7 @@ public class RoutingPlanController extends ToolbarController
     boolean hasAnyOptions = RoutingOptions.hasAnyOptions() && !isRulerType();
     UiUtils.showIf(hasAnyOptions, mDrivingOptionsImage);
     TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
-    title.setText(hasAnyOptions ? R.string.change_driving_options_btn
-                                : R.string.define_to_avoid_btn);
+    title.setText(hasAnyOptions ? R.string.change_driving_options_btn : R.string.define_to_avoid_btn);
   }
 
   public void hideDrivingOptionsView()
@@ -334,9 +318,7 @@ public class RoutingPlanController extends ToolbarController
       return 0;
 
     View driverOptionsView = getDrivingOptionsBtnContainer();
-    int extraOppositeOffset = UiUtils.isVisible(driverOptionsView)
-                              ? 0
-                              : driverOptionsView.getHeight();
+    int extraOppositeOffset = UiUtils.isVisible(driverOptionsView) ? 0 : driverOptionsView.getHeight();
 
     return frameHeight - extraOppositeOffset;
   }
@@ -344,8 +326,8 @@ public class RoutingPlanController extends ToolbarController
   private class SelfTerminatedDrivingOptionsLayoutListener implements View.OnLayoutChangeListener
   {
     @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
-                               int oldTop, int oldRight, int oldBottom)
+    public void onLayoutChange(
+      View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
     {
       mRoutingPlanListener.onRoutingPlanStartAnimate(UiUtils.isVisible(getFrame()));
       mDrivingOptionsBtnContainer.removeOnLayoutChangeListener(this);

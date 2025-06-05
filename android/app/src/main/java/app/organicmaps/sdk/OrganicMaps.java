@@ -1,12 +1,10 @@
 package app.organicmaps.sdk;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
@@ -22,15 +20,13 @@ import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.log.Logger;
-
 import java.io.IOException;
 
 public final class OrganicMaps implements DefaultLifecycleObserver
 {
   private static final String TAG = OrganicMaps.class.getSimpleName();
 
-  @NonNull
-  private final Context mContext;
+  @NonNull private final Context mContext;
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
@@ -67,14 +63,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     return mFrameworkInitialized && mPlatformInitialized;
   }
 
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
+  @Override public void onStart(@NonNull LifecycleOwner owner)
   {
     nativeOnTransit(true);
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     nativeOnTransit(false);
   }
@@ -99,13 +93,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     // external storage is damaged or not available (read-only).
     createPlatformDirectories(writablePath, privatePath, tempPath);
 
-    nativeInitPlatform(mContext,
-        apkPath,
-        writablePath,
-        privatePath,
-        tempPath,
-        app.organicmaps.BuildConfig.FLAVOR,
-        app.organicmaps.BuildConfig.BUILD_TYPE, UiUtils.isTablet(mContext));
+    nativeInitPlatform(mContext, apkPath, writablePath, privatePath, tempPath, app.organicmaps.BuildConfig.FLAVOR,
+      app.organicmaps.BuildConfig.BUILD_TYPE, UiUtils.isTablet(mContext));
     Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(mContext));
 
@@ -137,9 +126,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     return true;
   }
 
-  private void createPlatformDirectories(@NonNull String writablePath,
-                                         @NonNull String privatePath,
-                                         @NonNull String tempPath) throws IOException
+  private void createPlatformDirectories(
+    @NonNull String writablePath, @NonNull String privatePath, @NonNull String tempPath) throws IOException
   {
     SharedPropertiesUtils.emulateBadExternalStorage(mContext);
 
@@ -162,8 +150,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   private static native void nativeSetSettingsDir(String settingsPath);
 
   private static native void nativeInitPlatform(Context context, String apkPath, String writablePath,
-                                                String privatePath, String tmpPath, String flavorName,
-                                                String buildType, boolean isTablet);
+    String privatePath, String tmpPath, String flavorName, String buildType, boolean isTablet);
 
   private static native void nativeInitFramework(@NonNull Runnable onComplete);
 

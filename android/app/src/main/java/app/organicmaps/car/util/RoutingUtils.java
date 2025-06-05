@@ -2,7 +2,6 @@ package app.organicmaps.car.util;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -13,14 +12,12 @@ import androidx.car.app.navigation.model.Step;
 import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.LaneWay;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.SingleLaneInfo;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.widget.LanesDrawable;
-
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -29,7 +26,8 @@ public final class RoutingUtils
   private RoutingUtils() {}
 
   @NonNull
-  public static Trip createTrip(@NonNull final CarContext context, @Nullable final RoutingInfo info, @Nullable MapObject endPoint)
+  public static Trip createTrip(
+    @NonNull final CarContext context, @Nullable final RoutingInfo info, @Nullable MapObject endPoint)
   {
     final Trip.Builder builder = new Trip.Builder();
 
@@ -51,7 +49,8 @@ public final class RoutingUtils
     else
       destinationBuilder.setName(" ");
 
-    builder.addDestination(destinationBuilder.build(), createTravelEstimate(info.distToTarget, info.totalTimeInSeconds));
+    builder.addDestination(
+      destinationBuilder.build(), createTravelEstimate(info.distToTarget, info.totalTimeInSeconds));
 
     // TODO (AndrewShkrob): Use real distance and time estimates
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0));
@@ -60,8 +59,7 @@ public final class RoutingUtils
     return builder.build();
   }
 
-  @NonNull
-  private static Step createCurrentStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
+  @NonNull private static Step createCurrentStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
   {
     final Step.Builder builder = new Step.Builder();
     builder.setCue(info.nextStreet);
@@ -84,8 +82,7 @@ public final class RoutingUtils
     return builder.build();
   }
 
-  @NonNull
-  private static Step createNextStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
+  @NonNull private static Step createNextStep(@NonNull final CarContext context, @NonNull RoutingInfo info)
   {
     final Step.Builder builder = new Step.Builder();
     builder.setCue(info.nextNextStreet);
@@ -99,8 +96,8 @@ public final class RoutingUtils
   private static TravelEstimate createTravelEstimate(@NonNull app.organicmaps.util.Distance distance, int time)
   {
     return new TravelEstimate.Builder(RoutingHelpers.createDistance(distance), ZonedDateTime.now().plusSeconds(time))
-        .setRemainingTimeSeconds(time)
-        .setRemainingDistanceColor(Colors.DISTANCE)
-        .build();
+      .setRemainingTimeSeconds(time)
+      .setRemainingDistanceColor(Colors.DISTANCE)
+      .build();
   }
 }

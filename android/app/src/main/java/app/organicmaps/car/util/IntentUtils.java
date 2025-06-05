@@ -4,13 +4,11 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
-
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.api.Const;
@@ -31,7 +29,8 @@ public final class IntentUtils
 
   private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-  public static void processIntent(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull Intent intent)
+  public static void processIntent(
+    @NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull Intent intent)
   {
     final String action = intent.getAction();
     if (CarContext.ACTION_NAVIGATE.equals(action))
@@ -40,8 +39,7 @@ public final class IntentUtils
       processViewIntent(carContext, intent);
   }
 
-  @NonNull
-  public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
+  @NonNull public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
   {
     final String uri = "geo:0,0?q=" + query.replace(" ", "+");
     final ComponentName component = new ComponentName(context, CarAppService.class);
@@ -50,10 +48,11 @@ public final class IntentUtils
   }
 
   // https://developer.android.com/reference/androidx/car/app/CarContext#startCarApp(android.content.Intent)
-  private static void processNavigationIntent(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull Intent intent)
+  private static void processNavigationIntent(
+    @NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull Intent intent)
   {
-    // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during navigation or route planning.
-    // Skip navigation intents during navigation
+    // TODO (AndrewShkrob): This logic will need to be revised when we introduce support for adding stops during
+    // navigation or route planning. Skip navigation intents during navigation
     if (RoutingController.get().isNavigating())
       return;
 
@@ -64,8 +63,7 @@ public final class IntentUtils
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
     switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
     {
-    case RequestType.INCORRECT:
-      return;
+    case RequestType.INCORRECT: return;
     case RequestType.MAP:
       screenManager.popToRoot();
       Map.executeMapApiRequest();
@@ -91,25 +89,17 @@ public final class IntentUtils
       screenManager.popToRoot();
       screenManager.push(builder.build());
       return;
-    case RequestType.ROUTE:
-      Logger.e(TAG, "Route API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.CROSSHAIR:
-      Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.MENU:
-      Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri);
-      return;
-    case RequestType.SETTINGS:
-      Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
+    case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
+    case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
+    case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
+    case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
     }
   }
 
   private static void processViewIntent(@NonNull CarContext carContext, @NonNull Intent intent)
   {
     final Uri uri = intent.getData();
-    if (uri != null
-        && Const.API_SCHEME.equals(uri.getScheme())
+    if (uri != null && Const.API_SCHEME.equals(uri.getScheme())
         && CarAppService.API_CAR_HOST.equals(uri.getSchemeSpecificPart())
         && CarAppService.ACTION_SHOW_NAVIGATION_SCREEN.equals(uri.getFragment()))
     {

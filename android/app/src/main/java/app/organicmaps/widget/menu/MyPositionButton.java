@@ -9,27 +9,24 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import app.organicmaps.Map;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MyPositionButton
 {
   private static final int FOLLOW_SHIFT = 1;
 
-  @NonNull
-  private final FloatingActionButton mButton;
+  @NonNull private final FloatingActionButton mButton;
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
   private final int mFollowPaddingShift;
@@ -49,7 +46,8 @@ public class MyPositionButton
     Drawable image = mIcons.get(mode);
     @AttrRes int colorAttr = R.attr.iconTint;
     @DimenRes int sizeDimen = R.dimen.map_button_icon_size;
-    if (mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION)
+    if (mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE
+        || mode == LocationState.PENDING_POSITION)
     {
       colorAttr = androidx.appcompat.R.attr.colorAccent;
       if (mode == LocationState.PENDING_POSITION)
@@ -81,8 +79,8 @@ public class MyPositionButton
 
     if (mode == LocationState.PENDING_POSITION)
     {
-      final RotateAnimation rotate = new RotateAnimation(0, 360,
-              Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+      final RotateAnimation rotate =
+        new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
       rotate.setDuration(1000);
       rotate.setRepeatCount(Animation.INFINITE);

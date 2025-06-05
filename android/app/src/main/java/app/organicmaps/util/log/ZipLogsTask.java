@@ -2,7 +2,6 @@ package app.organicmaps.util.log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,23 +17,19 @@ class ZipLogsTask implements Runnable
 {
   private static final String TAG = ZipLogsTask.class.getSimpleName();
 
-  @NonNull
-  private final String mLogsPath;
-  @NonNull
-  private final String mZipPath;
-  @Nullable
-  private final LogsManager.OnZipCompletedListener mOnCompletedListener;
+  @NonNull private final String mLogsPath;
+  @NonNull private final String mZipPath;
+  @Nullable private final LogsManager.OnZipCompletedListener mOnCompletedListener;
 
-  ZipLogsTask(@NonNull String logsPath, @NonNull String zipPath,
-              @NonNull LogsManager.OnZipCompletedListener onCompletedListener)
+  ZipLogsTask(
+    @NonNull String logsPath, @NonNull String zipPath, @NonNull LogsManager.OnZipCompletedListener onCompletedListener)
   {
     mLogsPath = logsPath;
     mZipPath = zipPath;
     mOnCompletedListener = onCompletedListener;
   }
 
-  @Override
-  public void run()
+  @Override public void run()
   {
     saveSystemLogcat(mLogsPath);
     final boolean success = zipFileAtPath(mLogsPath, mZipPath);
@@ -47,9 +42,8 @@ class ZipLogsTask implements Runnable
     File sourceFile = new File(sourcePath);
     if (!sourceFile.isDirectory())
       return false;
-    try (
-        FileOutputStream dest = new FileOutputStream(toLocation, false);
-        ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest)))
+    try (FileOutputStream dest = new FileOutputStream(toLocation, false);
+      ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest)))
     {
       zipSubFolder(out, sourceFile, sourceFile.getPath().length());
     }
@@ -61,8 +55,7 @@ class ZipLogsTask implements Runnable
     return true;
   }
 
-  private void zipSubFolder(ZipOutputStream out, File folder,
-                            int basePathLength) throws IOException
+  private void zipSubFolder(ZipOutputStream out, File folder, int basePathLength) throws IOException
   {
     File[] fileList = folder.listFiles();
     if (fileList == null)
@@ -80,9 +73,8 @@ class ZipLogsTask implements Runnable
         byte[] data = new byte[bufSize];
         String unmodifiedFilePath = file.getPath();
         String relativePath = unmodifiedFilePath.substring(basePathLength);
-        try (
-            FileInputStream fi = new FileInputStream(unmodifiedFilePath);
-            BufferedInputStream origin = new BufferedInputStream(fi, bufSize))
+        try (FileInputStream fi = new FileInputStream(unmodifiedFilePath);
+          BufferedInputStream origin = new BufferedInputStream(fi, bufSize))
         {
           ZipEntry entry = new ZipEntry(relativePath);
           out.putNextEntry(entry);
@@ -112,9 +104,8 @@ class ZipLogsTask implements Runnable
 
     path += File.separator + "logcat.log";
     final File file = new File(path);
-    try (
-        InputStreamReader reader = new InputStreamReader(process.getInputStream());
-        FileWriter writer = new FileWriter(file))
+    try (InputStreamReader reader = new InputStreamReader(process.getInputStream());
+      FileWriter writer = new FileWriter(file))
     {
       writer.write(LogsManager.INSTANCE.getSystemInformation());
       char[] buffer = new char[10000];
@@ -124,7 +115,8 @@ class ZipLogsTask implements Runnable
         if (n == -1)
           break;
         writer.write(buffer, 0, n);
-      } while (true);
+      }
+      while (true);
     }
     catch (Throwable e)
     {

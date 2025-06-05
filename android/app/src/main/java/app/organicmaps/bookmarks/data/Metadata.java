@@ -2,11 +2,9 @@ package app.organicmaps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +21,7 @@ public class Metadata implements Parcelable
     FMD_STARS(5),
     FMD_OPERATOR(6),
     // Removed and is not used in the core. Use FMD_WEBSITE instead.
-    //FMD_URL(7),
+    // FMD_URL(7),
     FMD_WEBSITE(8),
     FMD_INTERNET(9),
     FMD_ELE(10),
@@ -75,8 +73,7 @@ public class Metadata implements Parcelable
       mMetaType = metadataType;
     }
 
-    @NonNull
-    public static MetadataType fromInt(@IntRange(from = 1, to = 49) int metaType)
+    @NonNull public static MetadataType fromInt(@IntRange(from = 1, to = 49) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)
@@ -99,20 +96,17 @@ public class Metadata implements Parcelable
     mMetadataMap.put(type, metaValue);
   }
 
-  @Nullable
-  String getMetadata(MetadataType type)
+  @Nullable String getMetadata(MetadataType type)
   {
     return mMetadataMap.get(type);
   }
 
-  @Override
-  public int describeContents()
+  @Override public int describeContents()
   {
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
+  @Override public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeInt(mMetadataMap.size());
     for (Map.Entry<MetadataType, String> metaEntry : mMetadataMap.entrySet())
@@ -131,16 +125,13 @@ public class Metadata implements Parcelable
     return metadata;
   }
 
-  public static final Creator<Metadata> CREATOR = new Creator<>()
-  {
-    @Override
-    public Metadata createFromParcel(Parcel source)
+  public static final Creator<Metadata> CREATOR = new Creator<>() {
+    @Override public Metadata createFromParcel(Parcel source)
     {
       return readFromParcel(source);
     }
 
-    @Override
-    public Metadata[] newArray(int size)
+    @Override public Metadata[] newArray(int size)
     {
       return new Metadata[size];
     }

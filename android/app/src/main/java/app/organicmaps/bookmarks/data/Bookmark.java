@@ -2,13 +2,11 @@ package app.organicmaps.bookmarks.data;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
-
 import app.organicmaps.Framework;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.search.Popularity;
@@ -16,10 +14,7 @@ import app.organicmaps.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-@SuppressLint("ParcelCreator")
-public class Bookmark extends MapObject
+@Keep @SuppressWarnings("unused") @SuppressLint("ParcelCreator") public class Bookmark extends MapObject
 {
   private Icon mIcon;
   private long mCategoryId;
@@ -28,13 +23,12 @@ public class Bookmark extends MapObject
   private final double mMerY;
 
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
-                  @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
-                  @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
-                  @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
-                  @Nullable String[] rawTypes)
+    @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle, @Nullable String subtitle,
+    @Nullable String address, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
+    @NonNull Popularity popularity, @NonNull String description, @Nullable String[] rawTypes)
   {
-    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
-          routePointInfo, openingMode, popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode,
+      popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
@@ -53,8 +47,7 @@ public class Bookmark extends MapObject
     setLon(mMerX);
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
+  @Override public void writeToParcel(Parcel dest, int flags)
   {
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
@@ -78,8 +71,7 @@ public class Bookmark extends MapObject
     initXY();
   }
 
-  @Override
-  public double getScale()
+  @Override public double getScale()
   {
     return BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
   }
@@ -91,12 +83,11 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
-                    BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
+    return new Icon(
+      BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId), BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
   }
 
-  @Nullable
-  public Icon getIcon()
+  @Nullable public Icon getIcon()
   {
     return mIcon;
   }
@@ -131,20 +122,17 @@ public class Bookmark extends MapObject
     return mBookmarkId;
   }
 
-  @NonNull
-  public String getBookmarkDescription()
+  @NonNull public String getBookmarkDescription()
   {
     return BookmarkManager.INSTANCE.getBookmarkDescription(mBookmarkId);
   }
 
-  @NonNull
-  public String getGe0Url(boolean addName)
+  @NonNull public String getGe0Url(boolean addName)
   {
     return BookmarkManager.INSTANCE.encode2Ge0Url(mBookmarkId, addName);
   }
 
-  @NonNull
-  public String getHttpGe0Url(boolean addName)
+  @NonNull public String getHttpGe0Url(boolean addName)
   {
     return getGe0Url(addName).replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
   }

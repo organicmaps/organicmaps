@@ -13,7 +13,6 @@ import androidx.car.app.model.ItemList;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -30,9 +29,7 @@ public class MapScreen extends BaseMapScreen
     super(carContext, surfaceRenderer);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     SuggestionsHelpers.updateSuggestions(getCarContext());
 
@@ -43,8 +40,7 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(new Action.Builder(Action.APP_ICON).build());
@@ -52,20 +48,20 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ActionStrip createActionStrip()
+  @NonNull private ActionStrip createActionStrip()
   {
     final Action.Builder freeDriveScreenBuilder = new Action.Builder();
-    freeDriveScreenBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_steering_wheel)).build());
-    freeDriveScreenBuilder.setOnClickListener(() -> getScreenManager().push(new FreeDriveScreen(getCarContext(), getSurfaceRenderer())));
+    freeDriveScreenBuilder.setIcon(
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_steering_wheel)).build());
+    freeDriveScreenBuilder.setOnClickListener(
+      () -> getScreenManager().push(new FreeDriveScreen(getCarContext(), getSurfaceRenderer())));
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();
     builder.addAction(freeDriveScreenBuilder.build());
     return builder.build();
   }
 
-  @NonNull
-  private GridTemplate createGridTemplate()
+  @NonNull private GridTemplate createGridTemplate()
   {
     final GridTemplate.Builder builder = new GridTemplate.Builder();
 
@@ -80,10 +76,10 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Item createSearchItem()
+  @NonNull private Item createSearchItem()
   {
-    final CarIcon iconSearch = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build();
+    final CarIcon iconSearch =
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build();
 
     final GridItem.Builder builder = new GridItem.Builder();
     builder.setTitle(getCarContext().getString(R.string.search));
@@ -92,10 +88,10 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Item createCategoriesItem()
+  @NonNull private Item createCategoriesItem()
   {
-    final CarIcon iconCategories = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_address)).build();
+    final CarIcon iconCategories =
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_address)).build();
 
     final GridItem.Builder builder = new GridItem.Builder();
     builder.setImage(iconCategories);
@@ -104,10 +100,10 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Item createBookmarksItem()
+  @NonNull private Item createBookmarksItem()
   {
-    final CarIcon iconBookmarks = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks)).build();
+    final CarIcon iconBookmarks =
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks)).build();
 
     final GridItem.Builder builder = new GridItem.Builder();
     builder.setImage(iconBookmarks);
@@ -116,10 +112,10 @@ public class MapScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Item createSettingsItem()
+  @NonNull private Item createSettingsItem()
   {
-    final CarIcon iconSettings = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build();
+    final CarIcon iconSettings =
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build();
 
     final GridItem.Builder builder = new GridItem.Builder();
     builder.setImage(iconSettings);

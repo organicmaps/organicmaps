@@ -2,19 +2,14 @@ package app.organicmaps.util;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 
 // Used from JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class KeyValue implements Serializable
+@Keep @SuppressWarnings("unused") public final class KeyValue implements Serializable
 {
   private static final long serialVersionUID = -3079360274128509979L;
-  @NonNull
-  private final String mKey;
-  @NonNull
-  private final String mValue;
+  @NonNull private final String mKey;
+  @NonNull private final String mValue;
 
   public KeyValue(@NonNull String key, @NonNull String value)
   {
@@ -22,14 +17,12 @@ public final class KeyValue implements Serializable
     mValue = value;
   }
 
-  @NonNull
-  public String getKey()
+  @NonNull public String getKey()
   {
     return mKey;
   }
 
-  @NonNull
-  public String getValue()
+  @NonNull public String getValue()
   {
     return mValue;
   }

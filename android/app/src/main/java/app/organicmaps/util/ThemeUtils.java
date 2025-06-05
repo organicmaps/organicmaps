@@ -3,12 +3,10 @@ package app.organicmaps.util;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-
 import app.organicmaps.R;
 
 public final class ThemeUtils
@@ -37,7 +35,7 @@ public final class ThemeUtils
   {
     int styleRef = getResource(context, style);
 
-    int[] attrs = new int[] { attr };
+    int[] attrs = new int[] {attr};
     TypedArray ta = context.getTheme().obtainStyledAttributes(styleRef, attrs);
     ta.getValue(0, VALUE_BUFFER);
     ta.recycle();
@@ -87,7 +85,7 @@ public final class ThemeUtils
   {
     String navAutoTheme = context.getString(R.string.theme_nav_auto);
     return navAutoTheme.equals(theme);
-}
+  }
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
   {
@@ -96,8 +94,7 @@ public final class ThemeUtils
     return (defaultTheme.equals(theme) || nightTheme.equals(theme));
   }
 
-  @StyleRes
-  public static int getCardBgThemeResourceId(@NonNull Context context, @NonNull String theme)
+  @StyleRes public static int getCardBgThemeResourceId(@NonNull Context context, @NonNull String theme)
   {
     if (isDefaultTheme(context, theme))
       return R.style.MwmTheme_CardBg;
@@ -108,8 +105,7 @@ public final class ThemeUtils
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
-  @StyleRes
-  public static int getWindowBgThemeResourceId(@NonNull Context context, @NonNull String theme)
+  @StyleRes public static int getWindowBgThemeResourceId(@NonNull Context context, @NonNull String theme)
   {
     if (isDefaultTheme(context, theme))
       return R.style.MwmTheme_WindowBg;

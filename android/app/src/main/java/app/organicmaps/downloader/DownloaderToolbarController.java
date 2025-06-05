@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-
 import app.organicmaps.R;
-import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.widget.SearchToolbarController;
 
 class DownloaderToolbarController extends SearchToolbarController
 {
@@ -20,14 +19,12 @@ class DownloaderToolbarController extends SearchToolbarController
     setHint(R.string.downloader_search_field_hint);
   }
 
-  @Override
-  public void onUpClick()
+  @Override public void onUpClick()
   {
     requireActivity().onBackPressed();
   }
 
-  @Override
-  protected void onTextChanged(String query)
+  @Override protected void onTextChanged(String query)
   {
     if (!mFragment.isAdded() || !mFragment.shouldShowSearch())
       return;
@@ -51,20 +48,17 @@ class DownloaderToolbarController extends SearchToolbarController
     setTitle(title);
   }
 
-  @Override
-  protected int getVoiceInputPrompt()
+  @Override protected int getVoiceInputPrompt()
   {
     return R.string.downloader_search_field_hint;
   }
 
-  @Override
-  protected void startVoiceRecognition(Intent intent)
+  @Override protected void startVoiceRecognition(Intent intent)
   {
     mFragment.startVoiceRecognitionForResult.launch(intent);
   }
 
-  @Override
-  protected boolean supportsVoiceSearch()
+  @Override protected boolean supportsVoiceSearch()
   {
     return true;
   }

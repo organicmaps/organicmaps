@@ -2,7 +2,6 @@ package app.organicmaps.car;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
@@ -11,7 +10,6 @@ import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -40,30 +38,21 @@ import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageData;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CarAppSession extends Session implements DefaultLifecycleObserver,
-    LocationState.ModeChangeListener, DisplayChangedListener, PlacePageActivationListener
+public final class CarAppSession extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener,
+                                                            DisplayChangedListener, PlacePageActivationListener
 {
   private static final String TAG = CarAppSession.class.getSimpleName();
 
-  @Nullable
-  private final SessionInfo mSessionInfo;
-  @NonNull
-  private final SurfaceRenderer mSurfaceRenderer;
-  @NonNull
-  private final ScreenManager mScreenManager;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private CarSensorsManager mSensorsManager;
-  @NonNull
-  private final CurrentCountryChangedListener mCurrentCountryChangedListener;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private DisplayManager mDisplayManager;
+  @Nullable private final SessionInfo mSessionInfo;
+  @NonNull private final SurfaceRenderer mSurfaceRenderer;
+  @NonNull private final ScreenManager mScreenManager;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private CarSensorsManager mSensorsManager;
+  @NonNull private final CurrentCountryChangedListener mCurrentCountryChangedListener;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private DisplayManager mDisplayManager;
   private boolean mInitFailed = false;
 
   public CarAppSession(@Nullable SessionInfo sessionInfo)
@@ -75,8 +64,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mCurrentCountryChangedListener = new CurrentCountryChangedListener();
   }
 
-  @Override
-  public void onCarConfigurationChanged(@NonNull Configuration newConfiguration)
+  @Override public void onCarConfigurationChanged(@NonNull Configuration newConfiguration)
   {
     Logger.d(TAG, "New configuration: " + newConfiguration);
 
@@ -87,9 +75,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     }
   }
 
-  @NonNull
-  @Override
-  public Screen onCreateScreen(@NonNull Intent intent)
+  @NonNull @Override public Screen onCreateScreen(@NonNull Intent intent)
   {
     Logger.d(TAG);
 
@@ -103,15 +89,13 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     return prepareScreens();
   }
 
-  @Override
-  public void onNewIntent(@NonNull Intent intent)
+  @Override public void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
     IntentUtils.processIntent(getCarContext(), mSurfaceRenderer, intent);
   }
 
-  @Override
-  public void onCreate(@NonNull LifecycleOwner owner)
+  @Override public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mSensorsManager = new CarSensorsManager(getCarContext());
@@ -120,8 +104,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     init();
   }
 
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
+  @Override public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     if (mDisplayManager.isCarDisplayUsed())
@@ -140,8 +123,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     }
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mSensorsManager.onStop();
@@ -153,8 +135,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mCurrentCountryChangedListener.onStop();
   }
 
-  @Override
-  public void onDestroy(@NonNull LifecycleOwner owner)
+  @Override public void onDestroy(@NonNull LifecycleOwner owner)
   {
     mDisplayManager.removeListener(DisplayType.Car);
   }
@@ -167,17 +148,19 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       MwmApplication.from(getCarContext()).initOrganicMaps(() -> {
         Config.setFirstStartDialogSeen(getCarContext());
         if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
+          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext())
+              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+              .build());
       });
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       mInitFailed = true;
       Logger.e(TAG, "Failed to initialize the app.");
     }
   }
 
-  @NonNull
-  private Screen prepareScreens()
+  @NonNull private Screen prepareScreens()
   {
     if (mInitFailed)
       return new ErrorScreen.Builder(getCarContext()).setErrorMessage(R.string.dialog_error_storage_message).build();
@@ -201,16 +184,14 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     return screensStack.get(screensStack.size() - 1);
   }
 
-  @Override
-  public void onMyPositionModeChanged(int newMode)
+  @Override public void onMyPositionModeChanged(int newMode)
   {
     final Screen screen = mScreenManager.getTop();
     if (screen instanceof BaseMapScreen)
       screen.invalidate();
   }
 
-  @Override
-  public void onDisplayChangedToDevice(@NonNull Runnable onTaskFinishedCallback)
+  @Override public void onDisplayChangedToDevice(@NonNull Runnable onTaskFinishedCallback)
   {
     Logger.d(TAG);
     final Screen topScreen = mScreenManager.getTop();
@@ -226,8 +207,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     onTaskFinishedCallback.run();
   }
 
-  @Override
-  public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
+  @Override public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
   {
     Logger.d(TAG);
     onStart(this);
@@ -239,8 +219,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     onTaskFinishedCallback.run();
   }
 
-  @Override
-  public void onPlacePageActivated(@NonNull PlacePageData data)
+  @Override public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     // TODO: How maps downloading can trigger place page activation?
     if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
@@ -254,13 +233,13 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       Framework.nativeDeactivatePopup();
       return;
     }
-    final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
+    final PlaceScreen placeScreen =
+      new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
     mScreenManager.popToRoot();
     mScreenManager.push(placeScreen);
   }
 
-  @Override
-  public void onPlacePageDeactivated()
+  @Override public void onPlacePageDeactivated()
   {
     // The function is called when we close the PlaceScreen or when we enter the navigation mode.
     // We only need to handle the first case
@@ -271,8 +250,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mScreenManager.popToRoot();
   }
 
-  @Override
-  public void onSwitchFullScreenMode()
+  @Override public void onSwitchFullScreenMode()
   {
     // No fullscreen mode in AndroidAuto. Do nothing.
   }
@@ -282,7 +260,9 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     final RoutingController routingController = RoutingController.get();
     if (routingController.isPlanning() || routingController.isNavigating() || routingController.hasSavedRoute())
     {
-      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build();
+      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer)
+                                        .setMapObject(routingController.getEndPoint())
+                                        .build();
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }

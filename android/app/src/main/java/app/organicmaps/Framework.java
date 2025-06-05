@@ -1,12 +1,10 @@
 package app.organicmaps;
 
 import android.graphics.Bitmap;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-
 import app.organicmaps.api.ParsedRoutingData;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.RequestType;
@@ -14,19 +12,18 @@ import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.products.ProductsConfig;
+import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.routing.RoutingListener;
 import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.RoutingRecommendationListener;
+import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.settings.SettingsPrefsFragment;
 import app.organicmaps.util.Constants;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,18 +36,14 @@ import java.util.Locale;
 public class Framework
 {
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static class Params3dMode
+  @Keep @SuppressWarnings("unused") public static class Params3dMode
   {
     public boolean enabled;
     public boolean buildings;
   }
 
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static class RouteAltitudeLimits
+  @Keep @SuppressWarnings("unused") public static class RouteAltitudeLimits
   {
     public int totalAscent;
     public int totalDescent;
@@ -64,8 +57,8 @@ public class Framework
 
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
-    return nativeGetGe0Url(lat, lon, zoomLevel, name).replaceFirst(
-            Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
+    return nativeGetGe0Url(lat, lon, zoomLevel, name)
+      .replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
   }
 
   /**
@@ -74,15 +67,12 @@ public class Framework
    * @param height is height of the image.
    * @return Bitmap if there's pedestrian or bicycle route and null otherwise.
    */
-  @Nullable
-  public static Bitmap generateRouteAltitudeChart(int width, int height,
-                                                  @NonNull RouteAltitudeLimits limits)
+  @Nullable public static Bitmap generateRouteAltitudeChart(int width, int height, @NonNull RouteAltitudeLimits limits)
   {
     if (width <= 0 || height <= 0)
       return null;
 
-    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height,
-                                                                                   limits);
+    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height, limits);
     if (altitudeChartBits == null)
       return null;
 
@@ -100,12 +90,13 @@ public class Framework
 
   public static native void nativePokeSearchInViewport();
 
-  @Size(2)
-  public static native double[] nativeGetScreenRectCenter();
+  @Size(2) public static native double[] nativeGetScreenRectCenter();
 
-  public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
+  public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(
+    double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
 
-  public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
+  public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(
+    double dstLat, double dstLon, double srcLat, double srcLon, double north);
 
   public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
@@ -122,20 +113,20 @@ public class Framework
 
   public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
-//  @UiThread
-//  public static native String nativeGetOutdatedCountriesString();
-//
-//  @UiThread
-//  @NonNull
-//  public static native String[] nativeGetOutdatedCountries();
-//
-//  @UiThread
-//  @DoAfterUpdate
-//  public static native int nativeToDoAfterUpdate();
-//
-//  public static native boolean nativeIsDataVersionChanged();
-//
-//  public static native void nativeUpdateSavedDataVersion();
+  //  @UiThread
+  //  public static native String nativeGetOutdatedCountriesString();
+  //
+  //  @UiThread
+  //  @NonNull
+  //  public static native String[] nativeGetOutdatedCountries();
+  //
+  //  @UiThread
+  //  @DoAfterUpdate
+  //  public static native int nativeToDoAfterUpdate();
+  //
+  //  public static native boolean nativeIsDataVersionChanged();
+  //
+  //  public static native void nativeUpdateSavedDataVersion();
 
   private static native long nativeGetDataVersion();
 
@@ -155,14 +146,12 @@ public class Framework
 
   public static native void nativeClearApiPoints();
 
-  @NonNull
-  public static native @RequestType int nativeParseAndSetApiUrl(String url);
+  @NonNull public static native @RequestType int nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
   public static native @Nullable String nativeGetParsedOAuth2Code();
-  @Nullable @Size(2)
-  public static native double[] nativeGetParsedCenterLatLon();
+  @Nullable @Size(2) public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
   public static native void nativeDeactivatePopup();
@@ -199,14 +188,13 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
-  @Nullable
-  public static native RoutingInfo nativeGetRouteFollowingInfo();
+  @Nullable public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  @Nullable public static native JunctionInfo[] nativeGetRouteJunctionPoints();
 
   @Nullable
-  public static native JunctionInfo[] nativeGetRouteJunctionPoints();
-
-  @Nullable
-  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);
+  public static native final int[] nativeGenerateRouteAltitudeChartBits(
+    int width, int height, RouteAltitudeLimits routeAltitudeLimits);
 
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns
@@ -214,8 +202,7 @@ public class Framework
   // For example if C++ part wants the client to pronounce "Make a right turn." this method returns
   // an array with one string "Make a right turn.". The next call of the method returns nothing.
   // nativeGenerateTurnNotifications shall be called by the client when a new position is available.
-  @Nullable
-  public static native String[] nativeGenerateNotifications(boolean announceStreets);
+  @Nullable public static native String[] nativeGenerateNotifications(boolean announceStreets);
 
   private static native void nativeSetSpeedCamManagerMode(int mode);
 
@@ -236,15 +223,12 @@ public class Framework
 
   public static void addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
   {
-    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType,
-                                  point.mIntermediateIndex, point.mIsMyPosition,
-                                  point.mLat, point.mLon, reorderIntermediatePoints);
+    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
+      point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
   }
 
   public static native void nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                int intermediateIndex, boolean isMyPosition,
-                                                double lat, double lon,
-                                                boolean reorderIntermediatePoints);
+    int intermediateIndex, boolean isMyPosition, double lat, double lon, boolean reorderIntermediatePoints);
 
   public static native void nativeRemoveRoutePoints();
 
@@ -253,13 +237,11 @@ public class Framework
   public static native void nativeRemoveIntermediateRoutePoints();
 
   public static native boolean nativeCouldAddIntermediatePoint();
-  @NonNull
-  public static native RouteMarkData[] nativeGetRoutePoints();
+  @NonNull public static native RouteMarkData[] nativeGetRoutePoints();
 
   public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
 
-  @NonNull
-  public static native TransitRouteInfo nativeGetTransitRouteInfo();
+  @NonNull public static native TransitRouteInfo nativeGetTransitRouteInfo();
   /**
    * Registers all maps(.mwms). Adds them to the models, generates indexes and does all necessary stuff.
    */
@@ -296,11 +278,9 @@ public class Framework
 
   public static native boolean nativeIsOutdoorsLayerEnabled();
 
-  @NonNull
-  public static native MapObject nativeDeleteBookmarkFromMapObject();
+  @NonNull public static native MapObject nativeDeleteBookmarkFromMapObject();
 
-  @NonNull
-  public static native String nativeGetPoiContactUrl(int metadataType);
+  @NonNull public static native String nativeGetPoiContactUrl(int metadataType);
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 
@@ -350,8 +330,7 @@ public class Framework
 
   public static native boolean nativeShouldShowProducts();
 
-  @Nullable
-  public static native ProductsConfig nativeGetProductsConfiguration();
+  @Nullable public static native ProductsConfig nativeGetProductsConfiguration();
 
   public static native void nativeDidCloseProductsPopup(String reason);
 

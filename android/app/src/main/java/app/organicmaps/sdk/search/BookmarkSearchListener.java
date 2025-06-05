@@ -13,16 +13,12 @@ public interface BookmarkSearchListener
    * @param timestamp   Timestamp of search request.
    */
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp);
+  @Keep @SuppressWarnings("unused") void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp);
 
   /**
    * @param bookmarkIds Founded bookmark ids.
    * @param timestamp   Timestamp of search request.
    */
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp);
+  @Keep @SuppressWarnings("unused") void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp);
 }

@@ -8,24 +8,18 @@ import androidx.annotation.Nullable;
  * Represents TransitStepInfo from core.
  */
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class TransitStepInfo
+@Keep @SuppressWarnings("unused") public final class TransitStepInfo
 {
-  @NonNull
-  private final TransitStepType mType;
-  @Nullable
-  private final String mDistance;
-  @Nullable
-  private final String mDistanceUnits;
+  @NonNull private final TransitStepType mType;
+  @Nullable private final String mDistance;
+  @Nullable private final String mDistanceUnits;
   private final int mTimeInSec;
-  @Nullable
-  private final String mNumber;
+  @Nullable private final String mNumber;
   private final int mColor;
   private final int mIntermediateIndex;
 
-  private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits,
-                          int timeInSec, @Nullable String number, int color, int intermediateIndex)
+  private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits, int timeInSec,
+    @Nullable String number, int color, int intermediateIndex)
   {
     mType = TransitStepType.values()[type];
     mDistance = distance;
@@ -36,32 +30,27 @@ public final class TransitStepInfo
     mIntermediateIndex = intermediateIndex;
   }
 
-  @NonNull
-  public static TransitStepInfo intermediatePoint(int intermediateIndex)
+  @NonNull public static TransitStepInfo intermediatePoint(int intermediateIndex)
   {
     return new TransitStepInfo(TransitStepType.INTERMEDIATE_POINT.ordinal(), null, null, 0, null, 0, intermediateIndex);
   }
 
-  @NonNull
-  public static TransitStepInfo ruler(@NonNull String distance, @NonNull String distanceUnits)
+  @NonNull public static TransitStepInfo ruler(@NonNull String distance, @NonNull String distanceUnits)
   {
     return new TransitStepInfo(TransitStepType.RULER.ordinal(), distance, distanceUnits, 0, null, 0, -1);
   }
 
-  @NonNull
-  public TransitStepType getType()
+  @NonNull public TransitStepType getType()
   {
     return mType;
   }
 
-  @Nullable
-  public String getDistance()
+  @Nullable public String getDistance()
   {
     return mDistance;
   }
 
-  @Nullable
-  public String getDistanceUnits()
+  @Nullable public String getDistanceUnits()
   {
     return mDistanceUnits;
   }
@@ -71,8 +60,7 @@ public final class TransitStepInfo
     return mTimeInSec;
   }
 
-  @Nullable
-  public String getNumber()
+  @Nullable public String getNumber()
   {
     return mNumber;
   }

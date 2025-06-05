@@ -5,7 +5,6 @@ import static app.organicmaps.util.ConnectionState.Type.NONE;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +17,7 @@ public enum ConnectionState
   private static final byte CONNECTION_NONE = 0;
   private static final byte CONNECTION_WIFI = 1;
   private static final byte CONNECTION_WWAN = 2;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private Context mContext;
 
   public enum Type
   {
@@ -59,11 +56,9 @@ public enum ConnectionState
     return info != null && info.getType() == networkType && info.isConnected();
   }
 
-  @Nullable
-  public NetworkInfo getActiveNetwork()
+  @Nullable public NetworkInfo getActiveNetwork()
   {
-    ConnectivityManager manager =
-        ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
+    ConnectivityManager manager = ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
     if (manager == null)
       return null;
 
@@ -92,15 +87,12 @@ public enum ConnectionState
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static byte getConnectionState()
+  @Keep @SuppressWarnings("unused") public static byte getConnectionState()
   {
     return INSTANCE.requestCurrentType().getNativeRepresentation();
   }
 
-  @NonNull
-  public Type requestCurrentType()
+  @NonNull public Type requestCurrentType()
   {
     for (ConnectionState.Type each : ConnectionState.Type.values())
     {

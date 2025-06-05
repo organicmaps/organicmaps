@@ -16,8 +16,7 @@ public enum MapStyle
     this.value = value;
   }
 
-  @NonNull
-  public static MapStyle get()
+  @NonNull public static MapStyle get()
   {
     return valueOf(nativeGet());
   }
@@ -38,8 +37,7 @@ public enum MapStyle
     nativeMark(mapStyle.value);
   }
 
-  @NonNull
-  public static MapStyle valueOf(int value)
+  @NonNull public static MapStyle valueOf(int value)
   {
     for (MapStyle mapStyle : MapStyle.values())
     {

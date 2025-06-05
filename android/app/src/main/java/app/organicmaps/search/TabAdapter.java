@@ -4,20 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.SparseArray;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.util.Graphics;
 import app.organicmaps.util.Config;
-
+import app.organicmaps.util.Graphics;
+import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,31 +21,25 @@ class TabAdapter extends FragmentPagerAdapter
 {
   enum Tab
   {
-    HISTORY
-    {
-      @Override
-      public int getTitleRes()
+    HISTORY {
+      @Override public int getTitleRes()
       {
         return R.string.history;
       }
 
-      @Override
-      public Class<? extends Fragment> getFragmentClass()
+      @Override public Class<? extends Fragment> getFragmentClass()
       {
         return SearchHistoryFragment.class;
       }
     },
 
-    CATEGORIES
-    {
-      @Override
-      public int getTitleRes()
+    CATEGORIES {
+      @Override public int getTitleRes()
       {
         return R.string.categories;
       }
 
-      @Override
-      public Class<? extends Fragment> getFragmentClass()
+      @Override public Class<? extends Fragment> getFragmentClass()
       {
         return SearchCategoriesFragment.class;
       }
@@ -71,8 +61,7 @@ class TabAdapter extends FragmentPagerAdapter
       super(tabs);
     }
 
-    @Override
-    public void onPageSelected(int position)
+    @Override public void onPageSelected(int position)
     {
       super.onPageSelected(position);
       if (mTabSelectedListener != null)
@@ -82,8 +71,7 @@ class TabAdapter extends FragmentPagerAdapter
 
   private static class OnTabSelectedListenerForViewPager extends TabLayout.ViewPagerOnTabSelectedListener
   {
-    @NonNull
-    private final Context mContext;
+    @NonNull private final Context mContext;
 
     OnTabSelectedListenerForViewPager(ViewPager viewPager)
     {
@@ -91,8 +79,7 @@ class TabAdapter extends FragmentPagerAdapter
       mContext = viewPager.getContext();
     }
 
-    @Override
-    public void onTabSelected(TabLayout.Tab tab)
+    @Override public void onTabSelected(TabLayout.Tab tab)
     {
       SharedPreferences.Editor editor = MwmApplication.prefs(mContext).edit();
       editor.putInt(Config.KEY_PREF_LAST_SEARCHED_TAB, tab.getPosition());
@@ -101,8 +88,7 @@ class TabAdapter extends FragmentPagerAdapter
       Graphics.tint(mContext, tab.getIcon(), androidx.appcompat.R.attr.colorAccent);
     }
 
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab)
+    @Override public void onTabUnselected(TabLayout.Tab tab)
     {
       super.onTabUnselected(tab);
       Graphics.tint(mContext, tab.getIcon());
@@ -120,7 +106,7 @@ class TabAdapter extends FragmentPagerAdapter
     this.mTabs = tabs;
     for (Tab tab : Tab.values())
     {
-      if (tab==tab.HISTORY && !Config.isSearchHistoryEnabled())
+      if (tab == tab.HISTORY && !Config.isSearchHistoryEnabled())
         continue;
       mClasses.add(tab.getFragmentClass());
     }
@@ -167,18 +153,18 @@ class TabAdapter extends FragmentPagerAdapter
     mTabSelectedListener = listener;
   }
 
-  @Override
-  public Fragment getItem(int position)
+  @Override public Fragment getItem(int position)
   {
     Fragment res = mFragments.get(position);
     if (res == null || res.getClass() != mClasses.get(position))
     {
-      //noinspection TryWithIdenticalCatches
+      // noinspection TryWithIdenticalCatches
       try
       {
         res = mClasses.get(position).newInstance();
         mFragments.put(position, res);
-      } catch (InstantiationException ignored)
+      }
+      catch (InstantiationException ignored)
       {}
       catch (IllegalAccessException ignored)
       {}
@@ -187,8 +173,7 @@ class TabAdapter extends FragmentPagerAdapter
     return res;
   }
 
-  @Override
-  public int getCount()
+  @Override public int getCount()
   {
     return mClasses.size();
   }

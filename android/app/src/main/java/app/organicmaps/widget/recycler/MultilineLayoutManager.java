@@ -1,7 +1,6 @@
 package app.organicmaps.widget.recycler;
 
 import android.view.View;
-
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,15 +15,13 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
     reverseLayout = layoutDirection == View.LAYOUT_DIRECTION_RTL;
   }
 
-  @Override
-  public RecyclerView.LayoutParams generateDefaultLayoutParams()
+  @Override public RecyclerView.LayoutParams generateDefaultLayoutParams()
   {
-    return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
-                                         RecyclerView.LayoutParams.WRAP_CONTENT);
+    return new RecyclerView.LayoutParams(
+      RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
   }
 
-  @Override
-  public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state)
+  @Override public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state)
   {
     detachAndScrapAttachedViews(recycler);
 
@@ -61,8 +58,8 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
         lineHeight = 0;
       }
       if (reverseLayout)
-        layoutDecoratedWithMargins(child, getWidth() - widthUsed - width, heightUsed,
-                                   getWidth() - widthUsed, heightUsed + height);
+        layoutDecoratedWithMargins(
+          child, getWidth() - widthUsed - width, heightUsed, getWidth() - widthUsed, heightUsed + height);
       else
         layoutDecorated(child, widthUsed, heightUsed, widthUsed + width, heightUsed + height);
       widthUsed += width;
@@ -89,7 +86,6 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
   {
     void squeezeTo(@Dimension int width);
 
-    @Dimension
-    int getMinimumAcceptableSize();
+    @Dimension int getMinimumAcceptableSize();
   }
 }

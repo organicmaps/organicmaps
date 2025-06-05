@@ -2,33 +2,25 @@ package app.organicmaps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.R;
 
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public class BookmarkCategory implements Parcelable
+@Keep @SuppressWarnings("unused") public class BookmarkCategory implements Parcelable
 {
   private final long mId;
-  @NonNull
-  private final String mName;
-  @NonNull
-  private final String mAnnotation;
-  @NonNull
-  private final String mDescription;
+  @NonNull private final String mName;
+  @NonNull private final String mAnnotation;
+  @NonNull private final String mDescription;
   private final int mTracksCount;
   private final int mBookmarksCount;
   private boolean mIsVisible;
 
-  public BookmarkCategory(long id, @NonNull String name, @NonNull String annotation,
-                          @NonNull String description, int tracksCount, int bookmarksCount,
-                           boolean isVisible)
+  public BookmarkCategory(long id, @NonNull String name, @NonNull String annotation, @NonNull String description,
+    int tracksCount, int bookmarksCount, boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -39,19 +31,19 @@ public class BookmarkCategory implements Parcelable
     mIsVisible = isVisible;
   }
 
-  @Override
-  public boolean equals(Object o)
+  @Override public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
     BookmarkCategory that = (BookmarkCategory) o;
     return mId == that.mId;
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
-    return (int)(mId ^ (mId >>> 32));
+    return (int) (mId ^ (mId >>> 32));
   }
 
   public long getId()
@@ -59,8 +51,7 @@ public class BookmarkCategory implements Parcelable
     return mId;
   }
 
-  @NonNull
-  public String getName()
+  @NonNull public String getName()
   {
     return mName;
   }
@@ -90,20 +81,17 @@ public class BookmarkCategory implements Parcelable
     return getBookmarksCount() + getTracksCount();
   }
 
-  @NonNull
-  public String getAnnotation()
+  @NonNull public String getAnnotation()
   {
     return mAnnotation;
   }
 
-  @NonNull
-  public String getDescription()
+  @NonNull public String getDescription()
   {
     return mDescription;
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
     final StringBuilder sb = new StringBuilder("BookmarkCategory{");
     sb.append("mId=").append(mId);
@@ -118,14 +106,12 @@ public class BookmarkCategory implements Parcelable
     return sb.toString();
   }
 
-  @Override
-  public int describeContents()
+  @Override public int describeContents()
   {
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
+  @Override public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeLong(this.mId);
     dest.writeString(this.mName);
@@ -147,16 +133,13 @@ public class BookmarkCategory implements Parcelable
     this.mIsVisible = in.readByte() != 0;
   }
 
-  public static final Creator<BookmarkCategory> CREATOR = new Creator<>()
-  {
-    @Override
-    public BookmarkCategory createFromParcel(Parcel source)
+  public static final Creator<BookmarkCategory> CREATOR = new Creator<>() {
+    @Override public BookmarkCategory createFromParcel(Parcel source)
     {
       return new BookmarkCategory(source);
     }
 
-    @Override
-    public BookmarkCategory[] newArray(int size)
+    @Override public BookmarkCategory[] newArray(int size)
     {
       return new BookmarkCategory[size];
     }
@@ -178,14 +161,12 @@ public class BookmarkCategory implements Parcelable
       mDrawableResId = drawableResId;
     }
 
-    @DrawableRes
-    public int getDrawableResId()
+    @DrawableRes public int getDrawableResId()
     {
       return mDrawableResId;
     }
 
-    @StringRes
-    public int getNameResId()
+    @StringRes public int getNameResId()
     {
       return mResId;
     }

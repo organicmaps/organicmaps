@@ -2,34 +2,26 @@ package app.organicmaps.maplayer.traffic.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-@SuppressWarnings("unused")
-public class TrafficButtonController implements TrafficManager.TrafficCallback
+@SuppressWarnings("unused") public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
-  @NonNull
-  private final TrafficButton mButton;
-  @NonNull
-  private final Activity mActivity;
-  @Nullable
-  private Dialog mDialog;
+  @NonNull private final TrafficButton mButton;
+  @NonNull private final Activity mActivity;
+  @Nullable private Dialog mDialog;
 
-  public TrafficButtonController(@NonNull TrafficButton button,
-                                 @NonNull Activity activity)
+  public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
   {
     mButton = button;
     mActivity = activity;
   }
 
-  @Override
-  public void onEnabled()
+  @Override public void onEnabled()
   {
     turnOn();
   }
@@ -84,39 +76,34 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     mButton.hide();
   }
 
-  @Override
-  public void onWaitingData()
+  @Override public void onWaitingData()
   {
     mButton.startWaitingAnimation();
   }
 
-  @Override
-  public void onOutdated()
+  @Override public void onOutdated()
   {
     mButton.markAsOutdated();
   }
 
-  @Override
-  public void onNoData()
+  @Override public void onNoData()
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_data_unavailable);
+      mActivity.findViewById(R.id.navigation_frame), R.string.traffic_data_unavailable);
   }
 
-  @Override
-  public void onNetworkError()
+  @Override public void onNetworkError()
   {
     if (mDialog != null && mDialog.isShowing())
       return;
 
     mDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.common_check_internet_connection_dialog)
-        .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
-        .setCancelable(true)
-        .setOnCancelListener(dialog -> TrafficManager.INSTANCE.setEnabled(false))
-        .show();
+                .setMessage(R.string.common_check_internet_connection_dialog)
+                .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
+                .setCancelable(true)
+                .setOnCancelListener(dialog -> TrafficManager.INSTANCE.setEnabled(false))
+                .show();
   }
 
   public void destroy()
@@ -125,21 +112,17 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
       mDialog.cancel();
   }
 
-  @Override
-  public void onExpiredData()
+  @Override public void onExpiredData()
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_update_maps_text);
+      mActivity.findViewById(R.id.navigation_frame), R.string.traffic_update_maps_text);
   }
 
-  @Override
-  public void onExpiredApp()
+  @Override public void onExpiredApp()
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_update_app);
+      mActivity.findViewById(R.id.navigation_frame), R.string.traffic_update_app);
   }
 }

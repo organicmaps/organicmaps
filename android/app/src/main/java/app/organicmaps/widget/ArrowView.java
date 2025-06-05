@@ -3,7 +3,6 @@ package app.organicmaps.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -25,8 +24,7 @@ public class ArrowView extends AppCompatImageView
     invalidate();
   }
 
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh)
+  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     super.onSizeChanged(w, h, oldw, oldh);
 
@@ -34,8 +32,7 @@ public class ArrowView extends AppCompatImageView
     mHeight = getHeight();
   }
 
-  @Override
-  protected void onDraw(@NonNull Canvas canvas)
+  @Override protected void onDraw(@NonNull Canvas canvas)
   {
     canvas.save();
     canvas.rotate(mAngle, mWidth / 2, mHeight / 2);
@@ -43,4 +40,3 @@ public class ArrowView extends AppCompatImageView
     canvas.restore();
   }
 }
-

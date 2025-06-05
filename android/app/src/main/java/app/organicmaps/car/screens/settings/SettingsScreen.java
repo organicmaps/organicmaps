@@ -12,7 +12,6 @@ import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
@@ -39,9 +38,7 @@ public class SettingsScreen extends BaseMapScreen
     super(carContext, surfaceRenderer);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -49,8 +46,7 @@ public class SettingsScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -58,21 +54,20 @@ public class SettingsScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createSettingsListTemplate()
+  @NonNull private ListTemplate createSettingsListTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.addItem(createThemeItem());
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(create3dBuildingsItem());
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
-    builder.addItem(createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
+    builder.addItem(
+      createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
     return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
-  @NonNull
-  private Item createThemeItem()
+  @NonNull private Item createThemeItem()
   {
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.pref_map_style_title));
@@ -82,31 +77,31 @@ public class SettingsScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Item createRoutingOptionsItem()
+  @NonNull private Item createRoutingOptionsItem()
   {
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.driving_options_title));
-    builder.setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::setResult));
+    builder.setOnClickListener(()
+                                 -> getScreenManager().pushForResult(
+                                   new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::setResult));
     builder.setBrowsable(true);
     return builder.build();
   }
 
-  @NonNull
-  private Item create3dBuildingsItem()
+  @NonNull private Item create3dBuildingsItem()
   {
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
-    final OnClickListener listener = () -> {
+    final OnClickListener listener = () ->
+    {
       Framework.nativeSet3dMode(_3d.enabled, !_3d.buildings);
       invalidate();
     };
     return Toggle.create(getCarContext(), R.string.pref_map_3d_buildings_title, listener, _3d.buildings);
   }
 
-  @NonNull
-  private Item createHelpItem()
+  @NonNull private Item createHelpItem()
   {
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.help));
@@ -119,7 +114,8 @@ public class SettingsScreen extends BaseMapScreen
   private Row createSharedPrefsToggle(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
   {
     final boolean enabled = getter.get();
-    final OnClickListener listener = () -> {
+    final OnClickListener listener = () ->
+    {
       setter.set(!enabled);
       invalidate();
     };

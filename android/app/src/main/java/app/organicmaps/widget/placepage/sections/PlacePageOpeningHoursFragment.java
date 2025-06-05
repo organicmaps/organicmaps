@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -44,14 +42,14 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(
+    @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_opening_hours_fragment, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     mFrame = view;
@@ -69,7 +67,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     if (closedTimespans == null || closedTimespans.length == 0)
       UiUtils.clearTextAndHide(mTodayNonBusinessTime);
     else
-      UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
+      UiUtils.setTextAndShow(
+        mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
   }
 
   private void refreshTodayOpeningHours(String label, String openTime, @ColorInt int color)
@@ -95,7 +94,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
     final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     mFrame.setOnLongClickListener((v) -> {
-      PlacePageUtils.copyToClipboard(requireContext(), mFrame, TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
+      PlacePageUtils.copyToClipboard(
+        requireContext(), mFrame, TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));
       return true;
     });
 
@@ -170,29 +170,27 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
         // Show that place is closed today.
         if (!containsCurrentWeekday)
         {
-          refreshTodayOpeningHours(resources.getString(R.string.day_off_today), ContextCompat.getColor(requireContext(), R.color.base_red));
+          refreshTodayOpeningHours(
+            resources.getString(R.string.day_off_today), ContextCompat.getColor(requireContext(), R.color.base_red));
           UiUtils.hide(mTodayNonBusinessTime);
         }
       }
     }
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
   }
 
-  @Override
-  public void onChanged(@Nullable MapObject mapObject)
+  @Override public void onChanged(@Nullable MapObject mapObject)
   {
     if (mapObject != null)
       refreshOpeningHours(mapObject);

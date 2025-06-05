@@ -3,12 +3,10 @@ package app.organicmaps.car.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
 import androidx.car.app.CarContext;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
@@ -28,38 +26,33 @@ public final class ThemeUtils
       mPrefsKeyId = prefsKeyId;
     }
 
-    @StringRes
-    public int getTitleId()
+    @StringRes public int getTitleId()
     {
       return mTitleId;
     }
 
-    @StringRes
-    public int getPrefsKeyId()
+    @StringRes public int getPrefsKeyId()
     {
       return mPrefsKeyId;
     }
 
-    @StringRes
-    private final int mTitleId;
-    @StringRes
-    private final int mPrefsKeyId;
+    @StringRes private final int mTitleId;
+    @StringRes private final int mPrefsKeyId;
   }
 
   private static final String ANDROID_AUTO_PREFERENCES_FILE_KEY = "ANDROID_AUTO_PREFERENCES_FILE_KEY";
   private static final String THEME_KEY = "ANDROID_AUTO_THEME_MODE";
 
-  @UiThread
-  public static void update(@NonNull CarContext context)
+  @UiThread public static void update(@NonNull CarContext context)
   {
     final ThemeMode oldThemeMode = getThemeMode(context);
     update(context, oldThemeMode);
   }
 
-  @UiThread
-  public static void update(@NonNull CarContext context, @NonNull ThemeMode oldThemeMode)
+  @UiThread public static void update(@NonNull CarContext context, @NonNull ThemeMode oldThemeMode)
   {
-    final ThemeMode newThemeMode = oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
+    final ThemeMode newThemeMode =
+      oldThemeMode == ThemeMode.AUTO ? (context.isDarkMode() ? ThemeMode.NIGHT : ThemeMode.LIGHT) : oldThemeMode;
 
     MapStyle newMapStyle;
     if (newThemeMode == ThemeMode.NIGHT)
@@ -85,8 +78,7 @@ public final class ThemeUtils
     update(context, themeMode);
   }
 
-  @NonNull
-  public static ThemeMode getThemeMode(@NonNull CarContext context)
+  @NonNull public static ThemeMode getThemeMode(@NonNull CarContext context)
   {
     final String autoTheme = context.getString(R.string.theme_auto);
     final String lightTheme = context.getString(R.string.theme_default);
@@ -103,8 +95,7 @@ public final class ThemeUtils
       throw new IllegalArgumentException("Unsupported value");
   }
 
-  @NonNull
-  private static SharedPreferences getSharedPreferences(@NonNull CarContext context)
+  @NonNull private static SharedPreferences getSharedPreferences(@NonNull CarContext context)
   {
     return context.getSharedPreferences(ANDROID_AUTO_PREFERENCES_FILE_KEY, Context.MODE_PRIVATE);
   }

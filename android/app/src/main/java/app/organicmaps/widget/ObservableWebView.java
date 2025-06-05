@@ -35,16 +35,14 @@ public class ObservableWebView extends WebView
     mListener = listener;
   }
 
-  @Override
-  protected void onScrollChanged(int left, int top, int oldLeft, int oldTop)
+  @Override protected void onScrollChanged(int left, int top, int oldLeft, int oldTop)
   {
     super.onScrollChanged(left, top, oldLeft, oldTop);
     if (mListener != null)
       mListener.onScroll(left, top);
   }
 
-  @Override
-  public void invalidate()
+  @Override public void invalidate()
   {
     super.invalidate();
     if (!mContentReady && getContentHeight() > 0)

@@ -10,52 +10,37 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 
 public class SpeedLimitView extends View
 {
   private interface DefaultValues
   {
-    @ColorInt
-    int BACKGROUND_COLOR = Color.WHITE;
-    @ColorInt
-    int BORDER_COLOR = Color.RED;
-    @ColorInt
-    int ALERT_COLOR = Color.RED;
-    @ColorInt
-    int TEXT_COLOR = Color.BLACK;
-    @ColorInt
-    int TEXT_ALERT_COLOR = Color.WHITE;
+    @ColorInt int BACKGROUND_COLOR = Color.WHITE;
+    @ColorInt int BORDER_COLOR = Color.RED;
+    @ColorInt int ALERT_COLOR = Color.RED;
+    @ColorInt int TEXT_COLOR = Color.BLACK;
+    @ColorInt int TEXT_ALERT_COLOR = Color.WHITE;
 
     float BORDER_WIDTH_RATIO = 0.1f;
   }
 
-  @ColorInt
-  private final int mBackgroundColor;
+  @ColorInt private final int mBackgroundColor;
 
-  @ColorInt
-  private final int mBorderColor;
+  @ColorInt private final int mBorderColor;
 
-  @ColorInt
-  private final int mAlertColor;
+  @ColorInt private final int mAlertColor;
 
-  @ColorInt
-  private final int mTextColor;
+  @ColorInt private final int mTextColor;
 
-  @ColorInt
-  private final int mTextAlertColor;
+  @ColorInt private final int mTextAlertColor;
 
-  @NonNull
-  private final Paint mSignBackgroundPaint;
-  @NonNull
-  private final Paint mSignBorderPaint;
-  @NonNull
-  private final Paint mTextPaint;
+  @NonNull private final Paint mSignBackgroundPaint;
+  @NonNull private final Paint mSignBorderPaint;
+  @NonNull private final Paint mTextPaint;
 
   private float mWidth;
   private float mHeight;
@@ -64,22 +49,22 @@ public class SpeedLimitView extends View
   private float mBorderWidth;
 
   private int mSpeedLimit = 0;
-  @NonNull
-  private String mSpeedLimitStr = "0";
+  @NonNull private String mSpeedLimitStr = "0";
   private boolean mAlert = false;
 
   public SpeedLimitView(Context context, @Nullable AttributeSet attrs)
   {
     super(context, attrs);
 
-    try (TypedArray data = context.getTheme()
-        .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
+    try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
-      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
+      mBackgroundColor =
+        data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
       mBorderColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor, DefaultValues.BORDER_COLOR);
       mAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor, DefaultValues.ALERT_COLOR);
       mTextColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextColor, DefaultValues.TEXT_COLOR);
-      mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
+      mTextAlertColor =
+        data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
       if (isInEditMode())
       {
         mSpeedLimit = data.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
@@ -118,8 +103,7 @@ public class SpeedLimitView extends View
     invalidate();
   }
 
-  @Override
-  protected void onDraw(@NonNull Canvas canvas)
+  @Override protected void onDraw(@NonNull Canvas canvas)
   {
     super.onDraw(canvas);
 
@@ -162,8 +146,7 @@ public class SpeedLimitView extends View
     canvas.drawText(mSpeedLimitStr, cx, textY, mTextPaint);
   }
 
-  @Override
-  public boolean onTouchEvent(@NonNull MotionEvent event)
+  @Override public boolean onTouchEvent(@NonNull MotionEvent event)
   {
     final float cx = mWidth / 2;
     final float cy = mHeight / 2;
@@ -175,15 +158,13 @@ public class SpeedLimitView extends View
     return false;
   }
 
-  @Override
-  public boolean performClick()
+  @Override public boolean performClick()
   {
     super.performClick();
     return false;
   }
 
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh)
+  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     super.onSizeChanged(w, h, oldw, oldh);
 

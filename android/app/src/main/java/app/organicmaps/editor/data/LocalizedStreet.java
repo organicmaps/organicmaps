@@ -4,9 +4,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class LocalizedStreet
+@Keep @SuppressWarnings("unused") public class LocalizedStreet
 {
   public final String defaultName;
   public final String localizedName;

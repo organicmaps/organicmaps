@@ -9,7 +9,6 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -17,20 +16,18 @@ import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
 import androidx.core.location.LocationManagerCompat;
-
-import org.chromium.base.ObserverList;
-
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.log.Logger;
+import org.chromium.base.ObserverList;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
@@ -42,19 +39,16 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
 
-  @NonNull
-  private final Context mContext;
+  @NonNull private final Context mContext;
 
   private static final String TAG = LocationState.LOCATION_TAG;
 
   private final ObserverList<LocationListener> mListeners = new ObserverList<>();
   private final ObserverList.RewindableIterator<LocationListener> mListenersIterator = mListeners.rewindableIterator();
 
-  @Nullable
-  private Location mSavedLocation;
+  @Nullable private Location mSavedLocation;
   private MapObject mMyPosition;
-  @NonNull
-  private BaseLocationProvider mLocationProvider;
+  @NonNull private BaseLocationProvider mLocationProvider;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
@@ -62,28 +56,23 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
 
   @NonNull
-  private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
-  {
-    @Override
-    public void onStarted()
+  private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback() {
+    @Override public void onStarted()
     {
       Logger.d(TAG);
     }
 
-    @Override
-    public void onStopped()
+    @Override public void onStopped()
     {
       Logger.d(TAG);
     }
 
-    @Override
-    public void onFirstFix(int ttffMillis)
+    @Override public void onFirstFix(int ttffMillis)
     {
       Logger.d(TAG, "ttffMillis = " + ttffMillis);
     }
 
-    @Override
-    public void onSatelliteStatusChanged(@NonNull GnssStatusCompat status)
+    @Override public void onSatelliteStatusChanged(@NonNull GnssStatusCompat status)
     {
       int used = 0;
       boolean fixed = false;
@@ -99,8 +88,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
   };
 
-  @NonNull
-  public static LocationHelper from(@NonNull Context context)
+  @NonNull public static LocationHelper from(@NonNull Context context)
   {
     return MwmApplication.from(context).getLocationHelper();
   }
@@ -115,8 +103,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * @return MapObject.MY_POSITION, null if location is not yet determined or "My position" button is switched off.
    */
-  @Nullable
-  public MapObject getMyPosition()
+  @Nullable public MapObject getMyPosition()
   {
     if (!isActive())
     {
@@ -128,8 +115,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = MapObject.createMapObject(FeatureId.EMPTY, MapObject.MY_POSITION, "", "",
-                                  mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
+      mMyPosition = MapObject.createMapObject(
+        FeatureId.EMPTY, MapObject.MY_POSITION, "", "", mSavedLocation.getLatitude(), mSavedLocation.getLongitude());
 
     return mMyPosition;
   }
@@ -138,8 +125,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
    * Obtains last known location.
    * @return {@code null} if no location is saved.
    */
-  @Nullable
-  public Location getSavedLocation() { return mSavedLocation; }
+  @Nullable public Location getSavedLocation()
+  {
+    return mSavedLocation;
+  }
 
   /**
    * Indicates about whether a location provider is polling location updates right now or not.
@@ -170,13 +159,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    LocationState.nativeLocationUpdated(mSavedLocation.getTime(),
-        mSavedLocation.getLatitude(),
-        mSavedLocation.getLongitude(),
-        mSavedLocation.getAccuracy(),
-        mSavedLocation.getAltitude(),
-        mSavedLocation.getSpeed(),
-        mSavedLocation.getBearing());
+    LocationState.nativeLocationUpdated(mSavedLocation.getTime(), mSavedLocation.getLatitude(),
+      mSavedLocation.getLongitude(), mSavedLocation.getAccuracy(), mSavedLocation.getAltitude(),
+      mSavedLocation.getSpeed(), mSavedLocation.getBearing());
   }
 
   private void notifyLocationUpdateTimeout()
@@ -194,8 +179,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       mListenersIterator.next().onLocationUpdateTimeout();
   }
 
-  @Override
-  public void onLocationChanged(@NonNull Location location)
+  @Override public void onLocationChanged(@NonNull Location location)
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
 
@@ -213,7 +197,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     if (mSavedLocation != null)
     {
-      if (!LocationUtils.isFromFusedProvider(location) && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      if (!LocationUtils.isFromFusedProvider(location)
+          && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
       {
         Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
         return;
@@ -256,8 +241,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void onFusedLocationUnsupported()
   {
     // Try to downgrade to the native provider first and restart the service before notifying the user.
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
-        " downgrading to use native provider");
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported,"
+                    + " downgrading to use native provider");
     mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
     mActive = true;
@@ -265,8 +250,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   // RouteSimulationProvider doesn't really require location permissions.
-  @SuppressLint("MissingPermission")
-  public void startNavigationSimulation(JunctionInfo[] points)
+  @SuppressLint("MissingPermission") public void startNavigationSimulation(JunctionInfo[] points)
   {
     Logger.i(TAG);
     mLocationProvider.stop();
@@ -275,12 +259,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.start(mInterval);
   }
 
-  @Override
-  @UiThread
-  public void onLocationDisabled()
+  @Override @UiThread public void onLocationDisabled()
   {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName()
+                    + " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
     stop();
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
@@ -295,8 +277,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
    *
    * @param listener    listener to be registered.
    */
-  @UiThread
-  public void addListener(@NonNull LocationListener listener)
+  @UiThread public void addListener(@NonNull LocationListener listener)
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
@@ -309,8 +290,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
    * Removes given location listener.
    * @param listener listener to unregister.
    */
-  @UiThread
-  public void removeListener(@NonNull LocationListener listener)
+  @UiThread public void removeListener(@NonNull LocationListener listener)
   {
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
     mListeners.removeObserver(listener);
@@ -327,8 +307,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
     return switch (mode)
     {
-      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
-          INTERVAL_FOLLOW_MS;
+      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE -> INTERVAL_FOLLOW_MS;
       case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
       default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
     };
@@ -337,8 +316,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * Restart the location with a new refresh interval if changed.
    */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void restartWithNewMode()
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}) public void restartWithNewMode()
   {
     if (!isActive())
     {
@@ -359,8 +337,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   /**
    * Starts polling location updates.
    */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void start()
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}) public void start()
   {
     if (isActive())
     {
@@ -376,8 +353,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     final long oldInterval = mInterval;
     mInterval = calcLocationUpdatesInterval();
-    Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
+    Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " mInFirstRun = " + mInFirstRun
+                    + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
     mLocationProvider.start(mInterval);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
@@ -458,8 +435,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (!LocationUtils.checkFineLocationPermission(mContext))
       return;
     final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-    LocationManagerCompat.registerGnssStatusCallback(locationManager, ContextCompat.getMainExecutor(mContext),
-        mGnssStatusCallback);
+    LocationManagerCompat.registerGnssStatusCallback(
+      locationManager, ContextCompat.getMainExecutor(mContext), mGnssStatusCallback);
   }
 
   private void unsubscribeFromGnssStatusUpdates()
@@ -468,21 +445,18 @@ public class LocationHelper implements BaseLocationProvider.Listener
     LocationManagerCompat.unregisterGnssStatusCallback(locationManager, mGnssStatusCallback);
   }
 
-  @UiThread
-  public boolean isInFirstRun()
+  @UiThread public boolean isInFirstRun()
   {
     return mInFirstRun;
   }
 
-  @UiThread
-  public void onEnteredIntoFirstRun()
+  @UiThread public void onEnteredIntoFirstRun()
   {
     Logger.i(TAG);
     mInFirstRun = true;
   }
 
-  @UiThread
-  public void onExitFromFirstRun()
+  @UiThread public void onExitFromFirstRun()
   {
     Logger.i(TAG);
     if (!mInFirstRun)

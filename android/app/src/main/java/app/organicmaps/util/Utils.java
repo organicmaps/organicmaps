@@ -27,7 +27,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.DimenRes;
 import androidx.annotation.Keep;
@@ -46,7 +45,6 @@ import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -55,22 +53,17 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Map;
 
-@Keep
-public class Utils
+@Keep public class Utils
 {
   private static final String TAG = Utils.class.getSimpleName();
 
-  @StringRes
-  public static final int INVALID_ID = 0;
+  @StringRes public static final int INVALID_ID = 0;
   public static final String UTF_8 = "utf-8";
   public static final String TEXT_HTML = "text/html; charset=utf-8";
   public static final String ZIP_MIME_TYPE = "application/x-zip";
   public static final String EMAIL_MIME_TYPE = "message/rfc822";
 
-
-  private Utils()
-  {
-  }
+  private Utils() {}
 
   /**
    * Enable to keep screen on.
@@ -128,8 +121,8 @@ public class Utils
     showSnackbar(context, view, null, messageResId);
   }
 
-  public static void showSnackbar(@NonNull Context context, @NonNull View view,
-                                  @Nullable View viewAbove, int messageResId)
+  public static void showSnackbar(
+    @NonNull Context context, @NonNull View view, @Nullable View viewAbove, int messageResId)
   {
     final String message = context.getString(messageResId);
     if (viewAbove == null)
@@ -170,13 +163,14 @@ public class Utils
 
   public static void checkNotNull(Object object)
   {
-    if (null == object) throw new NullPointerException("Argument here must not be NULL");
+    if (null == object)
+      throw new NullPointerException("Argument here must not be NULL");
   }
 
   public static void copyTextToClipboard(Context context, String text)
   {
     final android.content.ClipboardManager clipboard =
-        (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+      (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     final ClipData clip = ClipData.newPlainText("Organic Maps: " + text, text);
     clipboard.setPrimaryClip(clip);
   }
@@ -188,13 +182,12 @@ public class Utils
     if (map.isEmpty())
       return "[]";
 
-
     String joined = "";
     for (final K key : map.keySet())
     {
       final String keyVal = key + "=" + map.get(key);
       if (!joined.isEmpty())
-        joined = TextUtils.join(",", new Object[]{joined, keyVal});
+        joined = TextUtils.join(",", new Object[] {joined, keyVal});
       else
         joined = keyVal;
     }
@@ -204,9 +197,8 @@ public class Utils
 
   public static Uri buildMailUri(String to, String subject, String body)
   {
-    String uriString = Constants.Url.MAILTO_SCHEME + Uri.encode(to) +
-        Constants.Url.MAIL_SUBJECT + Uri.encode(subject) +
-        Constants.Url.MAIL_BODY + Uri.encode(body);
+    String uriString = Constants.Url.MAILTO_SCHEME + Uri.encode(to) + Constants.Url.MAIL_SUBJECT + Uri.encode(subject)
+                     + Constants.Url.MAIL_BODY + Uri.encode(body);
 
     return Uri.parse(uriString);
   }
@@ -220,7 +212,8 @@ public class Utils
     try
     {
       activity.startActivity(marketIntent);
-    } catch (ActivityNotFoundException e)
+    }
+    catch (ActivityNotFoundException e)
     {
       Logger.e(TAG, "Failed to start activity", e);
     }
@@ -233,7 +226,8 @@ public class Utils
       // Exception is thrown if we don't have installed Facebook application.
       getPackageInfo(activity.getPackageManager(), Constants.Package.FB_PACKAGE, 0);
       activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_OM_COMMUNITY_NATIVE)));
-    } catch (final Exception e)
+    }
+    catch (final Exception e)
     {
       activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_OM_COMMUNITY_HTTP)));
     }
@@ -245,9 +239,8 @@ public class Utils
       return;
 
     final Intent intent = new Intent(Intent.ACTION_VIEW);
-    Uri uri = isHttpOrHttpsScheme(url)
-               ? Uri.parse(url)
-               : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
+    Uri uri =
+      isHttpOrHttpsScheme(url) ? Uri.parse(url) : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
     intent.setData(uri);
     try
     {
@@ -316,17 +309,21 @@ public class Utils
   /**
    * @param subject could be an empty string
    */
-  public static void sendBugReport(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity, @NonNull String subject, @NonNull String body)
+  public static void sendBugReport(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher,
+    @NonNull Activity activity, @NonNull String subject, @NonNull String body)
   {
     subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, subject, body, Constants.Email.SUPPORT));
+    LogsManager.INSTANCE.zipLogs(
+      new SupportInfoWithLogsCallback(launcher, activity, subject, body, Constants.Email.SUPPORT));
   }
 
-  // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
-  public static void sendFeedback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity)
+  // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity,
+  // etc.)
+  public static void sendFeedback(
+    @NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity)
   {
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "",
-                                                                 Constants.Email.SUPPORT));
+    LogsManager.INSTANCE.zipLogs(
+      new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "", Constants.Email.SUPPORT));
   }
 
   public static void navigateToParent(@NonNull Activity activity)
@@ -337,24 +334,24 @@ public class Utils
       NavUtils.navigateUpFromSameTask(activity);
   }
 
-  public static SpannableStringBuilder formatTime(Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
+  public static SpannableStringBuilder formatTime(
+    Context context, @DimenRes int size, @DimenRes int units, String dimension, String unitText)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(dimension).append("\u00A0").append(unitText);
-    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, size), false), 0, dimension.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, units), false), dimension.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, size), false), 0, dimension.length(),
+      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, units), false), dimension.length(), res.length(),
+      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
   }
 
-  @NonNull
-  public static Spannable formatDistance(Context context, @NonNull Distance distance)
+  @NonNull public static Spannable formatDistance(Context context, @NonNull Distance distance)
   {
     final SpannableStringBuilder res = new SpannableStringBuilder(distance.toString(context));
-    res.setSpan(
-        new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_number), false),
-        0, distance.mDistanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    res.setSpan(
-        new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_dimension), false),
-        distance.mDistanceStr.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_number), false), 0,
+      distance.mDistanceStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    res.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(context, R.dimen.text_size_nav_dimension), false),
+      distance.mDistanceStr.length(), res.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return res;
   }
 
@@ -368,7 +365,8 @@ public class Utils
     sendTo(context, email, subject, "");
   }
 
-  public static void sendTo(@NonNull Context context, @NonNull String email, @NonNull String subject, @NonNull String body)
+  public static void sendTo(
+    @NonNull Context context, @NonNull String email, @NonNull String subject, @NonNull String body)
   {
     Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Utils.buildMailUri(email, subject, body));
@@ -390,12 +388,9 @@ public class Utils
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @Nullable
-  public static String getCurrencyCode()
+  @Keep @SuppressWarnings("unused") @Nullable public static String getCurrencyCode()
   {
-    Locale[] locales = { Locale.getDefault(), Locale.US };
+    Locale[] locales = {Locale.getDefault(), Locale.US};
     for (Locale locale : locales)
     {
       Currency currency = getCurrencyForLocale(locale);
@@ -406,44 +401,30 @@ public class Utils
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getCountryCode()
+  @Keep @SuppressWarnings("unused") @NonNull public static String getCountryCode()
   {
     return Locale.getDefault().getCountry();
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getLanguageCode()
+  @Keep @SuppressWarnings("unused") @NonNull public static String getLanguageCode()
   {
     return Locale.getDefault().getLanguage();
   }
 
-
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getDecimalSeparator()
+  @Keep @SuppressWarnings("unused") @NonNull public static String getDecimalSeparator()
   {
     return String.valueOf(DecimalFormatSymbols.getInstance().getDecimalSeparator());
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getGroupingSeparator()
+  @Keep @SuppressWarnings("unused") @NonNull public static String getGroupingSeparator()
   {
     return String.valueOf(DecimalFormatSymbols.getInstance().getGroupingSeparator());
   }
 
-  @Nullable
-  public static Currency getCurrencyForLocale(@NonNull Locale locale)
+  @Nullable public static Currency getCurrencyForLocale(@NonNull Locale locale)
   {
     try
     {
@@ -457,10 +438,7 @@ public class Utils
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getCurrencySymbol(@NonNull String currencyCode)
+  @Keep @SuppressWarnings("unused") @NonNull public static String getCurrencySymbol(@NonNull String currencyCode)
   {
     try
     {
@@ -486,8 +464,7 @@ public class Utils
     try
     {
       Resources res = context.getResources();
-      @StringRes
-      int nameId = res.getIdentifier(key, "string", context.getPackageName());
+      @StringRes int nameId = res.getIdentifier(key, "string", context.getPackageName());
       if (nameId == INVALID_ID || nameId == View.NO_ID)
         throw new Resources.NotFoundException("String id '" + key + "' is not found");
       return nameId;
@@ -533,46 +510,32 @@ public class Utils
    * @return bookmark name with time and date.
    */
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getMyPositionBookmarkName(@NonNull Context context)
+  @Keep @SuppressWarnings("unused") @NonNull public static String getMyPositionBookmarkName(@NonNull Context context)
   {
     return DateUtils.formatDateTime(context, System.currentTimeMillis(),
-                                    DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
+      DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
   }
 
   // Called from JNI.
-  @NonNull
-  @Keep
-  @SuppressWarnings("unused")
-  public static String getDeviceName()
+  @NonNull @Keep @SuppressWarnings("unused") public static String getDeviceName()
   {
     return Build.MANUFACTURER;
   }
 
   // Called from JNI.
-  @NonNull
-  @Keep
-  @SuppressWarnings("unused")
-  public static String getDeviceModel()
+  @NonNull @Keep @SuppressWarnings("unused") public static String getDeviceModel()
   {
     return Build.MODEL;
   }
 
   // Called from JNI.
-  @NonNull
-  @Keep
-  @SuppressWarnings("unused")
-  public static String getVersion()
+  @NonNull @Keep @SuppressWarnings("unused") public static String getVersion()
   {
     return BuildConfig.VERSION_NAME;
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static int getIntVersion()
+  @Keep @SuppressWarnings("unused") public static int getIntVersion()
   {
     // Please sync with getVersion() in build.gradle
     // - % 100000000 removes prefix for special markets, e.g Huawei.
@@ -580,8 +543,7 @@ public class Utils
     return (BuildConfig.VERSION_CODE % 1_00_00_00_00) / 100;
   }
 
-  public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,
-                                                        @NonNull Fragment fragment)
+  public static void detachFragmentIfCoreNotInitialized(@NonNull Context context, @NonNull Fragment fragment)
   {
     if (MwmApplication.from(context).getOrganicMaps().arePlatformAndCoreInitialized())
       return;
@@ -620,8 +582,7 @@ public class Utils
     void invoke(@NonNull T param);
   }
 
-  @NonNull
-  private static String getLocalizedFeatureByKey(@NonNull Context context, @NonNull String key)
+  @NonNull private static String getLocalizedFeatureByKey(@NonNull Context context, @NonNull String key)
   {
     return getStringValueByKey(context, key);
   }
@@ -646,8 +607,7 @@ public class Utils
     if (TextUtils.isEmpty(type))
       return "";
 
-    String key = "type." + type.replace('-', '.')
-                               .replace(':', '_');
+    String key = "type." + type.replace('-', '.').replace(':', '_');
     return getLocalizedFeatureByKey(context, key);
   }
 
@@ -669,8 +629,7 @@ public class Utils
       return context.getString(nameId);
     }
     catch (Resources.NotFoundException e)
-    {
-    }
+    {}
     return brand;
   }
 
@@ -683,19 +642,14 @@ public class Utils
 
   private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
   {
-    @NonNull
-    ActivityResultLauncher<SharingUtils.SharingIntent> mLauncher;
-    @NonNull
-    private final WeakReference<Activity> mActivityRef;
-    @NonNull
-    private final String mSubject;
-    @NonNull
-    private final String mBody;
-    @NonNull
-    private final String mEmail;
+    @NonNull ActivityResultLauncher<SharingUtils.SharingIntent> mLauncher;
+    @NonNull private final WeakReference<Activity> mActivityRef;
+    @NonNull private final String mSubject;
+    @NonNull private final String mBody;
+    @NonNull private final String mEmail;
 
-    private SupportInfoWithLogsCallback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher, @NonNull Activity activity, @NonNull String subject,
-                                         @NonNull String body, @NonNull String email)
+    private SupportInfoWithLogsCallback(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher,
+      @NonNull Activity activity, @NonNull String subject, @NonNull String body, @NonNull String email)
     {
       mActivityRef = new WeakReference<>(activity);
       mSubject = subject;
@@ -704,8 +658,7 @@ public class Utils
       mLauncher = launcher;
     }
 
-    @Override
-    public void onCompleted(final boolean success, @Nullable final String zipPath)
+    @Override public void onCompleted(final boolean success, @Nullable final String zipPath)
     {
       // TODO: delete zip file after its sent.
       UiThread.run(() -> {
@@ -730,20 +683,17 @@ public class Utils
         }
 
         SharingUtils.shareFile(activity.getApplicationContext(), mLauncher, info);
-
       });
     }
   }
 
-  public static <T> T getParcelable(@NonNull Bundle in, @Nullable String key,
-                                    @NonNull Class<T> clazz)
+  public static <T> T getParcelable(@NonNull Bundle in, @Nullable String key, @NonNull Class<T> clazz)
   {
     in.setClassLoader(clazz.getClassLoader());
     return BundleCompat.getParcelable(in, key, clazz);
   }
 
-  @SuppressWarnings("deprecation")
-  private static Spanned fromHtmlOld(@NonNull String htmlDescription)
+  @SuppressWarnings("deprecation") private static Spanned fromHtmlOld(@NonNull String htmlDescription)
   {
     return Html.fromHtml(htmlDescription);
   }
@@ -756,15 +706,14 @@ public class Utils
   }
 
   @SuppressWarnings("deprecation")
-  private static ApplicationInfo getApplicationInfoOld(@NonNull PackageManager manager, @NonNull String packageName, int flags)
-      throws PackageManager.NameNotFoundException
+  private static ApplicationInfo getApplicationInfoOld(
+    @NonNull PackageManager manager, @NonNull String packageName, int flags) throws PackageManager.NameNotFoundException
   {
     return manager.getApplicationInfo(packageName, flags);
   }
 
-  public static ApplicationInfo getApplicationInfo(@NonNull PackageManager manager, @NonNull String packageName,
-                                                   int flags)
-      throws PackageManager.NameNotFoundException
+  public static ApplicationInfo getApplicationInfo(
+    @NonNull PackageManager manager, @NonNull String packageName, int flags) throws PackageManager.NameNotFoundException
   {
     if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getApplicationInfoOld(manager, packageName, flags);
@@ -773,13 +722,13 @@ public class Utils
 
   @SuppressWarnings("deprecation")
   private static PackageInfo getPackageInfoOld(@NonNull PackageManager manager, @NonNull String packageName, int flags)
-      throws PackageManager.NameNotFoundException
+    throws PackageManager.NameNotFoundException
   {
     return manager.getPackageInfo(packageName, flags);
   }
 
   public static PackageInfo getPackageInfo(@NonNull PackageManager manager, @NonNull String packageName, int flags)
-      throws PackageManager.NameNotFoundException
+    throws PackageManager.NameNotFoundException
   {
     if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getPackageInfoOld(manager, packageName, flags);

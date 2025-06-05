@@ -1,11 +1,9 @@
 package app.organicmaps.downloader;
 
 import android.text.TextUtils;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.util.StringUtils;
 
 /**
@@ -13,9 +11,7 @@ import app.organicmaps.util.StringUtils;
  * Fields are filled by native code.
  */
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class CountryItem implements Comparable<CountryItem>
+@Keep @SuppressWarnings("unused") public final class CountryItem implements Comparable<CountryItem>
 {
   private static String sRootId;
 
@@ -27,14 +23,14 @@ public final class CountryItem implements Comparable<CountryItem>
 
   // Must correspond to NodeStatus in storage_defines.hpp
   public static final int STATUS_UNKNOWN = 0;
-  public static final int STATUS_PROGRESS = 1;       // Downloading a new mwm or updating an old one.
-  public static final int STATUS_APPLYING = 2;       // Applying downloaded diff for an old mwm.
-  public static final int STATUS_ENQUEUED = 3;       // An mwm is waiting for downloading in the queue.
-  public static final int STATUS_FAILED = 4;         // An error happened while downloading
-  public static final int STATUS_UPDATABLE = 5;      // An update for a downloaded mwm is ready according to counties.txt.
-  public static final int STATUS_DONE = 6;           // Downloaded mwm(s) is up to date. No need to update it.
-  public static final int STATUS_DOWNLOADABLE = 7;   // An mwm can be downloaded but not downloaded yet.
-  public static final int STATUS_PARTLY = 8;         // Leafs of group node has a mix of STATUS_DONE and STATUS_DOWNLOADABLE.
+  public static final int STATUS_PROGRESS = 1; // Downloading a new mwm or updating an old one.
+  public static final int STATUS_APPLYING = 2; // Applying downloaded diff for an old mwm.
+  public static final int STATUS_ENQUEUED = 3; // An mwm is waiting for downloading in the queue.
+  public static final int STATUS_FAILED = 4; // An error happened while downloading
+  public static final int STATUS_UPDATABLE = 5; // An update for a downloaded mwm is ready according to counties.txt.
+  public static final int STATUS_DONE = 6; // Downloaded mwm(s) is up to date. No need to update it.
+  public static final int STATUS_DOWNLOADABLE = 7; // An mwm can be downloaded but not downloaded yet.
+  public static final int STATUS_PARTLY = 8; // Leafs of group node has a mix of STATUS_DONE and STATUS_DOWNLOADABLE.
 
   // Must correspond to NodeErrorCode in storage_defines.hpp
   public static final int ERROR_NONE = 0;
@@ -73,8 +69,7 @@ public final class CountryItem implements Comparable<CountryItem>
   // Internal ID for grouping under headers in the list
   int headerId;
   // Internal field to store search result name
-  @Nullable
-  String searchResultName;
+  @Nullable String searchResultName;
 
   private static void ensureRootIdKnown()
   {
@@ -87,15 +82,12 @@ public final class CountryItem implements Comparable<CountryItem>
     this.id = id;
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
     return id.hashCode();
   }
 
-  @SuppressWarnings("SimplifiableIfStatement")
-  @Override
-  public boolean equals(Object other)
+  @SuppressWarnings("SimplifiableIfStatement") @Override public boolean equals(Object other)
   {
     if (this == other)
       return true;
@@ -103,11 +95,10 @@ public final class CountryItem implements Comparable<CountryItem>
     if (other == null || getClass() != other.getClass())
       return false;
 
-    return id.equals(((CountryItem)other).id);
+    return id.equals(((CountryItem) other).id);
   }
 
-  @Override
-  public int compareTo(@NonNull CountryItem another)
+  @Override public int compareTo(@NonNull CountryItem another)
   {
     int catDiff = (category - another.category);
     if (catDiff != 0)
@@ -125,8 +116,7 @@ public final class CountryItem implements Comparable<CountryItem>
       directParentId = "";
   }
 
-  @NonNull
-  public static CountryItem fill(String countryId)
+  @NonNull public static CountryItem fill(String countryId)
   {
     CountryItem res = new CountryItem(countryId);
     res.update();
@@ -150,26 +140,13 @@ public final class CountryItem implements Comparable<CountryItem>
     return (totalChildCount > 1);
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
-    return "{ id: \"" + id +
-           "\", directParentId: \"" + directParentId +
-           "\", topmostParentId: \"" + topmostParentId +
-           "\", category: \"" + category +
-           "\", name: \"" + name +
-           "\", directParentName: \"" + directParentName +
-           "\", topmostParentName: \"" + topmostParentName +
-           "\", present: " + present +
-           ", status: " + status +
-           ", errorCode: " + errorCode +
-           ", headerId: " + headerId +
-           ", size: " + size +
-           ", enqueuedSize: " + enqueuedSize +
-           ", totalSize: " + totalSize +
-           ", childCount: " + childCount +
-           ", totalChildCount: " + totalChildCount +
-           ", progress: " + StringUtils.formatUsingUsLocale("%.2f", progress) +
-           "% }";
+    return "{ id: \"" + id + "\", directParentId: \"" + directParentId + "\", topmostParentId: \"" + topmostParentId
+  + "\", category: \"" + category + "\", name: \"" + name + "\", directParentName: \"" + directParentName
+  + "\", topmostParentName: \"" + topmostParentName + "\", present: " + present + ", status: " + status
+  + ", errorCode: " + errorCode + ", headerId: " + headerId + ", size: " + size + ", enqueuedSize: " + enqueuedSize
+  + ", totalSize: " + totalSize + ", childCount: " + childCount + ", totalChildCount: " + totalChildCount
+  + ", progress: " + StringUtils.formatUsingUsLocale("%.2f", progress) + "% }";
   }
 }

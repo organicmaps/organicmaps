@@ -3,13 +3,10 @@ package app.organicmaps.display;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.util.log.Logger;
-
 import java.util.Objects;
 
 public class DisplayManager
@@ -35,15 +32,11 @@ public class DisplayManager
 
   private final Handler mHandler = new Handler(Looper.getMainLooper());
 
-  @NonNull
-  private DisplayType mCurrentDisplayType = DisplayType.Device;
-  @Nullable
-  private DisplayHolder mDevice;
-  @Nullable
-  private DisplayHolder mCar;
+  @NonNull private DisplayType mCurrentDisplayType = DisplayType.Device;
+  @Nullable private DisplayHolder mDevice;
+  @Nullable private DisplayHolder mCar;
 
-  @NonNull
-  public static DisplayManager from(@NonNull Context context)
+  @NonNull public static DisplayManager from(@NonNull Context context)
   {
     final MwmApplication app = (MwmApplication) context.getApplicationContext();
     return app.getDisplayManager();
@@ -182,8 +175,7 @@ public class DisplayManager
   {
     mHandler.post(() -> firstTask.start(() -> {
       if (secondTask != null)
-        mHandler.post(() -> secondTask.start(() -> {
-        }));
+        mHandler.post(() -> secondTask.start(() -> {}));
     }));
   }
 }

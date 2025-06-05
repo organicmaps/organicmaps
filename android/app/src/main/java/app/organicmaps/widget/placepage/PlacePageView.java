@@ -1,5 +1,8 @@
 package app.organicmaps.widget.placepage;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.location.Location;
 import android.net.Uri;
@@ -14,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,19 +55,12 @@ import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
-public class PlacePageView extends Fragment implements View.OnClickListener,
-                                                       View.OnLongClickListener,
-                                                       LocationListener,
-                                                       SensorListener,
-                                                       Observer<MapObject>
+public class PlacePageView extends Fragment
+  implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
@@ -77,12 +72,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
-      Arrays.asList(CoordinatesFormat.LatLonDMS,
-                    CoordinatesFormat.LatLonDecimal,
-                    CoordinatesFormat.OLCFull,
-                    CoordinatesFormat.UTM,
-                    CoordinatesFormat.MGRS,
-                    CoordinatesFormat.OSMLink);
+    Arrays.asList(CoordinatesFormat.LatLonDMS, CoordinatesFormat.LatLonDecimal, CoordinatesFormat.OLCFull,
+      CoordinatesFormat.UTM, CoordinatesFormat.MGRS, CoordinatesFormat.OSMLink);
   private View mFrame;
   // Preview.
   private ViewGroup mPreview;
@@ -131,12 +122,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
   private int mStorageCallbackSlot;
-  @Nullable
-  private CountryItem mCurrentCountry;
-  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
-  {
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+  @Nullable private CountryItem mCurrentCountry;
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
+    @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       if (mCurrentCountry == null)
         return;
@@ -149,8 +137,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    @Override public void onProgress(String countryId, long localSize, long remoteSize)
     {
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
         updateDownloader();
@@ -161,7 +148,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private PlacePageViewModel mViewModel;
   private MapObject mMapObject;
 
-  private static void refreshMetadataOrHide(@Nullable String metadata, @NonNull View metaLayout, @NonNull TextView metaTv)
+  private static void refreshMetadataOrHide(
+    @Nullable String metadata, @NonNull View metaLayout, @NonNull TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
     {
@@ -174,29 +162,25 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private static boolean isInvalidDownloaderStatus(int status)
   {
-    return (status != CountryItem.STATUS_DOWNLOADABLE &&
-            status != CountryItem.STATUS_ENQUEUED &&
-            status != CountryItem.STATUS_FAILED &&
-            status != CountryItem.STATUS_PARTLY &&
-            status != CountryItem.STATUS_PROGRESS &&
-            status != CountryItem.STATUS_APPLYING);
+    return (status != CountryItem.STATUS_DOWNLOADABLE && status != CountryItem.STATUS_ENQUEUED
+            && status != CountryItem.STATUS_FAILED && status != CountryItem.STATUS_PARTLY
+            && status != CountryItem.STATUS_PROGRESS && status != CountryItem.STATUS_APPLYING);
   }
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(
+    @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     mCoordsFormat = CoordinatesFormat.fromId(
-        MwmApplication.prefs(requireContext()).getInt(
-            PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
+      MwmApplication.prefs(requireContext()).getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
 
     Fragment parentFragment = getParentFragment();
     mPlacePageViewListener = (PlacePageViewListener) parentFragment;
@@ -300,8 +284,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
@@ -309,8 +292,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     SensorHelper.from(requireContext()).addListener(this);
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
@@ -339,23 +321,18 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       refreshDistanceToObject(loc);
   }
 
-  private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
+  private <T extends Fragment> void updateViewFragment(
+    Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
   {
     final FragmentManager fm = getChildFragmentManager();
     final Fragment fragment = fm.findFragmentByTag(fragmentTag);
     if (enabled && fragment == null)
     {
-      fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .add(containerId, controllerClass, null, fragmentTag)
-        .commit();
+      fm.beginTransaction().setReorderingAllowed(true).add(containerId, controllerClass, null, fragmentTag).commit();
     }
     else if (!enabled && fragment != null)
     {
-      fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .remove(fragment)
-        .commit();
+      fm.beginTransaction().setReorderingAllowed(true).remove(fragment).commit();
     }
   }
 
@@ -368,18 +345,19 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG,
-        R.id.place_page_opening_hours_fragment, !TextUtils.isEmpty(ohStr));
+      R.id.place_page_opening_hours_fragment, !TextUtils.isEmpty(ohStr));
   }
 
   private void updatePhoneView()
   {
-    updateViewFragment(PlacePagePhoneFragment.class, PHONE_FRAGMENT_TAG, R.id.place_page_phone_fragment, mMapObject.hasPhoneNumber());
+    updateViewFragment(
+      PlacePagePhoneFragment.class, PHONE_FRAGMENT_TAG, R.id.place_page_phone_fragment, mMapObject.hasPhoneNumber());
   }
 
   private void updateBookmarkView()
   {
     updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
-        mMapObject.isBookmark());
+      mMapObject.isBookmark());
   }
 
   private boolean hasWikipediaEntry()
@@ -391,7 +369,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void updateWikipediaView()
   {
-    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment, hasWikipediaEntry());
+    updateViewFragment(PlacePageWikipediaFragment.class, WIKIPEDIA_FRAGMENT_TAG, R.id.place_page_wikipedia_fragment,
+      hasWikipediaEntry());
   }
 
   private boolean hasProductsEntry()
@@ -403,7 +382,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     var hasProductsEntry = hasProductsEntry();
 
-    updateViewFragment(PlacePageProductsFragment.class, PRODUCTS_FRAGMENT_TAG, R.id.place_page_products_fragment, hasProductsEntry);
+    updateViewFragment(
+      PlacePageProductsFragment.class, PRODUCTS_FRAGMENT_TAG, R.id.place_page_products_fragment, hasProductsEntry);
   }
 
   private void setTextAndColorizeSubtitle()
@@ -417,8 +397,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       int end = text.lastIndexOf("★") + 1;
       if (start > -1)
       {
-        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.base_yellow)),
-                   start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.base_yellow)), start, end,
+          Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
       }
       mTvSubtitle.setText(sb);
     }
@@ -439,10 +419,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshLatLon();
 
     final String operator = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR);
-    refreshMetadataOrHide(!TextUtils.isEmpty(operator) ? getString(R.string.operator, operator) : "", mOperator, mTvOperator);
+    refreshMetadataOrHide(
+      !TextUtils.isEmpty(operator) ? getString(R.string.operator, operator) : "", mOperator, mTvOperator);
 
     final String network = mMapObject.getMetadata(Metadata.MetadataType.FMD_NETWORK);
-    refreshMetadataOrHide(!TextUtils.isEmpty(network) ? getString(R.string.network, network) : "", mNetwork, mTvNetwork);
+    refreshMetadataOrHide(
+      !TextUtils.isEmpty(network) ? getString(R.string.network, network) : "", mNetwork, mTvNetwork);
 
     /// @todo I don't like it when we take all data from mapObject, but for cuisines, we should
     /// go into JNI Framework and rely on some "active object".
@@ -457,19 +439,23 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
 
-    final String wheelchair = Utils.getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
+    final String wheelchair =
+      Utils.getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
     refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
 
     final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
-    refreshMetadataOrHide(driveThrough.equals("yes") ? getString(R.string.drive_through) : "", mDriveThrough, mTvDriveThrough);
+    refreshMetadataOrHide(
+      driveThrough.equals("yes") ? getString(R.string.drive_through) : "", mDriveThrough, mTvDriveThrough);
 
     final String selfService = mMapObject.getMetadata(Metadata.MetadataType.FMD_SELF_SERVICE);
-    refreshMetadataOrHide(Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
+    refreshMetadataOrHide(
+      Utils.getTagValueLocalized(getContext(), "self_service", selfService), mSelfService, mTvSelfService);
 
     final String outdoorSeating = mMapObject.getMetadata(Metadata.MetadataType.FMD_OUTDOOR_SEATING);
-    refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
+    refreshMetadataOrHide(
+      outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating, mTvOutdoorSeating);
 
-//    showTaxiOffer(mapObject);
+    //    showTaxiOffer(mapObject);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
@@ -486,13 +472,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       TextView mTvEditPlace = mEditPlace.findViewById(R.id.tv__editor);
       TextView mTvAddBusiness = mAddPlace.findViewById(R.id.tv__editor);
       TextView mTvAddPlace = mAddPlace.findViewById(R.id.tv__editor);
-      final int editPlaceButtonColor = Editor.nativeShouldEnableEditPlace() ? ContextCompat.getColor(getContext(), UiUtils.getStyledResourceId(getContext(), androidx.appcompat.R.attr.colorAccent)) : getResources().getColor(R.color.button_accent_text_disabled);
+      final int editPlaceButtonColor = Editor.nativeShouldEnableEditPlace()
+                                       ? ContextCompat.getColor(getContext(), UiUtils.getStyledResourceId(getContext(),
+                                                                                androidx.appcompat.R.attr.colorAccent))
+                                       : getResources().getColor(R.color.button_accent_text_disabled);
       mTvEditPlace.setTextColor(editPlaceButtonColor);
       mTvAddBusiness.setTextColor(editPlaceButtonColor);
       mTvAddPlace.setTextColor(editPlaceButtonColor);
-      UiUtils.showIf(UiUtils.isVisible(mEditPlace)
-                     || UiUtils.isVisible(mAddOrganisation)
-                     || UiUtils.isVisible(mAddPlace), mEditTopSpace);
+      UiUtils.showIf(
+        UiUtils.isVisible(mEditPlace) || UiUtils.isVisible(mAddOrganisation) || UiUtils.isVisible(mAddPlace),
+        mEditTopSpace);
     }
     updateLinksView();
     updateOpeningHoursView();
@@ -547,7 +536,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     double lat = mMapObject.getLat();
     double lon = mMapObject.getLon();
     DistanceAndAzimut distanceAndAzimuth =
-        Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
+      Framework.nativeGetDistanceAndAzimuthFromLatLon(lat, lon, l.getLatitude(), l.getLongitude(), 0.0);
     mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
     mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(distanceAndAzimuth.getAzimuth())));
   }
@@ -579,8 +568,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   /// @todo
   /// - Why ll__place_editor and ll__place_latlon check if (mMapObject == null)
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final Context context = requireContext();
     final int id = v.getId();
@@ -599,16 +587,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     {
       final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
       mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
-      MwmApplication.prefs(context)
-                    .edit()
-                    .putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId())
-                    .apply();
+      MwmApplication.prefs(context).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
       refreshLatLon();
     }
     else if (id == R.id.ll__place_open_in)
     {
-      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
-                                                   mMapObject.getScale(), mMapObject.getName());
+      final String uri = Framework.nativeGetGeoUri(
+        mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
       Utils.openUri(requireContext(), Uri.parse(uri), R.string.uri_open_location_failed);
     }
     else if (id == R.id.direction_frame)
@@ -618,14 +603,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private void showBigDirection()
   {
     final FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-    final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory()
-                                                                          .instantiate(requireContext().getClassLoader(), DirectionFragment.class.getName());
+    final DirectionFragment fragment = (DirectionFragment) fragmentManager.getFragmentFactory().instantiate(
+      requireContext().getClassLoader(), DirectionFragment.class.getName());
     fragment.setMapObject(mMapObject);
     fragment.show(fragmentManager, null);
   }
 
-  @Override
-  public boolean onLongClick(View v)
+  @Override public boolean onLongClick(View v)
   {
     final List<String> items = new ArrayList<>();
     final int id = v.getId();
@@ -648,8 +632,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     }
     else if (id == R.id.ll__place_open_in)
     {
-      final String uri = Framework.nativeGetGeoUri(mMapObject.getLat(), mMapObject.getLon(),
-                                                   mMapObject.getScale(), mMapObject.getName());
+      final String uri = Framework.nativeGetGeoUri(
+        mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
       PlacePageUtils.copyToClipboard(requireContext(), mFrame, uri);
     }
     else if (id == R.id.ll__place_operator)
@@ -691,8 +675,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.totalSize));
     if (country.isExpandable())
-      sb.append(StringUtils.formatUsingUsLocale("  •  %s: %d", requireContext().getString(R.string.downloader_status_maps),
-                                                country.totalChildCount));
+      sb.append(StringUtils.formatUsingUsLocale(
+        "  •  %s: %d", requireContext().getString(R.string.downloader_status_maps), country.totalChildCount));
 
     mDownloaderInfo.setText(sb.toString());
   }
@@ -716,8 +700,9 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     if (mStorageCallbackSlot == 0)
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
-    mDownloaderIcon.setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
-                   .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
+    mDownloaderIcon
+      .setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
+      .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);
@@ -731,14 +716,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     MapManager.nativeUnsubscribe(mStorageCallbackSlot);
     mStorageCallbackSlot = 0;
     mCurrentCountry = null;
-    mDownloaderIcon.setOnIconClickListener(null)
-                   .setOnCancelClickListener(null);
+    mDownloaderIcon.setOnIconClickListener(null).setOnCancelClickListener(null);
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
   }
 
-  @Override
-  public void onChanged(@Nullable MapObject mapObject)
+  @Override public void onChanged(@Nullable MapObject mapObject)
   {
     if (mapObject == null)
       return;
@@ -757,8 +740,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight(), mFrame.getHeight());
   }
 
-  @Override
-  public void onLocationUpdated(@NonNull Location location)
+  @Override public void onLocationUpdated(@NonNull Location location)
   {
     if (mMapObject == null)
       return;
@@ -768,8 +750,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       refreshDistanceToObject(location);
   }
 
-  @Override
-  public void onCompassUpdated(double north)
+  @Override public void onCompassUpdated(double north)
   {
     if (mMapObject == null || mMapObject.isMyPosition())
       return;
@@ -781,12 +762,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       return;
     }
 
-    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(),
-                                                                           mMapObject.getLon(),
-                                                                           location.getLatitude(),
-                                                                           location.getLongitude(),
-                                                                           north)
-                                    .getAzimuth();
+    final double azimuth = Framework
+                             .nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
+                               location.getLatitude(), location.getLongitude(), north)
+                             .getAzimuth();
     UiUtils.showIf(azimuth >= 0, mAvDirection);
     if (azimuth >= 0)
     {

@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -27,20 +26,16 @@ public class SearchWheel implements View.OnClickListener
 
   private View mSearchLayout;
   private final ImageView mSearchButton;
-  @Nullable
-  private final View mTouchInterceptor;
+  @Nullable private final View mTouchInterceptor;
 
   private boolean mIsExpanded;
-  @NonNull
-  private final View.OnClickListener mOnSearchPressedListener;
-  @NonNull
-  private final View.OnClickListener mOnSearchCanceledListener;
+  @NonNull private final View.OnClickListener mOnSearchPressedListener;
+  @NonNull private final View.OnClickListener mOnSearchCanceledListener;
   private final MapButtonsViewModel mMapButtonsViewModel;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
   private final Runnable mCloseRunnable = new Runnable() {
-    @Override
-    public void run()
+    @Override public void run()
     {
       // if the search bar is already closed, i.e. nothing should be done here.
       if (!mIsExpanded)
@@ -58,23 +53,18 @@ public class SearchWheel implements View.OnClickListener
     FOOD(R.id.search_food, R.drawable.ic_routing_food_off, R.string.category_food),
     ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.string.category_atm);
 
-    @IdRes
-    private final int mResId;
-    @DrawableRes
-    private final int mDrawableOff;
-    @StringRes
-    private final int mQueryId;
+    @IdRes private final int mResId;
+    @DrawableRes private final int mDrawableOff;
+    @StringRes private final int mQueryId;
 
-    SearchOption(@IdRes int resId, @DrawableRes int drawableOff,
-                 @StringRes int queryId)
+    SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @StringRes int queryId)
     {
       this.mResId = resId;
       this.mDrawableOff = drawableOff;
       this.mQueryId = queryId;
     }
 
-    @NonNull
-    public static SearchOption fromResId(@IdRes int resId)
+    @NonNull public static SearchOption fromResId(@IdRes int resId)
     {
       for (SearchOption searchOption : SearchOption.values())
       {
@@ -83,11 +73,10 @@ public class SearchWheel implements View.OnClickListener
       }
       throw new IllegalArgumentException("No navigation search for id " + resId);
     }
-
   }
 
   public SearchWheel(View frame, @NonNull View.OnClickListener onSearchPressedListener,
-                     @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel)
+    @NonNull View.OnClickListener onSearchCanceledListener, MapButtonsViewModel mapButtonsViewModel)
   {
     mFrame = frame;
     mMapButtonsViewModel = mapButtonsViewModel;
@@ -114,7 +103,7 @@ public class SearchWheel implements View.OnClickListener
     WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
     windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
     // Get available screen height in DP
-    int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
+    int height = Math.round(displayMetrics.heightPixels / displayMetrics.density);
     // If height is less than 400dp, the search wheel in a straight line
     // In this case, move the pivot for the animation
     if (height < 400)
@@ -180,10 +169,8 @@ public class SearchWheel implements View.OnClickListener
       animator.start();
       if (mTouchInterceptor != null)
         UiUtils.visibleIf(mIsExpanded, mTouchInterceptor);
-      animator.addListener(new UiUtils.SimpleAnimatorListener()
-      {
-        @Override
-        public void onAnimationEnd(Animator animation)
+      animator.addListener(new UiUtils.SimpleAnimatorListener() {
+        @Override public void onAnimationEnd(Animator animation)
         {
           refreshSearchVisibility();
         }
@@ -211,33 +198,26 @@ public class SearchWheel implements View.OnClickListener
 
   private void resetSearchButtonImage()
   {
-    mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
-                                                 R.drawable.ic_search));
+    mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(), R.drawable.ic_search));
   }
 
   private void refreshSearchButtonImage()
   {
     final SearchOption searchOption = mMapButtonsViewModel.getSearchOption().getValue();
     mSearchButton.setImageDrawable(Graphics.tint(mSearchButton.getContext(),
-                                                 searchOption == null ?
-                                                 R.drawable.ic_routing_search_off :
-                                                 searchOption.mDrawableOff,
-                                                 androidx.appcompat.R.attr.colorAccent));
+      searchOption == null ? R.drawable.ic_routing_search_off : searchOption.mDrawableOff,
+      androidx.appcompat.R.attr.colorAccent));
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.btn_search)
       onSearchButtonClick(v);
     else if (id == R.id.touch_interceptor)
       toggleSearchLayout();
-    else if (id == R.id.search_fuel ||
-        id == R.id.search_parking ||
-        id == R.id.search_eat ||
-        id == R.id.search_food ||
-        id == R.id.search_atm)
+    else if (id == R.id.search_fuel || id == R.id.search_parking || id == R.id.search_eat || id == R.id.search_food
+             || id == R.id.search_atm)
       startSearch(SearchOption.fromResId(id));
   }
 
@@ -252,7 +232,8 @@ public class SearchWheel implements View.OnClickListener
       return;
     }
 
-    if (mMapButtonsViewModel.getSearchOption().getValue() != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+    if (mMapButtonsViewModel.getSearchOption().getValue() != null
+        || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
       mOnSearchCanceledListener.onClick(v);
       refreshSearchVisibility();

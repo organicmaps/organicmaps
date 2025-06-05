@@ -1,5 +1,7 @@
 package app.organicmaps.routing;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.*;
+
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -26,21 +27,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.divider.MaterialDividerItemDecoration;
-
 import java.util.ArrayList;
 
-import static androidx.recyclerview.widget.ItemTouchHelper.*;
-
-public class ManageRouteBottomSheet extends BottomSheetDialogFragment
-    implements View.OnClickListener, ManageRouteAdapter.ManageRouteListener
+public class ManageRouteBottomSheet
+  extends BottomSheetDialogFragment implements View.OnClickListener, ManageRouteAdapter.ManageRouteListener
 {
   ManageRouteAdapter mManageRouteAdapter;
   ItemTouchHelper mTouchHelper;
   ImageView mMyLocationImageView;
 
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View v = inflater.inflate(R.layout.manage_route_bottom_sheet, container, false);
 
@@ -56,8 +53,8 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     RecyclerView manageRouteList = v.findViewById(R.id.manage_route_list);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     manageRouteList.setLayoutManager(layoutManager);
-    RecyclerView.ItemDecoration decoration = new MaterialDividerItemDecoration(getContext(),
-                                                                               layoutManager.getOrientation());
+    RecyclerView.ItemDecoration decoration =
+      new MaterialDividerItemDecoration(getContext(), layoutManager.getOrientation());
     manageRouteList.addItemDecoration(decoration);
 
     mManageRouteAdapter = new ManageRouteAdapter(getContext(), Framework.nativeGetRoutePoints(), this);
@@ -65,24 +62,20 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     manageRouteList.setAdapter(mManageRouteAdapter);
 
     // Enable drag & drop in route list.
-    mTouchHelper = new ItemTouchHelper(new ManageRouteItemTouchHelperCallback(mManageRouteAdapter,
-                                                                              getResources()));
+    mTouchHelper = new ItemTouchHelper(new ManageRouteItemTouchHelperCallback(mManageRouteAdapter, getResources()));
     mTouchHelper.attachToRecyclerView(manageRouteList);
 
     return v;
   }
 
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
+  @NonNull @Override public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
   {
     Dialog dialog = super.onCreateDialog(savedInstanceState);
 
     // Expand bottom sheet dialog.
     dialog.setOnShowListener(dialogInterface -> {
-
-      FrameLayout bottomSheet = ((BottomSheetDialog) dialogInterface).findViewById(
-          com.google.android.material.R.id.design_bottom_sheet);
+      FrameLayout bottomSheet =
+        ((BottomSheetDialog) dialogInterface).findViewById(com.google.android.material.R.id.design_bottom_sheet);
 
       if (bottomSheet != null)
         BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -90,7 +83,6 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
 
     // Set key listener to detect back button pressed.
     dialog.setOnKeyListener((dialog1, keyCode, event) -> {
-
       if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP)
       {
         // Dismiss the fragment
@@ -105,8 +97,7 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     return dialog;
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     int buttonId = v.getId();
 
@@ -130,7 +121,7 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
       ArrayList<RouteMarkData> newRoutePoints = mManageRouteAdapter.getRoutePoints();
 
       // Make sure that the new route contains at least 2 points (start and destination).
-      assert(newRoutePoints.size() >= 2);
+      assert (newRoutePoints.size() >= 2);
 
       // Remove all existing route points.
       Framework.nativeRemoveRoutePoints();
@@ -153,15 +144,13 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     }
   }
 
-  @Override
-  public void startDrag(RecyclerView.ViewHolder viewHolder)
+  @Override public void startDrag(RecyclerView.ViewHolder viewHolder)
   {
     // Start dragging.
     mTouchHelper.startDrag(viewHolder);
   }
 
-  @Override
-  public void showMyLocationIcon(boolean showMyLocationIcon)
+  @Override public void showMyLocationIcon(boolean showMyLocationIcon)
   {
     // Get current location.
     MapObject myLocation = MwmApplication.from(getContext()).getLocationHelper().getMyPosition();
@@ -169,8 +158,7 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     UiUtils.showIf(showMyLocationIcon && myLocation != null, mMyLocationImageView);
   }
 
-  @Override
-  public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
+  @Override public void onRoutePointDeleted(RecyclerView.ViewHolder viewHolder)
   {
     mManageRouteAdapter.deleteRoutePoint(viewHolder);
 
@@ -187,43 +175,33 @@ public class ManageRouteBottomSheet extends BottomSheetDialogFragment
     }
 
     @Override
-    public int getMovementFlags(@NonNull RecyclerView recyclerView,
-                                @NonNull RecyclerView.ViewHolder viewHolder)
+    public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder)
     {
       // Enable up & down dragging. No left-right swiping is enabled.
       return makeMovementFlags(UP | DOWN, 0);
     }
 
-    @Override
-    public boolean isLongPressDragEnabled()
+    @Override public boolean isLongPressDragEnabled()
+    {
+      return false;
+    }
+
+    @Override public boolean isItemViewSwipeEnabled()
     {
       return false;
     }
 
     @Override
-    public boolean isItemViewSwipeEnabled()
+    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+      @NonNull RecyclerView.ViewHolder target)
     {
-      return false;
-    }
-
-    @Override
-    public boolean onMove(@NonNull RecyclerView recyclerView,
-                          @NonNull RecyclerView.ViewHolder viewHolder,
-                          @NonNull RecyclerView.ViewHolder target)
-    {
-      mManageRouteAdapter.moveRoutePoint(viewHolder.getAbsoluteAdapterPosition(),
-                                         target.getAbsoluteAdapterPosition());
+      mManageRouteAdapter.moveRoutePoint(viewHolder.getAbsoluteAdapterPosition(), target.getAbsoluteAdapterPosition());
       return true;
     }
 
-    @Override
-    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-    {
-    }
+    @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {}
 
-    @Override
-    public void clearView(@NonNull RecyclerView recyclerView,
-                          @NonNull RecyclerView.ViewHolder viewHolder)
+    @Override public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder)
     {
       super.clearView(recyclerView, viewHolder);
 
