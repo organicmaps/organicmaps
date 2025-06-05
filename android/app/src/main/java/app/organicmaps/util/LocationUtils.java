@@ -14,14 +14,11 @@ import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import java.util.Objects;
-
 public class LocationUtils
 {
   private LocationUtils() {}
 
   private static final double DEFAULT_SPEED_MPS = 5;
-  private static final float THRESHOLD_DISTNACE_METERS = 3; //meters
   public static final String FUSED_PROVIDER = "fused";
 
   /**
@@ -87,8 +84,7 @@ public class LocationUtils
 
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
-    //if provider is changing but distance between the two co-ords are less than threshold then discard
-    if (!Objects.equals(lastLocation.getProvider(), newLocation.getProvider()) && lastLocation.distanceTo(newLocation) < THRESHOLD_DISTNACE_METERS)
+    if (newLocation.getElapsedRealtimeNanos() < lastLocation.getElapsedRealtimeNanos())
       return false;
 
     // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
