@@ -930,4 +930,8 @@
     <string name="uri_open_location_failed">No app installed that can open the location</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigation</string>
+    <!-- Route reference label in editor -->
+    <string name="route_ref">Bus lines</string>
+    <string name="route_ref_hint">A;B;C;D (semicolon-separated bus lines)</string>
+    <string name="error_enter_correct_route_ref">Please enter valid bus lines separated by semicolons (e.g. A1;B2;C3)</string>
 </resources>

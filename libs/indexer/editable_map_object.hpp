@@ -133,6 +133,7 @@ public:
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);
+  static bool ValidateRouteRef(std::string const & routeRef);
 
   /// Journal that stores changes to map object
   EditJournal const & GetJournal() const;

@@ -1140,6 +1140,7 @@
     <string name="type.railway.tram.tunnel">Tram Line Tunnel</string>
     <string name="type.railway.tram_stop">Tram Stop</string>
     <string name="type.route">Route</string>
+    <string name="type.route.ref">Route Ref</string>
     <string name="type.route.ferry">Ferry</string>
     <string name="type.route.shuttle_train">route-shuttle_train</string>
     <string name="type.shop">Shop</string>

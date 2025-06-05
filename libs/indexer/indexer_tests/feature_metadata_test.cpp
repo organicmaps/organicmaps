@@ -128,4 +128,24 @@ UNIT_TEST(Feature_Metadata_Print)
 
   TEST_EQUAL(DebugPrint(m), "Metadata [description=" + DebugPrint(s) + "]", ());
 }
+
+UNIT_TEST(Feature_Metadata_RouteRef)
+{
+  Metadata m;
+  EType const type = EType::FMD_ROUTE_REF;
+
+  TEST_EQUAL(m.Get(type), "", ());
+
+  std::string const kRouteRef = "530;123;203";
+  m.Set(type, kRouteRef);
+  TEST_EQUAL(m.Get(type), kRouteRef, ());
+
+  std::string const kNewRouteRef = "702";
+  m.Set(type, kNewRouteRef);
+  TEST_EQUAL(m.Get(type), kNewRouteRef, ());
+
+  m.Set(type, "");
+  TEST_EQUAL(m.Get(type), "", ());
+}
+
 }  // namespace feature_metadata_test

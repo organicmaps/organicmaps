@@ -887,4 +887,9 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="translated_om_site_url">https://organicmaps.app/pt/</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+
+    <!-- Route reference label in editor -->
+    <string name="route_ref">Linhas de autocarro</string>
+    <string name="route_ref_hint">A;B;C;D (linhas de autocarro separadas por ponto e vírgula)</string>
+    <string name="error_enter_correct_route_ref">Por favor, introduza linhas de autocarro válidas separadas por ponto e vírgula (e.g. A1;B2;C3)</string>
 </resources>

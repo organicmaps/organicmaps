@@ -127,6 +127,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private TextInputLayout mInputHouseNumber;
   private TextInputLayout mInputBuildingLevels;
+  private TextInputLayout mInputRouteRef;
 
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
@@ -149,6 +150,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
+    super.onViewCreated(view, savedInstanceState);
     mParent = (EditorHostFragment) getParentFragment();
 
     initViews(view);
@@ -198,6 +200,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     String selfServiceMetadata = Editor.nativeGetMetadata(Metadata.MetadataType.FMD_SELF_SERVICE.toInt());
     mSelfService.setText(Utils.getTagValueLocalized(view.getContext(), "self_service", selfServiceMetadata));
     initMetadataEntry(Metadata.MetadataType.FMD_OPERATOR, 0);
+    initMetadataEntry(Metadata.MetadataType.FMD_ROUTE_REF, R.string.error_enter_correct_route_ref);
     mWifi.setChecked(Editor.nativeHasWifi());
     // TODO Reimplement this to avoid https://github.com/organicmaps/organicmaps/issues/9049
     // mOutdoorSeating.setChecked(Editor.nativeGetSwitchInput(Metadata.MetadataType.FMD_OUTDOOR_SEATING.toInt(),"yes"));
@@ -462,6 +465,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                   R.string.editor_line_social_network, InputType.TYPE_TEXT_VARIATION_URI);
     View operatorBlock = initBlock(view, Metadata.MetadataType.FMD_OPERATOR, R.id.block_operator,
                                    R.drawable.ic_operator, R.string.editor_operator, 0);
+    View routeRefBlock = initBlock(view, Metadata.MetadataType.FMD_ROUTE_REF, R.id.block_route_ref,
+                                   R.drawable.ic_category_bus, R.string.route_ref, 0);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
@@ -504,6 +509,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_WEBSITE_MENU, websiteMenuBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_EMAIL, emailBlock);
     mDetailsBlocks.put(Metadata.MetadataType.FMD_OPERATOR, operatorBlock);
+    mDetailsBlocks.put(Metadata.MetadataType.FMD_ROUTE_REF, routeRefBlock);
 
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_FACEBOOK, facebookContactBlock);
     mSocialMediaBlocks.put(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM, instagramContactBlock);
