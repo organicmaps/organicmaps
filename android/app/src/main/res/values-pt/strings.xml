@@ -839,4 +839,8 @@
     <string name="uri_open_location_failed">Nenhuma aplicação instalada que possa abrir a localização</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto na navegação</string>
+    <!-- Route reference label in editor -->
+    <string name="route_ref">Linhas de autocarro</string>
+    <string name="route_ref_hint">A;B;C;D (linhas de autocarro separadas por ponto e vírgula)</string>
+    <string name="error_enter_correct_route_ref">Por favor, introduza linhas de autocarro válidas separadas por ponto e vírgula (e.g. A1;B2;C3)</string>
 </resources>
