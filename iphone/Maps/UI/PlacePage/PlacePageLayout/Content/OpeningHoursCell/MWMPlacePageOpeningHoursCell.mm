@@ -35,8 +35,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 NSString * stringFromTimeSpan(Timespan const & timeSpan)
 {
-  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()),
-                                    stringFromTime(timeSpan.GetEnd())];
+  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
 }
 
 NSArray<NSString *> * arrayFromClosedTimes(TTimespans const & closedTimes)
@@ -51,10 +50,7 @@ NSArray<NSString *> * arrayFromClosedTimes(TTimespans const & closedTimes)
 
 WeekDayView getWeekDayView()
 {
-  return [NSBundle.mainBundle loadNibNamed:@"MWMPlacePageOpeningHoursWeekDayView"
-                                     owner:nil
-                                   options:nil]
-      .firstObject;
+  return [NSBundle.mainBundle loadNibNamed:@"MWMPlacePageOpeningHoursWeekDayView" owner:nil options:nil].firstObject;
 }
 
 @implementation MWMPlacePageOpeningHoursCell
@@ -100,8 +96,7 @@ WeekDayView getWeekDayView()
 {
   NSCalendar * cal = NSCalendar.currentCalendar;
   cal.locale = NSLocale.currentLocale;
-  Weekday currentDay =
-      static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  Weekday currentDay = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   BOOL haveCurrentDay = NO;
   size_t timeTablesCount = timeTableSet.Size();
   self.haveExpandSchedule = (timeTablesCount > 1 || !timeTableSet.GetUnhandledDays().empty());
@@ -141,7 +136,7 @@ WeekDayView getWeekDayView()
       [self addClosedDays];
   }
   self.openTimeTrailingOffset.priority =
-      delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    delegate.forcedButton ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
   self.weekDaysViewHeight.constant = ceil(self.weekDaysViewEstimatedHeight);
   [self alignTimeOffsets];
 }
@@ -255,9 +250,7 @@ WeekDayView getWeekDayView()
   // Major QA can tap multiple times before first segue call is performed.
   // This leads to multiple identical controllers to be pushed.
   self.toggleButton.enabled = NO;
-  dispatch_async(dispatch_get_main_queue(), ^{
-    self.toggleButton.enabled = YES;
-  });
+  dispatch_async(dispatch_get_main_queue(), ^{ self.toggleButton.enabled = YES; });
 }
 
 #pragma mark - Properties

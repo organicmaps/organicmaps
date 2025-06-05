@@ -4,7 +4,8 @@
 
 @implementation AltitudeFormatter
 
-+ (NSString *)altitudeStringFromMeters:(double)meters {
++ (NSString *)altitudeStringFromMeters:(double)meters
+{
   auto const altitude = platform::Distance::FormatAltitude(meters);
   return [NSString stringWithUTF8String:altitude.c_str()];
 }

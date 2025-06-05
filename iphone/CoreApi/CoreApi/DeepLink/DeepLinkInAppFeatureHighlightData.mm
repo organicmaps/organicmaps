@@ -6,17 +6,19 @@ static inline InAppFeatureHighlightType FeatureTypeFrom(url_scheme::InAppFeature
   using namespace url_scheme;
   switch (type)
   {
-    case InAppFeatureHighlightRequest::InAppFeatureType::None: return InAppFeatureHighlightTypeNone;
-    case InAppFeatureHighlightRequest::InAppFeatureType::TrackRecorder: return InAppFeatureHighlightTypeTrackRecorder;
-    case InAppFeatureHighlightRequest::InAppFeatureType::iCloud: return InAppFeatureHighlightTypeICloud;
+  case InAppFeatureHighlightRequest::InAppFeatureType::None: return InAppFeatureHighlightTypeNone;
+  case InAppFeatureHighlightRequest::InAppFeatureType::TrackRecorder: return InAppFeatureHighlightTypeTrackRecorder;
+  case InAppFeatureHighlightRequest::InAppFeatureType::iCloud: return InAppFeatureHighlightTypeICloud;
   }
 }
 
 @implementation DeepLinkInAppFeatureHighlightData
 
-- (instancetype)init:(DeeplinkUrlType)urlType {
+- (instancetype)init:(DeeplinkUrlType)urlType
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _urlType = urlType;
     _feature = FeatureTypeFrom(GetFramework().GetInAppFeatureHighlightRequest().m_feature);
   }

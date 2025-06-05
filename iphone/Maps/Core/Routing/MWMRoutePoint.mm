@@ -15,8 +15,7 @@
 
 @implementation MWMRoutePoint
 
-- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
-                          intermediateIndex:(size_t)intermediateIndex
+- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type intermediateIndex:(size_t)intermediateIndex
 {
   auto lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
@@ -85,13 +84,9 @@
               intermediateIndex:(size_t)intermediateIndex
 {
   auto const pointD = m2::PointD(point.x, point.y);
-  self = [self initWithPoint:pointD
-                       title:title
-                    subtitle:subtitle
-                        type:type intermediateIndex:intermediateIndex];
+  self = [self initWithPoint:pointD title:title subtitle:subtitle type:type intermediateIndex:intermediateIndex];
   return self;
 }
-
 
 - (instancetype)initWithPoint:(m2::PointD const &)point
                         title:(NSString *)title
@@ -120,8 +115,14 @@
   NSAssert(_intermediateIndex >= 0 && _intermediateIndex <= 100, @"Invalid intermediateIndex");
 }
 
-- (double)latitude { return mercator::YToLat(self.point.y); }
-- (double)longitude { return mercator::XToLon(self.point.x); }
+- (double)latitude
+{
+  return mercator::YToLat(self.point.y);
+}
+- (double)longitude
+{
+  return mercator::XToLon(self.point.x);
+}
 
 - (NSString *)latLonString
 {
@@ -159,9 +160,8 @@
 
   return [NSString stringWithFormat:@"<%@: %p> Position: [%@, %@] | IsMyPosition: %@ | Type: %@ | "
                                     @"IntermediateIndex: %@ | Title: %@ | Subtitle: %@",
-                                    [self class], self, @(_point.x), @(_point.y),
-                                    _isMyPosition ? @"true" : @"false", type, @(_intermediateIndex),
-                                    _title, _subtitle];
+                                    [self class], self, @(_point.x), @(_point.y), _isMyPosition ? @"true" : @"false",
+                                    type, @(_intermediateIndex), _title, _subtitle];
 }
 
 @end

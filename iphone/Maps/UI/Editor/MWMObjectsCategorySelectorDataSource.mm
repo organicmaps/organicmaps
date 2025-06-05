@@ -6,19 +6,15 @@
 
 #include "platform/localization.hpp"
 
-
 namespace
 {
 using Category = std::pair<std::string, osm::NewFeatureCategories::TypeName>;
 using Categories = std::vector<Category>;
 
-std::string locale()
-{
-  return locale_translator::bcp47ToTwineLanguage(NSLocale.currentLocale.localeIdentifier);
-}
+std::string locale() { return locale_translator::bcp47ToTwineLanguage(NSLocale.currentLocale.localeIdentifier); }
 }  // namespace
 
-@interface MWMObjectsCategorySelectorDataSource()
+@interface MWMObjectsCategorySelectorDataSource ()
 {
   osm::NewFeatureCategories m_categories;
   Categories m_categoriesList;
@@ -33,7 +29,7 @@ std::string locale()
   self = [super init];
   if (self)
     [self load];
-    
+
   return self;
 }
 
@@ -55,15 +51,15 @@ std::string locale()
   auto const & types = m_categories.GetAllCreatableTypeNames();
   m_categoriesList.reserve(types.size());
 
-  [self initializeList: types];
+  [self initializeList:types];
 }
 
 - (void)search:(NSString *)query
 {
   if (query.length == 0)
-    [self initializeList: m_categories.GetAllCreatableTypeNames()];
+    [self initializeList:m_categories.GetAllCreatableTypeNames()];
   else
-    [self initializeList: m_categories.Search([query UTF8String])];
+    [self initializeList:m_categories.Search([query UTF8String])];
 }
 
 - (NSString *)getTranslation:(NSInteger)row

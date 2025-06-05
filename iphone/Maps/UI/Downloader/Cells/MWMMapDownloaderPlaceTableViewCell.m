@@ -4,8 +4,8 @@
 
 @interface MWMMapDownloaderPlaceTableViewCell ()
 
-@property(weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *titleBottomOffset;
+@property(weak, nonatomic) IBOutlet UILabel * descriptionLabel;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleBottomOffset;
 
 @end
 
@@ -13,15 +13,18 @@
 
 #pragma mark - Config
 
-- (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(NSString *)searchQuery {
+- (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(NSString *)searchQuery
+{
   [super config:nodeAttrs searchQuery:searchQuery];
   BOOL isDescriptionVisible = NO;
-  NSDictionary *selectedAreaAttrs = @{NSFontAttributeName : [UIFont bold12]};
-  NSDictionary *unselectedAreaAttrs = @{NSFontAttributeName : [UIFont regular12]};
+  NSDictionary * selectedAreaAttrs = @{NSFontAttributeName: [UIFont bold12]};
+  NSDictionary * unselectedAreaAttrs = @{NSFontAttributeName: [UIFont regular12]};
   self.needDisplayArea = !nodeAttrs.hasParent;
-  if (self.needDisplayArea && nodeAttrs.topmostParentInfo.count == 1) {
+  if (self.needDisplayArea && nodeAttrs.topmostParentInfo.count == 1)
+  {
     isDescriptionVisible = nodeAttrs.hasParent;
-    if (isDescriptionVisible) {
+    if (isDescriptionVisible)
+    {
       self.descriptionLabel.attributedText = [self matchedString:nodeAttrs.topmostParentInfo[0].countryName
                                                    selectedAttrs:selectedAreaAttrs
                                                  unselectedAttrs:unselectedAreaAttrs];
@@ -35,8 +38,7 @@
                                                unselectedAttrs:unselectedAreaAttrs];
   }
   self.descriptionLabel.hidden = !isDescriptionVisible;
-  self.titleBottomOffset.priority =
-      isDescriptionVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
+  self.titleBottomOffset.priority = isDescriptionVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
 @end

@@ -3,7 +3,7 @@ namespace ms
 class LatLon;
 }  // namespace ms
 
-@protocol MWMPlacePageObject<NSObject>
+@protocol MWMPlacePageObject <NSObject>
 
 - (BOOL)isMyPosition;
 - (NSString *)title;
@@ -16,7 +16,7 @@ class LatLon;
 
 @class PlacePageData;
 
-@interface MWMShareActivityItem : NSObject<UIActivityItemSource>
+@interface MWMShareActivityItem : NSObject <UIActivityItemSource>
 
 - (instancetype)initForMyPositionAtLocation:(CLLocationCoordinate2D const &)location;
 - (instancetype)initForPlacePageObject:(id<MWMPlacePageObject>)object;

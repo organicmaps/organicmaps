@@ -37,11 +37,15 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 
 @implementation MWMSideButtons
 
-- (UIView *)view {
+- (UIView *)view
+{
   return self.sideView;
 }
 
-+ (MWMSideButtons *)buttons { return [MWMMapViewControlsManager manager].sideButtons; }
++ (MWMSideButtons *)buttons
+{
+  return [MWMMapViewControlsManager manager].sideButtons;
+}
 - (instancetype)initWithParentView:(UIView *)view
 {
   self = [super init];
@@ -56,7 +60,10 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
   return self;
 }
 
-+ (void)updateAvailableArea:(CGRect)frame { [[self buttons].sideView updateAvailableArea:frame]; }
++ (void)updateAvailableArea:(CGRect)frame
+{
+  [[self buttons].sideView updateAvailableArea:frame];
+}
 
 - (void)zoomIn
 {
@@ -82,22 +89,25 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
   [locBtn.imageView stopRotation];
   switch (state)
   {
-    case MWMMyPositionModePendingPosition:
-    {
-      [locBtn setStyleNameAndApply: @"ButtonPending"];
-      [locBtn.imageView startRotation:1];
-      break;
-    }
-    case MWMMyPositionModeNotFollow:
-    case MWMMyPositionModeNotFollowNoPosition: [locBtn setStyleNameAndApply: @"ButtonGetPosition"]; break;
-    case MWMMyPositionModeFollow: [locBtn setStyleNameAndApply: @"ButtonFollow"]; break;
-    case MWMMyPositionModeFollowAndRotate: [locBtn setStyleNameAndApply: @"ButtonFollowAndRotate"]; break;
+  case MWMMyPositionModePendingPosition:
+  {
+    [locBtn setStyleNameAndApply:@"ButtonPending"];
+    [locBtn.imageView startRotation:1];
+    break;
+  }
+  case MWMMyPositionModeNotFollow:
+  case MWMMyPositionModeNotFollowNoPosition: [locBtn setStyleNameAndApply:@"ButtonGetPosition"]; break;
+  case MWMMyPositionModeFollow: [locBtn setStyleNameAndApply:@"ButtonFollow"]; break;
+  case MWMMyPositionModeFollowAndRotate: [locBtn setStyleNameAndApply:@"ButtonFollowAndRotate"]; break;
   }
 }
 
 #pragma mark - Actions
 
-- (IBAction)zoomTouchDown:(UIButton *)sender { self.zoomSwipeEnabled = YES; }
+- (IBAction)zoomTouchDown:(UIButton *)sender
+{
+  self.zoomSwipeEnabled = YES;
+}
 - (IBAction)zoomTouchUpInside:(UIButton *)sender
 {
   self.zoomSwipeEnabled = NO;
@@ -107,14 +117,16 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
     [self zoomOut];
 }
 
-- (IBAction)zoomTouchUpOutside:(UIButton *)sender { self.zoomSwipeEnabled = NO; }
+- (IBAction)zoomTouchUpOutside:(UIButton *)sender
+{
+  self.zoomSwipeEnabled = NO;
+}
 - (IBAction)zoomSwipe:(UIPanGestureRecognizer *)sender
 {
   if (!self.zoomSwipeEnabled)
     return;
   UIView * const superview = self.sideView.superview;
-  CGFloat const translation =
-      -[sender translationInView:superview].y / superview.bounds.size.height;
+  CGFloat const translation = -[sender translationInView:superview].y / superview.bounds.size.height;
 
   CGFloat const scaleFactor = exp(translation);
   GetFramework().Scale(scaleFactor, false);
@@ -128,7 +140,10 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
 
 #pragma mark - Properties
 
-- (BOOL)zoomHidden { return self.sideView.zoomHidden; }
+- (BOOL)zoomHidden
+{
+  return self.sideView.zoomHidden;
+}
 - (void)setZoomHidden:(BOOL)zoomHidden
 {
   if ([MWMRouter isRoutingActive])
@@ -137,8 +152,11 @@ NSString * const kUDDidShowLongTapToShowSideButtonsToast = @"kUDDidShowLongTapTo
     self.sideView.zoomHidden = [MWMSettings zoomButtonsEnabled] ? zoomHidden : YES;
 }
 
-- (BOOL)hidden { return self.sideView.hidden; }
-- (void)setHidden:(BOOL)hidden 
+- (BOOL)hidden
+{
+  return self.sideView.hidden;
+}
+- (void)setHidden:(BOOL)hidden
 {
   if (!self.hidden && hidden)
     [Toast showWithText:L(@"long_tap_toast")];

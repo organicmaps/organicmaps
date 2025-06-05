@@ -8,8 +8,8 @@
   std::string m_editedStreetName;
 }
 
-@property (nonatomic) NSUInteger selectedStreet;
-@property (nonatomic) NSUInteger lastSelectedStreet;
+@property(nonatomic) NSUInteger selectedStreet;
+@property(nonatomic) NSUInteger lastSelectedStreet;
 
 @end
 
@@ -29,13 +29,13 @@
 {
   self.title = L(@"choose_street");
   self.navigationItem.leftBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                    target:self
-                                                    action:@selector(onCancel)];
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(onCancel)];
   self.navigationItem.rightBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                    target:self
-                                                    action:@selector(onDone)];
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                  target:self
+                                                  action:@selector(onDone)];
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
@@ -142,27 +142,25 @@
 
 #pragma mark - UITableViewDataSource
 
-- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
+                  cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   UITableViewCell * cell = nil;
   if (m_streets.empty())
   {
-    cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class]
-                                             indexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class] indexPath:indexPath];
   }
   else
   {
     if (indexPath.section == 0)
     {
-      Class cls = m_streets[indexPath.row].m_localizedName.empty()
-                      ? [UITableViewCell class]
-                      : [MWMTableViewSubtitleCell class];
+      Class cls =
+        m_streets[indexPath.row].m_localizedName.empty() ? [UITableViewCell class] : [MWMTableViewSubtitleCell class];
       cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
     }
     else
     {
-      cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class]
-                                               indexPath:indexPath];
+      cell = [tableView dequeueReusableCellWithCellClass:[MWMStreetEditorEditTableViewCell class] indexPath:indexPath];
     }
   }
 
@@ -180,7 +178,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return m_streets.empty()? 1 : 2;
+  return m_streets.empty() ? 1 : 2;
 }
 
 #pragma mark - UITableViewDelegate

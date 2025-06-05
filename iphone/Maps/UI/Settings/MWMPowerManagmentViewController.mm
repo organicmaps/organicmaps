@@ -48,7 +48,7 @@ using namespace power_management;
     scheme = Scheme::Normal;
   else if ([selectedCell isEqual:self.manualMax])
     scheme = Scheme::EconomyMaximum;
-  
+
   GetFramework().GetPowerManager().SetScheme(scheme);
 }
 

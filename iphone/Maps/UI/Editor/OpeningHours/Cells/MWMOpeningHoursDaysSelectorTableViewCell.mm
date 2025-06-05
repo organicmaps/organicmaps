@@ -3,11 +3,11 @@
 
 @interface MWMOpeningHoursDaysSelectorTableViewCell ()
 
-@property (nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
-@property (nonatomic) IBOutletCollection(UILabel) NSArray * labels;
-@property (nonatomic) IBOutletCollection(UIImageView) NSArray * images;
+@property(nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
+@property(nonatomic) IBOutletCollection(UILabel) NSArray * labels;
+@property(nonatomic) IBOutletCollection(UIImageView) NSArray * images;
 
-@property (nonatomic) NSUInteger firstWeekday;
+@property(nonatomic) NSUInteger firstWeekday;
 
 @end
 
@@ -73,7 +73,7 @@ using namespace osmoh;
     if (image.tag == tag)
     {
       image.image = [UIImage imageNamed:selected ? @"radioBtnOn" : @"radioBtnOff"];
-      [image setStyleNameAndApply: selected ? @"MWMBlue" : @"MWMGray"];
+      [image setStyleNameAndApply:selected ? @"MWMBlue" : @"MWMGray"];
     }
   }
 }

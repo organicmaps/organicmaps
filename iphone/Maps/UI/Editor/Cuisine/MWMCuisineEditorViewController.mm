@@ -19,7 +19,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 }
 }  // namespace
 
-@interface MWMCuisineEditorViewController ()<UISearchBarDelegate, MWMKeyboardObserver>
+@interface MWMCuisineEditorViewController () <UISearchBarDelegate, MWMKeyboardObserver>
 {
   osm::AllCuisines m_allCuisines;
   std::vector<std::string> m_selectedCuisines;
@@ -107,8 +107,14 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   [self.tableView reloadData];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar { [searchBar resignFirstResponder]; }
-- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar { return UIBarPositionTopAttached; }
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+  [searchBar resignFirstResponder];
+}
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
+{
+  return UIBarPositionTopAttached;
+}
 - (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
 {
   [searchBar setShowsCancelButton:isActiveState animated:YES];
@@ -121,13 +127,13 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 {
   self.title = L(@"cuisine");
   self.navigationItem.leftBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                    target:self
-                                                    action:@selector(onCancel)];
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(onCancel)];
   self.navigationItem.rightBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                    target:self
-                                                    action:@selector(onDone)];
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                  target:self
+                                                  action:@selector(onDone)];
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
@@ -153,13 +159,15 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 
 - (void)configTable
 {
-  [self.tableView registerClass:[MWMTableViewCell class]
-         forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 #pragma mark - Actions
 
-- (void)onCancel { [self.navigationController popViewControllerAnimated:YES]; }
+- (void)onCancel
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)onDone
 {
   [self.delegate setSelectedCuisines:m_selectedCuisines];
@@ -181,8 +189,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView
                   cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  auto cell =
-      [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
+  auto cell = [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   NSInteger const index = indexPath.row;
 
   auto const & dataSource = [self dataSourceForSection:indexPath.section];
@@ -199,7 +206,7 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
   }
 
   BOOL const selected =
-      std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
+    std::find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
@@ -224,16 +231,13 @@ std::vector<std::string> SliceKeys(std::vector<std::pair<std::string, std::strin
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView * _Nonnull)tableView
-    didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
   [cell setSelected:NO animated:YES];
   BOOL const isAlreadySelected = cell.accessoryType == UITableViewCellAccessoryCheckmark;
-  cell.accessoryType =
-      isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
-  [self change:[self dataSourceForSection:indexPath.section][indexPath.row]
-      selected:!isAlreadySelected];
+  cell.accessoryType = isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+  [self change:[self dataSourceForSection:indexPath.section][indexPath.row] selected:!isAlreadySelected];
 }
 
 @end

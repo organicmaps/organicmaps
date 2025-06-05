@@ -8,7 +8,7 @@ class EditableMapObject;
 
 @interface MWMEditorViewController : MWMTableViewController
 
-@property (nonatomic) BOOL isCreating;
+@property(nonatomic) BOOL isCreating;
 
 - (void)setFeatureToEdit:(FeatureID const &)fid;
 - (void)setEditableMapObject:(osm::EditableMapObject const &)emo;

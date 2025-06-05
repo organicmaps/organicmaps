@@ -2,22 +2,20 @@
 #import "MWMZoomButtonsView.h"
 #import "Statistics.h"
 
-
 #include "Framework.h"
-#include "platform/settings.hpp"
 #include "indexer/scales.hpp"
+#include "platform/settings.hpp"
 
 static NSString * const kMWMZoomButtonsViewNibName = @"MWMZoomButtonsView";
 
+@interface MWMZoomButtons ()
 
-@interface MWMZoomButtons()
+@property(nonatomic) IBOutlet MWMZoomButtonsView * zoomView;
+@property(weak, nonatomic) IBOutlet UIButton * zoomInButton;
+@property(weak, nonatomic) IBOutlet UIButton * zoomOutButton;
 
-@property (nonatomic) IBOutlet MWMZoomButtonsView * zoomView;
-@property (weak, nonatomic) IBOutlet UIButton * zoomInButton;
-@property (weak, nonatomic) IBOutlet UIButton * zoomOutButton;
-
-@property (nonatomic) BOOL zoomSwipeEnabled;
-@property (nonatomic, readonly) BOOL isZoomEnabled;
+@property(nonatomic) BOOL zoomSwipeEnabled;
+@property(nonatomic, readonly) BOOL isZoomEnabled;
 
 @end
 
