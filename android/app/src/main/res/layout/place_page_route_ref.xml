@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ll__place_route_ref"
+  style="@style/PlacePageItemFrame"
+  android:tag="route_ref"
+  tools:background="#40FF00FF"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_route_ref"
+    style="@style/PlacePageMetadataIcon"
+    app:srcCompat="@drawable/ic_category_bus" />
+
+  <TextView
+    android:id="@+id/tv__place_route_ref"
+    android:textAlignment="viewStart"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+    tools:text="Route references"/>
+
+</LinearLayout> 

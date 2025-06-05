@@ -4,7 +4,6 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/ftraits.hpp"
 
 #include "geometry/latlon.hpp"
 

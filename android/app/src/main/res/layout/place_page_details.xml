@@ -65,6 +65,8 @@
 
     <include layout="@layout/place_page_outdoor_seating"/>
 
+    <include layout="@layout/place_page_route_ref"/>
+
     <!-- ToDo: Address is missing compared with iOS. It's shown in title but anyway .. -->
 
     <include layout="@layout/place_page_latlon"/>

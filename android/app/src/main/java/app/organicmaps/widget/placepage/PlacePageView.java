@@ -136,6 +136,8 @@ public class PlacePageView extends Fragment
   private TextView mTvOutdoorSeating;
   private View mEntrance;
   private TextView mTvEntrance;
+  private View mRouteRef;
+  private TextView mTvRouteRef;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -302,6 +304,9 @@ public class PlacePageView extends Fragment
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
+    mRouteRef = mFrame.findViewById(R.id.ll__place_route_ref);
+    mRouteRef.setOnClickListener(this);
+    mTvRouteRef = mFrame.findViewById(R.id.tv__place_route_ref);
     mEditPlace = mFrame.findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = mFrame.findViewById(R.id.ll__add_organisation);
@@ -666,7 +671,8 @@ public class PlacePageView extends Fragment
     refreshMetadataOrHide(outdoorSeating.equals("yes") ? getString(R.string.outdoor_seating) : "", mOutdoorSeating,
                           mTvOutdoorSeating);
 
-    //    showTaxiOffer(mapObject);
+    // showTaxiOffer(mapObject);
+    refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedRouteRefs(), mRouteRef, mTvRouteRef);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {

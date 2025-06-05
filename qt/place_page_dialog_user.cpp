@@ -153,6 +153,10 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       data->addWidget(wikiButton, row++, 0, 1, 2, Qt::AlignLeft);
     }
 
+    // Route refs
+    if (auto routes = info.FormatRouteRefs(); !routes.empty())
+      addEntry("Routes", routes);
+
     // Opening hours fragment
     if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
       addEntry("Opening hours", std::string(openingHours));
