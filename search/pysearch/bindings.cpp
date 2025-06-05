@@ -40,8 +40,14 @@ namespace
 struct Mercator
 {
   Mercator() = default;
-  Mercator(double x, double y) : m_x(x), m_y(y) {}
-  explicit Mercator(m2::PointD const & m) : m_x(m.x), m_y(m.y) {}
+  Mercator(double x, double y)
+    : m_x(x)
+    , m_y(y)
+  {}
+  explicit Mercator(m2::PointD const & m)
+    : m_x(m.x)
+    , m_y(m.y)
+  {}
 
   string ToString() const
   {
@@ -57,7 +63,10 @@ struct Mercator
 struct Viewport
 {
   Viewport() = default;
-  Viewport(Mercator const & min, Mercator const & max) : m_min(min), m_max(max) {}
+  Viewport(Mercator const & min, Mercator const & max)
+    : m_min(min)
+    , m_max(max)
+  {}
 
   string ToString() const
   {
@@ -75,8 +84,7 @@ struct Params
   string ToString() const
   {
     ostringstream os;
-    os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", "
-       << m_viewport.ToString();
+    os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", " << m_viewport.ToString();
     return os.str();
   }
 
@@ -135,8 +143,8 @@ struct SearchEngineProxy
   {
     search::search_quality::InitDataSource(m_dataSource, "" /* mwmListPath */);
     search::search_quality::InitStorageData(m_affiliations, m_countryNameSynonyms);
-    m_engine = search::search_quality::InitSearchEngine(m_dataSource, m_affiliations,
-                                                        "en" /* locale */, 1 /* numThreads */);
+    m_engine =
+      search::search_quality::InitSearchEngine(m_dataSource, m_affiliations, "en" /* locale */, 1 /* numThreads */);
   }
 
   search::SearchParams MakeSearchParams(Params const & params) const
@@ -167,7 +175,7 @@ struct SearchEngineProxy
     return results;
   }
 
-  boost::python::list Trace(Params const &params) const
+  boost::python::list Trace(Params const & params) const
   {
     m_engine->SetLocale(params.m_locale);
 
@@ -216,37 +224,37 @@ BOOST_PYTHON_MODULE(pysearch)
   def("init", &Init);
 
   class_<Mercator>("Mercator")
-      .def(init<double, double>())
-      .def_readwrite("x", &Mercator::m_x)
-      .def_readwrite("y", &Mercator::m_y)
-      .def("to_string", &Mercator::ToString);
+    .def(init<double, double>())
+    .def_readwrite("x", &Mercator::m_x)
+    .def_readwrite("y", &Mercator::m_y)
+    .def("to_string", &Mercator::ToString);
 
   class_<Viewport>("Viewport")
-      .def(init<Mercator const &, Mercator const &>())
-      .def_readwrite("min", &Viewport::m_min)
-      .def_readwrite("max", &Viewport::m_max)
-      .def("to_string", &Viewport::ToString);
+    .def(init<Mercator const &, Mercator const &>())
+    .def_readwrite("min", &Viewport::m_min)
+    .def_readwrite("max", &Viewport::m_max)
+    .def("to_string", &Viewport::ToString);
 
   class_<Params>("Params")
-      .def_readwrite("query", &Params::m_query)
-      .def_readwrite("locale", &Params::m_locale)
-      .def_readwrite("position", &Params::m_position)
-      .def_readwrite("viewport", &Params::m_viewport)
-      .def("to_string", &Params::ToString);
+    .def_readwrite("query", &Params::m_query)
+    .def_readwrite("locale", &Params::m_locale)
+    .def_readwrite("position", &Params::m_position)
+    .def_readwrite("viewport", &Params::m_viewport)
+    .def("to_string", &Params::ToString);
 
   class_<Result>("Result")
-      .def_readwrite("name", &Result::m_name)
-      .def_readwrite("address", &Result::m_address)
-      .def_readwrite("has_center", &Result::m_hasCenter)
-      .def_readwrite("center", &Result::m_center)
-      .def("__repr__", &Result::ToString);
+    .def_readwrite("name", &Result::m_name)
+    .def_readwrite("address", &Result::m_address)
+    .def_readwrite("has_center", &Result::m_hasCenter)
+    .def_readwrite("center", &Result::m_center)
+    .def("__repr__", &Result::ToString);
 
   class_<TraceResult>("TraceResult")
-      .def_readwrite("parse", &TraceResult::m_parse)
-      .def_readwrite("is_category", &TraceResult::m_isCategory)
-      .def("__repr__", &TraceResult::ToString);
+    .def_readwrite("parse", &TraceResult::m_parse)
+    .def_readwrite("is_category", &TraceResult::m_isCategory)
+    .def("__repr__", &TraceResult::ToString);
 
   class_<SearchEngineProxy, boost::noncopyable>("SearchEngine")
-      .def("query", &SearchEngineProxy::Query)
-      .def("trace", &SearchEngineProxy::Trace);
+    .def("query", &SearchEngineProxy::Query)
+    .def("trace", &SearchEngineProxy::Trace);
 }

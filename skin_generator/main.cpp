@@ -1,17 +1,18 @@
 #include "generator.hpp"
 
-#include "base/logging.hpp"
 #include <iostream>
+#include "base/logging.hpp"
 
 #include <QApplication>
 #include <QtCore/QFile>
-#include <QtCore/QString>
 #include <QtCore/QHash>
+#include <QtCore/QString>
 
 #include <gflags/gflags.h>
 
 DEFINE_string(fontFileName, "../../data/01_dejavusans.ttf", "path to TrueType font file");
-DEFINE_string(symbolsFile, "../../data/results.unicode", "file with 2bytes symbols for which the skin should be generated");
+DEFINE_string(symbolsFile, "../../data/results.unicode",
+              "file with 2bytes symbols for which the skin should be generated");
 DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbol files");
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
@@ -21,9 +22,9 @@ DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
 DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 DEFINE_int32(maxSize, 4096, "max width/height of output textures");
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-// Used to lock the hash seed, so the order of XML attributes is always the same.
+  // Used to lock the hash seed, so the order of XML attributes is always the same.
   QHashSeed::setDeterministicGlobalSeed();
   try
   {

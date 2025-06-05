@@ -25,10 +25,7 @@ public:
 
   bool HasPoint(PointD const & p, double eps) const { return HasPoint(p.x, p.y, eps); }
 
-  bool HasPoint(double x, double y, double eps) const
-  {
-    return m_box.HasPoint(x + y, x - y, 2 * eps);
-  }
+  bool HasPoint(double x, double y, double eps) const { return m_box.HasPoint(x + y, x - y, 2 * eps); }
 
   std::vector<m2::PointD> Points() const
   {
@@ -44,10 +41,7 @@ public:
   DECLARE_DEBUG_PRINT(DiamondBox)
 
 private:
-  static m2::PointD ToOrig(m2::PointD const & p)
-  {
-    return m2::PointD(0.5 * (p.x + p.y), 0.5 * (p.x - p.y));
-  }
+  static m2::PointD ToOrig(m2::PointD const & p) { return m2::PointD(0.5 * (p.x + p.y), 0.5 * (p.x - p.y)); }
 
   BoundingBox m_box;
 };

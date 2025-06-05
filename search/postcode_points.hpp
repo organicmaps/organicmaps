@@ -58,8 +58,7 @@ public:
   double GetRadius() const { return m_radius; }
 
 private:
-  void Get(strings::UniString const & postcode, bool recursive,
-           std::vector<m2::PointD> & points) const;
+  void Get(strings::UniString const & postcode, bool recursive, std::vector<m2::PointD> & points) const;
 
   Header m_header;
   std::unique_ptr<CentersTable> m_points;

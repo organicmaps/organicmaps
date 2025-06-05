@@ -45,8 +45,7 @@
 
 #include <gflags/gflags.h>
 
-DEFINE_string(node_storage, "map",
-              "Type of storage for intermediate points representation. Available: raw, map, mem.");
+DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem.");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(maps_build_path, "",
               "Directory of any of the previous map generations. It is assumed that it will "
@@ -56,76 +55,75 @@ DEFINE_bool(popularity, false, "Build complexes for calculation of popularity of
 DEFINE_string(output, "", "Output filename");
 DEFINE_bool(debug, false, "Debug mode.");
 
-MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
-  CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
+MAIN_WITH_ERROR_HANDLING(
+  [](int argc, char ** argv)
+  {
+    CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
-  Platform & pl = GetPlatform();
+    Platform & pl = GetPlatform();
 
-  gflags::SetUsageMessage(
+    gflags::SetUsageMessage(
       "complex_generator is a program that generates complexes on the basis of "
       "the last generation of maps. Complexes are a hierarchy of interesting "
       "geographical features.");
-  gflags::SetVersionString(pl.Version());
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
+    gflags::SetVersionString(pl.Version());
+    gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  auto threadsCount = pl.CpuCores();
-  CHECK(!FLAGS_user_resource_path.empty(), ());
-  pl.SetResourceDir(FLAGS_user_resource_path);
-  classificator::Load();
+    auto threadsCount = pl.CpuCores();
+    CHECK(!FLAGS_user_resource_path.empty(), ());
+    pl.SetResourceDir(FLAGS_user_resource_path);
+    classificator::Load();
 
-  feature::GenerateInfo genInfo;
-  genInfo.m_osmFileName = base::JoinPath(FLAGS_maps_build_path, "..", "planet.o5m");
-  genInfo.SetOsmFileType("o5m");
-  genInfo.SetNodeStorageType(FLAGS_node_storage);
-  genInfo.m_intermediateDir = base::JoinPath(FLAGS_maps_build_path, "intermediate_data");
-  genInfo.m_tmpDir = base::JoinPath(FLAGS_maps_build_path, "complex", "tmp");
-  CHECK(Platform::MkDirRecursively(genInfo.m_tmpDir), ());
+    feature::GenerateInfo genInfo;
+    genInfo.m_osmFileName = base::JoinPath(FLAGS_maps_build_path, "..", "planet.o5m");
+    genInfo.SetOsmFileType("o5m");
+    genInfo.SetNodeStorageType(FLAGS_node_storage);
+    genInfo.m_intermediateDir = base::JoinPath(FLAGS_maps_build_path, "intermediate_data");
+    genInfo.m_tmpDir = base::JoinPath(FLAGS_maps_build_path, "complex", "tmp");
+    CHECK(Platform::MkDirRecursively(genInfo.m_tmpDir), ());
 
-  generator::hierarchy::PrintFn print;
-  generator::hierarchy::GetMainTypeFn getMainType = generator::hierarchy::GetMainType;
-  std::shared_ptr<generator::FilterInterface> filter = std::make_shared<generator::FilterComplex>();
+    generator::hierarchy::PrintFn print;
+    generator::hierarchy::GetMainTypeFn getMainType = generator::hierarchy::GetMainType;
+    std::shared_ptr<generator::FilterInterface> filter = std::make_shared<generator::FilterComplex>();
 
-  if (FLAGS_debug)
-  {
-    print = static_cast<std::string (*)(generator::HierarchyEntry const &)>(generator::DebugPrint);
-  }
-  else
-  {
-    print = [](auto const & entry) {
-      return generator::hierarchy::HierarchyEntryToCsvString(entry);
-    };
-  }
+    if (FLAGS_debug)
+    {
+      print = static_cast<std::string (*)(generator::HierarchyEntry const &)>(generator::DebugPrint);
+    }
+    else
+    {
+      print = [](auto const & entry) { return generator::hierarchy::HierarchyEntryToCsvString(entry); };
+    }
 
-  generator::RawGenerator rawGenerator(genInfo, threadsCount);
-  auto processor = CreateProcessor(generator::ProcessorType::Complex, rawGenerator.GetQueue(),
-                                   genInfo.m_intermediateDir, false /* haveBordersForWholeWorld */);
-  generator::cache::IntermediateDataObjectsCache objectsCache;
-  auto const cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
-  auto translator = CreateTranslator(generator::TranslatorType::Complex, processor, cache, genInfo);
-  auto finalProcessor = std::make_shared<generator::ComplexFinalProcessor>(
-      genInfo.m_tmpDir, FLAGS_output, threadsCount);
+    generator::RawGenerator rawGenerator(genInfo, threadsCount);
+    auto processor = CreateProcessor(generator::ProcessorType::Complex, rawGenerator.GetQueue(),
+                                     genInfo.m_intermediateDir, false /* haveBordersForWholeWorld */);
+    generator::cache::IntermediateDataObjectsCache objectsCache;
+    auto const cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
+    auto translator = CreateTranslator(generator::TranslatorType::Complex, processor, cache, genInfo);
+    auto finalProcessor =
+      std::make_shared<generator::ComplexFinalProcessor>(genInfo.m_tmpDir, FLAGS_output, threadsCount);
 
-  finalProcessor->SetPrintFunction(print);
-  finalProcessor->SetGetMainTypeFunction(getMainType);
-  finalProcessor->SetGetNameFunction(generator::hierarchy::GetName);
-  finalProcessor->SetFilter(filter);
-  finalProcessor->UseBuildingPartsInfo(
-      genInfo.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE));
+    finalProcessor->SetPrintFunction(print);
+    finalProcessor->SetGetMainTypeFunction(getMainType);
+    finalProcessor->SetGetNameFunction(generator::hierarchy::GetName);
+    finalProcessor->SetFilter(filter);
+    finalProcessor->UseBuildingPartsInfo(genInfo.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE));
 
-  if (FLAGS_popularity)
-  {
-    // Directory FLAGS_maps_build_path must contain 'osm2ft' directory with *.mwm.osm2ft
-    auto const osm2FtPath = base::JoinPath(FLAGS_maps_build_path, "osm2ft");
-    // Find directory with *.mwm. Directory FLAGS_maps_build_path must contain directory with *.mwm,
-    // whose name must consist of six digits.
-    Platform::FilesList files;
-    pl.GetFilesByRegExp(FLAGS_maps_build_path, "[0-9]{6}", files);
-    CHECK_EQUAL(files.size(), 1, ());
-    auto const mwmPath = base::JoinPath(FLAGS_maps_build_path, files[0]);
-    finalProcessor->UseCentersEnricher(mwmPath, osm2FtPath);
-  }
+    if (FLAGS_popularity)
+    {
+      // Directory FLAGS_maps_build_path must contain 'osm2ft' directory with *.mwm.osm2ft
+      auto const osm2FtPath = base::JoinPath(FLAGS_maps_build_path, "osm2ft");
+      // Find directory with *.mwm. Directory FLAGS_maps_build_path must contain directory with *.mwm,
+      // whose name must consist of six digits.
+      Platform::FilesList files;
+      pl.GetFilesByRegExp(FLAGS_maps_build_path, "[0-9]{6}", files);
+      CHECK_EQUAL(files.size(), 1, ());
+      auto const mwmPath = base::JoinPath(FLAGS_maps_build_path, files[0]);
+      finalProcessor->UseCentersEnricher(mwmPath, osm2FtPath);
+    }
 
-  rawGenerator.GenerateCustom(translator, finalProcessor);
-  CHECK(rawGenerator.Execute(), ());
-  return EXIT_SUCCESS;
-});
+    rawGenerator.GenerateCustom(translator, finalProcessor);
+    CHECK(rawGenerator.Execute(), ());
+    return EXIT_SUCCESS;
+  });

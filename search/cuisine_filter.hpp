@@ -32,8 +32,7 @@ public:
   class ScopedFilter
   {
   public:
-    ScopedFilter(MwmSet::MwmId const & mwmId, Descriptions const & descriptions,
-                 std::vector<uint32_t> const & types);
+    ScopedFilter(MwmSet::MwmId const & mwmId, Descriptions const & descriptions, std::vector<uint32_t> const & types);
 
     bool Matches(FeatureID const & fid) const;
 
@@ -45,8 +44,7 @@ public:
 
   CuisineFilter(FoodCache & food);
 
-  std::unique_ptr<ScopedFilter> MakeScopedFilter(MwmContext const & context,
-                                                 std::vector<uint32_t> const & types);
+  std::unique_ptr<ScopedFilter> MakeScopedFilter(MwmContext const & context, std::vector<uint32_t> const & types);
 
   void ClearCaches();
 

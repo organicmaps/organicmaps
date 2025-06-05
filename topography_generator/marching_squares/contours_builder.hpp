@@ -8,8 +8,8 @@
 #include <algorithm>
 #include <deque>
 #include <list>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace topography_generator
 {
@@ -36,7 +36,7 @@ public:
         Contour contourMerc;
         contourMerc.reserve(contour.size());
         std::transform(contour.begin(), contour.end(), std::back_inserter(contourMerc),
-                       [](ms::LatLon const & pt){ return mercator::FromLatLon(pt); });
+                       [](ms::LatLon const & pt) { return mercator::FromLatLon(pt); });
 
         contours[levelValue].emplace_back(std::move(contourMerc));
       }

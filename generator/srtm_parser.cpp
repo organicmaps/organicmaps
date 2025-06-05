@@ -21,7 +21,10 @@ size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegre
 
 struct UnzipMemDelegate : public ZipFileReader::Delegate
 {
-  explicit UnzipMemDelegate(std::string & buffer) : m_buffer(buffer), m_completed(false) {}
+  explicit UnzipMemDelegate(std::string & buffer)
+    : m_buffer(buffer)
+    , m_completed(false)
+  {}
 
   // ZipFileReader::Delegate overrides:
   void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.append(data, size); }
@@ -45,12 +48,11 @@ std::string GetSrtmContFileName(std::string const & dir, std::string const & bas
 }  // namespace
 
 // SrtmTile ----------------------------------------------------------------------------------------
-SrtmTile::SrtmTile()
-{
-  Invalidate();
-}
+SrtmTile::SrtmTile() { Invalidate(); }
 
-SrtmTile::SrtmTile(SrtmTile && rhs) : m_data(std::move(rhs.m_data)), m_valid(rhs.m_valid)
+SrtmTile::SrtmTile(SrtmTile && rhs)
+  : m_data(std::move(rhs.m_data))
+  , m_valid(rhs.m_valid)
 {
   rhs.Invalidate();
 }
@@ -176,7 +178,9 @@ void SrtmTile::Invalidate()
 }
 
 // SrtmTileManager ---------------------------------------------------------------------------------
-SrtmTileManager::SrtmTileManager(std::string const & dir) : m_dir(dir) {}
+SrtmTileManager::SrtmTileManager(std::string const & dir)
+  : m_dir(dir)
+{}
 geometry::Altitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
   auto const key = GetKey(coord);

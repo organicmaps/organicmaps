@@ -17,8 +17,8 @@
 #include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
-#include "geometry/polyline2d.hpp"
 #include "geometry/point_with_altitude.hpp"
+#include "geometry/polyline2d.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -42,7 +42,10 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
                          std::set<std::string> const & neededMaps)
-  : m_mode(mode), m_type(type), m_neededMaps(neededMaps), m_numMwmIds(std::make_unique<routing::NumMwmIds>())
+  : m_mode(mode)
+  , m_type(type)
+  , m_neededMaps(neededMaps)
+  , m_numMwmIds(std::make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 
@@ -99,7 +102,7 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
 
   double constexpr kEpsilon = 1e-6;
   TEST(base::AlmostEqualAbs(routeFoundByAstar.GetTotalDistanceMeters(),
-                          routeFoundByAstarBidirectional.GetTotalDistanceMeters(), kEpsilon),
+                            routeFoundByAstarBidirectional.GetTotalDistanceMeters(), kEpsilon),
        ());
 }
 
@@ -114,9 +117,8 @@ void RoutingTest::TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD
   TEST(!finalEdges.empty(), ());
 
   m2::PointD const startPosOnFeature =
-      GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */);
-  m2::PointD const finalPosOnFeature =
-      GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */);
+    GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */);
+  m2::PointD const finalPosOnFeature = GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */);
 
   TestRouters(startPosOnFeature, finalPosOnFeature);
 }
@@ -131,8 +133,8 @@ std::unique_ptr<routing::IRouter> RoutingTest::CreateRouter(std::string const & 
       neededLocalFiles.push_back(file);
   }
 
-  std::unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
-      m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, m_type);
+  std::unique_ptr<routing::IRouter> router =
+    integration::CreateVehicleRouter(m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, m_type);
   return router;
 }
 
@@ -141,20 +143,19 @@ void RoutingTest::GetNearestEdges(m2::PointD const & pt,
 {
   routing::MwmDataSource dataSource(m_dataSource, nullptr /* numMwmIDs */);
   routing::FeaturesRoadGraph graph(dataSource, m_mode, CreateModelFactory());
-  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
-                             pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(pt, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
                          1 /* count */, edges);
 }
 
-void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
-                m2::PointD const & finalPos, routing::Route & route)
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos,
+                routing::Route & route)
 {
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
   base::Timer timer;
-  auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
-                                                m2::PointD::Zero() /* startDirection */,
-                                                false /* adjust */, delegate, route);
+  auto const resultCode =
+    router.CalculateRoute(routing::Checkpoints(startPos, finalPos), m2::PointD::Zero() /* startDirection */,
+                          false /* adjust */, delegate, route);
   double const elapsedSec = timer.ElapsedSeconds();
   TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
   TEST(route.IsValid(), ());

@@ -156,7 +156,6 @@ UNIT_TEST(HS_ParseNumber)
     TEST(!n.IsIntersect(Number("136")), ());
   }
 
-
   {
     Number n("135-24", true);
     TEST(!n.IsOdd(), ());
@@ -263,8 +262,7 @@ UNIT_TEST(HS_StreetsMerge)
 
 namespace
 {
-m2::PointD FindHouse(DataSource & dataSource, vector<string> const & streets,
-                     string const & houseName, double offset)
+m2::PointD FindHouse(DataSource & dataSource, vector<string> const & streets, string const & houseName, double offset)
 {
   search::HouseDetector houser(dataSource);
 
@@ -284,7 +282,7 @@ m2::PointD FindHouse(DataSource & dataSource, vector<string> const & streets,
   return houses[0].m_house->GetPosition();
 }
 
-}
+}  // namespace
 
 UNIT_TEST(HS_FindHouseSmoke)
 {
@@ -299,7 +297,7 @@ UNIT_TEST(HS_FindHouseSmoke)
   {
     vector<string> streetName = {"Московская улица"};
     TEST_ALMOST_EQUAL_ABS(FindHouse(dataSource, streetName, "7", 100),
-                      m2::PointD(27.539850827603416406, 64.222406776416349317), epsPoints, ());
+                          m2::PointD(27.539850827603416406, 64.222406776416349317), epsPoints, ());
   }
   /// @todo HouseDetector used in tests only, so do not want to waste time here ..
   /*{
@@ -311,28 +309,26 @@ UNIT_TEST(HS_FindHouseSmoke)
     vector<string> streetName = {"улица Ленина"};
 
     /// @todo This cases doesn't work, but should in new search algorithms.
-    //m2::PointD pt = FindHouse(dataSource, streetName, "28", 50);
-    //m2::PointD pt = FindHouse(dataSource, streetName, "30", 50);
+    // m2::PointD pt = FindHouse(dataSource, streetName, "28", 50);
+    // m2::PointD pt = FindHouse(dataSource, streetName, "30", 50);
 
     m2::PointD pt = FindHouse(dataSource, streetName, "21", 50);
     TEST_ALMOST_EQUAL_ABS(pt, m2::PointD(27.56477391395549148, 64.234502198059132638), epsPoints, ());
   }
 }
 
-
 UNIT_TEST(HS_StreetsCompare)
 {
   search::Street A, B;
   TEST(search::Street::IsSameStreets(&A, &B), ());
-  string str[8][2] = { {"Московская", "Московская"},
-                       {"ул. Московская", "Московская ул."},
-                       {"ул. Московская", "Московская улица"},
-                       {"ул. Московская", "улица Московская"},
-                       {"ул. Московская", "площадь Московская"},
-                       {"ул. мОСКОВСКАЯ", "Московская улица"},
-                       {"Московская", "площадь Московская"},
-                       {"Московская         ", "аллея Московская"}
-                     };
+  string str[8][2] = {{"Московская", "Московская"},
+                      {"ул. Московская", "Московская ул."},
+                      {"ул. Московская", "Московская улица"},
+                      {"ул. Московская", "улица Московская"},
+                      {"ул. Московская", "площадь Московская"},
+                      {"ул. мОСКОВСКАЯ", "Московская улица"},
+                      {"Московская", "площадь Московская"},
+                      {"Московская         ", "аллея Московская"}};
   for (size_t i = 0; i < ARRAY_SIZE(str); ++i)
   {
     A.SetName(str[i][0]);
@@ -476,8 +472,8 @@ UNIT_TEST(HS_MWMSearch)
       p.x = mercator::XToLon(p.x);
       p.y = mercator::YToLat(p.y);
 
-      //double constexpr eps = 3.0E-4;
-      //if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
+      // double constexpr eps = 3.0E-4;
+      // if (fabs(p.x - a.m_lon) < eps && fabs(p.y - a.m_lat) < eps)
       if (ms::DistanceOnEarth(a.m_lat, a.m_lon, p.y, p.x) < 3.0)
       {
         ++matched;

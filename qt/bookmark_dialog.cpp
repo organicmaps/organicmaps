@@ -16,7 +16,6 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 
-
 namespace qt
 {
 using namespace std::placeholders;
@@ -71,15 +70,9 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
 
-void BookmarkDialog::OnAsyncLoadingStarted()
-{
-  FillTree();
-}
+void BookmarkDialog::OnAsyncLoadingStarted() { FillTree(); }
 
-void BookmarkDialog::OnAsyncLoadingFinished()
-{
-  FillTree();
-}
+void BookmarkDialog::OnAsyncLoadingFinished() { FillTree(); }
 
 void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
 {
@@ -121,15 +114,12 @@ void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
   }
 }
 
-void BookmarkDialog::OnCloseClick()
-{
-  done(0);
-}
+void BookmarkDialog::OnCloseClick() { done(0); }
 
 void BookmarkDialog::OnImportClick()
 {
-  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML, KMZ, GPX..."),
-                                                   QString() /* dir */, "KML, KMZ, GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
+  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML, KMZ, GPX..."), QString() /* dir */,
+                                                   "KML, KMZ, GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
 
   for (auto const & name : files)
   {
@@ -165,33 +155,35 @@ void BookmarkDialog::OnExportClick()
     return;
   }
 
-  auto const name = QFileDialog::getSaveFileName(this /* parent */, tr("Export KMZ..."),
-                                                 QString() /* dir */, "KMZ files (*.kmz)");
+  auto const name =
+    QFileDialog::getSaveFileName(this /* parent */, tr("Export KMZ..."), QString() /* dir */, "KMZ files (*.kmz)");
   if (name.isEmpty())
     return;
 
-  m_framework.GetBookmarkManager().PrepareFileForSharing({categoryIt->second},
+  m_framework.GetBookmarkManager().PrepareFileForSharing(
+    {categoryIt->second},
     [this, name](BookmarkManager::SharingResult const & result)
-  {
-    if (result.m_code == BookmarkManager::SharingResult::Code::Success)
     {
-      QFile::rename(QString(result.m_sharingPath.c_str()), name);
+      if (result.m_code == BookmarkManager::SharingResult::Code::Success)
+      {
+        QFile::rename(QString(result.m_sharingPath.c_str()), name);
 
-      QMessageBox ask(this);
-      ask.setIcon(QMessageBox::Information);
-      ask.setText(tr("Bookmarks successfully exported."));
-      ask.addButton(tr("OK"), QMessageBox::NoRole);
-      ask.exec();
-    }
-    else
-    {
-      QMessageBox ask(this);
-      ask.setIcon(QMessageBox::Critical);
-      ask.setText(tr("Could not export bookmarks: ") + result.m_errorString.c_str());
-      ask.addButton(tr("OK"), QMessageBox::NoRole);
-      ask.exec();
-    }
-  }, KmlFileType::Text);
+        QMessageBox ask(this);
+        ask.setIcon(QMessageBox::Information);
+        ask.setText(tr("Bookmarks successfully exported."));
+        ask.addButton(tr("OK"), QMessageBox::NoRole);
+        ask.exec();
+      }
+      else
+      {
+        QMessageBox ask(this);
+        ask.setIcon(QMessageBox::Critical);
+        ask.setText(tr("Could not export bookmarks: ") + result.m_errorString.c_str());
+        ask.addButton(tr("OK"), QMessageBox::NoRole);
+        ask.exec();
+      }
+    },
+    KmlFileType::Text);
 }
 
 void BookmarkDialog::OnDeleteClick()
@@ -280,8 +272,7 @@ void BookmarkDialog::FillTree()
         if (name.empty())
         {
           name = measurement_utils::FormatLatLon(mercator::YToLat(bookmark->GetPivot().y),
-                                                 mercator::XToLon(bookmark->GetPivot().x),
-                                                 true /* withComma */);
+                                                 mercator::XToLon(bookmark->GetPivot().x), true /* withComma */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);
         m_bookmarks[bookmarkItem] = bookmarkId;

@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "platform/platform.hpp"
 #include "editor/osm_auth.hpp"
+#include "platform/platform.hpp"
 
 #include <string>
 

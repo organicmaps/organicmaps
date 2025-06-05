@@ -22,27 +22,17 @@ using namespace routing;
 SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, kNotUsed /* eta */};
 
 VehicleModel::LimitsInitList const kDefaultOptions = {
-    // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayMotorway, true},
-    {HighwayType::HighwayMotorwayLink, true},
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
-    {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::RouteShuttleTrain, true},
-    {HighwayType::RouteFerry, true},
-    {HighwayType::ManMadePier, true}
-};
+  // {HighwayType, passThroughAllowed}
+  {HighwayType::HighwayMotorway, true},    {HighwayType::HighwayMotorwayLink, true},
+  {HighwayType::HighwayTrunk, true},       {HighwayType::HighwayTrunkLink, true},
+  {HighwayType::HighwayPrimary, true},     {HighwayType::HighwayPrimaryLink, true},
+  {HighwayType::HighwaySecondary, true},   {HighwayType::HighwaySecondaryLink, true},
+  {HighwayType::HighwayTertiary, true},    {HighwayType::HighwayTertiaryLink, true},
+  {HighwayType::HighwayResidential, true}, {HighwayType::HighwayUnclassified, true},
+  {HighwayType::HighwayService, true},     {HighwayType::HighwayLivingStreet, true},
+  {HighwayType::HighwayRoad, true},        {HighwayType::HighwayTrack, true},
+  {HighwayType::RouteShuttleTrain, true},  {HighwayType::RouteFerry, true},
+  {HighwayType::ManMadePier, true}};
 
 VehicleModel::LimitsInitList NoPassThroughLivingStreet()
 {
@@ -95,15 +85,14 @@ VehicleModel::SurfaceInitList const kCarSurface = {
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.6, 0.7}},
   {{"psurface", "unpaved_good"}, {0.4, 0.7}},
-  {{"psurface", "unpaved_bad"}, {0.2, 0.3}}
-};
+  {{"psurface", "unpaved_bad"}, {0.2, 0.3}}};
 }  // namespace car_model
 
 namespace routing
 {
-CarModel::CarModel() : CarModel(car_model::kDefaultOptions)
-{
-}
+CarModel::CarModel()
+  : CarModel(car_model::kDefaultOptions)
+{}
 
 CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   : VehicleModel(classif(), roadLimits, car_model::kCarSurface, {kHighwayBasedSpeeds, kHighwayBasedFactors})
@@ -118,7 +107,7 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   m_yesType = cl.GetTypeByPath(hwtagYesCar);
 
   // Set small track speed if highway is not in kHighwayBasedSpeeds (path, pedestrian), but marked as yescar.
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesCar), kHighwayBasedSpeeds.Get(HighwayType::HighwayTrack) }});
+  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesCar), kHighwayBasedSpeeds.Get(HighwayType::HighwayTrack)}});
 
   // Set max possible (reasonable) car speed. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxCarSpeedKMpH(200.0);

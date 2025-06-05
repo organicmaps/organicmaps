@@ -38,7 +38,7 @@ struct UserMarkRenderParams
   bool m_customDepth = false;
   DepthLayer m_depthLayer = DepthLayer::UserMarkLayer;
   bool m_hasCreationAnimation = false;
-  mutable bool m_justCreated = false;   ///< will be reset after first caching
+  mutable bool m_justCreated = false;  ///< will be reset after first caching
   bool m_isVisible = true;
   FeatureID m_featureId;
   bool m_isMarkAboveText = false;
@@ -74,10 +74,10 @@ using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<User
 
 struct UserMarkRenderData
 {
-  UserMarkRenderData(dp::RenderState const & state,
-                     drape_ptr<dp::RenderBucket> && bucket,
-                     TileKey const & tileKey)
-    : m_state(state), m_bucket(std::move(bucket)), m_tileKey(tileKey)
+  UserMarkRenderData(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket, TileKey const & tileKey)
+    : m_state(state)
+    , m_bucket(std::move(bucket))
+    , m_tileKey(tileKey)
   {}
 
   dp::RenderState m_state;
@@ -90,11 +90,11 @@ using TUserMarksRenderData = std::vector<UserMarkRenderData>;
 void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
                                std::function<bool(m2::RectD const & segmentRect)> const & func);
 
-void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                    ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
-                    UserMarksRenderCollection const & renderParams, dp::Batcher & batcher);
+void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection const & renderParams,
+                    dp::Batcher & batcher);
 
-void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                    ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
-                    UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);
+void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection const & renderParams,
+                    dp::Batcher & batcher);
 }  // namespace df

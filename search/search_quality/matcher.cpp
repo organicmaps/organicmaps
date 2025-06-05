@@ -61,10 +61,7 @@ bool EndsWithHouseNumber(Iter beg, Iter end)
 std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view str)
 {
   std::vector<std::string> res;
-  ForEachNormalizedToken(str, [&res](strings::UniString const & token)
-  {
-    res.push_back(strings::ToUtf8(token));
-  });
+  ForEachNormalizedToken(str, [&res](strings::UniString const & token) { res.push_back(strings::ToUtf8(token)); });
   return res;
 }
 
@@ -100,7 +97,9 @@ bool StreetMatches(std::string_view name, std::vector<std::string> const & query
 }
 }  // namespace
 
-Matcher::Matcher(FeatureLoader & loader) : m_loader(loader) {}
+Matcher::Matcher(FeatureLoader & loader)
+  : m_loader(loader)
+{}
 
 void Matcher::Match(Sample const & goldenSample, std::vector<Result> const & actual,
                     std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching)
@@ -136,8 +135,7 @@ void Matcher::Match(Sample const & goldenSample, std::vector<Result> const & act
   }
 }
 
-bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden,
-                      search::Result const & actual)
+bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden, search::Result const & actual)
 {
   if (actual.GetResultType() != Result::Type::Feature)
     return false;
@@ -149,8 +147,7 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   return Matches(query, golden, *ft);
 }
 
-bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden,
-                      FeatureType & ft)
+bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden, FeatureType & ft)
 {
   auto const queryTokens = NormalizeAndTokenizeAsUtf8(ToUtf8(query));
 
@@ -180,23 +177,23 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
     }
   }
 
-  ft.ForEachName([&queryTokens, &ft, &golden, &nameMatches](int8_t /* lang */, std::string_view name)
-  {
-    if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
+  ft.ForEachName(
+    [&queryTokens, &ft, &golden, &nameMatches](int8_t /* lang */, std::string_view name)
     {
-      nameMatches = true;
-      return base::ControlFlow::Break;
-    }
+      if (NormalizeAndSimplifyString(ToUtf8(golden.m_name)) == NormalizeAndSimplifyString(name))
+      {
+        nameMatches = true;
+        return base::ControlFlow::Break;
+      }
 
-    if (golden.m_name.empty() && ft.GetGeomType() == feature::GeomType::Line &&
-        StreetMatches(name, queryTokens))
-    {
-      nameMatches = true;
-      return base::ControlFlow::Break;
-    }
+      if (golden.m_name.empty() && ft.GetGeomType() == feature::GeomType::Line && StreetMatches(name, queryTokens))
+      {
+        nameMatches = true;
+        return base::ControlFlow::Break;
+      }
 
-    return base::ControlFlow::Continue;
-  });
+      return base::ControlFlow::Continue;
+    });
 
   bool houseNumberMatches = true;
   std::string const & hn = ft.GetHouseNumber();

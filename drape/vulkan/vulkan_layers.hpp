@@ -40,7 +40,7 @@ private:
   std::vector<char const *> m_deviceLayers;
   std::vector<char const *> m_deviceExtensions;
 
-  VkDebugReportCallbackEXT m_reportCallback {0};
+  VkDebugReportCallbackEXT m_reportCallback{0};
 
   PFN_vkCreateDebugReportCallbackEXT m_vkCreateDebugReportCallbackEXT = nullptr;
   PFN_vkDestroyDebugReportCallbackEXT m_vkDestroyDebugReportCallbackEXT = nullptr;

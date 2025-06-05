@@ -21,9 +21,7 @@ double constexpr kEps = 1e-10;
 //    maximal zoom levels.
 double constexpr kMaxZoom = 20.0;
 
-bool MatchLatLonZoom(string const & s, regex const & re,
-                     size_t lati, size_t loni, size_t zoomi,
-                     GeoURLInfo & info)
+bool MatchLatLonZoom(string const & s, regex const & re, size_t lati, size_t loni, size_t zoomi, GeoURLInfo & info)
 {
   std::smatch m;
   if (!std::regex_search(s, m, re) || m.size() != 4)
@@ -43,10 +41,7 @@ bool MatchLatLonZoom(string const & s, regex const & re,
   return false;
 }
 
-bool MatchHost(url::Url const & url, char const * host)
-{
-  return url.GetHost().find(host) != std::string::npos;
-}
+bool MatchHost(url::Url const & url, char const * host) { return url.GetHost().find(host) != std::string::npos; }
 
 // Canonical parsing is float-only coordinates and int-only scale.
 std::string const kFloatCoord = R"(([+-]?\d+\.\d+))";
@@ -55,13 +50,12 @@ std::string const kIntScale = R"((\d+))";
 // 2gis can accept float or int coordinates and scale.
 std::string const kFloatIntCoord = R"(([+-]?\d+\.?\d*))";
 std::string const kFloatIntScale = R"((\d+\.?\d*))";
-} // namespace
+}  // namespace
 
 LatLonParser::LatLonParser()
-: m_info(nullptr)
-, m_regexp(kFloatCoord + ", *" + kFloatCoord)
-{
-}
+  : m_info(nullptr)
+  , m_regexp(kFloatCoord + ", *" + kFloatCoord)
+{}
 
 void LatLonParser::Reset(url::Url const & url, GeoURLInfo & info)
 {
@@ -71,10 +65,7 @@ void LatLonParser::Reset(url::Url const & url, GeoURLInfo & info)
   m_latPriority = m_lonPriority = -1;
 }
 
-bool LatLonParser::IsValid() const
-{
-  return m_latPriority == m_lonPriority && m_latPriority != -1;
-}
+bool LatLonParser::IsValid() const { return m_latPriority == m_lonPriority && m_latPriority != -1; }
 
 void LatLonParser::operator()(std::string name, std::string const & value)
 {
@@ -155,9 +146,9 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
 std::string const kLatLon = R"(([+-]?\d+(?:\.\d+)?), *([+-]?\d+(?:\.\d+)?)(:?, *([+-]?\d+(?:\.\d+)?))?)";
 
 GeoParser::GeoParser()
-  : m_latlonRe(kLatLon), m_zoomRe(kFloatIntScale)
-{
-}
+  : m_latlonRe(kLatLon)
+  , m_zoomRe(kFloatIntScale)
+{}
 
 bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
 {
@@ -265,7 +256,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     }
     // Ignore special 0,0 lat,lon if q= presents.
     if (!info.m_query.empty() && fabs(info.m_lat) < kEps && fabs(info.m_lon) < kEps)
-        info.m_lat = info.m_lon = ms::LatLon::kInvalid;
+      info.m_lat = info.m_lon = ms::LatLon::kInvalid;
   }
 
   if (!info.IsLatLonValid() && info.m_query.empty())
@@ -297,10 +288,9 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
 }
 
 DoubleGISParser::DoubleGISParser()
-: m_pathRe("/" + kFloatIntCoord + "," + kFloatIntCoord + "/zoom/" + kFloatIntScale)
-, m_paramRe(kFloatIntCoord + "," + kFloatIntCoord + "/" + kFloatIntScale)
-{
-}
+  : m_pathRe("/" + kFloatIntCoord + "," + kFloatIntCoord + "/zoom/" + kFloatIntScale)
+  , m_paramRe(kFloatIntCoord + "," + kFloatIntCoord + "/" + kFloatIntScale)
+{}
 
 bool DoubleGISParser::Parse(url::Url const & url, GeoURLInfo & info) const
 {
@@ -316,9 +306,8 @@ bool DoubleGISParser::Parse(url::Url const & url, GeoURLInfo & info) const
 }
 
 OpenStreetMapParser::OpenStreetMapParser()
-: m_regex(kIntScale + "/" + kFloatCoord + "/" + kFloatCoord)
-{
-}
+  : m_regex(kIntScale + "/" + kFloatCoord + "/" + kFloatCoord)
+{}
 
 bool OpenStreetMapParser::Parse(url::Url const & url, GeoURLInfo & info) const
 {
@@ -328,15 +317,9 @@ bool OpenStreetMapParser::Parse(url::Url const & url, GeoURLInfo & info) const
   return (mapV && MatchLatLonZoom(*mapV, m_regex, 2, 3, 1, info));
 }
 
-GeoURLInfo::GeoURLInfo()
-{
-  Reset();
-}
+GeoURLInfo::GeoURLInfo() { Reset(); }
 
-bool GeoURLInfo::IsLatLonValid() const
-{
-  return m_lat != ms::LatLon::kInvalid && m_lon != ms::LatLon::kInvalid;
-}
+bool GeoURLInfo::IsLatLonValid() const { return m_lat != ms::LatLon::kInvalid && m_lon != ms::LatLon::kInvalid; }
 
 void GeoURLInfo::Reset()
 {
@@ -401,4 +384,4 @@ bool UnifiedParser::Parse(std::string const & raw, GeoURLInfo & res)
   return m_llParser.IsValid();
 }
 
-} // namespace geo
+}  // namespace geo

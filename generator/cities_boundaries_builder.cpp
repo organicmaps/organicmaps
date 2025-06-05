@@ -36,19 +36,20 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table, Map
   auto const localities = GetLocalities(dataPath);
 
   vector<vector<CityBoundary>> all;
-  localities.ForEach([&](uint64_t fid)
-  {
-    vector<CityBoundary> bs;
-
-    auto const it = mapping.find(base::asserted_cast<uint32_t>(fid));
-    if (it != mapping.end())
+  localities.ForEach(
+    [&](uint64_t fid)
     {
-      auto const & b = table.Get(it->second);
-      bs.insert(bs.end(), b.begin(), b.end());
-    }
+      vector<CityBoundary> bs;
 
-    all.emplace_back(std::move(bs));
-  });
+      auto const it = mapping.find(base::asserted_cast<uint32_t>(fid));
+      if (it != mapping.end())
+      {
+        auto const & b = table.Get(it->second);
+        bs.insert(bs.end(), b.begin(), b.end());
+      }
+
+      all.emplace_back(std::move(bs));
+    });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   auto sink = container.GetWriter(CITIES_BOUNDARIES_FILE_TAG);
@@ -87,14 +88,15 @@ void SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable &
   vector<GeoIDsT> allIds;
   vector<BoundariesT> allBoundaries;
 
-  table.ForEachCluster([&](GeoIDsT & ids, BoundariesT const & boundaries)
-  {
-    CHECK(!ids.empty(), ());
-    CHECK(!boundaries.empty(), ());
+  table.ForEachCluster(
+    [&](GeoIDsT & ids, BoundariesT const & boundaries)
+    {
+      CHECK(!ids.empty(), ());
+      CHECK(!boundaries.empty(), ());
 
-    allIds.push_back(std::move(ids));
-    allBoundaries.push_back(boundaries);
-  });
+      allIds.push_back(std::move(ids));
+      allBoundaries.push_back(boundaries);
+    });
 
   LOG(LINFO, ("Saved boundary clusters count =", allIds.size()));
 

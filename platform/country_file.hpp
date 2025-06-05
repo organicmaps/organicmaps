@@ -23,10 +23,7 @@ public:
   explicit CountryFile(std::string name);
   CountryFile(std::string name, MwmSize size, std::string sha1);
 
-  std::string GetFileName(MapFileType type) const
-  {
-    return platform::GetFileName(m_name, type);
-  }
+  std::string GetFileName(MapFileType type) const { return platform::GetFileName(m_name, type); }
 
   /// \returns Empty (invalid) CountryFile.
   bool IsEmpty() const { return m_name.empty(); }
@@ -35,9 +32,9 @@ public:
   MwmSize GetRemoteSize() const { return m_mapSize; }
   std::string const & GetSha1() const { return m_sha1; }
 
-  inline bool operator<(const CountryFile & rhs) const { return m_name < rhs.m_name; }
-  inline bool operator==(const CountryFile & rhs) const { return m_name == rhs.m_name; }
-  inline bool operator!=(const CountryFile & rhs) const { return !(*this == rhs); }
+  inline bool operator<(CountryFile const & rhs) const { return m_name < rhs.m_name; }
+  inline bool operator==(CountryFile const & rhs) const { return m_name == rhs.m_name; }
+  inline bool operator!=(CountryFile const & rhs) const { return !(*this == rhs); }
 
 private:
   friend std::string DebugPrint(CountryFile const & file);

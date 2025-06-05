@@ -8,11 +8,11 @@
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
-#include "geometry/spline.hpp"
 #include "geometry/screenbase.hpp"
+#include "geometry/spline.hpp"
 
-#include "base/string_utils.hpp"
 #include "base/buffer_vector.hpp"
+#include "base/string_utils.hpp"
 
 #include <string>
 #include <vector>
@@ -46,9 +46,10 @@ protected:
 class StraightTextLayout : public TextLayout
 {
   using TBase = TextLayout;
+
 public:
-  StraightTextLayout(std::string const & text, float fontSize,
-                     ref_ptr<dp::TextureManager> textures, dp::Anchor anchor, bool forceNoWrap);
+  StraightTextLayout(std::string const & text, float fontSize, ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
+                     bool forceNoWrap);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;
@@ -63,8 +64,7 @@ public:
   m2::PointF const & GetPixelSize() const { return m_pixelSize; }
   size_t GetRowsCount() const { return m_rowsCount; }
 
-  static m2::PointF GetSymbolBasedTextOffset(m2::PointF const & symbolSize,
-                                             dp::Anchor textAnchor,
+  static m2::PointF GetSymbolBasedTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor,
                                              dp::Anchor symbolAnchor);
 
   glsl::vec2 GetTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor) const;
@@ -93,9 +93,10 @@ private:
 class PathTextLayout : public TextLayout
 {
   using TBase = TextLayout;
+
 public:
-  PathTextLayout(m2::PointD const & tileCenter, std::string const & text,
-                 float fontSize, ref_ptr<dp::TextureManager> textures);
+  PathTextLayout(m2::PointD const & tileCenter, std::string const & text, float fontSize,
+                 ref_ptr<dp::TextureManager> textures);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            dp::TextureManager::ColorRegion const & outlineRegion,
@@ -104,13 +105,12 @@ public:
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;
 
-  bool CacheDynamicGeometry(m2::Spline::iterator const & iter,
-                            float depth,
-                            m2::PointD const & globalPivot,
+  bool CacheDynamicGeometry(m2::Spline::iterator const & iter, float depth, m2::PointD const & globalPivot,
                             gpu::TTextDynamicVertexBuffer & buffer) const;
 
-  static void CalculatePositions(double splineLength, double splineScaleToPixel,
-                                 double textPixelLength, std::vector<double> & offsets);
+  static void CalculatePositions(double splineLength, double splineScaleToPixel, double textPixelLength,
+                                 std::vector<double> & offsets);
+
 private:
   static double CalculateTextLength(double textPixelLength);
 

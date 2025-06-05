@@ -2,8 +2,8 @@
 
 #include "platform/location.hpp"
 
-#include "map/track_statistics.hpp"
 #include "map/elevation_info.hpp"
+#include "map/track_statistics.hpp"
 
 #include <deque>
 #include <limits>
@@ -13,7 +13,7 @@
 class GpsTrackCollection final
 {
 public:
-  static size_t const kInvalidId; // = numeric_limits<size_t>::max();
+  static size_t const kInvalidId;  // = numeric_limits<size_t>::max();
 
   using TItem = location::GpsInfo;
 
@@ -40,9 +40,9 @@ public:
   size_t GetSize() const;
 
   /// Returns track statistics.
-  const TrackStatistics GetTrackStatistics() const { return m_statistics; }
+  TrackStatistics const GetTrackStatistics() const { return m_statistics; }
   /// Updates the elevation info with the missed points and returns a reference.
-  const ElevationInfo & UpdateAndGetElevationInfo();
+  ElevationInfo const & UpdateAndGetElevationInfo();
 
   /// Enumerates items in the collection.
   /// @param f - callable object, which is called with params - item and item id,

@@ -58,20 +58,15 @@ public:
 
   MOCK_METHOD2(glGetAttribLocation, int32_t(uint32_t programID, std::string const & name));
   MOCK_METHOD1(glEnableVertexAttribute, void(int32_t attributeLocation));
-  MOCK_METHOD6(glVertexAttributePointer, void(int32_t attrLocation,
-                                             uint32_t count,
-                                             glConst type,
-                                             bool needNormalize,
-                                             uint32_t stride,
-                                             uint32_t offset));
+  MOCK_METHOD6(glVertexAttributePointer, void(int32_t attrLocation, uint32_t count, glConst type, bool needNormalize,
+                                              uint32_t stride, uint32_t offset));
 
   MOCK_METHOD1(glUseProgram, void(uint32_t programID));
   MOCK_METHOD1(glHasExtension, bool(std::string const & extName));
 
   MOCK_METHOD2(glGetProgramiv, int32_t(uint32_t, glConst));
 
-  MOCK_METHOD5(glGetActiveUniform, void(uint32_t, uint32_t, int32_t*, glConst *,
-                                        std::string &));
+  MOCK_METHOD5(glGetActiveUniform, void(uint32_t, uint32_t, int32_t *, glConst *, std::string &));
 
   // Texture functions
   MOCK_METHOD1(glActiveTexture, void(glConst));

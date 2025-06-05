@@ -19,19 +19,19 @@ UNIT_CLASS_TEST(TestWithClassificator, Smoke)
   search::LocalitiesSource ls;
 
   vector<vector<string>> const expectedPaths = {
-      {"place", "town"},
-      {"place", "city"},
-      {"place", "city", "capital"},
-      {"place", "city", "capital", "2"},
-      {"place", "city", "capital", "3"},
-      {"place", "city", "capital", "4"},
-      {"place", "city", "capital", "5"},
-      {"place", "city", "capital", "6"},
-      {"place", "city", "capital", "7"},
-      {"place", "city", "capital", "8"},
-      {"place", "city", "capital", "9"},
-      {"place", "city", "capital", "10"},
-      {"place", "city", "capital", "11"},
+    {"place", "town"},
+    {"place", "city"},
+    {"place", "city", "capital"},
+    {"place", "city", "capital", "2"},
+    {"place", "city", "capital", "3"},
+    {"place", "city", "capital", "4"},
+    {"place", "city", "capital", "5"},
+    {"place", "city", "capital", "6"},
+    {"place", "city", "capital", "7"},
+    {"place", "city", "capital", "8"},
+    {"place", "city", "capital", "9"},
+    {"place", "city", "capital", "10"},
+    {"place", "city", "capital", "11"},
   };
 
   vector<uint32_t> expectedTypes;

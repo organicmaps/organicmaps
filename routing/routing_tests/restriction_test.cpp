@@ -29,8 +29,7 @@ UNIT_CLASS_TEST(RestrictionTest, CrossGraph_NoUTurn)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *m_graph),
              MakeFakeEnding(7, 0, m2::PointD(1, 2), *m_graph));
 
-  vector<m2::PointD> const expectedGeom = {
-      {-1.0 /* x */, 0.0 /* y */}, {0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}};
+  vector<m2::PointD> const expectedGeom = {{-1.0 /* x */, 0.0 /* y */}, {0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -40,16 +39,13 @@ UNIT_CLASS_TEST(RestrictionTest, CrossGraph_UTurn)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *m_graph),
              MakeFakeEnding(7, 0, m2::PointD(1, 2), *m_graph));
 
-  RestrictionVec restrictionsNo = {
-    {1 /* feature from */, 6 /* feature to */}
-  };
+  RestrictionVec restrictionsNo = {{1 /* feature from */, 6 /* feature to */}};
   vector<m2::PointD> const expectedGeom = {{-1.0, 0.0}, {0.0, 0.0}, {1.0, 0.0}, {1.0, -1.0},
                                            {1.0, 0.0},  {1.0, 1.0}, {1.0, 2.0}};
 
-  TestRestrictions(
-      6.0 /* expectedTime */,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *m_graph),
-      MakeFakeEnding(7, 0, m2::PointD(1, 2), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(6.0 /* expectedTime */,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *m_graph),
+                   MakeFakeEnding(7, 0, m2::PointD(1, 2), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Finish
@@ -86,12 +82,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildTriangularGraph()
                   RoadGeometry::Points({{3.0, 0.0}, {2.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{2, 0}, {3, 0}, {5, 1}}), /* joint at point (2, 0) */
-      MakeJoint({{3, 2}, {0, 0}}),         /* joint at point (0, 0) */
-      MakeJoint({{2, 1}, {1, 0}}),         /* joint at point (1, 1) */
-      MakeJoint({{0, 1}, {1, 1}, {4, 0}}), /* joint at point (0, 2) */
-      MakeJoint({{5, 0}}),                 /* joint at point (3, 0) */
-      MakeJoint({{4, 1}})                  /* joint at point (0, 3) */
+    MakeJoint({{2, 0}, {3, 0}, {5, 1}}), /* joint at point (2, 0) */
+    MakeJoint({{3, 2}, {0, 0}}),         /* joint at point (0, 0) */
+    MakeJoint({{2, 1}, {1, 0}}),         /* joint at point (1, 1) */
+    MakeJoint({{0, 1}, {1, 1}, {4, 0}}), /* joint at point (0, 2) */
+    MakeJoint({{5, 0}}),                 /* joint at point (3, 0) */
+    MakeJoint({{4, 1}})                  /* joint at point (0, 3) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -106,78 +102,60 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph)
 
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
 
 // Route through triangular graph with restriction type no from feature 2 to feature 1.
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF2F1)
 {
   Init(BuildTriangularGraph());
-  RestrictionVec restrictionsNo = {
-    {2 /* feature from */, 1 /* feature to */}};
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
+  RestrictionVec restrictionsNo = {{2 /* feature from */, 1 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(5 /* featureId */, 0 /* senmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(5 /* featureId */, 0 /* senmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2)
 {
   Init(BuildTriangularGraph());
-  RestrictionVec restrictionsNo = {
-    {5 /* feature from */, 2 /* feature to */}};
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
+  RestrictionVec restrictionsNo = {{5 /* feature from */, 2 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionOnlyF5F3)
 {
   Init(BuildTriangularGraph());
-  RestrictionVec restrictionsOnly = {
-      {{5 /* feature from */, 3 /* feature to */}}};
+  RestrictionVec restrictionsOnly = {{{5 /* feature from */, 3 /* feature to */}}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2RestrictionOnlyF5F3)
 {
   Init(BuildTriangularGraph());
-  RestrictionVec restrictionsNo = {
-    {5 /* feature from */, 2 /* feature to */}
-  };
+  RestrictionVec restrictionsNo = {{5 /* feature from */, 2 /* feature to */}};
 
-  RestrictionVec restrictionsOnly = {
-    {5 /* feature from */, 3 /* feature to */}
-  };
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  RestrictionVec restrictionsOnly = {{5 /* feature from */, 3 /* feature to */}};
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(5 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Finish
@@ -211,12 +189,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildTwowayCornerGraph()
                   RoadGeometry::Points({{0.0, 2.0}, {0.0, 3.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{1 /* feature id */, 2 /* point id */}, {0, 0}})
-      /* joint at point (0, 0) */,
-      MakeJoint({{1, 0}, {2, 0}, {3, 1}}), /* joint at point (2, 0) */
-      MakeJoint({{2, 2}, {0, 2}, {4, 0}}), /* joint at point (0, 2) */
-      MakeJoint({{4, 1}}),                 /* joint at point (0, 3) */
-      MakeJoint({{3, 0}}),                 /* joint at point (3, 0) */
+    MakeJoint({{1 /* feature id */, 2 /* point id */}, {0, 0}})
+    /* joint at point (0, 0) */,
+    MakeJoint({{1, 0}, {2, 0}, {3, 1}}), /* joint at point (2, 0) */
+    MakeJoint({{2, 2}, {0, 2}, {4, 0}}), /* joint at point (0, 2) */
+    MakeJoint({{4, 1}}),                 /* joint at point (0, 3) */
+    MakeJoint({{3, 0}}),                 /* joint at point (3, 0) */
   };
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -228,43 +206,33 @@ UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph)
   Init(BuildTwowayCornerGraph());
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F2No)
 {
   Init(BuildTwowayCornerGraph());
-  RestrictionVec restrictionsNo = {
-    {3 /* feature from */, 2 /* feature to */}
-  };
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
+  RestrictionVec restrictionsNo = {{3 /* feature from */, 2 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwowayCornerGraph_RestrictionF3F1Only)
 {
   Init(BuildTwowayCornerGraph());
-  RestrictionVec restrictionsOnly = {
-    {3 /* feature from */, 1 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{3 /* feature from */, 1 /* feature to */}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(4, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Finish
@@ -314,16 +282,16 @@ unique_ptr<SingleVehicleWorldGraph> BuildTwoSquaresGraph()
                   RoadGeometry::Points({{0.0, 2.0}, {0.0, 3.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{4 /* featureId */, 1 /* pointId */}, {0, 0}}), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {5, 1}, {7, 1}, {11, 0}}),              /* joint at point (0, 2) */
-      MakeJoint({{4, 0}, {1, 0}, {3, 1}}),                       /* joint at point (1, 0) */
-      MakeJoint({{5, 0}, {1, 2}, {6, 1}, {8, 1}}),               /* joint at point (1, 2) */
-      MakeJoint({{3, 0}, {2, 0}, {9, 0}, {10, 1}}),              /* joint at point (2, 0) */
-      MakeJoint({{2, 2}, {6, 0}}),                               /* joint at point (2, 2) */
-      MakeJoint({{1, 1}, {9, 1}, {7, 0}}),                       /* joint at point (1, 1) */
-      MakeJoint({{2, 1}, {8, 0}}),                               /* joint at point (2, 1) */
-      MakeJoint({{10, 0}}),                                      /* joint at point (3, 0) */
-      MakeJoint({{11, 1}}),                                      /* joint at point (0, 3) */
+    MakeJoint({{4 /* featureId */, 1 /* pointId */}, {0, 0}}), /* joint at point (0, 0) */
+    MakeJoint({{0, 1}, {5, 1}, {7, 1}, {11, 0}}),              /* joint at point (0, 2) */
+    MakeJoint({{4, 0}, {1, 0}, {3, 1}}),                       /* joint at point (1, 0) */
+    MakeJoint({{5, 0}, {1, 2}, {6, 1}, {8, 1}}),               /* joint at point (1, 2) */
+    MakeJoint({{3, 0}, {2, 0}, {9, 0}, {10, 1}}),              /* joint at point (2, 0) */
+    MakeJoint({{2, 2}, {6, 0}}),                               /* joint at point (2, 2) */
+    MakeJoint({{1, 1}, {9, 1}, {7, 0}}),                       /* joint at point (1, 1) */
+    MakeJoint({{2, 1}, {8, 0}}),                               /* joint at point (2, 1) */
+    MakeJoint({{10, 0}}),                                      /* joint at point (3, 0) */
+    MakeJoint({{11, 1}}),                                      /* joint at point (0, 3) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -336,69 +304,52 @@ UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph)
   Init(BuildTwoSquaresGraph());
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), {}, *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), {}, *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictionsOnly = {
-    {10 /* feature from */, 3 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{10 /* feature from */, 3 /* feature to */}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {1, 1}, {0, 2}, {0, 3}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {1, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF10F3OnlyF3F4Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictionsOnly = {
-    {3 /* feature from */, 4 /* feature to */},
-    {10 /* feature from */, 3 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{3 /* feature from */, 4 /* feature to */},
+                                     {10 /* feature from */, 3 /* feature to */}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
+  vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, TwoSquaresGraph_RestrictionF2F8NoRestrictionF9F1Only)
 {
   Init(BuildTwoSquaresGraph());
-  RestrictionVec restrictionsNo = {
-    {2 /* feature from */, 8 /* feature to */}
-  };  // Invalid restriction.
-  RestrictionVec restrictionsOnly = {
-    {9 /* feature from */, 1 /* feature to */}
-  };  // Invalid restriction.
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  RestrictionVec restrictionsNo = {{2 /* feature from */, 8 /* feature to */}};    // Invalid restriction.
+  RestrictionVec restrictionsOnly = {{9 /* feature from */, 1 /* feature to */}};  // Invalid restriction.
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 1}, {0, 2}, {0, 3}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(11, 0, m2::PointD(0, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // 2      *
@@ -432,13 +383,13 @@ unique_ptr<SingleVehicleWorldGraph> BuildFlagGraph()
                   RoadGeometry::Points({{0.5, 1.0}, {0.5, 2.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{1 /* feature id */, 1 /* point id */}, {2, 0}}), /* joint at point (0, 0) */
-      MakeJoint({{2, 1}, {4, 0}}),                                 /* joint at point (0, 1) */
-      MakeJoint({{4, 1}, {5, 0}, {6, 0}}),                         /* joint at point (0.5, 1) */
-      MakeJoint({{1, 0}, {3, 0}, {0, 1}}),                         /* joint at point (1, 0) */
-      MakeJoint({{3, 1}, {5, 1}}),                                 /* joint at point (1, 1) */
-      MakeJoint({{6, 1}}),                                         /* joint at point (0.5, 2) */
-      MakeJoint({{0, 0}}),                                         /* joint at point (2, 0) */
+    MakeJoint({{1 /* feature id */, 1 /* point id */}, {2, 0}}), /* joint at point (0, 0) */
+    MakeJoint({{2, 1}, {4, 0}}),                                 /* joint at point (0, 1) */
+    MakeJoint({{4, 1}, {5, 0}, {6, 0}}),                         /* joint at point (0.5, 1) */
+    MakeJoint({{1, 0}, {3, 0}, {0, 1}}),                         /* joint at point (1, 0) */
+    MakeJoint({{3, 1}, {5, 1}}),                                 /* joint at point (1, 1) */
+    MakeJoint({{6, 1}}),                                         /* joint at point (0.5, 2) */
+    MakeJoint({{0, 0}}),                                         /* joint at point (2, 0) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -450,9 +401,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildFlagGraph()
 UNIT_TEST(FlagGraph)
 {
   unique_ptr<WorldGraph> graph = BuildFlagGraph();
-  auto starter =
-      MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *graph),
-                  MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *graph), *graph);
+  auto starter = MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *graph),
+                             MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {0.5, 1}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
@@ -461,54 +411,40 @@ UNIT_TEST(FlagGraph)
 UNIT_CLASS_TEST(RestrictionTest, FlagGraph_RestrictionF0F3No)
 {
   Init(BuildFlagGraph());
-  RestrictionVec restrictionsNo = {
-    {0 /* feature from */, 3 /* feature to */}
-  };
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
+  RestrictionVec restrictionsNo = {{0 /* feature from */, 3 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
+                   MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Route through flag graph with one restriciton (type only) from F0 to F1.
 UNIT_CLASS_TEST(RestrictionTest, FlagGraph_RestrictionF0F1Only)
 {
   Init(BuildFlagGraph());
-  RestrictionVec restrictionsNo = {
-    {0 /* feature from */, 1 /* feature to */}
-  };
+  RestrictionVec restrictionsNo = {{0 /* feature from */, 1 /* feature to */}};
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {0.5, 1}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
+                   MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, FlagGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F6Only)
 {
   Init(BuildFlagGraph());
-  RestrictionVec restrictionsNo = {
-    {0 /* feature from */, 3 /* feature to */}
-  };
+  RestrictionVec restrictionsNo = {{0 /* feature from */, 3 /* feature to */}};
 
-  RestrictionVec restrictionsOnly = {
-    {0 /* feature from */, 1 /* feature to */},
-    {1 /* feature from */, 2 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{0 /* feature from */, 1 /* feature to */},
+                                     {1 /* feature from */, 2 /* feature to */}};
 
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}};
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
+                   MakeFakeEnding(6, 0, m2::PointD(0.5, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // 1 *-F4-*-F5-*---F6---* Finish
@@ -538,13 +474,13 @@ unique_ptr<SingleVehicleWorldGraph> BuildPosterGraph()
                   RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{1 /* feature id */, 1 /* point id */}, {2, 0}}), /* joint at point (0, 0) */
-      MakeJoint({{2, 1}, {4, 0}}),                                 /* joint at point (0, 1) */
-      MakeJoint({{4, 1}, {5, 0}}),                                 /* joint at point (0.5, 1) */
-      MakeJoint({{1, 0}, {3, 0}, {0, 1}}),                         /* joint at point (1, 0) */
-      MakeJoint({{3, 1}, {5, 1}, {6, 0}}),                         /* joint at point (1, 1) */
-      MakeJoint({{0, 0}}),                                         /* joint at point (2, 0) */
-      MakeJoint({{6, 1}}),                                         /* joint at point (2, 1) */
+    MakeJoint({{1 /* feature id */, 1 /* point id */}, {2, 0}}), /* joint at point (0, 0) */
+    MakeJoint({{2, 1}, {4, 0}}),                                 /* joint at point (0, 1) */
+    MakeJoint({{4, 1}, {5, 0}}),                                 /* joint at point (0.5, 1) */
+    MakeJoint({{1, 0}, {3, 0}, {0, 1}}),                         /* joint at point (1, 0) */
+    MakeJoint({{3, 1}, {5, 1}, {6, 0}}),                         /* joint at point (1, 1) */
+    MakeJoint({{0, 0}}),                                         /* joint at point (2, 0) */
+    MakeJoint({{6, 1}}),                                         /* joint at point (2, 1) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -556,9 +492,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildPosterGraph()
 UNIT_TEST(PosterGraph)
 {
   unique_ptr<WorldGraph> graph = BuildPosterGraph();
-  auto starter =
-      MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *graph),
-                  MakeFakeEnding(6, 0, m2::PointD(2, 1), *graph), *graph);
+  auto starter = MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *graph),
+                             MakeFakeEnding(6, 0, m2::PointD(2, 1), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}};
 
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
@@ -568,16 +503,12 @@ UNIT_TEST(PosterGraph)
 UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F3No)
 {
   Init(BuildPosterGraph());
-  RestrictionVec restrictionsNo = {
-    {0 /* feature from */, 3 /* feature to */}
-  };
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
+  RestrictionVec restrictionsNo = {{0 /* feature from */, 3 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
+                   MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Route through poster graph with restrictions F0-F1 (type only).
@@ -585,19 +516,14 @@ UNIT_CLASS_TEST(RestrictionTest, PosterGraph_RestrictionF0F1Only)
 {
   Init(BuildPosterGraph());
 
-  RestrictionVec restrictionsOnly = {
-    {0 /* feature from */, 1 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{0 /* feature from */, 1 /* feature to */}};
   RestrictionVec restrictionsNo;
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), std::move(restrictionsNo), *this);
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, 0 /* y */}, {1, 0}, {0, 0}, {0, 1}, {0.5, 1}, {1, 1}, {2, 1}};
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
+                   MakeFakeEnding(6, 0, m2::PointD(2, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // 1                        *--F1-->*
@@ -621,12 +547,10 @@ unique_ptr<WorldGraph> BuildTwoWayGraph()
                   RoadGeometry::Points({{-1.0, 0.0}, {0.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint(
-          {{0 /* feature id */, 0 /* point id */}, {1, 0}, {3, 1}}), /* joint at point (0, 0) */
-      MakeJoint(
-          {{0 /* feature id */, 2 /* point id */}, {1, 3}, {2, 0}}), /* joint at point (3, 0) */
-      MakeJoint({{3 /* feature id */, 0 /* point id */}}),           /* joint at point (-1, 0) */
-      MakeJoint({{2 /* feature id */, 1 /* point id */}}),           /* joint at point (4, 0) */
+    MakeJoint({{0 /* feature id */, 0 /* point id */}, {1, 0}, {3, 1}}), /* joint at point (0, 0) */
+    MakeJoint({{0 /* feature id */, 2 /* point id */}, {1, 3}, {2, 0}}), /* joint at point (3, 0) */
+    MakeJoint({{3 /* feature id */, 0 /* point id */}}),                 /* joint at point (-1, 0) */
+    MakeJoint({{2 /* feature id */, 1 /* point id */}}),                 /* joint at point (4, 0) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -637,9 +561,8 @@ unique_ptr<WorldGraph> BuildTwoWayGraph()
 UNIT_TEST(TwoWayGraph)
 {
   unique_ptr<WorldGraph> graph = BuildTwoWayGraph();
-  auto starter =
-      MakeStarter(MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *graph),
-                  MakeFakeEnding(2, 0, m2::PointD(4, 0), *graph), *graph);
+  auto starter = MakeStarter(MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, m2::PointD(-1, 0), *graph),
+                             MakeFakeEnding(2, 0, m2::PointD(4, 0), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{-1 /* x */, 0 /* y */}, {0, 0}, {1, 0}, {3, 0}, {4, 0}};
 
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
@@ -671,12 +594,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildSquaresGraph()
                   RoadGeometry::Points({{1.0, 0.0}, {0.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (3, 0) */
-      MakeJoint({{0, 1}, {3, 0}, {1, 0}}),                 /* joint at point (2, 0) */
-      MakeJoint({{3, 1}, {4, 0}}),                         /* joint at point (2, 1) */
-      MakeJoint({{2, 1}, {4, 1}}),                         /* joint at point (1, 1) */
-      MakeJoint({{1, 1}, {2, 0}, {5, 0}}),                 /* joint at point (1, 0) */
-      MakeJoint({{5, 1}})                                  /* joint at point (0, 0) */
+    MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (3, 0) */
+    MakeJoint({{0, 1}, {3, 0}, {1, 0}}),                 /* joint at point (2, 0) */
+    MakeJoint({{3, 1}, {4, 0}}),                         /* joint at point (2, 1) */
+    MakeJoint({{2, 1}, {4, 1}}),                         /* joint at point (1, 1) */
+    MakeJoint({{1, 1}, {2, 0}, {5, 0}}),                 /* joint at point (1, 0) */
+    MakeJoint({{5, 1}})                                  /* joint at point (0, 0) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -687,9 +610,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildSquaresGraph()
 UNIT_TEST(SquaresGraph)
 {
   unique_ptr<WorldGraph> graph = BuildSquaresGraph();
-  auto starter =
-      MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *graph),
-                  MakeFakeEnding(5, 0, m2::PointD(0, 0), *graph), *graph);
+  auto starter = MakeStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *graph),
+                             MakeFakeEnding(5, 0, m2::PointD(0, 0), *graph), *graph);
   vector<m2::PointD> const expectedGeom = {{3 /* x */, 0 /* y */}, {2, 0}, {1, 0}, {0, 0}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
@@ -698,21 +620,15 @@ UNIT_CLASS_TEST(RestrictionTest, SquaresGraph_RestrictionF0F1OnlyF1F5Only)
 {
   Init(BuildSquaresGraph());
   RestrictionVec restrictionsNo;
-  RestrictionVec restrictionsOnly = {
-    {0 /* feature from */, 3 /* feature to */}
-  };
+  RestrictionVec restrictionsOnly = {{0 /* feature from */, 3 /* feature to */}};
 
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
-  vector<m2::PointD> const expectedGeom = {
-    {3.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, {1.0, 1.0}, {1.0, 0.0}, {0.0, 0.0}
-  };
+  vector<m2::PointD> const expectedGeom = {{3.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, {1.0, 1.0}, {1.0, 0.0}, {0.0, 0.0}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(0, 0), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(3, 0), *m_graph),
+                   MakeFakeEnding(5, 0, m2::PointD(0, 0), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // 0 Start *--F0--->*<--F1---*---F1---*---F1--->*---F2-->* Finish
@@ -729,10 +645,10 @@ unique_ptr<SingleVehicleWorldGraph> BuildLineGraph()
                   RoadGeometry::Points({{4.0, 0.0}, {5.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}}),                         /* joint at point (1, 0) */
-      MakeJoint({{1, 3}, {2, 0}}),                         /* joint at point (4, 0) */
-      MakeJoint({{2, 1}}),                                 /* joint at point (5, 0) */
+    MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+    MakeJoint({{0, 1}, {1, 0}}),                         /* joint at point (1, 0) */
+    MakeJoint({{1, 3}, {2, 0}}),                         /* joint at point (4, 0) */
+    MakeJoint({{2, 1}}),                                 /* joint at point (5, 0) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -746,16 +662,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildLineGraph()
 UNIT_CLASS_TEST(RestrictionTest, LineGraph_RestrictionF1F1No)
 {
   Init(BuildLineGraph());
-  RestrictionVec restrictionsNo = {
-    {1 /* feature from */, 1 /* feature to */}
-  };
-  vector<m2::PointD> const expectedGeom = {
-      {0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}};
+  RestrictionVec restrictionsNo = {{1 /* feature from */, 1 /* feature to */}};
+  vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
-      MakeFakeEnding(2, 0, m2::PointD(5, 0), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
+                   MakeFakeEnding(2, 0, m2::PointD(5, 0), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // 2 *---F2-->*
@@ -780,11 +692,11 @@ unique_ptr<SingleVehicleWorldGraph> BuildFGraph()
                   RoadGeometry::Points({{0.0, 2.0}, {1.0, 2.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}}),                         /* joint at point (0, 1) */
-      MakeJoint({{0, 2}, {2, 0}}),                         /* joint at point (0, 2) */
-      MakeJoint({{1, 1}}),                                 /* joint at point (1, 1) */
-      MakeJoint({{2, 1}}),                                 /* joint at point (1, 2) */
+    MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+    MakeJoint({{0, 1}, {1, 0}}),                         /* joint at point (0, 1) */
+    MakeJoint({{0, 2}, {2, 0}}),                         /* joint at point (0, 2) */
+    MakeJoint({{1, 1}}),                                 /* joint at point (1, 1) */
+    MakeJoint({{2, 1}}),                                 /* joint at point (1, 2) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -798,18 +710,14 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
 {
   Init(BuildFGraph());
   RestrictionVec restrictionsNo;
-  RestrictionVec restrictionsOnly = {
-    {0 /* feature from */, 2 /* feature to */}
-  };
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  RestrictionVec restrictionsOnly = {{0 /* feature from */, 2 /* feature to */}};
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {0, 1}, {1, 1}};
 
-  TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
-      MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), std::move(restrictionsNo), *this);
+  TestRestrictions(expectedGeom, Algorithm::Result::OK,
+                   MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
+                   MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
 /// @todo By VNG: no-pass-through behaviour was changed.
@@ -820,8 +728,7 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
 //                  |        |
 // 0 Start *---F0---*---F1---*---F2---* Finish
 //         0        1        2        3
-unique_ptr<SingleVehicleWorldGraph> BuildNonPassThroughGraph(bool passThroughStart,
-                                                             bool passThroughShortWay,
+unique_ptr<SingleVehicleWorldGraph> BuildNonPassThroughGraph(bool passThroughStart, bool passThroughShortWay,
                                                              bool passThroughLongWay)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
@@ -842,12 +749,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildNonPassThroughGraph(bool passThroughSta
                   RoadGeometry::Points({{2.0, 1.0}, {2.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}, {3, 0}}),                 /* joint at point (1, 0) */
-      MakeJoint({{1, 1}, {2, 0}, {5, 1}}),                 /* joint at point (2, 0) */
-      MakeJoint({{3, 1}, {4, 0}}),                         /* joint at point (1, 1) */
-      MakeJoint({{4, 1}, {5, 0}}),                         /* joint at point (2, 1) */
-      MakeJoint({{2, 1}}),                                 /* joint at point (3, 0) */
+    MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+    MakeJoint({{0, 1}, {1, 0}, {3, 0}}),                 /* joint at point (1, 0) */
+    MakeJoint({{1, 1}, {2, 0}, {5, 1}}),                 /* joint at point (2, 0) */
+    MakeJoint({{3, 1}, {4, 0}}),                         /* joint at point (1, 1) */
+    MakeJoint({{4, 1}, {5, 0}}),                         /* joint at point (2, 1) */
+    MakeJoint({{2, 1}}),                                 /* joint at point (3, 0) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -875,7 +782,7 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
 
-  //vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
+  // vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
@@ -994,8 +901,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildTwoCubeGraph2()
 
   vector<Joint> const joints = {
     // {{/* feature id */, /* point id */}, ... }
-    MakeJoint({{7, 0}}),                 /* joint at point (-1, 0) */
-    MakeJoint({{0, 0}, {6, 0}, {7, 1}}), /* joint at point (0, 0) */
+    MakeJoint({{7, 0}}),                  /* joint at point (-1, 0) */
+    MakeJoint({{0, 0}, {6, 0}, {7, 1}}),  /* joint at point (0, 0) */
     MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
     MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
     MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
@@ -1017,25 +924,20 @@ UNIT_CLASS_TEST(RestrictionTest, RestrictionNoWithWayAsVia_1)
 
   m2::PointD const start(-1.0, 0.0);
   m2::PointD const finish(3.0, 1.0);
-  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo) {
+  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo)
+  {
     TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
-      MakeFakeEnding(8 /* featureId */, 0 /* segmentIdx */, finish, *m_graph),
-      std::move(restrictionsNo), *this);
+      expectedGeom, Algorithm::Result::OK, MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
+      MakeFakeEnding(8 /* featureId */, 0 /* segmentIdx */, finish, *m_graph), std::move(restrictionsNo), *this);
   };
 
   // Can not go from |0| to |2| via |1|
-  RestrictionVec restrictionsNo = {
-    {0 /* feature 0 */, 1 /* feature 1 */, 2 /* feature 2 */}
-  };
+  RestrictionVec restrictionsNo = {{0 /* feature 0 */, 1 /* feature 1 */, 2 /* feature 2 */}};
 
   // Check that without restrictions we can find path better.
-  test({start, {0.0, 0.0}, {-1.0, 1.0}, {0.0, 2.0}, {1.0, 1.0}, {2.0, 1.0}, finish},
-       std::move(restrictionsNo));
+  test({start, {0.0, 0.0}, {-1.0, 1.0}, {0.0, 2.0}, {1.0, 1.0}, {2.0, 1.0}, finish}, std::move(restrictionsNo));
 
-  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, finish},
-       RestrictionVec());
+  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, finish}, RestrictionVec());
 }
 
 UNIT_CLASS_TEST(RestrictionTest, RestrictionNoWithWayAsVia_2)
@@ -1044,25 +946,20 @@ UNIT_CLASS_TEST(RestrictionTest, RestrictionNoWithWayAsVia_2)
 
   m2::PointD const start(-1.0, 0.0);
   m2::PointD const finish(4.0, 1.0);
-  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo) {
+  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo)
+  {
     TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, finish, *m_graph),
-      std::move(restrictionsNo), *this);
+      expectedGeom, Algorithm::Result::OK, MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
+      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, finish, *m_graph), std::move(restrictionsNo), *this);
   };
 
   // Can go from |0| to |9| only via |1|
-  RestrictionVec restrictionsNo = {
-    {0 /* feature 0 */, 1 /* feature 1 */, 9 /* feature 2 */}
-  };
+  RestrictionVec restrictionsNo = {{0 /* feature 0 */, 1 /* feature 1 */, 9 /* feature 2 */}};
 
   // Check that without restrictions we can find path better.
-  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, {3.0, 1.0}, finish},
-       std::move(restrictionsNo));
+  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {2.0, 1.0}, {3.0, 1.0}, finish}, std::move(restrictionsNo));
 
-  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 1.0}, finish},
-       RestrictionVec());
+  test({start, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 1.0}, finish}, RestrictionVec());
 }
 
 UNIT_CLASS_TEST(RestrictionTest, RestrictionOnlyWithWayAsVia_1)
@@ -1071,21 +968,17 @@ UNIT_CLASS_TEST(RestrictionTest, RestrictionOnlyWithWayAsVia_1)
 
   m2::PointD const start(-1.0, 0.0);
   m2::PointD const finish(4.0, 1.0);
-  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo) {
+  auto const test = [&](vector<m2::PointD> const & expectedGeom, RestrictionVec && restrictionsNo)
+  {
     TestRestrictions(
-      expectedGeom, Algorithm::Result::OK,
-      MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
-      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, finish, *m_graph),
-      std::move(restrictionsNo), *this);
+      expectedGeom, Algorithm::Result::OK, MakeFakeEnding(7 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
+      MakeFakeEnding(10 /* featureId */, 0 /* segmentIdx */, finish, *m_graph), std::move(restrictionsNo), *this);
   };
 
   RestrictionVec restrictionsNo;
   // Can go from |0| to |2| only via |1|
-  RestrictionVec restrictionsOnly = {
-    {0 /* feature 0 */, 1 /* feature 1 */, 2 /* feature 2 */}
-  };
-  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly,
-                              restrictionsNo);
+  RestrictionVec restrictionsOnly = {{0 /* feature 0 */, 1 /* feature 1 */, 2 /* feature 2 */}};
+  ConvertRestrictionsOnlyToNo(m_graph->GetIndexGraphForTests(kTestNumMwmId), restrictionsOnly, restrictionsNo);
 
   // Check that without restrictions we can find path better.
   test({start, {0, 0}, {1, 0}, {2, 0}, {2, 1}, {3, 1}, finish}, std::move(restrictionsNo));

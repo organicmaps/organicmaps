@@ -83,10 +83,7 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
   return true;
 }
 
-uint8_t Ge0Parser::DecodeBase64Char(char const c)
-{
-  return m_base64ReverseCharTable[static_cast<uint8_t>(c)];
-}
+uint8_t Ge0Parser::DecodeBase64Char(char const c) { return m_base64ReverseCharTable[static_cast<uint8_t>(c)]; }
 
 double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
 {

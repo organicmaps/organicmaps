@@ -38,12 +38,15 @@ public:
   {
   public:
     CenterViewportAction(m2::PointD const & pt, int zoomLevel)
-      : m_center(pt), m_zoomLevel(zoomLevel) {}
+      : m_center(pt)
+      , m_zoomLevel(zoomLevel)
+    {}
 
     ActionType GetType() override { return ActionType::CenterViewport; }
 
     m2::PointD const & GetCenter() const { return m_center; }
     int GetZoomLevel() const { return m_zoomLevel; }
+
   private:
     m2::PointD const m_center;
     int const m_zoomLevel;
@@ -55,11 +58,13 @@ public:
     using Duration = std::chrono::steady_clock::duration;
 
     WaitForTimeAction(Duration const & duration)
-      : m_duration(duration) {}
+      : m_duration(duration)
+    {}
 
     ActionType GetType() override { return ActionType::WaitForTime; }
 
     Duration const & GetDuration() const { return m_duration; }
+
   private:
     Duration m_duration;
   };
@@ -76,8 +81,8 @@ public:
   ScenarioManager(FrontendRenderer * frontendRenderer);
   ~ScenarioManager();
 
-  bool RunScenario(ScenarioData && scenarioData,
-                   ScenarioCallback const & startHandler, ScenarioCallback const & finishHandler);
+  bool RunScenario(ScenarioData && scenarioData, ScenarioCallback const & startHandler,
+                   ScenarioCallback const & finishHandler);
   void Interrupt();
   bool IsRunning();
 
@@ -99,4 +104,4 @@ private:
   std::unique_ptr<threads::SimpleThread> m_thread;
 };
 
-} //  namespace df
+}  //  namespace df

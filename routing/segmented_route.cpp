@@ -13,9 +13,10 @@ namespace routing
 {
 SegmentedRoute::SegmentedRoute(m2::PointD const & start, m2::PointD const & finish,
                                std::vector<Route::SubrouteAttrs> const & subroutes)
-  : m_start(start), m_finish(finish), m_subroutes(subroutes)
-{
-}
+  : m_start(start)
+  , m_finish(finish)
+  , m_subroutes(subroutes)
+{}
 
 double SegmentedRoute::CalcDistance(m2::PointD const & point) const
 {

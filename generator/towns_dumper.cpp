@@ -10,11 +10,7 @@
 
 #include <fstream>
 
-
-double TownsDumper::GetDistanceThreshold()
-{
-  return 500000;
-}
+double TownsDumper::GetDistanceThreshold() { return 500000; }
 
 void TownsDumper::FilterTowns()
 {
@@ -42,24 +38,21 @@ void TownsDumper::FilterTowns()
     auto const & top = towns.back();
     bool isUniq = true;
     resultTree.ForEachInRect(
-        mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), distanceThreshold),
-        [&top, &isUniq, &distanceThreshold](Town const & candidate)
-        {
-          // The idea behind that is to collect all capitals and unique major cities in 500 km radius
-          // for upgrading in World map visibility. See TOWNS_FILE usage.
-          if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
-            isUniq = false;
-        });
+      mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), distanceThreshold),
+      [&top, &isUniq, &distanceThreshold](Town const & candidate)
+      {
+        // The idea behind that is to collect all capitals and unique major cities in 500 km radius
+        // for upgrading in World map visibility. See TOWNS_FILE usage.
+        if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
+          isUniq = false;
+      });
 
     if (isUniq)
       resultTree.Add(top);
     towns.pop_back();
   }
 
-  resultTree.ForEach([this](Town const & town)
-                     {
-                       m_records.push_back(town);
-                     });
+  resultTree.ForEach([this](Town const & town) { m_records.push_back(town); });
   LOG(LINFO, ("Preprocessing finished. Have", m_records.size(), "towns."));
 }
 
@@ -116,6 +109,6 @@ void TownsDumper::Dump(std::string const & filePath)
   for (auto const & record : m_records)
   {
     std::string const isCapital = record.capital ? "t" : "f";
-    stream << record.point.m_lat << ";" << record.point.m_lon << ";" << record.id << ";" << isCapital <<  std::endl;
+    stream << record.point.m_lat << ";" << record.point.m_lon << ";" << record.id << ";" << isCapital << std::endl;
   }
 }

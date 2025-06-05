@@ -10,8 +10,7 @@ namespace pyhelpers
 template <typename T>
 std::vector<T> PythonListToStdVector(boost::python::object const & iterable)
 {
-  return std::vector<T>(boost::python::stl_input_iterator<T>(iterable),
-                        boost::python::stl_input_iterator<T>());
+  return std::vector<T>(boost::python::stl_input_iterator<T>(iterable), boost::python::stl_input_iterator<T>());
 }
 
 // For this to work one should define

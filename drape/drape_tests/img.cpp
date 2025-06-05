@@ -1,9 +1,6 @@
 #include "drape/drape_tests/img.hpp"
 
-void cleanUpQImageMemory(void * mem)
-{
-  free(mem);
-}
+void cleanUpQImageMemory(void * mem) { free(mem); }
 
 QImage CreateImage(uint32_t w, uint32_t h, uint8_t const * mem)
 {

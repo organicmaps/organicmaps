@@ -8,7 +8,8 @@ namespace qt
 {
 namespace common
 {
-QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext) : m_rootContext(rootContext)
+QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext)
+  : m_rootContext(rootContext)
 {
   m_uploadSurface = CreateSurface();
   m_drawSurface = CreateSurface();
@@ -23,10 +24,7 @@ QtOGLContextFactory::~QtOGLContextFactory()
   m_uploadSurface->destroy();
 }
 
-void QtOGLContextFactory::PrepareToShutdown()
-{
-  m_preparedToShutdown = true;
-}
+void QtOGLContextFactory::PrepareToShutdown() { m_preparedToShutdown = true; }
 
 bool QtOGLContextFactory::AcquireFrame()
 {

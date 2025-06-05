@@ -7,17 +7,16 @@
 
 #include <string>
 
+#include <QtGui/QAction>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QStandardItem>
-#include <QtGui/QAction>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMenu>
 
 // SamplesView::Model ------------------------------------------------------------------------------
 SamplesView::Model::Model(QWidget * parent)
   : QStandardItemModel(0 /* rows */, 1 /* columns */, parent)
-{
-}
+{}
 
 QVariant SamplesView::Model::data(QModelIndex const & index, int role) const
 {
@@ -42,7 +41,8 @@ QVariant SamplesView::Model::data(QModelIndex const & index, int role) const
 }
 
 // SamplesView -------------------------------------------------------------------------------------
-SamplesView::SamplesView(QWidget * parent) : QTableView(parent)
+SamplesView::SamplesView(QWidget * parent)
+  : QTableView(parent)
 {
   setEditTriggers(QAbstractItemView::NoEditTriggers);
   setSelectionMode(QAbstractItemView::SingleSelection);

@@ -32,10 +32,7 @@ location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double speed)
   return info;
 }
 
-inline string GetGpsTrackFilePath()
-{
-  return base::JoinPath(GetPlatform().WritableDir(), "gpstrack_test.bin");
-}
+inline string GetGpsTrackFilePath() { return base::JoinPath(GetPlatform().WritableDir(), "gpstrack_test.bin"); }
 
 UNIT_TEST(GpsTrackStorage_WriteRead)
 {
@@ -61,15 +58,16 @@ UNIT_TEST(GpsTrackStorage_WriteRead)
     stg.Append(points);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsInfo const & point)->bool
-    {
-      TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
-      TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
-      TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
-      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
-      ++i;
-      return true;
-    });
+    stg.ForEach(
+      [&](location::GpsInfo const & point) -> bool
+      {
+        TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
+        TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
+        TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
+        TEST_EQUAL(point.m_speed, points[i].m_speed, ());
+        ++i;
+        return true;
+      });
     TEST_EQUAL(i, itemCount, ());
   }
 
@@ -78,15 +76,16 @@ UNIT_TEST(GpsTrackStorage_WriteRead)
     GpsTrackStorage stg(filePath);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsInfo const & point)->bool
-    {
-      TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
-      TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
-      TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
-      TEST_EQUAL(point.m_speed, points[i].m_speed, ());
-      ++i;
-      return true;
-    });
+    stg.ForEach(
+      [&](location::GpsInfo const & point) -> bool
+      {
+        TEST_EQUAL(point.m_latitude, points[i].m_latitude, ());
+        TEST_EQUAL(point.m_longitude, points[i].m_longitude, ());
+        TEST_EQUAL(point.m_timestamp, points[i].m_timestamp, ());
+        TEST_EQUAL(point.m_speed, points[i].m_speed, ());
+        ++i;
+        return true;
+      });
     TEST_EQUAL(i, itemCount, ());
 
     // Clear data
@@ -98,8 +97,13 @@ UNIT_TEST(GpsTrackStorage_WriteRead)
     GpsTrackStorage stg(filePath);
 
     size_t i = 0;
-    stg.ForEach([&](location::GpsInfo const & point)->bool{ ++i; return true; });
+    stg.ForEach(
+      [&](location::GpsInfo const & point) -> bool
+      {
+        ++i;
+        return true;
+      });
     TEST_EQUAL(i, 0, ());
   }
 }
-} // namespace gps_track_storage_test
+}  // namespace gps_track_storage_test

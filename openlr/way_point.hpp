@@ -16,8 +16,7 @@ struct WayPoint final
     , m_distanceToNextPointM(lrp.m_distanceToNextPoint)
     , m_bearing(lrp.m_bearing)
     , m_lfrcnp(lrp.m_functionalRoadClass)
-  {
-  }
+  {}
 
   m2::PointD m_point;
   double m_distanceToNextPointM = 0.0;

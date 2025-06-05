@@ -47,8 +47,7 @@ void TestConcurrentAccessToFeatures(string const & mwm)
   // If hardware_concurrency() returns 1 it means that only one core is available.
   // In the both cases 2 threads should be used for this test.
   auto const threadNumber = max(thread::hardware_concurrency(), static_cast<unsigned int>(2));
-  LOG(LINFO, ("Parsing geometry of", featureNumber, "features in", threadNumber,
-              "threads simultaneously.", local));
+  LOG(LINFO, ("Parsing geometry of", featureNumber, "features in", threadNumber, "threads simultaneously.", local));
 
   mutex guardCtorMtx;
   auto parseGeometries = [&](vector<m2::PointD> & points)
@@ -96,8 +95,7 @@ UNIT_TEST(ConcurrentFeatureParsingTest)
 {
   classificator::Load();
 
-  vector<string> const mwms = {"Russia_Moscow", "Nepal_Kathmandu",
-                               "Netherlands_North Holland_Amsterdam"};
+  vector<string> const mwms = {"Russia_Moscow", "Nepal_Kathmandu", "Netherlands_North Holland_Amsterdam"};
 
   for (auto const & mwm : mwms)
     TestConcurrentAccessToFeatures(mwm);

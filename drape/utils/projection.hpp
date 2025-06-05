@@ -15,6 +15,5 @@ float constexpr kMaxDepth = 25000.0f;
 static_assert(kMinDepth <= drule::kMinLayeredDepthBg && drule::kMaxLayeredDepthFg <= kMaxDepth);
 static_assert(kMinDepth <= -drule::kOverlaysMaxPriority && drule::kOverlaysMaxPriority <= kMaxDepth);
 
-std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, float right,
-                                     float bottom, float top);
+std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, float right, float bottom, float top);
 }  // namespace dp

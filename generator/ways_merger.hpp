@@ -41,12 +41,13 @@ public:
         if (collectID)
           ids.push_back(e->m_wayOsmId);
 
-        e->ForEachPointOrdered(id, [this, &points](uint64_t id)
-        {
-          m2::PointD pt;
-          if (m_cache->GetNode(id, pt.y, pt.x))
-            points.push_back(pt);
-        });
+        e->ForEachPointOrdered(id,
+                               [this, &points](uint64_t id)
+                               {
+                                 m2::PointD pt;
+                                 if (m_cache->GetNode(id, pt.y, pt.x))
+                                   points.push_back(pt);
+                               });
 
         m_map.erase(i);
 
@@ -66,7 +67,8 @@ public:
 
         if (i == r.second)
           break;
-      } while (true);
+      }
+      while (true);
 
       if (points.size() > 2 && points.front() == points.back())
         toDo(std::move(points), std::move(ids));

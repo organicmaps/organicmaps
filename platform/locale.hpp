@@ -18,5 +18,5 @@ public:
 };
 
 Locale GetCurrentLocale();
-bool GetLocale(std::string localeName, Locale& result);
+bool GetLocale(std::string localeName, Locale & result);
 }  // namespace platform

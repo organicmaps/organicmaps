@@ -25,7 +25,6 @@
 #include <thread>
 #include <tuple>
 
-
 namespace routing
 {
 namespace routes_builder
@@ -63,14 +62,9 @@ routing::VehicleType ConvertVehicleTypeFromString(std::string const & str)
 }
 }  // namespace
 
-void BuildRoutes(std::string const & routesPath,
-                 std::string const & dumpPath,
-                 uint64_t startFrom,
-                 uint64_t threadsNumber,
-                 uint32_t timeoutPerRouteSeconds,
-                 std::string const & vehicleTypeStr,
-                 bool verbose,
-                 uint32_t launchesNumber)
+void BuildRoutes(std::string const & routesPath, std::string const & dumpPath, uint64_t startFrom,
+                 uint64_t threadsNumber, uint32_t timeoutPerRouteSeconds, std::string const & vehicleTypeStr,
+                 bool verbose, uint32_t launchesNumber)
 {
   CHECK(Platform::IsFileExistsByFullPath(routesPath), ("Can not find file:", routesPath));
   CHECK(!dumpPath.empty(), ("Empty dumpPath."));
@@ -128,12 +122,11 @@ void BuildRoutes(std::string const & routesPath,
         LOG_FORCE(LINFO, ("Route:", i, "(", i + 1, "line of file) was building too long."));
 
       std::string const fullPath =
-          base::JoinPath(dumpPath, std::to_string(shiftIndex) + RoutesBuilder::Result::kDumpExtension);
+        base::JoinPath(dumpPath, std::to_string(shiftIndex) + RoutesBuilder::Result::kDumpExtension);
 
       RoutesBuilder::Result::Dump(result, fullPath);
 
-      double const curPercent =
-          static_cast<double>(shiftIndex + 1) / (tasks.size() + startFrom) * 100.0;
+      double const curPercent = static_cast<double>(shiftIndex + 1) / (tasks.size() + startFrom) * 100.0;
 
       if (curPercent - lastPercent > 1.0 || shiftIndex + 1 == tasks.size())
       {
@@ -165,10 +158,8 @@ std::optional<std::tuple<ms::LatLon, ms::LatLon, int32_t>> ParseApiLine(std::ifs
   return {{start, finish, utcOffset}};
 }
 
-void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
-                        std::string const & routesPath,
-                        std::string const & dumpPath,
-                        int64_t startFrom)
+void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi, std::string const & routesPath,
+                        std::string const & dumpPath, int64_t startFrom)
 {
   std::ifstream input(routesPath);
   CHECK(input.good(), ("Error during opening:", routesPath));
@@ -188,7 +179,8 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
     return ms;
   };
 
-  auto const drop = [&]() {
+  auto const drop = [&]()
+  {
     rps = 0;
     timer.Reset();
   };
@@ -218,7 +210,7 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
     for (size_t i = 0; i < count; ++i)
     {
       std::string filepath =
-          base::JoinPath(dumpPath, std::to_string(prevDumpedNumber + i) + api::Response::kDumpExtension);
+        base::JoinPath(dumpPath, std::to_string(prevDumpedNumber + i) + api::Response::kDumpExtension);
 
       api::Response::Dump(filepath, result[i]);
     }
@@ -271,8 +263,7 @@ void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi,
   dump();
 }
 
-std::unique_ptr<routing_quality::api::RoutingApi> CreateRoutingApi(std::string const & name,
-                                                                   std::string const & token)
+std::unique_ptr<routing_quality::api::RoutingApi> CreateRoutingApi(std::string const & name, std::string const & token)
 {
   if (name == "mapbox")
     return std::make_unique<routing_quality::api::mapbox::MapboxApi>(token);
@@ -283,4 +274,4 @@ std::unique_ptr<routing_quality::api::RoutingApi> CreateRoutingApi(std::string c
   UNREACHABLE();
 }
 }  // namespace routes_builder
-}  // routing
+}  // namespace routing

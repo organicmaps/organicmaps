@@ -8,7 +8,9 @@ class HttpUploaderBackground
 {
 public:
   HttpUploaderBackground() = delete;
-  explicit HttpUploaderBackground(HttpPayload const & payload) : m_payload(payload) {}
+  explicit HttpUploaderBackground(HttpPayload const & payload)
+    : m_payload(payload)
+  {}
   HttpPayload const & GetPayload() const { return m_payload; }
 
   // TODO add platform-specific implementation

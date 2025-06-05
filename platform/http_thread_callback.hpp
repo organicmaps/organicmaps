@@ -13,4 +13,4 @@ public:
 protected:
   virtual ~IHttpThreadCallback() = default;
 };
-} // namespace downloader
+}  // namespace downloader

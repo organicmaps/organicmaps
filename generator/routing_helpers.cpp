@@ -16,39 +16,37 @@ void ForEachWayFromFile(std::string const & filename, ToDo && toDo)
 {
   using namespace generator;
   CHECK(ForEachOsmId2FeatureId(filename,
-      [&](CompositeId const & compositeOsmId, uint32_t featureId)
-      {
-        auto const osmId = compositeOsmId.m_mainId;
-        if (osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
-          toDo(featureId, osmId);
-      }), ("Can't load osm id mapping from", filename));
+                               [&](CompositeId const & compositeOsmId, uint32_t featureId)
+                               {
+                                 auto const osmId = compositeOsmId.m_mainId;
+                                 if (osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
+                                   toDo(featureId, osmId);
+                               }),
+        ("Can't load osm id mapping from", filename));
 }
 
-void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
-                  OsmIdToFeatureIds & osmIdToFeatureIds)
+void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId, OsmIdToFeatureIds & osmIdToFeatureIds)
 {
   osmIdToFeatureIds[osmId].push_back(featureId);
 }
 
-void ParseWaysOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                      OsmIdToFeatureIds & osmIdToFeatureIds)
+void ParseWaysOsmIdToFeatureIdMapping(std::string const & osmIdsToFeatureIdPath, OsmIdToFeatureIds & osmIdToFeatureIds)
 {
   ForEachWayFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, base::GeoObjectId osmId)
-  {
-    AddFeatureId(osmId, featureId, osmIdToFeatureIds);
-  });
+                     { AddFeatureId(osmId, featureId, osmIdToFeatureIds); });
 }
 
-void ParseWaysFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath,
-                                      FeatureIdToOsmId & featureIdToOsmId)
+void ParseWaysFeatureIdToOsmIdMapping(std::string const & osmIdsToFeatureIdPath, FeatureIdToOsmId & featureIdToOsmId)
 {
   featureIdToOsmId.clear();
 
-  ForEachWayFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, base::GeoObjectId const & osmId)
-  {
-    auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
-    CHECK(emplaced.second, ("Feature id", featureId, "is included in two osm ids:", emplaced.first->second, osmId));
-  });
+  ForEachWayFromFile(osmIdsToFeatureIdPath,
+                     [&](uint32_t featureId, base::GeoObjectId const & osmId)
+                     {
+                       auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
+                       CHECK(emplaced.second,
+                             ("Feature id", featureId, "is included in two osm ids:", emplaced.first->second, osmId));
+                     });
 }
 
 class OsmWay2FeaturePointImpl : public OsmWay2FeaturePoint
@@ -63,7 +61,7 @@ public:
     ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, m_osm2features);
   }
 
-  virtual void ForEachFeature(uint64_t wayID, std::function<void (uint32_t)> const & fn) override
+  virtual void ForEachFeature(uint64_t wayID, std::function<void(uint32_t)> const & fn) override
   {
     auto it = m_osm2features.find(base::MakeOsmWay(wayID));
     if (it != m_osm2features.end())
@@ -125,14 +123,11 @@ public:
   }
 };
 
-std::unique_ptr<OsmWay2FeaturePoint> CreateWay2FeatureMapper(
-    std::string const & dataFilePath, std::string const & osmIdsToFeatureIdsPath)
+std::unique_ptr<OsmWay2FeaturePoint> CreateWay2FeatureMapper(std::string const & dataFilePath,
+                                                             std::string const & osmIdsToFeatureIdsPath)
 {
   return std::make_unique<OsmWay2FeaturePointImpl>(dataFilePath, osmIdsToFeatureIdsPath);
 }
 
-bool IsRoadWay(feature::FeatureBuilder const & fb)
-{
-  return fb.IsLine() && IsRoad(fb.GetTypes());
-}
+bool IsRoadWay(feature::FeatureBuilder const & fb) { return fb.IsLine() && IsRoad(fb.GetTypes()); }
 }  // namespace routing

@@ -47,7 +47,8 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
   }
 
   std::sort(std::begin(spans), std::end(spans),
-            [](osmoh::Timespan const & s1, osmoh::Timespan const s2) {
+            [](osmoh::Timespan const & s1, osmoh::Timespan const s2)
+            {
               auto const start1 = s1.GetStart().GetHourMinutes();
               auto const start2 = s2.GetStart().GetHourMinutes();
 
@@ -100,8 +101,7 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
   return true;
 }
 
-osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime,
-                                   osmoh::TTimespans const & excludeTime)
+osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime, osmoh::TTimespans const & excludeTime)
 {
   if (excludeTime.empty())
     return openingTime;
@@ -116,7 +116,7 @@ osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime,
   osmoh::Timespan lastSpan{excludeTime.back().GetEnd(), openingTime.GetEnd()};
   return SpanLength(longestSpan) > SpanLength(lastSpan) ? longestSpan : lastSpan;
 }
-} // namespace
+}  // namespace
 
 namespace editor
 {
@@ -129,15 +129,8 @@ TimeTable TimeTable::GetPredefinedTimeTable()
 {
   TimeTable tt;
   tt.m_isTwentyFourHours = true;
-  tt.m_weekdays = {
-    osmoh::Weekday::Sunday,
-    osmoh::Weekday::Monday,
-    osmoh::Weekday::Tuesday,
-    osmoh::Weekday::Wednesday,
-    osmoh::Weekday::Thursday,
-    osmoh::Weekday::Friday,
-    osmoh::Weekday::Saturday
-  };
+  tt.m_weekdays = {osmoh::Weekday::Sunday,   osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                   osmoh::Weekday::Thursday, osmoh::Weekday::Friday, osmoh::Weekday::Saturday};
 
   tt.m_openingTime = tt.GetPredefinedOpeningTime();
 
@@ -180,7 +173,8 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
     auto const excludeSpanStart = excludeSpan.GetStart().GetHourMinutes().GetDuration();
     auto const excludeSpanEnd = excludeSpan.GetEnd().GetHourMinutes().GetDuration();
 
-    if (!GetOpeningTime().HasExtendedHours() && (excludeSpanStart < openingTimeStart || openingTimeEnd < excludeSpanEnd))
+    if (!GetOpeningTime().HasExtendedHours() &&
+        (excludeSpanStart < openingTimeStart || openingTimeEnd < excludeSpanEnd))
       continue;
 
     excludeTime.push_back(excludeSpan);
@@ -193,8 +187,7 @@ bool TimeTable::SetOpeningTime(osmoh::Timespan const & span)
 bool TimeTable::CanAddExcludeTime() const
 {
   auto copy = *this;
-  return copy.AddExcludeTime(GetPredefinedExcludeTime()) &&
-         copy.GetExcludeTime().size() == GetExcludeTime().size() + 1;
+  return copy.AddExcludeTime(GetPredefinedExcludeTime()) && copy.GetExcludeTime().size() == GetExcludeTime().size() + 1;
 }
 
 bool TimeTable::AddExcludeTime(osmoh::Timespan const & span)
@@ -287,22 +280,13 @@ osmoh::Timespan TimeTable::GetPredefinedExcludeTime() const
 
 // TimeTableSet ------------------------------------------------------------------------------------
 
-TimeTableSet::TimeTableSet()
-{
-  m_table.push_back(TimeTable::GetPredefinedTimeTable());
-}
+TimeTableSet::TimeTableSet() { m_table.push_back(TimeTable::GetPredefinedTimeTable()); }
 
 OpeningDays TimeTableSet::GetUnhandledDays() const
 {
-  OpeningDays days = {
-    osmoh::Weekday::Sunday,
-    osmoh::Weekday::Monday,
-    osmoh::Weekday::Tuesday,
-    osmoh::Weekday::Wednesday,
-    osmoh::Weekday::Thursday,
-    osmoh::Weekday::Friday,
-    osmoh::Weekday::Saturday
-  };
+  OpeningDays days = {osmoh::Weekday::Sunday,    osmoh::Weekday::Monday,   osmoh::Weekday::Tuesday,
+                      osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday, osmoh::Weekday::Friday,
+                      osmoh::Weekday::Saturday};
 
   for (auto const & tt : *this)
     for (auto const day : tt.GetOpeningDays())
@@ -325,9 +309,8 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
 
 bool TimeTableSet::IsTwentyFourPerSeven() const
 {
-  return GetUnhandledDays().empty() &&
-         std::all_of(std::begin(m_table), std::end(m_table),
-                     [](TimeTable const & tt) { return tt.IsTwentyFourHours(); });
+  return GetUnhandledDays().empty() && std::all_of(std::begin(m_table), std::end(m_table),
+                                                   [](TimeTable const & tt) { return tt.IsTwentyFourHours(); });
 }
 
 bool TimeTableSet::Append(TimeTable const & tt)
@@ -392,5 +375,5 @@ bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
 
   return true;
 }
-} // namspace ui
-} // namespace editor
+}  // namespace ui
+}  // namespace editor

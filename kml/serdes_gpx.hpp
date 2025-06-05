@@ -87,7 +87,7 @@ private:
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
   uint32_t m_color;
-  uint32_t m_globalColor; // To support OSMAnd extensions with single color per GPX file
+  uint32_t m_globalColor;  // To support OSMAnd extensions with single color per GPX file
 
   std::string m_name;
   std::string m_description;

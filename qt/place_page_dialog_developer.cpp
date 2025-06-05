@@ -1,5 +1,5 @@
-#include "qt/place_page_dialog_common.hpp"
 #include "qt/place_page_dialog_developer.hpp"
+#include "qt/place_page_dialog_common.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
@@ -93,36 +93,36 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   if (auto const & descr = info.GetWikiDescription(); !descr.empty())
   {
     QPushButton * wikiButton = new QPushButton("Wiki Description");
-    connect(wikiButton, &QAbstractButton::clicked, this, [this, descr, title]()
-    {
-      auto textDialog = TextDialog(this, QString::fromStdString(descr), QString::fromStdString("Wikipedia: " + title));
-      textDialog.exec();
-    });
+    connect(wikiButton, &QAbstractButton::clicked, this,
+            [this, descr, title]()
+            {
+              auto textDialog =
+                TextDialog(this, QString::fromStdString(descr), QString::fromStdString("Wikipedia: " + title));
+              textDialog.exec();
+            });
     dbb->addButton(wikiButton, QDialogButtonBox::ActionRole);
   }
 
-  info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
-  {
-    bool isLink = false;
-    switch (id)
+  info.ForEachMetadataReadable(
+    [&addEntry](PropID id, std::string const & value)
     {
-    case PropID::FMD_EMAIL:
-    case PropID::FMD_WEBSITE:
-    case PropID::FMD_CONTACT_FACEBOOK:
-    case PropID::FMD_CONTACT_INSTAGRAM:
-    case PropID::FMD_CONTACT_TWITTER:
-    case PropID::FMD_CONTACT_VK:
-    case PropID::FMD_CONTACT_LINE:
-    case PropID::FMD_WIKIPEDIA:
-    case PropID::FMD_WIKIMEDIA_COMMONS:
-      isLink = true;
-      break;
-    default:
-      break;
-    }
+      bool isLink = false;
+      switch (id)
+      {
+      case PropID::FMD_EMAIL:
+      case PropID::FMD_WEBSITE:
+      case PropID::FMD_CONTACT_FACEBOOK:
+      case PropID::FMD_CONTACT_INSTAGRAM:
+      case PropID::FMD_CONTACT_TWITTER:
+      case PropID::FMD_CONTACT_VK:
+      case PropID::FMD_CONTACT_LINE:
+      case PropID::FMD_WIKIPEDIA:
+      case PropID::FMD_WIKIMEDIA_COMMONS: isLink = true; break;
+      default: break;
+      }
 
-    addEntry(DebugPrint(id), value, isLink);
-  });
+      addEntry(DebugPrint(id), value, isLink);
+    });
 
   layout->addWidget(dbb);
   setLayout(layout);

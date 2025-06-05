@@ -36,23 +36,18 @@ int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
 
-inline int GetZoomLevel(ScreenBase const & screen)
-{
-  return static_cast<int>(df::GetZoomLevel(screen.GetScale()));
-}
+inline int GetZoomLevel(ScreenBase const & screen) { return static_cast<int>(df::GetZoomLevel(screen.GetScale())); }
 
 int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double errorRadius)
 {
   ScreenBase s = screen;
   m2::PointD const size(errorRadius, errorRadius);
-  s.SetFromRect(m2::AnyRectD(position, ang::Angle<double>(screen.GetAngle()), m2::RectD(position - size, position + size)));
+  s.SetFromRect(
+    m2::AnyRectD(position, ang::Angle<double>(screen.GetAngle()), m2::RectD(position - size, position + size)));
   return GetZoomLevel(s);
 }
 
-inline double GetVisualScale()
-{
-  return df::VisualParams::Instance().GetVisualScale();
-}
+inline double GetVisualScale() { return df::VisualParams::Instance().GetVisualScale(); }
 
 // Calculate zoom value in meters per pixel
 double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
@@ -104,10 +99,7 @@ double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
   return zoom / vs;
 }
 
-void ResetNotification(uint64_t & notifyId)
-{
-  notifyId = DrapeNotifier::kInvalidId;
-}
+void ResetNotification(uint64_t & notifyId) { notifyId = DrapeNotifier::kInvalidId; }
 
 bool IsModeChangeViewport(location::EMyPositionMode mode)
 {
@@ -175,10 +167,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
     m_modeChangeCallback(m_mode, m_isInRouting);
 }
 
-void MyPositionController::UpdatePosition()
-{
-  UpdateViewport(kDoNotChangeZoom);
-}
+void MyPositionController::UpdatePosition() { UpdateViewport(kDoNotChangeZoom); }
 
 void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
 {
@@ -187,45 +176,24 @@ void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
     SetVisibleViewport(m_pixelRect);
 }
 
-void MyPositionController::SetVisibleViewport(m2::RectD const & rect)
-{
-  m_visiblePixelRect = rect;
-}
+void MyPositionController::SetVisibleViewport(m2::RectD const & rect) { m_visiblePixelRect = rect; }
 
-void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
-{
-  m_listener = listener;
-}
+void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener) { m_listener = listener; }
 
-m2::PointD const & MyPositionController::Position() const
-{
-  return m_position;
-}
+m2::PointD const & MyPositionController::Position() const { return m_position; }
 
-double MyPositionController::GetErrorRadius() const
-{
-  return m_errorRadius;
-}
+double MyPositionController::GetErrorRadius() const { return m_errorRadius; }
 
-double MyPositionController::GetHorizontalAccuracy() const
-{
-  return m_horizontalAccuracy;
-}
+double MyPositionController::GetHorizontalAccuracy() const { return m_horizontalAccuracy; }
 
-bool MyPositionController::IsModeChangeViewport() const
-{
-  return df::IsModeChangeViewport(m_mode);
-}
+bool MyPositionController::IsModeChangeViewport() const { return df::IsModeChangeViewport(m_mode); }
 
 bool MyPositionController::IsModeHasPosition() const
 {
   return m_mode != location::PendingPosition && m_mode != location::NotFollowNoPosition;
 }
 
-void MyPositionController::DragStarted()
-{
-  m_needBlockAnimation = true;
-}
+void MyPositionController::DragStarted() { m_needBlockAnimation = true; }
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
 {
@@ -315,10 +283,8 @@ void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
     pt = m_position;
 }
 
-void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context,
-                                          ref_ptr<dp::TextureManager> texMng,
-                                          drape_ptr<MyPosition> && shape,
-                                          Arrow3d::PreloadedData && preloadedData)
+void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
+                                          drape_ptr<MyPosition> && shape, Arrow3d::PreloadedData && preloadedData)
 {
   m_shape = std::move(shape);
   if (!m_shape->InitArrow(context, texMng, std::move(preloadedData)))
@@ -328,14 +294,13 @@ void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context,
   }
 }
 
-void MyPositionController::ResetRenderShape()
-{
-  m_shape.reset();
-}
+void MyPositionController::ResetRenderShape() { m_shape.reset(); }
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-  // When the app is awaiting location (indicator is active) and the user presses on the indicator, location updates will be stopped and goes into NotFollowNoPosition state. The next press on the indicator will start location updates again.
+  // When the app is awaiting location (indicator is active) and the user presses on the indicator, location updates
+  // will be stopped and goes into NotFollowNoPosition state. The next press on the indicator will start location
+  // updates again.
   if (IsWaitingForLocation())
   {
     m_desiredInitMode = location::Follow;
@@ -393,14 +358,12 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   }
 }
 
-void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable,
-                                            ScreenBase const & screen)
+void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen)
 {
   m2::PointD const oldPos = GetDrawablePosition();
   double const oldAzimut = GetDrawableAzimut();
 
-  m2::RectD const rect =
-      mercator::MetersToXY(info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
+  m2::RectD const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
   // Use FromLatLon instead of rect.Center() since in case of large info.m_horizontalAccuracy
   // there is significant difference between the real location and the estimated one.
   m_position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
@@ -536,8 +499,7 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
   double const oldAzimut = GetDrawableAzimut();
   m_isCompassAvailable = true;
 
-  bool const existsFreshGpsBearing =
-      m_lastGPSBearingTimer.ElapsedSeconds() < kGpsBearingLifetimeSec;
+  bool const existsFreshGpsBearing = m_lastGPSBearingTimer.ElapsedSeconds() < kGpsBearingLifetimeSec;
   if ((IsInRouting() && m_isArrowGluedInRouting) || existsFreshGpsBearing)
     return;
 
@@ -553,8 +515,8 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
   double const autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
-  if (autoScale > 0.0 && m_mode == location::FollowAndRotate &&
-      m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
+  if (autoScale > 0.0 && m_mode == location::FollowAndRotate && m_isInRouting && m_enableAutoZoomInRouting &&
+      !m_needBlockAutoZoom)
   {
     ChangeModelView(autoScale, m_position, m_drawDirection, GetRoutingRotationPixelCenter());
     return true;
@@ -673,9 +635,7 @@ void MyPositionController::OnEnterForeground(double backgroundTime)
   }
 }
 
-void MyPositionController::OnEnterBackground()
-{
-}
+void MyPositionController::OnEnterBackground() {}
 
 void MyPositionController::OnCompassTapped()
 {
@@ -711,9 +671,8 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
   m_animCreator = nullptr;
 }
 
-void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                           m2::PointD const & pxZero, int zoomLevel,
-                                           Animation::TAction const & onFinishAction)
+void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                                           int zoomLevel, Animation::TAction const & onFinishAction)
 {
   if (m_listener)
     m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, onFinishAction, m_animCreator);
@@ -740,8 +699,7 @@ void MyPositionController::UpdateViewport(int zoomLevel)
   else if (m_mode == location::FollowAndRotate)
   {
     ChangeModelView(m_position, m_drawDirection,
-                    m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
-                    zoomLevel);
+                    m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(), zoomLevel);
   }
 }
 
@@ -758,7 +716,7 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
-  return { m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY };
+  return {m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY};
 }
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
@@ -807,9 +765,9 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     {
       m_animCreator = [this, moveDuration](ref_ptr<Animation> syncAnim) -> drape_ptr<Animation>
       {
-        drape_ptr<Animation> anim = make_unique_dp<ArrowAnimation>(GetDrawablePosition(), m_position,
-                                                   syncAnim == nullptr ? moveDuration : syncAnim->GetDuration(),
-                                                   GetDrawableAzimut(), m_drawDirection);
+        drape_ptr<Animation> anim = make_unique_dp<ArrowAnimation>(
+          GetDrawablePosition(), m_position, syncAnim == nullptr ? moveDuration : syncAnim->GetDuration(),
+          GetDrawableAzimut(), m_drawDirection);
         if (syncAnim != nullptr)
         {
           anim->SetMaxDuration(syncAnim->GetMaxDuration());
@@ -823,8 +781,8 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     }
     else
     {
-      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(
-          oldPos, m_position, moveDuration, oldAzimut, m_drawDirection));
+      AnimationSystem::Instance().CombineAnimation(
+        make_unique_dp<ArrowAnimation>(oldPos, m_position, moveDuration, oldAzimut, m_drawDirection));
     }
   }
 }
@@ -852,12 +810,8 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, b
     m_enableAutoZoomInRouting = enableAutoZoom;
 
     ChangeMode(location::FollowAndRotate);
-    ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0,
-                    GetRoutingRotationPixelCenter(), zoomLevel,
-                    [this](ref_ptr<Animation> anim)
-                    {
-                      UpdateViewport(kDoNotChangeZoom);
-                    });
+    ChangeModelView(m_position, m_isDirectionAssigned ? m_drawDirection : 0.0, GetRoutingRotationPixelCenter(),
+                    zoomLevel, [this](ref_ptr<Animation> anim) { UpdateViewport(kDoNotChangeZoom); });
     ResetRoutingNotFollowTimer();
   }
 }
@@ -878,18 +832,18 @@ void MyPositionController::DeactivateRouting()
 
 // This code schedules the execution of checkFunction on FR after timeout. Additionally
 // there is the protection from multiple scheduling.
-#define CHECK_ON_TIMEOUT(id, timeout, checkFunction) \
-  if (id == DrapeNotifier::kInvalidId) \
-  { \
-    id = m_notifier->Notify(ThreadsCommutator::RenderThread, \
-                            std::chrono::seconds(static_cast<uint32_t>(timeout)), false /* repeating */, \
-                            [this](uint64_t notifyId) \
-    { \
-      if (notifyId != id) \
-        return; \
-      checkFunction(); \
-      id = DrapeNotifier::kInvalidId; \
-    }); \
+#define CHECK_ON_TIMEOUT(id, timeout, checkFunction)                                                               \
+  if (id == DrapeNotifier::kInvalidId)                                                                             \
+  {                                                                                                                \
+    id = m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(static_cast<uint32_t>(timeout)), \
+                            false /* repeating */,                                                                 \
+                            [this](uint64_t notifyId)                                                              \
+                            {                                                                                      \
+                              if (notifyId != id)                                                                  \
+                                return;                                                                            \
+                              checkFunction();                                                                     \
+                              id = DrapeNotifier::kInvalidId;                                                      \
+                            });                                                                                    \
   }
 
 void MyPositionController::CheckNotFollowRouting()

@@ -64,10 +64,14 @@ auto const placeRelation2 = MakeOsmElement(2 /* id */, {{"place", "town"}}, OsmE
 auto const placeRelation3 = MakeOsmElement(3 /* id */, {{"place", "village"}}, OsmElement::EntityType::Relation);
 auto const placeRelation4 = MakeOsmElement(4 /* id */, {{"place", "country"}}, OsmElement::EntityType::Relation);
 
-auto const placeNode1 = MakeOsmElement(9 /* id */, {{"place", "city"}, {"population", "200.000"}}, OsmElement::EntityType::Node);
-auto const placeNode2 = MakeOsmElement(10 /* id */, {{"place", "town"}, {"population", "10 000"}}, OsmElement::EntityType::Node);
-auto const placeNode3 = MakeOsmElement(11 /* id */, {{"place", "village"}, {"population", "1000"}}, OsmElement::EntityType::Node);
-auto const placeNode4 = MakeOsmElement(12 /* id */, {{"place", "country"}, {"population", "147000000"}}, OsmElement::EntityType::Node);
+auto const placeNode1 =
+  MakeOsmElement(9 /* id */, {{"place", "city"}, {"population", "200.000"}}, OsmElement::EntityType::Node);
+auto const placeNode2 =
+  MakeOsmElement(10 /* id */, {{"place", "town"}, {"population", "10 000"}}, OsmElement::EntityType::Node);
+auto const placeNode3 =
+  MakeOsmElement(11 /* id */, {{"place", "village"}, {"population", "1000"}}, OsmElement::EntityType::Node);
+auto const placeNode4 =
+  MakeOsmElement(12 /* id */, {{"place", "country"}, {"population", "147000000"}}, OsmElement::EntityType::Node);
 
 auto const relationWithLabel1 = MakeAreaWithPlaceNode(5 /* id */, 9 /* placeId */, "label" /* role */);
 auto const relationWithLabel2 = MakeAreaWithPlaceNode(6 /* id */, 10 /* placeId */, "admin_centre" /* role */);
@@ -257,28 +261,19 @@ UNIT_TEST(AreaOnEarth_Convex_Polygon_1)
   std::vector<ms::LatLon> const latlons = {a, b, c, d, e};
   std::vector<m2::PointD> const points = FromLatLons(latlons);
 
-  double const areaTriangulated =
-      ms::AreaOnEarth(a, b, c) + ms::AreaOnEarth(a, c, d) + ms::AreaOnEarth(a, d, e);
+  double const areaTriangulated = ms::AreaOnEarth(a, b, c) + ms::AreaOnEarth(a, c, d) + ms::AreaOnEarth(a, d, e);
 
   double const areaOnEarth = generator::AreaOnEarth(points);
 
-  TEST(base::AlmostEqualRel(areaTriangulated,
-                            areaOnEarth,
-                            1e-6), (areaTriangulated, areaOnEarth));
+  TEST(base::AlmostEqualRel(areaTriangulated, areaOnEarth, 1e-6), (areaTriangulated, areaOnEarth));
 }
 
 UNIT_TEST(AreaOnEarth_Convex_Polygon_2)
 {
   std::vector<ms::LatLon> const latlons = {
-      {55.6348484, 36.025526},
-      {55.0294112, 36.8959709},
-      {54.9262448, 38.3719426},
-      {55.3561515, 39.3275397},
-      {55.7548279, 39.4458067},
-      {56.3020039, 39.3322704},
-      {56.5140099, 38.6368606},
-      {56.768935, 37.0473526},
-      {56.4330113, 35.6234183},
+    {55.6348484, 36.025526},  {55.0294112, 36.8959709}, {54.9262448, 38.3719426},
+    {55.3561515, 39.3275397}, {55.7548279, 39.4458067}, {56.3020039, 39.3322704},
+    {56.5140099, 38.6368606}, {56.768935, 37.0473526},  {56.4330113, 35.6234183},
   };
 
   std::vector<m2::PointD> const points = FromLatLons(latlons);
@@ -286,9 +281,7 @@ UNIT_TEST(AreaOnEarth_Convex_Polygon_2)
   double const areaOnEarth = generator::AreaOnEarth(points);
   double const areaForConvexPolygon = CalculateEarthAreaForConvexPolygon(latlons);
 
-  TEST(base::AlmostEqualRel(areaForConvexPolygon,
-                            areaOnEarth,
-                            1e-6), (areaForConvexPolygon, areaOnEarth));
+  TEST(base::AlmostEqualRel(areaForConvexPolygon, areaOnEarth, 1e-6), (areaForConvexPolygon, areaOnEarth));
 }
 
 UNIT_TEST(AreaOnEarth_Concave_Polygon)
@@ -307,20 +300,12 @@ UNIT_TEST(AreaOnEarth_Concave_Polygon)
   std::vector<ms::LatLon> const latlons = {a, b, c, d, e, f, g, h, i, j};
   std::vector<m2::PointD> const points = FromLatLons(latlons);
 
-  double areaTriangulated =
-      ms::AreaOnEarth(a, b, c) +
-      ms::AreaOnEarth(a, c, d) +
-      ms::AreaOnEarth(a, d, f) +
-      ms::AreaOnEarth(d, e, f) +
-      ms::AreaOnEarth(a, f, j) +
-      ms::AreaOnEarth(f, h, j) +
-      ms::AreaOnEarth(f, g, h) +
-      ms::AreaOnEarth(h, i, j);
+  double areaTriangulated = ms::AreaOnEarth(a, b, c) + ms::AreaOnEarth(a, c, d) + ms::AreaOnEarth(a, d, f) +
+                            ms::AreaOnEarth(d, e, f) + ms::AreaOnEarth(a, f, j) + ms::AreaOnEarth(f, h, j) +
+                            ms::AreaOnEarth(f, g, h) + ms::AreaOnEarth(h, i, j);
 
   double const areaOnEarth = generator::AreaOnEarth(points);
 
-  TEST(base::AlmostEqualRel(areaTriangulated,
-                            areaOnEarth,
-                            1e-6), ());
+  TEST(base::AlmostEqualRel(areaTriangulated, areaOnEarth, 1e-6), ());
 }
 }  // namespace collector_routing_city_boundaries_tests

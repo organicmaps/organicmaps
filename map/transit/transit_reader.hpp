@@ -27,17 +27,17 @@
 class DataSource;
 
 using FeatureCallback = std::function<void(FeatureType &)>;
-using TReadFeaturesFn = std::function<void (FeatureCallback const & , std::vector<FeatureID> const &)>;
+using TReadFeaturesFn = std::function<void(FeatureCallback const &, std::vector<FeatureID> const &)>;
 
-class ReadTransitTask: public threads::IRoutine
+class ReadTransitTask : public threads::IRoutine
 {
 public:
   ReadTransitTask(DataSource & dataSource, TReadFeaturesFn const & readFeaturesFn)
-    : m_dataSource(dataSource), m_readFeaturesFn(readFeaturesFn)
+    : m_dataSource(dataSource)
+    , m_readFeaturesFn(readFeaturesFn)
   {}
 
-  void Init(uint64_t id, MwmSet::MwmId const & mwmId,
-            std::unique_ptr<TransitDisplayInfo> transitInfo = nullptr);
+  void Init(uint64_t id, MwmSet::MwmId const & mwmId, std::unique_ptr<TransitDisplayInfo> transitInfo = nullptr);
   uint64_t GetId() const { return m_id; }
   bool GetSuccess() const { return m_success; }
 

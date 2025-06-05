@@ -25,7 +25,12 @@ public:
   static uint8_t const MAX_CHILDREN = 4;
   static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
-  CellId() : m_bits(0), m_level(0) { ASSERT(IsValid(), ()); }
+  CellId()
+    : m_bits(0)
+    , m_level(0)
+  {
+    ASSERT(IsValid(), ());
+  }
   explicit CellId(std::string const & s) { *this = FromString(s); }
 
   static CellId Root() { return CellId(0, 0); }
@@ -290,7 +295,9 @@ private:
     return ((1ULL << 2 * depth) - 1) / 3ULL;
   }
 
-  CellId(uint64_t bits, int level) : m_bits(bits), m_level(level)
+  CellId(uint64_t bits, int level)
+    : m_bits(bits)
+    , m_level(level)
   {
     ASSERT_LESS(level, DEPTH_LEVELS, (bits, level));
     ASSERT_LESS(bits, 1ULL << m_level * 2, (bits, m_level));

@@ -24,13 +24,9 @@ void FeaturesLayer::Clear()
 string DebugPrint(FeaturesLayer const & layer)
 {
   ostringstream os;
-  os << "FeaturesLayer [size of m_sortedFeatures: "
-     << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
-     << ", subquery: " << DebugPrint(layer.m_subQuery)
-     << ", tokenRange: " << DebugPrint(layer.m_tokenRange)
-     << ", type: " << DebugPrint(layer.m_type)
-     << ", lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix
-     << "]";
+  os << "FeaturesLayer [size of m_sortedFeatures: " << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
+     << ", subquery: " << DebugPrint(layer.m_subQuery) << ", tokenRange: " << DebugPrint(layer.m_tokenRange)
+     << ", type: " << DebugPrint(layer.m_type) << ", lastTokenIsPrefix: " << layer.m_lastTokenIsPrefix << "]";
   return os.str();
 }
 }  // namespace search

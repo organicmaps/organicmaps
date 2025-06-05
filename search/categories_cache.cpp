@@ -7,7 +7,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
-
 namespace search
 {
 using namespace std;
@@ -34,13 +33,13 @@ CBV CategoriesCache::Load(MwmContext const & context) const
   SearchTrieRequest<strings::UniStringDFA> request;
 
   // m_categories usually has truncated types; add them together with their subtrees.
-  m_categories.ForEach([&request, &c](uint32_t const type)
-  {
-    c.ForEachInSubtree([&](uint32_t descendantType)
+  m_categories.ForEach(
+    [&request, &c](uint32_t const type)
     {
-      request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(descendantType)));
-    }, type);
-  });
+      c.ForEachInSubtree([&](uint32_t descendantType)
+                         { request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(descendantType))); },
+                         type);
+    });
 
   Retrieval retrieval(context, m_cancellable);
   return retrieval.RetrieveAddressFeatures(request).m_features;
@@ -49,47 +48,39 @@ CBV CategoriesCache::Load(MwmContext const & context) const
 // StreetsCache ------------------------------------------------------------------------------------
 StreetsCache::StreetsCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsStreetOrSquareChecker::Instance(), cancellable)
-{
-}
+{}
 
 // SuburbsCache ------------------------------------------------------------------------------------
 SuburbsCache::SuburbsCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsSuburbChecker::Instance(), cancellable)
-{
-}
+{}
 // VillagesCache -----------------------------------------------------------------------------------
 VillagesCache::VillagesCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsVillageChecker::Instance(), cancellable)
-{
-}
+{}
 
 // CountriesCache ----------------------------------------------------------------------------------
 CountriesCache::CountriesCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsCountryChecker::Instance(), cancellable)
-{
-}
+{}
 
 // StatesCache -------------------------------------------------------------------------------------
 StatesCache::StatesCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsStateChecker::Instance(), cancellable)
-{
-}
+{}
 
 // CitiesTownsOrVillagesCache ----------------------------------------------------------------------
 CitiesTownsOrVillagesCache::CitiesTownsOrVillagesCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsCityTownOrVillageChecker::Instance(), cancellable)
-{
-}
+{}
 
 // HotelsCache -------------------------------------------------------------------------------------
 HotelsCache::HotelsCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsHotelChecker::Instance(), cancellable)
-{
-}
+{}
 
 // FoodCache ---------------------------------------------------------------------------------------
 FoodCache::FoodCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsEatChecker::Instance(), cancellable)
-{
-}
+{}
 }  // namespace search

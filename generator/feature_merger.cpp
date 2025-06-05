@@ -9,7 +9,8 @@
 using namespace feature;
 
 MergedFeatureBuilder::MergedFeatureBuilder(FeatureBuilder const & fb)
-  : FeatureBuilder(fb), m_isRound(false)
+  : FeatureBuilder(fb)
+  , m_isRound(false)
 {
   m_params.FinishAddingTypes();
 }
@@ -100,14 +101,11 @@ std::pair<m2::PointD, bool> MergedFeatureBuilder::GetKeyPoint(size_t i) const
   i -= sz;
 
   // 4. return last point
-  ASSERT_EQUAL ( i, 0, () );
+  ASSERT_EQUAL(i, 0, ());
   return std::make_pair(LastPoint(), true);
 }
 
-size_t MergedFeatureBuilder::GetKeyPointsCount() const
-{
-  return m_roundBounds[0].size() + m_roundBounds[1].size() + 2;
-}
+size_t MergedFeatureBuilder::GetKeyPointsCount() const { return m_roundBounds[0].size() + m_roundBounds[1].size() + 2; }
 
 double MergedFeatureBuilder::GetSquaredLength() const
 {
@@ -115,10 +113,9 @@ double MergedFeatureBuilder::GetSquaredLength() const
 
   double sqLen = 0.0;
   for (size_t i = 1; i < poly.size(); ++i)
-    sqLen += poly[i-1].SquaredLength(poly[i]);
+    sqLen += poly[i - 1].SquaredLength(poly[i]);
   return sqLen;
 }
-
 
 FeatureMergeProcessor::Key FeatureMergeProcessor::GetKey(m2::PointD const & p)
 {
@@ -126,16 +123,12 @@ FeatureMergeProcessor::Key FeatureMergeProcessor::GetKey(m2::PointD const & p)
 }
 
 FeatureMergeProcessor::FeatureMergeProcessor(uint32_t coordBits)
-: m_coordBits(coordBits)
-{
-}
+  : m_coordBits(coordBits)
+{}
 
-void FeatureMergeProcessor::operator() (FeatureBuilder const & fb)
-{
-  this->operator() (new MergedFeatureBuilder(fb));
-}
+void FeatureMergeProcessor::operator()(FeatureBuilder const & fb) { this->operator()(new MergedFeatureBuilder(fb)); }
 
-void FeatureMergeProcessor::operator() (MergedFeatureBuilder * p)
+void FeatureMergeProcessor::operator()(MergedFeatureBuilder * p)
 {
   Key const k1 = GetKey(p->FirstPoint());
   Key const k2 = GetKey(p->LastPoint());
@@ -154,10 +147,7 @@ void FeatureMergeProcessor::operator() (MergedFeatureBuilder * p)
   }
 }
 
-void FeatureMergeProcessor::Insert(m2::PointD const & pt, MergedFeatureBuilder * p)
-{
-  m_map[GetKey(pt)].push_back(p);
-}
+void FeatureMergeProcessor::Insert(m2::PointD const & pt, MergedFeatureBuilder * p) { m_map[GetKey(pt)].push_back(p); }
 
 void FeatureMergeProcessor::Remove(Key key, MergedFeatureBuilder const * p)
 {
@@ -166,7 +156,8 @@ void FeatureMergeProcessor::Remove(Key key, MergedFeatureBuilder const * p)
   {
     MergedFeatureBuilders & v = i->second;
     v.erase(remove(v.begin(), v.end(), p), v.end());
-    if (v.empty()) m_map.erase(i);
+    if (v.empty())
+      m_map.erase(i);
   }
 }
 
@@ -180,7 +171,7 @@ void FeatureMergeProcessor::Remove(MergedFeatureBuilder const * p)
     Remove(k2, p);
   else
   {
-    ASSERT ( p->IsRound(), () );
+    ASSERT(p->IsRound(), ());
 
     p->ForEachMiddlePoints(std::bind(&FeatureMergeProcessor::Remove1, this, std::placeholders::_1, p));
   }
@@ -276,7 +267,8 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     }
 
     // Delete if the feature was removed from map.
-    if (isRemoved) delete p;
+    if (isRemoved)
+      delete p;
   }
 
   if (m_last.NotEmpty())
@@ -292,7 +284,8 @@ uint32_t FeatureTypesProcessor::GetType(char const * arr[], size_t n)
 
 void FeatureTypesProcessor::CorrectType(uint32_t & t) const
 {
-  if (m_dontNormalize.count(t) > 0) return;
+  if (m_dontNormalize.count(t) > 0)
+    return;
 
   // 1. get normalized type:
   // highway-motorway-bridge => highway-motorway
@@ -309,7 +302,7 @@ void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * a
   m_mapping[GetType(arr1, 2)] = GetType(arr2, 2);
 }
 
-MergedFeatureBuilder * FeatureTypesProcessor::operator() (FeatureBuilder const & fb)
+MergedFeatureBuilder * FeatureTypesProcessor::operator()(FeatureBuilder const & fb)
 {
   MergedFeatureBuilder * p = new MergedFeatureBuilder(fb);
 
@@ -341,21 +334,15 @@ public:
   int m_lowScale, m_upScale;
 
   TypeCheckBase(int lowScale, int upScale)
-    : m_lowScale(lowScale), m_upScale(upScale)
-  {
-  }
+    : m_lowScale(lowScale)
+    , m_upScale(upScale)
+  {}
 
   using RangeT = std::pair<int, int>;
-  static RangeT GetScaleRange(uint32_t type)
-  {
-    return feature::GetDrawableScaleRange(type);
-  }
+  static RangeT GetScaleRange(uint32_t type) { return feature::GetDrawableScaleRange(type); }
 
   static bool IsEmptyRange(RangeT const & range) { return range.first == -1; }
-  bool IsBadRange(RangeT const & range) const
-  {
-    return (range.first > m_upScale || range.second < m_lowScale);
-  }
+  bool IsBadRange(RangeT const & range) const { return (range.first > m_upScale || range.second < m_lowScale); }
 };
 
 class TypeCheckWorld : public TypeCheckBase
@@ -363,12 +350,12 @@ class TypeCheckWorld : public TypeCheckBase
 public:
   bool m_isRegion = false;
 
-  TypeCheckWorld() : TypeCheckBase(0, scales::GetUpperWorldScale())
-  {
-  }
+  TypeCheckWorld()
+    : TypeCheckBase(0, scales::GetUpperWorldScale())
+  {}
 
   /// @return true If |type| should be removed.
-  bool operator() (uint32_t type)
+  bool operator()(uint32_t type)
   {
     // Keep place=region types in World.mwm for search, even when they are not visible.
     if (type == GetRegionType())
@@ -385,12 +372,12 @@ public:
 class TypeCheckCountry : public TypeCheckBase
 {
 public:
-  TypeCheckCountry() : TypeCheckBase(scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale())
-  {
-  }
+  TypeCheckCountry()
+    : TypeCheckBase(scales::GetUpperWorldScale() + 1, scales::GetUpperStyleScale())
+  {}
 
   /// @return true If |type| should be removed.
-  bool operator() (uint32_t type) const
+  bool operator()(uint32_t type) const
   {
     // Do not keep place=region in countries.
     if (type == GetRegionType())
@@ -423,8 +410,5 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
   return true;
 }
 
-bool PreprocessForCountryMap(FeatureBuilder & fb)
-{
-  return !fb.RemoveTypesIf(TypeCheckCountry());
-}
-} // namespace feature
+bool PreprocessForCountryMap(FeatureBuilder & fb) { return !fb.RemoveTypesIf(TypeCheckCountry()); }
+}  // namespace feature

@@ -7,7 +7,6 @@
 
 #include <sstream>
 
-
 namespace
 {
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
@@ -47,9 +46,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::Stadium: return "stadium";
   case kml::BookmarkIcon::Theatre: return "theatre";
   case kml::BookmarkIcon::Information: return "information";
-  case kml::BookmarkIcon::Count:
-    ASSERT(false, ("Invalid bookmark icon type"));
-    return {};
+  case kml::BookmarkIcon::Count: ASSERT(false, ("Invalid bookmark icon type")); return {};
   }
   UNREACHABLE();
 }
@@ -80,15 +77,9 @@ void Bookmark::SetData(kml::BookmarkData const & data)
   m_data = data;
 }
 
-kml::BookmarkData const & Bookmark::GetData() const
-{
-  return m_data;
-}
+kml::BookmarkData const & Bookmark::GetData() const { return m_data; }
 
-search::ReverseGeocoder::RegionAddress const & Bookmark::GetAddress() const
-{
-  return m_address;
-}
+search::ReverseGeocoder::RegionAddress const & Bookmark::GetAddress() const { return m_address; }
 
 void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address)
 {
@@ -102,10 +93,7 @@ void Bookmark::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-dp::Anchor Bookmark::GetAnchor() const
-{
-  return dp::Bottom;
-}
+dp::Anchor Bookmark::GetAnchor() const { return dp::Bottom; }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
 {
@@ -129,15 +117,16 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     return nullptr;
 
   auto symbolNames = make_unique_dp<SymbolNameZoomInfo>();
-  strings::Tokenize(it->second, ";", [&](std::string_view token)
-  {
-    uint8_t zoomLevel = 1;
-    auto pos = token.find(',');
-    if (pos != std::string::npos && strings::to_uint(token.substr(0, pos), zoomLevel))
-      token = token.substr(pos + 1);
-    if (!token.empty() && zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
-      symbolNames->emplace(zoomLevel, std::string(token));
-  });
+  strings::Tokenize(it->second, ";",
+                    [&](std::string_view token)
+                    {
+                      uint8_t zoomLevel = 1;
+                      auto pos = token.find(',');
+                      if (pos != std::string::npos && strings::to_uint(token.substr(0, pos), zoomLevel))
+                        token = token.substr(pos + 1);
+                      if (!token.empty() && zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
+                        symbolNames->emplace(zoomLevel, std::string(token));
+                    });
 
   if (symbolNames->empty())
     return nullptr;
@@ -149,54 +138,31 @@ df::ColorConstant Bookmark::GetColorConstant() const
 {
   switch (m_data.m_color.m_predefinedColor)
   {
-    case kml::PredefinedColor::Red:
-      return "BookmarkRed";
-    case kml::PredefinedColor::Blue:
-      return "BookmarkBlue";
-    case kml::PredefinedColor::Purple:
-      return "BookmarkPurple";
-    case kml::PredefinedColor::Yellow:
-      return "BookmarkYellow";
-    case kml::PredefinedColor::Pink:
-      return "BookmarkPink";
-    case kml::PredefinedColor::Brown:
-      return "BookmarkBrown";
-    case kml::PredefinedColor::Green:
-      return "BookmarkGreen";
-    case kml::PredefinedColor::Orange:
-      return "BookmarkOrange";
-    case kml::PredefinedColor::DeepPurple:
-      return "BookmarkDeepPurple";
-    case kml::PredefinedColor::LightBlue:
-      return "BookmarkLightBlue";
-    case kml::PredefinedColor::Cyan:
-      return "BookmarkCyan";
-    case kml::PredefinedColor::Teal:
-      return "BookmarkTeal";
-    case kml::PredefinedColor::Lime:
-      return "BookmarkLime";
-    case kml::PredefinedColor::DeepOrange:
-      return "BookmarkDeepOrange";
-    case kml::PredefinedColor::Gray:
-      return "BookmarkGray";
-    case kml::PredefinedColor::BlueGray:
-      return "BookmarkBlueGray";
-    case kml::PredefinedColor::None:
-    case kml::PredefinedColor::Count:
-      return "BookmarkRed";
+  case kml::PredefinedColor::Red: return "BookmarkRed";
+  case kml::PredefinedColor::Blue: return "BookmarkBlue";
+  case kml::PredefinedColor::Purple: return "BookmarkPurple";
+  case kml::PredefinedColor::Yellow: return "BookmarkYellow";
+  case kml::PredefinedColor::Pink: return "BookmarkPink";
+  case kml::PredefinedColor::Brown: return "BookmarkBrown";
+  case kml::PredefinedColor::Green: return "BookmarkGreen";
+  case kml::PredefinedColor::Orange: return "BookmarkOrange";
+  case kml::PredefinedColor::DeepPurple: return "BookmarkDeepPurple";
+  case kml::PredefinedColor::LightBlue: return "BookmarkLightBlue";
+  case kml::PredefinedColor::Cyan: return "BookmarkCyan";
+  case kml::PredefinedColor::Teal: return "BookmarkTeal";
+  case kml::PredefinedColor::Lime: return "BookmarkLime";
+  case kml::PredefinedColor::DeepOrange: return "BookmarkDeepOrange";
+  case kml::PredefinedColor::Gray: return "BookmarkGray";
+  case kml::PredefinedColor::BlueGray: return "BookmarkBlueGray";
+  case kml::PredefinedColor::None:
+  case kml::PredefinedColor::Count: return "BookmarkRed";
   }
   UNREACHABLE();
 }
 
-bool Bookmark::HasCreationAnimation() const
-{
-  return true;
-}
+bool Bookmark::HasCreationAnimation() const { return true; }
 
-kml::PredefinedColor Bookmark::GetColor() const
-{
-  return m_data.m_color.m_predefinedColor;
-}
+kml::PredefinedColor Bookmark::GetColor() const { return m_data.m_color.m_predefinedColor; }
 
 void Bookmark::SetColor(kml::PredefinedColor color)
 {
@@ -204,15 +170,9 @@ void Bookmark::SetColor(kml::PredefinedColor color)
   m_data.m_color.m_predefinedColor = color;
 }
 
-std::string Bookmark::GetPreferredName() const
-{
-  return GetPreferredBookmarkName(m_data);
-}
+std::string Bookmark::GetPreferredName() const { return GetPreferredBookmarkName(m_data); }
 
-kml::LocalizableString Bookmark::GetName() const
-{
-  return m_data.m_name;
-}
+kml::LocalizableString Bookmark::GetName() const { return m_data.m_name; }
 
 void Bookmark::SetName(kml::LocalizableString const & name)
 {
@@ -226,10 +186,7 @@ void Bookmark::SetName(std::string const & name, int8_t langCode)
   m_data.m_name[langCode] = name;
 }
 
-std::string Bookmark::GetCustomName() const
-{
-  return GetPreferredBookmarkStr(m_data.m_customName);
-}
+std::string Bookmark::GetCustomName() const { return GetPreferredBookmarkStr(m_data.m_customName); }
 
 void Bookmark::SetCustomName(std::string const & customName)
 {
@@ -237,15 +194,9 @@ void Bookmark::SetCustomName(std::string const & customName)
   kml::SetDefaultStr(m_data.m_customName, customName);
 }
 
-m2::RectD Bookmark::GetViewport() const
-{
-  return m2::RectD(GetPivot(), GetPivot());
-}
+m2::RectD Bookmark::GetViewport() const { return m2::RectD(GetPivot(), GetPivot()); }
 
-std::string Bookmark::GetDescription() const
-{
-  return GetPreferredBookmarkStr(m_data.m_description);
-}
+std::string Bookmark::GetDescription() const { return GetPreferredBookmarkStr(m_data.m_description); }
 
 void Bookmark::SetDescription(std::string const & description)
 {
@@ -253,10 +204,7 @@ void Bookmark::SetDescription(std::string const & description)
   kml::SetDefaultStr(m_data.m_description, description);
 }
 
-kml::Timestamp Bookmark::GetTimeStamp() const
-{
-  return m_data.m_timestamp;
-}
+kml::Timestamp Bookmark::GetTimeStamp() const { return m_data.m_timestamp; }
 
 void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
 {
@@ -264,10 +212,7 @@ void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
   m_data.m_timestamp = timeStamp;
 }
 
-uint8_t Bookmark::GetScale() const
-{
-  return m_data.m_viewportScale;
-}
+uint8_t Bookmark::GetScale() const { return m_data.m_viewportScale; }
 
 void Bookmark::SetScale(uint8_t scale)
 {
@@ -275,10 +220,7 @@ void Bookmark::SetScale(uint8_t scale)
   m_data.m_viewportScale = scale;
 }
 
-kml::MarkGroupId Bookmark::GetGroupId() const
-{
-  return m_groupId;
-}
+kml::MarkGroupId Bookmark::GetGroupId() const { return m_groupId; }
 
 bool Bookmark::CanFillPlacePageMetadata() const
 {
@@ -369,10 +311,7 @@ void BookmarkCategory::SetCustomProperty(std::string const & key, std::string co
   m_data.m_properties[key] = value;
 }
 
-std::string BookmarkCategory::GetName() const
-{
-  return GetPreferredBookmarkStr(m_data.m_name);
-}
+std::string BookmarkCategory::GetName() const { return GetPreferredBookmarkStr(m_data.m_name); }
 
 bool BookmarkCategory::HasElevationProfile() const
 {
@@ -400,10 +339,7 @@ void BookmarkCategory::SetAccessRules(kml::AccessRules accessRules)
 }
 
 // static
-kml::PredefinedColor BookmarkCategory::GetDefaultColor()
-{
-  return kml::PredefinedColor::Red;
-}
+kml::PredefinedColor BookmarkCategory::GetDefaultColor() { return kml::PredefinedColor::Red; }
 
 void BookmarkCategory::SetDirty(bool updateModificationDate)
 {

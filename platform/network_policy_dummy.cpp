@@ -2,8 +2,5 @@
 
 namespace platform
 {
-NetworkPolicy GetCurrentNetworkPolicy()
-{
-  return NetworkPolicy(true);
-}
+NetworkPolicy GetCurrentNetworkPolicy() { return NetworkPolicy(true); }
 }  // namespace platform

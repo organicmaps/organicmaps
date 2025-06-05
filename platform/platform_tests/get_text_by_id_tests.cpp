@@ -10,7 +10,7 @@ using namespace std;
 UNIT_TEST(GetTextByIdEnglishTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"make_a_slight_right_turn\":\"Make a slight right turn.\",\
       \"in_900_meters\":\"In nine hundred meters.\",\
@@ -33,7 +33,7 @@ UNIT_TEST(GetTextByIdEnglishTest)
 UNIT_TEST(GetTextByIdRussianTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"in_800_meters\":\"Через восемьсот метров.\",\
       \"make_a_slight_right_turn\":\"Держитесь правее.\",\
@@ -56,7 +56,7 @@ UNIT_TEST(GetTextByIdRussianTest)
 UNIT_TEST(GetTextByIdKoreanTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"in_700_meters\":\"700 미터 앞\",\
       \"make_a_right_turn\":\"우회전입니다.\",\
@@ -79,7 +79,7 @@ UNIT_TEST(GetTextByIdKoreanTest)
 UNIT_TEST(GetTextByIdArabicTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"in_1_kilometer\":\"بعد كيلو متر واحدٍ\",\
       \"leave_the_roundabout\":\"اخرج من الطريق الدوار\",\
@@ -102,7 +102,7 @@ UNIT_TEST(GetTextByIdArabicTest)
 UNIT_TEST(GetTextByIdFrenchTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"in_1_5_kilometers\":\"Dans un virgule cinq kilomètre.\",\
       \"enter_the_roundabout\":\"Prenez le rond-point.\",\

@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests/common.hpp"
-#include "generator/relation_tags.hpp"
 #include "generator/intermediate_data.hpp"
+#include "generator/relation_tags.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -20,14 +20,10 @@ class TestOSMElementCacheReader : public OSMElementCacheReaderInterface
 public:
   TestOSMElementCacheReader(std::unordered_map<Key, RelationElement> & m)
     : m_mapping(m)
-  {
-  }
+  {}
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(Key /* id */, WayElement & /* value */) override
-  {
-    UNREACHABLE();
-  }
+  bool Read(Key /* id */, WayElement & /* value */) override { UNREACHABLE(); }
 
   bool Read(Key id, RelationElement & value) override
   {
@@ -135,7 +131,7 @@ UNIT_TEST(Process_route_with_ref_network)
 
   // Verify roads tags.
   TEST_EQUAL(road10.GetTag("ref"), "IT:RA/SP60", ());
-  TEST_EQUAL(road11.GetTag("ref"), "SP62", ()); // TODO: Check refs inheritance (expected "IT:RA/SP60;SP62")
+  TEST_EQUAL(road11.GetTag("ref"), "SP62", ());  // TODO: Check refs inheritance (expected "IT:RA/SP60;SP62")
 }
 
 UNIT_TEST(Process_associatedStreet)
@@ -170,9 +166,13 @@ UNIT_TEST(Process_associatedStreet)
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create buildings polygons.
-  auto buildingWay2 = MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
-  auto buildingWay3 = MakeOsmElement(3, {{"shop", "convenience"}, {"addr:housenumber", "123"},
-                                         {"addr:street", "The Main Street"}, {"wikipedia", "en:Mega Theater"}},
+  auto buildingWay2 =
+    MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
+  auto buildingWay3 = MakeOsmElement(3,
+                                     {{"shop", "convenience"},
+                                      {"addr:housenumber", "123"},
+                                      {"addr:street", "The Main Street"},
+                                      {"wikipedia", "en:Mega Theater"}},
                                      OsmElement::EntityType::Way);
   auto highway4 = MakeOsmElement(4, {{"highway", "residential"}}, OsmElement::EntityType::Way);
 
@@ -207,7 +207,8 @@ UNIT_TEST(RelationTags_GoodBoundary)
   std::vector<RelationElement::Member> nodes = {{2, "admin_centre"}, {3, "label"}};
 
   auto way1 = MakeOsmElement(1, {{"boundary", "administrative"}}, OsmElement::EntityType::Way);
-  auto node2 = MakeOsmElement(2, {{"place", "town"}, {"name", "Vaduz"}, {"wikidata", "Q1844"}}, OsmElement::EntityType::Node);
+  auto node2 =
+    MakeOsmElement(2, {{"place", "town"}, {"name", "Vaduz"}, {"wikidata", "Q1844"}}, OsmElement::EntityType::Node);
   auto node3 = MakeOsmElement(3, {{"place", "country"}}, OsmElement::EntityType::Node);
 
   RelationElement e1;
@@ -306,4 +307,4 @@ UNIT_TEST(RelationTags_BadBoundary)
   TEST(outerWay7.GetTag("wikidata").empty(), ());
 }
 
-} // namespace relation_tags_tests
+}  // namespace relation_tags_tests

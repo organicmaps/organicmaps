@@ -18,37 +18,31 @@ using namespace std;
 
 // Test preconditions: files from the kPedestrianMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
-set<string> const kPedestrianMapFiles =
-{
-  "UK_England_East Midlands",
-  "UK_England_East of England_Essex",
-  "UK_England_East of England_Norfolk",
-  "UK_England_Greater London",
-  "UK_England_North East England",
-  "UK_England_North West England_Lancaster",
-  "UK_England_North West England_Manchester",
-  "UK_England_South East_Brighton",
-  "UK_England_South East_Oxford",
-  "UK_England_South West England_Bristol",
-  "UK_England_South West England_Cornwall",
-  "UK_England_West Midlands",
-  "UK_England_Yorkshire and the Humber"
-};
+set<string> const kPedestrianMapFiles = {"UK_England_East Midlands",
+                                         "UK_England_East of England_Essex",
+                                         "UK_England_East of England_Norfolk",
+                                         "UK_England_Greater London",
+                                         "UK_England_North East England",
+                                         "UK_England_North West England_Lancaster",
+                                         "UK_England_North West England_Manchester",
+                                         "UK_England_South East_Brighton",
+                                         "UK_England_South East_Oxford",
+                                         "UK_England_South West England_Bristol",
+                                         "UK_England_South West England_Cornwall",
+                                         "UK_England_West Midlands",
+                                         "UK_England_Yorkshire and the Humber"};
 
 class PedestrianTest : public RoutingTest
 {
 public:
   PedestrianTest()
-    : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian,
-                  kPedestrianMapFiles)
-  {
-  }
+    : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian, kPedestrianMapFiles)
+  {}
 
 protected:
   unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
   {
-    unique_ptr<routing::VehicleModelFactoryInterface> factory(
-        new SimplifiedModelFactory<routing::PedestrianModel>());
+    unique_ptr<routing::VehicleModelFactoryInterface> factory(new SimplifiedModelFactory<routing::PedestrianModel>());
     return factory;
   }
 };
@@ -140,20 +134,11 @@ UNIT_CLASS_TEST(PedestrianTest, UK_Test3)
   TestRouters(m2::PointD(-0.13493, 60.21329), m2::PointD(-0.07502, 60.38699));
 }
 
-UNIT_CLASS_TEST(PedestrianTest, UK_Test4)
-{
-  TestRouters(m2::PointD(0.07362, 60.24965), m2::PointD(0.06262, 60.30536));
-}
+UNIT_CLASS_TEST(PedestrianTest, UK_Test4) { TestRouters(m2::PointD(0.07362, 60.24965), m2::PointD(0.06262, 60.30536)); }
 
-UNIT_CLASS_TEST(PedestrianTest, UK_Test6)
-{
-  TestRouters(m2::PointD(0.12973, 60.28698), m2::PointD(0.16166, 60.32989));
-}
+UNIT_CLASS_TEST(PedestrianTest, UK_Test6) { TestRouters(m2::PointD(0.12973, 60.28698), m2::PointD(0.16166, 60.32989)); }
 
-UNIT_CLASS_TEST(PedestrianTest, UK_Test7)
-{
-  TestRouters(m2::PointD(0.24339, 60.22193), m2::PointD(0.30297, 60.47235));
-}
+UNIT_CLASS_TEST(PedestrianTest, UK_Test7) { TestRouters(m2::PointD(0.24339, 60.22193), m2::PointD(0.30297, 60.47235)); }
 
 UNIT_CLASS_TEST(PedestrianTest, UK_Test9)
 {
@@ -257,10 +242,7 @@ UNIT_CLASS_TEST(PedestrianTest, UK_Test31)
 
 // This is very slow pedestrian tests (more than 20 minutes).
 #if defined(SLOW_TESTS)
-UNIT_CLASS_TEST(PedestrianTest, UK_Test5)
-{
-  TestRouters(m2::PointD(0.07362, 60.24965), m2::PointD(0.06262, 60.30536));
-}
+UNIT_CLASS_TEST(PedestrianTest, UK_Test5) { TestRouters(m2::PointD(0.07362, 60.24965), m2::PointD(0.06262, 60.30536)); }
 
 UNIT_CLASS_TEST(PedestrianTest, UK_Test8)
 {

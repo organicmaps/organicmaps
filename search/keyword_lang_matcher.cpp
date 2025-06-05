@@ -15,14 +15,14 @@ using namespace std;
 namespace search
 {
 // KeywordLangMatcher::Score ----------------------------------------------------------------------
-KeywordLangMatcher::Score::Score() : m_langScore(numeric_limits<int>::min())
-{
-}
+KeywordLangMatcher::Score::Score()
+  : m_langScore(numeric_limits<int>::min())
+{}
 
 KeywordLangMatcher::Score::Score(KeywordMatcher::Score const & score, int langScore)
-  : m_parentScore(score), m_langScore(langScore)
-{
-}
+  : m_parentScore(score)
+  , m_langScore(langScore)
+{}
 
 bool KeywordLangMatcher::Score::operator<(KeywordLangMatcher::Score const & score) const
 {
@@ -35,10 +35,7 @@ bool KeywordLangMatcher::Score::operator<(KeywordLangMatcher::Score const & scor
   return m_parentScore.LessInTokensLength(score.m_parentScore);
 }
 
-bool KeywordLangMatcher::Score::operator<=(KeywordLangMatcher::Score const & score) const
-{
-  return !(score < *this);
-}
+bool KeywordLangMatcher::Score::operator<=(KeywordLangMatcher::Score const & score) const { return !(score < *this); }
 // KeywordLangMatcher ------------------------------------------------------------------------------
 KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers)
   : m_languagePriorities(maxLanguageTiers)
@@ -73,14 +70,12 @@ KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string_view
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
-                                                        strings::UniString const & name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, strings::UniString const & name) const
 {
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
-                                                        strings::UniString const * tokens,
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, strings::UniString const * tokens,
                                                         size_t count) const
 {
   return Score(m_keywordMatcher.CalcScore(tokens, count), CalcLangScore(lang));

@@ -72,7 +72,8 @@ void ForEachRect(ConvexHull const & hull, Fn && fn)
 }
 }  // namespace
 
-CalipersBox::CalipersBox(std::vector<PointD> const & points) : m_points({})
+CalipersBox::CalipersBox(std::vector<PointD> const & points)
+  : m_points({})
 {
   ConvexHull hull(points, kEps);
 
@@ -84,16 +85,17 @@ CalipersBox::CalipersBox(std::vector<PointD> const & points) : m_points({})
 
   double bestArea = std::numeric_limits<double>::max();
   std::vector<PointD> bestPoints;
-  ForEachRect(hull, [&](std::vector<PointD> && points)
-  {
-    ASSERT_EQUAL(points.size(), 4, ());
-    double const area = GetPolygonArea(points.begin(), points.end());
-    if (area < bestArea)
-    {
-      bestArea = area;
-      bestPoints = std::move(points);
-    }
-  });
+  ForEachRect(hull,
+              [&](std::vector<PointD> && points)
+              {
+                ASSERT_EQUAL(points.size(), 4, ());
+                double const area = GetPolygonArea(points.begin(), points.end());
+                if (area < bestArea)
+                {
+                  bestArea = area;
+                  bestPoints = std::move(points);
+                }
+              });
 
   if (!bestPoints.empty())
   {
@@ -113,11 +115,11 @@ void CalipersBox::Deserialize(std::vector<PointD> && points)
   ASSERT(TestValid(), ());
 
   // 2. Stable with input.
-//#ifdef DEBUG
-//  CalipersBox test(m_points);
-//  ASSERT(test.TestValid(), ());
-//  *this = std::move(test);
-//#endif
+  // #ifdef DEBUG
+  //   CalipersBox test(m_points);
+  //   ASSERT(test.TestValid(), ());
+  //   *this = std::move(test);
+  // #endif
 }
 
 void CalipersBox::Normalize()
@@ -148,12 +150,9 @@ bool CalipersBox::HasPoint(PointD const & p, double eps) const
   auto const n = m_points.size();
   switch (n)
   {
-  case 0:
-    return false;
-  case 1:
-    return AlmostEqualAbs(m_points[0], p, eps);
-  case 2:
-    return IsPointOnSegmentEps(p, m_points[0], m_points[1], eps);
+  case 0: return false;
+  case 1: return AlmostEqualAbs(m_points[0], p, eps);
+  case 2: return IsPointOnSegmentEps(p, m_points[0], m_points[1], eps);
   }
 
   for (size_t i = 0; i < n; ++i)

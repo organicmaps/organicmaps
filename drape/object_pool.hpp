@@ -12,7 +12,7 @@
 
 namespace dp
 {
-template<typename T, typename Factory>
+template <typename T, typename Factory>
 class ObjectPool final
 {
 public:
@@ -21,7 +21,7 @@ public:
   {
     for (int i = 0; i < count; ++i)
     {
-      T *novice = m_factory.GetNew();
+      T * novice = m_factory.GetNew();
 #if defined(DEBUG) || defined(LOG_OBJECT_POOL)
       m_checkerSet.insert(novice);
 #endif
@@ -86,4 +86,3 @@ private:
   std::mutex m_lock;
 };
 }  // namespace dp
-

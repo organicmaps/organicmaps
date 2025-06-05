@@ -65,8 +65,7 @@ UNIT_TEST(IntersectionScore_TrianglesToPolygon)
     std::vector<m2::PointD> triangiulated2 = {{0.0, 0.0},  {0.0, 9.0}, {10.0, 0.0},
                                               {10.0, 0.0}, {0.0, 9.0}, {10.0, 9.0}};
 
-    auto const score =
-        geometry::GetIntersectionScoreForTriangulated(triangiulated1, triangiulated2);
+    auto const score = geometry::GetIntersectionScoreForTriangulated(triangiulated1, triangiulated2);
 
     TEST(base::AlmostEqualAbs(score, 0.9, 1e-10), ());
   }
@@ -87,8 +86,7 @@ UNIT_TEST(IntersectionScore_TrianglesToPolygon)
     std::vector<m2::PointD> triangiulated2 = {{10.0, 10.0}, {10.0, 20.0}, {20.0, 10.0},
                                               {20.0, 10.0}, {10.0, 20.0}, {20.0, 20.0}};
 
-    auto const score =
-        geometry::GetIntersectionScoreForTriangulated(triangiulated1, triangiulated2);
+    auto const score = geometry::GetIntersectionScoreForTriangulated(triangiulated1, triangiulated2);
 
     TEST(base::AlmostEqualAbs(score, 0.0, 1e-10), ());
   }

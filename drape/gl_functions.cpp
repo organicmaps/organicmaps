@@ -1,6 +1,6 @@
 #include "drape/gl_functions.hpp"
-#include "drape/gl_includes.hpp"
 #include "drape/gl_extensions_list.hpp"
+#include "drape/gl_includes.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -10,7 +10,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
-#include <cstring>    // strlen
+#include <cstring>  // strlen
 #include <limits>
 #include <map>
 #include <mutex>
@@ -51,14 +51,12 @@ typedef void(DP_APIENTRY * TglActiveTextureFn)(GLenum texture);
 typedef void(DP_APIENTRY * TglBlendEquationFn)(GLenum mode);
 
 #ifndef GL_VERSION_4_3
-using GLDEBUGPROC = void(DP_APIENTRY *)(GLenum source, GLenum type, GLuint id, GLenum severity,
-                                        GLsizei length, GLchar const * message,
-                                        void * const userParam);
+using GLDEBUGPROC = void(DP_APIENTRY *)(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
+                                        GLchar const * message, void * const userParam);
 #endif
 typedef void(DP_APIENTRY * TglDebugMessageCallbackFn)(GLDEBUGPROC callback, void const * userParam);
-typedef void(DP_APIENTRY * TglDebugMessageControlFn)(GLenum source, GLenum type, GLenum severity,
-                                                     GLsizei count, GLuint const * ids,
-                                                     GLboolean enabled);
+typedef void(DP_APIENTRY * TglDebugMessageControlFn)(GLenum source, GLenum type, GLenum severity, GLsizei count,
+                                                     GLuint const * ids, GLboolean enabled);
 
 typedef void(DP_APIENTRY * TglGenVertexArraysFn)(GLsizei n, GLuint * ids);
 typedef void(DP_APIENTRY * TglBindVertexArrayFn)(GLuint id);
@@ -68,25 +66,21 @@ typedef void(DP_APIENTRY * TglGetBufferParameterFn)(GLenum target, GLenum value,
 typedef void(DP_APIENTRY * TglGenBuffersFn)(GLsizei n, GLuint * buffers);
 typedef void(DP_APIENTRY * TglBindBufferFn)(GLenum target, GLuint buffer);
 typedef void(DP_APIENTRY * TglDeleteBuffersFn)(GLsizei n, GLuint const * buffers);
-typedef void(DP_APIENTRY * TglBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data,
-                                            GLenum usage);
-typedef void(DP_APIENTRY * TglBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size,
-                                               GLvoid const * data);
+typedef void(DP_APIENTRY * TglBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage);
+typedef void(DP_APIENTRY * TglBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data);
 typedef void *(DP_APIENTRY * TglMapBufferFn)(GLenum target, GLenum access);
 typedef GLboolean(DP_APIENTRY * TglUnmapBufferFn)(GLenum target);
-typedef void *(DP_APIENTRY * TglMapBufferRangeFn)(GLenum target, GLintptr offset, GLsizeiptr length,
-                                                  GLbitfield access);
-typedef void(DP_APIENTRY * TglFlushMappedBufferRangeFn)(GLenum target, GLintptr offset,
-                                                        GLsizeiptr length);
+typedef void *(DP_APIENTRY * TglMapBufferRangeFn)(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access);
+typedef void(DP_APIENTRY * TglFlushMappedBufferRangeFn)(GLenum target, GLintptr offset, GLsizeiptr length);
 
 typedef GLuint(DP_APIENTRY * TglCreateShaderFn)(GLenum type);
-typedef void(DP_APIENTRY * TglShaderSourceFn)(GLuint shaderID, GLsizei count,
-                                              GLchar const * const * string, GLint const * length);
+typedef void(DP_APIENTRY * TglShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const * const * string,
+                                              GLint const * length);
 typedef void(DP_APIENTRY * TglCompileShaderFn)(GLuint shaderID);
 typedef void(DP_APIENTRY * TglDeleteShaderFn)(GLuint shaderID);
 typedef void(DP_APIENTRY * TglGetShaderivFn)(GLuint shaderID, GLenum name, GLint * p);
-typedef void(DP_APIENTRY * TglGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength,
-                                                  GLsizei * length, GLchar * infoLog);
+typedef void(DP_APIENTRY * TglGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength, GLsizei * length,
+                                                  GLchar * infoLog);
 
 typedef GLuint(DP_APIENTRY * TglCreateProgramFn)();
 typedef void(DP_APIENTRY * TglAttachShaderFn)(GLuint programID, GLuint shaderID);
@@ -94,22 +88,19 @@ typedef void(DP_APIENTRY * TglDetachShaderFn)(GLuint programID, GLuint shaderID)
 typedef void(DP_APIENTRY * TglLinkProgramFn)(GLuint programID);
 typedef void(DP_APIENTRY * TglDeleteProgramFn)(GLuint programID);
 typedef void(DP_APIENTRY * TglGetProgramivFn)(GLuint programID, GLenum name, GLint * p);
-typedef void(DP_APIENTRY * TglGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength,
-                                                   GLsizei * length, GLchar * infoLog);
+typedef void(DP_APIENTRY * TglGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength, GLsizei * length,
+                                                   GLchar * infoLog);
 
 typedef void(DP_APIENTRY * TglUseProgramFn)(GLuint programID);
 typedef GLint(DP_APIENTRY * TglGetAttribLocationFn)(GLuint program, GLchar const * name);
-typedef void(DP_APIENTRY * TglBindAttribLocationFn)(GLuint program, GLuint index,
-                                                    GLchar const * name);
+typedef void(DP_APIENTRY * TglBindAttribLocationFn)(GLuint program, GLuint index, GLchar const * name);
 
 typedef void(DP_APIENTRY * TglEnableVertexAttributeFn)(GLuint location);
-typedef void(DP_APIENTRY * TglVertexAttributePointerFn)(GLuint index, GLint count, GLenum type,
-                                                        GLboolean normalize, GLsizei stride,
-                                                        GLvoid const * p);
+typedef void(DP_APIENTRY * TglVertexAttributePointerFn)(GLuint index, GLint count, GLenum type, GLboolean normalize,
+                                                        GLsizei stride, GLvoid const * p);
 typedef GLint(DP_APIENTRY * TglGetUniformLocationFn)(GLuint programID, GLchar const * name);
-typedef void(DP_APIENTRY * TglGetActiveUniformFn)(GLuint programID, GLuint uniformIndex,
-                                                  GLsizei bufSize, GLsizei * length, GLint * size,
-                                                  GLenum * type, GLchar * name);
+typedef void(DP_APIENTRY * TglGetActiveUniformFn)(GLuint programID, GLuint uniformIndex, GLsizei bufSize,
+                                                  GLsizei * length, GLint * size, GLenum * type, GLchar * name);
 typedef void(DP_APIENTRY * TglUniform1iFn)(GLint location, GLint value);
 typedef void(DP_APIENTRY * TglUniform2iFn)(GLint location, GLint v1, GLint v2);
 typedef void(DP_APIENTRY * TglUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3);
@@ -118,21 +109,19 @@ typedef void(DP_APIENTRY * TglUniform1ivFn)(GLint location, GLsizei count, GLint
 typedef void(DP_APIENTRY * TglUniform1fFn)(GLint location, GLfloat value);
 typedef void(DP_APIENTRY * TglUniform2fFn)(GLint location, GLfloat v1, GLfloat v2);
 typedef void(DP_APIENTRY * TglUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3);
-typedef void(DP_APIENTRY * TglUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3,
-                                           GLfloat v4);
+typedef void(DP_APIENTRY * TglUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4);
 typedef void(DP_APIENTRY * TglUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value);
-typedef void(DP_APIENTRY * TglUniformMatrix4fvFn)(GLint location, GLsizei count,
-                                                  GLboolean transpose, GLfloat const * value);
+typedef void(DP_APIENTRY * TglUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose,
+                                                  GLfloat const * value);
 
 typedef void(DP_APIENTRY * TglGenFramebuffersFn)(GLsizei n, GLuint * framebuffers);
 typedef void(DP_APIENTRY * TglDeleteFramebuffersFn)(GLsizei n, GLuint const * framebuffers);
 typedef void(DP_APIENTRY * TglBindFramebufferFn)(GLenum target, GLuint id);
-typedef void(DP_APIENTRY * TglFramebufferTexture2DFn)(GLenum target, GLenum attachment,
-                                                      GLenum textarget, GLuint texture,
-                                                      GLint level);
+typedef void(DP_APIENTRY * TglFramebufferTexture2DFn)(GLenum target, GLenum attachment, GLenum textarget,
+                                                      GLuint texture, GLint level);
 typedef GLenum(DP_APIENTRY * TglCheckFramebufferStatusFn)(GLenum target);
 
-typedef GLubyte const * (DP_APIENTRY * TglGetStringiFn) (GLenum name, GLuint index);
+typedef GLubyte const *(DP_APIENTRY * TglGetStringiFn)(GLenum name, GLuint index);
 
 TglClearColorFn glClearColorFn = nullptr;
 TglClearFn glClearFn = nullptr;
@@ -212,7 +201,7 @@ TglCheckFramebufferStatusFn glCheckFramebufferStatusFn = nullptr;
 TglGetStringiFn glGetStringiFn = nullptr;
 
 #if !defined(GL_NUM_EXTENSIONS)
-  #define GL_NUM_EXTENSIONS 0x821D
+#define GL_NUM_EXTENSIONS 0x821D
 #endif
 
 std::mutex s_mutex;
@@ -260,17 +249,16 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     glUnmapBufferFn = &::glUnmapBuffer;
 
 #elif defined(OMIM_OS_LINUX)
-    void *libhandle = dlopen("libGL.so.1", RTLD_LAZY);
+    void * libhandle = dlopen("libGL.so.1", RTLD_LAZY);
     if (!libhandle)
       LOG(LCRITICAL, ("Failed to open libGL.so.1:", dlerror()));
-    glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle,"glGenVertexArraysOES");
+    glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle, "glGenVertexArraysOES");
     glBindVertexArrayFn = (TglBindVertexArrayFn)dlsym(libhandle, "glBindVertexArrayOES");
-    glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)dlsym(libhandle,"glDeleteVertexArraysOES");
+    glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)dlsym(libhandle, "glDeleteVertexArraysOES");
     glMapBufferFn = (TglMapBufferFn)dlsym(libhandle, "glMapBufferOES");
     glUnmapBufferFn = (TglUnmapBufferFn)dlsym(libhandle, "glUnmapBufferOES");
     glMapBufferRangeFn = (TglMapBufferRangeFn)dlsym(libhandle, "glMapBufferRangeEXT");
-    glFlushMappedBufferRangeFn =
-        (TglFlushMappedBufferRangeFn)dlsym(libhandle, "glFlushMappedBufferRangeEXT");
+    glFlushMappedBufferRangeFn = (TglFlushMappedBufferRangeFn)dlsym(libhandle, "glFlushMappedBufferRangeEXT");
 
 #elif defined(OMIM_OS_ANDROID)
 
@@ -280,8 +268,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     glMapBufferFn = &::glMapBufferOES;
     glUnmapBufferFn = &::glUnmapBufferOES;
     glMapBufferRangeFn = (TglMapBufferRangeFn)eglGetProcAddress("glMapBufferRangeEXT");
-    glFlushMappedBufferRangeFn =
-        (TglFlushMappedBufferRangeFn)eglGetProcAddress("glFlushMappedBufferRangeEXT");
+    glFlushMappedBufferRangeFn = (TglFlushMappedBufferRangeFn)eglGetProcAddress("glFlushMappedBufferRangeEXT");
 
 #elif defined(OMIM_OS_MOBILE)
 
@@ -429,8 +416,7 @@ bool GLFunctions::glHasExtension(std::string const & name)
     glGetIntegerv(GL_NUM_EXTENSIONS, &n);
     for (GLint i = 0; i < n; i++)
     {
-      std::string const extension =
-          std::string(reinterpret_cast<char const *>(glGetStringiFn(GL_EXTENSIONS, i)));
+      std::string const extension = std::string(reinterpret_cast<char const *>(glGetStringiFn(GL_EXTENSIONS, i)));
       if (extension == name)
         return true;
     }
@@ -611,8 +597,8 @@ void GLFunctions::glDebugMessageCallback(TglDebugProc messageCallback, void * us
   GLCHECK(glDebugMessageCallbackFn(reinterpret_cast<GLDEBUGPROC>(messageCallback), userParam));
 }
 
-void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity,
-                                        int32_t count, uint32_t const * ids, uint8_t enabled)
+void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity, int32_t count,
+                                        uint32_t const * ids, uint8_t enabled)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   ASSERT(glDebugMessageControlFn != nullptr, ());
@@ -705,8 +691,7 @@ void GLFunctions::glUnmapBuffer(glConst target)
   GLCHECKCALL();
 }
 
-void * GLFunctions::glMapBufferRange(glConst target, uint32_t offset, uint32_t length,
-                                     glConst access)
+void * GLFunctions::glMapBufferRange(glConst target, uint32_t offset, uint32_t length, glConst access)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   ASSERT(glMapBufferRangeFn != nullptr, ());
@@ -863,8 +848,8 @@ void GLFunctions::glEnableVertexAttribute(int attributeLocation)
   GLCHECK(glEnableVertexAttributeFn(attributeLocation));
 }
 
-void GLFunctions::glVertexAttributePointer(int attrLocation, uint32_t count, glConst type,
-                                           bool needNormalize, uint32_t stride, uint32_t offset)
+void GLFunctions::glVertexAttributePointer(int attrLocation, uint32_t count, glConst type, bool needNormalize,
+                                           uint32_t stride, uint32_t offset)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   ASSERT(glVertexAttributePointerFn != nullptr, ());
@@ -872,14 +857,13 @@ void GLFunctions::glVertexAttributePointer(int attrLocation, uint32_t count, glC
                                      reinterpret_cast<void *>(offset)));
 }
 
-void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
-                                     int32_t * uniformSize, glConst * type, std::string & name)
+void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize, glConst * type,
+                                     std::string & name)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   ASSERT(glGetActiveUniformFn != nullptr, ());
   GLchar buff[256];
-  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, ARRAY_SIZE(buff), nullptr, uniformSize,
-                               type, buff));
+  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, ARRAY_SIZE(buff), nullptr, uniformSize, type, buff));
   name = buff;
 }
 
@@ -1026,8 +1010,7 @@ void GLFunctions::glBindTexture(uint32_t textureID)
   GLCHECK(::glBindTexture(GL_TEXTURE_2D, textureID));
 }
 
-void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType,
-                               void const * data)
+void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   // In OpenGL ES3:
@@ -1061,12 +1044,11 @@ void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pi
     }
   }
 
-  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height,
-                         0, layout, pixelType, data));
+  GLCHECK(::glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, layout, pixelType, data));
 }
 
-void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout,
-                                  glConst pixelType, void const * data)
+void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
+                                  void const * data)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   GLCHECK(::glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, layout, pixelType, data));
@@ -1078,12 +1060,10 @@ void GLFunctions::glTexParameter(glConst param, glConst value)
   GLCHECK(::glTexParameteri(GL_TEXTURE_2D, param, value));
 }
 
-void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount,
-                                 uint32_t startIndex)
+void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
-  GLCHECK(::glDrawElements(primitive, indexCount,
-                           sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
+  GLCHECK(::glDrawElements(primitive, indexCount, sizeOfIndex == sizeof(uint32_t) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT,
                            reinterpret_cast<GLvoid *>(startIndex * sizeOfIndex)));
 }
 

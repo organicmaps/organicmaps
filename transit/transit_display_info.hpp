@@ -35,12 +35,10 @@ using TransitStopsInfoPT = std::map<::transit::TransitId, ::transit::experimenta
 using TransitTransfersInfoPT = std::map<::transit::TransitId, ::transit::experimental::Transfer>;
 using TransitShapesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Shape>;
 using TransitLinesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Line>;
-using TransitLinesMetadataInfoPT =
-    std::map<::transit::TransitId, ::transit::experimental::LineMetadata>;
+using TransitLinesMetadataInfoPT = std::map<::transit::TransitId, ::transit::experimental::LineMetadata>;
 using TransitRoutesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Route>;
 using TransitNetworksInfoPT = std::map<::transit::TransitId, ::transit::experimental::Network>;
-using TransitEdgesInfoPT =
-    std::unordered_map<::transit::EdgeId, ::transit::EdgeData, ::transit::EdgeIdHasher>;
+using TransitEdgesInfoPT = std::unordered_map<::transit::EdgeId, ::transit::EdgeData, ::transit::EdgeIdHasher>;
 struct TransitDisplayInfo
 {
   ::transit::TransitVersion m_transitVersion;

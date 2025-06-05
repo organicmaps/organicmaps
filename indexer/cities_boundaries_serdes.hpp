@@ -35,14 +35,12 @@ public:
   {
   public:
     Visitor(Sink & sink, serial::GeometryCodingParams const & params)
-      : m_sink(sink), m_params(params), m_last(params.GetBasePoint())
-    {
-    }
+      : m_sink(sink)
+      , m_params(params)
+      , m_last(params.GetBasePoint())
+    {}
 
-    void Save(m2::PointU const & p)
-    {
-      WriteVarUint(m_sink, coding::EncodePointDeltaAsUint(p, m_last));
-    }
+    void Save(m2::PointU const & p) { WriteVarUint(m_sink, coding::EncodePointDeltaAsUint(p, m_last)); }
     void SaveWithLast(m2::PointU const & p)
     {
       Save(p);
@@ -117,10 +115,7 @@ public:
     }
 
   private:
-    m2::PointU ToU(m2::PointD const & p) const
-    {
-      return PointDToPointU(p, m_params.GetCoordBits());
-    }
+    m2::PointU ToU(m2::PointD const & p) const { return PointDToPointU(p, m_params.GetCoordBits()); }
 
     std::vector<m2::PointU> ToU(std::vector<m2::PointD> const & ps) const
     {
@@ -153,9 +148,9 @@ public:
   };
 
   CitiesBoundariesEncoder(Sink & sink, serial::GeometryCodingParams const & params)
-    : m_sink(sink), m_visitor(sink, params)
-  {
-  }
+    : m_sink(sink)
+    , m_visitor(sink, params)
+  {}
 
   void operator()(std::vector<std::vector<CityBoundary>> const & boundaries)
   {
@@ -166,8 +161,7 @@ public:
       for (auto const & bs : boundaries)
       {
         CHECK_LESS(bs.size(), std::numeric_limits<uint64_t>::max(), ());
-        auto const success =
-            coding::GammaCoder::Encode(writer, static_cast<uint64_t>(bs.size()) + 1);
+        auto const success = coding::GammaCoder::Encode(writer, static_cast<uint64_t>(bs.size()) + 1);
         ASSERT(success, ());
         UNUSED_VALUE(success);
       }
@@ -198,10 +192,7 @@ public:
       return {dx, dy};
     }
 
-    static m2::PointU DecodePoint(Source & src, m2::PointU const & base)
-    {
-      return coding::DecodePointDelta(src, base);
-    }
+    static m2::PointU DecodePoint(Source & src, m2::PointU const & base) { return coding::DecodePointDelta(src, base); }
   };
 
   struct DecoderV1
@@ -219,18 +210,17 @@ public:
     }
   };
 
-  template <class TDecoder> struct Visitor
+  template <class TDecoder>
+  struct Visitor
   {
   public:
     Visitor(Source & source, serial::GeometryCodingParams const & params)
-      : m_source(source), m_params(params), m_last(params.GetBasePoint())
-    {
-    }
+      : m_source(source)
+      , m_params(params)
+      , m_last(params.GetBasePoint())
+    {}
 
-    m2::PointU LoadPoint()
-    {
-      return coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(m_source), m_last);
-    }
+    m2::PointU LoadPoint() { return coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(m_source), m_last); }
 
     m2::PointU LoadPointWithLast()
     {
@@ -283,10 +273,7 @@ public:
     }
 
   private:
-    m2::PointD FromU(m2::PointU const & u) const
-    {
-      return PointUToPointD(u, m_params.GetCoordBits());
-    }
+    m2::PointD FromU(m2::PointU const & u) const { return PointUToPointD(u, m_params.GetCoordBits()); }
 
     std::vector<m2::PointD> FromU(std::vector<m2::PointU> const & us) const
     {
@@ -304,9 +291,10 @@ public:
   using BoundariesT = std::vector<std::vector<CityBoundary>>;
 
   CitiesBoundariesDecoder(Source & source, serial::GeometryCodingParams const & params, BoundariesT & res)
-    : m_source(source), m_params(params), m_boundaries(res)
-  {
-  }
+    : m_source(source)
+    , m_params(params)
+    , m_boundaries(res)
+  {}
 
   void LoadSizes()
   {
@@ -324,7 +312,8 @@ public:
     }
   }
 
-  template <class TDecoder> void LoadBoundaries()
+  template <class TDecoder>
+  void LoadBoundaries()
   {
     Visitor<TDecoder> visitor(m_source, m_params);
     for (auto & bs : m_boundaries)
@@ -352,13 +341,15 @@ struct CitiesBoundariesSerDes
     uint8_t m_coordBits = kDefaultCoordBits;
     uint8_t m_version = kLatestVersion;
 
-    template <class Sink> void Serialize(Sink & sink) const
+    template <class Sink>
+    void Serialize(Sink & sink) const
     {
       WriteToSink(sink, m_version);
       WriteToSink(sink, m_coordBits);
     }
 
-    template <class Source> void Deserialize(Source & src)
+    template <class Source>
+    void Deserialize(Source & src)
     {
       m_version = ReadPrimitiveFromSource<uint8_t>(src);
       m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
@@ -400,4 +391,4 @@ struct CitiesBoundariesSerDes
   }
 };
 
-} // namespace indexer
+}  // namespace indexer

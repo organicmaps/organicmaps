@@ -2,13 +2,13 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/zip_reader.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
-#include "base/logging.hpp"
 
 #include <cstdint>
 #include <memory>
@@ -19,36 +19,35 @@ namespace apk_test
 {
 using std::string, std::vector;
 
-char const * arrFiles[] = {
-  "copyright.html",
-  "resources-mdpi_light/symbols.sdf",
-  "resources-mdpi_light/symbols.png",
-  "resources-hdpi_light/symbols.sdf",
-  "resources-hdpi_light/symbols.png",
-  "resources-xhdpi_light/symbols.sdf",
-  "resources-xhdpi_light/symbols.png",
-  "categories.txt",
-  "categories_cuisines.txt",
-  "classificator.txt",
-  "types.txt",
-  "fonts/blacklist.txt",
-  "fonts/whitelist.txt",
-  "fonts/unicode_blocks.txt",
-  "languages.txt",
-  "drules_proto_default_light.bin",
-  "packed_polygons.bin",
-  "countries.txt"
-};
+char const * arrFiles[] = {"copyright.html",
+                           "resources-mdpi_light/symbols.sdf",
+                           "resources-mdpi_light/symbols.png",
+                           "resources-hdpi_light/symbols.sdf",
+                           "resources-hdpi_light/symbols.png",
+                           "resources-xhdpi_light/symbols.sdf",
+                           "resources-xhdpi_light/symbols.png",
+                           "categories.txt",
+                           "categories_cuisines.txt",
+                           "classificator.txt",
+                           "types.txt",
+                           "fonts/blacklist.txt",
+                           "fonts/whitelist.txt",
+                           "fonts/unicode_blocks.txt",
+                           "languages.txt",
+                           "drules_proto_default_light.bin",
+                           "packed_polygons.bin",
+                           "countries.txt"};
 
 class ApkTester : public threads::IRoutine
 {
-  static const int COUNT = ARRAY_SIZE(arrFiles);
+  static int const COUNT = ARRAY_SIZE(arrFiles);
   string const & m_cont;
 
 public:
-  explicit ApkTester(string const & cont) : m_cont(cont), m_hashes(COUNT)
-  {
-  }
+  explicit ApkTester(string const & cont)
+    : m_cont(cont)
+    , m_hashes(COUNT)
+  {}
 
   virtual void Do()
   {
@@ -96,7 +95,8 @@ public:
 UNIT_TEST(ApkReader_Multithreaded)
 {
   /// @todo Update test with current apk path.
-  string const path = base::JoinPath(GetPlatform().WritableDir(), "../android/MapsWithMePro/bin/MapsWithMePro-production.apk");
+  string const path = base::JoinPath(GetPlatform().WritableDir(),
+"../android/MapsWithMePro/bin/MapsWithMePro-production.apk");
 
   uint64_t size;
   if (!base::GetFileSize(path, size))

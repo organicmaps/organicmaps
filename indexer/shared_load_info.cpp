@@ -7,14 +7,11 @@
 namespace feature
 {
 SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header)
-  : m_cont(cont), m_header(header)
-{
-}
+  : m_cont(cont)
+  , m_header(header)
+{}
 
-SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
-{
-  return m_cont.GetReader(FEATURES_FILE_TAG);
-}
+SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const { return m_cont.GetReader(FEATURES_FILE_TAG); }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const
 {

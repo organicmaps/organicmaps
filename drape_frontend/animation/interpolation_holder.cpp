@@ -1,5 +1,5 @@
-#include "drape_frontend/animation/base_interpolator.hpp"
 #include "drape_frontend/animation/interpolation_holder.hpp"
+#include "drape_frontend/animation/base_interpolator.hpp"
 
 #include "base/assert.hpp"
 
@@ -11,10 +11,7 @@ InterpolationHolder & InterpolationHolder::Instance()
   return holder;
 }
 
-bool InterpolationHolder::IsActive() const
-{
-  return !m_interpolations.empty();
-}
+bool InterpolationHolder::IsActive() const { return !m_interpolations.empty(); }
 
 void InterpolationHolder::Advance(double elapsedSeconds)
 {
@@ -29,10 +26,7 @@ void InterpolationHolder::Advance(double elapsedSeconds)
   }
 }
 
-InterpolationHolder::~InterpolationHolder()
-{
-  ASSERT(m_interpolations.empty(), ());
-}
+InterpolationHolder::~InterpolationHolder() { ASSERT(m_interpolations.empty(), ()); }
 
 void InterpolationHolder::RegisterInterpolator(BaseInterpolator * interpolator)
 {

@@ -23,7 +23,8 @@ public:
   class Guard final
   {
   public:
-    explicit Guard(std::shared_ptr<TrafficStash> stash) : m_stash(std::move(stash))
+    explicit Guard(std::shared_ptr<TrafficStash> stash)
+      : m_stash(std::move(stash))
     {
       if (m_stash)
         m_stash->CopyTraffic();
@@ -42,7 +43,7 @@ public:
   TrafficStash(traffic::TrafficCache const & source, std::shared_ptr<NumMwmIds> numMwmIds);
 
   traffic::SpeedGroup GetSpeedGroup(Segment const & segment) const;
-  void SetColoring(NumMwmId numMwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring> coloring);
+  void SetColoring(NumMwmId numMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring const> coloring);
   bool Has(NumMwmId numMwmId) const;
 
 private:
@@ -52,6 +53,6 @@ private:
 
   traffic::TrafficCache const & m_source;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unordered_map<NumMwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
+  std::unordered_map<NumMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring const>> m_mwmToTraffic;
 };
 }  // namespace routing

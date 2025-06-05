@@ -41,7 +41,10 @@ private:
 class House
 {
 public:
-  House(std::string const & number, m2::PointD const & point) : m_number(number), m_point(point) {}
+  House(std::string const & number, m2::PointD const & point)
+    : m_number(number)
+    , m_point(point)
+  {}
 
   std::string const & GetNumber() const { return m_number.GetNumber(); }
   int GetIntNumber() const { return m_number.GetIntNumber(); }
@@ -75,8 +78,10 @@ struct HouseProjection : public ProjectionOnStreet
   class EqualHouse
   {
   public:
-    explicit EqualHouse(House const * h) : m_house(h) {}
-    bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
+    explicit EqualHouse(House const * h)
+      : m_house(h)
+    {}
+    bool operator()(HouseProjection const * p) const { return m_house == p->m_house; }
 
   private:
     House const * m_house;
@@ -94,7 +99,11 @@ struct HouseProjection : public ProjectionOnStreet
 class Street
 {
 public:
-  Street() : m_length(0.0), m_number(-1), m_housesRead(false) {}
+  Street()
+    : m_length(0.0)
+    , m_number(-1)
+    , m_housesRead(false)
+  {}
 
   void Reverse();
   void SortHousesProjection();
@@ -106,10 +115,7 @@ public:
 
   double GetPrefixLength(size_t numSegs) const;
 
-  static bool IsSameStreets(Street const * s1, Street const * s2)
-  {
-    return s1->m_processedName == s2->m_processedName;
-  }
+  static bool IsSameStreets(Street const * s1, Street const * s2) { return s1->m_processedName == s2->m_processedName; }
 
   void SetName(std::string_view name);
   std::string const & GetDbgName() const { return m_processedName; }
@@ -132,18 +138,20 @@ public:
   struct Index
   {
     size_t s, h;
-    Index() : s(0), h(0) {}
+    Index()
+      : s(0)
+      , h(0)
+    {}
   };
 
   struct GreaterLength
   {
-    bool operator() (MergedStreet const & s1, MergedStreet const & s2) const
-    {
-      return (s1.m_length > s2.m_length);
-    }
+    bool operator()(MergedStreet const & s1, MergedStreet const & s2) const { return (s1.m_length > s2.m_length); }
   };
 
-  MergedStreet() : m_length(0.0) {}
+  MergedStreet()
+    : m_length(0.0)
+  {}
 
   std::string const & GetDbgName() const;
   std::string const & GetName() const;
@@ -190,9 +198,10 @@ private:
 
 struct HouseResult
 {
-  HouseResult(House const * house, MergedStreet const * street) : m_house(house), m_street(street)
-  {
-  }
+  HouseResult(House const * house, MergedStreet const * street)
+    : m_house(house)
+    , m_street(street)
+  {}
 
   bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
   bool operator==(HouseResult const & a) const { return m_house == a.m_house; }

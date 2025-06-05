@@ -41,17 +41,14 @@ std::string FormatSpeedNumeric(double metersPerSecond, Units units);
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions to DMS.
 std::string FormatLatLonAsDMS(double lat, double lon, bool withComma, int dac = 3);
-void FormatLatLonAsDMS(double lat, double lon, std::string & latText, std::string & lonText,
-                       int dac = 3);
+void FormatLatLonAsDMS(double lat, double lon, std::string & latText, std::string & lonText, int dac = 3);
 std::string FormatMercatorAsDMS(m2::PointD const & mercator, int dac = 3);
-void FormatMercatorAsDMS(m2::PointD const & mercator, std::string & lat, std::string & lon,
-                         int dac = 3);
+void FormatMercatorAsDMS(m2::PointD const & mercator, std::string & lat, std::string & lon, int dac = 3);
 
 /// Default dac == 6 for the simple decimal formatting.
 std::string FormatLatLon(double lat, double lon, int dac = 6);
 std::string FormatLatLon(double lat, double lon, bool withComma, int dac = 6);
-void FormatLatLon(double lat, double lon, std::string & latText, std::string & lonText,
-                  int dac = 6);
+void FormatLatLon(double lat, double lon, std::string & latText, std::string & lonText, int dac = 6);
 std::string FormatMercator(m2::PointD const & mercator, int dac = 6);
 void FormatMercator(m2::PointD const & mercator, std::string & lat, std::string & lon, int dac = 6);
 
@@ -62,8 +59,7 @@ std::string FormatOsmLink(double lat, double lon, int zoom);
 bool OSMDistanceToMeters(std::string const & osmRawValue, double & outMeters);
 /// Converts OSM distance (height, ele etc.) to meters std::string.
 /// @returns empty std::string on failure.
-std::string OSMDistanceToMetersString(std::string const & osmRawValue,
-                                      bool supportZeroAndNegativeValues = true,
+std::string OSMDistanceToMetersString(std::string const & osmRawValue, bool supportZeroAndNegativeValues = true,
                                       int digitsAfterComma = 2);
 std::string ToStringPrecision(double d, int pr);
 std::string ToStringPrecisionLocale(platform::Locale const & locale, double d, int pr);

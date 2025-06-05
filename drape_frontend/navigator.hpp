@@ -68,17 +68,15 @@ private:
   // Do screen rotates during the two fingers scaling.
   bool m_IsRotatingDuringScale = false;
   // Used in DoScale and ScaleByPoint
-  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
-                 m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                 bool skipMinScaleAndBordersCheck, bool doRotateScreen,
-                 ScreenBase & screen);
+  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1,
+                 m2::PointD const & oldPt2, bool skipMinScaleAndBordersCheck, bool doRotateScreen, ScreenBase & screen);
 };
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
 void CheckMinGlobalRect(m2::RectD & rect, double scale3d = kDefault3dScale);
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1 */, uint32_t tileSize, double visualScale,
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale /* = -1 */, uint32_t tileSize, double visualScale,
                              double scale3d = kDefault3dScale);
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1 */, double scale3d = kDefault3dScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale /* = -1 */, double scale3d = kDefault3dScale);
 }  // namespace df

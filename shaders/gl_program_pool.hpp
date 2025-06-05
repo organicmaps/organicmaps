@@ -3,8 +3,8 @@
 #include "shaders/program_pool.hpp"
 
 #include "drape/drape_global.hpp"
-#include "drape/shader.hpp"
 #include "drape/pointers.hpp"
+#include "drape/shader.hpp"
 
 #include <cstdint>
 #include <map>
@@ -23,8 +23,7 @@ public:
   void SetDefines(std::string const & defines);
 
 private:
-  ref_ptr<dp::Shader> GetShader(std::string const & name, std::string const & source,
-                                dp::Shader::Type type);
+  ref_ptr<dp::Shader> GetShader(std::string const & name, std::string const & source, dp::Shader::Type type);
 
   dp::ApiVersion const m_apiVersion;
   std::string m_baseDefines;

@@ -1,6 +1,6 @@
 #include "generator/raw_generator.hpp"
 
-//#include "generator/complex_loader.hpp"
+// #include "generator/complex_loader.hpp"
 #include "generator/features_processing_helpers.hpp"
 #include "generator/final_processor_cities.hpp"
 #include "generator/final_processor_coastline.hpp"
@@ -24,9 +24,9 @@ class Stats
 {
 public:
   Stats(size_t logCallCountThreshold)
-    : m_timer(true /* start */), m_logCallCountThreshold(logCallCountThreshold)
-  {
-  }
+    : m_timer(true /* start */)
+    , m_logCallCountThreshold(logCallCountThreshold)
+  {}
 
   void Log(std::vector<OsmElement> const & elements, uint64_t pos, bool forcePrint = false)
   {
@@ -51,12 +51,11 @@ public:
     auto const posMiB = pos / kBytesInMiB;
     auto const elapsedSeconds = m_timer.ElapsedSeconds();
     auto const avgSpeedMiBPerSec = posMiB / elapsedSeconds;
-    auto const speedMiBPerSec =
-        (pos - m_prevFilePos) / (elapsedSeconds - m_prevElapsedSeconds) / kBytesInMiB;
+    auto const speedMiBPerSec = (pos - m_prevFilePos) / (elapsedSeconds - m_prevElapsedSeconds) / kBytesInMiB;
 
-    LOG(LINFO, ("Read", m_element_counter, "elements [pos:", posMiB,
-                "MiB, avg read speed:", avgSpeedMiBPerSec, " MiB/s, read speed:", speedMiBPerSec,
-                "MiB/s [n:", m_nodeCounter, ", w:", m_wayCounter, ", r:", m_relationCounter, "]]"));
+    LOG(LINFO, ("Read", m_element_counter, "elements [pos:", posMiB, "MiB, avg read speed:", avgSpeedMiBPerSec,
+                " MiB/s, read speed:", speedMiBPerSec, "MiB/s [n:", m_nodeCounter, ", w:", m_wayCounter,
+                ", r:", m_relationCounter, "]]"));
 
     m_prevFilePos = pos;
     m_prevElapsedSeconds = elapsedSeconds;
@@ -86,8 +85,7 @@ RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount,
   , m_cache(std::make_shared<generator::cache::IntermediateData>(m_intermediateDataObjectsCache, genInfo))
   , m_queue(std::make_shared<FeatureProcessorQueue>())
   , m_translators(std::make_shared<TranslatorCollection>())
-{
-}
+{}
 
 void RawGenerator::ForceReloadCache()
 {
@@ -95,11 +93,11 @@ void RawGenerator::ForceReloadCache()
   m_cache = std::make_shared<cache::IntermediateData>(m_intermediateDataObjectsCache, m_genInfo);
 }
 
-void RawGenerator::GenerateCountries(bool isTests/* = false*/)
+void RawGenerator::GenerateCountries(bool isTests /* = false*/)
 {
-//  if (!m_genInfo.m_complexHierarchyFilename.empty())
-//    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
-//  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
+  //  if (!m_genInfo.m_complexHierarchyFilename.empty())
+  //    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
+  //  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
 
   AffiliationInterfacePtr affiliation;
   if (isTests)
@@ -108,8 +106,8 @@ void RawGenerator::GenerateCountries(bool isTests/* = false*/)
   }
   else
   {
-    affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(
-        m_genInfo.m_targetDir, m_genInfo.m_haveBordersForWholeWorld);
+    affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(m_genInfo.m_targetDir,
+                                                                            m_genInfo.m_haveBordersForWholeWorld);
   }
 
   auto processor = CreateProcessor(ProcessorType::Country, affiliation, m_queue);
@@ -118,14 +116,14 @@ void RawGenerator::GenerateCountries(bool isTests/* = false*/)
   /// and dispatches FB into Coastline, World, Country, City processors.
   /// Now we have at least 2x similar work in OsmElement->GetNameAndType->FeatureBuilder (for Country and World).
 
-  m_translators->Append(CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo,
-                                         isTests ? nullptr : affiliation));
+  m_translators->Append(
+    CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, isTests ? nullptr : affiliation));
 
   m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
   m_finalProcessors.emplace(CreatePlacesFinalProcessor(affiliation));
 }
 
-void RawGenerator::GenerateWorld(bool cutBordersByWater/* = true */)
+void RawGenerator::GenerateWorld(bool cutBordersByWater /* = true */)
 {
   auto processor = CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
   m_translators->Append(CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
@@ -144,9 +142,8 @@ void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & t
   m_translators->Append(translator);
 }
 
-void RawGenerator::GenerateCustom(
-    std::shared_ptr<TranslatorInterface> const & translator,
-    std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor)
+void RawGenerator::GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
+                                  std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor)
 {
   m_translators->Append(translator);
   m_finalProcessors.emplace(finalProcessor);
@@ -176,15 +173,15 @@ bool RawGenerator::Execute()
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
   auto finalProcessor = std::make_shared<CoastlineFinalProcessor>(
-      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP), m_threadsCount);
+    m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP), m_threadsCount);
   finalProcessor->SetCoastlinesFilenames(
-      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
-      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
+    m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
+    m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   return finalProcessor;
 }
 
-RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
-    AffiliationInterfacePtr const & affiliations, bool addAds)
+RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(AffiliationInterfacePtr const & affiliations,
+                                                                          bool addAds)
 {
   auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
@@ -196,9 +193,8 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
 
   if (m_genInfo.m_emitCoasts)
   {
-    finalProcessor->SetCoastlines(
-        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
-        m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
+    finalProcessor->SetCoastlines(m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
+                                  m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }
 
   finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME));
@@ -211,7 +207,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cut
   if (cutBordersByWater)
   {
     // This file should exist or read exception will be thrown otherwise.
-    coastlineGeom  = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION);
+    coastlineGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION);
   }
   auto finalProcessor = std::make_shared<WorldFinalProcessor>(m_genInfo.m_tmpDir, coastlineGeom);
 
@@ -229,8 +225,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreatePlacesFinalProcessor(Affilia
 
 bool RawGenerator::GenerateFilteredFeatures()
 {
-  SourceReader reader =
-      m_genInfo.m_osmFileName.empty() ? SourceReader() : SourceReader(m_genInfo.m_osmFileName);
+  SourceReader reader = m_genInfo.m_osmFileName.empty() ? SourceReader() : SourceReader(m_genInfo.m_osmFileName);
 
   std::unique_ptr<ProcessorOsmElementsInterface> sourceProcessor;
   switch (m_genInfo.m_osmFileType)
@@ -259,13 +254,13 @@ bool RawGenerator::GenerateFilteredFeatures()
       ++idx;
 
     isEnd = idx < m_chunkSize;
-    stats.Log(elements, reader.Pos(), isEnd/* forcePrint */);
+    stats.Log(elements, reader.Pos(), isEnd /* forcePrint */);
 
     if (isEnd)
       elements.resize(idx);
     translators.Emit(std::move(elements));
-
-  } while (!isEnd);
+  }
+  while (!isEnd);
 
   LOG(LINFO, ("Input was processed."));
   if (!translators.Finish())

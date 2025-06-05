@@ -72,20 +72,11 @@ bool Track::HasAltitudes() const
   return hasNonDefaultAltitude;
 }
 
-std::string Track::GetName() const
-{
-  return GetPreferredBookmarkStr(m_data.m_name);
-}
+std::string Track::GetName() const { return GetPreferredBookmarkStr(m_data.m_name); }
 
-void Track::SetName(std::string const & name)
-{
-    kml::SetDefaultStr(m_data.m_name, name);
-}
+void Track::SetName(std::string const & name) { kml::SetDefaultStr(m_data.m_name, name); }
 
-std::string Track::GetDescription() const
-{
-  return GetPreferredBookmarkStr(m_data.m_description);
-}
+std::string Track::GetDescription() const { return GetPreferredBookmarkStr(m_data.m_description); }
 
 void Track::setData(kml::TrackData const & data)
 {
@@ -100,10 +91,7 @@ m2::RectD Track::GetLimitRect() const
   return GetLimitRectImpl();
 }
 
-double Track::GetLengthMeters() const
-{
-  return GetStatistics().m_length;
-}
+double Track::GetLengthMeters() const { return GetStatistics().m_length; }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
 {
@@ -144,15 +132,9 @@ void Track::UpdateSelectionInfo(m2::RectD const & touchRect, TrackSelectionInfo 
   }
 }
 
-df::DepthLayer Track::GetDepthLayer() const
-{
-  return df::DepthLayer::UserLineLayer;
-}
+df::DepthLayer Track::GetDepthLayer() const { return df::DepthLayer::UserLineLayer; }
 
-size_t Track::GetLayerCount() const
-{
-  return m_data.m_layers.size();
-}
+size_t Track::GetLayerCount() const { return m_data.m_layers.size(); }
 
 dp::Color Track::GetColor(size_t layerIndex) const
 {
@@ -172,10 +154,7 @@ float Track::GetWidth(size_t layerIndex) const
   return static_cast<float>(m_data.m_layers[layerIndex].m_lineWidth);
 }
 
-float Track::GetDepth(size_t layerIndex) const
-{
-  return layerIndex * 10;
-}
+float Track::GetDepth(size_t layerIndex) const { return layerIndex * 10; }
 
 void Track::ForEachGeometry(GeometryFnT && fn) const
 {
@@ -196,10 +175,7 @@ void Track::Attach(kml::MarkGroupId groupId)
   m_groupID = groupId;
 }
 
-void Track::Detach()
-{
-  m_groupID = kml::kInvalidMarkGroupId;
-}
+void Track::Detach() { m_groupID = kml::kInvalidMarkGroupId; }
 
 kml::MultiGeometry::LineT Track::GetGeometry() const
 {
@@ -228,7 +204,4 @@ std::optional<ElevationInfo> Track::GetElevationInfo() const
   return m_elevationInfo;
 }
 
-double Track::GetDurationInSeconds() const
-{
-  return GetStatistics().m_duration;
-}
+double Track::GetDurationInSeconds() const { return GetStatistics().m_duration; }

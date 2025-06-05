@@ -30,8 +30,7 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
-    LocalCountryFile const & localFile)
+std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(LocalCountryFile const & localFile)
 {
   try
   {
@@ -57,10 +56,7 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
   }
 }
 
-bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile)
-{
-  return m_dataSource.Deregister(countryFile);
-}
+bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile) { return m_dataSource.Deregister(countryFile); }
 
 void FeaturesFetcher::Clear() { m_dataSource.Clear(); }
 

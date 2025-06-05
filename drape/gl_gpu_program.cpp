@@ -9,8 +9,8 @@
 
 namespace dp
 {
-GLGpuProgram::GLGpuProgram(std::string const & programName,
-                           ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+GLGpuProgram::GLGpuProgram(std::string const & programName, ref_ptr<Shader> vertexShader,
+                           ref_ptr<Shader> fragmentShader)
   : GpuProgram(programName)
   , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
@@ -59,10 +59,7 @@ void GLGpuProgram::Bind()
   GLFunctions::glUseProgram(m_programID);
 }
 
-void GLGpuProgram::Unbind()
-{
-  GLFunctions::glUseProgram(0);
-}
+void GLGpuProgram::Unbind() { GLFunctions::glUseProgram(0); }
 
 int8_t GLGpuProgram::GetAttributeLocation(std::string const & attributeName) const
 {
@@ -87,17 +84,13 @@ glConst GLGpuProgram::GetUniformType(std::string const & uniformName) const
   return it->second.m_type;
 }
 
-GLGpuProgram::UniformsInfo const & GLGpuProgram::GetUniformsInfo() const
-{
-  return m_uniforms;
-}
+GLGpuProgram::UniformsInfo const & GLGpuProgram::GetUniformsInfo() const { return m_uniforms; }
 
 void GLGpuProgram::LoadUniformLocations()
 {
   static std::set<glConst> const kSupportedTypes = {
-      gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4,
-      gl_const::GLIntType,   gl_const::GLIntVec2,   gl_const::GLIntVec3,   gl_const::GLIntVec4,
-      gl_const::GLFloatMat4, gl_const::GLSampler2D};
+    gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4, gl_const::GLIntType,
+    gl_const::GLIntVec2,   gl_const::GLIntVec3,   gl_const::GLIntVec4,   gl_const::GLFloatMat4, gl_const::GLSampler2D};
 
   auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
   for (int i = 0; i < uniformsCount; ++i)

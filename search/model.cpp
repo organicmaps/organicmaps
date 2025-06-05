@@ -8,7 +8,6 @@
 
 #include <vector>
 
-
 namespace search
 {
 using namespace ftypes;
@@ -19,36 +18,35 @@ namespace
 
 class IsComplexPoiChecker : public ftypes::BaseChecker
 {
-  IsComplexPoiChecker() : ftypes::BaseChecker()
+  IsComplexPoiChecker()
+    : ftypes::BaseChecker()
   {
     // For MatchPOIsWithParent matching. Some entries may be controversial here, but keep as-is for now.
     // POI near "Complex POI" matching.
-    base::StringIL const paths[] = {
-        {"aeroway", "aerodrome"},
-        {"amenity", "hospital"},
-        {"amenity", "university"},
-        {"building", "train_station"},
-        {"historic", "archaeological_site"},
-        {"historic", "castle"},
-        {"historic", "fort"},
-        {"landuse", "cemetery"},
-        {"landuse", "churchyard"},
-        {"landuse", "commercial"},
-        {"landuse", "forest"},
-        {"landuse", "industrial"},
-        {"landuse", "retail"},
-        {"leisure", "garden"},
-        {"leisure", "nature_reserve"},
-        {"leisure", "park"},
-        {"leisure", "stadium"},
-        {"leisure", "water_park"},
-        {"natural", "beach"},
-        {"office", "company"},
-        {"railway", "station"},
-        {"shop", "mall"},
-        {"tourism", "museum"},
-        {"tourism", "gallery"}
-    };
+    base::StringIL const paths[] = {{"aeroway", "aerodrome"},
+                                    {"amenity", "hospital"},
+                                    {"amenity", "university"},
+                                    {"building", "train_station"},
+                                    {"historic", "archaeological_site"},
+                                    {"historic", "castle"},
+                                    {"historic", "fort"},
+                                    {"landuse", "cemetery"},
+                                    {"landuse", "churchyard"},
+                                    {"landuse", "commercial"},
+                                    {"landuse", "forest"},
+                                    {"landuse", "industrial"},
+                                    {"landuse", "retail"},
+                                    {"leisure", "garden"},
+                                    {"leisure", "nature_reserve"},
+                                    {"leisure", "park"},
+                                    {"leisure", "stadium"},
+                                    {"leisure", "water_park"},
+                                    {"natural", "beach"},
+                                    {"office", "company"},
+                                    {"railway", "station"},
+                                    {"shop", "mall"},
+                                    {"tourism", "museum"},
+                                    {"tourism", "gallery"}};
 
     Classificator const & c = classif();
     for (auto const & path : paths)

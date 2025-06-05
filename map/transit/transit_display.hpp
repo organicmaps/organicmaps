@@ -41,8 +41,7 @@ extern std::map<TransitType, std::string> const kTransitSymbols;
 struct TransitStepInfo
 {
   TransitStepInfo() = default;
-  TransitStepInfo(TransitType type, double distance, int time,
-                  std::string const & number = "", uint32_t color = 0,
+  TransitStepInfo(TransitType type, double distance, int time, std::string const & number = "", uint32_t color = 0,
                   int intermediateIndex = 0);
 
   bool IsEqualType(TransitStepInfo const & ts) const;
@@ -85,9 +84,9 @@ struct TransitTitle
 {
   TransitTitle() = default;
   TransitTitle(std::string const & text, df::ColorConstant const & color)
-    : m_text(text), m_color(color)
-  {
-  }
+    : m_text(text)
+    , m_color(color)
+  {}
 
   std::string m_text;
   df::ColorConstant m_color;
@@ -125,7 +124,9 @@ struct SubrouteParams
 
 struct SubrouteSegmentParams
 {
-  SubrouteSegmentParams(routing::TransitInfo const & transitInfo) : m_transitInfo(transitInfo) {}
+  SubrouteSegmentParams(routing::TransitInfo const & transitInfo)
+    : m_transitInfo(transitInfo)
+  {}
   int m_time = 0;
   double m_distance = 0.0;
   routing::TransitInfo m_transitInfo;
@@ -136,8 +137,8 @@ struct SubrouteSegmentParams
 class TransitRouteDisplay
 {
 public:
-  using GetMwmIdFn = std::function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
-  using GetStringsBundleFn = std::function<StringsBundle const & ()>;
+  using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
+  using GetStringsBundleFn = std::function<StringsBundle const &()>;
 
   TransitRouteDisplay(TransitReadManager & transitReadManager, GetMwmIdFn const & getMwmIdFn,
                       GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
@@ -149,16 +150,16 @@ public:
   TransitRouteInfo const & GetRouteInfo();
 
 private:
-  void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
-                                SubrouteParams & sp, SubrouteSegmentParams & ssp);
-  void AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
-                            SubrouteParams & sp, SubrouteSegmentParams & ssp);
+  void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
+                                SubrouteSegmentParams & ssp);
+  void AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
+                            SubrouteSegmentParams & ssp);
 
-  void AddGateSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
-                                SubrouteParams & sp, SubrouteSegmentParams & ssp);
+  void AddGateSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
+                                SubrouteSegmentParams & ssp);
 
-  void AddGatePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
-                            SubrouteParams & sp, SubrouteSegmentParams & ssp);
+  void AddGatePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute, SubrouteParams & sp,
+                            SubrouteSegmentParams & ssp);
 
   void CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                  TransitDisplayInfos & transitDisplayInfos);

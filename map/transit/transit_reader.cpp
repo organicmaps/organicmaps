@@ -9,7 +9,7 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"   // needed despite of IDE warning
+#include "indexer/drules_include.hpp"  // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
 
 #include "coding/reader.hpp"
@@ -37,8 +37,7 @@ size_t CalculateCacheSize(TransitDisplayInfo const & transitInfo)
 }  // namespace
 
 // ReadTransitTask --------------------------------------------------------------------------------
-void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
-                           unique_ptr<TransitDisplayInfo> transitInfo)
+void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
@@ -157,21 +156,23 @@ void ReadTransitTask::Do()
     features.push_back(id.first);
   sort(features.begin(), features.end());
 
-  m_readFeaturesFn([this](FeatureType & ft)
-  {
-    auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
-
-    featureInfo.m_title = ft.GetReadableName();
-
-    if (featureInfo.m_isGate)
+  m_readFeaturesFn(
+    [this](FeatureType & ft)
     {
-      //TODO(pastk): there should be a simpler way to just get a symbol name.
-      df::Stylist stylist(ft, 19, 0);
-      if (stylist.m_symbolRule != nullptr)
-        featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
-    }
-    featureInfo.m_point = feature::GetCenter(ft);
-  }, features);
+      auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
+
+      featureInfo.m_title = ft.GetReadableName();
+
+      if (featureInfo.m_isGate)
+      {
+        // TODO(pastk): there should be a simpler way to just get a symbol name.
+        df::Stylist stylist(ft, 19, 0);
+        if (stylist.m_symbolRule != nullptr)
+          featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
+      }
+      featureInfo.m_point = feature::GetCenter(ft);
+    },
+    features);
 
   m_success = true;
 }
@@ -183,10 +184,7 @@ void ReadTransitTask::Reset()
   IRoutine::Reset();
 }
 
-unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
-{
-  return std::move(m_transitInfo);
-}
+unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo() { return std::move(m_transitInfo); }
 
 void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData const & transitData)
 {
@@ -221,8 +219,7 @@ void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData co
   }
 }
 
-TransitReadManager::TransitReadManager(DataSource & dataSource,
-                                       TReadFeaturesFn const & readFeaturesFn,
+TransitReadManager::TransitReadManager(DataSource & dataSource, TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
   : m_dataSource(dataSource)
   , m_readFeaturesFn(readFeaturesFn)
@@ -231,10 +228,7 @@ TransitReadManager::TransitReadManager(DataSource & dataSource,
   Start();
 }
 
-TransitReadManager::~TransitReadManager()
-{
-  Stop();
-}
+TransitReadManager::~TransitReadManager() { Stop(); }
 
 void TransitReadManager::Start()
 {
@@ -243,8 +237,7 @@ void TransitReadManager::Start()
 
   using namespace placeholders;
   uint8_t constexpr kThreadsCount = 1;
-  m_threadsPool = make_unique<base::ThreadPool>(
-      kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
+  m_threadsPool = make_unique<base::ThreadPool>(kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 
 void TransitReadManager::Stop()
@@ -254,10 +247,7 @@ void TransitReadManager::Stop()
   m_threadsPool.reset();
 }
 
-void TransitReadManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
-{
-  m_drapeEngine.Set(engine);
-}
+void TransitReadManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine) { m_drapeEngine.Set(engine); }
 
 void TransitReadManager::EnableTransitSchemeMode(bool enable)
 {
@@ -353,8 +343,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       if (!transitInfo)
         continue;
 
-      if (transitInfo->m_transitVersion == ::transit::TransitVersion::OnlySubway &&
-          transitInfo->m_linesSubway.empty())
+      if (transitInfo->m_transitVersion == ::transit::TransitVersion::OnlySubway && transitInfo->m_linesSubway.empty())
         continue;
 
       if (transitInfo->m_transitVersion == ::transit::TransitVersion::AllPublicTransport &&
@@ -496,10 +485,7 @@ void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)
     m_event.notify_all();
 }
 
-TransitReadManager::TransitSchemeState TransitReadManager::GetState() const
-{
-  return m_state;
-}
+TransitReadManager::TransitSchemeState TransitReadManager::GetState() const { return m_state; }
 
 void TransitReadManager::SetStateListener(TransitStateChangedFn const & onStateChangedFn)
 {

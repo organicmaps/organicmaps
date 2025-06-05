@@ -26,7 +26,8 @@ std::string MakeDistanceStr(std::string value, Distance::Units unit)
 struct ScopedSettings
 {
   /// Saves/restores previous units and sets new units for a scope.
-  explicit ScopedSettings(measurement_utils::Units newUnits) : m_oldUnits(measurement_utils::Units::Metric)
+  explicit ScopedSettings(measurement_utils::Units newUnits)
+    : m_oldUnits(measurement_utils::Units::Metric)
   {
     m_wasSet = settings::Get(settings::kMeasurementUnits, m_oldUnits);
     settings::Set(settings::kMeasurementUnits, newUnits);
@@ -169,8 +170,7 @@ UNIT_TEST(Distance_To)
   // clang-format on
   for (TestData const & data : testData)
   {
-    Distance const formatted =
-        Distance(data.initialDistance, data.initialUnits).To(data.to).GetFormattedDistance();
+    Distance const formatted = Distance(data.initialDistance, data.initialUnits).To(data.to).GetFormattedDistance();
     TEST_ALMOST_EQUAL_ULPS(formatted.GetDistance(), data.newDistance, (data.initialDistance));
     TEST_EQUAL(formatted.GetUnits(), data.newUnits, ());
   }

@@ -14,12 +14,12 @@
 namespace feature
 {
 class SharedLoadInfo;
-struct NameParamsOut; // Include feature_utils.hpp when using
+struct NameParamsOut;  // Include feature_utils.hpp when using
 
 // "fallback" flag value (1 is taken to distinguish from the "normal" offset value),
 // which means geometry should be loaded from the next offset of the more detailed geom level.
 uint32_t constexpr kGeomOffsetFallback = 1;
-} // namespace feature
+}  // namespace feature
 
 namespace osm
 {
@@ -90,7 +90,11 @@ public:
   /// @name Geometry.
   //@{
   /// This constant values should be equal with feature::FeatureLoader implementation.
-  enum { BEST_GEOMETRY = -1, WORST_GEOMETRY = -2 };
+  enum
+  {
+    BEST_GEOMETRY = -1,
+    WORST_GEOMETRY = -2
+  };
 
   m2::RectD GetLimitRect(int scale);
   m2::RectD const & GetLimitRectChecked() const;
@@ -131,7 +135,7 @@ public:
 
     for (size_t i = 0; i < m_triangles.size();)
     {
-      f(m_triangles[i], m_triangles[i+1], m_triangles[i+2]);
+      f(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
       i += 3;
     }
   }
@@ -203,10 +207,7 @@ private:
     bool m_metaIds : 1;
 
     ParsedFlags() { Reset(); }
-    void Reset()
-    {
-      m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false;
-    }
+    void Reset() { m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false; }
   };
 
   struct Offsets

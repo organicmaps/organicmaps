@@ -50,7 +50,7 @@ private:
   // the route with same shapeLink. We keep only one of them. These line ids are used in
   // |PrepareLinesMetadata()|.
   std::vector<LineSchemeData> GetLinesOnScheme(
-      std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion) const;
+    std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion) const;
   // Finds common overlapping (parallel on the subway layer) segments on polylines. Motivation:
   // we shouldn't draw parallel lines of different routes on top of each other so the user can’t
   // tell which lines go where (the only visible line is the one that is drawn last). We need these
@@ -63,17 +63,13 @@ private:
   // Methods for creating id & data pairs for |m_feed| based on the subway items.
   std::pair<TransitId, RouteData> MakeRoute(routing::transit::Line const & lineSubway);
   std::pair<TransitId, GateData> MakeGate(routing::transit::Gate const & gateSubway);
-  std::pair<TransitId, TransferData> MakeTransfer(
-      routing::transit::Transfer const & transferSubway);
-  static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway,
-                                                 TransitId routeId);
+  std::pair<TransitId, TransferData> MakeTransfer(routing::transit::Transfer const & transferSubway);
+  static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway, TransitId routeId);
   std::pair<EdgeId, EdgeData> MakeEdge(routing::transit::Edge const & edgeSubway, uint32_t index);
-  std::pair<EdgeTransferId, EdgeData> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway,
-                                                       uint32_t index);
+  std::pair<EdgeTransferId, EdgeData> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway, uint32_t index);
   std::pair<TransitId, StopData> MakeStop(routing::transit::Stop const & stopSubway);
 
-  routing::transit::Edge FindEdge(routing::transit::StopId stop1Id,
-                                  routing::transit::StopId stop2Id,
+  routing::transit::Edge FindEdge(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
                                   routing::transit::LineId lineId) const;
 
   // Path to the file with subways json.

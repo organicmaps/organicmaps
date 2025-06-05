@@ -18,8 +18,5 @@ RankTable::Version DummyRankTable::GetVersion() const
   return RankTable::VERSION_COUNT;
 }
 
-void DummyRankTable::Serialize(Writer &)
-{
-  NOTIMPLEMENTED();
-}
+void DummyRankTable::Serialize(Writer &) { NOTIMPLEMENTED(); }
 }  // namespace search

@@ -11,7 +11,9 @@ class MwmTestsFixture : public search::tests_support::SearchTestBase
 {
 public:
   // Pass LDEBUG to verbose logs for debugging.
-  MwmTestsFixture() : search::tests_support::SearchTestBase(LINFO, false /* mockCountryInfo */) {}
+  MwmTestsFixture()
+    : search::tests_support::SearchTestBase(LINFO, false /* mockCountryInfo */)
+  {}
 
   // Default top POIs count to check types or distances.
   static size_t constexpr kTopPoiResultsCount = 5;
@@ -38,15 +40,17 @@ public:
     size_t m_beg, m_end;
 
   public:
-    Range(ResultsT const & v, size_t beg, size_t end = kTopPoiResultsCount) : m_v(v), m_beg(beg), m_end(end)
+    Range(ResultsT const & v, size_t beg, size_t end = kTopPoiResultsCount)
+      : m_v(v)
+      , m_beg(beg)
+      , m_end(end)
     {
       TEST_LESS(beg, end, ());
       TEST_GREATER_OR_EQUAL(v.size(), end, ());
     }
     explicit Range(ResultsT const & v, bool all = false)
       : Range(v, 0, all ? v.size() : kTopPoiResultsCount)
-    {
-    }
+    {}
 
     size_t size() const { return m_end - m_beg; }
     auto begin() const { return m_v.begin() + m_beg; }
@@ -63,7 +67,7 @@ public:
     for (size_t i = 1; i < results.size(); ++i)
     {
       double const dist = GetDistanceM(results[i], center);
-      TEST_LESS(prevDist, dist + kDistanceEpsilon, (results[i-1], results[i]));
+      TEST_LESS(prevDist, dist + kDistanceEpsilon, (results[i - 1], results[i]));
       prevDist = dist;
     }
 
@@ -85,10 +89,7 @@ public:
   {
     for (auto const & r : results)
     {
-      auto const it = std::find_if(types.begin(), types.end(), [&r](uint32_t inType)
-      {
-        return r.IsSameType(inType);
-      });
+      auto const it = std::find_if(types.begin(), types.end(), [&r](uint32_t inType) { return r.IsSameType(inType); });
 
       TEST(it != types.end(), (r));
     }
@@ -96,20 +97,16 @@ public:
 
   static size_t CountClassifType(Range const & results, uint32_t type)
   {
-    return std::count_if(results.begin(), results.end(), [type](search::Result const & r)
-    {
-      return r.IsSameType(type);
-    });
+    return std::count_if(results.begin(), results.end(),
+                         [type](search::Result const & r) { return r.IsSameType(type); });
   }
 
   static void NameStartsWith(Range const & results, base::StringIL const & prefixes)
   {
     for (auto const & r : results)
     {
-      auto const it = std::find_if(prefixes.begin(), prefixes.end(), [name = r.GetString()](char const * prefix)
-      {
-        return name.starts_with(prefix);
-      });
+      auto const it = std::find_if(prefixes.begin(), prefixes.end(),
+                                   [name = r.GetString()](char const * prefix) { return name.starts_with(prefix); });
 
       TEST(it != prefixes.end(), (r));
     }
@@ -274,7 +271,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Paris_Hotel)
 UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
 {
   // London
-  ms::LatLon const arrPivots[] = { {51.50295, 0.00325}, {51.47890,0.01062} };
+  ms::LatLon const arrPivots[] = {{51.50295, 0.00325}, {51.47890, 0.01062}};
   for (auto const & center : arrPivots)
   {
     SetViewportAndLoadMaps(center);
@@ -336,21 +333,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 
   Range const range(results, 0, 3);
   EqualClassifType(range, GetClassifTypes({
-      {"tourism", "theme_park"},
-      {"amenity", "fast_food"},
-      {"shop", "gift"},
-  /// @todo Add _near street_ penalty
-      // {"amenity", "pharmacy"}, // "Heide-Apotheke" near the "Parkstraße" street
-  }));
+                            {"tourism", "theme_park"}, {"amenity", "fast_food"}, {"shop", "gift"},
+                            /// @todo Add _near street_ penalty
+                            // {"amenity", "pharmacy"}, // "Heide-Apotheke" near the "Parkstraße" street
+                          }));
 
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   TEST_LESS(SortedByDistance(range, center).first, 100000, ());
 
   EqualClassifType(Range(results, 4, 7), GetClassifTypes({
-      {"highway", "service"},
-      {"railway", "halt"},
-      {"highway", "bus_stop"},
-  }));
+                                           {"highway", "service"},
+                                           {"railway", "halt"},
+                                           {"highway", "bus_stop"},
+                                         }));
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1560
@@ -397,7 +392,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Barcelona_Carrers)
     CenterInRect(Range(results, 0, 1), {27.5134786, 53.8717921, 27.5210173, 53.875768});
 
     /// @todo Second result is expected to be the nearby street in "Прилукская Слобода", but not always ..
-    //TEST_GREATER(GetDistanceM(results[0], center), GetDistanceM(results[1], center), ());
+    // TEST_GREATER(GetDistanceM(results[0], center), GetDistanceM(results[1], center), ());
   }
 }
 
@@ -587,7 +582,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
 
     // results[0] is a named POI ~9km (https://www.openstreetmap.org/node/9730886727)
     Range const range(results, 1, kResultsCount);
-    EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}, {"man_made", "communications_tower"}}));
+    EqualClassifType(range,
+                     GetClassifTypes({{"man_made", "tower", "communication"}, {"man_made", "communications_tower"}}));
     TEST_LESS(SortedByDistance(range, center).first, 3000.0, ());
   }
 
@@ -710,39 +706,17 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
   uint32_t const cityType = cl.GetTypeByPath({"place", "city"});
 
   std::string arrCities[] = {
-      "Buenos Aires",
-      "Rio de Janeiro",
-      "New York",
-      "San Francisco",  // not a capital
-      "Las Vegas",      // not a capital
-      "Los Angeles",
-      "Toronto",
-      "Lisboa",
-      "Madrid",
-      "Barcelona",
-      "London",
-      "Paris",
-      "Zurich",         // not a capital
-      "Rome",
-      "Milan",
-      "Venezia",
-      "Amsterdam",
-      "Berlin",
-      "Stockholm",
-      "Istanbul",
-      "Minsk",
-      "Moscow",
-      "Kyiv",
-      "New Delhi",
-      "Bangkok",
-      "Beijing",
-      "Tokyo",
-      "Melbourne",
-      "Sydney",
+    "Buenos Aires",  "Rio de Janeiro", "New York",
+    "San Francisco",  // not a capital
+    "Las Vegas",      // not a capital
+    "Los Angeles",   "Toronto",        "Lisboa",    "Madrid",    "Barcelona", "London",    "Paris",
+    "Zurich",  // not a capital
+    "Rome",          "Milan",          "Venezia",   "Amsterdam", "Berlin",    "Stockholm", "Istanbul",  "Minsk",
+    "Moscow",        "Kyiv",           "New Delhi", "Bangkok",   "Beijing",   "Tokyo",     "Melbourne", "Sydney",
   };
   size_t const count = std::size(arrCities);
 
-  std::set<std::string> const notCapital = { "San Francisco", "Las Vegas", "Zurich" };
+  std::set<std::string> const notCapital = {"San Francisco", "Las Vegas", "Zurich"};
 
   std::vector<ms::LatLon> arrCenters(count);
   // Buenos Aires like starting point :)
@@ -772,21 +746,22 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
 
       // Check that needed city is in top.
       auto const iEnd = results.begin() + std::min(kTopNumber, results.size());
-      auto const it = std::find_if(results.begin(), iEnd, [&](search::Result const & r)
-      {
-        // Should make this complex check to ensure that we got a needed city.
-        uint32_t type = r.GetFeatureType();
-        if (notCapital.count(arrCities[j]) > 0)
-        {
-          ftype::TruncValue(type, 2);
-          return (type == cityType);
-        }
-        else
-        {
-          ftype::TruncValue(type, 3);
-          return (type == capitalType);
-        }
-      });
+      auto const it = std::find_if(results.begin(), iEnd,
+                                   [&](search::Result const & r)
+                                   {
+                                     // Should make this complex check to ensure that we got a needed city.
+                                     uint32_t type = r.GetFeatureType();
+                                     if (notCapital.count(arrCities[j]) > 0)
+                                     {
+                                       ftype::TruncValue(type, 2);
+                                       return (type == cityType);
+                                     }
+                                     else
+                                     {
+                                       ftype::TruncValue(type, 3);
+                                       return (type == capitalType);
+                                     }
+                                   });
 
       if (it == iEnd)
       {
@@ -913,8 +888,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
     auto const & results = request->Results();
     size_t constexpr kResultsCount = 12;
     TEST_GREATER(results.size(), kResultsCount, ());
-    TEST_GREATER(CountClassifType(Range(results, 0, kResultsCount),
-                                  classif().GetTypeByPath({"railway", "station"})), 2, ());
+    TEST_GREATER(CountClassifType(Range(results, 0, kResultsCount), classif().GetTypeByPath({"railway", "station"})), 2,
+                 ());
   }
 }
 
@@ -1221,12 +1196,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Opfikon_Viewport)
   ms::LatLon const center(47.42404, 8.5667463);
   SetViewportAndLoadMaps(center);
 
-  auto params = GetDefaultSearchParams("ofikon");     // spelling error
+  auto params = GetDefaultSearchParams("ofikon");  // spelling error
   params.m_mode = search::Mode::Viewport;
   params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
 
   {
-    params.m_viewport = { 8.5418196173686862238, 53.987953174041166449, 8.5900051973703153152, 54.022951994627547379 };
+    params.m_viewport = {8.5418196173686862238, 53.987953174041166449, 8.5900051973703153152, 54.022951994627547379};
 
     auto request = MakeRequest(params);
     auto const & results = request->Results();
@@ -1264,7 +1239,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, PostOffice_Viewport)
   params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
 
   {
-    params.m_viewport = { 8.5130497227411314753, 53.90688220139293918, 8.5701093069557838788, 53.940255929097141063 };
+    params.m_viewport = {8.5130497227411314753, 53.90688220139293918, 8.5701093069557838788, 53.940255929097141063};
 
     auto request = MakeRequest(params);
     auto const & results = request->Results();
@@ -1291,7 +1266,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Family_Viewport)
   params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
 
   {
-    params.m_viewport = { LonToX(-58.4015885), LatToY(-34.5901233), LonToX(-58.396118), LatToY(-34.5876888) };
+    params.m_viewport = {LonToX(-58.4015885), LatToY(-34.5901233), LonToX(-58.396118), LatToY(-34.5876888)};
 
     auto request = MakeRequest(params);
     auto const & results = request->Results();
@@ -1456,4 +1431,4 @@ UNIT_CLASS_TEST(MwmTestsFixture, Synonyms)
   }
 }
 
-} // namespace real_mwm_tests
+}  // namespace real_mwm_tests

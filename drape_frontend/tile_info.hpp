@@ -33,7 +33,7 @@ public:
 
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
-  bool operator <(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
+  bool operator<(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
 
 private:
   void ReadFeatureIndex(MapDataProvider const & model);

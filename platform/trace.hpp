@@ -31,15 +31,9 @@ private:
 class TraceSection
 {
 public:
-  inline TraceSection(char const * section) noexcept
-  {
-    Trace::Instance().BeginSection(section);
-  }
+  inline TraceSection(char const * section) noexcept { Trace::Instance().BeginSection(section); }
 
-  inline ~TraceSection() noexcept
-  {
-    Trace::Instance().EndSection();
-  }
+  inline ~TraceSection() noexcept { Trace::Instance().EndSection(); }
 };
 }  // namespace platform
 

@@ -1,17 +1,13 @@
 #include "routing/world_graph.hpp"
 
-
 namespace routing
 {
-void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
-                             SegmentEdgeListT & edges)
+void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
-  GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
-              false /* useAccessConditional */, edges);
+  GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions, false /* useAccessConditional */, edges);
 }
 
-void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                          SegmentEdgeListT & edges)
+void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
   std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);
@@ -27,30 +23,15 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRout
   SetMode(prevMode);
 }
 
-RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */)
-{
-  return {};
-}
+RoutingOptions WorldGraph::GetRoutingOptions(Segment const & /* segment */) { return {}; }
 
-bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
-{
-  return true;
-}
+bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */) { return true; }
 
-std::unique_ptr<TransitInfo> WorldGraph::GetTransitInfo(Segment const &)
-{
-  return nullptr;
-}
+std::unique_ptr<TransitInfo> WorldGraph::GetTransitInfo(Segment const &) { return nullptr; }
 
-std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const &)
-{
-  return {};
-}
+std::vector<RouteSegment::SpeedCamera> WorldGraph::GetSpeedCamInfo(Segment const &) { return {}; }
 
-SpeedInUnits WorldGraph::GetSpeedLimit(Segment const &)
-{
-  return {};
-}
+SpeedInUnits WorldGraph::GetSpeedLimit(Segment const &) { return {}; }
 
 void WorldGraph::SetAStarParents(bool forward, Parents<Segment> & parents) {}
 void WorldGraph::SetAStarParents(bool forward, Parents<JointSegment> & parents) {}
@@ -71,19 +52,11 @@ bool WorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents, Joi
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
 
-void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn)
-{
-}
+void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn) {}
 
-CrossMwmGraph & WorldGraph::GetCrossMwmGraph()
-{
-  UNREACHABLE();
-}
+CrossMwmGraph & WorldGraph::GetCrossMwmGraph() { UNREACHABLE(); }
 
-RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
-{
-  return RouteWeight(0);
-}
+RouteWeight WorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2) { return RouteWeight(0); }
 
 std::string DebugPrint(WorldGraphMode mode)
 {

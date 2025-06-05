@@ -8,7 +8,4 @@ void AndroidThreadAttachToJVM()
   jni::GetJVM()->AttachCurrentThread(&env, 0);
 }
 
-void AndroidThreadDetachFromJVM()
-{
-  jni::GetJVM()->DetachCurrentThread();
-}
+void AndroidThreadDetachFromJVM() { jni::GetJVM()->DetachCurrentThread(); }

@@ -30,10 +30,7 @@ uint64_t GetPopulation(std::string const & str)
   return result;
 }
 
-uint64_t GetPopulation(OsmElement const & elem)
-{
-  return GetPopulation(elem.GetTag("population"));
-}
+uint64_t GetPopulation(OsmElement const & elem) { return GetPopulation(elem.GetTag("population")); }
 
 std::vector<uint64_t> GetPlaceNodeFromMembers(OsmElement const & elem)
 {
@@ -69,7 +66,7 @@ uint8_t GetAdminLevel(OsmElement const & elem)
       return static_cast<uint8_t>(res);
 
     // There are too many custom admin_level value.
-    //LOG(LWARNING, ("Failed to get admin_level from", str, elem.m_id));
+    // LOG(LWARNING, ("Failed to get admin_level from", str, elem.m_id));
   }
   return 0;
 }

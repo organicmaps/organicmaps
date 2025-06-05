@@ -12,9 +12,9 @@ class LatLonWithAltitude
 public:
   LatLonWithAltitude() = default;
   LatLonWithAltitude(ms::LatLon const & latlon, geometry::Altitude altitude)
-    : m_latlon(latlon), m_altitude(altitude)
-  {
-  }
+    : m_latlon(latlon)
+    , m_altitude(altitude)
+  {}
 
   bool operator==(LatLonWithAltitude const & rhs) const;
   bool operator<(LatLonWithAltitude const & rhs) const;

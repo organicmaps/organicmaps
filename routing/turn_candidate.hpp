@@ -19,7 +19,6 @@ namespace turns
 /// \brief The TurnCandidate struct contains information about possible ways from a junction.
 struct TurnCandidate
 {
-
   /// |m_angle| is the angle of the turn in degrees. It means the angle is 180 minus
   /// the angle between the current edge and the edge of the candidate. A counterclockwise rotation.
   /// The current edge is an edge which belongs to the route and is located before the junction.
@@ -37,9 +36,11 @@ struct TurnCandidate
   bool m_isLink;
 
   TurnCandidate(double angle, Segment const & segment, ftypes::HighwayClass c, bool isLink)
-    : m_angle(angle), m_segment(segment), m_highwayClass(c), m_isLink(isLink)
-  {
-  }
+    : m_angle(angle)
+    , m_segment(segment)
+    , m_highwayClass(c)
+    , m_isLink(isLink)
+  {}
 
   bool IsAlmostEqual(TurnCandidate const & rhs) const
   {
@@ -67,13 +68,14 @@ struct TurnCandidates
   std::vector<TurnCandidate> candidates;
   bool isCandidatesAngleValid;
 
-  explicit TurnCandidates(bool angleValid = true) : isCandidatesAngleValid(angleValid) {}
+  explicit TurnCandidates(bool angleValid = true)
+    : isCandidatesAngleValid(angleValid)
+  {}
 
   bool IsAlmostEqual(TurnCandidates const & rhs) const
   {
-    return turns::IsAlmostEqual(candidates, rhs.candidates) &&
-           isCandidatesAngleValid == rhs.isCandidatesAngleValid;
+    return turns::IsAlmostEqual(candidates, rhs.candidates) && isCandidatesAngleValid == rhs.isCandidatesAngleValid;
   }
 };
-}  // namespace routing
 }  // namespace turns
+}  // namespace routing

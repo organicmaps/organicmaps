@@ -19,8 +19,7 @@ public:
   // Used in tests only.
   MwmHierarchyHandler() = default;
   // Used in IndexRouter.
-  MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds,
-                      CountryParentNameGetterFn countryParentNameGetterFn);
+  MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds, CountryParentNameGetterFn countryParentNameGetterFn);
 
   bool HasCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
   RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);

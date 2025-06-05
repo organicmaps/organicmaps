@@ -8,10 +8,7 @@ DpPointerTracker & DpPointerTracker::Instance()
   return pointersTracker;
 }
 
-DpPointerTracker::~DpPointerTracker()
-{
-  ASSERT(m_alivePointers.empty(), ());
-}
+DpPointerTracker::~DpPointerTracker() { ASSERT(m_alivePointers.empty(), ()); }
 
 void DpPointerTracker::RefPtrNamed(void * refPtr, std::string const & name)
 {
@@ -36,8 +33,7 @@ void DpPointerTracker::DestroyPtr(void * p)
     if (it->second.first != 0)
     {
       LOG(LWARNING, ("Drape pointer [", it->second.second, p,
-                     "] was destroyed, but had references, ref count = ",
-                     it->second.first));
+                     "] was destroyed, but had references, ref count = ", it->second.first));
     }
     m_alivePointers.erase(it);
   }
@@ -57,8 +53,5 @@ void DpPointerTracker::DerefPtr(void * p)
   }
 }
 
-DpPointerTracker::TAlivePointers const & DpPointerTracker::GetAlivePointers() const
-{
-  return m_alivePointers;
-}
+DpPointerTracker::TAlivePointers const & DpPointerTracker::GetAlivePointers() const { return m_alivePointers; }
 #endif

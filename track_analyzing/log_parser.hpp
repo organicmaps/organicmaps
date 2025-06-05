@@ -14,8 +14,8 @@ namespace track_analyzing
 class LogParser final
 {
 public:
-  LogParser(std::shared_ptr<routing::NumMwmIds> numMwmIds,
-            std::unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree, std::string const & dataDir);
+  LogParser(std::shared_ptr<routing::NumMwmIds> numMwmIds, std::unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree,
+            std::string const & dataDir);
 
   void Parse(std::string const & logFile, MwmToTracks & mwmToTracks) const;
 

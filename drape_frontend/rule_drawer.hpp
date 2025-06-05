@@ -41,8 +41,7 @@ public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
-  RuleDrawer(TCheckCancelledCallback const & checkCancelled,
-             TIsCountryLoadedByNameFn const & isLoadedFn,
+  RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
              ref_ptr<EngineContext> engineContext, int8_t deviceLang);
   ~RuleDrawer();
 

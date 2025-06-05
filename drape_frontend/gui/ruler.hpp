@@ -13,9 +13,9 @@ public:
   drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex) const;
 
 private:
-  void DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control,
-                 ref_ptr<dp::TextureManager> tex, bool isAppearing) const;
-  void DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control,
-                ref_ptr<dp::TextureManager> tex, bool isAppearing) const;
+  void DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+                 bool isAppearing) const;
+  void DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+                bool isAppearing) const;
 };
 }  // namespace gui

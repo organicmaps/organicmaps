@@ -24,7 +24,10 @@ private:
 
 struct TimeInfo
 {
-  TimeInfo(double oldTime, double newTime) : m_oldTime(oldTime), m_newTime(newTime) {}
+  TimeInfo(double oldTime, double newTime)
+    : m_oldTime(oldTime)
+    , m_newTime(newTime)
+  {}
   double m_oldTime;
   double m_newTime;
 };

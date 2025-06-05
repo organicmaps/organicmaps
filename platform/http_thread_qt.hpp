@@ -3,21 +3,20 @@
 #include <cstdint>
 #include <string>
 
-#include <QObject>
 #include <QNetworkReply>
+#include <QObject>
 
-namespace downloader { class IHttpThreadCallback; }
+namespace downloader
+{
+class IHttpThreadCallback;
+}
 
 class HttpThread : public QObject
 {
   Q_OBJECT
 
 public:
-  HttpThread(std::string const & url,
-             downloader::IHttpThreadCallback & cb,
-             int64_t beg,
-             int64_t end,
-             int64_t size,
+  HttpThread(std::string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end, int64_t size,
              std::string const & pb);
   virtual ~HttpThread();
 

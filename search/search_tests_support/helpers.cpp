@@ -14,7 +14,8 @@ namespace tests_support
 using namespace std;
 
 SearchTestBase::SearchTestBase(base::LogLevel logLevel, bool mockCountryInfo)
-  : m_scopedLog(logLevel), m_engine(m_dataSource, {}, mockCountryInfo)
+  : m_scopedLog(logLevel)
+  , m_engine(m_dataSource, {}, mockCountryInfo)
 {
   SetViewport(mercator::Bounds::FullRect());
 
@@ -27,8 +28,7 @@ void SearchTestBase::SetViewport(ms::LatLon const & ll, double radiusM)
   SetViewport(mercator::MetersToXY(ll.m_lon, ll.m_lat, radiusM));
 }
 
-bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rules,
-                                   string const & locale /* = "en" */)
+bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rules, string const & locale /* = "en" */)
 {
   TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.SetCategorial();
@@ -38,8 +38,7 @@ bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rule
 }
 
 bool SearchTestBase::ResultsMatch(std::string const & query, Rules const & rules,
-                                  std::string const & locale /* = "en" */,
-                                  Mode mode /* = Mode::Everywhere */)
+                                  std::string const & locale /* = "en" */, Mode mode /* = Mode::Everywhere */)
 {
   TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
   request.Run();
@@ -47,8 +46,7 @@ bool SearchTestBase::ResultsMatch(std::string const & query, Rules const & rules
 }
 
 bool SearchTestBase::OrderedResultsMatch(std::string const & query, Rules const & rules,
-                                         std::string const & locale /* = "en" */,
-                                         Mode mode /* = Mode::Everywhere */)
+                                         std::string const & locale /* = "en" */, Mode mode /* = Mode::Everywhere */)
 {
   TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
   request.Run();
@@ -120,7 +118,7 @@ unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(SearchParams const & p
 size_t SearchTestBase::CountFeatures(m2::RectD const & rect)
 {
   size_t count = 0;
-  auto counter = [&count](const FeatureType & /* ft */) { ++count; };
+  auto counter = [&count](FeatureType const & /* ft */) { ++count; };
   m_dataSource.ForEachInRect(counter, rect, scales::GetUpperScale());
   return count;
 }
@@ -141,5 +139,5 @@ void SearchTest::OnMwmBuilt(MwmInfo const & info)
   }
 }
 
-} // namespace tests_supoort
-} // namespace search
+}  // namespace tests_support
+}  // namespace search

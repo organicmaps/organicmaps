@@ -14,7 +14,8 @@ namespace generator
 {
 // The class ClustersFinder finds clusters of objects for which IsSameFunc returns true.
 // RadiusFunc should return the same radius for all objects in one cluster.
-template <class T> class ClustersFinder
+template <class T>
+class ClustersFinder
 {
 public:
   using PtrT = T const *;
@@ -22,7 +23,9 @@ public:
   using IsSameFunc = std::function<bool(T const &, T const &)>;
 
   ClustersFinder(std::vector<T> const & container, RadiusFunc radiusFunc, IsSameFunc isSameFunc)
-    : m_container(container), m_radiusFunc(std::move(radiusFunc)), m_isSameFunc(std::move(isSameFunc))
+    : m_container(container)
+    , m_radiusFunc(std::move(radiusFunc))
+    , m_isSameFunc(std::move(isSameFunc))
   {
     for (auto const & e : m_container)
       m_tree.Add(&e);
@@ -60,15 +63,16 @@ private:
       auto const current = queue.front();
       queue.pop();
       auto const queryBbox = GetBboxFor(current);
-      m_tree.ForEachInRect(queryBbox, [&](PtrT candidate)
-      {
-        if (unviewed.count(candidate) == 0 || !m_isSameFunc(*p, *candidate))
-          return;
+      m_tree.ForEachInRect(queryBbox,
+                           [&](PtrT candidate)
+                           {
+                             if (unviewed.count(candidate) == 0 || !m_isSameFunc(*p, *candidate))
+                               return;
 
-        unviewed.erase(candidate);
-        queue.emplace(candidate);
-        cluster.emplace_back(candidate);
-      });
+                             unviewed.erase(candidate);
+                             queue.emplace(candidate);
+                             cluster.emplace_back(candidate);
+                           });
     }
 
     return cluster;
@@ -78,10 +82,7 @@ private:
   {
     m2::RectD bbox;
     auto const dist = m_radiusFunc(*p);
-    GetLimitRect(*p).ForEachCorner([&](auto const & p)
-    {
-      bbox.Add(mercator::RectByCenterXYAndSizeInMeters(p, dist));
-    });
+    GetLimitRect(*p).ForEachCorner([&](auto const & p) { bbox.Add(mercator::RectByCenterXYAndSizeInMeters(p, dist)); });
     return bbox;
   }
 
@@ -93,7 +94,8 @@ private:
 
 /// @return Vector of equal place clusters, like pointers from input \a container.
 template <class T, class RadiusFnT, class IsSameFnT>
-std::vector<std::vector<T const *>> GetClusters(std::vector<T> const & container, RadiusFnT && radiusFunc, IsSameFnT && isSameFunc)
+std::vector<std::vector<T const *>> GetClusters(std::vector<T> const & container, RadiusFnT && radiusFunc,
+                                                IsSameFnT && isSameFunc)
 {
   return ClustersFinder<T>(container, std::forward<RadiusFnT>(radiusFunc), std::forward<IsSameFnT>(isSameFunc)).Find();
 }

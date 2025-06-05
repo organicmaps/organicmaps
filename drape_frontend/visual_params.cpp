@@ -43,9 +43,9 @@ void VisualParams::Init(double vs, uint32_t tileSize)
 
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
-    vizParams.m_glyphVisualParams = { 0.48f, 0.08f, 0.2f, 0.01f, 0.49f, 0.04f };
+    vizParams.m_glyphVisualParams = {0.48f, 0.08f, 0.2f, 0.01f, 0.49f, 0.04f};
   else
-    vizParams.m_glyphVisualParams = { 0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f };
+    vizParams.m_glyphVisualParams = {0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f};
 
   RISE_INITED;
 
@@ -76,16 +76,12 @@ void VisualParams::SetVisualScale(double visualScale)
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
 {
   ASSERT_INITED;
-  static VisualScale postfixes[] =
-  {
+  static VisualScale postfixes[] = {
     /// @todo Not used in mobile because of minimal visual scale (@see visual_scale.hpp)
     {"mdpi", kMdpiScale},
 
-    {"hdpi", kHdpiScale},
-    {"xhdpi", kXhdpiScale},
-    {"6plus", k6plusScale},
-    {"xxhdpi", kXxhdpiScale},
-    {"xxxhdpi", kXxxhdpiScale},
+    {"hdpi", kHdpiScale},     {"xhdpi", kXhdpiScale},     {"6plus", k6plusScale},
+    {"xxhdpi", kXxhdpiScale}, {"xxxhdpi", kXxxhdpiScale},
   };
 
   // Looking for the nearest available scale.
@@ -156,10 +152,7 @@ VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() con
   return m_glyphVisualParams;
 }
 
-m2::RectD GetWorldRect()
-{
-  return mercator::Bounds::FullRect();
-}
+m2::RectD GetWorldRect() { return mercator::Bounds::FullRect(); }
 
 int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
 {
@@ -170,17 +163,12 @@ int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
 
   m2::RectD glbRect;
   m2::PointD const pxCenter = tmpS.PixelRect().Center();
-  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(halfSize, halfSize),
-                      pxCenter + m2::PointD(halfSize, halfSize)),
-            glbRect);
+  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(halfSize, halfSize), pxCenter + m2::PointD(halfSize, halfSize)), glbRect);
 
   return GetTileScaleBase(glbRect);
 }
 
-int GetTileScaleBase(ScreenBase const & s)
-{
-  return GetTileScaleBase(s, VisualParams::Instance().GetTileSize());
-}
+int GetTileScaleBase(ScreenBase const & s) { return GetTileScaleBase(s, VisualParams::Instance().GetTileSize()); }
 
 int GetTileScaleBase(m2::RectD const & r)
 {
@@ -189,10 +177,7 @@ int GetTileScaleBase(m2::RectD const & r)
   return std::max(1, base::SignedRound(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 
-double GetTileScaleBase(double drawScale)
-{
-  return std::max(1.0, drawScale - GetTileScaleIncrement());
-}
+double GetTileScaleBase(double drawScale) { return std::max(1.0, drawScale - GetTileScaleIncrement()); }
 
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
 {
@@ -212,8 +197,8 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t
 
   double const len = mercator::Bounds::kRangeX / factor;
 
-  return m2::RectD(mercator::ClampX(center.x - len), mercator::ClampY(center.y - len),
-                   mercator::ClampX(center.x + len), mercator::ClampY(center.y + len));
+  return m2::RectD(mercator::ClampX(center.x - len), mercator::ClampY(center.y - len), mercator::ClampX(center.x + len),
+                   mercator::ClampY(center.y + len));
 }
 
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
@@ -284,10 +269,7 @@ int GetDrawTileScale(int baseScale)
   return GetDrawTileScale(baseScale, p.GetTileSize(), p.GetVisualScale());
 }
 
-double GetDrawTileScale(double baseScale)
-{
-  return std::max(1.0, baseScale + GetTileScaleIncrement());
-}
+double GetDrawTileScale(double baseScale) { return std::max(1.0, baseScale + GetTileScaleIncrement()); }
 
 int GetDrawTileScale(ScreenBase const & s)
 {

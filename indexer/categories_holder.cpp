@@ -147,14 +147,15 @@ void CategoriesHolder::AddCategory(Category & cat, std::vector<uint32_t> & types
 
       auto const localePrefix = strings::UniString(1, static_cast<strings::UniChar>(locale));
 
-      search::ForEachNormalizedToken(synonym.m_name, [&](strings::UniString const & token)
-      {
-        if (ValidKeyToken(token))
-        {
-          for (uint32_t const t : types)
-            m_name2type.Add(localePrefix + token, t);
-        }
-      });
+      search::ForEachNormalizedToken(synonym.m_name,
+                                     [&](strings::UniString const & token)
+                                     {
+                                       if (ValidKeyToken(token))
+                                       {
+                                         for (uint32_t const t : types)
+                                           m_name2type.Add(localePrefix + token, t);
+                                       }
+                                     });
     }
   }
 
@@ -227,8 +228,7 @@ void CategoriesHolder::LoadFromStream(std::istream & s)
       }
 
       int8_t const langCode = MapLocaleToInteger(*iter);
-      CHECK(langCode != kUnsupportedLocaleCode,
-            ("Invalid language code:", *iter, "at line:", lineNumber));
+      CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
 
       while (++iter)
       {

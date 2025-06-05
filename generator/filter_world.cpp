@@ -31,9 +31,7 @@ bool FilterWorld::IsAccepted(feature::FeatureBuilder const & fb) const
   if (m_isCityTownVillage(fb.GetTypes()))
     return false;
 
-  return (IsGoodScale(fb) ||
-          IsPopularAttraction(fb, m_popularityFilename) ||
-          IsInternationalAirport(fb));
+  return (IsGoodScale(fb) || IsPopularAttraction(fb, m_popularityFilename) || IsInternationalAirport(fb));
 }
 
 // static

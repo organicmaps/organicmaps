@@ -5,11 +5,9 @@
 
 namespace
 {
-dp::Color const colorList[] = {
-    {255, 0, 0, 255},   {0, 255, 0, 255},   {0, 0, 255, 255},
-    {255, 255, 0, 255}, {0, 255, 255, 255}, {255, 0, 255, 255},
-    {100, 0, 0, 255},   {0, 100, 0, 255},   {0, 0, 100, 255},
-    {100, 100, 0, 255}, {0, 100, 100, 255}, {100, 0, 100, 255}};
+dp::Color const colorList[] = {{255, 0, 0, 255},   {0, 255, 0, 255},   {0, 0, 255, 255},   {255, 255, 0, 255},
+                               {0, 255, 255, 255}, {255, 0, 255, 255}, {100, 0, 0, 255},   {0, 100, 0, 255},
+                               {0, 0, 100, 255},   {100, 100, 0, 255}, {0, 100, 100, 255}, {100, 0, 100, 255}};
 
 dp::Color const cityBoundaryBBColor{255, 0, 0, 255};
 dp::Color const cityBoundaryCBColor{0, 255, 0, 255};
@@ -22,11 +20,13 @@ void DrawLine(Box const & box, dp::Color const & color, df::DrapeApi & drapeApi,
   CHECK(!points.empty(), ());
   points.push_back(points.front());
 
-  points.erase(unique(points.begin(), points.end(), [](m2::PointD const & p1, m2::PointD const & p2)
-  {
-    m2::PointD const delta = p2 - p1;
-    return delta.IsAlmostZero();
-  }), points.end());
+  points.erase(unique(points.begin(), points.end(),
+                      [](m2::PointD const & p1, m2::PointD const & p2)
+                      {
+                        m2::PointD const delta = p2 - p1;
+                        return delta.IsAlmostZero();
+                      }),
+               points.end());
 
   if (points.size() <= 1)
     return;
@@ -38,12 +38,14 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 {
   bool allPointsOutside = true;
   std::vector<m2::PointD> points;
-  ft.ForEachPoint([&](m2::PointD const & pt)
-  {
-    if (rect.IsPointInside(pt))
-      allPointsOutside = false;
-    points.push_back(pt);
-  }, scales::GetUpperScale());
+  ft.ForEachPoint(
+    [&](m2::PointD const & pt)
+    {
+      if (rect.IsPointInside(pt))
+        allPointsOutside = false;
+      points.push_back(pt);
+    },
+    scales::GetUpperScale());
 
   if (!allPointsOutside)
   {
@@ -59,11 +61,14 @@ void VisualizeFeatureInRect(m2::RectD const & rect, FeatureType & ft, df::DrapeA
 
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
 {
-  m_featuresFetcher.ForEachFeature(rect, [this, &rect](FeatureType & ft)
-  {
-    if (routing::IsRoad(feature::TypesHolder(ft)))
-      VisualizeFeatureInRect(rect, ft, m_drapeApi);
-  }, scales::GetUpperScale());
+  m_featuresFetcher.ForEachFeature(
+    rect,
+    [this, &rect](FeatureType & ft)
+    {
+      if (routing::IsRoad(feature::TypesHolder(ft)))
+        VisualizeFeatureInRect(rect, ft, m_drapeApi);
+    },
+    scales::GetUpperScale());
 }
 
 void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
@@ -92,41 +97,43 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
       id.append(", name:").append(name);
     }
 
-    boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
-    {
-      std::string idWithIndex = id;
-      if (i > 0)
-        idWithIndex = id + ", i:" + strings::to_string(i);
+    boundaries.ForEachBoundary(
+      [&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
+      {
+        std::string idWithIndex = id;
+        if (i > 0)
+          idWithIndex = id + ", i:" + strings::to_string(i);
 
-      DrawLine(cityBoundary.m_bbox, cityBoundaryBBColor, m_drapeApi, idWithIndex + ", bb");
-      DrawLine(cityBoundary.m_cbox, cityBoundaryCBColor, m_drapeApi, idWithIndex + ", cb");
-      DrawLine(cityBoundary.m_dbox, cityBoundaryDBColor, m_drapeApi, idWithIndex + ", db");
-    });
+        DrawLine(cityBoundary.m_bbox, cityBoundaryBBColor, m_drapeApi, idWithIndex + ", bb");
+        DrawLine(cityBoundary.m_cbox, cityBoundaryCBColor, m_drapeApi, idWithIndex + ", cb");
+        DrawLine(cityBoundary.m_dbox, cityBoundaryDBColor, m_drapeApi, idWithIndex + ", db");
+      });
   }
 }
 
 void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
 {
   std::map<MwmSet::MwmId, std::unique_ptr<routing::CityRoads>> cityRoads;
-  GetDataSource().ForEachInRect([&](FeatureType & ft)
-  {
-    if (ft.GetGeomType() != feature::GeomType::Line)
-      return;
-
-    auto const & mwmId = ft.GetID().m_mwmId;
-    auto const it = cityRoads.find(mwmId);
-    if (it == cityRoads.cend())
+  GetDataSource().ForEachInRect(
+    [&](FeatureType & ft)
     {
-      MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
-      CHECK(handle.IsAlive(), ());
+      if (ft.GetGeomType() != feature::GeomType::Line)
+        return;
 
-      cityRoads[mwmId] = routing::LoadCityRoads(handle);
-    }
+      auto const & mwmId = ft.GetID().m_mwmId;
+      auto const it = cityRoads.find(mwmId);
+      if (it == cityRoads.cend())
+      {
+        MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
+        CHECK(handle.IsAlive(), ());
 
-    if (cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))
-      VisualizeFeatureInRect(rect, ft, m_drapeApi);
+        cityRoads[mwmId] = routing::LoadCityRoads(handle);
+      }
 
-  }, rect, scales::GetUpperScale());
+      if (cityRoads[mwmId]->IsCityRoad(ft.GetID().m_index))
+        VisualizeFeatureInRect(rect, ft, m_drapeApi);
+    },
+    rect, scales::GetUpperScale());
 }
 
 void Framework::VisualizeCrossMwmTransitionsInRect(m2::RectD const & rect)
@@ -136,52 +143,56 @@ void Framework::VisualizeCrossMwmTransitionsInRect(m2::RectD const & rect)
   std::map<MwmSet::MwmId, ConnectorT> connectors;
   std::map<MwmSet::MwmId, dp::Color> colors;
 
-  GetDataSource().ForEachInRect([&](FeatureType & ft)
-  {
-    if (ft.GetGeomType() != feature::GeomType::Line)
-      return;
-
-    auto const & mwmId = ft.GetID().m_mwmId;
-    auto res = connectors.try_emplace(mwmId, ConnectorT());
-    ConnectorT & connector = res.first->second;
-    if (res.second)
+  GetDataSource().ForEachInRect(
+    [&](FeatureType & ft)
     {
-      MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
-      CHECK(handle.IsAlive(), ());
+      if (ft.GetGeomType() != feature::GeomType::Line)
+        return;
 
-      auto reader = routing::connector::GetReader<CrossMwmID>(handle.GetValue()->m_cont);
-      routing::CrossMwmConnectorBuilder<CrossMwmID> builder(connector);
-      builder.DeserializeTransitions(routing::VehicleType::Car, reader);
-
-      static uint32_t counter = 0;
-      colors.emplace(mwmId, colorList[counter++ % std::size(colorList)]);
-    }
-
-    std::vector<uint32_t> transitSegments;
-    connector.ForEachTransitSegmentId(ft.GetID().m_index, [&transitSegments](uint32_t seg)
-    {
-      transitSegments.push_back(seg);
-      return false;
-    });
-
-    if (!transitSegments.empty())
-    {
-      auto const color = colors.find(mwmId)->second;
-
-      int segIdx = -1;
-      m2::PointD prevPt;
-      ft.ForEachPoint([&](m2::PointD const & pt)
+      auto const & mwmId = ft.GetID().m_mwmId;
+      auto res = connectors.try_emplace(mwmId, ConnectorT());
+      ConnectorT & connector = res.first->second;
+      if (res.second)
       {
-        if (base::IsExist(transitSegments, segIdx))
-        {
-          GetDrapeApi().AddLine(DebugPrint(ft.GetID()) + ", " + std::to_string(segIdx),
-                                df::DrapeApiLineData({prevPt, pt}, color).Width(10.0f));
-        }
+        MwmSet::MwmHandle handle = m_featuresFetcher.GetDataSource().GetMwmHandleById(mwmId);
+        CHECK(handle.IsAlive(), ());
 
-        prevPt = pt;
-        ++segIdx;
-      }, scales::GetUpperScale());
-    }
+        auto reader = routing::connector::GetReader<CrossMwmID>(handle.GetValue()->m_cont);
+        routing::CrossMwmConnectorBuilder<CrossMwmID> builder(connector);
+        builder.DeserializeTransitions(routing::VehicleType::Car, reader);
 
-  }, rect, scales::GetUpperScale());
+        static uint32_t counter = 0;
+        colors.emplace(mwmId, colorList[counter++ % std::size(colorList)]);
+      }
+
+      std::vector<uint32_t> transitSegments;
+      connector.ForEachTransitSegmentId(ft.GetID().m_index,
+                                        [&transitSegments](uint32_t seg)
+                                        {
+                                          transitSegments.push_back(seg);
+                                          return false;
+                                        });
+
+      if (!transitSegments.empty())
+      {
+        auto const color = colors.find(mwmId)->second;
+
+        int segIdx = -1;
+        m2::PointD prevPt;
+        ft.ForEachPoint(
+          [&](m2::PointD const & pt)
+          {
+            if (base::IsExist(transitSegments, segIdx))
+            {
+              GetDrapeApi().AddLine(DebugPrint(ft.GetID()) + ", " + std::to_string(segIdx),
+                                    df::DrapeApiLineData({prevPt, pt}, color).Width(10.0f));
+            }
+
+            prevPt = pt;
+            ++segIdx;
+          },
+          scales::GetUpperScale());
+      }
+    },
+    rect, scales::GetUpperScale());
 }

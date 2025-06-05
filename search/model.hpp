@@ -42,10 +42,7 @@ public:
     TYPE_COUNT
   };
 
-  static bool IsLocalityType(Type const type)
-  {
-    return type >= TYPE_VILLAGE && type <= TYPE_COUNTRY;
-  }
+  static bool IsLocalityType(Type const type) { return type >= TYPE_VILLAGE && type <= TYPE_COUNTRY; }
 
   static bool IsPoi(Type const type) { return type == TYPE_SUBPOI || type == TYPE_COMPLEX_POI; }
   static bool IsPoiOrBuilding(Type const type) { return IsPoi(type) || type == TYPE_BUILDING; }

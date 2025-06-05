@@ -26,29 +26,24 @@ namespace routing
 class TransitWorldGraph final : public WorldGraph
 {
 public:
-  TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
-                    std::unique_ptr<IndexGraphLoader> indexLoader,
-                    std::unique_ptr<TransitGraphLoader> transitLoader,
-                    std::shared_ptr<EdgeEstimator> estimator);
+  TransitWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> indexLoader,
+                    std::unique_ptr<TransitGraphLoader> transitLoader, std::shared_ptr<EdgeEstimator> estimator);
 
   // WorldGraph overrides:
   ~TransitWorldGraph() override = default;
 
   using WorldGraph::GetEdgeList;
 
-  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                   bool useRoutingOptions, bool useAccessConditional,
-                   SegmentEdgeListT & edges) override;
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing, bool useRoutingOptions,
+                   bool useAccessConditional, SegmentEdgeListT & edges) override;
   // Dummy method which shouldn't be called.
-  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
-                   Segment const & segment, bool isOutgoing, bool useAccessConditional,
-                   JointEdgeListT & edges,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & segment,
+                   bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges,
                    WeightListT & parentWeights) override;
 
   bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override
   {
-    return weight.GetWeight() - weight.GetTransitTime() <=
-           MaxPedestrianTimeSec(startToFinishDistanceM);
+    return weight.GetWeight() - weight.GetTransitTime() <= MaxPedestrianTimeSec(startToFinishDistanceM);
   }
   LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) override;
   ms::LatLon const & GetPoint(Segment const & segment, bool front) override;
@@ -71,10 +66,7 @@ public:
 
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
 
-  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
-  {
-    return m_indexLoader->GetIndexGraph(numMwmId);
-  }
+  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_indexLoader->GetIndexGraph(numMwmId); }
 
 private:
   // WorldGraph overrides:
@@ -88,8 +80,8 @@ private:
   }
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
-  void AddRealEdges(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                    bool useRoutingOptions, SegmentEdgeListT & edges);
+  void AddRealEdges(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing, bool useRoutingOptions,
+                    SegmentEdgeListT & edges);
   TransitGraph & GetTransitGraph(NumMwmId mwmId);
 
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;

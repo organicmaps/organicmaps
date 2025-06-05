@@ -25,7 +25,6 @@ public:
   bool IsSupported(ExtensionName extName) const;
 
 private:
-
   void CheckExtension(ExtensionName enumName, std::string const & extName);
   void SetExtension(ExtensionName enumName, bool isSupported);
 

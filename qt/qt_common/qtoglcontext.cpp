@@ -67,22 +67,18 @@ void QtRenderOGLContext::Resize(int w, int h)
 
   if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
   {
-    m_frameRect =
-      QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+    m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
     return;
   }
 
   m_width = nw;
   m_height = nh;
-  m_frameRect =
-    QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+  m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
 
-  m_backFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
-                                                           QOpenGLFramebufferObject::Depth);
-  m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
-                                                            QOpenGLFramebufferObject::Depth);
-  m_acquiredFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
-                                                               QOpenGLFramebufferObject::Depth);
+  m_backFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height), QOpenGLFramebufferObject::Depth);
+  m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height), QOpenGLFramebufferObject::Depth);
+  m_acquiredFrame =
+    std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height), QOpenGLFramebufferObject::Depth);
 }
 
 bool QtRenderOGLContext::AcquireFrame()
@@ -103,10 +99,7 @@ bool QtRenderOGLContext::AcquireFrame()
   return true;
 }
 
-QRectF const & QtRenderOGLContext::GetTexRect() const
-{
-  return m_acquiredFrameRect;
-}
+QRectF const & QtRenderOGLContext::GetTexRect() const { return m_acquiredFrameRect; }
 
 GLuint QtRenderOGLContext::GetTextureHandle() const
 {
@@ -118,7 +111,8 @@ GLuint QtRenderOGLContext::GetTextureHandle() const
 }
 
 QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
-  : m_surface(surface), m_ctx(std::make_unique<QOpenGLContext>())
+  : m_surface(surface)
+  , m_ctx(std::make_unique<QOpenGLContext>())
 {
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);
@@ -126,24 +120,12 @@ QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenS
   CHECK(m_ctx->isValid(), ());
 }
 
-void QtUploadOGLContext::MakeCurrent()
-{
-  m_ctx->makeCurrent(m_surface);
-}
+void QtUploadOGLContext::MakeCurrent() { m_ctx->makeCurrent(m_surface); }
 
-void QtUploadOGLContext::DoneCurrent()
-{
-  m_ctx->doneCurrent();
-}
+void QtUploadOGLContext::DoneCurrent() { m_ctx->doneCurrent(); }
 
-void QtUploadOGLContext::Present()
-{
-  CHECK(false, ());
-}
+void QtUploadOGLContext::Present() { CHECK(false, ()); }
 
-void QtUploadOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer>)
-{
-  CHECK(false, ());
-}
+void QtUploadOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer>) { CHECK(false, ()); }
 }  // namespace common
 }  // namespace qt

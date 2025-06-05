@@ -53,7 +53,10 @@ class CheckRange
   TestResultVector const & m_results;
 
 public:
-  explicit CheckRange(TestResultVector const & results) : m_idx(0), m_results(results) {}
+  explicit CheckRange(TestResultVector const & results)
+    : m_idx(0)
+    , m_results(results)
+  {}
 
   ~CheckRange() { TEST_EQUAL(m_idx, m_results.size(), ()); }
 
@@ -64,7 +67,7 @@ public:
     ++m_idx;
   }
 };
-}
+}  // namespace
 
 UNIT_TEST(SearchStringTokensIntersectionRange)
 {
@@ -120,7 +123,7 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
 
   for (TestData const & data : tests)
   {
-    search::SearchStringTokensIntersectionRanges(
-        data.m_input, data.m_lowTokens.begin(), data.m_lowTokens.end(), CheckRange(data.m_results));
+    search::SearchStringTokensIntersectionRanges(data.m_input, data.m_lowTokens.begin(), data.m_lowTokens.end(),
+                                                 CheckRange(data.m_results));
   }
 }

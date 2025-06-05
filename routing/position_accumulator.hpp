@@ -40,4 +40,4 @@ private:
   std::deque<m2::PointD> m_points;
   double m_trackLengthM = 0.0;
 };
-}  // routing
+}  // namespace routing

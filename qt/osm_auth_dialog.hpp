@@ -15,4 +15,4 @@ private slots:
   void OnAction();
 };
 
-} // namespace qt
+}  // namespace qt

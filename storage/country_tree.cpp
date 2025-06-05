@@ -12,7 +12,6 @@
 
 #include <algorithm>
 
-
 namespace storage
 {
 using namespace std;
@@ -28,17 +27,13 @@ class StoreInterface
 {
 public:
   virtual ~StoreInterface() = default;
-  virtual Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize,
-                                        string const & mapSha1, size_t depth,
+  virtual Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, string const & mapSha1, size_t depth,
                                         CountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(CountryId const & newId, CountryId const & oldId) = 0;
   virtual void InsertAffiliation(CountryId const & countryId, string const & affilation) = 0;
   virtual void InsertCountryNameSynonym(CountryId const & countryId, string const & synonym) = 0;
   virtual void InsertMwmTopCityGeoId(CountryId const & countryId, uint64_t const & geoObjectId) {}
-  virtual void InsertTopCountryGeoIds(CountryId const & countryId,
-                                      vector<uint64_t> const & geoObjectIds)
-  {
-  }
+  virtual void InsertTopCountryGeoIds(CountryId const & countryId, vector<uint64_t> const & geoObjectIds) {}
   virtual OldMwmMapping GetMapping() const = 0;
 };
 
@@ -52,16 +47,14 @@ class StoreCountries : public StoreInterface
   OldMwmMapping m_idsMapping;
 
 public:
-  StoreCountries(CountryTree & countries, Affiliations & affiliations,
-                 CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
-                 MwmTopCountryGeoIds & mwmTopCountryGeoIds)
+  StoreCountries(CountryTree & countries, Affiliations & affiliations, CountryNameSynonyms & countryNameSynonyms,
+                 MwmTopCityGeoIds & mwmTopCityGeoIds, MwmTopCountryGeoIds & mwmTopCountryGeoIds)
     : m_countries(countries)
     , m_affiliations(affiliations)
     , m_countryNameSynonyms(countryNameSynonyms)
     , m_mwmTopCityGeoIds(mwmTopCityGeoIds)
     , m_mwmTopCountryGeoIds(mwmTopCountryGeoIds)
-  {
-  }
+  {}
   ~StoreCountries()
   {
     for (auto & entry : m_affiliations)
@@ -69,8 +62,8 @@ public:
   }
 
   // StoreInterface overrides:
-  Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, string const & mapSha1,
-                                size_t depth, CountryId const & parent) override
+  Country * InsertToCountryTree(CountryId const & id, MwmSize mapSize, string const & mapSha1, size_t depth,
+                                CountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
@@ -110,8 +103,7 @@ public:
     m_mwmTopCityGeoIds.emplace(countryId, std::move(id));
   }
 
-  void InsertTopCountryGeoIds(CountryId const & countryId,
-                              vector<uint64_t> const & geoObjectIds) override
+  void InsertTopCountryGeoIds(CountryId const & countryId, vector<uint64_t> const & geoObjectIds) override
   {
     ASSERT(!countryId.empty(), ());
     ASSERT(!geoObjectIds.empty(), ());
@@ -128,13 +120,12 @@ class StoreFile2Info : public StoreInterface
   map<string, CountryInfo> & m_file2info;
 
 public:
-  explicit StoreFile2Info(map<string, CountryInfo> & file2info) : m_file2info(file2info)
-  {
-  }
+  explicit StoreFile2Info(map<string, CountryInfo> & file2info)
+    : m_file2info(file2info)
+  {}
   // StoreInterface overrides:
-  Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */,
-                                string const & /* mapSha1 */, size_t /* depth */,
-                                CountryId const & /* parent */) override
+  Country * InsertToCountryTree(CountryId const & id, MwmSize /* mapSize */, string const & /* mapSha1 */,
+                                size_t /* depth */, CountryId const & /* parent */) override
   {
     CountryInfo info(id);
     m_file2info[id] = std::move(info);
@@ -143,15 +134,9 @@ public:
 
   void InsertOldMwmMapping(CountryId const & /* newId */, CountryId const & /* oldId */) override {}
 
-  void InsertAffiliation(CountryId const & /* countryId */,
-                         string const & /* affilation */) override
-  {
-  }
+  void InsertAffiliation(CountryId const & /* countryId */, string const & /* affilation */) override {}
 
-  void InsertCountryNameSynonym(CountryId const & /* countryId */,
-                                string const & /* synonym */) override
-  {
-  }
+  void InsertCountryNameSynonym(CountryId const & /* countryId */, string const & /* synonym */) override {}
 
   OldMwmMapping GetMapping() const override
   {
@@ -236,8 +221,7 @@ void CountryTree::Node::ForEachAncestorExceptForTheRoot(CountryTree::Node::NodeC
   m_parent->ForEachAncestorExceptForTheRoot(f);
 }
 
-void CountryTree::Node::ForEachAncestorExceptForTheRoot(
-    CountryTree::Node::NodeCallback const & f) const
+void CountryTree::Node::ForEachAncestorExceptForTheRoot(CountryTree::Node::NodeCallback const & f) const
 {
   if (m_parent == nullptr || m_parent->m_parent == nullptr)
     return;
@@ -332,8 +316,7 @@ CountryTree::Node const * CountryTree::FindFirstLeaf(CountryId const & key) cons
   return nullptr;
 }
 
-MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & parent,
-                              StoreInterface & store)
+MwmSubtreeAttrs LoadGroupImpl(size_t depth, json_t * node, CountryId const & parent, StoreInterface & store)
 {
   CountryId id;
   FromJSONObject(node, "id", id);
@@ -408,10 +391,8 @@ bool LoadCountriesImpl(string const & jsonBuffer, StoreInterface & store)
   }
 }
 
-int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries,
-                                Affiliations & affiliations,
-                                CountryNameSynonyms & countryNameSynonyms,
-                                MwmTopCityGeoIds & mwmTopCityGeoIds,
+int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countries, Affiliations & affiliations,
+                                CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
                                 MwmTopCountryGeoIds & mwmTopCountryGeoIds)
 {
   countries.Clear();
@@ -423,8 +404,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
     base::Json root(jsonBuffer.c_str());
     FromJSONObject(root.get(), "v", version);
 
-    StoreCountries store(countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds,
-                         mwmTopCountryGeoIds);
+    StoreCountries store(countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds, mwmTopCountryGeoIds);
     if (!LoadCountriesImpl(jsonBuffer, store))
       return -1;
   }
@@ -444,16 +424,13 @@ unique_ptr<Reader> GetReaderImpl(Platform & pl, string const & file, string cons
     return pl.GetReader(file, scope);
   }
   catch (RootException const &)
-  {
-  }
+  {}
   return nullptr;
 }
-} // namespace
+}  // namespace
 
-int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
-                              Affiliations & affiliations,
-                              CountryNameSynonyms & countryNameSynonyms,
-                              MwmTopCityGeoIds & mwmTopCityGeoIds,
+int64_t LoadCountriesFromFile(string const & path, CountryTree & countries, Affiliations & affiliations,
+                              CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
                               MwmTopCountryGeoIds & mwmTopCountryGeoIds)
 {
   string json;
@@ -468,8 +445,8 @@ int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
   if (reader)
   {
     reader->ReadAsString(json);
-    version = LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
-                                      mwmTopCityGeoIds, mwmTopCountryGeoIds);
+    version = LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds,
+                                      mwmTopCountryGeoIds);
   }
 
   reader = GetReaderImpl(pl, path, "w");
@@ -482,8 +459,7 @@ int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
     MwmTopCountryGeoIds newCountryIds;
 
     reader->ReadAsString(json);
-    int64_t const newVersion = LoadCountriesFromBuffer(json, newCountries, newAffs, newSyms,
-                                                       newCityIds, newCountryIds);
+    int64_t const newVersion = LoadCountriesFromBuffer(json, newCountries, newAffs, newSyms, newCityIds, newCountryIds);
 
     if (newVersion > version)
     {

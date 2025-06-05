@@ -5,7 +5,6 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-
 namespace search
 {
 using namespace std;
@@ -32,7 +31,8 @@ void GetPathToRoot(storage::CountryId const & id, storage::CountryTree const & c
   {
     fn(cur->Value().Name());
     cur = &cur->Parent();
-  } while (!cur->IsRoot());
+  }
+  while (!cur->IsRoot());
 }
 }  // namespace
 
@@ -43,8 +43,8 @@ void RegionInfoGetter::LoadCountriesTree()
   CountryNameSynonyms countryNameSynonyms;
   MwmTopCityGeoIds mwmTopCityGeoIds;
   MwmTopCountryGeoIds mwmTopCountryGeoIds;
-  LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms,
-                        mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds,
+                        mwmTopCountryGeoIds);
 }
 
 void RegionInfoGetter::SetLocale(string const & locale)
@@ -55,10 +55,7 @@ void RegionInfoGetter::SetLocale(string const & locale)
 void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id, NameBufferT & nameParts) const
 {
   buffer_vector<storage::CountryId const *, 4> ids;
-  GetPathToRoot(id, m_countries, [&ids](storage::CountryId const & id)
-  {
-    ids.push_back(&id);
-  });
+  GetPathToRoot(id, m_countries, [&ids](storage::CountryId const & id) { ids.push_back(&id); });
 
   if (!ids.empty())
   {

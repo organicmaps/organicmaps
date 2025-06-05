@@ -17,20 +17,11 @@ BaseInterpolator::BaseInterpolator(double duration, double delay)
   InterpolationHolder::Instance().RegisterInterpolator(this);
 }
 
-BaseInterpolator::~BaseInterpolator()
-{
-  InterpolationHolder::Instance().DeregisterInterpolator(this);
-}
+BaseInterpolator::~BaseInterpolator() { InterpolationHolder::Instance().DeregisterInterpolator(this); }
 
-bool BaseInterpolator::IsFinished() const
-{
-  return m_elapsedTime > (m_duration + m_delay);
-}
+bool BaseInterpolator::IsFinished() const { return m_elapsedTime > (m_duration + m_delay); }
 
-void BaseInterpolator::Advance(double elapsedSeconds)
-{
-  m_elapsedTime += elapsedSeconds;
-}
+void BaseInterpolator::Advance(double elapsedSeconds) { m_elapsedTime += elapsedSeconds; }
 
 double BaseInterpolator::GetT() const
 {
@@ -40,13 +31,7 @@ double BaseInterpolator::GetT() const
   return std::max(m_elapsedTime - m_delay, 0.0) / m_duration;
 }
 
-double BaseInterpolator::GetElapsedTime() const
-{
-  return m_elapsedTime;
-}
+double BaseInterpolator::GetElapsedTime() const { return m_elapsedTime; }
 
-double BaseInterpolator::GetDuration() const
-{
-  return m_duration;
-}
+double BaseInterpolator::GetDuration() const { return m_duration; }
 }  // namespace df

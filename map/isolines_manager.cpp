@@ -17,10 +17,7 @@ IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const 
   CHECK(m_getMwmsByRectFn != nullptr, ());
 }
 
-IsolinesManager::IsolinesState IsolinesManager::GetState() const
-{
-  return m_state;
-}
+IsolinesManager::IsolinesState IsolinesManager::GetState() const { return m_state; }
 
 void IsolinesManager::SetStateListener(IsolinesStateChangedFn const & onStateChangedFn)
 {
@@ -43,8 +40,8 @@ IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId co
   isolines::IsolinesInfo info;
   if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
   {
-    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude,
-                "altitude step", info.m_altStep));
+    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude, "altitude step",
+                info.m_altStep));
     status = Availability::Available;
     quality = info.GetQuality();
   }
@@ -52,10 +49,7 @@ IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId co
   return m_mwmCache.emplace(id, Info(status, quality)).first->second;
 }
 
-void IsolinesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
-{
-  m_drapeEngine.Set(engine);
-}
+void IsolinesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine) { m_drapeEngine.Set(engine); }
 
 void IsolinesManager::SetEnabled(bool enabled)
 {
@@ -72,10 +66,7 @@ void IsolinesManager::SetEnabled(bool enabled)
   }
 }
 
-bool IsolinesManager::IsEnabled() const
-{
-  return m_state != IsolinesState::Disabled;
-}
+bool IsolinesManager::IsEnabled() const { return m_state != IsolinesState::Disabled; }
 
 bool IsolinesManager::IsVisible() const
 {

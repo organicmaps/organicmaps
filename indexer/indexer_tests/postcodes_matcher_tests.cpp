@@ -2,7 +2,6 @@
 
 #include "indexer/postcodes_matcher.hpp"
 
-
 namespace postcodes_matcher_test
 {
 using namespace search;
@@ -39,4 +38,4 @@ UNIT_TEST(PostcodesMatcher_Smoke)
   TEST(!LooksLikePostcode("39 с 79", true /* handleAsPrefix */), ());
 }
 
-} // namespace postcodes_matcher_test
+}  // namespace postcodes_matcher_test

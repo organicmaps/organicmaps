@@ -10,16 +10,13 @@ using namespace std;
 
 namespace platform
 {
-HttpClient::HttpClient(string const & url) : m_urlRequested(url)
-{
-}
+HttpClient::HttpClient(string const & url)
+  : m_urlRequested(url)
+{}
 
 bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
 {
-  static auto const simpleChecker = [](HttpClient const & request)
-  {
-    return request.ErrorCode() == 200;
-  };
+  static auto const simpleChecker = [](HttpClient const & request) { return request.ErrorCode() == 200; };
 
   if (checker == nullptr)
     checker = simpleChecker;
@@ -93,40 +90,19 @@ HttpClient & HttpClient::SetRawHeaders(Headers const & headers)
   return *this;
 }
 
-void HttpClient::SetTimeout(double timeoutSec)
-{
-  m_timeoutSec = timeoutSec;
-}
+void HttpClient::SetTimeout(double timeoutSec) { m_timeoutSec = timeoutSec; }
 
-string const & HttpClient::UrlRequested() const
-{
-  return m_urlRequested;
-}
+string const & HttpClient::UrlRequested() const { return m_urlRequested; }
 
-string const & HttpClient::UrlReceived() const
-{
-  return m_urlReceived;
-}
+string const & HttpClient::UrlReceived() const { return m_urlReceived; }
 
-bool HttpClient::WasRedirected() const
-{
-  return m_urlRequested != m_urlReceived;
-}
+bool HttpClient::WasRedirected() const { return m_urlRequested != m_urlReceived; }
 
-int HttpClient::ErrorCode() const
-{
-  return m_errorCode;
-}
+int HttpClient::ErrorCode() const { return m_errorCode; }
 
-string const & HttpClient::ServerResponse() const
-{
-  return m_serverResponse;
-}
+string const & HttpClient::ServerResponse() const { return m_serverResponse; }
 
-string const & HttpClient::HttpMethod() const
-{
-  return m_httpMethod;
-}
+string const & HttpClient::HttpMethod() const { return m_httpMethod; }
 
 string HttpClient::CombinedCookies() const
 {
@@ -156,15 +132,9 @@ string HttpClient::CookieByName(string name) const
   return {};
 }
 
-void HttpClient::LoadHeaders(bool loadHeaders)
-{
-  m_loadHeaders = loadHeaders;
-}
+void HttpClient::LoadHeaders(bool loadHeaders) { m_loadHeaders = loadHeaders; }
 
-HttpClient::Headers const & HttpClient::GetHeaders() const
-{
-  return m_headers;
-}
+HttpClient::Headers const & HttpClient::GetHeaders() const { return m_headers; }
 
 // static
 string HttpClient::NormalizeServerCookies(string && cookies)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "drape/texture.hpp"
 #include "drape/color.hpp"
 #include "drape/dynamic_texture.hpp"
+#include "drape/texture.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -14,7 +14,10 @@ namespace dp
 class ColorKey : public Texture::Key
 {
 public:
-  explicit ColorKey(Color color) : Texture::Key(), m_color(color) {}
+  explicit ColorKey(Color color)
+    : Texture::Key()
+    , m_color(color)
+  {}
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::Color; }
 
   Color m_color;
@@ -23,7 +26,9 @@ public:
 class ColorResourceInfo : public Texture::ResourceInfo
 {
 public:
-  explicit ColorResourceInfo(m2::RectF const & texRect) : Texture::ResourceInfo(texRect) { }
+  explicit ColorResourceInfo(m2::RectF const & texRect)
+    : Texture::ResourceInfo(texRect)
+  {}
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::Color; }
 };
 
@@ -62,6 +67,7 @@ private:
 class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::ResourceType::Color>
 {
   using TBase = DynamicTexture<ColorPalette, ColorKey, Texture::ResourceType::Color>;
+
 public:
   ColorTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_palette(size)

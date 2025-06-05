@@ -27,7 +27,9 @@ std::string_view kNightMode = "NightMode";
 std::string_view kDonateUrl = "DonateUrl";
 std::string_view kNY = "NY";
 
-StringStorage::StringStorage() : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)) {}
+StringStorage::StringStorage()
+  : StringStorageBase(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME))
+{}
 
 StringStorage & StringStorage::Instance()
 {
@@ -53,7 +55,7 @@ bool FromString<string>(string const & strIn, string & strOut)
 namespace impl
 {
 template <class T, size_t N>
-bool FromStringArray(string const & s, T(&arr)[N])
+bool FromStringArray(string const & s, T (&arr)[N])
 {
   istringstream in(s);
   size_t count = 0;
@@ -392,10 +394,7 @@ uint64_t UsageStats::TimeSinceEpoch()
   return duration_cast<seconds>(system_clock::now().time_since_epoch()).count();
 }
 
-void UsageStats::EnterForeground()
-{
-  m_enterForegroundTime = TimeSinceEpoch();
-}
+void UsageStats::EnterForeground() { m_enterForegroundTime = TimeSinceEpoch(); }
 
 void UsageStats::EnterBackground()
 {
@@ -407,7 +406,7 @@ void UsageStats::EnterBackground()
     return;
 
   // Safe check if uninitialized. Possible when entering background on DownloadResourcesLegacyActivity.
-  //ASSERT(m_enterForegroundTime > 0, ());
+  // ASSERT(m_enterForegroundTime > 0, ());
   if (m_enterForegroundTime == 0)
     return;
 
@@ -430,13 +429,13 @@ void UsageStats::EnterBackground()
 
 bool UsageStats::IsLoyalUser() const
 {
-  #ifdef DEBUG
+#ifdef DEBUG
   uint32_t constexpr kMinTotalForegroundTimeout = 30;
   uint32_t constexpr kMinSessionsCount = 3;
-  #else
-  uint32_t constexpr kMinTotalForegroundTimeout = 60 * 30; // 30 min
+#else
+  uint32_t constexpr kMinTotalForegroundTimeout = 60 * 30;  // 30 min
   uint32_t constexpr kMinSessionsCount = 5;
-  #endif
+#endif
   return m_sessionsCount >= kMinSessionsCount && m_totalForegroundTime >= kMinTotalForegroundTimeout;
 }
 

@@ -5,7 +5,6 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-
 namespace search
 {
 // static
@@ -111,8 +110,5 @@ std::string ToString(BaseContext::TokenType type)
   UNREACHABLE();
 }
 
-std::string DebugPrint(BaseContext::TokenType type)
-{
-  return ToString(type);
-}
+std::string DebugPrint(BaseContext::TokenType type) { return ToString(type); }
 }  // namespace search

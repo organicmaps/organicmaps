@@ -20,20 +20,11 @@ UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
 {}
 
 // static
-UserMark::Type UserMark::GetMarkType(kml::MarkId id)
-{
-  return UserMarkIdStorage::GetMarkType(id);
-}
+UserMark::Type UserMark::GetMarkType(kml::MarkId id) { return UserMarkIdStorage::GetMarkType(id); }
 
-m2::PointD const & UserMark::GetPivot() const
-{
-  return m_ptOrg;
-}
+m2::PointD const & UserMark::GetPivot() const { return m_ptOrg; }
 
-ms::LatLon UserMark::GetLatLon() const
-{
-  return mercator::ToLatLon(m_ptOrg);
-}
+ms::LatLon UserMark::GetLatLon() const { return mercator::ToLatLon(m_ptOrg); }
 
 StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::Type::STATIC)
@@ -49,7 +40,7 @@ MyPositionMarkPoint::MyPositionMarkPoint(m2::PointD const & ptOrg)
   : StaticMarkPoint(ptOrg)
 {}
 
-DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)
+DebugMarkPoint::DebugMarkPoint(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::Type::DEBUG_MARK)
 {}
 

@@ -144,10 +144,7 @@ VkFormat GetAttributeFormat(uint8_t componentCount, glConst componentType)
   return VK_FORMAT_UNDEFINED;
 }
 
-std::string GetDumpFilePath()
-{
-  return base::JoinPath(GetPlatform().TmpDir(), kDumpFileName);
-}
+std::string GetDumpFilePath() { return base::JoinPath(GetPlatform().TmpDir(), kDumpFileName); }
 }  // namespace
 
 VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode)
@@ -177,8 +174,7 @@ VulkanPipeline::VulkanPipeline(VkDevice device, uint32_t appVersionCode)
     }
     catch (FileReader::Exception const & exception)
     {
-      LOG(LWARNING, ("Exception while reading file:", dumpFilePath,
-        "reason:", exception.what()));
+      LOG(LWARNING, ("Exception while reading file:", dumpFilePath, "reason:", exception.what()));
     }
   }
 
@@ -230,16 +226,14 @@ void VulkanPipeline::Dump(VkDevice device)
         }
         catch (FileWriter::Exception const & exception)
         {
-          LOG(LWARNING, ("Exception while writing file:", dumpFilePath,
-            "reason:", exception.what()));
+          LOG(LWARNING, ("Exception while writing file:", dumpFilePath, "reason:", exception.what()));
         }
         m_isChanged = false;
       }
     }
     else
     {
-      LOG(LWARNING, ("Maximum pipeline cache size exceeded (", cacheSize, "/", kMaxCacheSizeInBytes,
-                     "bytes)"));
+      LOG(LWARNING, ("Maximum pipeline cache size exceeded (", cacheSize, "/", kMaxCacheSizeInBytes, "bytes)"));
     }
   }
 }
@@ -299,8 +293,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
 
   // Blending.
   VkPipelineColorBlendAttachmentState pipelineColorBlendAttachmentState = {};
-  pipelineColorBlendAttachmentState.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
-    VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+  pipelineColorBlendAttachmentState.colorWriteMask =
+    VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
   pipelineColorBlendAttachmentState.blendEnable = key.m_blendingEnabled ? VK_TRUE : VK_FALSE;
   if (key.m_blendingEnabled)
   {
@@ -328,9 +322,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
   // Dynamic.
-  static std::array<VkDynamicState, 4> dynamicState = {
-    VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_LINE_WIDTH,
-    VK_DYNAMIC_STATE_STENCIL_REFERENCE};
+  static std::array<VkDynamicState, 4> dynamicState = {VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR,
+                                                       VK_DYNAMIC_STATE_LINE_WIDTH, VK_DYNAMIC_STATE_STENCIL_REFERENCE};
   VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
   dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
   dynamicStateCreateInfo.pDynamicStates = dynamicState.data();
@@ -356,8 +349,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
       BindingDecl const & bindingDecl = key.m_bindingInfo[i].GetBindingDecl(j);
       attributeDescriptions[bindingCounter].location = bindingCounter;
       attributeDescriptions[bindingCounter].binding = static_cast<uint32_t>(i);
-      attributeDescriptions[bindingCounter].format = GetAttributeFormat(bindingDecl.m_componentCount,
-                                                                        bindingDecl.m_componentType);
+      attributeDescriptions[bindingCounter].format =
+        GetAttributeFormat(bindingDecl.m_componentCount, bindingDecl.m_componentType);
       attributeDescriptions[bindingCounter].offset = bindingDecl.m_offset;
 
       bindingCounter++;
@@ -378,8 +371,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   if (key.m_depthStencil.m_depthEnabled)
   {
     depthStencilState.depthWriteEnable = VK_TRUE;
-    depthStencilState.depthCompareOp =
-      DecodeTestFunction(static_cast<uint8_t>(key.m_depthStencil.m_depthFunction));
+    depthStencilState.depthCompareOp = DecodeTestFunction(static_cast<uint8_t>(key.m_depthStencil.m_depthFunction));
   }
   else
   {
@@ -394,8 +386,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
       DecodeTestFunction(GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontFunctionByte));
     depthStencilState.front.failOp =
       DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontFailActionByte));
-    depthStencilState.front.depthFailOp = DecodeStencilAction(
-      GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontDepthFailActionByte));
+    depthStencilState.front.depthFailOp =
+      DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontDepthFailActionByte));
     depthStencilState.front.passOp =
       DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilFrontPassActionByte));
     depthStencilState.front.writeMask = 0xffffffff;
@@ -406,8 +398,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
       DecodeTestFunction(GetStateByte(key.m_depthStencil.m_stencil, kStencilBackFunctionByte));
     depthStencilState.back.failOp =
       DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilBackFailActionByte));
-    depthStencilState.back.depthFailOp = DecodeStencilAction(
-      GetStateByte(key.m_depthStencil.m_stencil, kStencilBackDepthFailActionByte));
+    depthStencilState.back.depthFailOp =
+      DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilBackDepthFailActionByte));
     depthStencilState.back.passOp =
       DecodeStencilAction(GetStateByte(key.m_depthStencil.m_stencil, kStencilBackPassActionByte));
     depthStencilState.back.writeMask = 0xffffffff;
@@ -442,8 +434,8 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   pipelineCreateInfo.pStages = shaders.data();
 
   VkPipeline pipeline;
-  auto const result = vkCreateGraphicsPipelines(device, m_vulkanPipelineCache, 1,
-                                                &pipelineCreateInfo, nullptr, &pipeline);
+  auto const result =
+    vkCreateGraphicsPipelines(device, m_vulkanPipelineCache, 1, &pipelineCreateInfo, nullptr, &pipeline);
   if (result == VK_INCOMPLETE)
   {
     // Some Adreno GPUs return this not standard compliant code.
@@ -463,21 +455,15 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   return pipeline;
 }
 
-void VulkanPipeline::DepthStencilKey::SetDepthTestEnabled(bool enabled)
-{
-  m_depthEnabled = enabled;
-}
-  
+void VulkanPipeline::DepthStencilKey::SetDepthTestEnabled(bool enabled) { m_depthEnabled = enabled; }
+
 void VulkanPipeline::DepthStencilKey::SetDepthTestFunction(TestFunction depthFunction)
 {
   m_depthFunction = depthFunction;
 }
-  
-void VulkanPipeline::DepthStencilKey::SetStencilTestEnabled(bool enabled)
-{
-  m_stencilEnabled = enabled;
-}
-  
+
+void VulkanPipeline::DepthStencilKey::SetStencilTestEnabled(bool enabled) { m_stencilEnabled = enabled; }
+
 void VulkanPipeline::DepthStencilKey::SetStencilFunction(StencilFace face, TestFunction stencilFunction)
 {
   switch (face)
@@ -494,7 +480,7 @@ void VulkanPipeline::DepthStencilKey::SetStencilFunction(StencilFace face, TestF
     break;
   }
 }
-  
+
 void VulkanPipeline::DepthStencilKey::SetStencilActions(StencilFace face, StencilAction stencilFailAction,
                                                         StencilAction depthFailAction, StencilAction passAction)
 {
@@ -525,13 +511,13 @@ bool VulkanPipeline::DepthStencilKey::operator<(DepthStencilKey const & rhs) con
 {
   if (m_depthEnabled != rhs.m_depthEnabled)
     return m_depthEnabled < rhs.m_depthEnabled;
-  
+
   if (m_stencilEnabled != rhs.m_stencilEnabled)
     return m_stencilEnabled < rhs.m_stencilEnabled;
-  
+
   if (m_depthFunction != rhs.m_depthFunction)
     return m_depthFunction < rhs.m_depthFunction;
-  
+
   return m_stencil < rhs.m_stencil;
 }
 
@@ -548,7 +534,7 @@ bool VulkanPipeline::PipelineKey::operator<(PipelineKey const & rhs) const
 
   if (m_program != rhs.m_program)
     return m_program < rhs.m_program;
-  
+
   if (m_depthStencil != rhs.m_depthStencil)
     return m_depthStencil < rhs.m_depthStencil;
 

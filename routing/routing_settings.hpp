@@ -12,12 +12,10 @@ struct RoutingSettings
   friend RoutingSettings GetRoutingSettings(VehicleType vehicleType);
 
 private:
-  RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
-                  double matchingThresholdM, bool showTurnAfterNext,
-                  double minSpeedForRouteRebuildMpS, double finishToleranceM,
-                  size_t maxOutgoingPointsCount, double minOutgoingDistMeters,
-                  size_t maxIngoingPointsCount, double minIngoingDistMeters,
-                  size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters);
+  RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection, double matchingThresholdM,
+                  bool showTurnAfterNext, double minSpeedForRouteRebuildMpS, double finishToleranceM,
+                  size_t maxOutgoingPointsCount, double minOutgoingDistMeters, size_t maxIngoingPointsCount,
+                  double minIngoingDistMeters, size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters);
 
 public:
   /// \brief We accumulate several positions to calculate current direction.

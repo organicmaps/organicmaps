@@ -21,8 +21,10 @@ using routing::CheckpointPredictor;
 class CheckpointPredictorTest
 {
 public:
-  CheckpointPredictorTest() : m_predictor({0.0, 0.0} /* start */, {4.0, 0.0} /* finish */) {}
-  
+  CheckpointPredictorTest()
+    : m_predictor({0.0, 0.0} /* start */, {4.0, 0.0} /* finish */)
+  {}
+
   size_t PredictPosition(std::vector<m2::PointD> const & intermediatePoints, m2::PointD const & point) const
   {
     return m_predictor.PredictPosition(intermediatePoints, point);
@@ -33,12 +35,15 @@ public:
 
 UNIT_CLASS_TEST(CheckpointPredictorTest, CalculateDeltaMetersTest)
 {
-  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
-                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {1.0, 0.0} /* between */), 0.0);
-  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
-                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {3.0, 0.0} /* between */), 222634.0);
-  TestAlmostEqual(CheckpointPredictor::CalculateDeltaMeters(
-                      {0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {-1.0, 0.0} /* between */), 222634.0);
+  TestAlmostEqual(
+    CheckpointPredictor::CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {1.0, 0.0} /* between */),
+    0.0);
+  TestAlmostEqual(
+    CheckpointPredictor::CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {3.0, 0.0} /* between */),
+    222634.0);
+  TestAlmostEqual(
+    CheckpointPredictor::CalculateDeltaMeters({0.0, 0.0} /* from */, {2.0, 0.0} /* to */, {-1.0, 0.0} /* between */),
+    222634.0);
 }
 
 // Zero intermediate point test.
@@ -51,7 +56,6 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest1)
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(3.5, 0.7)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(5.0, 0.0)), 0, ());
 }
-
 
 // One intermediate point test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest2)

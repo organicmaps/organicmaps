@@ -12,7 +12,9 @@ class Checkpoints final
 {
 public:
   Checkpoints() = default;
-  Checkpoints(m2::PointD const & start, m2::PointD const & finish) : m_points({start, finish}) {}
+  Checkpoints(m2::PointD const & start, m2::PointD const & finish)
+    : m_points({start, finish})
+  {}
   explicit Checkpoints(std::vector<m2::PointD> && points);
 
   m2::PointD const & GetStart() const { return m_points.front(); }

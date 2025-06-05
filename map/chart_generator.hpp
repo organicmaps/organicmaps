@@ -19,9 +19,8 @@ void ReflectChartData(std::vector<double> & chartData);
 /// \brief fills uniformAltitudeDataM with altitude data which evenly distributed by
 /// |resultPointCount| points. |distanceDataM| and |altitudeDataM| form a curve of route altitude.
 /// This method is used to generalize and evenly distribute points of the chart.
-bool NormalizeChartData(std::vector<double> const & distanceDataM,
-                        geometry::Altitudes const & altitudeDataM, size_t resultPointCount,
-                        std::vector<double> & uniformAltitudeDataM);
+bool NormalizeChartData(std::vector<double> const & distanceDataM, geometry::Altitudes const & altitudeDataM,
+                        size_t resultPointCount, std::vector<double> & uniformAltitudeDataM);
 
 /// \brief fills |yAxisDataPxl|. |yAxisDataPxl| is formed to pevent displaying
 /// big waves on the chart in case of small deviation in absolute values in |yAxisData|.
@@ -29,8 +28,7 @@ bool NormalizeChartData(std::vector<double> const & distanceDataM,
 /// \param minMetersInPixel minimum meter number per height pixel.
 /// \param altitudeDataM altitude data vector in meters.
 /// \param yAxisDataPxl Y-axis data of altitude chart in pixels.
-bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
-                            std::vector<double> const & altitudeDataM,
+bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, std::vector<double> const & altitudeDataM,
                             std::vector<double> & yAxisDataPxl);
 
 /// \brief generates chart image on a canvas with size |width|, |height| with |geometry|.
@@ -41,11 +39,9 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
 /// \param mapStyle is a current map style.
 /// \param frameBuffer is a vector for a result image. It's resized in this method.
 /// It's filled with RGBA(8888) image date.
-bool GenerateChartByPoints(uint32_t width, uint32_t height,
-                           std::vector<m2::PointD> const & geometry, MapStyle mapStyle,
+bool GenerateChartByPoints(uint32_t width, uint32_t height, std::vector<m2::PointD> const & geometry, MapStyle mapStyle,
                            std::vector<uint8_t> & frameBuffer);
 
 bool GenerateChart(uint32_t width, uint32_t height, std::vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle,
-                   std::vector<uint8_t> & frameBuffer);
+                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, std::vector<uint8_t> & frameBuffer);
 }  // namespace maps

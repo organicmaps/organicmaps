@@ -16,10 +16,7 @@ public:
     return static_cast<uint32_t>(1.0 / m_frameTime);
   }
 
-  bool IsPaused() const
-  {
-    return m_isPaused;
-  }
+  bool IsPaused() const { return m_isPaused; }
 
   void SetFrameTime(double frameTime, bool isActiveFrame)
   {

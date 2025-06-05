@@ -11,14 +11,18 @@
 DEFINE_bool(force, false, "Force to regenerate isolines for tiles and countries.");
 
 // Options for automatic isolines generating mode.
-DEFINE_string(profiles_path, "", "Automatic isolines generating mode. "
-                                 "Path to a json file with isolines profiles.");
-DEFINE_string(countries_to_generate_path, "", "Automatic isolines generating mode. "
-                                              "Path to a json file with countries to generate.");
-DEFINE_string(tiles_isolines_out_dir, "", "Automatic isolines generating mode. Path to output "
-                                          "intermediate directory with tiles isolines.");
-DEFINE_string(countries_isolines_out_dir, "", "Automatic isolines generating mode. "
-                                              "Path to output directory with countries isolines.");
+DEFINE_string(profiles_path, "",
+              "Automatic isolines generating mode. "
+              "Path to a json file with isolines profiles.");
+DEFINE_string(countries_to_generate_path, "",
+              "Automatic isolines generating mode. "
+              "Path to a json file with countries to generate.");
+DEFINE_string(tiles_isolines_out_dir, "",
+              "Automatic isolines generating mode. Path to output "
+              "intermediate directory with tiles isolines.");
+DEFINE_string(countries_isolines_out_dir, "",
+              "Automatic isolines generating mode. "
+              "Path to output directory with countries isolines.");
 
 // Common option for automatic isolines generating mode and custom packing mode.
 DEFINE_string(data_dir, "", "Path to data directory.");
@@ -33,10 +37,8 @@ DEFINE_string(out_dir, "", "Path to output directory.");
 DEFINE_uint64(simpl_zoom, 16, "Isolines simplification zoom.");
 
 // Options for custom isolines packing mode.
-DEFINE_string(countryId, "",
-              "Custom isolines packing mode. Pack isolines for countryId.");
-DEFINE_string(isolines_path, "",
-              "Custom isolines packing mode. Path to the directory with isolines tiles.");
+DEFINE_string(countryId, "", "Custom isolines packing mode. Pack isolines for countryId.");
+DEFINE_string(isolines_path, "", "Custom isolines packing mode. Path to the directory with isolines tiles.");
 DEFINE_uint64(max_length, 1000, "Custom isolines packing mode. Isolines max length.");
 DEFINE_uint64(alt_step_factor, 1, "Custom isolines packing mode. Altitude step factor.");
 
@@ -86,10 +88,8 @@ int main(int argc, char ** argv)
 
   bool isCustomGeneratingMode = false;
   bool isCustomPackingMode = false;
-  bool const isAutomaticMode = !FLAGS_profiles_path.empty() ||
-                               !FLAGS_countries_to_generate_path.empty() ||
-                               !FLAGS_tiles_isolines_out_dir.empty() ||
-                               !FLAGS_countries_isolines_out_dir.empty();
+  bool const isAutomaticMode = !FLAGS_profiles_path.empty() || !FLAGS_countries_to_generate_path.empty() ||
+                               !FLAGS_tiles_isolines_out_dir.empty() || !FLAGS_countries_isolines_out_dir.empty();
   if (isAutomaticMode)
   {
     if (FLAGS_profiles_path.empty() || FLAGS_countries_to_generate_path.empty() ||
@@ -109,9 +109,8 @@ int main(int argc, char ** argv)
       return EXIT_FAILURE;
     }
 
-    auto const validTilesRect = FLAGS_right > FLAGS_left && FLAGS_top > FLAGS_bottom &&
-                                FLAGS_right <= 180 && FLAGS_left >= -180 &&
-                                FLAGS_top <= 90 && FLAGS_bottom >= -90;
+    auto const validTilesRect = FLAGS_right > FLAGS_left && FLAGS_top > FLAGS_bottom && FLAGS_right <= 180 &&
+                                FLAGS_left >= -180 && FLAGS_top <= 90 && FLAGS_bottom >= -90;
 
     isCustomGeneratingMode = validTilesRect;
     isCustomPackingMode = !FLAGS_countryId.empty();
@@ -154,8 +153,8 @@ int main(int argc, char ** argv)
   if (isAutomaticMode)
   {
     generator.InitCountryInfoGetter(FLAGS_data_dir);
-    generator.InitProfiles(FLAGS_profiles_path, FLAGS_countries_to_generate_path,
-                           FLAGS_tiles_isolines_out_dir, FLAGS_countries_isolines_out_dir);
+    generator.InitProfiles(FLAGS_profiles_path, FLAGS_countries_to_generate_path, FLAGS_tiles_isolines_out_dir,
+                           FLAGS_countries_isolines_out_dir);
     generator.GenerateIsolinesForCountries();
     generator.PackIsolinesForCountries();
 

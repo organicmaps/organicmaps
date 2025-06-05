@@ -12,7 +12,8 @@ using namespace std;
 namespace search
 {
 // Tracer::Parse -----------------------------------------------------------------------------------
-Tracer::Parse::Parse(vector<TokenType> const & types, bool category) : m_category(category)
+Tracer::Parse::Parse(vector<TokenType> const & types, bool category)
+  : m_category(category)
 {
   size_t i = 0;
   while (i != types.size())
@@ -94,8 +95,7 @@ string DebugPrint(ResultTracer::Branch branch)
   case ResultTracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
   case ResultTracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
   case ResultTracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
-  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs:
-    return "GreedilyMatchStreetsWithSuburbs";
+  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs: return "GreedilyMatchStreetsWithSuburbs";
   case ResultTracer::Branch::WithPostcodes: return "WithPostcodes";
   case ResultTracer::Branch::MatchUnclassified: return "MatchUnclassified";
   case ResultTracer::Branch::Relaxed: return "Relaxed";

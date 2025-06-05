@@ -20,6 +20,7 @@ struct TrackStatistics
   geometry::Altitude m_maxElevation;
 
   void AddGpsInfoPoint(location::GpsInfo const & point);
+
 private:
   void AddPoints(Points const & points);
   void AddTimestamps(Timestamps const & timestamps);

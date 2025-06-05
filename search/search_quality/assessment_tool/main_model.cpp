@@ -26,20 +26,18 @@ MainModel::MainModel(Framework & framework)
   : m_framework(framework)
   , m_dataSource(m_framework.GetDataSource())
   , m_loader(m_dataSource)
-  , m_contexts(
-        [this](size_t sampleIndex, ResultsEdits::Update const & update) {
-          OnUpdate(View::ResultType::Found, sampleIndex, update);
-        },
-        [this](size_t sampleIndex, ResultsEdits::Update const & update) {
-          OnUpdate(View::ResultType::NonFound, sampleIndex, update);
-        },
-        [this](size_t sampleIndex) { OnSampleUpdate(sampleIndex); })
-  , m_runner(m_framework, m_dataSource, m_contexts,
-             [this](search::Results const & results) { UpdateViewOnResults(results); },
-             [this](size_t index) {
-               // Only the first parameter matters because we only change SearchStatus.
-               m_view->OnSampleChanged(index, false /* isUseless */, false /* hasEdits */);
-             })
+  , m_contexts([this](size_t sampleIndex, ResultsEdits::Update const & update)
+               { OnUpdate(View::ResultType::Found, sampleIndex, update); },
+               [this](size_t sampleIndex, ResultsEdits::Update const & update)
+               { OnUpdate(View::ResultType::NonFound, sampleIndex, update); },
+               [this](size_t sampleIndex) { OnSampleUpdate(sampleIndex); })
+  , m_runner(
+      m_framework, m_dataSource, m_contexts, [this](search::Results const & results) { UpdateViewOnResults(results); },
+      [this](size_t index)
+      {
+        // Only the first parameter matters because we only change SearchStatus.
+        m_view->OnSampleChanged(index, false /* isUseless */, false /* hasEdits */);
+      })
 {
   search::search_quality::CheckLocale();
 }
@@ -110,10 +108,7 @@ void MainModel::SaveAs(string const & path)
   m_path = path;
 }
 
-void MainModel::InitiateBackgroundSearch(size_t from, size_t to)
-{
-  m_runner.InitiateBackgroundSearch(from, to);
-}
+void MainModel::InitiateBackgroundSearch(size_t from, size_t to) { m_runner.InitiateBackgroundSearch(from, to); }
 
 void MainModel::OnSampleSelected(int index)
 {
@@ -208,20 +203,13 @@ void MainModel::OnShowPositionClicked()
   auto boundingBox = m2::ApplyCalculator(points, m2::CalculateBoundingBox());
   boundingBox.Scale(kViewportAroundTopResultsScale);
 
-  auto const minRect =
-      mercator::RectByCenterXYAndSizeInMeters(boundingBox.Center(), kViewportAroundTopResultsSizeM);
+  auto const minRect = mercator::RectByCenterXYAndSizeInMeters(boundingBox.Center(), kViewportAroundTopResultsSizeM);
   m_view->MoveViewportToRect(m2::Add(boundingBox, minRect));
 }
 
-void MainModel::OnMarkAllAsRelevantClicked()
-{
-  OnChangeAllRelevancesClicked(ResultsEdits::Relevance::Relevant);
-}
+void MainModel::OnMarkAllAsRelevantClicked() { OnChangeAllRelevancesClicked(ResultsEdits::Relevance::Relevant); }
 
-void MainModel::OnMarkAllAsIrrelevantClicked()
-{
-  OnChangeAllRelevancesClicked(ResultsEdits::Relevance::Irrelevant);
-}
+void MainModel::OnMarkAllAsIrrelevantClicked() { OnChangeAllRelevancesClicked(ResultsEdits::Relevance::Irrelevant); }
 
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
 
@@ -232,11 +220,13 @@ bool MainModel::AlreadyInSamples(FeatureID const & id)
   CHECK_LESS(static_cast<size_t>(m_selectedSample), m_contexts.Size(), ());
 
   bool found = false;
-  ForAnyMatchingEntry(m_contexts[m_selectedSample], id, [&](ResultsEdits & edits, size_t index) {
-    auto const & entry = edits.GetEntry(index);
-    if (!entry.m_deleted)
-      found = true;
-  });
+  ForAnyMatchingEntry(m_contexts[m_selectedSample], id,
+                      [&](ResultsEdits & edits, size_t index)
+                      {
+                        auto const & entry = edits.GetEntry(index);
+                        if (!entry.m_deleted)
+                          found = true;
+                      });
   return found;
 }
 
@@ -249,12 +239,14 @@ void MainModel::AddNonFoundResult(FeatureID const & id)
   auto & context = m_contexts[m_selectedSample];
 
   bool resurrected = false;
-  ForAnyMatchingEntry(context, id, [&](ResultsEdits & edits, size_t index) {
-    auto const & entry = edits.GetEntry(index);
-    CHECK(entry.m_deleted, ());
-    edits.Resurrect(index);
-    resurrected = true;
-  });
+  ForAnyMatchingEntry(context, id,
+                      [&](ResultsEdits & edits, size_t index)
+                      {
+                        auto const & entry = edits.GetEntry(index);
+                        CHECK(entry.m_deleted, ());
+                        edits.Resurrect(index);
+                        resurrected = true;
+                      });
   if (resurrected)
     return;
 
@@ -284,8 +276,7 @@ void MainModel::InitiateForegroundSearch(size_t index)
   m_view->OnSearchStarted();
 }
 
-void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex,
-                         ResultsEdits::Update const & update)
+void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, ResultsEdits::Update const & update)
 {
   using Type = ResultsEdits::Update::Type;
 
@@ -295,18 +286,15 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex,
   if (update.m_type == Type::Add)
   {
     CHECK_EQUAL(type, View::ResultType::NonFound, ());
-    m_view->ShowNonFoundResults(context.m_nonFoundResults,
-                                context.m_nonFoundResultsEdits.GetEntries());
-    m_view->SetResultsEdits(m_selectedSample, context.m_foundResultsEdits,
-                            context.m_nonFoundResultsEdits);
+    m_view->ShowNonFoundResults(context.m_nonFoundResults, context.m_nonFoundResultsEdits.GetEntries());
+    m_view->SetResultsEdits(m_selectedSample, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
   }
 
   m_view->OnResultChanged(sampleIndex, type, update);
   m_view->OnSampleChanged(sampleIndex, context.IsUseless(), context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 
-  if (update.m_type == Type::Add || update.m_type == Type::Resurrect ||
-      update.m_type == Type::Delete)
+  if (update.m_type == Type::Add || update.m_type == Type::Resurrect || update.m_type == Type::Delete)
   {
     CHECK(context.m_initialized, ());
     CHECK_EQUAL(type, View::ResultType::NonFound, ());
@@ -333,18 +321,14 @@ void MainModel::UpdateViewOnResults(search::Results const & results)
 
   auto & context = m_contexts[m_selectedSample];
 
-  m_view->ShowNonFoundResults(context.m_nonFoundResults,
-                              context.m_nonFoundResultsEdits.GetEntries());
+  m_view->ShowNonFoundResults(context.m_nonFoundResults, context.m_nonFoundResultsEdits.GetEntries());
   m_view->ShowMarks(context);
-  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found,
-                          ResultsEdits::Update::MakeAll());
-  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound,
-                          ResultsEdits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found, ResultsEdits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound, ResultsEdits::Update::MakeAll());
   m_view->OnSampleChanged(m_selectedSample, context.IsUseless(), context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 
-  m_view->SetResultsEdits(m_selectedSample, context.m_foundResultsEdits,
-                          context.m_nonFoundResultsEdits);
+  m_view->SetResultsEdits(m_selectedSample, context.m_foundResultsEdits, context.m_nonFoundResultsEdits);
   m_view->OnSearchCompleted();
 }
 
@@ -357,10 +341,8 @@ void MainModel::OnChangeAllRelevancesClicked(ResultsEdits::Relevance relevance)
   context.m_foundResultsEdits.SetAllRelevances(relevance);
   context.m_nonFoundResultsEdits.SetAllRelevances(relevance);
 
-  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found,
-                          ResultsEdits::Update::MakeAll());
-  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound,
-                          ResultsEdits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found, ResultsEdits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound, ResultsEdits::Update::MakeAll());
   m_view->OnSampleChanged(m_selectedSample, context.IsUseless(), context.HasChanges());
   m_view->OnSamplesChanged(m_contexts.HasChanges());
 }

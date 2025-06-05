@@ -37,7 +37,7 @@ public:
       fn(name.m_name, CategoriesHolder::MapIntegerToLocale(name.m_locale));
   }
 
- private:
+private:
   CategoriesHolder const & m_holder;
   Keys m_keys;
 };

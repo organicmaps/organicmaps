@@ -2,7 +2,8 @@
 
 namespace search
 {
-JoinIterator::JoinIterator(StringSliceBase const & slice, Position position) : m_slice(slice)
+JoinIterator::JoinIterator(StringSliceBase const & slice, Position position)
+  : m_slice(slice)
 {
   if (position == Position::Begin)
   {
@@ -18,16 +19,10 @@ JoinIterator::JoinIterator(StringSliceBase const & slice, Position position) : m
 }
 
 // static
-JoinIterator JoinIterator::Begin(StringSliceBase const & slice)
-{
-  return JoinIterator(slice, Position::Begin);
-}
+JoinIterator JoinIterator::Begin(StringSliceBase const & slice) { return JoinIterator(slice, Position::Begin); }
 
 // static
-JoinIterator JoinIterator::End(StringSliceBase const & slice)
-{
-  return JoinIterator(slice, Position::End);
-}
+JoinIterator JoinIterator::End(StringSliceBase const & slice) { return JoinIterator(slice, Position::End); }
 
 JoinIterator & JoinIterator::operator++()
 {

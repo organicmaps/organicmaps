@@ -13,7 +13,7 @@ enum ClearBits : uint32_t
   DepthBit = 1 << 1,
   StencilBit = 1 << 2
 };
-  
+
 uint32_t constexpr kClearBitsStoreAll = ClearBits::ColorBit | ClearBits::DepthBit | ClearBits::StencilBit;
 
 enum class TestFunction : uint8_t
@@ -86,8 +86,8 @@ public:
   virtual void SetDepthTestFunction(TestFunction depthFunction) = 0;
   virtual void SetStencilTestEnabled(bool enabled) = 0;
   virtual void SetStencilFunction(StencilFace face, TestFunction stencilFunction) = 0;
-  virtual void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
-                                 StencilAction depthFailAction, StencilAction passAction) = 0;
+  virtual void SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
+                                 StencilAction passAction) = 0;
   virtual void SetStencilReferenceValue(uint32_t stencilReferenceValue) = 0;
   virtual void SetCullingEnabled(bool enabled) = 0;
 };

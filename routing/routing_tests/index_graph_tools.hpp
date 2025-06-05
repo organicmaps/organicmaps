@@ -50,7 +50,9 @@ using AlgorithmForWorldGraph = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>
 class WorldGraphForAStar : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
 public:
-  explicit WorldGraphForAStar(std::unique_ptr<SingleVehicleWorldGraph> graph) : m_graph(std::move(graph)) {}
+  explicit WorldGraphForAStar(std::unique_ptr<SingleVehicleWorldGraph> graph)
+    : m_graph(std::move(graph))
+  {}
   ~WorldGraphForAStar() override = default;
 
   // AStarGraph overrides:
@@ -61,16 +63,14 @@ public:
                                           m_graph->GetPoint(to, true /* front */));
   }
 
-  void GetOutgoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
-                            EdgeListT & edges) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData, EdgeListT & edges) override
   {
     edges.clear();
     m_graph->GetEdgeList(vertexData, true /* isOutgoing */, true /* useRoutingOptions */,
                          true /* useAccessConditional */, edges);
   }
 
-  void GetIngoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
-                           EdgeListT & edges) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData, EdgeListT & edges) override
   {
     edges.clear();
     m_graph->GetEdgeList(vertexData, false /* isOutgoing */, true /* useRoutingOptions */,
@@ -106,8 +106,7 @@ struct NoUTurnRestrictionTest
   void SetRestrictions(RestrictionVec && restrictions);
   void SetNoUTurnRestrictions(std::vector<RestrictionUTurn> && restrictions);
 
-  void TestRouteGeom(Segment const & start, Segment const & finish,
-                     AlgorithmForWorldGraph::Result expectedRouteResult,
+  void TestRouteGeom(Segment const & start, Segment const & finish, AlgorithmForWorldGraph::Result expectedRouteResult,
                      std::vector<m2::PointD> const & expectedRouteGeom);
 
   std::unique_ptr<WorldGraphForAStar> m_graph;
@@ -131,10 +130,7 @@ public:
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
   Geometry & GetGeometry(NumMwmId mwmId) override;
 
-  std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override
-  {
-    return {};
-  }
+  std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override { return {}; }
 
   void Clear() override;
 
@@ -171,8 +167,7 @@ public:
   explicit WeightedEdgeEstimator(std::map<Segment, double> const & segmentWeights)
     : EdgeEstimator(1e10 /* maxSpeedKMpH */, 1.0 /* offroadSpeedKMpH */)
     , m_segmentWeights(segmentWeights)
-  {
-  }
+  {}
 
   // EdgeEstimator overrides:
   ~WeightedEdgeEstimator() override = default;
@@ -207,8 +202,7 @@ public:
   // Sets access for previously added edge.
   void SetEdgeAccess(Vertex from, Vertex to, RoadAccess::Type type);
   /// \param |condition| in osm opening hours format.
-  void SetEdgeAccessConditional(Vertex from, Vertex to, RoadAccess::Type type,
-                                std::string const & condition);
+  void SetEdgeAccessConditional(Vertex from, Vertex to, RoadAccess::Type type, std::string const & condition);
 
   // Sets access type for previously added point.
   void SetVertexAccess(Vertex v, RoadAccess::Type type);
@@ -216,11 +210,13 @@ public:
   void SetVertexAccessConditional(Vertex v, RoadAccess::Type type, std::string const & condition);
 
   // Finds a path between the start and finish vertices. Returns true iff a path exists.
-  bool FindPath(Vertex start, Vertex finish, double & pathWeight,
-                std::vector<Edge> & pathEdges) const;
+  bool FindPath(Vertex start, Vertex finish, double & pathWeight, std::vector<Edge> & pathEdges) const;
 
   template <typename T>
-  void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
+  void SetCurrentTimeGetter(T && getter)
+  {
+    m_currentTimeGetter = std::forward<T>(getter);
+  }
 
 private:
   struct EdgeRequest
@@ -240,15 +236,19 @@ private:
     RoadAccess::Conditional m_toAccessConditionalType;
 
     EdgeRequest(uint32_t id, Vertex from, Vertex to, double weight)
-      : m_id(id), m_from(from), m_to(to), m_weight(weight)
-    {
-    }
+      : m_id(id)
+      , m_from(from)
+      , m_to(to)
+      , m_weight(weight)
+    {}
   };
 
   // Builder builds a graph from edge requests.
   struct Builder
   {
-    explicit Builder(uint32_t numVertices) : m_numVertices(numVertices) {}
+    explicit Builder(uint32_t numVertices)
+      : m_numVertices(numVertices)
+    {}
     std::unique_ptr<SingleVehicleWorldGraph> PrepareIndexGraph();
     void BuildJoints();
     void BuildGraphFromRequests(std::vector<EdgeRequest> const & requests);
@@ -266,8 +266,7 @@ private:
     std::function<time_t()> m_currentTimeGetter;
   };
 
-  void AddDirectedEdge(std::vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to,
-                       double weight) const;
+  void AddDirectedEdge(std::vector<EdgeRequest> & edgeRequests, Vertex from, Vertex to, double weight) const;
 
   std::function<time_t()> m_currentTimeGetter;
   uint32_t const m_numVertices;
@@ -281,31 +280,28 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeo
                                                          std::shared_ptr<EdgeEstimator> estimator,
                                                          std::vector<Joint> const & joints);
 
-AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(
-    IndexGraphStarter & starter, std::vector<Segment> & roadPoints, double & timeSec);
+AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(IndexGraphStarter & starter,
+                                                                         std::vector<Segment> & roadPoints,
+                                                                         double & timeSec);
 
-void TestRouteGeometry(
-    IndexGraphStarter & starter,
-    AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
-    std::vector<m2::PointD> const & expectedRouteGeom);
+void TestRouteGeometry(IndexGraphStarter & starter,
+                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                       std::vector<m2::PointD> const & expectedRouteGeom);
 
 /// \brief Applies |restrictions| to graph in |restrictionTest| and
 /// tests the resulting route.
 /// \note restrictionTest should have a valid |restrictionTest.m_graph|.
 void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
-                      FakeEnding const & start, FakeEnding const & finish,
-                      RestrictionVec && restrictions, RestrictionTest & restrictionTest);
+                      FakeEnding const & start, FakeEnding const & finish, RestrictionVec && restrictions,
+                      RestrictionTest & restrictionTest);
 
 void TestRestrictions(std::vector<m2::PointD> const & expectedRouteGeom,
                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
-                      FakeEnding const & start, FakeEnding const & finish,
-                      RestrictionVec && restrictions,
-                      std::vector<RestrictionUTurn> && restrictionsNoUTurn,
-                      RestrictionTest & restrictionTest);
+                      FakeEnding const & start, FakeEnding const & finish, RestrictionVec && restrictions,
+                      std::vector<RestrictionUTurn> && restrictionsNoUTurn, RestrictionTest & restrictionTest);
 
-void TestRestrictions(double timeExpected,
-                      FakeEnding const & start, FakeEnding const & finish,
+void TestRestrictions(double timeExpected, FakeEnding const & start, FakeEnding const & finish,
                       RestrictionVec && restrictions, RestrictionTest & restrictionTest);
 
 // Tries to find a unique path from |from| to |to| in |graph|.
@@ -314,23 +310,18 @@ void TestRestrictions(double timeExpected,
 // If |expectedPathFound| is false, |expectedWeight| and |expectedEdges| may
 // take arbitrary values.
 void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopology::Vertex from,
-                       TestIndexGraphTopology::Vertex to, bool expectedPathFound,
-                       double expectedWeight,
+                       TestIndexGraphTopology::Vertex to, bool expectedPathFound, double expectedWeight,
                        std::vector<TestIndexGraphTopology::Edge> const & expectedEdges);
 
 // Creates FakeEnding projected to |Segment(kTestNumMwmId, featureId, segmentIdx, true /* forward
 // */)|.
-FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point,
-                          WorldGraph & graph);
+FakeEnding MakeFakeEnding(uint32_t featureId, uint32_t segmentIdx, m2::PointD const & point, WorldGraph & graph);
 
-std::unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish,
-                                               WorldGraph & graph);
+std::unique_ptr<IndexGraphStarter> MakeStarter(FakeEnding const & start, FakeEnding const & finish, WorldGraph & graph);
 
 using Month = osmoh::MonthDay::Month;
 using Weekday = osmoh::Weekday;
 
-time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours,
-                         uint8_t minutes);
-time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours,
-                         uint8_t minutes);
+time_t GetUnixtimeByDate(uint16_t year, Month month, uint8_t monthDay, uint8_t hours, uint8_t minutes);
+time_t GetUnixtimeByDate(uint16_t year, Month month, Weekday weekday, uint8_t hours, uint8_t minutes);
 }  // namespace routing_test

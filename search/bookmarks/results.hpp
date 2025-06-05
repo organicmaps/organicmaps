@@ -10,7 +10,9 @@ namespace bookmarks
 {
 struct Result
 {
-  explicit Result(Id id) : m_id(id) {}
+  explicit Result(Id id)
+    : m_id(id)
+  {}
 
   Id m_id = {};
 };

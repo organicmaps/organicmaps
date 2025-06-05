@@ -25,13 +25,13 @@ public:
   Data(kml::BookmarkData const & bookmarkData, std::string const & locale)
     : m_names(ExtractIndexableNames(bookmarkData, locale))
     , m_description(kml::GetDefaultStr(bookmarkData.m_description))
-  {
-  }
+  {}
 
   template <typename Fn>
   void ForEachNameToken(Fn && fn) const
   {
-    auto withDefaultLang = [&](strings::UniString const & token) {
+    auto withDefaultLang = [&](strings::UniString const & token)
+    {
       // Note that the Default Language here is not the same as in the kml library.
       // Bookmark search by locale is not supported so every name is stored
       // in the default branch of the search trie.
@@ -45,9 +45,7 @@ public:
   template <typename Fn>
   void ForEachDescriptionToken(Fn && fn) const
   {
-    auto withDefaultLang = [&](strings::UniString const & token) {
-      fn(StringUtf8Multilang::kDefaultCode, token);
-    };
+    auto withDefaultLang = [&](strings::UniString const & token) { fn(StringUtf8Multilang::kDefaultCode, token); };
 
     ForEachNormalizedToken(m_description, withDefaultLang);
   }
@@ -56,8 +54,7 @@ public:
   std::string const & GetDescription() const { return m_description; }
 
 private:
-  std::vector<std::string> ExtractIndexableNames(kml::BookmarkData const & bookmarkData,
-                                                 std::string const & locale)
+  std::vector<std::string> ExtractIndexableNames(kml::BookmarkData const & bookmarkData, std::string const & locale)
   {
     std::vector<std::string> names;
 

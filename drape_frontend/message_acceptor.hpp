@@ -5,8 +5,8 @@
 #include "drape/pointers.hpp"
 
 #include <atomic>
-#include <mutex>
 #include <functional>
+#include <mutex>
 
 namespace df
 {

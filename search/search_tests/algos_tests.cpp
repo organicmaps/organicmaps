@@ -28,23 +28,23 @@ void TestLongestSequence(int in[], size_t inSz, int eta[])
 UNIT_TEST(LS_Smoke)
 {
   {
-    int arr[] = { 1 };
+    int arr[] = {1};
     TestLongestSequence(arr, ARRAY_SIZE(arr), arr);
   }
 
   {
-    int arr[] = { 1, 2 };
+    int arr[] = {1, 2};
     TestLongestSequence(arr, ARRAY_SIZE(arr), arr);
   }
 
   {
-    int arr[] = { 2, 1 };
+    int arr[] = {2, 1};
     TestLongestSequence(arr, ARRAY_SIZE(arr), arr);
   }
 
   {
-    int arr[] = { 1, 9, 2, 3, 8, 0, 7, -1, 7, -2, 7 };
-    int res[] = { 1, 2, 3, 7, 7, 7 };
+    int arr[] = {1, 9, 2, 3, 8, 0, 7, -1, 7, -2, 7};
+    int res[] = {1, 2, 3, 7, 7, 7};
     TestLongestSequence(arr, ARRAY_SIZE(arr), res);
   }
 }

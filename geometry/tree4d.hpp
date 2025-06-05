@@ -30,15 +30,15 @@ class Tree
     using value_type = double;
 
     template <typename U>
-    Value(U && u, m2::RectD const & r) : m_val(std::forward<U>(u))
+    Value(U && u, m2::RectD const & r)
+      : m_val(std::forward<U>(u))
     {
       SetRect(r);
     }
 
     bool IsIntersect(m2::RectD const & r) const
     {
-      return !((m_pts[2] <= r.minX()) || (m_pts[0] >= r.maxX()) || (m_pts[3] <= r.minY()) ||
-               (m_pts[1] >= r.maxY()));
+      return !((m_pts[2] <= r.minX()) || (m_pts[0] >= r.maxX()) || (m_pts[3] <= r.minY()) || (m_pts[1] >= r.maxY()));
     }
 
     bool operator==(Value const & r) const { return (m_val == r.m_val); }
@@ -47,8 +47,7 @@ class Tree
     {
       std::ostringstream out;
 
-      out << DebugPrint(m_val) << ", (" << m_pts[0] << ", " << m_pts[1] << ", " << m_pts[2] << ", "
-          << m_pts[3] << ")";
+      out << DebugPrint(m_val) << ", (" << m_pts[0] << ", " << m_pts[1] << ", " << m_pts[2] << ", " << m_pts[3] << ")";
 
       return out.str();
     }
@@ -77,9 +76,10 @@ class Tree
   class for_each_helper
   {
   public:
-    for_each_helper(m2::RectD const & r, ToDo && toDo) : m_rect(r), m_toDo(std::forward<ToDo>(toDo))
-    {
-    }
+    for_each_helper(m2::RectD const & r, ToDo && toDo)
+      : m_rect(r)
+      , m_toDo(std::forward<ToDo>(toDo))
+    {}
 
     bool ScanLeft(size_t plane, Value const & v) const
     {
@@ -130,7 +130,9 @@ protected:
   m2::RectD GetLimitRect(T const & t) const { return m_traits.LimitRect(t); }
 
 public:
-  Tree(Traits const & traits = Traits()) : m_traits(traits) {}
+  Tree(Traits const & traits = Traits())
+    : m_traits(traits)
+  {}
 
   using elem_t = T;
 
@@ -153,16 +155,18 @@ private:
     bool skip = false;
     std::vector<Value const *> isect;
 
-    m_tree.for_each(GetFunctor(rect, [&](Value const & v) {
-      if (skip)
-        return;
+    m_tree.for_each(GetFunctor(rect,
+                               [&](Value const & v)
+                               {
+                                 if (skip)
+                                   return;
 
-      switch (comp(obj, v.m_val))
-      {
-      case 1: isect.push_back(&v); break;
-      case -1: skip = true; break;
-      }
-    }));
+                                 switch (comp(obj, v.m_val))
+                                 {
+                                 case 1: isect.push_back(&v); break;
+                                 case -1: skip = true; break;
+                                 }
+                               }));
 
     if (skip)
       return;
@@ -177,19 +181,20 @@ public:
   template <typename Compare>
   void ReplaceAllInRect(T const & obj, Compare comp)
   {
-    ReplaceImpl(obj, GetLimitRect(obj),
-                [&comp](T const & t1, T const & t2) { return comp(t1, t2) ? 1 : -1; });
+    ReplaceImpl(obj, GetLimitRect(obj), [&comp](T const & t1, T const & t2) { return comp(t1, t2) ? 1 : -1; });
   }
 
   template <typename Equal, typename Compare>
   void ReplaceEqualInRect(T const & obj, Equal eq, Compare comp)
   {
-    ReplaceImpl(obj, GetLimitRect(obj), [&](T const & t1, T const & t2) {
-      if (eq(t1, t2))
-        return comp(t1, t2) ? 1 : -1;
-      else
-        return 0;
-    });
+    ReplaceImpl(obj, GetLimitRect(obj),
+                [&](T const & t1, T const & t2)
+                {
+                  if (eq(t1, t2))
+                    return comp(t1, t2) ? 1 : -1;
+                  else
+                    return 0;
+                });
   }
 
   void Erase(T const & obj, m2::RectD const & r)

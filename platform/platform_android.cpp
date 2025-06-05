@@ -15,8 +15,8 @@
 #include <regex>
 #include <string>
 
-#include <unistd.h>     // for sysconf
 #include <sys/stat.h>
+#include <unistd.h>  // for sysconf
 
 using namespace std;
 
@@ -26,16 +26,16 @@ Platform::Platform()
 }
 
 #ifdef DEBUG
-namespace {
+namespace
+{
 class DbgLogger
 {
 public:
-  explicit DbgLogger(string const & file) : m_file(file) {}
+  explicit DbgLogger(string const & file)
+    : m_file(file)
+  {}
 
-  ~DbgLogger()
-  {
-    LOG(LDEBUG, ("Source for file", m_file, "is", m_src));
-  }
+  ~DbgLogger() { LOG(LDEBUG, ("Source for file", m_file, "is", m_src)); }
 
   void SetSource(char src) { m_src = src; }
 
@@ -45,7 +45,6 @@ private:
 };
 }  // namespace
 #endif
-
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
 {
@@ -123,9 +122,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
       }
       break;
 
-    default:
-      CHECK(false, ("Unsupported source:", s));
-      break;
+    default: CHECK(false, ("Unsupported source:", s)); break;
     }
   }
 
@@ -204,22 +201,23 @@ void Platform::GetSystemFontNames(FilesList & res) const
   bool wasRoboto = false;
 
   string const path = "/system/fonts/";
-  pl::EnumerateFiles(path, [&](char const * entry)
-  {
-    string name(entry);
-    if (name != "Roboto-Medium.ttf" && name != "Roboto-Regular.ttf")
-    {
-      if (!name.starts_with("NotoNaskh") && !name.starts_with("NotoSans"))
-        return;
+  pl::EnumerateFiles(path,
+                     [&](char const * entry)
+                     {
+                       string name(entry);
+                       if (name != "Roboto-Medium.ttf" && name != "Roboto-Regular.ttf")
+                       {
+                         if (!name.starts_with("NotoNaskh") && !name.starts_with("NotoSans"))
+                           return;
 
-      if (name.find("-Regular") == string::npos)
-        return;
-    }
-    else
-      wasRoboto = true;
+                         if (name.find("-Regular") == string::npos)
+                           return;
+                       }
+                       else
+                         wasRoboto = true;
 
-    res.push_back(path + name);
-  });
+                       res.push_back(path + name);
+                     });
 
   if (!wasRoboto)
   {

@@ -26,9 +26,7 @@ void IntersectionResult::Set(Model::Type type, uint32_t id)
   case Model::TYPE_STATE:
   case Model::TYPE_COUNTRY:
   case Model::TYPE_UNCLASSIFIED:
-  case Model::TYPE_COUNT:
-    ASSERT(false, ("Unsupported type."));
-    break;
+  case Model::TYPE_COUNT: ASSERT(false, ("Unsupported type.")); break;
   }
 }
 

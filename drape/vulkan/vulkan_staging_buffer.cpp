@@ -13,8 +13,7 @@ namespace vulkan
 // The most GPUs use this value, real one can be known only after buffer creation.
 uint32_t constexpr kDefaultAlignment = 64;
 
-VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager,
-                                         uint32_t sizeInBytes)
+VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager, uint32_t sizeInBytes)
   : m_objectManager(objectManager)
   , m_sizeInBytes(VulkanMemoryManager::GetAligned(sizeInBytes, kDefaultAlignment))
 {
@@ -38,10 +37,8 @@ VulkanStagingBuffer::VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectMana
     m_object = m_objectManager->CreateBuffer(kStagingBuffer, m_sizeInBytes, 0 /* batcherHash */);
     vkGetBufferMemoryRequirements(device, m_object.m_buffer, &memReqs);
     m_sizeAlignment = mm.GetSizeAlignment(memReqs);
-    CHECK(HasEnoughSpace(m_sizeInBytes), ("originalSize =", originalSize,
-        "originalAlignment =", originalAlignment,
-        "m_sizeInBytes =", m_sizeInBytes,
-        "m_sizeAlignment =", m_sizeAlignment));
+    CHECK(HasEnoughSpace(m_sizeInBytes), ("originalSize =", originalSize, "originalAlignment =", originalAlignment,
+                                          "m_sizeInBytes =", m_sizeInBytes, "m_sizeAlignment =", m_sizeAlignment));
   }
 
   m_offsetAlignment = mm.GetOffsetAlignment(kStagingBuffer);

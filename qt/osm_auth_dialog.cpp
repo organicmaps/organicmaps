@@ -128,4 +128,4 @@ void OsmAuthDialog::OnAction()
     SwitchToLogin(this);
   }
 }
-} // namespace qt
+}  // namespace qt

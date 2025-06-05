@@ -37,15 +37,9 @@ void ToJSONObject(json_t & root, char const * field, RectD const & rect)
   json_object_set_new(&root, field, json.release());
 }
 
-void FromJSONObject(json_t * root, string const & field, RectD & rect)
-{
-  FromJSONObject(root, field.c_str(), rect);
-}
+void FromJSONObject(json_t * root, string const & field, RectD & rect) { FromJSONObject(root, field.c_str(), rect); }
 
-void ToJSONObject(json_t & root, string const & field, RectD const & rect)
-{
-  ToJSONObject(root, field.c_str(), rect);
-}
+void ToJSONObject(json_t & root, string const & field, RectD const & rect) { ToJSONObject(root, field.c_str(), rect); }
 
 void FromJSONObject(json_t * root, char const * field, PointD & point)
 {
@@ -53,10 +47,7 @@ void FromJSONObject(json_t * root, char const * field, PointD & point)
   ParsePoint(p, point);
 }
 
-void FromJSONObject(json_t * root, string const & field, PointD & point)
-{
-  FromJSONObject(root, field.c_str(), point);
-}
+void FromJSONObject(json_t * root, string const & field, PointD & point) { FromJSONObject(root, field.c_str(), point); }
 
 void FromJSONObjectOptional(json_t * root, char const * field, std::optional<PointD> & point)
 {

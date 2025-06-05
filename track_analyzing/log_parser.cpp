@@ -33,8 +33,7 @@ vector<DataPoint> ReadDataPoints(string const & data)
 
   try
   {
-    coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src,
-                                                     points);
+    coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src, points);
   }
   catch (Reader::SizeException const & e)
   {
@@ -48,15 +47,17 @@ vector<DataPoint> ReadDataPoints(string const & data)
 class PointToMwmId final
 {
 public:
-  PointToMwmId(shared_ptr<m4::Tree<routing::NumMwmId>> mwmTree,
-               routing::NumMwmIds const & numMwmIds, string const & dataDir)
+  PointToMwmId(shared_ptr<m4::Tree<routing::NumMwmId>> mwmTree, routing::NumMwmIds const & numMwmIds,
+               string const & dataDir)
     : m_mwmTree(mwmTree)
   {
-    numMwmIds.ForEachId([&](routing::NumMwmId numMwmId) {
-      string const & mwmName = numMwmIds.GetFile(numMwmId).GetName();
-      string const polyFile = base::JoinPath(dataDir, BORDERS_DIR, mwmName + BORDERS_EXTENSION);
-      borders::LoadBorders(polyFile, m_borders[numMwmId]);
-    });
+    numMwmIds.ForEachId(
+      [&](routing::NumMwmId numMwmId)
+      {
+        string const & mwmName = numMwmIds.GetFile(numMwmId).GetName();
+        string const polyFile = base::JoinPath(dataDir, BORDERS_DIR, mwmName + BORDERS_EXTENSION);
+        borders::LoadBorders(polyFile, m_borders[numMwmId]);
+      });
   }
 
   routing::NumMwmId FindMwmId(m2::PointD const & point, routing::NumMwmId expectedId) const
@@ -66,10 +67,12 @@ public:
 
     routing::NumMwmId result = routing::kFakeNumMwmId;
     m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(point, 1);
-    m_mwmTree->ForEachInRect(rect, [&](routing::NumMwmId numMwmId) {
-      if (result == routing::kFakeNumMwmId && m2::RegionsContain(GetBorders(numMwmId), point))
-        result = numMwmId;
-    });
+    m_mwmTree->ForEachInRect(rect,
+                             [&](routing::NumMwmId numMwmId)
+                             {
+                               if (result == routing::kFakeNumMwmId && m2::RegionsContain(GetBorders(numMwmId), point))
+                                 result = numMwmId;
+                             });
 
     return result;
   }
@@ -89,9 +92,11 @@ private:
 
 namespace track_analyzing
 {
-LogParser::LogParser(shared_ptr<routing::NumMwmIds> numMwmIds,
-                     unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree, string const & dataDir)
-  : m_numMwmIds(std::move(numMwmIds)), m_mwmTree(std::move(mwmTree)), m_dataDir(dataDir)
+LogParser::LogParser(shared_ptr<routing::NumMwmIds> numMwmIds, unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree,
+                     string const & dataDir)
+  : m_numMwmIds(std::move(numMwmIds))
+  , m_mwmTree(std::move(mwmTree))
+  , m_dataDir(dataDir)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_mwmTree, ());
@@ -145,10 +150,9 @@ void LogParser::ParseUserTracks(string const & logFile, UserToTrack & userToTrac
     pointsCount += packet.size();
   };
 
-  LOG(LINFO, ("Tracks parsing finished, elapsed:", timer.ElapsedSeconds(), "seconds, lines:",
-              linesCount, ", points", pointsCount));
-  LOG(LINFO, ("Users with current version:", userToTrack.size(), ", old version:",
-              usersWithOldVersion.size()));
+  LOG(LINFO, ("Tracks parsing finished, elapsed:", timer.ElapsedSeconds(), "seconds, lines:", linesCount, ", points",
+              pointsCount));
+  LOG(LINFO, ("Users with current version:", userToTrack.size(), ", old version:", usersWithOldVersion.size()));
 }
 
 void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwmToTracks) const
@@ -173,7 +177,6 @@ void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwm
     }
   }
 
-  LOG(LINFO, ("Data was split into", mwmToTracks.size(), "mwms, elapsed:", timer.ElapsedSeconds(),
-              "seconds"));
+  LOG(LINFO, ("Data was split into", mwmToTracks.size(), "mwms, elapsed:", timer.ElapsedSeconds(), "seconds"));
 }
 }  // namespace track_analyzing

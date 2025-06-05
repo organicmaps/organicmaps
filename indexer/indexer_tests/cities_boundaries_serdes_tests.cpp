@@ -26,7 +26,10 @@ using Boundaries = vector<Boundary>;
 
 struct Result
 {
-  Result(Boundaries const & boundaries, double eps) : m_boundaries(boundaries), m_eps(eps) {}
+  Result(Boundaries const & boundaries, double eps)
+    : m_boundaries(boundaries)
+    , m_eps(eps)
+  {}
 
   Boundaries m_boundaries;
   double m_eps = 0.0;
@@ -122,8 +125,7 @@ UNIT_TEST(CitiesBoundariesSerDes_Smoke)
     boundary0.emplace_back(vector<PointD>{{PointD(3.1415, 2.1828), PointD(2.1828, 3.1415)}});
 
     Boundary boundary1;
-    boundary1.emplace_back(
-        vector<PointD>{{PointD(1.000, 1.000), PointD(1.002, 1.000), PointD(1.002, 1.003)}});
+    boundary1.emplace_back(vector<PointD>{{PointD(1.000, 1.000), PointD(1.002, 1.000), PointD(1.002, 1.003)}});
 
     Boundaries const expected = {{boundary0, boundary1}};
     TestEncodeDecode(expected);
@@ -133,8 +135,7 @@ UNIT_TEST(CitiesBoundariesSerDes_Smoke)
 UNIT_TEST(CitiesBoundaries_Moscow)
 {
   vector<PointD> const points = {
-    {37.04001, 67.55964}, {37.55650, 66.96428}, {38.02513, 67.37082}, {37.50865, 67.96618}
-  };
+    {37.04001, 67.55964}, {37.55650, 66.96428}, {38.02513, 67.37082}, {37.50865, 67.96618}};
 
   PointD const target(37.44765, 67.65243);
 
@@ -196,4 +197,4 @@ UNIT_TEST(CitiesBoundaries_Compression)
   }
 }
 
-} // namespace cities_boundaries_serdes_tests
+}  // namespace cities_boundaries_serdes_tests

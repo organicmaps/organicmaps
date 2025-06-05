@@ -1,11 +1,11 @@
 #pragma once
 
-#include "shaders/program_pool.hpp"
 #include "shaders/program_params.hpp"
+#include "shaders/program_pool.hpp"
 
 #include "drape/drape_global.hpp"
-#include "drape/graphics_context.hpp"
 #include "drape/gpu_program.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
 
 #include "base/macros.hpp"
@@ -38,8 +38,7 @@ private:
   void DestroyForMetal(ref_ptr<dp::GraphicsContext> context);
 #endif
 
-  using Programs = std::array<drape_ptr<dp::GpuProgram>,
-                              static_cast<size_t>(Program::ProgramsCount)>;
+  using Programs = std::array<drape_ptr<dp::GpuProgram>, static_cast<size_t>(Program::ProgramsCount)>;
   drape_ptr<ProgramPool> m_pool;
   Programs m_programs;
   drape_ptr<ProgramParamsSetter> m_paramsSetter;

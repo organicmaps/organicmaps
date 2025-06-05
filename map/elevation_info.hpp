@@ -2,8 +2,8 @@
 
 #include "kml/types.hpp"
 
-#include "geometry/point_with_altitude.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "platform/location.hpp"
 
@@ -17,10 +17,11 @@ public:
   struct Point
   {
     Point(geometry::PointWithAltitude point, double distance)
-    : m_point(point), m_distance(distance)
+      : m_point(point)
+      , m_distance(distance)
     {}
-    const geometry::PointWithAltitude m_point;
-    const double m_distance;
+    geometry::PointWithAltitude const m_point;
+    double const m_distance;
   };
 
   using Points = std::vector<Point>;

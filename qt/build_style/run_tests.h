@@ -7,4 +7,4 @@
 namespace build_style
 {
 std::pair<bool, QString> RunCurrentStyleTests();
-} // namespace build_style
+}  // namespace build_style

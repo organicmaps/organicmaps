@@ -15,8 +15,7 @@ void HungarianBaseWordTransform(std::string & hungarianString)
 
   strings::UniString myUniStr = strings::MakeUniString(hungarianString);
 
-  std::pair<char32_t, char32_t> constexpr kToReplace[] = {
-      {U'e', U'é'}, {U'a', U'á'}, {U'ö', U'ő'}, {U'ü', U'ű'}};
+  std::pair<char32_t, char32_t> constexpr kToReplace[] = {{U'e', U'é'}, {U'a', U'á'}, {U'ö', U'ő'}, {U'ü', U'ű'}};
   auto & lastChar = myUniStr.back();
   for (auto [base, harmonized] : kToReplace)
   {
@@ -58,47 +57,47 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
     return 2;
 
   std::array<std::string_view, 14> constexpr backNames = {
-      "A",  // a
-      "Á",  // á
-      "H",  // há
-      "I",  // i
-      "Í",  // í
-      "K",  // ká
-      "O",  // o
-      "Ó",  // ó
-      "U",  // u
-      "Ű",  // ú
-      "0",  // nulla or zéró
-      "3",  // három
-      "6",  // hat
-      "8",  // nyolc
+    "A",  // a
+    "Á",  // á
+    "H",  // há
+    "I",  // i
+    "Í",  // í
+    "K",  // ká
+    "O",  // o
+    "Ó",  // ó
+    "U",  // u
+    "Ű",  // ú
+    "0",  // nulla or zéró
+    "3",  // három
+    "6",  // hat
+    "8",  // nyolc
   };
 
   std::array<std::string_view, 31> constexpr frontNames = {
-      // all other letters besides H and K
-      "B", "C", "D", "E", "É", "F", "G", "J", "L", "M", "N", "Ö", "Ő",
-      "P", "Q", "R", "S", "T", "Ú", "Ü", "V", "W", "X", "Y", "Z",
-      "1",  // egy
-      "2",  // kettő
-      "4",  // négy
-      "5",  // öt
-      "7",  // hét
-      "9",  // kilenc
+    // all other letters besides H and K
+    "B", "C", "D", "E", "É", "F", "G", "J", "L", "M", "N", "Ö", "Ő",
+    "P", "Q", "R", "S", "T", "Ú", "Ü", "V", "W", "X", "Y", "Z",
+    "1",  // egy
+    "2",  // kettő
+    "4",  // négy
+    "5",  // öt
+    "7",  // hét
+    "9",  // kilenc
   };
 
   std::array<std::string_view, 5> constexpr specialCaseFront = {
-      "10",  // tíz special case front
-      "40",  // negyven front
-      "50",  // ötven front
-      "70",  // hetven front
-      "90",  // kilencven front
+    "10",  // tíz special case front
+    "40",  // negyven front
+    "50",  // ötven front
+    "70",  // hetven front
+    "90",  // kilencven front
   };
 
   std::array<std::string_view, 4> constexpr specialCaseBack = {
-      "20",  // húsz back
-      "30",  // harminc back
-      "60",  // hatvan back
-      "80",  // nyolcvan back
+    "20",  // húsz back
+    "30",  // harminc back
+    "60",  // hatvan back
+    "80",  // nyolcvan back
   };
 
   // "100", // száz back, handled below

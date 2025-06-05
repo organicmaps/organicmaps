@@ -13,10 +13,7 @@ namespace
 {
 using P = m2::PointD;
 
-bool IsEqual(P const & p1, P const & p2)
-{
-  return p1.EqualDxDy(p2, kMwmPointAccuracy);
-}
+bool IsEqual(P const & p1, P const & p2) { return p1.EqualDxDy(p2, kMwmPointAccuracy); }
 
 bool FindTriangle(serial::OutPointsT const & test, P arr[])
 {
@@ -25,9 +22,8 @@ bool FindTriangle(serial::OutPointsT const & test, P arr[])
   {
     for (int base = 0; base < 3; ++base)
     {
-      if (IsEqual(test[i], arr[base])
-          && IsEqual(test[i + 1], arr[(base + 1) % 3])
-          && IsEqual(test[i + 2], arr[(base + 2) % 3]))
+      if (IsEqual(test[i], arr[base]) && IsEqual(test[i + 1], arr[(base + 1) % 3]) &&
+          IsEqual(test[i + 2], arr[(base + 2) % 3]))
       {
         return true;
       }
@@ -94,11 +90,8 @@ UNIT_TEST(TrianglesCoding_Smoke)
 
 UNIT_TEST(TrianglesCoding_Rect)
 {
-  P arrP[] = {
-      P(-16.874999848078005, -44.999999874271452),
-      P(-16.874999848078005, -39.374999869032763),
-      P(-11.249999842839316, -39.374999869032763),
-      P(-11.249999842839316, -44.999999874271452)};
+  P arrP[] = {P(-16.874999848078005, -44.999999874271452), P(-16.874999848078005, -39.374999869032763),
+              P(-11.249999842839316, -39.374999869032763), P(-11.249999842839316, -44.999999874271452)};
 
   int arrT[][3] = {{2, 0, 1}, {0, 2, 3}};
 

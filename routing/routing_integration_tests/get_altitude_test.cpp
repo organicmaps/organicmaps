@@ -30,8 +30,7 @@ using namespace feature;
 using namespace platform;
 using namespace std;
 
-void TestAltitudeOfAllMwmFeatures(string const & countryId,
-                                  geometry::Altitude const altitudeLowerBoundMeters,
+void TestAltitudeOfAllMwmFeatures(string const & countryId, geometry::Altitude const altitudeLowerBoundMeters,
                                   geometry::Altitude const altitudeUpperBoundMeters)
 {
   FrozenDataSource dataSource;
@@ -47,34 +46,35 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
 
   auto altitudeLoader = make_unique<AltitudeLoaderCached>(*handle.GetValue());
 
-  ForEachFeature(country.GetPath(MapFileType::Map), [&](FeatureType & f, uint32_t const & id)
-  {
-    if (!routing::IsRoad(TypesHolder(f)))
-      return;
+  ForEachFeature(country.GetPath(MapFileType::Map),
+                 [&](FeatureType & f, uint32_t const & id)
+                 {
+                   if (!routing::IsRoad(TypesHolder(f)))
+                     return;
 
-    f.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    size_t const pointsCount = f.GetPointsCount();
-    if (pointsCount == 0)
-      return;
+                   f.ParseGeometry(FeatureType::BEST_GEOMETRY);
+                   size_t const pointsCount = f.GetPointsCount();
+                   if (pointsCount == 0)
+                     return;
 
-    geometry::Altitudes const & altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
-    TEST(!altitudes.empty(),
-         ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
+                   geometry::Altitudes const & altitudes = altitudeLoader->GetAltitudes(id, pointsCount);
+                   TEST(!altitudes.empty(),
+                        ("Empty altitude vector. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
 
-    for (auto const altitude : altitudes)
-    {
-      TEST_EQUAL(base::Clamp(altitude, altitudeLowerBoundMeters, altitudeUpperBoundMeters), altitude,
-                 ("Unexpected altitude. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
-    }
-  });
+                   for (auto const altitude : altitudes)
+                   {
+                     TEST_EQUAL(
+                       base::Clamp(altitude, altitudeLowerBoundMeters, altitudeUpperBoundMeters), altitude,
+                       ("Unexpected altitude. MWM:", countryId, ", feature id:", id, ", altitudes:", altitudes));
+                   }
+                 });
 }
 
 UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
 {
   classificator::Load();
 
-  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */,
-                               300 /* altitudeUpperBoundMeters */);
+  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */, 300 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* altitudeLowerBoundMeters */,
                                6000 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* altitudeLowerBoundMeters */,

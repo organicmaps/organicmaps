@@ -4,14 +4,14 @@
 #include "base/stl_helpers.hpp"
 
 #ifdef DEBUG
-  #define INIT_CHECK_INFO(x) m_checkInfo = std::vector<bool>((std::vector<bool>::size_type)(x), false);
-  #define CHECK_STREAMS CheckStreams()
-  #define INIT_STREAM(x) InitCheckStream((x))
+#define INIT_CHECK_INFO(x) m_checkInfo = std::vector<bool>((std::vector<bool>::size_type)(x), false);
+#define CHECK_STREAMS CheckStreams()
+#define INIT_STREAM(x) InitCheckStream((x))
 #else
-  #include "base/macros.hpp"
-  #define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
-  #define CHECK_STREAMS
-  #define INIT_STREAM(x) UNUSED_VALUE((x))
+#include "base/macros.hpp"
+#define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
+#define CHECK_STREAMS
+#define INIT_STREAM(x) UNUSED_VALUE((x))
 #endif
 
 namespace dp
@@ -29,15 +29,9 @@ bool AttributeProvider::IsDataExists() const
   return m_vertexCount > 0;
 }
 
-uint32_t AttributeProvider::GetVertexCount() const
-{
-  return m_vertexCount;
-}
+uint32_t AttributeProvider::GetVertexCount() const { return m_vertexCount; }
 
-uint8_t AttributeProvider::GetStreamCount() const
-{
-  return m_streams.size();
-}
+uint8_t AttributeProvider::GetStreamCount() const { return m_streams.size(); }
 
 void const * AttributeProvider::GetRawPointer(uint8_t streamIndex)
 {
@@ -72,9 +66,7 @@ void AttributeProvider::Advance(uint32_t vertexCount)
   m_vertexCount -= vertexCount;
 }
 
-void AttributeProvider::InitStream(uint8_t streamIndex,
-                                   BindingInfo const & bindingInfo,
-                                   ref_ptr<void> data)
+void AttributeProvider::InitStream(uint8_t streamIndex, BindingInfo const & bindingInfo, ref_ptr<void> data)
 {
   ASSERT_LESS(streamIndex, GetStreamCount(), ());
   AttributeStream s;
@@ -84,10 +76,7 @@ void AttributeProvider::InitStream(uint8_t streamIndex,
   INIT_STREAM(streamIndex);
 }
 
-void AttributeProvider::Reset(uint32_t vertexCount)
-{
-  m_vertexCount = vertexCount;
-}
+void AttributeProvider::Reset(uint32_t vertexCount) { m_vertexCount = vertexCount; }
 
 void AttributeProvider::UpdateStream(uint8_t streamIndex, ref_ptr<void> data)
 {
@@ -102,9 +91,6 @@ void AttributeProvider::CheckStreams() const
   ASSERT(!base::IsExist(m_checkInfo, false), ("Not all streams initialized"));
 }
 
-void AttributeProvider::InitCheckStream(uint8_t streamIndex)
-{
-  m_checkInfo[streamIndex] = true;
-}
+void AttributeProvider::InitCheckStream(uint8_t streamIndex) { m_checkInfo[streamIndex] = true; }
 #endif
 }  // namespace dp

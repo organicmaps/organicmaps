@@ -56,10 +56,7 @@ void Set(std::string_view key, Value const & value)
 }
 
 /// Automatically saves settings to external file
-inline void Update(std::map<std::string, std::string> const & settings)
-{
-  StringStorage::Instance().Update(settings);
-}
+inline void Update(std::map<std::string, std::string> const & settings) { StringStorage::Instance().Update(settings); }
 
 inline void Delete(std::string_view key) { StringStorage::Instance().DeleteKeyAndValue(key); }
 inline void Clear() { StringStorage::Instance().Clear(); }
@@ -84,4 +81,4 @@ public:
   bool IsLoyalUser() const;
 };
 
-} // namespace settings
+}  // namespace settings

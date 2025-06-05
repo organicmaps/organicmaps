@@ -11,7 +11,7 @@ namespace
 {
 search::QuerySaver::SearchRequest const record1("RU_ru", "test record1");
 search::QuerySaver::SearchRequest const record2("En_us", "sometext");
-}
+}  // namespace
 
 namespace search
 {

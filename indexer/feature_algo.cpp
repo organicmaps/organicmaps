@@ -45,7 +45,7 @@ m2::PointD GetCenter(FeatureType & f) { return GetCenter(f, FeatureType::BEST_GE
 double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
 {
   double res = std::numeric_limits<double>::max();
-  auto updateDistanceFn = [&] (m2::PointD const & p)
+  auto updateDistanceFn = [&](m2::PointD const & p)
   {
     double const d = mercator::DistanceOnEarth(p, pt);
     if (d < res)
@@ -55,9 +55,7 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
   GeomType const type = ft.GetGeomType();
   switch (type)
   {
-  case GeomType::Point:
-    updateDistanceFn(ft.GetCenter());
-    break;
+  case GeomType::Point: updateDistanceFn(ft.GetCenter()); break;
 
   case GeomType::Line:
   {
@@ -73,27 +71,29 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
 
   default:
     ASSERT_EQUAL(type, GeomType::Area, ());
-    ft.ForEachTriangle([&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-    {
-      if (res == 0.0)
-        return;
-
-      if (m2::IsPointInsideTriangle(pt, p1, p2, p3))
+    ft.ForEachTriangle(
+      [&](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
       {
-        res = 0.0;
-        return;
-      }
+        if (res == 0.0)
+          return;
 
-      auto fn = [&](m2::PointD const & x1, m2::PointD const & x2) {
-        m2::ParametrizedSegment<m2::PointD> const segment(x1, x2);
-        updateDistanceFn(segment.ClosestPointTo(pt));
-      };
+        if (m2::IsPointInsideTriangle(pt, p1, p2, p3))
+        {
+          res = 0.0;
+          return;
+        }
 
-      fn(p1, p2);
-      fn(p2, p3);
-      fn(p3, p1);
+        auto fn = [&](m2::PointD const & x1, m2::PointD const & x2)
+        {
+          m2::ParametrizedSegment<m2::PointD> const segment(x1, x2);
+          updateDistanceFn(segment.ClosestPointTo(pt));
+        };
 
-    }, scale);
+        fn(p1, p2);
+        fn(p2, p3);
+        fn(p3, p1);
+      },
+      scale);
     break;
   }
 
@@ -111,9 +111,7 @@ double CalcArea(FeatureType & ft)
   if (ft.GetGeomType() == GeomType::Area)
   {
     ft.ForEachTriangle([&area](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-    {
-      area += m2::GetTriangleArea(p1, p2, p3);
-    }, FeatureType::BEST_GEOMETRY);
+                       { area += m2::GetTriangleArea(p1, p2, p3); }, FeatureType::BEST_GEOMETRY);
   }
   return area;
 }

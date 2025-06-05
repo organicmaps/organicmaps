@@ -12,5 +12,5 @@ protected:
   ~FeatureEmitterIFace() = default;
 
 public:
-  virtual void operator() (feature::FeatureBuilder const &) = 0;
+  virtual void operator()(feature::FeatureBuilder const &) = 0;
 };

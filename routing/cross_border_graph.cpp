@@ -4,8 +4,7 @@
 
 namespace routing
 {
-void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId,
-                                             CrossBorderSegment const & segment)
+void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId, CrossBorderSegment const & segment)
 {
   m_segments.emplace(segId, segment);
 
@@ -21,21 +20,20 @@ void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId,
 }
 
 CrossBorderSegmentEnding::CrossBorderSegmentEnding(m2::PointD const & point, NumMwmId const & mwmId)
-  : m_point(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters), m_numMwmId(mwmId)
-{
-}
+  : m_point(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters)
+  , m_numMwmId(mwmId)
+{}
 
 CrossBorderSegmentEnding::CrossBorderSegmentEnding(ms::LatLon const & point, NumMwmId const & mwmId)
-  : m_point(point, 0), m_numMwmId(mwmId)
-{
-}
+  : m_point(point, 0)
+  , m_numMwmId(mwmId)
+{}
 
 CrossBorderGraphSerializer::Header::Header(CrossBorderGraph const & graph, uint32_t version)
   : m_numRegions(static_cast<uint32_t>(graph.m_mwms.size()))
   , m_numRoads(static_cast<uint32_t>(graph.m_segments.size()))
   , m_version(version)
-{
-}
+{}
 
 // static
 uint32_t CrossBorderGraphSerializer::Hash(std::string const & s)

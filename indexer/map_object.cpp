@@ -7,9 +7,9 @@
 
 #include "geometry/mercator.hpp"
 
+#include "platform/distance.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/distance.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -25,10 +25,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 
   Classificator const & cl = classif();
   m_types = feature::TypesHolder(ft);
-  m_types.RemoveIf([&cl](uint32_t t)
-  {
-    return !cl.IsTypeValid(t);
-  });
+  m_types.RemoveIf([&cl](uint32_t t) { return !cl.IsTypeValid(t); });
   // Actually, we can't select object on map with invalid (non-drawable or deprecated) type.
   // TODO: in android prod a user will see an "empty" PP if a spot is selected in old mwm
   // where a deprecated feature was; and could crash if play with routing to it, bookmarking it..
@@ -49,7 +46,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
     assign_range(m_triangles, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
   else if (m_geomType == feature::GeomType::Line)
     assign_range(m_points, ft.GetPoints(FeatureType::BEST_GEOMETRY));
-    
+
   // Fill runtime metadata
   m_metadata.Set(feature::Metadata::EType::FMD_WHEELCHAIR, feature::GetReadableWheelchairType(m_types));
 
@@ -73,17 +70,11 @@ string_view MapObject::GetDefaultName() const
   return name;
 }
 
-StringUtf8Multilang const & MapObject::GetNameMultilang() const
-{
-  return m_name;
-}
+StringUtf8Multilang const & MapObject::GetNameMultilang() const { return m_name; }
 
 string const & MapObject::GetHouseNumber() const { return m_houseNumber; }
 
-std::string_view MapObject::GetPostcode() const
-{
-  return m_metadata.Get(MetadataID::FMD_POSTCODE);
-}
+std::string_view MapObject::GetPostcode() const { return m_metadata.Get(MetadataID::FMD_POSTCODE); }
 
 std::string MapObject::GetLocalizedType() const
 {
@@ -117,22 +108,22 @@ std::string MapObject::GetLocalizedAllTypes(bool withMainType) const
     // Ignore types that are not POI
     if (!isMainType && !isPoi(type))
       continue;
-      
+
     // Ignore general amenity
     if (!isMainType && amenityChecker.GetType() == type)
       continue;
-      
+
     isMainType = false;
-    
+
     // Add fields separator between types
     if (isFirst)
       isFirst = false;
     else
       oss << feature::kFieldsSeparator;
-    
+
     oss << platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
   }
-  
+
   return oss.str();
 }
 
@@ -146,19 +137,13 @@ std::string MapObject::GetAllReadableTypes() const
 
   for (auto const type : copy)
     oss << classif().GetReadableObjectName(type) << feature::kFieldsSeparator;
-  
+
   return oss.str();
 }
 
-std::string_view MapObject::GetMetadata(MetadataID type) const
-{
-  return m_metadata.Get(type);
-}
+std::string_view MapObject::GetMetadata(MetadataID type) const { return m_metadata.Get(type); }
 
-std::string_view MapObject::GetOpeningHours() const
-{
-  return m_metadata.Get(MetadataID::FMD_OPEN_HOURS);
-}
+std::string_view MapObject::GetOpeningHours() const { return m_metadata.Get(MetadataID::FMD_OPEN_HOURS); }
 
 feature::Internet MapObject::GetInternet() const
 {
@@ -167,42 +152,24 @@ feature::Internet MapObject::GetInternet() const
 
 vector<string> MapObject::GetCuisines() const { return feature::GetCuisines(m_types); }
 
-vector<string> MapObject::GetLocalizedCuisines() const
-{
-  return feature::GetLocalizedCuisines(m_types);
-}
+vector<string> MapObject::GetLocalizedCuisines() const { return feature::GetLocalizedCuisines(m_types); }
 
 vector<string> MapObject::GetRecyclingTypes() const { return feature::GetRecyclingTypes(m_types); }
 
-vector<string> MapObject::GetLocalizedRecyclingTypes() const
-{
-  return feature::GetLocalizedRecyclingTypes(m_types);
-}
+vector<string> MapObject::GetLocalizedRecyclingTypes() const { return feature::GetLocalizedRecyclingTypes(m_types); }
 
-string MapObject::GetLocalizedFeeType() const
-{
-  return feature::GetLocalizedFeeType(m_types);
-}
+string MapObject::GetLocalizedFeeType() const { return feature::GetLocalizedFeeType(m_types); }
 
-bool MapObject::HasAtm() const
-{
-  return feature::HasAtm(m_types);
-}
+bool MapObject::HasAtm() const { return feature::HasAtm(m_types); }
 
-bool MapObject::HasToilets() const
-{
-  return feature::HasToilets(m_types);
-}
+bool MapObject::HasToilets() const { return feature::HasToilets(m_types); }
 
 string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), feature::kFieldsSeparator);
 }
 
-string MapObject::FormatRoadShields() const
-{
-  return strings::JoinStrings(m_roadShields, feature::kFieldsSeparator);
-}
+string MapObject::FormatRoadShields() const { return strings::JoinStrings(m_roadShields, feature::kFieldsSeparator); }
 
 int MapObject::GetStars() const
 {

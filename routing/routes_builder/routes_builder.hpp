@@ -99,14 +99,11 @@ public:
   std::future<Result> ProcessTaskAsync(Params const & params);
 
 private:
-
   class Processor
   {
   public:
-    Processor(std::shared_ptr<NumMwmIds> numMwmIds,
-              DataSourceStorage & dataSourceStorage,
-              std::weak_ptr<storage::CountryParentGetter> cpg,
-              std::weak_ptr<storage::CountryInfoGetter> cig);
+    Processor(std::shared_ptr<NumMwmIds> numMwmIds, DataSourceStorage & dataSourceStorage,
+              std::weak_ptr<storage::CountryParentGetter> cpg, std::weak_ptr<storage::CountryInfoGetter> cig);
 
     Processor(Processor && rhs) noexcept;
 
@@ -131,11 +128,10 @@ private:
 
   base::ComputationalThreadPool m_threadPool;
 
-  std::shared_ptr<storage::CountryParentGetter> m_cpg =
-      std::make_shared<storage::CountryParentGetter>();
+  std::shared_ptr<storage::CountryParentGetter> m_cpg = std::make_shared<storage::CountryParentGetter>();
 
   std::shared_ptr<storage::CountryInfoGetter> m_cig =
-      storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+    storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
 
   std::shared_ptr<NumMwmIds> m_numMwmIds = std::make_shared<NumMwmIds>();
 

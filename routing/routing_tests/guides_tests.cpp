@@ -95,8 +95,7 @@ UNIT_TEST(Guides_FinishAndStartAttached)
     auto const links = guides.GetOsmConnections(checkpointIdx);
     TEST(!links.empty(), ());
 
-    bool const isCheckpointNear =
-        guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
+    bool const isCheckpointNear = guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
     auto const ending = guides.GetFakeEnding(checkpointIdx);
 
     // Initial projection to guides track.

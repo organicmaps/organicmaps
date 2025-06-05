@@ -12,17 +12,11 @@ namespace qt::common
 
 bool IsLeftButton(Qt::MouseButtons buttons) { return buttons & Qt::LeftButton; }
 
-bool IsLeftButton(QMouseEvent const * const e)
-{
-  return IsLeftButton(e->button()) || IsLeftButton(e->buttons());
-}
+bool IsLeftButton(QMouseEvent const * const e) { return IsLeftButton(e->button()) || IsLeftButton(e->buttons()); }
 
 bool IsRightButton(Qt::MouseButtons buttons) { return buttons & Qt::RightButton; }
 
-bool IsRightButton(QMouseEvent const * const e)
-{
-  return IsRightButton(e->button()) || IsRightButton(e->buttons());
-}
+bool IsRightButton(QMouseEvent const * const e) { return IsRightButton(e->button()) || IsRightButton(e->buttons()); }
 
 bool IsCommandModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::ControlModifier; }
 
@@ -78,4 +72,4 @@ void SetDefaultSurfaceFormat(QString const & platformName)
   QSurfaceFormat::setDefaultFormat(fmt);
 }
 
-} // namespace qt::common
+}  // namespace qt::common

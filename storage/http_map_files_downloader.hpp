@@ -35,8 +35,7 @@ private:
   void Download();
 
   void OnMapFileDownloaded(QueuedCountry const & queuedCountry, downloader::HttpRequest & request);
-  void OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry,
-                                    downloader::HttpRequest & request);
+  void OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry, downloader::HttpRequest & request);
 
   std::unique_ptr<downloader::HttpRequest> m_request;
   Queue m_queue;

@@ -1,8 +1,8 @@
 #pragma once
 
+#include "drape/dynamic_texture.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
-#include "drape/dynamic_texture.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -11,7 +11,6 @@
 
 #include <map>
 #include <mutex>
-
 
 namespace dp
 {
@@ -23,20 +22,19 @@ using PenPatternT = buffer_vector<uint16_t, 2>;
 inline uint16_t PatternFloat2Pixel(double d)
 {
   auto const px = static_cast<uint16_t>(std::round(d));
-  //ASSERT(px > 0, (d));
+  // ASSERT(px > 0, (d));
   return px > 0 ? px : 1;
 }
 
-inline bool IsTrianglePattern(PenPatternT const & p)
-{
-  return p.size() == 4;
-}
+inline bool IsTrianglePattern(PenPatternT const & p) { return p.size() == 4; }
 
 class StipplePenKey : public Texture::Key
 {
 public:
   StipplePenKey() = default;
-  explicit StipplePenKey(PenPatternT const & pattern) : m_pattern(pattern) {}
+  explicit StipplePenKey(PenPatternT const & pattern)
+    : m_pattern(pattern)
+  {}
 
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
 
@@ -51,7 +49,7 @@ class StipplePenRasterizator
 public:
   explicit StipplePenRasterizator(StipplePenKey const & key);
 
-  m2::PointU GetSize() const { return { m_pixelLength, m_height }; }
+  m2::PointU GetSize() const { return {m_pixelLength, m_height}; }
 
   void Rasterize(uint8_t * buffer) const;
 
@@ -70,9 +68,9 @@ class StipplePenResourceInfo : public Texture::ResourceInfo
 {
 public:
   StipplePenResourceInfo(m2::RectF const & texRect, m2::PointU const & pixelSize)
-    : Texture::ResourceInfo(texRect), m_pixelSize(pixelSize)
-  {
-  }
+    : Texture::ResourceInfo(texRect)
+    , m_pixelSize(pixelSize)
+  {}
 
   virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
 
@@ -98,12 +96,13 @@ private:
 class StipplePenIndex
 {
 public:
-  explicit StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
+  explicit StipplePenIndex(m2::PointU const & canvasSize)
+    : m_packer(canvasSize)
+  {}
   /// @param[out] newResource Needed for the generic DynamicTexture code.
   /// @{
   // Called from TextureManager::Init and fills m_predefinedResourceMapping, no need in m_mappingLock.
-  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key,
-                                                 bool & newResource);
+  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource);
   // Checks m_predefinedResourceMapping, fills m_resourceMapping, locks m_mappingLock.
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
   /// @}
@@ -129,8 +128,7 @@ private:
   bool m_uploadCalled = false;
 };
 
-class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey,
-                                                Texture::ResourceType::StipplePen>
+class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>
 {
   using TBase = DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>;
 

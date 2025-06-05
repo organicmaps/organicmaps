@@ -10,5 +10,5 @@ class CountryInfoGetter;
 
 std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetter();
 
-bool AlmostEqualRectsAbs(const m2::RectD & r1, const m2::RectD & r2);
-} // namespace storage
+bool AlmostEqualRectsAbs(m2::RectD const & r1, m2::RectD const & r2);
+}  // namespace storage

@@ -18,8 +18,6 @@ using GenerateIDFn = std::function<FeatureID()>;
 
 /// Tries to match xml feature with one on a new mwm and returns FeatureID
 /// of a found feature, throws MigrationError if migration fails.
-FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
-                              XMLFeature const & xml,
-                              FeatureStatus const featureStatus,
-                              GenerateIDFn const & generateID);
+FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+                              FeatureStatus const featureStatus, GenerateIDFn const & generateID);
 }  // namespace editor

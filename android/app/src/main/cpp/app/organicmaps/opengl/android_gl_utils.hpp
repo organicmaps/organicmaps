@@ -25,5 +25,16 @@ private:
 void CheckEGL(base::SrcPoint const & src);
 }  // namespace android
 
-#define CHECK_EGL(x) do { (x); android::CheckEGL(SRC());} while(false);
-#define CHECK_EGL_CALL() do { android::CheckEGL(SRC());} while (false);
+#define CHECK_EGL(x)          \
+  do                          \
+  {                           \
+    (x);                      \
+    android::CheckEGL(SRC()); \
+  }                           \
+  while (false);
+#define CHECK_EGL_CALL()      \
+  do                          \
+  {                           \
+    android::CheckEGL(SRC()); \
+  }                           \
+  while (false);

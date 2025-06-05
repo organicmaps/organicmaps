@@ -26,16 +26,16 @@ public:
     return m_engine != nullptr;
   }
 
-  template <typename Function, typename ... Args>
-  void SafeCall(Function && f, Args && ... functionArgs)
+  template <typename Function, typename... Args>
+  void SafeCall(Function && f, Args &&... functionArgs)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_engine != nullptr)
       (m_engine.get()->*f)(std::forward<Args>(functionArgs)...);
   }
 
-  template <typename Function, typename ... Args>
-  dp::DrapeID SafeCallWithResult(Function && f, Args && ... functionArgs)
+  template <typename Function, typename... Args>
+  dp::DrapeID SafeCallWithResult(Function && f, Args &&... functionArgs)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (m_engine != nullptr)
@@ -59,10 +59,7 @@ public:
     m_ptr.m_mutex.lock();
   }
 
-  ~DrapeEngineLockGuard()
-  {
-    m_ptr.m_mutex.unlock();
-  }
+  ~DrapeEngineLockGuard() { m_ptr.m_mutex.unlock(); }
 
   explicit operator bool() { return m_ptr.m_engine != nullptr; }
 

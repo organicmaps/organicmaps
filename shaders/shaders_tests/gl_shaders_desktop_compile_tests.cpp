@@ -34,7 +34,6 @@ UNIT_TEST(DesktopCompileShaders_GLES3_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("DesktopCompileShaders_GLES3_Test", true /* apiOpenGLES3 */,
                                       std::bind(&CompileShaders, _1, false /* enableVTF */));
-
 }
 
 UNIT_TEST(DesktopCompileShaders_GLES2_VTF_Test)
@@ -47,6 +46,5 @@ UNIT_TEST(DesktopCompileShaders_GLES3_VTF_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("DesktopCompileShaders_GLES3_VTF_Test", true /* apiOpenGLES3 */,
                                       std::bind(&CompileShaders, _1, true /* enableVTF */));
-
 }
 #endif

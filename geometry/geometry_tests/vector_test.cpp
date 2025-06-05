@@ -20,14 +20,14 @@ UNIT_TEST(AvgVector_Smoke)
 {
   math::AvgVector<double, 3> holder(3);
 
-  double ethalon1[] = { 5, 5, 5 };
-  double ethalon2[] = { 5.5, 5.5, 5.5 };
-  double ethalon3[] = { 6, 6, 6 };
+  double ethalon1[] = {5, 5, 5};
+  double ethalon2[] = {5.5, 5.5, 5.5};
+  double ethalon3[] = {6, 6, 6};
 
-  double arr1[] = { 5, 5, 5 };
-  double arr2[] = { 6, 6, 6 };
-  double arr3[] = { 5, 5, 5 };
-  double arr4[] = { 6, 6, 6 };
+  double arr1[] = {5, 5, 5};
+  double arr2[] = {6, 6, 6};
+  double arr3[] = {5, 5, 5};
+  double arr4[] = {6, 6, 6};
 
   holder.Next(arr1);
   TEST(EqualArrays(arr1, ethalon1), ());

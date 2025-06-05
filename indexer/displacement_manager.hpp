@@ -32,10 +32,13 @@ class CellFeatureBucketTuple
 public:
   using CellFeaturePair = CellValuePair<uint32_t>;
 
-  CellFeatureBucketTuple() : m_bucket(0) {}
-  CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket)
-  {
-  }
+  CellFeatureBucketTuple()
+    : m_bucket(0)
+  {}
+  CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket)
+    : m_pair(p)
+    , m_bucket(bucket)
+  {}
 
   bool operator<(CellFeatureBucketTuple const & rhs) const
   {
@@ -63,7 +66,9 @@ class DisplacementManager
 public:
   using CellFeaturePair = CellFeatureBucketTuple::CellFeaturePair;
 
-  explicit DisplacementManager(Sorter & sorter) : m_sorter(sorter) {}
+  explicit DisplacementManager(Sorter & sorter)
+    : m_sorter(sorter)
+  {}
 
   /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
   template <typename Feature>
@@ -97,8 +102,7 @@ public:
       auto scale = node.m_minScale;
       // Do not filter high level objects. Including metro and country names.
       static auto const maximumIgnoredZoom =
-          feature::GetDrawableScaleRange(classif().GetTypeByPath({"railway", "station", "subway"}))
-              .first;
+        feature::GetDrawableScaleRange(classif().GetTypeByPath({"railway", "station", "subway"})).first;
 
       if (maximumIgnoredZoom < 0 || scale <= maximumIgnoredZoom)
       {
@@ -114,12 +118,13 @@ public:
 
         m2::RectD const displacementRect(node.m_center, node.m_center);
         bool isDisplaced = false;
-        acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
-            [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
-            {
-              if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
-                isDisplaced = true;
-            });
+        acceptedNodes.ForEachInRect(
+          m2::Inflate(displacementRect, {delta, delta}),
+          [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
+          {
+            if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
+              isDisplaced = true;
+          });
         if (isDisplaced)
           continue;
 
@@ -146,7 +151,12 @@ private:
     int m_maxScale;
     uint32_t m_priority;
 
-    DisplaceableNode() : m_index(0), m_minScale(0), m_maxScale(0), m_priority(0) {}
+    DisplaceableNode()
+      : m_index(0)
+      , m_minScale(0)
+      , m_maxScale(0)
+      , m_priority(0)
+    {}
 
     template <typename Feature>
     DisplaceableNode(std::vector<int64_t> const & cells, Feature & ft, uint32_t index, int zoomLevel)
@@ -214,4 +224,4 @@ private:
   Sorter & m_sorter;
   std::vector<DisplaceableNode> m_storage;
 };
-} // namespace covering
+}  // namespace covering

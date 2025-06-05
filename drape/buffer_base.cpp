@@ -8,23 +8,13 @@ BufferBase::BufferBase(uint8_t elementSize, uint32_t capacity)
   : m_elementSize(elementSize)
   , m_capacity(capacity)
   , m_size(0)
-{
-}
+{}
 
-uint32_t BufferBase::GetCapacity() const
-{
-  return m_capacity;
-}
+uint32_t BufferBase::GetCapacity() const { return m_capacity; }
 
-uint32_t BufferBase::GetCurrentSize() const
-{
-  return m_size;
-}
+uint32_t BufferBase::GetCurrentSize() const { return m_size; }
 
-uint32_t BufferBase::GetAvailableSize() const
-{
-  return m_capacity - m_size;
-}
+uint32_t BufferBase::GetAvailableSize() const { return m_capacity - m_size; }
 
 void BufferBase::Resize(uint32_t elementCount)
 {
@@ -32,10 +22,7 @@ void BufferBase::Resize(uint32_t elementCount)
   m_size = 0;
 }
 
-uint8_t BufferBase::GetElementSize() const
-{
-  return m_elementSize;
-}
+uint8_t BufferBase::GetElementSize() const { return m_elementSize; }
 
 void BufferBase::Seek(uint32_t elementNumber)
 {
@@ -55,4 +42,4 @@ void BufferBase::SetDataSize(uint32_t elementCount)
   m_size = elementCount;
 }
 
-} // namespace dp
+}  // namespace dp

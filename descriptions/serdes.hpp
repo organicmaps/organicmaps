@@ -13,8 +13,8 @@
 #include <map>
 #include <memory>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace descriptions
 {
@@ -62,7 +62,8 @@ public:
   explicit Serializer(DescriptionsCollection && descriptions)
     : m_collection(std::move(descriptions))
   {
-    std::sort(m_collection.m_features.begin(), m_collection.m_features.end(), base::LessBy(&FeatureDescription::m_ftIndex));
+    std::sort(m_collection.m_features.begin(), m_collection.m_features.end(),
+              base::LessBy(&FeatureDescription::m_ftIndex));
   }
 
   template <typename Sink>

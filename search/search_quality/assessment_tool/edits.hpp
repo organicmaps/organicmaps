@@ -15,7 +15,9 @@ struct SampleEdits
 {
   using OnUpdate = std::function<void()>;
 
-  explicit SampleEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
+  explicit SampleEdits(OnUpdate onUpdate)
+    : m_onUpdate(onUpdate)
+  {}
 
   void Reset(bool origUseless);
   void FlipUsefulness();
@@ -44,9 +46,10 @@ public:
 
     Entry() = default;
     Entry(std::optional<Relevance> relevance, Type type)
-      : m_currRelevance(relevance), m_origRelevance(relevance), m_type(type)
-    {
-    }
+      : m_currRelevance(relevance)
+      , m_origRelevance(relevance)
+      , m_type(type)
+    {}
 
     std::optional<Relevance> m_currRelevance = {};
     std::optional<Relevance> m_origRelevance = {};
@@ -68,7 +71,10 @@ public:
     };
 
     Update() = default;
-    Update(Type type, size_t index): m_type(type), m_index(index) {}
+    Update(Type type, size_t index)
+      : m_type(type)
+      , m_index(index)
+    {}
 
     static Update MakeAll() { return {}; }
     static Update MakeSingle(size_t index) { return {Type::Single, index}; }
@@ -99,7 +105,9 @@ public:
     size_t m_index = 0;
   };
 
-  explicit ResultsEdits(OnUpdate onUpdate) : m_onUpdate(onUpdate) {}
+  explicit ResultsEdits(OnUpdate onUpdate)
+    : m_onUpdate(onUpdate)
+  {}
 
   void Apply();
   void Reset(std::vector<std::optional<Relevance>> const & relevances);
@@ -128,7 +136,6 @@ public:
 
   Entry const & Get(size_t index) const;
 
-
   void Clear();
   bool HasChanges() const;
   bool HasChanges(size_t index) const;
@@ -137,10 +144,12 @@ private:
   template <typename Fn>
   std::invoke_result_t<Fn> WithObserver(Update const & update, Fn && fn)
   {
-    SCOPE_GUARD(obsCall, ([this, &update]() {
-                  if (m_onUpdate)
-                    m_onUpdate(update);
-                }));
+    SCOPE_GUARD(obsCall, (
+                           [this, &update]()
+                           {
+                             if (m_onUpdate)
+                               m_onUpdate(update);
+                           }));
     return fn();
   }
 

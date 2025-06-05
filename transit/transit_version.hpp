@@ -28,8 +28,7 @@ inline std::string DebugPrint(TransitVersion version)
   case TransitVersion::Counter: return "Counter";
   }
 
-  LOG(LERROR,
-      ("Unknown version:", static_cast<std::underlying_type<TransitVersion>::type>(version)));
+  LOG(LERROR, ("Unknown version:", static_cast<std::underlying_type<TransitVersion>::type>(version)));
   UNREACHABLE();
 }
 }  // namespace transit

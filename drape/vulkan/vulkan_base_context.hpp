@@ -27,9 +27,8 @@ namespace vulkan
 class VulkanBaseContext : public dp::GraphicsContext
 {
 public:
-  VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
-                    uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
+  VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
+                    VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                     drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates);
   ~VulkanBaseContext() override;
 
@@ -65,8 +64,8 @@ public:
   void SetDepthTestFunction(TestFunction depthFunction) override;
   void SetStencilTestEnabled(bool enabled) override;
   void SetStencilFunction(StencilFace face, TestFunction stencilFunction) override;
-  void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
-                         StencilAction depthFailAction, StencilAction passAction) override;
+  void SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
+                         StencilAction passAction) override;
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
   void SetCullingEnabled(bool enabled) override;
 
@@ -212,8 +211,7 @@ protected:
   };
   std::map<ref_ptr<BaseFramebuffer>, FramebufferData> m_framebuffersData;
 
-  std::array<std::vector<std::pair<uint32_t, ContextHandler>>,
-             static_cast<size_t>(HandlerType::Count)> m_handlers;
+  std::array<std::vector<std::pair<uint32_t, ContextHandler>>, static_cast<size_t>(HandlerType::Count)> m_handlers;
 
   VulkanPipeline::PipelineKey m_pipelineKey;
   std::vector<ParamDescriptor> m_paramDescriptors;

@@ -30,5 +30,5 @@ public:
 
   virtual ~IRoutingResult() = default;
 };
-}  // namespace routing
 }  // namespace turns
+}  // namespace routing

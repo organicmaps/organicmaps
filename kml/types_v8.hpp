@@ -7,40 +7,25 @@ namespace kml
 
 struct BookmarkDataV8
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV8, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_featureTypes, "featureTypes"),
-                                  visitor(m_customName, "customName"),
-                                  visitor(m_color, "color"),
-                                  visitor(m_icon, "icon"),
-                                  visitor(m_viewportScale, "viewportScale"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_point, "point"),
-                                  visitor(m_boundTracks, "boundTracks"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_nearestToponym, "nearestToponym"),
-                                  visitor(m_properties, "properties"),
-                                  visitor(m_compilations, "compilations"),
-                                  VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV8, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_description, "description"), visitor(m_featureTypes, "featureTypes"),
+                                  visitor(m_customName, "customName"), visitor(m_color, "color"),
+                                  visitor(m_icon, "icon"), visitor(m_viewportScale, "viewportScale"),
+                                  visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
+                                  visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponym, "nearestToponym"), visitor(m_properties, "properties"),
+                                  visitor(m_compilations, "compilations"), VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
-                      m_nearestToponym, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName, m_nearestToponym, m_properties)
 
   bool operator==(BookmarkDataV8 const & data) const
   {
-    return m_id == data.m_id && m_name == data.m_name &&
-           m_description == data.m_description &&
-           m_color == data.m_color && m_icon == data.m_icon &&
-           m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
-           m_featureTypes == data.m_featureTypes &&
-           m_customName == data.m_customName &&
-           m_boundTracks == data.m_boundTracks &&
-           m_visible == data.m_visible &&
-           m_nearestToponym == data.m_nearestToponym &&
-           m_properties == data.m_properties &&
+    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
+           m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
+           m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
+           m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
+           m_nearestToponym == data.m_nearestToponym && m_properties == data.m_properties &&
            m_compilations == data.m_compilations;
   }
 
@@ -129,10 +114,8 @@ using CategoryDataV8 = CategoryDataV9;
 
 struct FileDataV8
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8, visitor(m_serverId, "serverId"),
-                                  visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV8, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"),
                                   visitor(m_compilationData, "compilations"))
 
   bool operator==(FileDataV8 const & data) const

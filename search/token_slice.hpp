@@ -62,7 +62,9 @@ private:
 class QuerySlice : public StringSliceBase
 {
 public:
-  explicit QuerySlice(TokenSlice const & slice) : m_slice(slice) {}
+  explicit QuerySlice(TokenSlice const & slice)
+    : m_slice(slice)
+  {}
 
   // QuerySlice overrides:
   QueryParams::String const & Get(size_t i) const override { return m_slice.Get(i).GetOriginal(); }
@@ -77,9 +79,9 @@ class QuerySliceOnRawStrings : public StringSliceBase
 {
 public:
   QuerySliceOnRawStrings(Cont const & tokens, String const & prefix)
-    : m_tokens(tokens), m_prefix(prefix)
-  {
-  }
+    : m_tokens(tokens)
+    , m_prefix(prefix)
+  {}
 
   bool HasPrefixToken() const { return !m_prefix.empty(); }
 

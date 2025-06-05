@@ -23,8 +23,7 @@ namespace routing_builder
 using generator::CitiesBoundariesChecker;
 using std::string, std::vector;
 
-void LoadCitiesBoundariesGeometry(string const & boundariesPath,
-                                  CitiesBoundariesChecker::CitiesBoundaries & result)
+void LoadCitiesBoundariesGeometry(string const & boundariesPath, CitiesBoundariesChecker::CitiesBoundaries & result)
 {
   if (!Platform::IsFileExistsByFullPath(boundariesPath))
   {
@@ -36,24 +35,25 @@ void LoadCitiesBoundariesGeometry(string const & boundariesPath,
   holder.Deserialize(boundariesPath);
 
   size_t points = 0, areas = 0;
-  holder.ForEachLocality([&](generator::PlaceBoundariesHolder::Locality & loc)
-  {
-    CHECK(loc.TestValid(), ());
+  holder.ForEachLocality(
+    [&](generator::PlaceBoundariesHolder::Locality & loc)
+    {
+      CHECK(loc.TestValid(), ());
 
-    if (loc.IsPoint() || !loc.IsHonestCity())
-    {
-      ++points;
-      double const radiusM = ftypes::GetRadiusByPopulationForRouting(loc.GetPopulation(), loc.GetPlace());
-      result.emplace_back(ms::CreateCircleGeometryOnEarth(
-                            mercator::ToLatLon(loc.m_center), radiusM, 30.0 /* angleStepDegree */));
-    }
-    else
-    {
-      ++areas;
-      for (auto & poly : loc.m_boundary)
-        result.emplace_back(std::move(poly));
-    }
-  });
+      if (loc.IsPoint() || !loc.IsHonestCity())
+      {
+        ++points;
+        double const radiusM = ftypes::GetRadiusByPopulationForRouting(loc.GetPopulation(), loc.GetPlace());
+        result.emplace_back(
+          ms::CreateCircleGeometryOnEarth(mercator::ToLatLon(loc.m_center), radiusM, 30.0 /* angleStepDegree */));
+      }
+      else
+      {
+        ++areas;
+        for (auto & poly : loc.m_boundary)
+          result.emplace_back(std::move(poly));
+      }
+    });
 
   LOG(LINFO, ("Read", points, "point places and", areas, "area places from:", boundariesPath));
 }
@@ -63,36 +63,36 @@ void LoadCitiesBoundariesGeometry(string const & boundariesPath,
 /// according to |table|.
 vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boundariesPath)
 {
-
   CitiesBoundariesChecker::CitiesBoundaries citiesBoundaries;
   LoadCitiesBoundariesGeometry(boundariesPath, citiesBoundaries);
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
-  feature::ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
-  {
-    feature::TypesHolder types(ft);
-    if (!routing::IsCarRoad(types) && !routing::IsBicycleRoad(types))
-      return;
+  feature::ForEachFeature(dataPath,
+                          [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
+                          {
+                            feature::TypesHolder types(ft);
+                            if (!routing::IsCarRoad(types) && !routing::IsBicycleRoad(types))
+                              return;
 
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+                            ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    size_t inCityPointsCounter = 0;
-    size_t const count = ft.GetPointsCount();
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (checker.InCity(ft.GetPoint(i)))
-        ++inCityPointsCounter;
-    }
+                            size_t inCityPointsCounter = 0;
+                            size_t const count = ft.GetPointsCount();
+                            for (size_t i = 0; i < count; ++i)
+                            {
+                              if (checker.InCity(ft.GetPoint(i)))
+                                ++inCityPointsCounter;
+                            }
 
-    // Our approximation of boundary overestimates it, because of different
-    // bounding boxes (in order to increase performance). So we don't want
-    // match some long roads as city roads, because they pass near city, but
-    // not though it.
-    double constexpr kPointsRatioInCity = 0.8;
-    if (inCityPointsCounter > kPointsRatioInCity * count)
-      cityRoadFeatureIds.push_back(ft.GetID().m_index);
-  });
+                            // Our approximation of boundary overestimates it, because of different
+                            // bounding boxes (in order to increase performance). So we don't want
+                            // match some long roads as city roads, because they pass near city, but
+                            // not though it.
+                            double constexpr kPointsRatioInCity = 0.8;
+                            if (inCityPointsCounter > kPointsRatioInCity * count)
+                              cityRoadFeatureIds.push_back(ft.GetID().m_index);
+                          });
 
   return cityRoadFeatureIds;
 }

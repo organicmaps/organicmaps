@@ -20,7 +20,7 @@ namespace storage
 {
 class CountryInfoGetter;
 struct CountryInfo;
-}
+}  // namespace storage
 
 namespace search
 {
@@ -62,8 +62,8 @@ public:
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 #endif
 
-  //size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
-  //size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
+  // size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+  // size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
   bool IsNotRelaxed() const { return !m_isRelaxed; }
 
   bool SkipForViewportSearch(size_t queryTokensNumber) const
@@ -109,8 +109,7 @@ public:
   };
 
   /// For Type::Feature and Type::Building.
-  RankerResult(FeatureType & ft, m2::PointD const & center,
-               std::string displayName, std::string const & fileName);
+  RankerResult(FeatureType & ft, m2::PointD const & center, std::string displayName, std::string const & fileName);
   RankerResult(FeatureType & ft, std::string const & fileName);
 
   /// For Type::LatLon.
@@ -168,8 +167,7 @@ private:
       m_point = point;
     }
 
-    bool GetCountryId(storage::CountryInfoGetter const & infoGetter,
-                      storage::CountryId & countryId) const;
+    bool GetCountryId(storage::CountryInfoGetter const & infoGetter, storage::CountryId & countryId) const;
   };
 
   RegionInfo m_region;
@@ -178,7 +176,7 @@ private:
   Result::Details m_details;
 
   StoredRankingInfo m_info;
-  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
+  std::shared_ptr<RankingInfo> m_dbgInfo;  // used in debug logs and tests, nullptr in production
 
   FeatureID m_id;
   double m_finalRank;

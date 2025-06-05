@@ -21,7 +21,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstring>    // strlen
+#include <cstring>  // strlen
 #include <fstream>
 #include <map>
 #include <random>
@@ -45,8 +45,7 @@ DEFINE_string(data_path, "", "Path to data directory (resources dir).");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir).");
 DEFINE_string(out_buildings_path, "buildings.json", "Path to output file for buildings samples.");
 DEFINE_string(out_cafes_path, "cafes.json", "Path to output file for cafes samples.");
-DEFINE_double(max_distance_to_object, kMaxDistanceToObjectM,
-              "Maximal distance from user position to object (meters).");
+DEFINE_double(max_distance_to_object, kMaxDistanceToObjectM, "Maximal distance from user position to object (meters).");
 DEFINE_double(min_viewport_size, kMinViewportSizeM, "Minimal size of viewport (meters).");
 DEFINE_double(max_viewport_size, kMaxViewportSizeM, "Maximal size of viewport (meters).");
 DEFINE_uint64(max_samples_per_mwm, kMaxSamplesPerMwm,
@@ -122,38 +121,34 @@ void AddMisprints(string & str)
   }
 }
 
-map<string, vector<string>> const kStreetSynonyms = {
-    {"улица", {"ул", "у"}},
-    {"проспект", {"пр-т", "пр", "пркт", "прт", "пр-кт"}},
-    {"переулок", {"пер"}},
-    {"проезд", {"пр-д", "пр", "прд"}},
-    {"аллея", {"ал"}},
-    {"бульвар", {"б-р", "бр"}},
-    {"набережная", {"наб", "наб-я"}},
-    {"шоссе", {"шос"}},
-    {"вyлица", {"вул"}},
-    {"площадь", {"пл", "площ"}},
-    {"тупик", {"туп"}},
-    {"street", {"str", "st"}},
-    {"avenue", {"ave", "av"}},
-    {"boulevard", {"bld", "blv", "bv", "blvd"}},
-    {"drive", {"dr"}},
-    {"highway", {"hw", "hwy"}},
-    {"road", {"rd"}},
-    {"square", {"sq"}}};
+map<string, vector<string>> const kStreetSynonyms = {{"улица", {"ул", "у"}},
+                                                     {"проспект", {"пр-т", "пр", "пркт", "прт", "пр-кт"}},
+                                                     {"переулок", {"пер"}},
+                                                     {"проезд", {"пр-д", "пр", "прд"}},
+                                                     {"аллея", {"ал"}},
+                                                     {"бульвар", {"б-р", "бр"}},
+                                                     {"набережная", {"наб", "наб-я"}},
+                                                     {"шоссе", {"шос"}},
+                                                     {"вyлица", {"вул"}},
+                                                     {"площадь", {"пл", "площ"}},
+                                                     {"тупик", {"туп"}},
+                                                     {"street", {"str", "st"}},
+                                                     {"avenue", {"ave", "av"}},
+                                                     {"boulevard", {"bld", "blv", "bv", "blvd"}},
+                                                     {"drive", {"dr"}},
+                                                     {"highway", {"hw", "hwy"}},
+                                                     {"road", {"rd"}},
+                                                     {"square", {"sq"}}};
 
 void ModifyStreet(string & str)
 {
   auto tokens = strings::Tokenize<std::string>(str, " -&");
   str.clear();
 
-  auto const isStreetSynonym = [](string const & s) {
-    return kStreetSynonyms.find(s) != kStreetSynonyms.end();
-  };
+  auto const isStreetSynonym = [](string const & s) { return kStreetSynonyms.find(s) != kStreetSynonyms.end(); };
 
   auto const synonymIt = find_if(tokens.begin(), tokens.end(), isStreetSynonym);
-  if (synonymIt != tokens.end() &&
-      find_if(synonymIt + 1, tokens.end(), isStreetSynonym) == tokens.end())
+  if (synonymIt != tokens.end() && find_if(synonymIt + 1, tokens.end(), isStreetSynonym) == tokens.end())
   {
     // Only one street synonym.
     if (GetRandomBool())
@@ -226,8 +221,8 @@ bool GetBuildingInfo(FeatureType & ft, search::ReverseGeocoder const & coder, st
   return true;
 }
 
-bool GetCafeInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street,
-                 uint32_t & cafeType, string_view & name)
+bool GetCafeInfo(FeatureType & ft, search::ReverseGeocoder const & coder, string & street, uint32_t & cafeType,
+                 string_view & name)
 {
   if (!ft.HasName())
     return false;
@@ -277,8 +272,8 @@ void ModifyCafe(string const & name, string const & type, string & out)
   AddMisprints(out);
 }
 
-string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
-                                 uint32_t type, uint8_t lang)
+string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations, uint32_t type,
+                                 uint8_t lang)
 {
   auto const it = typesTranslations.find(type);
   if (it == typesTranslations.end())
@@ -290,10 +285,9 @@ string_view GetLocalizedCafeType(unordered_map<uint32_t, StringUtf8Multilang> co
   return translation;
 }
 
-optional<Sample> GenerateRequest(
-    FeatureType & ft, search::ReverseGeocoder const & coder,
-    unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
-    vector<int8_t> const & mwmLangCodes, RequestType requestType)
+optional<Sample> GenerateRequest(FeatureType & ft, search::ReverseGeocoder const & coder,
+                                 unordered_map<uint32_t, StringUtf8Multilang> const & typesTranslations,
+                                 vector<int8_t> const & mwmLangCodes, RequestType requestType)
 {
   string street;
   string cafeStr;
@@ -338,8 +332,7 @@ optional<Sample> GenerateRequest(
 
 unordered_map<uint32_t, StringUtf8Multilang> ParseStrings()
 {
-  auto const stringsFile =
-      base::JoinPath(GetPlatform().ResourcesDir(), "strings", "types_strings.txt");
+  auto const stringsFile = base::JoinPath(GetPlatform().ResourcesDir(), "strings", "types_strings.txt");
   ifstream s(stringsFile);
   CHECK(s.is_open(), ("Cannot open", stringsFile));
 
@@ -430,13 +423,13 @@ int main(int argc, char * argv[])
     base::Cancellable const cancellable;
     FeaturesLoaderGuard g(dataSource, mwmId);
 
-    auto generate = [&](ftypes::BaseChecker const & checker, RequestType type, ofstream & out) {
+    auto generate = [&](ftypes::BaseChecker const & checker, RequestType type, ofstream & out)
+    {
       CategoriesCache cache(checker, cancellable);
       auto features = cache.Get(mwmContext);
 
       vector<uint32_t> fids;
-      features.ForEach(
-          [&fids](uint64_t fid) { fids.push_back(base::asserted_cast<uint32_t>(fid)); });
+      features.ForEach([&fids](uint64_t fid) { fids.push_back(base::asserted_cast<uint32_t>(fid)); });
       shuffle(fids.begin(), fids.end(), g_rng);
 
       size_t numSamples = 0;

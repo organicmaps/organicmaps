@@ -19,7 +19,7 @@ namespace tests_support
 {
 class TestFeature;
 }
-}
+}  // namespace generator
 
 namespace search
 {
@@ -37,8 +37,7 @@ public:
 class ExactMatchingRule : public MatchingRule
 {
 public:
-  ExactMatchingRule(MwmSet::MwmId const & mwmId,
-                    generator::tests_support::TestFeature const & feature);
+  ExactMatchingRule(MwmSet::MwmId const & mwmId, generator::tests_support::TestFeature const & feature);
 
   // MatchingRule overrides:
   bool Matches(FeatureType & feature) const override;
@@ -68,8 +67,7 @@ std::shared_ptr<MatchingRule> ExactMatch(Args &&... args)
   return std::make_shared<ExactMatchingRule>(std::forward<Args>(args)...);
 }
 
-inline std::shared_ptr<MatchingRule> AlternativesMatch(
-    std::vector<std::shared_ptr<MatchingRule>> && rules)
+inline std::shared_ptr<MatchingRule> AlternativesMatch(std::vector<std::shared_ptr<MatchingRule>> && rules)
 {
   return std::make_shared<AlternativesMatchingRule>(std::move(rules));
 }
@@ -78,10 +76,8 @@ bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<Mat
                   std::vector<search::Result> const & actual);
 bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
                   search::Results const & actual);
-bool ResultMatches(DataSource const & dataSource, std::shared_ptr<MatchingRule> rule,
-                   search::Result const & result);
-bool AlternativeMatch(DataSource const & dataSource,
-                      std::vector<std::vector<std::shared_ptr<MatchingRule>>> rules,
+bool ResultMatches(DataSource const & dataSource, std::shared_ptr<MatchingRule> rule, search::Result const & result);
+bool AlternativeMatch(DataSource const & dataSource, std::vector<std::vector<std::shared_ptr<MatchingRule>>> rules,
                       std::vector<search::Result> const & results);
 
 std::string DebugPrint(MatchingRule const & rule);

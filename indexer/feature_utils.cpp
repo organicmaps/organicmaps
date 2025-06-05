@@ -6,8 +6,8 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
-#include "platform/localization.hpp"
 #include "platform/distance.hpp"
+#include "platform/localization.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -25,10 +25,7 @@ namespace
 {
 using StrUtf8 = StringUtf8Multilang;
 
-int8_t GetIndex(string const & lang)
-{
-  return StrUtf8::GetLangIndex(lang);
-}
+int8_t GetIndex(string const & lang) { return StrUtf8::GetLangIndex(lang); }
 
 void GetMwmLangName(feature::RegionData const & regionData, StrUtf8 const & src, string_view & out)
 {
@@ -67,24 +64,24 @@ bool GetBestName(StrUtf8 const & src, vector<int8_t> const & priorityList, strin
 {
   size_t bestIndex = priorityList.size();
 
-  src.ForEach([&](int8_t code, string_view name)
-  {
-    if (bestIndex == 0)
-      return base::ControlFlow::Break;
-
-    size_t const idx = std::distance(priorityList.begin(), find(priorityList.begin(), priorityList.end(), code));
-    if (bestIndex > idx)
+  src.ForEach(
+    [&](int8_t code, string_view name)
     {
-      bestIndex = idx;
-      out = name;
-    }
+      if (bestIndex == 0)
+        return base::ControlFlow::Break;
 
-    return base::ControlFlow::Continue;
-  });
+      size_t const idx = std::distance(priorityList.begin(), find(priorityList.begin(), priorityList.end(), code));
+      if (bestIndex > idx)
+      {
+        bestIndex = idx;
+        out = name;
+      }
+
+      return base::ControlFlow::Continue;
+    });
 
   // There are many "junk" names in Arabian island.
-  if (bestIndex < priorityList.size() &&
-    priorityList[bestIndex] == StrUtf8::kInternationalCode)
+  if (bestIndex < priorityList.size() && priorityList[bestIndex] == StrUtf8::kInternationalCode)
   {
     out = out.substr(0, out.find_first_of(','));
   }
@@ -129,7 +126,7 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
 
   /// @DebugNote
   // Add ru lang for descriptions/rendering tests.
-  //langPriority.push_back(StrUtf8::GetLangIndex("ru"));
+  // langPriority.push_back(StrUtf8::GetLangIndex("ru"));
 
   auto const similarLangs = GetSimilarLanguages(deviceLang);
   langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
@@ -209,28 +206,28 @@ public:
   {
     auto const & cl = classif();
 
-    m_TypeContinent   = cl.GetTypeByPath({"place", "continent"});
-    m_TypeCountry     = cl.GetTypeByPath({"place", "country"});
+    m_TypeContinent = cl.GetTypeByPath({"place", "continent"});
+    m_TypeCountry = cl.GetTypeByPath({"place", "country"});
 
-    m_TypeState       = cl.GetTypeByPath({"place", "state"});
-    m_TypeCounty[0]   = cl.GetTypeByPath({"place", "region"});
-    m_TypeCounty[1]   = cl.GetTypeByPath({"place", "county"});
+    m_TypeState = cl.GetTypeByPath({"place", "state"});
+    m_TypeCounty[0] = cl.GetTypeByPath({"place", "region"});
+    m_TypeCounty[1] = cl.GetTypeByPath({"place", "county"});
 
-    m_TypeCity        = cl.GetTypeByPath({"place", "city"});
-    m_TypeTown        = cl.GetTypeByPath({"place", "town"});
+    m_TypeCity = cl.GetTypeByPath({"place", "city"});
+    m_TypeTown = cl.GetTypeByPath({"place", "town"});
 
-    m_TypeVillage[0]  = cl.GetTypeByPath({"place", "village"});
-    m_TypeVillage[1]  = cl.GetTypeByPath({"place", "suburb"});
+    m_TypeVillage[0] = cl.GetTypeByPath({"place", "village"});
+    m_TypeVillage[1] = cl.GetTypeByPath({"place", "suburb"});
 
-    m_TypeSmallVillage[0]  = cl.GetTypeByPath({"place", "hamlet"});
-    m_TypeSmallVillage[1]  = cl.GetTypeByPath({"place", "locality"});
-    m_TypeSmallVillage[2]  = cl.GetTypeByPath({"place", "farm"});
+    m_TypeSmallVillage[0] = cl.GetTypeByPath({"place", "hamlet"});
+    m_TypeSmallVillage[1] = cl.GetTypeByPath({"place", "locality"});
+    m_TypeSmallVillage[2] = cl.GetTypeByPath({"place", "farm"});
   }
 
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
     pair<int, int> const scaleR = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
-    ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
+    ASSERT_LESS_OR_EQUAL(scaleR.first, scaleR.second, ());
 
     // Result types can be without visible texts (matched by category).
     if (scaleR.first != -1)
@@ -305,25 +302,18 @@ FeatureEstimator const & GetFeatureEstimator()
 }  // namespace
 
 static constexpr std::string_view kStarSymbol = "★";
-static constexpr std::string_view kMountainSymbol= "▲";
+static constexpr std::string_view kMountainSymbol = "▲";
 static constexpr std::string_view kDrinkingWaterYes = "🚰";
 static constexpr std::string_view kDrinkingWaterNo = "🚱";
 
 NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
                            std::string_view deviceLang_, bool allowTranslit_)
   : NameParamsIn(src_, regionData_, StringUtf8Multilang::GetLangIndex(deviceLang_), allowTranslit_)
-{
-}
+{}
 
-bool NameParamsIn::IsNativeOrSimilarLang() const
-{
-  return IsNativeLang(regionData, deviceLang);
-}
+bool NameParamsIn::IsNativeOrSimilarLang() const { return IsNativeLang(regionData, deviceLang); }
 
-int GetFeatureViewportScale(TypesHolder const & types)
-{
-  return GetFeatureEstimator().GetViewportScale(types);
-}
+int GetFeatureViewportScale(TypesHolder const & types) { return GetFeatureEstimator().GetViewportScale(types); }
 
 vector<int8_t> GetSimilar(int8_t lang)
 {
@@ -438,7 +428,7 @@ string GetLocalizedFeeType(TypesHolder const & types)
 {
   auto const & isFeeType = ftypes::IsFeeTypeChecker::Instance();
   auto localized_types = GetLocalizedTypes(isFeeType, types);
-  ASSERT_LESS_OR_EQUAL ( localized_types.size(), 1, () );
+  ASSERT_LESS_OR_EQUAL(localized_types.size(), 1, ());
   if (localized_types.empty())
     return "";
   return localized_types[0];
@@ -446,20 +436,17 @@ string GetLocalizedFeeType(TypesHolder const & types)
 
 string GetReadableWheelchairType(TypesHolder const & types)
 {
-    auto const value = ftraits::Wheelchair::GetValue(types);
-    if (!value.has_value())
-      return "";
+  auto const value = ftraits::Wheelchair::GetValue(types);
+  if (!value.has_value())
+    return "";
 
-    switch (*value)
-    {
-      case ftraits::WheelchairAvailability::No:
-        return "wheelchair-no";
-      case ftraits::WheelchairAvailability::Yes:
-        return "wheelchair-yes";
-      case ftraits::WheelchairAvailability::Limited:
-        return "wheelchair-limited";
-    }
-    UNREACHABLE();
+  switch (*value)
+  {
+  case ftraits::WheelchairAvailability::No: return "wheelchair-no";
+  case ftraits::WheelchairAvailability::Yes: return "wheelchair-yes";
+  case ftraits::WheelchairAvailability::Limited: return "wheelchair-limited";
+  }
+  UNREACHABLE();
 }
 
 std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types)
@@ -487,10 +474,8 @@ string FormatDrinkingWater(TypesHolder const & types)
 
   switch (*value)
   {
-    case ftraits::DrinkingWaterAvailability::No:
-      return std::string{kDrinkingWaterNo};
-    case ftraits::DrinkingWaterAvailability::Yes:
-      return std::string{kDrinkingWaterYes};
+  case ftraits::DrinkingWaterAvailability::No: return std::string{kDrinkingWaterNo};
+  case ftraits::DrinkingWaterAvailability::Yes: return std::string{kDrinkingWaterYes};
   }
   UNREACHABLE();
 }
@@ -509,7 +494,7 @@ string FormatElevation(string_view elevation)
   {
     double value;
     if (strings::to_double(elevation, value))
-        return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(value);
+      return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(value);
     else
       LOG(LWARNING, ("Invalid elevation metadata:", elevation));
   }
@@ -568,4 +553,4 @@ YesNoUnknown YesNoUnknownFromString(std::string_view str)
     return YesNoUnknown::Unknown;
 }
 
-} // namespace feature
+}  // namespace feature

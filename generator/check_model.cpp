@@ -2,9 +2,9 @@
 
 #include "defines.hpp"
 
-#include "indexer/features_vector.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/features_vector.hpp"
 
 #include "base/logging.hpp"
 
@@ -18,30 +18,31 @@ void ReadFeatures(std::string const & fName)
 {
   Classificator const & c = classif();
 
-  FeaturesVectorTest(fName).GetVector().ForEach([&](FeatureType & ft, uint32_t)
-  {
-    TypesHolder types(ft);
-
-    std::vector<uint32_t> vTypes;
-    for (uint32_t t : types)
+  FeaturesVectorTest(fName).GetVector().ForEach(
+    [&](FeatureType & ft, uint32_t)
     {
-      CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());
-      vTypes.push_back(t);
-    }
+      TypesHolder types(ft);
 
-    sort(vTypes.begin(), vTypes.end());
-    CHECK(unique(vTypes.begin(), vTypes.end()) == vTypes.end(), ());
+      std::vector<uint32_t> vTypes;
+      for (uint32_t t : types)
+      {
+        CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());
+        vTypes.push_back(t);
+      }
 
-    m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
-    CHECK(r.IsValid(), ());
+      sort(vTypes.begin(), vTypes.end());
+      CHECK(unique(vTypes.begin(), vTypes.end()) == vTypes.end(), ());
 
-    GeomType const type = ft.GetGeomType();
-    if (type == GeomType::Line)
-      CHECK_GREATER(ft.GetPointsCount(), 1, ());
+      m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
+      CHECK(r.IsValid(), ());
 
-    CHECK(CanGenerateLike(vTypes, ft.GetGeomType()), ());
-  });
+      GeomType const type = ft.GetGeomType();
+      if (type == GeomType::Line)
+        CHECK_GREATER(ft.GetPointsCount(), 1, ());
+
+      CHECK(CanGenerateLike(vTypes, ft.GetGeomType()), ());
+    });
 
   LOG(LINFO, ("OK"));
 }
-} // namespace check_model
+}  // namespace check_model

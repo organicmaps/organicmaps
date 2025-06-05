@@ -1,8 +1,8 @@
 #include "string_storage_base.hpp"
 
-#include "coding/reader_streambuf.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/reader_streambuf.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -17,7 +17,8 @@ namespace
 constexpr char kKeyValueDelimChar = '=';
 }  // namespace
 
-StringStorageBase::StringStorageBase(std::string const & path) : m_path(path)
+StringStorageBase::StringStorageBase(std::string const & path)
+  : m_path(path)
 {
   try
   {
@@ -103,7 +104,7 @@ void StringStorageBase::Update(std::map<std::string, std::string> const & values
 {
   std::lock_guard guard(m_mutex);
 
-  for (const auto & pair : values)
+  for (auto const & pair : values)
   {
     if (pair.second.empty())
       m_values.erase(pair.first);

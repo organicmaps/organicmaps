@@ -19,8 +19,8 @@ inline void DebugRoutingState(...) {}
 class JointSegment;
 class RouteWeight;
 class Segment;
-void DebugRoutingState(Segment const & vertex, std::optional<Segment> const & parent,
-                       RouteWeight const & heuristic, RouteWeight const & distance);
+void DebugRoutingState(Segment const & vertex, std::optional<Segment> const & parent, RouteWeight const & heuristic,
+                       RouteWeight const & distance);
 void DebugRoutingState(JointSegment const & vertex, std::optional<JointSegment> const & parent,
                        RouteWeight const & heuristic, RouteWeight const & distance);
 #endif
@@ -33,7 +33,10 @@ public:
 
   JunctionVisitor(Graph & graph, RouterDelegate const & delegate, uint32_t visitPeriod,
                   std::shared_ptr<AStarProgress> const & progress = nullptr)
-    : m_graph(graph), m_delegate(delegate), m_visitPeriod(visitPeriod), m_progress(progress)
+    : m_graph(graph)
+    , m_delegate(delegate)
+    , m_visitPeriod(visitPeriod)
+    , m_progress(progress)
   {
     if (progress)
       m_lastProgressPercent = progress->GetLastPercent();
@@ -41,7 +44,8 @@ public:
 
   /// @param[in]  p   { Current state, Step context } pair.
   /// @param[in]  to  End vertex (final for forward and start for backward waves).
-  template <class StateContextPair> void operator()(StateContextPair const & p, Vertex const & to)
+  template <class StateContextPair>
+  void operator()(StateContextPair const & p, Vertex const & to)
   {
     auto const & state = p.first;
 #ifdef DEBUG

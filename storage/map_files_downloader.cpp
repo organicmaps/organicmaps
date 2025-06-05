@@ -4,11 +4,11 @@
 
 #include "platform/downloader_utils.hpp"
 #include "platform/http_client.hpp"
+#include "platform/locale.hpp"
 #include "platform/platform.hpp"
+#include "platform/products.hpp"
 #include "platform/servers_list.hpp"
 #include "platform/settings.hpp"
-#include "platform/products.hpp"
-#include "platform/locale.hpp"
 
 #include "coding/url.hpp"
 
@@ -29,15 +29,13 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
 
   if (!m_isMetaConfigRequested)
   {
-    RunMetaConfigAsync([this]()
-    {
-      m_pendingRequests.ForEachCountry([this](QueuedCountry & country)
+    RunMetaConfigAsync(
+      [this]()
       {
-        Download(std::move(country));
-      });
+        m_pendingRequests.ForEachCountry([this](QueuedCountry & country) { Download(std::move(country)); });
 
-      m_pendingRequests.Clear();
-    });
+        m_pendingRequests.Clear();
+      });
   }
 }
 
@@ -45,19 +43,21 @@ void MapFilesDownloader::RunMetaConfigAsync(std::function<void()> && callback)
 {
   m_isMetaConfigRequested = true;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, callback = std::move(callback)]()
-  {
-    GetMetaConfig([this, callback = std::move(callback)](MetaConfig const & metaConfig)
-    {
-      m_serversList = metaConfig.m_serversList;
-      settings::Update(metaConfig.m_settings);
-      products::Update(metaConfig.m_productsConfig);
-      callback();
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [this, callback = std::move(callback)]()
+                        {
+                          GetMetaConfig(
+                            [this, callback = std::move(callback)](MetaConfig const & metaConfig)
+                            {
+                              m_serversList = metaConfig.m_serversList;
+                              settings::Update(metaConfig.m_settings);
+                              products::Update(metaConfig.m_productsConfig);
+                              callback();
 
-      // Reset flag to invoke servers list downloading next time if current request has failed.
-      m_isMetaConfigRequested = false;
-    });
-  });
+                              // Reset flag to invoke servers list downloading next time if current request has failed.
+                              m_isMetaConfigRequested = false;
+                            });
+                        });
 }
 
 void MapFilesDownloader::Remove(CountryId const & id)
@@ -66,44 +66,39 @@ void MapFilesDownloader::Remove(CountryId const & id)
     m_pendingRequests.Remove(id);
 }
 
-void MapFilesDownloader::Clear()
-{
-  m_pendingRequests.Clear();
-}
+void MapFilesDownloader::Clear() { m_pendingRequests.Clear(); }
 
-QueueInterface const & MapFilesDownloader::GetQueue() const
-{
-  return m_pendingRequests;
-}
+QueueInterface const & MapFilesDownloader::GetQueue() const { return m_pendingRequests; }
 
-void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (std::string const &)> && callback,
+void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool(std::string const &)> && callback,
                                           bool forceReset /* = false */)
 {
-  EnsureMetaConfigReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
-  {
-    if ((m_fileRequest && !forceReset) || m_serversList.empty())
-      return;
+  EnsureMetaConfigReady(
+    [this, forceReset, url = std::move(url), callback = std::move(callback)]()
+    {
+      if ((m_fileRequest && !forceReset) || m_serversList.empty())
+        return;
 
-    // Servers are sorted from best to worst.
-    m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
-      [this, callback = std::move(callback)](RequestT & request)
-      {
-        bool deleteRequest = true;
+      // Servers are sorted from best to worst.
+      m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
+                                        [this, callback = std::move(callback)](RequestT & request)
+                                        {
+                                          bool deleteRequest = true;
 
-        auto const & buffer = request.GetData();
-        if (!buffer.empty())
-        {
-          // Update deleteRequest flag if new download was requested in callback.
-          deleteRequest = !callback(buffer);
-        }
+                                          auto const & buffer = request.GetData();
+                                          if (!buffer.empty())
+                                          {
+                                            // Update deleteRequest flag if new download was requested in callback.
+                                            deleteRequest = !callback(buffer);
+                                          }
 
-        if (deleteRequest)
-          m_fileRequest.reset();
-      }));
-  });
+                                          if (deleteRequest)
+                                            m_fileRequest.reset();
+                                        }));
+    });
 }
 
-void MapFilesDownloader::EnsureMetaConfigReady(std::function<void ()> && callback)
+void MapFilesDownloader::EnsureMetaConfigReady(std::function<void()> && callback)
 {
   /// @todo Implement logic if m_metaConfig is "outdated".
   /// Fetch new servers list on each download request?
@@ -126,15 +121,9 @@ std::vector<std::string> MapFilesDownloader::MakeUrlListLegacy(std::string const
   return MakeUrlList(downloader::GetFileDownloadUrl(fileName, m_dataVersion));
 }
 
-void MapFilesDownloader::SetServersList(ServersList const & serversList)
-{
-  m_serversList = serversList;
-}
+void MapFilesDownloader::SetServersList(ServersList const & serversList) { m_serversList = serversList; }
 
-void MapFilesDownloader::SetDownloadingPolicy(DownloadingPolicy * policy)
-{
-  m_downloadingPolicy = policy;
-}
+void MapFilesDownloader::SetDownloadingPolicy(DownloadingPolicy * policy) { m_downloadingPolicy = policy; }
 
 bool MapFilesDownloader::IsDownloadingAllowed() const
 {
@@ -170,7 +159,7 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
     request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
     request.SetRawHeader("X-OM-AppVersion", pl.Version());
     request.SetRawHeader("Accept-Language", GetAcceptLanguage());
-    request.SetTimeout(10.0); // timeout in seconds
+    request.SetTimeout(10.0);  // timeout in seconds
     request.RunHttpRequest(httpResult);
   }
 
@@ -185,9 +174,6 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
   return *metaConfig;
 }
 
-void MapFilesDownloader::GetMetaConfig(MetaConfigCallback const & callback)
-{
-  callback(LoadMetaConfig());
-}
+void MapFilesDownloader::GetMetaConfig(MetaConfigCallback const & callback) { callback(LoadMetaConfig()); }
 
 }  // namespace storage

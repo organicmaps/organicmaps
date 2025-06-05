@@ -24,33 +24,24 @@ std::chrono::seconds GetTimestamp()
   return std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
 }
 
-std::string GetTimestampFile(std::string const & tracksDir)
-{
-  return base::JoinPath(tracksDir, kFileTimestampName);
-}
+std::string GetTimestampFile(std::string const & tracksDir) { return base::JoinPath(tracksDir, kFileTimestampName); }
 }  // namespace
 
 namespace tracking
 {
-std::string GetTracksDirectory()
-{
-  return base::JoinPath(GetPlatform().WritableDir(), kTracksArchive);
-}
+std::string GetTracksDirectory() { return base::JoinPath(GetPlatform().WritableDir(), kTracksArchive); }
 
 ArchivalManager::ArchivalManager(std::string const & url)
   : m_url(url)
   , m_tracksDir(GetTracksDirectory())
   , m_timestampFile(GetTimestampFile(m_tracksDir))
-{
-}
+{}
 
 void ArchivalManager::SetSettings(ArchivingSettings const & settings) { m_settings = settings; }
 
-std::optional<FileWriter> ArchivalManager::GetFileWriter(
-    routing::RouterType const & trackType) const
+std::optional<FileWriter> ArchivalManager::GetFileWriter(routing::RouterType const & trackType) const
 {
-  std::string const fileName =
-      archival_file::GetArchiveFilename(m_settings.m_version, GetTimestamp(), trackType);
+  std::string const fileName = archival_file::GetArchiveFilename(m_settings.m_version, GetTimestamp(), trackType);
   try
   {
     return std::optional<FileWriter>(base::JoinPath(m_tracksDir, fileName));
@@ -73,8 +64,7 @@ bool ArchivalManager::CreateTracksDir() const
 
 size_t ArchivalManager::IntervalBetweenDumpsSeconds() { return m_settings.m_dumpIntervalSeconds; }
 
-std::vector<std::string> ArchivalManager::GetFilesOrderedByCreation(
-    std::string const & extension) const
+std::vector<std::string> ArchivalManager::GetFilesOrderedByCreation(std::string const & extension) const
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(m_tracksDir, extension, files);
@@ -95,10 +85,7 @@ size_t ArchivalManager::GetTimeFromLastUploadSeconds()
   return static_cast<size_t>((timeStamp - timeStampPrev).count());
 }
 
-bool ArchivalManager::ReadyToUpload()
-{
-  return GetTimeFromLastUploadSeconds() > m_settings.m_uploadIntervalSeconds;
-}
+bool ArchivalManager::ReadyToUpload() { return GetTimeFromLastUploadSeconds() > m_settings.m_uploadIntervalSeconds; }
 
 void ArchivalManager::PrepareUpload(std::vector<std::string> const & files)
 {

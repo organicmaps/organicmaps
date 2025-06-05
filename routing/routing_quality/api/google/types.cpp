@@ -10,10 +10,7 @@ namespace api
 {
 namespace google
 {
-bool LatLon::operator==(LatLon const & rhs) const
-{
-  return std::tie(m_lat, m_lon) == std::tie(rhs.m_lat, rhs.m_lon);
-}
+bool LatLon::operator==(LatLon const & rhs) const { return std::tie(m_lat, m_lon) == std::tie(rhs.m_lat, rhs.m_lon); }
 
 bool Step::operator==(Step const & rhs) const
 {
@@ -27,6 +24,6 @@ std::string DebugPrint(LatLon const & latlon)
   ss << "google::LatLon(" << latlon.m_lat << ", " << latlon.m_lon << ")";
   return ss.str();
 }
-}  // namespace mapbox
+}  // namespace google
 }  // namespace api
 }  // namespace routing_quality

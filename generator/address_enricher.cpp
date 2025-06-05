@@ -34,21 +34,18 @@ std::pair<uint64_t, uint64_t> AddressEnricher::RawEntryBase::GetHNRange() const
   if (f.m_type != Token::TYPE_NUMBER || t.m_type != Token::TYPE_NUMBER)
     return kInvalidRange;
 
-  return { ToUInt(f.m_value), ToUInt(t.m_value) };
+  return {ToUInt(f.m_value), ToUInt(t.m_value)};
 }
 
 std::string DebugPrint(AddressEnricher::Stats const & s)
 {
-  return
-    "{ m_noStreet = " + std::to_string(s.m_noStreet) +
-    "; m_existInterpol = " + std::to_string(s.m_existInterpol) +
-    "; m_existSingle = " + std::to_string(s.m_existSingle) +
-    "; m_enoughAddrs = " + std::to_string(s.m_enoughAddrs) +
-    "; m_addedSingle = " + std::to_string(s.m_addedSingle) +
-    "; m_addedBegEnd = " + std::to_string(s.m_addedBegEnd) +
-    "; m_addedInterpol = " + std::to_string(s.m_addedInterpol) + " }";
+  return "{ m_noStreet = " + std::to_string(s.m_noStreet) + "; m_existInterpol = " + std::to_string(s.m_existInterpol) +
+         "; m_existSingle = " + std::to_string(s.m_existSingle) +
+         "; m_enoughAddrs = " + std::to_string(s.m_enoughAddrs) +
+         "; m_addedSingle = " + std::to_string(s.m_addedSingle) +
+         "; m_addedBegEnd = " + std::to_string(s.m_addedBegEnd) +
+         "; m_addedInterpol = " + std::to_string(s.m_addedInterpol) + " }";
 }
-
 
 AddressEnricher::AddressEnricher()
 {
@@ -223,141 +220,142 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
   std::vector<m2::ParametrizedSegment<m2::PointD>> eSegs;
   eSegs.reserve(e.m_points.size() - 1);
   for (size_t i = 1; i < e.m_points.size(); ++i)
-    eSegs.emplace_back(e.m_points[i-1], e.m_points[i]);
+    eSegs.emplace_back(e.m_points[i - 1], e.m_points[i]);
 
   /// @todo Check nodes distance for now. Should make more honest algo.
   auto const isClose = [&e, &eSegs](feature::FeatureBuilder const & fb)
   {
     bool res = false;
 
-    fb.ForEachPoint([&](m2::PointD const & p)
-    {
-      if (res)
-        return;
-
-      auto const ll = mercator::ToLatLon(p);
-      auto const check = [&ll](m2::PointD const & p)
+    fb.ForEachPoint(
+      [&](m2::PointD const & p)
       {
-        return ms::DistanceOnEarth(ll, mercator::ToLatLon(p)) < kDistanceThresholdM;
-      };
+        if (res)
+          return;
 
-      if (!eSegs.empty())
-      {
-        for (auto const & seg : eSegs)
-          if (check(seg.ClosestPointTo(p)))
-          {
-            res = true;
-            return;
-          }
-      }
-      else
-        res = check(e.m_points.front());
-    });
+        auto const ll = mercator::ToLatLon(p);
+        auto const check = [&ll](m2::PointD const & p)
+        { return ms::DistanceOnEarth(ll, mercator::ToLatLon(p)) < kDistanceThresholdM; };
+
+        if (!eSegs.empty())
+        {
+          for (auto const & seg : eSegs)
+            if (check(seg.ClosestPointTo(p)))
+            {
+              res = true;
+              return;
+            }
+        }
+        else
+          res = check(e.m_points.front());
+      });
 
     return res;
   };
 
   FoundT res;
 
-  m_srcTree.ForEachInRect(rect, [&](feature::FeatureBuilder const & fb)
-  {
-    auto const osmID = fb.GetMostGenericOsmId();
-    auto const & params = fb.GetParams();
-    auto const & types = fb.GetTypes();
-    bool const isStreet = ftypes::IsStreetOrSquareChecker::Instance()(types);
-
-    // First of all - compare street's name.
-    strings::UniString fbStreetKey = search::GetNormalizedStreetName(params.GetStreet());
-    std::string streetName; // original street's name, valid if isStreet == true
-    if (isStreet)
+  m_srcTree.ForEachInRect(
+    rect,
+    [&](feature::FeatureBuilder const & fb)
     {
-      // Fancy object, highway=pedestrian with addr: https://www.openstreetmap.org/way/415336229
-      if (!fbStreetKey.empty())
-        LOG(LWARNING, ("Street with address:", osmID));
+      auto const osmID = fb.GetMostGenericOsmId();
+      auto const & params = fb.GetParams();
+      auto const & types = fb.GetTypes();
+      bool const isStreet = ftypes::IsStreetOrSquareChecker::Instance()(types);
 
-      // Take 'ref' if 'name' is empty, like here: https://www.openstreetmap.org/way/902910704
-      std::string_view name;
-      if (params.name.GetString(StringUtf8Multilang::kDefaultCode, name))
-        streetName = name;
-      else if (!params.ref.empty())
-        streetName = params.ref;
+      // First of all - compare street's name.
+      strings::UniString fbStreetKey = search::GetNormalizedStreetName(params.GetStreet());
+      std::string streetName;  // original street's name, valid if isStreet == true
+      if (isStreet)
+      {
+        // Fancy object, highway=pedestrian with addr: https://www.openstreetmap.org/way/415336229
+        if (!fbStreetKey.empty())
+          LOG(LWARNING, ("Street with address:", osmID));
 
-      if (!streetName.empty())
-        fbStreetKey = search::GetNormalizedStreetName(streetName);
-    }
-    if (streetKey != fbStreetKey)
-      return;
+        // Take 'ref' if 'name' is empty, like here: https://www.openstreetmap.org/way/902910704
+        std::string_view name;
+        if (params.name.GetString(StringUtf8Multilang::kDefaultCode, name))
+          streetName = name;
+        else if (!params.ref.empty())
+          streetName = params.ref;
 
-    if (!params.house.IsEmpty())
-    {
-      if (!isClose(fb))
+        if (!streetName.empty())
+          fbStreetKey = search::GetNormalizedStreetName(streetName);
+      }
+      if (streetKey != fbStreetKey)
         return;
 
-      using namespace search::house_numbers;
-      std::vector<TokensT> tokens;
-      ParseHouseNumber(strings::MakeUniString(params.house.Get()), tokens);
-
-      // Iterate via all possible int values (eg: 100-200;202;204).
-      for (auto const & token : tokens)
-        for (auto const & t : token)
-        {
-          if (t.m_type == Token::TYPE_NUMBER)
-          {
-            uint64_t const num = ToUInt(t.m_value);
-            if (range.first <= num && num <= range.second)
-            {
-              ++res.addrsInside;
-              if (range.first == num)
-                res.from = true;
-              if (range.second == num)
-                res.to = true;
-            }
-          }
-        }
-    }
-    else if (!res.street && isStreet)
-    {
-      /// @todo Select the closest street if many options?
-
-      // We can't call isClose here, should make "vice-versa" check.
-      auto const & geom = fb.GetOuterGeometry();
-      for (size_t i = 1; i < geom.size(); ++i)
+      if (!params.house.IsEmpty())
       {
-        m2::ParametrizedSegment<m2::PointD> seg(geom[i-1], geom[i]);
-        /// @todo Calculate e.m_points LL once?
-        for (auto const & p : e.m_points)
-          if (mercator::DistanceOnEarth(p, seg.ClosestPointTo(p)) < kDistanceThresholdM)
-          {
-            res.street = true;
-            // Assign street's name from OSM for further search index builder matching
-            // (it doesn't work like GetNormalizedStreetName, but like GetStreetNameAsKey).
-            e.m_street = std::move(streetName);
-            return;
-          }
-      }
-    }
-    else if (!res.interpol)
-    {
-      auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(types);
-      if (interpol != InterpolType::None && isClose(fb))
-      {
-        if (interpol != e.m_interpol && interpol != InterpolType::Any && e.m_interpol != InterpolType::Any)
+        if (!isClose(fb))
           return;
 
-        // Compare ranges.
-        auto const & hnRange = params.ref;
-        size_t const i = hnRange.find(':');
-        CHECK(i != std::string::npos, (hnRange));
-        uint64_t left, right;
-        CHECK(strings::to_uint(hnRange.substr(0, i), left) &&
-              strings::to_uint(hnRange.substr(i + 1), right), (hnRange));
+        using namespace search::house_numbers;
+        std::vector<TokensT> tokens;
+        ParseHouseNumber(strings::MakeUniString(params.house.Get()), tokens);
 
-        res.interpol = !(left >= range.second || right <= range.first);
+        // Iterate via all possible int values (eg: 100-200;202;204).
+        for (auto const & token : tokens)
+          for (auto const & t : token)
+          {
+            if (t.m_type == Token::TYPE_NUMBER)
+            {
+              uint64_t const num = ToUInt(t.m_value);
+              if (range.first <= num && num <= range.second)
+              {
+                ++res.addrsInside;
+                if (range.first == num)
+                  res.from = true;
+                if (range.second == num)
+                  res.to = true;
+              }
+            }
+          }
       }
-    }
-  });
+      else if (!res.street && isStreet)
+      {
+        /// @todo Select the closest street if many options?
+
+        // We can't call isClose here, should make "vice-versa" check.
+        auto const & geom = fb.GetOuterGeometry();
+        for (size_t i = 1; i < geom.size(); ++i)
+        {
+          m2::ParametrizedSegment<m2::PointD> seg(geom[i - 1], geom[i]);
+          /// @todo Calculate e.m_points LL once?
+          for (auto const & p : e.m_points)
+            if (mercator::DistanceOnEarth(p, seg.ClosestPointTo(p)) < kDistanceThresholdM)
+            {
+              res.street = true;
+              // Assign street's name from OSM for further search index builder matching
+              // (it doesn't work like GetNormalizedStreetName, but like GetStreetNameAsKey).
+              e.m_street = std::move(streetName);
+              return;
+            }
+        }
+      }
+      else if (!res.interpol)
+      {
+        auto const interpol = ftypes::IsAddressInterpolChecker::Instance().GetInterpolType(types);
+        if (interpol != InterpolType::None && isClose(fb))
+        {
+          if (interpol != e.m_interpol && interpol != InterpolType::Any && e.m_interpol != InterpolType::Any)
+            return;
+
+          // Compare ranges.
+          auto const & hnRange = params.ref;
+          size_t const i = hnRange.find(':');
+          CHECK(i != std::string::npos, (hnRange));
+          uint64_t left, right;
+          CHECK(strings::to_uint(hnRange.substr(0, i), left) && strings::to_uint(hnRange.substr(i + 1), right),
+                (hnRange));
+
+          res.interpol = !(left >= range.second || right <= range.first);
+        }
+      }
+    });
 
   return res;
 }
 
-} // namespace generator
+}  // namespace generator

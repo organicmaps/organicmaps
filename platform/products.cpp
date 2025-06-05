@@ -1,8 +1,8 @@
 #include "platform/products.hpp"
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include "defines.hpp"
@@ -11,17 +11,15 @@
 
 #include "cppjansson/cppjansson.hpp"
 
-namespace products {
+namespace products
+{
 
 char const kPlacePagePrompt[] = "placePagePrompt";
 char const kProducts[] = "products";
 char const kProductTitle[] = "title";
 char const kProductLink[] = "link";
 
-std::string GetProductsFilePath()
-{
-  return GetPlatform().SettingsPathForFile(PRODUCTS_SETTINGS_FILE_NAME);
-}
+std::string GetProductsFilePath() { return GetPlatform().SettingsPathForFile(PRODUCTS_SETTINGS_FILE_NAME); }
 
 ProductsSettings::ProductsSettings()
 {
@@ -78,7 +76,7 @@ void ProductsSettings::Update(std::string const & jsonStr)
 
 std::optional<ProductsConfig> ProductsConfig::Parse(std::string const & jsonStr)
 {
-  const base::Json root(jsonStr.c_str());
+  base::Json const root(jsonStr.c_str());
   auto const json = root.get();
   auto const productsObj = json_object_get(json, kProducts);
   if (!json_is_object(json) || !productsObj || !json_is_array(productsObj))
@@ -115,4 +113,4 @@ std::optional<ProductsConfig> ProductsConfig::Parse(std::string const & jsonStr)
   return config;
 }
 
-} // namespace products
+}  // namespace products

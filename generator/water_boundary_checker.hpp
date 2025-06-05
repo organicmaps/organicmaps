@@ -6,7 +6,6 @@
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
 
-
 class WaterBoundaryChecker
 {
   struct RegionTraits
@@ -91,11 +90,12 @@ public:
     {
       m2::RectD r(p.x - kExtension, p.y - kExtension, p.x + kExtension, p.y + kExtension);
       size_t hits = 0;
-      m_tree.ForEachInRect(r, [&](m2::RegionD const & rgn)
-      {
-        ++m_selectedPolygons;
-        hits += rgn.Contains(p) ? 1 : 0;
-      });
+      m_tree.ForEachInRect(r,
+                           [&](m2::RegionD const & rgn)
+                           {
+                             ++m_selectedPolygons;
+                             hits += rgn.Contains(p) ? 1 : 0;
+                           });
 
       bool inWater = (hits & 0x01) == 1;
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape_frontend/animation/animation.hpp"
-#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/drape_hints.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/my_position.hpp"
 
 #include "drape/pointers.hpp"
@@ -40,8 +40,8 @@ public:
     // Somehow show map that "rect" will see.
     virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
     // Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos".
-    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 int zoomLevel, Animation::TAction const & onFinishAction,
+    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel,
+                                 Animation::TAction const & onFinishAction,
                                  TAnimationCreator const & parallelAnimCreator) = 0;
     virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                                  m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
@@ -49,12 +49,8 @@ public:
 
   struct Params
   {
-    Params(location::EMyPositionMode initMode,
-           double timeInBackground,
-           Hints const & hints,
-           bool isRoutingActive,
-           bool isAutozoomEnabled,
-           location::TMyPositionModeChanged && fn)
+    Params(location::EMyPositionMode initMode, double timeInBackground, Hints const & hints, bool isRoutingActive,
+           bool isAutozoomEnabled, location::TMyPositionModeChanged && fn)
       : m_initMode(initMode)
       , m_timeInBackground(timeInBackground)
       , m_hints(hints)
@@ -124,8 +120,8 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-              ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+              int zoomLevel, FrameValues const & frameValues);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
@@ -180,9 +176,9 @@ private:
 
   double m_errorRadius;  // error radius in mercator.
   double m_horizontalAccuracy;
-  m2::PointD m_position; // position in mercator.
+  m2::PointD m_position;  // position in mercator.
   double m_drawDirection;
-  m2::PointD m_oldPosition; // position in mercator.
+  m2::PointD m_oldPosition;  // position in mercator.
   double m_oldDrawDirection;
 
   bool m_enablePerspectiveInRouting;

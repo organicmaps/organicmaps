@@ -14,9 +14,9 @@ namespace indexer
 {
 // FeatureIdToGeoObjectIdOneWay --------------------------------------------------------------------
 FeatureIdToGeoObjectIdOneWay::FeatureIdToGeoObjectIdOneWay(DataSource const & dataSource)
-  : m_dataSource(dataSource), m_reader(std::unique_ptr<ModelReader>())
-{
-}
+  : m_dataSource(dataSource)
+  , m_reader(std::unique_ptr<ModelReader>())
+{}
 
 bool FeatureIdToGeoObjectIdOneWay::Load()
 {
@@ -95,8 +95,7 @@ bool FeatureIdToGeoObjectIdOneWay::GetGeoObjectId(FeatureID const & fid, base::G
 // FeatureIdToGeoObjectIdTwoWay --------------------------------------------------------------------
 FeatureIdToGeoObjectIdTwoWay::FeatureIdToGeoObjectIdTwoWay(DataSource const & dataSource)
   : m_dataSource(dataSource)
-{
-}
+{}
 
 bool FeatureIdToGeoObjectIdTwoWay::Load()
 {

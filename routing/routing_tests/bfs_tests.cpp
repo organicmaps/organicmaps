@@ -91,13 +91,13 @@ UNIT_TEST(BFS_AllVisit_Undirected)
 
   BFS<UndirectedGraph> bfs(graph);
   bfs.Run(0 /* start */, true /* isOutgoing */,
-      [&](BFS<UndirectedGraph>::State const & state)
-      {
-        visited.emplace(state.m_vertex);
-        return true;
-      });
+          [&](BFS<UndirectedGraph>::State const & state)
+          {
+            visited.emplace(state.m_vertex);
+            return true;
+          });
 
-  std::vector<uint32_t> const expectedInVisited = {1, 2, 3, 4 ,5, 6, 7, 8, 9, 10};
+  std::vector<uint32_t> const expectedInVisited = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   for (auto const v : expectedInVisited)
     TEST_NOT_EQUAL(visited.count(v), 0, ("vertex =", v, "was not visited."));
 }
@@ -174,4 +174,4 @@ UNIT_TEST(BFS_ReconstructPathTest)
   expected = {2, 1, 0};
   TEST_EQUAL(path, expected, ());
 }
-} //  namespace routing_test
+}  //  namespace routing_test

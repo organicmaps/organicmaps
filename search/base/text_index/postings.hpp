@@ -44,8 +44,7 @@ public:
 // |startPos| marks the start of the entire text index and is needed to compute
 // the offsets that are stored in |header|.
 template <typename Sink>
-void WritePostings(Sink & sink, uint64_t startPos, TextIndexHeader & header,
-                   PostingsFetcher & fetcher)
+void WritePostings(Sink & sink, uint64_t startPos, TextIndexHeader & header, PostingsFetcher & fetcher)
 {
   header.m_postingsStartsOffset = RelativePos(sink, startPos);
   // An uint32_t for each 32-bit offset and an uint32_t for the dummy entry at the end.
@@ -58,7 +57,8 @@ void WritePostings(Sink & sink, uint64_t startPos, TextIndexHeader & header,
   {
     uint32_t last;
     // todo(@m) s/uint32_t/Posting/ ?
-    auto writePostings = [&](uint32_t p) {
+    auto writePostings = [&](uint32_t p)
+    {
       CHECK(last == 0 || last < p, (last, p));
       uint32_t const delta = p - last;
       WriteVarUint(sink, delta);

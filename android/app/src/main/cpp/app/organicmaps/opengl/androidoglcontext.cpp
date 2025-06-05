@@ -10,19 +10,13 @@ namespace android
 
 static EGLint * getContextAttributesList(bool supportedES3)
 {
-  static EGLint contextAttrList[] = {
-    EGL_CONTEXT_CLIENT_VERSION, 2,
-    EGL_NONE
-  };
-  static EGLint contextAttrListES3[] = {
-    EGL_CONTEXT_CLIENT_VERSION, 3,
-    EGL_NONE
-  };
+  static EGLint contextAttrList[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
+  static EGLint contextAttrListES3[] = {EGL_CONTEXT_CLIENT_VERSION, 3, EGL_NONE};
   return supportedES3 ? contextAttrListES3 : contextAttrList;
 }
 
-AndroidOGLContext::AndroidOGLContext(bool supportedES3, EGLDisplay display, EGLSurface surface,
-                                     EGLConfig config, AndroidOGLContext * contextToShareWith)
+AndroidOGLContext::AndroidOGLContext(bool supportedES3, EGLDisplay display, EGLSurface surface, EGLConfig config,
+                                     AndroidOGLContext * contextToShareWith)
   : m_nativeContext(EGL_NO_CONTEXT)
   , m_surface(surface)
   , m_display(display)
@@ -58,10 +52,7 @@ void AndroidOGLContext::MakeCurrent()
     CHECK_EGL_CALL();
 }
 
-void AndroidOGLContext::DoneCurrent()
-{
-  ClearCurrent();
-}
+void AndroidOGLContext::DoneCurrent() { ClearCurrent(); }
 
 void AndroidOGLContext::ClearCurrent()
 {
@@ -77,17 +68,13 @@ void AndroidOGLContext::SetRenderingEnabled(bool enabled)
     ClearCurrent();
 }
 
-void AndroidOGLContext::SetPresentAvailable(bool available)
-{
-  m_presentAvailable = available;
-}
+void AndroidOGLContext::SetPresentAvailable(bool available) { m_presentAvailable = available; }
 
 bool AndroidOGLContext::Validate()
 {
   if (!m_presentAvailable)
     return false;
-  return eglGetCurrentDisplay() != EGL_NO_DISPLAY &&
-         eglGetCurrentSurface(EGL_DRAW) != EGL_NO_SURFACE &&
+  return eglGetCurrentDisplay() != EGL_NO_DISPLAY && eglGetCurrentSurface(EGL_DRAW) != EGL_NO_SURFACE &&
          eglGetCurrentContext() != EGL_NO_CONTEXT;
 }
 
@@ -106,8 +93,5 @@ void AndroidOGLContext::SetSurface(EGLSurface surface)
   ASSERT(m_surface != EGL_NO_SURFACE, ());
 }
 
-void AndroidOGLContext::ResetSurface()
-{
-  m_surface = EGL_NO_SURFACE;
-}
+void AndroidOGLContext::ResetSurface() { m_surface = EGL_NO_SURFACE; }
 }  // namespace android

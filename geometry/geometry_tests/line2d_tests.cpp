@@ -13,10 +13,7 @@ double const kEps = 1e-12;
 using Result = IntersectionResult;
 using Type = Result::Type;
 
-Result Intersect(Line2D const & lhs, Line2D const & rhs)
-{
-  return Intersect(lhs, rhs, kEps);
-}
+Result Intersect(Line2D const & lhs, Line2D const & rhs) { return Intersect(lhs, rhs, kEps); }
 
 UNIT_TEST(LineIntersection_Smoke)
 {

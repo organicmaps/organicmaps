@@ -23,7 +23,7 @@ using std::pair, std::string, std::unordered_map, std::vector;
 DECLARE_EXCEPTION(ParsingError, RootException);
 
 static void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type type,
-                         vector<pair<GeoObjectId, uint32_t>> & result)
+                                vector<pair<GeoObjectId, uint32_t>> & result)
 {
   auto arr = base::GetJSONOptionalField(root, field);
   if (arr == nullptr)
@@ -42,8 +42,7 @@ static void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId
   }
 }
 
-void ParseTranslations(json_t * root, std::set<string> const & keys,
-                       unordered_map<uint32_t, string> & idToKey)
+void ParseTranslations(json_t * root, std::set<string> const & keys, unordered_map<uint32_t, string> & idToKey)
 {
   string const empty;
   auto getKey = [&](string & translation) -> string const &

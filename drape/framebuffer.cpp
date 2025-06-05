@@ -13,13 +13,9 @@ Framebuffer::DepthStencil::DepthStencil(bool depthEnabled, bool stencilEnabled)
   , m_stencilEnabled(stencilEnabled)
 {}
 
-Framebuffer::DepthStencil::~DepthStencil()
-{
-  Destroy();
-}
+Framebuffer::DepthStencil::~DepthStencil() { Destroy(); }
 
-void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context,
-                                        uint32_t width, uint32_t height)
+void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height)
 {
   if (m_texture && m_texture->GetWidth() == width && m_texture->GetHeight() == height)
     return;
@@ -42,10 +38,7 @@ void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context,
   m_texture->Create(context, params);
 }
 
-void Framebuffer::DepthStencil::Destroy()
-{
-  m_texture.reset();
-}
+void Framebuffer::DepthStencil::Destroy() { m_texture.reset(); }
 
 uint32_t Framebuffer::DepthStencil::GetDepthAttachmentId() const
 {
@@ -59,10 +52,7 @@ uint32_t Framebuffer::DepthStencil::GetStencilAttachmentId() const
   return m_stencilEnabled ? m_texture->GetID() : 0;
 }
 
-ref_ptr<FramebufferTexture> Framebuffer::DepthStencil::GetTexture() const
-{
-  return make_ref(m_texture);
-}
+ref_ptr<FramebufferTexture> Framebuffer::DepthStencil::GetTexture() const { return make_ref(m_texture); }
 
 Framebuffer::Framebuffer()
   : m_colorFormat(TextureFormat::RGBA8)
@@ -83,10 +73,7 @@ Framebuffer::Framebuffer(TextureFormat colorFormat, bool depthEnabled, bool sten
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::~Framebuffer()
-{
-  Destroy();
-}
+Framebuffer::~Framebuffer() { Destroy(); }
 
 void Framebuffer::Destroy()
 {
@@ -176,10 +163,7 @@ void Framebuffer::SetDepthStencilRef(ref_ptr<DepthStencil> depthStencilRef)
   m_depthStencilRef = std::move(depthStencilRef);
 }
 
-void Framebuffer::ApplyOwnDepthStencil()
-{
-  m_depthStencilRef = make_ref(m_depthStencil);
-}
+void Framebuffer::ApplyOwnDepthStencil() { m_depthStencilRef = make_ref(m_depthStencil); }
 
 void Framebuffer::Bind()
 {
@@ -195,13 +179,7 @@ void Framebuffer::ApplyFallback()
     m_framebufferFallback();
 }
 
-ref_ptr<Texture> Framebuffer::GetTexture() const
-{
-  return make_ref(m_colorTexture);
-}
+ref_ptr<Texture> Framebuffer::GetTexture() const { return make_ref(m_colorTexture); }
 
-ref_ptr<Framebuffer::DepthStencil> Framebuffer::GetDepthStencilRef() const
-{
-  return m_depthStencilRef;
-}
+ref_ptr<Framebuffer::DepthStencil> Framebuffer::GetDepthStencilRef() const { return m_depthStencilRef; }
 }  // namespace dp

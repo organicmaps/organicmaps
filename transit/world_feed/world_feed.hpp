@@ -99,16 +99,14 @@ struct LineSegmentInRegion
 
 struct Lines
 {
-  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids,
-             std::ofstream & stream) const;
+  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, LineData> m_data;
 };
 
 struct LinesMetadata
 {
-  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion,
-             std::ofstream & stream) const;
+  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion, std::ofstream & stream) const;
 
   // Line id to line additional data (e.g. for rendering).
   std::unordered_map<TransitId, LineSegmentsOrder> m_data;
@@ -249,8 +247,7 @@ struct StopsOnLines
 };
 
 using IdsInRegion = std::unordered_map<std::string, IdSet>;
-using LinesInRegion =
-    std::unordered_map<std::string, std::unordered_map<TransitId, LineSegmentInRegion>>;
+using LinesInRegion = std::unordered_map<std::string, std::unordered_map<TransitId, LineSegmentInRegion>>;
 using EdgeIdsInRegion = std::unordered_map<std::string, IdEdgeSet>;
 using EdgeTransferIdsInRegion = std::unordered_map<std::string, IdEdgeTransferSet>;
 
@@ -320,8 +317,7 @@ private:
 
   // Adds new stop with |stopId| and fills it with GTFS data by |gtfsId| or just
   // links to it |lineId|.
-  bool UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime, std::string const & stopHash,
-                  TransitId lineId);
+  bool UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime, std::string const & stopHash, TransitId lineId);
 
   std::optional<TransitId> GetParentLineForSpline(TransitId lineId) const;
   bool PrepareEdgesInRegion(std::string const & region);
@@ -340,9 +336,8 @@ private:
   // Recalculates 0-weights of edges based on the shape length.
   bool UpdateEdgeWeights();
 
-  std::optional<Direction> ProjectStopsToShape(
-      ShapesIter & itShape, StopsOnLines const & stopsOnLines,
-      std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
+  std::optional<Direction> ProjectStopsToShape(ShapesIter & itShape, StopsOnLines const & stopsOnLines,
+                                               std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
 
   // Splits data into regions.
   void SplitFeedIntoRegions();

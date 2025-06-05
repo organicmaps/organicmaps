@@ -5,29 +5,28 @@
 
 #include "testing/testing.hpp"
 
-
 using namespace test;
 
 namespace
 {
-  void check_set_from_rect(ScreenBase & screen, int width, int height)
-  {
-    screen.OnSize(0, 0, width, height);
+void check_set_from_rect(ScreenBase & screen, int width, int height)
+{
+  screen.OnSize(0, 0, width, height);
 
-    m2::PointD b1(0.0, 0.0);
-    m2::PointD b2(300.0, 300.0);
-    screen.SetFromRect(m2::AnyRectD(m2::RectD(b1, b2)));
+  m2::PointD b1(0.0, 0.0);
+  m2::PointD b2(300.0, 300.0);
+  screen.SetFromRect(m2::AnyRectD(m2::RectD(b1, b2)));
 
-    b1 = screen.GtoP(b1);
-    b2 = screen.GtoP(b2);
+  b1 = screen.GtoP(b1);
+  b2 = screen.GtoP(b2);
 
-    // check that we are in boundaries.
-    TEST(base::Between(0, width, base::SignedRound(b1.x)), ());
-    TEST(base::Between(0, width, base::SignedRound(b2.x)), ());
-    TEST(base::Between(0, height, base::SignedRound(b1.y)), ());
-    TEST(base::Between(0, height, base::SignedRound(b2.y)), ());
-  }
+  // check that we are in boundaries.
+  TEST(base::Between(0, width, base::SignedRound(b1.x)), ());
+  TEST(base::Between(0, width, base::SignedRound(b2.x)), ());
+  TEST(base::Between(0, height, base::SignedRound(b1.y)), ());
+  TEST(base::Between(0, height, base::SignedRound(b2.y)), ());
 }
+}  // namespace
 
 UNIT_TEST(ScreenBase_P2G2P)
 {
@@ -70,8 +69,11 @@ UNIT_TEST(ScreenBase_3dTransform)
 
   p3d = m2::PointD(screen.PixelRectIn3d().SizeX() / 2.0, screen.PixelRectIn3d().SizeY() / 2.0);
   pp = screen.P3dtoP(p3d);
-  TEST(pp.EqualDxDy(m2::PointD(screen.PixelRect().SizeX() / 2.0,
-                               screen.PixelRect().SizeY() - screen.PixelRectIn3d().SizeY() / (2.0 * cos(rotationAngle))), kEps), ());
+  TEST(
+    pp.EqualDxDy(m2::PointD(screen.PixelRect().SizeX() / 2.0,
+                            screen.PixelRect().SizeY() - screen.PixelRectIn3d().SizeY() / (2.0 * cos(rotationAngle))),
+                 kEps),
+    ());
 
   p3d = m2::PointD(0, 0);
   pp = screen.P3dtoP(p3d);
@@ -147,12 +149,10 @@ UNIT_TEST(ScreenBase_CalcTransform)
   double dx = 1;
   double dy = 2;
   double s1, a1, dx1, dy1;
-  math::Matrix<double, 3, 3> m = ScreenBase::CalcTransform(
-                                          m2::PointD(0, 1), m2::PointD(1, 1),
-                                          m2::PointD(             s * sin(a) + dx,               s * cos(a) + dy),
-                                          m2::PointD(s * cos(a) + s * sin(a) + dx, -s * sin(a) + s * cos(a) + dy),
-                                          true /* allow rotate */,
-                                          true /* allow scale*/);
+  math::Matrix<double, 3, 3> m =
+    ScreenBase::CalcTransform(m2::PointD(0, 1), m2::PointD(1, 1), m2::PointD(s * sin(a) + dx, s * cos(a) + dy),
+                              m2::PointD(s * cos(a) + s * sin(a) + dx, -s * sin(a) + s * cos(a) + dy),
+                              true /* allow rotate */, true /* allow scale*/);
 
   ScreenBase::ExtractGtoPParams(m, a1, s1, dx1, dy1);
 
@@ -194,11 +194,8 @@ UNIT_TEST(ScreenBase_CombineTransforms)
 
   {
     // GtoP matrix for scale only.
-    math::Matrix<double, 3, 3> m =
-        math::Shift(
-          math::Scale(math::Identity<double, 3>(),
-                      1.0 / fixedScale, -1.0 / fixedScale),
-          sCopy.PixelRect().Center());
+    math::Matrix<double, 3, 3> m = math::Shift(
+      math::Scale(math::Identity<double, 3>(), 1.0 / fixedScale, -1.0 / fixedScale), sCopy.PixelRect().Center());
 
     TEST(is_equal(sCopy.GtoP(g1), g1 * m), ());
     TEST(is_equal(sCopy.GtoP(g2), g2 * m), ());
@@ -206,14 +203,9 @@ UNIT_TEST(ScreenBase_CombineTransforms)
 
   // GtoP matrix to make full final transformation.
   math::Matrix<double, 3, 3> m =
-      math::Shift(
-        math::Scale(
-          math::Rotate(
-            math::Shift(math::Identity<double, 3>(),
-                        -sCopy.PixelRect().Center()),
-            angle),
-          fixedScale / scale, fixedScale / scale),
-        org);
+    math::Shift(math::Scale(math::Rotate(math::Shift(math::Identity<double, 3>(), -sCopy.PixelRect().Center()), angle),
+                            fixedScale / scale, fixedScale / scale),
+                org);
 
   m2::PointD pp1 = sCopy.GtoP(g1) * m;
   m2::PointD pp2 = sCopy.GtoP(g2) * m;

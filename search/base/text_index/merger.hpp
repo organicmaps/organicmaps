@@ -21,7 +21,6 @@ public:
   //
   // Note that the dictionary and offsets are kept in memory during the whole
   // merging process.
-  static void Merge(TextIndexReader const & index1, TextIndexReader const & index2,
-                    FileWriter & sink);
+  static void Merge(TextIndexReader const & index1, TextIndexReader const & index2, FileWriter & sink);
 };
 }  // namespace search_base

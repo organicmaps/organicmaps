@@ -2,10 +2,7 @@
 
 namespace generator
 {
-std::shared_ptr<FilterInterface> FilterPlanet::Clone() const
-{
-  return std::make_shared<FilterPlanet>();
-}
+std::shared_ptr<FilterInterface> FilterPlanet::Clone() const { return std::make_shared<FilterPlanet>(); }
 
 bool FilterPlanet::IsAccepted(OsmElement const & element) const
 {

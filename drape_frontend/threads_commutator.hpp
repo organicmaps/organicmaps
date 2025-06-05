@@ -28,4 +28,4 @@ private:
   TAcceptorsMap m_acceptors;
 };
 
-} // namespace df
+}  // namespace df

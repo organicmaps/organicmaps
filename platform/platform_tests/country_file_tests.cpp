@@ -2,8 +2,8 @@
 
 #include "defines.hpp"
 
-#include "platform/mwm_version.hpp"
 #include "platform/country_file.hpp"
+#include "platform/mwm_version.hpp"
 
 #include <string>
 

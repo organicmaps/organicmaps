@@ -2,8 +2,8 @@
 
 namespace routing
 {
-std::vector<uint8_t> MaxspeedsSerializer::GetForwardMaxspeeds(
-    std::vector<FeatureSpeedMacro> const & speeds, uint32_t & maxFeatureID)
+std::vector<uint8_t> MaxspeedsSerializer::GetForwardMaxspeeds(std::vector<FeatureSpeedMacro> const & speeds,
+                                                              uint32_t & maxFeatureID)
 {
   std::vector<uint8_t> result;
   for (auto const & s : speeds)

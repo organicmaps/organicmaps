@@ -11,8 +11,8 @@
 
 #include "traffic/traffic_cache.hpp"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace routing_test
 {
@@ -56,9 +56,9 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildCrossGraph()
   loader->AddRoad(7 /* featureId */, true /* oneWay */, 1.0 /* speed */,
                   RoadGeometry::Points({{1.0, 1.0}, {1.0, 2.0}}));
 
-  std::vector<Joint> const joints = {
-    MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {2, 0}, {4, 0}, {5, 1}, {6, 0}}),
-    MakeJoint({{2, 1}, {3, 0}}), MakeJoint({{4, 1}, {5, 0}}), MakeJoint({{6, 1}, {7, 0}})};
+  std::vector<Joint> const joints = {MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {2, 0}, {4, 0}, {5, 1}, {6, 0}}),
+                                     MakeJoint({{2, 1}, {3, 0}}), MakeJoint({{4, 1}, {5, 0}}),
+                                     MakeJoint({{6, 1}, {7, 0}})};
 
   traffic::TrafficCache const trafficCache;
   std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -95,11 +95,10 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildTestGraph()
   loader->AddRoad(5 /* featureId */, true /* oneWay */, 1.0 /* speed */,
                   RoadGeometry::Points({{2.0, 2.0}, {3.0, 2.0}}));
 
-  std::vector<Joint> const joints = {
-      MakeJoint({{1, 0}, {0, 0}}),           // (0, 1)
-      MakeJoint({{0, 1}, {2, 0}}),           // (-1, 1)
-      MakeJoint({{3, 1}, {2, 4}, {5, 0}}),   // (2, 2)
-      MakeJoint({{1, 1}, {3, 0}, {4, 0}})};  // (1, 1)
+  std::vector<Joint> const joints = {MakeJoint({{1, 0}, {0, 0}}),           // (0, 1)
+                                     MakeJoint({{0, 1}, {2, 0}}),           // (-1, 1)
+                                     MakeJoint({{3, 1}, {2, 4}, {5, 0}}),   // (2, 2)
+                                     MakeJoint({{1, 1}, {3, 0}, {4, 0}})};  // (1, 1)
 
   traffic::TrafficCache const trafficCache;
   std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -107,4 +106,3 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildTestGraph()
   return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 }  // namespace routing_test
-

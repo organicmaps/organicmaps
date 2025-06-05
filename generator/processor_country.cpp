@@ -5,8 +5,8 @@
 namespace generator
 {
 ProcessorCountry::ProcessorCountry(AffiliationInterfacePtr affiliations, std::shared_ptr<FeatureProcessorQueue> queue)
-: m_affiliations(std::move(affiliations))
-, m_queue(std::move(queue))
+  : m_affiliations(std::move(affiliations))
+  , m_queue(std::move(queue))
 {
   ASSERT(m_affiliations && m_queue, ());
 
@@ -23,10 +23,7 @@ std::shared_ptr<FeatureProcessorInterface> ProcessorCountry::Clone() const
   return std::make_shared<ProcessorCountry>(m_affiliations, m_queue);
 }
 
-void ProcessorCountry::Process(feature::FeatureBuilder & feature)
-{
-  m_processingChain->Handle(feature);
-}
+void ProcessorCountry::Process(feature::FeatureBuilder & feature) { m_processingChain->Handle(feature); }
 
 void ProcessorCountry::Finish() { m_affiliationsLayer->AddBufferToQueue(); }
 }  // namespace generator

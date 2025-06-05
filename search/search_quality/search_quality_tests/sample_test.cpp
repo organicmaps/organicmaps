@@ -37,8 +37,7 @@ void SampleTest::Init()
   cubaRes.m_pos = {-80.832886, 15.521132748163712};
   cubaRes.m_houseNumber = "";
   m_cuba.m_results = {cubaRes};
-  m_cuba.m_relatedQueries = {strings::MakeUniString("Cuba Libre"),
-                             strings::MakeUniString("Patria o Muerte")};
+  m_cuba.m_relatedQueries = {strings::MakeUniString("Cuba Libre"), strings::MakeUniString("Patria o Muerte")};
 
   m_riga.m_query = strings::MakeUniString("riga");
   m_riga.m_locale = "en";
@@ -136,15 +135,15 @@ UNIT_CLASS_TEST(SampleTest, Arrays)
 {
   std::string lines;
   lines.append(
-      R"({"query": "cuba", "locale": "en", "position": {"x": 37.618706, "y": 99.53730574302003}, "viewport": {"minx": 37.1336, "miny": 67.1349, "maxx": 38.0314, "maxy": 67.7348}, "results": [{"name": "Cuba", "relevancy": "relevant", "types": ["place-country"], "position": {"x": -80.832886, "y": 15.521132748163712}, "houseNumber": ""}], "related_queries": ["Patria o Muerte", "Cuba Libre"]})");
+    R"({"query": "cuba", "locale": "en", "position": {"x": 37.618706, "y": 99.53730574302003}, "viewport": {"minx": 37.1336, "miny": 67.1349, "maxx": 38.0314, "maxy": 67.7348}, "results": [{"name": "Cuba", "relevancy": "relevant", "types": ["place-country"], "position": {"x": -80.832886, "y": 15.521132748163712}, "houseNumber": ""}], "related_queries": ["Patria o Muerte", "Cuba Libre"]})");
   lines.append("\n");
 
   lines.append(
-      R"({"query": "riga", "locale": "en", "position": {"x": 37.65376, "y": 98.51110651930014}, "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}, "results": [{"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}, {"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}]})");
+    R"({"query": "riga", "locale": "en", "position": {"x": 37.65376, "y": 98.51110651930014}, "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}, "results": [{"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}, {"name": "R\u012bga", "relevancy": "vital", "types": ["place-city-capital-2"], "position": {"x": 24.105186, "y": 107.7819569220319}, "houseNumber": ""}]})");
   lines.append("\n");
 
   lines.append(
-      R"({"query": "tula", "locale": "en", "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}})");
+    R"({"query": "tula", "locale": "en", "viewport": {"minx": 37.5064, "miny": 67.0476, "maxx": 37.7799, "maxy": 67.304}})");
   lines.append("\n");
 
   std::vector<Sample> samples;
@@ -172,4 +171,4 @@ UNIT_CLASS_TEST(SampleTest, SerDes)
   std::sort(actual.begin(), actual.end());
   TEST_EQUAL(expected, actual, ());
 }
-} // namespace sample_test
+}  // namespace sample_test

@@ -10,9 +10,9 @@ namespace generator
 using namespace feature;
 
 MiniRoundaboutCollector::MiniRoundaboutCollector(std::string const & filename, IDRInterfacePtr cache)
-  : generator::CollectorInterface(filename), m_cache(std::move(cache))
-{
-}
+  : generator::CollectorInterface(filename)
+  , m_cache(std::move(cache))
+{}
 
 std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(IDRInterfacePtr const & cache) const
 {
@@ -39,8 +39,7 @@ void MiniRoundaboutCollector::Collect(OsmElement const & element)
   }
 }
 
-void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature,
-                                             OsmElement const & element)
+void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
 {
   if (MiniRoundaboutInfo::IsProcessRoad(feature))
     m_roads.AddWay(element);
@@ -51,22 +50,25 @@ void MiniRoundaboutCollector::Save()
   /// @todo We assign only car roads here into MiniRoundaboutInfo.m_ways.
   /// Should also collect other highways (like path or pedestrian) in very general case.
   /// https://www.openstreetmap.org/way/220672898
-  m_roads.ForEachWay([this](uint64_t id, std::vector<uint64_t> const & nodes)
-  {
-    for (uint64_t node : nodes)
+  m_roads.ForEachWay(
+    [this](uint64_t id, std::vector<uint64_t> const & nodes)
     {
-      auto it = m_miniRoundabouts.find(node);
-      if (it != m_miniRoundabouts.end())
-        it->second.m_ways.push_back(id);
-    }
-  }, m_cache);
+      for (uint64_t node : nodes)
+      {
+        auto it = m_miniRoundabouts.find(node);
+        if (it != m_miniRoundabouts.end())
+          it->second.m_ways.push_back(id);
+      }
+    },
+    m_cache);
 
   FileWriter writer(GetFilename());
-  ForEachMiniRoundabout([&writer](MiniRoundaboutInfo & miniRoundabout)
-  {
-    if (miniRoundabout.Normalize())
-      WriteMiniRoundabout(writer, miniRoundabout);
-  });
+  ForEachMiniRoundabout(
+    [&writer](MiniRoundaboutInfo & miniRoundabout)
+    {
+      if (miniRoundabout.Normalize())
+        WriteMiniRoundabout(writer, miniRoundabout);
+    });
 }
 
 void MiniRoundaboutCollector::MergeInto(MiniRoundaboutCollector & collector) const

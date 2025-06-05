@@ -17,10 +17,7 @@ SerializerKml::SerializerKml(FileData & data)
   m_strings = collector.StealCollection();
 }
 
-SerializerKml::~SerializerKml()
-{
-  ClearCollectionIndex();
-}
+SerializerKml::~SerializerKml() { ClearCollectionIndex(); }
 
 void SerializerKml::ClearCollectionIndex()
 {

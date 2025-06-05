@@ -4,8 +4,8 @@
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QRadioButton>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QSplitter>
+#include <QtWidgets/QVBoxLayout>
 
 namespace qt
 {
@@ -26,8 +26,7 @@ QGroupBox * MwmsBordersSelection::CreateButtonBoxGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  auto * buttonBox =
-      new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
+  auto * buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
   auto * vbox = new QVBoxLayout;
 

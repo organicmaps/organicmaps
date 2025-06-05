@@ -59,8 +59,7 @@ void CheckLocale()
     auto root = base::NewJSONObject();
     ToJSONObject(*root, "coord", coord);
 
-    unique_ptr<char, JSONFreeDeleter> buffer(
-        json_dumps(root.get(), JSON_COMPACT));
+    unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT));
 
     line.append(buffer.get());
   }
@@ -105,11 +104,10 @@ void SetPlatformDirs(string const & dataPath, string const & mwmPath)
 
 void InitViewport(string viewportName, m2::RectD & viewport)
 {
-  map<string, m2::RectD> const kViewports = {
-      {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
-      {"moscow", mercator::RectByCenterLatLonAndSizeInMeters(55.7, 37.7, 5000)},
-      {"london", mercator::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
-      {"zurich", mercator::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
+  map<string, m2::RectD> const kViewports = {{"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
+                                             {"moscow", mercator::RectByCenterLatLonAndSizeInMeters(55.7, 37.7, 5000)},
+                                             {"london", mercator::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
+                                             {"zurich", mercator::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
 
   auto it = kViewports.find(viewportName);
   if (it == kViewports.end())
@@ -135,8 +133,7 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   }
   else
   {
-    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                         mwms);
+    platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */, mwms);
   }
 
   LOG(LINFO, ("Initializing the data source with the following mwms:"));
@@ -149,8 +146,8 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   LOG(LINFO, ());
 }
 
-unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
-    DataSource & dataSource, string const & locale, size_t numThreads)
+unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(DataSource & dataSource, string const & locale,
+                                                                     size_t numThreads)
 {
   search::Engine::Params params;
   params.m_locale = locale;

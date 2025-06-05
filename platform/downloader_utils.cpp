@@ -55,10 +55,7 @@ bool IsUrlSupported(std::string const & url)
   }
 
   size_t count = 0;
-  strings::Tokenize(url::UrlDecode(urlComponents.back()), ".", [&count](std::string_view)
-  {
-    ++count;
-  });
+  strings::Tokenize(url::UrlDecode(urlComponents.back()), ".", [&count](std::string_view) { ++count; });
   return count == 2;
 }
 

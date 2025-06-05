@@ -16,7 +16,10 @@ public:
   {
   public:
     Step() = default;
-    Step(Segment const & segment, m2::PointD const & point) : m_segment(segment), m_point(point) {}
+    Step(Segment const & segment, m2::PointD const & point)
+      : m_segment(segment)
+      , m_point(point)
+    {}
 
     Segment const & GetSegment() const { return m_segment; }
     m2::PointD const & GetPoint() const { return m_point; }
@@ -30,10 +33,7 @@ public:
   SegmentedRoute(m2::PointD const & start, m2::PointD const & finish,
                  std::vector<Route::SubrouteAttrs> const & subroutes);
 
-  void AddStep(Segment const & segment, m2::PointD const & point)
-  {
-    m_steps.emplace_back(segment, point);
-  }
+  void AddStep(Segment const & segment, m2::PointD const & point) { m_steps.emplace_back(segment, point); }
 
   double CalcDistance(m2::PointD const & point) const;
 

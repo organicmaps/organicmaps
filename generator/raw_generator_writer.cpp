@@ -8,29 +8,30 @@
 
 namespace generator
 {
-RawGeneratorWriter::RawGeneratorWriter(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                                       std::string const & path)
-  : m_queue(queue), m_path(path)
-{
-}
+RawGeneratorWriter::RawGeneratorWriter(std::shared_ptr<FeatureProcessorQueue> const & queue, std::string const & path)
+  : m_queue(queue)
+  , m_path(path)
+{}
 
 RawGeneratorWriter::~RawGeneratorWriter() { ShutdownAndJoin(); }
 
 void RawGeneratorWriter::Run()
 {
-  m_thread = std::thread([&]() {
-    while (true)
+  m_thread = std::thread(
+    [&]()
     {
-      FeatureProcessorChunk chunk;
-      m_queue->WaitAndPop(chunk);
-      // As a sign of the end of tasks, we use an empty message. We have the right to do that,
-      // because there is only one reader.
-      if (!chunk.has_value())
-        return;
+      while (true)
+      {
+        FeatureProcessorChunk chunk;
+        m_queue->WaitAndPop(chunk);
+        // As a sign of the end of tasks, we use an empty message. We have the right to do that,
+        // because there is only one reader.
+        if (!chunk.has_value())
+          return;
 
-      Write(*chunk);
-    }
-  });
+        Write(*chunk);
+      }
+    });
 }
 
 std::vector<std::string> RawGeneratorWriter::GetNames()
@@ -39,7 +40,7 @@ std::vector<std::string> RawGeneratorWriter::GetNames()
 
   std::vector<std::string> names;
   names.reserve(m_writers.size());
-  for (const auto & p : m_writers)
+  for (auto const & p : m_writers)
     names.emplace_back(p.first);
 
   return names;

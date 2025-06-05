@@ -10,10 +10,7 @@ namespace dp
 {
 struct GlyphImage
 {
-  ~GlyphImage()
-  {
-    ASSERT_NOT_EQUAL(m_data.use_count(), 1, ("Probably you forgot to call Destroy()"));
-  }
+  ~GlyphImage() { ASSERT_NOT_EQUAL(m_data.use_count(), 1, ("Probably you forgot to call Destroy()")); }
 
   // TODO(AB): Get rid of manual call to Destroy.
   void Destroy()
@@ -39,7 +36,10 @@ struct GlyphFontAndId
   // Required only for buffer_vector's internal T m_static[N];
   GlyphFontAndId() = default;
 
-  constexpr GlyphFontAndId(int16_t fontIndex, uint16_t glyphId) : m_fontIndex(fontIndex), m_glyphId(glyphId) {}
+  constexpr GlyphFontAndId(int16_t fontIndex, uint16_t glyphId)
+    : m_fontIndex(fontIndex)
+    , m_glyphId(glyphId)
+  {}
 
   bool operator==(GlyphFontAndId const & other) const
   {
@@ -48,10 +48,9 @@ struct GlyphFontAndId
 
   bool operator<(GlyphFontAndId const & other) const
   {
-    return std::tie(m_fontIndex, m_glyphId) < std::tie (other.m_fontIndex, other.m_glyphId);
+    return std::tie(m_fontIndex, m_glyphId) < std::tie(other.m_fontIndex, other.m_glyphId);
   }
 };
-
 
 // 50 glyphs should fit most of the strings based on tests in Switzerland and China.
 using TGlyphs = buffer_vector<GlyphFontAndId, 50>;
@@ -59,11 +58,11 @@ using TGlyphs = buffer_vector<GlyphFontAndId, 50>;
 struct Glyph
 {
   Glyph(GlyphImage && image, GlyphFontAndId key)
-  : m_image(image), m_key(key)
+    : m_image(image)
+    , m_key(key)
   {}
 
   GlyphImage m_image;
   GlyphFontAndId m_key;
 };
 }  // namespace dp
-

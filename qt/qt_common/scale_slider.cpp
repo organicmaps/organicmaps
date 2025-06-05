@@ -20,9 +20,11 @@ namespace
 class MyProxyStyle : public ProxyStyle
 {
 public:
-  explicit MyProxyStyle(QStyle * parent) : ProxyStyle(parent) {}
+  explicit MyProxyStyle(QStyle * parent)
+    : ProxyStyle(parent)
+  {}
 
-  int styleHint(StyleHint hint, const QStyleOption * option, const QWidget * widget,
+  int styleHint(StyleHint hint, QStyleOption const * option, QWidget const * widget,
                 QStyleHintReturn * returnData) const override
   {
     if (hint == SH_Slider_AbsoluteSetButtons)
@@ -33,7 +35,8 @@ public:
 }  // namespace
 
 ScaleSlider::ScaleSlider(Qt::Orientation orient, QWidget * parent)
-  : QSlider(orient, parent), m_factor(20)
+  : QSlider(orient, parent)
+  , m_factor(20)
 {
   setStyle(new MyProxyStyle(style()));
   SetRange(2, scales::GetUpperScale());

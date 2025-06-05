@@ -31,69 +31,70 @@ uint32_t constexpr kMaxRoadShieldBytesSize = 8;
 std::array<std::string, 2> const kFederalCode = {{"US", "FSR"}};
 
 std::array<std::string, 61> const kStatesCode = {{
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN",
-    "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
-    "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
-    "VT", "VA", "WA", "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN",
+  "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
+  "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
+  "VT", "VA", "WA", "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
 
-    "SR",   // common prefix for State Road
+  "SR",  // common prefix for State Road
 }};
 
-std::array<std::string, 13> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass",
-                                                 "historic", "connector", "loop", "scenic", "spur",
-                                                 "temporary", "toll", "truck"}};
+std::array<std::string, 13> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass", "historic",
+                                                 "connector", "loop", "scenic", "spur", "temporary", "toll", "truck"}};
 
 // Shields based on a network tag in a route=road relation.
 std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
-    // International road networks.
-    {"e-road", RoadShieldType::Generic_Green},  // E 105
-    {"asianhighway", RoadShieldType::Hidden},   // AH8. Blue, but usually not posted.
-    // National and regional networks for some countries.
-    {"ru:national", RoadShieldType::Generic_Blue},
-    {"ru:regional", RoadShieldType::Generic_Blue},
-    {"bg:national", RoadShieldType::Generic_Green},
-    {"bg:regional", RoadShieldType::Generic_Blue},
-    {"by:national", RoadShieldType::Generic_Red},
-    // https://github.com/organicmaps/organicmaps/issues/3083
-    //{"by:regional", RoadShieldType::Generic_Red},
-    {"co:national", RoadShieldType::Generic_White},
-    {"cz:national", RoadShieldType::Generic_Red},
-    {"cz:regional", RoadShieldType::Generic_Blue},
-    // Estonia parser produces more specific shield types, incl. Generic_Orange.
-    //{"ee:national", RoadShieldType::Generic_Red},
-    //{"ee:regional", RoadShieldType::Generic_White},
-    {"in:ne", RoadShieldType::Generic_Blue},
-    {"in:nh", RoadShieldType::Generic_Orange},
-    {"in:sh", RoadShieldType::Generic_Green},
-    {"fr:a-road", RoadShieldType::Generic_Red},
-    {"jp:national", RoadShieldType::Generic_Blue},
-    {"jp:regional", RoadShieldType::Generic_Blue},
-    {"jp:prefectural", RoadShieldType::Generic_Blue},
-    {"lt:national", RoadShieldType::Generic_Red},
-    {"lt:regional", RoadShieldType::Generic_Blue},
-    {"lv:national", RoadShieldType::Generic_Red},
-    {"lv:regional", RoadShieldType::Generic_Blue},
-    {"pl:national", RoadShieldType::Generic_Red},
-    {"pl:regional", RoadShieldType::Generic_Orange},
-    {"pl:local", RoadShieldType::Generic_White},
-    {"ua:national", RoadShieldType::Generic_Blue},
-    {"ua:regional", RoadShieldType::Generic_Blue},
-    {"ua:territorial", RoadShieldType::Generic_White},
-    {"ua:local", RoadShieldType::Generic_White},
-    {"za:national", RoadShieldType::Generic_White},
-    {"za:regional", RoadShieldType::Generic_White},
-    {"my:federal", RoadShieldType::Generic_Orange},
-    // United States road networks.
-    {"us:i", RoadShieldType::US_Interstate},
-    {"us:us", RoadShieldType::US_Highway},
-    {"us:sr", RoadShieldType::US_Highway},
-    {"us:fsr", RoadShieldType::US_Highway},
+  // International road networks.
+  {"e-road", RoadShieldType::Generic_Green},  // E 105
+  {"asianhighway", RoadShieldType::Hidden},   // AH8. Blue, but usually not posted.
+  // National and regional networks for some countries.
+  {"ru:national", RoadShieldType::Generic_Blue},
+  {"ru:regional", RoadShieldType::Generic_Blue},
+  {"bg:national", RoadShieldType::Generic_Green},
+  {"bg:regional", RoadShieldType::Generic_Blue},
+  {"by:national", RoadShieldType::Generic_Red},
+  // https://github.com/organicmaps/organicmaps/issues/3083
+  //{"by:regional", RoadShieldType::Generic_Red},
+  {"co:national", RoadShieldType::Generic_White},
+  {"cz:national", RoadShieldType::Generic_Red},
+  {"cz:regional", RoadShieldType::Generic_Blue},
+  // Estonia parser produces more specific shield types, incl. Generic_Orange.
+  //{"ee:national", RoadShieldType::Generic_Red},
+  //{"ee:regional", RoadShieldType::Generic_White},
+  {"in:ne", RoadShieldType::Generic_Blue},
+  {"in:nh", RoadShieldType::Generic_Orange},
+  {"in:sh", RoadShieldType::Generic_Green},
+  {"fr:a-road", RoadShieldType::Generic_Red},
+  {"jp:national", RoadShieldType::Generic_Blue},
+  {"jp:regional", RoadShieldType::Generic_Blue},
+  {"jp:prefectural", RoadShieldType::Generic_Blue},
+  {"lt:national", RoadShieldType::Generic_Red},
+  {"lt:regional", RoadShieldType::Generic_Blue},
+  {"lv:national", RoadShieldType::Generic_Red},
+  {"lv:regional", RoadShieldType::Generic_Blue},
+  {"pl:national", RoadShieldType::Generic_Red},
+  {"pl:regional", RoadShieldType::Generic_Orange},
+  {"pl:local", RoadShieldType::Generic_White},
+  {"ua:national", RoadShieldType::Generic_Blue},
+  {"ua:regional", RoadShieldType::Generic_Blue},
+  {"ua:territorial", RoadShieldType::Generic_White},
+  {"ua:local", RoadShieldType::Generic_White},
+  {"za:national", RoadShieldType::Generic_White},
+  {"za:regional", RoadShieldType::Generic_White},
+  {"my:federal", RoadShieldType::Generic_Orange},
+  // United States road networks.
+  {"us:i", RoadShieldType::US_Interstate},
+  {"us:us", RoadShieldType::US_Highway},
+  {"us:sr", RoadShieldType::US_Highway},
+  {"us:fsr", RoadShieldType::US_Highway},
 };
 
 class RoadShieldParser
 {
 public:
-  explicit RoadShieldParser(std::string const & baseRoadNumber) : m_baseRoadNumber(baseRoadNumber) {}
+  explicit RoadShieldParser(std::string const & baseRoadNumber)
+    : m_baseRoadNumber(baseRoadNumber)
+  {}
   virtual ~RoadShieldParser() = default;
   virtual RoadShield ParseRoadShield(std::string_view rawText) const = 0;
 
@@ -129,44 +130,45 @@ public:
   {
     RoadShieldsSetT result, defaultShields;
 
-    strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view rawText)
-    {
-      RoadShield shield;
-      auto slashPos = rawText.find('/');
-      if (slashPos == std::string::npos)
+    strings::Tokenize(
+      m_baseRoadNumber, ";",
+      [&](std::string_view rawText)
       {
-        shield = ParseRoadShield(rawText);
-      }
-      else
-      {
-        shield = ParseRoadShield(rawText.substr(slashPos + 1));
-        // TODO: use a network-based shield type override only if a parser couldn't make it
-        // more specific than country's default shield type.
-        // E.g. "94" is set to Generic_Orange by Estonia parser, but then
-        // is overriden by "ee:national" => Generic_Red.
-        // (can't override just RoadShieldType::Default, as e.g. Russia parser uses Generic_Blue as country default).
-        if (shield.m_type != RoadShieldType::Hidden)
+        RoadShield shield;
+        auto slashPos = rawText.find('/');
+        if (slashPos == std::string::npos)
         {
-          RoadShieldType const networkType = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
-          if (networkType != RoadShieldType::Default)
-            shield.m_type = networkType;
+          shield = ParseRoadShield(rawText);
         }
-      }
-      if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
-      {
-        if (shield.m_type != RoadShieldType::Default)
+        else
         {
-          // Schedule deletion of a shield with the same text and default style, if present.
-          defaultShields.emplace_back(RoadShieldType::Default, shield.m_name, shield.m_additionalText);
+          shield = ParseRoadShield(rawText.substr(slashPos + 1));
+          // TODO: use a network-based shield type override only if a parser couldn't make it
+          // more specific than country's default shield type.
+          // E.g. "94" is set to Generic_Orange by Estonia parser, but then
+          // is overriden by "ee:national" => Generic_Red.
+          // (can't override just RoadShieldType::Default, as e.g. Russia parser uses Generic_Blue as country default).
+          if (shield.m_type != RoadShieldType::Hidden)
+          {
+            RoadShieldType const networkType = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
+            if (networkType != RoadShieldType::Default)
+              shield.m_type = networkType;
+          }
         }
-        result.push_back(std::move(shield));
-      }
-    });
+        if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
+        {
+          if (shield.m_type != RoadShieldType::Default)
+          {
+            // Schedule deletion of a shield with the same text and default style, if present.
+            defaultShields.emplace_back(RoadShieldType::Default, shield.m_name, shield.m_additionalText);
+          }
+          result.push_back(std::move(shield));
+        }
+      });
 
-    result.erase_if([&defaultShields](RoadShield const & shield)
-    {
-      return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end();
-    });
+    result.erase_if(
+      [&defaultShields](RoadShield const & shield)
+      { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
 
     return result;
   }
@@ -178,7 +180,9 @@ protected:
 class USRoadShieldParser : public RoadShieldParser
 {
 public:
-  explicit USRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+  explicit USRoadShieldParser(std::string const & baseRoadNumber)
+    : RoadShieldParser(baseRoadNumber)
+  {}
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     std::string shieldText(rawText);
@@ -238,7 +242,9 @@ public:
 class IndiaRoadShieldParser : public RoadShieldParser
 {
 public:
-  explicit IndiaRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+  explicit IndiaRoadShieldParser(std::string const & baseRoadNumber)
+    : RoadShieldParser(baseRoadNumber)
+  {}
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     std::string shieldText(rawText);
@@ -267,11 +273,10 @@ public:
 class DefaultTypeRoadShieldParser : public RoadShieldParser
 {
 public:
-  DefaultTypeRoadShieldParser(std::string const & baseRoadNumber,
-                              RoadShieldType const & defaultType)
-    : RoadShieldParser(baseRoadNumber), m_type(defaultType)
-  {
-  }
+  DefaultTypeRoadShieldParser(std::string const & baseRoadNumber, RoadShieldType const & defaultType)
+    : RoadShieldParser(baseRoadNumber)
+    , m_type(defaultType)
+  {}
 
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
@@ -294,9 +299,9 @@ public:
   {
     Entry() = default;
     Entry(std::string_view name, RoadShieldType type)
-      : m_name(name), m_type(type)
-    {
-    }
+      : m_name(name)
+      , m_type(type)
+    {}
 
     std::string_view m_name;
     RoadShieldType m_type = RoadShieldType::Default;
@@ -306,9 +311,10 @@ public:
 
   SimpleRoadShieldParser(std::string const & baseRoadNumber, ShieldTypes && types,
                          RoadShieldType defaultType = RoadShieldType::Default)
-    : RoadShieldParser(baseRoadNumber), m_types(std::move(types)), m_defaultType(defaultType)
-  {
-  }
+    : RoadShieldParser(baseRoadNumber)
+    , m_types(std::move(types))
+    , m_defaultType(defaultType)
+  {}
 
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
@@ -327,7 +333,7 @@ public:
       }
     }
 
-    return { type, rawText };
+    return {type, rawText};
   }
 
 private:
@@ -347,9 +353,10 @@ public:
   {
     Entry() = default;
     Entry(uint16_t low, uint16_t high, RoadShieldType type)
-      : m_low(low), m_high(high), m_type(type)
-    {
-    }
+      : m_low(low)
+      , m_high(high)
+      , m_type(type)
+    {}
 
     uint16_t m_low, m_high;
     RoadShieldType m_type = RoadShieldType::Default;
@@ -359,9 +366,9 @@ public:
   using ShieldTypes = buffer_vector<Entry, 8>;
 
   NumericRoadShieldParser(std::string const & baseRoadNumber, ShieldTypes && types)
-    : RoadShieldParser(baseRoadNumber), m_types(std::move(types))
-  {
-  }
+    : RoadShieldParser(baseRoadNumber)
+    , m_types(std::move(types))
+  {}
 
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
@@ -392,7 +399,9 @@ public:
   {
     Entry() = default;
     Entry(std::string_view simpleName, std::string_view unicodeName, RoadShieldType type)
-      : m_simpleName(simpleName), m_unicodeName(unicodeName), m_type(type)
+      : m_simpleName(simpleName)
+      , m_unicodeName(unicodeName)
+      , m_type(type)
     {
       ASSERT_NOT_EQUAL(simpleName, unicodeName, ());
       ASSERT_LESS_OR_EQUAL(simpleName.size(), unicodeName.size(), ());
@@ -407,9 +416,10 @@ public:
 
   SimpleUnicodeRoadShieldParser(std::string const & baseRoadNumber, ShieldTypes && types,
                                 RoadShieldType defaultType = RoadShieldType::Default)
-    : RoadShieldParser(baseRoadNumber), m_types(std::move(types)), m_defaultType(defaultType)
-  {
-  }
+    : RoadShieldParser(baseRoadNumber)
+    , m_types(std::move(types))
+    , m_defaultType(defaultType)
+  {}
 
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
@@ -442,8 +452,7 @@ class RussiaRoadShieldParser : public DefaultTypeRoadShieldParser
 public:
   explicit RussiaRoadShieldParser(std::string const & baseRoadNumber)
     : DefaultTypeRoadShieldParser(baseRoadNumber, RoadShieldType::Generic_Blue)
-  {
-  }
+  {}
 };
 
 class SpainRoadShieldParser : public DefaultTypeRoadShieldParser
@@ -451,18 +460,15 @@ class SpainRoadShieldParser : public DefaultTypeRoadShieldParser
 public:
   explicit SpainRoadShieldParser(std::string const & baseRoadNumber)
     : DefaultTypeRoadShieldParser(baseRoadNumber, RoadShieldType::Generic_Blue)
-  {
-  }
+  {}
 };
 
 class UKRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   explicit UKRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Blue},
-                                              {"A", RoadShieldType::UK_Highway}})
-  {
-  }
+    : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Blue}, {"A", RoadShieldType::UK_Highway}})
+  {}
 };
 
 class FranceRoadShieldParser : public SimpleRoadShieldParser
@@ -474,8 +480,7 @@ public:
                                               {"E", RoadShieldType::Generic_Green},
                                               {"D", RoadShieldType::Generic_Orange},
                                               {"M", RoadShieldType::Generic_Blue}})
-  {
-  }
+  {}
 };
 
 class GermanyRoadShieldParser : public SimpleRoadShieldParser
@@ -486,8 +491,7 @@ public:
                                               {"B", RoadShieldType::Generic_Orange},
                                               {"L", RoadShieldType::Generic_White},
                                               {"K", RoadShieldType::Generic_White}})
-  {
-  }
+  {}
 };
 
 class UkraineRoadShieldParser : public SimpleUnicodeRoadShieldParser
@@ -495,13 +499,11 @@ class UkraineRoadShieldParser : public SimpleUnicodeRoadShieldParser
 public:
   // The second parameter in the constructor is a cyrillic symbol.
   explicit UkraineRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleUnicodeRoadShieldParser(baseRoadNumber,
-                                    {{"M", "М", RoadShieldType::Generic_Blue},
-                                     {"H", "Н", RoadShieldType::Generic_Blue},
-                                     {"P", "Р", RoadShieldType::Generic_Blue},
-                                     {"E", "Е", RoadShieldType::Generic_Green}})
-  {
-  }
+    : SimpleUnicodeRoadShieldParser(baseRoadNumber, {{"M", "М", RoadShieldType::Generic_Blue},
+                                                     {"H", "Н", RoadShieldType::Generic_Blue},
+                                                     {"P", "Р", RoadShieldType::Generic_Blue},
+                                                     {"E", "Е", RoadShieldType::Generic_Green}})
+  {}
 };
 
 class BelarusRoadShieldParser : public SimpleUnicodeRoadShieldParser
@@ -509,23 +511,20 @@ class BelarusRoadShieldParser : public SimpleUnicodeRoadShieldParser
 public:
   // The second parameter in the constructor is a cyrillic symbol.
   explicit BelarusRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleUnicodeRoadShieldParser(baseRoadNumber,
-                                    {{"M", "М", RoadShieldType::Generic_Red},
-                                     {"P", "Р", RoadShieldType::Generic_Red},
-                                     {"E", "Е", RoadShieldType::Generic_Green}})
-  {
-  }
+    : SimpleUnicodeRoadShieldParser(baseRoadNumber, {{"M", "М", RoadShieldType::Generic_Red},
+                                                     {"P", "Р", RoadShieldType::Generic_Red},
+                                                     {"E", "Е", RoadShieldType::Generic_Green}})
+  {}
 };
 
 class LatviaRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   explicit LatviaRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red},
-                                              {"E", RoadShieldType::Generic_Green},
-                                              {"P", RoadShieldType::Generic_Blue}})
-  {
-  }
+    : SimpleRoadShieldParser(
+        baseRoadNumber,
+        {{"A", RoadShieldType::Generic_Red}, {"E", RoadShieldType::Generic_Green}, {"P", RoadShieldType::Generic_Blue}})
+  {}
 };
 
 class NetherlandsRoadShieldParser : public SimpleRoadShieldParser
@@ -535,8 +534,7 @@ public:
     : SimpleRoadShieldParser(baseRoadNumber, {{"A", RoadShieldType::Generic_Red},
                                               {"E", RoadShieldType::Generic_Green},
                                               {"N", RoadShieldType::Generic_Orange}})
-  {
-  }
+  {}
 };
 
 class FinlandRoadShieldParser : public NumericRoadShieldParser
@@ -548,8 +546,7 @@ public:
                                                {100, 999, RoadShieldType::Generic_White},
                                                {1000, 9999, RoadShieldType::Generic_Blue},
                                                {10000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
-  {
-  }
+  {}
 };
 
 class EstoniaRoadShieldParser : public NumericRoadShieldParser
@@ -562,40 +559,37 @@ public:
                                                {93, 95, RoadShieldType::Generic_Orange},
                                                {96, 999, RoadShieldType::Generic_White},
                                                {1000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
-  {
-  }
+  {}
 };
 
 class MalaysiaRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   explicit MalaysiaRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {{"AH", RoadShieldType::Generic_Blue},
-                                              {"E", RoadShieldType::Generic_Blue}},
-                                              RoadShieldType::Generic_Orange)
-  {
-  }
+    : SimpleRoadShieldParser(baseRoadNumber,
+                             {{"AH", RoadShieldType::Generic_Blue}, {"E", RoadShieldType::Generic_Blue}},
+                             RoadShieldType::Generic_Orange)
+  {}
 };
 
 class CyprusRoadShieldParser : public SimpleRoadShieldParser
 {
 public:
   explicit CyprusRoadShieldParser(std::string const & baseRoadNumber)
-    : SimpleRoadShieldParser(baseRoadNumber, {// North Cuprus.
-                                              {"D.", RoadShieldType::Generic_Blue},   // White font.
-                                              {"GM.", RoadShieldType::Generic_White}, // Blue font.
-                                              {"GZ.", RoadShieldType::Generic_White}, // Blue font.
-                                              {"GR.", RoadShieldType::Generic_White}, // Blue font.
-                                              {"LF.", RoadShieldType::Generic_White}, // Blue font.
-                                              {"İK.", RoadShieldType::Generic_White}, // Blue font.
-                                              // South Cyprus.
-                                              {"A", RoadShieldType::Generic_Green},   // Yellow font. Hexagon.
-                                              {"B", RoadShieldType::Generic_Blue},    // Yellow font.
-                                              {"E", RoadShieldType::Generic_Blue},    // Yellow font.
-                                              {"F", RoadShieldType::Generic_Blue},    // Yellow font.
-                                              {"U", RoadShieldType::Generic_Blue}})   // Yellow font.
-  {
-  }
+    : SimpleRoadShieldParser(baseRoadNumber, {                                         // North Cuprus.
+                                              {"D.", RoadShieldType::Generic_Blue},    // White font.
+                                              {"GM.", RoadShieldType::Generic_White},  // Blue font.
+                                              {"GZ.", RoadShieldType::Generic_White},  // Blue font.
+                                              {"GR.", RoadShieldType::Generic_White},  // Blue font.
+                                              {"LF.", RoadShieldType::Generic_White},  // Blue font.
+                                              {"İK.", RoadShieldType::Generic_White},  // Blue font.
+                                                                                       // South Cyprus.
+                                              {"A", RoadShieldType::Generic_Green},  // Yellow font. Hexagon.
+                                              {"B", RoadShieldType::Generic_Blue},   // Yellow font.
+                                              {"E", RoadShieldType::Generic_Blue},   // Yellow font.
+                                              {"F", RoadShieldType::Generic_Blue},   // Yellow font.
+                                              {"U", RoadShieldType::Generic_Blue}})  // Yellow font.
+  {}
 };
 
 class MexicoRoadShieldParser : public RoadShieldParser

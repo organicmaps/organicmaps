@@ -31,7 +31,10 @@ public:
   public:
     using NodeCallback = std::function<void(Node const &)>;
 
-    Node(Country && value, Node * parent) : m_value(std::move(value)), m_parent(parent) {}
+    Node(Country && value, Node * parent)
+      : m_value(std::move(value))
+      , m_parent(parent)
+    {}
 
     Country const & Value() const { return m_value; }
     Country & Value() { return m_value; }
@@ -119,17 +122,12 @@ private:
 };
 
 /// @return version of country file or -1 if error was encountered
-int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries,
-                                Affiliations & affiliations,
-                                CountryNameSynonyms & countryNameSynonyms,
-                                MwmTopCityGeoIds & mwmTopCityGeoIds,
+int64_t LoadCountriesFromBuffer(std::string const & buffer, CountryTree & countries, Affiliations & affiliations,
+                                CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
                                 MwmTopCountryGeoIds & mwmTopCountryGeoIds);
-int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries,
-                              Affiliations & affiliations,
-                              CountryNameSynonyms & countryNameSynonyms,
-                              MwmTopCityGeoIds & mwmTopCityGeoIds,
+int64_t LoadCountriesFromFile(std::string const & path, CountryTree & countries, Affiliations & affiliations,
+                              CountryNameSynonyms & countryNameSynonyms, MwmTopCityGeoIds & mwmTopCityGeoIds,
                               MwmTopCountryGeoIds & mwmTopCountryGeoIds);
 
-void LoadCountryFile2CountryInfo(std::string const & jsonBuffer,
-                                 std::map<std::string, CountryInfo> & id2info);
+void LoadCountryFile2CountryInfo(std::string const & jsonBuffer, std::map<std::string, CountryInfo> & id2info);
 }  // namespace storage

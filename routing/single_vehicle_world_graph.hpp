@@ -22,10 +22,8 @@ namespace routing
 class SingleVehicleWorldGraph final : public WorldGraph
 {
 public:
-  SingleVehicleWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
-                          std::unique_ptr<IndexGraphLoader> loader,
-                          std::shared_ptr<EdgeEstimator> estimator,
-                          MwmHierarchyHandler && hierarchyHandler);
+  SingleVehicleWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph, std::unique_ptr<IndexGraphLoader> loader,
+                          std::shared_ptr<EdgeEstimator> estimator, MwmHierarchyHandler && hierarchyHandler);
 
   // WorldGraph overrides:
   // @{
@@ -33,13 +31,11 @@ public:
 
   using WorldGraph::GetEdgeList;
 
-  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                   bool useRoutingOptions, bool useAccessConditional,
-                   SegmentEdgeListT & edges) override;
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing, bool useRoutingOptions,
+                   bool useAccessConditional, SegmentEdgeListT & edges) override;
 
-  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
-                   Segment const & parent, bool isOutgoing, bool useAccessConditional,
-                   JointEdgeListT & jointEdges,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
+                   bool isOutgoing, bool useAccessConditional, JointEdgeListT & jointEdges,
                    WeightListT & parentWeights) override;
 
   bool CheckLength(RouteWeight const &, double) const override { return true; }
@@ -73,10 +69,7 @@ public:
   std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
   SpeedInUnits GetSpeedLimit(Segment const & segment) override;
 
-  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
-  {
-    return m_loader->GetIndexGraph(numMwmId);
-  }
+  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { return m_loader->GetIndexGraph(numMwmId); }
 
   void SetAStarParents(bool forward, Parents<Segment> & parents) override;
   void SetAStarParents(bool forward, Parents<JointSegment> & parents) override;
@@ -90,10 +83,7 @@ public:
   // @}
 
   // This method should be used for tests only
-  IndexGraph & GetIndexGraphForTests(NumMwmId numMwmId)
-  {
-    return m_loader->GetIndexGraph(numMwmId);
-  }
+  IndexGraph & GetIndexGraphForTests(NumMwmId numMwmId) { return m_loader->GetIndexGraph(numMwmId); }
 
   CrossMwmGraph & GetCrossMwmGraph() override { return *m_crossMwmGraph; }
 
@@ -103,16 +93,12 @@ private:
   /// \return The result chain of fetureIds are used to find restrictions on it and understand whether
   ///         waves are connectable or not.
   template <typename VertexType, class ConverterT>
-  bool AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
-                               VertexType const & commonVertex,
-                               Parents<VertexType> const & backwardParents,
-                               ConverterT const & fakeConverter);
+  bool AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents, VertexType const & commonVertex,
+                               Parents<VertexType> const & backwardParents, ConverterT const & fakeConverter);
 
   // Retrieves the same |jointEdges|, but into others mwms.
   // If they are cross mwm edges, of course.
-  void CheckAndProcessTransitFeatures(Segment const & parent,
-                                      JointEdgeListT & jointEdges,
-                                      WeightListT & parentWeights,
+  void CheckAndProcessTransitFeatures(Segment const & parent, JointEdgeListT & jointEdges, WeightListT & parentWeights,
                                       bool isOutgoing);
   /// @name WorldGraph overrides.
   /// @{

@@ -44,10 +44,8 @@ void FillSegmentInfo(vector<double> const & times, vector<RouteSegment> & routeS
   }
 }
 
-void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
-                      base::Cancellable const & cancellable,
-                      vector<geometry::PointWithAltitude> const & path, vector<double> const & times,
-                      Route & route)
+void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
+                      vector<geometry::PointWithAltitude> const & path, vector<double> const & times, Route & route)
 {
   if (path.empty())
   {
@@ -81,8 +79,7 @@ Segment ConvertEdgeToSegment(NumMwmIds const & numMwmIds, Edge const & edge)
   {
     if (edge.HasRealPart())
     {
-      return Segment(kFakeNumMwmId, FakeFeatureIds::kIndexGraphStarterId, edge.GetFakeSegmentId(),
-                     true /* forward */);
+      return Segment(kFakeNumMwmId, FakeFeatureIds::kIndexGraphStarterId, edge.GetFakeSegmentId(), true /* forward */);
     }
 
     return Segment();
@@ -98,14 +95,15 @@ bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect)
 {
   double constexpr kEps = 1e-6;
   bool isSideIntersected = false;
-  rect.ForEachSide([&segment, &isSideIntersected](m2::PointD const & a, m2::PointD const & b) {
-    if (isSideIntersected)
-      return;
+  rect.ForEachSide(
+    [&segment, &isSideIntersected](m2::PointD const & a, m2::PointD const & b)
+    {
+      if (isSideIntersected)
+        return;
 
-    m2::Segment2D const rectSide(a, b);
-    isSideIntersected =
-        m2::Intersect(segment, rectSide, kEps).m_type != m2::IntersectionResult::Type::Zero;
-  });
+      m2::Segment2D const rectSide(a, b);
+      isSideIntersected = m2::Intersect(segment, rectSide, kEps).m_type != m2::IntersectionResult::Type::Zero;
+    });
 
   return isSideIntersected;
 }
@@ -136,8 +134,8 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
   return false;
 }
 
-bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRoutingOptions,
-                            size_t limit, WorldGraph & graph, set<Segment> & marked)
+bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRoutingOptions, size_t limit,
+                            WorldGraph & graph, set<Segment> & marked)
 {
   queue<Segment> q;
   q.push(start);
@@ -171,16 +169,17 @@ bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRout
 
 // AStarLengthChecker ------------------------------------------------------------------------------
 
-AStarLengthChecker::AStarLengthChecker(IndexGraphStarter & starter) : m_starter(starter) {}
+AStarLengthChecker::AStarLengthChecker(IndexGraphStarter & starter)
+  : m_starter(starter)
+{}
 
-bool AStarLengthChecker::operator()(RouteWeight const & weight) const
-{
-  return m_starter.CheckLength(weight);
-}
+bool AStarLengthChecker::operator()(RouteWeight const & weight) const { return m_starter.CheckLength(weight); }
 
 // AdjustLengthChecker -----------------------------------------------------------------------------
 
-AdjustLengthChecker::AdjustLengthChecker(IndexGraphStarter & starter) : m_starter(starter) {}
+AdjustLengthChecker::AdjustLengthChecker(IndexGraphStarter & starter)
+  : m_starter(starter)
+{}
 
 bool AdjustLengthChecker::operator()(RouteWeight const & weight) const
 {

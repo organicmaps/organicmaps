@@ -11,7 +11,13 @@ namespace downloader
 class ChunksDownloadStrategy
 {
 public:
-  enum ChunkStatusT { CHUNK_FREE = 0, CHUNK_DOWNLOADING = 1, CHUNK_COMPLETE = 2, CHUNK_AUX = -1 };
+  enum ChunkStatusT
+  {
+    CHUNK_FREE = 0,
+    CHUNK_DOWNLOADING = 1,
+    CHUNK_COMPLETE = 2,
+    CHUNK_AUX = -1
+  };
 
 private:
 #pragma pack(push, 1)
@@ -22,30 +28,38 @@ private:
     /// @see ChunkStatusT
     int8_t m_status;
 
-    ChunkT() : m_pos(-1), m_status(-1)
+    ChunkT()
+      : m_pos(-1)
+      , m_status(-1)
     {
       static_assert(sizeof(ChunkT) == 9, "Be sure to avoid overhead in writing to file.");
     }
-    ChunkT(int64_t pos, int8_t st) : m_pos(pos), m_status(st) {}
+    ChunkT(int64_t pos, int8_t st)
+      : m_pos(pos)
+      , m_status(st)
+    {}
   };
 #pragma pack(pop)
 
   struct LessChunks
   {
-    bool operator() (ChunkT const & r1, ChunkT const & r2) const { return r1.m_pos < r2.m_pos; }
-    bool operator() (ChunkT const & r1, int64_t const & r2) const { return r1.m_pos < r2; }
-    bool operator() (int64_t const & r1, ChunkT const & r2) const { return r1 < r2.m_pos; }
+    bool operator()(ChunkT const & r1, ChunkT const & r2) const { return r1.m_pos < r2.m_pos; }
+    bool operator()(ChunkT const & r1, int64_t const & r2) const { return r1.m_pos < r2; }
+    bool operator()(int64_t const & r1, ChunkT const & r2) const { return r1 < r2.m_pos; }
   };
 
   using RangeT = std::pair<int64_t, int64_t>;
 
-  static const int SERVER_READY = -1;
+  static int const SERVER_READY = -1;
   struct ServerT
   {
     std::string m_url;
     int m_chunkIndex;
 
-    ServerT(std::string const & url, int ind) : m_url(url), m_chunkIndex(ind) {}
+    ServerT(std::string const & url, int ind)
+      : m_url(url)
+      , m_chunkIndex(ind)
+    {}
   };
 
   std::vector<ChunkT> m_chunks;
@@ -84,4 +98,4 @@ public:
   /// Should be called until returns ENextChunk
   ResultT NextChunk(std::string & outUrl, RangeT & range);
 };
-} // namespace downloader
+}  // namespace downloader

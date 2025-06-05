@@ -24,8 +24,7 @@ class BicycleTest : public RoutingTest
 public:
   BicycleTest()
     : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kBicycleMapFiles)
-  {
-  }
+  {}
 
 protected:
   std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override

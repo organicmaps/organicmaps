@@ -22,7 +22,7 @@ UNIT_TEST(FormatUTM)
   TEST_EQUAL(FormatUTM(56.79680, -5.00601), "30V 377486 6296562", ());
   TEST_EQUAL(FormatUTM(84, -5.00601), "30X 476594 9328501", ());
 
-  TEST_EQUAL(FormatUTM(84.644103, 3.000009), "", ()); // Latitude limit exceeded.
+  TEST_EQUAL(FormatUTM(84.644103, 3.000009), "", ());  // Latitude limit exceeded.
   TEST_EQUAL(FormatUTM(12.016469, 188.0), "", ());
 }
 
@@ -37,8 +37,8 @@ UNIT_TEST(FormatMGRS)
   TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 2), "11S PA 72 11", ());
   TEST_EQUAL(FormatMGRS(36.2361322, -115.0820944, 1), "11S PA 7 1", ());
 
-  TEST_EQUAL(FormatMGRS(84.644103, 3.000009, 5), "", ()); // Some converters generate string "Z AB 31142 05767"
-  TEST_EQUAL(FormatMGRS(-81.016469, 8.745519, 5), "", ()); // Some converters generate string "B BX 51947 87732"
+  TEST_EQUAL(FormatMGRS(84.644103, 3.000009, 5), "", ());   // Some converters generate string "Z AB 31142 05767"
+  TEST_EQUAL(FormatMGRS(-81.016469, 8.745519, 5), "", ());  // Some converters generate string "B BX 51947 87732"
   TEST_EQUAL(FormatMGRS(12.016469, 188.0, 2), "", ());
 
   // Test data from https://s3.amazonaws.com/mgrs.io/mgrsToGeo_WE.txt

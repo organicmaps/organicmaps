@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 
-
 namespace search
 {
 class TokenRange;
@@ -26,7 +25,9 @@ public:
   {
   public:
     Token() = default;
-    Token(String const & original) : m_original(original) {}
+    Token(String const & original)
+      : m_original(original)
+    {}
 
     void AddSynonym(std::string const & s);
     void AddSynonym(String const & s);

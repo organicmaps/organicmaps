@@ -6,7 +6,8 @@
 namespace generator
 {
 RelationTagsEnricher::RelationTagsEnricher(std::shared_ptr<cache::IntermediateDataReader> const & cache)
-  : m_cache(cache) {}
+  : m_cache(cache)
+{}
 
 void RelationTagsEnricher::operator()(OsmElement & p)
 {

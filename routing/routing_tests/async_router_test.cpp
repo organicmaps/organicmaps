@@ -31,17 +31,18 @@ class DummyRouter : public IRouter
   set<string> m_absent;
 
 public:
-  DummyRouter(RouterResultCode code, set<string> const & absent) : m_result(code), m_absent(absent) {}
+  DummyRouter(RouterResultCode code, set<string> const & absent)
+    : m_result(code)
+    , m_absent(absent)
+  {}
 
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
   void SetGuides(GuidesTracks && /* guides */) override {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                            bool adjustToPrevRoute, RouterDelegate const & delegate,
-                            Route & route) override
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override
   {
-    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(),
-                  0 /* route id */);
+    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(), 0 /* route id */);
 
     for (auto const & absent : m_absent)
       route.AddAbsentCountry(absent);
@@ -49,8 +50,8 @@ public:
     return m_result;
   }
 
-  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
-                                   double radius, EdgeProj & proj) override
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
+                                   EdgeProj & proj) override
   {
     return false;
   }
@@ -65,7 +66,10 @@ struct DummyRoutingCallbacks
   uint32_t const m_expected;
   uint32_t m_called;
 
-  explicit DummyRoutingCallbacks(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
+  explicit DummyRoutingCallbacks(uint32_t expectedCalls)
+    : m_expected(expectedCalls)
+    , m_called(0)
+  {}
 
   // ReadyCallbackOwnership callback
   void operator()(shared_ptr<Route> route, RouterResultCode code)
@@ -95,8 +99,7 @@ struct DummyRoutingCallbacks
     {
       lock_guard<mutex> calledLock(m_lock);
       ++m_called;
-      TEST_LESS_OR_EQUAL(m_called, m_expected,
-                         ("The result callback called more times than expected."));
+      TEST_LESS_OR_EQUAL(m_called, m_expected, ("The result callback called more times than expected."));
     }
     m_cv.notify_all();
   }

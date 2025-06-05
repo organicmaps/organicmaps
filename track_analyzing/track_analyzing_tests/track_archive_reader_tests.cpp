@@ -11,8 +11,8 @@
 #include "coding/zip_creator.hpp"
 
 #include <optional>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include "3party/minizip/minizip.hpp"
 
@@ -31,8 +31,7 @@ struct UserTrackInfo
   Track m_track;
 };
 
-std::optional<UserTrackInfo> ParseLogRecord(std::string const & record,
-                                            TemporaryFile & tmpArchiveFile);
+std::optional<UserTrackInfo> ParseLogRecord(std::string const & record, TemporaryFile & tmpArchiveFile);
 std::optional<std::string> ParseMultipartData(std::string const & binaryData);
 bool ParseTrackFile(unzip::File & zipReader, Track & trackData) noexcept;
 template <typename Reader, typename Pack>
@@ -62,7 +61,7 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
 
   // Step 2: Generate archive
   string const archiveFileName = tracking::archival_file::GetArchiveFilename(
-      1 /* protocolVersion */, std::chrono::seconds(1577826000), routing::RouterType::Vehicle);
+    1 /* protocolVersion */, std::chrono::seconds(1577826000), routing::RouterType::Vehicle);
 
   // Step 2.1: Fill archive with data points
   tracking::ArchiveCar archive(tracking::kItemsForDump, tracking::kMinDelaySecondsCar);
@@ -83,8 +82,8 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   vector<string> trackFiles;
   trackFiles.push_back(archiveFileName);
   string const containerFileName("test_track_archive.zip");
-  TEST_EQUAL(CreateZipFromFiles(trackFiles, containerFileName, CompressionLevel::NoCompression),
-             true, ("Unable to create tracks archive"));
+  TEST_EQUAL(CreateZipFromFiles(trackFiles, containerFileName, CompressionLevel::NoCompression), true,
+             ("Unable to create tracks archive"));
   FileWriter::DeleteFileX(archiveFileName);
 
   // Step 2.3: Read batch archive content
@@ -99,8 +98,7 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   // Step 2.4: Wrap as multipart data
   stringstream multipartStream;
   multipartStream << "------0000000000000\r\n";
-  multipartStream << "Content-Disposition: form-data; name=\"file\"; filename=\""
-                  << containerFileName << "\"\r\n";
+  multipartStream << "Content-Disposition: form-data; name=\"file\"; filename=\"" << containerFileName << "\"\r\n";
   multipartStream << "Content-Type: application/zip\r\n";
   multipartStream << "\r\n";
   multipartStream.write(buffer.data(), buffer.size());
@@ -110,16 +108,14 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   string multipartData = multipartStream.str();
 
   stringstream logStream;
-  logStream << testUserId << "\t1\t1577826010\t" << multipartData.size() << "\t"
-            << ToHex(multipartData);
+  logStream << testUserId << "\t1\t1577826010\t" << multipartData.size() << "\t" << ToHex(multipartData);
 
   string const logRecord = logStream.str();
 
   // Unpack log record
   TemporaryFile tmpArchiveFile("tmp-unittest", ".zip");
 
-  optional<track_analyzing::details::UserTrackInfo> data =
-      ParseLogRecord(logRecord, tmpArchiveFile);
+  optional<track_analyzing::details::UserTrackInfo> data = ParseLogRecord(logRecord, tmpArchiveFile);
   TEST_EQUAL(bool(data), true, ("Unable parse track archive record"));
 
   TEST_EQUAL(data->m_userId, testUserId, ());
@@ -128,10 +124,8 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   for (size_t i = 0; i < testTrack.size(); ++i)
   {
     TEST_EQUAL(data->m_track[i].m_timestamp, testTrack[i].m_timestamp, ());
-    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lat, testTrack[i].m_latLon.m_lat,
-                          kAccuracyEps, ());
-    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lon, testTrack[i].m_latLon.m_lon,
-                          kAccuracyEps, ());
+    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lat, testTrack[i].m_latLon.m_lat, kAccuracyEps, ());
+    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lon, testTrack[i].m_latLon.m_lon, kAccuracyEps, ());
     TEST_EQUAL(data->m_track[i].m_traffic, testTrack[i].m_traffic, ());
   }
 }
@@ -139,30 +133,30 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
 UNIT_TEST(ParseMultipartDataTest)
 {
   string const multipartData(
-      "------1599512558929\r\n"
-      "Content-Disposition: form-data; name=\"file\"; filename=\"1_1599034479_2.track.zip\"\r\n"
-      "Content-Type: application/zip\r\n"
-      "\r\n"
-      "PK\x03\x04\x14\x00\x00\x00\b\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-"
-      "\x00\x00\x00B\x00\x00\x00/storage/emulated/0/MapsWithMe/tracks_archive/1"
-      "_1599034479_2.track\x01-\x00\xD2\xFFx\xDA;\xF6\xB6q\r\xCF\xAE\xFD;z9v,"
-      "\xDA\xFB\x8B\xB5\xE3\xCA\xBF\xFF\xEC\xDF\xDF\x35\x34pLel\x00\x02\x0E0"
-      "\xC1\x34\x84\x99\x00\xC8\xEAX\xF0PK\x01\x02\x00\x00\x14\x00\x00\x00\b"
-      "\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-\x00\x00\x00B\x00\x00\x00"
-      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/storage/emulate"
-      "d/0/MapsWithMe/tracks_archive/1_1599034479_2.trackPK\x05\x06\x00\x00\x00"
-      "\x00\x01\x00\x01\x00p\x00\x00\x00\x92\x00\x00\x00\x00\x00\r\n"
-      "------1599512558929--\r\n");
+    "------1599512558929\r\n"
+    "Content-Disposition: form-data; name=\"file\"; filename=\"1_1599034479_2.track.zip\"\r\n"
+    "Content-Type: application/zip\r\n"
+    "\r\n"
+    "PK\x03\x04\x14\x00\x00\x00\b\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-"
+    "\x00\x00\x00B\x00\x00\x00/storage/emulated/0/MapsWithMe/tracks_archive/1"
+    "_1599034479_2.track\x01-\x00\xD2\xFFx\xDA;\xF6\xB6q\r\xCF\xAE\xFD;z9v,"
+    "\xDA\xFB\x8B\xB5\xE3\xCA\xBF\xFF\xEC\xDF\xDF\x35\x34pLel\x00\x02\x0E0"
+    "\xC1\x34\x84\x99\x00\xC8\xEAX\xF0PK\x01\x02\x00\x00\x14\x00\x00\x00\b"
+    "\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-\x00\x00\x00B\x00\x00\x00"
+    "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/storage/emulate"
+    "d/0/MapsWithMe/tracks_archive/1_1599034479_2.trackPK\x05\x06\x00\x00\x00"
+    "\x00\x01\x00\x01\x00p\x00\x00\x00\x92\x00\x00\x00\x00\x00\r\n"
+    "------1599512558929--\r\n");
   string const expectedContent(
-      "PK\x03\x04\x14\x00\x00\x00\b\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-"
-      "\x00\x00\x00B\x00\x00\x00/storage/emulated/0/MapsWithMe/tracks_archive/1"
-      "_1599034479_2.track\x01-\x00\xD2\xFFx\xDA;\xF6\xB6q\r\xCF\xAE\xFD;z9v,"
-      "\xDA\xFB\x8B\xB5\xE3\xCA\xBF\xFF\xEC\xDF\xDF\x35\x34pLel\x00\x02\x0E0"
-      "\xC1\x34\x84\x99\x00\xC8\xEAX\xF0PK\x01\x02\x00\x00\x14\x00\x00\x00\b"
-      "\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-\x00\x00\x00B\x00\x00\x00"
-      "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/storage/emulate"
-      "d/0/MapsWithMe/tracks_archive/1_1599034479_2.trackPK\x05\x06\x00\x00\x00"
-      "\x00\x01\x00\x01\x00p\x00\x00\x00\x92\x00\x00\x00\x00\x00\r\n");
+    "PK\x03\x04\x14\x00\x00\x00\b\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-"
+    "\x00\x00\x00B\x00\x00\x00/storage/emulated/0/MapsWithMe/tracks_archive/1"
+    "_1599034479_2.track\x01-\x00\xD2\xFFx\xDA;\xF6\xB6q\r\xCF\xAE\xFD;z9v,"
+    "\xDA\xFB\x8B\xB5\xE3\xCA\xBF\xFF\xEC\xDF\xDF\x35\x34pLel\x00\x02\x0E0"
+    "\xC1\x34\x84\x99\x00\xC8\xEAX\xF0PK\x01\x02\x00\x00\x14\x00\x00\x00\b"
+    "\x00\x00\x00 \x00\x8D\xF4\x84~2\x00\x00\x00-\x00\x00\x00B\x00\x00\x00"
+    "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00/storage/emulate"
+    "d/0/MapsWithMe/tracks_archive/1_1599034479_2.trackPK\x05\x06\x00\x00\x00"
+    "\x00\x01\x00\x01\x00p\x00\x00\x00\x92\x00\x00\x00\x00\x00\r\n");
 
   optional<string> content = ParseMultipartData(multipartData);
   TEST_EQUAL(bool(content), true, ());

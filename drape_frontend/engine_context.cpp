@@ -1,20 +1,15 @@
 #include "drape_frontend/engine_context.hpp"
 
-#include "drape_frontend/message_subclasses.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 
 #include <utility>
 
 namespace df
 {
-EngineContext::EngineContext(TileKey tileKey,
-                             ref_ptr<ThreadsCommutator> commutator,
-                             ref_ptr<dp::TextureManager> texMng,
-                             ref_ptr<MetalineManager> metalineMng,
-                             CustomFeaturesContextWeakPtr customFeaturesContext,
-                             bool is3dBuildingsEnabled,
-                             bool isTrafficEnabled,
-                             bool isolinesEnabled,
+EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::TextureManager> texMng,
+                             ref_ptr<MetalineManager> metalineMng, CustomFeaturesContextWeakPtr customFeaturesContext,
+                             bool is3dBuildingsEnabled, bool isTrafficEnabled, bool isolinesEnabled,
                              int8_t mapLangIndex)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
@@ -27,20 +22,11 @@ EngineContext::EngineContext(TileKey tileKey,
   , m_mapLangIndex(mapLangIndex)
 {}
 
-ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const
-{
-  return m_texMng;
-}
+ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const { return m_texMng; }
 
-ref_ptr<MetalineManager> EngineContext::GetMetalineManager() const
-{
-  return m_metalineMng;
-}
+ref_ptr<MetalineManager> EngineContext::GetMetalineManager() const { return m_metalineMng; }
 
-void EngineContext::BeginReadTile()
-{
-  PostMessage(make_unique_dp<TileReadStartMessage>(m_tileKey));
-}
+void EngineContext::BeginReadTile() { PostMessage(make_unique_dp<TileReadStartMessage>(m_tileKey)); }
 
 void EngineContext::Flush(TMapShapes && shapes)
 {
@@ -59,14 +45,10 @@ void EngineContext::FlushTrafficGeometry(TrafficSegmentsGeometry && geometry)
                             MessagePriority::Low);
 }
 
-void EngineContext::EndReadTile()
-{
-  PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));
-}
+void EngineContext::EndReadTile() { PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey)); }
 
 void EngineContext::PostMessage(drape_ptr<Message> && message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(message),
-                            MessagePriority::Normal);
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(message), MessagePriority::Normal);
 }
 }  // namespace df

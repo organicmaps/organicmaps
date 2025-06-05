@@ -26,7 +26,9 @@ string SliceToString(string const & name, Slice const & slice)
 
 // TokenSlice --------------------------------------------------------------------------------------
 TokenSlice::TokenSlice(QueryParams const & params, TokenRange const & range)
-  : m_params(params), m_offset(range.Begin()), m_size(range.Size())
+  : m_params(params)
+  , m_offset(range.Begin())
+  , m_size(range.Size())
 {
   ASSERT(range.IsValid(), (range));
 }
@@ -51,8 +53,5 @@ TokenSliceNoCategories::TokenSliceNoCategories(QueryParams const & params, Token
 
 string DebugPrint(TokenSlice const & slice) { return SliceToString("TokenSlice", slice); }
 
-string DebugPrint(TokenSliceNoCategories const & slice)
-{
-  return SliceToString("TokenSliceNoCategories", slice);
-}
+string DebugPrint(TokenSliceNoCategories const & slice) { return SliceToString("TokenSliceNoCategories", slice); }
 }  // namespace search

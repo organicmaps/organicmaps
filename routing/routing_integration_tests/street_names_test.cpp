@@ -22,10 +22,9 @@ void MoveRoute(Route & route, ms::LatLon const & coords)
 
 UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 {
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(55.70839, 37.62145), {0., 0.},
-                                  mercator::FromLatLon(55.73198, 37.63945));
+  TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                                               mercator::FromLatLon(55.70839, 37.62145), {0., 0.},
+                                                               mercator::FromLatLon(55.73198, 37.63945));
 
   Route & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -54,7 +53,7 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
 
   // No more extra last turn, so TestNextStreetName returns "".
   integration::TestCurrentStreetName(route, "Валовая улица");
-  //integration::TestNextStreetName(route, "улица Зацепский Вал");
+  // integration::TestNextStreetName(route, "улица Зацепский Вал");
 
   MoveRoute(route, ms::LatLon(55.730912, 37.636191));
 

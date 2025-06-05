@@ -15,8 +15,7 @@ namespace google
 {
 struct LatLon
 {
-  DECLARE_VISITOR(visitor(m_lat, "lat"),
-                  visitor(m_lon, "lng"))
+  DECLARE_VISITOR(visitor(m_lat, "lat"), visitor(m_lon, "lng"))
 
   bool operator==(LatLon const & rhs) const;
 
@@ -26,8 +25,7 @@ struct LatLon
 
 struct Step
 {
-  DECLARE_VISITOR(visitor(m_startLocation, "start_location"),
-                  visitor(m_endLocation, "end_location"))
+  DECLARE_VISITOR(visitor(m_startLocation, "start_location"), visitor(m_endLocation, "end_location"))
 
   bool operator==(Step const & rhs) const;
 
@@ -51,9 +49,7 @@ struct Distance
 
 struct Leg
 {
-  DECLARE_VISITOR(visitor(m_distance, "distance"),
-                  visitor(m_duration, "duration"),
-                  visitor(m_steps, "steps"))
+  DECLARE_VISITOR(visitor(m_distance, "distance"), visitor(m_duration, "duration"), visitor(m_steps, "steps"))
 
   Distance m_distance;
   Duration m_duration;
@@ -76,6 +72,6 @@ struct GoogleResponse
 };
 
 std::string DebugPrint(LatLon const & latlon);
-}  // namespace mapbox
+}  // namespace google
 }  // namespace api
 }  // namespace routing_quality

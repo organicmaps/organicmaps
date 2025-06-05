@@ -15,7 +15,7 @@ bool IsSmooth(m2::SplineEx const & spline)
   }
   return true;
 }
-}
+}  // namespace
 
 UNIT_TEST(Rounding_Spline)
 {

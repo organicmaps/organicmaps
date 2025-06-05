@@ -18,15 +18,9 @@ vector<m2::PointD> LinearSegment::GetMercatorPoints() const
   return points;
 }
 
-vector<LocationReferencePoint> const & LinearSegment::GetLRPs() const
-{
-  return m_locationReference.m_points;
-}
+vector<LocationReferencePoint> const & LinearSegment::GetLRPs() const { return m_locationReference.m_points; }
 
-vector<LocationReferencePoint> & LinearSegment::GetLRPs()
-{
-  return m_locationReference.m_points;
-}
+vector<LocationReferencePoint> & LinearSegment::GetLRPs() { return m_locationReference.m_points; }
 
 string DebugPrint(LinearSegmentSource source)
 {

@@ -19,9 +19,7 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
 
   m_batcher.SetBatcherHash(key.GetHashValue(BatcherBucket::Overlay));
   m_batcher.StartSession([this, key](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
-  {
-    FlushGeometry(key, state, std::move(bucket));
-  });
+                         { FlushGeometry(key, state, std::move(bucket)); });
 }
 
 void OverlayBatcher::Batch(ref_ptr<dp::GraphicsContext> context, drape_ptr<MapShape> const & shape,

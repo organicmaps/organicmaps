@@ -26,11 +26,9 @@ public:
   double GetMaxSpeedKMpH() const override;
   /// @}
 
-  void ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                    ICrossEdgesLoader & edgeLoader) const override;
+  void ForEachFeatureClosestToCross(m2::PointD const & cross, ICrossEdgesLoader & edgeLoader) const override;
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const override;
-  void GetJunctionTypes(geometry::PointWithAltitude const & junction,
-                        feature::TypesHolder & types) const override;
+  void GetJunctionTypes(geometry::PointWithAltitude const & junction, feature::TypesHolder & types) const override;
   routing::IRoadGraph::Mode GetMode() const override;
 
 private:

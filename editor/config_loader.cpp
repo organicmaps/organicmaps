@@ -31,17 +31,15 @@ void Waiter::Interrupt()
   m_event.notify_all();
 }
 
-ConfigLoader::ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config) : m_config(config)
+ConfigLoader::ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config)
+  : m_config(config)
 {
   pugi::xml_document doc;
   LoadFromLocal(doc);
   ResetConfig(doc);
 }
 
-ConfigLoader::~ConfigLoader()
-{
-  m_waiter.Interrupt();
-}
+ConfigLoader::~ConfigLoader() { m_waiter.Interrupt(); }
 
 void ConfigLoader::ResetConfig(pugi::xml_document const & doc)
 {

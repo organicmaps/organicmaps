@@ -37,8 +37,7 @@ public:
   SubwayConverterTests()
     : m_mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */)
   {
-    CHECK(Platform::MkDirChecked(kSubwayTestsDir),
-          ("Could not create directory for test data:", kSubwayTestsDir));
+    CHECK(Platform::MkDirChecked(kSubwayTestsDir), ("Could not create directory for test data:", kSubwayTestsDir));
     m_generator = transit::IdGenerator(base::JoinPath(kSubwayTestsDir, kMappingFile));
     m_generatorEdges = transit::IdGenerator(base::JoinPath(kSubwayTestsDir, kMappingEdgesFile));
   }

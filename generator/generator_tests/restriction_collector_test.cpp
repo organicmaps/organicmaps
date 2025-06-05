@@ -74,17 +74,17 @@ std::unique_ptr<IndexGraph> BuildTwoCubeGraph()
                   RoadGeometry::Points({{3.0, 1.0}, {4.0, 1.0}}));
 
   std::vector<Joint> const joints = {
-      // {{/* feature id */, /* point id */}, ... }
-      MakeJoint({{7, 0}}),                 /* joint at point (-1, 0) */
-      MakeJoint({{0, 0}, {6, 0}, {7, 1}}), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
-      MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
-      MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
-      MakeJoint({{3, 0}, {4, 1}}),          /* joint at point (1, 1) */
-      MakeJoint({{5, 1}, {4, 0}}),          /* joint at point (0, 2) */
-      MakeJoint({{6, 1}, {5, 0}}),          /* joint at point (-1, 1) */
-      MakeJoint({{8, 1}, {9, 1}, {10, 0}}), /* joint at point (3, 1) */
-      MakeJoint({{10, 1}})                  /* joint at point (4, 1) */
+    // {{/* feature id */, /* point id */}, ... }
+    MakeJoint({{7, 0}}),                  /* joint at point (-1, 0) */
+    MakeJoint({{0, 0}, {6, 0}, {7, 1}}),  /* joint at point (0, 0) */
+    MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
+    MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
+    MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
+    MakeJoint({{3, 0}, {4, 1}}),          /* joint at point (1, 1) */
+    MakeJoint({{5, 1}, {4, 0}}),          /* joint at point (0, 2) */
+    MakeJoint({{6, 1}, {5, 0}}),          /* joint at point (-1, 1) */
+    MakeJoint({{8, 1}, {9, 1}, {10, 0}}), /* joint at point (3, 1) */
+    MakeJoint({{10, 1}})                  /* joint at point (4, 1) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -94,7 +94,7 @@ std::unique_ptr<IndexGraph> BuildTwoCubeGraph()
 }
 
 std::string const kosmIdsToFeatureIdsContentForTwoCubeGraph =
-    R"(0, 0
+  R"(0, 0
        1, 1
        2, 2
        3, 3
@@ -120,7 +120,6 @@ RelationElement MakeRelationElement(std::vector<RelationElement::Member> const &
 class TestRestrictionCollector
 {
 public:
-
   TestRestrictionCollector()
     : m_scopedDir(kTestDir)
   {
@@ -130,8 +129,7 @@ public:
     m_scopedFile = std::make_shared<ScopedFile>(mappingRelativePath, ScopedFile::Mode::Create);
     m_osmIdsToFeatureIdFullPath = m_scopedFile->GetFullPath();
 
-    ReEncodeOsmIdsToFeatureIdsMapping(kosmIdsToFeatureIdsContentForTwoCubeGraph,
-                                      m_osmIdsToFeatureIdFullPath);
+    ReEncodeOsmIdsToFeatureIdsMapping(kosmIdsToFeatureIdsContentForTwoCubeGraph, m_osmIdsToFeatureIdFullPath);
   }
 
   void ValidCase()
@@ -141,26 +139,28 @@ public:
 
     // Adding restrictions.
     TEST(restrictionCollector.AddRestriction(
-        {2.0, 0.0} /* coords of intersection feature with id = 1 and feature with id = 2 */,
-        Restriction::Type::No, /* restriction type */
-        {base::MakeOsmWay(1), base::MakeOsmWay(2)} /* features in format {from, (via*)?, to} */
-    ), ());
+           {2.0, 0.0} /* coords of intersection feature with id = 1 and feature with id = 2 */,
+           Restriction::Type::No,                     /* restriction type */
+           {base::MakeOsmWay(1), base::MakeOsmWay(2)} /* features in format {from, (via*)?, to} */
+           ),
+         ());
 
     TEST(restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::Only,
-                                             {base::MakeOsmWay(2), base::MakeOsmWay(3)}), ());
+                                             {base::MakeOsmWay(2), base::MakeOsmWay(3)}),
+         ());
 
-    TEST(restrictionCollector.AddRestriction(
-        RestrictionCollector::kNoCoords, /* no coords in case of way as via */
-        Restriction::Type::No,
-        /*      from                via                    to         */
-        {base::MakeOsmWay(0), base::MakeOsmWay(1), base::MakeOsmWay(2)}), ());
+    TEST(restrictionCollector.AddRestriction(RestrictionCollector::kNoCoords, /* no coords in case of way as via */
+                                             Restriction::Type::No,
+                                             /*      from                via                    to         */
+                                             {base::MakeOsmWay(0), base::MakeOsmWay(1), base::MakeOsmWay(2)}),
+         ());
 
     base::SortUnique(restrictionCollector.m_restrictions);
 
     std::vector<Restriction> expectedRestrictions = {
-        {Restriction::Type::No, {1, 2}},
-        {Restriction::Type::Only, {2, 3}},
-        {Restriction::Type::No, {0, 1, 2}},
+      {Restriction::Type::No, {1, 2}},
+      {Restriction::Type::Only, {2, 3}},
+      {Restriction::Type::No, {0, 1, 2}},
     };
 
     std::sort(expectedRestrictions.begin(), expectedRestrictions.end());
@@ -175,7 +175,8 @@ public:
 
     // No such feature - 2809
     TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,
-                                              {base::MakeOsmWay(2809), base::MakeOsmWay(1)}), ());
+                                              {base::MakeOsmWay(2809), base::MakeOsmWay(1)}),
+         ());
 
     TEST(!restrictionCollector.HasRestrictions(), ());
   }
@@ -187,14 +188,14 @@ public:
 
     // Fetures with id 1 and 2 do not intersect in {2.0, 1.0}
     TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,
-                                              {base::MakeOsmWay(1), base::MakeOsmWay(2)}), ());
+                                              {base::MakeOsmWay(1), base::MakeOsmWay(2)}),
+         ());
 
     // No such chain of features (1 => 2 => 4),
     // because feature with id 2 and 4 do not have common joint.
-    TEST(!restrictionCollector.AddRestriction(
-        RestrictionCollector::kNoCoords,
-        Restriction::Type::No,
-        {base::MakeOsmWay(1), base::MakeOsmWay(2), base::MakeOsmWay(4)}), ());
+    TEST(!restrictionCollector.AddRestriction(RestrictionCollector::kNoCoords, Restriction::Type::No,
+                                              {base::MakeOsmWay(1), base::MakeOsmWay(2), base::MakeOsmWay(4)}),
+         ());
 
     TEST(!restrictionCollector.HasRestrictions(), ());
   }
@@ -205,11 +206,7 @@ private:
   std::string m_osmIdsToFeatureIdFullPath;
 };
 
-
-UNIT_CLASS_TEST(TestRestrictionCollector, ValidCase)
-{
-  TestRestrictionCollector::ValidCase();
-}
+UNIT_CLASS_TEST(TestRestrictionCollector, ValidCase) { TestRestrictionCollector::ValidCase(); }
 
 UNIT_CLASS_TEST(TestRestrictionCollector, InvalidCase_NoSuchFeature)
 {
@@ -230,11 +227,15 @@ UNIT_TEST(RestrictionWriter_Merge)
   auto c1 = std::make_shared<RestrictionWriter>(filename, nullptr /* cache */);
   auto c2 = c1->Clone();
   std::map<std::string, std::string, std::less<>> const tags = {{"type", "restriction"},
-                                                   {"restriction", "no_right_turn"}};
-  c1->CollectRelation(MakeRelationElement({} /* nodes */, {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
-  c2->CollectRelation(MakeRelationElement({} /* nodes */, {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
-  c1->CollectRelation(MakeRelationElement({} /* nodes */, {{3, "via"}, {13, "from"}, {23, "to"}} /* ways */, tags /* tags */));
-  c2->CollectRelation(MakeRelationElement({} /* nodes */, {{4, "via"}, {14, "from"}, {24, "to"}} /* ways */, tags /* tags */));
+                                                                {"restriction", "no_right_turn"}};
+  c1->CollectRelation(
+    MakeRelationElement({} /* nodes */, {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(
+    MakeRelationElement({} /* nodes */, {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
+  c1->CollectRelation(
+    MakeRelationElement({} /* nodes */, {{3, "via"}, {13, "from"}, {23, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(
+    MakeRelationElement({} /* nodes */, {{4, "via"}, {14, "from"}, {24, "to"}} /* ways */, tags /* tags */));
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
@@ -246,10 +247,11 @@ UNIT_TEST(RestrictionWriter_Merge)
   std::stringstream buffer;
   buffer << stream.rdbuf();
 
-  std::string const correctAnswer = "No,way,11,1,21\n"
-                                    "No,way,13,3,23\n"
-                                    "No,way,12,2,22\n"
-                                    "No,way,14,4,24\n";
+  std::string const correctAnswer =
+    "No,way,11,1,21\n"
+    "No,way,13,3,23\n"
+    "No,way,12,2,22\n"
+    "No,way,14,4,24\n";
   TEST_EQUAL(buffer.str(), correctAnswer, ());
 }
 }  // namespace routing_builder

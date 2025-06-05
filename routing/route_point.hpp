@@ -10,8 +10,14 @@ class RoutePoint final
 {
 public:
   RoutePoint() = default;
-  RoutePoint(RoadPoint const & rp, double time) : m_roadPoint(rp), m_time(time) {}
-  RoutePoint(uint32_t featureId, uint32_t pointId, double time) : m_roadPoint(featureId,pointId), m_time(time) {}
+  RoutePoint(RoadPoint const & rp, double time)
+    : m_roadPoint(rp)
+    , m_time(time)
+  {}
+  RoutePoint(uint32_t featureId, uint32_t pointId, double time)
+    : m_roadPoint(featureId, pointId)
+    , m_time(time)
+  {}
 
   RoadPoint const & GetRoadPoint() const { return m_roadPoint; }
   double GetTime() const { return m_time; }

@@ -83,8 +83,7 @@ std::string ColorPicker::GetNearestColor(std::string const & rgb)
 
   if (nearestColor.find(df::kTransitColorPrefix + df::kTransitLinePrefix) == 0)
   {
-    nearestColor =
-        nearestColor.substr(df::kTransitColorPrefix.size() + df::kTransitLinePrefix.size());
+    nearestColor = nearestColor.substr(df::kTransitColorPrefix.size() + df::kTransitLinePrefix.size());
   }
 
   it->second = nearestColor;

@@ -2,5 +2,9 @@
 
 namespace platform
 {
-HttpPayload::HttpPayload() : m_method("POST"), m_fileKey("file"), m_needClientAuth(false) {}
+HttpPayload::HttpPayload()
+  : m_method("POST")
+  , m_fileKey("file")
+  , m_needClientAuth(false)
+{}
 }  // namespace platform

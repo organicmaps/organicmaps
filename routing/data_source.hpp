@@ -45,7 +45,8 @@ class MwmDataSource
 public:
   /// @param[in]  numMwmIDs Can be null, if won't call NumMwmId functions.
   MwmDataSource(DataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIDs)
-    : m_dataSource(dataSource), m_numMwmIDs(std::move(numMwmIDs))
+    : m_dataSource(dataSource)
+    , m_numMwmIDs(std::move(numMwmIDs))
   {}
 
   void FreeHandles()
@@ -80,10 +81,7 @@ public:
     return it->second;
   }
 
-  MwmValue const & GetMwmValue(NumMwmId numMwmId)
-  {
-    return *GetHandle(numMwmId).GetValue();
-  }
+  MwmValue const & GetMwmValue(NumMwmId numMwmId) { return *GetHandle(numMwmId).GetValue(); }
 
   SectionStatus GetSectionStatus(NumMwmId numMwmId, std::string const & section)
   {
@@ -99,7 +97,8 @@ public:
     return m_dataSource.GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
   }
 
-  template <class FnT> void ForEachStreet(FnT && fn, m2::RectD const & rect)
+  template <class FnT>
+  void ForEachStreet(FnT && fn, m2::RectD const & rect)
   {
     m_dataSource.ForEachInRect(fn, rect, scales::GetUpperScale());
   }
@@ -136,4 +135,4 @@ public:
     return ptr->GetOriginalFeature(id.m_index);
   }
 };
-} // namespace routing
+}  // namespace routing

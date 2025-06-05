@@ -59,16 +59,13 @@ UNIT_TEST(Kml_MinzoomQuadtree_PopulationGrowthRate)
     TEST_EQUAL(partialSums.front(), 1, ());
     TEST_EQUAL(partialSums.back(), (1 << (kMaxDepth * 2)), ());
     auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs != 4 * lhs; };
-    TEST(std::adjacent_find(partialSums.cbegin(), partialSums.cend(), isGrowthExponential) ==
-         partialSums.cend(), (partialSums));
+    TEST(std::adjacent_find(partialSums.cbegin(), partialSums.cend(), isGrowthExponential) == partialSums.cend(),
+         (partialSums));
   }
 
   std::mt19937 g(0);
 
-  auto const gen = [&g]
-  {
-    return std::generate_canonical<double, std::numeric_limits<uint32_t>::digits>(g);
-  };
+  auto const gen = [&g] { return std::generate_canonical<double, std::numeric_limits<uint32_t>::digits>(g); };
 
   for (int i = 0; i < 5; ++i)
   {
@@ -100,7 +97,8 @@ UNIT_TEST(Kml_MinzoomQuadtree_PopulationGrowthRate)
     for (size_t i = 0; i < partialSums.size(); ++i)
     {
       auto const maxAbsErr = 4.0 * std::ceil(std::sqrt(kCountPerTile * areaScale)) + 4.0;
-      TEST_LESS_OR_EQUAL(partialSums[i], kCountPerTile * areaScale + maxAbsErr, (kCountPerTile, maxAbsErr, partialSums));
+      TEST_LESS_OR_EQUAL(partialSums[i], kCountPerTile * areaScale + maxAbsErr,
+                         (kCountPerTile, maxAbsErr, partialSums));
       areaScale *= 4.0;
     }
   }
@@ -123,10 +121,7 @@ UNIT_TEST(Kml_MinzoomQuadtree_CornerCases)
   {
     kml::MinZoomQuadtree<double /* rank */, std::less<double>> minZoomQuadtree{{} /* less */};
     double const kCountPerTile = 100.0;
-    auto const unreachable = [&](double & /* rank */, int /* zoom */)
-    {
-      TEST(false, ());
-    };
+    auto const unreachable = [&](double & /* rank */, int /* zoom */) { TEST(false, ()); };
     minZoomQuadtree.SetMinZoom(kCountPerTile, scales::GetUpperStyleScale(), unreachable);
   }
 }
@@ -162,6 +157,7 @@ UNIT_TEST(Kml_MinzoomQuadtree_MaxZoom)
   TEST_EQUAL(partialSums.back(), (1 << (kMaxDepth * 2)), ());
   auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs != 4 * lhs; };
   TEST(std::adjacent_find(partialSums.cbegin(), std::prev(partialSums.cend()), isGrowthExponential) ==
-       std::prev(partialSums.cend()), (partialSums));
+         std::prev(partialSums.cend()),
+       (partialSums));
   TEST_LESS_OR_EQUAL(4 * *std::prev(partialSums.cend(), 2), partialSums.back(), ());
 }

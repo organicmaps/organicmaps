@@ -14,8 +14,7 @@ double constexpr PositionAccumulator::kMaxValidSegmentLengthM;
 
 void PositionAccumulator::PushNextPoint(m2::PointD const & point)
 {
-  double const lenM =
-      m_points.empty() ? 0.0 : mercator::DistanceOnEarth(point, m_points.back());
+  double const lenM = m_points.empty() ? 0.0 : mercator::DistanceOnEarth(point, m_points.back());
 
   // If the last segment is too long it tells nothing about an end user direction.
   // And the history is not actual.
@@ -77,4 +76,4 @@ m2::PointD PositionAccumulator::GetDirection() const
 
   return m_points.back() - m_points.front();
 }
-}  // routing
+}  // namespace routing

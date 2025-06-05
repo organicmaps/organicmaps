@@ -14,11 +14,11 @@ std::shared_ptr<FilterInterface> FilterCollection::Clone() const
 
 bool FilterCollection::IsAccepted(OsmElement const & element) const
 {
-  return base::AllOf(m_collection, [&] (auto const & filter) { return filter->IsAccepted(element); });
+  return base::AllOf(m_collection, [&](auto const & filter) { return filter->IsAccepted(element); });
 }
 
 bool FilterCollection::IsAccepted(feature::FeatureBuilder const & feature) const
 {
-  return base::AllOf(m_collection, [&] (auto const & filter) { return filter->IsAccepted(feature); });
+  return base::AllOf(m_collection, [&](auto const & filter) { return filter->IsAccepted(feature); });
 }
 }  // namespace generator

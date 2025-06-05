@@ -17,7 +17,9 @@ namespace generator
 {
 
 // This class allows you to work with a group of collectors as with one.
-class CollectorCollection : public CollectionBase<std::shared_ptr<CollectorInterface>>, public CollectorInterface
+class CollectorCollection
+  : public CollectionBase<std::shared_ptr<CollectorInterface>>
+  , public CollectorInterface
 {
 public:
   // CollectorInterface overrides:

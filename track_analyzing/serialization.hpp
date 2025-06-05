@@ -29,8 +29,7 @@ class MwmToMatchedTracksSerializer final
 public:
   MwmToMatchedTracksSerializer(std::shared_ptr<routing::NumMwmIds> numMwmIds)
     : m_numMwmIds(std::move(numMwmIds))
-  {
-  }
+  {}
 
   template <typename Sink>
   void Serialize(MwmToMatchedTracks const & mwmToMatchedTracks, Sink & sink)
@@ -68,8 +67,8 @@ public:
 
           std::vector<uint8_t> buffer;
           MemWriter<decltype(buffer)> memWriter(buffer);
-          coding::TrafficGPSEncoder::SerializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion,
-                                                         memWriter, dataPoints);
+          coding::TrafficGPSEncoder::SerializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, memWriter,
+                                                         dataPoints);
 
           WriteSize(sink, buffer.size());
           sink.Write(buffer.data(), buffer.size());
@@ -123,8 +122,8 @@ public:
           ReaderSource<MemReader> memSrc(memReader);
 
           std::vector<DataPoint> dataPoints;
-          coding::TrafficGPSEncoder::DeserializeDataPoints(
-              coding::TrafficGPSEncoder::kLatestVersion, memSrc, dataPoints);
+          coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, memSrc,
+                                                           dataPoints);
           CHECK_EQUAL(numSegments, dataPoints.size(), ("mwm:", mwmName, "user:", user));
 
           MatchedTrack & track = tracks[iTrack];

@@ -24,28 +24,40 @@ namespace
 {
 static EGLint * getConfigAttributesListRGB8(bool supportedES3)
 {
-  static EGLint attr_list[] = {
-    EGL_RED_SIZE, 8,
-    EGL_GREEN_SIZE, 8,
-    EGL_BLUE_SIZE, 8,
-    EGL_ALPHA_SIZE, 0,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
-  static EGLint attr_list_es3[] = {
-    EGL_RED_SIZE, 8,
-    EGL_GREEN_SIZE, 8,
-    EGL_BLUE_SIZE, 8,
-    EGL_ALPHA_SIZE, 0,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
+  static EGLint attr_list[] = {EGL_RED_SIZE,
+                               8,
+                               EGL_GREEN_SIZE,
+                               8,
+                               EGL_BLUE_SIZE,
+                               8,
+                               EGL_ALPHA_SIZE,
+                               0,
+                               EGL_STENCIL_SIZE,
+                               0,
+                               EGL_DEPTH_SIZE,
+                               16,
+                               EGL_RENDERABLE_TYPE,
+                               EGL_OPENGL_ES2_BIT,
+                               EGL_SURFACE_TYPE,
+                               EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+                               EGL_NONE};
+  static EGLint attr_list_es3[] = {EGL_RED_SIZE,
+                                   8,
+                                   EGL_GREEN_SIZE,
+                                   8,
+                                   EGL_BLUE_SIZE,
+                                   8,
+                                   EGL_ALPHA_SIZE,
+                                   0,
+                                   EGL_STENCIL_SIZE,
+                                   0,
+                                   EGL_DEPTH_SIZE,
+                                   16,
+                                   EGL_RENDERABLE_TYPE,
+                                   EGL_OPENGL_ES3_BIT,
+                                   EGL_SURFACE_TYPE,
+                                   EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+                                   EGL_NONE};
   return supportedES3 ? attr_list_es3 : attr_list;
 }
 
@@ -55,16 +67,21 @@ static EGLint * getConfigAttributesListR5G6B5()
 {
   // We do not support OpenGL ES3 for R5G6B5, because some Android devices
   // are not able to create OpenGL context in such mode.
-  static EGLint attr_list[] = {
-    EGL_RED_SIZE, 5,
-    EGL_GREEN_SIZE, 6,
-    EGL_BLUE_SIZE, 5,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
+  static EGLint attr_list[] = {EGL_RED_SIZE,
+                               5,
+                               EGL_GREEN_SIZE,
+                               6,
+                               EGL_BLUE_SIZE,
+                               5,
+                               EGL_STENCIL_SIZE,
+                               0,
+                               EGL_DEPTH_SIZE,
+                               16,
+                               EGL_RENDERABLE_TYPE,
+                               EGL_OPENGL_ES2_BIT,
+                               EGL_SURFACE_TYPE,
+                               EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+                               EGL_NONE};
   return attr_list;
 }
 
@@ -72,8 +89,8 @@ bool IsSupportedRGB8(EGLDisplay display, bool es3)
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs,
-                         kMaxConfigCount, &count) == EGL_TRUE && count != 0;
+  return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs, kMaxConfigCount, &count) == EGL_TRUE &&
+         count != 0;
 }
 
 size_t constexpr kGLThreadsCount = 2;
@@ -107,8 +124,8 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   }
 
   // Check ES3 availability.
-  bool const isES3Supported = IsSupportedRGB8(m_display, true /* es3 */) &&
-             android_get_device_api_level() >= kMinSdkVersionForES3;
+  bool const isES3Supported =
+    IsSupportedRGB8(m_display, true /* es3 */) && android_get_device_api_level() >= kMinSdkVersionForES3;
   m_supportedES3 = isES3Supported && gl3stubInit();
 
   SetSurface(env, jsurface);
@@ -223,8 +240,7 @@ int AndroidOGLContextFactory::GetHeight() const
 void AndroidOGLContextFactory::UpdateSurfaceSize(int w, int h)
 {
   ASSERT(IsValid(), ());
-  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
-      (m_surfaceHeight != w && m_surfaceHeight != h))
+  if ((m_surfaceWidth != w && m_surfaceWidth != h) || (m_surfaceHeight != w && m_surfaceHeight != h))
   {
     LOG(LINFO, ("Surface size changed and must be re-queried."));
     if (!QuerySurfaceSize())
@@ -266,8 +282,7 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetDrawContext()
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == nullptr)
   {
-    m_drawContext = new AndroidOGLContext(m_supportedES3, m_display, m_windowSurface,
-                                          m_config, m_uploadContext);
+    m_drawContext = new AndroidOGLContext(m_supportedES3, m_display, m_windowSurface, m_config, m_uploadContext);
   }
   return m_drawContext;
 }
@@ -278,21 +293,14 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetResourcesUploadContext()
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == nullptr)
   {
-    m_uploadContext = new AndroidOGLContext(m_supportedES3, m_display, m_pixelbufferSurface,
-                                            m_config, m_drawContext);
+    m_uploadContext = new AndroidOGLContext(m_supportedES3, m_display, m_pixelbufferSurface, m_config, m_drawContext);
   }
   return m_uploadContext;
 }
 
-bool AndroidOGLContextFactory::IsDrawContextCreated() const
-{
-  return m_drawContext != nullptr;
-}
+bool AndroidOGLContextFactory::IsDrawContextCreated() const { return m_drawContext != nullptr; }
 
-bool AndroidOGLContextFactory::IsUploadContextCreated() const
-{
-  return m_uploadContext != nullptr;
-}
+bool AndroidOGLContextFactory::IsUploadContextCreated() const { return m_uploadContext != nullptr; }
 
 void AndroidOGLContextFactory::WaitForInitialization(dp::GraphicsContext *)
 {
@@ -322,12 +330,12 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(m_supportedES3), configs,
-                      kMaxConfigCount, &count) != EGL_TRUE)
+  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(m_supportedES3), configs, kMaxConfigCount, &count) !=
+      EGL_TRUE)
   {
     ASSERT(!m_supportedES3, ());
-    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs,
-                                      kMaxConfigCount, &count) == EGL_TRUE, ());
+    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs, kMaxConfigCount, &count) == EGL_TRUE,
+           ());
     LOG(LDEBUG, ("Backbuffer format: R5G6B5"));
   }
   else
@@ -345,7 +353,7 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
     eglGetConfigAttrib(m_display, currentConfig, EGL_NATIVE_VISUAL_ID, &format);
     ANativeWindow_setBuffersGeometry(m_nativeWindow, 0, 0, format);
 
-    EGLint surfaceAttributes[] = { EGL_RENDER_BUFFER, EGL_BACK_BUFFER, EGL_NONE };
+    EGLint surfaceAttributes[] = {EGL_RENDER_BUFFER, EGL_BACK_BUFFER, EGL_NONE};
     m_windowSurface = eglCreateWindowSurface(m_display, currentConfig, m_nativeWindow, surfaceAttributes);
     if (m_windowSurface == EGL_NO_SURFACE)
       continue;
@@ -366,14 +374,10 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
 
 bool AndroidOGLContextFactory::CreatePixelbufferSurface()
 {
-  //ASSERT(m_config != NULL, ());
+  // ASSERT(m_config != NULL, ());
 
-  const GLuint size = 1; // yes, 1 is the correct size, we dont really draw on it
-  static EGLint surfaceConfig[] = {
-      EGL_WIDTH, size,
-      EGL_HEIGHT, size,
-      EGL_NONE
-  };
+  GLuint const size = 1;  // yes, 1 is the correct size, we dont really draw on it
+  static EGLint surfaceConfig[] = {EGL_WIDTH, size, EGL_HEIGHT, size, EGL_NONE};
 
   m_pixelbufferSurface = eglCreatePbufferSurface(m_display, m_config, surfaceConfig);
 

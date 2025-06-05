@@ -37,8 +37,8 @@ namespace
 {
 using Iter = typename vector<string>::iterator;
 
-void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & storage,
-                 NumMwmIds const & numMwmIds, MwmToMatchedTracks & mwmToMatchedTracks)
+void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & storage, NumMwmIds const & numMwmIds,
+                 MwmToMatchedTracks & mwmToMatchedTracks)
 {
   base::Timer timer;
 
@@ -46,7 +46,8 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
   uint64_t pointsCount = 0;
   uint64_t nonMatchedPointsCount = 0;
 
-  auto processMwm = [&](string const & mwmName, UserToTrack const & userToTrack) {
+  auto processMwm = [&](string const & mwmName, UserToTrack const & userToTrack)
+  {
     auto const countryFile = platform::CountryFile(mwmName);
     auto const mwmId = numMwmIds.GetId(countryFile);
     TrackMatcher matcher(storage, mwmId, countryFile);
@@ -78,23 +79,22 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
     pointsCount += matcher.GetPointsCount();
     nonMatchedPointsCount += matcher.GetNonMatchedPointsCount();
 
-    LOG(LINFO, (numMwmIds.GetFile(mwmId).GetName(), ", users:", userToTrack.size(), ", tracks:",
-                matcher.GetTracksCount(), ", points:", matcher.GetPointsCount(),
-                ", non matched points:", matcher.GetNonMatchedPointsCount()));
+    LOG(LINFO,
+        (numMwmIds.GetFile(mwmId).GetName(), ", users:", userToTrack.size(), ", tracks:", matcher.GetTracksCount(),
+         ", points:", matcher.GetPointsCount(), ", non matched points:", matcher.GetNonMatchedPointsCount()));
   };
 
   ForTracksSortedByMwmName(mwmToTracks, numMwmIds, processMwm);
 
-  LOG(LINFO,
-      ("Matching finished, elapsed:", timer.ElapsedSeconds(), "seconds, tracks:", tracksCount,
-       ", points:", pointsCount, ", non matched points:", nonMatchedPointsCount));
+  LOG(LINFO, ("Matching finished, elapsed:", timer.ElapsedSeconds(), "seconds, tracks:", tracksCount,
+              ", points:", pointsCount, ", non matched points:", nonMatchedPointsCount));
 }
 }  // namespace
 
 namespace track_analyzing
 {
-void CmdMatch(string const & logFile, string const & trackFile,
-              shared_ptr<NumMwmIds> const & numMwmIds, Storage const & storage, Stats & stats)
+void CmdMatch(string const & logFile, string const & trackFile, shared_ptr<NumMwmIds> const & numMwmIds,
+              Storage const & storage, Stats & stats)
 {
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, mwmToTracks);
@@ -165,8 +165,7 @@ void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, Stats & stats)
 
 void CmdMatchDir(string const & logDir, string const & trackExt, string const & inputDistribution)
 {
-  LOG(LINFO,
-      ("Matching dir:", logDir, ". Input distribution will be saved to:", inputDistribution));
+  LOG(LINFO, ("Matching dir:", logDir, ". Input distribution will be saved to:", inputDistribution));
   Platform::EFileType fileType = Platform::EFileType::Unknown;
   Platform::EError const result = Platform::GetFileType(logDir, fileType);
 

@@ -42,8 +42,7 @@ template <class ToDo>
 void ForEachCountry(std::string const & baseDir, ToDo && toDo)
 {
   std::string const bordersDir = base::JoinPath(baseDir, BORDERS_DIR);
-  CHECK(Platform::IsFileExistsByFullPath(bordersDir),
-        ("Cannot read borders directory", bordersDir));
+  CHECK(Platform::IsFileExistsByFullPath(bordersDir), ("Cannot read borders directory", bordersDir));
 
   Platform::FilesList files;
   Platform::GetFilesByExt(bordersDir, BORDERS_EXTENSION, files);
@@ -61,9 +60,9 @@ void ForEachCountry(std::string const & baseDir, ToDo && toDo)
 class PackedBordersGenerator
 {
 public:
-  explicit PackedBordersGenerator(std::string const & baseDir) : m_writer(baseDir + PACKED_POLYGONS_FILE)
-  {
-  }
+  explicit PackedBordersGenerator(std::string const & baseDir)
+    : m_writer(baseDir + PACKED_POLYGONS_FILE)
+  {}
 
   void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
   {
@@ -141,9 +140,7 @@ bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const 
 bool CountryPolygons::Contains(m2::PointD const & point) const
 {
   return m_polygons.ForAnyInRect(m2::RectD(point, point), [&](auto const & rgn)
-  {
-    return rgn.Contains(point, ContainsCompareFn(GetContainsEpsilon()));
-  });
+                                 { return rgn.Contains(point, ContainsCompareFn(GetContainsEpsilon())); });
 }
 
 bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outBorders)
@@ -168,8 +165,7 @@ bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outB
   return true;
 }
 
-bool GetBordersRect(std::string const & baseDir, std::string const & country,
-                    m2::RectD & bordersRect)
+bool GetBordersRect(std::string const & baseDir, std::string const & country, m2::RectD & bordersRect)
 {
   auto const bordersFile = base::JoinPath(baseDir, BORDERS_DIR, country + BORDERS_EXTENSION);
   if (!Platform::IsFileExistsByFullPath(bordersFile))
@@ -192,14 +188,15 @@ CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
   LOG(LINFO, ("Loading countries in", BORDERS_DIR, "folder in", baseDir));
 
   CountryPolygonsCollection countryPolygonsCollection;
-  ForEachCountry(baseDir, [&](auto const & name, auto const & borders)
-  {
-    PolygonsTree polygons;
-    for (m2::RegionD const & border : borders)
-      polygons.Add(border, border.GetRect());
+  ForEachCountry(baseDir,
+                 [&](auto const & name, auto const & borders)
+                 {
+                   PolygonsTree polygons;
+                   for (m2::RegionD const & border : borders)
+                     polygons.Add(border, border.GetRect());
 
-    countryPolygonsCollection.Add(CountryPolygons(name, polygons));
-  });
+                   countryPolygonsCollection.Add(CountryPolygons(name, polygons));
+                 });
 
   LOG(LINFO, ("Countries loaded:", countryPolygonsCollection.GetSize()));
   CHECK_NOT_EQUAL(countryPolygonsCollection.GetSize(), 0, (baseDir));

@@ -9,5 +9,7 @@
 class EditableDataSource : public DataSource
 {
 public:
-  EditableDataSource() : DataSource(std::make_unique<EditableFeatureSourceFactory>()) {}
+  EditableDataSource()
+    : DataSource(std::make_unique<EditableFeatureSourceFactory>())
+  {}
 };

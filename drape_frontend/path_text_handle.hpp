@@ -19,8 +19,7 @@ public:
   void SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale);
   ref_ptr<PathTextLayout> const GetLayout() const;
 
-  bool GetPivot(size_t textIndex, m2::PointD & pivot,
-                m2::Spline::iterator & centerPointIter) const;
+  bool GetPivot(size_t textIndex, m2::PointD & pivot, m2::Spline::iterator & centerPointIter) const;
 
   void BeforeUpdate();
   void Update(ScreenBase const & screen);
@@ -47,8 +46,8 @@ class PathTextHandle : public df::TextHandle
 {
 public:
   PathTextHandle(dp::OverlayID const & id, std::shared_ptr<PathTextContext> const & context, float depth,
-                 uint32_t textIndex, uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                 int minVisibleScale, bool isBillboard);
+                 uint32_t textIndex, uint64_t priority, ref_ptr<dp::TextureManager> textureManager, int minVisibleScale,
+                 bool isBillboard);
 
   void BeforeUpdate() override;
   bool Update(ScreenBase const & screen) override;

@@ -39,10 +39,7 @@ DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_p
   m_state.SetLineWidth(1);
 }
 
-bool DebugRectRenderer::IsEnabled() const
-{
-  return m_isEnabled;
-}
+bool DebugRectRenderer::IsEnabled() const { return m_isEnabled; }
 
 void DebugRectRenderer::SetEnabled(bool enabled)
 {
@@ -75,8 +72,7 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
     m_arrowMeshes[m_currentArrowMesh]->UpdateBuffer(context, 0 /* bufferInd */, vertices);
 }
 
-void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect,
-                                ScreenBase const & screen)
+void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect, ScreenBase const & screen)
 {
   std::vector<float> vertices;
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);

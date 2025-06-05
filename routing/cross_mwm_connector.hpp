@@ -38,13 +38,17 @@ std::string DebugPrint(WeightsLoadState state);
 }  // namespace connector
 
 /// @param CrossMwmId Encoded OSM feature (way) ID that should be equal and unique in all MWMs.
-template <typename CrossMwmId> class CrossMwmConnector final
+template <typename CrossMwmId>
+class CrossMwmConnector final
 {
 public:
   /// Should initialize with some valid mwm id here not to conflict with @see JointSegment::IsFake().
-  explicit CrossMwmConnector(NumMwmId mwmId = kGeneratorMwmId) : m_mwmId(mwmId) {}
+  explicit CrossMwmConnector(NumMwmId mwmId = kGeneratorMwmId)
+    : m_mwmId(mwmId)
+  {}
 
-  template <class FnT> void ForEachTransitSegmentId(uint32_t featureId, FnT && fn) const
+  template <class FnT>
+  void ForEachTransitSegmentId(uint32_t featureId, FnT && fn) const
   {
     auto it = std::lower_bound(m_transitions.begin(), m_transitions.end(), Key{featureId, 0}, LessKT());
     while (it != m_transitions.end() && it->first.m_featureId == featureId)
@@ -75,10 +79,7 @@ public:
     return isEnter != isOutgoing;
   }
 
-  CrossMwmId const & GetCrossMwmId(Segment const & segment) const
-  {
-    return GetTransition(segment).m_crossMwmId;
-  }
+  CrossMwmId const & GetCrossMwmId(Segment const & segment) const { return GetTransition(segment).m_crossMwmId; }
 
   /// @return {} if there is no transition for such cross mwm id.
   std::optional<Segment> GetTransition(CrossMwmId const & crossMwmId, uint32_t segmentIdx, bool isEnter) const
@@ -115,7 +116,8 @@ public:
 
   using EdgeListT = SmallList<SegmentEdge>;
 
-  template <class FnT> void ForEachEnter(FnT && fn) const
+  template <class FnT>
+  void ForEachEnter(FnT && fn) const
   {
     for (auto const & [key, transit] : m_transitions)
     {
@@ -127,7 +129,8 @@ public:
     }
   }
 
-  template <class FnT> void ForEachExit(FnT && fn) const
+  template <class FnT>
+  void ForEachExit(FnT && fn) const
   {
     for (auto const & [key, transit] : m_transitions)
     {
@@ -143,18 +146,14 @@ public:
   {
     auto const enterIdx = GetTransition(segment).m_enterIdx;
     ForEachExit([enterIdx, this, &edges](uint32_t exitIdx, Segment const & s)
-    {
-      AddEdge(s, enterIdx, exitIdx, edges);
-    });
+                { AddEdge(s, enterIdx, exitIdx, edges); });
   }
 
   void GetIngoingEdgeList(Segment const & segment, EdgeListT & edges) const
   {
     auto const exitIdx = GetTransition(segment).m_exitIdx;
     ForEachEnter([exitIdx, this, &edges](uint32_t enterIdx, Segment const & s)
-    {
-      AddEdge(s, enterIdx, exitIdx, edges);
-    });
+                 { AddEdge(s, enterIdx, exitIdx, edges); });
   }
 
   RouteWeight GetWeightSure(Segment const & from, Segment const & to) const
@@ -204,13 +203,15 @@ public:
   }
 
 private:
-  template <class T> friend class CrossMwmConnectorBuilder;
+  template <class T>
+  friend class CrossMwmConnectorBuilder;
 
   struct Key
   {
-    Key(uint32_t featureId, uint32_t segmentIdx) : m_featureId(featureId), m_segmentIdx(segmentIdx)
-    {
-    }
+    Key(uint32_t featureId, uint32_t segmentIdx)
+      : m_featureId(featureId)
+      , m_segmentIdx(segmentIdx)
+    {}
 
     bool operator==(Key const & key) const
     {
@@ -236,8 +237,7 @@ private:
       , m_crossMwmId(crossMwmId)
       , m_oneWay(oneWay)
       , m_forwardIsEnter(forwardIsEnter)
-    {
-    }
+    {}
 
     uint32_t m_enterIdx;
     uint32_t m_exitIdx;
@@ -279,18 +279,9 @@ private:
   using KeyTransitionT = std::pair<Key, Transition>;
   struct LessKT
   {
-    bool operator()(KeyTransitionT const & l, KeyTransitionT const & r) const
-    {
-      return l.first < r.first;
-    }
-    bool operator()(KeyTransitionT const & l, Key const & r) const
-    {
-      return l.first < r;
-    }
-    bool operator()(Key const & l, KeyTransitionT const & r) const
-    {
-      return l < r.first;
-    }
+    bool operator()(KeyTransitionT const & l, KeyTransitionT const & r) const { return l.first < r.first; }
+    bool operator()(KeyTransitionT const & l, Key const & r) const { return l.first < r; }
+    bool operator()(Key const & l, KeyTransitionT const & r) const { return l < r.first; }
   };
   std::vector<KeyTransitionT> m_transitions;
 

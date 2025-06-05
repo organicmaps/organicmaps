@@ -48,8 +48,7 @@ void DescriptorSetGroup::Update(VkDevice device, std::vector<ParamDescriptor> co
     }
   }
 
-  vkUpdateDescriptorSets(device, static_cast<uint32_t>(writeDescriptorsCount),
-                         writeDescriptorSets.data(), 0, nullptr);
+  vkUpdateDescriptorSets(device, static_cast<uint32_t>(writeDescriptorsCount), writeDescriptorSets.data(), 0, nullptr);
 }
 
 ParamDescriptorUpdater::ParamDescriptorUpdater(ref_ptr<VulkanObjectManager> objectManager)

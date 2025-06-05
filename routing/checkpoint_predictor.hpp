@@ -19,9 +19,9 @@ class CheckpointPredictor final
 
 public:
   CheckpointPredictor(m2::PointD const & start, m2::PointD const & finish)
-    : m_start(start), m_finish(finish)
-  {
-  }
+    : m_start(start)
+    , m_finish(finish)
+  {}
 
   /// \returns difference between distance |from|->|between| + |between|->|to| and distance |from|->|to|.
   static double CalculateDeltaMeters(m2::PointD const & from, m2::PointD const & to, m2::PointD const & between);

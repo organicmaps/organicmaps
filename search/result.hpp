@@ -10,8 +10,8 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
 #include "base/buffer_vector.hpp"
+#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <string>
@@ -20,7 +20,7 @@
 
 // Define this option to DebugPrint provenance.
 #ifdef DEBUG
-//#define SEARCH_USE_PROVENANCE
+// #define SEARCH_USE_PROVENANCE
 #endif
 
 namespace search
@@ -58,7 +58,10 @@ public:
   // Min distance to search result when popularity label has a higher priority (in meters).
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
-  Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
+  Result(m2::PointD const & pt, std::string const & name)
+    : m_center(pt)
+    , m_str(name)
+  {}
   void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details);
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
@@ -107,11 +110,11 @@ public:
   bool IsEqualFeature(Result const & r) const;
 
   void AddHighlightRange(std::pair<uint16_t, uint16_t> const & range);
-  void AddDescHighlightRange(const std::pair<uint16_t, uint16_t> & range);
+  void AddDescHighlightRange(std::pair<uint16_t, uint16_t> const & range);
   std::pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
   size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
-  
-  //returns ranges to hightlight in address
+
+  // returns ranges to hightlight in address
   std::pair<uint16_t, uint16_t> const & GetDescHighlightRange(size_t idx) const;
   size_t GetDescHighlightRangesCount() const { return m_descHightlightRanges.size(); }
 
@@ -158,7 +161,7 @@ private:
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_descHightlightRanges;
 
-  std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
+  std::shared_ptr<RankingInfo> m_dbgInfo;  // used in debug logs and tests, nullptr in production
 
   // The position that this result occupied in the vector returned by
   // a search query. -1 if undefined.
@@ -192,10 +195,7 @@ public:
   bool IsEndedNormal() const { return m_status == Status::EndedNormal; }
   bool IsEndedCancelled() const { return m_status == Status::EndedCancelled; }
 
-  void SetEndMarker(bool cancelled)
-  {
-    m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
-  }
+  void SetEndMarker(bool cancelled) { m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal; }
 
   // Used for results in the list.
   bool AddResult(Result && result);

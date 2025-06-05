@@ -42,8 +42,7 @@ CalculatePointOnSurface::CalculatePointOnSurface(m2::RectD const & rect)
   : m_rectCenter(rect.Center())
   , m_center(m_rectCenter)
   , m_squareDistanceToApproximate(std::numeric_limits<double>::max())
-{
-}
+{}
 
 void CalculatePointOnSurface::operator()(PointD const & p1, PointD const & p2, PointD const & p3)
 {

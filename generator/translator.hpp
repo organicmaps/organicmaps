@@ -28,8 +28,7 @@ class Translator : public TranslatorInterface
 public:
   explicit Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
                       std::shared_ptr<cache::IntermediateData> const & cache,
-                      std::shared_ptr<FeatureMakerBase> const & maker,
-                      std::shared_ptr<FilterInterface> const & filter,
+                      std::shared_ptr<FeatureMakerBase> const & maker, std::shared_ptr<FilterInterface> const & filter,
                       std::shared_ptr<CollectorInterface> const & collector);
   explicit Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
                       std::shared_ptr<cache::IntermediateData> const & cache,
@@ -55,10 +54,7 @@ protected:
     return std::make_shared<T>(processor, cache, featureMaker, filter, collector);
   }
 
-  void MergeIntoBase(Translator & other) const
-  {
-    other.m_collector->Merge(*m_collector);
-  }
+  void MergeIntoBase(Translator & other) const { other.m_collector->Merge(*m_collector); }
 
   std::shared_ptr<FilterInterface> m_filter;
   std::shared_ptr<CollectorInterface> m_collector;

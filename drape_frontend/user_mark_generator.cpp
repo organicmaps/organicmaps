@@ -122,14 +122,13 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
 
       for (auto const & spline : params.m_splines)
       {
-        df::ProcessSplineSegmentRects(spline, maxLength, [&](m2::RectD const & segmentRect)
-        {
-          CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
-          {
-            tiles.emplace(tileX, tileY, zoomLevel);
-          });
-          return true;
-        });
+        df::ProcessSplineSegmentRects(spline, maxLength,
+                                      [&](m2::RectD const & segmentRect)
+                                      {
+                                        CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
+                                                          { tiles.emplace(tileX, tileY, zoomLevel); });
+                                        return true;
+                                      });
       }
     }
 
@@ -216,22 +215,17 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & til
 {
   auto itTile = m_index.end();
   int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
-  CalcTilesCoverage(tileKey.GetGlobalRect(), lineZoom,
-                    [this, &itTile, lineZoom](int tileX, int tileY)
-  {
-    itTile = m_index.find(TileKey(tileX, tileY, lineZoom));
-  });
+  CalcTilesCoverage(tileKey.GetGlobalRect(), lineZoom, [this, &itTile, lineZoom](int tileX, int tileY)
+                    { itTile = m_index.find(TileKey(tileX, tileY, lineZoom)); });
   if (itTile != m_index.end())
     return make_ref(itTile->second);
   return nullptr;
 }
 
-void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context,
-                                                  TileKey const & tileKey,
+void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                                                   ref_ptr<dp::TextureManager> textures)
 {
-  auto const clippedTileKey =
-      TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
+  auto const clippedTileKey = TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
   auto marksGroups = GetUserMarksGroups(clippedTileKey);
   auto linesGroups = GetUserLinesGroups(clippedTileKey);
 
@@ -243,11 +237,9 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
   batcher.SetBatcherHash(tileKey.GetHashValue(BatcherBucket::UserMark));
   TUserMarksRenderData renderData;
   {
-    dp::SessionGuard guard(context, batcher, [&tileKey, &renderData](dp::RenderState const & state,
-                                                                     drape_ptr<dp::RenderBucket> && b)
-    {
-      renderData.emplace_back(state, std::move(b), tileKey);
-    });
+    dp::SessionGuard guard(context, batcher,
+                           [&tileKey, &renderData](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+                           { renderData.emplace_back(state, std::move(b), tileKey); });
 
     if (marksGroups != nullptr)
       CacheUserMarks(context, tileKey, *marksGroups.get(), textures, batcher);
@@ -257,9 +249,9 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
   m_flushFn(std::move(renderData));
 }
 
-void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context,
-                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
+void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                                       dp::Batcher & batcher) const
 {
   for (auto const & gp : indexesGroups)
   {
@@ -268,9 +260,9 @@ void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context,
   }
 }
 
-void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context,
-                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
+void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                                       dp::Batcher & batcher) const
 {
   for (auto const & gp : indexesGroups)
   {

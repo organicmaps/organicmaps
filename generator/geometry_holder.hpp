@@ -37,24 +37,21 @@ public:
   using Points = std::vector<m2::PointD>;
   using Polygons = std::list<Points>;
 
-  GeometryHolder(FileGetter geoFileGetter, FileGetter trgFileGetter, FeatureBuilder & fb,
-                 DataHeader const & header)
+  GeometryHolder(FileGetter geoFileGetter, FileGetter trgFileGetter, FeatureBuilder & fb, DataHeader const & header)
     : m_geoFileGetter(geoFileGetter)
     , m_trgFileGetter(trgFileGetter)
     , m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-  {
-  }
+  {}
 
   GeometryHolder(FeatureBuilder & fb, DataHeader const & header)
     : m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-  {
-  }
+  {}
 
   FeatureBuilder::SupportingData & GetBuffer() { return m_buffer; }
 
@@ -173,7 +170,9 @@ private:
   class StripEmitter
   {
   public:
-    StripEmitter(Points const & src, Points & dest) : m_src(src), m_dest(dest)
+    StripEmitter(Points const & src, Points & dest)
+      : m_src(src)
+      , m_dest(dest)
     {
       m_dest.reserve(m_src.size());
     }
@@ -225,8 +224,9 @@ private:
 
     // points conversion
     tesselator::PointsInfo points;
-    info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                       [bits = cp.GetCoordBits()](m2::PointD const & p) { return PointDToPointU(p, bits); }, points);
+    info.GetPointsInfo(
+      saver.GetBasePoint(), saver.GetMaxPoint(),
+      [bits = cp.GetCoordBits()](m2::PointD const & p) { return PointDToPointU(p, bits); }, points);
 
     size_t const ptsCount = points.m_points.size();
     if (ptsCount > 10000)

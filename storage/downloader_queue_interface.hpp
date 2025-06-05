@@ -1,7 +1,7 @@
 #pragma once
 
-#include "storage/storage_defines.hpp"
 #include "storage/queued_country.hpp"
+#include "storage/storage_defines.hpp"
 
 namespace storage
 {

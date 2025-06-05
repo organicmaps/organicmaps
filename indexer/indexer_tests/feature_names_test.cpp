@@ -287,8 +287,8 @@ UNIT_TEST(GetPrefferedNamesLocal)
   }
 }
 
-void GetReadableName(feature::RegionData const & regionData, StrUtf8 const & src, int8_t deviceLang,
-                     bool allowTranslit, std::string & name)
+void GetReadableName(feature::RegionData const & regionData, StrUtf8 const & src, int8_t deviceLang, bool allowTranslit,
+                     std::string & name)
 {
   feature::NameParamsIn in{src, regionData, deviceLang, allowTranslit};
   feature::NameParamsOut out;
@@ -560,4 +560,4 @@ UNIT_TEST(GetNameForSearchOnBooking)
   }
 }
 */
-} // namespace feature_names_test
+}  // namespace feature_names_test

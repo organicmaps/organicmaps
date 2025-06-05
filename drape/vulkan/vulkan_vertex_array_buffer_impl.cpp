@@ -21,10 +21,8 @@ namespace vulkan
 class VulkanVertexArrayBufferImpl : public VertexArrayBufferImpl
 {
 public:
-  VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer,
-                              ref_ptr<VulkanObjectManager> objectManager,
-                              BindingInfoArray && bindingInfo,
-                              uint8_t bindingInfoCount)
+  VulkanVertexArrayBufferImpl(ref_ptr<VertexArrayBuffer> buffer, ref_ptr<VulkanObjectManager> objectManager,
+                              BindingInfoArray && bindingInfo, uint8_t bindingInfoCount)
     : m_vertexArrayBuffer(std::move(buffer))
     , m_objectManager(objectManager)
     , m_bindingInfo(std::move(bindingInfo))
@@ -32,23 +30,19 @@ public:
     , m_descriptorUpdater(objectManager)
   {}
 
-  ~VulkanVertexArrayBufferImpl() override
-  {
-    m_descriptorUpdater.Destroy();
-  }
+  ~VulkanVertexArrayBufferImpl() override { m_descriptorUpdater.Destroy(); }
 
   bool Build(ref_ptr<GpuProgram> program) override
   {
     UNUSED_VALUE(program);
     return true;
   }
-  
+
   bool Bind() override { return true; }
   void Unbind() override {}
   void BindBuffers(dp::BuffersMap const & buffers) const override {}
 
-  void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
-                   IndicesRange const & range) override
+  void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine, IndicesRange const & range) override
   {
     CHECK(m_vertexArrayBuffer->HasBuffers(), ());
 
@@ -56,20 +50,18 @@ public:
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
     CHECK(commandBuffer != nullptr, ());
 
-    vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST :
-                                                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
+    vulkanContext->SetPrimitiveTopology(drawAsLine ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST
+                                                   : VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
     vulkanContext->SetBindingInfo(m_bindingInfo, m_bindingInfoCount);
 
     m_descriptorUpdater.Update(context);
     auto descriptorSet = m_descriptorUpdater.GetDescriptorSet();
 
     uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
-    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            vulkanContext->GetCurrentPipelineLayout(), 0, 1,
-                            &descriptorSet, 1, &dynamicOffset);
+    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanContext->GetCurrentPipelineLayout(),
+                            0, 1, &descriptorSet, 1, &dynamicOffset);
 
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                      vulkanContext->GetCurrentPipeline());
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanContext->GetCurrentPipeline());
 
     size_t constexpr kMaxBuffersCount = 4;
     std::array<VkBuffer, kMaxBuffersCount> buffers = {};
@@ -100,7 +92,7 @@ public:
 
     vkCmdDrawIndexed(commandBuffer, range.m_idxCount, 1, range.m_idxStart, 0, 0);
   }
-  
+
 private:
   ref_ptr<VertexArrayBuffer> m_vertexArrayBuffer;
   ref_ptr<VulkanObjectManager> m_objectManager;
@@ -109,7 +101,7 @@ private:
   ParamDescriptorUpdater m_descriptorUpdater;
 };
 }  // namespace vulkan
-  
+
 drape_ptr<VertexArrayBufferImpl> VertexArrayBuffer::CreateImplForVulkan(ref_ptr<GraphicsContext> context,
                                                                         ref_ptr<VertexArrayBuffer> buffer,
                                                                         BindingInfoArray && bindingInfo,

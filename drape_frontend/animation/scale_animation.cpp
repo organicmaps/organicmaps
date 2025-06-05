@@ -27,7 +27,8 @@ void MapScaleAnimation::Init(ScreenBase const & screen, TPropertyCache const & p
   double const minDuration = m_scaleInterpolator.GetMinDuration();
   double const maxDuration = m_scaleInterpolator.GetMaxDuration();
 
-  m_scaleInterpolator = ScaleInterpolator(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale(), false /* isAutoZoom */);
+  m_scaleInterpolator =
+    ScaleInterpolator(currentScreen.GetScale(), m_scaleInterpolator.GetTargetScale(), false /* isAutoZoom */);
 
   m_scaleInterpolator.SetMinDuration(minDuration);
   m_scaleInterpolator.SetMaxDuration(maxDuration);
@@ -44,10 +45,7 @@ bool MapScaleAnimation::HasProperty(Object object, ObjectProperty property) cons
   return HasObject(object) && m_properties.find(property) != m_properties.end();
 }
 
-void MapScaleAnimation::Advance(double elapsedSeconds)
-{
-  m_scaleInterpolator.Advance(elapsedSeconds);
-}
+void MapScaleAnimation::Advance(double elapsedSeconds) { m_scaleInterpolator.Advance(elapsedSeconds); }
 
 void MapScaleAnimation::Finish()
 {
@@ -55,37 +53,20 @@ void MapScaleAnimation::Finish()
   Animation::Finish();
 }
 
-void MapScaleAnimation::SetMaxDuration(double maxDuration)
-{
-  m_scaleInterpolator.SetMaxDuration(maxDuration);
-}
+void MapScaleAnimation::SetMaxDuration(double maxDuration) { m_scaleInterpolator.SetMaxDuration(maxDuration); }
 
-void MapScaleAnimation::SetMinDuration(double minDuration)
-{
-  m_scaleInterpolator.SetMinDuration(minDuration);
-}
+void MapScaleAnimation::SetMinDuration(double minDuration) { m_scaleInterpolator.SetMinDuration(minDuration); }
 
-double MapScaleAnimation::GetDuration() const
-{
-  return m_scaleInterpolator.GetDuration();
-}
+double MapScaleAnimation::GetDuration() const { return m_scaleInterpolator.GetDuration(); }
 
-double MapScaleAnimation::GetMaxDuration() const
-{
-  return m_scaleInterpolator.GetMaxDuration();
-}
+double MapScaleAnimation::GetMaxDuration() const { return m_scaleInterpolator.GetMaxDuration(); }
 
-double MapScaleAnimation::GetMinDuration() const
-{
-  return m_scaleInterpolator.GetMinDuration();
-}
+double MapScaleAnimation::GetMinDuration() const { return m_scaleInterpolator.GetMinDuration(); }
 
-bool MapScaleAnimation::IsFinished() const
-{
-  return m_scaleInterpolator.IsFinished();
-}
+bool MapScaleAnimation::IsFinished() const { return m_scaleInterpolator.IsFinished(); }
 
-bool MapScaleAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
+bool MapScaleAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue,
+                                    PropertyValue & value) const
 {
   ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
 
@@ -116,4 +97,4 @@ bool MapScaleAnimation::GetProperty(Object object, ObjectProperty property, Prop
   return GetProperty(object, property, false /* targetValue */, value);
 }
 
-} // namespace df
+}  // namespace df

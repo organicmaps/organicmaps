@@ -23,45 +23,28 @@ class DummyWorldGraph final : public WorldGraph
 public:
   using WorldGraph::GetEdgeList;
 
-  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                   bool useRoutingOptions, bool useAccessConditional,
-                   SegmentEdgeListT & edges) override
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing, bool useRoutingOptions,
+                   bool useAccessConditional, SegmentEdgeListT & edges) override
   {
     UNREACHABLE();
   }
 
-  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
-                   Segment const & segment, bool isOutgoing, bool useAccessConditional,
-                   JointEdgeListT & edges,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData, Segment const & segment,
+                   bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges,
                    WeightListT & parentWeights) override
   {
     UNREACHABLE();
   }
 
-  bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override
-  {
-    return true;
-  }
+  bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override { return true; }
 
-  LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) override
-  {
-    UNREACHABLE();
-  }
+  LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) override { UNREACHABLE(); }
 
-  ms::LatLon const & GetPoint(Segment const & segment, bool front) override
-  {
-    UNREACHABLE();
-  }
+  ms::LatLon const & GetPoint(Segment const & segment, bool front) override { UNREACHABLE(); }
 
-  bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override
-  {
-    UNREACHABLE();
-  }
+  bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override { UNREACHABLE(); }
 
-  bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override
-  {
-    UNREACHABLE();
-  }
+  bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override { UNREACHABLE(); }
 
   void ClearCachedGraphs() override { UNREACHABLE(); }
 
@@ -74,13 +57,9 @@ public:
     return RouteWeight(ms::DistanceOnEarth(from, to));
   }
 
-  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) override
-  {
-    UNREACHABLE();
-  }
+  RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) override { UNREACHABLE(); }
 
-  RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to,
-                             NumMwmId mwmId) const override
+  RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const override
   {
     UNREACHABLE();
   }
@@ -91,23 +70,13 @@ public:
     return RouteWeight(ms::DistanceOnEarth(from, to));
   }
 
-  double CalculateETA(Segment const & from, Segment const & to) override
-  {
-    UNREACHABLE();
-  }
+  double CalculateETA(Segment const & from, Segment const & to) override { UNREACHABLE(); }
 
-  double CalculateETAWithoutPenalty(Segment const & segment) override
-  {
-    UNREACHABLE();
-  }
+  double CalculateETAWithoutPenalty(Segment const & segment) override { UNREACHABLE(); }
 
-  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
-  {
-    UNREACHABLE();
-  }
+  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override { UNREACHABLE(); }
 
-  void GetTwinsInner(Segment const & segment, bool isOutgoing,
-                     std::vector<Segment> & twins) override
+  void GetTwinsInner(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins) override
   {
     CHECK(false, ());
   }

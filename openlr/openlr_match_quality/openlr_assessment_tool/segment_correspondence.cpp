@@ -19,11 +19,9 @@ SegmentCorrespondence::SegmentCorrespondence(SegmentCorrespondence const & sc)
   m_status = sc.m_status;
 }
 
-SegmentCorrespondence::SegmentCorrespondence(openlr::LinearSegment const & segment,
-                                             uint32_t positiveOffset, uint32_t negativeOffset,
-                                             openlr::Path const & matchedPath,
-                                             openlr::Path const & fakePath,
-                                             openlr::Path const & goldenPath,
+SegmentCorrespondence::SegmentCorrespondence(openlr::LinearSegment const & segment, uint32_t positiveOffset,
+                                             uint32_t negativeOffset, openlr::Path const & matchedPath,
+                                             openlr::Path const & fakePath, openlr::Path const & goldenPath,
                                              pugi::xml_node const & partnerSegmentXML)
   : m_partnerSegment(segment)
   , m_positiveOffset(positiveOffset)

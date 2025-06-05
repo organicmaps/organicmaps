@@ -62,10 +62,10 @@ void ImguiRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Tex
       m_texture = make_unique_dp<dp::StaticTexture>();
       m_texture->Create(context,
                         dp::Texture::Params{
-                            .m_width = m_textureWidth,
-                            .m_height = m_textureHeight,
-                            .m_format = dp::TextureFormat::RGBA8,
-                            .m_allocator = textureManager->GetTextureAllocator(),
+                          .m_width = m_textureWidth,
+                          .m_height = m_textureHeight,
+                          .m_format = dp::TextureFormat::RGBA8,
+                          .m_allocator = textureManager->GetTextureAllocator(),
                         },
                         m_textureData.data());
       m_textureData.clear();
@@ -189,10 +189,10 @@ void ImguiRenderer::UpdateBuffers()
     {
       dp::Color color(cmdList->VtxBuffer.Data[j].col);
       dataBuffer.m_vertices[j + vertexOffset] = {
-          .position = {cmdList->VtxBuffer.Data[j].pos.x, cmdList->VtxBuffer.Data[j].pos.y},
-          .texCoords = {cmdList->VtxBuffer.Data[j].uv.x, cmdList->VtxBuffer.Data[j].uv.y},
-          .color = {color.GetAlphaF(), color.GetBlueF(), color.GetGreenF(),
-                    color.GetRedF()}  // Byte order is reversed in imGui
+        .position = {cmdList->VtxBuffer.Data[j].pos.x, cmdList->VtxBuffer.Data[j].pos.y},
+        .texCoords = {cmdList->VtxBuffer.Data[j].uv.x, cmdList->VtxBuffer.Data[j].uv.y},
+        .color = {color.GetAlphaF(), color.GetBlueF(), color.GetGreenF(),
+                  color.GetRedF()}  // Byte order is reversed in imGui
       };
     }
 
@@ -209,7 +209,7 @@ void ImguiRenderer::UpdateBuffers()
 
     for (int cmdIndex = 0; cmdIndex < cmdList->CmdBuffer.Size; ++cmdIndex)
     {
-      const ImDrawCmd cmd = cmdList->CmdBuffer[cmdIndex];
+      ImDrawCmd const cmd = cmdList->CmdBuffer[cmdIndex];
       ImVec2 clipMin((cmd.ClipRect.x - clipOff.x) * clipScale.x, (cmd.ClipRect.y - clipOff.y) * clipScale.y);
       ImVec2 clipMax((cmd.ClipRect.z - clipOff.x) * clipScale.x, (cmd.ClipRect.w - clipOff.y) * clipScale.y);
       if (clipMin.x < 0.0f)
@@ -224,10 +224,10 @@ void ImguiRenderer::UpdateBuffers()
         continue;
 
       dataBuffer.m_drawCalls.emplace_back(DrawCall{
-          .indexCount = static_cast<uint32_t>(cmd.ElemCount),
-          .startIndex = static_cast<uint32_t>(indexOffset + cmd.IdxOffset),
-          .clipRect = {static_cast<uint32_t>(clipMin.x), static_cast<uint32_t>(clipMin.y),
-                       static_cast<uint32_t>(clipMax.x - clipMin.x), static_cast<uint32_t>(clipMax.y - clipMin.y)}});
+        .indexCount = static_cast<uint32_t>(cmd.ElemCount),
+        .startIndex = static_cast<uint32_t>(indexOffset + cmd.IdxOffset),
+        .clipRect = {static_cast<uint32_t>(clipMin.x), static_cast<uint32_t>(clipMin.y),
+                     static_cast<uint32_t>(clipMax.x - clipMin.x), static_cast<uint32_t>(clipMax.y - clipMin.y)}});
     }
 
     vertexOffset += static_cast<uint32_t>(cmdList->VtxBuffer.Size);

@@ -13,7 +13,9 @@
 class EditableFeatureSource final : public FeatureSource
 {
 public:
-  explicit EditableFeatureSource(MwmSet::MwmHandle const & handle) : FeatureSource(handle) {}
+  explicit EditableFeatureSource(MwmSet::MwmHandle const & handle)
+    : FeatureSource(handle)
+  {}
 
   // FeatureSource overrides:
   FeatureStatus GetFeatureStatus(uint32_t index) const override;

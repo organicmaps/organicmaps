@@ -127,30 +127,18 @@ routing::VehicleType Response::GetVehicleType() const
   UNREACHABLE();
 }
 
-
 RoutingApi::RoutingApi(std::string name, std::string token, uint32_t maxRPS)
   : m_apiName(std::move(name))
   , m_accessToken(std::move(token))
-  , m_maxRPS(maxRPS) {}
+  , m_maxRPS(maxRPS)
+{}
 
-Response RoutingApi::CalculateRoute(Params const & params, int32_t startTimeZoneUTC) const
-{
-  return {};
-}
+Response RoutingApi::CalculateRoute(Params const & params, int32_t startTimeZoneUTC) const { return {}; }
 
-uint32_t RoutingApi::GetMaxRPS() const
-{
-  return m_maxRPS;
-}
+uint32_t RoutingApi::GetMaxRPS() const { return m_maxRPS; }
 
-std::string const & RoutingApi::GetApiName() const
-{
-  return m_apiName;
-}
+std::string const & RoutingApi::GetApiName() const { return m_apiName; }
 
-std::string const & RoutingApi::GetAccessToken() const
-{
-  return m_accessToken;
-}
+std::string const & RoutingApi::GetAccessToken() const { return m_accessToken; }
 }  // namespace api
 }  // namespace routing_quality

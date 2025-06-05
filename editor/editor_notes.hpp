@@ -15,7 +15,10 @@ namespace editor
 {
 struct Note
 {
-  Note(ms::LatLon const & point, std::string const & text) : m_point(point), m_note(text) {}
+  Note(ms::LatLon const & point, std::string const & text)
+    : m_point(point)
+    , m_note(text)
+  {}
   ms::LatLon m_point;
   std::string m_note;
 };
@@ -29,8 +32,7 @@ class Notes : public std::enable_shared_from_this<Notes>
 {
 public:
   static float constexpr kTolerance = 1e-7;
-  static std::shared_ptr<Notes> MakeNotes(std::string const & fileName = "notes.xml",
-                                          bool const fullPath = false);
+  static std::shared_ptr<Notes> MakeNotes(std::string const & fileName = "notes.xml", bool const fullPath = false);
 
   void CreateNote(ms::LatLon const & latLon, std::string const & text);
 
@@ -57,4 +59,4 @@ private:
 
   DISALLOW_COPY_AND_MOVE(Notes);
 };
-}  // namespace
+}  // namespace editor

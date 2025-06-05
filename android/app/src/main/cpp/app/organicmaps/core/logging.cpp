@@ -3,9 +3,9 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
+#include "app/organicmaps/core/ScopedEnv.hpp"
 #include "app/organicmaps/core/jni_helper.hpp"
 #include "app/organicmaps/core/logging.hpp"
-#include "app/organicmaps/core/ScopedEnv.hpp"
 
 #include <android/log.h>
 #include <cassert>
@@ -22,17 +22,17 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 
   switch (level)
   {
-    case LINFO: pr = ANDROID_LOG_INFO; break;
-    case LDEBUG: pr = ANDROID_LOG_DEBUG; break;
-    case LWARNING: pr = ANDROID_LOG_WARN; break;
-    case LERROR: pr = ANDROID_LOG_ERROR; break;
-    case LCRITICAL: pr = ANDROID_LOG_ERROR; break;
-    case NUM_LOG_LEVELS: break;
+  case LINFO: pr = ANDROID_LOG_INFO; break;
+  case LDEBUG: pr = ANDROID_LOG_DEBUG; break;
+  case LWARNING: pr = ANDROID_LOG_WARN; break;
+  case LERROR: pr = ANDROID_LOG_ERROR; break;
+  case LCRITICAL: pr = ANDROID_LOG_ERROR; break;
+  case NUM_LOG_LEVELS: break;
   }
 
   ScopedEnv env(jni::GetJVM());
-  static jmethodID const logMethod = jni::GetStaticMethodID(env.get(), g_loggerClazz,
-     "log", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
+  static jmethodID const logMethod = jni::GetStaticMethodID(
+    env.get(), g_loggerClazz, "log", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V");
 
   std::string const out = DebugPrint(src) + s;
   jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
@@ -51,15 +51,9 @@ bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)
   return true;
 }
 
-void InitSystemLog()
-{
-  SetLogMessageFn(&AndroidLogMessage);
-}
+void InitSystemLog() { SetLogMessageFn(&AndroidLogMessage); }
 
-void InitAssertLog()
-{
-  SetAssertFunction(&AndroidAssertMessage);
-}
+void InitAssertLog() { SetAssertFunction(&AndroidAssertMessage); }
 
 void ToggleDebugLogs(bool enabled)
 {
@@ -68,4 +62,4 @@ void ToggleDebugLogs(bool enabled)
   else
     g_LogLevel = LINFO;
 }
-}
+}  // namespace jni

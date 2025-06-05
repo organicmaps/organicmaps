@@ -6,17 +6,15 @@
 
 using namespace std;
 
-TemporaryFile::TemporaryFile() : m_filePath(GetPlatform().TmpPathForFile()) {}
+TemporaryFile::TemporaryFile()
+  : m_filePath(GetPlatform().TmpPathForFile())
+{}
 
 TemporaryFile::TemporaryFile(std::string const & namePrefix, std::string const & nameSuffix)
   : m_filePath(GetPlatform().TmpPathForFile(namePrefix, nameSuffix))
-{
-}
+{}
 
-TemporaryFile::~TemporaryFile()
-{
-  Platform::RemoveFileIfExists(m_filePath);
-}
+TemporaryFile::~TemporaryFile() { Platform::RemoveFileIfExists(m_filePath); }
 
 void TemporaryFile::WriteData(string const & data)
 {

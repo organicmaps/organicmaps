@@ -14,11 +14,12 @@
 #include <string>
 #include <utility>
 
-
 class WaysParserHelper
 {
 public:
-  explicit WaysParserHelper(std::map<uint64_t, std::string> & ways) : m_ways(ways) {}
+  explicit WaysParserHelper(std::map<uint64_t, std::string> & ways)
+    : m_ways(ways)
+  {}
 
   void ParseStream(std::istream & input)
   {
@@ -30,7 +31,7 @@ public:
       if (pos != std::string::npos)
       {
         uint64_t wayId;
-        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId),());
+        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId), ());
         m_ways[wayId] = oneLine.substr(pos + 1, oneLine.length() - pos - 1);
       }
     }
@@ -43,7 +44,9 @@ private:
 class CapitalsParserHelper
 {
 public:
-  explicit CapitalsParserHelper(std::set<uint64_t> & capitals) : m_capitals(capitals) {}
+  explicit CapitalsParserHelper(std::set<uint64_t> & capitals)
+    : m_capitals(capitals)
+  {}
 
   void ParseStream(std::istream & input)
   {
@@ -111,18 +114,18 @@ public:
       if (!base::IsExist(tags, kFerryTag))
         element.AddTag("highway", it->second);
     }
-    else if (element.m_type == OsmElement::EntityType::Node &&
-             m_capitals.find(element.m_id) != m_capitals.cend())
+    else if (element.m_type == OsmElement::EntityType::Node && m_capitals.find(element.m_id) != m_capitals.cend())
     {
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
-      element.UpdateTagFn("population", [] (std::string & v)
-      {
-        uint64_t n;
-        if (!strings::to_uint64(v, n) || n < 45000)
-          v = "45000";
-      });
+      element.UpdateTagFn("population",
+                          [](std::string & v)
+                          {
+                            uint64_t n;
+                            if (!strings::to_uint64(v, n) || n < 45000)
+                              v = "45000";
+                          });
     }
   }
 
@@ -185,30 +188,32 @@ public:
       auto res = m_replacements.emplace(Tag{key, value}, ReplaceValue{{}, isUpdate});
       CHECK(res.second, ());
 
-      strings::Tokenize(line.substr(valuePos, endPos - valuePos), ",", [&](std::string_view token)
-      {
-        auto kv = strings::Tokenize<std::string>(token, "=");
-        CHECK_EQUAL(kv.size(), 2, ("Cannot parse replacement tag:", token, "in line", lineNumber));
-        strings::Trim(kv[0]);
-        strings::Trim(kv[1]);
-        res.first->second.m_tags.emplace_back(std::move(kv[0]), std::move(kv[1]));
-      });
+      strings::Tokenize(line.substr(valuePos, endPos - valuePos), ",",
+                        [&](std::string_view token)
+                        {
+                          auto kv = strings::Tokenize<std::string>(token, "=");
+                          CHECK_EQUAL(kv.size(), 2, ("Cannot parse replacement tag:", token, "in line", lineNumber));
+                          strings::Trim(kv[0]);
+                          strings::Trim(kv[1]);
+                          res.first->second.m_tags.emplace_back(std::move(kv[0]), std::move(kv[1]));
+                        });
     }
   }
 
   void Process(OsmElement & element) const
   {
     std::vector<ReplaceValue const *> replace;
-    base::EraseIf(element.m_tags, [&](auto const & tag)
-    {
-      auto const it = m_replacements.find(tag);
-      if (it != m_replacements.end())
-      {
-        replace.push_back(&(it->second));
-        return true;
-      }
-      return false;
-    });
+    base::EraseIf(element.m_tags,
+                  [&](auto const & tag)
+                  {
+                    auto const it = m_replacements.find(tag);
+                    if (it != m_replacements.end())
+                    {
+                      replace.push_back(&(it->second));
+                      return true;
+                    }
+                    return false;
+                  });
 
     for (auto const & r : replace)
     {
@@ -269,7 +274,9 @@ public:
     }
   }
 
-  OsmTagMixer(OsmTagMixer const & other) : m_elements(other.m_elements) {}
+  OsmTagMixer(OsmTagMixer const & other)
+    : m_elements(other.m_elements)
+  {}
 
   OsmTagMixer & operator=(OsmTagMixer const & other)
   {

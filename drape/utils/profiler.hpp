@@ -6,9 +6,9 @@
 #include <array>
 #include <chrono>
 #include <cstdint>
+#include <map>
 #include <sstream>
 #include <string>
-#include <map>
 
 namespace dp
 {
@@ -80,10 +80,7 @@ public:
       Profiler::Instance().Measure(m_name, ms);
   }
 
-  void Skip()
-  {
-    m_skipped = true;
-  }
+  void Skip() { m_skipped = true; }
 
 private:
   std::string m_name;

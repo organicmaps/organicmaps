@@ -19,7 +19,10 @@ enum class Status
 
 struct DiffInfo final
 {
-  DiffInfo(uint64_t size, uint64_t version) : m_size(size), m_version(version) {}
+  DiffInfo(uint64_t size, uint64_t version)
+    : m_size(size)
+    , m_version(version)
+  {}
 
   uint64_t m_size;
   uint64_t m_version;

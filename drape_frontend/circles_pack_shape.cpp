@@ -23,7 +23,9 @@ struct CirclesPackStaticVertex
   using TNormal = glsl::vec3;
 
   CirclesPackStaticVertex() = default;
-  explicit CirclesPackStaticVertex(TNormal const & normal) : m_normal(normal) {}
+  explicit CirclesPackStaticVertex(TNormal const & normal)
+    : m_normal(normal)
+  {}
 
   TNormal m_normal;
 };
@@ -79,8 +81,7 @@ void CirclesPackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator>
   ASSERT_EQUAL(node.first.GetElementSize(), sizeof(CirclesPackDynamicVertex), ());
   ASSERT_EQUAL(node.second.m_count, m_buffer.size(), ());
 
-  uint32_t const bytesCount =
-      static_cast<uint32_t>(m_buffer.size()) * sizeof(CirclesPackDynamicVertex);
+  uint32_t const bytesCount = static_cast<uint32_t>(m_buffer.size()) * sizeof(CirclesPackDynamicVertex);
   void * buffer = mutator->AllocateMutationBuffer(bytesCount);
   memcpy(buffer, m_buffer.data(), bytesCount);
 
@@ -107,15 +108,13 @@ m2::RectD CirclesPackHandle::GetPixelRect(ScreenBase const & screen, bool perspe
   return m2::RectD();
 }
 
-void CirclesPackHandle::GetPixelShape(ScreenBase const & screen, bool perspective,
-                                      Rects & rects) const
+void CirclesPackHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const
 {
   UNUSED_VALUE(screen);
   UNUSED_VALUE(perspective);
 }
 
-void CirclesPackHandle::SetPoint(size_t index, m2::PointD const & position, float radius,
-                                 dp::Color const & color)
+void CirclesPackHandle::SetPoint(size_t index, m2::PointD const & position, float radius, dp::Color const & color)
 {
   size_t const bufferIndex = index * dp::Batcher::VertexPerQuad;
   ASSERT_LESS_OR_EQUAL(bufferIndex + dp::Batcher::VertexPerQuad, m_buffer.size(), ());
@@ -134,10 +133,7 @@ void CirclesPackHandle::Clear()
   m_needUpdate = true;
 }
 
-size_t CirclesPackHandle::GetPointsCount() const
-{
-  return m_buffer.size() / dp::Batcher::VertexPerQuad;
-}
+size_t CirclesPackHandle::GetPointsCount() const { return m_buffer.size() / dp::Batcher::VertexPerQuad; }
 
 void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
                             CirclesPackRenderData & data)
@@ -165,21 +161,18 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Overlay));
   dp::SessionGuard guard(context, batcher,
                          [&data](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
-  {
-    data.m_bucket = std::move(b);
-    data.m_state = state;
-  });
+                         {
+                           data.m_bucket = std::move(b);
+                           data.m_state = state;
+                         });
 
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CirclesPackHandle>(data.m_pointsCount);
 
-  dp::AttributeProvider provider(2 /* stream count */,
-                                 static_cast<uint32_t>(staticVertexData.size()));
-  provider.InitStream(0 /* stream index */, GetCirclesPackStaticBindingInfo(),
-                      make_ref(staticVertexData.data()));
-  provider.InitStream(1 /* stream index */, GetCirclesPackDynamicBindingInfo(),
-                      make_ref(dynamicVertexData.data()));
-  batcher.InsertListOfStrip(context, GetCirclesPackState(texMng), make_ref(&provider),
-                            std::move(handle), kVerticesInPoint);
+  dp::AttributeProvider provider(2 /* stream count */, static_cast<uint32_t>(staticVertexData.size()));
+  provider.InitStream(0 /* stream index */, GetCirclesPackStaticBindingInfo(), make_ref(staticVertexData.data()));
+  provider.InitStream(1 /* stream index */, GetCirclesPackDynamicBindingInfo(), make_ref(dynamicVertexData.data()));
+  batcher.InsertListOfStrip(context, GetCirclesPackState(texMng), make_ref(&provider), std::move(handle),
+                            kVerticesInPoint);
 
   context->Flush();
 }

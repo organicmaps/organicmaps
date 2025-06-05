@@ -64,7 +64,9 @@ public:
   struct GateSubway
   {
     GateSubway() = default;
-    explicit GateSubway(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
+    explicit GateSubway(transit::Gate const & gate)
+      : m_featureId(gate.GetFeatureId())
+    {}
 
     transit::FeatureId m_featureId = kInvalidFeatureId;
   };
@@ -72,9 +74,9 @@ public:
   struct GatePT
   {
     GatePT() = default;
-    explicit GatePT(::transit::experimental::Gate const & gate) : m_featureId(gate.GetFeatureId())
-    {
-    }
+    explicit GatePT(::transit::experimental::Gate const & gate)
+      : m_featureId(gate.GetFeatureId())
+    {}
 
     ::transit::experimental::FeatureId m_featureId = kInvalidFeatureId;
   };
@@ -83,7 +85,8 @@ public:
   {
     TransferSubway() = default;
     explicit TransferSubway(transit::Edge const & edge)
-      : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
+      : m_stop1Id(edge.GetStop1Id())
+      , m_stop2Id(edge.GetStop2Id())
     {
       ASSERT(edge.GetTransfer(), ());
     }
@@ -96,7 +99,8 @@ public:
   {
     TransferPT() = default;
     explicit TransferPT(::transit::experimental::Edge const & edge)
-      : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
+      : m_stop1Id(edge.GetStop1Id())
+      , m_stop2Id(edge.GetStop2Id())
     {
       ASSERT(edge.IsTransfer(), ());
     }
@@ -109,31 +113,27 @@ public:
     : m_transitVersion(::transit::TransitVersion::OnlySubway)
     , m_type(Type::Gate)
     , m_gateSubway(gate)
-  {
-  }
+  {}
 
   explicit TransitInfo(::transit::experimental::Gate const & gate)
     : m_transitVersion(::transit::TransitVersion::AllPublicTransport)
     , m_type(Type::Gate)
     , m_gatePT(gate)
-  {
-  }
+  {}
 
   explicit TransitInfo(transit::Edge const & edge)
     : m_transitVersion(::transit::TransitVersion::OnlySubway)
     , m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
     , m_edgeSubway(edge.GetTransfer() ? EdgeSubway() : EdgeSubway(edge))
     , m_transferSubway(edge.GetTransfer() ? TransferSubway(edge) : TransferSubway())
-  {
-  }
+  {}
 
   explicit TransitInfo(::transit::experimental::Edge const & edge)
     : m_transitVersion(::transit::TransitVersion::AllPublicTransport)
     , m_type(edge.IsTransfer() ? Type::Transfer : Type::Edge)
     , m_edgePT(edge.IsTransfer() ? EdgePT() : EdgePT(edge))
     , m_transferPT(edge.IsTransfer() ? TransferPT(edge) : TransferPT())
-  {
-  }
+  {}
 
   Type GetType() const { return m_type; }
 
@@ -197,7 +197,9 @@ private:
 class TransitInfoWrapper final
 {
 public:
-  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr) : m_ptr(std::move(ptr)) {}
+  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr)
+    : m_ptr(std::move(ptr))
+  {}
   explicit TransitInfoWrapper(TransitInfoWrapper && rhs) { swap(m_ptr, rhs.m_ptr); }
   explicit TransitInfoWrapper(TransitInfoWrapper const & rhs)
   {

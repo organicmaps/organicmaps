@@ -14,8 +14,7 @@ Packer::Packer()
   , m_currentHandle(0)
   , m_maxHandle(0)
   , m_invalidHandle(0x00FFFFFF)
-{
-}
+{}
 
 Packer::Packer(unsigned width, unsigned height, uint32_t maxHandle)
   : m_currentX(0)
@@ -26,8 +25,7 @@ Packer::Packer(unsigned width, unsigned height, uint32_t maxHandle)
   , m_currentHandle(0)
   , m_maxHandle(maxHandle)
   , m_invalidHandle(0x00FFFFFF)
-{
-}
+{}
 
 uint32_t Packer::invalidHandle() const { return m_invalidHandle; }
 

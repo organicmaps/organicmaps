@@ -38,10 +38,7 @@ public:
   {}
 
   // Caller must handle object life cycle.
-  ReadMWMTask * GetNew() const
-  {
-    return new ReadMWMTask(m_model);
-  }
+  ReadMWMTask * GetNew() const { return new ReadMWMTask(m_model); }
 
 private:
   MapDataProvider & m_model;

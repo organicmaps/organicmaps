@@ -9,9 +9,8 @@
 
 namespace storage
 {
-QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryId const & countryId,
-                             MapFileType type, int64_t currentDataVersion,
-                             std::string const & dataDir,
+QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryId const & countryId, MapFileType type,
+                             int64_t currentDataVersion, std::string const & dataDir,
                              diffs::DiffsSourcePtr const & diffs)
   : m_countryFile(countryFile)
   , m_countryId(countryId)
@@ -24,30 +23,15 @@ QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryI
   ASSERT(m_diffsDataSource != nullptr, ());
 }
 
-void QueuedCountry::Subscribe(Subscriber & subscriber)
-{
-  m_subscriber = &subscriber;
-}
+void QueuedCountry::Subscribe(Subscriber & subscriber) { m_subscriber = &subscriber; }
 
-void QueuedCountry::Unsubscribe()
-{
-  m_subscriber = nullptr;
-}
+void QueuedCountry::Unsubscribe() { m_subscriber = nullptr; }
 
-void QueuedCountry::SetFileType(MapFileType type)
-{
-  m_fileType = type;
-}
+void QueuedCountry::SetFileType(MapFileType type) { m_fileType = type; }
 
-MapFileType QueuedCountry::GetFileType() const
-{
-  return m_fileType;
-}
+MapFileType QueuedCountry::GetFileType() const { return m_fileType; }
 
-CountryId const & QueuedCountry::GetCountryId() const
-{
-  return m_countryId;
-}
+CountryId const & QueuedCountry::GetCountryId() const { return m_countryId; }
 
 std::string QueuedCountry::GetRelativeUrl() const
 {
@@ -101,8 +85,5 @@ void QueuedCountry::OnDownloadFinished(downloader::DownloadStatus status) const
     m_subscriber->OnDownloadFinished(*this, status);
 }
 
-bool QueuedCountry::operator==(CountryId const & countryId) const
-{
-  return m_countryId == countryId;
-}
+bool QueuedCountry::operator==(CountryId const & countryId) const { return m_countryId == countryId; }
 }  // namespace storage

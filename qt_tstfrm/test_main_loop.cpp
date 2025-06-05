@@ -1,10 +1,10 @@
 #include "qt_tstfrm/test_main_loop.hpp"
 
 #include <QtCore/QTimer>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QWidget>
 #include <QtGui/QOffscreenSurface>
 #include <QtGui/QOpenGLContext>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QWidget>
 
 #include "base/scope_guard.hpp"
 
@@ -22,10 +22,7 @@ public:
   {}
 
 protected:
-  void paintEvent(QPaintEvent * e) override
-  {
-    m_fn(this);
-  }
+  void paintEvent(QPaintEvent * e) override { m_fn(this); }
 
 private:
   testing::RenderFunction m_fn;
@@ -51,8 +48,7 @@ void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool auto
   app.exec();
 }
 
-void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES3,
-                                         testing::TestFunction const & fn)
+void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES3, testing::TestFunction const & fn)
 {
   std::vector<char> buf(strlen(testName) + 1);
   strcpy(buf.data(), testName);

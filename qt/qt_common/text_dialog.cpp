@@ -1,10 +1,9 @@
 #include "qt/qt_common/text_dialog.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
-
+#include <QtWidgets/QVBoxLayout>
 
 TextDialog::TextDialog(QWidget * parent, QString const & htmlOrText, QString const & title)
   : QDialog(parent)

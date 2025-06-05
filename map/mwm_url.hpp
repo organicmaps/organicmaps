@@ -1,7 +1,7 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include <string>
 #include <vector>
@@ -22,7 +22,10 @@ struct MapPoint
 struct RoutePoint
 {
   RoutePoint() = default;
-  RoutePoint(m2::PointD const & org, std::string const & name) : m_org(org), m_name(name) {}
+  RoutePoint(m2::PointD const & org, std::string const & name)
+    : m_org(org)
+    , m_name(name)
+  {}
   m2::PointD m_org = m2::PointD::Zero();
   std::string m_name;
 };
@@ -122,10 +125,8 @@ public:
   }
 
 private:
-  void ParseMapParam(std::string const & key, std::string const & value,
-                     bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value,
-                       std::vector<std::string_view> & pattern);
+  void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
+  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);

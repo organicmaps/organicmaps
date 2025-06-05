@@ -4,20 +4,11 @@
 
 namespace storage
 {
-bool Queue::IsEmpty() const
-{
-  return m_queue.empty();
-}
+bool Queue::IsEmpty() const { return m_queue.empty(); }
 
-size_t Queue::Count() const
-{
-  return m_queue.size();
-}
+size_t Queue::Count() const { return m_queue.size(); }
 
-bool Queue::Contains(CountryId const & country) const
-{
-  return base::IsExist(m_queue, country);
-}
+bool Queue::Contains(CountryId const & country) const { return base::IsExist(m_queue, country); }
 
 void Queue::ForEachCountry(ForEachCountryFunction const & fn) const
 {
@@ -49,7 +40,7 @@ QueuedCountry const & Queue::GetFirstCountry() const
   return m_queue.front();
 }
 
-void Queue::Remove(const storage::CountryId & id)
+void Queue::Remove(storage::CountryId const & id)
 {
   auto it = std::find(m_queue.begin(), m_queue.end(), id);
   if (it != m_queue.end())
@@ -69,8 +60,5 @@ void Queue::Append(QueuedCountry && country)
   m_queue.back().OnCountryInQueue();
 }
 
-void Queue::Clear()
-{
-  m_queue.clear();
-}
+void Queue::Clear() { m_queue.clear(); }
 }  // namespace storage

@@ -13,7 +13,6 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 
-
 namespace df
 {
 namespace mp
@@ -72,30 +71,15 @@ bool MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Tex
   return m_arrow3d->IsValid();
 }
 
-void MyPosition::SetPosition(m2::PointF const & pt)
-{
-  m_position = pt;
-}
+void MyPosition::SetPosition(m2::PointF const & pt) { m_position = pt; }
 
-void MyPosition::SetAzimuth(float azimut)
-{
-  m_azimuth = azimut;
-}
+void MyPosition::SetAzimuth(float azimut) { m_azimuth = azimut; }
 
-void MyPosition::SetIsValidAzimuth(bool isValid)
-{
-  m_showAzimuth = isValid;
-}
+void MyPosition::SetIsValidAzimuth(bool isValid) { m_showAzimuth = isValid; }
 
-void MyPosition::SetAccuracy(float accuracy)
-{
-  m_accuracy = accuracy;
-}
+void MyPosition::SetAccuracy(float accuracy) { m_accuracy = accuracy; }
 
-void MyPosition::SetRoutingMode(bool routingMode)
-{
-  m_isRoutingMode = routingMode;
-}
+void MyPosition::SetRoutingMode(bool routingMode) { m_isRoutingMode = routingMode; }
 
 void MyPosition::SetPositionObsolete(bool obsolete)
 {
@@ -149,8 +133,7 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   }
 }
 
-void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
-                                     ref_ptr<dp::TextureManager> mng)
+void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
 {
   size_t constexpr kTriangleCount = 40;
   size_t constexpr kVertexCount = 3 * kTriangleCount;
@@ -181,39 +164,33 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher,
-      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
-    {
-      drape_ptr<dp::RenderBucket> bucket = std::move(b);
-      ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
+                           [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+                           {
+                             drape_ptr<dp::RenderBucket> bucket = std::move(b);
+                             ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
 
-      m_nodes.emplace_back(state, bucket->MoveBuffer());
-      m_parts[MyPositionAccuracy].second = m_nodes.size() - 1;
-    });
+                             m_nodes.emplace_back(state, bucket->MoveBuffer());
+                             m_parts[MyPositionAccuracy].second = m_nodes.size() - 1;
+                           });
 
     dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
     provider.InitStream(0 /* stream index */, mp::GetMarkerBindingInfo(), make_ref(buffer.data()));
 
-    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state,
-                                                                   make_ref(&provider), nullptr);
+    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state, make_ref(&provider), nullptr);
     ASSERT(m_parts[MyPositionAccuracy].first.IsValid(), ());
   }
 }
 
-void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context,
-                             dp::TextureManager::SymbolRegion const & symbol,
-                             dp::RenderState const & state, dp::Batcher & batcher,
-                             EMyPositionPart part)
+void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context, dp::TextureManager::SymbolRegion const & symbol,
+                             dp::RenderState const & state, dp::Batcher & batcher, EMyPositionPart part)
 {
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF const halfSize = symbol.GetPixelSize() * 0.5f;
 
-  mp::MarkerVertex data[4] =
-  {
-    { glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
-    { glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
-    { glsl::vec2( halfSize.x,  halfSize.y), glsl::ToVec2(texRect.RightTop()) },
-    { glsl::vec2( halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}
-  };
+  mp::MarkerVertex data[4] = {{glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())},
+                              {glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())},
+                              {glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())},
+                              {glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}};
 
   dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
   provider.InitStream(0 /* streamIndex */, mp::GetMarkerBindingInfo(), make_ref(data));
@@ -232,19 +209,19 @@ void MyPosition::CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_pt
   state.SetColorTexture(pointSymbol.GetTexture());
   state.SetTextureIndex(pointSymbol.GetTextureIndex());
 
-  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol };
-  EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };
+  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = {&pointSymbol};
+  EMyPositionPart partIndices[kSymbolsCount] = {MyPositionPoint};
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher,
-      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
-    {
-      drape_ptr<dp::RenderBucket> bucket = std::move(b);
-      ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
+                           [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+                           {
+                             drape_ptr<dp::RenderBucket> bucket = std::move(b);
+                             ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
 
-      m_nodes.emplace_back(state, bucket->MoveBuffer());
-    });
+                             m_nodes.emplace_back(state, bucket->MoveBuffer());
+                           });
 
     auto const partIndex = m_nodes.size();
     for (int i = 0; i < kSymbolsCount; i++)

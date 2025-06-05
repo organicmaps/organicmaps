@@ -7,8 +7,7 @@
 namespace feature_types_test
 {
 
-feature::TypesHolder MakeTypesHolder(std::initializer_list<base::StringIL> const & arr,
-                                     bool sortBySpec = true,
+feature::TypesHolder MakeTypesHolder(std::initializer_list<base::StringIL> const & arr, bool sortBySpec = true,
                                      feature::GeomType geomType = feature::GeomType::Point)
 {
   auto const & cl = classif();
@@ -31,19 +30,23 @@ UNIT_TEST(Feature_UselessTypes)
   auto const & cl = classif();
 
   {
-    feature::TypesHolder types = MakeTypesHolder({
-      {"wheelchair", "yes"},
-      {"building", "train_station"},
-    }, false /* sortBySpec */);
+    feature::TypesHolder types = MakeTypesHolder(
+      {
+        {"wheelchair", "yes"},
+        {"building", "train_station"},
+      },
+      false /* sortBySpec */);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"building", "train_station"}), ());
   }
 
   {
-    feature::TypesHolder types = MakeTypesHolder({
-      {"hwtag", "lit"},
-      {"hwtag", "oneway"},
-    }, false /* sortBySpec */);
+    feature::TypesHolder types = MakeTypesHolder(
+      {
+        {"hwtag", "lit"},
+        {"hwtag", "oneway"},
+      },
+      false /* sortBySpec */);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"hwtag", "oneway"}), ());
   }
@@ -65,14 +68,14 @@ UNIT_TEST(Feature_TypesPriority)
   }
 
   /// @todo post_office should be bigger than copyshop.
-//  {
-//    feature::TypesHolder types = MakeTypesHolder({
-//      {"shop", "copyshop"},
-//      {"amenity", "post_office"},
-//    });
+  //  {
+  //    feature::TypesHolder types = MakeTypesHolder({
+  //      {"shop", "copyshop"},
+  //      {"amenity", "post_office"},
+  //    });
 
-//    TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "post_office"}), ());
-//  }
+  //    TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "post_office"}), ());
+  //  }
 
   {
     feature::TypesHolder types = MakeTypesHolder({
@@ -122,14 +125,16 @@ UNIT_TEST(Feature_TypesPriority)
   }
 
   {
-    feature::TypesHolder types = MakeTypesHolder({
-      {"hwtag", "lit"},
-      {"hwtag", "oneway"},
-      {"highway", "cycleway"},
-    }, true /* sortBySpec */, feature::GeomType::Line);
+    feature::TypesHolder types = MakeTypesHolder(
+      {
+        {"hwtag", "lit"},
+        {"hwtag", "oneway"},
+        {"highway", "cycleway"},
+      },
+      true /* sortBySpec */, feature::GeomType::Line);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"highway", "cycleway"}), ());
   }
 }
 
-} // namespace feature_types_test
+}  // namespace feature_types_test

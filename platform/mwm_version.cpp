@@ -43,18 +43,14 @@ uint32_t MwmVersion::GetVersion() const
   return base::GenerateYYMMDD(tm.tm_year, tm.tm_mon, tm.tm_mday);
 }
 
-std::string DebugPrint(Format f)
-{
-  return "v" + strings::to_string(static_cast<uint32_t>(f) + 1);
-}
+std::string DebugPrint(Format f) { return "v" + strings::to_string(static_cast<uint32_t>(f) + 1); }
 
 std::string DebugPrint(MwmVersion const & mwmVersion)
 {
   std::stringstream s;
   s << "MwmVersion "
     << "{ m_format: " << DebugPrint(mwmVersion.GetFormat())
-    << ", m_secondsSinceEpoch: " << mwmVersion.GetSecondsSinceEpoch()
-    << " }";
+    << ", m_secondsSinceEpoch: " << mwmVersion.GetSecondsSinceEpoch() << " }";
   return s.str();
 }
 

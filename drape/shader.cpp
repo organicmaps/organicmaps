@@ -16,8 +16,7 @@ glConst ConvertType(Shader::Type t)
 }
 }  // namespace
 
-Shader::Shader(std::string const & shaderName, std::string const & shaderSource,
-               std::string const & defines, Type type)
+Shader::Shader(std::string const & shaderName, std::string const & shaderSource, std::string const & defines, Type type)
   : m_shaderName(shaderName)
   , m_glID(0)
 {
@@ -28,13 +27,7 @@ Shader::Shader(std::string const & shaderName, std::string const & shaderSource,
   CHECK(result, (m_shaderName, "> Shader compile error : ", errorLog));
 }
 
-Shader::~Shader()
-{
-  GLFunctions::glDeleteShader(m_glID);
-}
+Shader::~Shader() { GLFunctions::glDeleteShader(m_glID); }
 
-uint32_t Shader::GetID() const
-{
-  return m_glID;
-}
+uint32_t Shader::GetID() const { return m_glID; }
 }  // namespace dp

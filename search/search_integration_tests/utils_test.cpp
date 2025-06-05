@@ -43,11 +43,13 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   TestPOI bar(m2::PointD(0.0, 0.0), "bar", "en");
   bar.SetTypes({{"amenity", "bar"}});
 
-  auto id = BuildCountry(kCountryName, [&](TestMwmBuilder & builder) {
-    builder.Add(cafe);
-    builder.Add(restaurant);
-    builder.Add(bar);
-  });
+  auto id = BuildCountry(kCountryName,
+                         [&](TestMwmBuilder & builder)
+                         {
+                           builder.Add(cafe);
+                           builder.Add(restaurant);
+                           builder.Add(bar);
+                         });
 
   auto const & categories = GetDefaultCategories();
   auto const typesPost = GetCategoryTypes("Oficina de correos", "es", categories);
@@ -79,10 +81,10 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   auto const & dataSource = GetDataSource();
   auto const rect = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
 
-  auto const testTypes = [&](vector<uint32_t> const & types, size_t expectedCount) {
+  auto const testTypes = [&](vector<uint32_t> const & types, size_t expectedCount)
+  {
     vector<FeatureID> features;
-    ForEachOfTypesInRect(dataSource, types, rect,
-                         [&features](FeatureID const & f) { features.push_back(f); });
+    ForEachOfTypesInRect(dataSource, types, rect, [&features](FeatureID const & f) { features.push_back(f); });
     TEST_EQUAL(features.size(), expectedCount, ());
   };
 

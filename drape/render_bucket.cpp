@@ -16,20 +16,11 @@ RenderBucket::RenderBucket(drape_ptr<VertexArrayBuffer> && buffer)
 
 RenderBucket::~RenderBucket() {}
 
-ref_ptr<VertexArrayBuffer> RenderBucket::GetBuffer()
-{
-  return make_ref(m_buffer);
-}
+ref_ptr<VertexArrayBuffer> RenderBucket::GetBuffer() { return make_ref(m_buffer); }
 
-drape_ptr<VertexArrayBuffer> && RenderBucket::MoveBuffer()
-{
-  return std::move(m_buffer);
-}
+drape_ptr<VertexArrayBuffer> && RenderBucket::MoveBuffer() { return std::move(m_buffer); }
 
-size_t RenderBucket::GetOverlayHandlesCount() const
-{
-  return m_overlay.size();
-}
+size_t RenderBucket::GetOverlayHandlesCount() const { return m_overlay.size(); }
 
 drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
 {
@@ -41,15 +32,9 @@ drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
   return h;
 }
 
-ref_ptr<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
-{
-  return make_ref(m_overlay[index]);
-}
+ref_ptr<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index) { return make_ref(m_overlay[index]); }
 
-void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
-{
-  m_overlay.push_back(std::move(handle));
-}
+void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle) { m_overlay.push_back(std::move(handle)); }
 
 void RenderBucket::BeforeUpdate()
 {
@@ -74,10 +59,7 @@ void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
     tree->Add(make_ref(overlayHandle));
 }
 
-bool RenderBucket::HasOverlayHandles() const
-{
-  return !m_overlay.empty();
-}
+bool RenderBucket::HasOverlayHandles() const { return !m_overlay.empty(); }
 
 bool RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
 {

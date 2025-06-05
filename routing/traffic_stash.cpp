@@ -9,7 +9,8 @@ namespace routing
 using namespace std;
 
 TrafficStash::TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
-  : m_source(source), m_numMwmIds(std::move(numMwmIds))
+  : m_source(source)
+  , m_numMwmIds(std::move(numMwmIds))
 {
   CHECK(m_numMwmIds, ());
 }
@@ -21,10 +22,10 @@ traffic::SpeedGroup TrafficStash::GetSpeedGroup(Segment const & segment) const
     return traffic::SpeedGroup::Unknown;
 
   auto const & coloring = itMwm->second;
-  auto const itSeg = coloring->find(traffic::TrafficInfo::RoadSegmentId(
-      segment.GetFeatureId(), base::asserted_cast<uint16_t>(segment.GetSegmentIdx()),
-      segment.IsForward() ? traffic::TrafficInfo::RoadSegmentId::kForwardDirection
-                          : traffic::TrafficInfo::RoadSegmentId::kReverseDirection));
+  auto const itSeg = coloring->find(
+    traffic::TrafficInfo::RoadSegmentId(segment.GetFeatureId(), base::asserted_cast<uint16_t>(segment.GetSegmentIdx()),
+                                        segment.IsForward() ? traffic::TrafficInfo::RoadSegmentId::kForwardDirection
+                                                            : traffic::TrafficInfo::RoadSegmentId::kReverseDirection));
 
   if (itSeg == coloring->cend())
     return traffic::SpeedGroup::Unknown;
@@ -32,16 +33,12 @@ traffic::SpeedGroup TrafficStash::GetSpeedGroup(Segment const & segment) const
   return itSeg->second;
 }
 
-void TrafficStash::SetColoring(NumMwmId numMwmId,
-                               shared_ptr<const traffic::TrafficInfo::Coloring> coloring)
+void TrafficStash::SetColoring(NumMwmId numMwmId, shared_ptr<traffic::TrafficInfo::Coloring const> coloring)
 {
   m_mwmToTraffic[numMwmId] = coloring;
 }
 
-bool TrafficStash::Has(NumMwmId numMwmId) const
-{
-  return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend();
-}
+bool TrafficStash::Has(NumMwmId numMwmId) const { return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend(); }
 
 void TrafficStash::CopyTraffic()
 {

@@ -45,7 +45,9 @@ using namespace routing;
 class SrtmGetter : public AltitudeGetter
 {
 public:
-  explicit SrtmGetter(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
+  explicit SrtmGetter(std::string const & srtmDir)
+    : m_srtmManager(srtmDir)
+  {}
 
   // AltitudeGetter overrides:
   geometry::Altitude GetAltitude(m2::PointD const & p) override
@@ -62,11 +64,13 @@ class Processor
 public:
   struct FeatureAltitude
   {
-    FeatureAltitude() : m_featureId(0) {}
+    FeatureAltitude()
+      : m_featureId(0)
+    {}
     FeatureAltitude(uint32_t featureId, Altitudes const & altitudes)
-      : m_featureId(featureId), m_altitudes(altitudes)
-    {
-    }
+      : m_featureId(featureId)
+      , m_altitudes(altitudes)
+    {}
 
     uint32_t m_featureId;
     Altitudes m_altitudes;
@@ -75,16 +79,13 @@ public:
   using TFeatureAltitudes = std::vector<FeatureAltitude>;
 
   explicit Processor(AltitudeGetter & altitudeGetter)
-    : m_altitudeGetter(altitudeGetter), m_minAltitude(geometry::kInvalidAltitude)
-  {
-  }
+    : m_altitudeGetter(altitudeGetter)
+    , m_minAltitude(geometry::kInvalidAltitude)
+  {}
 
   TFeatureAltitudes const & GetFeatureAltitudes() const { return m_featureAltitudes; }
 
-  succinct::bit_vector_builder & GetAltitudeAvailabilityBuilder()
-  {
-    return m_altitudeAvailabilityBuilder;
-  }
+  succinct::bit_vector_builder & GetAltitudeAvailabilityBuilder() { return m_altitudeAvailabilityBuilder; }
 
   geometry::Altitude GetMinAltitude() const { return m_minAltitude; }
 
@@ -97,8 +98,7 @@ public:
     }
 
     bool hasAltitude = false;
-    SCOPE_GUARD(altitudeAvailabilityBuilding,
-                [&]() { m_altitudeAvailabilityBuilder.push_back(hasAltitude); });
+    SCOPE_GUARD(altitudeAvailabilityBuilding, [&]() { m_altitudeAvailabilityBuilder.push_back(hasAltitude); });
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
       return;

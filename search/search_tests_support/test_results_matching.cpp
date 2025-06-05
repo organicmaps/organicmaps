@@ -16,9 +16,9 @@ namespace search
 namespace tests_support
 {
 ExactMatchingRule::ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature const & feature)
-  : m_mwmId(mwmId), m_feature(feature)
-{
-}
+  : m_mwmId(mwmId)
+  , m_feature(feature)
+{}
 
 bool ExactMatchingRule::Matches(FeatureType & feature) const
 {
@@ -36,8 +36,7 @@ string ExactMatchingRule::ToString() const
 
 AlternativesMatchingRule::AlternativesMatchingRule(vector<shared_ptr<MatchingRule>> && rules)
   : m_rules(std::move(rules))
-{
-}
+{}
 
 bool AlternativesMatchingRule::Matches(FeatureType & feature) const
 {
@@ -73,7 +72,8 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
   sort(resultIds.begin(), resultIds.end());
 
   vector<string> unexpected;
-  auto removeMatched = [&rules, &unexpected](FeatureType & feature) {
+  auto removeMatched = [&rules, &unexpected](FeatureType & feature)
+  {
     for (auto it = rules.begin(); it != rules.end(); ++it)
     {
       if ((*it)->Matches(feature))
@@ -101,30 +101,24 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
   return false;
 }
 
-bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
-                  search::Results const & actual)
+bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules, search::Results const & actual)
 {
   vector<search::Result> const results(actual.begin(), actual.end());
   return MatchResults(dataSource, rules, results);
 }
 
-bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule,
-                   search::Result const & result)
+bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule, search::Result const & result)
 {
   bool matches = false;
-  dataSource.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); },
-                         result.GetFeatureID());
+  dataSource.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
   return matches;
 }
 
-bool AlternativeMatch(DataSource const & dataSource,
-                      vector<vector<shared_ptr<MatchingRule>>> rulesList,
+bool AlternativeMatch(DataSource const & dataSource, vector<vector<shared_ptr<MatchingRule>>> rulesList,
                       std::vector<search::Result> const & results)
 {
-  return any_of(rulesList.begin(), rulesList.end(),
-                [&](vector<shared_ptr<MatchingRule>> const & rules) {
-                  return MatchResults(dataSource, rules, results);
-                });
+  return any_of(rulesList.begin(), rulesList.end(), [&](vector<shared_ptr<MatchingRule>> const & rules)
+                { return MatchResults(dataSource, rules, results); });
 }
 
 string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }

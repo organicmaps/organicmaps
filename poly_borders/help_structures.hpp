@@ -1,7 +1,7 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/non_intersecting_intervals.hpp"
@@ -41,7 +41,10 @@ struct Link
   inline static auto constexpr kInvalidId = std::numeric_limits<size_t>::max();
 
   Link() = default;
-  Link(size_t borderId, size_t pointId) : m_borderId(borderId), m_pointId(pointId) {}
+  Link(size_t borderId, size_t pointId)
+    : m_borderId(borderId)
+    , m_pointId(pointId)
+  {}
 
   bool operator<(Link const & rhs) const;
 
@@ -52,14 +55,15 @@ struct Link
 /// \note Using next semantic here: [replaceFrom, replaceTo], [replaceFromSrc, replaceToSrc].
 struct ReplaceData
 {
-  ReplaceData(size_t replaceFrom, size_t replaceTo, size_t replaceFromSrc, size_t replaceToSrc,
-              size_t borderIdSrc, bool reversed)
+  ReplaceData(size_t replaceFrom, size_t replaceTo, size_t replaceFromSrc, size_t replaceToSrc, size_t borderIdSrc,
+              bool reversed)
     : m_dstFrom(replaceFrom)
     , m_dstTo(replaceTo)
     , m_srcReplaceFrom(replaceFromSrc)
     , m_srcReplaceTo(replaceToSrc)
     , m_srcBorderId(borderIdSrc)
-    , m_reversed(reversed) {}
+    , m_reversed(reversed)
+  {}
 
   bool operator<(ReplaceData const & rhs) const;
 
@@ -77,7 +81,9 @@ struct ReplaceData
 struct MarkedPoint
 {
   MarkedPoint() = default;
-  explicit MarkedPoint(m2::PointD const & point) : m_point(point) {}
+  explicit MarkedPoint(m2::PointD const & point)
+    : m_point(point)
+  {}
 
   void AddLink(size_t borderId, size_t pointId);
 
@@ -93,7 +99,9 @@ struct Polygon
 {
   Polygon() = default;
   Polygon(m2::RectD const & rect, std::vector<MarkedPoint> && points)
-    : m_rect(rect), m_points(std::move(points)) {}
+    : m_rect(rect)
+    , m_points(std::move(points))
+  {}
 
   Polygon(Polygon &&) = default;
   Polygon & operator=(Polygon &&) noexcept = default;
@@ -105,9 +113,8 @@ struct Polygon
   // @}
 
   // [replaceFrom, replaceTo], [replaceFromSrc, replaceToSrc]
-  void AddReplaceInfo(size_t replaceFrom, size_t replaceTo,
-                      size_t replaceFromSrc, size_t replaceToSrc, size_t borderIdSrc,
-                      bool reversed);
+  void AddReplaceInfo(size_t replaceFrom, size_t replaceTo, size_t replaceFromSrc, size_t replaceToSrc,
+                      size_t borderIdSrc, bool reversed);
 
   std::set<ReplaceData>::const_iterator FindReplaceData(size_t index);
 

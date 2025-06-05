@@ -137,13 +137,14 @@ namespace diffs
 // static
 void Loader::Load(LocalMapsInfo && info, DiffsReceivedCallback && callback)
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [info = std::move(info), callback = std::move(callback)]() {
-    auto result = ::Load(info);
-    GetPlatform().RunTask(Platform::Thread::Gui,
-                          [result = std::move(result), callback = std::move(callback)]() mutable {
-                            callback(std::move(result));
-                          });
-  });
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [info = std::move(info), callback = std::move(callback)]()
+                        {
+                          auto result = ::Load(info);
+                          GetPlatform().RunTask(Platform::Thread::Gui,
+                                                [result = std::move(result), callback = std::move(callback)]() mutable
+                                                { callback(std::move(result)); });
+                        });
 }
 }  // namespace diffs
 }  // namespace storage

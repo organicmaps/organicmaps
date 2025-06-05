@@ -16,66 +16,63 @@ namespace
 
 /// @todo These should check the map language and use only the corresponding translation.
 map<string, vector<string>> const kSynonyms = {
-    {"n",    {"north"}},
-    {"w",    {"west"}},
-    {"s",    {"south"}},
-    {"e",    {"east"}},
-    {"nw",   {"northwest"}},
-    {"ne",   {"northeast"}},
-    {"sw",   {"southwest"}},
-    {"se",   {"southeast"}},
+  {"n", {"north"}},
+  {"w", {"west"}},
+  {"s", {"south"}},
+  {"e", {"east"}},
+  {"nw", {"northwest"}},
+  {"ne", {"northeast"}},
+  {"sw", {"southwest"}},
+  {"se", {"southeast"}},
 
-    /// @todo Should not duplicate Street synonyms defined in StreetsSynonymsHolder (avoid useless double queries).
-    /// Remove "street" and "avenue" here, but should update GetNameScore.
-    {"st",   {"saint", "street"}},
-    {"dr",   {"doctor"}},
+  /// @todo Should not duplicate Street synonyms defined in StreetsSynonymsHolder (avoid useless double queries).
+  /// Remove "street" and "avenue" here, but should update GetNameScore.
+  {"st", {"saint", "street"}},
+  {"dr", {"doctor"}},
 
-    // widely used in LATAM, like "Ntra Sra Asuncion Zelaya"
-    {"ntra",  {"nuestra"}},
-    {"sra",   {"senora"}},
-    {"sta",   {"santa"}},
+  // widely used in LATAM, like "Ntra Sra Asuncion Zelaya"
+  {"ntra", {"nuestra"}},
+  {"sra", {"senora"}},
+  {"sta", {"santa"}},
 
-    {"al",    {"allee", "alle"}},
-    {"ave",   {"avenue"}},
-    /// @todo Should process synonyms with errors like "blvrd" -> "blvd".
-    /// @see HouseOnStreetSynonymsWithMisprints test.
-    {"blvd",  {"boulevard"}},
-    {"blvrd", {"boulevard"}},
-    {"cir",   {"circle"}},
-    {"ct",    {"court"}},
-    {"hwy",   {"highway"}},
-    {"pl",    {"place", "platz"}},
-    {"rt",    {"route"}},
-    {"sq",    {"square"}},
+  {"al", {"allee", "alle"}},
+  {"ave", {"avenue"}},
+  /// @todo Should process synonyms with errors like "blvrd" -> "blvd".
+  /// @see HouseOnStreetSynonymsWithMisprints test.
+  {"blvd", {"boulevard"}},
+  {"blvrd", {"boulevard"}},
+  {"cir", {"circle"}},
+  {"ct", {"court"}},
+  {"hwy", {"highway"}},
+  {"pl", {"place", "platz"}},
+  {"rt", {"route"}},
+  {"sq", {"square"}},
 
-    {"ал",    {"аллея", "алея"}},
-    {"бул",   {"бульвар"}},
-    {"зав",   {"завулак"}},
-    {"кв",    {"квартал"}},
-    {"наб",   {"набережная", "набярэжная", "набережна"}},
-    {"пер",   {"переулок"}},
-    {"пл",    {"площадь", "площа"}},
-    {"пр",    {"проспект", "праспект", "провулок", "проезд", "праезд", "проїзд"}},
-    {"туп",   {"тупик", "тупік"}},
-    {"ш",     {"шоссе", "шаша", "шосе"}},
+  {"ал", {"аллея", "алея"}},
+  {"бул", {"бульвар"}},
+  {"зав", {"завулак"}},
+  {"кв", {"квартал"}},
+  {"наб", {"набережная", "набярэжная", "набережна"}},
+  {"пер", {"переулок"}},
+  {"пл", {"площадь", "площа"}},
+  {"пр", {"проспект", "праспект", "провулок", "проезд", "праезд", "проїзд"}},
+  {"туп", {"тупик", "тупік"}},
+  {"ш", {"шоссе", "шаша", "шосе"}},
 
-    {"cd",    {"caddesi"}},
+  {"cd", {"caddesi"}},
 
-    {"св",   {"святой", "святого", "святая", "святые", "святых", "свято"}},
-    {"б",    {"большая", "большой"}},
-    {"бол",  {"большая", "большой"}},
-    {"м",    {"малая", "малый"}},
-    {"мал",  {"малая", "малый"}},
-    {"нов",  {"новая", "новый"}},
-    {"стар", {"старая", "старый"}},
+  {"св", {"святой", "святого", "святая", "святые", "святых", "свято"}},
+  {"б", {"большая", "большой"}},
+  {"бол", {"большая", "большой"}},
+  {"м", {"малая", "малый"}},
+  {"мал", {"малая", "малый"}},
+  {"нов", {"новая", "новый"}},
+  {"стар", {"старая", "старый"}},
 };
 }  // namespace
 
 // QueryParams::Token ------------------------------------------------------------------------------
-void QueryParams::Token::AddSynonym(string const & s)
-{
-  AddSynonym(strings::MakeUniString(s));
-}
+void QueryParams::Token::AddSynonym(string const & s) { AddSynonym(strings::MakeUniString(s)); }
 
 void QueryParams::Token::AddSynonym(String const & s)
 {
@@ -86,8 +83,8 @@ void QueryParams::Token::AddSynonym(String const & s)
 string DebugPrint(QueryParams::Token const & token)
 {
   ostringstream os;
-  os << "Token [ m_original=" << DebugPrint(token.GetOriginal())
-     << ", m_synonyms=" << DebugPrint(token.m_synonyms) << " ]";
+  os << "Token [ m_original=" << DebugPrint(token.GetOriginal()) << ", m_synonyms=" << DebugPrint(token.m_synonyms)
+     << " ]";
   return os.str();
 }
 
@@ -97,14 +94,15 @@ void QueryParams::ClearStreetIndices()
   class AdditionalCommonTokens
   {
     set<String> m_strings;
+
   public:
     AdditionalCommonTokens()
     {
       char const * arr[] = {
-        "the",                      // English
-        "der", "zum", "und", "auf", // German
-        "del", "les",               // Spanish
-        "в", "на"                   // Cyrillic
+        "the",                       // English
+        "der", "zum", "und", "auf",  // German
+        "del", "les",                // Spanish
+        "в",   "на"                  // Cyrillic
       };
       for (char const * s : arr)
         m_strings.insert(NormalizeAndSimplifyString(s));
@@ -171,10 +169,7 @@ QueryParams::Token & QueryParams::GetToken(size_t i)
   return i < m_tokens.size() ? m_tokens[i] : m_prefixToken;
 }
 
-bool QueryParams::IsCommonToken(size_t i) const
-{
-  return i < m_isCommonToken.size() && m_isCommonToken[i];
-}
+bool QueryParams::IsCommonToken(size_t i) const { return i < m_isCommonToken.size() && m_isCommonToken[i]; }
 
 bool QueryParams::IsNumberTokens(TokenRange const & range) const
 {
@@ -233,12 +228,9 @@ string DebugPrint(QueryParams const & params)
 {
   ostringstream os;
   os << boolalpha << "QueryParams "
-     << "{ m_tokens: " << ::DebugPrint(params.m_tokens)
-     << ", m_prefixToken: " << DebugPrint(params.m_prefixToken)
-     << ", m_typeIndices: " << ::DebugPrint(params.m_typeIndices)
-     << ", m_langs: " << DebugPrint(params.m_langs)
-     << ", m_isCommonToken: " << ::DebugPrint(params.m_isCommonToken)
-     << " }";
+     << "{ m_tokens: " << ::DebugPrint(params.m_tokens) << ", m_prefixToken: " << DebugPrint(params.m_prefixToken)
+     << ", m_typeIndices: " << ::DebugPrint(params.m_typeIndices) << ", m_langs: " << DebugPrint(params.m_langs)
+     << ", m_isCommonToken: " << ::DebugPrint(params.m_isCommonToken) << " }";
   return os.str();
 }
 }  // namespace search

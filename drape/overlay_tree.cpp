@@ -13,7 +13,7 @@ int const kMaxFrameUpdatePeriod = 15;
 uint32_t const kMinHandlesCount = 100;
 uint32_t const kMaxHandlesCount = 1000;
 
-size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
+size_t const kAverageHandlesCount[dp::OverlayRanksCount] = {300, 200, 50};
 int const kInvalidFrame = -1;
 
 namespace
@@ -25,10 +25,7 @@ public:
     : m_enableMask(enableMask)
   {}
 
-  bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
-  {
-    return IsGreater(l, r);
-  }
+  bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const { return IsGreater(l, r); }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
@@ -126,15 +123,9 @@ bool OverlayTree::Frame()
   return IsNeedUpdate();
 }
 
-bool OverlayTree::IsNeedUpdate() const
-{
-  return m_frameCounter == kInvalidFrame;
-}
+bool OverlayTree::IsNeedUpdate() const { return m_frameCounter == kInvalidFrame; }
 
-void OverlayTree::InvalidateOnNextFrame()
-{
-  m_frameCounter = kInvalidFrame;
-}
+void OverlayTree::InvalidateOnNextFrame() { m_frameCounter = kInvalidFrame; }
 
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, uint8_t zoomLevel)
 {
@@ -167,7 +158,7 @@ bool OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 {
   /// @todo Fires when deleting downloaded country ?!
-  //ASSERT(handle->GetOverlayID().IsValid(), ());
+  // ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
   ScreenBase const & modelView = GetModelView();
@@ -199,8 +190,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   // last time. Also clip all handles in reverse projection.
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
   if (modelView.IsReverseProjection3d(pixelRect.Center()) ||
-      (m_displacers.find(handle) == m_displacers.end() &&
-       !m_traits.GetExtendedScreenRect().IsIntersect(pixelRect)))
+      (m_displacers.find(handle) == m_displacers.end() && !m_traits.GetExtendedScreenRect().IsIntersect(pixelRect)))
   {
     handle->SetIsVisible(false);
     return;
@@ -216,7 +206,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                                ref_ptr<OverlayHandle> const & parentOverlay)
 {
   /// @todo Fires when updating country (delete-add) ?!
-  //ASSERT(handle->GetOverlayID().IsValid(), ());
+  // ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
@@ -242,14 +232,14 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
 
   // Find elements that already on OverlayTree and it's pixel rect
   // intersect with handle pixel rect ("Intersected elements").
-  ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
-  {
-    bool const isParent = (h == parentOverlay) ||
-                          (h->GetOverlayID() == handle->GetOverlayID() &&
-                           h->GetOverlayRank() < handle->GetOverlayRank());
-    if (!isParent && handle->IsIntersect(modelView, h))
-      rivals.push_back(h);
-  });
+  ForEachInRect(pixelRect,
+                [&](ref_ptr<OverlayHandle> const & h)
+                {
+                  bool const isParent = (h == parentOverlay) || (h->GetOverlayID() == handle->GetOverlayID() &&
+                                                                 h->GetOverlayRank() < handle->GetOverlayRank());
+                  if (!isParent && handle->IsIntersect(modelView, h))
+                    rivals.push_back(h);
+                });
 
   // If handle is bound to its parent, parent's handle will be used.
   ref_ptr<OverlayHandle> handleToCompare = handle;
@@ -257,8 +247,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   if (boundToParent)
     handleToCompare = parentOverlay;
 
-  bool const selected = m_selectedFeatureID.IsValid() &&
-                        handleToCompare->GetOverlayID().m_featureId == m_selectedFeatureID;
+  bool const selected =
+    m_selectedFeatureID.IsValid() && handleToCompare->GetOverlayID().m_featureId == m_selectedFeatureID;
 
   if (!selected)
   {
@@ -431,15 +421,16 @@ void OverlayTree::DeleteHandleWithParents(ref_ptr<OverlayHandle> handle, int cur
   ASSERT(it != m_overlayIdCache.end(), ());
 
   auto & v = it->second;
-  v.erase_if([&](ref_ptr<OverlayHandle> const & h)
-  {
-    if (h == handle || (h->GetOverlayRank() < currentRank && h->IsBound()))
+  v.erase_if(
+    [&](ref_ptr<OverlayHandle> const & h)
     {
-      DeleteHandleImpl(h);
-      return true;
-    }
-    return false;
-  });
+      if (h == handle || (h->GetOverlayRank() < currentRank && h->IsBound()))
+      {
+        DeleteHandleImpl(h);
+        return true;
+      }
+      return false;
+    });
 
   if (v.empty())
     m_overlayIdCache.erase(it);
@@ -491,24 +482,25 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
 {
   ScreenBase screen = GetModelView();
-  ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
-  {
-    ASSERT(h->GetOverlayID().IsValid(), ());
+  ForEachInRect(rect,
+                [&](ref_ptr<OverlayHandle> const & h)
+                {
+                  ASSERT(h->GetOverlayID().IsValid(), ());
 
-    if (!h->HasLinearFeatureShape() && h->IsVisible())
-    {
-      OverlayHandle::Rects shape;
-      h->GetPixelShape(screen, screen.isPerspective(), shape);
-      for (m2::RectF const & rShape : shape)
-      {
-        if (rShape.IsIntersect(m2::RectF(rect)))
-        {
-          result.push_back(h);
-          break;
-        }
-      }
-    }
-  });
+                  if (!h->HasLinearFeatureShape() && h->IsVisible())
+                  {
+                    OverlayHandle::Rects shape;
+                    h->GetPixelShape(screen, screen.isPerspective(), shape);
+                    for (m2::RectF const & rShape : shape)
+                    {
+                      if (rShape.IsIntersect(m2::RectF(rect)))
+                      {
+                        result.push_back(h);
+                        break;
+                      }
+                    }
+                  }
+                });
 }
 
 void OverlayTree::SetDisplacementEnabled(bool enabled)
@@ -519,15 +511,9 @@ void OverlayTree::SetDisplacementEnabled(bool enabled)
   InvalidateOnNextFrame();
 }
 
-void OverlayTree::SetSelectedFeature(FeatureID const & featureID)
-{
-  m_selectedFeatureID = featureID;
-}
+void OverlayTree::SetSelectedFeature(FeatureID const & featureID) { m_selectedFeatureID = featureID; }
 
-OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
-{
-  return m_displacementInfo;
-}
+OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const { return m_displacementInfo; }
 
 void OverlayTree::SetDebugRectRenderer(ref_ptr<DebugRenderer> debugRectRenderer)
 {
@@ -543,8 +529,8 @@ void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> di
     m_displacers.insert(displacerHandle);
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-    LOG(LINFO, ("Displace (", caseIndex, "):", displacerHandle->GetOverlayDebugInfo(),
-                "->", displacedHandle->GetOverlayDebugInfo()));
+  LOG(LINFO, ("Displace (", caseIndex, "):", displacerHandle->GetOverlayDebugInfo(), "->",
+              displacedHandle->GetOverlayDebugInfo()));
 #else
   UNUSED_VALUE(caseIndex);
 #endif
@@ -562,10 +548,7 @@ bool OverlayTree::IsInCache(ref_ptr<OverlayHandle> const & handle) const
   return (m_handlesCache.find(handle) != m_handlesCache.end());
 }
 
-void detail::OverlayTraits::SetVisualScale(double visualScale)
-{
-  m_visualScale = visualScale;
-}
+void detail::OverlayTraits::SetVisualScale(double visualScale) { m_visualScale = visualScale; }
 
 void detail::OverlayTraits::SetModelView(ScreenBase const & modelView)
 {

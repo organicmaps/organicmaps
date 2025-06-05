@@ -33,10 +33,7 @@ char const kBitsExt[] = ".bftsegbits";
 char const kNodesExt[] = ".bftsegnodes";
 char const kOffsetsExt[] = ".offsets";
 
-string GetAdditionalWorldScope()
-{
-  return "r";
-}
+string GetAdditionalWorldScope() { return "r"; }
 /*
 bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 */
@@ -120,13 +117,11 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
   DeleteDownloaderFilesForCountry(version, string(), countryFile);
 }
 
-void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
-                                     CountryFile const & countryFile)
+void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir, CountryFile const & countryFile)
 {
   for (size_t type = 0; type < base::Underlying(MapFileType::Count); ++type)
   {
-    string const path = GetFileDownloadPath(version, dataDir, countryFile,
-                                            static_cast<MapFileType>(type));
+    string const path = GetFileDownloadPath(version, dataDir, countryFile, static_cast<MapFileType>(type));
     ASSERT(path.ends_with(READY_FILE_EXTENSION), ());
     Platform::RemoveFileIfExists(path);
     Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
@@ -140,8 +135,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
   }
 }
 
-size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version,
-                                             int64_t latestVersion,
+size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version, int64_t latestVersion,
                                              vector<LocalCountryFile> & localFiles)
 {
   Platform & platform = GetPlatform();
@@ -212,13 +206,12 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> 
   FindAllLocalMapsAndCleanup(latestVersion, string(), localFiles);
 }
 
-void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
-                                vector<LocalCountryFile> & localFiles)
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir, vector<LocalCountryFile> & localFiles)
 {
   string const dir = GetDataDirFullPath(dataDir);
 
   // Do not search root folder! We have separate World processing in Storage::GetForceDownloadWorlds.
-  //FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
+  // FindAllLocalMapsInDirectoryAndCleanup(dir, 0 /* version */, latestVersion, localFiles);
 
   Platform::TFilesWithType fwts;
   Platform::GetFilesByType(dir, Platform::EFileType::Directory, fwts);
@@ -302,8 +295,7 @@ bool ParseVersion(string const & s, int64_t & version)
   return true;
 }
 
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version,
-                                                         CountryFile const & countryFile)
+shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile)
 {
   return PreparePlaceForCountryFiles(version, string(), countryFile);
 }
@@ -395,8 +387,7 @@ void CountryIndexes::GetIndexesExts(vector<string> & exts)
 // static
 bool CountryIndexes::IsIndexFile(string const & file)
 {
-  return file.ends_with(kBitsExt) || file.ends_with(kNodesExt) ||
-         file.ends_with(kOffsetsExt);
+  return file.ends_with(kBitsExt) || file.ends_with(kNodesExt) || file.ends_with(kOffsetsExt);
 }
 
 // static

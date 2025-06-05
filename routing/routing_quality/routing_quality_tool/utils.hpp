@@ -1,7 +1,7 @@
 #pragma once
 
-#include "routing/routing_quality/api/api.hpp"
 #include "routing/routes_builder/routes_builder.hpp"
+#include "routing/routing_quality/api/api.hpp"
 
 #include "routing/routing_callbacks.hpp"
 
@@ -72,8 +72,7 @@ bool AreRoutesWithSameEnds(routing::routes_builder::RoutesBuilder::Result const 
   auto const & anotherFinish = anotherResult.GetFinishPoint();
 
   double constexpr kEps = 1e-10;
-  return base::AlmostEqualAbs(start, anotherStart, kEps) &&
-         base::AlmostEqualAbs(finish, anotherFinish, kEps);
+  return base::AlmostEqualAbs(start, anotherStart, kEps) && base::AlmostEqualAbs(finish, anotherFinish, kEps);
 }
 
 template <typename AnotherResult>
@@ -95,8 +94,7 @@ bool FindAnotherResponse(routing::routes_builder::RoutesBuilder::Result const & 
 
 struct Result
 {
-  Result(std::string mapsmeDumpPath, std::string anotherDumpPath,
-         ms::LatLon const & start, ms::LatLon const & finish,
+  Result(std::string mapsmeDumpPath, std::string anotherDumpPath, ms::LatLon const & start, ms::LatLon const & finish,
          double similarity, double etaDiffPercent);
 
   bool operator<(Result const & rhs) const;
@@ -150,7 +148,10 @@ public:
 
   struct Item
   {
-    Item(std::string name, uint32_t n) : m_intervalName(std::move(name)), m_routesNumber(n) {}
+    Item(std::string name, uint32_t n)
+      : m_intervalName(std::move(name))
+      , m_routesNumber(n)
+    {}
 
     std::string m_intervalName;
     uint32_t m_routesNumber = 0;
@@ -170,24 +171,17 @@ private:
   std::vector<Item> m_routesCounter;
 };
 
-void CreatePythonScriptForDistribution(std::string const & pythonScriptPath,
-                                       std::string const & title,
+void CreatePythonScriptForDistribution(std::string const & pythonScriptPath, std::string const & title,
                                        std::vector<double> const & values);
 
-void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
-                                 std::string const & xlabel,
-                                 std::string const & ylabel,
-                                 std::vector<std::vector<m2::PointD>> const & graphics,
+void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath, std::string const & xlabel,
+                                 std::string const & ylabel, std::vector<std::vector<m2::PointD>> const & graphics,
                                  std::vector<std::string> const & legends);
 
 /// \brief Create python file, that show bar graph, where labels of bars are keys of |stat| and
 /// heights area values of |stat|.
-void CreatePythonBarByMap(std::string const & pythonScriptPath,
-                          std::vector<std::string> const & barLabels,
-                          std::vector<std::vector<double>> const & barHeights,
-                          std::vector<std::string> const & legends,
-                          std::string const & xlabel,
-                          std::string const & ylabel,
-                          bool drawPercents = true);
+void CreatePythonBarByMap(std::string const & pythonScriptPath, std::vector<std::string> const & barLabels,
+                          std::vector<std::vector<double>> const & barHeights, std::vector<std::string> const & legends,
+                          std::string const & xlabel, std::string const & ylabel, bool drawPercents = true);
 }  // namespace routing_quality_tool
 }  // namespace routing_quality

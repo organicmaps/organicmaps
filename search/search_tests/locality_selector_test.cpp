@@ -24,15 +24,17 @@ struct City
 {
   City(string const & name, m2::PointD const & center, uint64_t population, FeatureID const & id)
     : m_item(ToMultilang(name), center, {} /* boundaries */, population, id)
-  {
-  }
+  {}
 
   LocalityItem m_item;
 };
 
 struct MatchedCity
 {
-  MatchedCity(string const & name, FeatureID const & id) : m_name(name), m_id(id) {}
+  MatchedCity(string const & name, FeatureID const & id)
+    : m_name(name)
+    , m_id(id)
+  {}
 
   string const m_name;
   FeatureID const m_id;
@@ -46,11 +48,12 @@ MatchedCity GetMatchedCity(m2::PointD const & point, vector<City> const & cities
 
   string_view name;
   FeatureID id;
-  selector.WithBestLocality([&](LocalityItem const & item)
-  {
-    item.GetName(StringUtf8Multilang::kEnglishCode, name);
-    id = item.m_id;
-  });
+  selector.WithBestLocality(
+    [&](LocalityItem const & item)
+    {
+      item.GetName(StringUtf8Multilang::kEnglishCode, name);
+      id = item.m_id;
+    });
 
   return {std::string(name), id};
 }
@@ -58,11 +61,10 @@ MatchedCity GetMatchedCity(m2::PointD const & point, vector<City> const & cities
 UNIT_TEST(LocalitySelector_Test1)
 {
   MwmSet::MwmId mwmId;
-  auto const city =
-      GetMatchedCity(m2::PointD(-97.56345, 26.79672),
-                     {{"Matamoros", m2::PointD(-97.50665, 26.79718), 918536, {mwmId, 0}},
+  auto const city = GetMatchedCity(m2::PointD(-97.56345, 26.79672),
+                                   {{"Matamoros", m2::PointD(-97.50665, 26.79718), 918536, {mwmId, 0}},
 
-                      {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663, {mwmId, 1}}});
+                                    {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663, {mwmId, 1}}});
   TEST_EQUAL(city.m_name, "Matamoros", ());
   TEST_EQUAL(city.m_id.m_index, 0, ());
 }

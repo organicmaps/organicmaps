@@ -29,7 +29,7 @@ public:
   void SetStencilFunction(StencilFace face, TestFunction stencilFunction) override;
   void SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
                          StencilAction passAction) override;
-  
+
   // Do not use custom stencil reference value in OpenGL rendering.
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override {}
 

@@ -102,8 +102,7 @@ void DecodeDataPacketVersionTest(Container const & points, Protocol::PacketType 
   TEST_EQUAL(points.size(), result.size(), ());
   for (size_t i = 0; i < points.size(); ++i)
   {
-    TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp,
-               (points[i].m_timestamp, result[i].m_timestamp));
+    TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp, (points[i].m_timestamp, result[i].m_timestamp));
     TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.m_lat, result[i].m_latLon.m_lat, kEps),
          (points[i].m_latLon.m_lat, result[i].m_latLon.m_lat));
     TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.m_lon, result[i].m_latLon.m_lon, kEps),
@@ -126,11 +125,11 @@ UNIT_TEST(Protocol_DecodeDataPacket)
 UNIT_TEST(Protocol_DecodeWrongDataPacket)
 {
   vector<vector<uint8_t>> payloads = {
-      vector<uint8_t>{},
-      vector<uint8_t>{0x25},
-      vector<uint8_t>{0x0},
-      vector<uint8_t>{0x0, 0x0, 0x23, 0xFF},
-      vector<uint8_t>{0xFF, 0x1, 0x23, 0xFF, 0x1, 0x0, 0x27, 0x63, 0x32, 0x9, 0xFF},
+    vector<uint8_t>{},
+    vector<uint8_t>{0x25},
+    vector<uint8_t>{0x0},
+    vector<uint8_t>{0x0, 0x0, 0x23, 0xFF},
+    vector<uint8_t>{0xFF, 0x1, 0x23, 0xFF, 0x1, 0x0, 0x27, 0x63, 0x32, 0x9, 0xFF},
   };
   for (auto const packetType : {Protocol::PacketType::DataV0, Protocol::PacketType::DataV1})
   {

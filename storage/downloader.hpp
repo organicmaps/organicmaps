@@ -7,4 +7,4 @@ namespace storage
 class MapFilesDownloader;
 
 std::unique_ptr<MapFilesDownloader> GetDownloader();
-}  // namespace downloader
+}  // namespace storage

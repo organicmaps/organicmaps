@@ -39,21 +39,22 @@ void ViewportSearchCallback::operator()(Results const & results)
   // clean up results.
 
   auto & delegate = m_delegate;
-  m_delegate.RunUITask([&delegate, results, onResults = m_onResults,
-                       firstCall = m_firstCall, lastResultsSize = m_lastResultsSize]() mutable
-  {
-    if (delegate.IsViewportSearchActive() &&
-        (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0)))
+  m_delegate.RunUITask(
+    [&delegate, results, onResults = m_onResults, firstCall = m_firstCall,
+     lastResultsSize = m_lastResultsSize]() mutable
     {
-      /// @todo This code relies on fact that results order is *NOT* changing with every new batch.
-      /// I can't say for sure is it true or not, but very optimistic :)
-      /// Much easier to clear previous marks and make new ones.
-      delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(), firstCall);
-    }
+      if (delegate.IsViewportSearchActive() &&
+          (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0)))
+      {
+        /// @todo This code relies on fact that results order is *NOT* changing with every new batch.
+        /// I can't say for sure is it true or not, but very optimistic :)
+        /// Much easier to clear previous marks and make new ones.
+        delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(), firstCall);
+      }
 
-    if (results.IsEndMarker() && onResults)
-      onResults(std::move(results));
-  });
+      if (results.IsEndMarker() && onResults)
+        onResults(std::move(results));
+    });
 
   m_lastResultsSize = results.GetCount();
   m_firstCall = false;

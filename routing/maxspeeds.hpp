@@ -10,11 +10,10 @@
 #include "coding/simple_dense_coding.hpp"
 
 #include <memory>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 #include "3party/succinct/elias_fano.hpp"
-
 
 namespace routing
 {

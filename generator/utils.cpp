@@ -90,40 +90,39 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 FeatureGetter::FeatureGetter(std::string const & countryFullPath)
   : m_mwm(countryFullPath)
   , m_guard(std::make_unique<FeaturesLoaderGuard>(m_mwm.GetDataSource(), m_mwm.GetMwmId()))
-{
-}
+{}
 
 std::unique_ptr<FeatureType> FeatureGetter::GetFeatureByIndex(uint32_t index) const
 {
   return m_guard->GetFeatureByIndex(index);
 }
 
-bool ParseFeatureIdToOsmIdMapping(std::string const & path,
-                                  std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
+bool ParseFeatureIdToOsmIdMapping(std::string const & path, std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
 {
-  return ForEachOsmId2FeatureId(
-      path, [&](auto const & compositeId, auto featureId) {
-        CHECK(mapping.emplace(featureId, compositeId.m_mainId).second,
-              ("Several osm ids for feature", featureId, "in file", path));
-      });
+  return ForEachOsmId2FeatureId(path,
+                                [&](auto const & compositeId, auto featureId)
+                                {
+                                  CHECK(mapping.emplace(featureId, compositeId.m_mainId).second,
+                                        ("Several osm ids for feature", featureId, "in file", path));
+                                });
 }
 
-bool ParseFeatureIdToTestIdMapping(std::string const & path,
-                                   std::unordered_map<uint32_t, uint64_t> & mapping)
+bool ParseFeatureIdToTestIdMapping(std::string const & path, std::unordered_map<uint32_t, uint64_t> & mapping)
 {
   bool success = true;
-  feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid)
-  {
-    auto const testIdStr = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
-    uint64_t testId;
-    if (!strings::to_uint(testIdStr, testId))
-    {
-      LOG(LERROR, ("Can't parse test id from:", testIdStr, "for the feature", fid));
-      success = false;
-      return;
-    }
-    mapping.emplace(fid, testId);
-  });
+  feature::ForEachFeature(path,
+                          [&](FeatureType & feature, uint32_t fid)
+                          {
+                            auto const testIdStr = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
+                            uint64_t testId;
+                            if (!strings::to_uint(testIdStr, testId))
+                            {
+                              LOG(LERROR, ("Can't parse test id from:", testIdStr, "for the feature", fid));
+                              success = false;
+                              return;
+                            }
+                            mapping.emplace(fid, testId);
+                          });
   return success;
 }
 
@@ -181,42 +180,43 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
     rules.emplace_back(std::move(typeTokens), std::move(rule));
   };
 
-  auto const processFull = [&rules](std::string const & typeString,
-                                    std::string const & selectorsString)
+  auto const processFull = [&rules](std::string const & typeString, std::string const & selectorsString)
   {
     ASSERT(!typeString.empty(), ());
     ASSERT(!selectorsString.empty(), ());
 
     auto const typeTokens = strings::Tokenize<std::string>(typeString, "|");
-    strings::Tokenize(selectorsString, ",", [&typeTokens, &rules](std::string_view selector)
-    {
-      ASSERT_EQUAL(selector.front(), '[', ());
-      ASSERT_EQUAL(selector.back(), ']', ());
+    strings::Tokenize(selectorsString, ",",
+                      [&typeTokens, &rules](std::string_view selector)
+                      {
+                        ASSERT_EQUAL(selector.front(), '[', ());
+                        ASSERT_EQUAL(selector.back(), ']', ());
 
-      MapcssRule rule;
-      strings::Tokenize(selector, "[]", [&rule](std::string_view kv)
-      {
-        auto const tag = strings::Tokenize(kv, "=");
-        if (tag.size() == 1)
-        {
-          auto const forbidden = (tag[0][0] == '!');
+                        MapcssRule rule;
+                        strings::Tokenize(selector, "[]",
+                                          [&rule](std::string_view kv)
+                                          {
+                                            auto const tag = strings::Tokenize(kv, "=");
+                                            if (tag.size() == 1)
+                                            {
+                                              auto const forbidden = (tag[0][0] == '!');
 
-          std::string v(tag[0]);
-          strings::Trim(v, "?!");
-          if (forbidden)
-            rule.m_forbiddenKeys.push_back(std::move(v));
-          else
-            rule.m_mandatoryKeys.push_back(std::move(v));
-        }
-        else
-        {
-          ASSERT_EQUAL(tag.size(), 2, (tag));
-          rule.m_tags.emplace_back(tag[0], tag[1]);
-        }
-      });
+                                              std::string v(tag[0]);
+                                              strings::Trim(v, "?!");
+                                              if (forbidden)
+                                                rule.m_forbiddenKeys.push_back(std::move(v));
+                                              else
+                                                rule.m_mandatoryKeys.push_back(std::move(v));
+                                            }
+                                            else
+                                            {
+                                              ASSERT_EQUAL(tag.size(), 2, (tag));
+                                              rule.m_tags.emplace_back(tag[0], tag[1]);
+                                            }
+                                          });
 
-      rules.emplace_back(typeTokens, std::move(rule));
-    });
+                        rules.emplace_back(typeTokens, std::move(rule));
+                      });
   };
 
   std::string line;

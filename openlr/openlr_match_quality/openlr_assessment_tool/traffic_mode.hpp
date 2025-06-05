@@ -18,7 +18,6 @@
 
 #include <QAbstractTableModel>
 
-
 class QItemSelection;
 class Selection;
 
@@ -35,8 +34,7 @@ namespace impl
 class RoadPointCandidate
 {
 public:
-  RoadPointCandidate(std::vector<openlr::FeaturePoint> const & points,
-                     m2::PointD const & coord);
+  RoadPointCandidate(std::vector<openlr::FeaturePoint> const & points, m2::PointD const & coord);
 
   void ActivateCommonPoint(RoadPointCandidate const & rpc);
   openlr::FeaturePoint const & GetPoint() const;
@@ -64,25 +62,22 @@ public:
   // TODO(mgsergio): Check we are on the right mwm. I.e. right mwm version and everything.
   TrafficMode(std::string const & dataFileName, DataSource const & dataSource,
               std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
-              std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
-              QObject * parent = Q_NULLPTR);
+              std::unique_ptr<PointsControllerDelegateBase> pointsDelegate, QObject * parent = Q_NULLPTR);
 
   bool SaveSampleAs(std::string const & fileName) const;
 
-  int rowCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
-  int columnCount(const QModelIndex & parent = QModelIndex()) const Q_DECL_OVERRIDE;
-  QVariant headerData(int section, Qt::Orientation orientation,
-                      int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+  int rowCount(QModelIndex const & parent = QModelIndex()) const Q_DECL_OVERRIDE;
+  int columnCount(QModelIndex const & parent = QModelIndex()) const Q_DECL_OVERRIDE;
+  QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
-  QVariant data(const QModelIndex & index, int role) const Q_DECL_OVERRIDE;
+  QVariant data(QModelIndex const & index, int role) const Q_DECL_OVERRIDE;
 
   Qt::ItemFlags flags(QModelIndex const & index) const Q_DECL_OVERRIDE;
 
   bool IsBuildingPath() const { return m_buildingPath; }
   void GoldifyMatchedPath();
   void StartBuildingPath();
-  void PushPoint(m2::PointD const & coord,
-                 std::vector<FeaturePoint> const & points);
+  void PushPoint(m2::PointD const & coord, std::vector<FeaturePoint> const & points);
   void PopPoint();
   void CommitPath();
   void RollBackPath();
@@ -95,10 +90,7 @@ public:
 
 public slots:
   void OnItemSelected(QItemSelection const & selected, QItemSelection const &);
-  void OnClick(m2::PointD const & clickPoint, Qt::MouseButton const button)
-  {
-    HandlePoint(clickPoint, button);
-  }
+  void OnClick(m2::PointD const & clickPoint, Qt::MouseButton const button) { HandlePoint(clickPoint, button); }
 
 signals:
   void EditingStopped();

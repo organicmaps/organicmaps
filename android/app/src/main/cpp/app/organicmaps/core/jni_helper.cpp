@@ -1,6 +1,6 @@
 #include "jni_helper.hpp"
-#include "logging.hpp"
 #include "ScopedLocalRef.hpp"
+#include "logging.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -8,10 +8,7 @@
 #include <vector>
 
 static JavaVM * g_jvm = 0;
-extern JavaVM * GetJVM()
-{
-  return g_jvm;
-}
+extern JavaVM * GetJVM() { return g_jvm; }
 
 // Caching is necessary to create class from native threads.
 jclass g_mapObjectClazz;
@@ -32,10 +29,10 @@ int __system_property_get(char const * name, char * value);
 
 static bool IsAndroidLowerThan7()
 {
-  char value[92] = { 0 };
+  char value[92] = {0};
   if (__system_property_get("ro.build.version.sdk", value) < 1)
     return false;
-  const int apiLevel = atoi(value);
+  int const apiLevel = atoi(value);
   if (apiLevel > 0 && apiLevel < 24)
     return true;
   return false;
@@ -43,8 +40,7 @@ static bool IsAndroidLowerThan7()
 
 static bool const g_isAndroidLowerThan7 = IsAndroidLowerThan7();
 
-JNIEXPORT jint JNICALL
-JNI_OnLoad(JavaVM * jvm, void *)
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * jvm, void *)
 {
   g_jvm = jvm;
   jni::InitSystemLog();
@@ -66,8 +62,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   return JNI_VERSION_1_6;
 }
 
-JNIEXPORT void JNICALL
-JNI_OnUnload(JavaVM *, void *)
+JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *, void *)
 {
   g_jvm = 0;
   JNIEnv * env = jni::GetEnv();
@@ -83,7 +78,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_networkPolicyClazz);
   env->DeleteGlobalRef(g_elevationInfoClazz);
 }
-} // extern "C"
+}  // extern "C"
 
 namespace jni
 {
@@ -164,10 +159,7 @@ std::string ToNativeString(JNIEnv * env, jbyteArray const & bytes)
   return std::string(buffer.data(), len);
 }
 
-jstring ToJavaString(JNIEnv * env, char const * s)
-{
-  return env->NewStringUTF(s);
-}
+jstring ToJavaString(JNIEnv * env, char const * s) { return env->NewStringUTF(s); }
 
 jstring ToJavaStringWithSupplementalCharsFix(JNIEnv * env, std::string const & s)
 {
@@ -175,11 +167,11 @@ jstring ToJavaStringWithSupplementalCharsFix(JNIEnv * env, std::string const & s
   if (g_isAndroidLowerThan7)
   {
     // Detect 4-byte sequence start marker to avoid unnecessary allocation + copy.
-    for (const auto c : s)
+    for (auto const c : s)
     {
       if (0b11110000 == (c & 0b11111000))
       {
-        const auto utf16 = strings::ToUtf16(s);
+        auto const utf16 = strings::ToUtf16(s);
         return env->NewString(reinterpret_cast<jchar const *>(utf16.data()), utf16.size());
       }
     }
@@ -187,59 +179,51 @@ jstring ToJavaStringWithSupplementalCharsFix(JNIEnv * env, std::string const & s
   return env->NewStringUTF(s.c_str());
 }
 
-jclass GetStringClass(JNIEnv * env)
-{
-  return env->FindClass(GetStringClassName());
-}
+jclass GetStringClass(JNIEnv * env) { return env->FindClass(GetStringClassName()); }
 
-char const * GetStringClassName()
-{
-  return "java/lang/String";
-}
+char const * GetStringClassName() { return "java/lang/String"; }
 
 std::shared_ptr<jobject> make_global_ref(jobject obj)
 {
   jobject * ref = new jobject(GetEnv()->NewGlobalRef(obj));
-  return std::shared_ptr<jobject>(ref, [](jobject * ref)
-  {
-    GetEnv()->DeleteGlobalRef(*ref);
-    delete ref;
-  });
+  return std::shared_ptr<jobject>(ref,
+                                  [](jobject * ref)
+                                  {
+                                    GetEnv()->DeleteGlobalRef(*ref);
+                                    delete ref;
+                                  });
 }
 
-std::string ToNativeString(JNIEnv * env, const jthrowable & e)
+std::string ToNativeString(JNIEnv * env, jthrowable const & e)
 {
   jni::TScopedLocalClassRef logClassRef(env, env->FindClass("android/util/Log"));
   ASSERT(logClassRef.get(), ());
   static jmethodID const getStacktraceMethod =
-    jni::GetStaticMethodID(env, logClassRef.get(), "getStackTraceString",
-                           "(Ljava/lang/Throwable;)Ljava/lang/String;");
+    jni::GetStaticMethodID(env, logClassRef.get(), "getStackTraceString", "(Ljava/lang/Throwable;)Ljava/lang/String;");
   ASSERT(getStacktraceMethod, ());
   TScopedLocalRef resultRef(env, env->CallStaticObjectMethod(logClassRef.get(), getStacktraceMethod, e));
-  return ToNativeString(env, (jstring) resultRef.get());
+  return ToNativeString(env, (jstring)resultRef.get());
 }
-
 
 bool HandleJavaException(JNIEnv * env)
 {
   if (env->ExceptionCheck())
-   {
-     jni::ScopedLocalRef<jthrowable> const e(env, env->ExceptionOccurred());
-     env->ExceptionDescribe();
-     env->ExceptionClear();
-     base::LogLevel level = GetLogLevelForException(env, e.get());
-     LOG(level, (ToNativeString(env, e.get())));
-     return true;
-   }
-   return false;
+  {
+    jni::ScopedLocalRef<jthrowable> const e(env, env->ExceptionOccurred());
+    env->ExceptionDescribe();
+    env->ExceptionClear();
+    base::LogLevel level = GetLogLevelForException(env, e.get());
+    LOG(level, (ToNativeString(env, e.get())));
+    return true;
+  }
+  return false;
 }
 
-base::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e)
+base::LogLevel GetLogLevelForException(JNIEnv * env, jthrowable const & e)
 {
   static jclass const errorClass = jni::GetGlobalClassRef(env, "java/lang/Error");
   ASSERT(errorClass, (jni::DescribeException()));
-  static jclass const runtimeExceptionClass =
-    jni::GetGlobalClassRef(env, "java/lang/RuntimeException");
+  static jclass const runtimeExceptionClass = jni::GetGlobalClassRef(env, "java/lang/RuntimeException");
   ASSERT(runtimeExceptionClass, (jni::DescribeException()));
   // If Unchecked Exception or Error is occurred during Java call the app should fail immediately.
   // In other cases, just a warning message about exception (Checked Exception)
@@ -269,12 +253,10 @@ std::string DescribeException()
 jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point)
 {
   jclass klass = env->FindClass("app/organicmaps/bookmarks/data/ParcelablePointD");
-  ASSERT ( klass, () );
+  ASSERT(klass, ());
   jmethodID methodID = GetConstructorID(env, klass, "(DD)V");
 
-  return env->NewObject(klass, methodID,
-                        static_cast<jdouble>(point.x),
-                        static_cast<jdouble>(point.y));
+  return env->NewObject(klass, methodID, static_cast<jdouble>(point.x), static_cast<jdouble>(point.y));
 }
 
 jobject GetNewPoint(JNIEnv * env, m2::PointD const & point)
@@ -285,12 +267,10 @@ jobject GetNewPoint(JNIEnv * env, m2::PointD const & point)
 jobject GetNewPoint(JNIEnv * env, m2::PointI const & point)
 {
   jclass klass = env->FindClass("android/graphics/Point");
-  ASSERT ( klass, () );
+  ASSERT(klass, ());
   jmethodID methodID = GetConstructorID(env, klass, "(II)V");
 
-  return env->NewObject(klass, methodID,
-                        static_cast<jint>(point.x),
-                        static_cast<jint>(point.y));
+  return env->NewObject(klass, methodID, static_cast<jint>(point.x), static_cast<jint>(point.y));
 }
 
 // This util method dumps content of local and global reference jni tables to logcat for debug and testing purposes
@@ -305,8 +285,8 @@ void DumpDalvikReferenceTables()
 
 jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src)
 {
-  static jmethodID const keyValueInit = jni::GetConstructorID(
-    env, g_keyValueClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
+  static jmethodID const keyValueInit =
+    jni::GetConstructorID(env, g_keyValueClazz, "(Ljava/lang/String;Ljava/lang/String;)V");
 
   jni::TScopedLocalRef key(env, jni::ToJavaString(env, src.first));
   jni::TScopedLocalRef value(env, jni::ToJavaString(env, src.second));
@@ -316,16 +296,12 @@ jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src)
 
 std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings)
 {
-  static jfieldID const keyId = env->GetFieldID(g_keyValueClazz, "mKey",
-                                                  "Ljava/lang/String;");
-  static jfieldID const valueId = env->GetFieldID(g_keyValueClazz, "mValue",
-                                                   "Ljava/lang/String;");
+  static jfieldID const keyId = env->GetFieldID(g_keyValueClazz, "mKey", "Ljava/lang/String;");
+  static jfieldID const valueId = env->GetFieldID(g_keyValueClazz, "mValue", "Ljava/lang/String;");
 
-  jni::ScopedLocalRef<jstring> const key(
-    env, static_cast<jstring>(env->GetObjectField(pairOfStrings, keyId)));
-  jni::ScopedLocalRef<jstring> const value(
-    env, static_cast<jstring>(env->GetObjectField(pairOfStrings, valueId)));
+  jni::ScopedLocalRef<jstring> const key(env, static_cast<jstring>(env->GetObjectField(pairOfStrings, keyId)));
+  jni::ScopedLocalRef<jstring> const value(env, static_cast<jstring>(env->GetObjectField(pairOfStrings, valueId)));
 
-  return { jni::ToNativeString(env, key.get()), jni::ToNativeString(env, value.get()) };
+  return {jni::ToNativeString(env, key.get()), jni::ToNativeString(env, value.get())};
 }
 }  // namespace jni

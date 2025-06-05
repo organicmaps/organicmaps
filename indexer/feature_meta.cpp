@@ -11,18 +11,18 @@ namespace
 {
 char constexpr const * kBaseWikiUrl =
 #ifdef OMIM_OS_MOBILE
-    ".m.wikipedia.org/wiki/";
+  ".m.wikipedia.org/wiki/";
 #else
-    ".wikipedia.org/wiki/";
+  ".wikipedia.org/wiki/";
 #endif
 
 char constexpr const * kBaseCommonsUrl =
 #ifdef OMIM_OS_MOBILE
-    "https://commons.m.wikimedia.org/wiki/";
+  "https://commons.m.wikimedia.org/wiki/";
 #else
-    "https://commons.wikimedia.org/wiki/";
+  "https://commons.wikimedia.org/wiki/";
 #endif
-} // namespace
+}  // namespace
 
 string Metadata::ToWikiURL(std::string v)
 {
@@ -52,10 +52,7 @@ string Metadata::ToWikiURL(std::string v)
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
 
-std::string Metadata::GetWikiURL() const
-{
-  return ToWikiURL(string(Get(FMD_WIKIPEDIA)));
-}
+std::string Metadata::GetWikiURL() const { return ToWikiURL(string(Get(FMD_WIKIPEDIA))); }
 
 string Metadata::ToWikimediaCommonsURL(std::string const & v)
 {
@@ -164,13 +161,9 @@ void Metadata::ClearPOIAttribs()
 {
   for (auto i = m_metadata.begin(); i != m_metadata.end();)
   {
-    if (i->first != Metadata::FMD_ELE &&
-        i->first != Metadata::FMD_POSTCODE &&
-        i->first != Metadata::FMD_FLATS &&
-        i->first != Metadata::FMD_HEIGHT &&
-        i->first != Metadata::FMD_MIN_HEIGHT &&
-        i->first != Metadata::FMD_BUILDING_LEVELS &&
-        i->first != Metadata::FMD_TEST_ID &&
+    if (i->first != Metadata::FMD_ELE && i->first != Metadata::FMD_POSTCODE && i->first != Metadata::FMD_FLATS &&
+        i->first != Metadata::FMD_HEIGHT && i->first != Metadata::FMD_MIN_HEIGHT &&
+        i->first != Metadata::FMD_BUILDING_LEVELS && i->first != Metadata::FMD_TEST_ID &&
         i->first != Metadata::FMD_BUILDING_MIN_LEVEL)
     {
       i = m_metadata.erase(i);
@@ -301,17 +294,11 @@ string DebugPrint(Metadata const & metadata)
       res.append(DebugPrint(t)).append("=");
       switch (t)
       {
-      case Metadata::FMD_DESCRIPTION:
-        res += DebugPrint(StringUtf8Multilang::FromBuffer(std::string(sv)));
-        break;
+      case Metadata::FMD_DESCRIPTION: res += DebugPrint(StringUtf8Multilang::FromBuffer(std::string(sv))); break;
       case Metadata::FMD_CUSTOM_IDS:
       case Metadata::FMD_PRICE_RATES:
-      case Metadata::FMD_RATINGS:
-        res += DebugPrint(indexer::CustomKeyValue(sv));
-        break;
-      default:
-        res.append(sv);
-        break;
+      case Metadata::FMD_RATINGS: res += DebugPrint(indexer::CustomKeyValue(sv)); break;
+      default: res.append(sv); break;
       }
     }
   }
